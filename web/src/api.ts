@@ -300,6 +300,7 @@ export function choreClient(kioskToken?: string) {
     chores: () => req<Chore[]>('/chores', undefined, kioskToken),
     balances: () => req<Balance[]>('/chores/balances', undefined, kioskToken),
     members: () => req<Member[]>('/auth/members', undefined, kioskToken),
+    familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
     createChore: (body: Record<string, unknown>) =>
       req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     updateChore: (id: string, body: Record<string, unknown>) =>

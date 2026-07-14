@@ -13,8 +13,17 @@ const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 type Actor = { id: string; role: string; displayName: string };
 
-export default function ChoresPanel({ me, client: clientProp }: { me: Actor; client?: ChoreClient }) {
+export default function ChoresPanel({
+  me,
+  client: clientProp,
+  variant = 'full',
+}: {
+  me: Actor;
+  client?: ChoreClient;
+  variant?: 'full' | 'today';
+}) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const today = variant === 'today';
   // clientProp is a fresh object on every parent render when the caller doesn't
   // memoize it (e.g. Display.tsx); memoize here so `refresh` below stays stable
   // instead of re-firing its effect on every render.
@@ -22,6 +31,7 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
   const [chores, setChores] = useState<Chore[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [balances, setBalances] = useState<Balance[]>([]);
+  const [tokenName, setTokenName] = useState('Tokens');
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Chore | null>(null);
 
@@ -35,6 +45,39 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  useEffect(() => {
+    if (today) client.familySettings().then((s) => setTokenName(s.tokenName)).catch(() => undefined);
+  }, [today, client]);
+
+  const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
+
+  // Pick the actionable occurrence per chore: a pending one, else the earliest
+  // one due now, else the soonest upcoming (so "Enable again" surfaces its new
+  // one). In 'today' mode, drop chores that aren't actionable right now — mine
+  // and due, mine awaiting my own approval, or (for adults) anyone's pending.
+  const rows = chores
+    .map((chore) => {
+      const endOfToday = new Date();
+      endOfToday.setHours(23, 59, 59, 999);
+      const insts = chore.instances;
+      const pending = insts.find((i) => i.status === 'PENDING');
+      const dueOpen = insts
+        .filter((i) => i.status === 'OPEN' && new Date(i.dueDate) <= endOfToday)
+        .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
+      const upcoming = insts
+        .filter((i) => i.status === 'OPEN')
+        .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
+      const active = pending ?? dueOpen ?? upcoming ?? insts[0];
+      const claimedBy = active?.claimedByUserId;
+      const checked = new Set(active?.checks.map((c) => c.checklistId) ?? []);
+      const mine = canAct(chore, claimedBy);
+      const dueNow = active ? new Date(active.dueDate) <= endOfToday : false;
+      const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueNow;
+      const relevantToday = (mine && active?.status === 'OPEN' && dueNow) || (active?.status === 'PENDING' && (mine || isAdult));
+      return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday };
+    })
+    .filter((r) => !today || r.relevantToday);
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'member';
 
@@ -62,8 +105,10 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
   return (
     <section>
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold tracking-tight">Chores</h2>
-        {isAdult && (
+        <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
+          {today ? 'Today' : 'Chores'}
+        </h2>
+        {isAdult && !today && (
           <button
             onClick={() => {
               setEditing(null);
@@ -76,32 +121,22 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
         )}
       </div>
 
-      <ul className="mt-4 space-y-3">
-        {chores.map((chore) => {
-          // Pick the actionable occurrence: a pending one, else the earliest one
-          // due now, else the soonest upcoming (so "Enable again" surfaces its new one).
-          const endOfToday = new Date();
-          endOfToday.setHours(23, 59, 59, 999);
-          const insts = chore.instances;
-          const pending = insts.find((i) => i.status === 'PENDING');
-          const dueOpen = insts
-            .filter((i) => i.status === 'OPEN' && new Date(i.dueDate) <= endOfToday)
-            .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
-          const upcoming = insts
-            .filter((i) => i.status === 'OPEN')
-            .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
-          const active = pending ?? dueOpen ?? upcoming ?? insts[0];
-          const claimedBy = active?.claimedByUserId;
-          const checked = new Set(active?.checks.map((c) => c.checklistId) ?? []);
-          const mine = canAct(chore, claimedBy);
-          const dueNow = active ? new Date(active.dueDate) <= endOfToday : false;
-          const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueNow;
+      {today && (
+        <div className="mt-2 flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
+          <span className="text-lg">🪙</span>
+          <span className="text-sm font-medium">
+            {myBalance} {tokenName}
+          </span>
+        </div>
+      )}
 
+      <ul className={today ? 'mt-3 space-y-2' : 'mt-4 space-y-3'}>
+        {rows.map(({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }) => {
           return (
-            <li key={chore.id} className="rounded-xl border bg-white p-4 shadow-sm">
+            <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="font-semibold">{chore.title}</span>
+                  <span className={today ? 'text-sm font-semibold' : 'font-semibold'}>{chore.title}</span>
                   <div className="mt-0.5 text-xs text-slate-400">
                     {assignmentLabel(chore, claimedBy)}
                     {chore.location ? ` · ${chore.location.name}` : ''}
@@ -176,7 +211,7 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
                 )}
                 {active?.status === 'APPROVED' && <span className="text-xs text-green-600">Done ✓</span>}
 
-                {isAdult && (
+                {isAdult && !today && (
                   <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
                     {active && claimedBy && (
                       <button onClick={() => act(() => client.assignInstance(active.id, null))} className="hover:text-slate-700">
@@ -207,10 +242,10 @@ export default function ChoresPanel({ me, client: clientProp }: { me: Actor; cli
             </li>
           );
         })}
-        {chores.length === 0 && <li className="text-sm text-slate-400">No chores yet.</li>}
+        {rows.length === 0 && <li className="text-sm text-slate-400">{today ? 'Nothing due today 🎉' : 'No chores yet.'}</li>}
       </ul>
 
-      {isAdult && balances.length > 0 && (
+      {isAdult && !today && balances.length > 0 && (
         <div className="mt-4 text-sm text-slate-500">
           Balances: {balances.map((b) => `${memberName(b.userId)}: ${b.balance}`).join(' · ')}
         </div>

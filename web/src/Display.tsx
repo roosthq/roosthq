@@ -168,9 +168,22 @@ export default function Display() {
         )}
       </div>
 
-      {showCalendar && <Calendar events={events} onRangeChange={onRangeChange} size="large" />}
-
-      {showChores && active && <ChoresPanel me={active.user} client={kioskChoreClient} />}
+      {active ? (
+        <div className="mt-4 flex flex-wrap items-start gap-6">
+          {showCalendar && (
+            <div className="min-w-0 flex-1">
+              <Calendar events={events} onRangeChange={onRangeChange} size="normal" />
+            </div>
+          )}
+          {showChores && (
+            <div className="max-h-[calc(100vh-14rem)] w-full shrink-0 overflow-y-auto sm:w-80">
+              <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />
+            </div>
+          )}
+        </div>
+      ) : (
+        showCalendar && <Calendar events={events} onRangeChange={onRangeChange} size="large" />
+      )}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>
