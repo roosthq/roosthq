@@ -1,16 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  api,
-  loginUrl,
-  type Me,
-  type Member,
-  type GoogleCalendar,
-  type SharedCalendar,
-  type CalEvent,
-  type FamilyLocation,
-  type DisplayConfig,
-} from '../api';
+import { api, loginUrl, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
 import Calendar from '../Calendar';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 
@@ -120,46 +110,53 @@ export default function CalendarPage({ me }: { me: Me }) {
   // location-scoped subset: adults see calendars shared by anyone at their own
   // location; kids see whatever's on their location's touch display. Owners see
   // (and can filter among) every shared family calendar.
-  const [locations, setLocations] = useState<FamilyLocation[]>([]);
-  const [myDisplays, setMyDisplays] = useState<DisplayConfig[]>([]);
-  const [locationCalendarIds, setLocationCalendarIds] = useState<Set<string>>(new Set());
+  //
+  // allowedIds/scopeReady are resolved together in one async pass (not derived
+  // piecemeal from several independent fetches) specifically so there's no
+  // window where "the location/display data hasn't loaded yet" is indistinguishable
+  // from "this person has no restriction" — that gap used to let a kid's very
+  // first render show (and fetch events for) every family calendar, including
+  // ones they don't have access to, before narrowing a moment later.
+  const [allowedIds, setAllowedIds] = useState<Set<string> | null>(null);
+  const [scopeReady, setScopeReady] = useState(isOwner);
 
   useEffect(() => {
-    if (isOwner) return;
-    api.locations().then(setLocations).catch(() => undefined);
-  }, [isOwner]);
-
-  useEffect(() => {
-    if (isOwner || isKid) return; // ADULT-only: union of calendars shared at their location(s)
-    const locIds = myLocationIds(locations, me.id);
-    if (!locIds.length) {
-      setLocationCalendarIds(new Set());
-      return;
+    let cancelled = false;
+    async function resolveScope() {
+      if (isOwner) {
+        setAllowedIds(null);
+        setScopeReady(true);
+        return;
+      }
+      try {
+        const locs = await api.locations();
+        const locIds = myLocationIds(locs, me.id);
+        if (isKid) {
+          const disps = await api.listDisplays();
+          const candidates = displaysForLocations(disps, locIds);
+          const ids = new Set<string>();
+          candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
+          if (!cancelled) setAllowedIds(candidates.length ? ids : null);
+        } else {
+          if (!locIds.length) {
+            if (!cancelled) setAllowedIds(null);
+          } else {
+            const lists = await Promise.all(locIds.map((id) => api.displaysCalendars(id)));
+            const ids = new Set(lists.flat().map((c) => c.id));
+            if (!cancelled) setAllowedIds(ids.size ? ids : null);
+          }
+        }
+      } catch {
+        if (!cancelled) setAllowedIds(null);
+      } finally {
+        if (!cancelled) setScopeReady(true);
+      }
     }
-    Promise.all(locIds.map((id) => api.displaysCalendars(id)))
-      .then((lists) => setLocationCalendarIds(new Set(lists.flat().map((c) => c.id))))
-      .catch(() => undefined);
-  }, [isOwner, isKid, locations, me.id]);
-
-  useEffect(() => {
-    if (!isKid) return; // KID-only: their location's display calendar lists
-    api.listDisplays().then(setMyDisplays).catch(() => undefined);
-  }, [isKid]);
-
-  // null means "no restriction configured yet" (no location, or no display/share
-  // for it) — falls back to showing every shared calendar rather than an
-  // unexplained blank page for families who haven't set locations up yet.
-  const allowedIds = useMemo(() => {
-    if (isOwner) return null;
-    if (isKid) {
-      const candidates = displaysForLocations(myDisplays, myLocationIds(locations, me.id));
-      if (!candidates.length) return null;
-      const ids = new Set<string>();
-      candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
-      return ids;
-    }
-    return locationCalendarIds.size ? locationCalendarIds : null;
-  }, [isOwner, isKid, locations, myDisplays, locationCalendarIds, me.id]);
+    resolveScope();
+    return () => {
+      cancelled = true;
+    };
+  }, [isOwner, isKid, me.id]);
 
   const filterOptions = useMemo(
     () => (allowedIds ? shared.filter((c) => allowedIds.has(c.id)) : shared),
@@ -167,23 +164,24 @@ export default function CalendarPage({ me }: { me: Me }) {
   );
 
   const refreshShared = useCallback(async () => {
+    if (!scopeReady) return; // don't reveal anything (even briefly) before scope is known
     const cals = await api.sharedCalendars();
     setShared(cals);
     const ids = cals.map((c) => c.id);
     setVisible(new Set(allowedIds ? ids.filter((id) => allowedIds.has(id)) : ids));
-  }, [allowedIds]);
+  }, [allowedIds, scopeReady]);
 
   useEffect(() => {
     refreshShared();
   }, [refreshShared]);
 
   useEffect(() => {
-    if (!range || visible.size === 0) {
+    if (!scopeReady || !range || visible.size === 0) {
       setEvents([]);
       return;
     }
     api.events([...visible], range.start, range.end).then(setEvents).catch(() => setEvents([]));
-  }, [visible, range]);
+  }, [scopeReady, visible, range]);
 
   const onRangeChange = useCallback((start: string, end: string) => setRange({ start, end }), []);
 
@@ -209,6 +207,15 @@ export default function CalendarPage({ me }: { me: Me }) {
     }
     setPicker(null);
     await refreshShared();
+  }
+
+  if (!scopeReady) {
+    return (
+      <div>
+        <Dashboard me={me} />
+        <p className="text-sm text-slate-400">Loading your calendar…</p>
+      </div>
+    );
   }
 
   return (
