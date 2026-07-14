@@ -1,18 +1,24 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// In dev, proxy /api to the local API server so the frontend can use relative
-// same-origin URLs (matching the production reverse-proxy setup).
+// allowedHosts: true lets the dev/preview server accept the public tunnel hostname
+// (e.g. roosthq.sheac.com) forwarded by Caddy. In dev, /api is proxied to the API.
 export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
     port: 5173,
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
     },
+  },
+  preview: {
+    host: true,
+    port: 5173,
+    allowedHosts: true,
   },
 });
