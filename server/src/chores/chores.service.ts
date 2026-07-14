@@ -16,9 +16,16 @@ export interface CreateChoreDto {
   dayOfWeek?: number;
   checklist?: string[];
   dueDate?: string;
+  allowLate?: boolean;
+  latePenaltyPercent?: number;
 }
 
 export type UpdateChoreDto = Partial<CreateChoreDto>;
+
+function clampPercent(v: number | undefined, fallback: number): number {
+  if (v == null || Number.isNaN(v)) return fallback;
+  return Math.max(0, Math.min(100, Math.round(v)));
+}
 
 function nextWeekday(dow: number): Date {
   const d = new Date();
@@ -108,6 +115,8 @@ export class ChoresService {
         locationId: dto.locationId,
         tokenValue: dto.tokenValue ?? 0,
         recurrenceRule: dto.recurrenceRule,
+        allowLate: dto.allowLate ?? false,
+        latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
         createdById,
         assignees:
           assignmentType === 'SPECIFIC' && dto.assigneeUserIds?.length
@@ -124,13 +133,33 @@ export class ChoresService {
     return this.getChore(familyId, chore.id);
   }
 
-  getChore(familyId: string, id: string) {
+  async getChore(familyId: string, id: string) {
+    await this.sweepMissed(familyId);
     return this.prisma.chore.findFirst({ where: { id, familyId }, include: CHORE_INCLUDE });
   }
 
   // Everyone in the family can see all chores.
-  list(familyId: string) {
+  async list(familyId: string) {
+    await this.sweepMissed(familyId);
     return this.prisma.chore.findMany({ where: { familyId }, include: CHORE_INCLUDE });
+  }
+
+  // No cron: this runs whenever anyone loads chores. Any OPEN instance whose due
+  // date has fully passed, on a chore that doesn't allow late credit, forfeits its
+  // reward (-> MISSED) and — since the next occurrence otherwise only ever gets
+  // created on approval — spawns the next one so the schedule doesn't freeze.
+  private async sweepMissed(familyId: string) {
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const stale = await this.prisma.choreInstance.findMany({
+      where: { status: 'OPEN', dueDate: { lt: startOfToday }, chore: { familyId, allowLate: false } },
+      include: { chore: true },
+    });
+    for (const inst of stale) {
+      await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
+      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
+      if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
+    }
   }
 
   async update(familyId: string, userId: string, id: string, dto: UpdateChoreDto) {
@@ -148,6 +177,8 @@ export class ChoresService {
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
         ...(dto.tokenValue !== undefined && { tokenValue: dto.tokenValue }),
         ...(dto.recurrenceRule !== undefined && { recurrenceRule: dto.recurrenceRule }),
+        ...(dto.allowLate !== undefined && { allowLate: dto.allowLate }),
+        ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
       },
     });
 
@@ -233,10 +264,18 @@ export class ChoresService {
     }
     if (!this.canAct(inst.chore, inst, userId)) throw new ForbiddenException('Not your chore');
 
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
     const endOfToday = new Date();
     endOfToday.setHours(23, 59, 59, 999);
     if (inst.dueDate > endOfToday) {
       throw new BadRequestException('Not available yet — this occurrence is scheduled for later.');
+    }
+    // Belt-and-suspenders: the periodic sweep (see sweepMissed) normally flips a
+    // stale instance to MISSED before this is ever reachable from the UI, but
+    // don't rely on that having already run.
+    if (!inst.chore.allowLate && inst.dueDate < startOfToday) {
+      throw new BadRequestException('This chore was missed and can no longer be completed.');
     }
 
     const required = inst.chore.checklist.filter((c) => c.required).map((c) => c.id);
@@ -279,16 +318,25 @@ export class ChoresService {
     });
     const recipient = inst.claimedByUserId ?? recipientUserId;
     if (recipient && inst.chore.tokenValue > 0) {
-      await this.prisma.tokenLedger.create({
-        data: {
-          userId: recipient,
-          delta: inst.chore.tokenValue,
-          reason: `Chore approved: ${inst.chore.title}`,
-          type: 'CHORE',
-          refId: inst.id,
-          createdById: approverId,
-        },
-      });
+      const completedAt = inst.completedAt ?? new Date();
+      const daysLate = Math.max(0, Math.floor((completedAt.getTime() - inst.dueDate.getTime()) / 86_400_000));
+      const penaltyPct = Math.min(100, daysLate * inst.chore.latePenaltyPercent);
+      const awarded = Math.floor(inst.chore.tokenValue * (1 - penaltyPct / 100));
+      if (awarded > 0) {
+        await this.prisma.tokenLedger.create({
+          data: {
+            userId: recipient,
+            delta: awarded,
+            reason:
+              daysLate > 0
+                ? `Chore approved: ${inst.chore.title} (${daysLate}d late, ${100 - penaltyPct}% reward)`
+                : `Chore approved: ${inst.chore.title}`,
+            type: 'CHORE',
+            refId: inst.id,
+            createdById: approverId,
+          },
+        });
+      }
     }
     const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
     if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.chore.id, dueDate: due } });

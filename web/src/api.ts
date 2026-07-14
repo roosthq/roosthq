@@ -88,7 +88,7 @@ export interface ChecklistItem {
 export interface ChoreInstance {
   id: string;
   dueDate: string;
-  status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED';
+  status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED' | 'MISSED';
   completedAt?: string;
   claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
@@ -110,6 +110,8 @@ export interface Chore {
   location?: { id: string; name: string } | null;
   checklist: ChecklistItem[];
   instances: ChoreInstance[];
+  allowLate: boolean;
+  latePenaltyPercent: number;
 }
 
 export interface Balance {

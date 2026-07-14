@@ -226,6 +226,9 @@ export default function ChoresPanel({
                   </>
                 )}
                 {active?.status === 'APPROVED' && <span className="text-xs text-green-600">Done ✓</span>}
+                {active?.status === 'MISSED' && (
+                  <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
+                )}
 
                 {isAdult && !today && (
                   <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
@@ -327,6 +330,8 @@ function ChoreForm({
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
   const [locationId, setLocationId] = useState(chore?.location?.id ?? '');
   const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
+  const [allowLate, setAllowLate] = useState(chore?.allowLate ?? false);
+  const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
 
   useEffect(() => {
     client.locations().then(setLocations).catch(() => undefined);
@@ -345,6 +350,8 @@ function ChoreForm({
       dayOfWeek: dayOfWeek ?? undefined,
       checklist: checklist.split('\n').map((s) => s.trim()).filter(Boolean),
       locationId: locationId || null,
+      allowLate,
+      latePenaltyPercent: Math.max(0, Math.min(100, Number(latePenaltyPercent) || 0)),
     };
     if (chore) await client.updateChore(chore.id, body);
     else await client.createChore(body);
@@ -405,6 +412,33 @@ function ChoreForm({
 
           <Field label="Reward" help="Tokens for whoever completes it (after approval).">
             <input type="number" min={0} className="w-28 rounded-md border px-3 py-2 text-sm" value={tokenValue} onChange={(e) => setTokenValue(Number(e.target.value))} />
+          </Field>
+
+          <Field
+            label="If missed"
+            help={
+              allowLate
+                ? "Can still be marked done late — reward shrinks the longer it's overdue."
+                : 'Missing the due date forfeits the reward entirely (default).'
+            }
+          >
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={allowLate} onChange={(e) => setAllowLate(e.target.checked)} />
+              Allow marking done late
+            </label>
+            {allowLate && (
+              <label className="mt-2 flex items-center gap-2 text-sm">
+                <input
+                  type="number"
+                  min={0}
+                  max={100}
+                  className="w-20 rounded-md border px-3 py-2 text-sm"
+                  value={latePenaltyPercent}
+                  onChange={(e) => setLatePenaltyPercent(Number(e.target.value))}
+                />
+                % reward lost per day late
+              </label>
+            )}
           </Field>
 
           <Field label="Repeat" help={repeatHelp}>
