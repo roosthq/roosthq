@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type Me, type StorePrize, type Redemption, type FamilyLocation } from '../api';
+import TokenBadge from '../TokenBadge';
 
 // Every prize gets one of these — keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
@@ -105,11 +106,7 @@ export default function StorePage({
     <div>
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Store</h2>
-        {!isAdult && (
-          <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-700">
-            {tokenIcon} {balance} {tokenName}
-          </span>
-        )}
+        {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
         {isAdult && (
           <button
             onClick={() => {
@@ -133,10 +130,8 @@ export default function StorePage({
               <PrizeImage src={p.image} alt={p.name} className="h-32 w-full" />
               <div className="flex flex-1 flex-col p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-medium leading-tight">{p.name}</span>
-                  <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-                    {tokenIcon} {p.tokenCost}
-                  </span>
+                  <span className="min-w-0 flex-1 break-words font-medium leading-tight">{p.name}</span>
+                  <TokenBadge icon={tokenIcon} amount={p.tokenCost} />
                 </div>
                 <div className="mt-1 flex items-center gap-2 text-xs">
                   <span className={TYPE_TAG[p.type].className}>
@@ -161,9 +156,10 @@ export default function StorePage({
           <h3 className="text-md font-semibold">Pending redemptions</h3>
           <ul className="mt-2 space-y-1 text-sm">
             {pending.map((r) => (
-              <li key={r.id} className="flex items-center justify-between rounded border p-2">
-                <span>
-                  {r.prize.name} · {tokenIcon} {r.prize.tokenCost}
+              <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2">
+                <span className="flex min-w-0 flex-1 items-center gap-2">
+                  <span className="min-w-0 break-words">{r.prize.name}</span>
+                  <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
                 </span>
                 <span className="flex gap-2">
                   <button
@@ -265,16 +261,14 @@ function PrizeDetailModal({
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
       <div className="max-h-[85vh] w-full max-w-lg overflow-auto rounded-lg bg-white p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-lg font-semibold">{prize.name}</h3>
+          <h3 className="min-w-0 flex-1 break-words text-lg font-semibold">{prize.name}</h3>
           <button onClick={onClose} className="shrink-0 text-slate-400 hover:text-slate-700">
             ✕
           </button>
         </div>
         <PrizeImage src={prize.image} alt={prize.name} className="mt-3 h-56 w-full rounded" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
-            {tokenIcon} {prize.tokenCost} {tokenName}
-          </span>
+          <TokenBadge icon={tokenIcon} amount={prize.tokenCost} label={tokenName} size="lg" />
           <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
             {TYPE_TAG[prize.type].icon} {TYPE_TAG[prize.type].label}
           </span>

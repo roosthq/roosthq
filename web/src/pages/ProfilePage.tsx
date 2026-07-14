@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api, type Me, type Member, type LedgerEntry, type Redemption } from '../api';
+import TokenBadge from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -132,11 +133,11 @@ export default function ProfilePage({
         <h3 className="text-sm font-semibold">{tokenName} history</h3>
         <ul className="mt-2 space-y-1 text-sm">
           {ledger.map((l) => (
-            <li key={l.id} className="flex items-center justify-between border-b py-1">
-              <span>
+            <li key={l.id} className="flex items-center justify-between gap-2 border-b py-1">
+              <span className="min-w-0 flex-1 break-words">
                 {l.reason} <span className="text-xs text-slate-400">({l.type.toLowerCase()})</span>
               </span>
-              <span className="flex items-center gap-3">
+              <span className="flex shrink-0 items-center gap-3">
                 <span className={l.delta >= 0 ? 'font-medium text-green-600' : 'font-medium text-red-600'}>
                   {tokenIcon} {l.delta >= 0 ? '+' : ''}
                   {l.delta}
@@ -153,10 +154,11 @@ export default function ProfilePage({
         <h3 className="text-sm font-semibold">Purchase history</h3>
         <ul className="mt-2 space-y-1 text-sm">
           {history.map((r) => (
-            <li key={r.id} className="flex items-center justify-between border-b py-1">
-              <span>{r.prize.name}</span>
-              <span className="text-xs text-slate-400">
-                {tokenIcon} {r.prize.tokenCost} · {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+            <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1">
+              <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
+              <span className="flex shrink-0 items-center gap-2 text-xs text-slate-400">
+                <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+                {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
               </span>
             </li>
           ))}

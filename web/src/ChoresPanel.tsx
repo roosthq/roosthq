@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient } from './api';
+import TokenBadge from './TokenBadge';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -142,11 +143,8 @@ export default function ChoresPanel({
       </div>
 
       {today && (
-        <div className="mt-2 flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
-          <span className="text-lg">{tokenIcon}</span>
-          <span className="text-sm font-medium">
-            {myBalance} {tokenName}
-          </span>
+        <div className="mt-2">
+          <TokenBadge icon={tokenIcon} amount={myBalance} label={tokenName} size="lg" />
         </div>
       )}
 
@@ -154,9 +152,9 @@ export default function ChoresPanel({
         {rows.map(({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }) => {
           return (
             <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className={today ? 'text-sm font-semibold' : 'font-semibold'}>{chore.title}</span>
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 flex-1">
+                  <span className={`break-words ${today ? 'text-sm font-semibold' : 'font-semibold'}`}>{chore.title}</span>
                   <div className="mt-0.5 text-xs text-slate-400">
                     {assignmentLabel(chore, claimedBy)}
                     {chore.location ? ` · ${chore.location.name}` : ''}
@@ -164,9 +162,7 @@ export default function ChoresPanel({
                     {chore.dayOfWeek != null ? ` · ${DOW[chore.dayOfWeek]}` : ''}
                   </div>
                 </div>
-                <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-600">
-                  {tokenIcon} {chore.tokenValue}
-                </span>
+                <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
               </div>
 
               {chore.checklist.length > 0 && active && (
@@ -268,8 +264,13 @@ export default function ChoresPanel({
       </ul>
 
       {isAdult && !today && balances.length > 0 && (
-        <div className="mt-4 text-sm text-slate-500">
-          Balances: {balances.map((b) => `${memberName(b.userId)}: ${tokenIcon} ${b.balance}`).join(' · ')}
+        <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500">
+          <span>Balances:</span>
+          {balances.map((b) => (
+            <span key={b.userId} className="flex items-center gap-1">
+              {memberName(b.userId)}: <TokenBadge icon={tokenIcon} amount={b.balance} />
+            </span>
+          ))}
         </div>
       )}
 
