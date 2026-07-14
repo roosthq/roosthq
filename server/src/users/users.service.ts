@@ -52,6 +52,13 @@ export class UsersService {
     return { ok: true };
   }
 
+  // Current user's own app theme preference.
+  async setTheme(userId: string, theme: 'light' | 'dark') {
+    const t = theme === 'dark' ? 'dark' : 'light';
+    await this.prisma.user.update({ where: { id: userId }, data: { themePref: t } });
+    return { ok: true, theme: t };
+  }
+
   // Owner removes a member. Cleans up rows that would otherwise block the delete
   // (chores reference users without cascade). Can't remove yourself or the owner.
   async remove(actorId: string, familyId: string, targetId: string) {

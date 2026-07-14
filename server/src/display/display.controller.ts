@@ -4,6 +4,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { DisplayService, DisplaySettingsInput } from './display.service';
+import { DisplaysService } from './displays.service';
 import { DisplayEventsService } from './display-events.service';
 import { DisplayTokenService } from './display-token.service';
 import { DisplayOrUserGuard, FamilyCtx, FamilyContext } from './display-auth.guard';
@@ -12,6 +13,7 @@ import { DisplayOrUserGuard, FamilyCtx, FamilyContext } from './display-auth.gua
 export class DisplayController {
   constructor(
     private display: DisplayService,
+    private displays: DisplaysService,
     private events: DisplayEventsService,
     private tokens: DisplayTokenService,
   ) {}
@@ -24,14 +26,24 @@ export class DisplayController {
     return this.display.get(ctx.familyId);
   }
 
+  // Resolve which display layout this kiosk shows (from its token, or ?config= for
+  // an owner preview). Returns name, calendars, features, theme.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('config')
+  config(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
+    return this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+  }
+
   @UseGuards(DisplayOrUserGuard)
   @Get('events')
-  displayEvents(
+  async displayEvents(
     @FamilyCtx() ctx: FamilyContext,
+    @Query('config') config?: string,
     @Query('start') start?: string,
     @Query('end') end?: string,
   ) {
-    return this.display.displayEvents(ctx.familyId, start, end);
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    return this.displays.events(ctx.familyId, resolved, start, end);
   }
 
   // Profiles for the kiosk picker.
@@ -65,8 +77,8 @@ export class DisplayController {
 
   @UseGuards(AuthGuard)
   @Post('tokens')
-  mint(@CurrentUser() u: SessionPayload, @Body() body: { label?: string }) {
-    return this.tokens.mint(u.familyId, u.userId, body?.label);
+  mint(@CurrentUser() u: SessionPayload, @Body() body: { label?: string; displayConfigId?: string }) {
+    return this.tokens.mint(u.familyId, u.userId, body?.label, body?.displayConfigId);
   }
 
   @UseGuards(AuthGuard)

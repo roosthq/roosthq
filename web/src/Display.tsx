@@ -3,28 +3,34 @@ import {
   BASE_URL,
   choreClient,
   type CalEvent,
-  type DisplaySettings,
+  type ResolvedDisplayConfig,
   type Member,
   type UnlockResult,
 } from './api';
 import Calendar from './Calendar';
 import ChoresPanel from './ChoresPanel';
+import Logo from './Logo';
 
-const token = new URLSearchParams(window.location.search).get('token');
+const params = new URLSearchParams(window.location.search);
+const token = params.get('token');
+const configId = params.get('config');
 
-function displayUrl(path: string): string {
-  if (!token) return `${BASE_URL}${path}`;
-  return `${BASE_URL}${path}${path.includes('?') ? '&' : '?'}token=${encodeURIComponent(token)}`;
-}
-
-async function dget<T>(path: string): Promise<T> {
-  const res = await fetch(displayUrl(path), { credentials: 'include' });
+async function dget<T>(path: string, extra: Record<string, string> = {}): Promise<T> {
+  const sp = new URLSearchParams(extra);
+  if (token) sp.set('token', token);
+  if (configId) sp.set('config', configId);
+  const qs = sp.toString();
+  const res = await fetch(`${BASE_URL}${path}${qs ? `?${qs}` : ''}`, { credentials: 'include' });
   if (!res.ok) throw new Error(String(res.status));
   return (await res.json()) as T;
 }
 
 async function dpost<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(displayUrl(path), {
+  const sp = new URLSearchParams();
+  if (token) sp.set('token', token);
+  if (configId) sp.set('config', configId);
+  const qs = sp.toString();
+  const res = await fetch(`${BASE_URL}${path}${qs ? `?${qs}` : ''}`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -44,10 +50,8 @@ function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean
   );
 }
 
-// Interactive kiosk: passive calendar always visible; pick a profile (PIN for adults,
-// optional for kids) to manage that person's chores from the touch screen.
 export default function Display() {
-  const [settings, setSettings] = useState<DisplaySettings | null>(null);
+  const [config, setConfig] = useState<ResolvedDisplayConfig | null>(null);
   const [events, setEvents] = useState<CalEvent[]>([]);
   const [range, setRange] = useState<{ start: string; end: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -58,42 +62,40 @@ export default function Display() {
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
 
-  useEffect(() => {
-    dget<DisplaySettings>('/display/settings')
-      .then(setSettings)
-      .catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
-    dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
-
-    const es = new EventSource(displayUrl('/display/stream'), { withCredentials: true });
-    es.onmessage = (ev) => {
-      try {
-        setSettings(JSON.parse(ev.data) as DisplaySettings);
-      } catch {
-        /* ignore */
-      }
-    };
-    return () => es.close();
+  const loadConfig = useCallback(async () => {
+    const c = await dget<ResolvedDisplayConfig>('/display/config');
+    setConfig(c);
+    document.documentElement.setAttribute('data-theme', c.theme === 'dark' ? 'dark' : 'light');
   }, []);
 
   useEffect(() => {
+    loadConfig().catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
+    dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
+
+    const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+    const es = new EventSource(streamUrl, { withCredentials: true });
+    es.onmessage = () => {
+      loadConfig().catch(() => undefined);
+    };
+    return () => es.close();
+  }, [loadConfig]);
+
+  useEffect(() => {
     if (!range) return;
-    dget<CalEvent[]>(
-      `/display/events?start=${encodeURIComponent(range.start)}&end=${encodeURIComponent(range.end)}`,
-    )
+    dget<CalEvent[]>('/display/events', { start: range.start, end: range.end })
       .then(setEvents)
       .catch(() => setEvents([]));
-  }, [range, settings]);
+  }, [range, config]);
 
   const onRangeChange = useCallback((s: string, e: string) => setRange({ start: s, end: e }), []);
 
   function selectProfile(m: Member) {
-    const needsPin = m.hasPin || m.role !== 'KID';
-    if (needsPin) {
+    if (m.hasPin || m.role !== 'KID') {
       setPinFor(m);
       setPin('');
       setPinError(null);
     } else {
-      unlock(m, undefined);
+      unlock(m);
     }
   }
 
@@ -111,24 +113,26 @@ export default function Display() {
 
   if (error)
     return <div className="flex min-h-screen items-center justify-center p-10 text-center text-slate-500">{error}</div>;
-  if (!settings)
+  if (!config)
     return <div className="flex min-h-screen items-center justify-center text-slate-500">Loading display…</div>;
 
-  const showCalendar = settings.enabledFeatures.includes('calendar');
-  const showChores = settings.enabledFeatures.includes('chores');
+  const showCalendar = config.enabledFeatures.includes('calendar');
+  const showChores = config.enabledFeatures.includes('chores');
 
   return (
-    <div className="min-h-screen bg-white p-8 text-slate-800">
+    <div className="min-h-screen p-8">
       <header className="flex items-center justify-between border-b pb-4">
-        <h1 className="text-4xl font-bold">Roost HQ</h1>
         <div className="flex items-center gap-3">
-          <span className="text-xl text-slate-400">
-            {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
-          </span>
+          <Logo size={40} />
+          {config.name && config.name !== 'Display' && (
+            <span className="text-xl text-slate-400">· {config.name}</span>
+          )}
         </div>
+        <span className="text-xl text-slate-400">
+          {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+        </span>
       </header>
 
-      {/* Profile bar */}
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {active ? (
           <>
@@ -142,34 +146,29 @@ export default function Display() {
             </button>
           </>
         ) : (
-          <>
-            <span className="text-sm text-slate-500">Tap your photo to manage chores:</span>
-            {members.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => selectProfile(m)}
-                className="flex flex-col items-center gap-1 rounded-lg p-2 hover:bg-slate-100"
-              >
-                <Avatar name={m.displayName} src={m.avatar} big />
-                <span className="text-sm">{m.displayName}</span>
-                {(m.hasPin || m.role !== 'KID') && <span className="text-[10px] text-slate-400">🔒 PIN</span>}
-              </button>
-            ))}
-            {members.length === 0 && <span className="text-sm text-slate-400">No profiles yet.</span>}
-          </>
+          showChores && (
+            <>
+              <span className="text-sm text-slate-500">Tap your photo to manage chores:</span>
+              {members.map((m) => (
+                <button
+                  key={m.id}
+                  onClick={() => selectProfile(m)}
+                  className="flex flex-col items-center gap-1 rounded-lg p-2 hover:bg-slate-100"
+                >
+                  <Avatar name={m.displayName} src={m.avatar} big />
+                  <span className="text-sm">{m.displayName}</span>
+                  {(m.hasPin || m.role !== 'KID') && <span className="text-[10px] text-slate-400">🔒 PIN</span>}
+                </button>
+              ))}
+            </>
+          )
         )}
       </div>
 
       {showCalendar && <Calendar events={events} onRangeChange={onRangeChange} size="large" />}
 
-      {showChores && active && (
-        <ChoresPanel me={active.user} client={choreClient(active.token)} />
-      )}
-      {showChores && !active && (
-        <p className="mt-8 text-slate-400">Tap a profile above to view and manage chores.</p>
-      )}
+      {showChores && active && <ChoresPanel me={active.user} client={choreClient(active.token)} />}
 
-      {/* PIN modal */}
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>
           <div className="w-full max-w-xs rounded-lg bg-white p-6 text-center" onClick={(e) => e.stopPropagation()}>

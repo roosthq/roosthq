@@ -1,3 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Roost HQ design tokens (see design handoff). Dark theme flips via data-theme. */
+:root {
+  --bg: #eff4eb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(78, 122, 76, 0.18);
+  --text: #1c2e1c;
+  --text-2: #5a7858;
+  --text-muted: #7a9878;
+  --accent: #4e7a4c;
+  --accent-hover: #3a6038;
+  --tag-bg: #d4ead0;
+  --tag-text: #2c5228;
+}
+
+[data-theme='dark'] {
+  --bg: #111e11;
+  --surface: #1c2e1c;
+  --surface-raised: #243824;
+  --border: rgba(146, 192, 144, 0.12);
+  --text: #eff4eb;
+  --text-2: #92c090;
+  --text-muted: #4e7a4c;
+  --accent: #6eaa6c;
+  --accent-hover: #7eba7c;
+  --tag-bg: #243824;
+  --tag-text: #92c090;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Brand + theme bridge: remap the Tailwind utilities used across the app to the
+   token palette so the whole UI adopts the brand and responds to light/dark
+   without editing every component. */
+.bg-white {
+  background: var(--surface) !important;
+}
+.bg-slate-50 {
+  background: var(--bg) !important;
+}
+.bg-slate-100 {
+  background: var(--tag-bg) !important;
+}
+.bg-slate-200 {
+  background: var(--border) !important;
+}
+.text-slate-800,
+.text-slate-700 {
+  color: var(--text) !important;
+}
+.text-slate-600,
+.text-slate-500 {
+  color: var(--text-2) !important;
+}
+.text-slate-400 {
+  color: var(--text-muted) !important;
+}
+.border,
+.border-b,
+.border-t {
+  border-color: var(--border) !important;
+}
+/* Primary CTAs -> brand accent */
+.bg-slate-800 {
+  background: var(--accent) !important;
+}
+.hover\:bg-slate-700:hover {
+  background: var(--accent-hover) !important;
+}
+.hover\:bg-slate-50:hover,
+.hover\:bg-slate-100:hover {
+  background: var(--tag-bg) !important;
+}
+
+/* Logo owl: show the light or dark mark based on theme */
+.owl-dark {
+  display: none;
+}
+[data-theme='dark'] .owl-light {
+  display: none;
+}
+[data-theme='dark'] .owl-dark {
+  display: inline-block;
+}

@@ -182,6 +182,10 @@ docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 docker compose exec server npx prisma db push
 ```
 
+> If a pull **changed dependencies** (`package.json`), add `--renew-anon-volumes` to
+> the `up` command so the container's `node_modules` volume is refreshed — otherwise
+> Docker keeps the stale volume and new packages appear missing.
+
 **View logs:** `docker compose logs -f`
 
 **Back up the database:**

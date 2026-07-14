@@ -18,11 +18,11 @@ export class DisplayTokenService {
   }
 
   // Returns the raw token exactly once; only the hash is stored.
-  async mint(familyId: string, userId: string, label?: string) {
+  async mint(familyId: string, userId: string, label?: string, displayConfigId?: string) {
     await this.assertOwner(userId);
     const raw = randomBytes(24).toString('hex');
     const record = await this.prisma.displayToken.create({
-      data: { familyId, tokenHash: this.hash(raw), label },
+      data: { familyId, tokenHash: this.hash(raw), label, displayConfigId: displayConfigId ?? null },
     });
     return { id: record.id, label: record.label, token: raw };
   }
@@ -35,6 +35,7 @@ export class DisplayTokenService {
     return tokens.map((t) => ({
       id: t.id,
       label: t.label,
+      displayConfigId: t.displayConfigId,
       createdAt: t.createdAt,
       revokedAt: t.revokedAt,
     }));
@@ -49,11 +50,11 @@ export class DisplayTokenService {
     return { ok: true };
   }
 
-  // Resolve a raw token to its family, or null if unknown/revoked.
-  async resolve(raw: string): Promise<string | null> {
+  // Resolve a raw token to its family + which display config it shows.
+  async resolve(raw: string): Promise<{ familyId: string; displayConfigId: string | null } | null> {
     const token = await this.prisma.displayToken.findFirst({
       where: { tokenHash: this.hash(raw), revokedAt: null },
     });
-    return token?.familyId ?? null;
+    return token ? { familyId: token.familyId, displayConfigId: token.displayConfigId } : null;
   }
 }

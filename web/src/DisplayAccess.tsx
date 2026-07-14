@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
-import { api, type DisplayTokenInfo } from './api';
+import { api, type DisplayTokenInfo, type DisplayConfig } from './api';
 
-// Owner-only panel to mint / revoke display tokens for kiosk devices (e.g. a Pi).
+// Owner-only panel to mint / revoke kiosk links, each bound to a display layout.
 export default function DisplayAccess() {
   const [tokens, setTokens] = useState<DisplayTokenInfo[]>([]);
+  const [displays, setDisplays] = useState<DisplayConfig[]>([]);
+  const [selected, setSelected] = useState('');
   const [freshUrl, setFreshUrl] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
   async function refresh() {
-    setTokens(await api.listDisplayTokens());
+    const [t, d] = await Promise.all([api.listDisplayTokens(), api.listDisplays()]);
+    setTokens(t);
+    setDisplays(d);
+    if (!selected && d[0]) setSelected(d[0].id);
   }
 
   useEffect(() => {
@@ -16,7 +21,7 @@ export default function DisplayAccess() {
   }, [open]);
 
   async function mint() {
-    const minted = await api.mintDisplayToken('Kiosk');
+    const minted = await api.mintDisplayToken('Kiosk', selected || undefined);
     setFreshUrl(`${window.location.origin}/?display=1&token=${minted.token}`);
     await refresh();
   }
@@ -35,11 +40,21 @@ export default function DisplayAccess() {
 
   return (
     <div className="mt-2 w-full rounded border bg-white p-3">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="font-medium">Display access (kiosk links)</span>
-        <button onClick={mint} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
-          + Generate kiosk link
-        </button>
+        <div className="flex items-center gap-2">
+          <select value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded border px-2 py-1 text-xs">
+            {displays.length === 0 && <option value="">Default display</option>}
+            {displays.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+          <button onClick={mint} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
+            + Generate kiosk link
+          </button>
+        </div>
       </div>
 
       {freshUrl && (

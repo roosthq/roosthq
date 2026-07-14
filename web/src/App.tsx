@@ -2,11 +2,16 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { api, loginUrl, type Me, type FamilySettings } from './api';
 import Nav from './Nav';
+import Logo from './Logo';
 import CalendarPage from './pages/CalendarPage';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+
+function applyTheme(t: string) {
+  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+}
 
 export default function App() {
   const [me, setMe] = useState<Me | null>(null);
@@ -18,6 +23,7 @@ export default function App() {
       .me()
       .then(async (u) => {
         setMe(u);
+        applyTheme(u.themePref ?? 'light');
         try {
           setFamily(await api.familySettings());
         } catch {
@@ -30,7 +36,20 @@ export default function App() {
 
   async function logout() {
     await api.logout();
+    applyTheme('light');
     setMe(null);
+  }
+
+  async function toggleTheme() {
+    if (!me) return;
+    const next = me.themePref === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    setMe({ ...me, themePref: next });
+    try {
+      await api.setTheme(next);
+    } catch {
+      /* ignore */
+    }
   }
 
   if (loading) return <Centered>Loading…</Centered>;
@@ -42,7 +61,7 @@ export default function App() {
     const href = invite ? `${loginUrl}?invite=${encodeURIComponent(invite)}` : loginUrl;
     return (
       <Centered>
-        <h1 className="text-4xl font-bold">Roost HQ</h1>
+        <Logo size={64} />
         <p className="text-slate-500">The family&apos;s home base.</p>
         {invite && <p className="text-sm text-slate-600">You&apos;ve been invited to join a family.</p>}
         {needInvite && (
@@ -62,7 +81,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white text-slate-800">
-      <Nav me={me} onLogout={logout} />
+      <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} />
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />

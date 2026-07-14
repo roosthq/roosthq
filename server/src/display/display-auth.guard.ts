@@ -7,6 +7,7 @@ export interface FamilyContext {
   familyId: string;
   userId?: string;
   isDisplay: boolean;
+  displayConfigId?: string | null;
 }
 
 // Accepts EITHER a signed-in user session (cookie) OR a display token
@@ -32,9 +33,13 @@ export class DisplayOrUserGuard implements CanActivate {
 
     const raw = (req.query?.token as string) || (req.headers['x-display-token'] as string);
     if (raw) {
-      const familyId = await this.tokens.resolve(raw);
-      if (familyId) {
-        req.familyCtx = { familyId, isDisplay: true };
+      const resolved = await this.tokens.resolve(raw);
+      if (resolved) {
+        req.familyCtx = {
+          familyId: resolved.familyId,
+          isDisplay: true,
+          displayConfigId: resolved.displayConfigId,
+        };
         return true;
       }
     }

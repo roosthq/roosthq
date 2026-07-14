@@ -36,4 +36,10 @@ export class UsersController {
   remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.users.remove(u.userId, u.familyId, id);
   }
+
+  // Current user sets their own app theme.
+  @Put('me/theme')
+  setTheme(@CurrentUser() u: SessionPayload, @Body() body: { theme: 'light' | 'dark' }) {
+    return this.users.setTheme(u.userId, body.theme);
+  }
 }

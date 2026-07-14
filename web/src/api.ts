@@ -21,6 +21,7 @@ export interface Me {
   role: string;
   avatar?: string;
   familyId: string;
+  themePref?: 'light' | 'dark';
 }
 
 export interface GoogleCalendar {
@@ -108,6 +109,7 @@ export interface Balance {
 export interface DisplayTokenInfo {
   id: string;
   label?: string;
+  displayConfigId?: string | null;
   createdAt: string;
   revokedAt?: string | null;
 }
@@ -143,6 +145,23 @@ export interface FamilyLocation {
   id: string;
   name: string;
   users: Array<{ userId: string }>;
+}
+
+export interface DisplayConfig {
+  id: string;
+  name: string;
+  calendarIds: string[];
+  enabledFeatures: string[];
+  theme: string;
+}
+
+// The resolved config a kiosk renders (id may be null for legacy/default).
+export interface ResolvedDisplayConfig {
+  id: string | null;
+  name: string;
+  calendarIds: string[];
+  enabledFeatures: string[];
+  theme: string;
 }
 
 export interface LedgerEntry {
@@ -196,9 +215,16 @@ export const api = {
     req<DisplaySettings>('/display/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   listDisplayTokens: () => req<DisplayTokenInfo[]>('/display/tokens'),
-  mintDisplayToken: (label?: string) =>
-    req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label }) }),
+  mintDisplayToken: (label?: string, displayConfigId?: string) =>
+    req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label, displayConfigId }) }),
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
+
+  listDisplays: () => req<DisplayConfig[]>('/displays'),
+  createDisplay: (body: { name: string; calendarIds?: string[]; enabledFeatures?: string[]; theme?: string }) =>
+    req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
+  updateDisplay: (id: string, body: Partial<{ name: string; calendarIds: string[]; enabledFeatures: string[]; theme: string }>) =>
+    req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
 
   listUsers: () => req<Member[]>('/users'),
   setUserPin: (id: string, pin: string | null) =>
@@ -206,6 +232,8 @@ export const api = {
   setUserRole: (id: string, role: 'OWNER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
+  setTheme: (theme: 'light' | 'dark') =>
+    req<{ ok: boolean; theme: string }>('/users/me/theme', { method: 'PUT', body: JSON.stringify({ theme }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
   createInvite: (role: 'ADULT' | 'KID', label?: string) =>

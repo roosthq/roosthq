@@ -65,7 +65,27 @@ model Family {
   prizes          Prize[]
   displaySettings DisplaySettings?
   displayTokens   DisplayToken[]
+  displayConfigs  DisplayConfig[]
   invites         FamilyInvite[]
+}
+
+// A named display layout an adult can create (e.g. "Kitchen", "Dad's house").
+// Each has its own set of calendars, enabled features, and theme, so different
+// kiosks can show different things.
+model DisplayConfig {
+  id              String   @id @default(cuid())
+  familyId        String
+  name            String
+  calendarIds     Json
+  enabledFeatures Json
+  theme           String   @default("light")
+  createdById     String
+  createdAt       DateTime @default(now())
+
+  family Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  tokens DisplayToken[]
+
+  @@index([familyId])
 }
 
 // One-time invite used to join an existing family with a chosen role. Stored hashed;
@@ -89,14 +109,16 @@ model FamilyInvite {
 // Owner-minted, revocable, read-only credential for an unattended display device
 // (e.g. a Raspberry Pi kiosk). Stored hashed; the raw token is shown once at mint.
 model DisplayToken {
-  id        String    @id @default(cuid())
-  familyId  String
-  tokenHash String    @unique
-  label     String?
-  createdAt DateTime  @default(now())
-  revokedAt DateTime?
+  id              String    @id @default(cuid())
+  familyId        String
+  displayConfigId String? // which display layout this kiosk shows
+  tokenHash       String    @unique
+  label           String?
+  createdAt       DateTime  @default(now())
+  revokedAt       DateTime?
 
-  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  family        Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  displayConfig DisplayConfig? @relation(fields: [displayConfigId], references: [id], onDelete: SetNull)
 
   @@index([familyId])
 }
@@ -109,6 +131,7 @@ model User {
   email       String? // kids may have none (parent-managed)
   pinHash     String? // optional per-profile PIN
   avatar      String? @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref   String  @default("light") // per-user app UI theme: light | dark
 
   family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations      UserLocation[]

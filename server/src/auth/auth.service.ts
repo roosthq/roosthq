@@ -126,6 +126,7 @@ export class AuthService {
         role: true,
         avatar: true,
         familyId: true,
+        themePref: true,
       },
     });
   }

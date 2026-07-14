@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { DisplayController } from './display.controller';
+import { DisplaysController } from './displays.controller';
 import { DisplayService } from './display.service';
+import { DisplaysService } from './displays.service';
 import { DisplayEventsService } from './display-events.service';
 import { DisplayTokenService } from './display-token.service';
 import { DisplayOrUserGuard } from './display-auth.guard';
@@ -9,9 +11,10 @@ import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 
 @Module({
-  controllers: [DisplayController],
+  controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,
+    DisplaysService,
     DisplayEventsService,
     DisplayTokenService,
     DisplayOrUserGuard,
