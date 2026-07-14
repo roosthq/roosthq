@@ -134,8 +134,8 @@ export default function Display() {
   const showChores = config.enabledFeatures.includes('chores');
 
   return (
-    <div className={active ? 'min-h-screen p-4' : 'min-h-screen p-8'}>
-      <header className="flex items-center justify-between border-b pb-4">
+    <div className="flex h-screen flex-col overflow-hidden p-4">
+      <header className="flex shrink-0 items-center justify-between border-b pb-3">
         <div className="flex items-center gap-3">
           <Logo size={40} />
           {config.name && config.name !== 'Display' && (
@@ -156,54 +156,60 @@ export default function Display() {
         </div>
       </header>
 
-      <div className="mt-2 flex flex-wrap items-center gap-3">
-        {active ? (
-          <>
-            <span className="text-sm text-slate-500">Signed in as</span>
-            <span className="flex items-center gap-2 rounded-full bg-slate-100 py-1 pl-1 pr-3">
-              <Avatar name={active.user.displayName} src={active.user.avatar} />
-              <span className="font-medium">{active.user.displayName}</span>
-            </span>
-            <button onClick={() => setActive(null)} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">
-              Switch / lock
-            </button>
-          </>
-        ) : (
-          showChores && (
-            <>
-              <span className="text-sm text-slate-500">Tap your photo to manage chores:</span>
-              {members.map((m) => (
-                <button
-                  key={m.id}
-                  onClick={() => selectProfile(m)}
-                  className="flex flex-col items-center gap-1 rounded-lg p-2 hover:bg-slate-100"
-                >
-                  <Avatar name={m.displayName} src={m.avatar} big />
-                  <span className="text-sm">{m.displayName}</span>
-                  {(m.hasPin || m.role !== 'KID') && <span className="text-[10px] text-slate-400">🔒 PIN</span>}
-                </button>
-              ))}
-            </>
-          )
+      {/* Calendar (left, fills all remaining height) and a fixed-width right
+          panel that always occupies the same place: the profile picker before
+          sign-in, the signed-in person's chores after. */}
+      <div className="mt-3 flex min-h-0 flex-1 gap-6">
+        {showCalendar && (
+          <div className="h-full min-w-0 flex-1">
+            <Calendar events={events} onRangeChange={onRangeChange} size={active ? 'compact' : 'normal'} fill />
+          </div>
+        )}
+
+        {showChores && (
+          <aside className="flex h-full w-80 shrink-0 flex-col">
+            {active ? (
+              <>
+                <div className="flex shrink-0 items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
+                  <Avatar name={active.user.displayName} src={active.user.avatar} />
+                  <span className="min-w-0 truncate font-medium">{active.user.displayName}</span>
+                  <button
+                    onClick={() => setActive(null)}
+                    className="ml-auto shrink-0 rounded border px-2 py-1 text-xs hover:bg-white"
+                  >
+                    Switch / lock
+                  </button>
+                </div>
+                <div className="mt-3 min-h-0 flex-1 overflow-y-auto">
+                  <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />
+                </div>
+              </>
+            ) : (
+              <>
+                <span className="shrink-0 text-sm text-slate-500">Tap your photo to manage chores:</span>
+                <div className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto">
+                  {members.map((m) => (
+                    <button
+                      key={m.id}
+                      onClick={() => selectProfile(m)}
+                      className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-slate-100"
+                    >
+                      <Avatar name={m.displayName} src={m.avatar} big />
+                      <span className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-medium">{m.displayName}</div>
+                        {/* Reserve this line's height for every row, PIN or not, so rows stay aligned. */}
+                        <div className="h-[14px] text-[10px] text-slate-400">
+                          {(m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
+                        </div>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </aside>
         )}
       </div>
-
-      {active ? (
-        <div className="mt-3 flex flex-wrap items-start gap-6">
-          {showCalendar && (
-            <div className="min-w-0 flex-1">
-              <Calendar events={events} onRangeChange={onRangeChange} size="compact" />
-            </div>
-          )}
-          {showChores && (
-            <div className="max-h-[calc(100vh-14rem)] w-full shrink-0 overflow-y-auto sm:w-80">
-              <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />
-            </div>
-          )}
-        </div>
-      ) : (
-        showCalendar && <Calendar events={events} onRangeChange={onRangeChange} size="large" />
-      )}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>

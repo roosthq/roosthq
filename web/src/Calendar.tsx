@@ -79,10 +79,15 @@ export default function Calendar({
   events,
   onRangeChange,
   size = 'normal',
+  fill = false,
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
   size?: 'normal' | 'large' | 'compact';
+  // Stretch the day grid to fill the parent's height (rows share it equally)
+  // instead of sizing each cell to a fixed min-height. Parent must give this
+  // component a bounded height (e.g. flex-1 in a flex column) for it to work.
+  fill?: boolean;
 }) {
   const [cursor, setCursor] = useState(() => {
     const n = new Date();
@@ -151,8 +156,8 @@ export default function Calendar({
   };
 
   return (
-    <section className="mt-6">
-      <div className="flex items-center justify-between">
+    <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
+      <div className="flex shrink-0 items-center justify-between">
         <h2 className={large ? 'text-3xl font-bold' : 'text-xl font-semibold'}>{monthLabel}</h2>
         <div className="flex gap-1">
           <button onClick={() => shift(-1)} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">‹</button>
@@ -161,7 +166,10 @@ export default function Calendar({
         </div>
       </div>
 
-      <div className="mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200">
+      <div
+        className={`mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200 ${fill ? 'flex-1' : ''}`}
+        style={fill ? { gridTemplateRows: `auto repeat(6, minmax(0, 1fr))` } : undefined}
+      >
         {WEEKDAYS.map((w) => (
           <div key={w} className={`bg-slate-50 py-1 text-center font-medium text-slate-500 ${large ? 'text-sm' : 'text-xs'}`}>
             {w}
@@ -176,7 +184,7 @@ export default function Calendar({
             <button
               key={k}
               onClick={() => setSelected(k)}
-              className={`${cellMin} p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
+              className={`${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
               style={{
                 background: isToday
                   ? 'rgba(212,192,106,0.16)'
