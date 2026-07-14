@@ -11,11 +11,46 @@ function isAllDay(e: CalEvent): boolean {
   return !!e.start?.date && !e.start?.dateTime;
 }
 
-// Which calendar day a given event belongs to.
-function eventDayKey(e: CalEvent): string | null {
-  if (e.start?.date) return e.start.date; // all-day: already 'YYYY-MM-DD'
-  if (e.start?.dateTime) return keyOf(new Date(e.start.dateTime));
+function dayStart(e: CalEvent): Date | null {
+  if (e.start?.date) return new Date(`${e.start.date}T00:00:00`);
+  if (e.start?.dateTime) {
+    const d = new Date(e.start.dateTime);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
   return null;
+}
+
+// Last day (inclusive) the event should render on. Google all-day ends are exclusive;
+// timed events ending exactly at midnight shouldn't paint the following day.
+function dayEnd(e: CalEvent): Date | null {
+  if (e.end?.date) {
+    const d = new Date(`${e.end.date}T00:00:00`);
+    d.setDate(d.getDate() - 1);
+    return d;
+  }
+  if (e.end?.dateTime) {
+    const d = new Date(e.end.dateTime);
+    if (d.getHours() === 0 && d.getMinutes() === 0 && d.getSeconds() === 0) d.setDate(d.getDate() - 1);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+  return null;
+}
+
+// Every day key an event covers (so multi-day events span across the grid).
+function coveredDays(e: CalEvent): string[] {
+  const s = dayStart(e);
+  if (!s) return [];
+  let end = dayEnd(e);
+  if (!end || end < s) end = s;
+  const keys: string[] = [];
+  const cur = new Date(s);
+  for (let i = 0; cur <= end && i < 90; i++) {
+    keys.push(keyOf(cur));
+    cur.setDate(cur.getDate() + 1);
+  }
+  return keys;
 }
 
 function timeLabel(e: CalEvent): string {
@@ -28,14 +63,26 @@ function timeLabel(e: CalEvent): string {
   return startStr;
 }
 
-// Month-grid calendar. Reports its visible date range up so the parent can fetch
-// the right events, renders them per day, and opens a detail modal on day click.
+function Avatar({ name, src, size = 'sm' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
+  const cls = size === 'md' ? 'h-6 w-6 text-xs' : 'h-4 w-4 text-[9px]';
+  if (src) return <img src={src} alt={name ?? ''} className={`${cls} shrink-0 rounded-full object-cover`} />;
+  return (
+    <span className={`${cls} inline-flex shrink-0 items-center justify-center rounded-full bg-slate-300 font-medium text-slate-700`}>
+      {(name ?? '?').charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+// Month-grid calendar. Reports its visible range up so the parent fetches the right
+// events; renders them per day (multi-day events span), and opens a day detail modal.
 export default function Calendar({
   events,
   onRangeChange,
+  size = 'normal',
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
+  size?: 'normal' | 'large';
 }) {
   const [cursor, setCursor] = useState(() => {
     const n = new Date();
@@ -43,7 +90,11 @@ export default function Calendar({
   });
   const [selected, setSelected] = useState<string | null>(null);
 
-  // 6-week grid starting on the Sunday on/before the 1st of the month.
+  const large = size === 'large';
+  const cellMin = large ? 'min-h-[9rem]' : 'min-h-[6rem]';
+  const chipText = large ? 'text-sm' : 'text-xs';
+  const maxChips = large ? 6 : 3;
+
   const gridStart = useMemo(() => {
     const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
     const s = new Date(first);
@@ -71,12 +122,19 @@ export default function Calendar({
   const byDay = useMemo(() => {
     const m = new Map<string, CalEvent[]>();
     for (const e of events) {
-      const k = eventDayKey(e);
-      if (!k) continue;
-      (m.get(k) ?? m.set(k, []).get(k))!.push(e);
+      for (const k of coveredDays(e)) {
+        const arr = m.get(k);
+        if (arr) arr.push(e);
+        else m.set(k, [e]);
+      }
     }
     for (const arr of m.values()) {
-      arr.sort((a, b) => (a.start?.dateTime ?? '').localeCompare(b.start?.dateTime ?? ''));
+      arr.sort((a, b) => {
+        const aAll = isAllDay(a) ? 0 : 1;
+        const bAll = isAllDay(b) ? 0 : 1;
+        if (aAll !== bAll) return aAll - bAll;
+        return (a.start?.dateTime ?? '').localeCompare(b.start?.dateTime ?? '');
+      });
     }
     return m;
   }, [events]);
@@ -85,8 +143,7 @@ export default function Calendar({
   const monthLabel = cursor.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
   const selectedEvents = selected ? byDay.get(selected) ?? [] : [];
 
-  const shift = (delta: number) =>
-    setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + delta, 1));
+  const shift = (delta: number) => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + delta, 1));
   const goToday = () => {
     const n = new Date();
     setCursor(new Date(n.getFullYear(), n.getMonth(), 1));
@@ -95,7 +152,7 @@ export default function Calendar({
   return (
     <section className="mt-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{monthLabel}</h2>
+        <h2 className={large ? 'text-3xl font-bold' : 'text-xl font-semibold'}>{monthLabel}</h2>
         <div className="flex gap-1">
           <button onClick={() => shift(-1)} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">‹</button>
           <button onClick={goToday} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">Today</button>
@@ -105,33 +162,43 @@ export default function Calendar({
 
       <div className="mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200">
         {WEEKDAYS.map((w) => (
-          <div key={w} className="bg-slate-50 py-1 text-center text-xs font-medium text-slate-500">{w}</div>
+          <div key={w} className={`bg-slate-50 py-1 text-center font-medium text-slate-500 ${large ? 'text-sm' : 'text-xs'}`}>
+            {w}
+          </div>
         ))}
         {days.map((d) => {
           const k = keyOf(d);
           const inMonth = d.getMonth() === cursor.getMonth();
+          const isToday = k === todayKey;
           const dayEvents = byDay.get(k) ?? [];
           return (
             <button
               key={k}
               onClick={() => setSelected(k)}
-              className={`min-h-[6rem] p-1 text-left hover:bg-slate-50 ${inMonth ? 'bg-white' : 'bg-slate-50 text-slate-400'}`}
+              className={`${cellMin} p-1 text-left hover:bg-slate-100 ${
+                isToday ? 'bg-amber-50 ring-2 ring-inset ring-amber-400' : inMonth ? 'bg-white' : 'bg-slate-50 text-slate-400'
+              }`}
             >
               <div
-                className={`mb-1 text-xs ${
-                  k === todayKey ? 'inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-white' : ''
+                className={`mb-1 ${large ? 'text-base' : 'text-xs'} ${
+                  isToday
+                    ? 'inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 font-semibold text-white'
+                    : 'font-medium'
                 }`}
               >
                 {d.getDate()}
               </div>
               <div className="space-y-0.5">
-                {dayEvents.slice(0, 3).map((e) => (
-                  <div key={e.uid} className="flex items-center gap-1">
-                    <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
-                    <span className="truncate text-xs">{e.title ?? '(no title)'}</span>
+                {dayEvents.slice(0, maxChips).map((e) => (
+                  <div key={`${e.uid}-${k}`} className={`flex items-center gap-1 ${chipText}`}>
+                    <Avatar name={e.ownerName} src={e.ownerAvatar} />
+                    <span className="h-2 w-1 shrink-0 rounded" style={{ background: e.calendarColor ?? '#94a3b8' }} />
+                    <span className="truncate">{e.title ?? '(no title)'}</span>
                   </div>
                 ))}
-                {dayEvents.length > 3 && <div className="text-xs text-slate-400">+{dayEvents.length - 3} more</div>}
+                {dayEvents.length > maxChips && (
+                  <div className={`text-slate-400 ${chipText}`}>+{dayEvents.length - maxChips} more</div>
+                )}
               </div>
             </button>
           );
@@ -140,9 +207,9 @@ export default function Calendar({
 
       {selected && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setSelected(null)}>
-          <div className="max-h-[80vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5" onClick={(e) => e.stopPropagation()}>
+          <div className="max-h-[80vh] w-full max-w-lg overflow-auto rounded-lg bg-white p-5" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">
+              <h3 className="text-xl font-semibold">
                 {new Date(`${selected}T00:00:00`).toLocaleDateString(undefined, {
                   weekday: 'long',
                   month: 'long',
@@ -153,14 +220,15 @@ export default function Calendar({
             </div>
             <ul className="mt-3 space-y-2">
               {selectedEvents.map((e) => (
-                <li key={e.uid} className="flex gap-3 rounded border p-2">
-                  <span className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
-                  <div>
+                <li key={`${e.uid}-detail`} className="flex gap-3 rounded border p-3">
+                  <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
+                  <div className="min-w-0">
                     <div className="font-medium">{e.title ?? '(no title)'}</div>
-                    <div className="text-xs text-slate-500">
+                    <div className="text-sm text-slate-500">
                       {timeLabel(e)}
                       {e.location ? ` · ${e.location}` : ''}
                     </div>
+                    {e.ownerName && <div className="text-xs text-slate-400">{e.ownerName}</div>}
                   </div>
                 </li>
               ))}

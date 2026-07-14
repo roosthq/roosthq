@@ -1,7 +1,14 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from './display-events.service';
 import { CalendarsService } from '../calendars/calendars.service';
+import { verifyPin } from '../crypto/pin';
+import { signKiosk } from '../auth/jwt';
 
 const DEFAULT_FEATURES = ['calendar', 'chores', 'tokens', 'prizes'];
 
@@ -39,6 +46,40 @@ export class DisplayService {
     if (!ids.length) return [];
     const range = start && end ? { start, end } : weekRange();
     return this.calendars.events(familyId, ids, range.start, range.end);
+  }
+
+  // Profiles for the kiosk picker (who can be selected on the touch screen).
+  async members(familyId: string) {
+    const users = await this.prisma.user.findMany({
+      where: { familyId },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true },
+    });
+    return users.map((u) => ({
+      id: u.id,
+      displayName: u.displayName,
+      role: u.role,
+      avatar: u.avatar,
+      hasPin: !!u.pinHash,
+    }));
+  }
+
+  // Unlock a profile on the kiosk. Adults must have and provide a PIN; kids need a
+  // PIN only if one is set. Returns a short-lived kiosk token to act as that user.
+  async unlock(familyId: string, userId: string, pin?: string) {
+    const user = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
+    if (!user) throw new NotFoundException('Profile not found');
+    const isAdult = user.role === 'OWNER' || user.role === 'ADULT';
+
+    if (user.pinHash) {
+      if (!pin || !verifyPin(pin, user.pinHash)) throw new UnauthorizedException('Wrong PIN');
+    } else if (isAdult) {
+      throw new ForbiddenException('This adult needs a PIN set (in the app) before using the kiosk');
+    }
+
+    return {
+      token: signKiosk({ userId: user.id, familyId }),
+      user: { id: user.id, displayName: user.displayName, role: user.role, avatar: user.avatar },
+    };
   }
 
   async get(familyId: string) {

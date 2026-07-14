@@ -7,7 +7,8 @@ export const SESSION_COOKIE = 'rhq_session';
 export class AuthGuard implements CanActivate {
   canActivate(ctx: ExecutionContext): boolean {
     const req = ctx.switchToHttp().getRequest();
-    const token = req.cookies?.[SESSION_COOKIE];
+    // Cookie session (web app) OR kiosk token header (touch hub acting as a profile).
+    const token = req.cookies?.[SESSION_COOKIE] ?? (req.headers['x-kiosk-token'] as string);
     if (!token) throw new UnauthorizedException();
     try {
       req.user = verifySession(token);

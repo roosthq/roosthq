@@ -2,12 +2,12 @@
 // routes /api to the server. In dev, the Vite proxy forwards /api to localhost:3000.
 const BASE = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
-async function req<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    ...init,
-  });
+// kioskToken: when set, authenticate as a kiosk-selected profile (x-kiosk-token
+// header) instead of the browser session cookie.
+async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Promise<T> {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (kioskToken) headers['x-kiosk-token'] = kioskToken;
+  const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...init, headers });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
 }
@@ -45,6 +45,9 @@ export interface CalEvent {
   uid: string;
   calendarId: string;
   calendarColor?: string;
+  calendarName?: string;
+  ownerName?: string;
+  ownerAvatar?: string;
   title?: string;
   start?: { dateTime?: string; date?: string };
   end?: { dateTime?: string; date?: string };
@@ -56,6 +59,12 @@ export interface Member {
   displayName: string;
   role: string;
   avatar?: string;
+  hasPin?: boolean;
+}
+
+export interface UnlockResult {
+  token: string;
+  user: { id: string; displayName: string; role: string; avatar?: string };
 }
 
 export interface DisplaySettings {
@@ -133,6 +142,12 @@ export const api = {
     req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label }) }),
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
 
+  listUsers: () => req<Member[]>('/users'),
+  setUserPin: (id: string, pin: string | null) =>
+    req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
+  setUserRole: (id: string, role: 'OWNER' | 'ADULT' | 'KID') =>
+    req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
+
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),
   createChore: (body: Record<string, unknown>) =>
@@ -146,3 +161,25 @@ export const api = {
   rejectInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }),
 };
+
+// Chore/member operations bound to an auth context: the browser cookie (default)
+// or a kiosk token (when acting as a profile selected on the touch hub).
+export function choreClient(kioskToken?: string) {
+  return {
+    chores: () => req<Chore[]>('/chores', undefined, kioskToken),
+    balances: () => req<Balance[]>('/chores/balances', undefined, kioskToken),
+    members: () => req<Member[]>('/auth/members', undefined, kioskToken),
+    createChore: (body: Record<string, unknown>) =>
+      req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+    checkItem: (instanceId: string, checklistId: string, checked: boolean) =>
+      req(`/chores/instances/${instanceId}/check`, { method: 'POST', body: JSON.stringify({ checklistId, checked }) }, kioskToken),
+    completeInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }, kioskToken),
+    approveInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
+    rejectInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }, kioskToken),
+  };
+}
+
+export type ChoreClient = ReturnType<typeof choreClient>;

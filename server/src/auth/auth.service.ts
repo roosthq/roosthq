@@ -37,7 +37,7 @@ export class AuthService {
         where: { id: existing.id },
         data: { tokensEncrypted: encTokens },
       });
-      return { userId: existing.userId, familyId: existing.user.familyId };
+      return { userId: existing.userId, familyId: existing.user.familyId, linkedMember: false };
     }
 
     // Signed in, adding another of the current user's own calendars.
@@ -45,10 +45,12 @@ export class AuthService {
       await this.prisma.googleAccount.create({
         data: { userId: ctx.userId, googleSub, tokensEncrypted: encTokens },
       });
-      return { userId: ctx.userId, familyId: ctx.familyId };
+      return { userId: ctx.userId, familyId: ctx.familyId, linkedMember: false };
     }
 
-    // Signed in, adding a new family member.
+    // Signed in, adding a new family member. Added as ADULT by default; the owner can
+    // change the role to KID afterwards. linkedMember=true so we keep the OWNER signed
+    // in rather than switching the session to the new person.
     if (ctx.familyId) {
       const user = await this.prisma.user.create({
         data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar },
@@ -56,7 +58,7 @@ export class AuthService {
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
       });
-      return { userId: user.id, familyId: ctx.familyId };
+      return { userId: user.id, familyId: ctx.familyId, linkedMember: true };
     }
 
     // Brand-new family with this account as OWNER.
@@ -67,7 +69,7 @@ export class AuthService {
     await this.prisma.googleAccount.create({
       data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
     });
-    return { userId: user.id, familyId: family.id };
+    return { userId: user.id, familyId: family.id, linkedMember: false };
   }
 
   me(userId: string) {

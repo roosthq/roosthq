@@ -9,6 +9,7 @@ import {
 } from './api';
 import ChoresPanel from './ChoresPanel';
 import DisplayAccess from './DisplayAccess';
+import MembersManager from './MembersManager';
 import Calendar from './Calendar';
 
 export default function App() {
@@ -127,6 +128,7 @@ export default function App() {
               Save current view as display default
             </button>
             <DisplayAccess />
+            <MembersManager />
           </div>
         </div>
       )}

@@ -34,6 +34,20 @@ export class DisplayController {
     return this.display.displayEvents(ctx.familyId, start, end);
   }
 
+  // Profiles for the kiosk picker.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('members')
+  members(@FamilyCtx() ctx: FamilyContext) {
+    return this.display.members(ctx.familyId);
+  }
+
+  // Unlock a profile on the kiosk (PIN check), returns a short-lived kiosk token.
+  @UseGuards(DisplayOrUserGuard)
+  @Post('unlock')
+  unlock(@FamilyCtx() ctx: FamilyContext, @Body() body: { userId: string; pin?: string }) {
+    return this.display.unlock(ctx.familyId, body.userId, body.pin);
+  }
+
   // Live settings updates for the family (SSE). Token goes in ?token= for the kiosk.
   @UseGuards(DisplayOrUserGuard)
   @Sse('stream')

@@ -61,16 +61,20 @@ export class AuthController {
       }
     }
 
-    const { userId, familyId } = await this.auth.handleGoogleCallback(code, {
+    const { userId, familyId, linkedMember } = await this.auth.handleGoogleCallback(code, {
       userId: existingUserId,
       familyId: existingFamilyId,
       mode: mode === 'member' ? 'member' : 'self',
     });
-    res.cookie(SESSION_COOKIE, signSession({ userId, familyId }), {
-      ...cookieBase,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
-    return res.redirect(`${WEB_URL}/?auth=ok`);
+    // Keep the current owner signed in when they just added a family member;
+    // otherwise establish/refresh the session for the account that just logged in.
+    if (!linkedMember) {
+      res.cookie(SESSION_COOKIE, signSession({ userId, familyId }), {
+        ...cookieBase,
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+      });
+    }
+    return res.redirect(`${WEB_URL}/?auth=${linkedMember ? 'member_added' : 'ok'}`);
   }
 
   @UseGuards(AuthGuard)

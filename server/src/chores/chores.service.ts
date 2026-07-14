@@ -12,8 +12,17 @@ export interface CreateChoreDto {
   locationId?: string;
   tokenValue?: number;
   recurrenceRule?: string; // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null (single) | custom
+  dayOfWeek?: number; // 0=Sun..6=Sat; anchors the first instance to that weekday
   checklist?: string[];
   dueDate?: string;
+}
+
+// Next date (>= today) that falls on the given weekday (0=Sun..6=Sat).
+function nextWeekday(dow: number): Date {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + ((dow - d.getDay() + 7) % 7));
+  return d;
 }
 
 export type UpdateChoreDto = Partial<
@@ -85,9 +94,15 @@ export class ChoresService {
           : undefined,
       },
     });
-    // Seed the first instance so it shows up right away.
+    // Seed the first instance. Priority: explicit dueDate, else a chosen weekday
+    // (which weekly/biweekly recurrence then keeps to), else today.
+    const firstDue = dto.dueDate
+      ? new Date(dto.dueDate)
+      : dto.dayOfWeek != null
+        ? nextWeekday(dto.dayOfWeek)
+        : new Date();
     await this.prisma.choreInstance.create({
-      data: { choreId: chore.id, dueDate: dto.dueDate ? new Date(dto.dueDate) : new Date() },
+      data: { choreId: chore.id, dueDate: firstDue },
     });
     return this.getChore(familyId, chore.id);
   }

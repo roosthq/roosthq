@@ -93,9 +93,11 @@ export class CalendarsService {
   async events(familyId: string, calendarIds: string[], timeMin: string, timeMax: string) {
     const calendars = await this.prisma.calendar.findMany({
       where: { familyId, id: { in: calendarIds } },
+      include: { googleAccount: { include: { user: true } } },
     });
     const byUid = new Map<string, unknown>();
     for (const c of calendars) {
+      const owner = c.googleAccount?.user;
       const client = await this.google.clientForAccount(c.googleAccountId);
       const { data } = await this.google.calendar(client).events.list({
         calendarId: c.googleCalendarId,
@@ -112,6 +114,9 @@ export class CalendarsService {
             uid,
             calendarId: c.id,
             calendarColor: c.color,
+            calendarName: c.name,
+            ownerName: owner?.displayName ?? undefined,
+            ownerAvatar: owner?.avatar ?? undefined,
             title: ev.summary,
             start: ev.start,
             end: ev.end,
