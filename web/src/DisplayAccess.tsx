@@ -31,6 +31,11 @@ export default function DisplayAccess() {
     await refresh();
   }
 
+  function displayName(displayConfigId?: string | null) {
+    if (!displayConfigId) return 'Default display';
+    return displays.find((d) => d.id === displayConfigId)?.name ?? 'Deleted display';
+  }
+
   if (!open)
     return (
       <button onClick={() => setOpen(true)} className="rounded border bg-white px-3 py-1 hover:bg-slate-100">
@@ -68,13 +73,14 @@ export default function DisplayAccess() {
 
       <ul className="mt-3 space-y-1 text-sm">
         {tokens.map((t) => (
-          <li key={t.id} className="flex items-center justify-between">
-            <span>
-              {t.label ?? 'Kiosk'} · {new Date(t.createdAt).toLocaleDateString()}
+          <li key={t.id} className="flex items-center justify-between gap-2">
+            <span className="min-w-0 flex-1 break-words">
+              {t.label ?? 'Kiosk'} → <strong className="font-medium">{displayName(t.displayConfigId)}</strong> ·{' '}
+              {new Date(t.createdAt).toLocaleDateString()}
               {t.revokedAt && <span className="ml-2 text-red-500">revoked</span>}
             </span>
             {!t.revokedAt && (
-              <button onClick={() => revoke(t.id)} className="text-xs text-red-500 hover:text-red-700">
+              <button onClick={() => revoke(t.id)} className="shrink-0 text-xs text-red-500 hover:text-red-700">
                 Revoke
               </button>
             )}
