@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   BASE_URL,
   choreClient,
@@ -58,6 +58,9 @@ export default function Display() {
 
   const [members, setMembers] = useState<Member[]>([]);
   const [active, setActive] = useState<UnlockResult | null>(null);
+  // Keyed on the token string (not `active`) so this stays referentially stable
+  // across re-renders instead of feeding ChoresPanel a new client every time.
+  const kioskChoreClient = useMemo(() => (active ? choreClient(active.token) : undefined), [active?.token]);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
@@ -167,7 +170,7 @@ export default function Display() {
 
       {showCalendar && <Calendar events={events} onRangeChange={onRangeChange} size="large" />}
 
-      {showChores && active && <ChoresPanel me={active.user} client={choreClient(active.token)} />}
+      {showChores && active && <ChoresPanel me={active.user} client={kioskChoreClient} />}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>

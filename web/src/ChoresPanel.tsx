@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { choreClient, type Chore, type Member, type Balance, type ChoreClient } from './api';
 
 const REPEAT_OPTIONS: Array<{ value: string; label: string; help: string }> = [
@@ -13,8 +13,12 @@ const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 type Actor = { id: string; role: string; displayName: string };
 
-export default function ChoresPanel({ me, client = choreClient() }: { me: Actor; client?: ChoreClient }) {
+export default function ChoresPanel({ me, client: clientProp }: { me: Actor; client?: ChoreClient }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  // clientProp is a fresh object on every parent render when the caller doesn't
+  // memoize it (e.g. Display.tsx); memoize here so `refresh` below stays stable
+  // instead of re-firing its effect on every render.
+  const client = useMemo(() => clientProp ?? choreClient(), [clientProp]);
   const [chores, setChores] = useState<Chore[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [balances, setBalances] = useState<Balance[]>([]);
