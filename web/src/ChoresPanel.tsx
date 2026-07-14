@@ -165,7 +165,7 @@ export default function ChoresPanel({
                   </div>
                 </div>
                 <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-600">
-                  {chore.tokenValue} {tokenIcon}
+                  {tokenIcon} {chore.tokenValue}
                 </span>
               </div>
 
@@ -269,7 +269,7 @@ export default function ChoresPanel({
 
       {isAdult && !today && balances.length > 0 && (
         <div className="mt-4 text-sm text-slate-500">
-          Balances: {balances.map((b) => `${memberName(b.userId)}: ${b.balance}`).join(' · ')}
+          Balances: {balances.map((b) => `${memberName(b.userId)}: ${tokenIcon} ${b.balance}`).join(' · ')}
         </div>
       )}
 

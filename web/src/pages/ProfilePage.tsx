@@ -138,8 +138,8 @@ export default function ProfilePage({
               </span>
               <span className="flex items-center gap-3">
                 <span className={l.delta >= 0 ? 'font-medium text-green-600' : 'font-medium text-red-600'}>
-                  {l.delta >= 0 ? '+' : ''}
-                  {l.delta} {tokenIcon}
+                  {tokenIcon} {l.delta >= 0 ? '+' : ''}
+                  {l.delta}
                 </span>
                 <span className="text-xs text-slate-400">{new Date(l.createdAt).toLocaleDateString()}</span>
               </span>
@@ -156,7 +156,7 @@ export default function ProfilePage({
             <li key={r.id} className="flex items-center justify-between border-b py-1">
               <span>{r.prize.name}</span>
               <span className="text-xs text-slate-400">
-                {r.prize.tokenCost} {tokenIcon} · {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                {tokenIcon} {r.prize.tokenCost} · {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
               </span>
             </li>
           ))}

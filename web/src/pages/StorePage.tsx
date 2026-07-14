@@ -135,7 +135,7 @@ export default function StorePage({
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-medium leading-tight">{p.name}</span>
                   <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-                    {p.tokenCost} {tokenIcon}
+                    {tokenIcon} {p.tokenCost}
                   </span>
                 </div>
                 <div className="mt-1 flex items-center gap-2 text-xs">
@@ -163,7 +163,7 @@ export default function StorePage({
             {pending.map((r) => (
               <li key={r.id} className="flex items-center justify-between rounded border p-2">
                 <span>
-                  {r.prize.name} · {r.prize.tokenCost} {tokenIcon}
+                  {r.prize.name} · {tokenIcon} {r.prize.tokenCost}
                 </span>
                 <span className="flex gap-2">
                   <button
@@ -273,7 +273,7 @@ function PrizeDetailModal({
         <PrizeImage src={prize.image} alt={prize.name} className="mt-3 h-56 w-full rounded" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
-            {prize.tokenCost} {tokenIcon} {tokenName}
+            {tokenIcon} {prize.tokenCost} {tokenName}
           </span>
           <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
             {TYPE_TAG[prize.type].icon} {TYPE_TAG[prize.type].label}
