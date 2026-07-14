@@ -65,6 +65,17 @@ export default function Display() {
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onChange);
+    return () => document.removeEventListener('fullscreenchange', onChange);
+  }, []);
+  function toggleFullscreen() {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen().catch(() => undefined);
+  }
+
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
@@ -131,9 +142,18 @@ export default function Display() {
             <span className="text-xl text-slate-400">· {config.name}</span>
           )}
         </div>
-        <span className="text-xl text-slate-400">
-          {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
-        </span>
+        <div className="flex items-center gap-3">
+          <span className="text-xl text-slate-400">
+            {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+          </span>
+          <button
+            onClick={toggleFullscreen}
+            title={isFullscreen ? 'Exit full screen' : 'Full screen'}
+            className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          >
+            {isFullscreen ? '⤡' : '⛶'}
+          </button>
+        </div>
       </header>
 
       <div className="mt-2 flex flex-wrap items-center gap-3">
