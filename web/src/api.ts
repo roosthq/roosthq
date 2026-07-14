@@ -87,7 +87,13 @@ export interface ChoreInstance {
   dueDate: string;
   status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED';
   completedAt?: string;
+  claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
+}
+
+export interface ChoreAssigneeRef {
+  userId: string;
+  user: { id: string; displayName: string; avatar?: string };
 }
 
 export interface Chore {
@@ -95,7 +101,9 @@ export interface Chore {
   title: string;
   tokenValue: number;
   recurrenceRule?: string;
-  assignee: { id: string; displayName: string };
+  dayOfWeek?: number | null;
+  assignmentType: 'SPECIFIC' | 'ANYONE';
+  assignees: ChoreAssigneeRef[];
   location?: { id: string; name: string } | null;
   checklist: ChecklistItem[];
   instances: ChoreInstance[];
@@ -293,6 +301,12 @@ export function choreClient(kioskToken?: string) {
     members: () => req<Member[]>('/auth/members', undefined, kioskToken),
     createChore: (body: Record<string, unknown>) =>
       req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+    updateChore: (id: string, body: Record<string, unknown>) =>
+      req<Chore>(`/chores/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
+    deleteChore: (id: string) => req(`/chores/${id}`, { method: 'DELETE' }, kioskToken),
+    reopenChore: (id: string) => req(`/chores/${id}/reopen`, { method: 'POST' }, kioskToken),
+    claimInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/claim`, { method: 'POST' }, kioskToken),
     checkItem: (instanceId: string, checklistId: string, checked: boolean) =>
       req(`/chores/instances/${instanceId}/check`, { method: 'POST', body: JSON.stringify({ checklistId, checked }) }, kioskToken),
     completeInstance: (instanceId: string) =>

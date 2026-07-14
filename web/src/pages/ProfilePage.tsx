@@ -4,8 +4,10 @@ import { api, type Me, type Member, type LedgerEntry, type Redemption } from '..
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded border p-3 text-center">
-      <div className="text-2xl font-bold">{value}</div>
+    <div className="panel text-center">
+      <div className="text-2xl font-bold" style={{ color: 'var(--accent)' }}>
+        {value}
+      </div>
       <div className="text-xs text-slate-500">{label}</div>
     </div>
   );

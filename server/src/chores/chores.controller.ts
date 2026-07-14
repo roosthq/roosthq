@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
@@ -20,12 +19,8 @@ export class ChoresController {
   constructor(private chores: ChoresService) {}
 
   @Get()
-  list(
-    @CurrentUser() u: SessionPayload,
-    @Query('assigneeUserId') assigneeUserId?: string,
-    @Query('locationId') locationId?: string,
-  ) {
-    return this.chores.list(u.familyId, { assigneeUserId, locationId });
+  list(@CurrentUser() u: SessionPayload) {
+    return this.chores.list(u.familyId);
   }
 
   @Get('balances')
@@ -53,18 +48,29 @@ export class ChoresController {
     return this.chores.remove(u.familyId, u.userId, id);
   }
 
+  // Re-enable a chore to be done again now.
+  @Post(':id/reopen')
+  reopen(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.chores.reopen(u.familyId, u.userId, id);
+  }
+
+  @Post('instances/:instanceId/claim')
+  claim(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.claim(u.familyId, u.userId, instanceId);
+  }
+
   @Post('instances/:instanceId/check')
   check(
     @CurrentUser() u: SessionPayload,
     @Param('instanceId') instanceId: string,
     @Body() body: { checklistId: string; checked: boolean },
   ) {
-    return this.chores.checkItem(u.familyId, instanceId, body.checklistId, body.checked);
+    return this.chores.checkItem(u.familyId, u.userId, instanceId, body.checklistId, body.checked);
   }
 
   @Post('instances/:instanceId/complete')
   complete(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
-    return this.chores.complete(u.familyId, instanceId);
+    return this.chores.complete(u.familyId, u.userId, instanceId);
   }
 
   @Post('instances/:instanceId/approve')

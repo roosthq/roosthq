@@ -137,7 +137,7 @@ model User {
   locations      UserLocation[]
   googleAccounts GoogleAccount[]
   calendarShares CalendarShare[]
-  assignedChores Chore[]         @relation("ChoreAssignee")
+  choreAssignments ChoreAssignee[]
   createdChores  Chore[]         @relation("ChoreCreatedBy")
   ledgerEntries  TokenLedger[]   @relation("LedgerUser")
   ledgerCreated  TokenLedger[]   @relation("LedgerCreatedBy")
@@ -227,21 +227,32 @@ model Chore {
   id             String  @id @default(cuid())
   familyId       String
   title          String
-  assigneeUserId String
+  assignmentType String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
+  dayOfWeek      Int? // 0=Sun..6=Sat; anchors weekly/biweekly occurrences
   locationId     String?
   tokenValue     Int     @default(0)
-  recurrenceRule String? // RRULE-style string; null = single
+  recurrenceRule String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
   createdById    String
 
   family    Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  assignee  User             @relation("ChoreAssignee", fields: [assigneeUserId], references: [id])
   location  Location?        @relation(fields: [locationId], references: [id])
   createdBy User             @relation("ChoreCreatedBy", fields: [createdById], references: [id])
+  assignees ChoreAssignee[]
   checklist ChoreChecklist[]
   instances ChoreInstance[]
 
   @@index([familyId])
-  @@index([assigneeUserId])
+}
+
+// Which people a SPECIFIC chore is assigned to (one or many).
+model ChoreAssignee {
+  choreId String
+  userId  String
+
+  chore Chore @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([choreId, userId])
 }
 
 model ChoreChecklist {
@@ -258,12 +269,13 @@ model ChoreChecklist {
 }
 
 model ChoreInstance {
-  id          String              @id @default(cuid())
-  choreId     String
-  dueDate     DateTime
-  status      ChoreInstanceStatus @default(OPEN)
-  completedAt DateTime?
-  approvedBy  String?
+  id               String              @id @default(cuid())
+  choreId          String
+  dueDate          DateTime
+  status           ChoreInstanceStatus @default(OPEN)
+  completedAt      DateTime?
+  approvedBy       String?
+  claimedByUserId  String? // who is doing/did this occurrence (for ANYONE, set on claim)
 
   chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks ChoreItemCheck[]

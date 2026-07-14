@@ -42,8 +42,8 @@ export default function SettingsPage({ me }: { me: Me }) {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded border p-4">
-      <h3 className="font-medium">{title}</h3>
+    <section className="panel">
+      <h3 className="text-base font-semibold tracking-tight">{title}</h3>
       <div className="mt-3">{children}</div>
     </section>
   );

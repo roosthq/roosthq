@@ -70,10 +70,9 @@ export class UsersService {
     if (target.role === 'OWNER') throw new ForbiddenException('Cannot remove the owner');
 
     await this.prisma.$transaction([
-      // Chores assigned to or created by this member (cascades to instances/checklist).
-      this.prisma.chore.deleteMany({
-        where: { OR: [{ assigneeUserId: targetId }, { createdById: targetId }] },
-      }),
+      // Chores created by this member (cascades to instances/checklist). Their
+      // assignments on other chores cascade automatically when the user is deleted.
+      this.prisma.chore.deleteMany({ where: { createdById: targetId } }),
       // Ledger entries authored by or crediting this member.
       this.prisma.tokenLedger.deleteMany({
         where: { OR: [{ userId: targetId }, { createdById: targetId }] },
