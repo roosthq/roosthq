@@ -27,11 +27,6 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
 
-  // Kids can only view their own profile.
-  useEffect(() => {
-    if (!isAdult && !viewingSelf) navigate('/profile', { replace: true });
-  }, [isAdult, viewingSelf, navigate]);
-
   const refresh = useCallback(async () => {
     const [b, l, r] = await Promise.all([
       api.tokenBalance(targetId),
@@ -41,8 +36,9 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
     setBalance(b.balance);
     setLedger(l);
     setHistory(r);
-    if (isAdult) api.listUsers().then(setMembers).catch(() => setMembers([]));
-  }, [targetId, isAdult]);
+    // Everyone (kids included) can browse all family profiles, same as adults.
+    api.listUsers().then(setMembers).catch(() => setMembers([]));
+  }, [targetId]);
 
   useEffect(() => {
     refresh();
@@ -64,7 +60,7 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
 
   return (
     <div>
-      {isAdult && members.length > 0 && (
+      {members.length > 0 && (
         <div className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Profiles</h2>
           <ul className="mt-2 flex flex-wrap gap-2">

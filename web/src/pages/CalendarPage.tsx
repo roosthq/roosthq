@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   api,
@@ -8,8 +8,11 @@ import {
   type GoogleCalendar,
   type SharedCalendar,
   type CalEvent,
+  type FamilyLocation,
+  type DisplayConfig,
 } from '../api';
 import Calendar from '../Calendar';
+import { myLocationIds, displaysForLocations } from '../displayScope';
 
 function Avatar({ name, src }: { name?: string; src?: string }) {
   if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
@@ -60,6 +63,7 @@ function Dashboard({ me }: { me: Me }) {
 }
 
 export default function CalendarPage({ me }: { me: Me }) {
+  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
   const [events, setEvents] = useState<CalEvent[]>([]);
@@ -67,11 +71,38 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
 
+  // Kids don't get a calendar picker — their view is auto-scoped to whatever
+  // location(s) they're assigned to and that location's display calendars.
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [myDisplays, setMyDisplays] = useState<DisplayConfig[]>([]);
+  useEffect(() => {
+    if (isAdult) return;
+    Promise.all([api.locations(), api.listDisplays()])
+      .then(([locs, disps]) => {
+        setLocations(locs);
+        setMyDisplays(disps);
+      })
+      .catch(() => undefined);
+  }, [isAdult]);
+
+  // Union of calendarIds across the kid's location-scoped display(s); null means
+  // "no restriction configured yet" (no location or no display for it) — falls
+  // back to showing every shared calendar rather than an unexplained blank page.
+  const kidAllowedIds = useMemo(() => {
+    if (isAdult) return null;
+    const candidates = displaysForLocations(myDisplays, myLocationIds(locations, me.id));
+    if (!candidates.length) return null;
+    const ids = new Set<string>();
+    candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
+    return ids;
+  }, [isAdult, locations, myDisplays, me.id]);
+
   const refreshShared = useCallback(async () => {
     const cals = await api.sharedCalendars();
     setShared(cals);
-    setVisible(new Set(cals.map((c) => c.id)));
-  }, []);
+    const ids = cals.map((c) => c.id);
+    setVisible(new Set(kidAllowedIds ? ids.filter((id) => kidAllowedIds.has(id)) : ids));
+  }, [kidAllowedIds]);
 
   useEffect(() => {
     refreshShared();
@@ -115,40 +146,50 @@ export default function CalendarPage({ me }: { me: Me }) {
     <div>
       <Dashboard me={me} />
       <section>
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">
-            Calendars <span className="text-slate-400">({shared.length})</span>
-          </h2>
-          <div className="flex gap-2">
-            <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              + Connect another of my Google accounts
-            </a>
-            <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              + Add calendars
-            </button>
-          </div>
-        </div>
+        {isAdult ? (
+          <>
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold">
+                Calendars <span className="text-slate-400">({shared.length})</span>
+              </h2>
+              <div className="flex gap-2">
+                <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                  + Connect another of my Google accounts
+                </a>
+                <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                  + Add calendars
+                </button>
+              </div>
+            </div>
 
-        <ul className="mt-3 flex flex-wrap gap-3">
-          {shared.map((c) => (
-            <li key={c.id} className="flex items-center gap-2 rounded border px-2 py-1 text-sm">
-              <input
-                type="checkbox"
-                checked={visible.has(c.id)}
-                onChange={(e) => {
-                  const next = new Set(visible);
-                  if (e.target.checked) next.add(c.id);
-                  else next.delete(c.id);
-                  setVisible(next);
-                }}
-              />
-              <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-              <span>{c.name}</span>
-              <span className="text-xs text-slate-400">({c.shareCount})</span>
-            </li>
-          ))}
-          {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet — add some above.</li>}
-        </ul>
+            <ul className="mt-3 flex flex-wrap gap-3">
+              {shared.map((c) => (
+                <li key={c.id} className="flex items-center gap-2 rounded border px-2 py-1 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={visible.has(c.id)}
+                    onChange={(e) => {
+                      const next = new Set(visible);
+                      if (e.target.checked) next.add(c.id);
+                      else next.delete(c.id);
+                      setVisible(next);
+                    }}
+                  />
+                  <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+                  <span>{c.name}</span>
+                  <span className="text-xs text-slate-400">({c.shareCount})</span>
+                </li>
+              ))}
+              {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet — add some above.</li>}
+            </ul>
+          </>
+        ) : (
+          // Kids get no picker — just a read-only summary of what's showing,
+          // auto-scoped to their location's display (see kidAllowedIds above).
+          <h2 className="text-lg font-semibold">
+            Calendars <span className="text-slate-400">({visible.size})</span>
+          </h2>
+        )}
       </section>
 
       <Calendar events={events} onRangeChange={onRangeChange} />
@@ -187,8 +228,6 @@ export default function CalendarPage({ me }: { me: Me }) {
           </div>
         </div>
       )}
-      {/* me is available for future per-user calendar filtering */}
-      <span className="hidden">{me.id}</span>
     </div>
   );
 }
