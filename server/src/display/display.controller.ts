@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Sse, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Sse, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -26,8 +26,12 @@ export class DisplayController {
 
   @UseGuards(DisplayOrUserGuard)
   @Get('events')
-  displayEvents(@FamilyCtx() ctx: FamilyContext) {
-    return this.display.displayEvents(ctx.familyId);
+  displayEvents(
+    @FamilyCtx() ctx: FamilyContext,
+    @Query('start') start?: string,
+    @Query('end') end?: string,
+  ) {
+    return this.display.displayEvents(ctx.familyId, start, end);
   }
 
   // Live settings updates for the family (SSE). Token goes in ?token= for the kiosk.

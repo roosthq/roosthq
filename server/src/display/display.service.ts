@@ -30,14 +30,15 @@ export class DisplayService {
     private calendars: CalendarsService,
   ) {}
 
-  // Events for the family's default display calendars this week. The kiosk doesn't
-  // need to know which calendars — the server resolves them from settings.
-  async displayEvents(familyId: string) {
+  // Events for the family's default display calendars. The kiosk doesn't need to know
+  // which calendars — the server resolves them from settings. Accepts an optional
+  // date range (for the month grid); defaults to this week.
+  async displayEvents(familyId: string, start?: string, end?: string) {
     const settings = await this.get(familyId);
     const ids = (settings.defaultCalendarIds as string[]) ?? [];
     if (!ids.length) return [];
-    const { start, end } = weekRange();
-    return this.calendars.events(familyId, ids, start, end);
+    const range = start && end ? { start, end } : weekRange();
+    return this.calendars.events(familyId, ids, range.start, range.end);
   }
 
   async get(familyId: string) {
