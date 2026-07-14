@@ -17,6 +17,7 @@ export default function SettingsPage({ me }: { me: Me }) {
       <h2 className="text-lg font-semibold">Settings</h2>
 
       {isOwner && <TokenNameSetting />}
+      {isOwner && <ChoreWordSetting />}
 
       {isOwner && (
         <Section title="Family members & invites">
@@ -99,6 +100,34 @@ function TokenNameSetting() {
       </div>
       <p className="mt-1 text-xs text-slate-400">
         The $ value is used to suggest a token cost for prizes based on their real price (rounded down).
+      </p>
+    </Section>
+  );
+}
+
+function ChoreWordSetting() {
+  const [word, setWord] = useState('Chore');
+  const [saved, setSaved] = useState(false);
+  useEffect(() => {
+    api.familySettings().then((f) => setWord(f.choreWord)).catch(() => undefined);
+  }, []);
+  async function save() {
+    await api.updateFamilySettings({ choreWord: word });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  }
+  return (
+    <Section title="Chore language">
+      <div className="flex flex-wrap items-center gap-2 text-sm">
+        <span className="text-slate-500">Call chores:</span>
+        <input value={word} onChange={(e) => setWord(e.target.value)} className="rounded border px-2 py-1" placeholder="Chore" />
+        <button onClick={save} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
+          Save
+        </button>
+        {saved && <span className="text-green-600">Saved</span>}
+      </div>
+      <p className="mt-1 text-xs text-slate-400">
+        Used everywhere "chore" shows up — try something like "Quest" or "Task" to put the focus on earning instead.
       </p>
     </Section>
   );

@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { choreClient, type Chore, type Member, type Balance, type ChoreClient } from './api';
+import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient } from './api';
+
+// How many days ahead the 'today' sidebar looks for "coming up" items and
+// anything open to claim early (claiming ahead is allowed server-side;
+// completing isn't, until it's actually due).
+const UPCOMING_DAYS = 3;
 
 const REPEAT_OPTIONS: Array<{ value: string; label: string; help: string }> = [
   { value: '', label: 'One time', help: 'Happens once and is done.' },
@@ -33,8 +38,10 @@ export default function ChoresPanel({
   const [balances, setBalances] = useState<Balance[]>([]);
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
+  const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Chore | null>(null);
+  const chorePlural = pluralize(choreWord);
 
   const refresh = useCallback(async () => {
     const [c, b, m] = await Promise.all([client.chores(), client.balances(), client.members().catch(() => [])]);
@@ -51,6 +58,7 @@ export default function ChoresPanel({
     client.familySettings().then((s) => {
       setTokenName(s.tokenName);
       setTokenIcon(s.tokenIcon);
+      setChoreWord(s.choreWord);
     }).catch(() => undefined);
   }, [client]);
 
@@ -58,12 +66,16 @@ export default function ChoresPanel({
 
   // Pick the actionable occurrence per chore: a pending one, else the earliest
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
-  // one). In 'today' mode, drop chores that aren't actionable right now — mine
-  // and due, mine awaiting my own approval, or (for adults) anyone's pending.
+  // one). In 'today' mode, keep: mine and due-or-coming-up-soon, anything open
+  // to claim soon (claiming ahead is allowed server-side even though
+  // completing isn't), or pending approval (mine, or — for adults — anyone's).
   const rows = chores
     .map((chore) => {
       const endOfToday = new Date();
       endOfToday.setHours(23, 59, 59, 999);
+      const endOfWindow = new Date(endOfToday);
+      endOfWindow.setDate(endOfWindow.getDate() + UPCOMING_DAYS);
+
       const insts = chore.instances;
       const pending = insts.find((i) => i.status === 'PENDING');
       const dueOpen = insts
@@ -77,8 +89,12 @@ export default function ChoresPanel({
       const checked = new Set(active?.checks.map((c) => c.checklistId) ?? []);
       const mine = canAct(chore, claimedBy);
       const dueNow = active ? new Date(active.dueDate) <= endOfToday : false;
-      const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueNow;
-      const relevantToday = (mine && active?.status === 'OPEN' && dueNow) || (active?.status === 'PENDING' && (mine || isAdult));
+      const dueSoon = active ? new Date(active.dueDate) <= endOfWindow : false; // includes dueNow
+      const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueSoon;
+      const relevantToday =
+        (mine && active?.status === 'OPEN' && dueSoon) ||
+        openToClaim ||
+        (active?.status === 'PENDING' && (mine || isAdult));
       return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday };
     })
     .filter((r) => !today || r.relevantToday);
@@ -110,7 +126,7 @@ export default function ChoresPanel({
     <section>
       <div className="flex items-center justify-between">
         <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
-          {today ? 'Today' : 'Chores'}
+          {today ? 'Today' : chorePlural}
         </h2>
         {isAdult && !today && (
           <button
@@ -120,7 +136,7 @@ export default function ChoresPanel({
             }}
             className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
           >
-            + New chore
+            + New {choreWord}
           </button>
         )}
       </div>
@@ -175,7 +191,7 @@ export default function ChoresPanel({
                     Next: {new Date(active.dueDate).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
                   </span>
                 )}
-                {active?.status === 'OPEN' && dueNow && openToClaim && (
+                {active?.status === 'OPEN' && openToClaim && (
                   <button
                     onClick={() => act(() => client.claimInstance(active.id))}
                     className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
@@ -235,7 +251,7 @@ export default function ChoresPanel({
                       Edit
                     </button>
                     <button
-                      onClick={() => window.confirm('Delete this chore?') && act(() => client.deleteChore(chore.id))}
+                      onClick={() => window.confirm(`Delete this ${choreWord.toLowerCase()}?`) && act(() => client.deleteChore(chore.id))}
                       className="text-red-500 hover:text-red-700"
                     >
                       Delete
@@ -246,7 +262,9 @@ export default function ChoresPanel({
             </li>
           );
         })}
-        {rows.length === 0 && <li className="text-sm text-slate-400">{today ? 'Nothing due today 🎉' : 'No chores yet.'}</li>}
+        {rows.length === 0 && (
+          <li className="text-sm text-slate-400">{today ? 'Nothing to earn today' : `No ${chorePlural.toLowerCase()} yet.`}</li>
+        )}
       </ul>
 
       {isAdult && !today && balances.length > 0 && (
@@ -260,6 +278,7 @@ export default function ChoresPanel({
           client={client}
           members={members}
           chore={editing}
+          choreWord={choreWord}
           onClose={() => setFormOpen(false)}
           onSaved={async () => {
             setFormOpen(false);
@@ -285,12 +304,14 @@ function ChoreForm({
   client,
   members,
   chore,
+  choreWord,
   onClose,
   onSaved,
 }: {
   client: ChoreClient;
   members: Member[];
   chore: Chore | null;
+  choreWord: string;
   onClose: () => void;
   onSaved: () => void;
 }) {
@@ -332,9 +353,9 @@ function ChoreForm({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
       <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-xl bg-white p-5">
-        <h3 className="text-lg font-bold">{chore ? 'Edit chore' : 'New chore'}</h3>
+        <h3 className="text-lg font-bold">{chore ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>
         <div className="mt-4 space-y-4">
-          <Field label="Chore name">
+          <Field label={`${choreWord} name`}>
             <input className="w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. Take out the trash" value={title} onChange={(e) => setTitle(e.target.value)} />
           </Field>
 
@@ -422,7 +443,7 @@ function ChoreForm({
             Cancel
           </button>
           <button onClick={submit} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-            {chore ? 'Save changes' : 'Create chore'}
+            {chore ? 'Save changes' : `Create ${choreWord}`}
           </button>
         </div>
       </div>

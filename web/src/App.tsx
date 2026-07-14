@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { api, loginUrl, type Me, type FamilySettings, type FontSize } from './api';
+import { api, loginUrl, pluralize, type Me, type FamilySettings, type FontSize } from './api';
 import Nav from './Nav';
 import Logo from './Logo';
 import CalendarPage from './pages/CalendarPage';
@@ -96,6 +96,8 @@ export default function App() {
   const tokenName = family?.tokenName ?? 'Tokens';
   const tokenIcon = family?.tokenIcon ?? '🪙';
   const tokenValueUsd = family?.tokenValueUsd ?? 1;
+  const choreWord = family?.choreWord ?? 'Chore';
+  const chorePlural = pluralize(choreWord);
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
 
   return (
@@ -109,8 +111,14 @@ export default function App() {
             path="/store"
             element={<StorePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} tokenValueUsd={tokenValueUsd} />}
           />
-          <Route path="/profile" element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} />} />
-          <Route path="/profile/:id" element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} />} />
+          <Route
+            path="/profile"
+            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+          />
+          <Route
+            path="/profile/:id"
+            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+          />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

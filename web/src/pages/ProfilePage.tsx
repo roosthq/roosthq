@@ -13,7 +13,17 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-export default function ProfilePage({ me, tokenName, tokenIcon }: { me: Me; tokenName: string; tokenIcon: string }) {
+export default function ProfilePage({
+  me,
+  tokenName,
+  tokenIcon,
+  chorePlural,
+}: {
+  me: Me;
+  tokenName: string;
+  tokenIcon: string;
+  chorePlural: string;
+}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const targetId = id ?? me.id;
@@ -86,7 +96,7 @@ export default function ProfilePage({ me, tokenName, tokenIcon }: { me: Me; toke
         <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
         <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
         <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
-        <Stat label="Chores approved" value={choresDone} />
+        <Stat label={`${chorePlural} approved`} value={choresDone} />
       </div>
 
       {isAdult && (

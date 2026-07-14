@@ -58,6 +58,7 @@ model Family {
   tokenName String   @default("Tokens") // what the family calls their reward currency
   tokenIcon String   @default("🪙") // emoji shown alongside the reward currency
   tokenValueUsd Float @default(1) // $ value of one token, for auto-suggesting prize costs
+  choreWord String @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
   createdAt DateTime @default(now())
 
   users           User[]

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { api, type Me, type FontSize, type DisplayConfig } from './api';
+import { api, pluralize, type Me, type FontSize, type DisplayConfig } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 
@@ -28,6 +28,11 @@ export default function Nav({
       .catch(() => setMyDisplays([]));
   }, [me.id]);
 
+  const [chorePlural, setChorePlural] = useState('Chores');
+  useEffect(() => {
+    api.familySettings().then((f) => setChorePlural(pluralize(f.choreWord))).catch(() => undefined);
+  }, []);
+
   return (
     <nav className="flex flex-wrap items-center justify-between gap-2 border-b px-6 py-3">
       <div className="flex flex-wrap items-center gap-1">
@@ -35,7 +40,7 @@ export default function Nav({
           <Logo size={26} />
         </span>
         <NavLink to="/" end className={cls}>Calendar</NavLink>
-        <NavLink to="/chores" className={cls}>Chores</NavLink>
+        <NavLink to="/chores" className={cls}>{chorePlural}</NavLink>
         <NavLink to="/store" className={cls}>Store</NavLink>
         <NavLink to="/profile" className={cls}>Profiles</NavLink>
         {isAdult && <NavLink to="/settings" className={cls}>Settings</NavLink>}

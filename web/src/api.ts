@@ -152,6 +152,14 @@ export interface FamilySettings {
   tokenName: string;
   tokenIcon: string;
   tokenValueUsd: number;
+  choreWord: string;
+}
+
+// Naive English pluralization — good enough for a family-chosen word like
+// "Chore" -> "Chores" or "Quest" -> "Quests"; families with an irregular word
+// can just type the plural form they want with a trailing "s" already there.
+export function pluralize(word: string): string {
+  return word.endsWith('s') ? word : `${word}s`;
 }
 
 export interface FamilyLocation {
@@ -280,7 +288,7 @@ export const api = {
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
 
   familySettings: () => req<FamilySettings>('/family/settings'),
-  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number }) =>
+  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string }) =>
     req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
