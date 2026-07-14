@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Sse, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, ForbiddenException, Get, Param, Post, Put, Query, Sse, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -46,17 +46,29 @@ export class DisplayController {
     return this.displays.events(ctx.familyId, resolved, start, end);
   }
 
-  // Profiles for the kiosk picker.
+  // Profiles for the kiosk picker — scoped to the display's location, if it has one.
   @UseGuards(DisplayOrUserGuard)
   @Get('members')
-  members(@FamilyCtx() ctx: FamilyContext) {
-    return this.display.members(ctx.familyId);
+  async members(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    return this.displays.membersFor(ctx.familyId, resolved.locationId);
   }
 
   // Unlock a profile on the kiosk (PIN check), returns a short-lived kiosk token.
+  // Rejects a profile that isn't in scope for this display's location, even if the
+  // caller knows their userId — the picker isn't the only thing enforcing scope.
   @UseGuards(DisplayOrUserGuard)
   @Post('unlock')
-  unlock(@FamilyCtx() ctx: FamilyContext, @Body() body: { userId: string; pin?: string }) {
+  async unlock(
+    @FamilyCtx() ctx: FamilyContext,
+    @Body() body: { userId: string; pin?: string },
+    @Query('config') config?: string,
+  ) {
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    if (resolved.locationId) {
+      const allowed = await this.displays.membersFor(ctx.familyId, resolved.locationId);
+      if (!allowed.some((m) => m.id === body.userId)) throw new ForbiddenException('Not available on this display');
+    }
     return this.display.unlock(ctx.familyId, body.userId, body.pin);
   }
 

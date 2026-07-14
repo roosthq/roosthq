@@ -158,6 +158,7 @@ export interface FamilyLocation {
 export interface DisplayConfig {
   id: string;
   name: string;
+  locationId: string | null;
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
@@ -167,6 +168,7 @@ export interface DisplayConfig {
 export interface ResolvedDisplayConfig {
   id: string | null;
   name: string;
+  locationId: string | null;
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
@@ -228,11 +230,15 @@ export const api = {
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
 
   listDisplays: () => req<DisplayConfig[]>('/displays'),
-  createDisplay: (body: { name: string; calendarIds?: string[]; enabledFeatures?: string[]; theme?: string }) =>
+  createDisplay: (body: { name: string; locationId?: string | null; calendarIds?: string[]; enabledFeatures?: string[]; theme?: string }) =>
     req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
-  updateDisplay: (id: string, body: Partial<{ name: string; calendarIds: string[]; enabledFeatures: string[]; theme: string }>) =>
+  updateDisplay: (id: string, body: Partial<{ name: string; locationId: string | null; calendarIds: string[]; enabledFeatures: string[]; theme: string }>) =>
     req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
+  // Calendars selectable for a display: all shared calendars, or (scoped) only
+  // those shared by someone assigned to that location.
+  displaysCalendars: (locationId?: string | null) =>
+    req<SharedCalendar[]>(`/displays/calendars${locationId ? `?locationId=${locationId}` : ''}`),
 
   listUsers: () => req<Member[]>('/users'),
   setUserPin: (id: string, pin: string | null) =>

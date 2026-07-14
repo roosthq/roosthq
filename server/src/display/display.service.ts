@@ -48,20 +48,6 @@ export class DisplayService {
     return this.calendars.events(familyId, ids, range.start, range.end);
   }
 
-  // Profiles for the kiosk picker (who can be selected on the touch screen).
-  async members(familyId: string) {
-    const users = await this.prisma.user.findMany({
-      where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true },
-    });
-    return users.map((u) => ({
-      id: u.id,
-      displayName: u.displayName,
-      role: u.role,
-      avatar: u.avatar,
-      hasPin: !!u.pinHash,
-    }));
-  }
 
   // Unlock a profile on the kiosk. Adults must have and provide a PIN; kids need a
   // PIN only if one is set. Returns a short-lived kiosk token to act as that user.

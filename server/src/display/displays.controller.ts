@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
@@ -12,6 +12,14 @@ export class DisplaysController {
   @Get()
   list(@CurrentUser() u: SessionPayload) {
     return this.displays.list(u.familyId);
+  }
+
+  // Calendars selectable for a display: all shared calendars, or (with
+  // ?locationId=) only those shared by someone assigned to that location —
+  // for the Settings UI to offer valid choices as the location changes.
+  @Get('calendars')
+  calendarsForLocation(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.displays.calendarsForLocation(u.familyId, locationId || null);
   }
 
   @Post()

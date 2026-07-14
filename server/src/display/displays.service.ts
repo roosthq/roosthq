@@ -5,6 +5,7 @@ import { DisplayEventsService } from './display-events.service';
 
 export interface DisplayConfigInput {
   name?: string;
+  locationId?: string | null;
   calendarIds?: string[];
   enabledFeatures?: string[];
   theme?: string;
@@ -13,6 +14,7 @@ export interface DisplayConfigInput {
 export interface ResolvedConfig {
   id: string | null;
   name: string;
+  locationId: string | null;
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
@@ -53,11 +55,14 @@ export class DisplaysService {
 
   async create(familyId: string, actorId: string, dto: DisplayConfigInput) {
     await this.assertAdult(actorId);
+    const locationId = dto.locationId ?? null;
+    const calendarIds = await this.constrainToLocation(familyId, locationId, dto.calendarIds ?? []);
     return this.prisma.displayConfig.create({
       data: {
         familyId,
         name: dto.name?.trim() || 'Display',
-        calendarIds: dto.calendarIds ?? [],
+        locationId,
+        calendarIds,
         enabledFeatures: dto.enabledFeatures ?? ['calendar', 'chores'],
         theme: dto.theme ?? 'light',
         createdById: actorId,
@@ -67,18 +72,61 @@ export class DisplaysService {
 
   async update(familyId: string, actorId: string, id: string, dto: DisplayConfigInput) {
     await this.assertAdult(actorId);
-    await this.owned(familyId, id);
+    const existing = await this.owned(familyId, id);
+    // If the location is changing (or calendars are), re-check calendarIds against
+    // whoever is in scope now — a calendar shared only by someone outside the new
+    // location shouldn't silently stay selected.
+    const locationId = dto.locationId !== undefined ? dto.locationId : existing.locationId;
+    const calendarIds =
+      dto.calendarIds !== undefined || dto.locationId !== undefined
+        ? await this.constrainToLocation(familyId, locationId, dto.calendarIds ?? (existing.calendarIds as string[]) ?? [])
+        : undefined;
     const updated = await this.prisma.displayConfig.update({
       where: { id },
       data: {
         ...(dto.name !== undefined && { name: dto.name }),
-        ...(dto.calendarIds !== undefined && { calendarIds: dto.calendarIds }),
+        ...(dto.locationId !== undefined && { locationId: dto.locationId }),
+        ...(calendarIds !== undefined && { calendarIds }),
         ...(dto.enabledFeatures !== undefined && { enabledFeatures: dto.enabledFeatures }),
         ...(dto.theme !== undefined && { theme: dto.theme }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display-updated', id });
     return updated;
+  }
+
+  // People assigned to a location (adults: one; kids: possibly several) — or the
+  // whole family when the display isn't scoped to a location.
+  async membersFor(familyId: string, locationId?: string | null) {
+    const users = await this.prisma.user.findMany({
+      where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true },
+    });
+    return users.map((u) => ({
+      id: u.id,
+      displayName: u.displayName,
+      role: u.role,
+      avatar: u.avatar,
+      hasPin: !!u.pinHash,
+    }));
+  }
+
+  // Calendars shared by anyone in a location — or every shared family calendar
+  // when there's no location scope.
+  async calendarsForLocation(familyId: string, locationId?: string | null) {
+    return this.prisma.calendar.findMany({
+      where: {
+        familyId,
+        ...(locationId ? { shares: { some: { user: { locations: { some: { locationId } } } } } } : {}),
+      },
+      select: { id: true, name: true, color: true },
+    });
+  }
+
+  private async constrainToLocation(familyId: string, locationId: string | null, calendarIds: string[]): Promise<string[]> {
+    if (!locationId || !calendarIds.length) return calendarIds;
+    const allowed = new Set((await this.calendarsForLocation(familyId, locationId)).map((c) => c.id));
+    return calendarIds.filter((id) => allowed.has(id));
   }
 
   async remove(familyId: string, actorId: string, id: string) {
@@ -93,38 +141,41 @@ export class DisplaysService {
   async resolveConfig(familyId: string, configId?: string | null): Promise<ResolvedConfig> {
     if (configId) {
       const c = await this.prisma.displayConfig.findFirst({ where: { id: configId, familyId } });
-      if (c) return this.normalize(c);
+      if (c) return this.normalize(familyId, c);
     }
     const first = await this.prisma.displayConfig.findFirst({
       where: { familyId },
       orderBy: { createdAt: 'asc' },
     });
-    if (first) return this.normalize(first);
+    if (first) return this.normalize(familyId, first);
 
     const legacy = await this.prisma.displaySettings.findUnique({ where: { familyId } });
     if (legacy) {
       return {
         id: null,
         name: 'Display',
+        locationId: null,
         calendarIds: (legacy.defaultCalendarIds as string[]) ?? [],
         enabledFeatures: (legacy.enabledFeatures as string[]) ?? ['calendar'],
         theme: legacy.theme,
       };
     }
-    return { id: null, name: 'Display', calendarIds: [], enabledFeatures: ['calendar'], theme: 'light' };
+    return { id: null, name: 'Display', locationId: null, calendarIds: [], enabledFeatures: ['calendar'], theme: 'light' };
   }
 
-  private normalize(c: {
-    id: string;
-    name: string;
-    calendarIds: unknown;
-    enabledFeatures: unknown;
-    theme: string;
-  }): ResolvedConfig {
+  // Re-filters calendarIds against the location's current members every time a
+  // kiosk resolves its config, so a location/share change elsewhere takes effect
+  // immediately instead of waiting for someone to re-save the display.
+  private async normalize(
+    familyId: string,
+    c: { id: string; name: string; locationId: string | null; calendarIds: unknown; enabledFeatures: unknown; theme: string },
+  ): Promise<ResolvedConfig> {
+    const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
     return {
       id: c.id,
       name: c.name,
-      calendarIds: (c.calendarIds as string[]) ?? [],
+      locationId: c.locationId,
+      calendarIds,
       enabledFeatures: (c.enabledFeatures as string[]) ?? ['calendar'],
       theme: c.theme,
     };

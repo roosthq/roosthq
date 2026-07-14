@@ -76,16 +76,20 @@ model DisplayConfig {
   id              String   @id @default(cuid())
   familyId        String
   name            String
+  locationId      String? // scopes this kiosk to one location: only people (and
+                          // calendars they share) assigned to it show up here
   calendarIds     Json
   enabledFeatures Json
   theme           String   @default("light")
   createdById     String
   createdAt       DateTime @default(now())
 
-  family Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  tokens DisplayToken[]
+  family   Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  location Location?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  tokens   DisplayToken[]
 
   @@index([familyId])
+  @@index([locationId])
 }
 
 // One-time invite used to join an existing family with a chosen role. Stored hashed;
@@ -152,9 +156,10 @@ model Location {
   familyId String
   name     String
 
-  family Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  users  UserLocation[]
-  chores Chore[]
+  family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  users          UserLocation[]
+  chores         Chore[]
+  displayConfigs DisplayConfig[]
 
   @@index([familyId])
 }

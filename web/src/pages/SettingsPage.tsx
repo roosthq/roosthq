@@ -148,13 +148,13 @@ function LocationsSetting() {
 
 function DisplaysManager() {
   const [displays, setDisplays] = useState<DisplayConfig[]>([]);
-  const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [newName, setNewName] = useState('');
 
   const refresh = useCallback(async () => {
-    const [d, c] = await Promise.all([api.listDisplays(), api.sharedCalendars()]);
+    const [d, l] = await Promise.all([api.listDisplays(), api.locations()]);
     setDisplays(d);
-    setCalendars(c);
+    setLocations(l);
   }, []);
   useEffect(() => {
     refresh();
@@ -181,6 +181,7 @@ function DisplaysManager() {
     <div className="text-sm">
       <p className="text-slate-500">
         Create a display layout per kiosk (e.g. one per house). Each shows its own calendars, features, and theme.
+        Give a display a location to limit it to the people (and calendars they share) assigned to that location.
       </p>
       <div className="mt-2 flex items-center gap-2">
         <input
@@ -195,72 +196,116 @@ function DisplaysManager() {
       </div>
 
       <ul className="mt-3 space-y-3">
-        {displays.map((d) => {
-          const cals = new Set(d.calendarIds);
-          const feats = new Set(d.enabledFeatures);
-          return (
-            <li key={d.id} className="rounded border p-3">
-              <div className="flex items-center justify-between">
-                <input
-                  defaultValue={d.name}
-                  onBlur={(e) => e.target.value !== d.name && patch(d.id, { name: e.target.value })}
-                  className="rounded border px-2 py-1 font-medium"
-                />
-                <button onClick={() => del(d.id)} className="text-xs text-red-500 hover:text-red-700">
-                  Delete
-                </button>
-              </div>
-
-              <p className="mt-2 text-slate-500">Calendars:</p>
-              <div className="mt-1 flex flex-wrap gap-2">
-                {calendars.map((c) => (
-                  <label key={c.id} className="flex items-center gap-1 text-xs">
-                    <input
-                      type="checkbox"
-                      checked={cals.has(c.id)}
-                      onChange={(e) => {
-                        const n = new Set(cals);
-                        if (e.target.checked) n.add(c.id);
-                        else n.delete(c.id);
-                        patch(d.id, { calendarIds: [...n] });
-                      }}
-                    />
-                    <span className="h-2.5 w-2.5 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-                    {c.name}
-                  </label>
-                ))}
-                {calendars.length === 0 && <span className="text-xs text-slate-400">Add calendars first.</span>}
-              </div>
-
-              <div className="mt-2 flex flex-wrap items-center gap-3">
-                {['calendar', 'chores'].map((f) => (
-                  <label key={f} className="flex items-center gap-1 text-xs capitalize">
-                    <input
-                      type="checkbox"
-                      checked={feats.has(f)}
-                      onChange={(e) => {
-                        const n = new Set(feats);
-                        if (e.target.checked) n.add(f);
-                        else n.delete(f);
-                        patch(d.id, { enabledFeatures: [...n] });
-                      }}
-                    />
-                    {f}
-                  </label>
-                ))}
-                <label className="flex items-center gap-1 text-xs">
-                  Theme:
-                  <select value={d.theme} onChange={(e) => patch(d.id, { theme: e.target.value })} className="rounded border px-1 py-0.5">
-                    <option value="light">Light</option>
-                    <option value="dark">Dark</option>
-                  </select>
-                </label>
-              </div>
-            </li>
-          );
-        })}
+        {displays.map((d) => (
+          <DisplayRow key={d.id} display={d} locations={locations} onPatch={(body) => patch(d.id, body)} onDelete={() => del(d.id)} />
+        ))}
         {displays.length === 0 && <li className="text-slate-400">No displays yet — add one above.</li>}
       </ul>
     </div>
+  );
+}
+
+function DisplayRow({
+  display: d,
+  locations,
+  onPatch,
+  onDelete,
+}: {
+  display: DisplayConfig;
+  locations: FamilyLocation[];
+  onPatch: (body: Partial<DisplayConfig>) => Promise<void>;
+  onDelete: () => void;
+}) {
+  const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+
+  useEffect(() => {
+    api.displaysCalendars(d.locationId).then(setCalendars).catch(() => setCalendars([]));
+  }, [d.locationId]);
+
+  const cals = new Set(d.calendarIds);
+  const feats = new Set(d.enabledFeatures);
+  const locationName = locations.find((l) => l.id === d.locationId)?.name;
+
+  return (
+    <li className="rounded border p-3">
+      <div className="flex items-center justify-between">
+        <input
+          defaultValue={d.name}
+          onBlur={(e) => e.target.value !== d.name && onPatch({ name: e.target.value })}
+          className="rounded border px-2 py-1 font-medium"
+        />
+        <button onClick={onDelete} className="text-xs text-red-500 hover:text-red-700">
+          Delete
+        </button>
+      </div>
+
+      <label className="mt-2 flex items-center gap-2 text-xs">
+        <span className="text-slate-500">Location:</span>
+        <select
+          value={d.locationId ?? ''}
+          onChange={(e) => onPatch({ locationId: e.target.value || null })}
+          className="rounded border px-1 py-0.5"
+        >
+          <option value="">All family members</option>
+          {locations.map((l) => (
+            <option key={l.id} value={l.id}>
+              {l.name}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <p className="mt-2 text-slate-500">
+        Calendars{locationName ? ` shared by ${locationName}` : ''}:
+      </p>
+      <div className="mt-1 flex flex-wrap gap-2">
+        {calendars.map((c) => (
+          <label key={c.id} className="flex items-center gap-1 text-xs">
+            <input
+              type="checkbox"
+              checked={cals.has(c.id)}
+              onChange={(e) => {
+                const n = new Set(cals);
+                if (e.target.checked) n.add(c.id);
+                else n.delete(c.id);
+                onPatch({ calendarIds: [...n] });
+              }}
+            />
+            <span className="h-2.5 w-2.5 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+            {c.name}
+          </label>
+        ))}
+        {calendars.length === 0 && (
+          <span className="text-xs text-slate-400">
+            {d.locationId ? 'No calendars shared by anyone at this location.' : 'Add calendars first.'}
+          </span>
+        )}
+      </div>
+
+      <div className="mt-2 flex flex-wrap items-center gap-3">
+        {['calendar', 'chores'].map((f) => (
+          <label key={f} className="flex items-center gap-1 text-xs capitalize">
+            <input
+              type="checkbox"
+              checked={feats.has(f)}
+              onChange={(e) => {
+                const n = new Set(feats);
+                if (e.target.checked) n.add(f);
+                else n.delete(f);
+                onPatch({ enabledFeatures: [...n] });
+              }}
+            />
+            {f}
+          </label>
+        ))}
+        <label className="flex items-center gap-1 text-xs">
+          Theme:
+          <select value={d.theme} onChange={(e) => onPatch({ theme: e.target.value })} className="rounded border px-1 py-0.5">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
+    </li>
   );
 }
