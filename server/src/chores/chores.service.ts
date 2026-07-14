@@ -164,7 +164,7 @@ export class ChoresService {
 
   async update(familyId: string, userId: string, id: string, dto: UpdateChoreDto) {
     await this.assertAdult(userId);
-    await this.ownedChore(familyId, id);
+    const before = await this.ownedChore(familyId, id);
     const assignmentType =
       dto.assignmentType === 'ANYONE' ? 'ANYONE' : dto.assignmentType === 'SPECIFIC' ? 'SPECIFIC' : undefined;
 
@@ -200,6 +200,32 @@ export class ChoresService {
         });
       }
     }
+
+    // nextDue() just adds a fixed interval to the previous instance's dueDate —
+    // it never re-derives from dayOfWeek. So without this, changing "which day"
+    // a chore falls on only updates the label; the actual still-open occurrence
+    // (and everything generated after it) keeps running on the old schedule.
+    // Only re-anchor when the day/rule actually changed (not just resent
+    // unchanged by the edit form), and only touch an instance nobody has acted
+    // on yet — never PENDING/APPROVED — so a manual "Enable again" grace
+    // instance isn't silently snapped back by an unrelated edit.
+    const dayChanged = dto.dayOfWeek !== undefined && dto.dayOfWeek !== before.dayOfWeek;
+    const ruleChanged = dto.recurrenceRule !== undefined && dto.recurrenceRule !== before.recurrenceRule;
+    if (dayChanged || ruleChanged) {
+      const fresh = await this.prisma.chore.findUniqueOrThrow({ where: { id } });
+      const openInst = await this.prisma.choreInstance.findFirst({
+        where: { choreId: id, status: 'OPEN' },
+        orderBy: { dueDate: 'desc' },
+      });
+      if (openInst) {
+        const newDue = firstDueDate({
+          dayOfWeek: fresh.dayOfWeek ?? undefined,
+          recurrenceRule: fresh.recurrenceRule ?? undefined,
+        });
+        await this.prisma.choreInstance.update({ where: { id: openInst.id }, data: { dueDate: newDue } });
+      }
+    }
+
     return this.getChore(familyId, id);
   }
 
@@ -357,6 +383,13 @@ export class ChoresService {
   async reopen(familyId: string, actorId: string, choreId: string) {
     await this.assertAdult(actorId);
     await this.ownedChore(familyId, choreId);
+    // Re-use an already-open instance instead of stacking a second one on top of
+    // it — clicking "Enable again" more than once shouldn't leave two open
+    // occurrences (e.g. this week's normal cycle and a manual one) alive at once.
+    const existing = await this.prisma.choreInstance.findFirst({ where: { choreId, status: 'OPEN' } });
+    if (existing) {
+      return this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: new Date() } });
+    }
     return this.prisma.choreInstance.create({ data: { choreId, dueDate: new Date() } });
   }
 
