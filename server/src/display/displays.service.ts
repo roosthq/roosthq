@@ -33,7 +33,7 @@ export class DisplaysService {
   constructor(
     private prisma: PrismaService,
     private calendars: CalendarsService,
-    private events: DisplayEventsService,
+    private displayEvents: DisplayEventsService,
   ) {}
 
   private async assertAdult(userId: string) {
@@ -77,7 +77,7 @@ export class DisplaysService {
         ...(dto.theme !== undefined && { theme: dto.theme }),
       },
     });
-    this.events.publish(familyId, { type: 'display-updated', id });
+    this.displayEvents.publish(familyId, { type: 'display-updated', id });
     return updated;
   }
 
