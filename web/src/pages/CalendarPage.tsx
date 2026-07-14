@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { api, loginUrl, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
 import Calendar from '../Calendar';
+import AddEventModal from '../AddEventModal';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 
 function Avatar({ name, src }: { name?: string; src?: string }) {
@@ -92,120 +93,6 @@ function CalendarFilterDropdown({
         {options.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No calendars available.</p>}
       </div>
     </details>
-  );
-}
-
-// Add an event to any calendar the signed-in person already has access to
-// (the same `filterOptions` list used for filtering) — attribution is stamped
-// server-side from the session, not passed in here.
-function AddEventModal({
-  options,
-  onClose,
-  onCreate,
-}: {
-  options: SharedCalendar[];
-  onClose: () => void;
-  onCreate: (calendarId: string, body: { summary: string; start: { date: string }; end: { date: string }; location?: string; description?: string }) => Promise<void>;
-}) {
-  const today = new Date().toISOString().slice(0, 10);
-  const [calendarId, setCalendarId] = useState(options[0]?.id ?? '');
-  const [summary, setSummary] = useState('');
-  const [date, setDate] = useState(today);
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
-  const [saving, setSaving] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-
-  async function save() {
-    if (!calendarId || !summary.trim()) return;
-    setSaving(true);
-    setErr(null);
-    try {
-      await onCreate(calendarId, {
-        summary: summary.trim(),
-        start: { date },
-        end: { date },
-        location: location.trim() || undefined,
-        description: description.trim() || undefined,
-      });
-    } catch {
-      setErr('Could not add the event — try again.');
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">Add event</h3>
-        <div className="mt-3 space-y-2 text-sm">
-          <label className="block">
-            <span className="text-slate-500">Calendar</span>
-            <select
-              value={calendarId}
-              onChange={(e) => setCalendarId(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-1.5"
-            >
-              {options.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="block">
-            <span className="text-slate-500">Title</span>
-            <input
-              autoFocus
-              value={summary}
-              onChange={(e) => setSummary(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-1.5"
-              placeholder="e.g. Dentist appointment"
-            />
-          </label>
-          <label className="block">
-            <span className="text-slate-500">Date</span>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-1.5"
-            />
-          </label>
-          <label className="block">
-            <span className="text-slate-500">Location (optional)</span>
-            <input
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-1.5"
-            />
-          </label>
-          <label className="block">
-            <span className="text-slate-500">Notes (optional)</span>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="mt-1 w-full rounded border px-2 py-1.5"
-              rows={2}
-            />
-          </label>
-          {err && <p className="text-red-500">{err}</p>}
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
-            Cancel
-          </button>
-          <button
-            onClick={save}
-            disabled={saving || !calendarId || !summary.trim()}
-            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
-          >
-            {saving ? 'Adding…' : 'Add event'}
-          </button>
-        </div>
-      </div>
-    </div>
   );
 }
 

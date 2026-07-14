@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  api,
   BASE_URL,
   choreClient,
   prizeClient,
   type CalEvent,
   type ResolvedDisplayConfig,
   type Member,
+  type SharedCalendar,
   type UnlockResult,
 } from './api';
 import Calendar from './Calendar';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
+import AddEventModal from './AddEventModal';
 import Logo from './Logo';
 
 const params = new URLSearchParams(window.location.search);
@@ -68,6 +71,9 @@ export default function Display() {
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
 
+  const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
+  const [addingEvent, setAddingEvent] = useState(false);
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   useEffect(() => {
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
@@ -98,12 +104,30 @@ export default function Display() {
     return () => es.close();
   }, [loadConfig]);
 
-  useEffect(() => {
+  const refreshEvents = useCallback(() => {
     if (!range) return;
     dget<CalEvent[]>('/display/events', { start: range.start, end: range.end })
       .then(setEvents)
       .catch(() => setEvents([]));
-  }, [range, config]);
+  }, [range]);
+
+  useEffect(() => {
+    refreshEvents();
+  }, [refreshEvents, config]);
+
+  // Calendar picker for "+ Add event": scoped to this display's own configured
+  // calendars (config.calendarIds), fetched as the signed-in kiosk profile so
+  // the same access check the server enforces on write also drives the list.
+  useEffect(() => {
+    if (!active || !config) {
+      setCalendarOptions([]);
+      return;
+    }
+    api
+      .sharedCalendars(active.token)
+      .then((all) => setCalendarOptions(all.filter((c) => config.calendarIds.includes(c.id))))
+      .catch(() => setCalendarOptions([]));
+  }, [active, config]);
 
   const onRangeChange = useCallback((s: string, e: string) => setRange({ start: s, end: e }), []);
 
@@ -151,6 +175,14 @@ export default function Display() {
           <span className="text-xl text-slate-400">
             {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
           </span>
+          {active && showCalendar && calendarOptions.length > 0 && (
+            <button
+              onClick={() => setAddingEvent(true)}
+              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              + Add event
+            </button>
+          )}
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? 'Exit full screen' : 'Full screen'}
@@ -216,6 +248,18 @@ export default function Display() {
           </aside>
         )}
       </div>
+
+      {addingEvent && active && (
+        <AddEventModal
+          options={calendarOptions}
+          onClose={() => setAddingEvent(false)}
+          onCreate={async (calendarId, body) => {
+            await api.createCalendarEvent(calendarId, body, active.token);
+            setAddingEvent(false);
+            refreshEvents();
+          }}
+        />
+      )}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

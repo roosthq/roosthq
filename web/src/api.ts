@@ -61,6 +61,16 @@ export interface CalEvent {
   addedByName?: string;
 }
 
+// Mirrors the Google Calendar event resource shape closely enough to build
+// all-day, multi-day, and timed events from one form.
+export interface EventInput {
+  summary: string;
+  start: { date?: string; dateTime?: string; timeZone?: string };
+  end: { date?: string; dateTime?: string; timeZone?: string };
+  location?: string;
+  description?: string;
+}
+
 export interface Member {
   id: string;
   displayName: string;
@@ -235,15 +245,16 @@ export const api = {
   logout: () => req<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
 
   googleCalendars: () => req<GoogleCalendar[]>('/calendars/google'),
-  sharedCalendars: () => req<SharedCalendar[]>('/calendars'),
+  sharedCalendars: (kioskToken?: string) => req<SharedCalendar[]>('/calendars', undefined, kioskToken),
   share: (googleAccountId: string, selections: Array<{ googleCalendarId: string; name: string; color?: string }>) =>
     req('/calendars/share', { method: 'POST', body: JSON.stringify({ googleAccountId, selections }) }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
   createCalendarEvent: (
     calendarId: string,
-    body: { summary: string; start: { date?: string; dateTime?: string }; end: { date?: string; dateTime?: string }; location?: string; description?: string },
-  ) => req<CalEvent>(`/calendars/${calendarId}/events`, { method: 'POST', body: JSON.stringify(body) }),
+    body: EventInput,
+    kioskToken?: string,
+  ) => req<CalEvent>(`/calendars/${calendarId}/events`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
 
   displaySettings: () => req<DisplaySettings>('/display/settings'),
   updateDisplaySettings: (data: Partial<DisplaySettings>) =>
