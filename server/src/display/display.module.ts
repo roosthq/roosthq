@@ -2,10 +2,22 @@ import { Module } from '@nestjs/common';
 import { DisplayController } from './display.controller';
 import { DisplayService } from './display.service';
 import { DisplayEventsService } from './display-events.service';
+import { DisplayTokenService } from './display-token.service';
+import { DisplayOrUserGuard } from './display-auth.guard';
+import { CalendarsService } from '../calendars/calendars.service';
+import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 
 @Module({
   controllers: [DisplayController],
-  providers: [DisplayService, DisplayEventsService, PrismaService],
+  providers: [
+    DisplayService,
+    DisplayEventsService,
+    DisplayTokenService,
+    DisplayOrUserGuard,
+    CalendarsService,
+    GoogleService,
+    PrismaService,
+  ],
 })
 export class DisplayModule {}

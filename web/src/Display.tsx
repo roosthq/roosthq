@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { api, displayStreamUrl, type CalEvent, type DisplaySettings } from './api';
+import { BASE_URL, type CalEvent, type DisplaySettings } from './api';
 
-function weekRange(): { start: string; end: string } {
-  const now = new Date();
-  const day = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - ((day + 6) % 7));
-  monday.setHours(0, 0, 0, 0);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 7);
-  return { start: monday.toISOString(), end: sunday.toISOString() };
+const token = new URLSearchParams(window.location.search).get('token');
+
+// Build a display URL, carrying the kiosk token when present (Pi has no cookie).
+function displayUrl(path: string): string {
+  if (!token) return `${BASE_URL}${path}`;
+  return `${BASE_URL}${path}${path.includes('?') ? '&' : '?'}token=${encodeURIComponent(token)}`;
+}
+
+async function dfetch<T>(path: string): Promise<T> {
+  const res = await fetch(displayUrl(path), { credentials: 'include' });
+  if (!res.ok) throw new Error(String(res.status));
+  return (await res.json()) as T;
 }
 
 function fmt(e: CalEvent): string {
@@ -21,41 +24,35 @@ function fmt(e: CalEvent): string {
     : d.toLocaleString(undefined, { weekday: 'long', hour: 'numeric', minute: '2-digit' });
 }
 
-// Kiosk view for the wall-mounted touch display. Reads owner-controlled settings
-// and re-renders live when the owner changes them (via SSE).
+// Kiosk view for the wall-mounted touch display. Authenticates via the owner-minted
+// display token in the URL (?token=...), or the owner's own cookie when previewing.
+// Re-renders live when the owner changes settings (SSE).
 export default function Display() {
   const [settings, setSettings] = useState<DisplaySettings | null>(null);
   const [events, setEvents] = useState<CalEvent[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  async function loadEvents(ids: string[]) {
-    if (!ids.length) {
-      setEvents([]);
-      return;
-    }
-    const { start, end } = weekRange();
+  async function loadEvents() {
     try {
-      setEvents(await api.events(ids, start, end));
+      setEvents(await dfetch<CalEvent[]>('/display/events'));
     } catch {
       setEvents([]);
     }
   }
 
   useEffect(() => {
-    api
-      .displaySettings()
+    dfetch<DisplaySettings>('/display/settings')
       .then((s) => {
         setSettings(s);
-        loadEvents(s.defaultCalendarIds);
+        loadEvents();
       })
-      .catch(() => setError('Sign in on this device first, then reload display mode.'));
+      .catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
 
-    const es = new EventSource(displayStreamUrl, { withCredentials: true });
+    const es = new EventSource(displayUrl('/display/stream'), { withCredentials: true });
     es.onmessage = (ev) => {
       try {
-        const s = JSON.parse(ev.data) as DisplaySettings;
-        setSettings(s);
-        loadEvents(s.defaultCalendarIds);
+        setSettings(JSON.parse(ev.data) as DisplaySettings);
+        loadEvents();
       } catch {
         /* ignore malformed frames */
       }
@@ -64,7 +61,7 @@ export default function Display() {
   }, []);
 
   if (error)
-    return <div className="flex min-h-screen items-center justify-center text-slate-500">{error}</div>;
+    return <div className="flex min-h-screen items-center justify-center p-10 text-center text-slate-500">{error}</div>;
   if (!settings)
     return <div className="flex min-h-screen items-center justify-center text-slate-500">Loading display…</div>;
 

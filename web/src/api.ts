@@ -1,4 +1,6 @@
-const BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000';
+// Same-origin by default: the reverse proxy (Caddy behind the Cloudflare Tunnel)
+// routes /api to the server. In dev, the Vite proxy forwards /api to localhost:3000.
+const BASE = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -94,6 +96,19 @@ export interface Balance {
   balance: number;
 }
 
+export interface DisplayTokenInfo {
+  id: string;
+  label?: string;
+  createdAt: string;
+  revokedAt?: string | null;
+}
+
+export interface MintedToken {
+  id: string;
+  label?: string;
+  token: string;
+}
+
 export const BASE_URL = BASE;
 export const displayStreamUrl = `${BASE}/display/stream`;
 
@@ -112,6 +127,11 @@ export const api = {
   displaySettings: () => req<DisplaySettings>('/display/settings'),
   updateDisplaySettings: (data: Partial<DisplaySettings>) =>
     req<DisplaySettings>('/display/settings', { method: 'PUT', body: JSON.stringify(data) }),
+
+  listDisplayTokens: () => req<DisplayTokenInfo[]>('/display/tokens'),
+  mintDisplayToken: (label?: string) =>
+    req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label }) }),
+  revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),

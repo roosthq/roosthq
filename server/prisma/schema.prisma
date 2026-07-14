@@ -63,6 +63,22 @@ model Family {
   chores          Chore[]
   prizes          Prize[]
   displaySettings DisplaySettings?
+  displayTokens   DisplayToken[]
+}
+
+// Owner-minted, revocable, read-only credential for an unattended display device
+// (e.g. a Raspberry Pi kiosk). Stored hashed; the raw token is shown once at mint.
+model DisplayToken {
+  id        String    @id @default(cuid())
+  familyId  String
+  tokenHash String    @unique
+  label     String?
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
 }
 
 model User {

@@ -26,9 +26,16 @@ Availability notes (from a July 2026 search):
 
 ## 2. Scope decision (locked)
 
-**Single-family, self-hosted, open source.** Each household deploys its own instance
-(Docker on a home server, NAS, or the Pi itself). There is no multi-tenant SaaS and no
-central database of other people's children.
+**Single-family, self-hosted, open source.** One instance for one family
+(Docker on a Proxmox VM / home server). There is no multi-tenant SaaS and no central
+database of other people's children.
+
+**Internet-accessible for that one family.** The family spans multiple locations
+(split household), so the instance is reachable from anywhere via a **Cloudflare
+Tunnel** (TLS, no open router ports) — not LAN-only. This does *not* make it
+multi-tenant: only Google accounts added as OAuth test users can sign in, so it stays
+under Google's 100-user cap with no app verification, and COPPA still doesn't apply
+(you're the data controller for your own children). See `DEPLOY.md`.
 
 What this buys you:
 
@@ -127,8 +134,11 @@ credentials (typical for younger kids).
 - **Real-time updates:** the display holds an open SSE connection. When the owner
   changes a display setting from their phone, the server pushes the change and the
   display re-renders without a reload.
-- Consider a "display token" (a long-lived device credential) so the Pi authenticates
-  as the family display without a personal login sitting logged in.
+- ✅ Built: **display token** — owner mints a long-lived, revocable, read-only token
+  (stored hashed) that the Pi carries in its kiosk URL (`?token=`). A flexible guard
+  accepts either a user session or a display token on the read-only display routes
+  (`/display/settings`, `/display/events`, `/display/stream`); all admin routes stay
+  session/owner-only. This is what makes the Pi-as-thin-client architecture work.
 
 ---
 

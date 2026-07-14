@@ -8,6 +8,7 @@ import {
   type CalEvent,
 } from './api';
 import ChoresPanel from './ChoresPanel';
+import DisplayAccess from './DisplayAccess';
 
 function weekRange(): { start: string; end: string } {
   const now = new Date();
@@ -132,14 +133,17 @@ export default function App() {
       </header>
 
       {me.role === 'OWNER' && (
-        <div className="mt-3 flex items-center gap-3 rounded bg-slate-50 px-3 py-2 text-sm">
-          <span className="text-slate-500">Touch display shows the checked calendars.</span>
-          <button
-            onClick={() => api.updateDisplaySettings({ defaultCalendarIds: [...visible] })}
-            className="rounded border bg-white px-3 py-1 hover:bg-slate-100"
-          >
-            Save current view as display default
-          </button>
+        <div className="mt-3 rounded bg-slate-50 px-3 py-2 text-sm">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-slate-500">Touch display shows the checked calendars.</span>
+            <button
+              onClick={() => api.updateDisplaySettings({ defaultCalendarIds: [...visible] })}
+              className="rounded border bg-white px-3 py-1 hover:bg-slate-100"
+            >
+              Save current view as display default
+            </button>
+            <DisplayAccess />
+          </div>
         </div>
       )}
 

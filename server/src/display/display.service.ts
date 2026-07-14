@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from './display-events.service';
+import { CalendarsService } from '../calendars/calendars.service';
 
 const DEFAULT_FEATURES = ['calendar', 'chores', 'tokens', 'prizes'];
 
@@ -10,12 +11,34 @@ export interface DisplaySettingsInput {
   theme?: string;
 }
 
+function weekRange(): { start: string; end: string } {
+  const now = new Date();
+  const day = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((day + 6) % 7));
+  monday.setHours(0, 0, 0, 0);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 7);
+  return { start: monday.toISOString(), end: sunday.toISOString() };
+}
+
 @Injectable()
 export class DisplayService {
   constructor(
     private prisma: PrismaService,
     private events: DisplayEventsService,
+    private calendars: CalendarsService,
   ) {}
+
+  // Events for the family's default display calendars this week. The kiosk doesn't
+  // need to know which calendars — the server resolves them from settings.
+  async displayEvents(familyId: string) {
+    const settings = await this.get(familyId);
+    const ids = (settings.defaultCalendarIds as string[]) ?? [];
+    if (!ids.length) return [];
+    const { start, end } = weekRange();
+    return this.calendars.events(familyId, ids, start, end);
+  }
 
   async get(familyId: string) {
     const existing = await this.prisma.displaySettings.findUnique({ where: { familyId } });

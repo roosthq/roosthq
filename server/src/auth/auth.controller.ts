@@ -9,6 +9,11 @@ import { CurrentUser } from './current-user.decorator';
 
 const STATE_COOKIE = 'rhq_oauth_state';
 const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
+const PROD = process.env.NODE_ENV === 'production';
+
+// Secure cookies over HTTPS in production (behind the Cloudflare Tunnel);
+// plain cookies for local http dev.
+const cookieBase = { httpOnly: true, sameSite: 'lax' as const, secure: PROD };
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +29,7 @@ export class AuthController {
   login(@Query('mode') mode: string, @Res() res: Response) {
     const nonce = randomBytes(16).toString('hex');
     const cleanMode = mode === 'member' ? 'member' : 'self';
-    res.cookie(STATE_COOKIE, nonce, { httpOnly: true, sameSite: 'lax' });
+    res.cookie(STATE_COOKIE, nonce, cookieBase);
     res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`));
   }
 
@@ -62,8 +67,7 @@ export class AuthController {
       mode: mode === 'member' ? 'member' : 'self',
     });
     res.cookie(SESSION_COOKIE, signSession({ userId, familyId }), {
-      httpOnly: true,
-      sameSite: 'lax',
+      ...cookieBase,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
     return res.redirect(`${WEB_URL}/?auth=ok`);

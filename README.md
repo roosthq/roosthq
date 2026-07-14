@@ -44,14 +44,14 @@ See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
    docker compose up --build
    ```
 
-   - API: http://localhost:3000 (health check at `/health`)
-   - Web: http://localhost:5173
+   - API: http://localhost:3000 (all routes under `/api`; health at `/api/health`)
+   - Web: http://localhost:5173 (calls the API at same-origin `/api` via the Vite proxy)
    - MySQL: localhost:3306
 
 3. **Apply the database schema** (first run)
 
    ```bash
-   docker compose exec server npx prisma migrate dev --name init
+   docker compose exec server npx prisma db push
    ```
 
 ## Google OAuth setup (required, one-time)
@@ -70,12 +70,26 @@ is no shared central app.
      `https://www.googleapis.com/auth/calendar` (full read/write — the app both
      displays and creates/edits events).
 4. Create an **OAuth client ID** (type: Web application):
-   - Authorized redirect URI: `http://localhost:3000/auth/google/callback`
-     (and your LAN/host URL for production, e.g. `http://roost.local:3000/...`).
+   - Authorized redirect URI (dev): `http://localhost:3000/api/auth/google/callback`
+   - Add the production URI too once deployed:
+     `https://roost.yourdomain.com/api/auth/google/callback` (see `DEPLOY.md`).
 5. Copy the **Client ID** and **Client Secret** into your `.env`
    (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`).
 
+## Deployment (internet access)
+
+To reach Roost HQ from phones and other locations, deploy behind a **Cloudflare
+Tunnel** (no open router ports, automatic HTTPS). **[`DEPLOY.md`](./DEPLOY.md) is a
+copy-paste, step-by-step guide** covering: installing Docker + git on a fresh Ubuntu
+VM, where to put the project (`/opt/roost-hq`), generating secrets, the tunnel + Google
+setup, launching, and **auto-starting on reboot** (via Docker restart policies, plus an
+optional systemd unit at [`deploy/roost-hq.service`](./deploy/roost-hq.service)).
+
+It's still a single-family app — only Google accounts you add as test users can sign in.
+
 ## API endpoints (Phase 1)
+
+All routes are served under the `/api` prefix (e.g. `GET /api/health`, `GET /api/auth/me`).
 
 Auth:
 - `GET /auth/google` — start Google consent flow.
@@ -95,11 +109,22 @@ Calendars:
 - `DELETE /calendars/:calendarId/events/:eventId` — delete an event.
 
 Display (Phase 2):
-- `GET /display/settings` — current display settings.
+- `GET /display/settings` — current display settings (session **or** display token).
+- `GET /display/events` — this week's deduped events for the default calendars
+  (session **or** display token; server resolves which calendars from settings).
+- `GET /display/stream` — Server-Sent Events; pushes settings changes live to the
+  kiosk (session **or** display token via `?token=`).
 - `PUT /display/settings` — update settings (owner only): `defaultCalendarIds`,
   `enabledFeatures`, `theme`.
-- `GET /display/stream` — Server-Sent Events; pushes settings changes live to the
-  kiosk. Open the kiosk view in the browser at `/?display=1`.
+
+Display tokens (unattended kiosk auth, owner only):
+- `POST /display/tokens` `{ label? }` — mint a token (raw value returned **once**).
+- `GET /display/tokens` — list tokens (no raw values).
+- `DELETE /display/tokens/:id` — revoke.
+
+Kiosk setup: in the app (as owner) open **Display access → Generate kiosk link**, copy
+the URL, and point the Pi's browser at it. The link looks like
+`http://<server>:5173/?display=1&token=<token>` and needs no login. Revoke anytime.
 
 Locations (Phase 3):
 - `GET /locations`, `POST /locations`, `PATCH /locations/:id`, `DELETE /locations/:id`

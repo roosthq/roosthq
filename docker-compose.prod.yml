@@ -1,0 +1,33 @@
+# Production overlay: single-origin reverse proxy + Cloudflare Tunnel.
+# Run with:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+services:
+  # Serve the built frontend (instead of the Vite dev server).
+  web:
+    command: sh -c "npm run build && npx vite preview --host --port 5173"
+    environment:
+      VITE_API_BASE_URL: /api
+
+  # Reverse proxy: routes /api to the server, everything else to the frontend.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - server
+      - web
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+
+  # Cloudflare Tunnel connector — no inbound ports opened on your router.
+  # Create a tunnel in the Cloudflare Zero Trust dashboard, point the public
+  # hostname at http://caddy:80, and put the connector token in .env.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - caddy
+
+volumes:
+  caddy_data:

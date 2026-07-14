@@ -1,0 +1,13 @@
+# Single-origin reverse proxy. TLS is terminated by Cloudflare (the tunnel), so
+# Caddy serves plain HTTP on :80 inside the Docker network.
+#   /api/*  -> API server (keeps the /api prefix the server expects)
+#   /*      -> frontend
+:80 {
+	@api path /api/*
+	handle @api {
+		reverse_proxy server:3000
+	}
+	handle {
+		reverse_proxy web:5173
+	}
+}
