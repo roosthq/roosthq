@@ -201,6 +201,7 @@ export interface StorePrize {
   type: 'ITEM' | 'EVENT';
   scope: 'GLOBAL' | 'SPECIFIC';
   assignedUserIds: string[];
+  location?: { id: string; name: string } | null;
 }
 
 export interface Redemption {
@@ -331,6 +332,7 @@ export function choreClient(kioskToken?: string) {
     balances: () => req<Balance[]>('/chores/balances', undefined, kioskToken),
     members: () => req<Member[]>('/auth/members', undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
+    locations: () => req<FamilyLocation[]>('/locations', undefined, kioskToken),
     createChore: (body: Record<string, unknown>) =>
       req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     updateChore: (id: string, body: Record<string, unknown>) =>

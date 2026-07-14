@@ -303,6 +303,12 @@ function ChoreForm({
   const [repeat, setRepeat] = useState(chore?.recurrenceRule ?? '');
   const [dayOfWeek, setDayOfWeek] = useState<number | null>(chore?.dayOfWeek ?? null);
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
+  const [locationId, setLocationId] = useState(chore?.location?.id ?? '');
+  const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
+
+  useEffect(() => {
+    client.locations().then(setLocations).catch(() => undefined);
+  }, [client]);
 
   const repeatHelp = REPEAT_OPTIONS.find((r) => r.value === repeat)?.help ?? '';
 
@@ -316,6 +322,7 @@ function ChoreForm({
       recurrenceRule: repeat || undefined,
       dayOfWeek: dayOfWeek ?? undefined,
       checklist: checklist.split('\n').map((s) => s.trim()).filter(Boolean),
+      locationId: locationId || null,
     };
     if (chore) await client.updateChore(chore.id, body);
     else await client.createChore(body);
@@ -361,6 +368,17 @@ function ChoreForm({
                 ))}
               </div>
             )}
+          </Field>
+
+          <Field label="Location" help="Optional — for split households, who sees this depends on their location.">
+            <select className="w-full rounded-md border px-3 py-2 text-sm" value={locationId} onChange={(e) => setLocationId(e.target.value)}>
+              <option value="">No location</option>
+              {locations.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.name}
+                </option>
+              ))}
+            </select>
           </Field>
 
           <Field label="Reward" help="Tokens for whoever completes it (after approval).">

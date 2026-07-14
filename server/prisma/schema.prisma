@@ -164,6 +164,7 @@ model Location {
   users          UserLocation[]
   chores         Chore[]
   displayConfigs DisplayConfig[]
+  prizes         Prize[]
 
   @@index([familyId])
 }
@@ -336,12 +337,15 @@ model Prize {
   tokenCost   Int
   type        PrizeType  @default(ITEM)
   scope       PrizeScope @default(GLOBAL)
+  locationId  String? // optional — which house/location this prize belongs to
 
   family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  location    Location?         @relation(fields: [locationId], references: [id], onDelete: SetNull)
   assignments PrizeAssignment[]
   redemptions Redemption[]
 
   @@index([familyId])
+  @@index([locationId])
 }
 
 model PrizeAssignment {

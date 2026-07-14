@@ -16,6 +16,7 @@ export interface PrizeInput {
   type?: 'ITEM' | 'EVENT';
   scope?: 'GLOBAL' | 'SPECIFIC';
   assignedUserIds?: string[];
+  locationId?: string | null;
 }
 
 @Injectable()
@@ -47,7 +48,10 @@ export class PrizesService {
   async list(familyId: string, actingUserId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const adult = !!actor && this.isAdult(actor.role);
-    const prizes = await this.prisma.prize.findMany({ where: { familyId }, include: { assignments: true } });
+    const prizes = await this.prisma.prize.findMany({
+      where: { familyId },
+      include: { assignments: true, location: true },
+    });
     return prizes
       .filter((p) => adult || p.scope === 'GLOBAL' || p.assignments.some((a) => a.userId === actingUserId))
       .map((p) => ({
@@ -61,6 +65,7 @@ export class PrizesService {
         type: p.type,
         scope: p.scope,
         assignedUserIds: p.assignments.map((a) => a.userId),
+        location: p.location ? { id: p.location.id, name: p.location.name } : null,
       }));
   }
 
@@ -77,6 +82,7 @@ export class PrizesService {
         tokenCost: dto.tokenCost ?? 0,
         type: dto.type ?? 'ITEM',
         scope: dto.scope ?? 'GLOBAL',
+        locationId: dto.locationId ?? null,
         assignments:
           dto.scope === 'SPECIFIC' && dto.assignedUserIds?.length
             ? { create: dto.assignedUserIds.map((userId) => ({ userId })) }
@@ -99,6 +105,7 @@ export class PrizesService {
         ...(dto.tokenCost !== undefined && { tokenCost: dto.tokenCost }),
         ...(dto.type !== undefined && { type: dto.type }),
         ...(dto.scope !== undefined && { scope: dto.scope }),
+        ...(dto.locationId !== undefined && { locationId: dto.locationId }),
       },
     });
     if (dto.assignedUserIds) {
@@ -109,7 +116,7 @@ export class PrizesService {
         });
       }
     }
-    return this.prisma.prize.findUnique({ where: { id }, include: { assignments: true } });
+    return this.prisma.prize.findUnique({ where: { id }, include: { assignments: true, location: true } });
   }
 
   async remove(familyId: string, actorId: string, id: string) {

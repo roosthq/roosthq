@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type Me, type StorePrize, type Redemption } from '../api';
+import { api, type Me, type StorePrize, type Redemption, type FamilyLocation } from '../api';
+
+// Every prize gets one of these — keeps the type row present on every card
+// (instead of Event showing a tag and Item showing nothing) so card heights
+// line up.
+const TYPE_TAG: Record<StorePrize['type'], { icon: string; label: string; className: string }> = {
+  ITEM: { icon: '📦', label: 'Item', className: 'text-slate-500' },
+  EVENT: { icon: '🎟', label: 'Event', className: 'text-purple-500' },
+};
 
 // Downscale + re-encode client-side so an uploaded photo doesn't blow up the
 // request body or the database row — this app stores images as data: URIs,
@@ -130,8 +138,17 @@ export default function StorePage({
                     {p.tokenCost} {tokenIcon}
                   </span>
                 </div>
-                {p.type === 'EVENT' && <span className="mt-1 text-xs text-purple-500">🎟 Event</span>}
-                {p.description && <p className="mt-1 truncate text-sm text-slate-500">{p.description}</p>}
+                <div className="mt-1 flex items-center gap-2 text-xs">
+                  <span className={TYPE_TAG[p.type].className}>
+                    {TYPE_TAG[p.type].icon} {TYPE_TAG[p.type].label}
+                  </span>
+                  {p.location && <span className="text-slate-400">📍 {p.location.name}</span>}
+                </div>
+                {p.description ? (
+                  <p className="mt-1 truncate text-sm text-slate-500">{p.description}</p>
+                ) : (
+                  <p className="mt-1 truncate text-sm italic text-slate-300">No description</p>
+                )}
               </div>
             </button>
           </li>
@@ -258,9 +275,16 @@ function PrizeDetailModal({
           <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
             {prize.tokenCost} {tokenIcon} {tokenName}
           </span>
-          {prize.type === 'EVENT' && <span className="text-sm text-purple-500">🎟 Event</span>}
+          <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
+            {TYPE_TAG[prize.type].icon} {TYPE_TAG[prize.type].label}
+          </span>
+          {prize.location && <span className="text-sm text-slate-400">📍 {prize.location.name}</span>}
         </div>
-        {prize.description && <p className="mt-3 text-sm text-slate-600">{prize.description}</p>}
+        {prize.description ? (
+          <p className="mt-3 text-sm text-slate-600">{prize.description}</p>
+        ) : (
+          <p className="mt-3 text-sm italic text-slate-300">No description</p>
+        )}
         {isAdult && prize.realPrice != null && (
           <p className="mt-2 text-xs text-slate-400">Real price: ${String(prize.realPrice)}</p>
         )}
@@ -317,6 +341,12 @@ function PrizeForm({
   // the wheel. Starts true when editing an existing prize (don't clobber it).
   const [tokenCostTouched, setTokenCostTouched] = useState(!!prize);
   const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
+  const [locationId, setLocationId] = useState(prize?.location?.id ?? '');
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+
+  useEffect(() => {
+    api.locations().then(setLocations).catch(() => undefined);
+  }, []);
 
   function onRealPriceChange(v: string) {
     setRealPrice(v);
@@ -349,6 +379,7 @@ function PrizeForm({
       tokenCost: Math.max(0, Math.floor(Number(tokenCost) || 0)),
       type,
       scope: 'GLOBAL' as const,
+      locationId: locationId || null,
     };
     if (prize) await api.updatePrize(prize.id, body);
     else await api.createPrize(body);
@@ -419,13 +450,26 @@ function PrizeForm({
           {realPrice !== '' && !tokenCostTouched && (
             <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) — edit to override.</p>
           )}
-          <label className="block text-sm">
-            <span className="text-slate-500">Type</span>
-            <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT')}>
-              <option value="ITEM">Item</option>
-              <option value="EVENT">Event (e.g. movie trip)</option>
-            </select>
-          </label>
+          <div className="flex gap-3">
+            <label className="flex-1 text-sm">
+              <span className="text-slate-500">Type</span>
+              <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT')}>
+                <option value="ITEM">Item</option>
+                <option value="EVENT">Event (e.g. movie trip)</option>
+              </select>
+            </label>
+            <label className="flex-1 text-sm">
+              <span className="text-slate-500">Location (optional)</span>
+              <select className={input} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
+                <option value="">No location</option>
+                {locations.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
         <div className="mt-4 flex justify-end gap-2">
           <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
