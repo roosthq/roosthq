@@ -56,6 +56,9 @@ export interface CalEvent {
   start?: { dateTime?: string; date?: string };
   end?: { dateTime?: string; date?: string };
   location?: string;
+  description?: string;
+  addedByUserId?: string;
+  addedByName?: string;
 }
 
 export interface Member {
@@ -237,6 +240,10 @@ export const api = {
     req('/calendars/share', { method: 'POST', body: JSON.stringify({ googleAccountId, selections }) }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
+  createCalendarEvent: (
+    calendarId: string,
+    body: { summary: string; start: { date?: string; dateTime?: string }; end: { date?: string; dateTime?: string }; location?: string; description?: string },
+  ) => req<CalEvent>(`/calendars/${calendarId}/events`, { method: 'POST', body: JSON.stringify(body) }),
 
   displaySettings: () => req<DisplaySettings>('/display/settings'),
   updateDisplaySettings: (data: Partial<DisplaySettings>) =>
@@ -365,3 +372,18 @@ export function choreClient(kioskToken?: string) {
 }
 
 export type ChoreClient = ReturnType<typeof choreClient>;
+
+// Prize/redeem operations bound to the same auth context as choreClient —
+// lets a kid browse and redeem prizes from the kiosk (adding/editing prizes
+// stays admin-portal-only, so there's no create/update/delete here).
+export function prizeClient(kioskToken?: string) {
+  return {
+    prizes: () => req<StorePrize[]>('/prizes', undefined, kioskToken),
+    redeemPrize: (id: string) => req<Redemption>(`/prizes/${id}/redeem`, { method: 'POST' }, kioskToken),
+    tokenBalance: (userId?: string) =>
+      req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
+    familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
+  };
+}
+
+export type PrizeClient = ReturnType<typeof prizeClient>;

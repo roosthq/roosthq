@@ -95,7 +95,7 @@ export class CalendarsService {
       where: { familyId, id: { in: calendarIds } },
       include: { googleAccount: { include: { user: true } } },
     });
-    const byUid = new Map<string, unknown>();
+    const byUid = new Map<string, Record<string, unknown> & { addedByUserId?: string; addedByName?: string }>();
     for (const c of calendars) {
       const owner = c.googleAccount?.user;
       const client = await this.google.clientForAccount(c.googleAccountId);
@@ -109,6 +109,7 @@ export class CalendarsService {
       for (const ev of data.items ?? []) {
         const uid = ev.iCalUID ?? `${c.id}:${ev.id}`;
         if (!byUid.has(uid)) {
+          const addedByUserId = (ev.extendedProperties?.private as Record<string, string> | undefined)?.roostHqAddedBy;
           byUid.set(uid, {
             id: ev.id,
             uid,
@@ -121,11 +122,29 @@ export class CalendarsService {
             start: ev.start,
             end: ev.end,
             location: ev.location,
+            description: ev.description,
+            addedByUserId,
           });
         }
       }
     }
-    return Array.from(byUid.values());
+    const events = Array.from(byUid.values());
+
+    // Resolve "added by" to a display name — a separate identity from the
+    // calendar's owner (whose Google account it is), added by whoever actually
+    // used the app to create it.
+    const addedByIds = [...new Set(events.map((e) => e.addedByUserId).filter((v): v is string => !!v))];
+    if (addedByIds.length) {
+      const addedByUsers = await this.prisma.user.findMany({
+        where: { id: { in: addedByIds }, familyId },
+        select: { id: true, displayName: true },
+      });
+      const nameById = new Map(addedByUsers.map((u) => [u.id, u.displayName]));
+      for (const e of events) {
+        if (e.addedByUserId) e.addedByName = nameById.get(e.addedByUserId);
+      }
+    }
+    return events;
   }
 
   private async calendarOrThrow(familyId: string, calendarId: string) {
@@ -135,12 +154,15 @@ export class CalendarsService {
   }
 
   // body is a Google Calendar event resource (summary, start, end, location, ...).
-  async createEvent(familyId: string, calendarId: string, body: Record<string, unknown>) {
+  // addedByUserId is stamped into extendedProperties so events created through
+  // the app can show who added them — separate from the calendar's own Google
+  // account owner.
+  async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
     const c = await this.calendarOrThrow(familyId, calendarId);
     const client = await this.google.clientForAccount(c.googleAccountId);
     const { data } = await this.google.calendar(client).events.insert({
       calendarId: c.googleCalendarId,
-      requestBody: body as never,
+      requestBody: { ...body, extendedProperties: { private: { roostHqAddedBy: addedByUserId } } } as never,
     });
     return data;
   }

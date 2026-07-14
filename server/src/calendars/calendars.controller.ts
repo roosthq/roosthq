@@ -58,7 +58,7 @@ export class CalendarsController {
     @Param('calendarId') calendarId: string,
     @Body() body: Record<string, unknown>,
   ) {
-    return this.calendars.createEvent(u.familyId, calendarId, body);
+    return this.calendars.createEvent(u.familyId, calendarId, u.userId, body);
   }
 
   @Patch(':calendarId/events/:eventId')

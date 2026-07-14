@@ -342,7 +342,7 @@ function DisplayRow({
       </div>
 
       <div className="mt-2 flex flex-wrap items-center gap-3">
-        {['calendar', 'chores'].map((f) => (
+        {['calendar', 'chores', 'prizes'].map((f) => (
           <label key={f} className="flex items-center gap-1 text-xs capitalize">
             <input
               type="checkbox"

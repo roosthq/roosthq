@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   BASE_URL,
   choreClient,
+  prizeClient,
   type CalEvent,
   type ResolvedDisplayConfig,
   type Member,
@@ -9,6 +10,7 @@ import {
 } from './api';
 import Calendar from './Calendar';
 import ChoresPanel from './ChoresPanel';
+import PrizesPanel from './PrizesPanel';
 import Logo from './Logo';
 
 const params = new URLSearchParams(window.location.search);
@@ -61,6 +63,7 @@ export default function Display() {
   // Keyed on the token string (not `active`) so this stays referentially stable
   // across re-renders instead of feeding ChoresPanel a new client every time.
   const kioskChoreClient = useMemo(() => (active ? choreClient(active.token) : undefined), [active?.token]);
+  const kioskPrizeClient = useMemo(() => (active ? prizeClient(active.token) : undefined), [active?.token]);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
@@ -133,6 +136,7 @@ export default function Display() {
 
   const showCalendar = config.enabledFeatures.includes('calendar');
   const showChores = config.enabledFeatures.includes('chores');
+  const showPrizes = config.enabledFeatures.includes('prizes');
 
   return (
     <div className="flex h-screen flex-col overflow-hidden p-4">
@@ -167,7 +171,7 @@ export default function Display() {
           </div>
         )}
 
-        {showChores && (
+        {(showChores || showPrizes) && (
           <aside className="flex h-full w-80 shrink-0 flex-col">
             {active ? (
               <>
@@ -181,13 +185,14 @@ export default function Display() {
                     Switch / lock
                   </button>
                 </div>
-                <div className="mt-3 min-h-0 flex-1 overflow-y-auto">
-                  <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />
+                <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
+                  {showChores && <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />}
+                  {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
                 </div>
               </>
             ) : (
               <>
-                <span className="shrink-0 text-sm text-slate-500">Tap your photo to manage chores:</span>
+                <span className="shrink-0 text-sm text-slate-500">Tap your photo:</span>
                 <div className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto">
                   {members.map((m) => (
                     <button

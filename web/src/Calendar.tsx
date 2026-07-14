@@ -242,7 +242,9 @@ export default function Calendar({
                       {timeLabel(e)}
                       {e.location ? ` · ${e.location}` : ''}
                     </div>
+                    {e.description && <div className="mt-1 text-sm text-slate-600 whitespace-pre-wrap break-words">{e.description}</div>}
                     {e.ownerName && <div className="text-xs text-slate-400">{e.ownerName}</div>}
+                    {e.addedByName && <div className="text-xs text-slate-400">Added by {e.addedByName}</div>}
                   </div>
                 </li>
               ))}
