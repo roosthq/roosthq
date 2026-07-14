@@ -177,8 +177,8 @@ function CreatePrize({ onClose, onCreated }: { onClose: () => void; onCreated: (
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
-      <div className="max-h-[85vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+      <div className="max-h-[85vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
         <h3 className="text-lg font-semibold">Add prize</h3>
         <div className="mt-3 space-y-3">
           <input className={input} placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />

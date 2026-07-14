@@ -157,8 +157,8 @@ export default function MembersManager() {
       </ul>
 
       {pinFor && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>
-          <div className="w-full max-w-xs rounded-lg bg-white p-5 text-center" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-xs rounded-lg bg-white p-5 text-center">
             <h3 className="text-lg font-semibold">PIN for {pinFor.displayName}</h3>
             <input
               autoFocus

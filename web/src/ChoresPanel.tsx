@@ -319,8 +319,8 @@ function ChoreForm({
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={onClose}>
-      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-xl bg-white p-5" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-xl bg-white p-5">
         <h3 className="text-lg font-bold">{chore ? 'Edit chore' : 'New chore'}</h3>
         <div className="mt-4 space-y-4">
           <Field label="Chore name">

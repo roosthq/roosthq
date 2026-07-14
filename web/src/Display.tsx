@@ -213,8 +213,8 @@ export default function Display() {
       </div>
 
       {pinFor && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setPinFor(null)}>
-          <div className="w-full max-w-xs rounded-lg bg-white p-6 text-center" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-xs rounded-lg bg-white p-6 text-center">
             <Avatar name={pinFor.displayName} src={pinFor.avatar} big />
             <h3 className="mt-2 text-lg font-semibold">{pinFor.displayName}</h3>
             <p className="text-sm text-slate-500">Enter PIN</p>
