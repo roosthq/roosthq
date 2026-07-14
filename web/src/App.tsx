@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import {
   api,
   loginUrl,
@@ -9,26 +9,7 @@ import {
 } from './api';
 import ChoresPanel from './ChoresPanel';
 import DisplayAccess from './DisplayAccess';
-
-function weekRange(): { start: string; end: string } {
-  const now = new Date();
-  const day = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - ((day + 6) % 7));
-  monday.setHours(0, 0, 0, 0);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 7);
-  return { start: monday.toISOString(), end: sunday.toISOString() };
-}
-
-function eventTime(e: CalEvent): string {
-  const s = e.start?.dateTime ?? e.start?.date;
-  if (!s) return '';
-  const d = new Date(s);
-  return e.start?.date
-    ? d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })
-    : d.toLocaleString(undefined, { weekday: 'short', hour: 'numeric', minute: '2-digit' });
-}
+import Calendar from './Calendar';
 
 export default function App() {
   const [me, setMe] = useState<Me | null>(null);
@@ -36,6 +17,7 @@ export default function App() {
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
   const [events, setEvents] = useState<CalEvent[]>([]);
+  const [range, setRange] = useState<{ start: string; end: string } | null>(null);
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
 
@@ -56,9 +38,9 @@ export default function App() {
       .finally(() => setLoading(false));
   }, [refreshShared]);
 
-  const range = useMemo(() => weekRange(), []);
+  // Fetch events whenever the visible calendars or the calendar's month range change.
   useEffect(() => {
-    if (!me || visible.size === 0) {
+    if (!me || !range || visible.size === 0) {
       setEvents([]);
       return;
     }
@@ -67,6 +49,8 @@ export default function App() {
       .then(setEvents)
       .catch(() => setEvents([]));
   }, [me, visible, range]);
+
+  const onRangeChange = useCallback((start: string, end: string) => setRange({ start, end }), []);
 
   async function openPicker() {
     setPicker(await api.googleCalendars());
@@ -114,7 +98,7 @@ export default function App() {
     );
 
   return (
-    <div className="mx-auto max-w-3xl p-6 text-slate-800">
+    <div className="mx-auto max-w-5xl p-6 text-slate-800">
       <header className="flex items-center justify-between border-b pb-4">
         <div>
           <h1 className="text-2xl font-bold">Roost HQ</h1>
@@ -150,7 +134,7 @@ export default function App() {
       <section className="mt-6">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">
-            Shared calendars <span className="text-slate-400">({shared.length})</span>
+            Calendars <span className="text-slate-400">({shared.length})</span>
           </h2>
           <div className="flex gap-2">
             <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
@@ -165,45 +149,29 @@ export default function App() {
           </div>
         </div>
 
-        <ul className="mt-3 space-y-1">
+        <ul className="mt-3 flex flex-wrap gap-3">
           {shared.map((c) => (
-            <li key={c.id} className="flex items-center gap-3 rounded px-2 py-1 hover:bg-slate-50">
+            <li key={c.id} className="flex items-center gap-2 rounded border px-2 py-1 text-sm">
               <input
                 type="checkbox"
                 checked={visible.has(c.id)}
                 onChange={(e) => {
                   const next = new Set(visible);
-                  e.target.checked ? next.add(c.id) : next.delete(c.id);
+                  if (e.target.checked) next.add(c.id);
+                  else next.delete(c.id);
                   setVisible(next);
                 }}
               />
               <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-              <span className="flex-1">{c.name}</span>
-              <span className="text-xs text-slate-400">shared by {c.shareCount}</span>
+              <span>{c.name}</span>
+              <span className="text-xs text-slate-400">({c.shareCount})</span>
             </li>
           ))}
-          {shared.length === 0 && (
-            <li className="py-2 text-sm text-slate-400">No calendars yet — add some above.</li>
-          )}
+          {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet — add some above.</li>}
         </ul>
       </section>
 
-      <section className="mt-8">
-        <h2 className="text-lg font-semibold">This week</h2>
-        <ul className="mt-3 space-y-1">
-          {events.map((e) => (
-            <li key={e.uid} className="flex items-center gap-3 rounded px-2 py-1.5">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
-              <span className="w-40 text-sm text-slate-500">{eventTime(e)}</span>
-              <span className="flex-1">{e.title ?? '(no title)'}</span>
-              {e.location && <span className="text-xs text-slate-400">{e.location}</span>}
-            </li>
-          ))}
-          {events.length === 0 && (
-            <li className="py-2 text-sm text-slate-400">No events in the selected calendars this week.</li>
-          )}
-        </ul>
-      </section>
+      <Calendar events={events} onRangeChange={onRangeChange} />
 
       <ChoresPanel me={me} />
 
@@ -219,7 +187,8 @@ export default function App() {
                     checked={picked.has(c.googleCalendarId)}
                     onChange={(e) => {
                       const next = new Set(picked);
-                      e.target.checked ? next.add(c.googleCalendarId) : next.delete(c.googleCalendarId);
+                      if (e.target.checked) next.add(c.googleCalendarId);
+                      else next.delete(c.googleCalendarId);
                       setPicked(next);
                     }}
                   />
