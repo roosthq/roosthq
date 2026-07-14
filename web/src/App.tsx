@@ -94,6 +94,8 @@ export default function App() {
   }
 
   const tokenName = family?.tokenName ?? 'Tokens';
+  const tokenIcon = family?.tokenIcon ?? '🪙';
+  const tokenValueUsd = family?.tokenValueUsd ?? 1;
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
 
   return (
@@ -103,9 +105,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
           <Route path="/chores" element={<ChoresPage me={me} />} />
-          <Route path="/store" element={<StorePage me={me} tokenName={tokenName} />} />
-          <Route path="/profile" element={<ProfilePage me={me} tokenName={tokenName} />} />
-          <Route path="/profile/:id" element={<ProfilePage me={me} tokenName={tokenName} />} />
+          <Route
+            path="/store"
+            element={<StorePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} tokenValueUsd={tokenValueUsd} />}
+          />
+          <Route path="/profile" element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} />} />
+          <Route path="/profile/:id" element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} />} />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

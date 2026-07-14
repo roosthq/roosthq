@@ -32,6 +32,7 @@ export default function ChoresPanel({
   const [members, setMembers] = useState<Member[]>([]);
   const [balances, setBalances] = useState<Balance[]>([]);
   const [tokenName, setTokenName] = useState('Tokens');
+  const [tokenIcon, setTokenIcon] = useState('🪙');
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Chore | null>(null);
 
@@ -47,8 +48,11 @@ export default function ChoresPanel({
   }, [refresh]);
 
   useEffect(() => {
-    if (today) client.familySettings().then((s) => setTokenName(s.tokenName)).catch(() => undefined);
-  }, [today, client]);
+    client.familySettings().then((s) => {
+      setTokenName(s.tokenName);
+      setTokenIcon(s.tokenIcon);
+    }).catch(() => undefined);
+  }, [client]);
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
 
@@ -123,7 +127,7 @@ export default function ChoresPanel({
 
       {today && (
         <div className="mt-2 flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
-          <span className="text-lg">🪙</span>
+          <span className="text-lg">{tokenIcon}</span>
           <span className="text-sm font-medium">
             {myBalance} {tokenName}
           </span>
@@ -145,7 +149,7 @@ export default function ChoresPanel({
                   </div>
                 </div>
                 <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-sm font-medium text-slate-600">
-                  {chore.tokenValue} 🪙
+                  {chore.tokenValue} {tokenIcon}
                 </span>
               </div>
 

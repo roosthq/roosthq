@@ -56,6 +56,8 @@ model Family {
   id        String   @id @default(cuid())
   name      String
   tokenName String   @default("Tokens") // what the family calls their reward currency
+  tokenIcon String   @default("🪙") // emoji shown alongside the reward currency
+  tokenValueUsd Float @default(1) // $ value of one token, for auto-suggesting prize costs
   createdAt DateTime @default(now())
 
   users           User[]
@@ -328,7 +330,7 @@ model Prize {
   familyId    String
   name        String
   description String?    @db.Text
-  image       String?
+  image       String?    @db.Text // URL, or a data: URI for an uploaded image
   url         String?    @db.Text
   realPrice   Decimal?   @db.Decimal(10, 2) // hidden from kid sessions
   tokenCost   Int

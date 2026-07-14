@@ -49,27 +49,57 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+const TOKEN_ICONS = ['🪙', '💰', '💎', '⭐', '🎫', '🎟️', '🏆', '🍬', '🔶', '🟡', '❤️', '🎁'];
+
 function TokenNameSetting() {
   const [name, setName] = useState('Tokens');
+  const [icon, setIcon] = useState('🪙');
+  const [valueUsd, setValueUsd] = useState(1);
   const [saved, setSaved] = useState(false);
   useEffect(() => {
-    api.familySettings().then((f) => setName(f.tokenName)).catch(() => undefined);
+    api.familySettings().then((f) => {
+      setName(f.tokenName);
+      setIcon(f.tokenIcon);
+      setValueUsd(f.tokenValueUsd);
+    }).catch(() => undefined);
   }, []);
   async function save() {
-    await api.updateFamilySettings({ tokenName: name });
+    await api.updateFamilySettings({ tokenName: name, tokenIcon: icon, tokenValueUsd: valueUsd });
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
   }
   return (
     <Section title="Reward name">
-      <div className="flex items-center gap-2 text-sm">
+      <div className="flex flex-wrap items-center gap-2 text-sm">
         <span className="text-slate-500">Call our reward currency:</span>
         <input value={name} onChange={(e) => setName(e.target.value)} className="rounded border px-2 py-1" />
+        <span className="text-slate-500">Icon:</span>
+        <select value={icon} onChange={(e) => setIcon(e.target.value)} className="rounded border px-2 py-1 text-lg">
+          {TOKEN_ICONS.map((i) => (
+            <option key={i} value={i}>
+              {i}
+            </option>
+          ))}
+        </select>
+        <span className="text-slate-500">
+          1 {icon} {name} = $
+        </span>
+        <input
+          type="number"
+          min={0.01}
+          step={0.01}
+          value={valueUsd}
+          onChange={(e) => setValueUsd(Number(e.target.value))}
+          className="w-20 rounded border px-2 py-1"
+        />
         <button onClick={save} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
           Save
         </button>
         {saved && <span className="text-green-600">Saved</span>}
       </div>
+      <p className="mt-1 text-xs text-slate-400">
+        The $ value is used to suggest a token cost for prizes based on their real price (rounded down).
+      </p>
     </Section>
   );
 }

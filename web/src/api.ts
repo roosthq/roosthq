@@ -150,6 +150,8 @@ export interface FamilySettings {
   id: string;
   name: string;
   tokenName: string;
+  tokenIcon: string;
+  tokenValueUsd: number;
 }
 
 export interface FamilyLocation {
@@ -277,7 +279,7 @@ export const api = {
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
 
   familySettings: () => req<FamilySettings>('/family/settings'),
-  updateFamilySettings: (data: { name?: string; tokenName?: string }) =>
+  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number }) =>
     req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),

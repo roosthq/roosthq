@@ -7,10 +7,14 @@ export class FamilyService {
 
   async settings(familyId: string) {
     const f = await this.prisma.family.findUniqueOrThrow({ where: { id: familyId } });
-    return { id: f.id, name: f.name, tokenName: f.tokenName };
+    return { id: f.id, name: f.name, tokenName: f.tokenName, tokenIcon: f.tokenIcon, tokenValueUsd: f.tokenValueUsd };
   }
 
-  async update(actorId: string, familyId: string, data: { name?: string; tokenName?: string }) {
+  async update(
+    actorId: string,
+    familyId: string,
+    data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number },
+  ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor || actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
     const f = await this.prisma.family.update({
@@ -18,8 +22,10 @@ export class FamilyService {
       data: {
         ...(data.name !== undefined && { name: data.name }),
         ...(data.tokenName !== undefined && { tokenName: data.tokenName || 'Tokens' }),
+        ...(data.tokenIcon !== undefined && { tokenIcon: data.tokenIcon || '🪙' }),
+        ...(data.tokenValueUsd !== undefined && { tokenValueUsd: data.tokenValueUsd > 0 ? data.tokenValueUsd : 1 }),
       },
     });
-    return { id: f.id, name: f.name, tokenName: f.tokenName };
+    return { id: f.id, name: f.name, tokenName: f.tokenName, tokenIcon: f.tokenIcon, tokenValueUsd: f.tokenValueUsd };
   }
 }

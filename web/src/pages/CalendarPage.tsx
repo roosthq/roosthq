@@ -27,11 +27,15 @@ function Dashboard({ me }: { me: Me }) {
   const [members, setMembers] = useState<Member[]>([]);
   const [balances, setBalances] = useState<Record<string, number>>({});
   const [tokenName, setTokenName] = useState('Tokens');
+  const [tokenIcon, setTokenIcon] = useState('🪙');
 
   useEffect(() => {
     api.members().then(setMembers).catch(() => setMembers([]));
     api.tokenBalances().then((b) => setBalances(Object.fromEntries(b.map((x) => [x.userId, x.balance])))).catch(() => undefined);
-    api.familySettings().then((f) => setTokenName(f.tokenName)).catch(() => undefined);
+    api.familySettings().then((f) => {
+      setTokenName(f.tokenName);
+      setTokenIcon(f.tokenIcon);
+    }).catch(() => undefined);
   }, []);
 
   if (members.length === 0) return null;
@@ -51,7 +55,7 @@ function Dashboard({ me }: { me: Me }) {
                 <span className="block text-xs text-slate-400">{m.role.toLowerCase()}</span>
               </span>
               <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
-                {balances[m.id] ?? 0}
+                {tokenIcon} {balances[m.id] ?? 0}
                 <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
               </span>
             </Link>
@@ -62,8 +66,49 @@ function Dashboard({ me }: { me: Me }) {
   );
 }
 
+// Compact multi-select: a checkbox list tucked behind a summary toggle instead
+// of a wall of pills. Used by every role — only the candidate `options` differ.
+function CalendarFilterDropdown({
+  options,
+  visible,
+  onChange,
+}: {
+  options: SharedCalendar[];
+  visible: Set<string>;
+  onChange: (next: Set<string>) => void;
+}) {
+  return (
+    <details className="relative">
+      <summary className="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+        Filter ({visible.size}/{options.length}) ▾
+      </summary>
+      <div className="absolute right-0 z-10 mt-1 max-h-72 w-64 overflow-auto rounded border bg-white p-2 shadow">
+        {options.map((c) => (
+          <label key={c.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
+            <input
+              type="checkbox"
+              checked={visible.has(c.id)}
+              onChange={(e) => {
+                const next = new Set(visible);
+                if (e.target.checked) next.add(c.id);
+                else next.delete(c.id);
+                onChange(next);
+              }}
+            />
+            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+            <span className="truncate">{c.name}</span>
+          </label>
+        ))}
+        {options.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No calendars available.</p>}
+      </div>
+    </details>
+  );
+}
+
 export default function CalendarPage({ me }: { me: Me }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isOwner = me.role === 'OWNER';
+  const isKid = me.role === 'KID';
+  const isAdult = me.role === 'OWNER' || me.role === 'ADULT'; // can connect/add calendars
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
   const [events, setEvents] = useState<CalEvent[]>([]);
@@ -71,38 +116,62 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
 
-  // Kids don't get a calendar picker — their view is auto-scoped to whatever
-  // location(s) they're assigned to and that location's display calendars.
+  // Everyone still gets to filter — but non-owners only get to choose among a
+  // location-scoped subset: adults see calendars shared by anyone at their own
+  // location; kids see whatever's on their location's touch display. Owners see
+  // (and can filter among) every shared family calendar.
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [myDisplays, setMyDisplays] = useState<DisplayConfig[]>([]);
-  useEffect(() => {
-    if (isAdult) return;
-    Promise.all([api.locations(), api.listDisplays()])
-      .then(([locs, disps]) => {
-        setLocations(locs);
-        setMyDisplays(disps);
-      })
-      .catch(() => undefined);
-  }, [isAdult]);
+  const [locationCalendarIds, setLocationCalendarIds] = useState<Set<string>>(new Set());
 
-  // Union of calendarIds across the kid's location-scoped display(s); null means
-  // "no restriction configured yet" (no location or no display for it) — falls
-  // back to showing every shared calendar rather than an unexplained blank page.
-  const kidAllowedIds = useMemo(() => {
-    if (isAdult) return null;
-    const candidates = displaysForLocations(myDisplays, myLocationIds(locations, me.id));
-    if (!candidates.length) return null;
-    const ids = new Set<string>();
-    candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
-    return ids;
-  }, [isAdult, locations, myDisplays, me.id]);
+  useEffect(() => {
+    if (isOwner) return;
+    api.locations().then(setLocations).catch(() => undefined);
+  }, [isOwner]);
+
+  useEffect(() => {
+    if (isOwner || isKid) return; // ADULT-only: union of calendars shared at their location(s)
+    const locIds = myLocationIds(locations, me.id);
+    if (!locIds.length) {
+      setLocationCalendarIds(new Set());
+      return;
+    }
+    Promise.all(locIds.map((id) => api.displaysCalendars(id)))
+      .then((lists) => setLocationCalendarIds(new Set(lists.flat().map((c) => c.id))))
+      .catch(() => undefined);
+  }, [isOwner, isKid, locations, me.id]);
+
+  useEffect(() => {
+    if (!isKid) return; // KID-only: their location's display calendar lists
+    api.listDisplays().then(setMyDisplays).catch(() => undefined);
+  }, [isKid]);
+
+  // null means "no restriction configured yet" (no location, or no display/share
+  // for it) — falls back to showing every shared calendar rather than an
+  // unexplained blank page for families who haven't set locations up yet.
+  const allowedIds = useMemo(() => {
+    if (isOwner) return null;
+    if (isKid) {
+      const candidates = displaysForLocations(myDisplays, myLocationIds(locations, me.id));
+      if (!candidates.length) return null;
+      const ids = new Set<string>();
+      candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
+      return ids;
+    }
+    return locationCalendarIds.size ? locationCalendarIds : null;
+  }, [isOwner, isKid, locations, myDisplays, locationCalendarIds, me.id]);
+
+  const filterOptions = useMemo(
+    () => (allowedIds ? shared.filter((c) => allowedIds.has(c.id)) : shared),
+    [allowedIds, shared],
+  );
 
   const refreshShared = useCallback(async () => {
     const cals = await api.sharedCalendars();
     setShared(cals);
     const ids = cals.map((c) => c.id);
-    setVisible(new Set(kidAllowedIds ? ids.filter((id) => kidAllowedIds.has(id)) : ids));
-  }, [kidAllowedIds]);
+    setVisible(new Set(allowedIds ? ids.filter((id) => allowedIds.has(id)) : ids));
+  }, [allowedIds]);
 
   useEffect(() => {
     refreshShared();
@@ -146,50 +215,24 @@ export default function CalendarPage({ me }: { me: Me }) {
     <div>
       <Dashboard me={me} />
       <section>
-        {isAdult ? (
-          <>
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">
-                Calendars <span className="text-slate-400">({shared.length})</span>
-              </h2>
-              <div className="flex gap-2">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">
+            Calendars <span className="text-slate-400">({visible.size}/{filterOptions.length})</span>
+          </h2>
+          <div className="flex items-center gap-2">
+            {isAdult && (
+              <>
                 <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                   + Connect another of my Google accounts
                 </a>
                 <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                   + Add calendars
                 </button>
-              </div>
-            </div>
-
-            <ul className="mt-3 flex flex-wrap gap-3">
-              {shared.map((c) => (
-                <li key={c.id} className="flex items-center gap-2 rounded border px-2 py-1 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={visible.has(c.id)}
-                    onChange={(e) => {
-                      const next = new Set(visible);
-                      if (e.target.checked) next.add(c.id);
-                      else next.delete(c.id);
-                      setVisible(next);
-                    }}
-                  />
-                  <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-                  <span>{c.name}</span>
-                  <span className="text-xs text-slate-400">({c.shareCount})</span>
-                </li>
-              ))}
-              {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet — add some above.</li>}
-            </ul>
-          </>
-        ) : (
-          // Kids get no picker — just a read-only summary of what's showing,
-          // auto-scoped to their location's display (see kidAllowedIds above).
-          <h2 className="text-lg font-semibold">
-            Calendars <span className="text-slate-400">({visible.size})</span>
-          </h2>
-        )}
+              </>
+            )}
+            <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
+          </div>
+        </div>
       </section>
 
       <Calendar events={events} onRangeChange={onRangeChange} />

@@ -15,7 +15,10 @@ export class FamilyController {
   }
 
   @Put('settings')
-  update(@CurrentUser() u: SessionPayload, @Body() body: { name?: string; tokenName?: string }) {
+  update(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number },
+  ) {
     return this.family.update(u.userId, u.familyId, body);
   }
 }

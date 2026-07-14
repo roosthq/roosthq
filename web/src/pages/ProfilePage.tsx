@@ -13,7 +13,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: string }) {
+export default function ProfilePage({ me, tokenName, tokenIcon }: { me: Me; tokenName: string; tokenIcon: string }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const targetId = id ?? me.id;
@@ -83,9 +83,9 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
       <h2 className="text-xl font-bold">{name}</h2>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label={`${tokenName} balance`} value={balance} />
-        <Stat label={`${tokenName} earned`} value={earned} />
-        <Stat label={`${tokenName} spent`} value={spent} />
+        <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
+        <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
+        <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
         <Stat label="Chores approved" value={choresDone} />
       </div>
 
@@ -129,7 +129,7 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
               <span className="flex items-center gap-3">
                 <span className={l.delta >= 0 ? 'font-medium text-green-600' : 'font-medium text-red-600'}>
                   {l.delta >= 0 ? '+' : ''}
-                  {l.delta}
+                  {l.delta} {tokenIcon}
                 </span>
                 <span className="text-xs text-slate-400">{new Date(l.createdAt).toLocaleDateString()}</span>
               </span>
@@ -146,7 +146,7 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
             <li key={r.id} className="flex items-center justify-between border-b py-1">
               <span>{r.prize.name}</span>
               <span className="text-xs text-slate-400">
-                {r.prize.tokenCost} {tokenName} · {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                {r.prize.tokenCost} {tokenIcon} · {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
               </span>
             </li>
           ))}
