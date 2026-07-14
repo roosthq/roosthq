@@ -1,0 +1,20 @@
+# Env & secrets
+.env
+*.local
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+*.log
+npm-debug.log*
+
+# Prisma
+server/prisma/*.db
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

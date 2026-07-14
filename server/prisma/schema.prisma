@@ -1,0 +1,290 @@
+// Roost HQ — data model (see PLANNING.md §10)
+// Self-hosted, single-family. family_id is retained on core tables to keep the
+// door open to multi-family later; it is not required for single-family use.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Enums ----------
+
+enum Role {
+  OWNER
+  ADULT
+  KID
+}
+
+enum ChoreInstanceStatus {
+  OPEN
+  PENDING // completed by kid, awaiting adult approval
+  APPROVED
+  REJECTED
+}
+
+enum LedgerType {
+  CHORE // awarded on approved chore
+  MANUAL // adult manual award/subtract
+  PHYSICAL // reconciliation with physical tokens
+  REDEEM // spent on a prize
+}
+
+enum PrizeType {
+  ITEM
+  EVENT
+}
+
+enum PrizeScope {
+  GLOBAL // visible to all kids
+  SPECIFIC // visible only to assigned kids
+}
+
+enum RedemptionStatus {
+  REQUESTED
+  APPROVED
+  REJECTED
+  FULFILLED
+}
+
+// ---------- Tenant & people ----------
+
+model Family {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users           User[]
+  locations       Location[]
+  calendars       Calendar[]
+  chores          Chore[]
+  prizes          Prize[]
+  displaySettings DisplaySettings?
+}
+
+model User {
+  id          String  @id @default(cuid())
+  familyId    String
+  role        Role
+  displayName String
+  email       String? // kids may have none (parent-managed)
+  pinHash     String? // optional per-profile PIN
+  avatar      String?
+
+  family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  locations      UserLocation[]
+  googleAccounts GoogleAccount[]
+  calendarShares CalendarShare[]
+  assignedChores Chore[]         @relation("ChoreAssignee")
+  createdChores  Chore[]         @relation("ChoreCreatedBy")
+  ledgerEntries  TokenLedger[]   @relation("LedgerUser")
+  ledgerCreated  TokenLedger[]   @relation("LedgerCreatedBy")
+  prizeAssigns   PrizeAssignment[]
+  redemptions    Redemption[]
+
+  @@index([familyId])
+}
+
+model Location {
+  id       String @id @default(cuid())
+  familyId String
+  name     String
+
+  family Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  users  UserLocation[]
+  chores Chore[]
+
+  @@index([familyId])
+}
+
+model UserLocation {
+  userId     String
+  locationId String
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@id([userId, locationId])
+}
+
+model GoogleAccount {
+  id              String @id @default(cuid())
+  userId          String
+  googleSub       String @unique // Google account subject id
+  tokensEncrypted String @db.Text // OAuth tokens, encrypted at rest
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendars Calendar[]
+
+  @@index([userId])
+}
+
+// ---------- Calendars ----------
+
+model Calendar {
+  id              String  @id @default(cuid())
+  familyId        String
+  googleAccountId String
+  googleCalendarId String // dedup key — one row per unique Google calendar
+  name            String
+  color           String?
+
+  family        Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  googleAccount GoogleAccount   @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
+  shares        CalendarShare[]
+
+  @@unique([familyId, googleCalendarId]) // no duplicate calendars per family
+  @@index([familyId])
+}
+
+model CalendarShare {
+  calendarId String
+  userId     String
+
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([calendarId, userId])
+}
+
+// ---------- Touch display ----------
+
+model DisplaySettings {
+  familyId          String  @id
+  defaultCalendarIds Json   // array of calendar ids shown by default
+  enabledFeatures   Json    // e.g. ["calendar","chores","tokens","prizes"]
+  theme             String  @default("light")
+  updatedAt         DateTime @updatedAt
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+// ---------- Chores ----------
+
+model Chore {
+  id             String  @id @default(cuid())
+  familyId       String
+  title          String
+  assigneeUserId String
+  locationId     String?
+  tokenValue     Int     @default(0)
+  recurrenceRule String? // RRULE-style string; null = single
+  createdById    String
+
+  family    Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  assignee  User             @relation("ChoreAssignee", fields: [assigneeUserId], references: [id])
+  location  Location?        @relation(fields: [locationId], references: [id])
+  createdBy User             @relation("ChoreCreatedBy", fields: [createdById], references: [id])
+  checklist ChoreChecklist[]
+  instances ChoreInstance[]
+
+  @@index([familyId])
+  @@index([assigneeUserId])
+}
+
+model ChoreChecklist {
+  id       String  @id @default(cuid())
+  choreId  String
+  label    String
+  sort     Int     @default(0)
+  required Boolean @default(true)
+
+  chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  checks ChoreItemCheck[]
+
+  @@index([choreId])
+}
+
+model ChoreInstance {
+  id          String              @id @default(cuid())
+  choreId     String
+  dueDate     DateTime
+  status      ChoreInstanceStatus @default(OPEN)
+  completedAt DateTime?
+  approvedBy  String?
+
+  chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  checks ChoreItemCheck[]
+
+  @@index([choreId])
+  @@index([status])
+}
+
+model ChoreItemCheck {
+  choreInstanceId String
+  checklistId     String
+  checkedAt       DateTime @default(now())
+
+  instance  ChoreInstance  @relation(fields: [choreInstanceId], references: [id], onDelete: Cascade)
+  checklist ChoreChecklist @relation(fields: [checklistId], references: [id], onDelete: Cascade)
+
+  @@id([choreInstanceId, checklistId])
+}
+
+// ---------- Tokens ----------
+// Balance is DERIVED from the ledger (sum of deltas) — no mutable balance column.
+
+model TokenLedger {
+  id          String     @id @default(cuid())
+  userId      String
+  delta       Int // positive = award, negative = spend/subtract
+  reason      String
+  type        LedgerType
+  refId       String? // chore instance / prize / redemption id
+  createdById String
+  createdAt   DateTime   @default(now())
+
+  user      User @relation("LedgerUser", fields: [userId], references: [id], onDelete: Cascade)
+  createdBy User @relation("LedgerCreatedBy", fields: [createdById], references: [id])
+
+  @@index([userId])
+}
+
+// ---------- Prizes ----------
+
+model Prize {
+  id          String     @id @default(cuid())
+  familyId    String
+  name        String
+  description String?    @db.Text
+  image       String?
+  url         String?    @db.Text
+  realPrice   Decimal?   @db.Decimal(10, 2) // hidden from kid sessions
+  tokenCost   Int
+  type        PrizeType  @default(ITEM)
+  scope       PrizeScope @default(GLOBAL)
+
+  family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  assignments PrizeAssignment[]
+  redemptions Redemption[]
+
+  @@index([familyId])
+}
+
+model PrizeAssignment {
+  prizeId String
+  userId  String
+
+  prize Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([prizeId, userId])
+}
+
+model Redemption {
+  id          String           @id @default(cuid())
+  prizeId     String
+  userId      String
+  status      RedemptionStatus @default(REQUESTED)
+  requestedAt DateTime         @default(now())
+  approvedBy  String?
+
+  prize Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([prizeId])
+  @@index([userId])
+}
