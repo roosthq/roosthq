@@ -82,7 +82,7 @@ export default function Calendar({
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
-  size?: 'normal' | 'large';
+  size?: 'normal' | 'large' | 'compact';
 }) {
   const [cursor, setCursor] = useState(() => {
     const n = new Date();
@@ -91,9 +91,10 @@ export default function Calendar({
   const [selected, setSelected] = useState<string | null>(null);
 
   const large = size === 'large';
-  const cellMin = large ? 'min-h-[9rem]' : 'min-h-[6rem]';
+  const compact = size === 'compact';
+  const cellMin = large ? 'min-h-[9rem]' : compact ? 'min-h-[4rem]' : 'min-h-[6rem]';
   const chipText = large ? 'text-sm' : 'text-xs';
-  const maxChips = large ? 6 : 3;
+  const maxChips = large ? 6 : compact ? 2 : 3;
 
   const gridStart = useMemo(() => {
     const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);

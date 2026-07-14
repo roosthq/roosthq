@@ -123,7 +123,7 @@ export default function Display() {
   const showChores = config.enabledFeatures.includes('chores');
 
   return (
-    <div className="min-h-screen p-8">
+    <div className={active ? 'min-h-screen p-4' : 'min-h-screen p-8'}>
       <header className="flex items-center justify-between border-b pb-4">
         <div className="flex items-center gap-3">
           <Logo size={40} />
@@ -136,7 +136,7 @@ export default function Display() {
         </span>
       </header>
 
-      <div className="mt-4 flex flex-wrap items-center gap-3">
+      <div className="mt-2 flex flex-wrap items-center gap-3">
         {active ? (
           <>
             <span className="text-sm text-slate-500">Signed in as</span>
@@ -169,10 +169,10 @@ export default function Display() {
       </div>
 
       {active ? (
-        <div className="mt-4 flex flex-wrap items-start gap-6">
+        <div className="mt-3 flex flex-wrap items-start gap-6">
           {showCalendar && (
             <div className="min-w-0 flex-1">
-              <Calendar events={events} onRangeChange={onRangeChange} size="normal" />
+              <Calendar events={events} onRangeChange={onRangeChange} size="compact" />
             </div>
           )}
           {showChores && (
