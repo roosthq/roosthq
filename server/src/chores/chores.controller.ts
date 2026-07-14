@@ -59,6 +59,16 @@ export class ChoresController {
     return this.chores.claim(u.familyId, u.userId, instanceId);
   }
 
+  // Adult assigns/unassigns a claimed occurrence.
+  @Post('instances/:instanceId/assign')
+  assign(
+    @CurrentUser() u: SessionPayload,
+    @Param('instanceId') instanceId: string,
+    @Body() body: { userId: string | null },
+  ) {
+    return this.chores.setClaim(u.familyId, u.userId, instanceId, body.userId ?? null);
+  }
+
   @Post('instances/:instanceId/check')
   check(
     @CurrentUser() u: SessionPayload,

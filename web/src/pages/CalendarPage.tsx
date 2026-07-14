@@ -1,13 +1,63 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   api,
   loginUrl,
   type Me,
+  type Member,
   type GoogleCalendar,
   type SharedCalendar,
   type CalEvent,
 } from '../api';
 import Calendar from '../Calendar';
+
+function Avatar({ name, src }: { name?: string; src?: string }) {
+  if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
+  return (
+    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-300 font-semibold text-slate-700">
+      {(name ?? '?').charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+function Dashboard({ me }: { me: Me }) {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [balances, setBalances] = useState<Record<string, number>>({});
+  const [tokenName, setTokenName] = useState('Tokens');
+
+  useEffect(() => {
+    api.members().then(setMembers).catch(() => setMembers([]));
+    api.tokenBalances().then((b) => setBalances(Object.fromEntries(b.map((x) => [x.userId, x.balance])))).catch(() => undefined);
+    api.familySettings().then((f) => setTokenName(f.tokenName)).catch(() => undefined);
+  }, []);
+
+  if (members.length === 0) return null;
+  return (
+    <section className="mb-6">
+      <h2 className="text-lg font-semibold tracking-tight">Family</h2>
+      <ul className="mt-3 flex flex-wrap gap-3">
+        {members.map((m) => (
+          <li key={m.id}>
+            <Link
+              to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
+              className="panel flex items-center gap-3 hover:bg-slate-50"
+            >
+              <Avatar name={m.displayName} src={m.avatar} />
+              <span>
+                <span className="block font-medium">{m.displayName}</span>
+                <span className="block text-xs text-slate-400">{m.role.toLowerCase()}</span>
+              </span>
+              <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
+                {balances[m.id] ?? 0}
+                <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 export default function CalendarPage({ me }: { me: Me }) {
   const [shared, setShared] = useState<SharedCalendar[]>([]);
@@ -63,6 +113,7 @@ export default function CalendarPage({ me }: { me: Me }) {
 
   return (
     <div>
+      <Dashboard me={me} />
       <section>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">

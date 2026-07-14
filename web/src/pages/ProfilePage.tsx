@@ -64,22 +64,27 @@ export default function ProfilePage({ me, tokenName }: { me: Me; tokenName: stri
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">{name}</h2>
-        {isAdult && members.length > 0 && (
-          <select
-            value={targetId}
-            onChange={(e) => navigate(e.target.value === me.id ? '/profile' : `/profile/${e.target.value}`)}
-            className="rounded border px-2 py-1 text-sm"
-          >
+      {isAdult && members.length > 0 && (
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold tracking-tight">Profiles</h2>
+          <ul className="mt-2 flex flex-wrap gap-2">
             {members.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.displayName}
-              </option>
+              <li key={m.id}>
+                <button
+                  onClick={() => navigate(m.id === me.id ? '/profile' : `/profile/${m.id}`)}
+                  className={`rounded-full border px-3 py-1 text-sm ${
+                    m.id === targetId ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'
+                  }`}
+                >
+                  {m.displayName}
+                </button>
+              </li>
             ))}
-          </select>
-        )}
-      </div>
+          </ul>
+        </div>
+      )}
+
+      <h2 className="text-xl font-bold">{name}</h2>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label={`${tokenName} balance`} value={balance} />

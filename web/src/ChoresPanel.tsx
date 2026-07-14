@@ -74,12 +74,22 @@ export default function ChoresPanel({ me, client = choreClient() }: { me: Actor;
 
       <ul className="mt-4 space-y-3">
         {chores.map((chore) => {
-          const active = chore.instances[0];
+          // Pick the actionable occurrence: a pending one, else the earliest one
+          // due now, else the soonest upcoming (so "Enable again" surfaces its new one).
+          const endOfToday = new Date();
+          endOfToday.setHours(23, 59, 59, 999);
+          const insts = chore.instances;
+          const pending = insts.find((i) => i.status === 'PENDING');
+          const dueOpen = insts
+            .filter((i) => i.status === 'OPEN' && new Date(i.dueDate) <= endOfToday)
+            .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
+          const upcoming = insts
+            .filter((i) => i.status === 'OPEN')
+            .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
+          const active = pending ?? dueOpen ?? upcoming ?? insts[0];
           const claimedBy = active?.claimedByUserId;
           const checked = new Set(active?.checks.map((c) => c.checklistId) ?? []);
           const mine = canAct(chore, claimedBy);
-          const endOfToday = new Date();
-          endOfToday.setHours(23, 59, 59, 999);
           const dueNow = active ? new Date(active.dueDate) <= endOfToday : false;
           const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueNow;
 
@@ -164,6 +174,11 @@ export default function ChoresPanel({ me, client = choreClient() }: { me: Actor;
 
                 {isAdult && (
                   <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
+                    {active && claimedBy && (
+                      <button onClick={() => act(() => client.assignInstance(active.id, null))} className="hover:text-slate-700">
+                        Unassign
+                      </button>
+                    )}
                     <button onClick={() => act(() => client.reopenChore(chore.id))} className="hover:text-slate-700">
                       Enable again
                     </button>
@@ -319,20 +334,22 @@ function ChoreForm({
             </select>
           </Field>
 
-          <Field label="Day of week" help="Optional — anchors the chore to this day.">
-            <div className="flex flex-wrap gap-1">
-              {DOW.map((d, i) => (
-                <button
-                  key={d}
-                  type="button"
-                  onClick={() => setDayOfWeek(dayOfWeek === i ? null : i)}
-                  className={`rounded-md border px-3 py-1 text-sm ${dayOfWeek === i ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
-                >
-                  {d}
-                </button>
-              ))}
-            </div>
-          </Field>
+          {(repeat === '' || repeat === 'WEEKLY' || repeat === 'BIWEEKLY') && (
+            <Field label="Day of week" help="Optional — which day it happens (weekly/biweekly or a one-time).">
+              <div className="flex flex-wrap gap-1">
+                {DOW.map((d, i) => (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => setDayOfWeek(dayOfWeek === i ? null : i)}
+                    className={`rounded-md border px-3 py-1 text-sm ${dayOfWeek === i ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                  >
+                    {d}
+                  </button>
+                ))}
+              </div>
+            </Field>
+          )}
 
           <Field label="Checklist" help="Optional — one sub-task per line.">
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />

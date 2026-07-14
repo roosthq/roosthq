@@ -16,6 +16,8 @@
   --accent-hover: #3a6038;
   --tag-bg: #d4ead0;
   --tag-text: #2c5228;
+  --today: #d4c06a; /* owl beak gold — "today" accent */
+  --surface-off: #e2e9dd; /* days outside the viewed month */
 }
 
 [data-theme='dark'] {
@@ -30,6 +32,8 @@
   --accent-hover: #7eba7c;
   --tag-bg: #243824;
   --tag-text: #92c090;
+  --today: #d4c06a;
+  --surface-off: #16231a;
 }
 
 html,

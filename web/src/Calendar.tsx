@@ -175,16 +175,21 @@ export default function Calendar({
             <button
               key={k}
               onClick={() => setSelected(k)}
-              className={`${cellMin} p-1 text-left hover:bg-slate-100 ${
-                isToday ? 'bg-amber-50 ring-2 ring-inset ring-amber-400' : inMonth ? 'bg-white' : 'bg-slate-50 text-slate-400'
-              }`}
+              className={`${cellMin} p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
+              style={{
+                background: isToday
+                  ? 'rgba(212,192,106,0.16)'
+                  : inMonth
+                    ? undefined
+                    : 'var(--surface-off)',
+                boxShadow: isToday ? 'inset 0 0 0 2px var(--today)' : undefined,
+              }}
             >
               <div
-                className={`mb-1 ${large ? 'text-base' : 'text-xs'} ${
-                  isToday
-                    ? 'inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 font-semibold text-white'
-                    : 'font-medium'
+                className={`mb-1 ${large ? 'text-base' : 'text-xs'} font-medium ${
+                  isToday ? 'inline-flex h-6 w-6 items-center justify-center rounded-full' : ''
                 }`}
+                style={isToday ? { background: 'var(--today)', color: '#1c2e1c' } : undefined}
               >
                 {d.getDate()}
               </div>

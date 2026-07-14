@@ -252,6 +252,7 @@ export const api = {
   updateFamilySettings: (data: { name?: string; tokenName?: string }) =>
     req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
+  tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
   tokenBalance: (userId?: string) =>
     req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`),
   tokenLedger: (userId?: string) =>
@@ -307,6 +308,8 @@ export function choreClient(kioskToken?: string) {
     reopenChore: (id: string) => req(`/chores/${id}/reopen`, { method: 'POST' }, kioskToken),
     claimInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/claim`, { method: 'POST' }, kioskToken),
+    assignInstance: (instanceId: string, userId: string | null) =>
+      req(`/chores/instances/${instanceId}/assign`, { method: 'POST', body: JSON.stringify({ userId }) }, kioskToken),
     checkItem: (instanceId: string, checklistId: string, checked: boolean) =>
       req(`/chores/instances/${instanceId}/check`, { method: 'POST', body: JSON.stringify({ checklistId, checked }) }, kioskToken),
     completeInstance: (instanceId: string) =>

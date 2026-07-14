@@ -47,10 +47,15 @@ function nextDue(rule: string | null, from: Date): Date | null {
   }
 }
 
-function firstDueDate(dto: { dueDate?: string; dayOfWeek?: number }): Date {
+// Day-of-week only anchors weekly-style chores (or a one-time "do it on X").
+// Daily/monthly chores start today so they can be done immediately.
+function firstDueDate(dto: { dueDate?: string; dayOfWeek?: number; recurrenceRule?: string }): Date {
   if (dto.dueDate) return new Date(dto.dueDate);
-  if (dto.dayOfWeek != null) return nextWeekday(dto.dayOfWeek);
-  return new Date();
+  const weekdayApplies = !dto.recurrenceRule || dto.recurrenceRule === 'WEEKLY' || dto.recurrenceRule === 'BIWEEKLY';
+  if (dto.dayOfWeek != null && weekdayApplies) return nextWeekday(dto.dayOfWeek);
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
 }
 
 const CHORE_INCLUDE = {
@@ -188,6 +193,16 @@ export class ChoresService {
       throw new BadRequestException('Already claimed by someone else');
     }
     return this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: userId } });
+  }
+
+  // Adult assigns (or clears, userId=null) who a claimed occurrence belongs to.
+  async setClaim(familyId: string, actorId: string, instanceId: string, userId: string | null) {
+    await this.assertAdult(actorId);
+    await this.ownedInstance(familyId, instanceId);
+    return this.prisma.choreInstance.update({
+      where: { id: instanceId },
+      data: { claimedByUserId: userId },
+    });
   }
 
   async checkItem(familyId: string, userId: string, instanceId: string, checklistId: string, checked: boolean) {

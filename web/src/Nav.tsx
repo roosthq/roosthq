@@ -24,7 +24,7 @@ export default function Nav({
         <NavLink to="/" end className={cls}>Calendar</NavLink>
         <NavLink to="/chores" className={cls}>Chores</NavLink>
         <NavLink to="/store" className={cls}>Store</NavLink>
-        <NavLink to="/profile" className={cls}>My Profile</NavLink>
+        <NavLink to="/profile" className={cls}>Profiles</NavLink>
         {isAdult && <NavLink to="/settings" className={cls}>Settings</NavLink>}
       </div>
       <div className="flex items-center gap-3 text-sm">

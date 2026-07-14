@@ -80,7 +80,7 @@ export default function App() {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
 
   return (
-    <div className="min-h-screen bg-white text-slate-800">
+    <div className="min-h-screen bg-slate-50 text-slate-800">
       <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} />
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
