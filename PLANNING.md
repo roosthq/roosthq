@@ -246,26 +246,59 @@ work come back — revisit §2 of the prior draft before doing that.
 `.env.example`, README with Google OAuth setup steps, auth (Google OAuth + sessions),
 family/user model.
 
-**Phase 1 — Calendar core:** ✅ built — Google OAuth login + multi-account connect,
-share/dedup calendars (unique `[familyId, googleCalendarId]`), events aggregated and
-deduped by iCalUID, read/write event CRUD, viewer visibility toggles, weekly list view.
-(Untested end-to-end — needs a live DB + Google OAuth client to exercise.)
+**Phase 1 — Calendar core:** ✅ built and **live-verified 2026-07-14** on the real
+deployment — Google OAuth login + multi-account connect, share/dedup calendars
+(unique `[familyId, googleCalendarId]`), events aggregated and deduped by iCalUID,
+read/write event CRUD, viewer visibility toggles, weekly list view. Confirmed against
+a real family (2 users, 4 calendars, no duplicate events).
 
-**Phase 2 — Touch display:** ✅ built — kiosk view at `/?display=1`, owner-controlled
-settings (default calendars, enabled features, theme), live SSE updates. Also fixed the
-connect-account ambiguity: `mode=self` (add own calendar) vs `mode=member` (add person).
+**Phase 2 — Touch display:** ✅ built and **live-verified** — kiosk view at
+`/?display=1`, owner-controlled settings (default calendars, enabled features, theme),
+live SSE updates (theme change on the owner's device pushed to the kiosk tab with zero
+reload, confirmed). Also fixed the connect-account ambiguity: `mode=self` (add own
+calendar) vs `mode=member` (add person). As of 2026-07-14 the signed-in kiosk view is
+side-by-side, not stacked: the calendar shrinks (`Calendar` `size="compact"`) and a
+sidebar (`ChoresPanel` `variant="today"`) shows that profile's token balance and only
+the chores actionable *right now* (due today, or pending approval) — no page scroll
+needed down to a 1024×768 kiosk. Below ~480px tall (e.g. the official Pi 7"
+touchscreen) a 6-row month grid still doesn't fit; that's a hardware ceiling, not
+solved by this pass — a week-view fallback for tiny screens is a future option.
 
-**Phase 3 — Chores:** ✅ built — CRUD, recurrence (daily/weekly/biweekly/monthly + single),
-locations (adult single / kid multiple), checklists with required-item gating,
-completion → pending → approval; approval awards tokens and spawns the next instance.
+**Phase 3 — Chores:** ✅ built and **live-verified** — CRUD, recurrence
+(daily/weekly/biweekly/monthly + single), locations (adult single / kid multiple),
+checklists with required-item gating, completion → pending → approval; approval
+awards tokens and spawns the next instance. Confirmed the full kid-claims →
+adult-approves loop end-to-end, including the once-per-period block.
 
-**Phase 4 — Tokens:** partial — ledger-derived balances and chore awards done
-(`GET /chores/balances`). Still TODO: manual adjustments, physical reconciliation,
-token rename.
+**Phase 4 — Tokens:** ✅ built and **live-verified** — ledger-derived balances,
+chore-approval awards, manual adjustment with a required reason (`POST
+/tokens/adjust`), full audit trail. Physical-reconciliation UX and token rename are
+still just an API (`PUT /family/settings`) with no dedicated "hand over tokens" prompt
+in the UI yet.
 
-**Phase 5 — Prizes:** CRUD, scoping, item/event types, price hiding, redemption flow.
+**Phase 5 — Prizes:** ✅ built and **live-verified** — CRUD, global/specific scoping,
+item/event types, real price hidden from kid sessions (confirmed the field is absent
+from the API response entirely, not just masked), redeem → reject-with-refund and
+redeem → fulfill both confirmed against the ledger.
 
-**Phase 6 — Polish:** PWA install, notifications, image uploads, per-profile PINs.
+**Phase 6 — Polish:** per-profile PINs ✅ built and **live-verified** (wrong-PIN
+rejection, correct-PIN unlock, adults blocked from the kiosk until a PIN is set).
+PWA install, notifications, and image uploads are **not built** — confirmed absent
+from the code, not just untested.
+
+### Bugs found and fixed during the 2026-07-14 live verification pass
+- **Infinite polling loop** (`ChoresPanel`/`Display.tsx`): an unmemoized `client`
+  object was reconstructed every render, destabilizing a `useCallback`/`useEffect`
+  chain and hammering `/chores/balances` continuously — worst on the always-on kiosk.
+  Fixed with `useMemo`.
+- **Kiosk identity bug** (`server/src/auth/auth.guard.ts`): an ambient session cookie
+  outranked the explicit `x-kiosk-token` header, so a kid's kiosk actions could
+  silently run (or get rejected) as whoever's cookie happened to be in that browser
+  instead of the profile actually selected. Real risk on any device also used for
+  normal login (e.g. the owner's "Display ↗" preview link). Fixed by giving the kiosk
+  header priority.
+- Cleaned up 3 orphan `Family` rows left over from before the invite-based-joining fix
+  (commit `1afea46`) — harmless but confusing junk data.
 
 Prove the calendar loop works on the Pi before building the reward economy on top of
 it. Because it's self-hosted, "shipping" a phase = tagging a release others can
