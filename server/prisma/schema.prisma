@@ -64,6 +64,25 @@ model Family {
   prizes          Prize[]
   displaySettings DisplaySettings?
   displayTokens   DisplayToken[]
+  invites         FamilyInvite[]
+}
+
+// One-time invite used to join an existing family with a chosen role. Stored hashed;
+// the raw token goes in the invite link the owner shares.
+model FamilyInvite {
+  id          String    @id @default(cuid())
+  familyId    String
+  role        Role
+  label       String?
+  tokenHash   String    @unique
+  createdById String
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime?
+  acceptedAt  DateTime?
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
 }
 
 // Owner-minted, revocable, read-only credential for an unattended display device

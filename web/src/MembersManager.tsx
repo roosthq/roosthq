@@ -1,23 +1,42 @@
 import { useEffect, useState } from 'react';
-import { api, type Member } from './api';
+import { api, type Member, type InviteInfo } from './api';
 
-// Owner-only: manage family members — set roles (mark someone a kid) and manage the
-// PINs used on the touch hub (adults require a PIN to act on the kiosk).
+// Owner-only: manage family members — invite people, set roles (mark someone a kid),
+// remove members, and manage the PINs used on the touch hub.
 export default function MembersManager() {
   const [members, setMembers] = useState<Member[]>([]);
+  const [invites, setInvites] = useState<InviteInfo[]>([]);
   const [open, setOpen] = useState(false);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
+  const [inviteRole, setInviteRole] = useState<'ADULT' | 'KID'>('KID');
+  const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
 
   async function refresh() {
-    setMembers(await api.listUsers());
+    const [m, inv] = await Promise.all([api.listUsers(), api.listInvites()]);
+    setMembers(m);
+    setInvites(inv);
   }
   useEffect(() => {
     if (open) refresh();
   }, [open]);
 
+  async function createInvite() {
+    const minted = await api.createInvite(inviteRole);
+    setFreshInviteUrl(`${window.location.origin}/?invite=${minted.token}`);
+    await refresh();
+  }
+  async function revokeInvite(id: string) {
+    await api.revokeInvite(id);
+    await refresh();
+  }
   async function changeRole(m: Member, role: 'ADULT' | 'KID') {
     await api.setUserRole(m.id, role);
+    await refresh();
+  }
+  async function removeMember(m: Member) {
+    if (!window.confirm(`Remove ${m.displayName}? This deletes their chores and token history.`)) return;
+    await api.removeUser(m.id);
     await refresh();
   }
   async function savePin() {
@@ -46,6 +65,48 @@ export default function MembersManager() {
         <button onClick={() => setOpen(false)} className="text-sm text-slate-400 hover:text-slate-700">
           Close
         </button>
+      </div>
+
+      {/* Invite */}
+      <div className="mt-3 rounded bg-slate-50 p-3">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <span className="font-medium">Invite someone as</span>
+          <select
+            value={inviteRole}
+            onChange={(e) => setInviteRole(e.target.value as 'ADULT' | 'KID')}
+            className="rounded border px-2 py-1 text-xs"
+          >
+            <option value="KID">Kid</option>
+            <option value="ADULT">Adult</option>
+          </select>
+          <button onClick={createInvite} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
+            Generate invite link
+          </button>
+        </div>
+        {freshInviteUrl && (
+          <div className="mt-2 rounded bg-amber-50 p-2 text-xs">
+            <p className="mb-1 font-medium text-amber-700">
+              Send this link to the family member. They open it, sign in with Google, and join. One-time use:
+            </p>
+            <code className="block break-all rounded bg-white p-2">{freshInviteUrl}</code>
+          </div>
+        )}
+        {invites.filter((i) => !i.acceptedAt).length > 0 && (
+          <ul className="mt-2 space-y-1 text-xs">
+            {invites
+              .filter((i) => !i.acceptedAt)
+              .map((i) => (
+                <li key={i.id} className="flex items-center justify-between">
+                  <span>
+                    Pending invite · {String(i.role).toLowerCase()} · {new Date(i.createdAt).toLocaleDateString()}
+                  </span>
+                  <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
+                    Revoke
+                  </button>
+                </li>
+              ))}
+          </ul>
+        )}
       </div>
 
       <ul className="mt-3 space-y-2 text-sm">
@@ -84,6 +145,11 @@ export default function MembersManager() {
             )}
             {m.role !== 'KID' && !m.hasPin && (
               <span className="text-xs text-amber-600">needs a PIN for kiosk</span>
+            )}
+            {m.role !== 'OWNER' && (
+              <button onClick={() => removeMember(m)} className="ml-auto text-xs text-red-500 hover:text-red-700">
+                Remove
+              </button>
             )}
           </li>
         ))}

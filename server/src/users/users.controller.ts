@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
@@ -30,5 +30,10 @@ export class UsersController {
     @Body() body: { role: 'OWNER' | 'ADULT' | 'KID' },
   ) {
     return this.users.setRole(u.userId, u.familyId, id, body.role);
+  }
+
+  @Delete(':id')
+  remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.users.remove(u.userId, u.familyId, id);
   }
 }

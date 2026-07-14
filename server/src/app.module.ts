@@ -7,9 +7,18 @@ import { DisplayModule } from './display/display.module';
 import { LocationsModule } from './locations/locations.module';
 import { ChoresModule } from './chores/chores.module';
 import { UsersModule } from './users/users.module';
+import { InvitesModule } from './invites/invites.module';
 
 @Module({
-  imports: [AuthModule, CalendarsModule, DisplayModule, LocationsModule, ChoresModule, UsersModule],
+  imports: [
+    AuthModule,
+    CalendarsModule,
+    DisplayModule,
+    LocationsModule,
+    ChoresModule,
+    UsersModule,
+    InvitesModule,
+  ],
   controllers: [HealthController],
   providers: [PrismaService],
 })

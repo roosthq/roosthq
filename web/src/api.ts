@@ -118,6 +118,21 @@ export interface MintedToken {
   token: string;
 }
 
+export interface InviteInfo {
+  id: string;
+  role: string;
+  label?: string;
+  createdAt: string;
+  acceptedAt?: string | null;
+}
+
+export interface MintedInvite {
+  id: string;
+  role: string;
+  label?: string;
+  token: string;
+}
+
 export const BASE_URL = BASE;
 export const displayStreamUrl = `${BASE}/display/stream`;
 
@@ -147,6 +162,12 @@ export const api = {
     req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
   setUserRole: (id: string, role: 'OWNER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
+  removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
+
+  listInvites: () => req<InviteInfo[]>('/invites'),
+  createInvite: (role: 'ADULT' | 'KID', label?: string) =>
+    req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label }) }),
+  revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),

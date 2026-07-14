@@ -51,4 +51,29 @@ export class UsersService {
     await this.prisma.user.update({ where: { id: targetId }, data: { role } });
     return { ok: true };
   }
+
+  // Owner removes a member. Cleans up rows that would otherwise block the delete
+  // (chores reference users without cascade). Can't remove yourself or the owner.
+  async remove(actorId: string, familyId: string, targetId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (actorId === targetId) throw new ForbiddenException('You cannot remove yourself');
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    if (target.role === 'OWNER') throw new ForbiddenException('Cannot remove the owner');
+
+    await this.prisma.$transaction([
+      // Chores assigned to or created by this member (cascades to instances/checklist).
+      this.prisma.chore.deleteMany({
+        where: { OR: [{ assigneeUserId: targetId }, { createdById: targetId }] },
+      }),
+      // Ledger entries authored by or crediting this member.
+      this.prisma.tokenLedger.deleteMany({
+        where: { OR: [{ userId: targetId }, { createdById: targetId }] },
+      }),
+      // The user (cascades google accounts, calendar shares, locations, redemptions).
+      this.prisma.user.delete({ where: { id: targetId } }),
+    ]);
+    return { ok: true };
+  }
 }

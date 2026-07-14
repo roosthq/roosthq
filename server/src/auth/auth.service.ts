@@ -1,14 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
+import { InvitesService } from '../invites/invites.service';
 import { encrypt } from '../crypto/token-crypto';
+
+export type CallbackResult =
+  | { status: 'ok'; userId: string; familyId: string; linkedMember: boolean }
+  | { status: 'need_invite' };
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private google: GoogleService,
+    private invites: InvitesService,
   ) {}
+
+  private async cleanupIfEmpty(familyId: string) {
+    const count = await this.prisma.user.count({ where: { familyId } });
+    if (count === 0) {
+      await this.prisma.family.delete({ where: { id: familyId } }).catch(() => undefined);
+    }
+  }
 
   // Handle the OAuth callback.
   //  - existing account         -> sign in
@@ -17,8 +30,8 @@ export class AuthService {
   //  - not signed in            -> create a new family with this account as OWNER
   async handleGoogleCallback(
     code: string,
-    ctx: { userId?: string; familyId?: string; mode?: 'self' | 'member' },
-  ) {
+    ctx: { userId?: string; familyId?: string; mode?: 'self' | 'member'; inviteToken?: string },
+  ): Promise<CallbackResult> {
     const { tokens, profile } = await this.google.exchangeCode(code);
     const googleSub = profile.id as string;
     const email = profile.email ?? undefined;
@@ -26,50 +39,81 @@ export class AuthService {
     const avatar = profile.picture ?? undefined;
     const encTokens = encrypt(JSON.stringify(tokens));
 
+    const invite = ctx.inviteToken ? await this.invites.resolve(ctx.inviteToken) : null;
+
     const existing = await this.prisma.googleAccount.findUnique({
       where: { googleSub },
       include: { user: true },
     });
 
-    // Returning account — refresh stored tokens and sign in.
+    // Returning account — refresh tokens.
     if (existing) {
       await this.prisma.googleAccount.update({
         where: { id: existing.id },
         data: { tokensEncrypted: encTokens },
       });
-      return { userId: existing.userId, familyId: existing.user.familyId, linkedMember: false };
+      // Accepted an invite for a different family (e.g. fixing a mis-created account):
+      // move this person into the inviting family and clean up their old empty family.
+      if (invite && invite.familyId !== existing.user.familyId) {
+        const oldFamilyId = existing.user.familyId;
+        await this.prisma.user.update({
+          where: { id: existing.userId },
+          data: { familyId: invite.familyId, role: invite.role },
+        });
+        await this.invites.markAccepted(invite.id);
+        await this.cleanupIfEmpty(oldFamilyId);
+        return { status: 'ok', userId: existing.userId, familyId: invite.familyId, linkedMember: false };
+      }
+      return { status: 'ok', userId: existing.userId, familyId: existing.user.familyId, linkedMember: false };
     }
 
-    // Signed in, adding another of the current user's own calendars.
+    // New account joining via an invite link.
+    if (invite) {
+      const user = await this.prisma.user.create({
+        data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar },
+      });
+      await this.prisma.googleAccount.create({
+        data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
+      });
+      await this.invites.markAccepted(invite.id);
+      return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
+    }
+
+    // Owner adding another of their own calendars (in-browser).
     if (ctx.familyId && ctx.userId && ctx.mode === 'self') {
       await this.prisma.googleAccount.create({
         data: { userId: ctx.userId, googleSub, tokensEncrypted: encTokens },
       });
-      return { userId: ctx.userId, familyId: ctx.familyId, linkedMember: false };
+      return { status: 'ok', userId: ctx.userId, familyId: ctx.familyId, linkedMember: false };
     }
 
-    // Signed in, adding a new family member. Added as ADULT by default; the owner can
-    // change the role to KID afterwards. linkedMember=true so we keep the OWNER signed
-    // in rather than switching the session to the new person.
-    if (ctx.familyId) {
+    // Owner adding a member in-browser (kept as a convenience; added as ADULT).
+    if (ctx.familyId && ctx.mode === 'member') {
       const user = await this.prisma.user.create({
         data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
       });
-      return { userId: user.id, familyId: ctx.familyId, linkedMember: true };
+      return { status: 'ok', userId: user.id, familyId: ctx.familyId, linkedMember: true };
     }
 
-    // Brand-new family with this account as OWNER.
-    const family = await this.prisma.family.create({ data: { name: `${name}'s Family` } });
-    const user = await this.prisma.user.create({
-      data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar },
-    });
-    await this.prisma.googleAccount.create({
-      data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
-    });
-    return { userId: user.id, familyId: family.id, linkedMember: false };
+    // No invite, no session. The very first login bootstraps the family (owner);
+    // after that, joining requires an invite.
+    const familyCount = await this.prisma.family.count();
+    if (familyCount === 0) {
+      const family = await this.prisma.family.create({ data: { name: `${name}'s Family` } });
+      const user = await this.prisma.user.create({
+        data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar },
+      });
+      await this.prisma.googleAccount.create({
+        data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
+      });
+      return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
+    }
+
+    // Unknown account, no invite: do not create anything.
+    return { status: 'need_invite' };
   }
 
   me(userId: string) {

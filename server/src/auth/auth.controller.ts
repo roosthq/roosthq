@@ -8,6 +8,7 @@ import { AuthGuard, SESSION_COOKIE } from './auth.guard';
 import { CurrentUser } from './current-user.decorator';
 
 const STATE_COOKIE = 'rhq_oauth_state';
+const INVITE_COOKIE = 'rhq_invite';
 const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
 const PROD = process.env.NODE_ENV === 'production';
 
@@ -26,10 +27,12 @@ export class AuthController {
   // mode=self   -> add another calendar to the current user (default when signed in)
   // mode=member -> add a new family member
   @Get('google')
-  login(@Query('mode') mode: string, @Res() res: Response) {
+  login(@Query('mode') mode: string, @Query('invite') invite: string, @Res() res: Response) {
     const nonce = randomBytes(16).toString('hex');
     const cleanMode = mode === 'member' ? 'member' : 'self';
     res.cookie(STATE_COOKIE, nonce, cookieBase);
+    // Carry an invite token through the Google round-trip via a short-lived cookie.
+    if (invite) res.cookie(INVITE_COOKIE, invite, { ...cookieBase, maxAge: 10 * 60 * 1000 });
     res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`));
   }
 
@@ -61,20 +64,30 @@ export class AuthController {
       }
     }
 
-    const { userId, familyId, linkedMember } = await this.auth.handleGoogleCallback(code, {
+    const inviteToken = req.cookies?.[INVITE_COOKIE] as string | undefined;
+    if (inviteToken) res.clearCookie(INVITE_COOKIE);
+
+    const result = await this.auth.handleGoogleCallback(code, {
       userId: existingUserId,
       familyId: existingFamilyId,
       mode: mode === 'member' ? 'member' : 'self',
+      inviteToken,
     });
-    // Keep the current owner signed in when they just added a family member;
-    // otherwise establish/refresh the session for the account that just logged in.
-    if (!linkedMember) {
-      res.cookie(SESSION_COOKIE, signSession({ userId, familyId }), {
+
+    // Unknown account with no invite — don't sign in, send them to a "need invite" page.
+    if (result.status === 'need_invite') {
+      return res.redirect(`${WEB_URL}/?auth=need_invite`);
+    }
+
+    // Keep the current owner signed in when they added a member in-browser; otherwise
+    // establish/refresh the session for the account that just logged in.
+    if (!result.linkedMember) {
+      res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId }), {
         ...cookieBase,
         maxAge: 30 * 24 * 60 * 60 * 1000,
       });
     }
-    return res.redirect(`${WEB_URL}/?auth=${linkedMember ? 'member_added' : 'ok'}`);
+    return res.redirect(`${WEB_URL}/?auth=${result.linkedMember ? 'member_added' : 'ok'}`);
   }
 
   @UseGuards(AuthGuard)

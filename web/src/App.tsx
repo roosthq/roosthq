@@ -84,19 +84,30 @@ export default function App() {
 
   if (loading) return <Centered>Loading…</Centered>;
 
-  if (!me)
+  if (!me) {
+    const params = new URLSearchParams(window.location.search);
+    const invite = params.get('invite');
+    const needInvite = params.get('auth') === 'need_invite';
+    const href = invite ? `${loginUrl}?invite=${encodeURIComponent(invite)}` : loginUrl;
     return (
       <Centered>
         <h1 className="text-4xl font-bold">Roost HQ</h1>
         <p className="text-slate-500">The family&apos;s home base.</p>
+        {invite && <p className="text-sm text-slate-600">You&apos;ve been invited to join a family.</p>}
+        {needInvite && (
+          <p className="max-w-sm text-center text-sm text-amber-600">
+            That account isn&apos;t part of a family yet. Ask the family owner to send you an invite link.
+          </p>
+        )}
         <a
-          href={loginUrl}
+          href={href}
           className="mt-4 rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700"
         >
-          Connect Google
+          {invite ? 'Sign in with Google to join' : 'Sign in with Google'}
         </a>
       </Centered>
     );
+  }
 
   return (
     <div className="mx-auto max-w-5xl p-6 text-slate-800">
@@ -140,10 +151,7 @@ export default function App() {
           </h2>
           <div className="flex gap-2">
             <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              + My calendar
-            </a>
-            <a href={`${loginUrl}?mode=member`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              + Family member
+              + Connect another of my Google accounts
             </a>
             <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
               + Add calendars
