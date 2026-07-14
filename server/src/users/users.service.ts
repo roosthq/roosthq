@@ -3,6 +3,8 @@ import { PrismaService } from '../prisma.service';
 import { hashPin } from '../crypto/pin';
 
 type Role = 'OWNER' | 'ADULT' | 'KID';
+type FontSize = 'sm' | 'md' | 'lg' | 'xl';
+const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
 
 @Injectable()
 export class UsersService {
@@ -57,6 +59,13 @@ export class UsersService {
     const t = theme === 'dark' ? 'dark' : 'light';
     await this.prisma.user.update({ where: { id: userId }, data: { themePref: t } });
     return { ok: true, theme: t };
+  }
+
+  // Current user's own app text-size preference.
+  async setFontSize(userId: string, fontSize: FontSize) {
+    const f = FONT_SIZES.includes(fontSize) ? fontSize : 'md';
+    await this.prisma.user.update({ where: { id: userId }, data: { fontSizePref: f } });
+    return { ok: true, fontSize: f };
   }
 
   // Owner removes a member. Cleans up rows that would otherwise block the delete

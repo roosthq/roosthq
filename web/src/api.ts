@@ -14,6 +14,8 @@ async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Pr
 
 export const loginUrl = `${BASE}/auth/google`;
 
+export type FontSize = 'sm' | 'md' | 'lg' | 'xl';
+
 export interface Me {
   id: string;
   displayName: string;
@@ -22,6 +24,7 @@ export interface Me {
   avatar?: string;
   familyId: string;
   themePref?: 'light' | 'dark';
+  fontSizePref?: FontSize;
 }
 
 export interface GoogleCalendar {
@@ -162,6 +165,7 @@ export interface DisplayConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  fontSize: FontSize;
 }
 
 // The resolved config a kiosk renders (id may be null for legacy/default).
@@ -172,6 +176,7 @@ export interface ResolvedDisplayConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  fontSize: FontSize;
 }
 
 export interface LedgerEntry {
@@ -230,10 +235,25 @@ export const api = {
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
 
   listDisplays: () => req<DisplayConfig[]>('/displays'),
-  createDisplay: (body: { name: string; locationId?: string | null; calendarIds?: string[]; enabledFeatures?: string[]; theme?: string }) =>
-    req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
-  updateDisplay: (id: string, body: Partial<{ name: string; locationId: string | null; calendarIds: string[]; enabledFeatures: string[]; theme: string }>) =>
-    req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  createDisplay: (body: {
+    name: string;
+    locationId?: string | null;
+    calendarIds?: string[];
+    enabledFeatures?: string[];
+    theme?: string;
+    fontSize?: FontSize;
+  }) => req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
+  updateDisplay: (
+    id: string,
+    body: Partial<{
+      name: string;
+      locationId: string | null;
+      calendarIds: string[];
+      enabledFeatures: string[];
+      theme: string;
+      fontSize: FontSize;
+    }>,
+  ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
   // Calendars selectable for a display: all shared calendars, or (scoped) only
   // those shared by someone assigned to that location.
@@ -248,6 +268,8 @@ export const api = {
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
   setTheme: (theme: 'light' | 'dark') =>
     req<{ ok: boolean; theme: string }>('/users/me/theme', { method: 'PUT', body: JSON.stringify({ theme }) }),
+  setFontSize: (fontSize: FontSize) =>
+    req<{ ok: boolean; fontSize: string }>('/users/me/font-size', { method: 'PUT', body: JSON.stringify({ fontSize }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
   createInvite: (role: 'ADULT' | 'KID', label?: string) =>

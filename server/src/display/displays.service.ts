@@ -9,6 +9,7 @@ export interface DisplayConfigInput {
   calendarIds?: string[];
   enabledFeatures?: string[];
   theme?: string;
+  fontSize?: string;
 }
 
 export interface ResolvedConfig {
@@ -18,6 +19,7 @@ export interface ResolvedConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  fontSize: string;
 }
 
 function weekRange(): { start: string; end: string } {
@@ -65,6 +67,7 @@ export class DisplaysService {
         calendarIds,
         enabledFeatures: dto.enabledFeatures ?? ['calendar', 'chores'],
         theme: dto.theme ?? 'light',
+        fontSize: dto.fontSize ?? 'md',
         createdById: actorId,
       },
     });
@@ -89,6 +92,7 @@ export class DisplaysService {
         ...(calendarIds !== undefined && { calendarIds }),
         ...(dto.enabledFeatures !== undefined && { enabledFeatures: dto.enabledFeatures }),
         ...(dto.theme !== undefined && { theme: dto.theme }),
+        ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display-updated', id });
@@ -158,9 +162,18 @@ export class DisplaysService {
         calendarIds: (legacy.defaultCalendarIds as string[]) ?? [],
         enabledFeatures: (legacy.enabledFeatures as string[]) ?? ['calendar'],
         theme: legacy.theme,
+        fontSize: 'md',
       };
     }
-    return { id: null, name: 'Display', locationId: null, calendarIds: [], enabledFeatures: ['calendar'], theme: 'light' };
+    return {
+      id: null,
+      name: 'Display',
+      locationId: null,
+      calendarIds: [],
+      enabledFeatures: ['calendar'],
+      theme: 'light',
+      fontSize: 'md',
+    };
   }
 
   // Re-filters calendarIds against the location's current members every time a
@@ -168,7 +181,15 @@ export class DisplaysService {
   // immediately instead of waiting for someone to re-save the display.
   private async normalize(
     familyId: string,
-    c: { id: string; name: string; locationId: string | null; calendarIds: unknown; enabledFeatures: unknown; theme: string },
+    c: {
+      id: string;
+      name: string;
+      locationId: string | null;
+      calendarIds: unknown;
+      enabledFeatures: unknown;
+      theme: string;
+      fontSize: string;
+    },
   ): Promise<ResolvedConfig> {
     const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
     return {
@@ -178,6 +199,7 @@ export class DisplaysService {
       calendarIds,
       enabledFeatures: (c.enabledFeatures as string[]) ?? ['calendar'],
       theme: c.theme,
+      fontSize: c.fontSize,
     };
   }
 

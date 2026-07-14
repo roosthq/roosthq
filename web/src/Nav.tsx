@@ -1,15 +1,17 @@
 import { NavLink } from 'react-router-dom';
-import type { Me } from './api';
+import type { Me, FontSize } from './api';
 import Logo from './Logo';
 
 export default function Nav({
   me,
   onLogout,
   onToggleTheme,
+  onChangeFontSize,
 }: {
   me: Me;
   onLogout: () => void;
   onToggleTheme: () => void;
+  onChangeFontSize: (size: FontSize) => void;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   const cls = ({ isActive }: { isActive: boolean }) =>
@@ -31,6 +33,17 @@ export default function Nav({
         <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
           {me.themePref === 'dark' ? '☀︎' : '☾'}
         </button>
+        <select
+          value={me.fontSizePref ?? 'md'}
+          onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
+          title="Text size"
+          className="rounded border bg-transparent px-1 py-0.5 text-xs text-slate-500"
+        >
+          <option value="sm">Small text</option>
+          <option value="md">Normal text</option>
+          <option value="lg">Large text</option>
+          <option value="xl">Extra large text</option>
+        </select>
         <a href="/?display=1" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-slate-800">
           Display ↗
         </a>

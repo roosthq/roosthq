@@ -43,6 +43,23 @@ body {
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
+/* Text-size preference: scales the root rem base, so every Tailwind text-*
+   utility (all rem-based) scales proportionally with it. Applied via
+   data-font-size on <html> — per-account in the main app, per-kiosk on the
+   touch display. */
+html {
+  font-size: 16px;
+}
+[data-font-size='sm'] {
+  font-size: 14px;
+}
+[data-font-size='lg'] {
+  font-size: 19px;
+}
+[data-font-size='xl'] {
+  font-size: 22px;
+}
+
 /* Brand + theme bridge: remap the Tailwind utilities used across the app to the
    token palette so the whole UI adopts the brand and responds to light/dark
    without editing every component. */

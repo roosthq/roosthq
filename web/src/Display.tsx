@@ -80,6 +80,7 @@ export default function Display() {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
     document.documentElement.setAttribute('data-theme', c.theme === 'dark' ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
   }, []);
 
   useEffect(() => {

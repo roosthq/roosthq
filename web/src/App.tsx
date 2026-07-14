@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { api, loginUrl, type Me, type FamilySettings } from './api';
+import { api, loginUrl, type Me, type FamilySettings, type FontSize } from './api';
 import Nav from './Nav';
 import Logo from './Logo';
 import CalendarPage from './pages/CalendarPage';
@@ -11,6 +11,10 @@ import SettingsPage from './pages/SettingsPage';
 
 function applyTheme(t: string) {
   document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+}
+
+function applyFontSize(f: string) {
+  document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(f) ? f : 'md');
 }
 
 export default function App() {
@@ -24,6 +28,7 @@ export default function App() {
       .then(async (u) => {
         setMe(u);
         applyTheme(u.themePref ?? 'light');
+        applyFontSize(u.fontSizePref ?? 'md');
         try {
           setFamily(await api.familySettings());
         } catch {
@@ -37,6 +42,7 @@ export default function App() {
   async function logout() {
     await api.logout();
     applyTheme('light');
+    applyFontSize('md');
     setMe(null);
   }
 
@@ -47,6 +53,17 @@ export default function App() {
     setMe({ ...me, themePref: next });
     try {
       await api.setTheme(next);
+    } catch {
+      /* ignore */
+    }
+  }
+
+  async function changeFontSize(next: FontSize) {
+    if (!me) return;
+    applyFontSize(next);
+    setMe({ ...me, fontSizePref: next });
+    try {
+      await api.setFontSize(next);
     } catch {
       /* ignore */
     }
@@ -81,7 +98,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
-      <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} />
+      <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} onChangeFontSize={changeFontSize} />
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />

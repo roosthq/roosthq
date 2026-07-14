@@ -42,4 +42,10 @@ export class UsersController {
   setTheme(@CurrentUser() u: SessionPayload, @Body() body: { theme: 'light' | 'dark' }) {
     return this.users.setTheme(u.userId, body.theme);
   }
+
+  // Current user sets their own app text size.
+  @Put('me/font-size')
+  setFontSize(@CurrentUser() u: SessionPayload, @Body() body: { fontSize: 'sm' | 'md' | 'lg' | 'xl' }) {
+    return this.users.setFontSize(u.userId, body.fontSize);
+  }
 }

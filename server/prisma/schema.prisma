@@ -81,6 +81,7 @@ model DisplayConfig {
   calendarIds     Json
   enabledFeatures Json
   theme           String   @default("light")
+  fontSize        String   @default("md") // sm | md | lg | xl
   createdById     String
   createdAt       DateTime @default(now())
 
@@ -136,6 +137,7 @@ model User {
   pinHash     String? // optional per-profile PIN
   avatar      String? @db.Text // Google photo URLs can exceed the default varchar(191)
   themePref   String  @default("light") // per-user app UI theme: light | dark
+  fontSizePref String @default("md") // per-user app text size: sm | md | lg | xl
 
   family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations      UserLocation[]

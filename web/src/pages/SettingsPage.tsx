@@ -305,6 +305,19 @@ function DisplayRow({
             <option value="dark">Dark</option>
           </select>
         </label>
+        <label className="flex items-center gap-1 text-xs">
+          Text size:
+          <select
+            value={d.fontSize}
+            onChange={(e) => onPatch({ fontSize: e.target.value as DisplayConfig['fontSize'] })}
+            className="rounded border px-1 py-0.5"
+          >
+            <option value="sm">Small</option>
+            <option value="md">Normal</option>
+            <option value="lg">Large</option>
+            <option value="xl">Extra large</option>
+          </select>
+        </label>
       </div>
     </li>
   );

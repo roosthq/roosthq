@@ -127,6 +127,7 @@ export class AuthService {
         avatar: true,
         familyId: true,
         themePref: true,
+        fontSizePref: true,
       },
     });
   }
