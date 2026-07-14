@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import Display from './Display';
 import './index.css';
 
-// Simple route split: ?display=1 opens the kiosk view for the wall touch screen.
+// ?display=1 opens the kiosk view for the wall touch screen (no router needed).
 const isDisplay = new URLSearchParams(window.location.search).has('display');
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>{isDisplay ? <Display /> : <App />}</React.StrictMode>,
+  <React.StrictMode>
+    {isDisplay ? (
+      <Display />
+    ) : (
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    )}
+  </React.StrictMode>,
 );

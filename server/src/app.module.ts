@@ -8,6 +8,9 @@ import { LocationsModule } from './locations/locations.module';
 import { ChoresModule } from './chores/chores.module';
 import { UsersModule } from './users/users.module';
 import { InvitesModule } from './invites/invites.module';
+import { FamilyModule } from './family/family.module';
+import { TokensModule } from './tokens/tokens.module';
+import { PrizesModule } from './prizes/prizes.module';
 
 @Module({
   imports: [
@@ -18,6 +21,9 @@ import { InvitesModule } from './invites/invites.module';
     ChoresModule,
     UsersModule,
     InvitesModule,
+    FamilyModule,
+    TokensModule,
+    PrizesModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

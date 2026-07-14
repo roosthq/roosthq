@@ -133,6 +133,49 @@ export interface MintedInvite {
   token: string;
 }
 
+export interface FamilySettings {
+  id: string;
+  name: string;
+  tokenName: string;
+}
+
+export interface FamilyLocation {
+  id: string;
+  name: string;
+  users: Array<{ userId: string }>;
+}
+
+export interface LedgerEntry {
+  id: string;
+  delta: number;
+  reason: string;
+  type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM';
+  refId?: string | null;
+  createdAt: string;
+}
+
+export interface StorePrize {
+  id: string;
+  name: string;
+  description?: string | null;
+  image?: string | null;
+  url?: string | null;
+  realPrice?: string | number | null;
+  tokenCost: number;
+  type: 'ITEM' | 'EVENT';
+  scope: 'GLOBAL' | 'SPECIFIC';
+  assignedUserIds: string[];
+}
+
+export interface Redemption {
+  id: string;
+  prizeId: string;
+  userId: string;
+  status: 'REQUESTED' | 'APPROVED' | 'REJECTED' | 'FULFILLED';
+  requestedAt: string;
+  prize: { name: string; tokenCost: number; type: string };
+}
+
 export const BASE_URL = BASE;
 export const displayStreamUrl = `${BASE}/display/stream`;
 
@@ -168,6 +211,36 @@ export const api = {
   createInvite: (role: 'ADULT' | 'KID', label?: string) =>
     req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
+
+  familySettings: () => req<FamilySettings>('/family/settings'),
+  updateFamilySettings: (data: { name?: string; tokenName?: string }) =>
+    req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
+
+  tokenBalance: (userId?: string) =>
+    req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`),
+  tokenLedger: (userId?: string) =>
+    req<LedgerEntry[]>(`/tokens/ledger${userId ? `?userId=${userId}` : ''}`),
+  adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
+    req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
+
+  locations: () => req<FamilyLocation[]>('/locations'),
+  createLocation: (name: string) => req<FamilyLocation>('/locations', { method: 'POST', body: JSON.stringify({ name }) }),
+  deleteLocation: (id: string) => req(`/locations/${id}`, { method: 'DELETE' }),
+  assignLocation: (id: string, userId: string) =>
+    req(`/locations/${id}/assign`, { method: 'POST', body: JSON.stringify({ userId }) }),
+  unassignLocation: (id: string, userId: string) => req(`/locations/${id}/users/${userId}`, { method: 'DELETE' }),
+
+  prizes: () => req<StorePrize[]>('/prizes'),
+  createPrize: (body: Record<string, unknown>) =>
+    req<StorePrize>('/prizes', { method: 'POST', body: JSON.stringify(body) }),
+  updatePrize: (id: string, body: Record<string, unknown>) =>
+    req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
+  redeemPrize: (id: string) => req(`/prizes/${id}/redeem`, { method: 'POST' }),
+  redemptions: (userId?: string) =>
+    req<Redemption[]>(`/prizes/redemptions${userId ? `?userId=${userId}` : ''}`),
+  fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }),
+  rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }),
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),

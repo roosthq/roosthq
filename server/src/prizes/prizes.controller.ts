@@ -1,0 +1,52 @@
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/current-user.decorator';
+import { SessionPayload } from '../auth/jwt';
+import { PrizesService, PrizeInput } from './prizes.service';
+
+@UseGuards(AuthGuard)
+@Controller('prizes')
+export class PrizesController {
+  constructor(private prizes: PrizesService) {}
+
+  @Get()
+  list(@CurrentUser() u: SessionPayload) {
+    return this.prizes.list(u.familyId, u.userId);
+  }
+
+  // Purchase history (declared before ':id' routes so it isn't captured as an id).
+  @Get('redemptions')
+  redemptions(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string) {
+    return this.prizes.redemptions(u.familyId, userId);
+  }
+
+  @Post()
+  create(@CurrentUser() u: SessionPayload, @Body() body: PrizeInput) {
+    return this.prizes.create(u.familyId, u.userId, body);
+  }
+
+  @Patch(':id')
+  update(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: Partial<PrizeInput>) {
+    return this.prizes.update(u.familyId, u.userId, id, body);
+  }
+
+  @Delete(':id')
+  remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.prizes.remove(u.familyId, u.userId, id);
+  }
+
+  @Post(':id/redeem')
+  redeem(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.prizes.redeem(u.familyId, u.userId, id);
+  }
+
+  @Post('redemptions/:id/fulfill')
+  fulfill(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.prizes.setRedemptionStatus(u.familyId, u.userId, id, 'FULFILLED');
+  }
+
+  @Post('redemptions/:id/reject')
+  reject(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.prizes.setRedemptionStatus(u.familyId, u.userId, id, 'REJECTED');
+  }
+}

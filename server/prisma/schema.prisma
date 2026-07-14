@@ -55,6 +55,7 @@ enum RedemptionStatus {
 model Family {
   id        String   @id @default(cuid())
   name      String
+  tokenName String   @default("Tokens") // what the family calls their reward currency
   createdAt DateTime @default(now())
 
   users           User[]
