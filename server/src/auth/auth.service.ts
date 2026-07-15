@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { InvitesService } from '../invites/invites.service';
 import { encrypt, decrypt } from '../crypto/token-crypto';
+import { DEFAULT_COLOR_THEME } from '../users/users.service';
 
 export type CallbackResult =
   | { status: 'ok'; userId: string; familyId: string; linkedMember: boolean }
@@ -75,7 +76,7 @@ export class AuthService {
     // New account joining via an invite link.
     if (invite) {
       const user = await this.prisma.user.create({
-        data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar },
+        data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
@@ -95,7 +96,7 @@ export class AuthService {
     // Owner adding a member in-browser (kept as a convenience; added as ADULT).
     if (ctx.familyId && ctx.mode === 'member') {
       const user = await this.prisma.user.create({
-        data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar },
+        data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
@@ -109,7 +110,7 @@ export class AuthService {
     if (familyCount === 0) {
       const family = await this.prisma.family.create({ data: { name: `${name}'s Family` } });
       const user = await this.prisma.user.create({
-        data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar },
+        data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, tokensEncrypted: encTokens },

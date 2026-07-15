@@ -6,6 +6,11 @@ type Role = 'OWNER' | 'ADULT' | 'KID';
 type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
 export const COLOR_THEMES = ['meadow', 'ocean', 'ember', 'lavender', 'slate', 'rose', 'sand', 'mint', 'midnight'];
+// Self-hosters can pick which theme new members start on via DEFAULT_COLOR_THEME
+// in .env; falls back to the brand default if unset or not a real theme id.
+export const DEFAULT_COLOR_THEME = COLOR_THEMES.includes(process.env.DEFAULT_COLOR_THEME ?? '')
+  ? (process.env.DEFAULT_COLOR_THEME as string)
+  : 'meadow';
 
 @Injectable()
 export class UsersService {
@@ -64,7 +69,7 @@ export class UsersService {
 
   // Current user's own full page theme (kiosk-identifiable "micro-theme").
   async setColorTheme(userId: string, colorTheme: string) {
-    const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : 'meadow';
+    const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : DEFAULT_COLOR_THEME;
     await this.prisma.user.update({ where: { id: userId }, data: { colorTheme: c } });
     return { ok: true, colorTheme: c };
   }
