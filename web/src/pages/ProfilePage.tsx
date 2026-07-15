@@ -37,6 +37,9 @@ export default function ProfilePage({
   const [history, setHistory] = useState<Redemption[]>([]);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
+  const [settingPin, setSettingPin] = useState(false);
+  const [pin, setPin] = useState('');
+  const [pinError, setPinError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     const [b, l, r] = await Promise.all([
@@ -66,6 +69,28 @@ export default function ProfilePage({
     await api.adjustTokens({ userId: targetId, delta: sign * Math.abs(delta), reason: reason.trim() });
     setDelta(0);
     setReason('');
+    await refresh();
+  }
+
+  // Everyone manages their own PIN; adults additionally manage kids' PINs;
+  // only the owner manages another adult's PIN.
+  const canManagePin =
+    viewingSelf || me.role === 'OWNER' || (isAdult && member?.role === 'KID');
+
+  async function savePin() {
+    try {
+      await api.setUserPin(targetId, pin || null);
+      setSettingPin(false);
+      setPin('');
+      setPinError(null);
+      await refresh();
+    } catch {
+      setPinError('Could not save PIN — try again.');
+    }
+  }
+
+  async function clearPin() {
+    await api.setUserPin(targetId, null);
     await refresh();
   }
 
@@ -99,6 +124,33 @@ export default function ProfilePage({
         <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
         <Stat label={`${chorePlural} approved`} value={choresDone} />
       </div>
+
+      {canManagePin && (
+        <section className="mt-6 rounded border p-3">
+          <h3 className="text-sm font-semibold">PIN</h3>
+          <p className="mt-1 text-xs text-slate-400">
+            Used to unlock {viewingSelf ? 'your' : `${name}'s`} profile on a touch display.
+          </p>
+          <div className="mt-2 flex items-center gap-2 text-sm">
+            <span className="text-slate-500">{member?.hasPin ? '🔒 PIN set' : 'No PIN set'}</span>
+            <button
+              onClick={() => {
+                setSettingPin(true);
+                setPin('');
+                setPinError(null);
+              }}
+              className="rounded border px-3 py-1 text-sm hover:bg-slate-50"
+            >
+              {member?.hasPin ? 'Change PIN' : 'Set PIN'}
+            </button>
+            {member?.hasPin && (
+              <button onClick={clearPin} className="text-sm text-red-500 hover:text-red-700">
+                Clear
+              </button>
+            )}
+          </div>
+        </section>
+      )}
 
       {isAdult && (
         <section className="mt-6 rounded border p-3">
@@ -165,6 +217,33 @@ export default function ProfilePage({
           {history.length === 0 && <li className="text-slate-400">No purchases yet.</li>}
         </ul>
       </section>
+
+      {settingPin && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-xs rounded-lg bg-white p-5 text-center">
+            <h3 className="text-lg font-semibold">PIN for {name}</h3>
+            <input
+              autoFocus
+              type="password"
+              inputMode="numeric"
+              value={pin}
+              onChange={(e) => setPin(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && savePin()}
+              placeholder="4+ digits"
+              className="mt-3 w-full rounded border px-3 py-2 text-center text-2xl tracking-widest"
+            />
+            {pinError && <p className="mt-2 text-sm text-red-500">{pinError}</p>}
+            <div className="mt-4 flex justify-center gap-2">
+              <button onClick={() => setSettingPin(false)} className="rounded border px-4 py-1.5 text-sm">
+                Cancel
+              </button>
+              <button onClick={savePin} className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

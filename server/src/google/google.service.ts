@@ -26,8 +26,9 @@ export class GoogleService {
 
   authUrl(state: string): string {
     return this.baseClient().generateAuthUrl({
-      access_type: 'offline', // request a refresh token
-      prompt: 'consent', // force refresh_token issuance on every consent
+      access_type: 'offline', // request a refresh token (Google issues one on first grant)
+      prompt: 'select_account', // let multi-account households pick who's signing in, without
+      // re-showing the full permissions screen once it's already been granted
       include_granted_scopes: true,
       scope: GOOGLE_SCOPES,
       state,

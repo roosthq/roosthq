@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { InvitesService } from '../invites/invites.service';
-import { encrypt } from '../crypto/token-crypto';
+import { encrypt, decrypt } from '../crypto/token-crypto';
 
 export type CallbackResult =
   | { status: 'ok'; userId: string; familyId: string; linkedMember: boolean }
@@ -46,11 +46,16 @@ export class AuthService {
       include: { user: true },
     });
 
-    // Returning account — refresh tokens.
+    // Returning account — refresh tokens. Without prompt=consent forced on every
+    // login, Google usually omits refresh_token from a repeat authorization, so
+    // merge onto the previously stored tokens instead of overwriting — otherwise
+    // the very next login would wipe out the refresh_token we already have.
     if (existing) {
+      const current = JSON.parse(decrypt(existing.tokensEncrypted));
+      const merged = { ...current, ...tokens };
       await this.prisma.googleAccount.update({
         where: { id: existing.id },
-        data: { tokensEncrypted: encTokens },
+        data: { tokensEncrypted: encrypt(JSON.stringify(merged)) },
       });
       // Accepted an invite for a different family (e.g. fixing a mis-created account):
       // move this person into the inviting family and clean up their old empty family.

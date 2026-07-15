@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import { api, type Member, type InviteInfo } from './api';
+import { api, type Me, type Member, type InviteInfo } from './api';
 
-// Owner-only: manage family members — invite people, set roles (mark someone a kid),
-// remove members, and manage the PINs used on the touch hub.
-export default function MembersManager() {
+// Adults and the owner can invite people and manage PINs; only the owner can
+// change roles or remove members, and only the owner can manage another
+// adult's PIN — adults may only manage their own PIN and any kid's.
+export default function MembersManager({ me }: { me: Me }) {
+  const isOwner = me.role === 'OWNER';
+  const canManagePin = (m: Member) => m.id === me.id || isOwner || m.role === 'KID';
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
   const [open, setOpen] = useState(false);
@@ -116,7 +119,7 @@ export default function MembersManager() {
 
             {m.role === 'OWNER' ? (
               <span className="text-xs text-slate-400">owner</span>
-            ) : (
+            ) : isOwner ? (
               <select
                 value={m.role}
                 onChange={(e) => changeRole(m, e.target.value as 'ADULT' | 'KID')}
@@ -125,28 +128,34 @@ export default function MembersManager() {
                 <option value="ADULT">Adult</option>
                 <option value="KID">Kid</option>
               </select>
+            ) : (
+              <span className="text-xs text-slate-400">{m.role.toLowerCase()}</span>
             )}
 
             <span className="text-xs text-slate-400">{m.hasPin ? '🔒 PIN set' : 'no PIN'}</span>
 
-            <button
-              onClick={() => {
-                setPinFor(m);
-                setPin('');
-              }}
-              className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
-            >
-              {m.hasPin ? 'Change PIN' : 'Set PIN'}
-            </button>
-            {m.hasPin && (
-              <button onClick={() => clearPin(m)} className="text-xs text-red-500 hover:text-red-700">
-                Clear
-              </button>
+            {canManagePin(m) && (
+              <>
+                <button
+                  onClick={() => {
+                    setPinFor(m);
+                    setPin('');
+                  }}
+                  className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+                >
+                  {m.hasPin ? 'Change PIN' : 'Set PIN'}
+                </button>
+                {m.hasPin && (
+                  <button onClick={() => clearPin(m)} className="text-xs text-red-500 hover:text-red-700">
+                    Clear
+                  </button>
+                )}
+              </>
             )}
             {m.role !== 'KID' && !m.hasPin && (
               <span className="text-xs text-amber-600">needs a PIN for kiosk</span>
             )}
-            {m.role !== 'OWNER' && (
+            {isOwner && m.role !== 'OWNER' && (
               <button onClick={() => removeMember(m)} className="ml-auto text-xs text-red-500 hover:text-red-700">
                 Remove
               </button>

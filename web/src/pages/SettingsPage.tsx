@@ -12,6 +12,7 @@ import DisplayAccess from '../DisplayAccess';
 
 export default function SettingsPage({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
+  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   return (
     <div className="space-y-8">
       <h2 className="text-lg font-semibold">Settings</h2>
@@ -19,9 +20,9 @@ export default function SettingsPage({ me }: { me: Me }) {
       {isOwner && <TokenNameSetting />}
       {isOwner && <ChoreWordSetting />}
 
-      {isOwner && (
+      {isAdult && (
         <Section title="Family members & invites">
-          <MembersManager />
+          <MembersManager me={me} />
         </Section>
       )}
 

@@ -12,14 +12,19 @@ export class InvitesService {
     return createHash('sha256').update(raw).digest('hex');
   }
 
-  private async assertOwner(userId: string) {
+  private async assertAdultOrOwner(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || u.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    return u;
   }
 
-  // Create a one-time invite; returns the raw token once (for the link).
+  // Create a one-time invite; returns the raw token once (for the link). Adults
+  // and the owner can invite new kids/adults; only the owner can invite another owner.
   async create(familyId: string, userId: string, role: Role, label?: string) {
-    await this.assertOwner(userId);
+    const actor = await this.assertAdultOrOwner(userId);
+    if (role === 'OWNER' && actor.role !== 'OWNER') {
+      throw new ForbiddenException('Only the owner can invite another owner');
+    }
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
       data: { familyId, role, label, tokenHash: this.hash(raw), createdById: userId },
@@ -42,7 +47,7 @@ export class InvitesService {
   }
 
   async revoke(familyId: string, userId: string, id: string) {
-    await this.assertOwner(userId);
+    await this.assertAdultOrOwner(userId);
     await this.prisma.familyInvite.deleteMany({ where: { id, familyId } });
     return { ok: true };
   }

@@ -24,19 +24,18 @@ export class UsersService {
     }));
   }
 
-  private async assertAdult(userId: string) {
-    const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) {
-      throw new ForbiddenException('Adults only');
-    }
-    return u;
-  }
-
-  // Set or clear a member's PIN (pin=null clears). Adults/owner can manage PINs.
+  // Everyone manages their own PIN. Adults additionally manage kids' PINs.
+  // Only the owner manages another adult's (or the owner's own via the same rule).
   async setPin(actorId: string, familyId: string, targetId: string, pin: string | null) {
-    await this.assertAdult(actorId);
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor) throw new ForbiddenException();
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new NotFoundException('Member not found');
+
+    const isSelf = actorId === targetId;
+    const allowed = isSelf || actor.role === 'OWNER' || (actor.role === 'ADULT' && target.role === 'KID');
+    if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
+
     await this.prisma.user.update({
       where: { id: targetId },
       data: { pinHash: pin ? hashPin(pin) : null },
