@@ -153,6 +153,7 @@ model User {
   ledgerCreated  TokenLedger[]   @relation("LedgerCreatedBy")
   prizeAssigns   PrizeAssignment[]
   redemptions    Redemption[]
+  createdPrizes  Prize[]
 
   @@index([familyId])
 }
@@ -342,9 +343,13 @@ model Prize {
   type        PrizeType  @default(ITEM)
   scope       PrizeScope @default(GLOBAL)
   locationId  String? // optional — which house/location this prize belongs to
+  repeatable  Boolean    @default(true) // false = one-off; auto-archives once redeemed
+  archived    Boolean    @default(false) // out of the active store; can be revived
+  createdById String? // who added it — shown to everyone, not just adults
 
   family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location    Location?         @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  creator     User?             @relation(fields: [createdById], references: [id], onDelete: SetNull)
   assignments PrizeAssignment[]
   redemptions Redemption[]
 
@@ -369,6 +374,8 @@ model Redemption {
   status      RedemptionStatus @default(REQUESTED)
   requestedAt DateTime         @default(now())
   approvedBy  String?
+  usedAt      DateTime? // EVENT prizes only: when the event actually happened,
+  // separate from FULFILLED (which just means the adult approved the redemption)
 
   prize Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -225,6 +225,9 @@ export interface StorePrize {
   scope: 'GLOBAL' | 'SPECIFIC';
   assignedUserIds: string[];
   location?: { id: string; name: string } | null;
+  repeatable: boolean;
+  archived: boolean;
+  createdByName?: string | null;
 }
 
 export interface Redemption {
@@ -233,7 +236,9 @@ export interface Redemption {
   userId: string;
   status: 'REQUESTED' | 'APPROVED' | 'REJECTED' | 'FULFILLED';
   requestedAt: string;
+  usedAt?: string | null;
   prize: { name: string; tokenCost: number; type: string };
+  user?: { id: string; displayName: string };
 }
 
 export const BASE_URL = BASE;
@@ -333,10 +338,17 @@ export const api = {
     req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
   redeemPrize: (id: string) => req(`/prizes/${id}/redeem`, { method: 'POST' }),
-  redemptions: (userId?: string) =>
-    req<Redemption[]>(`/prizes/redemptions${userId ? `?userId=${userId}` : ''}`),
+  redemptions: (opts: { userId?: string; prizeId?: string } = {}) => {
+    const sp = new URLSearchParams();
+    if (opts.userId) sp.set('userId', opts.userId);
+    if (opts.prizeId) sp.set('prizeId', opts.prizeId);
+    const qs = sp.toString();
+    return req<Redemption[]>(`/prizes/redemptions${qs ? `?${qs}` : ''}`);
+  },
   fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }),
   rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }),
+  markRedemptionUsed: (id: string, used: boolean) =>
+    req(`/prizes/redemptions/${id}/used`, { method: 'PATCH', body: JSON.stringify({ used }) }),
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),

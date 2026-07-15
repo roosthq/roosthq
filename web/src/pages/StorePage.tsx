@@ -18,6 +18,7 @@ export default function StorePage({
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
+  const [prizeHistory, setPrizeHistory] = useState<Redemption[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<StorePrize | null>(null);
@@ -27,7 +28,7 @@ export default function StorePage({
     const [p, b, r] = await Promise.all([
       api.prizes(),
       api.tokenBalance(),
-      api.redemptions(isAdult ? undefined : me.id),
+      api.redemptions(isAdult ? {} : { userId: me.id }),
     ]);
     setPrizes(p);
     setBalance(b.balance);
@@ -40,6 +41,16 @@ export default function StorePage({
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  // Full buyer history for whichever prize is open in the detail modal —
+  // adults/owners only (enforced server-side too).
+  useEffect(() => {
+    if (isAdult && viewing) {
+      api.redemptions({ prizeId: viewing.id }).then(setPrizeHistory).catch(() => setPrizeHistory([]));
+    } else {
+      setPrizeHistory([]);
+    }
+  }, [isAdult, viewing]);
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
@@ -60,7 +71,22 @@ export default function StorePage({
     await refresh();
   }
 
+  async function toggleArchive(p: StorePrize) {
+    await api.updatePrize(p.id, { archived: !p.archived });
+    setViewing(null);
+    await refresh();
+  }
+
+  async function markUsed(redemptionId: string, used: boolean) {
+    await api.markRedemptionUsed(redemptionId, used);
+    setPrizeHistory((h) => h.map((r) => (r.id === redemptionId ? { ...r, usedAt: used ? new Date().toISOString() : null } : r)));
+    await refresh();
+  }
+
+  const activePrizes = prizes.filter((p) => !p.archived);
+  const archivedPrizes = prizes.filter((p) => p.archived);
   const pending = history.filter((r) => r.status === 'REQUESTED');
+  const eventsToFulfill = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !r.usedAt);
 
   return (
     <div>
@@ -81,13 +107,13 @@ export default function StorePage({
       </div>
 
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {prizes.map((p) => (
+        {activePrizes.map((p) => (
           <li key={p.id}>
             <button
               onClick={() => setViewing(p)}
               className="flex w-full flex-col overflow-hidden rounded border text-left hover:shadow-sm"
             >
-              <PrizeImage src={p.image} alt={p.name} className="h-32 w-full" />
+              <PrizeImage src={p.image} alt={p.name} className="h-44 w-full" />
               <div className="flex flex-1 flex-col p-3">
                 <div className="flex items-start justify-between gap-2">
                   <span className="min-w-0 flex-1 break-words font-medium leading-tight">{p.name}</span>
@@ -104,12 +130,52 @@ export default function StorePage({
                 ) : (
                   <p className="mt-1 truncate text-sm italic text-slate-300">No description</p>
                 )}
+                {p.createdByName && <p className="mt-1 text-xs text-slate-400">Added by {p.createdByName}</p>}
               </div>
             </button>
           </li>
         ))}
-        {prizes.length === 0 && <li className="text-sm text-slate-400">No prizes yet.</li>}
+        {activePrizes.length === 0 && <li className="text-sm text-slate-400">No prizes yet.</li>}
       </ul>
+
+      {isAdult && eventsToFulfill.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md font-semibold">Events to fulfill</h3>
+          <p className="text-xs text-slate-400">Approved but the actual event hasn't happened yet.</p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {eventsToFulfill.map((r) => (
+              <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2">
+                <span className="min-w-0 flex-1 break-words">
+                  <strong className="font-medium">{memberName(r.userId)}</strong> · {r.prize.name}
+                </span>
+                <button
+                  onClick={() => markUsed(r.id, true)}
+                  className="shrink-0 rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
+                >
+                  Mark as done
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {isAdult && archivedPrizes.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md font-semibold">Archived</h3>
+          <p className="text-xs text-slate-400">Sold, one-off prizes — revive one to put it back in the store.</p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {archivedPrizes.map((p) => (
+              <li key={p.id} className="flex items-center justify-between gap-2 rounded border p-2">
+                <span className="min-w-0 flex-1 break-words text-slate-500">{p.name}</span>
+                <button onClick={() => toggleArchive(p)} className="shrink-0 rounded border px-3 py-1 text-xs hover:bg-slate-50">
+                  Revive
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {isAdult && pending.length > 0 && (
         <section className="mt-8">
@@ -172,6 +238,8 @@ export default function StorePage({
           tokenIcon={tokenIcon}
           isAdult={isAdult}
           balance={balance}
+          history={prizeHistory}
+          memberName={memberName}
           onClose={() => setViewing(null)}
           onRedeem={() => redeem(viewing)}
           onEdit={() => {
@@ -180,6 +248,8 @@ export default function StorePage({
             setFormOpen(true);
           }}
           onDelete={() => del(viewing)}
+          onToggleArchive={() => toggleArchive(viewing)}
+          onMarkUsed={markUsed}
         />
       )}
 
@@ -224,6 +294,7 @@ function PrizeForm({
   // the wheel. Starts true when editing an existing prize (don't clobber it).
   const [tokenCostTouched, setTokenCostTouched] = useState(!!prize);
   const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
+  const [repeatable, setRepeatable] = useState(prize?.repeatable ?? true);
   const [scope, setScope] = useState<'GLOBAL' | 'SPECIFIC'>(prize?.scope ?? 'GLOBAL');
   const [assignedUserIds, setAssignedUserIds] = useState<Set<string>>(new Set(prize?.assignedUserIds ?? []));
   const [locationId, setLocationId] = useState(prize?.location?.id ?? '');
@@ -263,6 +334,7 @@ function PrizeForm({
       realPrice: realPrice ? Number(realPrice) : undefined,
       tokenCost: Math.max(0, Math.floor(Number(tokenCost) || 0)),
       type,
+      repeatable,
       scope,
       assignedUserIds: scope === 'SPECIFIC' ? [...assignedUserIds] : [],
       locationId: locationId || null,
@@ -336,6 +408,17 @@ function PrizeForm({
           {realPrice !== '' && !tokenCostTouched && (
             <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) — edit to override.</p>
           )}
+
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable(e.target.checked)} />
+            Can be purchased again after being bought
+          </label>
+          <p className="text-xs text-slate-400">
+            {repeatable
+              ? 'Stays in the store — anyone eligible can buy it any number of times.'
+              : "Sold once, then archived — you'll need to revive it from the archive to sell it again."}
+          </p>
+
           <div>
             <span className="text-sm text-slate-500">Who can redeem?</span>
             <div className="mt-1 flex gap-3 text-sm">

@@ -17,6 +17,8 @@ export interface PrizeInput {
   scope?: 'GLOBAL' | 'SPECIFIC';
   assignedUserIds?: string[];
   locationId?: string | null;
+  repeatable?: boolean;
+  archived?: boolean;
 }
 
 @Injectable()
@@ -44,16 +46,33 @@ export class PrizesService {
     return a._sum.delta ?? 0;
   }
 
-  // Adults see everything (incl. real price); kids see global + assigned, no real price.
+  // Non-adult visibility: global + assigned scope, not archived, and — for a
+  // located prize — only if the person belongs to that location, UNLESS the
+  // prize is assigned to them directly (that overrides the location gate).
+  private visibleTo(
+    p: { scope: string; archived: boolean; locationId: string | null; assignments: { userId: string }[] },
+    actingUserId: string,
+    myLocationIds: Set<string>,
+  ): boolean {
+    if (p.archived) return false;
+    const assignedToMe = p.assignments.some((a) => a.userId === actingUserId);
+    if (p.scope !== 'GLOBAL' && !assignedToMe) return false;
+    if (p.locationId && !assignedToMe && !myLocationIds.has(p.locationId)) return false;
+    return true;
+  }
+
+  // Adults see everything (incl. real price, archived prizes); kids see only
+  // what visibleTo() allows, no real price.
   async list(familyId: string, actingUserId: string) {
-    const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
+    const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     const adult = !!actor && this.isAdult(actor.role);
+    const myLocationIds = new Set((actor?.locations ?? []).map((l) => l.locationId));
     const prizes = await this.prisma.prize.findMany({
       where: { familyId },
-      include: { assignments: true, location: true },
+      include: { assignments: true, location: true, creator: { select: { id: true, displayName: true } } },
     });
     return prizes
-      .filter((p) => adult || p.scope === 'GLOBAL' || p.assignments.some((a) => a.userId === actingUserId))
+      .filter((p) => adult || this.visibleTo(p, actingUserId, myLocationIds))
       .map((p) => ({
         id: p.id,
         name: p.name,
@@ -66,6 +85,9 @@ export class PrizesService {
         scope: p.scope,
         assignedUserIds: p.assignments.map((a) => a.userId),
         location: p.location ? { id: p.location.id, name: p.location.name } : null,
+        repeatable: p.repeatable,
+        archived: p.archived,
+        createdByName: p.creator?.displayName ?? null,
       }));
   }
 
@@ -83,6 +105,8 @@ export class PrizesService {
         type: dto.type ?? 'ITEM',
         scope: dto.scope ?? 'GLOBAL',
         locationId: dto.locationId ?? null,
+        repeatable: dto.repeatable ?? true,
+        createdById: actorId,
         assignments:
           dto.scope === 'SPECIFIC' && dto.assignedUserIds?.length
             ? { create: dto.assignedUserIds.map((userId) => ({ userId })) }
@@ -106,6 +130,8 @@ export class PrizesService {
         ...(dto.type !== undefined && { type: dto.type }),
         ...(dto.scope !== undefined && { scope: dto.scope }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
+        ...(dto.repeatable !== undefined && { repeatable: dto.repeatable }),
+        ...(dto.archived !== undefined && { archived: dto.archived }),
       },
     });
     if (dto.assignedUserIds) {
@@ -116,7 +142,10 @@ export class PrizesService {
         });
       }
     }
-    return this.prisma.prize.findUnique({ where: { id }, include: { assignments: true, location: true } });
+    return this.prisma.prize.findUnique({
+      where: { id },
+      include: { assignments: true, location: true, creator: { select: { id: true, displayName: true } } },
+    });
   }
 
   async remove(familyId: string, actorId: string, id: string) {
@@ -126,9 +155,27 @@ export class PrizesService {
     return { ok: true };
   }
 
-  // Redeem: check balance, deduct tokens (ledger), record the purchase.
+  // Redeem: check eligibility + balance, deduct tokens (ledger), record the
+  // purchase, and — for a non-repeatable prize — archive it so it drops out of
+  // the active store once someone's bought it.
   async redeem(familyId: string, actingUserId: string, prizeId: string) {
-    const prize = await this.owned(familyId, prizeId);
+    const prize = await this.prisma.prize.findFirst({
+      where: { id: prizeId, familyId },
+      include: { assignments: true },
+    });
+    if (!prize) throw new NotFoundException('Prize not found');
+
+    const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
+    if (!actor) throw new ForbiddenException();
+    if (!this.isAdult(actor.role)) {
+      const myLocationIds = new Set(actor.locations.map((l) => l.locationId));
+      if (!this.visibleTo(prize, actingUserId, myLocationIds)) {
+        throw new ForbiddenException('Not available to you');
+      }
+    } else if (prize.archived) {
+      throw new BadRequestException('This prize is no longer available');
+    }
+
     const bal = await this.balance(actingUserId);
     if (bal < prize.tokenCost) throw new BadRequestException('Not enough tokens');
     const redemption = await this.prisma.redemption.create({
@@ -144,6 +191,9 @@ export class PrizesService {
         createdById: actingUserId,
       },
     });
+    if (!prize.repeatable) {
+      await this.prisma.prize.update({ where: { id: prizeId }, data: { archived: true } });
+    }
     return redemption;
   }
 
@@ -171,6 +221,10 @@ export class PrizesService {
           createdById: actorId,
         },
       });
+      // The sale didn't go through — put a one-off prize back in the store.
+      if (!r.prize.repeatable && r.prize.archived) {
+        await this.prisma.prize.update({ where: { id: r.prizeId }, data: { archived: false } });
+      }
     }
     return this.prisma.redemption.update({
       where: { id: redemptionId },
@@ -178,13 +232,34 @@ export class PrizesService {
     });
   }
 
-  // Purchase history (a member's, or the whole family).
-  async redemptions(familyId: string, userId?: string) {
+  // EVENT prizes only: mark whether the actual event has happened yet —
+  // separate from FULFILLED, which just means the redemption was approved.
+  async setRedemptionUsed(familyId: string, actorId: string, redemptionId: string, used: boolean) {
+    await this.assertAdult(actorId);
+    const r = await this.prisma.redemption.findUnique({ where: { id: redemptionId }, include: { prize: true } });
+    if (!r || r.prize.familyId !== familyId) throw new NotFoundException('Redemption not found');
+    return this.prisma.redemption.update({
+      where: { id: redemptionId },
+      data: { usedAt: used ? new Date() : null },
+    });
+  }
+
+  // Purchase history: a member's own, the whole family, or (adults only) one
+  // prize's full buyer history — surfaced in that prize's detail view.
+  async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string } = {}) {
+    if (opts.prizeId) await this.assertAdult(actingUserId);
     return this.prisma.redemption.findMany({
-      where: { prize: { familyId }, ...(userId ? { userId } : {}) },
+      where: {
+        prize: { familyId },
+        ...(opts.userId ? { userId: opts.userId } : {}),
+        ...(opts.prizeId ? { prizeId: opts.prizeId } : {}),
+      },
       orderBy: { requestedAt: 'desc' },
       take: 200,
-      include: { prize: { select: { name: true, tokenCost: true, type: true } } },
+      include: {
+        prize: { select: { name: true, tokenCost: true, type: true } },
+        user: { select: { id: true, displayName: true } },
+      },
     });
   }
 }

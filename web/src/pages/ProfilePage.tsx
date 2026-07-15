@@ -45,7 +45,7 @@ export default function ProfilePage({
     const [b, l, r] = await Promise.all([
       api.tokenBalance(targetId),
       api.tokenLedger(targetId),
-      api.redemptions(targetId),
+      api.redemptions({ userId: targetId }),
     ]);
     setBalance(b.balance);
     setLedger(l);

@@ -16,8 +16,12 @@ export class PrizesController {
 
   // Purchase history (declared before ':id' routes so it isn't captured as an id).
   @Get('redemptions')
-  redemptions(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string) {
-    return this.prizes.redemptions(u.familyId, userId);
+  redemptions(
+    @CurrentUser() u: SessionPayload,
+    @Query('userId') userId?: string,
+    @Query('prizeId') prizeId?: string,
+  ) {
+    return this.prizes.redemptions(u.familyId, u.userId, { userId, prizeId });
   }
 
   @Post()
@@ -48,5 +52,10 @@ export class PrizesController {
   @Post('redemptions/:id/reject')
   reject(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.prizes.setRedemptionStatus(u.familyId, u.userId, id, 'REJECTED');
+  }
+
+  @Patch('redemptions/:id/used')
+  markUsed(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { used: boolean }) {
+    return this.prizes.setRedemptionUsed(u.familyId, u.userId, id, body.used);
   }
 }

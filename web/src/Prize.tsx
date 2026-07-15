@@ -1,4 +1,4 @@
-import type { StorePrize } from './api';
+import type { Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
 
 // Every prize gets one of these — keeps the type row present on every card
@@ -37,8 +37,10 @@ export function resizeImageFile(file: File, maxDim = 480, quality = 0.75): Promi
   });
 }
 
+// object-contain (not object-cover) so the whole image is always visible —
+// a taller box with letterboxing beats a cropped one.
 export function PrizeImage({ src, alt, className }: { src?: string | null; alt: string; className: string }) {
-  if (src) return <img src={src} alt={alt} className={`${className} object-cover`} />;
+  if (src) return <img src={src} alt={alt} className={`${className} bg-slate-100 object-contain`} />;
   return (
     <div className={`${className} flex items-center justify-center bg-slate-100 text-slate-300`}>
       <span className="text-4xl">🎁</span>
@@ -52,20 +54,29 @@ export function PrizeDetailModal({
   tokenIcon,
   isAdult,
   balance,
+  history,
+  memberName,
   onClose,
   onRedeem,
   onEdit,
   onDelete,
+  onToggleArchive,
+  onMarkUsed,
 }: {
   prize: StorePrize;
   tokenName: string;
   tokenIcon: string;
   isAdult: boolean;
   balance: number;
+  // Purchase history for this prize — adults/owners only; omit entirely for kids.
+  history?: Redemption[];
+  memberName?: (id: string) => string;
   onClose: () => void;
   onRedeem: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
+  onToggleArchive?: () => void;
+  onMarkUsed?: (redemptionId: string, used: boolean) => void;
 }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
@@ -76,13 +87,14 @@ export function PrizeDetailModal({
             ✕
           </button>
         </div>
-        <PrizeImage src={prize.image} alt={prize.name} className="mt-3 h-56 w-full rounded" />
+        <PrizeImage src={prize.image} alt={prize.name} className="mt-3 h-72 w-full rounded" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <TokenBadge icon={tokenIcon} amount={prize.tokenCost} label={tokenName} size="lg" />
           <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
             {TYPE_TAG[prize.type].icon} {TYPE_TAG[prize.type].label}
           </span>
           {prize.location && <span className="text-sm text-slate-400">📍 {prize.location.name}</span>}
+          {prize.archived && <span className="text-sm font-medium text-amber-600">Archived</span>}
         </div>
         {prize.description ? (
           <p className="mt-3 text-sm text-slate-600">{prize.description}</p>
@@ -92,11 +104,49 @@ export function PrizeDetailModal({
         {isAdult && prize.realPrice != null && (
           <p className="mt-2 text-xs text-slate-400">Real price: ${String(prize.realPrice)}</p>
         )}
+        {isAdult && (
+          <p className="mt-1 text-xs text-slate-400">
+            {prize.repeatable ? 'Repeats — stays in the store after purchase.' : 'One-off — archives itself once bought.'}
+          </p>
+        )}
+        {prize.createdByName && <p className="mt-1 text-xs text-slate-400">Added by {prize.createdByName}</p>}
         {prize.url && (
           <a href={prize.url} target="_blank" rel="noreferrer" className="mt-2 block text-sm text-blue-600 hover:underline">
             View product ↗
           </a>
         )}
+
+        {isAdult && history && (
+          <div className="mt-4 border-t pt-3">
+            <h4 className="text-sm font-semibold">Purchase history</h4>
+            {history.length === 0 ? (
+              <p className="mt-1 text-xs text-slate-400">Nobody's bought this yet.</p>
+            ) : (
+              <ul className="mt-2 space-y-1 text-sm">
+                {history.map((r) => (
+                  <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1">
+                    <span className="min-w-0 flex-1 break-words">
+                      <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
+                      <span className="text-xs text-slate-400">
+                        {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                        {r.usedAt ? ` · used ${new Date(r.usedAt).toLocaleDateString()}` : ''}
+                      </span>
+                    </span>
+                    {onMarkUsed && r.status === 'FULFILLED' && r.prize.type === 'EVENT' && (
+                      <button
+                        onClick={() => onMarkUsed(r.id, !r.usedAt)}
+                        className="shrink-0 rounded border px-2 py-0.5 text-xs hover:bg-slate-50"
+                      >
+                        {r.usedAt ? 'Mark not used' : 'Mark as used'}
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
+
         <div className="mt-5 flex justify-end gap-2">
           {!isAdult ? (
             <button
@@ -111,6 +161,11 @@ export function PrizeDetailModal({
               {onDelete && (
                 <button onClick={onDelete} className="rounded border px-4 py-1.5 text-sm text-red-500 hover:bg-red-50">
                   Delete
+                </button>
+              )}
+              {onToggleArchive && (
+                <button onClick={onToggleArchive} className="rounded border px-4 py-1.5 text-sm hover:bg-slate-50">
+                  {prize.archived ? 'Revive' : 'Archive'}
                 </button>
               )}
               {onEdit && (
