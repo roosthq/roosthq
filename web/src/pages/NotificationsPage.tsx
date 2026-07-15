@@ -130,7 +130,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
             <button
               onClick={() => open(n)}
               className={`flex w-full items-start gap-3 rounded-lg border p-3 text-left hover:bg-slate-50 ${
-                !n.readAt && view === 'mine' ? 'bg-amber-50' : 'bg-white'
+                !n.readAt && view === 'mine' ? 'bg-slate-100' : 'bg-white'
               }`}
             >
               <span className="text-lg">{TYPE_ICON[n.type] ?? '🔔'}</span>
