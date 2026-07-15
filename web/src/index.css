@@ -15,6 +15,10 @@
    a complete, correct theme instead of a half-applied one. --today (owl beak
    gold) is mode/hue-independent by design — never set inside a theme block. */
 :root {
+  /* Reinforces the <meta name="color-scheme"> in index.html — tells the
+     browser this page has genuine light/dark handling of its own, so Chrome's
+     "Auto Dark Theme for web content" doesn't repaint it on top of ours. */
+  color-scheme: light;
   --bg: #eff4eb;
   --surface: #ffffff;
   --surface-raised: #ffffff;
@@ -31,6 +35,7 @@
 }
 
 [data-mode='dark'] {
+  color-scheme: dark;
   --bg: #111e11;
   --surface: #1c2e1c;
   --surface-raised: #1c2e1c;

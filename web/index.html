@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Without this, Chrome's "Auto Dark Theme for web content" repaints the
+         whole page dark whenever the OS/browser prefers dark — regardless of
+         our own light/dark CSS — because the page never declared it manages
+         its own color scheme. This opts out of that override. -->
+    <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/logo-mark.svg" />
     <title>Roost HQ</title>
   </head>
