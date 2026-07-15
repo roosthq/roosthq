@@ -170,7 +170,9 @@ export default function Display() {
     try {
       const result = await dpost<UnlockResult>('/display/unlock', { userId: m.id, pin: enteredPin });
       setActive(result);
-      document.documentElement.setAttribute('data-theme', result.user.themePref === 'dark' ? 'dark' : 'light');
+      // Light/dark stays the kiosk's own setting (config.theme, applied by
+      // applyIdleTheme) — it's a property of the physical display, not the
+      // person. Only the color hue follows whoever's signed in.
       document.documentElement.setAttribute('data-color-theme', result.user.colorTheme || 'green');
       setPinFor(null);
       setPin('');

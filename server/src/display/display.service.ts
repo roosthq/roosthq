@@ -69,7 +69,6 @@ export class DisplayService {
         displayName: user.displayName,
         role: user.role,
         avatar: user.avatar,
-        themePref: user.themePref,
         colorTheme: user.colorTheme,
       },
     };

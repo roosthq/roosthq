@@ -84,7 +84,7 @@ export interface Member {
 
 export interface UnlockResult {
   token: string;
-  user: { id: string; displayName: string; role: string; avatar?: string; themePref?: string; colorTheme?: string };
+  user: { id: string; displayName: string; role: string; avatar?: string; colorTheme?: string };
 }
 
 // Kiosk-identifiable per-person full page theme ("micro-theme") — swaps the
