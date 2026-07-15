@@ -17,19 +17,62 @@ const REPEAT_OPTIONS: Array<{ value: string; label: string; help: string }> = [
 
 const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+const REPEAT_LABEL: Record<string, string> = {
+  DAILY: 'Daily',
+  WEEKLY: 'Weekly',
+  BIWEEKLY: 'Every 2 weeks',
+  MONTHLY: 'Monthly',
+};
+
+// Client-side mirror of the server's nextDue() — purely for display, so a
+// repeating chore that's due today still tells a kid it's coming back rather
+// than looking like a one-off (no "Next: ..." line shows once it's due now).
+function nextOccurrence(rule: string, fromDueDate: string): Date {
+  const d = new Date(fromDueDate);
+  switch (rule) {
+    case 'DAILY':
+      d.setDate(d.getDate() + 1);
+      return d;
+    case 'WEEKLY':
+      d.setDate(d.getDate() + 7);
+      return d;
+    case 'BIWEEKLY':
+      d.setDate(d.getDate() + 14);
+      return d;
+    case 'MONTHLY':
+      d.setMonth(d.getMonth() + 1);
+      return d;
+    default:
+      return d;
+  }
+}
+
+function relativeDayLabel(d: Date): string {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  if (d.toDateString() === tomorrow.toDateString()) return 'again tomorrow';
+  return `again ${d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}`;
+}
+
 type Actor = { id: string; role: string; displayName: string };
 
 export default function ChoresPanel({
   me,
   client: clientProp,
   variant = 'full',
+  locationId,
 }: {
   me: Actor;
   client?: ChoreClient;
   variant?: 'full' | 'today';
+  // Scope to one location's chores (plus location-less/"global" ones) — used on
+  // the kiosk display, which represents whoever lives at a given location, not
+  // the whole family. Omit entirely for the normal portal (unscoped).
+  locationId?: string | null;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   const today = variant === 'today';
+  const [personFilter, setPersonFilter] = useState('');
   // clientProp is a fresh object on every parent render when the caller doesn't
   // memoize it (e.g. Display.tsx); memoize here so `refresh` below stays stable
   // instead of re-firing its effect on every render.
@@ -65,12 +108,16 @@ export default function ChoresPanel({
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
 
+  // A chore with no location is "global" (visible everywhere); one with a
+  // location only shows on displays scoped to that same location.
+  const scopedChores = locationId ? chores.filter((c) => !c.location || c.location.id === locationId) : chores;
+
   // Pick the actionable occurrence per chore: a pending one, else the earliest
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
   // one). In 'today' mode, keep: mine and due-or-coming-up-soon, anything open
   // to claim soon (claiming ahead is allowed server-side even though
   // completing isn't), or pending approval (mine, or — for adults — anyone's).
-  const rows = chores
+  const rows = scopedChores
     .map((chore) => {
       const endOfToday = new Date();
       endOfToday.setHours(23, 59, 59, 999);
@@ -123,23 +170,178 @@ export default function ChoresPanel({
     await refresh();
   }
 
+  type Row = (typeof rows)[number];
+
+  // Grouped by person so a family with several kids can see who has what at a
+  // glance — plus an "Open to anyone" bucket for claimable chores. A chore with
+  // multiple assignees shows up under each of them. Empty groups are hidden.
+  const groups = today
+    ? []
+    : [
+        ...members.map((m) => ({
+          key: m.id,
+          label: m.displayName,
+          rows: rows.filter((r) => r.chore.assignmentType === 'SPECIFIC' && r.chore.assignees.some((a) => a.userId === m.id)),
+        })),
+        {
+          key: 'ANYONE',
+          label: 'Open to anyone',
+          rows: rows.filter((r) => r.chore.assignmentType === 'ANYONE'),
+        },
+      ]
+        .filter((g) => g.rows.length > 0)
+        .filter((g) => !personFilter || g.key === personFilter);
+
+  function renderRow({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }: Row) {
+    const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate) : null;
+    return (
+      <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <span className={`break-words ${today ? 'text-sm font-semibold' : 'font-semibold'}`}>{chore.title}</span>
+            <div className="mt-0.5 flex flex-wrap items-center gap-x-1 text-xs text-slate-400">
+              <span>
+                {assignmentLabel(chore, claimedBy)}
+                {chore.location ? ` · ${chore.location.name}` : ''}
+                {chore.dayOfWeek != null ? ` · ${DOW[chore.dayOfWeek]}` : ''}
+              </span>
+              {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
+            </div>
+          </div>
+          <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
+        </div>
+
+        {chore.checklist.length > 0 && active && (
+          <ul className="mt-2 space-y-1 pl-1">
+            {chore.checklist.map((item) => (
+              <li key={item.id} className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={checked.has(item.id)}
+                  disabled={!mine || active.status !== 'OPEN'}
+                  onChange={(e) => act(() => client.checkItem(active.id, item.id, e.target.checked))}
+                />
+                <span className={checked.has(item.id) ? 'text-slate-400 line-through' : ''}>{item.label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {active?.status === 'OPEN' && !dueNow && (
+            <span className="text-xs text-slate-400">
+              Next: {new Date(active.dueDate).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+            </span>
+          )}
+          {active?.status === 'OPEN' && openToClaim && (
+            <button
+              onClick={() => act(() => client.claimInstance(active.id))}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+            >
+              Claim this
+            </button>
+          )}
+          {active?.status === 'OPEN' && dueNow && mine && (
+            <button
+              onClick={() => act(() => client.completeInstance(active.id))}
+              className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
+            >
+              Mark done
+            </button>
+          )}
+          {active?.status === 'OPEN' && dueNow && !mine && !openToClaim && (
+            <span className="text-xs text-slate-400">Not assigned to you</span>
+          )}
+          {active?.status === 'PENDING' && (
+            <span className="text-xs font-medium text-amber-600">Pending approval</span>
+          )}
+          {active?.status === 'PENDING' && isAdult && (
+            <>
+              <button
+                onClick={() => act(() => client.approveInstance(active.id))}
+                className="rounded-md bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => act(() => client.rejectInstance(active.id))}
+                className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+              >
+                Reject
+              </button>
+            </>
+          )}
+          {active?.status === 'APPROVED' && <span className="text-xs text-green-600">Done ✓</span>}
+          {active?.status === 'MISSED' && (
+            <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
+          )}
+
+          {isAdult && !today && (
+            <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
+              {active && claimedBy && (
+                <button onClick={() => act(() => client.assignInstance(active.id, null))} className="hover:text-slate-700">
+                  Unassign
+                </button>
+              )}
+              <button onClick={() => act(() => client.reopenChore(chore.id))} className="hover:text-slate-700">
+                Enable again
+              </button>
+              <button
+                onClick={() => {
+                  setEditing(chore);
+                  setFormOpen(true);
+                }}
+                className="hover:text-slate-700"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => window.confirm(`Delete this ${choreWord.toLowerCase()}?`) && act(() => client.deleteChore(chore.id))}
+                className="text-red-500 hover:text-red-700"
+              >
+                Delete
+              </button>
+            </span>
+          )}
+        </div>
+      </li>
+    );
+  }
+
   return (
     <section>
       <div className="flex items-center justify-between">
         <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
           {today ? 'Today' : chorePlural}
         </h2>
-        {isAdult && !today && (
-          <button
-            onClick={() => {
-              setEditing(null);
-              setFormOpen(true);
-            }}
-            className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
-          >
-            + New {choreWord}
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {!today && members.length > 0 && (
+            <select
+              value={personFilter}
+              onChange={(e) => setPersonFilter(e.target.value)}
+              className="rounded-md border px-2 py-1.5 text-sm"
+            >
+              <option value="">Everyone</option>
+              {members.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.displayName}
+                </option>
+              ))}
+              <option value="ANYONE">Open to anyone</option>
+            </select>
+          )}
+          {isAdult && !today && (
+            <button
+              onClick={() => {
+                setEditing(null);
+                setFormOpen(true);
+              }}
+              className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
+            >
+              + New {choreWord}
+            </button>
+          )}
+        </div>
       </div>
 
       {today && (
@@ -148,123 +350,22 @@ export default function ChoresPanel({
         </div>
       )}
 
-      <ul className={today ? 'mt-3 space-y-2' : 'mt-4 space-y-3'}>
-        {rows.map(({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }) => {
-          return (
-            <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0 flex-1">
-                  <span className={`break-words ${today ? 'text-sm font-semibold' : 'font-semibold'}`}>{chore.title}</span>
-                  <div className="mt-0.5 text-xs text-slate-400">
-                    {assignmentLabel(chore, claimedBy)}
-                    {chore.location ? ` · ${chore.location.name}` : ''}
-                    {chore.recurrenceRule ? ` · ${chore.recurrenceRule.toLowerCase()}` : ''}
-                    {chore.dayOfWeek != null ? ` · ${DOW[chore.dayOfWeek]}` : ''}
-                  </div>
-                </div>
-                <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
-              </div>
-
-              {chore.checklist.length > 0 && active && (
-                <ul className="mt-2 space-y-1 pl-1">
-                  {chore.checklist.map((item) => (
-                    <li key={item.id} className="flex items-center gap-2 text-sm">
-                      <input
-                        type="checkbox"
-                        checked={checked.has(item.id)}
-                        disabled={!mine || active.status !== 'OPEN'}
-                        onChange={(e) => act(() => client.checkItem(active.id, item.id, e.target.checked))}
-                      />
-                      <span className={checked.has(item.id) ? 'text-slate-400 line-through' : ''}>{item.label}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                {active?.status === 'OPEN' && !dueNow && (
-                  <span className="text-xs text-slate-400">
-                    Next: {new Date(active.dueDate).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
-                  </span>
-                )}
-                {active?.status === 'OPEN' && openToClaim && (
-                  <button
-                    onClick={() => act(() => client.claimInstance(active.id))}
-                    className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
-                  >
-                    Claim this
-                  </button>
-                )}
-                {active?.status === 'OPEN' && dueNow && mine && (
-                  <button
-                    onClick={() => act(() => client.completeInstance(active.id))}
-                    className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
-                  >
-                    Mark done
-                  </button>
-                )}
-                {active?.status === 'OPEN' && dueNow && !mine && !openToClaim && (
-                  <span className="text-xs text-slate-400">Not assigned to you</span>
-                )}
-                {active?.status === 'PENDING' && (
-                  <span className="text-xs font-medium text-amber-600">Pending approval</span>
-                )}
-                {active?.status === 'PENDING' && isAdult && (
-                  <>
-                    <button
-                      onClick={() => act(() => client.approveInstance(active.id))}
-                      className="rounded-md bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"
-                    >
-                      Approve
-                    </button>
-                    <button
-                      onClick={() => act(() => client.rejectInstance(active.id))}
-                      className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
-                    >
-                      Reject
-                    </button>
-                  </>
-                )}
-                {active?.status === 'APPROVED' && <span className="text-xs text-green-600">Done ✓</span>}
-                {active?.status === 'MISSED' && (
-                  <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
-                )}
-
-                {isAdult && !today && (
-                  <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
-                    {active && claimedBy && (
-                      <button onClick={() => act(() => client.assignInstance(active.id, null))} className="hover:text-slate-700">
-                        Unassign
-                      </button>
-                    )}
-                    <button onClick={() => act(() => client.reopenChore(chore.id))} className="hover:text-slate-700">
-                      Enable again
-                    </button>
-                    <button
-                      onClick={() => {
-                        setEditing(chore);
-                        setFormOpen(true);
-                      }}
-                      className="hover:text-slate-700"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => window.confirm(`Delete this ${choreWord.toLowerCase()}?`) && act(() => client.deleteChore(chore.id))}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Delete
-                    </button>
-                  </span>
-                )}
-              </div>
-            </li>
-          );
-        })}
-        {rows.length === 0 && (
-          <li className="text-sm text-slate-400">{today ? 'Nothing to earn today' : `No ${chorePlural.toLowerCase()} yet.`}</li>
-        )}
-      </ul>
+      {today ? (
+        <ul className="mt-3 space-y-2">
+          {rows.map(renderRow)}
+          {rows.length === 0 && <li className="text-sm text-slate-400">Nothing to earn today</li>}
+        </ul>
+      ) : (
+        <div className="mt-4 space-y-5">
+          {groups.map((g) => (
+            <div key={g.key}>
+              <h3 className="text-sm font-semibold text-slate-500">{g.label}</h3>
+              <ul className="mt-2 space-y-3">{g.rows.map(renderRow)}</ul>
+            </div>
+          ))}
+          {rows.length === 0 && <p className="text-sm text-slate-400">No {chorePlural.toLowerCase()} yet.</p>}
+        </div>
+      )}
 
       {isAdult && !today && balances.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500">

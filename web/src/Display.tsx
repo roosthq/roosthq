@@ -218,7 +218,9 @@ export default function Display() {
                   </button>
                 </div>
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
-                  {showChores && <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" />}
+                  {showChores && (
+                    <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" locationId={config.locationId} />
+                  )}
                   {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
                 </div>
               </>

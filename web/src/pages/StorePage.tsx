@@ -186,6 +186,7 @@ export default function StorePage({
       {formOpen && (
         <PrizeForm
           prize={editing}
+          members={members}
           tokenValueUsd={tokenValueUsd}
           onClose={() => setFormOpen(false)}
           onSaved={async () => {
@@ -200,11 +201,13 @@ export default function StorePage({
 
 function PrizeForm({
   prize,
+  members,
   tokenValueUsd,
   onClose,
   onSaved,
 }: {
   prize: StorePrize | null;
+  members: Member[];
   tokenValueUsd: number;
   onClose: () => void;
   onSaved: () => void;
@@ -221,6 +224,8 @@ function PrizeForm({
   // the wheel. Starts true when editing an existing prize (don't clobber it).
   const [tokenCostTouched, setTokenCostTouched] = useState(!!prize);
   const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
+  const [scope, setScope] = useState<'GLOBAL' | 'SPECIFIC'>(prize?.scope ?? 'GLOBAL');
+  const [assignedUserIds, setAssignedUserIds] = useState<Set<string>>(new Set(prize?.assignedUserIds ?? []));
   const [locationId, setLocationId] = useState(prize?.location?.id ?? '');
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
 
@@ -258,7 +263,8 @@ function PrizeForm({
       realPrice: realPrice ? Number(realPrice) : undefined,
       tokenCost: Math.max(0, Math.floor(Number(tokenCost) || 0)),
       type,
-      scope: 'GLOBAL' as const,
+      scope,
+      assignedUserIds: scope === 'SPECIFIC' ? [...assignedUserIds] : [],
       locationId: locationId || null,
     };
     if (prize) await api.updatePrize(prize.id, body);
@@ -330,6 +336,40 @@ function PrizeForm({
           {realPrice !== '' && !tokenCostTouched && (
             <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) — edit to override.</p>
           )}
+          <div>
+            <span className="text-sm text-slate-500">Who can redeem?</span>
+            <div className="mt-1 flex gap-3 text-sm">
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={scope === 'GLOBAL'} onChange={() => setScope('GLOBAL')} />
+                Open to anyone
+              </label>
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={scope === 'SPECIFIC'} onChange={() => setScope('SPECIFIC')} />
+                Specific people
+              </label>
+            </div>
+            {scope === 'SPECIFIC' && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {members.map((m) => (
+                  <label key={m.id} className="flex items-center gap-1 text-xs">
+                    <input
+                      type="checkbox"
+                      checked={assignedUserIds.has(m.id)}
+                      onChange={(e) => {
+                        const n = new Set(assignedUserIds);
+                        if (e.target.checked) n.add(m.id);
+                        else n.delete(m.id);
+                        setAssignedUserIds(n);
+                      }}
+                    />
+                    {m.displayName}
+                  </label>
+                ))}
+                {members.length === 0 && <span className="text-xs text-slate-400">No members yet.</span>}
+              </div>
+            )}
+          </div>
+
           <div className="flex gap-3">
             <label className="flex-1 text-sm">
               <span className="text-slate-500">Type</span>
