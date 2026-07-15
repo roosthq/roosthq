@@ -53,7 +53,7 @@ services:
         while true; do
           ts=$$(date +%Y%m%d_%H%M%S)
           echo "[backup] $$ts starting dump"
-          if mysqldump -h db -u"$$MYSQL_USER" -p"$$MYSQL_PASSWORD" "$$MYSQL_DATABASE" | gzip > "/backups/roosthq_$${ts}.sql.gz"; then
+          if mysqldump --no-tablespaces -h db -u"$$MYSQL_USER" -p"$$MYSQL_PASSWORD" "$$MYSQL_DATABASE" | gzip > "/backups/roosthq_$${ts}.sql.gz"; then
             echo "[backup] $$ts dump ok"
           else
             echo "[backup] $$ts dump FAILED"
