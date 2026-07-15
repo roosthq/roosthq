@@ -34,6 +34,13 @@ export class CalendarsController {
     return this.calendars.share(u.familyId, u.userId, body.googleAccountId, body.selections);
   }
 
+  // Remove my own share of a calendar (declared before ':id'-shaped routes
+  // just for readability; this path never collides with them).
+  @Post('unshare')
+  unshare(@CurrentUser() u: SessionPayload, @Body() body: { googleCalendarId: string }) {
+    return this.calendars.unshare(u.familyId, u.userId, body.googleCalendarId);
+  }
+
   // Shared calendars for the family, with counts.
   @Get()
   listShared(@CurrentUser() u: SessionPayload) {

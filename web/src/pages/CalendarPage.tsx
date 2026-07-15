@@ -193,14 +193,19 @@ export default function CalendarPage({ me }: { me: Me }) {
 
   async function openPicker() {
     setPicker(await api.googleCalendars());
-    setPicked(new Set());
+    // Pre-check whatever I've already added, so the picker reflects reality
+    // and unchecking one removes my share of it.
+    setPicked(new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId)));
   }
 
   async function doShare() {
     if (!picker) return;
+    const pickerIds = new Set(picker.map((c) => c.googleCalendarId));
+    const alreadyMineIds = new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId));
+
     const byAccount = new Map<string, GoogleCalendar[]>();
     for (const c of picker) {
-      if (!picked.has(c.googleCalendarId)) continue;
+      if (!picked.has(c.googleCalendarId) || alreadyMineIds.has(c.googleCalendarId)) continue;
       const arr = byAccount.get(c.googleAccountId) ?? [];
       arr.push(c);
       byAccount.set(c.googleAccountId, arr);
@@ -211,6 +216,10 @@ export default function CalendarPage({ me }: { me: Me }) {
         cals.map((c) => ({ googleCalendarId: c.googleCalendarId, name: c.name, color: c.color })),
       );
     }
+
+    const toRemove = [...alreadyMineIds].filter((id) => pickerIds.has(id) && !picked.has(id));
+    await Promise.all(toRemove.map((id) => api.unshare(id)));
+
     setPicker(null);
     await refreshShared();
   }
@@ -239,7 +248,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                   + Connect another of my Google accounts
                 </a>
                 <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-                  + Add calendars
+                  Manage calendars
                 </button>
               </>
             )}
@@ -270,7 +279,8 @@ export default function CalendarPage({ me }: { me: Me }) {
       {picker && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
           <div className="max-h-[80vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
-            <h3 className="text-lg font-semibold">Add calendars to your family</h3>
+            <h3 className="text-lg font-semibold">Add or remove calendars</h3>
+            <p className="mt-1 text-xs text-slate-400">Checked = shared with the family. Uncheck one to remove it.</p>
             <ul className="mt-3 space-y-1">
               {picker.map((c) => (
                 <li key={c.googleCalendarId} className="flex items-center gap-3 py-1">
@@ -295,7 +305,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                 Cancel
               </button>
               <button onClick={doShare} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-                Share selected
+                Save changes
               </button>
             </div>
           </div>

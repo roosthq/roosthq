@@ -72,6 +72,22 @@ export class CalendarsService {
     return results;
   }
 
+  // Remove my own share of a calendar. If nobody else in the family still
+  // shares it, drop the Calendar row entirely instead of leaving a zombie
+  // entry with a 0 share count.
+  async unshare(familyId: string, userId: string, googleCalendarId: string) {
+    const calendar = await this.prisma.calendar.findUnique({
+      where: { familyId_googleCalendarId: { familyId, googleCalendarId } },
+    });
+    if (!calendar) return { ok: true };
+    await this.prisma.calendarShare.deleteMany({ where: { calendarId: calendar.id, userId } });
+    const remaining = await this.prisma.calendarShare.count({ where: { calendarId: calendar.id } });
+    if (remaining === 0) {
+      await this.prisma.calendar.delete({ where: { id: calendar.id } });
+    }
+    return { ok: true };
+  }
+
   // Shared calendars for the family, with share counts and whether the current user shared it.
   async listShared(familyId: string, userId: string) {
     const calendars = await this.prisma.calendar.findMany({

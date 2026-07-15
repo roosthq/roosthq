@@ -272,6 +272,8 @@ export const api = {
   sharedCalendars: (kioskToken?: string) => req<SharedCalendar[]>('/calendars', undefined, kioskToken),
   share: (googleAccountId: string, selections: Array<{ googleCalendarId: string; name: string; color?: string }>) =>
     req('/calendars/share', { method: 'POST', body: JSON.stringify({ googleAccountId, selections }) }),
+  unshare: (googleCalendarId: string) =>
+    req('/calendars/unshare', { method: 'POST', body: JSON.stringify({ googleCalendarId }) }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
   createCalendarEvent: (
