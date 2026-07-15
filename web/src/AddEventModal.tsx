@@ -7,6 +7,12 @@ function addDays(dateStr: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+function addMinutes(timeStr: string, minutes: number): string {
+  const [h, m] = timeStr.split(':').map(Number);
+  const total = Math.min(h * 60 + m + minutes, 23 * 60 + 59);
+  return `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+}
+
 const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 // Add an event to any calendar the signed-in person already has access to
@@ -45,6 +51,10 @@ export default function AddEventModal({
     if (!calendarId || !summary.trim()) return;
     if (endDate < startDate) {
       setErr('End date is before the start date.');
+      return;
+    }
+    if (!allDay && endDate === startDate && endTime <= startTime) {
+      setErr('End time is before the start time.');
       return;
     }
     setSaving(true);
@@ -121,7 +131,11 @@ export default function AddEventModal({
                 <input
                   type="time"
                   value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
+                  onChange={(e) => {
+                    const next = e.target.value;
+                    setStartTime(next);
+                    if (endDate === startDate && endTime <= next) setEndTime(addMinutes(next, 60));
+                  }}
                   className="mt-1 w-full rounded border px-2 py-1.5"
                 />
               </label>
@@ -135,7 +149,11 @@ export default function AddEventModal({
                 type="date"
                 value={endDate}
                 min={startDate}
-                onChange={(e) => setEndDate(e.target.value)}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  setEndDate(next);
+                  if (next === startDate && endTime <= startTime) setEndTime(addMinutes(startTime, 60));
+                }}
                 className="mt-1 w-full rounded border px-2 py-1.5"
               />
             </label>
