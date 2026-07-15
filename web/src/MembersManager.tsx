@@ -12,7 +12,7 @@ export default function MembersManager({ me }: { me: Me }) {
   const [open, setOpen] = useState(false);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
-  const [inviteRole, setInviteRole] = useState<'ADULT' | 'KID'>('KID');
+  const [inviteRole, setInviteRole] = useState<'OWNER' | 'ADULT' | 'KID'>('KID');
   const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
 
   async function refresh() {
@@ -76,11 +76,12 @@ export default function MembersManager({ me }: { me: Me }) {
           <span className="font-medium">Invite someone as</span>
           <select
             value={inviteRole}
-            onChange={(e) => setInviteRole(e.target.value as 'ADULT' | 'KID')}
+            onChange={(e) => setInviteRole(e.target.value as 'OWNER' | 'ADULT' | 'KID')}
             className="rounded border px-2 py-1 text-xs"
           >
             <option value="KID">Kid</option>
             <option value="ADULT">Adult</option>
+            {isOwner && <option value="OWNER">Owner</option>}
           </select>
           <button onClick={createInvite} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
             Generate invite link

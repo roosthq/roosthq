@@ -303,7 +303,7 @@ export const api = {
     req<{ ok: boolean; fontSize: string }>('/users/me/font-size', { method: 'PUT', body: JSON.stringify({ fontSize }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
-  createInvite: (role: 'ADULT' | 'KID', label?: string) =>
+  createInvite: (role: 'OWNER' | 'ADULT' | 'KID', label?: string) =>
     req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
 
