@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, type Me, type Member, type InviteInfo } from './api';
+import { useDialog } from './Dialog';
 
 // Adults and the owner can invite people and manage PINs; only the owner can
 // change roles or remove members, and only the owner can manage another
@@ -7,6 +8,7 @@ import { api, type Me, type Member, type InviteInfo } from './api';
 export default function MembersManager({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const canManagePin = (m: Member) => m.id === me.id || isOwner || m.role === 'KID';
+  const { confirm } = useDialog();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
   const [open, setOpen] = useState(false);
@@ -38,7 +40,11 @@ export default function MembersManager({ me }: { me: Me }) {
     await refresh();
   }
   async function removeMember(m: Member) {
-    if (!window.confirm(`Remove ${m.displayName}? This deletes their chores and token history.`)) return;
+    const ok = await confirm(`Remove ${m.displayName}? This deletes their chores and token history.`, {
+      danger: true,
+      confirmLabel: 'Remove',
+    });
+    if (!ok) return;
     await api.removeUser(m.id);
     await refresh();
   }

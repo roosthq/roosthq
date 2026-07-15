@@ -9,6 +9,7 @@ import {
 } from '../api';
 import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
+import { useDialog } from '../Dialog';
 
 export default function SettingsPage({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
@@ -207,6 +208,7 @@ function LocationsSetting() {
 }
 
 function DisplaysManager() {
+  const { confirm } = useDialog();
   const [displays, setDisplays] = useState<DisplayConfig[]>([]);
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [newName, setNewName] = useState('');
@@ -231,7 +233,7 @@ function DisplaysManager() {
     await refresh();
   }
   async function del(id: string) {
-    if (window.confirm('Delete this display?')) {
+    if (await confirm('Delete this display?', { danger: true, confirmLabel: 'Delete' })) {
       await api.deleteDisplay(id);
       await refresh();
     }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient } from './api';
 import TokenBadge from './TokenBadge';
+import { useDialog } from './Dialog';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -71,6 +72,7 @@ export default function ChoresPanel({
   locationId?: string | null;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const { alert, confirm } = useDialog();
   const today = variant === 'today';
   const [personFilter, setPersonFilter] = useState('');
   // clientProp is a fresh object on every parent render when the caller doesn't
@@ -165,7 +167,7 @@ export default function ChoresPanel({
     try {
       await fn();
     } catch (e) {
-      alert((e as Error).message || 'Something went wrong');
+      await alert((e as Error).message || 'Something went wrong');
     }
     await refresh();
   }
@@ -304,7 +306,11 @@ export default function ChoresPanel({
                 Edit
               </button>
               <button
-                onClick={() => window.confirm(`Delete this ${choreWord.toLowerCase()}?`) && act(() => client.deleteChore(chore.id))}
+                onClick={async () => {
+                  if (await confirm(`Delete this ${choreWord.toLowerCase()}?`, { danger: true, confirmLabel: 'Delete' })) {
+                    await act(() => client.deleteChore(chore.id));
+                  }
+                }}
                 className="text-red-500 hover:text-red-700"
               >
                 Delete

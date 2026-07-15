@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { prizeClient, type StorePrize, type PrizeClient } from './api';
 import TokenBadge from './TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal } from './Prize';
+import { useDialog } from './Dialog';
 
 type Actor = { id: string; role: string; displayName: string };
 
@@ -10,6 +11,7 @@ type Actor = { id: string; role: string; displayName: string };
 // read-and-redeem-only view for whoever's signed into the touch display.
 export default function PrizesPanel({ me, client: clientProp }: { me: Actor; client?: PrizeClient }) {
   const client = clientProp ?? prizeClient();
+  const { alert, confirm } = useDialog();
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [tokenName, setTokenName] = useState('Tokens');
@@ -35,13 +37,13 @@ export default function PrizesPanel({ me, client: clientProp }: { me: Actor; cli
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
-    if (!window.confirm(`Spend ${p.tokenCost} ${tokenName} on "${p.name}"?`)) return;
+    if (!(await confirm(`Spend ${p.tokenCost} ${tokenName} on "${p.name}"?`, { confirmLabel: 'Redeem' }))) return;
     try {
       await client.redeemPrize(p.id);
       setViewing(null);
       await refresh();
     } catch {
-      alert('Could not redeem — not enough ' + tokenName + '?');
+      await alert('Could not redeem — not enough ' + tokenName + '?');
     }
   }
 

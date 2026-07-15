@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
+import { useDialog } from '../Dialog';
 
 export default function StorePage({
   me,
@@ -15,6 +16,7 @@ export default function StorePage({
   tokenValueUsd: number;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const { alert, confirm } = useDialog();
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -55,25 +57,25 @@ export default function StorePage({
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
-    if (!window.confirm(`Spend ${p.tokenCost} ${tokenName} on "${p.name}"?`)) return;
+    if (!(await confirm(`Spend ${p.tokenCost} ${tokenName} on "${p.name}"?`, { confirmLabel: 'Redeem' }))) return;
     try {
       await api.redeemPrize(p.id);
       setViewing(null);
       await refresh();
     } catch {
-      alert('Could not redeem — not enough ' + tokenName + '?');
+      await alert('Could not redeem — not enough ' + tokenName + '?');
     }
   }
 
   async function del(p: StorePrize) {
-    if (!window.confirm(`Delete "${p.name}"?`)) return;
+    if (!(await confirm(`Delete "${p.name}"?`, { danger: true, confirmLabel: 'Delete' }))) return;
     await api.deletePrize(p.id);
     setViewing(null);
     await refresh();
   }
 
   async function rejectSuggestion(p: StorePrize) {
-    if (!window.confirm(`Decline "${p.name}"?`)) return;
+    if (!(await confirm(`Decline "${p.name}"?`, { danger: true, confirmLabel: 'Decline' }))) return;
     await api.deletePrize(p.id);
     await refresh();
   }
@@ -398,6 +400,7 @@ function PrizeForm({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const { alert } = useDialog();
   const [name, setName] = useState(prize?.name ?? '');
   const [description, setDescription] = useState(prize?.description ?? '');
   const [image, setImage] = useState(prize?.image ?? '');
@@ -434,7 +437,7 @@ function PrizeForm({
     try {
       setImage(await resizeImageFile(file));
     } catch {
-      alert('Could not read that image.');
+      await alert('Could not read that image.');
     } finally {
       setUploading(false);
     }
