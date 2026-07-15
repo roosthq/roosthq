@@ -9,8 +9,10 @@ import { DisplayOrUserGuard } from './display-auth.guard';
 import { CalendarsService } from '../calendars/calendars.service';
 import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
+  imports: [NotificationsModule],
   controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,

@@ -67,6 +67,12 @@ export class UsersService {
     return { ok: true, fontSize: f };
   }
 
+  // Current user's own "also email me notifications" preference.
+  async setNotifyByEmail(userId: string, notifyByEmail: boolean) {
+    await this.prisma.user.update({ where: { id: userId }, data: { notifyByEmail } });
+    return { ok: true, notifyByEmail };
+  }
+
   // Owner removes a member. Cleans up rows that would otherwise block the delete
   // (chores reference users without cascade). Can't remove yourself or the owner.
   async remove(actorId: string, familyId: string, targetId: string) {

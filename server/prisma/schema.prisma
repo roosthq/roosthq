@@ -45,6 +45,7 @@ enum NotificationType {
   REDEMPTION_FULFILLED
   REDEMPTION_REJECTED
   PRIZE_SUGGESTED // kid submitted a wishlist item
+  CALENDAR_EVENT_ADDED
 }
 
 enum PrizeType {
@@ -108,6 +109,22 @@ model Notification {
   @@index([userId, readAt])
 }
 
+// One browser/device's Web Push subscription. A person can have several
+// (phone + kiosk browser, etc.) — all get pushed to on a new notification.
+model PushSubscription {
+  id           String   @id @default(cuid())
+  userId       String
+  endpoint     String   @db.Text
+  endpointHash String   @unique // sha256(endpoint) — endpoint itself is too long to index/unique directly
+  p256dh       String   @db.Text
+  auth         String   @db.Text
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
 // A named display layout an adult can create (e.g. "Kitchen", "Dad's house").
 // Each has its own set of calendars, enabled features, and theme, so different
 // kiosks can show different things.
@@ -168,29 +185,31 @@ model DisplayToken {
 }
 
 model User {
-  id           String  @id @default(cuid())
-  familyId     String
-  role         Role
-  displayName  String
-  email        String? // kids may have none (parent-managed)
-  pinHash      String? // optional per-profile PIN
-  avatar       String? @db.Text // Google photo URLs can exceed the default varchar(191)
-  themePref    String  @default("light") // per-user app UI theme: light | dark
-  fontSizePref String  @default("md") // per-user app text size: sm | md | lg | xl
+  id            String  @id @default(cuid())
+  familyId      String
+  role          Role
+  displayName   String
+  email         String? // kids may have none (parent-managed)
+  pinHash       String? // optional per-profile PIN
+  avatar        String? @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref     String  @default("light") // per-user app UI theme: light | dark
+  fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
+  notifyByEmail Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
 
-  family           Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  locations        UserLocation[]
-  googleAccounts   GoogleAccount[]
-  calendarShares   CalendarShare[]
-  choreAssignments ChoreAssignee[]
-  createdChores    Chore[]           @relation("ChoreCreatedBy")
-  ledgerEntries    TokenLedger[]     @relation("LedgerUser")
-  ledgerCreated    TokenLedger[]     @relation("LedgerCreatedBy")
-  prizeAssigns     PrizeAssignment[]
-  redemptions      Redemption[]
-  createdPrizes    Prize[]           @relation("PrizeCreatedBy")
-  suggestedPrizes  Prize[]           @relation("PrizeSuggestedBy")
-  notifications    Notification[]
+  family            Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  locations         UserLocation[]
+  googleAccounts    GoogleAccount[]
+  calendarShares    CalendarShare[]
+  choreAssignments  ChoreAssignee[]
+  createdChores     Chore[]            @relation("ChoreCreatedBy")
+  ledgerEntries     TokenLedger[]      @relation("LedgerUser")
+  ledgerCreated     TokenLedger[]      @relation("LedgerCreatedBy")
+  prizeAssigns      PrizeAssignment[]
+  redemptions       Redemption[]
+  createdPrizes     Prize[]            @relation("PrizeCreatedBy")
+  suggestedPrizes   Prize[]            @relation("PrizeSuggestedBy")
+  notifications     Notification[]
+  pushSubscriptions PushSubscription[]
 
   @@index([familyId])
 }

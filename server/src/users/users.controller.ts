@@ -48,4 +48,10 @@ export class UsersController {
   setFontSize(@CurrentUser() u: SessionPayload, @Body() body: { fontSize: 'sm' | 'md' | 'lg' | 'xl' }) {
     return this.users.setFontSize(u.userId, body.fontSize);
   }
+
+  // Current user's own "also email me notifications" preference.
+  @Put('me/notify-by-email')
+  setNotifyByEmail(@CurrentUser() u: SessionPayload, @Body() body: { notifyByEmail: boolean }) {
+    return this.users.setNotifyByEmail(u.userId, body.notifyByEmail);
+  }
 }

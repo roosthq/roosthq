@@ -133,6 +133,7 @@ export class AuthService {
         familyId: true,
         themePref: true,
         fontSizePref: true,
+        notifyByEmail: true,
       },
     });
   }

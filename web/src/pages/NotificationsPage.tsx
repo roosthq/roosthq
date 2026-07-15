@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api, type Me, type AppNotification } from '../api';
+import { useDialog } from '../Dialog';
+import { pushSupported, currentPushSubscription, subscribeToPush, unsubscribeFromPush } from '../push';
 
 const TYPE_ICON: Record<string, string> = {
   CHORE_PENDING: '⏳',
@@ -12,7 +14,58 @@ const TYPE_ICON: Record<string, string> = {
   REDEMPTION_FULFILLED: '✅',
   REDEMPTION_REJECTED: '↩️',
   PRIZE_SUGGESTED: '💡',
+  CALENDAR_EVENT_ADDED: '📅',
 };
+
+function NotifySettings({ me }: { me: Me }) {
+  const { alert } = useDialog();
+  const [pushOn, setPushOn] = useState(false);
+  const [pushBusy, setPushBusy] = useState(false);
+  const [emailOn, setEmailOn] = useState(!!me.notifyByEmail);
+
+  useEffect(() => {
+    currentPushSubscription().then((s) => setPushOn(!!s)).catch(() => undefined);
+  }, []);
+
+  async function togglePush() {
+    setPushBusy(true);
+    try {
+      if (pushOn) {
+        await unsubscribeFromPush();
+        setPushOn(false);
+      } else {
+        await subscribeToPush();
+        setPushOn(true);
+      }
+    } catch (e) {
+      await alert((e as Error).message || 'Could not update push notifications.');
+    } finally {
+      setPushBusy(false);
+    }
+  }
+
+  async function toggleEmail(next: boolean) {
+    setEmailOn(next);
+    await api.setNotifyByEmail(next).catch(() => setEmailOn(!next));
+  }
+
+  return (
+    <div className="mb-4 flex flex-wrap items-center gap-4 rounded-lg border bg-slate-50 p-3 text-sm">
+      {pushSupported() && (
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={pushOn} disabled={pushBusy} onChange={togglePush} />
+          Push notifications on this device
+        </label>
+      )}
+      {me.email && (
+        <label className="flex items-center gap-2">
+          <input type="checkbox" checked={emailOn} onChange={(e) => toggleEmail(e.target.checked)} />
+          Also email me ({me.email})
+        </label>
+      )}
+    </div>
+  );
+}
 
 export default function NotificationsPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
@@ -43,6 +96,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
 
   return (
     <div>
+      <NotifySettings me={me} />
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">{view === 'family' ? 'Family activity' : 'Notifications'}</h2>
         <div className="flex items-center gap-2">

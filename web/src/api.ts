@@ -25,6 +25,7 @@ export interface Me {
   familyId: string;
   themePref?: 'light' | 'dark';
   fontSizePref?: FontSize;
+  notifyByEmail?: boolean;
 }
 
 export interface GoogleCalendar {
@@ -327,6 +328,17 @@ export const api = {
     req<{ ok: boolean; theme: string }>('/users/me/theme', { method: 'PUT', body: JSON.stringify({ theme }) }),
   setFontSize: (fontSize: FontSize) =>
     req<{ ok: boolean; fontSize: string }>('/users/me/font-size', { method: 'PUT', body: JSON.stringify({ fontSize }) }),
+  setNotifyByEmail: (notifyByEmail: boolean) =>
+    req<{ ok: boolean; notifyByEmail: boolean }>('/users/me/notify-by-email', {
+      method: 'PUT',
+      body: JSON.stringify({ notifyByEmail }),
+    }),
+
+  pushPublicKey: () => req<{ key: string | null }>('/notifications/push/public-key'),
+  subscribePush: (sub: { endpoint: string; keys: { p256dh: string; auth: string } }) =>
+    req('/notifications/push/subscribe', { method: 'POST', body: JSON.stringify(sub) }),
+  unsubscribePush: (endpoint: string) =>
+    req('/notifications/push/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
   createInvite: (role: 'OWNER' | 'ADULT' | 'KID', label?: string) =>
@@ -435,6 +447,10 @@ export function prizeClient(kioskToken?: string) {
     tokenBalance: (userId?: string) =>
       req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
+    redemptions: (userId: string) => req<Redemption[]>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
+    listUsers: () => req<Member[]>('/users', undefined, kioskToken),
+    setPin: (userId: string, pin: string | null) =>
+      req(`/users/${userId}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }, kioskToken),
   };
 }
 

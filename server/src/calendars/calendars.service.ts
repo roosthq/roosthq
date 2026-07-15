@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface ShareSelection {
   googleCalendarId: string;
@@ -13,6 +14,7 @@ export class CalendarsService {
   constructor(
     private prisma: PrismaService,
     private google: GoogleService,
+    private notifications: NotificationsService,
   ) {}
 
   // Google calendars available across the user's connected accounts (the picker).
@@ -180,7 +182,41 @@ export class CalendarsService {
       calendarId: c.googleCalendarId,
       requestBody: { ...body, extendedProperties: { private: { roostHqAddedBy: addedByUserId } } } as never,
     });
+    this.notifyCalendarEvent(familyId, c.id, c.name, addedByUserId, (body.summary as string) ?? 'an event').catch(() => undefined);
     return data;
+  }
+
+  // Adults always get notified (mirrors them generally seeing the whole family
+  // calendar); a kid only gets notified if the calendar is actually on one of
+  // their own location's kiosk displays — same rule that governs what they can
+  // see in the app in the first place.
+  private async notifyCalendarEvent(
+    familyId: string,
+    calendarId: string,
+    calendarName: string,
+    addedByUserId: string,
+    summary: string,
+  ) {
+    const adder = await this.prisma.user.findUnique({ where: { id: addedByUserId } });
+    const title = `${adder?.displayName ?? 'Someone'} added "${summary}" to ${calendarName}`;
+    await this.notifications.notifyAdults(familyId, 'CALENDAR_EVENT_ADDED', title, {
+      link: '/',
+      excludeUserId: addedByUserId,
+    });
+
+    const displays = await this.prisma.displayConfig.findMany({ where: { familyId } });
+    const locationIds = new Set<string>();
+    for (const d of displays) {
+      const ids = (d.calendarIds as string[]) ?? [];
+      if (d.locationId && ids.includes(calendarId)) locationIds.add(d.locationId);
+    }
+    if (!locationIds.size) return;
+    const kids = await this.prisma.user.findMany({
+      where: { familyId, role: 'KID', locations: { some: { locationId: { in: [...locationIds] } } } },
+    });
+    await Promise.all(
+      kids.map((k) => this.notifications.create(familyId, k.id, 'CALENDAR_EVENT_ADDED', title, { link: '/' })),
+    );
   }
 
   async updateEvent(

@@ -1,10 +1,16 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { NotificationType } from '@prisma/client';
+import { PushService, type PushSubscriptionInput } from './push.service';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class NotificationsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private push: PushService,
+    private email: EmailService,
+  ) {}
 
   private isAdult(role?: string) {
     return role === 'OWNER' || role === 'ADULT';
@@ -12,6 +18,7 @@ export class NotificationsService {
 
   // Called by other services when something notification-worthy happens.
   // Fire-and-forget from the caller's perspective — never throws upward.
+  // Writes the in-app feed entry, then best-effort fans out to push/email.
   async create(
     familyId: string,
     userId: string,
@@ -26,7 +33,27 @@ export class NotificationsService {
     } catch {
       // Notifications are a convenience, not core to the action that triggered
       // them — a failure here shouldn't roll back or fail the caller's request.
+      return;
     }
+
+    await this.push.notify(userId, { title, body: opts.body, link: opts.link }).catch(() => undefined);
+
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (user?.notifyByEmail && user.email) {
+      await this.email.send(user.email, title, opts.body ?? title);
+    }
+  }
+
+  get pushPublicKey(): string | null {
+    return this.push.publicKey;
+  }
+
+  async subscribePush(userId: string, sub: PushSubscriptionInput) {
+    return this.push.subscribe(userId, sub);
+  }
+
+  async unsubscribePush(userId: string, endpoint: string) {
+    return this.push.unsubscribe(userId, endpoint);
   }
 
   async notifyAdults(

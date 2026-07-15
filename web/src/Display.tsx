@@ -13,6 +13,7 @@ import {
 import Calendar from './Calendar';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
+import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import Logo from './Logo';
 
@@ -222,6 +223,7 @@ export default function Display() {
                     <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" locationId={config.locationId} />
                   )}
                   {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
+                  <KioskAccountPanel me={active.user} client={kioskPrizeClient} />
                 </div>
               </>
             ) : (

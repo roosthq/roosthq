@@ -1,13 +1,31 @@
-import { Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { NotificationsService } from './notifications.service';
+import type { PushSubscriptionInput } from './push.service';
 
 @UseGuards(AuthGuard)
 @Controller('notifications')
 export class NotificationsController {
   constructor(private notifications: NotificationsService) {}
+
+  // Public VAPID key the client needs to call pushManager.subscribe(). Not
+  // secret, but still gated behind auth like everything else here.
+  @Get('push/public-key')
+  pushPublicKey() {
+    return { key: this.notifications.pushPublicKey };
+  }
+
+  @Post('push/subscribe')
+  subscribePush(@CurrentUser() u: SessionPayload, @Body() body: PushSubscriptionInput) {
+    return this.notifications.subscribePush(u.userId, body);
+  }
+
+  @Delete('push/subscribe')
+  unsubscribePush(@CurrentUser() u: SessionPayload, @Body() body: { endpoint: string }) {
+    return this.notifications.unsubscribePush(u.userId, body.endpoint);
+  }
 
   // ?all=1 -> family-wide activity feed (adults only, enforced in the service).
   @Get()
