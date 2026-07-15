@@ -342,13 +342,39 @@ select option {
   box-shadow: 0 1px 2px rgba(28, 46, 28, 0.05);
 }
 
-/* Logo owl: show the light or dark mark based on theme */
-.owl-dark {
-  display: none;
+/* Logo owl: one inline mark, recolored per-role from the same tokens the rest
+   of the app uses — automatically matches both light/dark and whichever
+   per-person color theme is active, no separate asset per combination. */
+.owl-body {
+  fill: var(--accent);
 }
-[data-theme='dark'] .owl-light {
-  display: none;
+.owl-eye {
+  fill: var(--bg);
 }
-[data-theme='dark'] .owl-dark {
-  display: inline-block;
+.owl-pupil {
+  fill: var(--text);
+}
+.owl-beak {
+  fill: var(--today);
+}
+.owl-tuft {
+  fill: var(--accent-hover);
+}
+.owl-belly {
+  fill: var(--tag-bg);
+}
+[data-theme='dark'] .owl-body {
+  fill: var(--text);
+}
+[data-theme='dark'] .owl-eye {
+  fill: var(--text-2);
+}
+[data-theme='dark'] .owl-pupil {
+  fill: var(--bg);
+}
+[data-theme='dark'] .owl-tuft {
+  fill: var(--tag-bg);
+}
+[data-theme='dark'] .owl-belly {
+  fill: var(--text-2);
 }
