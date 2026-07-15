@@ -62,7 +62,7 @@ export class UsersService {
     return { ok: true, theme: t };
   }
 
-  // Current user's own accent color (kiosk-identifiable "micro-theme").
+  // Current user's own full page theme (kiosk-identifiable "micro-theme").
   async setColorTheme(userId: string, colorTheme: string) {
     const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : 'green';
     await this.prisma.user.update({ where: { id: userId }, data: { colorTheme: c } });

@@ -40,93 +40,208 @@
   --surface-off: #212121; /* dark gray */
 }
 
-/* Per-person accent color ("micro-theme") — kiosk-identifiable at a glance.
-   'green' is the brand default and needs no override (it's just the tokens
-   above). Only --accent/--accent-hover/--tag-* change; --bg/--surface/--text
-   stay put so legibility doesn't depend on which color a kid picked. */
+/* Per-person full page theme ("micro-theme") — kiosk-identifiable at a glance.
+   Each color is a complete re-skin (bg/surface/text/border/tags), not just an
+   accent swap, with its own light and dark rendition. 'green' is the brand
+   default and needs no override — it's just the :root/[data-theme='dark']
+   tokens above. --today (the gold "today" ring) is intentionally left out of
+   every block below so it stays the one constant wayfinding color across all
+   themes, including yellow/orange. */
 [data-color-theme='blue'] {
+  --bg: #eaf1f8;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(59, 110, 165, 0.18);
+  --text: #16283b;
+  --text-2: #3f6a8c;
+  --text-muted: #7a9cb8;
   --accent: #3b6ea5;
   --accent-hover: #2c5686;
   --tag-bg: #d6e6f5;
   --tag-text: #204a72;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='blue'] {
+  --bg: #0e1720;
+  --surface: #16283b;
+  --surface-raised: #1c3350;
+  --border: rgba(158, 196, 236, 0.12);
+  --text: #eaf1f8;
+  --text-2: #9cc4ec;
+  --text-muted: #3b6ea5;
   --accent: #6ea0d6;
   --accent-hover: #82b0e0;
   --tag-bg: #1c2e42;
   --tag-text: #9cc4ec;
+  --surface-off: #212121;
 }
 [data-color-theme='purple'] {
+  --bg: #f3edf7;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(122, 78, 160, 0.18);
+  --text: #2c1c3b;
+  --text-2: #6a4a8c;
+  --text-muted: #a189b8;
   --accent: #7a4ea0;
   --accent-hover: #603a80;
   --tag-bg: #ead4f0;
   --tag-text: #522c72;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='purple'] {
+  --bg: #180e20;
+  --surface: #2c1c3b;
+  --surface-raised: #382450;
+  --border: rgba(214, 168, 236, 0.12);
+  --text: #f3edf7;
+  --text-2: #d6a8ec;
+  --text-muted: #7a4ea0;
   --accent: #b06eda;
   --accent-hover: #c082e6;
   --tag-bg: #2e1c38;
   --tag-text: #d6a8ec;
+  --surface-off: #212121;
 }
 [data-color-theme='pink'] {
+  --bg: #f8edf2;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(176, 80, 138, 0.18);
+  --text: #3b1c2c;
+  --text-2: #8c4a6e;
+  --text-muted: #b889a1;
   --accent: #b0508a;
   --accent-hover: #8a3a6c;
   --tag-bg: #f5d6e6;
   --tag-text: #72204c;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='pink'] {
+  --bg: #20101a;
+  --surface: #3b1c2c;
+  --surface-raised: #502438;
+  --border: rgba(240, 168, 206, 0.12);
+  --text: #f8edf2;
+  --text-2: #f0a8ce;
+  --text-muted: #b0508a;
   --accent: #e07ab4;
   --accent-hover: #ea92c4;
   --tag-bg: #3a1c2c;
   --tag-text: #f0a8ce;
+  --surface-off: #212121;
 }
 [data-color-theme='orange'] {
+  --bg: #f8f0e5;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(192, 120, 48, 0.18);
+  --text: #3b2a14;
+  --text-2: #8c6428;
+  --text-muted: #b89a70;
   --accent: #c07830;
   --accent-hover: #9c5e20;
   --tag-bg: #f5e0c6;
   --tag-text: #7a4a10;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='orange'] {
+  --bg: #201808;
+  --surface: #3b2a14;
+  --surface-raised: #50381c;
+  --border: rgba(240, 200, 150, 0.12);
+  --text: #f8f0e5;
+  --text-2: #f0c896;
+  --text-muted: #c07830;
   --accent: #e0a05a;
   --accent-hover: #eab074;
   --tag-bg: #3a2c18;
   --tag-text: #f0c896;
+  --surface-off: #212121;
 }
 [data-color-theme='red'] {
+  --bg: #f8ece8;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(176, 80, 60, 0.18);
+  --text: #3b1c14;
+  --text-2: #8c4a3a;
+  --text-muted: #b8887a;
   --accent: #b0503c;
   --accent-hover: #8a3a2a;
   --tag-bg: #f5d8d0;
   --tag-text: #72281a;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='red'] {
+  --bg: #200e0a;
+  --surface: #3b1c14;
+  --surface-raised: #50241c;
+  --border: rgba(240, 178, 162, 0.12);
+  --text: #f8ece8;
+  --text-2: #f0b2a2;
+  --text-muted: #b0503c;
   --accent: #e0806a;
   --accent-hover: #ea9482;
   --tag-bg: #3a201c;
   --tag-text: #f0b2a2;
+  --surface-off: #212121;
 }
 [data-color-theme='teal'] {
+  --bg: #e8f5f5;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(44, 138, 138, 0.18);
+  --text: #14302f;
+  --text-2: #2c6a6a;
+  --text-muted: #7ab0b0;
   --accent: #2c8a8a;
   --accent-hover: #206a6a;
   --tag-bg: #cceeee;
   --tag-text: #185858;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='teal'] {
+  --bg: #0a1a1a;
+  --surface: #143030;
+  --surface-raised: #1c4040;
+  --border: rgba(150, 224, 224, 0.12);
+  --text: #e8f5f5;
+  --text-2: #96e0e0;
+  --text-muted: #2c8a8a;
   --accent: #5ac2c2;
   --accent-hover: #74d0d0;
   --tag-bg: #1a3232;
   --tag-text: #96e0e0;
+  --surface-off: #212121;
 }
 [data-color-theme='yellow'] {
+  --bg: #f8f4e5;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(168, 134, 42, 0.18);
+  --text: #362c10;
+  --text-2: #7a6420;
+  --text-muted: #b8a670;
   --accent: #a8862a;
   --accent-hover: #8a6c1c;
   --tag-bg: #f5eac6;
   --tag-text: #6a5410;
+  --surface-off: #e5e7eb;
 }
 [data-theme='dark'][data-color-theme='yellow'] {
+  --bg: #1c1608;
+  --surface: #362c10;
+  --surface-raised: #4a3c16;
+  --border: rgba(240, 220, 156, 0.12);
+  --text: #f8f4e5;
+  --text-2: #f0dc9c;
+  --text-muted: #a8862a;
   --accent: #d4b45a;
   --accent-hover: #e0c274;
   --tag-bg: #362c18;
   --tag-text: #f0dc9c;
+  --surface-off: #212121;
 }
 
 html,

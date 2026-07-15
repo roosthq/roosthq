@@ -18,8 +18,8 @@ export default function KioskAccountPanel({
   // Lets the parent (the profile picker) refresh its stale "has a PIN" flag
   // for this person right away, instead of only on the next full members fetch.
   onPinChanged?: () => void;
-  // Lets the parent apply the new accent color to the kiosk immediately,
-  // instead of waiting for the next unlock to pick it up.
+  // Lets the parent apply the new theme to the kiosk immediately, instead of
+  // waiting for the next unlock to pick it up.
   onColorThemeChanged?: (colorTheme: string) => void;
 }) {
   const client = clientProp ?? prizeClient();
@@ -78,7 +78,7 @@ export default function KioskAccountPanel({
   return (
     <section className="mt-4 space-y-3">
       <div className="rounded-lg border bg-white p-3">
-        <h3 className="text-sm font-semibold">My Color</h3>
+        <h3 className="text-sm font-semibold">My Theme</h3>
         <div className="mt-2 flex flex-wrap gap-2">
           {COLOR_THEMES.map((t) => (
             <button

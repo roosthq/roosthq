@@ -43,7 +43,7 @@ export class UsersController {
     return this.users.setTheme(u.userId, body.theme);
   }
 
-  // Current user sets their own accent color (kiosk-identifiable "micro-theme").
+  // Current user sets their own full page theme (kiosk-identifiable "micro-theme").
   @Put('me/color-theme')
   setColorTheme(@CurrentUser() u: SessionPayload, @Body() body: { colorTheme: string }) {
     return this.users.setColorTheme(u.userId, body.colorTheme);

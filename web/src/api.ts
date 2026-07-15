@@ -87,8 +87,9 @@ export interface UnlockResult {
   user: { id: string; displayName: string; role: string; avatar?: string; themePref?: string; colorTheme?: string };
 }
 
-// Kiosk-identifiable per-person accent color ("micro-theme"). Keep in sync with
-// COLOR_THEMES in server/src/users/users.service.ts.
+// Kiosk-identifiable per-person full page theme ("micro-theme") — swaps the
+// whole palette (bg/surface/text/border/tags), not just an accent color. Keep
+// in sync with COLOR_THEMES in server/src/users/users.service.ts.
 export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
   { id: 'green', label: 'Green', swatch: '#4e7a4c' },
   { id: 'blue', label: 'Blue', swatch: '#3b6ea5' },
