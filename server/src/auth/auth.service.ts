@@ -132,6 +132,7 @@ export class AuthService {
         avatar: true,
         familyId: true,
         themePref: true,
+        colorTheme: true,
         fontSizePref: true,
         notifyByEmail: true,
       },

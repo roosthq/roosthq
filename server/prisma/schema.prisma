@@ -193,6 +193,7 @@ model User {
   pinHash       String? // optional per-profile PIN
   avatar        String? @db.Text // Google photo URLs can exceed the default varchar(191)
   themePref     String  @default("light") // per-user app UI theme: light | dark
+  colorTheme    String  @default("green") // per-user accent color: see COLOR_THEMES in users.service.ts
   fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
   notifyByEmail Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
 

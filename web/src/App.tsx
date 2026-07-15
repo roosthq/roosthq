@@ -14,6 +14,10 @@ function applyTheme(t: string) {
   document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
 }
 
+function applyColorTheme(c: string) {
+  document.documentElement.setAttribute('data-color-theme', c || 'green');
+}
+
 function applyFontSize(f: string) {
   document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(f) ? f : 'md');
 }
@@ -29,6 +33,7 @@ export default function App() {
       .then(async (u) => {
         setMe(u);
         applyTheme(u.themePref ?? 'light');
+        applyColorTheme(u.colorTheme ?? 'green');
         applyFontSize(u.fontSizePref ?? 'md');
         try {
           setFamily(await api.familySettings());
@@ -43,6 +48,7 @@ export default function App() {
   async function logout() {
     await api.logout();
     applyTheme('light');
+    applyColorTheme('green');
     applyFontSize('md');
     setMe(null);
   }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   api,
   BASE_URL,
@@ -86,12 +86,28 @@ export default function Display() {
     else document.documentElement.requestFullscreen().catch(() => undefined);
   }
 
+  // Tracked in a ref (not state) so loadConfig's identity stays stable across
+  // unlock/lock — it's a dependency of the mount effect that opens the SSE
+  // stream, and that stream shouldn't reconnect every time a profile switches.
+  const activeRef = useRef<UnlockResult | null>(null);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  // The display's own base theme, shown on the profile picker (nobody signed
+  // in yet). Once a profile unlocks, their personal theme takes over instead —
+  // see unlock() below — so this only applies while nobody's signed in.
+  const applyIdleTheme = useCallback((c: ResolvedDisplayConfig) => {
+    document.documentElement.setAttribute('data-theme', c.theme === 'dark' ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-color-theme', 'green');
+    document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
+  }, []);
+
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
-    document.documentElement.setAttribute('data-theme', c.theme === 'dark' ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
-  }, []);
+    if (!activeRef.current) applyIdleTheme(c);
+  }, [applyIdleTheme]);
 
   // Re-fetched whenever the profile picker is shown again (see "Switch / lock"
   // below), not just once at mount — otherwise a PIN set mid-session keeps
@@ -154,6 +170,8 @@ export default function Display() {
     try {
       const result = await dpost<UnlockResult>('/display/unlock', { userId: m.id, pin: enteredPin });
       setActive(result);
+      document.documentElement.setAttribute('data-theme', result.user.themePref === 'dark' ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-color-theme', result.user.colorTheme || 'green');
       setPinFor(null);
       setPin('');
       setPinError(null);
@@ -227,6 +245,7 @@ export default function Display() {
                     onClick={() => {
                       setActive(null);
                       loadMembers();
+                      applyIdleTheme(config);
                     }}
                     className="ml-auto shrink-0 rounded border px-2 py-1 text-xs hover:bg-white"
                   >
@@ -238,7 +257,12 @@ export default function Display() {
                     <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" locationId={config.locationId} />
                   )}
                   {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
-                  <KioskAccountPanel me={active.user} client={kioskPrizeClient} onPinChanged={loadMembers} />
+                  <KioskAccountPanel
+                    me={active.user}
+                    client={kioskPrizeClient}
+                    onPinChanged={loadMembers}
+                    onColorThemeChanged={(c) => document.documentElement.setAttribute('data-color-theme', c)}
+                  />
                 </div>
               </>
             ) : (

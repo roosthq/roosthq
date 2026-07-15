@@ -64,7 +64,14 @@ export class DisplayService {
 
     return {
       token: signKiosk({ userId: user.id, familyId }),
-      user: { id: user.id, displayName: user.displayName, role: user.role, avatar: user.avatar },
+      user: {
+        id: user.id,
+        displayName: user.displayName,
+        role: user.role,
+        avatar: user.avatar,
+        themePref: user.themePref,
+        colorTheme: user.colorTheme,
+      },
     };
   }
 

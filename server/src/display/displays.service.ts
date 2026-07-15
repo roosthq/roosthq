@@ -104,7 +104,7 @@ export class DisplaysService {
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
       where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -112,6 +112,7 @@ export class DisplaysService {
       role: u.role,
       avatar: u.avatar,
       hasPin: !!u.pinHash,
+      colorTheme: u.colorTheme,
     }));
   }
 

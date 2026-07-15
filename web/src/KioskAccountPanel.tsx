@@ -1,22 +1,26 @@
 import { useCallback, useEffect, useState } from 'react';
-import { prizeClient, type PrizeClient } from './api';
+import { prizeClient, COLOR_THEMES, type PrizeClient } from './api';
 import { useDialog } from './Dialog';
 
 type Actor = { id: string; role: string; displayName: string };
 
-// Kiosk feature-parity piece: self-service PIN, the same thing a person could
-// do from their own profile page on the portal, surfaced right on the touch
-// display instead of needing a phone.
+// Kiosk feature-parity piece: self-service PIN + micro-theme, the same thing a
+// person could do from their own profile page on the portal, surfaced right on
+// the touch display instead of needing a phone.
 export default function KioskAccountPanel({
   me,
   client: clientProp,
   onPinChanged,
+  onColorThemeChanged,
 }: {
   me: Actor;
   client?: PrizeClient;
   // Lets the parent (the profile picker) refresh its stale "has a PIN" flag
   // for this person right away, instead of only on the next full members fetch.
   onPinChanged?: () => void;
+  // Lets the parent apply the new accent color to the kiosk immediately,
+  // instead of waiting for the next unlock to pick it up.
+  onColorThemeChanged?: (colorTheme: string) => void;
 }) {
   const client = clientProp ?? prizeClient();
   const { alert } = useDialog();
@@ -24,10 +28,13 @@ export default function KioskAccountPanel({
   const [settingPin, setSettingPin] = useState(false);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
+  const [colorTheme, setColorTheme] = useState('green');
 
   const refresh = useCallback(async () => {
     const users = await client.listUsers().catch(() => []);
-    setHasPin(!!users.find((u) => u.id === me.id)?.hasPin);
+    const self = users.find((u) => u.id === me.id);
+    setHasPin(!!self?.hasPin);
+    setColorTheme(self?.colorTheme || 'green');
   }, [client, me.id]);
 
   useEffect(() => {
@@ -57,8 +64,35 @@ export default function KioskAccountPanel({
     }
   }
 
+  async function pickColorTheme(id: string) {
+    setColorTheme(id);
+    onColorThemeChanged?.(id);
+    try {
+      await client.setColorTheme(id);
+    } catch {
+      await alert('Could not save color — try again.');
+      await refresh();
+    }
+  }
+
   return (
-    <section className="mt-4">
+    <section className="mt-4 space-y-3">
+      <div className="rounded-lg border bg-white p-3">
+        <h3 className="text-sm font-semibold">My Color</h3>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {COLOR_THEMES.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => pickColorTheme(t.id)}
+              title={t.label}
+              aria-label={t.label}
+              className={`h-8 w-8 rounded-full border-2 ${colorTheme === t.id ? 'border-slate-800' : 'border-transparent'}`}
+              style={{ background: t.swatch }}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="rounded-lg border bg-white p-3">
         <h3 className="text-sm font-semibold">My PIN</h3>
         <div className="mt-2 flex items-center gap-2 text-sm">

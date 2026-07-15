@@ -24,6 +24,7 @@ export interface Me {
   avatar?: string;
   familyId: string;
   themePref?: 'light' | 'dark';
+  colorTheme?: string;
   fontSizePref?: FontSize;
   notifyByEmail?: boolean;
 }
@@ -78,12 +79,26 @@ export interface Member {
   role: string;
   avatar?: string;
   hasPin?: boolean;
+  colorTheme?: string;
 }
 
 export interface UnlockResult {
   token: string;
-  user: { id: string; displayName: string; role: string; avatar?: string };
+  user: { id: string; displayName: string; role: string; avatar?: string; themePref?: string; colorTheme?: string };
 }
+
+// Kiosk-identifiable per-person accent color ("micro-theme"). Keep in sync with
+// COLOR_THEMES in server/src/users/users.service.ts.
+export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
+  { id: 'green', label: 'Green', swatch: '#4e7a4c' },
+  { id: 'blue', label: 'Blue', swatch: '#3b6ea5' },
+  { id: 'purple', label: 'Purple', swatch: '#7a4ea0' },
+  { id: 'pink', label: 'Pink', swatch: '#b0508a' },
+  { id: 'orange', label: 'Orange', swatch: '#c07830' },
+  { id: 'red', label: 'Red', swatch: '#b0503c' },
+  { id: 'teal', label: 'Teal', swatch: '#2c8a8a' },
+  { id: 'yellow', label: 'Yellow', swatch: '#a8862a' },
+];
 
 export interface DisplaySettings {
   familyId: string;
@@ -330,6 +345,11 @@ export const api = {
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
   setTheme: (theme: 'light' | 'dark') =>
     req<{ ok: boolean; theme: string }>('/users/me/theme', { method: 'PUT', body: JSON.stringify({ theme }) }),
+  setColorTheme: (colorTheme: string) =>
+    req<{ ok: boolean; colorTheme: string }>('/users/me/color-theme', {
+      method: 'PUT',
+      body: JSON.stringify({ colorTheme }),
+    }),
   setFontSize: (fontSize: FontSize) =>
     req<{ ok: boolean; fontSize: string }>('/users/me/font-size', { method: 'PUT', body: JSON.stringify({ fontSize }) }),
   setNotifyByEmail: (notifyByEmail: boolean) =>
@@ -455,6 +475,12 @@ export function prizeClient(kioskToken?: string) {
     listUsers: () => req<Member[]>('/users', undefined, kioskToken),
     setPin: (userId: string, pin: string | null) =>
       req(`/users/${userId}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }, kioskToken),
+    setColorTheme: (colorTheme: string) =>
+      req<{ ok: boolean; colorTheme: string }>(
+        '/users/me/color-theme',
+        { method: 'PUT', body: JSON.stringify({ colorTheme }) },
+        kioskToken,
+      ),
   };
 }
 

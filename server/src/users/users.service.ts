@@ -5,6 +5,7 @@ import { hashPin } from '../crypto/pin';
 type Role = 'OWNER' | 'ADULT' | 'KID';
 type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
+export const COLOR_THEMES = ['green', 'blue', 'purple', 'pink', 'orange', 'red', 'teal', 'yellow'];
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,7 @@ export class UsersService {
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -21,6 +22,7 @@ export class UsersService {
       role: u.role,
       avatar: u.avatar,
       hasPin: !!u.pinHash,
+      colorTheme: u.colorTheme,
     }));
   }
 
@@ -58,6 +60,13 @@ export class UsersService {
     const t = theme === 'dark' ? 'dark' : 'light';
     await this.prisma.user.update({ where: { id: userId }, data: { themePref: t } });
     return { ok: true, theme: t };
+  }
+
+  // Current user's own accent color (kiosk-identifiable "micro-theme").
+  async setColorTheme(userId: string, colorTheme: string) {
+    const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : 'green';
+    await this.prisma.user.update({ where: { id: userId }, data: { colorTheme: c } });
+    return { ok: true, colorTheme: c };
   }
 
   // Current user's own app text-size preference.

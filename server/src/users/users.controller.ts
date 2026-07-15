@@ -43,6 +43,12 @@ export class UsersController {
     return this.users.setTheme(u.userId, body.theme);
   }
 
+  // Current user sets their own accent color (kiosk-identifiable "micro-theme").
+  @Put('me/color-theme')
+  setColorTheme(@CurrentUser() u: SessionPayload, @Body() body: { colorTheme: string }) {
+    return this.users.setColorTheme(u.userId, body.colorTheme);
+  }
+
   // Current user sets their own app text size.
   @Put('me/font-size')
   setFontSize(@CurrentUser() u: SessionPayload, @Body() body: { fontSize: 'sm' | 'md' | 'lg' | 'xl' }) {
