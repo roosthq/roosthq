@@ -86,8 +86,8 @@ export default function KioskAccountPanel({
               onClick={() => pickColorTheme(t.id)}
               title={t.label}
               aria-label={t.label}
-              className={`h-8 w-8 rounded-full border-2 ${colorTheme === t.id ? 'border-slate-800' : 'border-transparent'}`}
-              style={{ background: t.swatch }}
+              className="h-8 w-8 rounded-full border-2"
+              style={{ background: t.swatch, borderColor: colorTheme === t.id ? 'var(--text)' : 'transparent' }}
             />
           ))}
         </div>
