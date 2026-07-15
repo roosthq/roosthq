@@ -155,7 +155,7 @@ export default function StorePage({
         {activePrizes.length === 0 && <li className="text-sm text-slate-400">No prizes yet.</li>}
       </ul>
 
-      {isAdult && eventsToFulfill.length > 0 && (
+      {eventsToFulfill.length > 0 && (
         <section className="mt-8">
           <h3 className="text-md font-semibold">Events to fulfill</h3>
           <p className="text-xs text-slate-400">Approved but the actual event hasn't happened yet.</p>
@@ -163,14 +163,17 @@ export default function StorePage({
             {eventsToFulfill.map((r) => (
               <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2">
                 <span className="min-w-0 flex-1 break-words">
-                  <strong className="font-medium">{memberName(r.userId)}</strong> · {r.prize.name}
+                  {isAdult && <strong className="font-medium">{memberName(r.userId)} · </strong>}
+                  {r.prize.name}
                 </span>
-                <button
-                  onClick={() => markUsed(r.id, true)}
-                  className="shrink-0 rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
-                >
-                  Mark as done
-                </button>
+                {isAdult && (
+                  <button
+                    onClick={() => markUsed(r.id, true)}
+                    className="shrink-0 rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
+                  >
+                    Mark as done
+                  </button>
+                )}
               </li>
             ))}
           </ul>
