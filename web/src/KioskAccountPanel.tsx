@@ -1,28 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
-import { prizeClient, type PrizeClient, type Redemption } from './api';
+import { prizeClient, type PrizeClient } from './api';
 import { useDialog } from './Dialog';
 
 type Actor = { id: string; role: string; displayName: string };
 
-// Kiosk feature-parity piece: PIN self-service + purchase history, the same
-// two things a person could do from their own profile page on the portal,
-// surfaced right on the touch display instead of needing a phone.
-export default function KioskAccountPanel({ me, client: clientProp }: { me: Actor; client?: PrizeClient }) {
+// Kiosk feature-parity piece: self-service PIN, the same thing a person could
+// do from their own profile page on the portal, surfaced right on the touch
+// display instead of needing a phone.
+export default function KioskAccountPanel({
+  me,
+  client: clientProp,
+  onPinChanged,
+}: {
+  me: Actor;
+  client?: PrizeClient;
+  // Lets the parent (the profile picker) refresh its stale "has a PIN" flag
+  // for this person right away, instead of only on the next full members fetch.
+  onPinChanged?: () => void;
+}) {
   const client = clientProp ?? prizeClient();
   const { alert } = useDialog();
   const [hasPin, setHasPin] = useState(false);
-  const [history, setHistory] = useState<Redemption[]>([]);
   const [settingPin, setSettingPin] = useState(false);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
-    const [users, redemptions] = await Promise.all([
-      client.listUsers().catch(() => []),
-      client.redemptions(me.id).catch(() => []),
-    ]);
+    const users = await client.listUsers().catch(() => []);
     setHasPin(!!users.find((u) => u.id === me.id)?.hasPin);
-    setHistory(redemptions);
   }, [client, me.id]);
 
   useEffect(() => {
@@ -36,6 +41,7 @@ export default function KioskAccountPanel({ me, client: clientProp }: { me: Acto
       setPin('');
       setPinError(null);
       await refresh();
+      onPinChanged?.();
     } catch {
       setPinError('Could not save PIN — try again.');
     }
@@ -45,13 +51,14 @@ export default function KioskAccountPanel({ me, client: clientProp }: { me: Acto
     try {
       await client.setPin(me.id, null);
       await refresh();
+      onPinChanged?.();
     } catch {
       await alert('Could not clear PIN.');
     }
   }
 
   return (
-    <section className="mt-4 space-y-3">
+    <section className="mt-4">
       <div className="rounded-lg border bg-white p-3">
         <h3 className="text-sm font-semibold">My PIN</h3>
         <div className="mt-2 flex items-center gap-2 text-sm">
@@ -73,20 +80,6 @@ export default function KioskAccountPanel({ me, client: clientProp }: { me: Acto
           )}
         </div>
       </div>
-
-      {history.length > 0 && (
-        <div className="rounded-lg border bg-white p-3">
-          <h3 className="text-sm font-semibold">My purchases</h3>
-          <ul className="mt-2 space-y-1 text-sm">
-            {history.slice(0, 8).map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1 last:border-0">
-                <span className="min-w-0 flex-1 truncate">{r.prize.name}</span>
-                <span className="shrink-0 text-xs text-slate-400">{r.status.toLowerCase()}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       {settingPin && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

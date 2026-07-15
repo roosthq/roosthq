@@ -93,9 +93,17 @@ export default function Display() {
     document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
   }, []);
 
+  // Re-fetched whenever the profile picker is shown again (see "Switch / lock"
+  // below), not just once at mount — otherwise a PIN set mid-session keeps
+  // showing as absent (no 🔒 badge) and picking that profile again skips
+  // straight to unlock() with no PIN entered, which then just fails silently.
+  const loadMembers = useCallback(() => {
+    dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
+  }, []);
+
   useEffect(() => {
     loadConfig().catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
-    dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
+    loadMembers();
 
     const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
     const es = new EventSource(streamUrl, { withCredentials: true });
@@ -103,7 +111,7 @@ export default function Display() {
       loadConfig().catch(() => undefined);
     };
     return () => es.close();
-  }, [loadConfig]);
+  }, [loadConfig, loadMembers]);
 
   const refreshEvents = useCallback(() => {
     if (!range) return;
@@ -150,6 +158,10 @@ export default function Display() {
       setPin('');
       setPinError(null);
     } catch {
+      // If this came from the no-PIN-prompt path (a stale "no PIN" flag) the
+      // dialog was never open — open it now instead of failing invisibly.
+      setPinFor(m);
+      setPin('');
       setPinError('Wrong PIN — try again.');
     }
   }
@@ -212,7 +224,10 @@ export default function Display() {
                   <Avatar name={active.user.displayName} src={active.user.avatar} />
                   <span className="min-w-0 truncate font-medium">{active.user.displayName}</span>
                   <button
-                    onClick={() => setActive(null)}
+                    onClick={() => {
+                      setActive(null);
+                      loadMembers();
+                    }}
                     className="ml-auto shrink-0 rounded border px-2 py-1 text-xs hover:bg-white"
                   >
                     Switch / lock
@@ -223,7 +238,7 @@ export default function Display() {
                     <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" locationId={config.locationId} />
                   )}
                   {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
-                  <KioskAccountPanel me={active.user} client={kioskPrizeClient} />
+                  <KioskAccountPanel me={active.user} client={kioskPrizeClient} onPinChanged={loadMembers} />
                 </div>
               </>
             ) : (
