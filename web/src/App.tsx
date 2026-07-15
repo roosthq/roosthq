@@ -67,6 +67,17 @@ export default function App() {
     }
   }
 
+  async function changeColorTheme(next: string) {
+    if (!me) return;
+    applyColorTheme(next);
+    setMe({ ...me, colorTheme: next });
+    try {
+      await api.setColorTheme(next);
+    } catch {
+      /* ignore */
+    }
+  }
+
   async function changeFontSize(next: FontSize) {
     if (!me) return;
     applyFontSize(next);
@@ -122,11 +133,27 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+            element={
+              <ProfilePage
+                me={me}
+                tokenName={tokenName}
+                tokenIcon={tokenIcon}
+                chorePlural={chorePlural}
+                onChangeColorTheme={changeColorTheme}
+              />
+            }
           />
           <Route
             path="/profile/:id"
-            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+            element={
+              <ProfilePage
+                me={me}
+                tokenName={tokenName}
+                tokenIcon={tokenIcon}
+                chorePlural={chorePlural}
+                onChangeColorTheme={changeColorTheme}
+              />
+            }
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api, type Me, type Member, type LedgerEntry, type Redemption } from '../api';
+import { api, COLOR_THEMES, type Me, type Member, type LedgerEntry, type Redemption } from '../api';
 import TokenBadge from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
@@ -19,11 +19,13 @@ export default function ProfilePage({
   tokenName,
   tokenIcon,
   chorePlural,
+  onChangeColorTheme,
 }: {
   me: Me;
   tokenName: string;
   tokenIcon: string;
   chorePlural: string;
+  onChangeColorTheme: (id: string) => void;
 }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -148,6 +150,25 @@ export default function ProfilePage({
                 Clear
               </button>
             )}
+          </div>
+        </section>
+      )}
+
+      {viewingSelf && (
+        <section className="mt-6 rounded border p-3">
+          <h3 className="text-sm font-semibold">My Theme</h3>
+          <p className="mt-1 text-xs text-slate-400">Also changes what you see on the kiosk.</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {COLOR_THEMES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => onChangeColorTheme(t.id)}
+                title={t.label}
+                aria-label={t.label}
+                className="h-8 w-8 rounded-full border-2"
+                style={{ background: t.swatch, borderColor: (me.colorTheme || 'meadow') === t.id ? 'var(--text)' : 'transparent' }}
+              />
+            ))}
           </div>
         </section>
       )}
