@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { api, pluralize, type Me, type FontSize, type DisplayConfig } from './api';
+import { api, pluralize, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 
@@ -41,9 +41,13 @@ export default function Nav({
     }
     poll();
     const id = setInterval(poll, 30_000);
+    // NotificationsPage fires this the moment it marks something read, so the
+    // badge doesn't wait for the next 30s poll (or a page refresh) to catch up.
+    window.addEventListener(NOTIFICATIONS_CHANGED_EVENT, poll);
     return () => {
       cancelled = true;
       clearInterval(id);
+      window.removeEventListener(NOTIFICATIONS_CHANGED_EVENT, poll);
     };
   }, []);
 

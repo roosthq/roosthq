@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, type Me, type AppNotification } from '../api';
+import { api, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
 import { useDialog } from '../Dialog';
 import { pushSupported, currentPushSubscription, subscribeToPush, unsubscribeFromPush } from '../push';
 
@@ -85,6 +85,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
     if (!n.readAt) {
       await api.markNotificationRead(n.id);
       setItems((prev) => prev.map((i) => (i.id === n.id ? { ...i, readAt: new Date().toISOString() } : i)));
+      window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
     }
     if (n.link) navigate(n.link);
   }
@@ -92,6 +93,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
   async function markAllRead() {
     await api.markAllNotificationsRead();
     await refresh();
+    window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
   }
 
   return (

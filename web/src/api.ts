@@ -262,6 +262,10 @@ export interface Redemption {
 }
 
 export const BASE_URL = BASE;
+
+// Fired on window whenever a notification's read state changes, so the Nav
+// bell badge can refetch immediately instead of waiting for its next poll.
+export const NOTIFICATIONS_CHANGED_EVENT = 'rhq:notifications-changed';
 export const displayStreamUrl = `${BASE}/display/stream`;
 
 export const api = {
