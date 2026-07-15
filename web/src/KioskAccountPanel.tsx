@@ -28,13 +28,13 @@ export default function KioskAccountPanel({
   const [settingPin, setSettingPin] = useState(false);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
-  const [colorTheme, setColorTheme] = useState('green');
+  const [colorTheme, setColorTheme] = useState('meadow');
 
   const refresh = useCallback(async () => {
     const users = await client.listUsers().catch(() => []);
     const self = users.find((u) => u.id === me.id);
     setHasPin(!!self?.hasPin);
-    setColorTheme(self?.colorTheme || 'green');
+    setColorTheme(self?.colorTheme || 'meadow');
   }, [client, me.id]);
 
   useEffect(() => {

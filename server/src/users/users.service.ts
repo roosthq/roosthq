@@ -5,7 +5,7 @@ import { hashPin } from '../crypto/pin';
 type Role = 'OWNER' | 'ADULT' | 'KID';
 type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
-export const COLOR_THEMES = ['green', 'blue', 'purple', 'pink', 'orange', 'red', 'teal', 'yellow'];
+export const COLOR_THEMES = ['meadow', 'ocean', 'ember', 'lavender', 'slate', 'rose', 'sand', 'mint', 'midnight'];
 
 @Injectable()
 export class UsersService {
@@ -64,7 +64,7 @@ export class UsersService {
 
   // Current user's own full page theme (kiosk-identifiable "micro-theme").
   async setColorTheme(userId: string, colorTheme: string) {
-    const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : 'green';
+    const c = COLOR_THEMES.includes(colorTheme) ? colorTheme : 'meadow';
     await this.prisma.user.update({ where: { id: userId }, data: { colorTheme: c } });
     return { ok: true, colorTheme: c };
   }

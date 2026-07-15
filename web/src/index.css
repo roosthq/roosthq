@@ -7,7 +7,13 @@
   --color-surface: var(--surface);
 }
 
-/* Roost HQ design tokens (see design handoff). Dark theme flips via data-theme. */
+/* Roost HQ design tokens — from the design handoff's tokens-all-themes.css.
+   Two independent attributes on <html>: data-theme selects the hue (9
+   options, see COLOR_THEMES in api.ts), data-mode selects light/dark. :root
+   and [data-mode='dark'] carry the Meadow (brand default) values
+   unconditionally, so an absent/unrecognized data-theme value still renders
+   a complete, correct theme instead of a half-applied one. --today (owl beak
+   gold) is mode/hue-independent by design — never set inside a theme block. */
 :root {
   --bg: #eff4eb;
   --surface: #ffffff;
@@ -17,230 +23,250 @@
   --text-2: #5a7858;
   --text-muted: #7a9878;
   --accent: #4e7a4c;
-  --accent-hover: #3a6038;
+  --accent-hover: color-mix(in oklch, #4e7a4c 80%, black);
   --tag-bg: #d4ead0;
   --tag-text: #2c5228;
   --today: #d4c06a; /* owl beak gold — "today" accent */
   --surface-off: #e5e7eb; /* days outside the viewed month (neutral gray) */
 }
 
-[data-theme='dark'] {
+[data-mode='dark'] {
   --bg: #111e11;
   --surface: #1c2e1c;
-  --surface-raised: #243824;
+  --surface-raised: #1c2e1c;
   --border: rgba(146, 192, 144, 0.12);
   --text: #eff4eb;
   --text-2: #92c090;
   --text-muted: #4e7a4c;
   --accent: #6eaa6c;
-  --accent-hover: #7eba7c;
+  --accent-hover: color-mix(in oklch, #6eaa6c 85%, white);
   --tag-bg: #243824;
   --tag-text: #92c090;
-  --today: #d4c06a;
   --surface-off: #212121; /* dark gray */
 }
 
-/* Per-person full page theme ("micro-theme") — kiosk-identifiable at a glance.
-   Each color is a complete re-skin (bg/surface/text/border/tags), not just an
-   accent swap, with its own light and dark rendition. 'green' is the brand
-   default and needs no override — it's just the :root/[data-theme='dark']
-   tokens above. --today (the gold "today" ring) is intentionally left out of
-   every block below so it stays the one constant wayfinding color across all
-   themes, including yellow/orange. */
-[data-color-theme='blue'] {
-  --bg: #eaf1f8;
+[data-theme='ocean'] {
+  --bg: #edf4fa;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(59, 110, 165, 0.18);
-  --text: #16283b;
-  --text-2: #3f6a8c;
-  --text-muted: #7a9cb8;
-  --accent: #3b6ea5;
-  --accent-hover: #2c5686;
-  --tag-bg: #d6e6f5;
-  --tag-text: #204a72;
+  --border: rgba(42, 123, 184, 0.16);
+  --text: #0d2340;
+  --text-2: #6a98b8;
+  --text-muted: #6a98b8;
+  --accent: #2a7bb8;
+  --accent-hover: color-mix(in oklch, #2a7bb8 80%, black);
+  --tag-bg: #c8e2f5;
+  --tag-text: #1a4e78;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='blue'] {
-  --bg: #0e1720;
-  --surface: #16283b;
-  --surface-raised: #1c3350;
-  --border: rgba(158, 196, 236, 0.12);
-  --text: #eaf1f8;
-  --text-2: #9cc4ec;
-  --text-muted: #3b6ea5;
-  --accent: #6ea0d6;
-  --accent-hover: #82b0e0;
-  --tag-bg: #1c2e42;
-  --tag-text: #9cc4ec;
+[data-theme='ocean'][data-mode='dark'] {
+  --bg: #0a1825;
+  --surface: #0f2235;
+  --surface-raised: #0f2235;
+  --border: rgba(91, 174, 221, 0.12);
+  --text: #e8f2fc;
+  --text-2: #3a6a90;
+  --text-muted: #3a6a90;
+  --accent: #5baedd;
+  --accent-hover: color-mix(in oklch, #5baedd 85%, white);
+  --tag-bg: #102a40;
+  --tag-text: #7abede;
   --surface-off: #212121;
 }
-[data-color-theme='purple'] {
-  --bg: #f3edf7;
+[data-theme='ember'] {
+  --bg: #faf5ec;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(122, 78, 160, 0.18);
-  --text: #2c1c3b;
-  --text-2: #6a4a8c;
-  --text-muted: #a189b8;
-  --accent: #7a4ea0;
-  --accent-hover: #603a80;
-  --tag-bg: #ead4f0;
-  --tag-text: #522c72;
+  --border: rgba(200, 92, 58, 0.16);
+  --text: #1e2a38;
+  --text-2: #a09880;
+  --text-muted: #a09880;
+  --accent: #c85c3a;
+  --accent-hover: color-mix(in oklch, #c85c3a 80%, black);
+  --tag-bg: #f5d8ce;
+  --tag-text: #8a3020;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='purple'] {
-  --bg: #180e20;
-  --surface: #2c1c3b;
-  --surface-raised: #382450;
-  --border: rgba(214, 168, 236, 0.12);
-  --text: #f3edf7;
-  --text-2: #d6a8ec;
-  --text-muted: #7a4ea0;
-  --accent: #b06eda;
-  --accent-hover: #c082e6;
-  --tag-bg: #2e1c38;
-  --tag-text: #d6a8ec;
+[data-theme='ember'][data-mode='dark'] {
+  --bg: #1e1008;
+  --surface: #2a180e;
+  --surface-raised: #2a180e;
+  --border: rgba(224, 124, 92, 0.12);
+  --text: #f5ede0;
+  --text-2: #7a5840;
+  --text-muted: #7a5840;
+  --accent: #e07c5c;
+  --accent-hover: color-mix(in oklch, #e07c5c 85%, white);
+  --tag-bg: #3a1a10;
+  --tag-text: #e07c5c;
   --surface-off: #212121;
 }
-[data-color-theme='pink'] {
-  --bg: #f8edf2;
+[data-theme='lavender'] {
+  --bg: #f4f0fb;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(176, 80, 138, 0.18);
-  --text: #3b1c2c;
-  --text-2: #8c4a6e;
-  --text-muted: #b889a1;
-  --accent: #b0508a;
-  --accent-hover: #8a3a6c;
-  --tag-bg: #f5d6e6;
-  --tag-text: #72204c;
+  --border: rgba(114, 84, 200, 0.16);
+  --text: #1a1438;
+  --text-2: #9888c0;
+  --text-muted: #9888c0;
+  --accent: #7254c8;
+  --accent-hover: color-mix(in oklch, #7254c8 80%, black);
+  --tag-bg: #ddd4f5;
+  --tag-text: #4a2ea0;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='pink'] {
-  --bg: #20101a;
-  --surface: #3b1c2c;
-  --surface-raised: #502438;
-  --border: rgba(240, 168, 206, 0.12);
-  --text: #f8edf2;
-  --text-2: #f0a8ce;
-  --text-muted: #b0508a;
-  --accent: #e07ab4;
-  --accent-hover: #ea92c4;
-  --tag-bg: #3a1c2c;
-  --tag-text: #f0a8ce;
+[data-theme='lavender'][data-mode='dark'] {
+  --bg: #12101e;
+  --surface: #1c1830;
+  --surface-raised: #1c1830;
+  --border: rgba(158, 130, 232, 0.12);
+  --text: #ede8fc;
+  --text-2: #5844a0;
+  --text-muted: #5844a0;
+  --accent: #9e82e8;
+  --accent-hover: color-mix(in oklch, #9e82e8 85%, white);
+  --tag-bg: #221c40;
+  --tag-text: #9e82e8;
   --surface-off: #212121;
 }
-[data-color-theme='orange'] {
-  --bg: #f8f0e5;
+[data-theme='slate'] {
+  --bg: #eef2f7;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(192, 120, 48, 0.18);
-  --text: #3b2a14;
-  --text-2: #8c6428;
-  --text-muted: #b89a70;
-  --accent: #c07830;
-  --accent-hover: #9c5e20;
-  --tag-bg: #f5e0c6;
-  --tag-text: #7a4a10;
+  --border: rgba(58, 90, 138, 0.16);
+  --text: #0e1e38;
+  --text-2: #6a8aaa;
+  --text-muted: #6a8aaa;
+  --accent: #3a5a8a;
+  --accent-hover: color-mix(in oklch, #3a5a8a 80%, black);
+  --tag-bg: #c8d8ee;
+  --tag-text: #1a3a68;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='orange'] {
-  --bg: #201808;
-  --surface: #3b2a14;
-  --surface-raised: #50381c;
-  --border: rgba(240, 200, 150, 0.12);
-  --text: #f8f0e5;
-  --text-2: #f0c896;
-  --text-muted: #c07830;
-  --accent: #e0a05a;
-  --accent-hover: #eab074;
-  --tag-bg: #3a2c18;
-  --tag-text: #f0c896;
+[data-theme='slate'][data-mode='dark'] {
+  --bg: #0c1420;
+  --surface: #141e2e;
+  --surface-raised: #141e2e;
+  --border: rgba(122, 170, 216, 0.12);
+  --text: #e4eef8;
+  --text-2: #3a5878;
+  --text-muted: #3a5878;
+  --accent: #7aaad8;
+  --accent-hover: color-mix(in oklch, #7aaad8 85%, white);
+  --tag-bg: #162030;
+  --tag-text: #7aaad8;
   --surface-off: #212121;
 }
-[data-color-theme='red'] {
-  --bg: #f8ece8;
+[data-theme='rose'] {
+  --bg: #faf0f4;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(176, 80, 60, 0.18);
-  --text: #3b1c14;
-  --text-2: #8c4a3a;
-  --text-muted: #b8887a;
-  --accent: #b0503c;
-  --accent-hover: #8a3a2a;
-  --tag-bg: #f5d8d0;
-  --tag-text: #72281a;
+  --border: rgba(184, 72, 120, 0.16);
+  --text: #2a1020;
+  --text-2: #b888a0;
+  --text-muted: #b888a0;
+  --accent: #b84878;
+  --accent-hover: color-mix(in oklch, #b84878 80%, black);
+  --tag-bg: #f5c8dc;
+  --tag-text: #882050;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='red'] {
-  --bg: #200e0a;
-  --surface: #3b1c14;
-  --surface-raised: #50241c;
-  --border: rgba(240, 178, 162, 0.12);
-  --text: #f8ece8;
-  --text-2: #f0b2a2;
-  --text-muted: #b0503c;
-  --accent: #e0806a;
-  --accent-hover: #ea9482;
-  --tag-bg: #3a201c;
-  --tag-text: #f0b2a2;
+[data-theme='rose'][data-mode='dark'] {
+  --bg: #1e0a12;
+  --surface: #2a1020;
+  --surface-raised: #2a1020;
+  --border: rgba(224, 122, 168, 0.12);
+  --text: #fce8f0;
+  --text-2: #78386a;
+  --text-muted: #78386a;
+  --accent: #e07aa8;
+  --accent-hover: color-mix(in oklch, #e07aa8 85%, white);
+  --tag-bg: #3a0e20;
+  --tag-text: #e07aa8;
   --surface-off: #212121;
 }
-[data-color-theme='teal'] {
-  --bg: #e8f5f5;
+[data-theme='sand'] {
+  --bg: #faf5eb;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: rgba(44, 138, 138, 0.18);
-  --text: #14302f;
-  --text-2: #2c6a6a;
-  --text-muted: #7ab0b0;
-  --accent: #2c8a8a;
-  --accent-hover: #206a6a;
-  --tag-bg: #cceeee;
-  --tag-text: #185858;
+  --border: rgba(160, 120, 64, 0.16);
+  --text: #2a1e08;
+  --text-2: #a89068;
+  --text-muted: #a89068;
+  --accent: #a07840;
+  --accent-hover: color-mix(in oklch, #a07840 80%, black);
+  --tag-bg: #eed8b0;
+  --tag-text: #705020;
   --surface-off: #e5e7eb;
 }
-[data-theme='dark'][data-color-theme='teal'] {
-  --bg: #0a1a1a;
-  --surface: #143030;
-  --surface-raised: #1c4040;
-  --border: rgba(150, 224, 224, 0.12);
-  --text: #e8f5f5;
-  --text-2: #96e0e0;
-  --text-muted: #2c8a8a;
-  --accent: #5ac2c2;
-  --accent-hover: #74d0d0;
-  --tag-bg: #1a3232;
-  --tag-text: #96e0e0;
-  --surface-off: #212121;
-}
-[data-color-theme='yellow'] {
-  --bg: #f8f4e5;
-  --surface: #ffffff;
-  --surface-raised: #ffffff;
-  --border: rgba(168, 134, 42, 0.18);
-  --text: #362c10;
-  --text-2: #7a6420;
-  --text-muted: #b8a670;
-  --accent: #a8862a;
-  --accent-hover: #8a6c1c;
-  --tag-bg: #f5eac6;
-  --tag-text: #6a5410;
-  --surface-off: #e5e7eb;
-}
-[data-theme='dark'][data-color-theme='yellow'] {
+[data-theme='sand'][data-mode='dark'] {
   --bg: #1c1608;
-  --surface: #362c10;
-  --surface-raised: #4a3c16;
-  --border: rgba(240, 220, 156, 0.12);
-  --text: #f8f4e5;
-  --text-2: #f0dc9c;
-  --text-muted: #a8862a;
-  --accent: #d4b45a;
-  --accent-hover: #e0c274;
-  --tag-bg: #362c18;
-  --tag-text: #f0dc9c;
+  --surface: #282010;
+  --surface-raised: #282010;
+  --border: rgba(212, 168, 106, 0.12);
+  --text: #f8eed8;
+  --text-2: #786040;
+  --text-muted: #786040;
+  --accent: #d4a86a;
+  --accent-hover: color-mix(in oklch, #d4a86a 85%, white);
+  --tag-bg: #3a2810;
+  --tag-text: #d4a86a;
+  --surface-off: #212121;
+}
+[data-theme='mint'] {
+  --bg: #edfaf5;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(42, 154, 120, 0.16);
+  --text: #0a2018;
+  --text-2: #60a888;
+  --text-muted: #60a888;
+  --accent: #2a9a78;
+  --accent-hover: color-mix(in oklch, #2a9a78 80%, black);
+  --tag-bg: #bceedd;
+  --tag-text: #0a5a38;
+  --surface-off: #e5e7eb;
+}
+[data-theme='mint'][data-mode='dark'] {
+  --bg: #061a12;
+  --surface: #0e2a1e;
+  --surface-raised: #0e2a1e;
+  --border: rgba(80, 200, 160, 0.12);
+  --text: #e0f8ee;
+  --text-2: #307860;
+  --text-muted: #307860;
+  --accent: #50c8a0;
+  --accent-hover: color-mix(in oklch, #50c8a0 85%, white);
+  --tag-bg: #0a2a1e;
+  --tag-text: #50c8a0;
+  --surface-off: #212121;
+}
+[data-theme='midnight'] {
+  --bg: #f0f2fa;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: rgba(74, 106, 184, 0.16);
+  --text: #080c28;
+  --text-2: #6878a8;
+  --text-muted: #6878a8;
+  --accent: #4a6ab8;
+  --accent-hover: color-mix(in oklch, #4a6ab8 80%, black);
+  --tag-bg: #c8d0f0;
+  --tag-text: #1a2878;
+  --surface-off: #e5e7eb;
+}
+[data-theme='midnight'][data-mode='dark'] {
+  --bg: #080c1e;
+  --surface: #101828;
+  --surface-raised: #101828;
+  --border: rgba(138, 170, 232, 0.12);
+  --text: #e0e8f8;
+  --text-2: #384870;
+  --text-muted: #384870;
+  --accent: #8aaae8;
+  --accent-hover: color-mix(in oklch, #8aaae8 85%, white);
+  --tag-bg: #101828;
+  --tag-text: #8aaae8;
   --surface-off: #212121;
 }
 
@@ -344,7 +370,10 @@ select option {
 
 /* Logo owl: one inline mark, recolored per-role from the same tokens the rest
    of the app uses — automatically matches both light/dark and whichever
-   per-person color theme is active, no separate asset per combination. */
+   per-person color theme is active, no separate asset per combination.
+   Pupils and beak are fixed (not var-driven) per the design handoff, so eyes
+   read as black/gold in every single theme instead of drifting toward
+   whatever hue happens to be active. */
 .owl-body {
   fill: var(--accent);
 }
@@ -352,7 +381,7 @@ select option {
   fill: var(--bg);
 }
 .owl-pupil {
-  fill: var(--text);
+  fill: #1c2e1c;
 }
 .owl-beak {
   fill: var(--today);
@@ -363,18 +392,19 @@ select option {
 .owl-belly {
   fill: var(--tag-bg);
 }
-[data-theme='dark'] .owl-body {
+[data-mode='dark'] .owl-body {
   fill: var(--text);
 }
-[data-theme='dark'] .owl-eye {
-  fill: var(--text-2);
+[data-mode='dark'] .owl-eye {
+  fill: var(--accent);
 }
-[data-theme='dark'] .owl-pupil {
-  fill: var(--bg);
+[data-mode='dark'] .owl-pupil {
+  fill: #111e11;
 }
-[data-theme='dark'] .owl-tuft {
-  fill: var(--tag-bg);
+[data-mode='dark'] .owl-tuft {
+  fill: var(--accent);
+  fill-opacity: 0.4;
 }
-[data-theme='dark'] .owl-belly {
-  fill: var(--text-2);
+[data-mode='dark'] .owl-belly {
+  fill: var(--accent);
 }

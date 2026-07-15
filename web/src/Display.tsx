@@ -94,12 +94,13 @@ export default function Display() {
     activeRef.current = active;
   }, [active]);
 
-  // The display's own base theme, shown on the profile picker (nobody signed
-  // in yet). Once a profile unlocks, their personal theme takes over instead —
-  // see unlock() below — so this only applies while nobody's signed in.
+  // The display's own light/dark mode (data-mode) — a property of the
+  // physical kiosk, never overridden by whoever's signed in (see unlock()
+  // below). data-theme (the color hue) resets to the brand default here and
+  // is the only thing a signed-in profile's own preference changes.
   const applyIdleTheme = useCallback((c: ResolvedDisplayConfig) => {
-    document.documentElement.setAttribute('data-theme', c.theme === 'dark' ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-color-theme', 'green');
+    document.documentElement.setAttribute('data-mode', c.theme === 'dark' ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', 'meadow');
     document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
   }, []);
 
@@ -173,7 +174,7 @@ export default function Display() {
       // Light/dark stays the kiosk's own setting (config.theme, applied by
       // applyIdleTheme) — it's a property of the physical display, not the
       // person. Only the color hue follows whoever's signed in.
-      document.documentElement.setAttribute('data-color-theme', result.user.colorTheme || 'green');
+      document.documentElement.setAttribute('data-theme', result.user.colorTheme || 'meadow');
       setPinFor(null);
       setPin('');
       setPinError(null);
@@ -263,7 +264,7 @@ export default function Display() {
                     me={active.user}
                     client={kioskPrizeClient}
                     onPinChanged={loadMembers}
-                    onColorThemeChanged={(c) => document.documentElement.setAttribute('data-color-theme', c)}
+                    onColorThemeChanged={(c) => document.documentElement.setAttribute('data-theme', c)}
                   />
                 </div>
               </>

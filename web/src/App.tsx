@@ -10,12 +10,14 @@ import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
 
-function applyTheme(t: string) {
-  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+// data-mode = light/dark; data-theme = which of the 9 color themes (see
+// COLOR_THEMES in api.ts). Two independent attributes — see index.css.
+function applyMode(t: string) {
+  document.documentElement.setAttribute('data-mode', t === 'dark' ? 'dark' : 'light');
 }
 
 function applyColorTheme(c: string) {
-  document.documentElement.setAttribute('data-color-theme', c || 'green');
+  document.documentElement.setAttribute('data-theme', c || 'meadow');
 }
 
 function applyFontSize(f: string) {
@@ -32,8 +34,8 @@ export default function App() {
       .me()
       .then(async (u) => {
         setMe(u);
-        applyTheme(u.themePref ?? 'light');
-        applyColorTheme(u.colorTheme ?? 'green');
+        applyMode(u.themePref ?? 'light');
+        applyColorTheme(u.colorTheme ?? 'meadow');
         applyFontSize(u.fontSizePref ?? 'md');
         try {
           setFamily(await api.familySettings());
@@ -47,8 +49,8 @@ export default function App() {
 
   async function logout() {
     await api.logout();
-    applyTheme('light');
-    applyColorTheme('green');
+    applyMode('light');
+    applyColorTheme('meadow');
     applyFontSize('md');
     setMe(null);
   }
@@ -56,7 +58,7 @@ export default function App() {
   async function toggleTheme() {
     if (!me) return;
     const next = me.themePref === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
+    applyMode(next);
     setMe({ ...me, themePref: next });
     try {
       await api.setTheme(next);

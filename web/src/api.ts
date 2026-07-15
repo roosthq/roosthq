@@ -91,14 +91,15 @@ export interface UnlockResult {
 // whole palette (bg/surface/text/border/tags), not just an accent color. Keep
 // in sync with COLOR_THEMES in server/src/users/users.service.ts.
 export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
-  { id: 'green', label: 'Green', swatch: '#4e7a4c' },
-  { id: 'blue', label: 'Blue', swatch: '#3b6ea5' },
-  { id: 'purple', label: 'Purple', swatch: '#7a4ea0' },
-  { id: 'pink', label: 'Pink', swatch: '#b0508a' },
-  { id: 'orange', label: 'Orange', swatch: '#c07830' },
-  { id: 'red', label: 'Red', swatch: '#b0503c' },
-  { id: 'teal', label: 'Teal', swatch: '#2c8a8a' },
-  { id: 'yellow', label: 'Yellow', swatch: '#a8862a' },
+  { id: 'meadow', label: 'Meadow', swatch: '#4e7a4c' },
+  { id: 'ocean', label: 'Ocean', swatch: '#2a7bb8' },
+  { id: 'ember', label: 'Ember', swatch: '#c85c3a' },
+  { id: 'lavender', label: 'Lavender', swatch: '#7254c8' },
+  { id: 'slate', label: 'Slate', swatch: '#3a5a8a' },
+  { id: 'rose', label: 'Rose', swatch: '#b84878' },
+  { id: 'sand', label: 'Sand', swatch: '#a07840' },
+  { id: 'mint', label: 'Mint', swatch: '#2a9a78' },
+  { id: 'midnight', label: 'Midnight', swatch: '#4a6ab8' },
 ];
 
 export interface DisplaySettings {
