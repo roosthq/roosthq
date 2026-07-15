@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } f
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
-import { PrizesService, PrizeInput } from './prizes.service';
+import { PrizesService, PrizeInput, PrizeSuggestionInput } from './prizes.service';
 
 @UseGuards(AuthGuard)
 @Controller('prizes')
@@ -27,6 +27,12 @@ export class PrizesController {
   @Post()
   create(@CurrentUser() u: SessionPayload, @Body() body: PrizeInput) {
     return this.prizes.create(u.familyId, u.userId, body);
+  }
+
+  // Kid-accessible: submit a wishlist item for an adult to review.
+  @Post('suggest')
+  suggest(@CurrentUser() u: SessionPayload, @Body() body: PrizeSuggestionInput) {
+    return this.prizes.suggest(u.familyId, u.userId, body);
   }
 
   @Patch(':id')

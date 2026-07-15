@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface PrizeInput {
   name: string;
@@ -19,11 +20,22 @@ export interface PrizeInput {
   locationId?: string | null;
   repeatable?: boolean;
   archived?: boolean;
+  suggested?: boolean;
+}
+
+export interface PrizeSuggestionInput {
+  name: string;
+  description?: string;
+  image?: string;
+  url?: string;
 }
 
 @Injectable()
 export class PrizesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notifications: NotificationsService,
+  ) {}
 
   private isAdult(role: string) {
     return role === 'OWNER' || role === 'ADULT';
@@ -46,30 +58,44 @@ export class PrizesService {
     return a._sum.delta ?? 0;
   }
 
-  // Non-adult visibility: global + assigned scope, not archived, and — for a
-  // located prize — only if the person belongs to that location, UNLESS the
-  // prize is assigned to them directly (that overrides the location gate).
+  // Non-adult visibility: global + assigned scope, not archived, not an
+  // unapproved suggestion (unless it's their own), and — for a located prize —
+  // only if the person belongs to that location, UNLESS the prize is assigned
+  // to them directly (that overrides the location gate).
   private visibleTo(
-    p: { scope: string; archived: boolean; locationId: string | null; assignments: { userId: string }[] },
+    p: {
+      scope: string;
+      archived: boolean;
+      suggested: boolean;
+      suggestedById: string | null;
+      locationId: string | null;
+      assignments: { userId: string }[];
+    },
     actingUserId: string,
     myLocationIds: Set<string>,
   ): boolean {
     if (p.archived) return false;
+    if (p.suggested && p.suggestedById !== actingUserId) return false;
     const assignedToMe = p.assignments.some((a) => a.userId === actingUserId);
     if (p.scope !== 'GLOBAL' && !assignedToMe) return false;
     if (p.locationId && !assignedToMe && !myLocationIds.has(p.locationId)) return false;
     return true;
   }
 
-  // Adults see everything (incl. real price, archived prizes); kids see only
-  // what visibleTo() allows, no real price.
+  // Adults see everything (incl. real price, archived prizes, all
+  // suggestions); kids see only what visibleTo() allows, no real price.
   async list(familyId: string, actingUserId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     const adult = !!actor && this.isAdult(actor.role);
     const myLocationIds = new Set((actor?.locations ?? []).map((l) => l.locationId));
     const prizes = await this.prisma.prize.findMany({
       where: { familyId },
-      include: { assignments: true, location: true, creator: { select: { id: true, displayName: true } } },
+      include: {
+        assignments: true,
+        location: true,
+        creator: { select: { id: true, displayName: true } },
+        suggestedBy: { select: { id: true, displayName: true } },
+      },
     });
     return prizes
       .filter((p) => adult || this.visibleTo(p, actingUserId, myLocationIds))
@@ -88,6 +114,9 @@ export class PrizesService {
         repeatable: p.repeatable,
         archived: p.archived,
         createdByName: p.creator?.displayName ?? null,
+        suggested: p.suggested,
+        suggestedById: p.suggestedById,
+        suggestedByName: p.suggestedBy?.displayName ?? null,
       }));
   }
 
@@ -115,6 +144,30 @@ export class PrizesService {
     });
   }
 
+  // A kid submits a wishlist item — created with no cost (an adult sets that
+  // on approval), defaulted to "for me" so it stays private until approved.
+  async suggest(familyId: string, userId: string, dto: PrizeSuggestionInput) {
+    const prize = await this.prisma.prize.create({
+      data: {
+        familyId,
+        name: dto.name,
+        description: dto.description,
+        image: dto.image,
+        url: dto.url,
+        tokenCost: 0,
+        scope: 'SPECIFIC',
+        suggested: true,
+        suggestedById: userId,
+        assignments: { create: [{ userId }] },
+      },
+    });
+    const requester = await this.prisma.user.findUnique({ where: { id: userId } });
+    await this.notifications.notifyAdults(familyId, 'PRIZE_SUGGESTED', `${requester?.displayName ?? 'A kid'} wants "${dto.name}" added to the store`, {
+      link: '/store',
+    });
+    return prize;
+  }
+
   async update(familyId: string, actorId: string, id: string, dto: Partial<PrizeInput>) {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);
@@ -132,6 +185,7 @@ export class PrizesService {
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
         ...(dto.repeatable !== undefined && { repeatable: dto.repeatable }),
         ...(dto.archived !== undefined && { archived: dto.archived }),
+        ...(dto.suggested !== undefined && { suggested: dto.suggested }),
       },
     });
     if (dto.assignedUserIds) {
@@ -164,6 +218,7 @@ export class PrizesService {
       include: { assignments: true },
     });
     if (!prize) throw new NotFoundException('Prize not found');
+    if (prize.suggested) throw new BadRequestException('This is still a pending suggestion, not in the store yet');
 
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     if (!actor) throw new ForbiddenException();
@@ -194,6 +249,10 @@ export class PrizesService {
     if (!prize.repeatable) {
       await this.prisma.prize.update({ where: { id: prizeId }, data: { archived: true } });
     }
+    await this.notifications.notifyAdults(familyId, 'REDEMPTION_REQUESTED', `${actor.displayName} wants "${prize.name}"`, {
+      link: '/store',
+      excludeUserId: actingUserId,
+    });
     return redemption;
   }
 
@@ -226,10 +285,18 @@ export class PrizesService {
         await this.prisma.prize.update({ where: { id: r.prizeId }, data: { archived: false } });
       }
     }
-    return this.prisma.redemption.update({
+    const updated = await this.prisma.redemption.update({
       where: { id: redemptionId },
       data: { status, approvedBy: actorId },
     });
+    await this.notifications.create(
+      familyId,
+      r.userId,
+      status === 'FULFILLED' ? 'REDEMPTION_FULFILLED' : 'REDEMPTION_REJECTED',
+      status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined — tokens refunded`,
+      { link: '/store' },
+    );
+    return updated;
   }
 
   // EVENT prizes only: mark whether the actual event has happened yet —

@@ -125,11 +125,27 @@ export interface Chore {
   instances: ChoreInstance[];
   allowLate: boolean;
   latePenaltyPercent: number;
+  currentStreak: number;
+  bestStreak: number;
+  streakGoal?: number | null;
+  streakBonusTokens: number;
 }
 
 export interface Balance {
   userId: string;
   balance: number;
+}
+
+export interface AppNotification {
+  id: string;
+  userId: string;
+  type: string;
+  title: string;
+  body?: string | null;
+  link?: string | null;
+  createdAt: string;
+  readAt?: string | null;
+  user?: { id: string; displayName: string }; // present in the family-wide activity view
 }
 
 export interface DisplayTokenInfo {
@@ -228,6 +244,9 @@ export interface StorePrize {
   repeatable: boolean;
   archived: boolean;
   createdByName?: string | null;
+  suggested: boolean;
+  suggestedById?: string | null;
+  suggestedByName?: string | null;
 }
 
 export interface Redemption {
@@ -334,6 +353,8 @@ export const api = {
   prizes: () => req<StorePrize[]>('/prizes'),
   createPrize: (body: Record<string, unknown>) =>
     req<StorePrize>('/prizes', { method: 'POST', body: JSON.stringify(body) }),
+  suggestPrize: (body: { name: string; description?: string; image?: string; url?: string }) =>
+    req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }),
   updatePrize: (id: string, body: Record<string, unknown>) =>
     req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
@@ -362,6 +383,12 @@ export const api = {
     req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }),
   rejectInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }),
+
+  // all=true -> family-wide activity feed (adults only, enforced server-side).
+  notifications: (all = false) => req<AppNotification[]>(`/notifications${all ? '?all=1' : ''}`),
+  unreadNotificationCount: () => req<{ count: number }>('/notifications/unread-count'),
+  markNotificationRead: (id: string) => req(`/notifications/${id}/read`, { method: 'POST' }),
+  markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

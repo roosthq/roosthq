@@ -206,6 +206,14 @@ export default function ChoresPanel({
                 {chore.dayOfWeek != null ? ` · ${DOW[chore.dayOfWeek]}` : ''}
               </span>
               {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
+              {chore.currentStreak > 0 && (
+                <span>
+                  · 🔥 {chore.currentStreak} in a row
+                  {!!chore.streakGoal && chore.streakBonusTokens > 0
+                    ? ` (bonus every ${chore.streakGoal})`
+                    : ''}
+                </span>
+              )}
             </div>
           </div>
           <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
@@ -433,6 +441,9 @@ function ChoreForm({
   const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
   const [allowLate, setAllowLate] = useState(chore?.allowLate ?? false);
   const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
+  const [streakEnabled, setStreakEnabled] = useState(!!chore?.streakGoal);
+  const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
+  const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
 
   useEffect(() => {
     client.locations().then(setLocations).catch(() => undefined);
@@ -453,6 +464,8 @@ function ChoreForm({
       locationId: locationId || null,
       allowLate,
       latePenaltyPercent: Math.max(0, Math.min(100, Number(latePenaltyPercent) || 0)),
+      streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
+      streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
     if (chore) await client.updateChore(chore.id, body);
     else await client.createChore(body);
@@ -568,6 +581,34 @@ function ChoreForm({
               </div>
             </Field>
           )}
+
+          <Field label="Streak bonus" help="Optional — extra tokens for keeping a streak of on-time completions going.">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={streakEnabled} onChange={(e) => setStreakEnabled(e.target.checked)} />
+              Award a bonus every so many in a row
+            </label>
+            {streakEnabled && (
+              <div className="mt-2 flex items-center gap-2 text-sm">
+                Every
+                <input
+                  type="number"
+                  min={1}
+                  className="w-16 rounded-md border px-2 py-1 text-sm"
+                  value={streakGoal}
+                  onChange={(e) => setStreakGoal(Number(e.target.value))}
+                />
+                in a row, award
+                <input
+                  type="number"
+                  min={0}
+                  className="w-20 rounded-md border px-2 py-1 text-sm"
+                  value={streakBonusTokens}
+                  onChange={(e) => setStreakBonusTokens(Number(e.target.value))}
+                />
+                bonus tokens
+              </div>
+            )}
+          </Field>
 
           <Field label="Checklist" help="Optional — one sub-task per line.">
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />

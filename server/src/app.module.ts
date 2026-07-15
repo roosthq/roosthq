@@ -11,6 +11,7 @@ import { InvitesModule } from './invites/invites.module';
 import { FamilyModule } from './family/family.module';
 import { TokensModule } from './tokens/tokens.module';
 import { PrizesModule } from './prizes/prizes.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PrizesModule } from './prizes/prizes.module';
     FamilyModule,
     TokensModule,
     PrizesModule,
+    NotificationsModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

@@ -83,6 +83,9 @@ Full first-time setup (Docker install, Cloudflare Tunnel, Google OAuth) is in `D
   read `docker compose logs web` for the exact file/line.
 - Google OAuth is in **Testing** mode (100-user cap, 7-day token expiry). Publish the
   OAuth app to **Production** (unverified is fine for one family) for durable logins.
+- **DB backups**: the prod overlay runs a `backup` sidecar (mysqldump, gzip) nightly to
+  `./backups` on the VM, pruning anything older than `BACKUP_RETENTION_DAYS` (env var,
+  default 14). Not app code — survives `docker compose up --build server web` deploys.
 
 ## Deploy target specifics
 - Host: Proxmox Ubuntu VM, project at `/opt/roost-hq`, auto-starts via Docker restart

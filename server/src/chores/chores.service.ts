@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { NotificationsService } from '../notifications/notifications.service';
 
 export interface CreateChoreDto {
   title: string;
@@ -18,6 +19,8 @@ export interface CreateChoreDto {
   dueDate?: string;
   allowLate?: boolean;
   latePenaltyPercent?: number;
+  streakGoal?: number | null;
+  streakBonusTokens?: number;
 }
 
 export type UpdateChoreDto = Partial<CreateChoreDto>;
@@ -74,7 +77,10 @@ const CHORE_INCLUDE = {
 
 @Injectable()
 export class ChoresService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private notifications: NotificationsService,
+  ) {}
 
   private async user(userId: string) {
     return this.prisma.user.findUnique({ where: { id: userId } });
@@ -117,6 +123,8 @@ export class ChoresService {
         recurrenceRule: dto.recurrenceRule,
         allowLate: dto.allowLate ?? false,
         latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
+        streakGoal: dto.streakGoal ?? null,
+        streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
         createdById,
         assignees:
           assignmentType === 'SPECIFIC' && dto.assigneeUserIds?.length
@@ -153,10 +161,19 @@ export class ChoresService {
     startOfToday.setHours(0, 0, 0, 0);
     const stale = await this.prisma.choreInstance.findMany({
       where: { status: 'OPEN', dueDate: { lt: startOfToday }, chore: { familyId, allowLate: false } },
-      include: { chore: true },
+      include: { chore: { include: { assignees: true } } },
     });
     for (const inst of stale) {
       await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
+      if (inst.chore.currentStreak !== 0) {
+        await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
+      }
+      const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
+      await Promise.all(
+        recipients.map((uid) =>
+          this.notifications.create(familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
+        ),
+      );
       const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
       if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
     }
@@ -179,6 +196,8 @@ export class ChoresService {
         ...(dto.recurrenceRule !== undefined && { recurrenceRule: dto.recurrenceRule }),
         ...(dto.allowLate !== undefined && { allowLate: dto.allowLate }),
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
+        ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
+        ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
       },
     });
 
@@ -315,10 +334,17 @@ export class ChoresService {
     if (this.isAdult(actor?.role)) {
       return this.finalizeApproval(inst.id, userId, userId);
     }
-    return this.prisma.choreInstance.update({
+    const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: { status: 'PENDING', completedAt: new Date(), claimedByUserId: inst.claimedByUserId ?? userId },
     });
+    await this.notifications.notifyAdults(
+      inst.chore.familyId,
+      'CHORE_PENDING',
+      `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" — needs approval`,
+      { link: '/chores' },
+    );
+    return updated;
   }
 
   async approve(familyId: string, approverId: string, instanceId: string) {
@@ -343,9 +369,9 @@ export class ChoresService {
       },
     });
     const recipient = inst.claimedByUserId ?? recipientUserId;
+    const completedAt = inst.completedAt ?? new Date();
+    const daysLate = Math.max(0, Math.floor((completedAt.getTime() - inst.dueDate.getTime()) / 86_400_000));
     if (recipient && inst.chore.tokenValue > 0) {
-      const completedAt = inst.completedAt ?? new Date();
-      const daysLate = Math.max(0, Math.floor((completedAt.getTime() - inst.dueDate.getTime()) / 86_400_000));
       const penaltyPct = Math.min(100, daysLate * inst.chore.latePenaltyPercent);
       const awarded = Math.floor(inst.chore.tokenValue * (1 - penaltyPct / 100));
       if (awarded > 0) {
@@ -364,6 +390,44 @@ export class ChoresService {
         });
       }
     }
+
+    // Streak: on-time keeps it going (and can trigger a bonus); late — even
+    // when allowed — breaks it, since the point is consistency.
+    if (recipient) {
+      if (daysLate === 0) {
+        const currentStreak = inst.chore.currentStreak + 1;
+        const bestStreak = Math.max(inst.chore.bestStreak, currentStreak);
+        await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak, bestStreak } });
+        if (inst.chore.streakGoal && inst.chore.streakBonusTokens > 0 && currentStreak % inst.chore.streakGoal === 0) {
+          await this.prisma.tokenLedger.create({
+            data: {
+              userId: recipient,
+              delta: inst.chore.streakBonusTokens,
+              reason: `Streak bonus: ${inst.chore.title} (${currentStreak} in a row)`,
+              type: 'STREAK_BONUS',
+              refId: inst.id,
+              createdById: approverId,
+            },
+          });
+          await this.notifications.create(
+            inst.chore.familyId,
+            recipient,
+            'STREAK_BONUS',
+            `${currentStreak} in a row on "${inst.chore.title}"! Bonus tokens awarded.`,
+            { link: '/chores' },
+          );
+        }
+      } else if (inst.chore.currentStreak !== 0) {
+        await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak: 0 } });
+      }
+    }
+
+    if (recipient && approverId !== recipient) {
+      await this.notifications.create(inst.chore.familyId, recipient, 'CHORE_APPROVED', `"${inst.chore.title}" was approved`, {
+        link: '/chores',
+      });
+    }
+
     const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
     if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.chore.id, dueDate: due } });
     return updated;
@@ -371,11 +435,17 @@ export class ChoresService {
 
   async reject(familyId: string, approverId: string, instanceId: string) {
     await this.assertAdult(approverId);
-    await this.ownedInstance(familyId, instanceId);
-    return this.prisma.choreInstance.update({
+    const inst = await this.ownedInstance(familyId, instanceId);
+    const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: { status: 'OPEN', completedAt: null },
     });
+    if (inst.claimedByUserId) {
+      await this.notifications.create(familyId, inst.claimedByUserId, 'CHORE_REJECTED', `"${inst.chore.title}" was sent back — try again`, {
+        link: '/chores',
+      });
+    }
+    return updated;
   }
 
   // Adult re-enables a chore to be done again now (even a periodic one already done),

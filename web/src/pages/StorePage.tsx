@@ -23,6 +23,7 @@ export default function StorePage({
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<StorePrize | null>(null);
   const [viewing, setViewing] = useState<StorePrize | null>(null);
+  const [suggesting, setSuggesting] = useState(false);
 
   const refresh = useCallback(async () => {
     const [p, b, r] = await Promise.all([
@@ -71,6 +72,12 @@ export default function StorePage({
     await refresh();
   }
 
+  async function rejectSuggestion(p: StorePrize) {
+    if (!window.confirm(`Decline "${p.name}"?`)) return;
+    await api.deletePrize(p.id);
+    await refresh();
+  }
+
   async function toggleArchive(p: StorePrize) {
     await api.updatePrize(p.id, { archived: !p.archived });
     setViewing(null);
@@ -83,8 +90,11 @@ export default function StorePage({
     await refresh();
   }
 
-  const activePrizes = prizes.filter((p) => !p.archived);
+  const activePrizes = prizes.filter((p) => !p.archived && !p.suggested);
   const archivedPrizes = prizes.filter((p) => p.archived);
+  // Adults: every pending wishlist item, family-wide. Kids: only ever their
+  // own (the server hides everyone else's suggestions from them).
+  const suggestions = prizes.filter((p) => p.suggested);
   const pending = history.filter((r) => r.status === 'REQUESTED');
   const eventsToFulfill = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !r.usedAt);
 
@@ -92,18 +102,25 @@ export default function StorePage({
     <div>
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Store</h2>
-        {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
-        {isAdult && (
-          <button
-            onClick={() => {
-              setEditing(null);
-              setFormOpen(true);
-            }}
-            className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
-          >
-            + Add prize
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
+          {!isAdult && (
+            <button onClick={() => setSuggesting(true)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+              + Request a prize
+            </button>
+          )}
+          {isAdult && (
+            <button
+              onClick={() => {
+                setEditing(null);
+                setFormOpen(true);
+              }}
+              className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+            >
+              + Add prize
+            </button>
+          )}
+        </div>
       </div>
 
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -171,6 +188,42 @@ export default function StorePage({
                 <button onClick={() => toggleArchive(p)} className="shrink-0 rounded border px-3 py-1 text-xs hover:bg-slate-50">
                   Revive
                 </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {suggestions.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md font-semibold">{isAdult ? 'Wishlist suggestions' : 'My requests'}</h3>
+          {!isAdult && <p className="text-xs text-slate-400">Waiting for an adult to review these.</p>}
+          <ul className="mt-2 space-y-1 text-sm">
+            {suggestions.map((p) => (
+              <li key={p.id} className="flex items-center justify-between gap-2 rounded border p-2">
+                <span className="min-w-0 flex-1 break-words">
+                  {p.name}
+                  {isAdult && p.suggestedByName && (
+                    <span className="ml-2 text-xs text-slate-400">from {p.suggestedByName}</span>
+                  )}
+                  {!isAdult && <span className="ml-2 text-xs text-amber-600">Waiting for approval</span>}
+                </span>
+                {isAdult && (
+                  <span className="flex shrink-0 gap-2">
+                    <button
+                      onClick={() => {
+                        setEditing(p);
+                        setFormOpen(true);
+                      }}
+                      className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
+                    >
+                      Review
+                    </button>
+                    <button onClick={() => rejectSuggestion(p)} className="rounded border px-3 py-1 text-xs text-red-500 hover:bg-red-50">
+                      Decline
+                    </button>
+                  </span>
+                )}
               </li>
             ))}
           </ul>
@@ -265,6 +318,66 @@ export default function StorePage({
           }}
         />
       )}
+
+      {suggesting && (
+        <SuggestPrizeModal
+          onClose={() => setSuggesting(false)}
+          onSaved={async () => {
+            setSuggesting(false);
+            await refresh();
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [url, setUrl] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  async function submit() {
+    if (!name.trim()) return;
+    setSaving(true);
+    try {
+      await api.suggestPrize({ name: name.trim(), description: description.trim() || undefined, url: url.trim() || undefined });
+      onSaved();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const input = 'w-full rounded border px-3 py-2 text-sm';
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-md rounded-lg bg-white p-5">
+        <h3 className="text-lg font-semibold">Request a prize</h3>
+        <p className="mt-1 text-xs text-slate-400">An adult will review this and set the token cost.</p>
+        <div className="mt-3 space-y-3">
+          <input autoFocus className={input} placeholder="What do you want?" value={name} onChange={(e) => setName(e.target.value)} />
+          <textarea
+            className={input}
+            placeholder="Why / details (optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <input className={input} placeholder="Link (optional)" value={url} onChange={(e) => setUrl(e.target.value)} />
+        </div>
+        <div className="mt-4 flex justify-end gap-2">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button
+            onClick={submit}
+            disabled={saving || !name.trim()}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            {saving ? 'Sending…' : 'Send request'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -338,6 +451,7 @@ function PrizeForm({
       scope,
       assignedUserIds: scope === 'SPECIFIC' ? [...assignedUserIds] : [],
       locationId: locationId || null,
+      ...(prize?.suggested ? { suggested: false } : {}),
     };
     if (prize) await api.updatePrize(prize.id, body);
     else await api.createPrize(body);
@@ -348,7 +462,12 @@ function PrizeForm({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
       <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">{prize ? 'Edit prize' : 'Add prize'}</h3>
+        <h3 className="text-lg font-semibold">{prize ? (prize.suggested ? 'Review request' : 'Edit prize') : 'Add prize'}</h3>
+        {prize?.suggested && (
+          <p className="mt-1 text-xs text-amber-600">
+            Requested by {prize.suggestedByName ?? 'a kid'} — fill in the token cost and anything else, then approve.
+          </p>
+        )}
         <div className="mt-3 space-y-3">
           <input className={input} placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <textarea
@@ -479,7 +598,7 @@ function PrizeForm({
             Cancel
           </button>
           <button onClick={submit} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-            {prize ? 'Save changes' : 'Add prize'}
+            {prize ? (prize.suggested ? 'Approve & add to store' : 'Save changes') : 'Add prize'}
           </button>
         </div>
       </div>

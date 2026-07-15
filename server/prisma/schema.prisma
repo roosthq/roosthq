@@ -32,6 +32,19 @@ enum LedgerType {
   MANUAL // adult manual award/subtract
   PHYSICAL // reconciliation with physical tokens
   REDEEM // spent on a prize
+  STREAK_BONUS // awarded for hitting a consecutive on-time completion goal
+}
+
+enum NotificationType {
+  CHORE_PENDING // kid completed a chore; needs adult approval
+  CHORE_APPROVED
+  CHORE_REJECTED
+  CHORE_MISSED
+  STREAK_BONUS
+  REDEMPTION_REQUESTED
+  REDEMPTION_FULFILLED
+  REDEMPTION_REJECTED
+  PRIZE_SUGGESTED // kid submitted a wishlist item
 }
 
 enum PrizeType {
@@ -54,13 +67,13 @@ enum RedemptionStatus {
 // ---------- Tenant & people ----------
 
 model Family {
-  id        String   @id @default(cuid())
-  name      String
-  tokenName String   @default("Tokens") // what the family calls their reward currency
-  tokenIcon String   @default("🪙") // emoji shown alongside the reward currency
-  tokenValueUsd Float @default(1) // $ value of one token, for auto-suggesting prize costs
-  choreWord String @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
-  createdAt DateTime @default(now())
+  id            String   @id @default(cuid())
+  name          String
+  tokenName     String   @default("Tokens") // what the family calls their reward currency
+  tokenIcon     String   @default("🪙") // emoji shown alongside the reward currency
+  tokenValueUsd Float    @default(1) // $ value of one token, for auto-suggesting prize costs
+  choreWord     String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
+  createdAt     DateTime @default(now())
 
   users           User[]
   locations       Location[]
@@ -71,6 +84,28 @@ model Family {
   displayTokens   DisplayToken[]
   displayConfigs  DisplayConfig[]
   invites         FamilyInvite[]
+  notifications   Notification[]
+}
+
+// In-app notification feed. Same table backs a personal "notifications" view
+// (mine, unread-badged) and an adult-only family-wide "activity" view — the
+// list() query just widens the where-clause for adults asking for the latter.
+model Notification {
+  id        String           @id @default(cuid())
+  familyId  String
+  userId    String // recipient
+  type      NotificationType
+  title     String
+  body      String?          @db.Text
+  link      String? // relative app path to deep-link to, e.g. /store
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+  @@index([userId, readAt])
 }
 
 // A named display layout an adult can create (e.g. "Kitchen", "Dad's house").
@@ -81,7 +116,7 @@ model DisplayConfig {
   familyId        String
   name            String
   locationId      String? // scopes this kiosk to one location: only people (and
-                          // calendars they share) assigned to it show up here
+  // calendars they share) assigned to it show up here
   calendarIds     Json
   enabledFeatures Json
   theme           String   @default("light")
@@ -133,27 +168,29 @@ model DisplayToken {
 }
 
 model User {
-  id          String  @id @default(cuid())
-  familyId    String
-  role        Role
-  displayName String
-  email       String? // kids may have none (parent-managed)
-  pinHash     String? // optional per-profile PIN
-  avatar      String? @db.Text // Google photo URLs can exceed the default varchar(191)
-  themePref   String  @default("light") // per-user app UI theme: light | dark
-  fontSizePref String @default("md") // per-user app text size: sm | md | lg | xl
+  id           String  @id @default(cuid())
+  familyId     String
+  role         Role
+  displayName  String
+  email        String? // kids may have none (parent-managed)
+  pinHash      String? // optional per-profile PIN
+  avatar       String? @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref    String  @default("light") // per-user app UI theme: light | dark
+  fontSizePref String  @default("md") // per-user app text size: sm | md | lg | xl
 
-  family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  locations      UserLocation[]
-  googleAccounts GoogleAccount[]
-  calendarShares CalendarShare[]
+  family           Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  locations        UserLocation[]
+  googleAccounts   GoogleAccount[]
+  calendarShares   CalendarShare[]
   choreAssignments ChoreAssignee[]
-  createdChores  Chore[]         @relation("ChoreCreatedBy")
-  ledgerEntries  TokenLedger[]   @relation("LedgerUser")
-  ledgerCreated  TokenLedger[]   @relation("LedgerCreatedBy")
-  prizeAssigns   PrizeAssignment[]
-  redemptions    Redemption[]
-  createdPrizes  Prize[]
+  createdChores    Chore[]           @relation("ChoreCreatedBy")
+  ledgerEntries    TokenLedger[]     @relation("LedgerUser")
+  ledgerCreated    TokenLedger[]     @relation("LedgerCreatedBy")
+  prizeAssigns     PrizeAssignment[]
+  redemptions      Redemption[]
+  createdPrizes    Prize[]           @relation("PrizeCreatedBy")
+  suggestedPrizes  Prize[]           @relation("PrizeSuggestedBy")
+  notifications    Notification[]
 
   @@index([familyId])
 }
@@ -197,12 +234,12 @@ model GoogleAccount {
 // ---------- Calendars ----------
 
 model Calendar {
-  id              String  @id @default(cuid())
-  familyId        String
-  googleAccountId String
+  id               String  @id @default(cuid())
+  familyId         String
+  googleAccountId  String
   googleCalendarId String // dedup key — one row per unique Google calendar
-  name            String
-  color           String?
+  name             String
+  color            String?
 
   family        Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
   googleAccount GoogleAccount   @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
@@ -225,11 +262,11 @@ model CalendarShare {
 // ---------- Touch display ----------
 
 model DisplaySettings {
-  familyId          String  @id
-  defaultCalendarIds Json   // array of calendar ids shown by default
-  enabledFeatures   Json    // e.g. ["calendar","chores","tokens","prizes"]
-  theme             String  @default("light")
-  updatedAt         DateTime @updatedAt
+  familyId           String   @id
+  defaultCalendarIds Json // array of calendar ids shown by default
+  enabledFeatures    Json // e.g. ["calendar","chores","tokens","prizes"]
+  theme              String   @default("light")
+  updatedAt          DateTime @updatedAt
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 }
@@ -237,17 +274,21 @@ model DisplaySettings {
 // ---------- Chores ----------
 
 model Chore {
-  id             String  @id @default(cuid())
-  familyId       String
-  title          String
-  assignmentType String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
-  dayOfWeek      Int? // 0=Sun..6=Sat; anchors weekly/biweekly occurrences
-  locationId     String?
-  tokenValue     Int     @default(0)
-  recurrenceRule String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
-  allowLate         Boolean @default(false) // if false (default), missing the due date forfeits the reward
-  latePenaltyPercent Int    @default(25) // % of reward lost per day late, when allowLate is on
-  createdById    String
+  id                 String  @id @default(cuid())
+  familyId           String
+  title              String
+  assignmentType     String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
+  dayOfWeek          Int? // 0=Sun..6=Sat; anchors weekly/biweekly occurrences
+  locationId         String?
+  tokenValue         Int     @default(0)
+  recurrenceRule     String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
+  allowLate          Boolean @default(false) // if false (default), missing the due date forfeits the reward
+  latePenaltyPercent Int     @default(25) // % of reward lost per day late, when allowLate is on
+  createdById        String
+  currentStreak      Int     @default(0) // consecutive on-time completions; resets on a miss
+  bestStreak         Int     @default(0)
+  streakGoal         Int? // award a bonus every N in a row; null/0 = disabled
+  streakBonusTokens  Int     @default(0)
 
   family    Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location  Location?        @relation(fields: [locationId], references: [id])
@@ -284,13 +325,13 @@ model ChoreChecklist {
 }
 
 model ChoreInstance {
-  id               String              @id @default(cuid())
-  choreId          String
-  dueDate          DateTime
-  status           ChoreInstanceStatus @default(OPEN)
-  completedAt      DateTime?
-  approvedBy       String?
-  claimedByUserId  String? // who is doing/did this occurrence (for ANYONE, set on claim)
+  id              String              @id @default(cuid())
+  choreId         String
+  dueDate         DateTime
+  status          ChoreInstanceStatus @default(OPEN)
+  completedAt     DateTime?
+  approvedBy      String?
+  claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
 
   chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks ChoreItemCheck[]
@@ -332,24 +373,27 @@ model TokenLedger {
 // ---------- Prizes ----------
 
 model Prize {
-  id          String     @id @default(cuid())
-  familyId    String
-  name        String
-  description String?    @db.Text
-  image       String?    @db.Text // URL, or a data: URI for an uploaded image
-  url         String?    @db.Text
-  realPrice   Decimal?   @db.Decimal(10, 2) // hidden from kid sessions
-  tokenCost   Int
-  type        PrizeType  @default(ITEM)
-  scope       PrizeScope @default(GLOBAL)
-  locationId  String? // optional — which house/location this prize belongs to
-  repeatable  Boolean    @default(true) // false = one-off; auto-archives once redeemed
-  archived    Boolean    @default(false) // out of the active store; can be revived
-  createdById String? // who added it — shown to everyone, not just adults
+  id            String     @id @default(cuid())
+  familyId      String
+  name          String
+  description   String?    @db.Text
+  image         String?    @db.Text // URL, or a data: URI for an uploaded image
+  url           String?    @db.Text
+  realPrice     Decimal?   @db.Decimal(10, 2) // hidden from kid sessions
+  tokenCost     Int
+  type          PrizeType  @default(ITEM)
+  scope         PrizeScope @default(GLOBAL)
+  locationId    String? // optional — which house/location this prize belongs to
+  repeatable    Boolean    @default(true) // false = one-off; auto-archives once redeemed
+  archived      Boolean    @default(false) // out of the active store; can be revived
+  createdById   String? // who added it — shown to everyone, not just adults
+  suggested     Boolean    @default(false) // kid-submitted wishlist item, awaiting adult approval
+  suggestedById String?
 
   family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location    Location?         @relation(fields: [locationId], references: [id], onDelete: SetNull)
-  creator     User?             @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  creator     User?             @relation("PrizeCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  suggestedBy User?             @relation("PrizeSuggestedBy", fields: [suggestedById], references: [id], onDelete: SetNull)
   assignments PrizeAssignment[]
   redemptions Redemption[]
 

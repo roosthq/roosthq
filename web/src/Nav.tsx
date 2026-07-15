@@ -33,6 +33,20 @@ export default function Nav({
     api.familySettings().then((f) => setChorePlural(pluralize(f.choreWord))).catch(() => undefined);
   }, []);
 
+  const [unread, setUnread] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    function poll() {
+      api.unreadNotificationCount().then((r) => !cancelled && setUnread(r.count)).catch(() => undefined);
+    }
+    poll();
+    const id = setInterval(poll, 30_000);
+    return () => {
+      cancelled = true;
+      clearInterval(id);
+    };
+  }, []);
+
   return (
     <nav className="flex flex-wrap items-center justify-between gap-2 border-b px-6 py-3">
       <div className="flex flex-wrap items-center gap-1">
@@ -46,6 +60,14 @@ export default function Nav({
         {isAdult && <NavLink to="/settings" className={cls}>Settings</NavLink>}
       </div>
       <div className="flex items-center gap-3 text-sm">
+        <NavLink to="/notifications" className="relative text-slate-500 hover:text-slate-800" title="Notifications">
+          🔔
+          {unread > 0 && (
+            <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
+              {unread > 9 ? '9+' : unread}
+            </span>
+          )}
+        </NavLink>
         <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
           {me.themePref === 'dark' ? '☀︎' : '☾'}
         </button>

@@ -8,6 +8,7 @@ import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import NotificationsPage from './pages/NotificationsPage';
 
 function applyTheme(t: string) {
   document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
@@ -119,6 +120,7 @@ export default function App() {
             path="/profile/:id"
             element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
           />
+          <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
