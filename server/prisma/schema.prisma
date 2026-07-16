@@ -219,6 +219,7 @@ model Location {
   id       String @id @default(cuid())
   familyId String
   name     String
+  timezone String @default("UTC") // IANA name, e.g. "America/Denver" — drives due-date math for chores here
 
   family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
   users          UserLocation[]

@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { DEFAULT_TIMEZONE, isValidTimeZone } from '../common/timezone';
 
 @Injectable()
 export class LocationsService {
@@ -13,12 +14,23 @@ export class LocationsService {
   }
 
   create(familyId: string, name: string) {
-    return this.prisma.location.create({ data: { familyId, name } });
+    return this.prisma.location.create({ data: { familyId, name, timezone: DEFAULT_TIMEZONE } });
   }
 
-  async rename(familyId: string, id: string, name: string) {
+  // Also covers timezone — everything time-related for chores at this
+  // location (due dates, "missed" checks) is computed in it.
+  async update(familyId: string, id: string, data: { name?: string; timezone?: string }) {
     await this.owned(familyId, id);
-    return this.prisma.location.update({ where: { id }, data: { name } });
+    if (data.timezone !== undefined && !isValidTimeZone(data.timezone)) {
+      throw new BadRequestException('Not a real IANA timezone name');
+    }
+    return this.prisma.location.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.timezone !== undefined && { timezone: data.timezone }),
+      },
+    });
   }
 
   async remove(familyId: string, id: string) {

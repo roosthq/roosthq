@@ -166,6 +166,14 @@ function ChoreWordSetting() {
   );
 }
 
+// Real, complete IANA zone list straight from the browser — every modern
+// browser (including iOS Safari 15.4+) supports this. Falls back to a short
+// curated list on anything ancient enough not to.
+const TIMEZONES: string[] =
+  typeof Intl.supportedValuesOf === 'function'
+    ? Intl.supportedValuesOf('timeZone')
+    : ['UTC', 'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles'];
+
 function LocationsSetting() {
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
@@ -189,6 +197,10 @@ function LocationsSetting() {
   async function toggle(locId: string, userId: string, on: boolean) {
     if (on) await api.assignLocation(locId, userId);
     else await api.unassignLocation(locId, userId);
+    await refresh();
+  }
+  async function setTimezone(locId: string, timezone: string) {
+    await api.updateLocation(locId, { timezone });
     await refresh();
   }
 
@@ -226,7 +238,25 @@ function LocationsSetting() {
                   Delete
                 </button>
               </div>
-              <div className="mt-2">
+
+              <div className="mt-3">
+                <Field label="Timezone" help='chore due dates and "missed" checks at this location use this'>
+                  <select
+                    value={loc.timezone}
+                    onChange={(e) => setTimezone(loc.id, e.target.value)}
+                    className="w-full max-w-xs rounded border px-2 py-1.5 text-sm"
+                  >
+                    {!TIMEZONES.includes(loc.timezone) && <option value={loc.timezone}>{loc.timezone}</option>}
+                    {TIMEZONES.map((tz) => (
+                      <option key={tz} value={tz}>
+                        {tz}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
+
+              <div className="mt-3">
                 <span className="text-xs text-slate-500">Who's here:</span>
                 <div className="mt-1.5 flex flex-wrap gap-1.5">
                   {members.map((m) => {

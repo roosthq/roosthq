@@ -42,6 +42,7 @@ services:
       SMTP_PASSWORD: ${SMTP_PASSWORD}
       SMTP_FROM: ${SMTP_FROM}
       DEFAULT_COLOR_THEME: ${DEFAULT_COLOR_THEME}
+      DEFAULT_TIMEZONE: ${DEFAULT_TIMEZONE}
     ports:
       - "3000:3000"
     volumes:

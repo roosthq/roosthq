@@ -6,6 +6,16 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import {
+  DEFAULT_TIMEZONE,
+  addDaysToKey,
+  addMonthsToKey,
+  dateKeyInZone,
+  dowOfKey,
+  endOfDayInZone,
+  startOfDayInZone,
+  todayKeyInZone,
+} from '../common/timezone';
 
 export interface CreateChoreDto {
   title: string;
@@ -30,28 +40,27 @@ function clampPercent(v: number | undefined, fallback: number): number {
   return Math.max(0, Math.min(100, Math.round(v)));
 }
 
-function nextWeekday(dow: number): Date {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  d.setDate(d.getDate() + ((dow - d.getDay() + 7) % 7));
-  return d;
+// Every due date produced here is end-of-day (23:59:59.999) in the chore's
+// own location's timezone, not the server process's ambient one (UTC in the
+// Docker image) — that mismatch is what made due times render as ~5-6pm the
+// day before on a Mountain Time family's screen.
+function nextWeekday(dow: number, tz: string): Date {
+  const today = todayKeyInZone(tz);
+  const add = (dow - dowOfKey(today) + 7) % 7;
+  return endOfDayInZone(addDaysToKey(today, add), tz);
 }
 
-function nextDue(rule: string | null, from: Date): Date | null {
-  const d = new Date(from);
+function nextDue(rule: string | null, from: Date, tz: string): Date | null {
+  const key = dateKeyInZone(from, tz);
   switch (rule) {
     case 'DAILY':
-      d.setDate(d.getDate() + 1);
-      return d;
+      return endOfDayInZone(addDaysToKey(key, 1), tz);
     case 'WEEKLY':
-      d.setDate(d.getDate() + 7);
-      return d;
+      return endOfDayInZone(addDaysToKey(key, 7), tz);
     case 'BIWEEKLY':
-      d.setDate(d.getDate() + 14);
-      return d;
+      return endOfDayInZone(addDaysToKey(key, 14), tz);
     case 'MONTHLY':
-      d.setMonth(d.getMonth() + 1);
-      return d;
+      return endOfDayInZone(addMonthsToKey(key, 1), tz);
     default:
       return null;
   }
@@ -59,13 +68,11 @@ function nextDue(rule: string | null, from: Date): Date | null {
 
 // Day-of-week only anchors weekly-style chores (or a one-time "do it on X").
 // Daily/monthly chores start today so they can be done immediately.
-function firstDueDate(dto: { dueDate?: string; dayOfWeek?: number; recurrenceRule?: string }): Date {
-  if (dto.dueDate) return new Date(dto.dueDate);
+function firstDueDate(dto: { dueDate?: string; dayOfWeek?: number; recurrenceRule?: string }, tz: string): Date {
+  if (dto.dueDate) return endOfDayInZone(dateKeyInZone(new Date(dto.dueDate), tz), tz);
   const weekdayApplies = !dto.recurrenceRule || dto.recurrenceRule === 'WEEKLY' || dto.recurrenceRule === 'BIWEEKLY';
-  if (dto.dayOfWeek != null && weekdayApplies) return nextWeekday(dto.dayOfWeek);
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d;
+  if (dto.dayOfWeek != null && weekdayApplies) return nextWeekday(dto.dayOfWeek, tz);
+  return endOfDayInZone(todayKeyInZone(tz), tz);
 }
 
 const CHORE_INCLUDE = {
@@ -94,6 +101,14 @@ export class ChoresService {
     return u!;
   }
 
+  // The timezone due-date math for a chore should use — its location's, or
+  // the instance-wide default if it has none / isn't scoped to one.
+  private async resolveTimezone(locationId?: string | null): Promise<string> {
+    if (!locationId) return DEFAULT_TIMEZONE;
+    const loc = await this.prisma.location.findUnique({ where: { id: locationId }, select: { timezone: true } });
+    return loc?.timezone || DEFAULT_TIMEZONE;
+  }
+
   private async ownedChore(familyId: string, id: string) {
     const chore = await this.prisma.chore.findFirst({ where: { id, familyId }, include: { assignees: true } });
     if (!chore) throw new NotFoundException('Chore not found');
@@ -103,7 +118,7 @@ export class ChoresService {
   private async ownedInstance(familyId: string, instanceId: string) {
     const inst = await this.prisma.choreInstance.findUnique({
       where: { id: instanceId },
-      include: { chore: { include: { checklist: true, assignees: true } }, checks: true },
+      include: { chore: { include: { checklist: true, assignees: true, location: true } }, checks: true },
     });
     if (!inst || inst.chore.familyId !== familyId) throw new NotFoundException('Instance not found');
     return inst;
@@ -111,6 +126,7 @@ export class ChoresService {
 
   async create(familyId: string, createdById: string, dto: CreateChoreDto) {
     await this.assertAdult(createdById);
+    const tz = await this.resolveTimezone(dto.locationId);
     const assignmentType = dto.assignmentType === 'ANYONE' ? 'ANYONE' : 'SPECIFIC';
     const chore = await this.prisma.chore.create({
       data: {
@@ -136,7 +152,7 @@ export class ChoresService {
       },
     });
     await this.prisma.choreInstance.create({
-      data: { choreId: chore.id, dueDate: firstDueDate(dto) },
+      data: { choreId: chore.id, dueDate: firstDueDate(dto, tz) },
     });
     return this.getChore(familyId, chore.id);
   }
@@ -157,13 +173,20 @@ export class ChoresService {
   // reward (-> MISSED) and — since the next occurrence otherwise only ever gets
   // created on approval — spawns the next one so the schedule doesn't freeze.
   private async sweepMissed(familyId: string) {
-    const startOfToday = new Date();
-    startOfToday.setHours(0, 0, 0, 0);
+    // Different chores can have different location timezones, so "start of
+    // today" isn't one cutoff for the whole family — fetch anything overdue
+    // by any zone's reckoning (dueDate < now is always a safe superset) and
+    // decide per-instance below using that chore's own zone.
+    const now = new Date();
     const stale = await this.prisma.choreInstance.findMany({
-      where: { status: 'OPEN', dueDate: { lt: startOfToday }, chore: { familyId, allowLate: false } },
-      include: { chore: { include: { assignees: true } } },
+      where: { status: 'OPEN', dueDate: { lt: now }, chore: { familyId, allowLate: false } },
+      include: { chore: { include: { assignees: true, location: true } } },
     });
     for (const inst of stale) {
+      const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+      const startOfToday = startOfDayInZone(todayKeyInZone(tz), tz);
+      if (inst.dueDate >= startOfToday) continue; // still due later today in its own zone
+
       await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
       if (inst.chore.currentStreak !== 0) {
         await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
@@ -174,7 +197,7 @@ export class ChoresService {
           this.notifications.create(familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
         ),
       );
-      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
+      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, tz);
       if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
     }
   }
@@ -237,10 +260,11 @@ export class ChoresService {
         orderBy: { dueDate: 'desc' },
       });
       if (openInst) {
-        const newDue = firstDueDate({
-          dayOfWeek: fresh.dayOfWeek ?? undefined,
-          recurrenceRule: fresh.recurrenceRule ?? undefined,
-        });
+        const tz = await this.resolveTimezone(fresh.locationId);
+        const newDue = firstDueDate(
+          { dayOfWeek: fresh.dayOfWeek ?? undefined, recurrenceRule: fresh.recurrenceRule ?? undefined },
+          tz,
+        );
         await this.prisma.choreInstance.update({ where: { id: openInst.id }, data: { dueDate: newDue } });
       }
     }
@@ -309,10 +333,10 @@ export class ChoresService {
     }
     if (!this.canAct(inst.chore, inst, userId)) throw new ForbiddenException('Not your chore');
 
-    const startOfToday = new Date();
-    startOfToday.setHours(0, 0, 0, 0);
-    const endOfToday = new Date();
-    endOfToday.setHours(23, 59, 59, 999);
+    const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+    const today = todayKeyInZone(tz);
+    const startOfToday = startOfDayInZone(today, tz);
+    const endOfToday = endOfDayInZone(today, tz);
     if (inst.dueDate > endOfToday) {
       throw new BadRequestException('Not available yet — this occurrence is scheduled for later.');
     }
@@ -357,7 +381,7 @@ export class ChoresService {
   private async finalizeApproval(instanceId: string, approverId: string, recipientUserId?: string) {
     const inst = await this.prisma.choreInstance.findUniqueOrThrow({
       where: { id: instanceId },
-      include: { chore: true },
+      include: { chore: { include: { location: true } } },
     });
     const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
@@ -428,7 +452,7 @@ export class ChoresService {
       });
     }
 
-    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate);
+    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, inst.chore.location?.timezone || DEFAULT_TIMEZONE);
     if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.chore.id, dueDate: due } });
     return updated;
   }
@@ -452,15 +476,17 @@ export class ChoresService {
   // by creating a fresh open occurrence due today.
   async reopen(familyId: string, actorId: string, choreId: string) {
     await this.assertAdult(actorId);
-    await this.ownedChore(familyId, choreId);
+    const chore = await this.ownedChore(familyId, choreId);
+    const tz = await this.resolveTimezone(chore.locationId);
+    const due = endOfDayInZone(todayKeyInZone(tz), tz);
     // Re-use an already-open instance instead of stacking a second one on top of
     // it — clicking "Enable again" more than once shouldn't leave two open
     // occurrences (e.g. this week's normal cycle and a manual one) alive at once.
     const existing = await this.prisma.choreInstance.findFirst({ where: { choreId, status: 'OPEN' } });
     if (existing) {
-      return this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: new Date() } });
+      return this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: due } });
     }
-    return this.prisma.choreInstance.create({ data: { choreId, dueDate: new Date() } });
+    return this.prisma.choreInstance.create({ data: { choreId, dueDate: due } });
   }
 
   async balances(familyId: string) {

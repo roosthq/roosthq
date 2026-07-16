@@ -214,6 +214,7 @@ export function pluralize(word: string): string {
 export interface FamilyLocation {
   id: string;
   name: string;
+  timezone: string;
   users: Array<{ userId: string }>;
 }
 
@@ -385,6 +386,8 @@ export const api = {
 
   locations: () => req<FamilyLocation[]>('/locations'),
   createLocation: (name: string) => req<FamilyLocation>('/locations', { method: 'POST', body: JSON.stringify({ name }) }),
+  updateLocation: (id: string, body: { name?: string; timezone?: string }) =>
+    req<FamilyLocation>(`/locations/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteLocation: (id: string) => req(`/locations/${id}`, { method: 'DELETE' }),
   assignLocation: (id: string, userId: string) =>
     req(`/locations/${id}/assign`, { method: 'POST', body: JSON.stringify({ userId }) }),

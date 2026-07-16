@@ -20,8 +20,8 @@ export class LocationsController {
   }
 
   @Patch(':id')
-  rename(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { name: string }) {
-    return this.locations.rename(u.familyId, id, body.name);
+  update(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { name?: string; timezone?: string }) {
+    return this.locations.update(u.familyId, id, body);
   }
 
   @Delete(':id')
