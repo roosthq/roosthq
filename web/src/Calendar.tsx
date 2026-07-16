@@ -202,7 +202,9 @@ export default function Calendar({
               >
                 {d.getDate()}
               </div>
-              <div className="space-y-0.5">
+              {/* Full title+avatar chips on wider screens; below sm there's only
+                  room for a per-calendar dot + count — tap the day for the rest. */}
+              <div className="hidden space-y-0.5 sm:block">
                 {dayEvents.slice(0, maxChips).map((e) => (
                   <div key={`${e.uid}-${k}`} className={`flex items-center gap-1 ${chipText}`}>
                     <Avatar name={e.ownerName} src={e.ownerAvatar} />
@@ -213,6 +215,21 @@ export default function Calendar({
                 {dayEvents.length > maxChips && (
                   <div className={`text-slate-400 ${chipText}`}>+{dayEvents.length - maxChips} more</div>
                 )}
+              </div>
+              <div className="flex flex-wrap gap-1 sm:hidden">
+                {Array.from(
+                  dayEvents.reduce((m, e) => {
+                    const cur = m.get(e.calendarId);
+                    if (cur) cur.count++;
+                    else m.set(e.calendarId, { color: e.calendarColor ?? '#94a3b8', count: 1 });
+                    return m;
+                  }, new Map<string, { color: string; count: number }>()),
+                ).map(([calendarId, { color, count }]) => (
+                  <span key={calendarId} className="inline-flex items-center gap-0.5">
+                    <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
+                    <span className="text-[10px] leading-none text-slate-500">{count}</span>
+                  </span>
+                ))}
               </div>
             </button>
           );
