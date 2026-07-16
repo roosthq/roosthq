@@ -237,15 +237,16 @@ export default function CalendarPage({ me }: { me: Me }) {
     <div>
       <Dashboard me={me} />
       <section>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold">
             Calendars <span className="text-slate-400">({visible.size}/{filterOptions.length})</span>
           </h2>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap gap-2">
             {isAdult && (
               <>
                 <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-                  + Connect another of my Google accounts
+                  <span className="hidden sm:inline">+ Connect another of my Google accounts</span>
+                  <span className="sm:hidden">+ Connect Google account</span>
                 </a>
                 <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                   Manage calendars

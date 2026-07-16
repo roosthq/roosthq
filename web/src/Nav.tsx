@@ -51,73 +51,137 @@ export default function Nav({
     };
   }, []);
 
-  return (
-    <nav className="flex flex-wrap items-center justify-between gap-2 border-b px-6 py-3">
-      <div className="flex flex-wrap items-center gap-1">
-        <span className="mr-3">
-          <Logo size={26} />
+  // Below lg (i.e. phones and portrait tablets), the full link row + controls
+  // row don't fit — they used to just wrap onto a tall stack of half-legible
+  // lines. Collapse into a hamburger menu instead.
+  const [menuOpen, setMenuOpen] = useState(false);
+  const bell = (
+    <NavLink
+      to="/notifications"
+      onClick={() => setMenuOpen(false)}
+      className="relative text-slate-500 hover:text-slate-800"
+      title="Notifications"
+    >
+      🔔
+      {unread > 0 && (
+        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
+          {unread > 9 ? '9+' : unread}
         </span>
-        <NavLink to="/" end className={cls}>Calendar</NavLink>
-        <NavLink to="/chores" className={cls}>{chorePlural}</NavLink>
-        <NavLink to="/store" className={cls}>Store</NavLink>
-        <NavLink to="/profile" className={cls}>Profiles</NavLink>
-        {isAdult && <NavLink to="/settings" className={cls}>Settings</NavLink>}
-      </div>
-      <div className="flex items-center gap-3 text-sm">
-        <NavLink to="/notifications" className="relative text-slate-500 hover:text-slate-800" title="Notifications">
-          🔔
-          {unread > 0 && (
-            <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
-              {unread > 9 ? '9+' : unread}
-            </span>
-          )}
-        </NavLink>
-        <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
-          {me.themePref === 'dark' ? '☀︎' : '☾'}
-        </button>
-        <select
-          value={me.fontSizePref ?? 'md'}
-          onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
-          title="Text size"
-          className="rounded border bg-transparent px-1 py-0.5 text-xs text-slate-500"
-        >
-          <option value="sm">Small text</option>
-          <option value="md">Normal text</option>
-          <option value="lg">Large text</option>
-          <option value="xl">Extra large text</option>
-        </select>
-        {myDisplays.length > 1 ? (
-          <details className="relative">
-            <summary className="cursor-pointer list-none text-slate-500 hover:text-slate-800">Display ↗</summary>
-            <div className="absolute right-0 z-10 mt-1 w-48 rounded border bg-white p-1 shadow">
-              {myDisplays.map((d) => (
-                <a
-                  key={d.id}
-                  href={`/?display=1&config=${d.id}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-                >
-                  {d.name}
-                </a>
-              ))}
-            </div>
-          </details>
-        ) : (
-          <a
-            href={myDisplays.length === 1 ? `/?display=1&config=${myDisplays[0].id}` : '/?display=1'}
-            target="_blank"
-            rel="noreferrer"
-            className="text-slate-500 hover:text-slate-800"
+      )}
+    </NavLink>
+  );
+  const displayLink =
+    myDisplays.length > 1 ? (
+      <details className="relative">
+        <summary className="cursor-pointer list-none text-slate-500 hover:text-slate-800">Display ↗</summary>
+        <div className="absolute right-0 z-10 mt-1 w-48 rounded border bg-white p-1 shadow">
+          {myDisplays.map((d) => (
+            <a
+              key={d.id}
+              href={`/?display=1&config=${d.id}`}
+              target="_blank"
+              rel="noreferrer"
+              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            >
+              {d.name}
+            </a>
+          ))}
+        </div>
+      </details>
+    ) : (
+      <a
+        href={myDisplays.length === 1 ? `/?display=1&config=${myDisplays[0].id}` : '/?display=1'}
+        target="_blank"
+        rel="noreferrer"
+        className="text-slate-500 hover:text-slate-800"
+      >
+        Display ↗
+      </a>
+    );
+
+  const links = (
+    <>
+      <NavLink to="/" end className={cls} onClick={() => setMenuOpen(false)}>Calendar</NavLink>
+      <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>
+      <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>
+      <NavLink to="/profile" className={cls} onClick={() => setMenuOpen(false)}>Profiles</NavLink>
+      {isAdult && <NavLink to="/settings" className={cls} onClick={() => setMenuOpen(false)}>Settings</NavLink>}
+    </>
+  );
+
+  return (
+    <nav className="border-b px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1">
+          <span className="mr-2 sm:mr-3">
+            <Logo size={26} />
+          </span>
+          <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>
+        </div>
+        <div className="hidden items-center gap-3 text-sm lg:flex">
+          {bell}
+          <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
+            {me.themePref === 'dark' ? '☀︎' : '☾'}
+          </button>
+          <select
+            value={me.fontSizePref ?? 'md'}
+            onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
+            title="Text size"
+            className="rounded border bg-transparent px-1 py-0.5 text-xs text-slate-500"
           >
-            Display ↗
-          </a>
-        )}
-        <span className="text-slate-500">{me.displayName}</span>
-        <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
-          Sign out
-        </button>
+            <option value="sm">Small text</option>
+            <option value="md">Normal text</option>
+            <option value="lg">Large text</option>
+            <option value="xl">Extra large text</option>
+          </select>
+          {displayLink}
+          <span className="text-slate-500">{me.displayName}</span>
+          <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
+            Sign out
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3 lg:hidden">
+          {bell}
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            className="rounded p-1 text-2xl leading-none text-slate-600 hover:bg-slate-100"
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
+        </div>
       </div>
+
+      {menuOpen && (
+        <div className="mt-3 space-y-3 border-t pt-3 lg:hidden">
+          <div className="flex flex-col gap-1">{links}</div>
+          <div className="flex flex-wrap items-center gap-3 border-t pt-3 text-sm">
+            <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
+              {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
+            </button>
+            <select
+              value={me.fontSizePref ?? 'md'}
+              onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
+              title="Text size"
+              className="rounded border bg-transparent px-1 py-1.5 text-xs text-slate-500"
+            >
+              <option value="sm">Small text</option>
+              <option value="md">Normal text</option>
+              <option value="lg">Large text</option>
+              <option value="xl">Extra large text</option>
+            </select>
+            {displayLink}
+          </div>
+          <div className="flex items-center justify-between border-t pt-3 text-sm">
+            <span className="text-slate-500">{me.displayName}</span>
+            <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
+              Sign out
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
