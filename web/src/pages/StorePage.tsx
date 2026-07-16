@@ -357,7 +357,7 @@ function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved:
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-5">
+      <div className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-5">
         <h3 className="text-lg font-semibold">Request a prize</h3>
         <p className="mt-1 text-xs text-slate-400">An adult will review this and set the token cost.</p>
         <div className="mt-3 space-y-3">

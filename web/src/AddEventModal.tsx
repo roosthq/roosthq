@@ -79,7 +79,7 @@ export default function AddEventModal({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-5">
+      <div className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-5">
         <h3 className="text-lg font-semibold">Add event</h3>
         <div className="mt-3 space-y-2 text-sm">
           <label className="block">
@@ -112,7 +112,7 @@ export default function AddEventModal({
             <span className="text-slate-500">All day</span>
           </label>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <label className="flex-1">
               <span className="text-slate-500">Start date</span>
               <input
@@ -142,7 +142,7 @@ export default function AddEventModal({
             )}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
             <label className="flex-1">
               <span className="text-slate-500">End date</span>
               <input

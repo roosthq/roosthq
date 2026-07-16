@@ -364,6 +364,17 @@ select option {
   color: var(--text);
 }
 
+/* iOS Safari zooms the whole page in on focus for any input/select/textarea
+   whose font-size computes under 16px — several are text-sm/text-xs (14/12px).
+   Force 16px on small screens only, so desktop's compact look is untouched. */
+@media (max-width: 640px) {
+  input:not([type='checkbox']):not([type='radio']),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 /* Panel / card surface used across pages */
 .panel {
   background: var(--surface);

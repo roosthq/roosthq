@@ -85,7 +85,7 @@ export function DialogProvider({ children }: { children: ReactNode }) {
       {children}
       {request && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-sm rounded-lg bg-white p-5">
+          <div className="max-h-[85vh] w-full max-w-sm overflow-y-auto rounded-lg bg-white p-5">
             {request.title && <h3 className="text-lg font-semibold">{request.title}</h3>}
             <p className={`text-sm text-slate-600 ${request.title ? 'mt-2' : ''}`}>{request.message}</p>
             <div className="mt-4 flex justify-end gap-2">
