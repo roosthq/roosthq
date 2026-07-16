@@ -59,19 +59,22 @@ function Dashboard({ me }: { me: Me }) {
 
 // Compact multi-select: a checkbox list tucked behind a summary toggle instead
 // of a wall of pills. Used by every role — only the candidate `options` differ.
-function CalendarFilterDropdown({
+// Also reused in Settings (touch display calendar picker) — same shape there.
+export function CalendarFilterDropdown({
   options,
   visible,
   onChange,
+  label = 'Filter',
 }: {
   options: SharedCalendar[];
   visible: Set<string>;
   onChange: (next: Set<string>) => void;
+  label?: string;
 }) {
   return (
     <details className="relative">
       <summary className="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-        Filter ({visible.size}/{options.length}) ▾
+        {label} ({visible.size}/{options.length}) ▾
       </summary>
       <div className="absolute right-0 z-10 mt-1 max-h-72 w-64 overflow-auto rounded border bg-white p-2 shadow">
         {options.map((c) => (

@@ -7,6 +7,7 @@ import {
   type DisplayConfig,
   type FamilyLocation,
 } from '../api';
+import { CalendarFilterDropdown } from './CalendarPage';
 import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
 import { useDialog } from '../Dialog';
@@ -15,7 +16,7 @@ export default function SettingsPage({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <h2 className="text-lg font-semibold">Settings</h2>
 
       {isOwner && <TokenNameSetting />}
@@ -27,14 +28,14 @@ export default function SettingsPage({ me }: { me: Me }) {
         </Section>
       )}
 
-      <Section title="Locations (for split households)">
+      <Section title="Locations" help="For split households — group people so calendars and displays can be scoped per house.">
         <LocationsSetting />
       </Section>
 
       {isOwner && (
         <Section title="Touch displays">
           <DisplaysManager />
-          <div className="mt-4">
+          <div className="mt-6 border-t pt-4">
             <DisplayAccess />
           </div>
         </Section>
@@ -43,12 +44,38 @@ export default function SettingsPage({ me }: { me: Me }) {
   );
 }
 
-function Section({ title, children }: { title: string; children: ReactNode }) {
+function Section({ title, help, children }: { title: string; help?: string; children: ReactNode }) {
   return (
     <section className="panel">
       <h3 className="text-base font-semibold tracking-tight">{title}</h3>
-      <div className="mt-3">{children}</div>
+      {help && <p className="mt-1 text-sm text-slate-500">{help}</p>}
+      <div className="mt-4">{children}</div>
     </section>
+  );
+}
+
+// Consistent labeled-field shell for every form control on this page — label
+// above, control below, optional help text. Matches the pattern ChoresPanel's
+// forms already use, so Settings reads like the rest of the app instead of
+// its own thing.
+function Field({ label, help, children }: { label: string; help?: string; children: ReactNode }) {
+  return (
+    <label className="block">
+      <span className="text-sm font-medium text-slate-700">{label}</span>
+      {help && <span className="ml-2 text-xs text-slate-400">{help}</span>}
+      <div className="mt-1.5">{children}</div>
+    </label>
+  );
+}
+
+function SaveButton({ onClick, saved }: { onClick: () => void; saved: boolean }) {
+  return (
+    <div className="flex items-center gap-3">
+      <button onClick={onClick} className="rounded bg-slate-800 px-4 py-2 text-sm text-white hover:bg-slate-700">
+        Save
+      </button>
+      {saved && <span className="text-sm text-green-600">Saved</span>}
+    </div>
   );
 }
 
@@ -73,36 +100,40 @@ function TokenNameSetting() {
   }
   return (
     <Section title="Reward name">
-      <div className="flex flex-wrap items-center gap-2 text-sm">
-        <span className="text-slate-500">Call our reward currency:</span>
-        <input value={name} onChange={(e) => setName(e.target.value)} className="rounded border px-2 py-1" />
-        <span className="text-slate-500">Icon:</span>
-        <select value={icon} onChange={(e) => setIcon(e.target.value)} className="rounded border px-2 py-1 text-lg">
-          {TOKEN_ICONS.map((i) => (
-            <option key={i} value={i}>
-              {i}
-            </option>
-          ))}
-        </select>
-        <span className="text-slate-500">
-          1 {icon} {name} = $
-        </span>
-        <input
-          type="number"
-          min={0.01}
-          step={0.01}
-          value={valueUsd}
-          onChange={(e) => setValueUsd(Number(e.target.value))}
-          className="w-20 rounded border px-2 py-1"
-        />
-        <button onClick={save} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
-          Save
-        </button>
-        {saved && <span className="text-green-600">Saved</span>}
+      <div className="space-y-4">
+        <Field label="What do you call your reward currency?">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full max-w-xs rounded border px-3 py-1.5 text-sm"
+          />
+        </Field>
+        <div className="flex flex-wrap gap-4">
+          <Field label="Icon">
+            <select value={icon} onChange={(e) => setIcon(e.target.value)} className="rounded border px-2 py-1.5 text-lg">
+              {TOKEN_ICONS.map((i) => (
+                <option key={i} value={i}>
+                  {i}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="1 unit = how many dollars?" help={`e.g. 1 ${icon} ${name || 'Tokens'} = $${valueUsd || 0}`}>
+            <input
+              type="number"
+              min={0.01}
+              step={0.01}
+              value={valueUsd}
+              onChange={(e) => setValueUsd(Number(e.target.value))}
+              className="w-24 rounded border px-3 py-1.5 text-sm"
+            />
+          </Field>
+        </div>
+        <p className="text-xs text-slate-400">
+          The $ value is used to suggest a token cost for prizes based on their real price (rounded down).
+        </p>
+        <SaveButton onClick={save} saved={saved} />
       </div>
-      <p className="mt-1 text-xs text-slate-400">
-        The $ value is used to suggest a token cost for prizes based on their real price (rounded down).
-      </p>
     </Section>
   );
 }
@@ -120,17 +151,17 @@ function ChoreWordSetting() {
   }
   return (
     <Section title="Chore language">
-      <div className="flex flex-wrap items-center gap-2 text-sm">
-        <span className="text-slate-500">Call chores:</span>
-        <input value={word} onChange={(e) => setWord(e.target.value)} className="rounded border px-2 py-1" placeholder="Chore" />
-        <button onClick={save} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
-          Save
-        </button>
-        {saved && <span className="text-green-600">Saved</span>}
+      <div className="space-y-4">
+        <Field label="What do you call chores?" help='try "Quest" or "Task" to put the focus on earning'>
+          <input
+            value={word}
+            onChange={(e) => setWord(e.target.value)}
+            placeholder="Chore"
+            className="w-full max-w-xs rounded border px-3 py-1.5 text-sm"
+          />
+        </Field>
+        <SaveButton onClick={save} saved={saved} />
       </div>
-      <p className="mt-1 text-xs text-slate-400">
-        Used everywhere "chore" shows up — try something like "Quest" or "Task" to put the focus on earning instead.
-      </p>
     </Section>
   );
 }
@@ -162,18 +193,27 @@ function LocationsSetting() {
   }
 
   return (
-    <div>
-      <div className="flex items-center gap-2 text-sm">
-        <input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Mom's house" className="rounded border px-2 py-1" />
-        <button onClick={add} className="rounded border px-3 py-1 hover:bg-slate-50">
-          Add location
-        </button>
-      </div>
-      <ul className="mt-3 space-y-2 text-sm">
+    <div className="space-y-4">
+      <Field label="Add a location">
+        <div className="flex flex-wrap gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && add()}
+            placeholder="e.g. Mom's house"
+            className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
+          />
+          <button onClick={add} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            Add
+          </button>
+        </div>
+      </Field>
+
+      <ul className="space-y-3">
         {locations.map((loc) => {
           const assigned = new Set(loc.users.map((u) => u.userId));
           return (
-            <li key={loc.id} className="rounded border p-2">
+            <li key={loc.id} className="rounded-lg border p-3">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{loc.name}</span>
                 <button
@@ -186,22 +226,29 @@ function LocationsSetting() {
                   Delete
                 </button>
               </div>
-              <div className="mt-1 flex flex-wrap gap-2">
-                {members.map((m) => (
-                  <label key={m.id} className="flex items-center gap-1 text-xs">
-                    <input
-                      type="checkbox"
-                      checked={assigned.has(m.id)}
-                      onChange={(e) => toggle(loc.id, m.id, e.target.checked)}
-                    />
-                    {m.displayName}
-                  </label>
-                ))}
+              <div className="mt-2">
+                <span className="text-xs text-slate-500">Who's here:</span>
+                <div className="mt-1.5 flex flex-wrap gap-1.5">
+                  {members.map((m) => {
+                    const on = assigned.has(m.id);
+                    return (
+                      <button
+                        key={m.id}
+                        onClick={() => toggle(loc.id, m.id, !on)}
+                        className={`rounded-full border px-3 py-1 text-xs ${
+                          on ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'
+                        }`}
+                      >
+                        {m.displayName}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </li>
           );
         })}
-        {locations.length === 0 && <li className="text-slate-400">No locations yet.</li>}
+        {locations.length === 0 && <li className="text-sm text-slate-400">No locations yet.</li>}
       </ul>
     </div>
   );
@@ -240,32 +287,41 @@ function DisplaysManager() {
   }
 
   return (
-    <div className="text-sm">
-      <p className="text-slate-500">
+    <div className="space-y-4">
+      <p className="text-sm text-slate-500">
         Create a display layout per kiosk (e.g. one per house). Each shows its own calendars, features, and theme.
         Give a display a location to limit it to the people (and calendars they share) assigned to that location.
       </p>
-      <div className="mt-2 flex items-center gap-2">
-        <input
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="New display name (e.g. Kitchen)"
-          className="rounded border px-2 py-1"
-        />
-        <button onClick={create} className="rounded border px-3 py-1 hover:bg-slate-50">
-          Add display
-        </button>
-      </div>
+      <Field label="Add a display">
+        <div className="flex flex-wrap gap-2">
+          <input
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && create()}
+            placeholder="e.g. Kitchen"
+            className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
+          />
+          <button onClick={create} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            Add
+          </button>
+        </div>
+      </Field>
 
-      <ul className="mt-3 space-y-3">
+      <ul className="space-y-4">
         {displays.map((d) => (
           <DisplayRow key={d.id} display={d} locations={locations} onPatch={(body) => patch(d.id, body)} onDelete={() => del(d.id)} />
         ))}
-        {displays.length === 0 && <li className="text-slate-400">No displays yet — add one above.</li>}
+        {displays.length === 0 && <li className="text-sm text-slate-400">No displays yet — add one above.</li>}
       </ul>
     </div>
   );
 }
+
+const FEATURES: Array<{ id: string; label: string }> = [
+  { id: 'calendar', label: 'Calendar' },
+  { id: 'chores', label: 'Chores' },
+  { id: 'prizes', label: 'Prizes' },
+];
 
 function DisplayRow({
   display: d,
@@ -286,100 +342,91 @@ function DisplayRow({
 
   const cals = new Set(d.calendarIds);
   const feats = new Set(d.enabledFeatures);
-  const locationName = locations.find((l) => l.id === d.locationId)?.name;
 
   return (
-    <li className="rounded border p-3">
-      <div className="flex items-center justify-between">
+    <li className="rounded-lg border p-4">
+      <div className="flex items-center justify-between gap-2">
         <input
           defaultValue={d.name}
           onBlur={(e) => e.target.value !== d.name && onPatch({ name: e.target.value })}
-          className="rounded border px-2 py-1 font-medium"
+          className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm font-medium"
         />
-        <button onClick={onDelete} className="text-xs text-red-500 hover:text-red-700">
+        <button onClick={onDelete} className="shrink-0 text-xs text-red-500 hover:text-red-700">
           Delete
         </button>
       </div>
 
-      <label className="mt-2 flex items-center gap-2 text-xs">
-        <span className="text-slate-500">Location:</span>
-        <select
-          value={d.locationId ?? ''}
-          onChange={(e) => onPatch({ locationId: e.target.value || null })}
-          className="rounded border px-1 py-0.5"
-        >
-          <option value="">All family members</option>
-          {locations.map((l) => (
-            <option key={l.id} value={l.id}>
-              {l.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Field label="Location">
+          <select
+            value={d.locationId ?? ''}
+            onChange={(e) => onPatch({ locationId: e.target.value || null })}
+            className="w-full rounded border px-2 py-1.5 text-sm"
+          >
+            <option value="">All family members</option>
+            {locations.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.name}
+              </option>
+            ))}
+          </select>
+        </Field>
 
-      <p className="mt-2 text-slate-500">
-        Calendars{locationName ? ` shared by ${locationName}` : ''}:
-      </p>
-      <div className="mt-1 flex flex-wrap gap-2">
-        {calendars.map((c) => (
-          <label key={c.id} className="flex items-center gap-1 text-xs">
-            <input
-              type="checkbox"
-              checked={cals.has(c.id)}
-              onChange={(e) => {
-                const n = new Set(cals);
-                if (e.target.checked) n.add(c.id);
-                else n.delete(c.id);
-                onPatch({ calendarIds: [...n] });
-              }}
-            />
-            <span className="h-2.5 w-2.5 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-            {c.name}
-          </label>
-        ))}
-        {calendars.length === 0 && (
-          <span className="text-xs text-slate-400">
-            {d.locationId ? 'No calendars shared by anyone at this location.' : 'Add calendars first.'}
-          </span>
-        )}
-      </div>
+        <Field label="Calendars shown">
+          <CalendarFilterDropdown
+            options={calendars}
+            visible={cals}
+            onChange={(next) => onPatch({ calendarIds: [...next] })}
+            label="Calendars"
+          />
+          {calendars.length === 0 && (
+            <p className="mt-1 text-xs text-slate-400">
+              {d.locationId ? 'No calendars shared by anyone at this location.' : 'Add calendars first.'}
+            </p>
+          )}
+        </Field>
 
-      <div className="mt-2 flex flex-wrap items-center gap-3">
-        {['calendar', 'chores', 'prizes'].map((f) => (
-          <label key={f} className="flex items-center gap-1 text-xs capitalize">
-            <input
-              type="checkbox"
-              checked={feats.has(f)}
-              onChange={(e) => {
-                const n = new Set(feats);
-                if (e.target.checked) n.add(f);
-                else n.delete(f);
-                onPatch({ enabledFeatures: [...n] });
-              }}
-            />
-            {f}
-          </label>
-        ))}
-        <label className="flex items-center gap-1 text-xs">
-          Theme:
-          <select value={d.theme} onChange={(e) => onPatch({ theme: e.target.value })} className="rounded border px-1 py-0.5">
+        <Field label="Theme">
+          <select value={d.theme} onChange={(e) => onPatch({ theme: e.target.value })} className="w-full rounded border px-2 py-1.5 text-sm">
             <option value="light">Light</option>
             <option value="dark">Dark</option>
           </select>
-        </label>
-        <label className="flex items-center gap-1 text-xs">
-          Text size:
+        </Field>
+
+        <Field label="Text size">
           <select
             value={d.fontSize}
             onChange={(e) => onPatch({ fontSize: e.target.value as DisplayConfig['fontSize'] })}
-            className="rounded border px-1 py-0.5"
+            className="w-full rounded border px-2 py-1.5 text-sm"
           >
             <option value="sm">Small</option>
             <option value="md">Normal</option>
             <option value="lg">Large</option>
             <option value="xl">Extra large</option>
           </select>
-        </label>
+        </Field>
+
+        <div className="sm:col-span-2">
+          <Field label="Features">
+            <div className="flex flex-wrap gap-3">
+              {FEATURES.map((f) => (
+                <label key={f.id} className="flex items-center gap-1.5 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={feats.has(f.id)}
+                    onChange={(e) => {
+                      const n = new Set(feats);
+                      if (e.target.checked) n.add(f.id);
+                      else n.delete(f.id);
+                      onPatch({ enabledFeatures: [...n] });
+                    }}
+                  />
+                  {f.label}
+                </label>
+              ))}
+            </div>
+          </Field>
+        </div>
       </div>
     </li>
   );
