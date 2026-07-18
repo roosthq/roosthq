@@ -299,7 +299,9 @@ model Chore {
   familyId           String
   title              String
   assignmentType     String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
-  dayOfWeek          Int? // 0=Sun..6=Sat; anchors weekly/biweekly occurrences
+  dayOfWeek          Int? // legacy single-day anchor — superseded by daysOfWeek, kept so old rows still resolve
+  daysOfWeek         Json? // int[] (0=Sun..6=Sat) — which weekdays this recurs on, e.g. Mon-Fri homework
+  dueTime            String? // "HH:mm" in the chore's location timezone; null = due end of day
   locationId         String?
   tokenValue         Int     @default(0)
   recurrenceRule     String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single

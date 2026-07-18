@@ -136,6 +136,8 @@ export interface Chore {
   tokenValue: number;
   recurrenceRule?: string;
   dayOfWeek?: number | null;
+  daysOfWeek?: number[] | null;
+  dueTime?: string | null;
   assignmentType: 'SPECIFIC' | 'ANYONE';
   assignees: ChoreAssigneeRef[];
   location?: { id: string; name: string } | null;

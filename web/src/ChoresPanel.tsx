@@ -25,11 +25,27 @@ const REPEAT_LABEL: Record<string, string> = {
   MONTHLY: 'Monthly',
 };
 
+function resolveDaysOfWeek(chore: { daysOfWeek?: number[] | null; dayOfWeek?: number | null }): number[] {
+  if (chore.daysOfWeek?.length) return chore.daysOfWeek;
+  return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
+}
+
 // Client-side mirror of the server's nextDue() — purely for display, so a
 // repeating chore that's due today still tells a kid it's coming back rather
 // than looking like a one-off (no "Next: ..." line shows once it's due now).
-function nextOccurrence(rule: string, fromDueDate: string): Date {
+function nextOccurrence(rule: string, fromDueDate: string, daysOfWeek: number[]): Date {
   const d = new Date(fromDueDate);
+  if (daysOfWeek.length > 1) {
+    const fromDow = d.getDay();
+    let best = 7;
+    for (const dow of daysOfWeek) {
+      let offset = (dow - fromDow + 7) % 7;
+      if (offset === 0) offset = 7;
+      if (offset < best) best = offset;
+    }
+    d.setDate(d.getDate() + (best === 7 ? 0 : best));
+    return d;
+  }
   switch (rule) {
     case 'DAILY':
       d.setDate(d.getDate() + 1);
@@ -46,6 +62,11 @@ function nextOccurrence(rule: string, fromDueDate: string): Date {
     default:
       return d;
   }
+}
+
+function formatDueTime(hhmm: string): string {
+  const [hh, mm] = hhmm.split(':').map(Number);
+  return new Date(2000, 0, 1, hh, mm).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
 }
 
 function relativeDayLabel(d: Date): string {
@@ -195,7 +216,8 @@ export default function ChoresPanel({
         .filter((g) => !personFilter || g.key === personFilter);
 
   function renderRow({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }: Row) {
-    const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate) : null;
+    const daysOfWeek = resolveDaysOfWeek(chore);
+    const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate, daysOfWeek) : null;
     return (
       <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
         <div className="flex items-start justify-between gap-2">
@@ -205,7 +227,8 @@ export default function ChoresPanel({
               <span>
                 {assignmentLabel(chore, claimedBy)}
                 {chore.location ? ` · ${chore.location.name}` : ''}
-                {chore.dayOfWeek != null ? ` · ${DOW[chore.dayOfWeek]}` : ''}
+                {daysOfWeek.length ? ` · ${daysOfWeek.map((d) => DOW[d]).join(', ')}` : ''}
+                {chore.dueTime ? ` · due ${formatDueTime(chore.dueTime)}` : ''}
               </span>
               {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
               {chore.currentStreak > 0 && (
@@ -441,7 +464,8 @@ function ChoreForm({
   );
   const [tokenValue, setTokenValue] = useState(chore?.tokenValue ?? 0);
   const [repeat, setRepeat] = useState(chore?.recurrenceRule ?? '');
-  const [dayOfWeek, setDayOfWeek] = useState<number | null>(chore?.dayOfWeek ?? null);
+  const [daysOfWeek, setDaysOfWeek] = useState<Set<number>>(new Set(chore ? resolveDaysOfWeek(chore) : []));
+  const [dueTime, setDueTime] = useState(chore?.dueTime ?? '');
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
   const [locationId, setLocationId] = useState(chore?.location?.id ?? '');
   const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
@@ -465,7 +489,8 @@ function ChoreForm({
       assigneeUserIds: assignmentType === 'SPECIFIC' ? [...assignees] : [],
       tokenValue: Number(tokenValue),
       recurrenceRule: repeat || undefined,
-      dayOfWeek: dayOfWeek ?? undefined,
+      daysOfWeek: daysOfWeek.size ? [...daysOfWeek].sort() : [],
+      dueTime: dueTime || null,
       checklist: checklist.split('\n').map((s) => s.trim()).filter(Boolean),
       locationId: locationId || null,
       allowLate,
@@ -572,14 +597,21 @@ function ChoreForm({
           </Field>
 
           {(repeat === '' || repeat === 'WEEKLY' || repeat === 'BIWEEKLY') && (
-            <Field label="Day of week" help="Optional — which day it happens (weekly/biweekly or a one-time).">
+            <Field label="Day(s) of week" help="Optional — pick one, or several for something like Mon-Fri homework.">
               <div className="flex flex-wrap gap-1">
                 {DOW.map((d, i) => (
                   <button
                     key={d}
                     type="button"
-                    onClick={() => setDayOfWeek(dayOfWeek === i ? null : i)}
-                    className={`rounded-md border px-3 py-1 text-sm ${dayOfWeek === i ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                    onClick={() =>
+                      setDaysOfWeek((prev) => {
+                        const next = new Set(prev);
+                        if (next.has(i)) next.delete(i);
+                        else next.add(i);
+                        return next;
+                      })
+                    }
+                    className={`rounded-md border px-3 py-1 text-sm ${daysOfWeek.has(i) ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
                   >
                     {d}
                   </button>
@@ -587,6 +619,15 @@ function ChoreForm({
               </div>
             </Field>
           )}
+
+          <Field label="Due by" help="Optional — a specific time of day. Leave blank for end of day (11:59pm).">
+            <input
+              type="time"
+              className="w-40 rounded-md border px-3 py-2 text-sm"
+              value={dueTime}
+              onChange={(e) => setDueTime(e.target.value)}
+            />
+          </Field>
 
           <Field label="Streak bonus" help="Optional — extra tokens for keeping a streak of on-time completions going.">
             <label className="flex items-center gap-2 text-sm">

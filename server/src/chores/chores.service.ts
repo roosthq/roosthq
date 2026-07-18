@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import {
@@ -12,9 +13,10 @@ import {
   addMonthsToKey,
   dateKeyInZone,
   dowOfKey,
+  dueInstant,
   endOfDayInZone,
-  startOfDayInZone,
   todayKeyInZone,
+  type DateKey,
 } from '../common/timezone';
 
 export interface CreateChoreDto {
@@ -25,6 +27,8 @@ export interface CreateChoreDto {
   tokenValue?: number;
   recurrenceRule?: string;
   dayOfWeek?: number;
+  daysOfWeek?: number[];
+  dueTime?: string | null;
   checklist?: string[];
   dueDate?: string;
   allowLate?: boolean;
@@ -40,27 +44,62 @@ function clampPercent(v: number | undefined, fallback: number): number {
   return Math.max(0, Math.min(100, Math.round(v)));
 }
 
-// Every due date produced here is end-of-day (23:59:59.999) in the chore's
-// own location's timezone, not the server process's ambient one (UTC in the
-// Docker image) — that mismatch is what made due times render as ~5-6pm the
-// day before on a Mountain Time family's screen.
-function nextWeekday(dow: number, tz: string): Date {
-  const today = todayKeyInZone(tz);
-  const add = (dow - dowOfKey(today) + 7) % 7;
-  return endOfDayInZone(addDaysToKey(today, add), tz);
+// A chore's `daysOfWeek` (new, multi-day) always wins when set; `dayOfWeek`
+// (legacy single-day column) is read only for rows created before it
+// existed, so old chores keep resolving exactly as before.
+function resolveDaysOfWeek(chore: { daysOfWeek: unknown; dayOfWeek: number | null }): number[] {
+  if (Array.isArray(chore.daysOfWeek) && chore.daysOfWeek.length) return chore.daysOfWeek as number[];
+  return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
 }
 
-function nextDue(rule: string | null, from: Date, tz: string): Date | null {
+// Every due date produced here resolves through dueInstant() — dueTime's
+// wall-clock time in the chore's own location timezone if set, otherwise
+// end-of-day (23:59:59.999) — never the server process's ambient timezone
+// (UTC in the Docker image), which is what made due times render as ~5-6pm
+// the day before on a Mountain Time family's screen.
+
+// Smallest offset (0-6) from `fromKey` that lands on a day in `days`,
+// optionally requiring the match be strictly after `fromKey` itself (so a
+// completed Monday occurrence advances to Wednesday, not back to Monday).
+function offsetToNextDayInSet(fromDow: number, days: number[], strictlyAfter: boolean): number {
+  let best = 7;
+  for (const d of days) {
+    let offset = (d - fromDow + 7) % 7;
+    if (strictlyAfter && offset === 0) offset = 7;
+    if (offset < best) best = offset;
+  }
+  return best === 7 ? 0 : best;
+}
+
+// Next occurrence of ANY day in `days` strictly after `fromKey` (wraps into
+// next week if needed) — the general form of "next weekday" that also
+// handles a Mon/Wed/Fri-style pattern, not just a single anchor day.
+function nextDayInSetAfter(fromKey: DateKey, days: number[]): DateKey {
+  return addDaysToKey(fromKey, offsetToNextDayInSet(dowOfKey(fromKey), days, true));
+}
+
+// Same as above but "today counts" — used for the very first occurrence, so
+// a chore due today shows up today instead of a week from now.
+function nextDayInSetFrom(fromKey: DateKey, days: number[]): DateKey {
+  return addDaysToKey(fromKey, offsetToNextDayInSet(dowOfKey(fromKey), days, false));
+}
+
+function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string): Date | null {
   const key = dateKeyInZone(from, tz);
+  // A real day pattern (2+ days) always advances within/across the week to
+  // the next matching day — "Mon-Fri homework" needs Tue after Mon, not a
+  // flat +7. A single day (0 or 1 entries) keeps the exact legacy interval
+  // math per rule, so nothing about existing chores changes.
+  if (daysOfWeek.length > 1) return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
   switch (rule) {
     case 'DAILY':
-      return endOfDayInZone(addDaysToKey(key, 1), tz);
+      return dueInstant(addDaysToKey(key, 1), dueTime, tz);
     case 'WEEKLY':
-      return endOfDayInZone(addDaysToKey(key, 7), tz);
+      return dueInstant(addDaysToKey(key, 7), dueTime, tz);
     case 'BIWEEKLY':
-      return endOfDayInZone(addDaysToKey(key, 14), tz);
+      return dueInstant(addDaysToKey(key, 14), dueTime, tz);
     case 'MONTHLY':
-      return endOfDayInZone(addMonthsToKey(key, 1), tz);
+      return dueInstant(addMonthsToKey(key, 1), dueTime, tz);
     default:
       return null;
   }
@@ -68,11 +107,16 @@ function nextDue(rule: string | null, from: Date, tz: string): Date | null {
 
 // Day-of-week only anchors weekly-style chores (or a one-time "do it on X").
 // Daily/monthly chores start today so they can be done immediately.
-function firstDueDate(dto: { dueDate?: string; dayOfWeek?: number; recurrenceRule?: string }, tz: string): Date {
-  if (dto.dueDate) return endOfDayInZone(dateKeyInZone(new Date(dto.dueDate), tz), tz);
+function firstDueDate(
+  dto: { dueDate?: string; daysOfWeek?: number[]; dueTime?: string | null; recurrenceRule?: string },
+  tz: string,
+): Date {
+  if (dto.dueDate) return dueInstant(dateKeyInZone(new Date(dto.dueDate), tz), dto.dueTime, tz);
   const weekdayApplies = !dto.recurrenceRule || dto.recurrenceRule === 'WEEKLY' || dto.recurrenceRule === 'BIWEEKLY';
-  if (dto.dayOfWeek != null && weekdayApplies) return nextWeekday(dto.dayOfWeek, tz);
-  return endOfDayInZone(todayKeyInZone(tz), tz);
+  if (dto.daysOfWeek?.length && weekdayApplies) {
+    return dueInstant(nextDayInSetFrom(todayKeyInZone(tz), dto.daysOfWeek), dto.dueTime, tz);
+  }
+  return dueInstant(todayKeyInZone(tz), dto.dueTime, tz);
 }
 
 const CHORE_INCLUDE = {
@@ -134,6 +178,8 @@ export class ChoresService {
         title: dto.title,
         assignmentType,
         dayOfWeek: dto.dayOfWeek ?? null,
+        daysOfWeek: dto.daysOfWeek?.length ? dto.daysOfWeek : undefined,
+        dueTime: dto.dueTime ?? null,
         locationId: dto.locationId,
         tokenValue: dto.tokenValue ?? 0,
         recurrenceRule: dto.recurrenceRule,
@@ -172,21 +218,17 @@ export class ChoresService {
   // date has fully passed, on a chore that doesn't allow late credit, forfeits its
   // reward (-> MISSED) and — since the next occurrence otherwise only ever gets
   // created on approval — spawns the next one so the schedule doesn't freeze.
+  //
+  // dueDate is already a precise, zone-correct absolute instant (computed via
+  // dueInstant() when it was set), so "dueDate < now" needs no further
+  // per-instance zone handling — comparing two absolute instants is
+  // zone-agnostic by construction.
   private async sweepMissed(familyId: string) {
-    // Different chores can have different location timezones, so "start of
-    // today" isn't one cutoff for the whole family — fetch anything overdue
-    // by any zone's reckoning (dueDate < now is always a safe superset) and
-    // decide per-instance below using that chore's own zone.
-    const now = new Date();
     const stale = await this.prisma.choreInstance.findMany({
-      where: { status: 'OPEN', dueDate: { lt: now }, chore: { familyId, allowLate: false } },
+      where: { status: 'OPEN', dueDate: { lt: new Date() }, chore: { familyId, allowLate: false } },
       include: { chore: { include: { assignees: true, location: true } } },
     });
     for (const inst of stale) {
-      const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-      const startOfToday = startOfDayInZone(todayKeyInZone(tz), tz);
-      if (inst.dueDate >= startOfToday) continue; // still due later today in its own zone
-
       await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
       if (inst.chore.currentStreak !== 0) {
         await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
@@ -197,7 +239,8 @@ export class ChoresService {
           this.notifications.create(familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
         ),
       );
-      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, tz);
+      const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
       if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
     }
   }
@@ -208,12 +251,12 @@ export class ChoresService {
     const assignmentType =
       dto.assignmentType === 'ANYONE' ? 'ANYONE' : dto.assignmentType === 'SPECIFIC' ? 'SPECIFIC' : undefined;
 
-    await this.prisma.chore.update({
-      where: { id },
-      data: {
-        ...(dto.title !== undefined && { title: dto.title }),
+    const updateData: Prisma.ChoreUncheckedUpdateInput = {
+      ...(dto.title !== undefined && { title: dto.title }),
         ...(assignmentType && { assignmentType }),
         ...(dto.dayOfWeek !== undefined && { dayOfWeek: dto.dayOfWeek }),
+        ...(dto.daysOfWeek !== undefined && { daysOfWeek: dto.daysOfWeek?.length ? dto.daysOfWeek : Prisma.JsonNull }),
+        ...(dto.dueTime !== undefined && { dueTime: dto.dueTime }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
         ...(dto.tokenValue !== undefined && { tokenValue: dto.tokenValue }),
         ...(dto.recurrenceRule !== undefined && { recurrenceRule: dto.recurrenceRule }),
@@ -221,8 +264,8 @@ export class ChoresService {
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
-      },
-    });
+    };
+    await this.prisma.chore.update({ where: { id }, data: updateData });
 
     if (dto.assigneeUserIds) {
       await this.prisma.choreAssignee.deleteMany({ where: { choreId: id } });
@@ -252,8 +295,10 @@ export class ChoresService {
     // on yet — never PENDING/APPROVED — so a manual "Enable again" grace
     // instance isn't silently snapped back by an unrelated edit.
     const dayChanged = dto.dayOfWeek !== undefined && dto.dayOfWeek !== before.dayOfWeek;
+    const daysChanged = dto.daysOfWeek !== undefined && JSON.stringify(dto.daysOfWeek ?? []) !== JSON.stringify(resolveDaysOfWeek(before));
     const ruleChanged = dto.recurrenceRule !== undefined && dto.recurrenceRule !== before.recurrenceRule;
-    if (dayChanged || ruleChanged) {
+    const dueTimeChanged = dto.dueTime !== undefined && dto.dueTime !== before.dueTime;
+    if (dayChanged || daysChanged || ruleChanged || dueTimeChanged) {
       const fresh = await this.prisma.chore.findUniqueOrThrow({ where: { id } });
       const openInst = await this.prisma.choreInstance.findFirst({
         where: { choreId: id, status: 'OPEN' },
@@ -262,7 +307,7 @@ export class ChoresService {
       if (openInst) {
         const tz = await this.resolveTimezone(fresh.locationId);
         const newDue = firstDueDate(
-          { dayOfWeek: fresh.dayOfWeek ?? undefined, recurrenceRule: fresh.recurrenceRule ?? undefined },
+          { daysOfWeek: resolveDaysOfWeek(fresh), dueTime: fresh.dueTime, recurrenceRule: fresh.recurrenceRule ?? undefined },
           tz,
         );
         await this.prisma.choreInstance.update({ where: { id: openInst.id }, data: { dueDate: newDue } });
@@ -334,16 +379,15 @@ export class ChoresService {
     if (!this.canAct(inst.chore, inst, userId)) throw new ForbiddenException('Not your chore');
 
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const today = todayKeyInZone(tz);
-    const startOfToday = startOfDayInZone(today, tz);
-    const endOfToday = endOfDayInZone(today, tz);
+    const endOfToday = endOfDayInZone(todayKeyInZone(tz), tz);
     if (inst.dueDate > endOfToday) {
       throw new BadRequestException('Not available yet — this occurrence is scheduled for later.');
     }
     // Belt-and-suspenders: the periodic sweep (see sweepMissed) normally flips a
     // stale instance to MISSED before this is ever reachable from the UI, but
-    // don't rely on that having already run.
-    if (!inst.chore.allowLate && inst.dueDate < startOfToday) {
+    // don't rely on that having already run. dueDate is now the precise deadline
+    // instant (end-of-day or an explicit dueTime), so a direct comparison suffices.
+    if (!inst.chore.allowLate && inst.dueDate < new Date()) {
       throw new BadRequestException('This chore was missed and can no longer be completed.');
     }
 
@@ -452,7 +496,13 @@ export class ChoresService {
       });
     }
 
-    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, inst.chore.location?.timezone || DEFAULT_TIMEZONE);
+    const due = nextDue(
+      inst.chore.recurrenceRule,
+      inst.dueDate,
+      resolveDaysOfWeek(inst.chore),
+      inst.chore.dueTime,
+      inst.chore.location?.timezone || DEFAULT_TIMEZONE,
+    );
     if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.chore.id, dueDate: due } });
     return updated;
   }
@@ -478,7 +528,7 @@ export class ChoresService {
     await this.assertAdult(actorId);
     const chore = await this.ownedChore(familyId, choreId);
     const tz = await this.resolveTimezone(chore.locationId);
-    const due = endOfDayInZone(todayKeyInZone(tz), tz);
+    const due = dueInstant(todayKeyInZone(tz), chore.dueTime, tz);
     // Re-use an already-open instance instead of stacking a second one on top of
     // it — clicking "Enable again" more than once shouldn't leave two open
     // occurrences (e.g. this week's normal cycle and a manual one) alive at once.
