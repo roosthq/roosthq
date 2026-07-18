@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api, loginUrl, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
+import { api, loginUrl, ROLE_ICON, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
 import Calendar from '../Calendar';
 import AddEventModal from '../AddEventModal';
 import Modal from '../Modal';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 
-function Avatar({ name, src }: { name?: string; src?: string }) {
+export function Avatar({ name, src }: { name?: string; src?: string }) {
   if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
   return (
     <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-300 font-semibold text-slate-700">
@@ -44,7 +44,7 @@ function Dashboard({ me }: { me: Me }) {
               <Avatar name={m.displayName} src={m.avatar} />
               <span>
                 <span className="block font-medium">{m.displayName}</span>
-                <span className="block text-xs text-slate-400">{m.role.toLowerCase()}</span>
+                <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {m.role.toLowerCase()}</span>
               </span>
               <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
                 {tokenIcon} {balances[m.id] ?? 0}

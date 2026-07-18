@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { api, COLOR_THEMES, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { useParams, Link } from 'react-router-dom';
+import { api, COLOR_THEMES, ROLE_ICON, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
+import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
@@ -29,12 +30,12 @@ export default function ProfilePage({
   onChangeColorTheme: (id: string) => void;
 }) {
   const { id } = useParams();
-  const navigate = useNavigate();
   const targetId = id ?? me.id;
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   const viewingSelf = targetId === me.id;
 
   const [members, setMembers] = useState<Member[]>([]);
+  const [allBalances, setAllBalances] = useState<Record<string, number>>({});
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -56,6 +57,7 @@ export default function ProfilePage({
     setHistory(r);
     // Everyone (kids included) can browse all family profiles, same as adults.
     api.listUsers().then(setMembers).catch(() => setMembers([]));
+    api.tokenBalances().then((bs) => setAllBalances(Object.fromEntries(bs.map((x) => [x.userId, x.balance])))).catch(() => undefined);
     // A kid can only ever see their own earned awards (server enforces this
     // too) — skip the call rather than surface a 403 when browsing a sibling.
     if (isAdult || viewingSelf) api.earnedAwards(targetId).then(setAwards).catch(() => setAwards([]));
@@ -107,17 +109,26 @@ export default function ProfilePage({
       {members.length > 0 && (
         <div className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Profiles</h2>
-          <ul className="mt-2 flex flex-wrap gap-2">
+          <ul className="mt-3 flex flex-wrap gap-3">
             {members.map((m) => (
               <li key={m.id}>
-                <button
-                  onClick={() => navigate(m.id === me.id ? '/profile' : `/profile/${m.id}`)}
-                  className={`rounded-full border px-3 py-1 text-sm ${
-                    m.id === targetId ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'
-                  }`}
+                <Link
+                  to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
+                  className="panel flex items-center gap-3 hover:bg-slate-50"
+                  style={m.id === targetId ? { boxShadow: 'inset 0 0 0 2px var(--accent)' } : undefined}
                 >
-                  {m.displayName}
-                </button>
+                  <Avatar name={m.displayName} src={m.avatar} />
+                  <span>
+                    <span className="block font-medium">{m.displayName}</span>
+                    <span className="block text-xs text-slate-400">
+                      {ROLE_ICON[m.role]} {m.role.toLowerCase()}
+                    </span>
+                  </span>
+                  <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
+                    {tokenIcon} {allBalances[m.id] ?? 0}
+                    <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -203,6 +214,7 @@ export default function ProfilePage({
               min={0}
               value={delta}
               onChange={(e) => setDelta(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
               className="w-24 rounded border px-2 py-1 text-sm"
               placeholder="amount"
             />

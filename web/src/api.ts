@@ -102,6 +102,14 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
   { id: 'midnight', label: 'Midnight', swatch: '#4a6ab8' },
 ];
 
+// Shown next to a role anywhere it appears — profile switchers, the family
+// member list in Settings, invite rows.
+export const ROLE_ICON: Record<string, string> = {
+  OWNER: '👑',
+  ADULT: '🧑',
+  KID: '🧒',
+};
+
 export interface DisplaySettings {
   familyId: string;
   defaultCalendarIds: string[];
@@ -372,6 +380,7 @@ export const api = {
   setUserRole: (id: string, role: 'OWNER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
+  resetUser: (id: string) => req<{ ok: boolean }>(`/users/${id}/reset`, { method: 'POST' }),
   setTheme: (theme: 'light' | 'dark') =>
     req<{ ok: boolean; theme: string }>('/users/me/theme', { method: 'PUT', body: JSON.stringify({ theme }) }),
   setColorTheme: (colorTheme: string) =>

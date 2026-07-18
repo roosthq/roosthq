@@ -613,7 +613,7 @@ function ChoreForm({
           </Field>
 
           <Field label="Reward" help="Tokens for whoever completes it (after approval).">
-            <input type="number" min={0} className="w-28 rounded-md border px-3 py-2 text-sm" value={tokenValue} onChange={(e) => setTokenValue(Number(e.target.value))} />
+            <input type="number" min={0} className="w-28 rounded-md border px-3 py-2 text-sm" value={tokenValue} onChange={(e) => setTokenValue(Number(e.target.value))} onFocus={(e) => e.target.select()} />
           </Field>
 
           <Field
@@ -637,6 +637,7 @@ function ChoreForm({
                   className="w-20 rounded-md border px-3 py-2 text-sm"
                   value={latePenaltyPercent}
                   onChange={(e) => setLatePenaltyPercent(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
                 />
                 % reward lost per day late
               </label>
@@ -700,6 +701,7 @@ function ChoreForm({
                   className="w-16 rounded-md border px-2 py-1 text-sm"
                   value={streakGoal}
                   onChange={(e) => setStreakGoal(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
                 />
                 in a row, award
                 <input
@@ -708,6 +710,7 @@ function ChoreForm({
                   className="w-20 rounded-md border px-2 py-1 text-sm"
                   value={streakBonusTokens}
                   onChange={(e) => setStreakBonusTokens(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
                 />
                 bonus tokens
               </div>

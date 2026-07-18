@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
@@ -35,6 +35,12 @@ export class UsersController {
   @Delete(':id')
   remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.users.remove(u.userId, u.familyId, id);
+  }
+
+  // Clears token/purchase/notification history for an account without deleting it.
+  @Post(':id/reset')
+  reset(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.users.resetAccount(u.userId, u.familyId, id);
   }
 
   // Current user sets their own app theme.

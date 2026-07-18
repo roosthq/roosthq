@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
-import { api, type Me, type Member, type InviteInfo } from './api';
+import { api, ROLE_ICON, type Me, type Member, type InviteInfo } from './api';
 import { useDialog } from './Dialog';
 
 // Adults and the owner can invite people and manage PINs; only the owner can
 // change roles or remove members, and only the owner can manage another
-// adult's PIN — adults may only manage their own PIN and any kid's.
+// adult's PIN — adults may only manage their own PIN and any kid's. Resetting
+// history follows the same shape: yourself always, any kid, but another
+// adult or the owner only if you're the owner.
 export default function MembersManager({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const canManagePin = (m: Member) => m.id === me.id || isOwner || m.role === 'KID';
+  const canReset = (m: Member) => m.id === me.id || m.role === 'KID' || isOwner;
   const { confirm } = useDialog();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
@@ -57,6 +60,15 @@ export default function MembersManager({ me }: { me: Me }) {
   }
   async function clearPin(m: Member) {
     await api.setUserPin(m.id, null);
+    await refresh();
+  }
+  async function resetAccount(m: Member) {
+    const ok = await confirm(
+      `Reset ${m.displayName}'s account? This permanently clears their token balance, full token history, purchase history, and notifications — it can't be undone. Their PIN, theme, text size, and other settings stay exactly as they are.`,
+      { danger: true, confirmLabel: 'Reset' },
+    );
+    if (!ok) return;
+    await api.resetUser(m.id);
     await refresh();
   }
 
@@ -125,18 +137,21 @@ export default function MembersManager({ me }: { me: Me }) {
             <span className="min-w-32 font-medium">{m.displayName}</span>
 
             {m.role === 'OWNER' ? (
-              <span className="text-xs text-slate-400">owner</span>
+              <span className="text-xs text-slate-400">{ROLE_ICON.OWNER} owner</span>
             ) : isOwner ? (
-              <select
-                value={m.role}
-                onChange={(e) => changeRole(m, e.target.value as 'ADULT' | 'KID')}
-                className="rounded border px-2 py-1 text-xs"
-              >
-                <option value="ADULT">Adult</option>
-                <option value="KID">Kid</option>
-              </select>
+              <span className="flex items-center gap-1 text-xs">
+                {ROLE_ICON[m.role]}
+                <select
+                  value={m.role}
+                  onChange={(e) => changeRole(m, e.target.value as 'ADULT' | 'KID')}
+                  className="rounded border px-2 py-1 text-xs"
+                >
+                  <option value="ADULT">Adult</option>
+                  <option value="KID">Kid</option>
+                </select>
+              </span>
             ) : (
-              <span className="text-xs text-slate-400">{m.role.toLowerCase()}</span>
+              <span className="text-xs text-slate-400">{ROLE_ICON[m.role]} {m.role.toLowerCase()}</span>
             )}
 
             <span className="text-xs text-slate-400">{m.hasPin ? '🔒 PIN set' : 'no PIN'}</span>
@@ -162,11 +177,18 @@ export default function MembersManager({ me }: { me: Me }) {
             {m.role !== 'KID' && !m.hasPin && (
               <span className="text-xs text-amber-600">needs a PIN for kiosk</span>
             )}
-            {isOwner && m.role !== 'OWNER' && (
-              <button onClick={() => removeMember(m)} className="ml-auto text-xs text-red-500 hover:text-red-700">
-                Remove
-              </button>
-            )}
+            <span className="ml-auto flex items-center gap-3">
+              {canReset(m) && (
+                <button onClick={() => resetAccount(m)} className="text-xs text-amber-600 hover:text-amber-800">
+                  Reset
+                </button>
+              )}
+              {isOwner && m.role !== 'OWNER' && (
+                <button onClick={() => removeMember(m)} className="text-xs text-red-500 hover:text-red-700">
+                  Remove
+                </button>
+              )}
+            </span>
           </li>
         ))}
         {members.length === 0 && <li className="text-slate-400">No members yet.</li>}

@@ -87,6 +87,28 @@ export class UsersService {
     return { ok: true, notifyByEmail };
   }
 
+  // Wipe a member's token/purchase/notification history — not their account.
+  // Everyone can reset themselves; any adult/owner can reset a kid; only the
+  // owner can reset another adult or owner. Leaves the User row itself alone
+  // (role, PIN, theme, text size, email-notify preference all survive).
+  async resetAccount(actorId: string, familyId: string, targetId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+
+    const isSelf = actorId === targetId;
+    const allowed = isSelf || target.role === 'KID' || actor.role === 'OWNER';
+    if (!allowed) throw new ForbiddenException('Not allowed to reset this member');
+
+    await this.prisma.$transaction([
+      this.prisma.tokenLedger.deleteMany({ where: { userId: targetId } }),
+      this.prisma.redemption.deleteMany({ where: { userId: targetId } }),
+      this.prisma.notification.deleteMany({ where: { userId: targetId } }),
+    ]);
+    return { ok: true };
+  }
+
   // Owner removes a member. Cleans up rows that would otherwise block the delete
   // (chores reference users without cascade). Can't remove yourself or the owner.
   async remove(actorId: string, familyId: string, targetId: string) {

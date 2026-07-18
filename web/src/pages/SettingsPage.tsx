@@ -125,6 +125,7 @@ function TokenNameSetting() {
               step={0.01}
               value={valueUsd}
               onChange={(e) => setValueUsd(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
               className="w-24 rounded border px-3 py-1.5 text-sm"
             />
           </Field>

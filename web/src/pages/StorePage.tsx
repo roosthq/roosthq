@@ -534,7 +534,7 @@ function PrizeForm({
           <div className="flex gap-3">
             <label className="flex-1 text-sm">
               <span className="text-slate-500">Real price (hidden from kids)</span>
-              <input className={input} type="number" min={0} value={realPrice} onChange={(e) => onRealPriceChange(e.target.value)} />
+              <input className={input} type="number" min={0} value={realPrice} onChange={(e) => onRealPriceChange(e.target.value)} onFocus={(e) => e.target.select()} />
             </label>
             <label className="flex-1 text-sm">
               <span className="text-slate-500">Token cost</span>
@@ -547,6 +547,7 @@ function PrizeForm({
                   setTokenCostTouched(true);
                   setTokenCost(Math.floor(Number(e.target.value) || 0));
                 }}
+                onFocus={(e) => e.target.select()}
               />
             </label>
           </div>
