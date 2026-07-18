@@ -168,6 +168,30 @@ export interface AppNotification {
   user?: { id: string; displayName: string }; // present in the family-wide activity view
 }
 
+export interface Rule {
+  id: string;
+  text: string;
+  targetUserId: string | null; // null = shared, visible to every kid
+  targetUserName: string | null;
+  createdAt: string;
+}
+
+export interface AwardCatalogItem {
+  id: string;
+  name: string;
+  icon: string | null;
+  description: string | null;
+  grantCount: number;
+}
+
+export interface EarnedAward {
+  id: string;
+  name: string;
+  icon: string | null;
+  description: string | null;
+  count: number;
+}
+
 export interface DisplayTokenInfo {
   id: string;
   label?: string;
@@ -434,6 +458,23 @@ export const api = {
   unreadNotificationCount: () => req<{ count: number }>('/notifications/unread-count'),
   markNotificationRead: (id: string) => req(`/notifications/${id}/read`, { method: 'POST' }),
   markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
+
+  rules: () => req<Rule[]>('/rules'),
+  createRule: (body: { text: string; targetUserId?: string | null }) =>
+    req<Rule>('/rules', { method: 'POST', body: JSON.stringify(body) }),
+  updateRule: (id: string, body: Partial<{ text: string; targetUserId: string | null }>) =>
+    req<Rule>(`/rules/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteRule: (id: string) => req(`/rules/${id}`, { method: 'DELETE' }),
+
+  awardsCatalog: () => req<AwardCatalogItem[]>('/awards'),
+  earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
+  createAward: (body: { name: string; icon?: string; description?: string }) =>
+    req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }),
+  updateAward: (id: string, body: Partial<{ name: string; icon: string; description: string }>) =>
+    req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
+  grantAward: (id: string, body: { userId: string; note?: string }) =>
+    req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

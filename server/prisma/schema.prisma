@@ -47,6 +47,7 @@ enum NotificationType {
   REDEMPTION_REJECTED
   PRIZE_SUGGESTED // kid submitted a wishlist item
   CALENDAR_EVENT_ADDED
+  AWARD_GRANTED
 }
 
 enum PrizeType {
@@ -82,6 +83,8 @@ model Family {
   calendars       Calendar[]
   chores          Chore[]
   prizes          Prize[]
+  rules           Rule[]
+  awards          Award[]
   displaySettings DisplaySettings?
   displayTokens   DisplayToken[]
   displayConfigs  DisplayConfig[]
@@ -210,6 +213,11 @@ model User {
   redemptions       Redemption[]
   createdPrizes     Prize[]            @relation("PrizeCreatedBy")
   suggestedPrizes   Prize[]            @relation("PrizeSuggestedBy")
+  rulesForMe        Rule[]             @relation("RuleTarget")
+  rulesCreated      Rule[]             @relation("RuleCreatedBy")
+  createdAwards     Award[]            @relation("AwardCreatedBy")
+  awardsReceived    AwardGrant[]       @relation("AwardGrantUser")
+  awardsGranted     AwardGrant[]       @relation("AwardGrantedBy")
   notifications     Notification[]
   pushSubscriptions PushSubscription[]
 
@@ -392,6 +400,65 @@ model TokenLedger {
   user      User @relation("LedgerUser", fields: [userId], references: [id], onDelete: Cascade)
   createdBy User @relation("LedgerCreatedBy", fields: [createdById], references: [id])
 
+  @@index([userId])
+}
+
+// ---------- Rules ----------
+
+// Plain reference text, not tied to tokens/chores — a shared house-rules
+// entry (targetUserId null, visible to every kid) or one adult wrote for a
+// specific kid (visible only to that kid, plus every adult).
+model Rule {
+  id           String   @id @default(cuid())
+  familyId     String
+  targetUserId String?
+  text         String   @db.Text
+  createdById  String
+  createdAt    DateTime @default(now())
+
+  family     Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  targetUser User?  @relation("RuleTarget", fields: [targetUserId], references: [id], onDelete: Cascade)
+  createdBy  User   @relation("RuleCreatedBy", fields: [createdById], references: [id])
+
+  @@index([familyId])
+}
+
+// ---------- Awards ----------
+
+// A pre-created award "type" (e.g. "Good Sport", "Extra Kind") an adult can
+// hand out over and over. Kids only ever see the ones they've actually been
+// given — the catalog itself is adults-only, so a surprise stays a surprise.
+model Award {
+  id          String   @id @default(cuid())
+  familyId    String
+  name        String
+  icon        String? // emoji
+  description String?  @db.Text
+  createdById String
+  createdAt   DateTime @default(now())
+
+  family    Family       @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  createdBy User         @relation("AwardCreatedBy", fields: [createdById], references: [id])
+  grants    AwardGrant[]
+
+  @@index([familyId])
+}
+
+// One instance of an award being given to a kid — repeatable, so the same
+// Award can have many grants for the same user (the count is just how many).
+model AwardGrant {
+  id          String   @id @default(cuid())
+  awardId     String
+  userId      String
+  grantedById String
+  note        String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  award     Award @relation(fields: [awardId], references: [id], onDelete: Cascade)
+  user      User  @relation("AwardGrantUser", fields: [userId], references: [id], onDelete: Cascade)
+  grantedBy User  @relation("AwardGrantedBy", fields: [grantedById], references: [id])
+
+  @@index([awardId])
   @@index([userId])
 }
 

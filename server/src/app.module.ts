@@ -13,6 +13,8 @@ import { FamilyModule } from './family/family.module';
 import { TokensModule } from './tokens/tokens.module';
 import { PrizesModule } from './prizes/prizes.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { RulesModule } from './rules/rules.module';
+import { AwardsModule } from './awards/awards.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { NotificationsModule } from './notifications/notifications.module';
     TokensModule,
     PrizesModule,
     NotificationsModule,
+    RulesModule,
+    AwardsModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

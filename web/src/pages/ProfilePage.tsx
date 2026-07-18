@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api, COLOR_THEMES, type Me, type Member, type LedgerEntry, type Redemption } from '../api';
+import { api, COLOR_THEMES, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import TokenBadge from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
@@ -37,6 +37,7 @@ export default function ProfilePage({
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [history, setHistory] = useState<Redemption[]>([]);
+  const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
   const [settingPin, setSettingPin] = useState(false);
@@ -54,7 +55,11 @@ export default function ProfilePage({
     setHistory(r);
     // Everyone (kids included) can browse all family profiles, same as adults.
     api.listUsers().then(setMembers).catch(() => setMembers([]));
-  }, [targetId]);
+    // A kid can only ever see their own earned awards (server enforces this
+    // too) — skip the call rather than surface a 403 when browsing a sibling.
+    if (isAdult || viewingSelf) api.earnedAwards(targetId).then(setAwards).catch(() => setAwards([]));
+    else setAwards([]);
+  }, [targetId, isAdult, viewingSelf]);
 
   useEffect(() => {
     refresh();
@@ -126,6 +131,21 @@ export default function ProfilePage({
         <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
         <Stat label={`${chorePlural} approved`} value={choresDone} />
       </div>
+
+      {(isAdult || viewingSelf) && awards.length > 0 && (
+        <section className="mt-6">
+          <h3 className="text-sm font-semibold">🏆 Awards</h3>
+          <ul className="mt-2 flex flex-wrap gap-3">
+            {awards.map((a) => (
+              <li key={a.id} className="flex items-center gap-2 rounded border px-3 py-2" title={a.description ?? undefined}>
+                <span className="text-xl">{a.icon || '🏆'}</span>
+                <span className="text-sm font-medium">{a.name}</span>
+                {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {canManagePin && (
         <section className="mt-6 rounded border p-3">
