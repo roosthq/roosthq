@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api, COLOR_THEMES, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { AwardIcon } from './AwardsPage';
 import TokenBadge from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
@@ -138,7 +139,7 @@ export default function ProfilePage({
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
               <li key={a.id} className="flex items-center gap-2 rounded border px-3 py-2" title={a.description ?? undefined}>
-                <span className="text-xl">{a.icon || '🏆'}</span>
+                <AwardIcon icon={a.icon} size="text-xl" />
                 <span className="text-sm font-medium">{a.name}</span>
                 {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
               </li>

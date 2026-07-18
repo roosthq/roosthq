@@ -1,6 +1,49 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type AwardCatalogItem, type Member } from '../api';
 import { useDialog } from '../Dialog';
+
+// Curated, kid-friendly picks — not exhaustive (anyone can still type any
+// emoji into the text field), just a fast default set.
+const EMOJI_OPTIONS = [
+  '🏆', '🥇', '🥈', '🥉', '🏅', '🎖️', '⭐', '🌟', '✨', '💫',
+  '🔥', '💪', '👏', '🙌', '🤝', '❤️', '🎉', '🎈', '🎁', '👑',
+  '🦸', '🦸‍♀️', '🦸‍♂️', '🚀', '🌈', '☀️', '🐾', '📚', '🎨', '⚽',
+  '😇', '😎', '🥳', '💯', '✅', '🧹', '🍽️', '🛏️', '🌱', '🎯',
+];
+
+// Icons are either a short emoji string or an uploaded image (data: URI) —
+// render whichever one it is consistently wherever an award shows up.
+export function AwardIcon({ icon, size = 'text-2xl' }: { icon: string | null; size?: string }) {
+  if (icon?.startsWith('data:')) return <img src={icon} alt="" className="h-7 w-7 rounded object-cover" />;
+  return <span className={size}>{icon || '🏆'}</span>;
+}
+
+// Square, fixed-size icons so the catalog and profile grids line up no
+// matter what someone uploads — center-crop to square, then downscale.
+function resizeSquareIconFile(file: File, dim = 128): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error ?? new Error('Could not read file'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Could not read that image'));
+      img.onload = () => {
+        const side = Math.min(img.width, img.height);
+        const sx = (img.width - side) / 2;
+        const sy = (img.height - side) / 2;
+        const canvas = document.createElement('canvas');
+        canvas.width = dim;
+        canvas.height = dim;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return reject(new Error('Canvas not supported'));
+        ctx.drawImage(img, sx, sy, side, side, 0, 0, dim, dim);
+        resolve(canvas.toDataURL('image/png'));
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 // Adults-only: create/manage the award catalog and hand awards out. Kids
 // never see this page (Nav hides the link) or the catalog — only what
@@ -51,7 +94,7 @@ export default function AwardsPage() {
           <li key={a.id} className="rounded border p-3">
             <div className="flex items-start justify-between gap-2">
               <span className="flex min-w-0 items-center gap-2">
-                <span className="text-2xl">{a.icon || '🏆'}</span>
+                <AwardIcon icon={a.icon} size="text-2xl" />
                 <span className="min-w-0 break-words font-medium">{a.name}</span>
               </span>
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
@@ -118,13 +161,29 @@ function AwardForm({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const { alert } = useDialog();
   const [name, setName] = useState(award?.name ?? '');
   const [icon, setIcon] = useState(award?.icon ?? '');
+  const [iconMode, setIconMode] = useState<'emoji' | 'upload'>(award?.icon?.startsWith('data:') ? 'upload' : 'emoji');
+  const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState(award?.description ?? '');
+
+  async function onFile(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      setIcon(await resizeSquareIconFile(file));
+    } catch {
+      await alert('Could not read that image.');
+    } finally {
+      setUploading(false);
+    }
+  }
 
   async function submit() {
     if (!name.trim()) return;
-    const body = { name: name.trim(), icon: icon.trim() || undefined, description: description.trim() || undefined };
+    const body = { name: name.trim(), icon: icon.trim(), description: description.trim() || undefined };
     if (award) await api.updateAward(award.id, body);
     else await api.createAward(body);
     onSaved();
@@ -133,11 +192,61 @@ function AwardForm({
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-5">
+      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
         <h3 className="text-lg font-semibold">{award ? 'Edit award' : 'Add award'}</h3>
         <div className="mt-3 space-y-3">
           <input autoFocus className={input} placeholder="Name, e.g. Good Sport" value={name} onChange={(e) => setName(e.target.value)} />
-          <input className={input} placeholder="Emoji (optional), e.g. 🏆" value={icon} onChange={(e) => setIcon(e.target.value)} />
+
+          <div>
+            <span className="text-sm text-slate-500">Icon</span>
+            <div className="mt-1 flex items-center gap-3 text-sm">
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={iconMode === 'emoji'} onChange={() => setIconMode('emoji')} />
+                Emoji
+              </label>
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={iconMode === 'upload'} onChange={() => setIconMode('upload')} />
+                Upload image
+              </label>
+              <span className="ml-auto flex h-8 w-8 items-center justify-center rounded border">
+                <AwardIcon icon={icon} />
+              </span>
+            </div>
+
+            {iconMode === 'emoji' ? (
+              <>
+                <div className="mt-2 grid grid-cols-10 gap-1">
+                  {EMOJI_OPTIONS.map((e) => (
+                    <button
+                      key={e}
+                      type="button"
+                      onClick={() => setIcon(e)}
+                      className={`flex h-8 w-8 items-center justify-center rounded text-lg hover:bg-slate-100 ${
+                        icon === e ? 'bg-slate-800' : ''
+                      }`}
+                    >
+                      {e}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  className={`${input} mt-2`}
+                  placeholder="Or type any emoji"
+                  value={icon.startsWith('data:') ? '' : icon}
+                  onChange={(e) => setIcon(e.target.value)}
+                />
+              </>
+            ) : (
+              <div className="mt-2">
+                <input type="file" accept="image/*" onChange={onFile} className="block text-sm" />
+                <p className="mt-1 text-xs text-slate-400">
+                  Ideal size: 128×128px, square — anything else gets center-cropped to a square automatically.
+                </p>
+                {uploading && <p className="mt-1 text-xs text-slate-400">Processing image…</p>}
+              </div>
+            )}
+          </div>
+
           <textarea
             className={input}
             placeholder="Description (optional)"
@@ -192,8 +301,9 @@ function GrantModal({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
       <div className="w-full max-w-sm rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">
-          Give "{award.name}" {award.icon}
+        <h3 className="flex items-center gap-2 text-lg font-semibold">
+          <AwardIcon icon={award.icon} />
+          Give "{award.name}"
         </h3>
         <div className="mt-3 space-y-3">
           <label className="block text-sm">

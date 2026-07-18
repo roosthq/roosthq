@@ -432,7 +432,7 @@ model Award {
   id          String   @id @default(cuid())
   familyId    String
   name        String
-  icon        String? // emoji
+  icon        String?  @db.Text // emoji, or an uploaded icon as a data: URI
   description String?  @db.Text
   createdById String
   createdAt   DateTime @default(now())
