@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -119,6 +120,10 @@ function firstDueDate(
   return dueInstant(todayKeyInZone(tz), dto.dueTime, tz);
 }
 
+type StaleInstance = Prisma.ChoreInstanceGetPayload<{
+  include: { chore: { include: { assignees: true; location: true } } };
+}>;
+
 const CHORE_INCLUDE = {
   checklist: { orderBy: { sort: 'asc' as const } },
   assignees: { include: { user: { select: { id: true, displayName: true, avatar: true } } } },
@@ -214,34 +219,87 @@ export class ChoresService {
     return this.prisma.chore.findMany({ where: { familyId }, include: CHORE_INCLUDE });
   }
 
-  // No cron: this runs whenever anyone loads chores. Any OPEN instance whose due
-  // date has fully passed, on a chore that doesn't allow late credit, forfeits its
-  // reward (-> MISSED) and — since the next occurrence otherwise only ever gets
-  // created on approval — spawns the next one so the schedule doesn't freeze.
-  //
-  // dueDate is already a precise, zone-correct absolute instant (computed via
-  // dueInstant() when it was set), so "dueDate < now" needs no further
-  // per-instance zone handling — comparing two absolute instants is
-  // zone-agnostic by construction.
+  // Runs whenever anyone loads chores, as a belt-and-suspenders alongside the
+  // timer-based sweep below (pollDueDates) — so a family whose app instance
+  // somehow missed a poll still self-heals the moment someone opens the page.
   private async sweepMissed(familyId: string) {
     const stale = await this.prisma.choreInstance.findMany({
       where: { status: 'OPEN', dueDate: { lt: new Date() }, chore: { familyId, allowLate: false } },
       include: { chore: { include: { assignees: true, location: true } } },
     });
-    for (const inst of stale) {
-      await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
-      if (inst.chore.currentStreak !== 0) {
-        await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
-      }
+    for (const inst of stale) await this.markMissedAndAdvance(inst);
+  }
+
+  // Any OPEN instance whose due date has fully passed, on a chore that doesn't
+  // allow late credit, forfeits its reward (-> MISSED) and — since the next
+  // occurrence otherwise only ever gets created on approval — spawns the next
+  // one so the schedule doesn't freeze.
+  //
+  // dueDate is already a precise, zone-correct absolute instant (computed via
+  // dueInstant() when it was set), so "dueDate < now" needs no further
+  // per-instance zone handling — comparing two absolute instants is
+  // zone-agnostic by construction.
+  private async markMissedAndAdvance(inst: StaleInstance) {
+    await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
+    if (inst.chore.currentStreak !== 0) {
+      await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
+    }
+    const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
+    await Promise.all(
+      recipients.map((uid) =>
+        this.notifications.create(inst.chore.familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
+      ),
+    );
+    const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
+  }
+
+  // Warning thresholds (minutes before due) — 2h, then hourly, then 30/15min,
+  // then CHORE_MISSED (see markMissedAndAdvance) tells them they blew it.
+  private static readonly DUE_SOON_THRESHOLDS = [120, 60, 30, 15];
+
+  private dueSoonLabel(minutes: number): string {
+    return minutes >= 60 ? `${minutes / 60} hour${minutes === 60 ? '' : 's'}` : `${minutes} minutes`;
+  }
+
+  // Runs on a timer (no dependency on anyone having the app open) so both the
+  // missed-sweep and the due-soon warnings fire on time. See sweepMissed for
+  // why the same missed-handling also runs opportunistically per-request.
+  @Interval(60_000)
+  async pollDueDates() {
+    const now = new Date();
+    const overdue = await this.prisma.choreInstance.findMany({
+      where: { status: 'OPEN', dueDate: { lt: now }, chore: { allowLate: false } },
+      include: { chore: { include: { assignees: true, location: true } } },
+    });
+    for (const inst of overdue) await this.markMissedAndAdvance(inst);
+
+    const horizon = new Date(now.getTime() + ChoresService.DUE_SOON_THRESHOLDS[0] * 60_000);
+    const dueSoon = await this.prisma.choreInstance.findMany({
+      where: { status: 'OPEN', dueDate: { gte: now, lte: horizon } },
+      include: { chore: { include: { assignees: true } } },
+    });
+    for (const inst of dueSoon) {
+      const minutesLeft = (inst.dueDate.getTime() - now.getTime()) / 60_000;
+      const candidates = ChoresService.DUE_SOON_THRESHOLDS.filter(
+        (t) => minutesLeft <= t && (inst.warnedThreshold == null || t < inst.warnedThreshold),
+      );
+      if (!candidates.length) continue;
+      const threshold = Math.min(...candidates);
+      await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { warnedThreshold: threshold } });
       const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
       await Promise.all(
         recipients.map((uid) =>
-          this.notifications.create(familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
+          this.notifications.create(
+            inst.chore.familyId,
+            uid,
+            'CHORE_DUE_SOON',
+            `"${inst.chore.title}" is due in ${this.dueSoonLabel(threshold)}`,
+            { link: '/chores' },
+          ),
         ),
       );
-      const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
-      if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
     }
   }
 

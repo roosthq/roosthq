@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { PrismaService } from './prisma.service';
 import { HealthController } from './health/health.controller';
 import { AuthModule } from './auth/auth.module';
@@ -15,6 +16,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     AuthModule,
     CalendarsModule,
     DisplayModule,

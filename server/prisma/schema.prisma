@@ -40,6 +40,7 @@ enum NotificationType {
   CHORE_APPROVED
   CHORE_REJECTED
   CHORE_MISSED
+  CHORE_DUE_SOON
   STREAK_BONUS
   REDEMPTION_REQUESTED
   REDEMPTION_FULFILLED
@@ -355,6 +356,7 @@ model ChoreInstance {
   completedAt     DateTime?
   approvedBy      String?
   claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
+  warnedThreshold Int? // smallest due-soon minutes threshold (120/60/30/15) already notified
 
   chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks ChoreItemCheck[]

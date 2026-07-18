@@ -9,6 +9,7 @@ const TYPE_ICON: Record<string, string> = {
   CHORE_APPROVED: '✅',
   CHORE_REJECTED: '↩️',
   CHORE_MISSED: '⚠️',
+  CHORE_DUE_SOON: '⏰',
   STREAK_BONUS: '🔥',
   REDEMPTION_REQUESTED: '🎁',
   REDEMPTION_FULFILLED: '✅',
