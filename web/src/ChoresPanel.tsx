@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient } from './api';
+import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
 import TokenBadge from './TokenBadge';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
+import { myLocationIds } from './displayScope';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -104,6 +105,8 @@ export default function ChoresPanel({
   const [chores, setChores] = useState<Chore[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [balances, setBalances] = useState<Balance[]>([]);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [householdTab, setHouseholdTab] = useState('');
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const [choreWord, setChoreWord] = useState('Chore');
@@ -112,10 +115,16 @@ export default function ChoresPanel({
   const chorePlural = pluralize(choreWord);
 
   const refresh = useCallback(async () => {
-    const [c, b, m] = await Promise.all([client.chores(), client.balances(), client.members().catch(() => [])]);
+    const [c, b, m, l] = await Promise.all([
+      client.chores(),
+      client.balances(),
+      client.members().catch(() => []),
+      client.locations().catch(() => []),
+    ]);
     setChores(c);
     setBalances(b);
     setMembers(m);
+    setLocations(l);
   }, [client]);
 
   useEffect(() => {
@@ -132,9 +141,25 @@ export default function ChoresPanel({
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
 
-  // A chore with no location is "global" (visible everywhere); one with a
-  // location only shows on displays scoped to that same location.
-  const scopedChores = locationId ? chores.filter((c) => !c.location || c.location.id === locationId) : chores;
+  // Kids with more than one household get tabs to filter between them (or
+  // "All"); a single-household kid or an adult never needs the tabs. The
+  // server already limits kids to their own households' chores (plus
+  // unscoped ones, plus anything actually assigned to them) — this is just
+  // the client-side split of that same set, one household at a time.
+  const myHouseholdIds = useMemo(() => new Set(myLocationIds(locations, me.id)), [locations, me.id]);
+  const myHouseholds = isAdult ? [] : locations.filter((l) => myHouseholdIds.has(l.id));
+  const showHouseholdTabs = !today && !locationId && myHouseholds.length > 1;
+
+  // A chore with no location is "global" (visible everywhere). One with a
+  // location shows only when that's the active scope — except anything
+  // actually assigned to you, which should never vanish just because you're
+  // looking at a different household's tab.
+  const activeLocationId = locationId ?? (showHouseholdTabs ? householdTab : '');
+  const scopedChores = activeLocationId
+    ? chores.filter(
+        (c) => !c.location || c.location.id === activeLocationId || c.assignees.some((a) => a.userId === me.id),
+      )
+    : chores;
 
   // Pick the actionable occurrence per chore: a pending one, else the earliest
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
@@ -227,7 +252,6 @@ export default function ChoresPanel({
             <div className="mt-0.5 flex flex-wrap items-center gap-x-1 text-xs text-slate-400">
               <span>
                 {assignmentLabel(chore, claimedBy)}
-                {chore.location ? ` · ${chore.location.name}` : ''}
                 {daysOfWeek.length ? ` · ${daysOfWeek.map((d) => DOW[d]).join(', ')}` : ''}
                 {chore.dueTime ? ` · due ${formatDueTime(chore.dueTime)}` : ''}
               </span>
@@ -242,7 +266,10 @@ export default function ChoresPanel({
               )}
             </div>
           </div>
-          <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
+          <div className="flex shrink-0 flex-col items-end gap-1">
+            <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
+            {chore.location && <span className="text-xs text-slate-400">📍 {chore.location.name}</span>}
+          </div>
         </div>
 
         {chore.checklist.length > 0 && active && (
@@ -348,6 +375,26 @@ export default function ChoresPanel({
 
   return (
     <section>
+      {showHouseholdTabs && (
+        <div className="mb-3 flex flex-wrap gap-1">
+          <button
+            onClick={() => setHouseholdTab('')}
+            className={`rounded-full border px-3 py-1 text-sm ${householdTab === '' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            All households
+          </button>
+          {myHouseholds.map((h) => (
+            <button
+              key={h.id}
+              onClick={() => setHouseholdTab(h.id)}
+              className={`rounded-full border px-3 py-1 text-sm ${householdTab === h.id ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              {h.name}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="flex items-center justify-between">
         <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
           {today ? 'Today' : chorePlural}

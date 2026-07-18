@@ -20,7 +20,7 @@ export class ChoresController {
 
   @Get()
   list(@CurrentUser() u: SessionPayload) {
-    return this.chores.list(u.familyId);
+    return this.chores.list(u.familyId, u.userId);
   }
 
   @Get('balances')
