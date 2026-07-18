@@ -1,5 +1,6 @@
 import type { Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
+import Modal from './Modal';
 
 // Every prize gets one of these — keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
@@ -79,15 +80,49 @@ export function PrizeDetailModal({
   onMarkUsed?: (redemptionId: string, used: boolean) => void;
 }) {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[85vh] w-full max-w-lg overflow-auto rounded-lg bg-white p-5">
+    <Modal
+      maxWidthClass="max-w-lg"
+      header={
         <div className="flex items-start justify-between gap-3">
           <h3 className="min-w-0 flex-1 break-words text-lg font-semibold">{prize.name}</h3>
           <button onClick={onClose} className="shrink-0 text-slate-400 hover:text-slate-700">
             ✕
           </button>
         </div>
-        <PrizeImage src={prize.image} alt={prize.name} className="mt-3 h-72 w-full rounded" />
+      }
+      footer={
+        <div className="flex justify-end gap-2">
+          {!isAdult ? (
+            <button
+              onClick={onRedeem}
+              disabled={balance < prize.tokenCost}
+              className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40"
+            >
+              {balance < prize.tokenCost ? 'Not enough' : 'Redeem'}
+            </button>
+          ) : (
+            <>
+              {onDelete && (
+                <button onClick={onDelete} className="rounded border px-4 py-1.5 text-sm text-red-500 hover:bg-red-50">
+                  Delete
+                </button>
+              )}
+              {onToggleArchive && (
+                <button onClick={onToggleArchive} className="rounded border px-4 py-1.5 text-sm hover:bg-slate-50">
+                  {prize.archived ? 'Revive' : 'Archive'}
+                </button>
+              )}
+              {onEdit && (
+                <button onClick={onEdit} className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700">
+                  Edit
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      }
+    >
+        <PrizeImage src={prize.image} alt={prize.name} className="h-72 w-full rounded" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <TokenBadge icon={tokenIcon} amount={prize.tokenCost} label={tokenName} size="lg" />
           <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
@@ -146,37 +181,6 @@ export function PrizeDetailModal({
             )}
           </div>
         )}
-
-        <div className="mt-5 flex justify-end gap-2">
-          {!isAdult ? (
-            <button
-              onClick={onRedeem}
-              disabled={balance < prize.tokenCost}
-              className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40"
-            >
-              {balance < prize.tokenCost ? 'Not enough' : 'Redeem'}
-            </button>
-          ) : (
-            <>
-              {onDelete && (
-                <button onClick={onDelete} className="rounded border px-4 py-1.5 text-sm text-red-500 hover:bg-red-50">
-                  Delete
-                </button>
-              )}
-              {onToggleArchive && (
-                <button onClick={onToggleArchive} className="rounded border px-4 py-1.5 text-sm hover:bg-slate-50">
-                  {prize.archived ? 'Revive' : 'Archive'}
-                </button>
-              )}
-              {onEdit && (
-                <button onClick={onEdit} className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700">
-                  Edit
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { EventInput, SharedCalendar } from './api';
+import Modal from './Modal';
 
 function addDays(dateStr: string, days: number): string {
   const d = new Date(`${dateStr}T00:00:00`);
@@ -78,10 +79,24 @@ export default function AddEventModal({
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">Add event</h3>
-        <div className="mt-3 space-y-2 text-sm">
+    <Modal
+      header={<h3 className="text-lg font-semibold">Add event</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button
+            onClick={save}
+            disabled={saving || !calendarId || !summary.trim()}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            {saving ? 'Adding…' : 'Add event'}
+          </button>
+        </div>
+      }
+    >
+        <div className="space-y-2 text-sm">
           <label className="block">
             <span className="text-slate-500">Calendar</span>
             <select
@@ -189,19 +204,6 @@ export default function AddEventModal({
           </label>
           {err && <p className="text-red-500">{err}</p>}
         </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
-            Cancel
-          </button>
-          <button
-            onClick={save}
-            disabled={saving || !calendarId || !summary.trim()}
-            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
-          >
-            {saving ? 'Adding…' : 'Add event'}
-          </button>
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

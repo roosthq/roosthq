@@ -3,6 +3,7 @@ import { api, type Me, type StorePrize, type Redemption, type FamilyLocation, ty
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import { useDialog } from '../Dialog';
+import Modal from '../Modal';
 
 export default function StorePage({
   me,
@@ -356,21 +357,15 @@ function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved:
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">Request a prize</h3>
-        <p className="mt-1 text-xs text-slate-400">An adult will review this and set the token cost.</p>
-        <div className="mt-3 space-y-3">
-          <input autoFocus className={input} placeholder="What do you want?" value={name} onChange={(e) => setName(e.target.value)} />
-          <textarea
-            className={input}
-            placeholder="Why / details (optional)"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <input className={input} placeholder="Link (optional)" value={url} onChange={(e) => setUrl(e.target.value)} />
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
+    <Modal
+      header={
+        <>
+          <h3 className="text-lg font-semibold">Request a prize</h3>
+          <p className="mt-1 text-xs text-slate-400">An adult will review this and set the token cost.</p>
+        </>
+      }
+      footer={
+        <div className="flex justify-end gap-2">
           <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
             Cancel
           </button>
@@ -382,8 +377,19 @@ function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved:
             {saving ? 'Sending…' : 'Send request'}
           </button>
         </div>
+      }
+    >
+      <div className="space-y-3">
+        <input autoFocus className={input} placeholder="What do you want?" value={name} onChange={(e) => setName(e.target.value)} />
+        <textarea
+          className={input}
+          placeholder="Why / details (optional)"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input className={input} placeholder="Link (optional)" value={url} onChange={(e) => setUrl(e.target.value)} />
       </div>
-    </div>
+    </Modal>
   );
 }
 
@@ -466,15 +472,29 @@ function PrizeForm({
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">{prize ? (prize.suggested ? 'Review request' : 'Edit prize') : 'Add prize'}</h3>
-        {prize?.suggested && (
-          <p className="mt-1 text-xs text-amber-600">
-            Requested by {prize.suggestedByName ?? 'a kid'} — fill in the token cost and anything else, then approve.
-          </p>
-        )}
-        <div className="mt-3 space-y-3">
+    <Modal
+      header={
+        <>
+          <h3 className="text-lg font-semibold">{prize ? (prize.suggested ? 'Review request' : 'Edit prize') : 'Add prize'}</h3>
+          {prize?.suggested && (
+            <p className="mt-1 text-xs text-amber-600">
+              Requested by {prize.suggestedByName ?? 'a kid'} — fill in the token cost and anything else, then approve.
+            </p>
+          )}
+        </>
+      }
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button onClick={submit} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+            {prize ? (prize.suggested ? 'Approve & add to store' : 'Save changes') : 'Add prize'}
+          </button>
+        </div>
+      }
+    >
+        <div className="space-y-3">
           <input className={input} placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           <textarea
             className={input}
@@ -599,15 +619,6 @@ function PrizeForm({
             </label>
           </div>
         </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
-            Cancel
-          </button>
-          <button onClick={submit} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-            {prize ? (prize.suggested ? 'Approve & add to store' : 'Save changes') : 'Add prize'}
-          </button>
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

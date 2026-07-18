@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api, type Me, type Rule, type Member } from '../api';
 import { useDialog } from '../Dialog';
+import Modal from '../Modal';
 
 export default function RulesPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
@@ -143,30 +144,10 @@ function RuleForm({
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">{rule ? 'Edit rule' : 'Add rule'}</h3>
-        <div className="mt-3 space-y-3">
-          <textarea
-            autoFocus
-            className={`${input} h-28`}
-            placeholder="e.g. No screens after 8pm on school nights"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-          <label className="block text-sm">
-            <span className="text-slate-500">Who's this for?</span>
-            <select className={`${input} mt-1`} value={targetUserId} onChange={(e) => setTargetUserId(e.target.value)}>
-              <option value="">Everyone</option>
-              {kids.map((k) => (
-                <option key={k.id} value={k.id}>
-                  {k.displayName}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
+    <Modal
+      header={<h3 className="text-lg font-semibold">{rule ? 'Edit rule' : 'Add rule'}</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
           <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
             Cancel
           </button>
@@ -178,7 +159,28 @@ function RuleForm({
             {rule ? 'Save changes' : 'Add rule'}
           </button>
         </div>
+      }
+    >
+      <div className="space-y-3">
+        <textarea
+          autoFocus
+          className={`${input} h-28`}
+          placeholder="e.g. No screens after 8pm on school nights"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <label className="block text-sm">
+          <span className="text-slate-500">Who's this for?</span>
+          <select className={`${input} mt-1`} value={targetUserId} onChange={(e) => setTargetUserId(e.target.value)}>
+            <option value="">Everyone</option>
+            {kids.map((k) => (
+              <option key={k.id} value={k.id}>
+                {k.displayName}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
-    </div>
+    </Modal>
   );
 }

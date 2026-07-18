@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react';
+import Modal from './Modal';
 
 interface AlertRequest {
   kind: 'alert';
@@ -84,11 +85,12 @@ export function DialogProvider({ children }: { children: ReactNode }) {
     <DialogContext.Provider value={api}>
       {children}
       {request && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="max-h-[85vh] w-full max-w-sm overflow-y-auto rounded-lg bg-white p-5">
-            {request.title && <h3 className="text-lg font-semibold">{request.title}</h3>}
-            <p className={`text-sm text-slate-600 ${request.title ? 'mt-2' : ''}`}>{request.message}</p>
-            <div className="mt-4 flex justify-end gap-2">
+        <Modal
+          className="z-50"
+          maxWidthClass="max-w-sm"
+          header={request.title && <h3 className="text-lg font-semibold">{request.title}</h3>}
+          footer={
+            <div className="flex justify-end gap-2">
               {request.kind === 'confirm' && (
                 <button onClick={handleCancel} className="rounded border px-4 py-1.5 text-sm hover:bg-slate-50">
                   Cancel
@@ -104,8 +106,10 @@ export function DialogProvider({ children }: { children: ReactNode }) {
                 {request.kind === 'confirm' ? request.confirmLabel ?? 'OK' : 'OK'}
               </button>
             </div>
-          </div>
-        </div>
+          }
+        >
+          <p className="text-sm text-slate-600">{request.message}</p>
+        </Modal>
       )}
     </DialogContext.Provider>
   );

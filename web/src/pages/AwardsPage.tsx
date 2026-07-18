@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type AwardCatalogItem, type Member } from '../api';
 import { useDialog } from '../Dialog';
+import Modal from '../Modal';
 
 // Curated, kid-friendly picks — not exhaustive (anyone can still type any
 // emoji into the text field), just a fast default set.
@@ -191,10 +192,24 @@ function AwardForm({
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
-        <h3 className="text-lg font-semibold">{award ? 'Edit award' : 'Add award'}</h3>
-        <div className="mt-3 space-y-3">
+    <Modal
+      header={<h3 className="text-lg font-semibold">{award ? 'Edit award' : 'Add award'}</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button
+            onClick={submit}
+            disabled={!name.trim()}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            {award ? 'Save changes' : 'Add award'}
+          </button>
+        </div>
+      }
+    >
+        <div className="space-y-3">
           <input autoFocus className={input} placeholder="Name, e.g. Good Sport" value={name} onChange={(e) => setName(e.target.value)} />
 
           <div>
@@ -254,20 +269,7 @@ function AwardForm({
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div className="mt-4 flex justify-end gap-2">
-          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
-            Cancel
-          </button>
-          <button
-            onClick={submit}
-            disabled={!name.trim()}
-            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
-          >
-            {award ? 'Save changes' : 'Add award'}
-          </button>
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }
 
@@ -299,27 +301,16 @@ function GrantModal({
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-sm rounded-lg bg-white p-5">
+    <Modal
+      maxWidthClass="max-w-sm"
+      header={
         <h3 className="flex items-center gap-2 text-lg font-semibold">
           <AwardIcon icon={award.icon} />
           Give "{award.name}"
         </h3>
-        <div className="mt-3 space-y-3">
-          <label className="block text-sm">
-            <span className="text-slate-500">To</span>
-            <select className={`${input} mt-1`} value={userId} onChange={(e) => setUserId(e.target.value)}>
-              {kids.map((k) => (
-                <option key={k.id} value={k.id}>
-                  {k.displayName}
-                </option>
-              ))}
-            </select>
-            {kids.length === 0 && <p className="mt-1 text-xs text-red-500">No kids in the family yet.</p>}
-          </label>
-          <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
-        </div>
-        <div className="mt-4 flex justify-end gap-2">
+      }
+      footer={
+        <div className="flex justify-end gap-2">
           <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
             Cancel
           </button>
@@ -331,7 +322,22 @@ function GrantModal({
             {saving ? 'Giving…' : 'Give it'}
           </button>
         </div>
+      }
+    >
+      <div className="space-y-3">
+        <label className="block text-sm">
+          <span className="text-slate-500">To</span>
+          <select className={`${input} mt-1`} value={userId} onChange={(e) => setUserId(e.target.value)}>
+            {kids.map((k) => (
+              <option key={k.id} value={k.id}>
+                {k.displayName}
+              </option>
+            ))}
+          </select>
+          {kids.length === 0 && <p className="mt-1 text-xs text-red-500">No kids in the family yet.</p>}
+        </label>
+        <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
-    </div>
+    </Modal>
   );
 }

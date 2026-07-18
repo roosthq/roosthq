@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api, loginUrl, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
 import Calendar from '../Calendar';
 import AddEventModal from '../AddEventModal';
+import Modal from '../Modal';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 
 function Avatar({ name, src }: { name?: string; src?: string }) {
@@ -281,30 +282,15 @@ export default function CalendarPage({ me }: { me: Me }) {
       )}
 
       {picker && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-          <div className="max-h-[80vh] w-full max-w-md overflow-auto rounded-lg bg-white p-5">
-            <h3 className="text-lg font-semibold">Add or remove calendars</h3>
-            <p className="mt-1 text-xs text-slate-400">Checked = shared with the family. Uncheck one to remove it.</p>
-            <ul className="mt-3 space-y-1">
-              {picker.map((c) => (
-                <li key={c.googleCalendarId} className="flex items-center gap-3 py-1">
-                  <input
-                    type="checkbox"
-                    checked={picked.has(c.googleCalendarId)}
-                    onChange={(e) => {
-                      const next = new Set(picked);
-                      if (e.target.checked) next.add(c.googleCalendarId);
-                      else next.delete(c.googleCalendarId);
-                      setPicked(next);
-                    }}
-                  />
-                  <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-                  <span>{c.name}</span>
-                  {c.primary && <span className="text-xs text-slate-400">primary</span>}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 flex justify-end gap-2">
+        <Modal
+          header={
+            <>
+              <h3 className="text-lg font-semibold">Add or remove calendars</h3>
+              <p className="mt-1 text-xs text-slate-400">Checked = shared with the family. Uncheck one to remove it.</p>
+            </>
+          }
+          footer={
+            <div className="flex justify-end gap-2">
               <button onClick={() => setPicker(null)} className="rounded border px-3 py-1.5 text-sm">
                 Cancel
               </button>
@@ -312,8 +298,28 @@ export default function CalendarPage({ me }: { me: Me }) {
                 Save changes
               </button>
             </div>
-          </div>
-        </div>
+          }
+        >
+          <ul className="space-y-1">
+            {picker.map((c) => (
+              <li key={c.googleCalendarId} className="flex items-center gap-3 py-1">
+                <input
+                  type="checkbox"
+                  checked={picked.has(c.googleCalendarId)}
+                  onChange={(e) => {
+                    const next = new Set(picked);
+                    if (e.target.checked) next.add(c.googleCalendarId);
+                    else next.delete(c.googleCalendarId);
+                    setPicked(next);
+                  }}
+                />
+                <span className="h-3 w-3 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+                <span>{c.name}</span>
+                {c.primary && <span className="text-xs text-slate-400">primary</span>}
+              </li>
+            ))}
+          </ul>
+        </Modal>
       )}
     </div>
   );

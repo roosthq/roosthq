@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient } from './api';
 import TokenBadge from './TokenBadge';
 import { useDialog } from './Dialog';
+import Modal from './Modal';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -504,10 +505,20 @@ function ChoreForm({
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="max-h-[88vh] w-full max-w-md overflow-auto rounded-xl bg-white p-5">
-        <h3 className="text-lg font-bold">{chore ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>
-        <div className="mt-4 space-y-4">
+    <Modal
+      header={<h3 className="text-lg font-bold">{chore ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button onClick={submit} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+            {chore ? 'Save changes' : `Create ${choreWord}`}
+          </button>
+        </div>
+      }
+    >
+        <div className="space-y-4">
           <Field label={`${choreWord} name`}>
             <input className="w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. Take out the trash" value={title} onChange={(e) => setTitle(e.target.value)} />
           </Field>
@@ -661,16 +672,6 @@ function ChoreForm({
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />
           </Field>
         </div>
-
-        <div className="mt-5 flex justify-end gap-2">
-          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
-            Cancel
-          </button>
-          <button onClick={submit} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-            {chore ? 'Save changes' : `Create ${choreWord}`}
-          </button>
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 }

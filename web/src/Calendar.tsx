@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CalEvent } from './api';
+import Modal from './Modal';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -237,8 +238,10 @@ export default function Calendar({
       </div>
 
       {selected && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4" onClick={() => setSelected(null)}>
-          <div className="max-h-[80vh] w-full max-w-lg overflow-auto rounded-lg bg-white p-5" onClick={(e) => e.stopPropagation()}>
+        <Modal
+          maxWidthClass="max-w-lg"
+          onBackdropClick={() => setSelected(null)}
+          header={
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold">
                 {new Date(`${selected}T00:00:00`).toLocaleDateString(undefined, {
@@ -249,26 +252,27 @@ export default function Calendar({
               </h3>
               <button onClick={() => setSelected(null)} className="text-slate-400 hover:text-slate-700">✕</button>
             </div>
-            <ul className="mt-3 space-y-2">
-              {selectedEvents.map((e) => (
-                <li key={`${e.uid}-detail`} className="flex gap-3 rounded border p-3">
-                  <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
-                  <div className="min-w-0">
-                    <div className="font-medium">{e.title ?? '(no title)'}</div>
-                    <div className="text-sm text-slate-500">
-                      {timeLabel(e)}
-                      {e.location ? ` · ${e.location}` : ''}
-                    </div>
-                    {e.description && <div className="mt-1 text-sm text-slate-600 whitespace-pre-wrap break-words">{e.description}</div>}
-                    {e.ownerName && <div className="text-xs text-slate-400">{e.ownerName}</div>}
-                    {e.addedByName && <div className="text-xs text-slate-400">Added by {e.addedByName}</div>}
+          }
+        >
+          <ul className="space-y-2">
+            {selectedEvents.map((e) => (
+              <li key={`${e.uid}-detail`} className="flex gap-3 rounded border p-3">
+                <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
+                <div className="min-w-0">
+                  <div className="font-medium">{e.title ?? '(no title)'}</div>
+                  <div className="text-sm text-slate-500">
+                    {timeLabel(e)}
+                    {e.location ? ` · ${e.location}` : ''}
                   </div>
-                </li>
-              ))}
-              {selectedEvents.length === 0 && <li className="text-sm text-slate-400">No events this day.</li>}
-            </ul>
-          </div>
-        </div>
+                  {e.description && <div className="mt-1 text-sm text-slate-600 whitespace-pre-wrap break-words">{e.description}</div>}
+                  {e.ownerName && <div className="text-xs text-slate-400">{e.ownerName}</div>}
+                  {e.addedByName && <div className="text-xs text-slate-400">Added by {e.addedByName}</div>}
+                </div>
+              </li>
+            ))}
+            {selectedEvents.length === 0 && <li className="text-sm text-slate-400">No events this day.</li>}
+          </ul>
+        </Modal>
       )}
     </section>
   );
