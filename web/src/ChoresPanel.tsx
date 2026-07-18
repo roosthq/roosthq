@@ -150,16 +150,13 @@ export default function ChoresPanel({
   const myHouseholds = isAdult ? [] : locations.filter((l) => myHouseholdIds.has(l.id));
   const showHouseholdTabs = !today && !locationId && myHouseholds.length > 1;
 
-  // A chore with no location is "global" (visible everywhere). One with a
-  // location shows only when that's the active scope — except anything
-  // actually assigned to you, which should never vanish just because you're
-  // looking at a different household's tab.
+  // A chore with no location is "global" (visible everywhere); one with a
+  // location only shows when that's the active scope. Picking "All
+  // households" (or having just one) drops this filter entirely — that's
+  // still where anything assigned to you at a household you're not in shows
+  // up (the server includes it; a single household tab intentionally won't).
   const activeLocationId = locationId ?? (showHouseholdTabs ? householdTab : '');
-  const scopedChores = activeLocationId
-    ? chores.filter(
-        (c) => !c.location || c.location.id === activeLocationId || c.assignees.some((a) => a.userId === me.id),
-      )
-    : chores;
+  const scopedChores = activeLocationId ? chores.filter((c) => !c.location || c.location.id === activeLocationId) : chores;
 
   // Pick the actionable occurrence per chore: a pending one, else the earliest
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
@@ -221,13 +218,15 @@ export default function ChoresPanel({
 
   type Row = (typeof rows)[number];
 
-  // Grouped by person so a family with several kids can see who has what at a
-  // glance — plus an "Open to anyone" bucket for claimable chores. A chore with
-  // multiple assignees shows up under each of them. Empty groups are hidden.
+  // Adults get the full roster grouped by person, so they can see who has
+  // what at a glance. A kid only ever gets their own group — a kid isn't
+  // meant to browse siblings' assignments, just what's theirs to do plus
+  // whatever's open to claim. A chore with multiple assignees shows up under
+  // each of them (or just this kid, if that's the only one they can see).
   const groups = today
     ? []
     : [
-        ...members.map((m) => ({
+        ...(isAdult ? members : members.filter((m) => m.id === me.id)).map((m) => ({
           key: m.id,
           label: m.displayName,
           rows: rows.filter((r) => r.chore.assignmentType === 'SPECIFIC' && r.chore.assignees.some((a) => a.userId === m.id)),
@@ -400,7 +399,7 @@ export default function ChoresPanel({
           {today ? 'Today' : chorePlural}
         </h2>
         <div className="flex items-center gap-2">
-          {!today && members.length > 0 && (
+          {!today && isAdult && members.length > 0 && (
             <select
               value={personFilter}
               onChange={(e) => setPersonFilter(e.target.value)}
@@ -448,7 +447,7 @@ export default function ChoresPanel({
               <ul className="mt-2 space-y-3">{g.rows.map(renderRow)}</ul>
             </div>
           ))}
-          {rows.length === 0 && <p className="text-sm text-slate-400">No {chorePlural.toLowerCase()} yet.</p>}
+          {groups.length === 0 && <p className="text-sm text-slate-400">No {chorePlural.toLowerCase()} yet.</p>}
         </div>
       )}
 
