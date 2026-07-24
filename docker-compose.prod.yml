@@ -2,6 +2,18 @@
 # Run with:
 #   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 services:
+  # Run the compiled build directly — no dev watch-mode file-watcher in
+  # prod. That watcher restarting itself on a file change can lose the race
+  # against its own old process (both briefly fighting over :3000), leaving
+  # a stale pre-deploy process still answering requests while docker reports
+  # the container as healthy. `!reset` drops the dev bind-mount from
+  # docker-compose.yml so nothing shadows the image's baked-in dist/ —
+  # deploys are purely "rebuild the image", matching the documented `--build`
+  # flow exactly, just without the fragile live-reload underneath it.
+  server:
+    command: npm run start:prod
+    volumes: !reset []
+
   # Serve the built frontend (instead of the Vite dev server).
   web:
     command: sh -c "npm run build && npx vite preview --host --port 5173"

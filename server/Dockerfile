@@ -16,7 +16,13 @@ RUN npx prisma generate
 
 COPY . .
 
+# Built unconditionally so the image always has a usable dist/ — dev
+# (docker-compose.yml's default) ignores it and runs off the bind-mounted
+# source instead; prod (docker-compose.prod.yml) overrides CMD to run this
+# build directly, no live file-watcher in the loop to race with itself.
+RUN npm run build
+
 EXPOSE 3000
 
-# Dev by default; override for prod with: npm run build && npm run start:prod
+# Dev by default; docker-compose.prod.yml overrides this to `npm run start:prod`.
 CMD ["npm", "run", "start:dev"]
