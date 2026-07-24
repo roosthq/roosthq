@@ -4,6 +4,7 @@ import { api, COLOR_THEMES, ROLE_ICON, type Me, type Member, type LedgerEntry, t
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
+import { useDialog } from '../Dialog';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -32,7 +33,9 @@ export default function ProfilePage({
   const { id } = useParams();
   const targetId = id ?? me.id;
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isOwner = me.role === 'OWNER';
   const viewingSelf = targetId === me.id;
+  const { confirm } = useDialog();
 
   const [members, setMembers] = useState<Member[]>([]);
   const [allBalances, setAllBalances] = useState<Record<string, number>>({});
@@ -79,6 +82,13 @@ export default function ProfilePage({
     await api.adjustTokens({ userId: targetId, delta: sign * Math.abs(delta), reason: reason.trim() });
     setDelta(0);
     setReason('');
+    await refresh();
+  }
+
+  async function deleteEntry(l: LedgerEntry) {
+    if (!(await confirm(`Delete "${l.reason}" (${l.delta >= 0 ? '+' : ''}${l.delta})? This can't be undone.`, { danger: true, confirmLabel: 'Delete' })))
+      return;
+    await api.deleteLedgerEntry(l.id);
     await refresh();
   }
 
@@ -242,6 +252,7 @@ export default function ProfilePage({
             <li key={l.id} className="flex items-center justify-between gap-2 border-b py-1">
               <span className="min-w-0 flex-1 break-words">
                 {l.reason} <span className="text-xs text-slate-400">({l.type.toLowerCase()})</span>
+                {l.createdByName && <span className="text-xs text-slate-400"> · by {l.createdByName}</span>}
               </span>
               <span className="flex shrink-0 items-center gap-3">
                 <span className={l.delta >= 0 ? 'font-medium text-green-600' : 'font-medium text-red-600'}>
@@ -249,6 +260,11 @@ export default function ProfilePage({
                   {l.delta}
                 </span>
                 <span className="text-xs text-slate-400">{new Date(l.createdAt).toLocaleDateString()}</span>
+                {isOwner && (
+                  <button onClick={() => deleteEntry(l)} className="text-xs text-red-500 hover:text-red-700">
+                    Delete
+                  </button>
+                )}
               </span>
             </li>
           ))}
@@ -265,6 +281,7 @@ export default function ProfilePage({
               <span className="flex shrink-0 items-center gap-2 text-xs text-slate-400">
                 <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
                 {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                {r.approvedByUser && ` by ${r.approvedByUser.displayName}`}
               </span>
             </li>
           ))}

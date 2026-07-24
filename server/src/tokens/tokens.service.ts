@@ -10,6 +10,11 @@ export class TokensService {
     if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
   }
 
+  private async assertOwner(userId: string) {
+    const u = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!u || u.role !== 'OWNER') throw new ForbiddenException('Owner only');
+  }
+
   // Balance for a single user (derived by summing the ledger).
   async balance(familyId: string, userId: string) {
     const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
@@ -28,15 +33,40 @@ export class TokensService {
     return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0 }));
   }
 
-  // Full transaction history for a member (earning + spending).
-  async ledger(familyId: string, userId: string) {
-    const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
+  // Full transaction history for a member (earning + spending). Who created
+  // each entry (an adult's manual adjustment, an approval, an award) is
+  // adult-only context — a kid sees the same entries minus that one field.
+  async ledger(familyId: string, actingUserId: string, targetUserId: string) {
+    const member = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
-    return this.prisma.tokenLedger.findMany({
-      where: { userId },
+    const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
+    const isAdult = !!actor && (actor.role === 'OWNER' || actor.role === 'ADULT');
+    const entries = await this.prisma.tokenLedger.findMany({
+      where: { userId: targetUserId },
       orderBy: { createdAt: 'desc' },
       take: 200,
+      include: { createdBy: { select: { displayName: true } } },
     });
+    return entries.map((e) => ({
+      id: e.id,
+      delta: e.delta,
+      reason: e.reason,
+      type: e.type,
+      refId: e.refId,
+      createdAt: e.createdAt,
+      createdByName: isAdult ? e.createdBy.displayName : undefined,
+    }));
+  }
+
+  // Owner-only: strike a specific history entry entirely (not a reversing
+  // entry like an award removal — this actually deletes the row, and since
+  // balance is derived by summing the ledger, that alone corrects it).
+  async deleteLedgerEntry(familyId: string, actorId: string, entryId: string) {
+    await this.assertOwner(actorId);
+    const entry = await this.prisma.tokenLedger.findFirst({ where: { id: entryId, user: { familyId } } });
+    if (!entry) throw new NotFoundException('Ledger entry not found');
+    await this.prisma.tokenLedger.delete({ where: { id: entryId } });
+    return { ok: true };
   }
 
   // Adult manually awards/subtracts tokens (reason required), or reconciles physical

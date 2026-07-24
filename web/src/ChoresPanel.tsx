@@ -331,7 +331,11 @@ export default function ChoresPanel({
               </button>
             </>
           )}
-          {active?.status === 'APPROVED' && <span className="text-xs text-green-600">Done ✓</span>}
+          {active?.status === 'APPROVED' && (
+            <span className="text-xs text-green-600">
+              Done ✓{active.approvedByUser && ` — approved by ${active.approvedByUser.displayName}`}
+            </span>
+          )}
           {active?.status === 'MISSED' && (
             <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
           )}

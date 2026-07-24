@@ -131,6 +131,8 @@ export interface ChoreInstance {
   completedAt?: string;
   claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
+  // Adults only — the server omits this entirely for a kid's session.
+  approvedByUser?: { id: string; displayName: string } | null;
 }
 
 export interface ChoreAssigneeRef {
@@ -288,9 +290,11 @@ export interface LedgerEntry {
   id: string;
   delta: number;
   reason: string;
-  type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM';
+  type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM' | 'STREAK_BONUS' | 'AWARD';
   refId?: string | null;
   createdAt: string;
+  // Adults only — the server omits this entirely for a kid's session.
+  createdByName?: string;
 }
 
 export interface StorePrize {
@@ -322,6 +326,8 @@ export interface Redemption {
   usedAt?: string | null;
   prize: { name: string; tokenCost: number; type: string };
   user?: { id: string; displayName: string };
+  // Adults only — the server omits this entirely for a kid's session.
+  approvedByUser?: { id: string; displayName: string } | null;
 }
 
 export const BASE_URL = BASE;
@@ -430,6 +436,7 @@ export const api = {
     req<LedgerEntry[]>(`/tokens/ledger${userId ? `?userId=${userId}` : ''}`),
   adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
     req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
+  deleteLedgerEntry: (id: string) => req(`/tokens/ledger/${id}`, { method: 'DELETE' }),
 
   locations: () => req<FamilyLocation[]>('/locations'),
   createLocation: (name: string) => req<FamilyLocation>('/locations', { method: 'POST', body: JSON.stringify({ name }) }),

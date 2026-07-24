@@ -219,6 +219,8 @@ model User {
   createdAwards     Award[]            @relation("AwardCreatedBy")
   awardsReceived    AwardGrant[]       @relation("AwardGrantUser")
   awardsGranted     AwardGrant[]       @relation("AwardGrantedBy")
+  approvedChores    ChoreInstance[]    @relation("ChoreInstanceApprovedBy")
+  approvedRedemptions Redemption[]     @relation("RedemptionApprovedBy")
   notifications     Notification[]
   pushSubscriptions PushSubscription[]
 
@@ -368,8 +370,9 @@ model ChoreInstance {
   claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
   warnedThreshold Int? // smallest due-soon minutes threshold (120/60/30/15) already notified
 
-  chore  Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
-  checks ChoreItemCheck[]
+  chore          Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
+  checks         ChoreItemCheck[]
+  approvedByUser User?            @relation("ChoreInstanceApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
 
   @@index([choreId])
   @@index([status])
@@ -517,8 +520,9 @@ model Redemption {
   usedAt      DateTime? // EVENT prizes only: when the event actually happened,
   // separate from FULFILLED (which just means the adult approved the redemption)
 
-  prize Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  prize          Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
+  user           User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  approvedByUser User? @relation("RedemptionApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
 
   @@index([prizeId])
   @@index([userId])

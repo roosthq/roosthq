@@ -128,8 +128,21 @@ const CHORE_INCLUDE = {
   checklist: { orderBy: { sort: 'asc' as const } },
   assignees: { include: { user: { select: { id: true, displayName: true, avatar: true } } } },
   location: true,
-  instances: { orderBy: { dueDate: 'desc' as const }, take: 5, include: { checks: true } },
+  instances: {
+    orderBy: { dueDate: 'desc' as const },
+    take: 5,
+    include: { checks: true, approvedByUser: { select: { id: true, displayName: true } } },
+  },
 };
+
+// Who approved a completion is adult-only context — a kid sees the same
+// instance data minus that one field.
+function stripApprover<T extends { instances: Array<Record<string, unknown>> }>(chores: T[]): T[] {
+  return chores.map((c) => ({
+    ...c,
+    instances: c.instances.map(({ approvedByUser, ...rest }) => rest),
+  })) as T[];
+}
 
 @Injectable()
 export class ChoresService {
@@ -230,9 +243,10 @@ export class ChoresService {
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     if (!actor || this.isAdult(actor.role)) return chores;
     const myLocationIds = new Set(actor.locations.map((l) => l.locationId));
-    return chores.filter(
+    const scoped = chores.filter(
       (c) => !c.locationId || myLocationIds.has(c.locationId) || c.assignees.some((a) => a.userId === actingUserId),
     );
+    return stripApprover(scoped);
   }
 
   // Runs whenever anyone loads chores, as a belt-and-suspenders alongside the

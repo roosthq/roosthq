@@ -315,7 +315,9 @@ export class PrizesService {
   // prize's full buyer history — surfaced in that prize's detail view.
   async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string } = {}) {
     if (opts.prizeId) await this.assertAdult(actingUserId);
-    return this.prisma.redemption.findMany({
+    const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
+    const isAdult = !!actor && this.isAdult(actor.role);
+    const redemptions = await this.prisma.redemption.findMany({
       where: {
         prize: { familyId },
         ...(opts.userId ? { userId: opts.userId } : {}),
@@ -326,7 +328,10 @@ export class PrizesService {
       include: {
         prize: { select: { name: true, tokenCost: true, type: true } },
         user: { select: { id: true, displayName: true } },
+        approvedByUser: { select: { id: true, displayName: true } },
       },
     });
+    // Who fulfilled/rejected it is adult-only context.
+    return redemptions.map(({ approvedByUser, ...r }) => (isAdult ? { ...r, approvedByUser } : r));
   }
 }

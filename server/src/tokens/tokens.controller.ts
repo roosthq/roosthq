@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
@@ -21,7 +21,12 @@ export class TokensController {
 
   @Get('ledger')
   ledger(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string) {
-    return this.tokens.ledger(u.familyId, userId ?? u.userId);
+    return this.tokens.ledger(u.familyId, u.userId, userId ?? u.userId);
+  }
+
+  @Delete('ledger/:id')
+  deleteLedgerEntry(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.tokens.deleteLedgerEntry(u.familyId, u.userId, id);
   }
 
   @Post('adjust')
