@@ -27,13 +27,20 @@ export class AuthController {
   // mode=self   -> add another calendar to the current user (default when signed in)
   // mode=member -> add a new family member
   @Get('google')
-  login(@Query('mode') mode: string, @Query('invite') invite: string, @Res() res: Response) {
+  login(
+    @Query('mode') mode: string,
+    @Query('invite') invite: string,
+    @Query('reconnect') reconnect: string,
+    @Res() res: Response,
+  ) {
     const nonce = randomBytes(16).toString('hex');
     const cleanMode = mode === 'member' ? 'member' : 'self';
     res.cookie(STATE_COOKIE, nonce, cookieBase);
     // Carry an invite token through the Google round-trip via a short-lived cookie.
     if (invite) res.cookie(INVITE_COOKIE, invite, { ...cookieBase, maxAge: 10 * 60 * 1000 });
-    res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`));
+    // Fixing a dead refresh token needs the consent screen forced (see
+    // GoogleService.authUrl) — a plain re-login won't reissue one.
+    res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`, reconnect === '1'));
   }
 
   @Get('google/callback')

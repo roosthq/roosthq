@@ -4,6 +4,7 @@ import { api, loginUrl, ROLE_ICON, type Me, type Member, type GoogleCalendar, ty
 import Calendar from '../Calendar';
 import AddEventModal from '../AddEventModal';
 import Modal from '../Modal';
+import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 
 export function Avatar({ name, src }: { name?: string; src?: string }) {
@@ -104,6 +105,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const isKid = me.role === 'KID';
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT'; // can connect/add calendars
+  const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
   const [events, setEvents] = useState<CalEvent[]>([]);
@@ -111,6 +113,15 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [addingEvent, setAddingEvent] = useState(false);
+  const [needsReconnect, setNeedsReconnect] = useState(false);
+
+  // Checked proactively so a dead Google connection surfaces on page load —
+  // not just as a mysteriously-empty calendar or a "Manage calendars" click
+  // that quietly does nothing.
+  useEffect(() => {
+    if (!isAdult) return;
+    api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
+  }, [isAdult]);
 
   // Everyone still gets to filter — but non-owners only get to choose among a
   // location-scoped subset: adults see calendars shared by anyone at their own
@@ -196,10 +207,24 @@ export default function CalendarPage({ me }: { me: Me }) {
   const onRangeChange = useCallback((start: string, end: string) => setRange({ start, end }), []);
 
   async function openPicker() {
-    setPicker(await api.googleCalendars());
-    // Pre-check whatever I've already added, so the picker reflects reality
-    // and unchecking one removes my share of it.
-    setPicked(new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId)));
+    try {
+      const cals = await api.googleCalendars();
+      setPicker(cals);
+      // Pre-check whatever I've already added, so the picker reflects reality
+      // and unchecking one removes my share of it.
+      setPicked(new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId)));
+    } catch {
+      // Re-check status rather than assume — this could be any failure, but
+      // if it's specifically a dead Google connection the banner should now
+      // reflect that instead of the click just silently doing nothing.
+      const s = await api.googleAccountStatus().catch(() => ({ needsReconnect: false }));
+      setNeedsReconnect(s.needsReconnect);
+      await alert(
+        s.needsReconnect
+          ? 'A connected Google account needs to be reconnected before calendars can be managed — see the banner above.'
+          : "Couldn't load your Google calendars — try again in a moment.",
+      );
+    }
   }
 
   async function doShare() {
@@ -240,6 +265,23 @@ export default function CalendarPage({ me }: { me: Me }) {
   return (
     <div>
       <Dashboard me={me} />
+
+      {needsReconnect && (
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+          <span className="flex-1">
+            A connected Google account's calendar access expired — its calendars and events won't show up until it's
+            reconnected. Signing out and back in won't fix this by itself; it needs to go through Google's consent
+            screen again.
+          </span>
+          <a
+            href={`${loginUrl}?mode=self&reconnect=1`}
+            className="shrink-0 rounded border border-amber-400 bg-white px-3 py-1.5 font-medium hover:bg-amber-100"
+          >
+            Reconnect Google account
+          </a>
+        </div>
+      )}
+
       <section>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold">

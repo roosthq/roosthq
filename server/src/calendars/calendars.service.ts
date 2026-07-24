@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { calendar_v3 } from 'googleapis';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -17,7 +18,16 @@ export class CalendarsService {
     private notifications: NotificationsService,
   ) {}
 
-  // Google calendars available across the user's connected accounts (the picker).
+  // Google calendars available across the user's connected accounts (the
+  // picker) — only ones this account actually owns (or has been granted
+  // owner-level access to, which covers a deliberately shared household
+  // calendar), not just anything merely shared to them read/write. Sharing
+  // someone else's personal calendar into the family by accident isn't the
+  // point; sharing your own, or a calendar you're a real co-owner of, is.
+  //
+  // One dead account (expired Google token) shouldn't blank the whole picker
+  // for every other connected account — skip it and mark it for reconnect
+  // instead of throwing for the whole request.
   async listGoogleCalendars(userId: string) {
     const accounts = await this.prisma.googleAccount.findMany({ where: { userId } });
     const out: Array<{
@@ -28,19 +38,32 @@ export class CalendarsService {
       primary: boolean;
     }> = [];
     for (const acc of accounts) {
-      const client = await this.google.clientForAccount(acc.id);
-      const { data } = await this.google.calendar(client).calendarList.list();
-      for (const item of data.items ?? []) {
-        out.push({
-          googleAccountId: acc.id,
-          googleCalendarId: item.id as string,
-          name: item.summary ?? '(untitled)',
-          color: item.backgroundColor ?? undefined,
-          primary: item.primary ?? false,
-        });
+      try {
+        const { data } = await this.google.withCalendar(acc.id, (cal) => cal.calendarList.list());
+        for (const item of data.items ?? []) {
+          if (item.accessRole !== 'owner') continue;
+          out.push({
+            googleAccountId: acc.id,
+            googleCalendarId: item.id as string,
+            name: item.summary ?? '(untitled)',
+            color: item.backgroundColor ?? undefined,
+            primary: item.primary ?? false,
+          });
+        }
+      } catch {
+        // Already marked needsReconnect by withCalendar; this account's
+        // calendars just don't show up until it's reconnected.
       }
     }
     return out;
+  }
+
+  // Whether any of this user's connected Google accounts need reconnecting —
+  // so the calendar page can show that proactively instead of only after a
+  // click silently does nothing.
+  async accountStatus(userId: string) {
+    const accounts = await this.prisma.googleAccount.findMany({ where: { userId }, select: { needsReconnect: true } });
+    return { needsReconnect: accounts.some((a) => a.needsReconnect) };
   }
 
   // Share selected calendars into the family. Dedup on [familyId, googleCalendarId]:
@@ -116,15 +139,24 @@ export class CalendarsService {
     const byUid = new Map<string, Record<string, unknown> & { addedByUserId?: string; addedByName?: string }>();
     for (const c of calendars) {
       const owner = c.googleAccount?.user;
-      const client = await this.google.clientForAccount(c.googleAccountId);
-      const { data } = await this.google.calendar(client).events.list({
-        calendarId: c.googleCalendarId,
-        timeMin,
-        timeMax,
-        singleEvents: true,
-        orderBy: 'startTime',
-      });
-      for (const ev of data.items ?? []) {
+      let items: calendar_v3.Schema$Event[];
+      try {
+        const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
+          cal.events.list({
+            calendarId: c.googleCalendarId,
+            timeMin,
+            timeMax,
+            singleEvents: true,
+            orderBy: 'startTime',
+          }),
+        );
+        items = data.items ?? [];
+      } catch {
+        // This calendar's account needs reconnecting (already marked) — skip
+        // just its events rather than failing the whole aggregated view.
+        continue;
+      }
+      for (const ev of items) {
         const uid = ev.iCalUID ?? `${c.id}:${ev.id}`;
         if (!byUid.has(uid)) {
           const addedByUserId = (ev.extendedProperties?.private as Record<string, string> | undefined)?.roostHqAddedBy;
@@ -177,11 +209,12 @@ export class CalendarsService {
   // account owner.
   async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
     const c = await this.calendarOrThrow(familyId, calendarId);
-    const client = await this.google.clientForAccount(c.googleAccountId);
-    const { data } = await this.google.calendar(client).events.insert({
-      calendarId: c.googleCalendarId,
-      requestBody: { ...body, extendedProperties: { private: { roostHqAddedBy: addedByUserId } } } as never,
-    });
+    const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
+      cal.events.insert({
+        calendarId: c.googleCalendarId,
+        requestBody: { ...body, extendedProperties: { private: { roostHqAddedBy: addedByUserId } } } as never,
+      }),
+    );
     this.notifyCalendarEvent(familyId, c.id, c.name, addedByUserId, (body.summary as string) ?? 'an event').catch(() => undefined);
     return data;
   }
@@ -226,22 +259,24 @@ export class CalendarsService {
     body: Record<string, unknown>,
   ) {
     const c = await this.calendarOrThrow(familyId, calendarId);
-    const client = await this.google.clientForAccount(c.googleAccountId);
-    const { data } = await this.google.calendar(client).events.patch({
-      calendarId: c.googleCalendarId,
-      eventId,
-      requestBody: body as never,
-    });
+    const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
+      cal.events.patch({
+        calendarId: c.googleCalendarId,
+        eventId,
+        requestBody: body as never,
+      }),
+    );
     return data;
   }
 
   async deleteEvent(familyId: string, calendarId: string, eventId: string) {
     const c = await this.calendarOrThrow(familyId, calendarId);
-    const client = await this.google.clientForAccount(c.googleAccountId);
-    await this.google.calendar(client).events.delete({
-      calendarId: c.googleCalendarId,
-      eventId,
-    });
+    await this.google.withCalendar(c.googleAccountId, (cal) =>
+      cal.events.delete({
+        calendarId: c.googleCalendarId,
+        eventId,
+      }),
+    );
     return { ok: true };
   }
 }

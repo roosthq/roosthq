@@ -326,6 +326,7 @@ export const api = {
   logout: () => req<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
 
   googleCalendars: () => req<GoogleCalendar[]>('/calendars/google'),
+  googleAccountStatus: () => req<{ needsReconnect: boolean }>('/calendars/google/status'),
   sharedCalendars: (kioskToken?: string) => req<SharedCalendar[]>('/calendars', undefined, kioskToken),
   share: (googleAccountId: string, selections: Array<{ googleCalendarId: string; name: string; color?: string }>) =>
     req('/calendars/share', { method: 'POST', body: JSON.stringify({ googleAccountId, selections }) }),

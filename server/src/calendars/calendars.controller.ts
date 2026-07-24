@@ -25,6 +25,13 @@ export class CalendarsController {
     return this.calendars.listGoogleCalendars(u.userId);
   }
 
+  // Whether a connected Google account needs reconnecting — checked
+  // proactively on page load, not just after a click quietly does nothing.
+  @Get('google/status')
+  googleStatus(@CurrentUser() u: SessionPayload) {
+    return this.calendars.accountStatus(u.userId);
+  }
+
   // Share selected calendars into the family.
   @Post('share')
   share(

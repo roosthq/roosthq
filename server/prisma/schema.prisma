@@ -252,8 +252,9 @@ model UserLocation {
 model GoogleAccount {
   id              String @id @default(cuid())
   userId          String
-  googleSub       String @unique // Google account subject id
-  tokensEncrypted String @db.Text // OAuth tokens, encrypted at rest
+  googleSub       String  @unique // Google account subject id
+  tokensEncrypted String  @db.Text // OAuth tokens, encrypted at rest
+  needsReconnect  Boolean @default(false) // refresh token died (invalid_grant) — set on the failing call, cleared on a successful one or a fresh consent
 
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   calendars Calendar[]

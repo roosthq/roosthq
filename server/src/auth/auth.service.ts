@@ -56,7 +56,10 @@ export class AuthService {
       const merged = { ...current, ...tokens };
       await this.prisma.googleAccount.update({
         where: { id: existing.id },
-        data: { tokensEncrypted: encrypt(JSON.stringify(merged)) },
+        // Reaching the callback with a valid code proves this account is
+        // usable again — clears any stale "needs reconnect" from a dead
+        // refresh token, whether or not Google actually sent a new one.
+        data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false },
       });
       // Accepted an invite for a different family (e.g. fixing a mis-created account):
       // move this person into the inviting family and clean up their old empty family.
