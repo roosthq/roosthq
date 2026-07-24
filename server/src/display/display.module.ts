@@ -10,6 +10,7 @@ import { CalendarsService } from '../calendars/calendars.service';
 import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 
 @Module({
   imports: [NotificationsModule],
@@ -23,6 +24,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
     CalendarsService,
     GoogleService,
     PrismaService,
+    LocalCalendarsService,
   ],
 })
 export class DisplayModule {}

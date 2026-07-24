@@ -3,6 +3,7 @@ import { calendar_v3 } from 'googleapis';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local-calendars.service';
 
 export interface ShareSelection {
   googleCalendarId: string;
@@ -16,6 +17,7 @@ export class CalendarsService {
     private prisma: PrismaService,
     private google: GoogleService,
     private notifications: NotificationsService,
+    private localCalendars: LocalCalendarsService,
   ) {}
 
   // Google calendars available across the user's connected accounts (the
@@ -119,14 +121,17 @@ export class CalendarsService {
       where: { familyId },
       include: { shares: true },
     });
-    return calendars.map((c) => ({
+    const google = calendars.map((c) => ({
       id: c.id,
       name: c.name,
       color: c.color,
       googleCalendarId: c.googleCalendarId,
       shareCount: c.shares.length,
       sharedByMe: c.shares.some((s) => s.userId === userId),
+      source: 'google' as const,
     }));
+    const local = await this.localCalendars.listForFamily(familyId);
+    return [...google, ...local];
   }
 
   // Aggregate events across selected shared calendars, deduped by iCalUID so the
@@ -136,6 +141,8 @@ export class CalendarsService {
       where: { familyId, id: { in: calendarIds } },
       include: { googleAccount: { include: { user: true } } },
     });
+    const googleIds = new Set(calendars.map((c) => c.id));
+    const localIds = calendarIds.filter((id) => !googleIds.has(id));
     const byUid = new Map<string, Record<string, unknown> & { addedByUserId?: string; addedByName?: string }>();
     for (const c of calendars) {
       const owner = c.googleAccount?.user;
@@ -179,6 +186,8 @@ export class CalendarsService {
       }
     }
     const events = Array.from(byUid.values());
+    const localEvents = await this.localCalendars.eventsFor(localIds, timeMin, timeMax);
+    events.push(...localEvents);
 
     // Resolve "added by" to a display name — a separate identity from the
     // calendar's owner (whose Google account it is), added by whoever actually
@@ -203,11 +212,36 @@ export class CalendarsService {
     return cal;
   }
 
+  // A calendarId in these routes may point at a Google-backed Calendar or a
+  // LocalCalendar — the frontend (AddEventModal, the kiosk) doesn't know or
+  // care which, it just posts to `/calendars/:calendarId/events`.
+  private googleBodyToLocalInput(body: Record<string, unknown>): Partial<LocalEventInput> {
+    const start = body.start as { date?: string; dateTime?: string } | undefined;
+    const end = body.end as { date?: string; dateTime?: string } | undefined;
+    const allDay = start ? !!start.date : undefined;
+    const out: Partial<LocalEventInput> = {};
+    if (body.summary !== undefined) out.title = body.summary as string;
+    if (body.description !== undefined) out.description = body.description as string;
+    if (body.location !== undefined) out.location = body.location as string;
+    if (allDay !== undefined) out.allDay = allDay;
+    if (start) out.start = (allDay ? start.date : start.dateTime) ?? '';
+    if (end) out.end = (allDay ? end.date : end.dateTime) ?? '';
+    return out;
+  }
+
   // body is a Google Calendar event resource (summary, start, end, location, ...).
   // addedByUserId is stamped into extendedProperties so events created through
   // the app can show who added them — separate from the calendar's own Google
   // account owner.
   async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
+    if (await this.localCalendars.isLocalId(familyId, calendarId)) {
+      return this.localCalendars.createEvent(
+        familyId,
+        calendarId,
+        addedByUserId,
+        this.googleBodyToLocalInput(body) as LocalEventInput,
+      );
+    }
     const c = await this.calendarOrThrow(familyId, calendarId);
     const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
       cal.events.insert({
@@ -256,8 +290,12 @@ export class CalendarsService {
     familyId: string,
     calendarId: string,
     eventId: string,
+    actorId: string,
     body: Record<string, unknown>,
   ) {
+    if (await this.localCalendars.isLocalId(familyId, calendarId)) {
+      return this.localCalendars.updateEvent(familyId, calendarId, eventId, actorId, this.googleBodyToLocalInput(body));
+    }
     const c = await this.calendarOrThrow(familyId, calendarId);
     const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
       cal.events.patch({
@@ -269,7 +307,10 @@ export class CalendarsService {
     return data;
   }
 
-  async deleteEvent(familyId: string, calendarId: string, eventId: string) {
+  async deleteEvent(familyId: string, calendarId: string, eventId: string, actorId: string) {
+    if (await this.localCalendars.isLocalId(familyId, calendarId)) {
+      return this.localCalendars.deleteEvent(familyId, calendarId, eventId, actorId);
+    }
     const c = await this.calendarOrThrow(familyId, calendarId);
     await this.google.withCalendar(c.googleAccountId, (cal) =>
       cal.events.delete({

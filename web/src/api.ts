@@ -48,9 +48,26 @@ export interface SharedCalendar {
   id: string;
   name: string;
   color?: string;
-  googleCalendarId: string;
-  shareCount: number;
-  sharedByMe: boolean;
+  googleCalendarId?: string;
+  shareCount?: number;
+  sharedByMe?: boolean;
+  source?: 'google' | 'local';
+  locationId?: string | null;
+}
+
+export interface LocalCalendarInput {
+  name: string;
+  color?: string;
+  locationId?: string | null;
+}
+
+export interface LocalEventInput {
+  title: string;
+  description?: string;
+  location?: string;
+  allDay?: boolean;
+  start: string;
+  end: string;
 }
 
 export interface CalEvent {
@@ -375,6 +392,17 @@ export const api = {
     body: EventInput,
     kioskToken?: string,
   ) => req<CalEvent>(`/calendars/${calendarId}/events`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  updateCalendarEvent: (calendarId: string, eventId: string, body: Partial<EventInput>, kioskToken?: string) =>
+    req<CalEvent>(`/calendars/${calendarId}/events/${eventId}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
+  deleteCalendarEvent: (calendarId: string, eventId: string, kioskToken?: string) =>
+    req<{ ok: boolean }>(`/calendars/${calendarId}/events/${eventId}`, { method: 'DELETE' }, kioskToken),
+
+  localCalendars: () => req<SharedCalendar[]>('/local-calendars'),
+  createLocalCalendar: (body: LocalCalendarInput) =>
+    req<SharedCalendar>('/local-calendars', { method: 'POST', body: JSON.stringify(body) }),
+  updateLocalCalendar: (id: string, body: Partial<LocalCalendarInput>) =>
+    req<SharedCalendar>(`/local-calendars/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteLocalCalendar: (id: string) => req<{ ok: boolean }>(`/local-calendars/${id}`, { method: 'DELETE' }),
 
   displaySettings: () => req<DisplaySettings>('/display/settings'),
   updateDisplaySettings: (data: Partial<DisplaySettings>) =>

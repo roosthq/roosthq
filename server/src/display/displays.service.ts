@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from '../prisma.service';
 import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
+import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 
 export interface DisplayConfigInput {
   name?: string;
@@ -38,6 +39,7 @@ export class DisplaysService {
     private prisma: PrismaService,
     private calendars: CalendarsService,
     private displayEvents: DisplayEventsService,
+    private localCalendars: LocalCalendarsService,
   ) {}
 
   private async assertAdult(userId: string) {
@@ -119,13 +121,15 @@ export class DisplaysService {
   // Calendars shared by anyone in a location — or every shared family calendar
   // when there's no location scope.
   async calendarsForLocation(familyId: string, locationId?: string | null) {
-    return this.prisma.calendar.findMany({
+    const google = await this.prisma.calendar.findMany({
       where: {
         familyId,
         ...(locationId ? { shares: { some: { user: { locations: { some: { locationId } } } } } } : {}),
       },
       select: { id: true, name: true, color: true },
     });
+    const local = await this.localCalendars.calendarsForLocation(familyId, locationId);
+    return [...google, ...local];
   }
 
   private async constrainToLocation(familyId: string, locationId: string | null, calendarIds: string[]): Promise<string[]> {

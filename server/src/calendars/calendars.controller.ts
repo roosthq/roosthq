@@ -82,7 +82,7 @@ export class CalendarsController {
     @Param('eventId') eventId: string,
     @Body() body: Record<string, unknown>,
   ) {
-    return this.calendars.updateEvent(u.familyId, calendarId, eventId, body);
+    return this.calendars.updateEvent(u.familyId, calendarId, eventId, u.userId, body);
   }
 
   @Delete(':calendarId/events/:eventId')
@@ -91,6 +91,6 @@ export class CalendarsController {
     @Param('calendarId') calendarId: string,
     @Param('eventId') eventId: string,
   ) {
-    return this.calendars.deleteEvent(u.familyId, calendarId, eventId);
+    return this.calendars.deleteEvent(u.familyId, calendarId, eventId, u.userId);
   }
 }

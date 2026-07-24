@@ -32,6 +32,15 @@ export default function SettingsPage({ me }: { me: Me }) {
         <LocationsSetting />
       </Section>
 
+      {isAdult && (
+        <Section
+          title="Local calendars"
+          help="Calendars that live in the app — no Google account needed. Give one a location to scope it to a household."
+        >
+          <LocalCalendarsSetting />
+        </Section>
+      )}
+
       {isOwner && (
         <Section title="Touch displays">
           <DisplaysManager />
@@ -280,6 +289,94 @@ function LocationsSetting() {
           );
         })}
         {locations.length === 0 && <li className="text-sm text-slate-400">No locations yet.</li>}
+      </ul>
+    </div>
+  );
+}
+
+const CALENDAR_COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#0ea5e9', '#6366f1', '#a855f7', '#ec4899'];
+
+function LocalCalendarsSetting() {
+  const { confirm } = useDialog();
+  const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [name, setName] = useState('');
+
+  const refresh = useCallback(async () => {
+    const [c, l] = await Promise.all([api.localCalendars(), api.locations()]);
+    setCalendars(c);
+    setLocations(l);
+  }, []);
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  async function add() {
+    if (!name.trim()) return;
+    await api.createLocalCalendar({ name: name.trim(), color: CALENDAR_COLORS[calendars.length % CALENDAR_COLORS.length] });
+    setName('');
+    await refresh();
+  }
+  async function patch(id: string, body: Partial<{ name: string; color: string; locationId: string | null }>) {
+    await api.updateLocalCalendar(id, body);
+    await refresh();
+  }
+  async function del(id: string, calName: string) {
+    if (await confirm(`Delete "${calName}"? This deletes all its events too.`, { danger: true, confirmLabel: 'Delete' })) {
+      await api.deleteLocalCalendar(id);
+      await refresh();
+    }
+  }
+
+  return (
+    <div className="space-y-4">
+      <Field label="Add a local calendar">
+        <div className="flex flex-wrap gap-2">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && add()}
+            placeholder="e.g. Shea Family"
+            className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
+          />
+          <button onClick={add} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            Add
+          </button>
+        </div>
+      </Field>
+
+      <ul className="space-y-2">
+        {calendars.map((c) => (
+          <li key={c.id} className="flex flex-wrap items-center gap-3 rounded-lg border p-3">
+            <input
+              type="color"
+              value={c.color ?? '#94a3b8'}
+              onChange={(e) => patch(c.id, { color: e.target.value })}
+              className="h-7 w-7 shrink-0 cursor-pointer rounded border"
+            />
+            <input
+              defaultValue={c.name}
+              onBlur={(e) => e.target.value.trim() && e.target.value !== c.name && patch(c.id, { name: e.target.value.trim() })}
+              className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
+            />
+            <select
+              value={c.locationId ?? ''}
+              onChange={(e) => patch(c.id, { locationId: e.target.value || null })}
+              className="rounded border px-2 py-1 text-sm"
+            >
+              <option value="">Whole family</option>
+              {locations.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={() => del(c.id, c.name)} className="ml-auto text-xs text-red-500 hover:text-red-700">
+              Delete
+            </button>
+          </li>
+        ))}
+        {calendars.length === 0 && <li className="text-sm text-slate-400">No local calendars yet — add one above.</li>}
       </ul>
     </div>
   );

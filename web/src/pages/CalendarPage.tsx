@@ -212,7 +212,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       setPicker(cals);
       // Pre-check whatever I've already added, so the picker reflects reality
       // and unchecking one removes my share of it.
-      setPicked(new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId)));
+      setPicked(new Set(shared.filter((c) => c.sharedByMe && c.googleCalendarId).map((c) => c.googleCalendarId as string)));
     } catch {
       // Re-check status rather than assume — this could be any failure, but
       // if it's specifically a dead Google connection the banner should now
@@ -230,7 +230,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   async function doShare() {
     if (!picker) return;
     const pickerIds = new Set(picker.map((c) => c.googleCalendarId));
-    const alreadyMineIds = new Set(shared.filter((c) => c.sharedByMe).map((c) => c.googleCalendarId));
+    const alreadyMineIds = new Set(shared.filter((c) => c.sharedByMe && c.googleCalendarId).map((c) => c.googleCalendarId as string));
 
     const byAccount = new Map<string, GoogleCalendar[]>();
     for (const c of picker) {
