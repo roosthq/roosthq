@@ -177,6 +177,12 @@ export class ChoresService {
     await this.assertAdult(createdById);
     const tz = await this.resolveTimezone(dto.locationId);
     const assignmentType = dto.assignmentType === 'ANYONE' ? 'ANYONE' : 'SPECIFIC';
+    // A SPECIFIC chore with nobody picked is assigned to no one and claimable
+    // by no one — it'd exist in the DB but never match any group in the UI,
+    // effectively vanishing with no way to find or edit it again.
+    if (assignmentType === 'SPECIFIC' && !dto.assigneeUserIds?.length) {
+      throw new BadRequestException('Pick at least one person, or switch to "Open to anyone".');
+    }
     const chore = await this.prisma.chore.create({
       data: {
         familyId,
@@ -318,6 +324,13 @@ export class ChoresService {
     const before = await this.ownedChore(familyId, id);
     const assignmentType =
       dto.assignmentType === 'ANYONE' ? 'ANYONE' : dto.assignmentType === 'SPECIFIC' ? 'SPECIFIC' : undefined;
+    // Same rule as create(): a SPECIFIC chore can't end up with nobody
+    // assigned — check the effective state after this edit, not just what
+    // this particular request happened to touch.
+    const effectiveAssigneeCount = dto.assigneeUserIds !== undefined ? dto.assigneeUserIds.length : before.assignees.length;
+    if ((assignmentType ?? before.assignmentType) === 'SPECIFIC' && effectiveAssigneeCount === 0) {
+      throw new BadRequestException('Pick at least one person, or switch to "Open to anyone".');
+    }
 
     const updateData: Prisma.ChoreUncheckedUpdateInput = {
       ...(dto.title !== undefined && { title: dto.title }),

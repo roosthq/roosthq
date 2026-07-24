@@ -527,9 +527,13 @@ function ChoreForm({
   }, [client]);
 
   const repeatHelp = REPEAT_OPTIONS.find((r) => r.value === repeat)?.help ?? '';
+  // A SPECIFIC chore with nobody picked is assigned to no one and claimable
+  // by no one — it'd save fine but then never appear in any group, with no
+  // way to find or edit it again.
+  const needsAssignee = assignmentType === 'SPECIFIC' && assignees.size === 0;
 
   async function submit() {
-    if (!title) return;
+    if (!title || needsAssignee) return;
     const body = {
       title,
       assignmentType,
@@ -558,7 +562,11 @@ function ChoreForm({
           <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
             Cancel
           </button>
-          <button onClick={submit} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+          <button
+            onClick={submit}
+            disabled={needsAssignee || !title}
+            className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+          >
             {chore ? 'Save changes' : `Create ${choreWord}`}
           </button>
         </div>
@@ -598,6 +606,9 @@ function ChoreForm({
                   </label>
                 ))}
               </div>
+            )}
+            {needsAssignee && (
+              <p className="mt-1 text-xs text-red-500">Pick at least one person, or switch to "Open to anyone".</p>
             )}
           </Field>
 
