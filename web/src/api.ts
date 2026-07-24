@@ -354,6 +354,8 @@ export const api = {
     req<{ ok: boolean }>('/auth/local/login', { method: 'POST', body: JSON.stringify(body) }),
   setLocalPassword: (userId: string, password: string) =>
     req<{ ok: boolean }>(`/auth/local/${userId}/password`, { method: 'PUT', body: JSON.stringify({ password }) }),
+  createLocalMember: (body: { role: 'ADULT' | 'KID'; displayName: string; email?: string; username?: string; password?: string }) =>
+    req<Member>('/auth/local/member', { method: 'POST', body: JSON.stringify(body) }),
   forgotPassword: (email: string) =>
     req<{ ok: boolean }>('/auth/local/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
   resetPassword: (token: string, password: string) =>

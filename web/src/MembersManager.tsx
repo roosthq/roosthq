@@ -19,6 +19,13 @@ export default function MembersManager({ me }: { me: Me }) {
   const [pin, setPin] = useState('');
   const [inviteRole, setInviteRole] = useState<'OWNER' | 'ADULT' | 'KID'>('KID');
   const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
+  const [addRole, setAddRole] = useState<'ADULT' | 'KID'>('KID');
+  const [addName, setAddName] = useState('');
+  const [addEmail, setAddEmail] = useState('');
+  const [addUsername, setAddUsername] = useState('');
+  const [addPassword, setAddPassword] = useState('');
+  const [addError, setAddError] = useState<string | null>(null);
+  const [addBusy, setAddBusy] = useState(false);
 
   async function refresh() {
     const [m, inv] = await Promise.all([api.listUsers(), api.listInvites()]);
@@ -61,6 +68,28 @@ export default function MembersManager({ me }: { me: Me }) {
   async function clearPin(m: Member) {
     await api.setUserPin(m.id, null);
     await refresh();
+  }
+  async function addMember() {
+    setAddError(null);
+    setAddBusy(true);
+    try {
+      await api.createLocalMember({
+        role: addRole,
+        displayName: addName,
+        email: addEmail || undefined,
+        username: addUsername || undefined,
+        password: addPassword || undefined,
+      });
+      setAddName('');
+      setAddEmail('');
+      setAddUsername('');
+      setAddPassword('');
+      await refresh();
+    } catch (err) {
+      setAddError((err as Error).message);
+    } finally {
+      setAddBusy(false);
+    }
   }
   async function resetAccount(m: Member) {
     const ok = await confirm(
@@ -129,6 +158,56 @@ export default function MembersManager({ me }: { me: Me }) {
               ))}
           </ul>
         )}
+      </div>
+
+      {/* Add directly — no invite link, no Google needed */}
+      <div className="mt-3 rounded bg-slate-50 p-3">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <span className="font-medium">Or add someone directly as</span>
+          <select
+            value={addRole}
+            onChange={(e) => setAddRole(e.target.value as 'ADULT' | 'KID')}
+            className="rounded border px-2 py-1 text-xs"
+          >
+            <option value="KID">Kid</option>
+            <option value="ADULT">Adult</option>
+          </select>
+        </div>
+        <div className="mt-2 flex flex-wrap gap-2 text-sm">
+          <input
+            value={addName}
+            onChange={(e) => setAddName(e.target.value)}
+            placeholder="Name"
+            className="rounded border px-2 py-1 text-xs"
+          />
+          <input
+            value={addEmail}
+            onChange={(e) => setAddEmail(e.target.value)}
+            placeholder={addRole === 'ADULT' ? 'Email (required)' : 'Email (optional)'}
+            className="rounded border px-2 py-1 text-xs"
+          />
+          <input
+            value={addUsername}
+            onChange={(e) => setAddUsername(e.target.value)}
+            placeholder="Username (optional)"
+            className="rounded border px-2 py-1 text-xs"
+          />
+          <input
+            type="password"
+            value={addPassword}
+            onChange={(e) => setAddPassword(e.target.value)}
+            placeholder="Password (optional, for login)"
+            className="rounded border px-2 py-1 text-xs"
+          />
+          <button
+            onClick={addMember}
+            disabled={addBusy || !addName}
+            className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            Add
+          </button>
+        </div>
+        {addError && <p className="mt-1 text-xs text-red-500">{addError}</p>}
       </div>
 
       <ul className="mt-3 space-y-2 text-sm">

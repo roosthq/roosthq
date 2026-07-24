@@ -197,10 +197,16 @@ export class AuthService {
   // Adult/owner adds a member directly (Settings "add a kid" flow, task #11)
   // — always requires an existing session (ctx), never bootstraps a family.
   async createLocalMember(
+    actorId: string,
     familyId: string,
     role: 'ADULT' | 'KID',
     input: { displayName: string; email?: string; username?: string; password?: string },
   ) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || actor.familyId !== familyId || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) {
+      throw new UnauthorizedException('Adults only');
+    }
+    if (!input.displayName?.trim()) throw new BadRequestException('Name is required');
     const email = input.email?.trim() || undefined;
     const username = input.username?.trim() || undefined;
     if (emailRequired(role) && !email) throw new BadRequestException('Email is required');
@@ -208,9 +214,11 @@ export class AuthService {
       const taken = await this.prisma.user.findUnique({ where: { username } });
       if (taken) throw new BadRequestException('That username is already taken');
     }
+    if (input.password && input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
     const passwordHash = input.password ? hashPassword(input.password) : undefined;
     return this.prisma.user.create({
       data: { familyId, role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+      select: { id: true, familyId: true, role: true, displayName: true, email: true, username: true, colorTheme: true },
     });
   }
 

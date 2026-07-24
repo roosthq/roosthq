@@ -128,6 +128,17 @@ export class AuthController {
     return res.json({ ok: true });
   }
 
+  // Adult/owner adds a member (typically a kid) directly from Settings —
+  // no invite link, no Google/email required.
+  @UseGuards(AuthGuard)
+  @Post('local/member')
+  createLocalMember(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { role: 'ADULT' | 'KID'; displayName: string; email?: string; username?: string; password?: string },
+  ) {
+    return this.auth.createLocalMember(u.userId, u.familyId, body.role, body);
+  }
+
   // Owner/family manager sets or resets a local account's password directly
   // (the fallback for accounts with no email — see AuthService.setLocalPassword).
   @UseGuards(AuthGuard)
