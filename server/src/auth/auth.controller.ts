@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import { AuthService } from './auth.service';
@@ -95,6 +95,56 @@ export class AuthController {
       });
     }
     return res.redirect(`${WEB_URL}/?auth=${result.linkedMember ? 'member_added' : 'ok'}`);
+  }
+
+  // Google is optional — register/log in with just a local password instead.
+  // inviteToken comes straight from the URL's ?invite= param (the SPA already
+  // has it client-side) rather than the cookie dance the Google redirect
+  // flow needs — there's no redirect round-trip here to carry it across.
+  @Post('local/register')
+  async localRegister(
+    @Body() body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string },
+    @Res() res: Response,
+  ) {
+    const result = await this.auth.registerLocal(body);
+    if (result.status === 'need_invite') {
+      return res.status(400).json({ message: 'An invite is required to join this family.' });
+    }
+    res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId }), {
+      ...cookieBase,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+    return res.json({ ok: true });
+  }
+
+  @Post('local/login')
+  async localLogin(@Body() body: { identifier: string; password: string }, @Res() res: Response) {
+    const result = await this.auth.loginLocal(body.identifier, body.password);
+    if (!result) throw new UnauthorizedException('Incorrect email/username or password');
+    res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId }), {
+      ...cookieBase,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    });
+    return res.json({ ok: true });
+  }
+
+  // Owner/family manager sets or resets a local account's password directly
+  // (the fallback for accounts with no email — see AuthService.setLocalPassword).
+  @UseGuards(AuthGuard)
+  @Put('local/:id/password')
+  setLocalPassword(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { password: string }) {
+    return this.auth.setLocalPassword(u.userId, u.familyId, id, body.password);
+  }
+
+  // Self-service reset, only reachable for an account with an email on file.
+  @Post('local/forgot-password')
+  forgotPassword(@Body() body: { email: string }) {
+    return this.auth.forgotPassword(body.email);
+  }
+
+  @Post('local/reset-password')
+  resetPassword(@Body() body: { token: string; password: string }) {
+    return this.auth.resetPassword(body.token, body.password);
   }
 
   @UseGuards(AuthGuard)

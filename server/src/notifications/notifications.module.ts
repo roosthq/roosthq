@@ -8,6 +8,6 @@ import { PrismaService } from '../prisma.service';
 @Module({
   controllers: [NotificationsController],
   providers: [NotificationsService, PushService, EmailService, PrismaService],
-  exports: [NotificationsService],
+  exports: [NotificationsService, EmailService],
 })
 export class NotificationsModule {}

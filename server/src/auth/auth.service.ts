@@ -1,13 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { InvitesService } from '../invites/invites.service';
+import { EmailService } from '../notifications/email.service';
 import { encrypt, decrypt } from '../crypto/token-crypto';
+import { hashPassword, verifyPassword } from '../crypto/password';
 import { DEFAULT_COLOR_THEME } from '../users/users.service';
+
+const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
+const RESET_TOKEN_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+// Adults/owner need a real way to be reached (password reset, notifications);
+// kids are parent-managed and typically have none.
+function emailRequired(role: string): boolean {
+  return role !== 'KID';
+}
 
 export type CallbackResult =
   | { status: 'ok'; userId: string; familyId: string; linkedMember: boolean }
   | { status: 'need_invite' };
+
+export interface LocalRegisterInput {
+  displayName: string;
+  email?: string;
+  username?: string;
+  password: string;
+  inviteToken?: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -15,7 +35,12 @@ export class AuthService {
     private prisma: PrismaService,
     private google: GoogleService,
     private invites: InvitesService,
+    private email: EmailService,
   ) {}
+
+  private hashToken(raw: string): string {
+    return createHash('sha256').update(raw).digest('hex');
+  }
 
   private async cleanupIfEmpty(familyId: string) {
     const count = await this.prisma.user.count({ where: { familyId } });
@@ -123,6 +148,123 @@ export class AuthService {
 
     // Unknown account, no invite: do not create anything.
     return { status: 'need_invite' };
+  }
+
+  // Google is now optional — a family can be bootstrapped, or a member added,
+  // entirely with a local username/email + password. Mirrors
+  // handleGoogleCallback's branching (invite vs. first-ever login vs. nobody
+  // home) but for local credentials instead of a Google profile.
+  async registerLocal(input: LocalRegisterInput): Promise<CallbackResult> {
+    const email = input.email?.trim() || undefined;
+    const username = input.username?.trim() || undefined;
+    if (!input.password || input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
+    const invite = input.inviteToken ? await this.invites.resolve(input.inviteToken) : null;
+    // Self-registering with no invite always bootstraps a brand-new family as
+    // its OWNER — never a kid — so email is required either way here.
+    const role = invite?.role ?? 'OWNER';
+    if (emailRequired(role) && !email) throw new BadRequestException('Email is required');
+    if (!email && !username) throw new BadRequestException('An email or username is required');
+    if (username) {
+      const takenUsername = await this.prisma.user.findUnique({ where: { username } });
+      if (takenUsername) throw new BadRequestException('That username is already taken');
+    }
+    if (email) {
+      const takenEmail = await this.prisma.user.findFirst({ where: { email, passwordHash: { not: null } } });
+      if (takenEmail) throw new BadRequestException('An account with that email already exists');
+    }
+    const passwordHash = hashPassword(input.password);
+
+    if (invite) {
+      const user = await this.prisma.user.create({
+        data: { familyId: invite.familyId, role: invite.role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+      });
+      await this.invites.markAccepted(invite.id);
+      return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
+    }
+
+    const familyCount = await this.prisma.family.count();
+    if (familyCount === 0) {
+      const family = await this.prisma.family.create({ data: { name: `${input.displayName}'s Family` } });
+      const user = await this.prisma.user.create({
+        data: { familyId: family.id, role: 'OWNER', displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+      });
+      return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
+    }
+
+    return { status: 'need_invite' };
+  }
+
+  // Adult/owner adds a member directly (Settings "add a kid" flow, task #11)
+  // — always requires an existing session (ctx), never bootstraps a family.
+  async createLocalMember(
+    familyId: string,
+    role: 'ADULT' | 'KID',
+    input: { displayName: string; email?: string; username?: string; password?: string },
+  ) {
+    const email = input.email?.trim() || undefined;
+    const username = input.username?.trim() || undefined;
+    if (emailRequired(role) && !email) throw new BadRequestException('Email is required');
+    if (username) {
+      const taken = await this.prisma.user.findUnique({ where: { username } });
+      if (taken) throw new BadRequestException('That username is already taken');
+    }
+    const passwordHash = input.password ? hashPassword(input.password) : undefined;
+    return this.prisma.user.create({
+      data: { familyId, role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+    });
+  }
+
+  async loginLocal(identifier: string, password: string): Promise<{ userId: string; familyId: string } | null> {
+    const id = identifier.trim();
+    if (!id || !password) return null;
+    const user = await this.prisma.user.findFirst({ where: { OR: [{ email: id }, { username: id }] } });
+    if (!user?.passwordHash || !verifyPassword(password, user.passwordHash)) return null;
+    return { userId: user.id, familyId: user.familyId };
+  }
+
+  // Owner/family manager resets a local account's password directly — the
+  // fallback for a kid (or anyone) with no email on file. Mirrors how PINs
+  // are already managed today.
+  async setLocalPassword(actorId: string, familyId: string, targetId: string, password: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) throw new UnauthorizedException('Adults only');
+    if (actorId !== targetId && actor.role !== 'OWNER') throw new UnauthorizedException('Owner only, for anyone but yourself');
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new BadRequestException('Member not found');
+    if (!password || password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
+    await this.prisma.user.update({ where: { id: targetId }, data: { passwordHash: hashPassword(password) } });
+    return { ok: true };
+  }
+
+  // Self-service path for anyone with an email on file (mainly adults/owner,
+  // since email is required for them at signup). Always resolves the same
+  // way whether or not the email matches an account, so a caller can't use
+  // this to probe which addresses are registered.
+  async forgotPassword(email: string) {
+    const user = await this.prisma.user.findFirst({ where: { email: email.trim(), passwordHash: { not: null } } });
+    if (user) {
+      const raw = randomBytes(32).toString('hex');
+      await this.prisma.passwordResetToken.create({
+        data: { userId: user.id, tokenHash: this.hashToken(raw), expiresAt: new Date(Date.now() + RESET_TOKEN_TTL_MS) },
+      });
+      const link = `${WEB_URL}/?resetToken=${raw}`;
+      await this.email.send(user.email!, 'Reset your Roost HQ password', `Reset your password: ${link}\n\nThis link expires in 1 hour. If you didn't ask for this, ignore it.`);
+    }
+    return { ok: true };
+  }
+
+  async resetPassword(rawToken: string, password: string) {
+    if (!password || password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
+    const tokenHash = this.hashToken(rawToken);
+    const record = await this.prisma.passwordResetToken.findUnique({ where: { tokenHash } });
+    if (!record || record.usedAt || record.expiresAt < new Date()) {
+      throw new BadRequestException('This reset link is invalid or has expired');
+    }
+    await this.prisma.$transaction([
+      this.prisma.user.update({ where: { id: record.userId }, data: { passwordHash: hashPassword(password) } }),
+      this.prisma.passwordResetToken.update({ where: { id: record.id }, data: { usedAt: new Date() } }),
+    ]);
+    return { ok: true };
   }
 
   me(userId: string) {

@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { api, loginUrl, pluralize, type Me, type FamilySettings, type FontSize } from './api';
 import Nav from './Nav';
 import Logo from './Logo';
+import LocalAuthForm from './LocalAuthForm';
 import CalendarPage from './pages/CalendarPage';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
@@ -31,22 +32,27 @@ export default function App() {
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [loading, setLoading] = useState(true);
 
+  async function loadMe() {
+    try {
+      const u = await api.me();
+      setMe(u);
+      applyMode(u.themePref ?? 'light');
+      applyColorTheme(u.colorTheme ?? 'meadow');
+      applyFontSize(u.fontSizePref ?? 'md');
+      try {
+        setFamily(await api.familySettings());
+      } catch {
+        /* ignore */
+      }
+    } catch {
+      setMe(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    api
-      .me()
-      .then(async (u) => {
-        setMe(u);
-        applyMode(u.themePref ?? 'light');
-        applyColorTheme(u.colorTheme ?? 'meadow');
-        applyFontSize(u.fontSizePref ?? 'md');
-        try {
-          setFamily(await api.familySettings());
-        } catch {
-          /* ignore */
-        }
-      })
-      .catch(() => setMe(null))
-      .finally(() => setLoading(false));
+    loadMe();
   }, []);
 
   async function logout() {
@@ -96,6 +102,7 @@ export default function App() {
   if (!me) {
     const params = new URLSearchParams(window.location.search);
     const invite = params.get('invite');
+    const resetToken = params.get('resetToken');
     const needInvite = params.get('auth') === 'need_invite';
     const href = invite ? `${loginUrl}?invite=${encodeURIComponent(invite)}` : loginUrl;
     return (
@@ -108,9 +115,19 @@ export default function App() {
             That account isn&apos;t part of a family yet. Ask the family owner to send you an invite link.
           </p>
         )}
-        <a href={href} className="mt-4 rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700">
-          {invite ? 'Sign in with Google to join' : 'Sign in with Google'}
-        </a>
+        {!resetToken && (
+          <a href={href} className="mt-4 rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700">
+            {invite ? 'Sign in with Google to join' : 'Sign in with Google'}
+          </a>
+        )}
+        <LocalAuthForm
+          inviteToken={invite}
+          resetToken={resetToken}
+          onLoggedIn={() => {
+            setLoading(true);
+            loadMe();
+          }}
+        />
       </Centered>
     );
   }

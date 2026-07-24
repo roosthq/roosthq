@@ -4,9 +4,10 @@ import { AuthService } from './auth.service';
 import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 import { InvitesModule } from '../invites/invites.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
-  imports: [InvitesModule],
+  imports: [InvitesModule, NotificationsModule],
   controllers: [AuthController],
   providers: [AuthService, GoogleService, PrismaService],
   exports: [GoogleService, PrismaService],

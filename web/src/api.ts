@@ -8,7 +8,14 @@ async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Pr
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   if (kioskToken) headers['x-kiosk-token'] = kioskToken;
   const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...init, headers });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  if (!res.ok) {
+    // Surface the server's actual message (e.g. "Password must be at least
+    // 8 characters") instead of a generic "400 Bad Request" — every caller
+    // that does `catch (e) { alert(e.message) }` benefits, not just new ones.
+    const body = await res.json().catch(() => null);
+    const message = typeof body?.message === 'string' ? body.message : Array.isArray(body?.message) ? body.message[0] : null;
+    throw new Error(message || `${res.status} ${res.statusText}`);
+  }
   return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
 }
 
@@ -341,6 +348,16 @@ export const api = {
   me: () => req<Me>('/auth/me'),
   members: () => req<Member[]>('/auth/members'),
   logout: () => req<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
+  registerLocal: (body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string }) =>
+    req<{ ok: boolean }>('/auth/local/register', { method: 'POST', body: JSON.stringify(body) }),
+  loginLocal: (body: { identifier: string; password: string }) =>
+    req<{ ok: boolean }>('/auth/local/login', { method: 'POST', body: JSON.stringify(body) }),
+  setLocalPassword: (userId: string, password: string) =>
+    req<{ ok: boolean }>(`/auth/local/${userId}/password`, { method: 'PUT', body: JSON.stringify({ password }) }),
+  forgotPassword: (email: string) =>
+    req<{ ok: boolean }>('/auth/local/forgot-password', { method: 'POST', body: JSON.stringify({ email }) }),
+  resetPassword: (token: string, password: string) =>
+    req<{ ok: boolean }>('/auth/local/reset-password', { method: 'POST', body: JSON.stringify({ token, password }) }),
 
   googleCalendars: () => req<GoogleCalendar[]>('/calendars/google'),
   googleAccountStatus: () => req<{ needsReconnect: boolean }>('/calendars/google/status'),
