@@ -159,7 +159,10 @@ export default function App() {
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/rules" element={<RulesPage me={me} />} />
-          <Route path="/awards" element={isAdult ? <AwardsPage /> : <Navigate to="/" replace />} />
+          <Route
+            path="/awards"
+            element={isAdult ? <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} /> : <Navigate to="/" replace />}
+          />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

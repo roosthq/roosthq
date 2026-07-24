@@ -33,6 +33,7 @@ enum LedgerType {
   PHYSICAL // reconciliation with physical tokens
   REDEEM // spent on a prize
   STREAK_BONUS // awarded for hitting a consecutive on-time completion goal
+  AWARD // granted alongside an Award (see AwardGrant)
 }
 
 enum NotificationType {
@@ -430,13 +431,14 @@ model Rule {
 // hand out over and over. Kids only ever see the ones they've actually been
 // given — the catalog itself is adults-only, so a surprise stays a surprise.
 model Award {
-  id          String   @id @default(cuid())
-  familyId    String
-  name        String
-  icon        String?  @db.Text // emoji, or an uploaded icon as a data: URI
-  description String?  @db.Text
-  createdById String
-  createdAt   DateTime @default(now())
+  id                String   @id @default(cuid())
+  familyId          String
+  name              String
+  icon              String?  @db.Text // emoji, or an uploaded icon as a data: URI
+  description       String?  @db.Text
+  defaultTokenValue Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
+  createdById       String
+  createdAt         DateTime @default(now())
 
   family    Family       @relation(fields: [familyId], references: [id], onDelete: Cascade)
   createdBy User         @relation("AwardCreatedBy", fields: [createdById], references: [id])
@@ -453,6 +455,7 @@ model AwardGrant {
   userId      String
   grantedById String
   note        String?  @db.Text
+  tokenValue  Int      @default(0) // snapshot of what was actually awarded this time — Award.defaultTokenValue can change later without rewriting history
   createdAt   DateTime @default(now())
 
   award     Award @relation(fields: [awardId], references: [id], onDelete: Cascade)

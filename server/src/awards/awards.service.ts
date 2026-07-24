@@ -6,11 +6,13 @@ export interface AwardInput {
   name: string;
   icon?: string | null;
   description?: string | null;
+  defaultTokenValue?: number;
 }
 
 export interface GrantInput {
   userId: string;
   note?: string;
+  tokenValue?: number;
 }
 
 @Injectable()
@@ -50,6 +52,7 @@ export class AwardsService {
       name: a.name,
       icon: a.icon,
       description: a.description,
+      defaultTokenValue: a.defaultTokenValue,
       grantCount: a._count.grants,
     }));
   }
@@ -57,7 +60,14 @@ export class AwardsService {
   async create(familyId: string, actorId: string, dto: AwardInput) {
     await this.assertAdult(actorId);
     return this.prisma.award.create({
-      data: { familyId, name: dto.name, icon: dto.icon || null, description: dto.description || null, createdById: actorId },
+      data: {
+        familyId,
+        name: dto.name,
+        icon: dto.icon || null,
+        description: dto.description || null,
+        defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue ?? 0)),
+        createdById: actorId,
+      },
     });
   }
 
@@ -70,6 +80,7 @@ export class AwardsService {
         ...(dto.name !== undefined && { name: dto.name }),
         ...(dto.icon !== undefined && { icon: dto.icon || null }),
         ...(dto.description !== undefined && { description: dto.description || null }),
+        ...(dto.defaultTokenValue !== undefined && { defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue)) }),
       },
     });
   }
@@ -103,14 +114,52 @@ export class AwardsService {
     return [...byAward.values()];
   }
 
+  // Adults-only, family-wide grant history — who gave what to whom, the note,
+  // the token value actually given, and when. Newest first.
+  async history(familyId: string, actorId: string) {
+    await this.assertAdult(actorId);
+    const grants = await this.prisma.awardGrant.findMany({
+      where: { award: { familyId } },
+      orderBy: { createdAt: 'desc' },
+      take: 200,
+      include: {
+        award: { select: { id: true, name: true, icon: true } },
+        user: { select: { id: true, displayName: true } },
+        grantedBy: { select: { id: true, displayName: true } },
+      },
+    });
+    return grants.map((g) => ({
+      id: g.id,
+      award: g.award,
+      user: g.user,
+      grantedBy: g.grantedBy,
+      note: g.note,
+      tokenValue: g.tokenValue,
+      createdAt: g.createdAt,
+    }));
+  }
+
   async grant(familyId: string, actorId: string, awardId: string, dto: GrantInput) {
     const actor = await this.assertAdult(actorId);
     const award = await this.owned(familyId, awardId);
     const recipient = await this.prisma.user.findFirst({ where: { id: dto.userId, familyId } });
     if (!recipient) throw new NotFoundException('Family member not found');
+    const tokenValue = Math.max(0, Math.floor(dto.tokenValue ?? award.defaultTokenValue));
     const grant = await this.prisma.awardGrant.create({
-      data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null },
+      data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue },
     });
+    if (tokenValue > 0) {
+      await this.prisma.tokenLedger.create({
+        data: {
+          userId: dto.userId,
+          delta: tokenValue,
+          reason: `Award: ${award.name}`,
+          type: 'AWARD',
+          refId: grant.id,
+          createdById: actorId,
+        },
+      });
+    }
     await this.notifications.create(
       familyId,
       dto.userId,
@@ -119,5 +168,32 @@ export class AwardsService {
       { link: '/profile' },
     );
     return grant;
+  }
+
+  // Undo a specific grant: removes the badge (so it no longer counts toward
+  // "earned") and reverses its tokens with a new negative ledger entry rather
+  // than deleting the original — same audit-trail convention as a rejected
+  // redemption refund elsewhere in this app.
+  async removeGrant(familyId: string, actorId: string, grantId: string) {
+    await this.assertAdult(actorId);
+    const grant = await this.prisma.awardGrant.findFirst({
+      where: { id: grantId, award: { familyId } },
+      include: { award: true },
+    });
+    if (!grant) throw new NotFoundException('Award grant not found');
+    if (grant.tokenValue > 0) {
+      await this.prisma.tokenLedger.create({
+        data: {
+          userId: grant.userId,
+          delta: -grant.tokenValue,
+          reason: `Removed award: ${grant.award.name}`,
+          type: 'AWARD',
+          refId: grant.id,
+          createdById: actorId,
+        },
+      });
+    }
+    await this.prisma.awardGrant.delete({ where: { id: grantId } });
+    return { ok: true };
   }
 }

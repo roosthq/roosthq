@@ -189,6 +189,7 @@ export interface AwardCatalogItem {
   name: string;
   icon: string | null;
   description: string | null;
+  defaultTokenValue: number;
   grantCount: number;
 }
 
@@ -198,6 +199,16 @@ export interface EarnedAward {
   icon: string | null;
   description: string | null;
   count: number;
+}
+
+export interface AwardGrantHistoryItem {
+  id: string;
+  award: { id: string; name: string; icon: string | null };
+  user: { id: string; displayName: string };
+  grantedBy: { id: string; displayName: string };
+  note: string | null;
+  tokenValue: number;
+  createdAt: string;
 }
 
 export interface DisplayTokenInfo {
@@ -478,13 +489,15 @@ export const api = {
 
   awardsCatalog: () => req<AwardCatalogItem[]>('/awards'),
   earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
-  createAward: (body: { name: string; icon?: string; description?: string }) =>
+  awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
+  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number }) =>
     req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }),
-  updateAward: (id: string, body: Partial<{ name: string; icon: string; description: string }>) =>
+  updateAward: (id: string, body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number }>) =>
     req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
-  grantAward: (id: string, body: { userId: string; note?: string }) =>
+  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }) =>
     req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }),
+  removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

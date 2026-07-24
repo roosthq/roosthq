@@ -21,6 +21,17 @@ export class AwardsController {
     return this.awards.earned(u.familyId, u.userId, userId || u.userId);
   }
 
+  // Adults-only, family-wide grant history.
+  @Get('history')
+  history(@CurrentUser() u: SessionPayload) {
+    return this.awards.history(u.familyId, u.userId);
+  }
+
+  @Delete('grants/:grantId')
+  removeGrant(@CurrentUser() u: SessionPayload, @Param('grantId') grantId: string) {
+    return this.awards.removeGrant(u.familyId, u.userId, grantId);
+  }
+
   @Post()
   create(@CurrentUser() u: SessionPayload, @Body() body: AwardInput) {
     return this.awards.create(u.familyId, u.userId, body);

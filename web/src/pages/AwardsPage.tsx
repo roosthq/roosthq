@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type AwardCatalogItem, type Member } from '../api';
+import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+import TokenBadge from '../TokenBadge';
 
 // Curated, kid-friendly picks — not exhaustive (anyone can still type any
 // emoji into the text field), just a fast default set.
@@ -49,18 +50,21 @@ function resizeSquareIconFile(file: File, dim = 128): Promise<string> {
 // Adults-only: create/manage the award catalog and hand awards out. Kids
 // never see this page (Nav hides the link) or the catalog — only what
 // they've actually been given, on their own profile.
-export default function AwardsPage() {
+export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string; tokenIcon: string }) {
   const { confirm, alert } = useDialog();
   const [awards, setAwards] = useState<AwardCatalogItem[]>([]);
   const [kids, setKids] = useState<Member[]>([]);
+  const [history, setHistory] = useState<AwardGrantHistoryItem[]>([]);
+  const [historyOpen, setHistoryOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<AwardCatalogItem | null>(null);
   const [granting, setGranting] = useState<AwardCatalogItem | null>(null);
 
   const refresh = useCallback(async () => {
-    const [a, members] = await Promise.all([api.awardsCatalog(), api.listUsers()]);
+    const [a, members, h] = await Promise.all([api.awardsCatalog(), api.listUsers(), api.awardHistory()]);
     setAwards(a);
     setKids(members.filter((m) => m.role === 'KID'));
+    setHistory(h);
   }, []);
 
   useEffect(() => {
@@ -71,6 +75,19 @@ export default function AwardsPage() {
     if (!(await confirm(`Delete "${a.name}"? This also removes it from anyone who's earned it.`, { danger: true, confirmLabel: 'Delete' })))
       return;
     await api.deleteAward(a.id);
+    await refresh();
+  }
+
+  async function removeGrant(g: AwardGrantHistoryItem) {
+    const tokenNote = g.tokenValue > 0 ? ` and take back ${g.tokenValue} ${tokenName}` : '';
+    if (
+      !(await confirm(`Remove "${g.award.name}" from ${g.user.displayName}${tokenNote}?`, {
+        danger: true,
+        confirmLabel: 'Remove',
+      }))
+    )
+      return;
+    await api.removeAwardGrant(g.id);
     await refresh();
   }
 
@@ -101,6 +118,11 @@ export default function AwardsPage() {
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
             </div>
             {a.description && <p className="mt-1 text-sm text-slate-500">{a.description}</p>}
+            {a.defaultTokenValue > 0 && (
+              <div className="mt-1">
+                <TokenBadge icon={tokenIcon} amount={a.defaultTokenValue} />
+              </div>
+            )}
             <div className="mt-3 flex gap-2 text-xs">
               <button
                 onClick={() => setGranting(a)}
@@ -126,6 +148,37 @@ export default function AwardsPage() {
         {awards.length === 0 && <li className="text-sm text-slate-400">No awards yet.</li>}
       </ul>
 
+      <section className="mt-8">
+        <button onClick={() => setHistoryOpen((v) => !v)} className="text-sm font-semibold hover:underline">
+          {historyOpen ? '▾' : '▸'} History ({history.length})
+        </button>
+        {historyOpen && (
+          <ul className="mt-3 space-y-2">
+            {history.map((g) => (
+              <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-3 text-sm">
+                <span className="flex min-w-0 flex-1 items-center gap-2">
+                  <AwardIcon icon={g.award.icon} size="text-xl" />
+                  <span className="min-w-0">
+                    <span className="font-medium">{g.award.name}</span> → <span className="font-medium">{g.user.displayName}</span>
+                    {g.note && <span className="ml-1 text-slate-400">"{g.note}"</span>}
+                    <div className="text-xs text-slate-400">
+                      by {g.grantedBy.displayName} · {new Date(g.createdAt).toLocaleString()}
+                    </div>
+                  </span>
+                </span>
+                <span className="flex shrink-0 items-center gap-3">
+                  {g.tokenValue > 0 && <TokenBadge icon={tokenIcon} amount={g.tokenValue} />}
+                  <button onClick={() => removeGrant(g)} className="text-xs text-red-500 hover:text-red-700">
+                    Remove
+                  </button>
+                </span>
+              </li>
+            ))}
+            {history.length === 0 && <li className="text-sm text-slate-400">No awards given yet.</li>}
+          </ul>
+        )}
+      </section>
+
       {formOpen && (
         <AwardForm
           award={editing}
@@ -141,6 +194,7 @@ export default function AwardsPage() {
         <GrantModal
           award={granting}
           kids={kids}
+          tokenName={tokenName}
           onClose={() => setGranting(null)}
           onGranted={async (kidName) => {
             setGranting(null);
@@ -168,6 +222,7 @@ function AwardForm({
   const [iconMode, setIconMode] = useState<'emoji' | 'upload'>(award?.icon?.startsWith('data:') ? 'upload' : 'emoji');
   const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState(award?.description ?? '');
+  const [defaultTokenValue, setDefaultTokenValue] = useState(award?.defaultTokenValue ?? 0);
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -184,7 +239,12 @@ function AwardForm({
 
   async function submit() {
     if (!name.trim()) return;
-    const body = { name: name.trim(), icon: icon.trim(), description: description.trim() || undefined };
+    const body = {
+      name: name.trim(),
+      icon: icon.trim(),
+      description: description.trim() || undefined,
+      defaultTokenValue: Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
+    };
     if (award) await api.updateAward(award.id, body);
     else await api.createAward(body);
     onSaved();
@@ -268,6 +328,19 @@ function AwardForm({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+
+          <label className="block text-sm">
+            <span className="text-slate-500">Default token value</span>
+            <input
+              type="number"
+              min={0}
+              className={`${input} mt-1 w-28`}
+              value={defaultTokenValue}
+              onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
+            />
+            <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award — adjustable each time.</span>
+          </label>
         </div>
     </Modal>
   );
@@ -276,23 +349,30 @@ function AwardForm({
 function GrantModal({
   award,
   kids,
+  tokenName,
   onClose,
   onGranted,
 }: {
   award: AwardCatalogItem;
   kids: Member[];
+  tokenName: string;
   onClose: () => void;
   onGranted: (kidName: string) => void;
 }) {
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
+  const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
   const [saving, setSaving] = useState(false);
 
   async function submit() {
     if (!userId) return;
     setSaving(true);
     try {
-      await api.grantAward(award.id, { userId, note: note.trim() || undefined });
+      await api.grantAward(award.id, {
+        userId,
+        note: note.trim() || undefined,
+        tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
+      });
       onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them');
     } finally {
       setSaving(false);
@@ -335,6 +415,17 @@ function GrantModal({
             ))}
           </select>
           {kids.length === 0 && <p className="mt-1 text-xs text-red-500">No kids in the family yet.</p>}
+        </label>
+        <label className="block text-sm">
+          <span className="text-slate-500">{tokenName}</span>
+          <input
+            type="number"
+            min={0}
+            className={`${input} mt-1`}
+            value={tokenValue}
+            onChange={(e) => setTokenValue(Number(e.target.value))}
+            onFocus={(e) => e.target.select()}
+          />
         </label>
         <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
