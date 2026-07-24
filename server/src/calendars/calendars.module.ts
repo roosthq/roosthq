@@ -4,11 +4,11 @@ import { CalendarsService } from './calendars.service';
 import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 import { NotificationsModule } from '../notifications/notifications.module';
-import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
+import { LocalCalendarsModule } from '../local-calendars/local-calendars.module';
 
 @Module({
-  imports: [NotificationsModule],
+  imports: [NotificationsModule, LocalCalendarsModule],
   controllers: [CalendarsController],
-  providers: [CalendarsService, GoogleService, PrismaService, LocalCalendarsService],
+  providers: [CalendarsService, GoogleService, PrismaService],
 })
 export class CalendarsModule {}

@@ -48,6 +48,7 @@ enum NotificationType {
   REDEMPTION_REJECTED
   PRIZE_SUGGESTED // kid submitted a wishlist item
   CALENDAR_EVENT_ADDED
+  CALENDAR_EVENT_REMINDER
   AWARD_GRANTED
 }
 
@@ -345,6 +346,7 @@ model LocalEvent {
   allDay          Boolean  @default(false)
   startAt         DateTime
   endAt           DateTime
+  remindedAt      DateTime? // set once the "starting soon" reminder has fired, so it never double-sends
   createdById     String
   createdAt       DateTime @default(now())
 

@@ -1,6 +1,9 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Interval } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+
+const REMINDER_LEAD_MINUTES = 60;
 
 export interface LocalCalendarInput {
   name: string;
@@ -215,19 +218,53 @@ export class LocalCalendarsService {
       excludeUserId: addedByUserId,
     });
 
+    const kidIds = await this.kidsInScope(familyId, calendarId);
+    await Promise.all(
+      kidIds.map((id) => this.notifications.create(familyId, id, 'CALENDAR_EVENT_ADDED', notifTitle, { link: '/' })),
+    );
+  }
+
+  // Which kids can actually see this calendar — it's on a kiosk display
+  // scoped to one of their locations. Adults/owner always see every local
+  // calendar, so they don't need this check.
+  private async kidsInScope(familyId: string, calendarId: string): Promise<string[]> {
     const displays = await this.prisma.displayConfig.findMany({ where: { familyId } });
     const locationIds = new Set<string>();
     for (const d of displays) {
       const ids = (d.calendarIds as string[]) ?? [];
       if (d.locationId && ids.includes(calendarId)) locationIds.add(d.locationId);
     }
-    if (!locationIds.size) return;
+    if (!locationIds.size) return [];
     const kids = await this.prisma.user.findMany({
       where: { familyId, role: 'KID', locations: { some: { locationId: { in: [...locationIds] } } } },
+      select: { id: true },
     });
-    await Promise.all(
-      kids.map((k) => this.notifications.create(familyId, k.id, 'CALENDAR_EVENT_ADDED', notifTitle, { link: '/' })),
-    );
+    return kids.map((k) => k.id);
+  }
+
+  // "Starting soon" reminder for timed events (all-day events aren't covered —
+  // there's no location timezone plumbed through here to know what "morning
+  // of" means for them). Fires once per event via remindedAt, same
+  // never-double-send pattern as ChoresService.pollDueDates' warnedThreshold.
+  @Interval(60_000)
+  async pollUpcomingEvents() {
+    const now = new Date();
+    const horizon = new Date(now.getTime() + REMINDER_LEAD_MINUTES * 60_000);
+    const due = await this.prisma.localEvent.findMany({
+      where: { allDay: false, remindedAt: null, startAt: { gte: now, lte: horizon } },
+      include: { calendar: true },
+    });
+    for (const event of due) {
+      await this.prisma.localEvent.update({ where: { id: event.id }, data: { remindedAt: now } });
+      const minutes = Math.round((event.startAt.getTime() - now.getTime()) / 60_000);
+      const label = minutes >= 60 ? `${Math.round(minutes / 60)} hour${minutes >= 120 ? 's' : ''}` : `${minutes} minutes`;
+      const title = `"${event.title}" starts in ${label}`;
+      const kidIds = await this.kidsInScope(event.calendar.familyId, event.calendar.id);
+      await this.notifications.notifyAdults(event.calendar.familyId, 'CALENDAR_EVENT_REMINDER', title, { link: '/' });
+      await Promise.all(
+        kidIds.map((id) => this.notifications.create(event.calendar.familyId, id, 'CALENDAR_EVENT_REMINDER', title, { link: '/' })),
+      );
+    }
   }
 }
 

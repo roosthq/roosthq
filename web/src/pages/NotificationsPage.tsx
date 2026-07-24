@@ -16,6 +16,7 @@ const TYPE_ICON: Record<string, string> = {
   REDEMPTION_REJECTED: '↩️',
   PRIZE_SUGGESTED: '💡',
   CALENDAR_EVENT_ADDED: '📅',
+  CALENDAR_EVENT_REMINDER: '⏰',
   AWARD_GRANTED: '🏆',
 };
 
