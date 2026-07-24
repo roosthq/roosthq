@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local-calendars.service';
+import { zonedTimeToUtc } from '../common/timezone';
 
 export interface ShareSelection {
   googleCalendarId: string;
@@ -215,17 +216,34 @@ export class CalendarsService {
   // A calendarId in these routes may point at a Google-backed Calendar or a
   // LocalCalendar — the frontend (AddEventModal, the kiosk) doesn't know or
   // care which, it just posts to `/calendars/:calendarId/events`.
+  // A timed dateTime here is a naive "YYYY-MM-DDTHH:mm:ss" plus a separate
+  // timeZone field (how AddEventModal builds it, mirroring Google's event
+  // resource shape) — NOT an ISO instant. `new Date(...)` on a string with no
+  // offset parses as the JS runtime's local time, which inside the Docker
+  // container is UTC, not the browser's zone — so every timed local event
+  // would land 6-7 hours off for anyone not in UTC. Resolve it properly here
+  // before it ever reaches LocalCalendarsService.
+  private resolveDateTime(v: { date?: string; dateTime?: string; timeZone?: string } | undefined): string | undefined {
+    if (!v) return undefined;
+    if (v.date) return v.date;
+    if (!v.dateTime) return undefined;
+    const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/.exec(v.dateTime);
+    if (!m) return v.dateTime;
+    const [, y, mo, d, hh, mm, ss] = m.map(Number);
+    return zonedTimeToUtc(y, mo, d, hh, mm, ss, 0, v.timeZone || 'UTC').toISOString();
+  }
+
   private googleBodyToLocalInput(body: Record<string, unknown>): Partial<LocalEventInput> {
-    const start = body.start as { date?: string; dateTime?: string } | undefined;
-    const end = body.end as { date?: string; dateTime?: string } | undefined;
+    const start = body.start as { date?: string; dateTime?: string; timeZone?: string } | undefined;
+    const end = body.end as { date?: string; dateTime?: string; timeZone?: string } | undefined;
     const allDay = start ? !!start.date : undefined;
     const out: Partial<LocalEventInput> = {};
     if (body.summary !== undefined) out.title = body.summary as string;
     if (body.description !== undefined) out.description = body.description as string;
     if (body.location !== undefined) out.location = body.location as string;
     if (allDay !== undefined) out.allDay = allDay;
-    if (start) out.start = (allDay ? start.date : start.dateTime) ?? '';
-    if (end) out.end = (allDay ? end.date : end.dateTime) ?? '';
+    if (start) out.start = this.resolveDateTime(start);
+    if (end) out.end = this.resolveDateTime(end);
     return out;
   }
 

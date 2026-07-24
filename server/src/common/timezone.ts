@@ -27,7 +27,7 @@ export interface DateKey {
 // the same instant in both UTC and the target zone, and the (server-local
 // parsing) bias introduced by round-tripping through Date cancels out in the
 // subtraction, leaving just the real UTC/zone offset.
-function zonedTimeToUtc(y: number, m: number, d: number, hh: number, mm: number, ss: number, ms: number, timeZone: string): Date {
+export function zonedTimeToUtc(y: number, m: number, d: number, hh: number, mm: number, ss: number, ms: number, timeZone: string): Date {
   const guess = new Date(Date.UTC(y, m - 1, d, hh, mm, ss, ms));
   const asUtc = new Date(guess.toLocaleString('en-US', { timeZone: 'UTC' })).getTime();
   const asTz = new Date(guess.toLocaleString('en-US', { timeZone })).getTime();
