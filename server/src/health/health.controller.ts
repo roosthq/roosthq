@@ -14,6 +14,13 @@ export class HealthController {
     } catch {
       db = 'down';
     }
-    return { status: 'ok', db, service: 'roosthq-api', time: new Date().toISOString() };
+    // uptimeSeconds catches a specific deploy failure mode: `nest start
+    // --watch`'s file-change restart can lose the race with itself (two
+    // processes briefly fighting over :3000) and leave an old, pre-deploy
+    // process still answering requests while docker reports the container
+    // as healthy and "just restarted." A tiny uptime here after a deploy
+    // proves the code that's actually answering requests is fresh — an
+    // old/stuck process would show an uptime much older than the restart.
+    return { status: 'ok', db, service: 'roosthq-api', time: new Date().toISOString(), uptimeSeconds: Math.round(process.uptime()) };
   }
 }
