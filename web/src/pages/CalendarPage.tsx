@@ -1,11 +1,41 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api, loginUrl, ROLE_ICON, type Me, type Member, type GoogleCalendar, type SharedCalendar, type CalEvent } from '../api';
+import {
+  api,
+  choreClient,
+  loginUrl,
+  ROLE_ICON,
+  type Me,
+  type Member,
+  type GoogleCalendar,
+  type SharedCalendar,
+  type CalEvent,
+  type Chore,
+} from '../api';
 import Calendar from '../Calendar';
 import AddEventModal from '../AddEventModal';
 import Modal from '../Modal';
 import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
+import { projectChoreOccurrences, type ChoreOccurrence } from '../choreOccurrences';
+import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
+
+const PERSON_COLORS = ['#0ea5e9', '#a855f7', '#f97316', '#22c55e', '#ec4899', '#6366f1', '#eab308', '#ef4444'];
+
+function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string): CalEvent {
+  const dueTime = occ.chore.dueTime;
+  const dateStr = occ.dueDate.toISOString().slice(0, 10);
+  return {
+    id: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
+    uid: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
+    calendarId: `chore-person-${occ.assigneeUserId}`,
+    calendarColor: color,
+    calendarName: `${personName}'s chores`,
+    title: `🧹 ${occ.chore.title}`,
+    start: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
+    end: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
+  };
+}
 
 export function Avatar({ name, src }: { name?: string; src?: string }) {
   if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
@@ -114,6 +144,42 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [addingEvent, setAddingEvent] = useState(false);
   const [needsReconnect, setNeedsReconnect] = useState(false);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [chores, setChores] = useState<Chore[]>([]);
+  const [selectedPeople, setSelectedPeople] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    api.members().then(setMembers).catch(() => undefined);
+  }, []);
+
+  const refreshChores = useCallback(() => {
+    choreClient().chores().then(setChores).catch(() => undefined);
+  }, []);
+  useEffect(() => {
+    refreshChores();
+  }, [refreshChores]);
+
+  const personColor = useMemo(() => {
+    const ids = [...selectedPeople].sort();
+    return new Map(ids.map((id, i) => [id, PERSON_COLORS[i % PERSON_COLORS.length]]));
+  }, [selectedPeople]);
+
+  const choreOccurrences = useMemo(
+    () => (range ? projectChoreOccurrences(chores, selectedPeople, new Date(range.start), new Date(range.end)) : []),
+    [chores, selectedPeople, range],
+  );
+
+  const choreEventsById = useMemo(() => {
+    const m = new Map<string, ChoreOccurrence>();
+    const list: CalEvent[] = [];
+    for (const occ of choreOccurrences) {
+      const name = members.find((x) => x.id === occ.assigneeUserId)?.displayName ?? 'Someone';
+      const ev = choreOccurrenceEvent(occ, personColor.get(occ.assigneeUserId) ?? '#94a3b8', name);
+      m.set(ev.id, occ);
+      list.push(ev);
+    }
+    return { map: m, list };
+  }, [choreOccurrences, members, personColor]);
 
   // Checked proactively so a dead Google connection surfaces on page load —
   // not just as a mysteriously-empty calendar or a "Manage calendars" click
@@ -305,11 +371,44 @@ export default function CalendarPage({ me }: { me: Me }) {
               </button>
             )}
             <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
+            {members.length > 0 && (
+              <details className="relative">
+                <summary className="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                  Chores ({selectedPeople.size}/{members.length}) ▾
+                </summary>
+                <div className="absolute right-0 z-10 mt-1 max-h-72 w-56 overflow-auto rounded border bg-white p-2 shadow">
+                  {members.map((m) => (
+                    <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
+                      <input
+                        type="checkbox"
+                        checked={selectedPeople.has(m.id)}
+                        onChange={(e) => {
+                          const next = new Set(selectedPeople);
+                          if (e.target.checked) next.add(m.id);
+                          else next.delete(m.id);
+                          setSelectedPeople(next);
+                        }}
+                      />
+                      <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: personColor.get(m.id) ?? '#94a3b8' }} />
+                      <span className="truncate">{m.displayName}</span>
+                    </label>
+                  ))}
+                </div>
+              </details>
+            )}
           </div>
         </div>
       </section>
 
-      <Calendar events={events} onRangeChange={onRangeChange} />
+      <Calendar
+        events={[...events, ...choreEventsById.list]}
+        onRangeChange={onRangeChange}
+        renderExtra={(e) => {
+          const occ = choreEventsById.map.get(e.id);
+          if (!occ) return null;
+          return <ChoreOccurrenceActions chore={occ.chore} instance={occ.instance} me={me} onChanged={refreshChores} />;
+        }}
+      />
 
       {addingEvent && (
         <AddEventModal

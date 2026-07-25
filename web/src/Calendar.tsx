@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { CalEvent } from './api';
 import Modal from './Modal';
 
@@ -81,6 +81,7 @@ export default function Calendar({
   onRangeChange,
   size = 'normal',
   fill = false,
+  renderExtra,
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
@@ -89,6 +90,10 @@ export default function Calendar({
   // instead of sizing each cell to a fixed min-height. Parent must give this
   // component a bounded height (e.g. flex-1 in a flex column) for it to work.
   fill?: boolean;
+  // Extra content under an event's description in the day-detail modal —
+  // lets a caller bolt on domain-specific actions (e.g. chore claim/complete
+  // buttons) without this component knowing anything about chores.
+  renderExtra?: (e: CalEvent) => ReactNode;
 }) {
   const [cursor, setCursor] = useState(() => {
     const n = new Date();
@@ -267,6 +272,7 @@ export default function Calendar({
                   {e.description && <div className="mt-1 text-sm text-slate-600 whitespace-pre-wrap break-words">{e.description}</div>}
                   {e.ownerName && <div className="text-xs text-slate-400">{e.ownerName}</div>}
                   {e.addedByName && <div className="text-xs text-slate-400">Added by {e.addedByName}</div>}
+                  {renderExtra?.(e)}
                 </div>
               </li>
             ))}
