@@ -85,7 +85,10 @@ export default function Calendar({
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
-  size?: 'normal' | 'large' | 'compact';
+  // 'mini' is the small "windows-style" side calendar for the kiosk's
+  // person-focused layout — day numbers and per-calendar dots only, no event
+  // text (there's no room for it), but still fully clickable/navigable.
+  size?: 'normal' | 'large' | 'compact' | 'mini';
   // Stretch the day grid to fill the parent's height (rows share it equally)
   // instead of sizing each cell to a fixed min-height. Parent must give this
   // component a bounded height (e.g. flex-1 in a flex column) for it to work.
@@ -103,7 +106,8 @@ export default function Calendar({
 
   const large = size === 'large';
   const compact = size === 'compact';
-  const cellMin = large ? 'min-h-[9rem]' : compact ? 'min-h-[4rem]' : 'min-h-[6rem]';
+  const mini = size === 'mini';
+  const cellMin = large ? 'min-h-[9rem]' : compact ? 'min-h-[4rem]' : mini ? 'min-h-[2.25rem]' : 'min-h-[6rem]';
   const chipText = large ? 'text-sm' : 'text-xs';
   const maxChips = large ? 6 : compact ? 2 : 3;
 
@@ -164,11 +168,13 @@ export default function Calendar({
   return (
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
       <div className="flex shrink-0 items-center justify-between">
-        <h2 className={large ? 'text-3xl font-bold' : 'text-xl font-semibold'}>{monthLabel}</h2>
+        <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{monthLabel}</h2>
         <div className="flex gap-1">
-          <button onClick={() => shift(-1)} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">‹</button>
-          <button onClick={goToday} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">Today</button>
-          <button onClick={() => shift(1)} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">›</button>
+          <button onClick={() => shift(-1)} className={`rounded border hover:bg-slate-50 ${mini ? 'px-1.5 py-0.5 text-xs' : 'px-3 py-1 text-sm'}`}>‹</button>
+          {!mini && (
+            <button onClick={goToday} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">Today</button>
+          )}
+          <button onClick={() => shift(1)} className={`rounded border hover:bg-slate-50 ${mini ? 'px-1.5 py-0.5 text-xs' : 'px-3 py-1 text-sm'}`}>›</button>
         </div>
       </div>
 
@@ -177,8 +183,8 @@ export default function Calendar({
         style={fill ? { gridTemplateRows: `auto repeat(6, minmax(0, 1fr))` } : undefined}
       >
         {WEEKDAYS.map((w) => (
-          <div key={w} className={`bg-slate-50 py-1 text-center font-medium text-slate-500 ${large ? 'text-sm' : 'text-xs'}`}>
-            {w}
+          <div key={w} className={`bg-slate-50 text-center font-medium text-slate-500 ${large ? 'py-1 text-sm' : mini ? 'py-0.5 text-[10px]' : 'py-1 text-xs'}`}>
+            {mini ? w.slice(0, 1) : w}
           </div>
         ))}
         {days.map((d) => {
@@ -201,42 +207,52 @@ export default function Calendar({
               }}
             >
               <div
-                className={`mb-1 ${large ? 'text-base' : 'text-xs'} font-medium ${
-                  isToday ? 'inline-flex h-6 w-6 items-center justify-center rounded-full' : ''
+                className={`${mini ? 'mb-0.5 text-[11px]' : 'mb-1'} ${large ? 'text-base' : 'text-xs'} font-medium ${
+                  isToday ? `inline-flex items-center justify-center rounded-full ${mini ? 'h-4 w-4' : 'h-6 w-6'}` : ''
                 }`}
                 style={isToday ? { background: 'var(--today)', color: '#1c2e1c' } : undefined}
               >
                 {d.getDate()}
               </div>
-              {/* Full title+avatar chips on wider screens; below sm there's only
-                  room for a per-calendar dot + count — tap the day for the rest. */}
-              <div className="hidden space-y-0.5 sm:block">
-                {dayEvents.slice(0, maxChips).map((e) => (
-                  <div key={`${e.uid}-${k}`} className={`flex items-center gap-1 ${chipText}`}>
-                    <Avatar name={e.ownerName} src={e.ownerAvatar} />
-                    <span className="h-2 w-1 shrink-0 rounded" style={{ background: e.calendarColor ?? '#94a3b8' }} />
-                    <span className="truncate">{e.title ?? '(no title)'}</span>
+              {mini ? (
+                <div className="flex flex-wrap gap-0.5">
+                  {Array.from(new Set(dayEvents.map((e) => e.calendarColor ?? '#94a3b8')))
+                    .slice(0, 6)
+                    .map((color) => <span key={color} className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: color }} />)}
+                </div>
+              ) : (
+                <>
+                  {/* Full title+avatar chips on wider screens; below sm there's only
+                      room for a per-calendar dot + count — tap the day for the rest. */}
+                  <div className="hidden space-y-0.5 sm:block">
+                    {dayEvents.slice(0, maxChips).map((e) => (
+                      <div key={`${e.uid}-${k}`} className={`flex items-center gap-1 ${chipText}`}>
+                        <Avatar name={e.ownerName} src={e.ownerAvatar} />
+                        <span className="h-2 w-1 shrink-0 rounded" style={{ background: e.calendarColor ?? '#94a3b8' }} />
+                        <span className="truncate">{e.title ?? '(no title)'}</span>
+                      </div>
+                    ))}
+                    {dayEvents.length > maxChips && (
+                      <div className={`text-slate-400 ${chipText}`}>+{dayEvents.length - maxChips} more</div>
+                    )}
                   </div>
-                ))}
-                {dayEvents.length > maxChips && (
-                  <div className={`text-slate-400 ${chipText}`}>+{dayEvents.length - maxChips} more</div>
-                )}
-              </div>
-              <div className="flex flex-wrap gap-1 sm:hidden">
-                {Array.from(
-                  dayEvents.reduce((m, e) => {
-                    const cur = m.get(e.calendarId);
-                    if (cur) cur.count++;
-                    else m.set(e.calendarId, { color: e.calendarColor ?? '#94a3b8', count: 1 });
-                    return m;
-                  }, new Map<string, { color: string; count: number }>()),
-                ).map(([calendarId, { color, count }]) => (
-                  <span key={calendarId} className="inline-flex items-center gap-0.5">
-                    <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
-                    <span className="text-[10px] leading-none text-slate-500">{count}</span>
-                  </span>
-                ))}
-              </div>
+                  <div className="flex flex-wrap gap-1 sm:hidden">
+                    {Array.from(
+                      dayEvents.reduce((m, e) => {
+                        const cur = m.get(e.calendarId);
+                        if (cur) cur.count++;
+                        else m.set(e.calendarId, { color: e.calendarColor ?? '#94a3b8', count: 1 });
+                        return m;
+                      }, new Map<string, { color: string; count: number }>()),
+                    ).map(([calendarId, { color, count }]) => (
+                      <span key={calendarId} className="inline-flex items-center gap-0.5">
+                        <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
+                        <span className="text-[10px] leading-none text-slate-500">{count}</span>
+                      </span>
+                    ))}
+                  </div>
+                </>
+              )}
             </button>
           );
         })}

@@ -108,6 +108,15 @@ export default function Display() {
     return { map: m, list };
   }, [active, chores, range]);
 
+  // Which pane is the main focus — persisted across reloads (the kiosk stays
+  // powered on for weeks; a refresh shouldn't quietly reset it back).
+  const [layout, setLayout] = useState<'calendar' | 'person'>(
+    () => (localStorage.getItem('rhq-kiosk-layout') as 'calendar' | 'person') || 'calendar',
+  );
+  useEffect(() => {
+    localStorage.setItem('rhq-kiosk-layout', layout);
+  }, [layout]);
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   useEffect(() => {
     const onChange = () => setIsFullscreen(!!document.fullscreenElement);
@@ -228,6 +237,7 @@ export default function Display() {
   const showCalendar = config.enabledFeatures.includes('calendar');
   const showChores = config.enabledFeatures.includes('chores');
   const showPrizes = config.enabledFeatures.includes('prizes');
+  const personFocused = !!active && layout === 'person' && showCalendar && (showChores || showPrizes);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden p-4">
@@ -250,6 +260,24 @@ export default function Display() {
               + Add event
             </button>
           )}
+          {active && showCalendar && (showChores || showPrizes) && (
+            <div className="flex rounded border p-0.5 text-sm text-slate-500">
+              <button
+                onClick={() => setLayout('calendar')}
+                title="Calendar-focused"
+                className={`rounded px-2 py-1 ${layout === 'calendar' ? 'bg-slate-800 text-white' : 'hover:bg-slate-100'}`}
+              >
+                📅 Calendar
+              </button>
+              <button
+                onClick={() => setLayout('person')}
+                title="Person-focused"
+                className={`rounded px-2 py-1 ${layout === 'person' ? 'bg-slate-800 text-white' : 'hover:bg-slate-100'}`}
+              >
+                🙂 {active.user.displayName.split(' ')[0]}
+              </button>
+            </div>
+          )}
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? 'Exit full screen' : 'Full screen'}
@@ -262,14 +290,18 @@ export default function Display() {
 
       {/* Calendar (left, fills all remaining height) and a fixed-width right
           panel that always occupies the same place: the profile picker before
-          sign-in, the signed-in person's chores after. */}
+          sign-in, the signed-in person's chores after. In person-focused
+          layout the two swap proportions — calendar shrinks to a small
+          "windows-style" side widget (dots only) and the person's own stuff
+          becomes the main event — but neither one's actual functionality
+          changes: same Calendar component, same click-through day modal. */}
       <div className="mt-3 flex min-h-0 flex-1 gap-6">
         {showCalendar && (
-          <div className="h-full min-w-0 flex-1">
+          <div className={personFocused ? 'h-full w-72 shrink-0' : 'h-full min-w-0 flex-1'}>
             <Calendar
               events={[...events, ...choreEventsById.list]}
               onRangeChange={onRangeChange}
-              size={active ? 'compact' : 'normal'}
+              size={!active ? 'normal' : personFocused ? 'mini' : 'compact'}
               fill
               renderExtra={(e) => {
                 const occ = choreEventsById.map.get(e.id);
@@ -289,7 +321,7 @@ export default function Display() {
         )}
 
         {(showChores || showPrizes) && (
-          <aside className="flex h-full w-80 shrink-0 flex-col">
+          <aside className={personFocused ? 'flex h-full flex-1 flex-col' : 'flex h-full w-80 shrink-0 flex-col'}>
             {active ? (
               <>
                 <div className="flex shrink-0 items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
