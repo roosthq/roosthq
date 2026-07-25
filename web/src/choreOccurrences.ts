@@ -1,4 +1,6 @@
-import type { Chore, ChoreInstance } from './api';
+import type { CalEvent, Chore, ChoreInstance } from './api';
+
+export const PERSON_COLORS = ['#0ea5e9', '#a855f7', '#f97316', '#22c55e', '#ec4899', '#6366f1', '#eab308', '#ef4444'];
 
 // A chore occurrence plotted onto the calendar. `instance` is a real DB row
 // (actionable — claim/complete/approve all work) only for the most recent
@@ -105,4 +107,23 @@ export function projectChoreOccurrences(
     }
   }
   return out;
+}
+
+// A single point-in-time pseudo-event for the calendar grid/day-modal — same
+// flat shape a Google/local calendar event uses, so Calendar.tsx renders it
+// unmodified. `renderExtra` (a Calendar.tsx prop) is how the caller bolts on
+// chore-specific action buttons for the real (non-virtual) occurrence.
+export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string): CalEvent {
+  const dueTime = occ.chore.dueTime;
+  const dateStr = occ.dueDate.toISOString().slice(0, 10);
+  return {
+    id: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
+    uid: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
+    calendarId: `chore-person-${occ.assigneeUserId}`,
+    calendarColor: color,
+    calendarName: `${personName}'s chores`,
+    title: `🧹 ${occ.chore.title}`,
+    start: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
+    end: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
+  };
 }

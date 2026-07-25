@@ -5,6 +5,7 @@ import {
   choreClient,
   prizeClient,
   type CalEvent,
+  type Chore,
   type ResolvedDisplayConfig,
   type Member,
   type SharedCalendar,
@@ -15,6 +16,8 @@ import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
+import ChoreOccurrenceActions from './ChoreOccurrenceActions';
+import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS } from './choreOccurrences';
 import Logo from './Logo';
 
 const params = new URLSearchParams(window.location.search);
@@ -74,6 +77,36 @@ export default function Display() {
 
   const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
   const [addingEvent, setAddingEvent] = useState(false);
+  const [chores, setChores] = useState<Chore[]>([]);
+
+  const refreshChores = useCallback(() => {
+    if (!kioskChoreClient) {
+      setChores([]);
+      return;
+    }
+    kioskChoreClient.chores().then(setChores).catch(() => setChores([]));
+  }, [kioskChoreClient]);
+  useEffect(() => {
+    refreshChores();
+  }, [refreshChores]);
+
+  // The signed-in person's own chores, current + projected future, plotted
+  // onto the same calendar grid as everyone's events — same feature as the
+  // main portal's "Chores" person-picker, just always scoped to whoever's
+  // signed into this kiosk profile instead of an opt-in multi-select.
+  const choreEventsById = useMemo(() => {
+    const m = new Map<string, ReturnType<typeof projectChoreOccurrences>[number]>();
+    const list: CalEvent[] = [];
+    if (active && range) {
+      const occs = projectChoreOccurrences(chores, new Set([active.user.id]), new Date(range.start), new Date(range.end));
+      for (const occ of occs) {
+        const ev = choreOccurrenceEvent(occ, PERSON_COLORS[0], active.user.displayName);
+        m.set(ev.id, occ);
+        list.push(ev);
+      }
+    }
+    return { map: m, list };
+  }, [active, chores, range]);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   useEffect(() => {
@@ -233,7 +266,25 @@ export default function Display() {
       <div className="mt-3 flex min-h-0 flex-1 gap-6">
         {showCalendar && (
           <div className="h-full min-w-0 flex-1">
-            <Calendar events={events} onRangeChange={onRangeChange} size={active ? 'compact' : 'normal'} fill />
+            <Calendar
+              events={[...events, ...choreEventsById.list]}
+              onRangeChange={onRangeChange}
+              size={active ? 'compact' : 'normal'}
+              fill
+              renderExtra={(e) => {
+                const occ = choreEventsById.map.get(e.id);
+                if (!occ || !active) return null;
+                return (
+                  <ChoreOccurrenceActions
+                    chore={occ.chore}
+                    instance={occ.instance}
+                    me={active.user}
+                    token={active.token}
+                    onChanged={refreshChores}
+                  />
+                );
+              }}
+            />
           </div>
         )}
 

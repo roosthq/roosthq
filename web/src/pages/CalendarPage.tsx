@@ -17,25 +17,8 @@ import AddEventModal from '../AddEventModal';
 import Modal from '../Modal';
 import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
-import { projectChoreOccurrences, type ChoreOccurrence } from '../choreOccurrences';
+import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
-
-const PERSON_COLORS = ['#0ea5e9', '#a855f7', '#f97316', '#22c55e', '#ec4899', '#6366f1', '#eab308', '#ef4444'];
-
-function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string): CalEvent {
-  const dueTime = occ.chore.dueTime;
-  const dateStr = occ.dueDate.toISOString().slice(0, 10);
-  return {
-    id: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
-    uid: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
-    calendarId: `chore-person-${occ.assigneeUserId}`,
-    calendarColor: color,
-    calendarName: `${personName}'s chores`,
-    title: `🧹 ${occ.chore.title}`,
-    start: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
-    end: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
-  };
-}
 
 export function Avatar({ name, src }: { name?: string; src?: string }) {
   if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;

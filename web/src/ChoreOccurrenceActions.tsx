@@ -11,16 +11,19 @@ export default function ChoreOccurrenceActions({
   instance,
   me,
   onChanged,
+  token,
 }: {
   chore: Chore;
   instance: ChoreInstance | null;
   me: { id: string; role: string };
   onChanged: () => void;
+  // Kiosk profile token — omit for the main (session-cookie) portal.
+  token?: string;
 }) {
   const { alert } = useDialog();
   const [busy, setBusy] = useState(false);
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
-  const client = choreClient();
+  const client = choreClient(token);
 
   if (!instance) {
     return <div className="mt-1 text-xs text-slate-400">Upcoming</div>;
