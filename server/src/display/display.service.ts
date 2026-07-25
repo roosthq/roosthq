@@ -54,7 +54,7 @@ export class DisplayService {
   async unlock(familyId: string, userId: string, pin?: string) {
     const user = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!user) throw new NotFoundException('Profile not found');
-    const isAdult = user.role === 'OWNER' || user.role === 'ADULT';
+    const isAdult = user.role === 'OWNER' || user.role === 'FAMILY_MANAGER' || user.role === 'ADULT';
 
     if (user.pinHash) {
       if (!pin || !verifyPin(pin, user.pinHash)) throw new UnauthorizedException('Wrong PIN');
@@ -89,8 +89,8 @@ export class DisplayService {
 
   private async assertOwner(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user || user.role !== 'OWNER') {
-      throw new ForbiddenException('Only the family owner can change display settings');
+    if (!user || (user.role !== 'OWNER' && user.role !== 'FAMILY_MANAGER')) {
+      throw new ForbiddenException('Only the owner or a family manager can change display settings');
     }
   }
 

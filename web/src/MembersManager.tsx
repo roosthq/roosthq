@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
-import { api, ROLE_ICON, type Me, type Member, type InviteInfo } from './api';
+import { api, ROLE_ICON, ROLE_LABEL, type Me, type Member, type InviteInfo } from './api';
 import { useDialog } from './Dialog';
 
-// Adults and the owner can invite people and manage PINs; only the owner can
-// change roles or remove members, and only the owner can manage another
-// adult's PIN — adults may only manage their own PIN and any kid's. Resetting
-// history follows the same shape: yourself always, any kid, but another
-// adult or the owner only if you're the owner.
+// Adults, family managers, and the owner can invite people and manage PINs;
+// only the owner/family manager can change roles or remove members, and only
+// the owner/family manager can manage another adult's PIN — plain adults may
+// only manage their own PIN and any kid's. Resetting history follows the
+// same shape: yourself always, any kid, but another adult or a manager-tier
+// account only if you're the owner or a family manager yourself. The owner
+// account itself is protected from role changes/removal here — that's a
+// deliberate separate flow, not a quick dropdown pick.
 export default function MembersManager({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
-  const canManagePin = (m: Member) => m.id === me.id || isOwner || m.role === 'KID';
-  const canReset = (m: Member) => m.id === me.id || m.role === 'KID' || isOwner;
+  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
+  const canManagePin = (m: Member) => m.id === me.id || isFamilyManager || m.role === 'KID';
+  const canReset = (m: Member) => m.id === me.id || m.role === 'KID' || isFamilyManager;
   const { confirm } = useDialog();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
   const [open, setOpen] = useState(false);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
-  const [inviteRole, setInviteRole] = useState<'OWNER' | 'ADULT' | 'KID'>('KID');
+  const [inviteRole, setInviteRole] = useState<'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>('KID');
   const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
   const [addRole, setAddRole] = useState<'ADULT' | 'KID'>('KID');
   const [addName, setAddName] = useState('');
@@ -45,7 +49,7 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.revokeInvite(id);
     await refresh();
   }
-  async function changeRole(m: Member, role: 'ADULT' | 'KID') {
+  async function changeRole(m: Member, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
     await api.setUserRole(m.id, role);
     await refresh();
   }
@@ -123,11 +127,12 @@ export default function MembersManager({ me }: { me: Me }) {
           <span className="font-medium">Invite someone as</span>
           <select
             value={inviteRole}
-            onChange={(e) => setInviteRole(e.target.value as 'OWNER' | 'ADULT' | 'KID')}
+            onChange={(e) => setInviteRole(e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID')}
             className="rounded border px-2 py-1 text-xs"
           >
             <option value="KID">Kid</option>
             <option value="ADULT">Adult</option>
+            {isFamilyManager && <option value="FAMILY_MANAGER">Family Manager</option>}
             {isOwner && <option value="OWNER">Owner</option>}
           </select>
           <button onClick={createInvite} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
@@ -149,7 +154,7 @@ export default function MembersManager({ me }: { me: Me }) {
               .map((i) => (
                 <li key={i.id} className="flex items-center justify-between">
                   <span>
-                    Pending invite · {String(i.role).toLowerCase()} · {new Date(i.createdAt).toLocaleDateString()}
+                    Pending invite · {ROLE_LABEL[i.role] ?? i.role} · {new Date(i.createdAt).toLocaleDateString()}
                   </span>
                   <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
                     Revoke
@@ -216,21 +221,22 @@ export default function MembersManager({ me }: { me: Me }) {
             <span className="min-w-32 font-medium">{m.displayName}</span>
 
             {m.role === 'OWNER' ? (
-              <span className="text-xs text-slate-400">{ROLE_ICON.OWNER} owner</span>
-            ) : isOwner ? (
+              <span className="text-xs text-slate-400">{ROLE_ICON.OWNER} {ROLE_LABEL.OWNER}</span>
+            ) : isFamilyManager ? (
               <span className="flex items-center gap-1 text-xs">
                 {ROLE_ICON[m.role]}
                 <select
                   value={m.role}
-                  onChange={(e) => changeRole(m, e.target.value as 'ADULT' | 'KID')}
+                  onChange={(e) => changeRole(m, e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID')}
                   className="rounded border px-2 py-1 text-xs"
                 >
+                  <option value="FAMILY_MANAGER">Family Manager</option>
                   <option value="ADULT">Adult</option>
                   <option value="KID">Kid</option>
                 </select>
               </span>
             ) : (
-              <span className="text-xs text-slate-400">{ROLE_ICON[m.role]} {m.role.toLowerCase()}</span>
+              <span className="text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
             )}
 
             <span className="text-xs text-slate-400">{m.hasPin ? '🔒 PIN set' : 'no PIN'}</span>
@@ -262,7 +268,7 @@ export default function MembersManager({ me }: { me: Me }) {
                   Reset
                 </button>
               )}
-              {isOwner && m.role !== 'OWNER' && (
+              {isFamilyManager && m.role !== 'OWNER' && (
                 <button onClick={() => removeMember(m)} className="text-xs text-red-500 hover:text-red-700">
                   Remove
                 </button>

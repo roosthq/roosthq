@@ -14,7 +14,8 @@ datasource db {
 // ---------- Enums ----------
 
 enum Role {
-  OWNER
+  OWNER // instance-level: multi-family creation/management, ghosting — see #18/#19
+  FAMILY_MANAGER // full family-management powers (everything OWNER used to mean before the instance-level split)
   ADULT
   KID
 }

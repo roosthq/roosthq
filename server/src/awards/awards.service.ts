@@ -23,7 +23,7 @@ export class AwardsService {
   ) {}
 
   private isAdult(role: string) {
-    return role === 'OWNER' || role === 'ADULT';
+    return role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT';
   }
 
   private async assertAdult(userId: string) {

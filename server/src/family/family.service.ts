@@ -27,7 +27,9 @@ export class FamilyService {
     data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (!actor || (actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER')) {
+      throw new ForbiddenException('Owner or family manager only');
+    }
     const f = await this.prisma.family.update({
       where: { id: familyId },
       data: {

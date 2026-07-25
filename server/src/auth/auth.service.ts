@@ -203,7 +203,7 @@ export class AuthService {
     input: { displayName: string; email?: string; username?: string; password?: string },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || actor.familyId !== familyId || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) {
+    if (!actor || actor.familyId !== familyId || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) {
       throw new UnauthorizedException('Adults only');
     }
     if (!input.displayName?.trim()) throw new BadRequestException('Name is required');
@@ -235,8 +235,10 @@ export class AuthService {
   // are already managed today.
   async setLocalPassword(actorId: string, familyId: string, targetId: string, password: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) throw new UnauthorizedException('Adults only');
-    if (actorId !== targetId && actor.role !== 'OWNER') throw new UnauthorizedException('Owner only, for anyone but yourself');
+    if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new UnauthorizedException('Adults only');
+    if (actorId !== targetId && actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER') {
+      throw new UnauthorizedException('Owner or family manager only, for anyone but yourself');
+    }
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new BadRequestException('Member not found');
     if (!password || password.length < 8) throw new BadRequestException('Password must be at least 8 characters');

@@ -7,12 +7,12 @@ export class TokensService {
 
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
   }
 
   private async assertOwner(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || u.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (!u || (u.role !== 'OWNER' && u.role !== 'FAMILY_MANAGER')) throw new ForbiddenException('Owner or family manager only');
   }
 
   // Balance for a single user (derived by summing the ledger).
@@ -40,7 +40,7 @@ export class TokensService {
     const member = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
-    const isAdult = !!actor && (actor.role === 'OWNER' || actor.role === 'ADULT');
+    const isAdult = !!actor && ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role);
     const entries = await this.prisma.tokenLedger.findMany({
       where: { userId: targetUserId },
       orderBy: { createdAt: 'desc' },

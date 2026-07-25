@@ -71,7 +71,7 @@ function NotifySettings({ me }: { me: Me }) {
 }
 
 export default function NotificationsPage({ me }: { me: Me }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const [view, setView] = useState<'mine' | 'family'>('mine');
   const [items, setItems] = useState<AppNotification[]>([]);
   const navigate = useNavigate();

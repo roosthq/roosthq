@@ -115,9 +115,9 @@ export function CalendarFilterDropdown({
 }
 
 export default function CalendarPage({ me }: { me: Me }) {
-  const isOwner = me.role === 'OWNER';
+  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const isKid = me.role === 'KID';
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT'; // can connect/add calendars
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT'; // can connect/add calendars
   const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
@@ -184,12 +184,12 @@ export default function CalendarPage({ me }: { me: Me }) {
   // first render show (and fetch events for) every family calendar, including
   // ones they don't have access to, before narrowing a moment later.
   const [allowedIds, setAllowedIds] = useState<Set<string> | null>(null);
-  const [scopeReady, setScopeReady] = useState(isOwner);
+  const [scopeReady, setScopeReady] = useState(isFamilyManager);
 
   useEffect(() => {
     let cancelled = false;
     async function resolveScope() {
-      if (isOwner) {
+      if (isFamilyManager) {
         setAllowedIds(null);
         setScopeReady(true);
         return;
@@ -222,7 +222,7 @@ export default function CalendarPage({ me }: { me: Me }) {
     return () => {
       cancelled = true;
     };
-  }, [isOwner, isKid, me.id]);
+  }, [isFamilyManager, isKid, me.id]);
 
   const filterOptions = useMemo(
     () => (allowedIds ? shared.filter((c) => allowedIds.has(c.id)) : shared),

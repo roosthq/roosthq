@@ -12,7 +12,7 @@ export class InvitesController {
   @Post()
   create(
     @CurrentUser() u: SessionPayload,
-    @Body() body: { role: 'OWNER' | 'ADULT' | 'KID'; label?: string },
+    @Body() body: { role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'; label?: string },
   ) {
     return this.invites.create(u.familyId, u.userId, body.role, body.label);
   }

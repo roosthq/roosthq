@@ -15,7 +15,7 @@ export default function Nav({
   onToggleTheme: () => void;
   onChangeFontSize: (size: FontSize) => void;
 }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const cls = ({ isActive }: { isActive: boolean }) =>
     `rounded px-3 py-2 text-sm ${isActive ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}`;
 

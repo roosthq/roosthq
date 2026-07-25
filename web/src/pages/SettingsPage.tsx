@@ -13,14 +13,14 @@ import DisplayAccess from '../DisplayAccess';
 import { useDialog } from '../Dialog';
 
 export default function SettingsPage({ me }: { me: Me }) {
-  const isOwner = me.role === 'OWNER';
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
+  const isAdult = isFamilyManager || me.role === 'ADULT';
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold">Settings</h2>
 
-      {isOwner && <TokenNameSetting />}
-      {isOwner && <ChoreWordSetting />}
+      {isFamilyManager && <TokenNameSetting />}
+      {isFamilyManager && <ChoreWordSetting />}
 
       {isAdult && (
         <Section title="Family members & invites">
@@ -41,7 +41,7 @@ export default function SettingsPage({ me }: { me: Me }) {
         </Section>
       )}
 
-      {isOwner && (
+      {isFamilyManager && (
         <Section title="Touch displays">
           <DisplaysManager />
           <div className="mt-6 border-t pt-4">

@@ -33,7 +33,7 @@ export class LocalCalendarsService {
 
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
     return u;
   }
 
@@ -159,7 +159,7 @@ export class LocalCalendarsService {
   private async assertCanEdit(familyId: string, actorId: string, createdById: string) {
     const u = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!u || u.familyId !== familyId) throw new ForbiddenException();
-    if (u.role !== 'OWNER' && u.role !== 'ADULT' && u.id !== createdById) {
+    if (!['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role) && u.id !== createdById) {
       throw new ForbiddenException("Only an adult, or whoever added it, can change this event");
     }
   }

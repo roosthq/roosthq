@@ -4,7 +4,7 @@ import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 
 export default function RulesPage({ me }: { me: Me }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const { confirm } = useDialog();
   const [rules, setRules] = useState<Rule[]>([]);
   const [kids, setKids] = useState<Member[]>([]);

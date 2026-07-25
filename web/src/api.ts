@@ -130,8 +130,18 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
 // member list in Settings, invite rows.
 export const ROLE_ICON: Record<string, string> = {
   OWNER: '👑',
+  FAMILY_MANAGER: '🗝️',
   ADULT: '🧑',
   KID: '🧒',
+};
+
+// Human-readable label for a role — needed anywhere a role gets displayed
+// as text, since the raw enum value (FAMILY_MANAGER) doesn't read as UI copy.
+export const ROLE_LABEL: Record<string, string> = {
+  OWNER: 'Owner',
+  FAMILY_MANAGER: 'Family Manager',
+  ADULT: 'Adult',
+  KID: 'Kid',
 };
 
 export interface DisplaySettings {
@@ -442,7 +452,7 @@ export const api = {
   listUsers: () => req<Member[]>('/users'),
   setUserPin: (id: string, pin: string | null) =>
     req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
-  setUserRole: (id: string, role: 'OWNER' | 'ADULT' | 'KID') =>
+  setUserRole: (id: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
   resetUser: (id: string) => req<{ ok: boolean }>(`/users/${id}/reset`, { method: 'POST' }),
@@ -468,7 +478,7 @@ export const api = {
     req('/notifications/push/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
-  createInvite: (role: 'OWNER' | 'ADULT' | 'KID', label?: string) =>
+  createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string) =>
     req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
 

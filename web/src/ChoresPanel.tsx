@@ -94,7 +94,7 @@ export default function ChoresPanel({
   // the whole family. Omit entirely for the normal portal (unscoped).
   locationId?: string | null;
 }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const { alert, confirm } = useDialog();
   const today = variant === 'today';
   const [personFilter, setPersonFilter] = useState('');

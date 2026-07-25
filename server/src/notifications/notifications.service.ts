@@ -13,7 +13,7 @@ export class NotificationsService {
   ) {}
 
   private isAdult(role?: string) {
-    return role === 'OWNER' || role === 'ADULT';
+    return role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT';
   }
 
   // Called by other services when something notification-worthy happens.
@@ -65,7 +65,7 @@ export class NotificationsService {
     const adults = await this.prisma.user.findMany({
       where: {
         familyId,
-        role: { in: ['OWNER', 'ADULT'] },
+        role: { in: ['OWNER', 'FAMILY_MANAGER', 'ADULT'] },
         ...(opts.excludeUserId ? { id: { not: opts.excludeUserId } } : {}),
       },
       select: { id: true },

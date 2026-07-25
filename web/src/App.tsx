@@ -137,7 +137,7 @@ export default function App() {
   const tokenValueUsd = family?.tokenValueUsd ?? 1;
   const choreWord = family?.choreWord ?? 'Chore';
   const chorePlural = pluralize(choreWord);
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">

@@ -16,7 +16,7 @@ export default function StorePage({
   tokenIcon: string;
   tokenValueUsd: number;
 }) {
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const { alert, confirm } = useDialog();
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);

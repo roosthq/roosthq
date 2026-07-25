@@ -11,7 +11,7 @@ export class RulesService {
   constructor(private prisma: PrismaService) {}
 
   private isAdult(role: string) {
-    return role === 'OWNER' || role === 'ADULT';
+    return role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT';
   }
 
   private async assertAdult(userId: string) {

@@ -12,8 +12,8 @@ export class DisplayTokenService {
 
   private async assertOwner(userId: string) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!user || user.role !== 'OWNER') {
-      throw new ForbiddenException('Only the family owner can manage display tokens');
+    if (!user || (user.role !== 'OWNER' && user.role !== 'FAMILY_MANAGER')) {
+      throw new ForbiddenException('Only the owner or a family manager can manage display tokens');
     }
   }
 

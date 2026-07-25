@@ -2,7 +2,10 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from '../prisma.service';
 import { hashPin } from '../crypto/pin';
 
-type Role = 'OWNER' | 'ADULT' | 'KID';
+type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
+function isFamilyManager(role?: string): boolean {
+  return role === 'OWNER' || role === 'FAMILY_MANAGER';
+}
 type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
 export const COLOR_THEMES = ['meadow', 'ocean', 'ember', 'lavender', 'slate', 'rose', 'sand', 'mint', 'midnight'];
@@ -32,7 +35,7 @@ export class UsersService {
   }
 
   // Everyone manages their own PIN. Adults additionally manage kids' PINs.
-  // Only the owner manages another adult's (or the owner's own via the same rule).
+  // Only the owner/family manager manages another adult's (or their own via the same rule).
   async setPin(actorId: string, familyId: string, targetId: string, pin: string | null) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor) throw new ForbiddenException();
@@ -40,7 +43,7 @@ export class UsersService {
     if (!target) throw new NotFoundException('Member not found');
 
     const isSelf = actorId === targetId;
-    const allowed = isSelf || actor.role === 'OWNER' || (actor.role === 'ADULT' && target.role === 'KID');
+    const allowed = isSelf || isFamilyManager(actor.role) || (actor.role === 'ADULT' && target.role === 'KID');
     if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
 
     await this.prisma.user.update({
@@ -50,12 +53,18 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Only the owner can change roles (e.g. mark a newly-added member as a KID).
+  // Owner/family manager can change roles (e.g. mark a newly-added member as a
+  // KID) — but only the instance owner can grant or revoke the OWNER role
+  // itself, since that role now carries instance-wide powers (multi-family,
+  // ghosting), not just this family's.
   async setRole(actorId: string, familyId: string, targetId: string, role: Role) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (!actor || !isFamilyManager(actor.role)) throw new ForbiddenException('Owner or family manager only');
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new NotFoundException('Member not found');
+    if ((role === 'OWNER' || target.role === 'OWNER') && actor.role !== 'OWNER') {
+      throw new ForbiddenException('Only the owner can change the owner role');
+    }
     await this.prisma.user.update({ where: { id: targetId }, data: { role } });
     return { ok: true };
   }
@@ -88,17 +97,18 @@ export class UsersService {
   }
 
   // Wipe a member's token/purchase/notification history — not their account.
-  // Everyone can reset themselves; any adult/owner can reset a kid; only the
-  // owner can reset another adult or owner. Leaves the User row itself alone
-  // (role, PIN, theme, text size, email-notify preference all survive).
+  // Everyone can reset themselves; any adult/owner/family manager can reset a
+  // kid; only the owner/family manager can reset another adult or owner.
+  // Leaves the User row itself alone (role, PIN, theme, text size, email-notify
+  // preference all survive).
   async resetAccount(actorId: string, familyId: string, targetId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || (actor.role !== 'OWNER' && actor.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    if (!actor || (!isFamilyManager(actor.role) && actor.role !== 'ADULT')) throw new ForbiddenException('Adults only');
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new NotFoundException('Member not found');
 
     const isSelf = actorId === targetId;
-    const allowed = isSelf || target.role === 'KID' || actor.role === 'OWNER';
+    const allowed = isSelf || target.role === 'KID' || isFamilyManager(actor.role);
     if (!allowed) throw new ForbiddenException('Not allowed to reset this member');
 
     await this.prisma.$transaction([
@@ -109,11 +119,13 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Owner removes a member. Cleans up rows that would otherwise block the delete
-  // (chores reference users without cascade). Can't remove yourself or the owner.
+  // Owner/family manager removes a member. Cleans up rows that would otherwise
+  // block the delete (chores reference users without cascade). Can't remove
+  // yourself or the instance owner (family managers included — the owner is
+  // the one protected account).
   async remove(actorId: string, familyId: string, targetId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    if (!actor || !isFamilyManager(actor.role)) throw new ForbiddenException('Owner or family manager only');
     if (actorId === targetId) throw new ForbiddenException('You cannot remove yourself');
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new NotFoundException('Member not found');

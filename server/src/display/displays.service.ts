@@ -44,7 +44,7 @@ export class DisplaysService {
 
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
   }
 
   private async owned(familyId: string, id: string) {

@@ -27,7 +27,7 @@ export class UsersController {
   setRole(
     @CurrentUser() u: SessionPayload,
     @Param('id') id: string,
-    @Body() body: { role: 'OWNER' | 'ADULT' | 'KID' },
+    @Body() body: { role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' },
   ) {
     return this.users.setRole(u.userId, u.familyId, id, body.role);
   }

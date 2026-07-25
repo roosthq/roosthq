@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 
-type Role = 'OWNER' | 'ADULT' | 'KID';
+type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 
 @Injectable()
 export class InvitesService {
@@ -14,16 +14,20 @@ export class InvitesService {
 
   private async assertAdultOrOwner(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'ADULT')) throw new ForbiddenException('Adults only');
+    if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
     return u;
   }
 
-  // Create a one-time invite; returns the raw token once (for the link). Adults
-  // and the owner can invite new kids/adults; only the owner can invite another owner.
+  // Create a one-time invite; returns the raw token once (for the link).
+  // Adults can invite new kids/adults; owner/family manager can additionally
+  // invite a family manager; only the instance owner can invite another owner.
   async create(familyId: string, userId: string, role: Role, label?: string) {
     const actor = await this.assertAdultOrOwner(userId);
     if (role === 'OWNER' && actor.role !== 'OWNER') {
       throw new ForbiddenException('Only the owner can invite another owner');
+    }
+    if (role === 'FAMILY_MANAGER' && actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER') {
+      throw new ForbiddenException('Only the owner or a family manager can invite another family manager');
     }
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({

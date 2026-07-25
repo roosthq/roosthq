@@ -32,8 +32,8 @@ export default function ProfilePage({
 }) {
   const { id } = useParams();
   const targetId = id ?? me.id;
-  const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
-  const isOwner = me.role === 'OWNER';
+  const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const viewingSelf = targetId === me.id;
   const { confirm } = useDialog();
 
@@ -95,7 +95,7 @@ export default function ProfilePage({
   // Everyone manages their own PIN; adults additionally manage kids' PINs;
   // only the owner manages another adult's PIN.
   const canManagePin =
-    viewingSelf || me.role === 'OWNER' || (isAdult && member?.role === 'KID');
+    viewingSelf || isFamilyManager || (isAdult && member?.role === 'KID');
 
   async function savePin() {
     try {
@@ -260,7 +260,7 @@ export default function ProfilePage({
                   {l.delta}
                 </span>
                 <span className="text-xs text-slate-400">{new Date(l.createdAt).toLocaleDateString()}</span>
-                {isOwner && (
+                {isFamilyManager && (
                   <button onClick={() => deleteEntry(l)} className="text-xs text-red-500 hover:text-red-700">
                     Delete
                   </button>
