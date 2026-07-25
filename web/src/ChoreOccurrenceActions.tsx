@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { choreClient, type Chore, type ChoreInstance } from './api';
 import { useDialog } from './Dialog';
+import TokenBadge from './TokenBadge';
 
-// Same claim/complete/approve/reject actions ChoresPanel offers, condensed
-// for a single occurrence inside the calendar's day-detail modal. A virtual
+// The full chore card (token value, checklist, actions) condensed for a
+// single occurrence inside the calendar's day-detail modal — same info and
+// same actions ChoresPanel offers, so "manage it from the calendar" really
+// does mean the normal chore management, checklist included. A required
+// checklist item blocks completion server-side, so without the checkboxes
+// here there was no way to satisfy that from the calendar at all. A virtual
 // (projected, not-yet-real) occurrence has nothing to act on — the server
 // wouldn't let you complete a future-dated instance anyway.
 export default function ChoreOccurrenceActions({
@@ -22,11 +27,24 @@ export default function ChoreOccurrenceActions({
 }) {
   const { alert } = useDialog();
   const [busy, setBusy] = useState(false);
+  const [tokenIcon, setTokenIcon] = useState('🪙');
   const isAdult = me.role === 'OWNER' || me.role === 'ADULT';
   const client = choreClient(token);
 
+  useEffect(() => {
+    client.familySettings().then((s) => setTokenIcon(s.tokenIcon)).catch(() => undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+  const tokenRow = <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />;
+
   if (!instance) {
-    return <div className="mt-1 text-xs text-slate-400">Upcoming</div>;
+    return (
+      <div className="mt-2 flex items-center gap-2">
+        {tokenRow}
+        <span className="text-xs text-slate-400">Upcoming</span>
+      </div>
+    );
   }
 
   const claimedBy = instance.claimedByUserId;
@@ -38,6 +56,7 @@ export default function ChoreOccurrenceActions({
   const endOfToday = new Date();
   endOfToday.setHours(23, 59, 59, 999);
   const dueNow = new Date(instance.dueDate).getTime() <= endOfToday.getTime();
+  const checked = new Set(instance.checks.map((c) => c.checklistId));
 
   async function act(fn: () => Promise<unknown>) {
     setBusy(true);
@@ -51,22 +70,61 @@ export default function ChoreOccurrenceActions({
     }
   }
 
+  const checklist = chore.checklist.length > 0 && (
+    <ul className="mt-2 space-y-1">
+      {chore.checklist.map((item) => (
+        <li key={item.id} className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={checked.has(item.id)}
+            disabled={busy || !mine || instance.status !== 'OPEN'}
+            onChange={(e) => act(() => client.checkItem(instance.id, item.id, e.target.checked))}
+          />
+          <span className={checked.has(item.id) ? 'text-slate-400 line-through' : ''}>{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+
   if (instance.status === 'APPROVED') {
     return (
-      <div className="mt-1 text-xs text-green-600">
-        Done ✓{instance.approvedByUser && ` — approved by ${instance.approvedByUser.displayName}`}
+      <div className="mt-2">
+        <div className="flex items-center gap-2">
+          {tokenRow}
+          <span className="text-xs text-green-600">
+            Done ✓{instance.approvedByUser && ` — approved by ${instance.approvedByUser.displayName}`}
+          </span>
+        </div>
       </div>
     );
   }
-  if (instance.status === 'MISSED') return <div className="mt-1 text-xs text-red-500">Missed</div>;
-  if (instance.status === 'REJECTED') return <div className="mt-1 text-xs text-red-500">Rejected — try again</div>;
+  if (instance.status === 'MISSED') {
+    return (
+      <div className="mt-2 flex items-center gap-2">
+        {tokenRow}
+        <span className="text-xs text-red-500">Missed</span>
+      </div>
+    );
+  }
+  if (instance.status === 'REJECTED') {
+    return (
+      <div className="mt-2 flex items-center gap-2">
+        {tokenRow}
+        <span className="text-xs text-red-500">Rejected — try again</span>
+      </div>
+    );
+  }
 
   if (instance.status === 'PENDING') {
     return (
-      <div className="mt-2 flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium text-amber-600">Pending approval</span>
+      <div className="mt-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {tokenRow}
+          <span className="text-xs font-medium text-amber-600">Pending approval</span>
+        </div>
+        {checklist}
         {isAdult && (
-          <>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
             <button
               disabled={busy}
               onClick={() => act(() => client.approveInstance(instance.id))}
@@ -81,34 +139,38 @@ export default function ChoreOccurrenceActions({
             >
               Reject
             </button>
-          </>
+          </div>
         )}
       </div>
     );
   }
 
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-2">
-      {openToClaim && (
-        <button
-          disabled={busy}
-          onClick={() => act(() => client.claimInstance(instance.id))}
-          className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-50"
-        >
-          Claim this
-        </button>
-      )}
-      {dueNow && mine && (
-        <button
-          disabled={busy}
-          onClick={() => act(() => client.completeInstance(instance.id))}
-          className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
-        >
-          Mark done
-        </button>
-      )}
-      {dueNow && !mine && !openToClaim && <span className="text-xs text-slate-400">Not assigned to you</span>}
-      {!dueNow && <span className="text-xs text-slate-400">Not due yet</span>}
+    <div className="mt-2">
+      <div className="flex flex-wrap items-center gap-2">{tokenRow}</div>
+      {checklist}
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        {openToClaim && (
+          <button
+            disabled={busy}
+            onClick={() => act(() => client.claimInstance(instance.id))}
+            className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-50"
+          >
+            Claim this
+          </button>
+        )}
+        {dueNow && mine && (
+          <button
+            disabled={busy}
+            onClick={() => act(() => client.completeInstance(instance.id))}
+            className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
+          >
+            Mark done
+          </button>
+        )}
+        {dueNow && !mine && !openToClaim && <span className="text-xs text-slate-400">Not assigned to you</span>}
+        {!dueNow && <span className="text-xs text-slate-400">Not due yet</span>}
+      </div>
     </div>
   );
 }
