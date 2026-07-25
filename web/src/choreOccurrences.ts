@@ -116,9 +116,15 @@ export function projectChoreOccurrences(
 export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string): CalEvent {
   const dueTime = occ.chore.dueTime;
   const dateStr = occ.dueDate.toISOString().slice(0, 10);
+  // A real occurrence is keyed by its instance id, not its due date — two
+  // distinct ChoreInstance rows can (due to a known server-side bug, already
+  // flagged separately) share an identical due date, and without this a day
+  // modal's action buttons would silently act on whichever one the id
+  // collision happened to resolve to instead of the row actually clicked.
+  const key = occ.instance ? occ.instance.id : occ.dueDate.getTime();
   return {
-    id: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
-    uid: `chore-${occ.chore.id}-${occ.assigneeUserId}-${occ.dueDate.getTime()}`,
+    id: `chore-${occ.chore.id}-${occ.assigneeUserId}-${key}`,
+    uid: `chore-${occ.chore.id}-${occ.assigneeUserId}-${key}`,
     calendarId: `chore-person-${occ.assigneeUserId}`,
     calendarColor: color,
     calendarName: `${personName}'s chores`,
