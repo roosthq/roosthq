@@ -277,9 +277,9 @@ export class AuthService {
     return { ok: true };
   }
 
-  me(userId: string) {
-    return this.prisma.user.findUnique({
-      where: { id: userId },
+  async me(session: { userId: string; ghostedBy?: string }) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: session.userId },
       select: {
         id: true,
         displayName: true,
@@ -293,6 +293,17 @@ export class AuthService {
         notifyByEmail: true,
       },
     });
+    if (!user) return user;
+    // Surface who's actually driving this session — the frontend shows a
+    // "Ghosting as X — return to Owner" banner whenever this is set.
+    if (session.ghostedBy) {
+      const owner = await this.prisma.user.findUnique({
+        where: { id: session.ghostedBy },
+        select: { id: true, displayName: true },
+      });
+      return { ...user, ghostedBy: owner };
+    }
+    return { ...user, ghostedBy: null };
   }
 
   // All members of a family, for profile switching on shared devices.

@@ -161,7 +161,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   me(@CurrentUser() user: SessionPayload) {
-    return this.auth.me(user.userId);
+    return this.auth.me(user);
   }
 
   @UseGuards(AuthGuard)

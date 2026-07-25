@@ -139,8 +139,24 @@ export default function App() {
   const chorePlural = pluralize(choreWord);
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
 
+  async function returnToOwner() {
+    await api.unghost();
+    setLoading(true);
+    await loadMe();
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
+      {me.ghostedBy && (
+        <div className="flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">
+          <span>
+            👻 Ghosting as <strong>{me.displayName}</strong>
+          </span>
+          <button onClick={returnToOwner} className="rounded border border-white/40 px-2 py-0.5 hover:bg-white/10">
+            Return to {me.ghostedBy.displayName}
+          </button>
+        </div>
+      )}
       <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} onChangeFontSize={changeFontSize} />
       <main className="mx-auto max-w-5xl p-6">
         <Routes>

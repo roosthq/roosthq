@@ -12,9 +12,9 @@ export class InvitesController {
   @Post()
   create(
     @CurrentUser() u: SessionPayload,
-    @Body() body: { role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'; label?: string },
+    @Body() body: { role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'; label?: string; familyId?: string },
   ) {
-    return this.invites.create(u.familyId, u.userId, body.role, body.label);
+    return this.invites.create(u.familyId, u.userId, body.role, body.label, body.familyId);
   }
 
   @Get()

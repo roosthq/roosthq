@@ -10,14 +10,25 @@ import {
 import { CalendarFilterDropdown } from './CalendarPage';
 import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
+import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import { useDialog } from '../Dialog';
 
 export default function SettingsPage({ me }: { me: Me }) {
-  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
+  const isOwner = me.role === 'OWNER';
+  const isFamilyManager = isOwner || me.role === 'FAMILY_MANAGER';
   const isAdult = isFamilyManager || me.role === 'ADULT';
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold">Settings</h2>
+
+      {isOwner && (
+        <Section
+          title="Families"
+          help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
+        >
+          <OwnerFamiliesPanel />
+        </Section>
+      )}
 
       {isFamilyManager && <TokenNameSetting />}
       {isFamilyManager && <ChoreWordSetting />}

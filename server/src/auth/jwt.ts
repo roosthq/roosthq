@@ -3,6 +3,10 @@ import * as jwt from 'jsonwebtoken';
 export interface SessionPayload {
   userId: string;
   familyId: string;
+  // Set only while the instance owner is ghosting as this user — the real
+  // owner's own userId, so "return to owner" can rebuild their session
+  // without a second round-trip through the DB to remember who they were.
+  ghostedBy?: string;
 }
 
 export function signSession(p: SessionPayload): string {
@@ -17,5 +21,5 @@ export function signKiosk(p: SessionPayload): string {
 
 export function verifySession(token: string): SessionPayload {
   const decoded = jwt.verify(token, process.env.SESSION_SECRET as string) as jwt.JwtPayload;
-  return { userId: decoded.userId, familyId: decoded.familyId };
+  return { userId: decoded.userId, familyId: decoded.familyId, ghostedBy: decoded.ghostedBy };
 }

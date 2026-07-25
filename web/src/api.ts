@@ -34,6 +34,15 @@ export interface Me {
   colorTheme?: string;
   fontSizePref?: FontSize;
   notifyByEmail?: boolean;
+  // Set only while the instance owner is ghosting as this account.
+  ghostedBy?: { id: string; displayName: string } | null;
+}
+
+export interface FamilyInfo {
+  id: string;
+  name: string;
+  memberCount: number;
+  createdAt: string;
 }
 
 export interface GoogleCalendar {
@@ -104,6 +113,7 @@ export interface Member {
   avatar?: string;
   hasPin?: boolean;
   colorTheme?: string;
+  email?: string;
 }
 
 export interface UnlockResult {
@@ -478,9 +488,17 @@ export const api = {
     req('/notifications/push/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
-  createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string) =>
-    req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label }) }),
+  createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string, familyId?: string) =>
+    req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label, familyId }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
+
+  listFamilies: () => req<FamilyInfo[]>('/owner/families'),
+  createFamily: (name: string) => req<FamilyInfo>('/owner/families', { method: 'POST', body: JSON.stringify({ name }) }),
+  ownerFamilyMembers: (familyId: string) => req<Member[]>(`/owner/families/${familyId}/members`),
+  moveUser: (id: string, familyId: string, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
+    req<{ ok: boolean }>(`/owner/users/${id}/move`, { method: 'POST', body: JSON.stringify({ familyId, role }) }),
+  ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
+  unghost: () => req<{ ok: boolean }>('/owner/unghost', { method: 'POST' }),
 
   familySettings: () => req<FamilySettings>('/family/settings'),
   updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string }) =>

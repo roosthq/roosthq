@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 
@@ -21,7 +21,10 @@ export class InvitesService {
   // Create a one-time invite; returns the raw token once (for the link).
   // Adults can invite new kids/adults; owner/family manager can additionally
   // invite a family manager; only the instance owner can invite another owner.
-  async create(familyId: string, userId: string, role: Role, label?: string) {
+  // targetFamilyId lets the instance owner invite someone into a family other
+  // than their own (e.g. a brand-new family they just created) — ignored for
+  // anyone else, who can only ever invite into their own family.
+  async create(familyId: string, userId: string, role: Role, label?: string, targetFamilyId?: string) {
     const actor = await this.assertAdultOrOwner(userId);
     if (role === 'OWNER' && actor.role !== 'OWNER') {
       throw new ForbiddenException('Only the owner can invite another owner');
@@ -29,9 +32,16 @@ export class InvitesService {
     if (role === 'FAMILY_MANAGER' && actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER') {
       throw new ForbiddenException('Only the owner or a family manager can invite another family manager');
     }
+    let destFamilyId = familyId;
+    if (targetFamilyId && targetFamilyId !== familyId) {
+      if (actor.role !== 'OWNER') throw new ForbiddenException('Only the owner can invite into a different family');
+      const family = await this.prisma.family.findUnique({ where: { id: targetFamilyId } });
+      if (!family) throw new NotFoundException('Family not found');
+      destFamilyId = targetFamilyId;
+    }
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId, role, label, tokenHash: this.hash(raw), createdById: userId },
+      data: { familyId: destFamilyId, role, label, tokenHash: this.hash(raw), createdById: userId },
     });
     return { id: inv.id, role: inv.role, label: inv.label, token: raw };
   }
