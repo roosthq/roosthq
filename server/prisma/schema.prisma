@@ -438,6 +438,7 @@ model ChoreInstance {
   checks         ChoreItemCheck[]
   approvedByUser User?            @relation("ChoreInstanceApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
 
+  @@unique([choreId, dueDate]) // "next occurrence" spawners are racy (sweep + poller + double-click); this is the backstop
   @@index([choreId])
   @@index([status])
 }

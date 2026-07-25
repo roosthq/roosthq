@@ -177,6 +177,20 @@ export class ChoresService {
     return chore;
   }
 
+  // Creates the "next" instance for a chore, silently no-oping if one already
+  // exists at that exact due date — the DB's @@unique([choreId, dueDate]) is
+  // the actual guard (sweepMissed/pollDueDates/finalizeApproval can all race
+  // to spawn the same next occurrence); this just turns that race's loser
+  // into a no-op instead of a 500.
+  private async createNextInstance(choreId: string, dueDate: Date) {
+    try {
+      await this.prisma.choreInstance.create({ data: { choreId, dueDate } });
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') return;
+      throw e;
+    }
+  }
+
   private async ownedInstance(familyId: string, instanceId: string) {
     const inst = await this.prisma.choreInstance.findUnique({
       where: { id: instanceId },
@@ -282,7 +296,7 @@ export class ChoresService {
     );
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
     const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
-    if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.choreId, dueDate: due } });
+    if (due) await this.createNextInstance(inst.choreId, due);
   }
 
   // Warning thresholds (minutes before due) — 2h, then hourly, then 30/15min,
@@ -598,7 +612,7 @@ export class ChoresService {
       inst.chore.dueTime,
       inst.chore.location?.timezone || DEFAULT_TIMEZONE,
     );
-    if (due) await this.prisma.choreInstance.create({ data: { choreId: inst.chore.id, dueDate: due } });
+    if (due) await this.createNextInstance(inst.chore.id, due);
     return updated;
   }
 
@@ -631,7 +645,8 @@ export class ChoresService {
     if (existing) {
       return this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: due } });
     }
-    return this.prisma.choreInstance.create({ data: { choreId, dueDate: due } });
+    await this.createNextInstance(choreId, due);
+    return this.prisma.choreInstance.findFirst({ where: { choreId, dueDate: due } });
   }
 
   async balances(familyId: string) {
