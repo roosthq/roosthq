@@ -32,7 +32,12 @@ export default function ChoreOccurrenceActions({
   const claimedBy = instance.claimedByUserId;
   const mine = chore.assignmentType === 'ANYONE' ? claimedBy === me.id : chore.assignees.some((a) => a.userId === me.id);
   const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && instance.status === 'OPEN';
-  const dueNow = new Date(instance.dueDate).getTime() <= Date.now();
+  // "Due today" (any time before midnight), not "due clock-time has passed" —
+  // matches ChoresPanel's dueNow exactly, so the day modal and the sidebar
+  // never disagree about whether an occurrence is actionable yet.
+  const endOfToday = new Date();
+  endOfToday.setHours(23, 59, 59, 999);
+  const dueNow = new Date(instance.dueDate).getTime() <= endOfToday.getTime();
 
   async function act(fn: () => Promise<unknown>) {
     setBusy(true);
