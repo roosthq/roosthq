@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, COLOR_THEMES, ROLE_ICON, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, COLOR_THEMES, ROLE_ICON, ROLE_LABEL, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
@@ -131,7 +131,7 @@ export default function ProfilePage({
                   <span>
                     <span className="block font-medium">{m.displayName}</span>
                     <span className="block text-xs text-slate-400">
-                      {ROLE_ICON[m.role]} {m.role.toLowerCase()}
+                      {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
                   <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>

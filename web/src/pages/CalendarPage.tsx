@@ -5,6 +5,7 @@ import {
   choreClient,
   loginUrl,
   ROLE_ICON,
+  ROLE_LABEL,
   type Me,
   type Member,
   type GoogleCalendar,
@@ -58,7 +59,7 @@ function Dashboard({ me }: { me: Me }) {
               <Avatar name={m.displayName} src={m.avatar} />
               <span>
                 <span className="block font-medium">{m.displayName}</span>
-                <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {m.role.toLowerCase()}</span>
+                <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
               </span>
               <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
                 {tokenIcon} {balances[m.id] ?? 0}
