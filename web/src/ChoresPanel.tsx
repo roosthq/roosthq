@@ -95,9 +95,22 @@ export default function ChoresPanel({
   locationId?: string | null;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const { alert, confirm } = useDialog();
   const today = variant === 'today';
   const [personFilter, setPersonFilter] = useState('');
+  const [locationFilter, setLocationFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>(
+    () => (localStorage.getItem('rhq-chores-view') as 'cards' | 'table') || 'cards',
+  );
+  useEffect(() => {
+    localStorage.setItem('rhq-chores-view', viewMode);
+  }, [viewMode]);
+  const [sort, setSort] = useState<{ key: 'title' | 'location' | 'assigned' | 'due' | 'tokens' | 'status'; dir: 1 | -1 }>({
+    key: 'due',
+    dir: 1,
+  });
   // clientProp is a fresh object on every parent render when the caller doesn't
   // memoize it (e.g. Display.tsx); memoize here so `refresh` below stays stable
   // instead of re-firing its effect on every render.
@@ -141,14 +154,22 @@ export default function ChoresPanel({
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
 
-  // Kids with more than one household get tabs to filter between them (or
-  // "All"); a single-household kid or an adult never needs the tabs. The
-  // server already limits kids to their own households' chores (plus
-  // unscoped ones, plus anything actually assigned to them) — this is just
-  // the client-side split of that same set, one household at a time.
+  // Kids and plain adults with more than one household get tabs to filter
+  // between them (or "All") — the server already limits them to their own
+  // households' chores (plus unscoped ones, plus anything actually assigned
+  // to them), this is just the client-side split of that same set, one
+  // household at a time. Owner/family manager see every household's chores
+  // regardless of their own location, so they get a plain dropdown instead
+  // (a tab per household they don't necessarily belong to would be odd).
   const myHouseholdIds = useMemo(() => new Set(myLocationIds(locations, me.id)), [locations, me.id]);
-  const myHouseholds = isAdult ? [] : locations.filter((l) => myHouseholdIds.has(l.id));
-  const showHouseholdTabs = !today && !locationId && myHouseholds.length > 1;
+  const myHouseholds = isTopManager ? [] : locations.filter((l) => myHouseholdIds.has(l.id));
+  const showHouseholdTabs = !today && !locationId && !isTopManager && myHouseholds.length > 1;
+  const showLocationDropdown = !today && !locationId && isTopManager && locations.length > 0;
+
+  const searchedChores = useMemo(
+    () => (searchQuery.trim() ? chores.filter((c) => c.title.toLowerCase().includes(searchQuery.trim().toLowerCase())) : chores),
+    [chores, searchQuery],
+  );
 
   // A chore with no location is "global" (visible everywhere); one with a
   // location only shows when that's the active scope. Picking "All
@@ -156,7 +177,13 @@ export default function ChoresPanel({
   // still where anything assigned to you at a household you're not in shows
   // up (the server includes it; a single household tab intentionally won't).
   const activeLocationId = locationId ?? (showHouseholdTabs ? householdTab : '');
-  const scopedChores = activeLocationId ? chores.filter((c) => !c.location || c.location.id === activeLocationId) : chores;
+  const householdScoped = activeLocationId
+    ? searchedChores.filter((c) => !c.location || c.location.id === activeLocationId)
+    : searchedChores;
+  const scopedChores =
+    showLocationDropdown && locationFilter
+      ? householdScoped.filter((c) => (locationFilter === 'NONE' ? !c.location : c.location?.id === locationFilter))
+      : householdScoped;
 
   // Pick the actionable occurrence per chore: a pending one, else the earliest
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
@@ -217,6 +244,47 @@ export default function ChoresPanel({
   }
 
   type Row = (typeof rows)[number];
+
+  // Table view's sort — same `rows` the card view groups by person, just
+  // flattened and ordered instead of bucketed, so switching views never
+  // changes which chores are visible, only how they're arranged.
+  const sortedRows = [...rows].sort((a, b) => {
+    let av: string | number;
+    let bv: string | number;
+    switch (sort.key) {
+      case 'title':
+        av = a.chore.title.toLowerCase();
+        bv = b.chore.title.toLowerCase();
+        break;
+      case 'location':
+        av = a.chore.location?.name.toLowerCase() ?? '';
+        bv = b.chore.location?.name.toLowerCase() ?? '';
+        break;
+      case 'assigned':
+        av = assignmentLabel(a.chore, a.claimedBy).toLowerCase();
+        bv = assignmentLabel(b.chore, b.claimedBy).toLowerCase();
+        break;
+      case 'due':
+        av = a.active?.dueDate ?? '';
+        bv = b.active?.dueDate ?? '';
+        break;
+      case 'tokens':
+        av = a.chore.tokenValue;
+        bv = b.chore.tokenValue;
+        break;
+      case 'status':
+        av = a.active?.status ?? '';
+        bv = b.active?.status ?? '';
+        break;
+    }
+    if (av < bv) return -sort.dir;
+    if (av > bv) return sort.dir;
+    return 0;
+  });
+
+  function toggleSort(key: typeof sort.key) {
+    setSort((prev) => (prev.key === key ? { key, dir: prev.dir === 1 ? -1 : 1 } : { key, dir: 1 }));
+  }
 
   // Adults get the full roster grouped by person, so they can see who has
   // what at a glance. A kid only ever gets their own group — a kid isn't
@@ -402,7 +470,30 @@ export default function ChoresPanel({
         <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
           {today ? 'Today' : chorePlural}
         </h2>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {!today && (
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={`Search ${chorePlural.toLowerCase()}…`}
+              className="rounded-md border px-2 py-1.5 text-sm"
+            />
+          )}
+          {showLocationDropdown && (
+            <select
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+              className="rounded-md border px-2 py-1.5 text-sm"
+            >
+              <option value="">All locations</option>
+              {locations.map((l) => (
+                <option key={l.id} value={l.id}>
+                  {l.name}
+                </option>
+              ))}
+              <option value="NONE">No location</option>
+            </select>
+          )}
           {!today && isAdult && members.length > 0 && (
             <select
               value={personFilter}
@@ -417,6 +508,15 @@ export default function ChoresPanel({
               ))}
               <option value="ANYONE">Open to anyone</option>
             </select>
+          )}
+          {!today && (
+            <button
+              onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}
+              className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
+              title="Switch layout"
+            >
+              {viewMode === 'cards' ? '☰ Table view' : '▦ Card view'}
+            </button>
           )}
           {isAdult && !today && (
             <button
@@ -443,6 +543,91 @@ export default function ChoresPanel({
           {rows.map(renderRow)}
           {rows.length === 0 && <li className="text-sm text-slate-400">Nothing to earn today</li>}
         </ul>
+      ) : viewMode === 'table' ? (
+        <div className="mt-4 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b text-left text-xs text-slate-400">
+                {(
+                  [
+                    ['title', 'Title'],
+                    ['location', 'Location'],
+                    ['assigned', 'Assigned'],
+                    ['due', 'Due'],
+                    ['tokens', tokenName],
+                    ['status', 'Status'],
+                  ] as const
+                ).map(([key, label]) => (
+                  <th key={key} className="cursor-pointer select-none px-2 py-2 hover:text-slate-600" onClick={() => toggleSort(key)}>
+                    {label} {sort.key === key ? (sort.dir === 1 ? '▲' : '▼') : ''}
+                  </th>
+                ))}
+                <th className="px-2 py-2" />
+              </tr>
+            </thead>
+            <tbody>
+              {sortedRows.map(({ chore, active, claimedBy, mine, dueNow, openToClaim }) => (
+                <tr key={chore.id} className="border-b last:border-0 hover:bg-slate-50">
+                  <td className="px-2 py-2 font-medium">{chore.title}</td>
+                  <td className="px-2 py-2 text-slate-500">{chore.location?.name ?? '—'}</td>
+                  <td className="px-2 py-2 text-slate-500">{assignmentLabel(chore, claimedBy)}</td>
+                  <td className="px-2 py-2 text-slate-500">
+                    {active ? new Date(active.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '—'}
+                  </td>
+                  <td className="px-2 py-2">
+                    <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
+                  </td>
+                  <td className="px-2 py-2 text-slate-500">{active?.status ?? '—'}</td>
+                  <td className="px-2 py-2">
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      {active?.status === 'OPEN' && openToClaim && (
+                        <button onClick={() => act(() => client.claimInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-white">
+                          Claim
+                        </button>
+                      )}
+                      {active?.status === 'OPEN' && dueNow && mine && (
+                        <button
+                          onClick={() => act(() => client.completeInstance(active.id))}
+                          className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700"
+                        >
+                          Mark done
+                        </button>
+                      )}
+                      {active?.status === 'PENDING' && isAdult && (
+                        <>
+                          <button onClick={() => act(() => client.approveInstance(active.id))} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
+                            Approve
+                          </button>
+                          <button onClick={() => act(() => client.rejectInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-white">
+                            Reject
+                          </button>
+                        </>
+                      )}
+                      {isAdult && (
+                        <button
+                          onClick={() => {
+                            setEditing(chore);
+                            setFormOpen(true);
+                          }}
+                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {sortedRows.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-2 py-4 text-center text-sm text-slate-400">
+                    No {chorePlural.toLowerCase()} yet.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <div className="mt-4 space-y-5">
           {groups.map((g) => (

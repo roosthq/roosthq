@@ -246,21 +246,26 @@ export class ChoresService {
     return this.prisma.chore.findFirst({ where: { id, familyId }, include: CHORE_INCLUDE });
   }
 
-  // Adults see every chore. Kids only see chores scoped to one of their own
-  // households (or unscoped ones, visible to everyone) — plus, regardless of
-  // location, anything actually assigned to them, so a cross-household
-  // assignment (or an upcoming/missed occurrence they can still act on)
-  // never disappears on them.
+  // Owner/family manager see every chore, unscoped. A plain adult sees the
+  // same household scoping a kid does — chores with no location, or one of
+  // their own locations, plus (regardless of location) anything actually
+  // assigned to them, so a cross-household assignment or an
+  // upcoming/missed occurrence they can still act on never disappears.
+  // Only kids get the approver field stripped — a plain adult still sees it.
   async list(familyId: string, actingUserId: string) {
     await this.sweepMissed(familyId);
     const chores = await this.prisma.chore.findMany({ where: { familyId }, include: CHORE_INCLUDE });
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
-    if (!actor || this.isAdult(actor.role)) return chores;
-    const myLocationIds = new Set(actor.locations.map((l) => l.locationId));
-    const scoped = chores.filter(
-      (c) => !c.locationId || myLocationIds.has(c.locationId) || c.assignees.some((a) => a.userId === actingUserId),
-    );
-    return stripApprover(scoped);
+    if (!actor) return chores;
+    const isTopManager = actor.role === 'OWNER' || actor.role === 'FAMILY_MANAGER';
+    let result = chores;
+    if (!isTopManager) {
+      const myLocationIds = new Set(actor.locations.map((l) => l.locationId));
+      result = chores.filter(
+        (c) => !c.locationId || myLocationIds.has(c.locationId) || c.assignees.some((a) => a.userId === actingUserId),
+      );
+    }
+    return actor.role === 'KID' ? stripApprover(result) : result;
   }
 
   // Runs whenever anyone loads chores, as a belt-and-suspenders alongside the
