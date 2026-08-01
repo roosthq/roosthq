@@ -284,7 +284,11 @@ export class ChoresService {
   // per-instance zone handling — comparing two absolute instants is
   // zone-agnostic by construction.
   private async markMissedAndAdvance(inst: StaleInstance) {
-    await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED' } });
+    // Clear the claim too — for an ANYONE chore, missing it shouldn't leave
+    // it stuck looking claimed by someone who didn't do it; the notify-the-
+    // claimant logic just below still reads the pre-update `inst` in memory,
+    // so this doesn't affect who gets told about the miss.
+    await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED', claimedByUserId: null } });
     if (inst.chore.currentStreak !== 0) {
       await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
     }
