@@ -19,6 +19,9 @@ import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS } from './choreOccurrences';
 import Logo from './Logo';
+import { AwardForm } from './pages/AwardsPage';
+import { PrizeForm } from './pages/StorePage';
+import OnScreenKeyboard from './OnScreenKeyboard';
 
 const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
@@ -77,7 +80,17 @@ export default function Display() {
 
   const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
   const [addingEvent, setAddingEvent] = useState(false);
+  const [addingAward, setAddingAward] = useState(false);
+  const [addingPrize, setAddingPrize] = useState(false);
+  const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [chores, setChores] = useState<Chore[]>([]);
+
+  const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
+
+  useEffect(() => {
+    if (!kioskPrizeClient) return;
+    kioskPrizeClient.familySettings().then((s) => setTokenValueUsd(s.tokenValueUsd)).catch(() => undefined);
+  }, [kioskPrizeClient]);
 
   const refreshChores = useCallback(() => {
     if (!kioskChoreClient) {
@@ -260,6 +273,22 @@ export default function Display() {
               + Add event
             </button>
           )}
+          {active && isAdult && (
+            <button
+              onClick={() => setAddingAward(true)}
+              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              + Add award
+            </button>
+          )}
+          {active && isAdult && showPrizes && (
+            <button
+              onClick={() => setAddingPrize(true)}
+              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              + Add prize
+            </button>
+          )}
           {active && showCalendar && (showChores || showPrizes) && (
             <div className="flex rounded border p-0.5 text-sm text-slate-500">
               <button
@@ -389,6 +418,23 @@ export default function Display() {
           }}
         />
       )}
+
+      {addingAward && active && (
+        <AwardForm award={null} kioskToken={active.token} onClose={() => setAddingAward(false)} onSaved={() => setAddingAward(false)} />
+      )}
+
+      {addingPrize && active && (
+        <PrizeForm
+          prize={null}
+          members={members}
+          tokenValueUsd={tokenValueUsd}
+          kioskToken={active.token}
+          onClose={() => setAddingPrize(false)}
+          onSaved={() => setAddingPrize(false)}
+        />
+      )}
+
+      <OnScreenKeyboard enabled={!!config.onScreenKeyboard} />
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

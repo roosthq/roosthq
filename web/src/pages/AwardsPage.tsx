@@ -207,14 +207,16 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   );
 }
 
-function AwardForm({
+export function AwardForm({
   award,
   onClose,
   onSaved,
+  kioskToken,
 }: {
   award: AwardCatalogItem | null;
   onClose: () => void;
   onSaved: () => void;
+  kioskToken?: string;
 }) {
   const { alert } = useDialog();
   const [name, setName] = useState(award?.name ?? '');
@@ -245,8 +247,8 @@ function AwardForm({
       description: description.trim() || undefined,
       defaultTokenValue: Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
     };
-    if (award) await api.updateAward(award.id, body);
-    else await api.createAward(body);
+    if (award) await api.updateAward(award.id, body, kioskToken);
+    else await api.createAward(body, kioskToken);
     onSaved();
   }
 

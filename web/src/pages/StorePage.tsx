@@ -393,18 +393,20 @@ function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved:
   );
 }
 
-function PrizeForm({
+export function PrizeForm({
   prize,
   members,
   tokenValueUsd,
   onClose,
   onSaved,
+  kioskToken,
 }: {
   prize: StorePrize | null;
   members: Member[];
   tokenValueUsd: number;
   onClose: () => void;
   onSaved: () => void;
+  kioskToken?: string;
 }) {
   const { alert } = useDialog();
   const [name, setName] = useState(prize?.name ?? '');
@@ -426,8 +428,8 @@ function PrizeForm({
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
 
   useEffect(() => {
-    api.locations().then(setLocations).catch(() => undefined);
-  }, []);
+    api.locations(kioskToken).then(setLocations).catch(() => undefined);
+  }, [kioskToken]);
 
   function onRealPriceChange(v: string) {
     setRealPrice(v);
@@ -465,8 +467,8 @@ function PrizeForm({
       locationId: locationId || null,
       ...(prize?.suggested ? { suggested: false } : {}),
     };
-    if (prize) await api.updatePrize(prize.id, body);
-    else await api.createPrize(body);
+    if (prize) await api.updatePrize(prize.id, body, kioskToken);
+    else await api.createPrize(body, kioskToken);
     onSaved();
   }
 

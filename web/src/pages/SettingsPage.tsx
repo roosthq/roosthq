@@ -566,6 +566,22 @@ function DisplayRow({
             </div>
           </Field>
         </div>
+
+        <div className="sm:col-span-2">
+          <Field label="Touch keyboard">
+            <label className="flex items-center gap-1.5 text-sm">
+              <input
+                type="checkbox"
+                checked={d.onScreenKeyboard}
+                onChange={(e) => onPatch({ onScreenKeyboard: e.target.checked })}
+              />
+              Pop up an on-screen keyboard when a text field is tapped
+            </label>
+            <p className="mt-1 text-xs text-slate-400">
+              Turn this on for a touchscreen kiosk with no keyboard attached; leave it off if one's plugged in.
+            </p>
+          </Field>
+        </div>
       </div>
     </li>
   );

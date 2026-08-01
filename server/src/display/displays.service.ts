@@ -11,6 +11,7 @@ export interface DisplayConfigInput {
   enabledFeatures?: string[];
   theme?: string;
   fontSize?: string;
+  onScreenKeyboard?: boolean;
 }
 
 export interface ResolvedConfig {
@@ -21,6 +22,7 @@ export interface ResolvedConfig {
   enabledFeatures: string[];
   theme: string;
   fontSize: string;
+  onScreenKeyboard: boolean;
 }
 
 function weekRange(): { start: string; end: string } {
@@ -70,6 +72,7 @@ export class DisplaysService {
         enabledFeatures: dto.enabledFeatures ?? ['calendar', 'chores'],
         theme: dto.theme ?? 'light',
         fontSize: dto.fontSize ?? 'md',
+        onScreenKeyboard: dto.onScreenKeyboard ?? false,
         createdById: actorId,
       },
     });
@@ -95,6 +98,7 @@ export class DisplaysService {
         ...(dto.enabledFeatures !== undefined && { enabledFeatures: dto.enabledFeatures }),
         ...(dto.theme !== undefined && { theme: dto.theme }),
         ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
+        ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display-updated', id });
@@ -168,6 +172,7 @@ export class DisplaysService {
         enabledFeatures: (legacy.enabledFeatures as string[]) ?? ['calendar'],
         theme: legacy.theme,
         fontSize: 'md',
+        onScreenKeyboard: false,
       };
     }
     return {
@@ -178,6 +183,7 @@ export class DisplaysService {
       enabledFeatures: ['calendar'],
       theme: 'light',
       fontSize: 'md',
+      onScreenKeyboard: false,
     };
   }
 
@@ -194,6 +200,7 @@ export class DisplaysService {
       enabledFeatures: unknown;
       theme: string;
       fontSize: string;
+      onScreenKeyboard: boolean;
     },
   ): Promise<ResolvedConfig> {
     const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
@@ -205,6 +212,7 @@ export class DisplaysService {
       enabledFeatures: (c.enabledFeatures as string[]) ?? ['calendar'],
       theme: c.theme,
       fontSize: c.fontSize,
+      onScreenKeyboard: c.onScreenKeyboard,
     };
   }
 

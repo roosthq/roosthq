@@ -146,6 +146,7 @@ model DisplayConfig {
   enabledFeatures Json
   theme           String   @default("light")
   fontSize        String   @default("md") // sm | md | lg | xl
+  onScreenKeyboard Boolean @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
   createdById     String
   createdAt       DateTime @default(now())
 

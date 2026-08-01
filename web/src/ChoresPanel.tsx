@@ -518,7 +518,7 @@ export default function ChoresPanel({
               {viewMode === 'cards' ? '☰ Table view' : '▦ Card view'}
             </button>
           )}
-          {isAdult && !today && (
+          {isAdult && (
             <button
               onClick={() => {
                 setEditing(null);

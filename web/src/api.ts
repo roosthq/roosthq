@@ -317,6 +317,7 @@ export interface DisplayConfig {
   enabledFeatures: string[];
   theme: string;
   fontSize: FontSize;
+  onScreenKeyboard: boolean;
 }
 
 // The resolved config a kiosk renders (id may be null for legacy/default).
@@ -328,6 +329,7 @@ export interface ResolvedDisplayConfig {
   enabledFeatures: string[];
   theme: string;
   fontSize: FontSize;
+  onScreenKeyboard: boolean;
 }
 
 export interface LedgerEntry {
@@ -441,6 +443,7 @@ export const api = {
     enabledFeatures?: string[];
     theme?: string;
     fontSize?: FontSize;
+    onScreenKeyboard?: boolean;
   }) => req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
   updateDisplay: (
     id: string,
@@ -451,6 +454,7 @@ export const api = {
       enabledFeatures: string[];
       theme: string;
       fontSize: FontSize;
+      onScreenKeyboard: boolean;
     }>,
   ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
@@ -513,7 +517,7 @@ export const api = {
     req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
   deleteLedgerEntry: (id: string) => req(`/tokens/ledger/${id}`, { method: 'DELETE' }),
 
-  locations: () => req<FamilyLocation[]>('/locations'),
+  locations: (kioskToken?: string) => req<FamilyLocation[]>('/locations', undefined, kioskToken),
   createLocation: (name: string) => req<FamilyLocation>('/locations', { method: 'POST', body: JSON.stringify({ name }) }),
   updateLocation: (id: string, body: { name?: string; timezone?: string }) =>
     req<FamilyLocation>(`/locations/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
@@ -523,12 +527,12 @@ export const api = {
   unassignLocation: (id: string, userId: string) => req(`/locations/${id}/users/${userId}`, { method: 'DELETE' }),
 
   prizes: () => req<StorePrize[]>('/prizes'),
-  createPrize: (body: Record<string, unknown>) =>
-    req<StorePrize>('/prizes', { method: 'POST', body: JSON.stringify(body) }),
+  createPrize: (body: Record<string, unknown>, kioskToken?: string) =>
+    req<StorePrize>('/prizes', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   suggestPrize: (body: { name: string; description?: string; image?: string; url?: string }) =>
     req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }),
-  updatePrize: (id: string, body: Record<string, unknown>) =>
-    req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  updatePrize: (id: string, body: Record<string, unknown>, kioskToken?: string) =>
+    req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
   redeemPrize: (id: string) => req(`/prizes/${id}/redeem`, { method: 'POST' }),
   redemptions: (opts: { userId?: string; prizeId?: string } = {}) => {
@@ -572,10 +576,13 @@ export const api = {
   awardsCatalog: () => req<AwardCatalogItem[]>('/awards'),
   earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
   awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
-  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number }) =>
-    req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }),
-  updateAward: (id: string, body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number }>) =>
-    req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number }, kioskToken?: string) =>
+    req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  updateAward: (
+    id: string,
+    body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number }>,
+    kioskToken?: string,
+  ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
   grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }) =>
     req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }),
