@@ -84,6 +84,13 @@ export default function Display() {
   const [addingPrize, setAddingPrize] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [chores, setChores] = useState<Chore[]>([]);
+  // Bumped on any incoming chores/prizes/tokens live-update push — passed down
+  // to ChoresPanel/PrizesPanel so they refetch immediately instead of only on
+  // mount. refreshEvents isn't declared yet at this point in the component, so
+  // it's read through a ref (populated by an effect further down) rather than
+  // closed over directly, the same way `activeRef` sidesteps the same issue.
+  const [dataRefreshSignal, setDataRefreshSignal] = useState(0);
+  const refreshEventsRef = useRef<() => void>(() => undefined);
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
 
@@ -177,13 +184,31 @@ export default function Display() {
     loadConfig().catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
     loadMembers();
 
+    // Chore/prize/token/calendar mutations elsewhere (another device, or the
+    // scheduled miss-sweep) push a typed event here so this kiosk reflects
+    // them immediately instead of only on next reload. Config changes (the
+    // legacy/untyped case too, for anything published before this existed)
+    // fall through to loadConfig — the safest catch-all.
     const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
     const es = new EventSource(streamUrl, { withCredentials: true });
-    es.onmessage = () => {
-      loadConfig().catch(() => undefined);
+    es.onmessage = (e) => {
+      let type = 'display';
+      try {
+        type = JSON.parse(e.data)?.type ?? 'display';
+      } catch {
+        // legacy/untyped payload — treat as a config change
+      }
+      if (type === 'calendar') {
+        refreshEventsRef.current();
+      } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
+        refreshChores();
+        setDataRefreshSignal((n) => n + 1);
+      } else {
+        loadConfig().catch(() => undefined);
+      }
     };
     return () => es.close();
-  }, [loadConfig, loadMembers]);
+  }, [loadConfig, loadMembers, refreshChores]);
 
   const refreshEvents = useCallback(() => {
     if (!range) return;
@@ -191,6 +216,10 @@ export default function Display() {
       .then(setEvents)
       .catch(() => setEvents([]));
   }, [range]);
+
+  useEffect(() => {
+    refreshEventsRef.current = refreshEvents;
+  }, [refreshEvents]);
 
   useEffect(() => {
     refreshEvents();
@@ -369,9 +398,15 @@ export default function Display() {
                 </div>
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
                   {showChores && (
-                    <ChoresPanel me={active.user} client={kioskChoreClient} variant="today" locationId={config.locationId} />
+                    <ChoresPanel
+                      me={active.user}
+                      client={kioskChoreClient}
+                      variant="today"
+                      locationId={config.locationId}
+                      refreshSignal={dataRefreshSignal}
+                    />
                   )}
-                  {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} />}
+                  {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} refreshSignal={dataRefreshSignal} />}
                   <KioskAccountPanel
                     me={active.user}
                     client={kioskPrizeClient}

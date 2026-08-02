@@ -8,6 +8,7 @@ import { Interval } from '@nestjs/schedule';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { DisplayEventsService } from '../display/display-events.service';
 import {
   DEFAULT_TIMEZONE,
   addDaysToKey,
@@ -149,6 +150,7 @@ export class ChoresService {
   constructor(
     private prisma: PrismaService,
     private notifications: NotificationsService,
+    private displayEvents: DisplayEventsService,
   ) {}
 
   private async user(userId: string) {
@@ -238,6 +240,7 @@ export class ChoresService {
     await this.prisma.choreInstance.create({
       data: { choreId: chore.id, dueDate: firstDueDate(dto, tz) },
     });
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return this.getChore(familyId, chore.id);
   }
 
@@ -306,6 +309,7 @@ export class ChoresService {
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
     const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
     if (due) await this.createNextInstance(inst.choreId, due);
+    this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
   }
 
   // Warning thresholds (minutes before due) — 2h, then hourly, then 30/15min,
@@ -432,6 +436,7 @@ export class ChoresService {
       }
     }
 
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return this.getChore(familyId, id);
   }
 
@@ -439,6 +444,7 @@ export class ChoresService {
     await this.assertAdult(userId);
     await this.ownedChore(familyId, id);
     await this.prisma.chore.delete({ where: { id } });
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return { ok: true };
   }
 
@@ -455,17 +461,21 @@ export class ChoresService {
     if (inst.claimedByUserId && inst.claimedByUserId !== userId) {
       throw new BadRequestException('Already claimed by someone else');
     }
-    return this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: userId } });
+    const updated = await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: userId } });
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return updated;
   }
 
   // Adult assigns (or clears, userId=null) who a claimed occurrence belongs to.
   async setClaim(familyId: string, actorId: string, instanceId: string, userId: string | null) {
     await this.assertAdult(actorId);
     await this.ownedInstance(familyId, instanceId);
-    return this.prisma.choreInstance.update({
+    const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: { claimedByUserId: userId },
     });
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return updated;
   }
 
   async checkItem(familyId: string, userId: string, instanceId: string, checklistId: string, checked: boolean) {
@@ -480,6 +490,7 @@ export class ChoresService {
     } else {
       await this.prisma.choreItemCheck.deleteMany({ where: { choreInstanceId: instanceId, checklistId } });
     }
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return { ok: true };
   }
 
@@ -530,6 +541,7 @@ export class ChoresService {
       `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" — needs approval`,
       { link: '/chores' },
     );
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
   }
 
@@ -622,6 +634,7 @@ export class ChoresService {
       inst.chore.location?.timezone || DEFAULT_TIMEZONE,
     );
     if (due) await this.createNextInstance(inst.chore.id, due);
+    this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
     return updated;
   }
 
@@ -637,6 +650,7 @@ export class ChoresService {
         link: '/chores',
       });
     }
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
   }
 
@@ -652,9 +666,12 @@ export class ChoresService {
     // occurrences (e.g. this week's normal cycle and a manual one) alive at once.
     const existing = await this.prisma.choreInstance.findFirst({ where: { choreId, status: 'OPEN' } });
     if (existing) {
-      return this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: due } });
+      const updated = await this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: due } });
+      this.displayEvents.publish(familyId, { type: 'chores' });
+      return updated;
     }
     await this.createNextInstance(choreId, due);
+    this.displayEvents.publish(familyId, { type: 'chores' });
     return this.prisma.choreInstance.findFirst({ where: { choreId, dueDate: due } });
   }
 

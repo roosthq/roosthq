@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { DisplayEventsService } from '../display/display-events.service';
 
 export interface AwardInput {
   name: string;
@@ -20,6 +21,7 @@ export class AwardsService {
   constructor(
     private prisma: PrismaService,
     private notifications: NotificationsService,
+    private displayEvents: DisplayEventsService,
   ) {}
 
   private isAdult(role: string) {
@@ -167,6 +169,7 @@ export class AwardsService {
       `${actor.displayName} gave you the "${award.name}" award!`,
       { link: '/profile' },
     );
+    this.displayEvents.publish(familyId, { type: 'tokens' });
     return grant;
   }
 
@@ -194,6 +197,7 @@ export class AwardsService {
       });
     }
     await this.prisma.awardGrant.delete({ where: { id: grantId } });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ok: true };
   }
 }

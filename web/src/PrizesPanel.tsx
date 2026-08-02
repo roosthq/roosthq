@@ -9,7 +9,17 @@ type Actor = { id: string; role: string; displayName: string };
 // Kiosk-only prize browsing + redeeming — adding/editing prizes stays on the
 // normal portal (adults use StorePage for that); this is deliberately a
 // read-and-redeem-only view for whoever's signed into the touch display.
-export default function PrizesPanel({ me, client: clientProp }: { me: Actor; client?: PrizeClient }) {
+export default function PrizesPanel({
+  me,
+  client: clientProp,
+  refreshSignal,
+}: {
+  me: Actor;
+  client?: PrizeClient;
+  // Bump this (e.g. on an incoming live-update push) to force an immediate
+  // refetch from outside — see ChoresPanel's identical prop for why.
+  refreshSignal?: number;
+}) {
   const client = clientProp ?? prizeClient();
   const { alert, confirm } = useDialog();
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
@@ -27,6 +37,11 @@ export default function PrizesPanel({ me, client: clientProp }: { me: Actor; cli
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh is stable per client; only refreshSignal should re-trigger this
+  useEffect(() => {
+    if (refreshSignal !== undefined) refresh();
+  }, [refreshSignal]);
 
   useEffect(() => {
     client.familySettings().then((s) => {

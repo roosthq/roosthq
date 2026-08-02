@@ -111,7 +111,7 @@ export class DisplayService {
       },
     });
     // Push the change to any live display devices in real time.
-    this.events.publish(familyId, saved);
+    this.events.publish(familyId, { type: 'display' });
     return saved;
   }
 }

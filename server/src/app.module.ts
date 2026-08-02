@@ -5,6 +5,7 @@ import { HealthController } from './health/health.controller';
 import { AuthModule } from './auth/auth.module';
 import { CalendarsModule } from './calendars/calendars.module';
 import { DisplayModule } from './display/display.module';
+import { DisplayEventsModule } from './display/display-events.module';
 import { LocationsModule } from './locations/locations.module';
 import { ChoresModule } from './chores/chores.module';
 import { UsersModule } from './users/users.module';
@@ -21,6 +22,7 @@ import { OwnerModule } from './owner/owner.module';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
+    DisplayEventsModule,
     AuthModule,
     CalendarsModule,
     DisplayModule,

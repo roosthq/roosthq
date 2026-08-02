@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { DisplayEventsService } from '../display/display-events.service';
 
 export interface PrizeInput {
   name: string;
@@ -35,6 +36,7 @@ export class PrizesService {
   constructor(
     private prisma: PrismaService,
     private notifications: NotificationsService,
+    private displayEvents: DisplayEventsService,
   ) {}
 
   private isAdult(role: string) {
@@ -122,7 +124,7 @@ export class PrizesService {
 
   async create(familyId: string, actorId: string, dto: PrizeInput) {
     await this.assertAdult(actorId);
-    return this.prisma.prize.create({
+    const prize = await this.prisma.prize.create({
       data: {
         familyId,
         name: dto.name,
@@ -142,6 +144,8 @@ export class PrizesService {
             : undefined,
       },
     });
+    this.displayEvents.publish(familyId, { type: 'prizes' });
+    return prize;
   }
 
   // A kid submits a wishlist item — created with no cost (an adult sets that
@@ -165,6 +169,7 @@ export class PrizesService {
     await this.notifications.notifyAdults(familyId, 'PRIZE_SUGGESTED', `${requester?.displayName ?? 'A kid'} wants "${dto.name}" added to the store`, {
       link: '/store',
     });
+    this.displayEvents.publish(familyId, { type: 'prizes' });
     return prize;
   }
 
@@ -196,6 +201,7 @@ export class PrizesService {
         });
       }
     }
+    this.displayEvents.publish(familyId, { type: 'prizes' });
     return this.prisma.prize.findUnique({
       where: { id },
       include: { assignments: true, location: true, creator: { select: { id: true, displayName: true } } },
@@ -206,6 +212,7 @@ export class PrizesService {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);
     await this.prisma.prize.delete({ where: { id } });
+    this.displayEvents.publish(familyId, { type: 'prizes' });
     return { ok: true };
   }
 
@@ -253,6 +260,7 @@ export class PrizesService {
       link: '/store',
       excludeUserId: actingUserId,
     });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
     return redemption;
   }
 
@@ -296,6 +304,7 @@ export class PrizesService {
       status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined — tokens refunded`,
       { link: '/store' },
     );
+    this.displayEvents.publish(familyId, { type: status === 'REJECTED' ? 'tokens' : 'prizes' });
     return updated;
   }
 
@@ -305,10 +314,12 @@ export class PrizesService {
     await this.assertAdult(actorId);
     const r = await this.prisma.redemption.findUnique({ where: { id: redemptionId }, include: { prize: true } });
     if (!r || r.prize.familyId !== familyId) throw new NotFoundException('Redemption not found');
-    return this.prisma.redemption.update({
+    const updated = await this.prisma.redemption.update({
       where: { id: redemptionId },
       data: { usedAt: used ? new Date() : null },
     });
+    this.displayEvents.publish(familyId, { type: 'prizes' });
+    return updated;
   }
 
   // Purchase history: a member's own, the whole family, or (adults only) one

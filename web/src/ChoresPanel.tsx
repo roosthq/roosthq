@@ -85,6 +85,7 @@ export default function ChoresPanel({
   client: clientProp,
   variant = 'full',
   locationId,
+  refreshSignal,
 }: {
   me: Actor;
   client?: ChoreClient;
@@ -93,6 +94,10 @@ export default function ChoresPanel({
   // the kiosk display, which represents whoever lives at a given location, not
   // the whole family. Omit entirely for the normal portal (unscoped).
   locationId?: string | null;
+  // Bump this (e.g. on an incoming live-update push) to force an immediate
+  // refetch from outside — the kiosk uses this so a chore claimed/finished on
+  // someone else's phone shows up here without a page reload.
+  refreshSignal?: number;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
@@ -143,6 +148,11 @@ export default function ChoresPanel({
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh is stable per client; only refreshSignal should re-trigger this
+  useEffect(() => {
+    if (refreshSignal !== undefined) refresh();
+  }, [refreshSignal]);
 
   useEffect(() => {
     client.familySettings().then((s) => {

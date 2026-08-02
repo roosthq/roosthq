@@ -3,7 +3,7 @@ import { DisplayController } from './display.controller';
 import { DisplaysController } from './displays.controller';
 import { DisplayService } from './display.service';
 import { DisplaysService } from './displays.service';
-import { DisplayEventsService } from './display-events.service';
+import { DisplayEventsModule } from './display-events.module';
 import { DisplayTokenService } from './display-token.service';
 import { DisplayOrUserGuard } from './display-auth.guard';
 import { CalendarsService } from '../calendars/calendars.service';
@@ -13,12 +13,11 @@ import { NotificationsModule } from '../notifications/notifications.module';
 import { LocalCalendarsModule } from '../local-calendars/local-calendars.module';
 
 @Module({
-  imports: [NotificationsModule, LocalCalendarsModule],
+  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule],
   controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,
     DisplaysService,
-    DisplayEventsService,
     DisplayTokenService,
     DisplayOrUserGuard,
     CalendarsService,

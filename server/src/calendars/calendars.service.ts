@@ -5,6 +5,7 @@ import { GoogleService } from '../google/google.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local-calendars.service';
 import { zonedTimeToUtc } from '../common/timezone';
+import { DisplayEventsService } from '../display/display-events.service';
 
 export interface ShareSelection {
   googleCalendarId: string;
@@ -19,6 +20,7 @@ export class CalendarsService {
     private google: GoogleService,
     private notifications: NotificationsService,
     private localCalendars: LocalCalendarsService,
+    private displayEvents: DisplayEventsService,
   ) {}
 
   // Google calendars available across the user's connected accounts (the
@@ -253,12 +255,14 @@ export class CalendarsService {
   // account owner.
   async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
     if (await this.localCalendars.isLocalId(familyId, calendarId)) {
-      return this.localCalendars.createEvent(
+      const created = await this.localCalendars.createEvent(
         familyId,
         calendarId,
         addedByUserId,
         this.googleBodyToLocalInput(body) as LocalEventInput,
       );
+      this.displayEvents.publish(familyId, { type: 'calendar' });
+      return created;
     }
     const c = await this.calendarOrThrow(familyId, calendarId);
     const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
@@ -268,6 +272,7 @@ export class CalendarsService {
       }),
     );
     this.notifyCalendarEvent(familyId, c.id, c.name, addedByUserId, (body.summary as string) ?? 'an event').catch(() => undefined);
+    this.displayEvents.publish(familyId, { type: 'calendar' });
     return data;
   }
 
@@ -312,7 +317,9 @@ export class CalendarsService {
     body: Record<string, unknown>,
   ) {
     if (await this.localCalendars.isLocalId(familyId, calendarId)) {
-      return this.localCalendars.updateEvent(familyId, calendarId, eventId, actorId, this.googleBodyToLocalInput(body));
+      const updated = await this.localCalendars.updateEvent(familyId, calendarId, eventId, actorId, this.googleBodyToLocalInput(body));
+      this.displayEvents.publish(familyId, { type: 'calendar' });
+      return updated;
     }
     const c = await this.calendarOrThrow(familyId, calendarId);
     const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
@@ -322,12 +329,15 @@ export class CalendarsService {
         requestBody: body as never,
       }),
     );
+    this.displayEvents.publish(familyId, { type: 'calendar' });
     return data;
   }
 
   async deleteEvent(familyId: string, calendarId: string, eventId: string, actorId: string) {
     if (await this.localCalendars.isLocalId(familyId, calendarId)) {
-      return this.localCalendars.deleteEvent(familyId, calendarId, eventId, actorId);
+      const removed = await this.localCalendars.deleteEvent(familyId, calendarId, eventId, actorId);
+      this.displayEvents.publish(familyId, { type: 'calendar' });
+      return removed;
     }
     const c = await this.calendarOrThrow(familyId, calendarId);
     await this.google.withCalendar(c.googleAccountId, (cal) =>
@@ -336,6 +346,7 @@ export class CalendarsService {
         eventId,
       }),
     );
+    this.displayEvents.publish(familyId, { type: 'calendar' });
     return { ok: true };
   }
 }

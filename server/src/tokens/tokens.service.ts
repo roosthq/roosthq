@@ -1,9 +1,13 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { DisplayEventsService } from '../display/display-events.service';
 
 @Injectable()
 export class TokensService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private displayEvents: DisplayEventsService,
+  ) {}
 
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
@@ -66,6 +70,7 @@ export class TokensService {
     const entry = await this.prisma.tokenLedger.findFirst({ where: { id: entryId, user: { familyId } } });
     if (!entry) throw new NotFoundException('Ledger entry not found');
     await this.prisma.tokenLedger.delete({ where: { id: entryId } });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ok: true };
   }
 
@@ -84,8 +89,10 @@ export class TokensService {
     if (!reason?.trim()) throw new BadRequestException('A reason is required');
     const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
-    return this.prisma.tokenLedger.create({
+    const entry = await this.prisma.tokenLedger.create({
       data: { userId, delta, reason: reason.trim(), type, createdById: actorId },
     });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
+    return entry;
   }
 }

@@ -101,7 +101,7 @@ export class DisplaysService {
         ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
       },
     });
-    this.displayEvents.publish(familyId, { type: 'display-updated', id });
+    this.displayEvents.publish(familyId, { type: 'display', id });
     return updated;
   }
 
