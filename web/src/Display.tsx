@@ -364,6 +364,13 @@ export default function Display() {
             </div>
           )}
           <button
+            onClick={() => setScreensaverOn(true)}
+            title="Screensaver"
+            className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          >
+            🌙
+          </button>
+          <button
             onClick={() => window.location.reload()}
             title="Refresh"
             className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
