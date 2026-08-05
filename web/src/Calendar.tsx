@@ -58,7 +58,7 @@ function timeLabel(e: CalEvent): string {
   if (isAllDay(e)) return 'All day';
   const s = e.start?.dateTime;
   if (!s) return '';
-  const opt: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+  const opt: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
   const startStr = new Date(s).toLocaleTimeString(undefined, opt);
   if (e.end?.dateTime) return `${startStr} – ${new Date(e.end.dateTime).toLocaleTimeString(undefined, opt)}`;
   return startStr;

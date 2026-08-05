@@ -145,7 +145,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
                   {n.title}
                 </span>
                 {n.body && <span className="mt-0.5 block text-xs text-slate-500">{n.body}</span>}
-                <span className="mt-0.5 block text-xs text-slate-400">{new Date(n.createdAt).toLocaleString()}</span>
+                <span className="mt-0.5 block text-xs text-slate-400">{new Date(n.createdAt).toLocaleString(undefined, { hour12: true })}</span>
               </span>
               {!n.readAt && view === 'mine' && <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-amber-500" />}
             </button>

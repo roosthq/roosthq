@@ -162,7 +162,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
                     <span className="font-medium">{g.award.name}</span> → <span className="font-medium">{g.user.displayName}</span>
                     {g.note && <span className="ml-1 text-slate-400">"{g.note}"</span>}
                     <div className="text-xs text-slate-400">
-                      by {g.grantedBy.displayName} · {new Date(g.createdAt).toLocaleString()}
+                      by {g.grantedBy.displayName} · {new Date(g.createdAt).toLocaleString(undefined, { hour12: true })}
                     </div>
                   </span>
                 </span>

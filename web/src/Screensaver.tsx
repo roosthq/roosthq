@@ -34,7 +34,7 @@ export default function Screensaver({ onDismiss }: { onDismiss: () => void }) {
       >
         <Logo size={48} />
         <div className="text-8xl font-bold tabular-nums text-white">
-          {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}
+          {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true })}
         </div>
         <div className="text-xl text-slate-400">
           {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}

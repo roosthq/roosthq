@@ -68,7 +68,7 @@ function nextOccurrence(rule: string, fromDueDate: string, daysOfWeek: number[])
 
 function formatDueTime(hhmm: string): string {
   const [hh, mm] = hhmm.split(':').map(Number);
-  return new Date(2000, 0, 1, hh, mm).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  return new Date(2000, 0, 1, hh, mm).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
 function relativeDayLabel(d: Date): string {
