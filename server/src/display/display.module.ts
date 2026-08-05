@@ -11,9 +11,10 @@ import { GoogleService } from '../google/google.service';
 import { PrismaService } from '../prisma.service';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { LocalCalendarsModule } from '../local-calendars/local-calendars.module';
+import { ChoresModule } from '../chores/chores.module';
 
 @Module({
-  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule],
+  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule, ChoresModule],
   controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,

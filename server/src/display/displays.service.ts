@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
 import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
+import { ChoresService } from '../chores/chores.service';
 
 export interface DisplayConfigInput {
   name?: string;
@@ -13,6 +14,7 @@ export interface DisplayConfigInput {
   fontSize?: string;
   onScreenKeyboard?: boolean;
   screensaverMinutes?: number;
+  weatherLocation?: string | null;
 }
 
 export interface ResolvedConfig {
@@ -25,6 +27,7 @@ export interface ResolvedConfig {
   fontSize: string;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
+  weatherLocation: string | null;
 }
 
 function weekRange(): { start: string; end: string } {
@@ -44,6 +47,7 @@ export class DisplaysService {
     private calendars: CalendarsService,
     private displayEvents: DisplayEventsService,
     private localCalendars: LocalCalendarsService,
+    private chores: ChoresService,
   ) {}
 
   private async assertAdult(userId: string) {
@@ -76,6 +80,7 @@ export class DisplaysService {
         fontSize: dto.fontSize ?? 'md',
         onScreenKeyboard: dto.onScreenKeyboard ?? false,
         screensaverMinutes: Math.max(0, dto.screensaverMinutes ?? 0),
+        weatherLocation: dto.weatherLocation?.trim() || null,
         createdById: actorId,
       },
     });
@@ -103,6 +108,7 @@ export class DisplaysService {
         ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
         ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
         ...(dto.screensaverMinutes !== undefined && { screensaverMinutes: Math.max(0, dto.screensaverMinutes) }),
+        ...(dto.weatherLocation !== undefined && { weatherLocation: dto.weatherLocation?.trim() || null }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display', id });
@@ -178,6 +184,7 @@ export class DisplaysService {
         fontSize: 'md',
         onScreenKeyboard: false,
         screensaverMinutes: 0,
+        weatherLocation: null,
       };
     }
     return {
@@ -190,6 +197,7 @@ export class DisplaysService {
       fontSize: 'md',
       onScreenKeyboard: false,
       screensaverMinutes: 0,
+      weatherLocation: null,
     };
   }
 
@@ -208,6 +216,7 @@ export class DisplaysService {
       fontSize: string;
       onScreenKeyboard: boolean;
       screensaverMinutes: number;
+      weatherLocation: string | null;
     },
   ): Promise<ResolvedConfig> {
     const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
@@ -221,6 +230,7 @@ export class DisplaysService {
       fontSize: c.fontSize,
       onScreenKeyboard: c.onScreenKeyboard,
       screensaverMinutes: c.screensaverMinutes,
+      weatherLocation: c.weatherLocation,
     };
   }
 
@@ -229,5 +239,22 @@ export class DisplaysService {
     if (!config.calendarIds.length) return [];
     const range = start && end ? { start, end } : weekRange();
     return this.calendars.events(familyId, config.calendarIds, range.start, range.end);
+  }
+
+  // Combined "at a glance" feed for the kiosk's idle screensaver: today's
+  // still-open chores plus today's calendar events, scoped exactly like the
+  // rest of a display's config (location for chores, calendarIds for events)
+  // — works with just a display token, no signed-in profile needed.
+  async todaysSummary(familyId: string, config: ResolvedConfig) {
+    const now = new Date();
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
+    const [chores, events] = await Promise.all([
+      this.chores.dueToday(familyId, config.locationId),
+      this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),
+    ]);
+    return { chores, events };
   }
 }

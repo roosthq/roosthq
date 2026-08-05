@@ -46,6 +46,14 @@ export class DisplayController {
     return this.displays.events(ctx.familyId, resolved, start, end);
   }
 
+  // "At a glance" feed for the idle screensaver: today's chores + events.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('today')
+  async today(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    return this.displays.todaysSummary(ctx.familyId, resolved);
+  }
+
   // Profiles for the kiosk picker — scoped to the display's location, if it has one.
   @UseGuards(DisplayOrUserGuard)
   @Get('members')

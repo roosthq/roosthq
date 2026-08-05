@@ -23,35 +23,8 @@ import { AwardForm } from './pages/AwardsPage';
 import { PrizeForm } from './pages/StorePage';
 import OnScreenKeyboard from './OnScreenKeyboard';
 import Screensaver from './Screensaver';
-
-const params = new URLSearchParams(window.location.search);
-const token = params.get('token');
-const configId = params.get('config');
-
-async function dget<T>(path: string, extra: Record<string, string> = {}): Promise<T> {
-  const sp = new URLSearchParams(extra);
-  if (token) sp.set('token', token);
-  if (configId) sp.set('config', configId);
-  const qs = sp.toString();
-  const res = await fetch(`${BASE_URL}${path}${qs ? `?${qs}` : ''}`, { credentials: 'include' });
-  if (!res.ok) throw new Error(String(res.status));
-  return (await res.json()) as T;
-}
-
-async function dpost<T>(path: string, body: unknown): Promise<T> {
-  const sp = new URLSearchParams();
-  if (token) sp.set('token', token);
-  if (configId) sp.set('config', configId);
-  const qs = sp.toString();
-  const res = await fetch(`${BASE_URL}${path}${qs ? `?${qs}` : ''}`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error(String(res.status));
-  return (await res.json()) as T;
-}
+import { useWeather } from './useWeather';
+import { dget, dpost, displayToken as token } from './displayApi';
 
 function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean }) {
   const cls = big ? 'h-14 w-14 text-xl' : 'h-8 w-8 text-sm';
@@ -120,6 +93,10 @@ export default function Display() {
   }, [config?.screensaverMinutes]);
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
+
+  // Shared with Screensaver.tsx (passed down as a prop) so both show the same
+  // reading on the same 15-minute schedule instead of polling independently.
+  const weather = useWeather(config?.weatherLocation);
 
   useEffect(() => {
     if (!kioskPrizeClient) return;
@@ -321,6 +298,11 @@ export default function Display() {
           <span className="text-xl text-slate-400">
             {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
           </span>
+          {weather && (
+            <span className="text-lg text-slate-400" title={weather.label}>
+              {weather.icon} {weather.tempF}°F
+            </span>
+          )}
           {active && showCalendar && calendarOptions.length > 0 && (
             <button
               onClick={() => setAddingEvent(true)}
@@ -512,7 +494,7 @@ export default function Display() {
 
       <OnScreenKeyboard enabled={!!config.onScreenKeyboard} />
 
-      {screensaverOn && <Screensaver onDismiss={() => setScreensaverOn(false)} />}
+      {screensaverOn && <Screensaver weather={weather} onDismiss={() => setScreensaverOn(false)} />}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

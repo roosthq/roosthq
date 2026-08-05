@@ -319,6 +319,7 @@ export interface DisplayConfig {
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
+  weatherLocation: string | null;
 }
 
 // The resolved config a kiosk renders (id may be null for legacy/default).
@@ -332,6 +333,13 @@ export interface ResolvedDisplayConfig {
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
+  weatherLocation: string | null;
+}
+
+// The kiosk screensaver's "at a glance" feed (GET /display/today).
+export interface DisplayTodaySummary {
+  chores: Array<{ id: string; title: string; dueTime: string | null; status: string; assignedTo: string }>;
+  events: CalEvent[];
 }
 
 export interface LedgerEntry {
@@ -447,6 +455,7 @@ export const api = {
     fontSize?: FontSize;
     onScreenKeyboard?: boolean;
     screensaverMinutes?: number;
+    weatherLocation?: string | null;
   }) => req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
   updateDisplay: (
     id: string,
@@ -459,6 +468,7 @@ export const api = {
       fontSize: FontSize;
       onScreenKeyboard: boolean;
       screensaverMinutes: number;
+      weatherLocation: string | null;
     }>,
   ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),

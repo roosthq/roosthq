@@ -683,4 +683,37 @@ export class ChoresService {
     });
     return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0 }));
   }
+
+  // Still-actionable chores due today, for the kiosk's idle screensaver "at a
+  // glance" list — no signed-in profile needed, so this can't reuse list()'s
+  // per-user scoping. Same location rule as the rest of the app: unscoped
+  // (locationId null, the kiosk isn't tied to a household) sees everything;
+  // scoped sees location-less chores plus that one location's.
+  async dueToday(familyId: string, locationId?: string | null) {
+    const now = new Date();
+    const startOfDay = new Date(now);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(now);
+    endOfDay.setHours(23, 59, 59, 999);
+    const instances = await this.prisma.choreInstance.findMany({
+      where: {
+        status: { in: ['OPEN', 'PENDING'] },
+        dueDate: { gte: startOfDay, lte: endOfDay },
+        chore: {
+          familyId,
+          ...(locationId ? { OR: [{ locationId: null }, { locationId }] } : {}),
+        },
+      },
+      include: { chore: { include: { assignees: { include: { user: { select: { displayName: true } } } } } } },
+      orderBy: { dueDate: 'asc' },
+    });
+    return instances.map((i) => ({
+      id: i.id,
+      title: i.chore.title,
+      dueTime: i.chore.dueTime,
+      status: i.status,
+      assignedTo:
+        i.chore.assignmentType === 'ANYONE' ? 'Anyone' : i.chore.assignees.map((a) => a.user.displayName).join(', '),
+    }));
+  }
 }

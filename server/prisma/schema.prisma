@@ -148,6 +148,7 @@ model DisplayConfig {
   fontSize        String   @default("md") // sm | md | lg | xl
   onScreenKeyboard Boolean @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
   screensaverMinutes Int   @default(0) // show a full-screen clock after this many idle minutes; 0 = never
+  weatherLocation String? // free-text city for the screensaver's weather (Open-Meteo geocoded); unset = no weather shown
   createdById     String
   createdAt       DateTime @default(now())
 

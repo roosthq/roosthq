@@ -8,5 +8,6 @@ import { NotificationsModule } from '../notifications/notifications.module';
   imports: [NotificationsModule],
   controllers: [ChoresController],
   providers: [ChoresService, PrismaService],
+  exports: [ChoresService],
 })
 export class ChoresModule {}

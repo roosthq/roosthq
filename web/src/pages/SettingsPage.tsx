@@ -601,6 +601,21 @@ function DisplayRow({
             </div>
           </Field>
         </div>
+
+        <div className="sm:col-span-2">
+          <Field label="Weather (shown by the date, and on the screensaver)">
+            <input
+              defaultValue={d.weatherLocation ?? ''}
+              placeholder="e.g. Phoenix, AZ"
+              onBlur={(e) => {
+                const v = e.target.value.trim();
+                if (v !== (d.weatherLocation ?? '')) onPatch({ weatherLocation: v || null });
+              }}
+              className="w-full max-w-xs rounded border px-3 py-1.5 text-sm"
+            />
+            <p className="mt-1 text-xs text-slate-400">Leave blank to hide weather entirely on this display.</p>
+          </Field>
+        </div>
       </div>
     </li>
   );
