@@ -318,6 +318,7 @@ export interface DisplayConfig {
   theme: string;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
+  screensaverMinutes: number;
 }
 
 // The resolved config a kiosk renders (id may be null for legacy/default).
@@ -330,6 +331,7 @@ export interface ResolvedDisplayConfig {
   theme: string;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
+  screensaverMinutes: number;
 }
 
 export interface LedgerEntry {
@@ -444,6 +446,7 @@ export const api = {
     theme?: string;
     fontSize?: FontSize;
     onScreenKeyboard?: boolean;
+    screensaverMinutes?: number;
   }) => req<DisplayConfig>('/displays', { method: 'POST', body: JSON.stringify(body) }),
   updateDisplay: (
     id: string,
@@ -455,6 +458,7 @@ export const api = {
       theme: string;
       fontSize: FontSize;
       onScreenKeyboard: boolean;
+      screensaverMinutes: number;
     }>,
   ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),

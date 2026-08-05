@@ -22,6 +22,7 @@ import Logo from './Logo';
 import { AwardForm } from './pages/AwardsPage';
 import { PrizeForm } from './pages/StorePage';
 import OnScreenKeyboard from './OnScreenKeyboard';
+import Screensaver from './Screensaver';
 
 const params = new URLSearchParams(window.location.search);
 const token = params.get('token');
@@ -91,6 +92,32 @@ export default function Display() {
   // closed over directly, the same way `activeRef` sidesteps the same issue.
   const [dataRefreshSignal, setDataRefreshSignal] = useState(0);
   const refreshEventsRef = useRef<() => void>(() => undefined);
+
+  // Full-screen clock after N idle minutes (DisplayConfig.screensaverMinutes,
+  // 0 = disabled) — any touch/mouse/key activity resets the timer, including
+  // the tap that dismisses the screensaver itself (it's a real DOM event
+  // bubbling to document, not just Screensaver's onDismiss).
+  const [screensaverOn, setScreensaverOn] = useState(false);
+  useEffect(() => {
+    const minutes = config?.screensaverMinutes ?? 0;
+    if (!minutes) {
+      setScreensaverOn(false);
+      return;
+    }
+    let timer: ReturnType<typeof setTimeout>;
+    const reset = () => {
+      setScreensaverOn(false);
+      clearTimeout(timer);
+      timer = setTimeout(() => setScreensaverOn(true), minutes * 60_000);
+    };
+    const events: Array<keyof DocumentEventMap> = ['touchstart', 'mousedown', 'keydown', 'wheel'];
+    events.forEach((e) => document.addEventListener(e, reset));
+    reset();
+    return () => {
+      clearTimeout(timer);
+      events.forEach((e) => document.removeEventListener(e, reset));
+    };
+  }, [config?.screensaverMinutes]);
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
 
@@ -477,6 +504,8 @@ export default function Display() {
       )}
 
       <OnScreenKeyboard enabled={!!config.onScreenKeyboard} />
+
+      {screensaverOn && <Screensaver onDismiss={() => setScreensaverOn(false)} />}
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

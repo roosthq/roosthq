@@ -12,6 +12,7 @@ export interface DisplayConfigInput {
   theme?: string;
   fontSize?: string;
   onScreenKeyboard?: boolean;
+  screensaverMinutes?: number;
 }
 
 export interface ResolvedConfig {
@@ -23,6 +24,7 @@ export interface ResolvedConfig {
   theme: string;
   fontSize: string;
   onScreenKeyboard: boolean;
+  screensaverMinutes: number;
 }
 
 function weekRange(): { start: string; end: string } {
@@ -73,6 +75,7 @@ export class DisplaysService {
         theme: dto.theme ?? 'light',
         fontSize: dto.fontSize ?? 'md',
         onScreenKeyboard: dto.onScreenKeyboard ?? false,
+        screensaverMinutes: Math.max(0, dto.screensaverMinutes ?? 0),
         createdById: actorId,
       },
     });
@@ -99,6 +102,7 @@ export class DisplaysService {
         ...(dto.theme !== undefined && { theme: dto.theme }),
         ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
         ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
+        ...(dto.screensaverMinutes !== undefined && { screensaverMinutes: Math.max(0, dto.screensaverMinutes) }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display', id });
@@ -173,6 +177,7 @@ export class DisplaysService {
         theme: legacy.theme,
         fontSize: 'md',
         onScreenKeyboard: false,
+        screensaverMinutes: 0,
       };
     }
     return {
@@ -184,6 +189,7 @@ export class DisplaysService {
       theme: 'light',
       fontSize: 'md',
       onScreenKeyboard: false,
+      screensaverMinutes: 0,
     };
   }
 
@@ -201,6 +207,7 @@ export class DisplaysService {
       theme: string;
       fontSize: string;
       onScreenKeyboard: boolean;
+      screensaverMinutes: number;
     },
   ): Promise<ResolvedConfig> {
     const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
@@ -213,6 +220,7 @@ export class DisplaysService {
       theme: c.theme,
       fontSize: c.fontSize,
       onScreenKeyboard: c.onScreenKeyboard,
+      screensaverMinutes: c.screensaverMinutes,
     };
   }
 

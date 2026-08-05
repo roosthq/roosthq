@@ -582,6 +582,25 @@ function DisplayRow({
             </p>
           </Field>
         </div>
+
+        <div className="sm:col-span-2">
+          <Field label="Screensaver">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-slate-500">Show a full-screen clock after</span>
+              <input
+                type="number"
+                min={0}
+                defaultValue={d.screensaverMinutes}
+                onBlur={(e) => {
+                  const n = Math.max(0, Math.floor(Number(e.target.value) || 0));
+                  if (n !== d.screensaverMinutes) onPatch({ screensaverMinutes: n });
+                }}
+                className="w-20 rounded border px-2 py-1"
+              />
+              <span className="text-slate-500">idle minutes (0 = never) — tap anywhere to wake it</span>
+            </div>
+          </Field>
+        </div>
       </div>
     </li>
   );
