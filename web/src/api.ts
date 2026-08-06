@@ -646,6 +646,14 @@ export function prizeClient(kioskToken?: string) {
       req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
     redemptions: (userId: string) => req<Redemption[]>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
+    // Family-wide, not scoped to one person — for the kiosk's adult-only
+    // "pending approvals" panel. Filter to status REQUESTED client-side.
+    allRedemptions: () => req<Redemption[]>('/prizes/redemptions', undefined, kioskToken),
+    fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }, kioskToken),
+    rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }, kioskToken),
+    adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
+      req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+    commonReasons: () => req<string[]>('/tokens/reasons', undefined, kioskToken),
     listUsers: () => req<Member[]>('/users', undefined, kioskToken),
     setPin: (userId: string, pin: string | null) =>
       req(`/users/${userId}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }, kioskToken),

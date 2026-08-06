@@ -95,4 +95,21 @@ export class TokensService {
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return entry;
   }
+
+  // Distinct reasons an adult has actually typed before for a manual
+  // give/take, most-used first — lets the quick-adjust modal offer real
+  // family history instead of only generic presets. Scoped to
+  // MANUAL/PHYSICAL entries only: chore/award/redeem reasons are
+  // system-generated text, not something anyone picked from a list.
+  async commonReasons(familyId: string, actorId: string, limit = 8): Promise<string[]> {
+    await this.assertAdult(actorId);
+    const grouped = await this.prisma.tokenLedger.groupBy({
+      by: ['reason'],
+      _count: { reason: true },
+      where: { type: { in: ['MANUAL', 'PHYSICAL'] }, user: { familyId } },
+      orderBy: { _count: { reason: 'desc' } },
+      take: limit,
+    });
+    return grouped.map((g) => g.reason);
+  }
 }

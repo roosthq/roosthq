@@ -36,4 +36,9 @@ export class TokensController {
   ) {
     return this.tokens.adjust(u.userId, u.familyId, body.userId, body.delta, body.reason, body.type ?? 'MANUAL');
   }
+
+  @Get('reasons')
+  reasons(@CurrentUser() u: SessionPayload) {
+    return this.tokens.commonReasons(u.familyId, u.userId);
+  }
 }

@@ -23,6 +23,8 @@ import { AwardForm } from './pages/AwardsPage';
 import { PrizeForm } from './pages/StorePage';
 import OnScreenKeyboard from './OnScreenKeyboard';
 import Screensaver from './Screensaver';
+import PendingPanel from './PendingPanel';
+import TokenAdjustModal from './TokenAdjustModal';
 import { useWeather } from './useWeather';
 import { dget, dpost, displayToken as token } from './displayApi';
 
@@ -56,7 +58,10 @@ export default function Display() {
   const [addingEvent, setAddingEvent] = useState(false);
   const [addingAward, setAddingAward] = useState(false);
   const [addingPrize, setAddingPrize] = useState(false);
+  const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
+  const [tokenName, setTokenName] = useState('Tokens');
+  const [tokenIcon, setTokenIcon] = useState('🪙');
   const [chores, setChores] = useState<Chore[]>([]);
   // Bumped on any incoming chores/prizes/tokens live-update push — passed down
   // to ChoresPanel/PrizesPanel so they refetch immediately instead of only on
@@ -65,6 +70,14 @@ export default function Display() {
   // closed over directly, the same way `activeRef` sidesteps the same issue.
   const [dataRefreshSignal, setDataRefreshSignal] = useState(0);
   const refreshEventsRef = useRef<() => void>(() => undefined);
+  // Forces a signed-in adult/family-manager/owner back to the idle picker
+  // whenever the screensaver comes up (idle timeout or the manual button) —
+  // a kid tapping the screen awake should never land in an adult's still-
+  // signed-in session. Kids stay signed in; only adult+ gets kicked. Reads
+  // through a ref (populated by an effect further down, after activeRef/
+  // applyIdleTheme/loadMembers exist) so this can be called from the
+  // idle-timer effect above, which is declared earlier in the component.
+  const lockIfAdultRef = useRef<() => void>(() => undefined);
 
   // Full-screen clock after N idle minutes (DisplayConfig.screensaverMinutes,
   // 0 = disabled). This effect only ever *arms* the screensaver — it never
@@ -85,7 +98,10 @@ export default function Display() {
     let timer: ReturnType<typeof setTimeout>;
     const reschedule = () => {
       clearTimeout(timer);
-      timer = setTimeout(() => setScreensaverOn(true), minutes * 60_000);
+      timer = setTimeout(() => {
+        lockIfAdultRef.current();
+        setScreensaverOn(true);
+      }, minutes * 60_000);
     };
     const events: Array<keyof DocumentEventMap> = ['touchstart', 'mousedown', 'keydown', 'wheel'];
     events.forEach((e) => document.addEventListener(e, reschedule));
@@ -120,7 +136,11 @@ export default function Display() {
 
   useEffect(() => {
     if (!kioskPrizeClient) return;
-    kioskPrizeClient.familySettings().then((s) => setTokenValueUsd(s.tokenValueUsd)).catch(() => undefined);
+    kioskPrizeClient.familySettings().then((s) => {
+      setTokenValueUsd(s.tokenValueUsd);
+      setTokenName(s.tokenName);
+      setTokenIcon(s.tokenIcon);
+    }).catch(() => undefined);
   }, [kioskPrizeClient]);
 
   const refreshChores = useCallback(() => {
@@ -203,6 +223,18 @@ export default function Display() {
   const loadMembers = useCallback(() => {
     dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
   }, []);
+
+  useEffect(() => {
+    lockIfAdultRef.current = () => {
+      const cur = activeRef.current;
+      const role = cur?.user.role;
+      if (cur && config && (role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT')) {
+        setActive(null);
+        loadMembers();
+        applyIdleTheme(config);
+      }
+    };
+  }, [applyIdleTheme, loadMembers, config]);
 
   useEffect(() => {
     loadConfig().catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
@@ -350,6 +382,14 @@ export default function Display() {
               + Add prize
             </button>
           )}
+          {active && isAdult && (
+            <button
+              onClick={() => setAddingTokenAdjust(true)}
+              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              🪙 Give/take
+            </button>
+          )}
           {active && showCalendar && (showChores || showPrizes) && (
             <div className="flex rounded border p-0.5 text-sm text-slate-500">
               <button
@@ -369,7 +409,10 @@ export default function Display() {
             </div>
           )}
           <button
-            onClick={() => setScreensaverOn(true)}
+            onClick={() => {
+              lockIfAdultRef.current();
+              setScreensaverOn(true);
+            }}
             title="Screensaver"
             className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
           >
@@ -443,6 +486,17 @@ export default function Display() {
                   </button>
                 </div>
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
+                  {isAdult && kioskChoreClient && kioskPrizeClient && (
+                    <PendingPanel
+                      chores={chores}
+                      client={kioskChoreClient}
+                      prizeClient={kioskPrizeClient}
+                      members={members}
+                      tokenIcon={tokenIcon}
+                      refreshSignal={dataRefreshSignal}
+                      onChanged={refreshChores}
+                    />
+                  )}
                   {showChores && (
                     <ChoresPanel
                       me={active.user}
@@ -512,6 +566,16 @@ export default function Display() {
           kioskToken={active.token}
           onClose={() => setAddingPrize(false)}
           onSaved={() => setAddingPrize(false)}
+        />
+      )}
+
+      {addingTokenAdjust && kioskPrizeClient && (
+        <TokenAdjustModal
+          members={members}
+          client={kioskPrizeClient}
+          tokenName={tokenName}
+          onClose={() => setAddingTokenAdjust(false)}
+          onSaved={() => setAddingTokenAdjust(false)}
         />
       )}
 
