@@ -18,6 +18,7 @@ import { RulesModule } from './rules/rules.module';
 import { AwardsModule } from './awards/awards.module';
 import { LocalCalendarsModule } from './local-calendars/local-calendars.module';
 import { OwnerModule } from './owner/owner.module';
+import { HolidaysModule } from './holidays/holidays.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { OwnerModule } from './owner/owner.module';
     AwardsModule,
     LocalCalendarsModule,
     OwnerModule,
+    HolidaysModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

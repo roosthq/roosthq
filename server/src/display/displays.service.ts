@@ -5,6 +5,17 @@ import { DisplayEventsService } from './display-events.service';
 import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 import { ChoresService } from '../chores/chores.service';
 import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, type DateKey } from '../common/timezone';
+import { HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
+
+// Same synthetic entry CalendarsService.listShared appends — kept in sync
+// deliberately (both need the exact same id/name/color so a display's
+// calendarIds selection round-trips against either picker).
+const HOLIDAYS_CALENDAR_ENTRY = {
+  id: HOLIDAYS_CALENDAR_ID,
+  name: HOLIDAYS_CALENDAR_NAME,
+  color: HOLIDAYS_CALENDAR_COLOR,
+  source: 'holiday' as const,
+};
 
 // An event has "passed" once its end (or start, if it has no end) is
 // behind us — all-day events (date-only, no dateTime) never count as
@@ -159,7 +170,7 @@ export class DisplaysService {
       select: { id: true, name: true, color: true },
     });
     const local = await this.localCalendars.calendarsForLocation(familyId, locationId);
-    return [...google, ...local];
+    return [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
   }
 
   private async constrainToLocation(familyId: string, locationId: string | null, calendarIds: string[]): Promise<string[]> {

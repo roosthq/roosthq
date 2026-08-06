@@ -361,6 +361,29 @@ model LocalEvent {
   @@index([startAt])
 }
 
+// ---------- System (instance-wide, not family-scoped) ----------
+
+// One rule that projects into a concrete date every year — not a stored
+// date, so "4th Thursday of November" stays correct forever without a
+// yearly refresh. Deliberately has no familyId: this is the single global
+// "Holidays" calendar every family can add (CalendarsService.events()
+// merges its projected occurrences in whenever HOLIDAYS_CALENDAR_ID is
+// among the requested calendarIds), editable only by the instance owner
+// (see HolidaysService.assertOwner) — same one-of-a-kind Role.OWNER gate
+// OwnerService uses for multi-family admin.
+model HolidayEvent {
+  id       String @id @default(cuid())
+  title    String
+  ruleType String // FIXED | NTH_WEEKDAY | EASTER_OFFSET — see HolidaysService for the shape each expects
+  month    Int? // 1-12 — FIXED, NTH_WEEKDAY
+  day      Int? // 1-31 — FIXED only
+  weekday  Int? // 0 (Sun) - 6 (Sat) — NTH_WEEKDAY only
+  ordinal  Int? // 1-4, or -1 for "last" — NTH_WEEKDAY only
+  offsetDays Int? // days relative to Easter Sunday (0 = Easter itself, -2 = Good Friday) — EASTER_OFFSET only
+
+  createdAt DateTime @default(now())
+}
+
 // ---------- Touch display ----------
 
 model DisplaySettings {

@@ -45,6 +45,22 @@ export interface FamilyInfo {
   createdAt: string;
 }
 
+export type HolidayRuleType = 'FIXED' | 'NTH_WEEKDAY' | 'EASTER_OFFSET';
+
+export interface HolidayRule {
+  id: string;
+  title: string;
+  ruleType: HolidayRuleType;
+  month: number | null;
+  day: number | null;
+  weekday: number | null;
+  ordinal: number | null;
+  offsetDays: number | null;
+  createdAt: string;
+}
+
+export type HolidayRuleInput = Omit<HolidayRule, 'id' | 'createdAt'>;
+
 export interface GoogleCalendar {
   googleAccountId: string;
   googleCalendarId: string;
@@ -60,7 +76,7 @@ export interface SharedCalendar {
   googleCalendarId?: string;
   shareCount?: number;
   sharedByMe?: boolean;
-  source?: 'google' | 'local';
+  source?: 'google' | 'local' | 'holiday';
   locationId?: string | null;
 }
 
@@ -521,6 +537,13 @@ export const api = {
     req<{ ok: boolean }>(`/owner/users/${id}/move`, { method: 'POST', body: JSON.stringify({ familyId, role }) }),
   ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
   unghost: () => req<{ ok: boolean }>('/owner/unghost', { method: 'POST' }),
+
+  // Global "Holidays" calendar rule set — owner-only (see HolidaysService).
+  listHolidays: () => req<HolidayRule[]>('/holidays'),
+  createHoliday: (body: HolidayRuleInput) => req<HolidayRule>('/holidays', { method: 'POST', body: JSON.stringify(body) }),
+  updateHoliday: (id: string, body: Partial<HolidayRuleInput>) =>
+    req<HolidayRule>(`/holidays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
 
   familySettings: () => req<FamilySettings>('/family/settings'),
   updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string }) =>

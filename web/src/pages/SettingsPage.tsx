@@ -11,6 +11,7 @@ import { CalendarFilterDropdown } from './CalendarPage';
 import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
+import HolidaysPanel from '../HolidaysPanel';
 import { useDialog } from '../Dialog';
 
 export default function SettingsPage({ me }: { me: Me }) {
@@ -27,6 +28,15 @@ export default function SettingsPage({ me }: { me: Me }) {
           help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
         >
           <OwnerFamiliesPanel />
+        </Section>
+      )}
+
+      {isOwner && (
+        <Section
+          title="Holidays"
+          help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
+        >
+          <HolidaysPanel />
         </Section>
       )}
 

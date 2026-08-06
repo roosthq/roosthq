@@ -6,12 +6,26 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local-calendars.service';
 import { zonedTimeToUtc } from '../common/timezone';
 import { DisplayEventsService } from '../display/display-events.service';
+import { HolidaysService, HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
 
 export interface ShareSelection {
   googleCalendarId: string;
   name: string;
   color?: string;
 }
+
+// Appended to every family's calendar list unconditionally — the single
+// global "Holidays" calendar (see HolidaysService), not something any family
+// creates or owns. Its id doubles as the sentinel calendarIds entries use
+// to opt into it (a DisplayConfig.calendarIds / Calendar-page filter array
+// is a loose, unvalidated list of ids by design already, same as any other
+// calendar id in there).
+const HOLIDAYS_CALENDAR_ENTRY = {
+  id: HOLIDAYS_CALENDAR_ID,
+  name: HOLIDAYS_CALENDAR_NAME,
+  color: HOLIDAYS_CALENDAR_COLOR,
+  source: 'holiday' as const,
+};
 
 @Injectable()
 export class CalendarsService {
@@ -21,6 +35,7 @@ export class CalendarsService {
     private notifications: NotificationsService,
     private localCalendars: LocalCalendarsService,
     private displayEvents: DisplayEventsService,
+    private holidays: HolidaysService,
   ) {}
 
   // Google calendars available across the user's connected accounts (the
@@ -134,7 +149,7 @@ export class CalendarsService {
       source: 'google' as const,
     }));
     const local = await this.localCalendars.listForFamily(familyId);
-    return [...google, ...local];
+    return [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
   }
 
   // Aggregate events across selected shared calendars, deduped by iCalUID so the
@@ -145,7 +160,8 @@ export class CalendarsService {
       include: { googleAccount: { include: { user: true } } },
     });
     const googleIds = new Set(calendars.map((c) => c.id));
-    const localIds = calendarIds.filter((id) => !googleIds.has(id));
+    const wantsHolidays = calendarIds.includes(HOLIDAYS_CALENDAR_ID);
+    const localIds = calendarIds.filter((id) => !googleIds.has(id) && id !== HOLIDAYS_CALENDAR_ID);
     const byUid = new Map<string, Record<string, unknown> & { addedByUserId?: string; addedByName?: string }>();
     for (const c of calendars) {
       const owner = c.googleAccount?.user;
@@ -191,6 +207,7 @@ export class CalendarsService {
     const events = Array.from(byUid.values());
     const localEvents = await this.localCalendars.eventsFor(localIds, timeMin, timeMax);
     events.push(...localEvents);
+    if (wantsHolidays) events.push(...(await this.holidays.occurrences(timeMin, timeMax)));
 
     // Resolve "added by" to a display name — a separate identity from the
     // calendar's owner (whose Google account it is), added by whoever actually
