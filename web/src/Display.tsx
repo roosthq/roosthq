@@ -193,6 +193,28 @@ export default function Display() {
     else document.documentElement.requestFullscreen().catch(() => undefined);
   }
 
+  // The kiosk's own light/dark setting (config.theme) — previously only
+  // editable from Settings on another device. An unlocked adult can now flip
+  // it right here. Applied to the DOM immediately rather than waiting on the
+  // SSE round-trip: loadConfig()'s SSE-triggered refetch only re-applies
+  // data-mode while nobody's signed in (see applyIdleTheme above), by design,
+  // so a change made mid-session would otherwise sit invisible until lock.
+  async function toggleTheme() {
+    if (!config?.id || !active) return;
+    const next = config.theme === 'dark' ? 'light' : 'dark';
+    const prevAttr = document.documentElement.getAttribute('data-mode');
+    document.documentElement.setAttribute('data-mode', next);
+    setConfig({ ...config, theme: next });
+    try {
+      await api.updateDisplay(config.id, { theme: next }, active.token);
+    } catch {
+      // Revert — most likely cause is the signed-in profile losing adult
+      // status mid-session; nothing else on this screen surfaces API errors.
+      document.documentElement.setAttribute('data-mode', prevAttr ?? 'light');
+      setConfig((c) => (c ? { ...c, theme: next === 'dark' ? 'light' : 'dark' } : c));
+    }
+  }
+
   // Tracked in a ref (not state) so loadConfig's identity stays stable across
   // unlock/lock — it's a dependency of the mount effect that opens the SSE
   // stream, and that stream shouldn't reconnect every time a profile switches.
@@ -438,6 +460,15 @@ export default function Display() {
                 🙂 {active.user.displayName.split(' ')[0]}
               </button>
             </div>
+          )}
+          {active && isAdult && config.id && (
+            <button
+              onClick={toggleTheme}
+              title={config.theme === 'dark' ? 'Switch this display to light mode' : 'Switch this display to dark mode'}
+              className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            >
+              {config.theme === 'dark' ? '☀️' : '🌑'}
+            </button>
           )}
           <button
             onClick={() => {
