@@ -14,32 +14,35 @@ import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
 import { useDialog } from '../Dialog';
 
-export default function SettingsPage({ me }: { me: Me }) {
-  const isOwner = me.role === 'OWNER';
-  const isFamilyManager = isOwner || me.role === 'FAMILY_MANAGER';
-  const isAdult = isFamilyManager || me.role === 'ADULT';
+// Owner-only sections reach across every family in the instance (Families,
+// Holidays) — everything else here only ever affects the current family.
+// Splitting those into tabs keeps "create a whole new family" and "rename
+// our reward currency" from sitting in the same undifferentiated list, which
+// only an owner would otherwise notice (everyone else only ever sees the
+// family tab's content anyway, so they don't get tabs at all).
+function GlobalSettings() {
   return (
-    <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Settings</h2>
+    <>
+      <Section
+        title="Families"
+        help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
+      >
+        <OwnerFamiliesPanel />
+      </Section>
 
-      {isOwner && (
-        <Section
-          title="Families"
-          help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
-        >
-          <OwnerFamiliesPanel />
-        </Section>
-      )}
+      <Section
+        title="Holidays"
+        help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
+      >
+        <HolidaysPanel />
+      </Section>
+    </>
+  );
+}
 
-      {isOwner && (
-        <Section
-          title="Holidays"
-          help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
-        >
-          <HolidaysPanel />
-        </Section>
-      )}
-
+function FamilySettings({ me, isFamilyManager, isAdult }: { me: Me; isFamilyManager: boolean; isAdult: boolean }) {
+  return (
+    <>
       {isFamilyManager && <TokenNameSetting />}
       {isFamilyManager && <ChoreWordSetting />}
 
@@ -69,6 +72,42 @@ export default function SettingsPage({ me }: { me: Me }) {
             <DisplayAccess />
           </div>
         </Section>
+      )}
+    </>
+  );
+}
+
+export default function SettingsPage({ me }: { me: Me }) {
+  const isOwner = me.role === 'OWNER';
+  const isFamilyManager = isOwner || me.role === 'FAMILY_MANAGER';
+  const isAdult = isFamilyManager || me.role === 'ADULT';
+  const [tab, setTab] = useState<'family' | 'global'>('family');
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-lg font-semibold">Settings</h2>
+
+      {isOwner && (
+        <div className="flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
+          <button
+            onClick={() => setTab('family')}
+            className={`rounded px-4 py-1.5 ${tab === 'family' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            This family
+          </button>
+          <button
+            onClick={() => setTab('global')}
+            className={`rounded px-4 py-1.5 ${tab === 'global' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            Instance-wide
+          </button>
+        </div>
+      )}
+
+      {isOwner && tab === 'global' ? (
+        <GlobalSettings />
+      ) : (
+        <FamilySettings me={me} isFamilyManager={isFamilyManager} isAdult={isAdult} />
       )}
     </div>
   );
