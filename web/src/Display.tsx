@@ -26,7 +26,7 @@ import Screensaver from './Screensaver';
 import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
 import { parseLocalDate, useWeather } from './useWeather';
-import { dget, dpost, displayToken as token } from './displayApi';
+import { dget, dpost, dpatch, displayToken as token } from './displayApi';
 
 function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean }) {
   const cls = big ? 'h-14 w-14 text-xl' : 'h-8 w-8 text-sm';
@@ -194,22 +194,26 @@ export default function Display() {
   }
 
   // The kiosk's own light/dark setting (config.theme) — previously only
-  // editable from Settings on another device. An unlocked adult can now flip
-  // it right here. Applied to the DOM immediately rather than waiting on the
-  // SSE round-trip: loadConfig()'s SSE-triggered refetch only re-applies
-  // data-mode while nobody's signed in (see applyIdleTheme above), by design,
-  // so a change made mid-session would otherwise sit invisible until lock.
+  // editable from Settings on another device. Deliberately NOT gated on
+  // being signed in as an adult: it's a property of the physical display
+  // sitting on the wall (same trust level as the screensaver/refresh/
+  // fullscreen buttons next to it), not a family-data mutation, so requiring
+  // a PIN unlock just to flip it at dusk would be pure friction. Applied to
+  // the DOM immediately rather than waiting on the SSE round-trip:
+  // loadConfig()'s SSE-triggered refetch only re-applies data-mode while
+  // nobody's signed in (see applyIdleTheme above), so a change made
+  // mid-session would otherwise sit invisible until lock.
   async function toggleTheme() {
-    if (!config?.id || !active) return;
+    if (!config?.id) return;
     const next = config.theme === 'dark' ? 'light' : 'dark';
     const prevAttr = document.documentElement.getAttribute('data-mode');
     document.documentElement.setAttribute('data-mode', next);
     setConfig({ ...config, theme: next });
     try {
-      await api.updateDisplay(config.id, { theme: next }, active.token);
+      await dpatch('/display/theme', { theme: next });
     } catch {
-      // Revert — most likely cause is the signed-in profile losing adult
-      // status mid-session; nothing else on this screen surfaces API errors.
+      // Revert — e.g. a network hiccup; nothing else on this screen surfaces
+      // API errors.
       document.documentElement.setAttribute('data-mode', prevAttr ?? 'light');
       setConfig((c) => (c ? { ...c, theme: next === 'dark' ? 'light' : 'dark' } : c));
     }
@@ -461,7 +465,7 @@ export default function Display() {
               </button>
             </div>
           )}
-          {active && isAdult && config.id && (
+          {config.id && (
             <button
               onClick={toggleTheme}
               title={config.theme === 'dark' ? 'Switch this display to light mode' : 'Switch this display to dark mode'}

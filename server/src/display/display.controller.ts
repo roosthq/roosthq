@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, ForbiddenException, Get, Param, Post, Put, Query, Sse, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, Put, Query, Sse, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -78,6 +78,17 @@ export class DisplayController {
       if (!allowed.some((m) => m.id === body.userId)) throw new ForbiddenException('Not available on this display');
     }
     return this.display.unlock(ctx.familyId, body.userId, body.pin);
+  }
+
+  // On-the-fly light/dark toggle, right from the kiosk header — no adult
+  // unlock needed, same trust level as the screensaver/refresh/fullscreen
+  // buttons next to it (see DisplaysService.setTheme for why).
+  @UseGuards(DisplayOrUserGuard)
+  @Patch('theme')
+  async setTheme(@FamilyCtx() ctx: FamilyContext, @Body() body: { theme: string }, @Query('config') config?: string) {
+    const id = ctx.displayConfigId ?? config;
+    if (!id) throw new NotFoundException('This display has no saved config to update');
+    return this.displays.setTheme(ctx.familyId, id, body.theme);
   }
 
   // Live settings updates for the family (SSE). Token goes in ?token= for the kiosk.

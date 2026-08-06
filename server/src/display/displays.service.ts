@@ -168,6 +168,19 @@ export class DisplaysService {
     return calendarIds.filter((id) => allowed.has(id));
   }
 
+  // Flips this kiosk's own light/dark setting — deliberately reachable with
+  // just the display token, no signed-in adult, same as the other physical
+  // kiosk controls (screensaver-now, refresh, fullscreen). It's a property of
+  // the hardware sitting on the wall, not a family-data mutation, so gating
+  // it behind a PIN unlock would just be friction for no safety benefit.
+  async setTheme(familyId: string, id: string, theme: string) {
+    await this.owned(familyId, id);
+    const value = theme === 'dark' ? 'dark' : 'light';
+    const updated = await this.prisma.displayConfig.update({ where: { id }, data: { theme: value } });
+    this.displayEvents.publish(familyId, { type: 'display', id });
+    return updated;
+  }
+
   async remove(familyId: string, actorId: string, id: string) {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);

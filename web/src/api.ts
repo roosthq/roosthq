@@ -474,10 +474,7 @@ export const api = {
       screensaverMinutes: number;
       weatherLocation: string | null;
     }>,
-    // Set when called from the kiosk itself (the on-the-fly theme toggle) —
-    // there's no browser session there, just whichever adult is unlocked.
-    kioskToken?: string,
-  ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
+  ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
   // Calendars selectable for a display: all shared calendars, or (scoped) only
   // those shared by someone assigned to that location.
