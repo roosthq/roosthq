@@ -115,16 +115,22 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
     >
       <div className="mx-auto max-w-2xl space-y-1.5">
         {numeric ? (
-          <div className="grid grid-cols-6 gap-1.5">
-            {'1234567890'.split('').map((d) => (
-              <button key={d} className={key} onClick={() => press(d)}>
+          // Phone-style dialpad (3x4, fixed width) instead of stretching all
+          // 10 digits + backspace + enter across the full keyboard width —
+          // that read as too thin/spread out to tap accurately.
+          <div className="mx-auto grid w-72 grid-cols-3 gap-2">
+            {'123456789'.split('').map((d) => (
+              <button key={d} className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => press(d)}>
                 {d}
               </button>
             ))}
-            <button className={key} onClick={() => pressBackspace(field)}>
+            <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => pressBackspace(field)}>
               ⌫
             </button>
-            <button className={key} onClick={() => pressEnter(field)}>
+            <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => press('0')}>
+              0
+            </button>
+            <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => pressEnter(field)}>
               ⏎
             </button>
           </div>
