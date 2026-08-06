@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Logo from './Logo';
 import { dget } from './displayApi';
 import type { CalEvent, DisplayTodaySummary } from './api';
-import type { WeatherNow } from './useWeather';
+import { parseLocalDate, type WeatherNow } from './useWeather';
 
 const REFRESH_MS = 5 * 60_000;
 
@@ -100,9 +100,9 @@ export default function Screensaver({ weather, onDismiss }: { weather: WeatherNo
           </div>
           {weather && weather.forecast.length > 0 && (
             <div className="mt-2 flex gap-3">
-              {weather.forecast.map((d) => (
+              {weather.forecast.slice(0, 7).map((d) => (
                 <div key={d.date} className="flex flex-col items-center gap-0.5 text-xs text-slate-400" title={d.label}>
-                  <span>{new Date(d.date).toLocaleDateString(undefined, { weekday: 'short' })}</span>
+                  <span>{parseLocalDate(d.date).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' })}</span>
                   <span className="text-base">{d.icon}</span>
                   <span>
                     {d.hi}°<span className="text-slate-600">/{d.lo}°</span>

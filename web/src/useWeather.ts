@@ -47,6 +47,17 @@ function describe(code: number): { icon: string; label: string } {
   return WMO[code] ?? { icon: '🌡️', label: 'Weather' };
 }
 
+// `new Date("2026-08-06")` parses a date-only string as UTC midnight, so
+// displaying it via toLocaleDateString (which converts to the browser's
+// local zone) shifts it back a calendar day for anyone west of UTC —
+// Phoenix (UTC-7) would show that instant as 5pm the day before, making
+// every forecast date render one day early. Parse as local-time components
+// instead, no UTC round-trip.
+export function parseLocalDate(dateStr: string): Date {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
 const REFRESH_MS = 15 * 60_000;
 
 // Geocodes `location` once per distinct string (Open-Meteo's free, keyless

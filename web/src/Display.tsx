@@ -25,7 +25,7 @@ import OnScreenKeyboard from './OnScreenKeyboard';
 import Screensaver from './Screensaver';
 import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
-import { useWeather } from './useWeather';
+import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, displayToken as token } from './displayApi';
 
 function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean }) {
@@ -376,7 +376,7 @@ export default function Display() {
                     {weather.forecast.map((d) => (
                       <div key={d.date} className="flex flex-col items-center gap-0.5 text-xs text-slate-500" title={d.label}>
                         <span className="font-medium text-slate-700">
-                          {new Date(d.date).toLocaleDateString(undefined, { weekday: 'short' })}
+                          {parseLocalDate(d.date).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' })}
                         </span>
                         <span className="text-base">{d.icon}</span>
                         <span>
