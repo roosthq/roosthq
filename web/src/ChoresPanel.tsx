@@ -129,7 +129,12 @@ export default function ChoresPanel({
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
+  // `editing` seeds the form's fields (edit OR duplicate); `editingId` is the
+  // one that decides whether submit PATCHes that chore or POSTs a new one —
+  // duplicate sets `editing` but leaves `editingId` null, so it prefills from
+  // the source chore but always creates a fresh row.
   const [editing, setEditing] = useState<Chore | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const chorePlural = pluralize(choreWord);
 
   const refresh = useCallback(async () => {
@@ -431,11 +436,23 @@ export default function ChoresPanel({
               <button
                 onClick={() => {
                   setEditing(chore);
+                  setEditingId(chore.id);
                   setFormOpen(true);
                 }}
                 className="hover:text-slate-700"
               >
                 Edit
+              </button>
+              <button
+                onClick={() => {
+                  setEditing(chore);
+                  setEditingId(null);
+                  setFormOpen(true);
+                }}
+                title={`Prefill a new ${choreWord.toLowerCase()} with these same settings — handy for one-per-person chores instead of a shared one`}
+                className="hover:text-slate-700"
+              >
+                Duplicate
               </button>
               <button
                 onClick={async () => {
@@ -532,6 +549,7 @@ export default function ChoresPanel({
             <button
               onClick={() => {
                 setEditing(null);
+                setEditingId(null);
                 setFormOpen(true);
               }}
               className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
@@ -617,11 +635,24 @@ export default function ChoresPanel({
                         <button
                           onClick={() => {
                             setEditing(chore);
+                            setEditingId(chore.id);
                             setFormOpen(true);
                           }}
                           className="rounded border px-2 py-1 text-xs hover:bg-white"
                         >
                           Edit
+                        </button>
+                      )}
+                      {isAdult && (
+                        <button
+                          onClick={() => {
+                            setEditing(chore);
+                            setEditingId(null);
+                            setFormOpen(true);
+                          }}
+                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                        >
+                          Duplicate
                         </button>
                       )}
                     </div>
@@ -666,6 +697,7 @@ export default function ChoresPanel({
           client={client}
           members={members}
           chore={editing}
+          choreId={editingId}
           choreWord={choreWord}
           onClose={() => setFormOpen(false)}
           onSaved={async () => {
@@ -692,18 +724,24 @@ function ChoreForm({
   client,
   members,
   chore,
+  choreId,
   choreWord,
   onClose,
   onSaved,
 }: {
   client: ChoreClient;
   members: Member[];
+  // Seeds every field below regardless of mode — for a duplicate, `chore` is
+  // the source row but `choreId` is null, so submit() below still POSTs a new
+  // one instead of PATCHing the original.
   chore: Chore | null;
+  choreId?: string | null;
   choreWord: string;
   onClose: () => void;
   onSaved: () => void;
 }) {
-  const [title, setTitle] = useState(chore?.title ?? '');
+  const isDuplicate = !!chore && !choreId;
+  const [title, setTitle] = useState(chore ? (isDuplicate ? `${chore.title} (copy)` : chore.title) : '');
   const [assignmentType, setAssignmentType] = useState<'SPECIFIC' | 'ANYONE'>(chore?.assignmentType ?? 'SPECIFIC');
   const [assignees, setAssignees] = useState<Set<string>>(
     new Set(chore?.assignees.map((a) => a.userId) ?? []),
@@ -748,14 +786,14 @@ function ChoreForm({
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
-    if (chore) await client.updateChore(chore.id, body);
+    if (choreId) await client.updateChore(choreId, body);
     else await client.createChore(body);
     onSaved();
   }
 
   return (
     <Modal
-      header={<h3 className="text-lg font-bold">{chore ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>}
+      header={<h3 className="text-lg font-bold">{choreId ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>}
       footer={
         <div className="flex justify-end gap-2">
           <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
@@ -766,12 +804,18 @@ function ChoreForm({
             disabled={needsAssignee || !title}
             className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
           >
-            {chore ? 'Save changes' : `Create ${choreWord}`}
+            {choreId ? 'Save changes' : `Create ${choreWord}`}
           </button>
         </div>
       }
     >
         <div className="space-y-4">
+          {isDuplicate && (
+            <p className="rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-700">
+              Duplicating "{chore?.title}" — this creates a separate {choreWord.toLowerCase()}, not a copy linked to the
+              original. Its own history and streak start fresh.
+            </p>
+          )}
           <Field label={`${choreWord} name`}>
             <input className="w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. Take out the trash" value={title} onChange={(e) => setTitle(e.target.value)} />
           </Field>
@@ -808,6 +852,14 @@ function ChoreForm({
             )}
             {needsAssignee && (
               <p className="mt-1 text-xs text-red-500">Pick at least one person, or switch to "Open to anyone".</p>
+            )}
+            {assignmentType === 'SPECIFIC' && assignees.size > 1 && (
+              <p className="mt-1 text-xs text-amber-600">
+                Shared: it's one {choreWord.toLowerCase()} for all {assignees.size} people. Whoever marks it done
+                first finishes it for everyone else too, and only that person gets the reward — it won't show as
+                still-to-do for the others. Want each person tracked (and paid) separately instead? Use "Duplicate"
+                on a saved {choreWord.toLowerCase()} to make one per person.
+              </p>
             )}
           </Field>
 
