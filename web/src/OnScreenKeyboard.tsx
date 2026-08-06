@@ -57,6 +57,11 @@ function pressEnter(el: Field) {
 }
 
 const LETTER_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
+// Same two symbol layers a phone keyboard's "123"/"#+=" toggle cycles
+// through — row 3 (the punctuation five + the toggle-back button) matches
+// real phone keyboards on both layers.
+const SYMBOL_ROWS_1 = ['1234567890', `-/:;()$&@"`, `.,?!'`];
+const SYMBOL_ROWS_2 = ['[]{}#%^*+=', '_\\|~<>€£¥•', `.,?!'`];
 
 // Pops a touch keyboard above whatever text field is focused anywhere on the
 // page — Chromium's kiosk mode on the Pi has no hardware keyboard and no
@@ -67,6 +72,10 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
   const [field, setField] = useState<Field | null>(null);
   const [shift, setShift] = useState(false);
   const [numeric, setNumeric] = useState(false);
+  // Only meaningful when numeric is false — which symbol layer (if any) a
+  // text field is showing. Reset to letters on every new focus so switching
+  // fields doesn't leave you stranded on a symbols page.
+  const [mode, setMode] = useState<'letters' | 'symbols1' | 'symbols2'>('letters');
 
   useEffect(() => {
     if (!enabled) {
@@ -78,6 +87,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
       setField(e.target);
       setNumeric(isNumericField(e.target));
       setShift(false);
+      setMode('letters');
     }
     // Hides on blur unless focus landed on another editable field (handled by
     // the focusin above firing right after) — a short delay lets that happen
@@ -134,7 +144,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
               ⏎
             </button>
           </div>
-        ) : (
+        ) : mode === 'letters' ? (
           <>
             {LETTER_ROWS.map((row, i) => (
               <div key={row} className="flex gap-1.5">
@@ -159,7 +169,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
               </div>
             ))}
             <div className="flex gap-1.5">
-              <button className={key} onClick={() => setNumeric(true)}>
+              <button className={key} onClick={() => setMode('symbols1')}>
                 123
               </button>
               <button className={key} onClick={() => press(',')}>
@@ -170,6 +180,43 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
               </button>
               <button className={key} onClick={() => press('.')}>
                 .
+              </button>
+              <button className={key} onClick={() => pressEnter(field)}>
+                ⏎
+              </button>
+            </div>
+          </>
+        ) : (
+          // symbols1 ("123") and symbols2 ("#+=") — the two punctuation/symbol
+          // layers a phone keyboard's numbers key cycles through. Row 3 (the
+          // toggle-back button + the same five punctuation marks + backspace)
+          // matches real phone keyboards on both layers.
+          <>
+            {(mode === 'symbols1' ? SYMBOL_ROWS_1 : SYMBOL_ROWS_2).map((row, i) => (
+              <div key={row} className="flex gap-1.5">
+                {i === 2 && (
+                  <button className={key} onClick={() => setMode(mode === 'symbols1' ? 'symbols2' : 'symbols1')}>
+                    {mode === 'symbols1' ? '#+=' : '123'}
+                  </button>
+                )}
+                {row.split('').map((ch, idx) => (
+                  <button key={`${ch}-${idx}`} className={key} onClick={() => press(ch)}>
+                    {ch}
+                  </button>
+                ))}
+                {i === 2 && (
+                  <button className={key} onClick={() => pressBackspace(field)}>
+                    ⌫
+                  </button>
+                )}
+              </div>
+            ))}
+            <div className="flex gap-1.5">
+              <button className={key} onClick={() => setMode('letters')}>
+                ABC
+              </button>
+              <button className={wideKey} onClick={() => insertAtCursor(field, ' ')}>
+                space
               </button>
               <button className={key} onClick={() => pressEnter(field)}>
                 ⏎
