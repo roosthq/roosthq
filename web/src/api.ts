@@ -591,7 +591,7 @@ export const api = {
     req<Rule>(`/rules/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteRule: (id: string) => req(`/rules/${id}`, { method: 'DELETE' }),
 
-  awardsCatalog: () => req<AwardCatalogItem[]>('/awards'),
+  awardsCatalog: (kioskToken?: string) => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
   earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
   awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
   createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number }, kioskToken?: string) =>
@@ -602,8 +602,8 @@ export const api = {
     kioskToken?: string,
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
-  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }) =>
-    req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }),
+  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }, kioskToken?: string) =>
+    req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
 };
 
@@ -658,6 +658,9 @@ export function prizeClient(kioskToken?: string) {
     adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
       req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     commonReasons: () => req<string[]>('/tokens/reasons', undefined, kioskToken),
+    awardsCatalog: () => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
+    grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }) =>
+      req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     listUsers: () => req<Member[]>('/users', undefined, kioskToken),
     setPin: (userId: string, pin: string | null) =>
       req(`/users/${userId}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }, kioskToken),
