@@ -67,29 +67,40 @@ export default function Display() {
   const refreshEventsRef = useRef<() => void>(() => undefined);
 
   // Full-screen clock after N idle minutes (DisplayConfig.screensaverMinutes,
-  // 0 = disabled) — any touch/mouse/key activity resets the timer, including
-  // the tap that dismisses the screensaver itself (it's a real DOM event
-  // bubbling to document, not just Screensaver's onDismiss).
+  // 0 = disabled). This effect only ever *arms* the screensaver — it never
+  // turns it off. Turning it off is Screensaver's own onClick's job alone
+  // (see onDismiss below). Reason: touchstart/mousedown fire on the SAME tap
+  // that dismisses the overlay, before the click that actually does the
+  // dismissing — if this reschedule function also called
+  // setScreensaverOn(false) synchronously on that touchstart, the overlay
+  // would unmount mid-gesture and the browser's synthesized click (which
+  // follows touchend) would re-hit-test and land on whatever's now
+  // underneath instead of being absorbed by the overlay. Rescheduling the
+  // *next* idle timeout on every activity event is still correct and safe
+  // here — it just must not touch the current on/off state.
   const [screensaverOn, setScreensaverOn] = useState(false);
   useEffect(() => {
     const minutes = config?.screensaverMinutes ?? 0;
-    if (!minutes) {
-      setScreensaverOn(false);
-      return;
-    }
+    if (!minutes) return;
     let timer: ReturnType<typeof setTimeout>;
-    const reset = () => {
-      setScreensaverOn(false);
+    const reschedule = () => {
       clearTimeout(timer);
       timer = setTimeout(() => setScreensaverOn(true), minutes * 60_000);
     };
     const events: Array<keyof DocumentEventMap> = ['touchstart', 'mousedown', 'keydown', 'wheel'];
-    events.forEach((e) => document.addEventListener(e, reset));
-    reset();
+    events.forEach((e) => document.addEventListener(e, reschedule));
+    reschedule();
     return () => {
       clearTimeout(timer);
-      events.forEach((e) => document.removeEventListener(e, reset));
+      events.forEach((e) => document.removeEventListener(e, reschedule));
     };
+  }, [config?.screensaverMinutes]);
+
+  // If the setting gets turned off entirely (0) while the screensaver is up,
+  // still let it go dark — separate from the effect above so that one can
+  // stay "arm only", never "turn off".
+  useEffect(() => {
+    if (!config?.screensaverMinutes) setScreensaverOn(false);
   }, [config?.screensaverMinutes]);
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
@@ -97,6 +108,15 @@ export default function Display() {
   // Shared with Screensaver.tsx (passed down as a prop) so both show the same
   // reading on the same 15-minute schedule instead of polling independently.
   const weather = useWeather(config?.weatherLocation);
+
+  // Header clock — the date next to it was previously a one-shot
+  // `new Date()` at render time, which never advances on its own since
+  // nothing else re-renders this component every minute.
+  const [now, setNow] = useState(new Date());
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     if (!kioskPrizeClient) return;
@@ -296,7 +316,10 @@ export default function Display() {
         </div>
         <div className="flex items-center gap-3">
           <span className="text-xl text-slate-400">
-            {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+            {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true })}
+          </span>
+          <span className="text-xl text-slate-400">
+            {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
           </span>
           {weather && (
             <span className="text-lg text-slate-400" title={weather.label}>
