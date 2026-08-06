@@ -1,9 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 
+export interface ForecastDay {
+  date: string; // YYYY-MM-DD
+  hi: number;
+  lo: number;
+  icon: string;
+  label: string;
+}
+
 export interface WeatherNow {
   tempF: number;
   label: string;
   icon: string;
+  lat: number;
+  lon: number;
+  forecast: ForecastDay[];
 }
 
 // WMO weather codes (what Open-Meteo returns) collapsed to a simple icon +
@@ -32,12 +43,17 @@ const WMO: Record<number, { icon: string; label: string }> = {
   99: { icon: '⛈️', label: 'Severe thunderstorm' },
 };
 
+function describe(code: number): { icon: string; label: string } {
+  return WMO[code] ?? { icon: '🌡️', label: 'Weather' };
+}
+
 const REFRESH_MS = 15 * 60_000;
 
 // Geocodes `location` once per distinct string (Open-Meteo's free, keyless
-// geocoding + forecast APIs), then polls current conditions every 15
-// minutes. Shared by the kiosk header and the screensaver via one call site
-// each — same data, same schedule, no duplicate polling.
+// geocoding + forecast APIs), then polls current conditions + a 10-day daily
+// forecast (one combined request) every 15 minutes. Shared by the kiosk
+// header and the screensaver via one call site each — same data, same
+// schedule, no duplicate polling.
 export function useWeather(location: string | null | undefined): WeatherNow | null {
   const [weather, setWeather] = useState<WeatherNow | null>(null);
   const coordsRef = useRef<{ lat: number; lon: number } | null>(null);
@@ -64,14 +80,27 @@ export function useWeather(location: string | null | undefined): WeatherNow | nu
         }
         const { lat, lon } = coordsRef.current;
         const data = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto`,
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&temperature_unit=fahrenheit&timezone=auto&forecast_days=10`,
         ).then((r) => r.json());
         if (stopped) return;
         const temp = data?.current?.temperature_2m;
         const code = data?.current?.weather_code;
         if (typeof temp !== 'number') return;
-        const desc = WMO[code] ?? { icon: '🌡️', label: 'Weather' };
-        setWeather({ tempF: Math.round(temp), icon: desc.icon, label: desc.label });
+        const desc = describe(code);
+        const daily = data?.daily;
+        const forecast: ForecastDay[] = Array.isArray(daily?.time)
+          ? daily.time.map((date: string, i: number) => {
+              const d = describe(daily.weather_code?.[i]);
+              return {
+                date,
+                hi: Math.round(daily.temperature_2m_max?.[i]),
+                lo: Math.round(daily.temperature_2m_min?.[i]),
+                icon: d.icon,
+                label: d.label,
+              };
+            })
+          : [];
+        setWeather({ tempF: Math.round(temp), icon: desc.icon, label: desc.label, lat, lon, forecast });
       } catch {
         // transient network blip — keep showing the last-known reading
         // rather than clearing it.

@@ -124,6 +124,7 @@ export default function Display() {
   // Shared with Screensaver.tsx (passed down as a prop) so both show the same
   // reading on the same 15-minute schedule instead of polling independently.
   const weather = useWeather(config?.weatherLocation);
+  const [showForecast, setShowForecast] = useState(false);
 
   // Header clock — the date next to it was previously a one-shot
   // `new Date()` at render time, which never advances on its own since
@@ -330,7 +331,13 @@ export default function Display() {
   if (error)
     return <div className="flex min-h-screen items-center justify-center p-10 text-center text-slate-500">{error}</div>;
   if (!config)
-    return <div className="flex min-h-screen items-center justify-center text-slate-500">Loading display…</div>;
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-6 text-slate-500">
+        <Logo size={120} />
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-slate-500" />
+        <span>Loading display…</span>
+      </div>
+    );
 
   const showCalendar = config.enabledFeatures.includes('calendar');
   const showChores = config.enabledFeatures.includes('chores');
@@ -354,9 +361,33 @@ export default function Display() {
             {now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
           </span>
           {weather && (
-            <span className="text-lg text-slate-400" title={weather.label}>
-              {weather.icon} {weather.tempF}°F
-            </span>
+            <div className="relative">
+              <button
+                onClick={() => setShowForecast((v) => !v)}
+                className="text-lg text-slate-400 hover:text-slate-600"
+                title={weather.label}
+              >
+                {weather.icon} {weather.tempF}°F
+              </button>
+              {showForecast && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowForecast(false)} />
+                  <div className="absolute right-0 z-50 mt-2 flex gap-3 rounded-lg border bg-white p-3 shadow-lg">
+                    {weather.forecast.map((d) => (
+                      <div key={d.date} className="flex flex-col items-center gap-0.5 text-xs text-slate-500" title={d.label}>
+                        <span className="font-medium text-slate-700">
+                          {new Date(d.date).toLocaleDateString(undefined, { weekday: 'short' })}
+                        </span>
+                        <span className="text-base">{d.icon}</span>
+                        <span>
+                          {d.hi}°<span className="text-slate-400">/{d.lo}°</span>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           )}
           {active && showCalendar && calendarOptions.length > 0 && (
             <button

@@ -4,7 +4,22 @@ import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
 import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 import { ChoresService } from '../chores/chores.service';
-import { DEFAULT_TIMEZONE, endOfDayInZone, startOfDayInZone, todayKeyInZone } from '../common/timezone';
+import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, type DateKey } from '../common/timezone';
+
+// An event has "passed" once its end (or start, if it has no end) is
+// behind us — all-day events (date-only, no dateTime) never count as
+// passed within the day they're already scoped to.
+function eventHasPassed(e: Record<string, unknown>, now: Date): boolean {
+  const start = e.start as { dateTime?: string; date?: string } | undefined;
+  const end = e.end as { dateTime?: string; date?: string } | undefined;
+  const endInstant = end?.dateTime ?? (!end?.date ? start?.dateTime : undefined);
+  if (!endInstant) return false;
+  return new Date(endInstant) < now;
+}
+
+function keyToIso(key: DateKey): string {
+  return `${key.y}-${String(key.m).padStart(2, '0')}-${String(key.d).padStart(2, '0')}`;
+}
 
 export interface DisplayConfigInput {
   name?: string;
@@ -242,10 +257,16 @@ export class DisplaysService {
     return this.calendars.events(familyId, config.calendarIds, range.start, range.end);
   }
 
-  // Combined "at a glance" feed for the kiosk's idle screensaver: today's
-  // still-open chores plus today's calendar events, scoped exactly like the
-  // rest of a display's config (location for chores, calendarIds for events)
-  // — works with just a display token, no signed-in profile needed.
+  // Combined "at a glance" feed for the kiosk's idle screensaver: still-open
+  // chores plus calendar events, scoped exactly like the rest of a display's
+  // config (location for chores, calendarIds for events) — works with just a
+  // display token, no signed-in profile needed.
+  //
+  // Today's already-passed items are dropped (a chore due at 8am, or an
+  // event that already ended, has nothing left to tell you at 9pm). If
+  // that leaves today empty, walks forward day by day (capped at 14) for the
+  // next day with anything at all, unfiltered — nothing "passed" yet on a
+  // day that hasn't happened.
   async todaysSummary(familyId: string, config: ResolvedConfig) {
     // Same fix as ChoresService.dueToday: "today" has to mean the display's
     // own location's wall-clock day, not the server process's ambient UTC —
@@ -255,13 +276,25 @@ export class DisplaysService {
       ? (await this.prisma.location.findUnique({ where: { id: config.locationId }, select: { timezone: true } }))?.timezone ||
         DEFAULT_TIMEZONE
       : DEFAULT_TIMEZONE;
-    const key = todayKeyInZone(tz);
-    const startOfDay = startOfDayInZone(key, tz);
-    const endOfDay = endOfDayInZone(key, tz);
-    const [chores, events] = await Promise.all([
-      this.chores.dueToday(familyId, config.locationId),
-      this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),
-    ]);
-    return { chores, events };
+    const now = new Date();
+    let key = todayKeyInZone(tz);
+
+    for (let offset = 0; offset <= 14; offset++) {
+      const isToday = offset === 0;
+      const startOfDay = startOfDayInZone(key, tz);
+      const endOfDay = endOfDayInZone(key, tz);
+      const [chores, rawEvents] = await Promise.all([
+        this.chores.dueOnDay(familyId, config.locationId, key, tz, { excludePassed: isToday }),
+        this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),
+      ]);
+      const events = isToday ? rawEvents.filter((e) => !eventHasPassed(e, now)) : rawEvents;
+      if (chores.length || events.length || offset === 14) {
+        return { date: keyToIso(key), isToday, chores, events };
+      }
+      key = addDaysToKey(key, 1);
+    }
+    // Unreachable (the offset === 14 branch above always returns), but keeps
+    // the function's return type honest without a non-null assertion.
+    return { date: keyToIso(key), isToday: true, chores: [], events: [] };
   }
 }

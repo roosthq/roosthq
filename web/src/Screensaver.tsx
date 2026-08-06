@@ -98,6 +98,19 @@ export default function Screensaver({ weather, onDismiss }: { weather: WeatherNo
               </span>
             )}
           </div>
+          {weather && weather.forecast.length > 0 && (
+            <div className="mt-2 flex gap-3">
+              {weather.forecast.map((d) => (
+                <div key={d.date} className="flex flex-col items-center gap-0.5 text-xs text-slate-400" title={d.label}>
+                  <span>{new Date(d.date).toLocaleDateString(undefined, { weekday: 'short' })}</span>
+                  <span className="text-base">{d.icon}</span>
+                  <span>
+                    {d.hi}°<span className="text-slate-600">/{d.lo}°</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="w-full max-w-sm text-left">

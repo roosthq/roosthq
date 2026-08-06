@@ -336,8 +336,12 @@ export interface ResolvedDisplayConfig {
   weatherLocation: string | null;
 }
 
-// The kiosk screensaver's "at a glance" feed (GET /display/today).
+// The kiosk screensaver's "at a glance" feed (GET /display/today). `date`
+// (YYYY-MM-DD) is whichever day this actually is — today with its passed
+// items dropped, or the next day with anything at all if today's now empty.
 export interface DisplayTodaySummary {
+  date: string;
+  isToday: boolean;
   chores: Array<{ id: string; title: string; dueTime: string | null; status: string; assignedTo: string }>;
   events: CalEvent[];
 }

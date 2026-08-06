@@ -685,20 +685,24 @@ export class ChoresService {
     return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0 }));
   }
 
-  // Still-actionable chores due today, for the kiosk's idle screensaver "at a
-  // glance" list — no signed-in profile needed, so this can't reuse list()'s
-  // per-user scoping. Same location rule as the rest of the app: unscoped
-  // (locationId null, the kiosk isn't tied to a household) sees everything;
-  // scoped sees location-less chores plus that one location's.
-  async dueToday(familyId: string, locationId?: string | null) {
-    // "Today" has to mean the location's (or family default) wall-clock day —
-    // the server process runs UTC (Docker), so a naive `new Date()` +
-    // setHours(0,0,0,0) computes UTC midnight, which for a Mountain-time
-    // family is already mid-evening the day before or after depending on the
-    // hour. Same class of bug the due-date math elsewhere in this file was
-    // already fixed for (see dueInstant/todayKeyInZone).
-    const tz = await this.resolveTimezone(locationId);
-    const key = todayKeyInZone(tz);
+  // Still-actionable chores due on a given calendar day, for the kiosk's idle
+  // screensaver "at a glance" list — no signed-in profile needed, so this
+  // can't reuse list()'s per-user scoping. Same location rule as the rest of
+  // the app: unscoped (locationId null, the kiosk isn't tied to a household)
+  // sees everything; scoped sees location-less chores plus that one
+  // location's. `excludePassed` drops OPEN instances whose due instant has
+  // already gone by (dueDate already IS the precise due instant — end-of-day
+  // if the chore has no dueTime, else that exact wall-clock time — so a plain
+  // `dueDate >= now` comparison is all that's needed); PENDING instances
+  // (awaiting approval) are never excluded by this since they're not
+  // "upcoming," they already happened.
+  async dueOnDay(
+    familyId: string,
+    locationId: string | null | undefined,
+    key: DateKey,
+    tz: string,
+    opts: { excludePassed?: boolean } = {},
+  ) {
     const startOfDay = startOfDayInZone(key, tz);
     const endOfDay = endOfDayInZone(key, tz);
     const instances = await this.prisma.choreInstance.findMany({
@@ -713,7 +717,9 @@ export class ChoresService {
       include: { chore: { include: { assignees: { include: { user: { select: { displayName: true } } } } } } },
       orderBy: { dueDate: 'asc' },
     });
-    return instances.map((i) => ({
+    const now = new Date();
+    const filtered = opts.excludePassed ? instances.filter((i) => i.status === 'PENDING' || i.dueDate >= now) : instances;
+    return filtered.map((i) => ({
       id: i.id,
       title: i.chore.title,
       dueTime: i.chore.dueTime,
@@ -721,5 +727,16 @@ export class ChoresService {
       assignedTo:
         i.chore.assignmentType === 'ANYONE' ? 'Anyone' : i.chore.assignees.map((a) => a.user.displayName).join(', '),
     }));
+  }
+
+  // "Today" has to mean the location's (or family default) wall-clock day —
+  // the server process runs UTC (Docker), so a naive `new Date()` +
+  // setHours(0,0,0,0) computes UTC midnight, which for a Mountain-time
+  // family is already mid-evening the day before or after depending on the
+  // hour. Same class of bug the due-date math elsewhere in this file was
+  // already fixed for (see dueInstant/todayKeyInZone).
+  async dueToday(familyId: string, locationId?: string | null) {
+    const tz = await this.resolveTimezone(locationId);
+    return this.dueOnDay(familyId, locationId, todayKeyInZone(tz), tz, { excludePassed: true });
   }
 }
