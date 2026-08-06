@@ -4,6 +4,7 @@ import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
 import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 import { ChoresService } from '../chores/chores.service';
+import { DEFAULT_TIMEZONE, endOfDayInZone, startOfDayInZone, todayKeyInZone } from '../common/timezone';
 
 export interface DisplayConfigInput {
   name?: string;
@@ -246,11 +247,17 @@ export class DisplaysService {
   // rest of a display's config (location for chores, calendarIds for events)
   // — works with just a display token, no signed-in profile needed.
   async todaysSummary(familyId: string, config: ResolvedConfig) {
-    const now = new Date();
-    const startOfDay = new Date(now);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(now);
-    endOfDay.setHours(23, 59, 59, 999);
+    // Same fix as ChoresService.dueToday: "today" has to mean the display's
+    // own location's wall-clock day, not the server process's ambient UTC —
+    // otherwise a naive UTC day boundary shows tomorrow's (or yesterday's)
+    // events depending on the hour, for any family not in UTC.
+    const tz = config.locationId
+      ? (await this.prisma.location.findUnique({ where: { id: config.locationId }, select: { timezone: true } }))?.timezone ||
+        DEFAULT_TIMEZONE
+      : DEFAULT_TIMEZONE;
+    const key = todayKeyInZone(tz);
+    const startOfDay = startOfDayInZone(key, tz);
+    const endOfDay = endOfDayInZone(key, tz);
     const [chores, events] = await Promise.all([
       this.chores.dueToday(familyId, config.locationId),
       this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),

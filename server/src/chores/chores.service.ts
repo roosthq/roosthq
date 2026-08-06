@@ -17,6 +17,7 @@ import {
   dowOfKey,
   dueInstant,
   endOfDayInZone,
+  startOfDayInZone,
   todayKeyInZone,
   type DateKey,
 } from '../common/timezone';
@@ -690,11 +691,16 @@ export class ChoresService {
   // (locationId null, the kiosk isn't tied to a household) sees everything;
   // scoped sees location-less chores plus that one location's.
   async dueToday(familyId: string, locationId?: string | null) {
-    const now = new Date();
-    const startOfDay = new Date(now);
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date(now);
-    endOfDay.setHours(23, 59, 59, 999);
+    // "Today" has to mean the location's (or family default) wall-clock day —
+    // the server process runs UTC (Docker), so a naive `new Date()` +
+    // setHours(0,0,0,0) computes UTC midnight, which for a Mountain-time
+    // family is already mid-evening the day before or after depending on the
+    // hour. Same class of bug the due-date math elsewhere in this file was
+    // already fixed for (see dueInstant/todayKeyInZone).
+    const tz = await this.resolveTimezone(locationId);
+    const key = todayKeyInZone(tz);
+    const startOfDay = startOfDayInZone(key, tz);
+    const endOfDay = endOfDayInZone(key, tz);
     const instances = await this.prisma.choreInstance.findMany({
       where: {
         status: { in: ['OPEN', 'PENDING'] },
