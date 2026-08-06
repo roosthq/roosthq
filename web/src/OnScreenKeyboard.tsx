@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Field = HTMLInputElement | HTMLTextAreaElement;
 
@@ -76,6 +76,16 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
   // text field is showing. Reset to letters on every new focus so switching
   // fields doesn't leave you stranded on a symbols page.
   const [mode, setMode] = useState<'letters' | 'symbols1' | 'symbols2'>('letters');
+  // <input type="number"> doesn't support selectionStart/selectionEnd at all
+  // (only text/search/tel/password/url do) — the browser still shows a
+  // visual selection when it's select()-ed on focus (most numeric inputs in
+  // this app do that), but our insertAtCursor/pressBackspace have no way to
+  // see it, so they always fall back to "end of value" and every keystroke
+  // appended instead of replacing (highlight "5", type "3" -> "53" instead of
+  // "3"). Tracked as "the field was just focused, nothing typed yet" instead:
+  // the first digit/backspace after a fresh focus clears the value first,
+  // matching how a phone's number field actually behaves.
+  const freshFocusRef = useRef(false);
 
   useEffect(() => {
     if (!enabled) {
@@ -88,6 +98,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
       setNumeric(isNumericField(e.target));
       setShift(false);
       setMode('letters');
+      freshFocusRef.current = true;
     }
     // Hides on blur unless focus landed on another editable field (handled by
     // the focusin above firing right after) — a short delay lets that happen
@@ -108,8 +119,25 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
   if (!enabled || !field) return null;
 
   function press(ch: string) {
+    if (freshFocusRef.current) {
+      freshFocusRef.current = false;
+      if (field instanceof HTMLInputElement && field.type === 'number') setNativeValue(field, '');
+    }
     insertAtCursor(field!, shift ? ch.toUpperCase() : ch);
     setShift(false);
+  }
+
+  function backspace() {
+    if (freshFocusRef.current) {
+      freshFocusRef.current = false;
+      // The "selection" being deleted is the whole value — clear it rather
+      // than trimming one character off the end.
+      if (field instanceof HTMLInputElement && field.type === 'number') {
+        setNativeValue(field, '');
+        return;
+      }
+    }
+    pressBackspace(field!);
   }
 
   const key = 'flex-1 rounded-lg border bg-white py-3 text-lg font-medium shadow-sm active:bg-slate-100';
@@ -134,7 +162,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
                 {d}
               </button>
             ))}
-            <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => pressBackspace(field)}>
+            <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={backspace}>
               ⌫
             </button>
             <button className="rounded-lg border bg-white py-4 text-xl font-medium shadow-sm active:bg-slate-100" onClick={() => press('0')}>
@@ -162,7 +190,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
                   </button>
                 ))}
                 {i === 2 && (
-                  <button className={key} onClick={() => pressBackspace(field)}>
+                  <button className={key} onClick={backspace}>
                     ⌫
                   </button>
                 )}
@@ -205,7 +233,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
                   </button>
                 ))}
                 {i === 2 && (
-                  <button className={key} onClick={() => pressBackspace(field)}>
+                  <button className={key} onClick={backspace}>
                     ⌫
                   </button>
                 )}
