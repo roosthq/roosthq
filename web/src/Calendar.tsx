@@ -76,15 +76,24 @@ function Avatar({ name, src, size = 'sm' }: { name?: string; src?: string; size?
 
 // Month-grid calendar. Reports its visible range up so the parent fetches the right
 // events; renders them per day (multi-day events span), and opens a day detail modal.
+type ViewRange = 'month' | '2week' | '1week';
+const RANGE_DAYS: Record<ViewRange, number> = { month: 42, '2week': 14, '1week': 7 };
+
 export default function Calendar({
   events,
   onRangeChange,
+  onAddEvent,
   size = 'normal',
   fill = false,
+  touchControls = false,
   renderExtra,
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
+  // Renders an "+ Add event" button in the day-detail modal, prefilled with
+  // whatever day was clicked — omit to leave the modal without one (the
+  // kiosk's read-only "mini" calendar doesn't want it, for instance).
+  onAddEvent?: (dateISO: string) => void;
   // 'mini' is the small "windows-style" side calendar for the kiosk's
   // person-focused layout — day numbers and per-calendar dots only, no event
   // text (there's no room for it), but still fully clickable/navigable.
@@ -93,6 +102,10 @@ export default function Calendar({
   // instead of sizing each cell to a fixed min-height. Parent must give this
   // component a bounded height (e.g. flex-1 in a flex column) for it to work.
   fill?: boolean;
+  // Bigger prev/today/next/view-range buttons — the kiosk sets this
+  // regardless of `size`, since a finger needs a larger target than a mouse
+  // cursor does no matter how the grid itself is sized.
+  touchControls?: boolean;
   // Extra content under an event's description in the day-detail modal —
   // lets a caller bolt on domain-specific actions (e.g. chore claim/complete
   // buttons) without this component knowing anything about chores.
@@ -103,37 +116,56 @@ export default function Calendar({
     return new Date(n.getFullYear(), n.getMonth(), 1);
   });
   const [selected, setSelected] = useState<string | null>(null);
+  // Mini (kiosk side calendar) always stays a full month — no room for a
+  // range picker, and the point of "mini" is the familiar month-grid glance.
+  const [view, setView] = useState<ViewRange>('month');
+  const effectiveView = size === 'mini' ? 'month' : view;
 
   const large = size === 'large';
   const compact = size === 'compact';
   const mini = size === 'mini';
   const cellMin = large ? 'min-h-[9rem]' : compact ? 'min-h-[4rem]' : mini ? 'min-h-[2.25rem]' : 'min-h-[6rem]';
-  const chipText = large ? 'text-sm' : 'text-xs';
   const maxChips = large ? 6 : compact ? 2 : 3;
+  const ctrlCls = touchControls
+    ? mini
+      ? 'px-2.5 py-1.5 text-sm'
+      : 'px-5 py-2.5 text-base'
+    : mini
+      ? 'px-1.5 py-0.5 text-xs'
+      : 'px-3 py-1 text-sm';
+
+  const rangeDays = RANGE_DAYS[effectiveView];
+  const rows = rangeDays / 7;
 
   const gridStart = useMemo(() => {
-    const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
-    const s = new Date(first);
-    s.setDate(first.getDate() - first.getDay());
+    if (effectiveView === 'month') {
+      const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+      const s = new Date(first);
+      s.setDate(first.getDate() - first.getDay());
+      s.setHours(0, 0, 0, 0);
+      return s;
+    }
+    const s = new Date(cursor);
+    s.setDate(cursor.getDate() - cursor.getDay());
     s.setHours(0, 0, 0, 0);
     return s;
-  }, [cursor]);
+  }, [cursor, effectiveView]);
 
   const days = useMemo(
     () =>
-      Array.from({ length: 42 }, (_, i) => {
+      Array.from({ length: rangeDays }, (_, i) => {
         const d = new Date(gridStart);
         d.setDate(gridStart.getDate() + i);
         return d;
       }),
-    [gridStart],
+    [gridStart, rangeDays],
   );
 
   useEffect(() => {
     const end = new Date(gridStart);
-    end.setDate(gridStart.getDate() + 42);
+    end.setDate(gridStart.getDate() + rangeDays);
     onRangeChange(gridStart.toISOString(), end.toISOString());
-  }, [gridStart, onRangeChange]);
+  }, [gridStart, rangeDays, onRangeChange]);
 
   const byDay = useMemo(() => {
     const m = new Map<string, CalEvent[]>();
@@ -156,31 +188,65 @@ export default function Calendar({
   }, [events]);
 
   const todayKey = keyOf(new Date());
-  const monthLabel = cursor.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+  const rangeLabel =
+    effectiveView === 'month'
+      ? cursor.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
+      : (() => {
+          const last = new Date(gridStart);
+          last.setDate(gridStart.getDate() + rangeDays - 1);
+          const sameMonth = gridStart.getMonth() === last.getMonth();
+          const startStr = gridStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+          const endStr = last.toLocaleDateString(undefined, sameMonth ? { day: 'numeric' } : { month: 'short', day: 'numeric' });
+          return `${startStr} – ${endStr}`;
+        })();
   const selectedEvents = selected ? byDay.get(selected) ?? [] : [];
 
-  const shift = (delta: number) => setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + delta, 1));
+  const shift = (delta: number) => {
+    if (effectiveView === 'month') {
+      setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + delta, 1));
+    } else {
+      const d = new Date(cursor);
+      d.setDate(cursor.getDate() + delta * rangeDays);
+      setCursor(d);
+    }
+  };
   const goToday = () => {
     const n = new Date();
-    setCursor(new Date(n.getFullYear(), n.getMonth(), 1));
+    setCursor(effectiveView === 'month' ? new Date(n.getFullYear(), n.getMonth(), 1) : n);
   };
 
   return (
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
-      <div className="flex shrink-0 items-center justify-between">
-        <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{monthLabel}</h2>
-        <div className="flex gap-1">
-          <button onClick={() => shift(-1)} className={`rounded border hover:bg-slate-50 ${mini ? 'px-1.5 py-0.5 text-xs' : 'px-3 py-1 text-sm'}`}>‹</button>
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
+        <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{rangeLabel}</h2>
+        <div className="flex items-center gap-1">
           {!mini && (
-            <button onClick={goToday} className="rounded border px-3 py-1 text-sm hover:bg-slate-50">Today</button>
+            <div className="mr-1 flex rounded border text-sm">
+              {(['1week', '2week', 'month'] as const).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setView(v)}
+                  className={`first:rounded-l last:rounded-r ${ctrlCls} ${view === v ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                >
+                  {v === '1week' ? '1wk' : v === '2week' ? '2wk' : 'Month'}
+                </button>
+              ))}
+            </div>
           )}
-          <button onClick={() => shift(1)} className={`rounded border hover:bg-slate-50 ${mini ? 'px-1.5 py-0.5 text-xs' : 'px-3 py-1 text-sm'}`}>›</button>
+          <button onClick={() => shift(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
+          {/* Kept even in mini (the kiosk's person-focused side calendar) — a
+              compressed calendar is exactly where jumping back to today
+              matters most, since there's no room to see much else. */}
+          <button onClick={goToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
+            Today
+          </button>
+          <button onClick={() => shift(1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>›</button>
         </div>
       </div>
 
       <div
         className={`mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200 ${fill ? 'flex-1' : ''}`}
-        style={fill ? { gridTemplateRows: `auto repeat(6, minmax(0, 1fr))` } : undefined}
+        style={fill ? { gridTemplateRows: `auto repeat(${rows}, minmax(0, 1fr))` } : undefined}
       >
         {WEEKDAYS.map((w) => (
           <div key={w} className={`bg-slate-50 text-center font-medium text-slate-500 ${large ? 'py-1 text-sm' : mini ? 'py-0.5 text-[10px]' : 'py-1 text-xs'}`}>
@@ -191,7 +257,18 @@ export default function Calendar({
           const k = keyOf(d);
           const inMonth = d.getMonth() === cursor.getMonth();
           const isToday = k === todayKey;
+          const isSelected = k === selected;
           const dayEvents = byDay.get(k) ?? [];
+          // Pills default large so they stand out; only shrink once a day's
+          // too crowded for that to fit — sized off this day's own count, not
+          // the component's overall size prop (a busy day in "large" mode
+          // still needs to shrink its pills same as a busy day anywhere else).
+          const pillCls =
+            dayEvents.length <= 2
+              ? 'gap-1.5 px-2 py-1 text-sm'
+              : dayEvents.length <= 4
+                ? 'gap-1 px-1.5 py-0.5 text-xs'
+                : 'gap-0.5 px-1 py-0.5 text-[10px]';
           return (
             <button
               key={k}
@@ -203,7 +280,11 @@ export default function Calendar({
                   : inMonth
                     ? undefined
                     : 'var(--surface-off)',
-                boxShadow: isToday ? 'inset 0 0 0 2px var(--today)' : undefined,
+                boxShadow: isSelected
+                  ? 'inset 0 0 0 2px var(--accent)'
+                  : isToday
+                    ? 'inset 0 0 0 2px var(--today)'
+                    : undefined,
               }}
             >
               <div
@@ -222,18 +303,22 @@ export default function Calendar({
                 </div>
               ) : (
                 <>
-                  {/* Full title+avatar chips on wider screens; below sm there's only
-                      room for a per-calendar dot + count — tap the day for the rest. */}
+                  {/* Solid-color pills (the calendar's own color) on wider
+                      screens; below sm there's only room for a per-calendar
+                      dot + count — tap the day for the rest. */}
                   <div className="hidden space-y-0.5 sm:block">
                     {dayEvents.slice(0, maxChips).map((e) => (
-                      <div key={`${e.uid}-${k}`} className={`flex items-center gap-1 ${chipText}`}>
+                      <div
+                        key={`${e.uid}-${k}`}
+                        className={`flex items-center overflow-hidden rounded-full font-medium text-white ${pillCls}`}
+                        style={{ background: e.calendarColor ?? '#94a3b8' }}
+                      >
                         <Avatar name={e.ownerName} src={e.ownerAvatar} />
-                        <span className="h-2 w-1 shrink-0 rounded" style={{ background: e.calendarColor ?? '#94a3b8' }} />
                         <span className="truncate">{e.title ?? '(no title)'}</span>
                       </div>
                     ))}
                     {dayEvents.length > maxChips && (
-                      <div className={`text-slate-400 ${chipText}`}>+{dayEvents.length - maxChips} more</div>
+                      <div className="text-xs text-slate-400">+{dayEvents.length - maxChips} more</div>
                     )}
                   </div>
                   <div className="flex flex-wrap gap-1 sm:hidden">
@@ -263,7 +348,7 @@ export default function Calendar({
           maxWidthClass="max-w-lg"
           onBackdropClick={() => setSelected(null)}
           header={
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <h3 className="text-xl font-semibold">
                 {new Date(`${selected}T00:00:00`).toLocaleDateString(undefined, {
                   weekday: 'long',
@@ -271,7 +356,17 @@ export default function Calendar({
                   day: 'numeric',
                 })}
               </h3>
-              <button onClick={() => setSelected(null)} className="text-slate-400 hover:text-slate-700">✕</button>
+              <div className="flex items-center gap-3">
+                {onAddEvent && (
+                  // Deliberately doesn't close this modal — the day stays
+                  // highlighted and its detail view stays open underneath,
+                  // so the new event shows up in it the moment it's saved.
+                  <button onClick={() => onAddEvent(selected)} className="rounded border px-2 py-1 text-sm hover:bg-slate-50">
+                    + Add event
+                  </button>
+                )}
+                <button onClick={() => setSelected(null)} className="text-slate-400 hover:text-slate-700">✕</button>
+              </div>
             </div>
           }
         >

@@ -127,6 +127,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [addingEvent, setAddingEvent] = useState(false);
+  const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [needsReconnect, setNeedsReconnect] = useState(false);
   const [members, setMembers] = useState<Member[]>([]);
   const [chores, setChores] = useState<Chore[]>([]);
@@ -350,7 +351,13 @@ export default function CalendarPage({ me }: { me: Me }) {
               </>
             )}
             {filterOptions.length > 0 && (
-              <button onClick={() => setAddingEvent(true)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+              <button
+                onClick={() => {
+                  setPrefillDate(null);
+                  setAddingEvent(true);
+                }}
+                className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+              >
                 + Add event
               </button>
             )}
@@ -387,6 +394,14 @@ export default function CalendarPage({ me }: { me: Me }) {
       <Calendar
         events={[...events, ...choreEventsById.list]}
         onRangeChange={onRangeChange}
+        onAddEvent={
+          filterOptions.length > 0
+            ? (dateISO) => {
+                setPrefillDate(dateISO);
+                setAddingEvent(true);
+              }
+            : undefined
+        }
         renderExtra={(e) => {
           const occ = choreEventsById.map.get(e.id);
           if (!occ) return null;
@@ -397,6 +412,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       {addingEvent && (
         <AddEventModal
           options={filterOptions}
+          initialDate={prefillDate ?? undefined}
           onClose={() => setAddingEvent(false)}
           onCreate={async (calendarId, body) => {
             await api.createCalendarEvent(calendarId, body);

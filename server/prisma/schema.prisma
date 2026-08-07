@@ -578,6 +578,14 @@ model Prize {
   name          String
   description   String?    @db.Text
   image         String?    @db.Text // URL, or a data: URI for an uploaded image
+  // Which region of `image` shows on the small store-card thumbnail, as
+  // {x,y,w,h} percentages of the image's own natural size — metadata only,
+  // never applied to the image itself. Deliberately non-destructive: image
+  // can be a URL with no local pixels to touch, and even for an upload the
+  // original stays intact for the full-size detail view. Card rendering
+  // (PrizeImage) turns this into a CSS background-position/size instead of
+  // ever re-encoding.
+  imageCrop     Json?
   url           String?    @db.Text
   realPrice     Decimal?   @db.Decimal(10, 2) // hidden from kid sessions
   tokenCost     Int

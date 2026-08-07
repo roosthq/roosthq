@@ -4,12 +4,14 @@ import {
   BASE_URL,
   choreClient,
   prizeClient,
+  ROLE_ICON,
   type CalEvent,
   type Chore,
   type ResolvedDisplayConfig,
   type Member,
   type SharedCalendar,
   type UnlockResult,
+  type Balance,
 } from './api';
 import Calendar from './Calendar';
 import ChoresPanel from './ChoresPanel';
@@ -45,6 +47,10 @@ export default function Display() {
   const [error, setError] = useState<string | null>(null);
 
   const [members, setMembers] = useState<Member[]>([]);
+  // Family-wide balances for the idle profile picker — display-token-scoped
+  // (DisplayController.balances), no signed-in profile needed, same as
+  // `members` itself right below.
+  const [pickerBalances, setPickerBalances] = useState<Balance[]>([]);
   const [active, setActive] = useState<UnlockResult | null>(null);
   // Keyed on the token string (not `active`) so this stays referentially stable
   // across re-renders instead of feeding ChoresPanel a new client every time.
@@ -56,6 +62,7 @@ export default function Display() {
 
   const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
   const [addingEvent, setAddingEvent] = useState(false);
+  const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [addingAward, setAddingAward] = useState(false);
   const [addingPrize, setAddingPrize] = useState(false);
   const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
@@ -249,6 +256,7 @@ export default function Display() {
   // straight to unlock() with no PIN entered, which then just fails silently.
   const loadMembers = useCallback(() => {
     dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
+    dget<Balance[]>('/display/balances').then(setPickerBalances).catch(() => setPickerBalances([]));
   }, []);
 
   useEffect(() => {
@@ -372,14 +380,14 @@ export default function Display() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden p-4">
-      <header className="flex shrink-0 items-center justify-between border-b pb-3">
+      <header className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 border-b pb-3">
         <div className="flex items-center gap-3">
           <Logo size={40} />
           {config.name && config.name !== 'Display' && (
             <span className="text-xl text-slate-400">· {config.name}</span>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3">
           <span className="text-xl text-slate-400">
             {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true })}
           </span>
@@ -415,9 +423,14 @@ export default function Display() {
               )}
             </div>
           )}
+        </div>
+        <div className="flex flex-wrap items-center justify-end gap-3">
           {active && showCalendar && calendarOptions.length > 0 && (
             <button
-              onClick={() => setAddingEvent(true)}
+              onClick={() => {
+                setPrefillDate(null);
+                setAddingEvent(true);
+              }}
               className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
             >
               + Add event
@@ -514,6 +527,15 @@ export default function Display() {
             <Calendar
               events={[...events, ...choreEventsById.list]}
               onRangeChange={onRangeChange}
+              touchControls
+              onAddEvent={
+                active && calendarOptions.length > 0
+                  ? (dateISO) => {
+                      setPrefillDate(dateISO);
+                      setAddingEvent(true);
+                    }
+                  : undefined
+              }
               size={!active ? 'normal' : personFocused ? 'mini' : 'compact'}
               fill
               renderExtra={(e) => {
@@ -584,21 +606,29 @@ export default function Display() {
             ) : (
               <>
                 <span className="shrink-0 text-sm text-slate-500">Tap your photo:</span>
-                <div className="mt-2 min-h-0 flex-1 space-y-1 overflow-y-auto">
+                <div className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto">
                   {members.map((m) => (
                     <button
                       key={m.id}
                       onClick={() => selectProfile(m)}
-                      className="flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-slate-100"
+                      className="flex w-full items-center gap-3 rounded-full border bg-white p-2 text-left hover:bg-slate-100"
                     >
                       <Avatar name={m.displayName} src={m.avatar} big />
                       <span className="min-w-0 flex-1">
-                        <div className="truncate text-sm font-medium">{m.displayName}</div>
+                        <div className="flex items-center gap-1 truncate text-sm font-medium">
+                          <span>{ROLE_ICON[m.role]}</span>
+                          {m.displayName}
+                        </div>
                         {/* Reserve this line's height for every row, PIN or not, so rows stay aligned. */}
                         <div className="h-[14px] text-[10px] text-slate-400">
                           {(m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
                         </div>
                       </span>
+                      {!m.tokensDisabled && (
+                        <span className="shrink-0 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+                          {tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -611,6 +641,7 @@ export default function Display() {
       {addingEvent && active && (
         <AddEventModal
           options={calendarOptions}
+          initialDate={prefillDate ?? undefined}
           onClose={() => setAddingEvent(false)}
           onCreate={async (calendarId, body) => {
             await api.createCalendarEvent(calendarId, body, active.token);

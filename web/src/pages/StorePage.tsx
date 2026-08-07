@@ -1,9 +1,15 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member } from '../api';
+import { api, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
+import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+
+// Store cards are all the same horizontal-rectangle shape (see the grid
+// above) — the crop tool matches it, so what you select is exactly what the
+// card will show.
+const PRIZE_CROP_ASPECT = 16 / 9;
 
 export default function StorePage({
   me,
@@ -133,10 +139,14 @@ export default function StorePage({
               onClick={() => setViewing(p)}
               className="flex w-full flex-col overflow-hidden rounded border text-left hover:shadow-sm"
             >
-              <PrizeImage src={p.image} alt={p.name} className="h-44 w-full" />
+              {/* Fixed aspect ratio (not a fixed height) so every card lines
+                  up the same regardless of whether an image, a crop, or
+                  neither is set — a missing image's placeholder box is the
+                  exact same size as a photo would be. */}
+              <PrizeImage src={p.image} alt={p.name} crop={p.imageCrop} className="aspect-[16/9] w-full" />
               <div className="flex flex-1 flex-col p-3">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="min-w-0 flex-1 break-words font-medium leading-tight">{p.name}</span>
+                  <span className="min-w-0 flex-1 truncate font-medium leading-tight" title={p.name}>{p.name}</span>
                   <TokenBadge icon={tokenIcon} amount={p.tokenCost} />
                 </div>
                 <div className="mt-1 flex items-center gap-2 text-xs">
@@ -412,6 +422,8 @@ export function PrizeForm({
   const [name, setName] = useState(prize?.name ?? '');
   const [description, setDescription] = useState(prize?.description ?? '');
   const [image, setImage] = useState(prize?.image ?? '');
+  const [imageCrop, setImageCrop] = useState<CropRect | null>(prize?.imageCrop ?? null);
+  const [cropping, setCropping] = useState(false);
   const [imageMode, setImageMode] = useState<'url' | 'upload'>(prize?.image?.startsWith('data:') ? 'upload' : 'url');
   const [uploading, setUploading] = useState(false);
   const [url, setUrl] = useState(prize?.url ?? '');
@@ -444,6 +456,7 @@ export function PrizeForm({
     setUploading(true);
     try {
       setImage(await resizeImageFile(file));
+      setImageCrop(null); // a genuinely new image — the old crop rect doesn't apply to it
     } catch {
       await alert('Could not read that image.');
     } finally {
@@ -457,6 +470,7 @@ export function PrizeForm({
       name,
       description: description || undefined,
       image: image || undefined,
+      imageCrop: image ? imageCrop : null,
       url: url || undefined,
       realPrice: realPrice ? Number(realPrice) : undefined,
       tokenCost: Math.max(0, Math.floor(Number(tokenCost) || 0)),
@@ -474,6 +488,7 @@ export function PrizeForm({
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
+    <>
     <Modal
       header={
         <>
@@ -528,7 +543,20 @@ export function PrizeForm({
               <input type="file" accept="image/*" onChange={onFile} className="mt-1 block text-sm" />
             )}
             {uploading && <p className="mt-1 text-xs text-slate-400">Processing image…</p>}
-            {image && <img src={image} alt="" className="mt-2 h-20 w-20 rounded object-cover" />}
+            {image && (
+              <div className="mt-2 flex items-center gap-3">
+                <PrizeImage src={image} alt="" crop={imageCrop} className="h-20 w-36 rounded" />
+                <div>
+                  <button type="button" onClick={() => setCropping(true)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                    {imageCrop ? 'Adjust crop' : 'Crop for the store card'}
+                  </button>
+                  <p className="mt-1 text-xs text-slate-400">
+                    Only affects the small card — the full image still shows when someone opens the prize
+                    {imageMode === 'url' ? ' or the link' : ''}. Nothing about the {imageMode === 'url' ? 'URL' : 'photo'} itself changes.
+                  </p>
+                </div>
+              </div>
+            )}
             {!image && <p className="mt-1 text-xs text-slate-400">No image yet — a default icon will show instead.</p>}
           </div>
 
@@ -623,5 +651,19 @@ export function PrizeForm({
           </div>
         </div>
     </Modal>
+    {cropping && image && (
+      <ImageCropper
+        src={image}
+        aspect={PRIZE_CROP_ASPECT}
+        initial={imageCrop}
+        title="Crop for the store card"
+        onCancel={() => setCropping(false)}
+        onConfirm={(rect) => {
+          setImageCrop(rect);
+          setCropping(false);
+        }}
+      />
+    )}
+    </>
   );
 }

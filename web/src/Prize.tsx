@@ -1,6 +1,7 @@
-import type { Redemption, StorePrize } from './api';
+import type { CropRect, Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
 import Modal from './Modal';
+import { cropBackgroundStyle } from './ImageCropper';
 
 // Every prize gets one of these — keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
@@ -38,9 +39,33 @@ export function resizeImageFile(file: File, maxDim = 480, quality = 0.75): Promi
   });
 }
 
-// object-contain (not object-cover) so the whole image is always visible —
-// a taller box with letterboxing beats a cropped one.
-export function PrizeImage({ src, alt, className }: { src?: string | null; alt: string; className: string }) {
+// Two render modes: no `crop` (the full/uncropped detail view) uses
+// object-contain so the whole image is always visible — a taller box with
+// letterboxing beats a cropped one there. With a `crop` (the small store
+// card) renders as a sized+positioned background instead of an <img> —
+// shows only the saved rect, at whatever size this box is, without ever
+// touching the source image/URL (see Prize.imageCrop in schema.prisma).
+export function PrizeImage({
+  src,
+  alt,
+  className,
+  crop,
+}: {
+  src?: string | null;
+  alt: string;
+  className: string;
+  crop?: CropRect | null;
+}) {
+  if (src && crop) {
+    return (
+      <div
+        role="img"
+        aria-label={alt}
+        className={`${className} bg-slate-100`}
+        style={{ backgroundImage: `url(${JSON.stringify(src)})`, ...cropBackgroundStyle(crop) }}
+      />
+    );
+  }
   if (src) return <img src={src} alt={alt} className={`${className} bg-slate-100 object-contain`} />;
   return (
     <div className={`${className} flex items-center justify-center bg-slate-100 text-slate-300`}>

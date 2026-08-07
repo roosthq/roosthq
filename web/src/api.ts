@@ -390,11 +390,24 @@ export interface LedgerEntry {
   createdByName?: string;
 }
 
+// Same shape as ImageCropper's CropRect — duplicated here (rather than
+// imported) so this file stays free of any React-component dependency.
+export interface CropRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export interface StorePrize {
   id: string;
   name: string;
   description?: string | null;
   image?: string | null;
+  // Which region of `image` shows on the store card — never applied to the
+  // image itself (see Prize model comment). Null/absent = show the whole
+  // thing (cover-fit) — same as a prize created before this existed.
+  imageCrop?: CropRect | null;
   url?: string | null;
   realPrice?: string | number | null;
   tokenCost: number;

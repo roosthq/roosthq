@@ -8,10 +8,18 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 
+export interface CropRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export interface PrizeInput {
   name: string;
   description?: string;
   image?: string;
+  imageCrop?: CropRect | null;
   url?: string;
   realPrice?: number;
   tokenCost: number;
@@ -106,6 +114,7 @@ export class PrizesService {
         name: p.name,
         description: p.description,
         image: p.image,
+        imageCrop: p.imageCrop as CropRect | null,
         url: adult ? p.url : undefined,
         realPrice: adult ? p.realPrice : undefined, // hidden from kids
         tokenCost: p.tokenCost,
@@ -130,6 +139,8 @@ export class PrizesService {
         name: dto.name,
         description: dto.description,
         image: dto.image,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable interface here
+        imageCrop: (dto.imageCrop ?? undefined) as any,
         url: dto.url,
         realPrice: dto.realPrice ?? null,
         tokenCost: dto.tokenCost ?? 0,
@@ -182,6 +193,8 @@ export class PrizesService {
         ...(dto.name !== undefined && { name: dto.name }),
         ...(dto.description !== undefined && { description: dto.description }),
         ...(dto.image !== undefined && { image: dto.image }),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable interface here
+        ...(dto.imageCrop !== undefined && { imageCrop: dto.imageCrop as any }),
         ...(dto.url !== undefined && { url: dto.url }),
         ...(dto.realPrice !== undefined && { realPrice: dto.realPrice }),
         ...(dto.tokenCost !== undefined && { tokenCost: dto.tokenCost }),

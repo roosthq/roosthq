@@ -23,14 +23,18 @@ const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 // builds an event resource.
 export default function AddEventModal({
   options,
+  initialDate,
   onClose,
   onCreate,
 }: {
   options: SharedCalendar[];
+  // Prefills both start/end — from the calendar day-modal's "+ Add event",
+  // which already knows which day was clicked. Falls back to today.
+  initialDate?: string;
   onClose: () => void;
   onCreate: (calendarId: string, body: EventInput) => Promise<void>;
 }) {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = initialDate ?? new Date().toISOString().slice(0, 10);
   const [calendarId, setCalendarId] = useState(options[0]?.id ?? '');
   const [summary, setSummary] = useState('');
   const [allDay, setAllDay] = useState(true);
