@@ -21,14 +21,14 @@
   color-scheme: light;
   --bg: #eff4eb;
   /* Card surface is derived from --bg, not a flat white — a card must
-     never read as the same color as the page. Light mode darkens slightly
-     toward black; dark mode (below) lightens toward white instead. */
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+     never read as the same color as the page. Mixed toward --accent, not
+     black/white: every light --bg here is an already-near-white pastel, so
+     darkening toward black just desaturates it back to gray (looked
+     washed-out/colorless) — mixing toward the theme's own accent keeps the
+     surface visibly the theme's color instead. (srgb, not oklch: oklch's hue
+     math is unstable at --bg's near-zero chroma and was rendering pink.) */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(78, 122, 76, 0.18);
   --text: #1c2e1c;
   --text-2: #5a7858;
@@ -66,12 +66,10 @@
 
 [data-theme='ocean'] {
   --bg: #edf4fa;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(42, 123, 184, 0.16);
   --text: #0d2340;
   --text-2: #6a98b8;
@@ -98,12 +96,10 @@
 }
 [data-theme='ember'] {
   --bg: #faf5ec;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(200, 92, 58, 0.16);
   --text: #1e2a38;
   --text-2: #a09880;
@@ -130,12 +126,10 @@
 }
 [data-theme='lavender'] {
   --bg: #f4f0fb;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(114, 84, 200, 0.16);
   --text: #1a1438;
   --text-2: #9888c0;
@@ -162,12 +156,10 @@
 }
 [data-theme='slate'] {
   --bg: #eef2f7;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(58, 90, 138, 0.16);
   --text: #0e1e38;
   --text-2: #6a8aaa;
@@ -194,12 +186,10 @@
 }
 [data-theme='rose'] {
   --bg: #faf0f4;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(184, 72, 120, 0.16);
   --text: #2a1020;
   --text-2: #b888a0;
@@ -226,12 +216,10 @@
 }
 [data-theme='sand'] {
   --bg: #faf5eb;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(160, 120, 64, 0.16);
   --text: #2a1e08;
   --text-2: #a89068;
@@ -258,12 +246,10 @@
 }
 [data-theme='mint'] {
   --bg: #edfaf5;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(42, 154, 120, 0.16);
   --text: #0a2018;
   --text-2: #60a888;
@@ -290,12 +276,10 @@
 }
 [data-theme='midnight'] {
   --bg: #f0f2fa;
-  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
-     is numerically unstable (hue is undefined at near-zero chroma), and was
-     rendering as a pink/magenta tint on every light theme regardless of the
-     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
-  --surface: color-mix(in srgb, var(--bg) 90%, black);
-  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(74, 106, 184, 0.16);
   --text: #080c28;
   --text-2: #6878a8;

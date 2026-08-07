@@ -59,15 +59,18 @@ export class AuthController {
     // If already signed in, link the new account into the existing family.
     let existingUserId: string | undefined;
     let existingFamilyId: string | undefined;
+    let existingGhostedBy: string | undefined;
     const existingToken = req.cookies?.[SESSION_COOKIE];
     if (existingToken) {
       try {
         const s = verifySession(existingToken);
         existingUserId = s.userId;
         existingFamilyId = s.familyId;
+        existingGhostedBy = s.ghostedBy;
       } catch {
         existingUserId = undefined;
         existingFamilyId = undefined;
+        existingGhostedBy = undefined;
       }
     }
 
@@ -89,7 +92,16 @@ export class AuthController {
     // Keep the current owner signed in when they added a member in-browser; otherwise
     // establish/refresh the session for the account that just logged in.
     if (!result.linkedMember) {
-      res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId }), {
+      // mode=self reconnects/adds a Google account to whoever's ALREADY signed
+      // in (result.userId === existingUserId) — re-signing the session here
+      // was dropping the ghostedBy claim even when the identity didn't
+      // actually change, which silently ended an app-owner's ghost session
+      // (banner gone, no "return to owner") the moment they reconnected a
+      // Google account while ghosted. Only carry it forward when the
+      // resulting user is still the one that was ghosted — a genuine
+      // identity change (a different account) should NOT inherit it.
+      const ghostedBy = result.userId === existingUserId ? existingGhostedBy : undefined;
+      res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId, ghostedBy }), {
         ...cookieBase,
         maxAge: 30 * 24 * 60 * 60 * 1000,
       });
