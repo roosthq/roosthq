@@ -57,12 +57,18 @@ export function PrizeImage({
   crop?: CropRect | null;
 }) {
   if (src && crop) {
+    // NOT the bg-slate-100 class here — the theme bridge remaps it to a
+    // `background` SHORTHAND with !important (see index.css), which resets
+    // every background-* longhand including the ones set below, `!important`
+    // stylesheet rules beating inline styles regardless of shorthand vs
+    // longhand. Same fallback tint, just via backgroundColor directly so it
+    // can't collide.
     return (
       <div
         role="img"
         aria-label={alt}
-        className={`${className} bg-slate-100`}
-        style={{ backgroundImage: `url(${JSON.stringify(src)})`, ...cropBackgroundStyle(crop) }}
+        className={className}
+        style={{ backgroundColor: '#f1f5f9', backgroundImage: `url(${JSON.stringify(src)})`, ...cropBackgroundStyle(crop) }}
       />
     );
   }
