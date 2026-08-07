@@ -20,6 +20,7 @@ import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
+import DropdownDetails from '../DropdownDetails';
 
 export function Avatar({ name, src }: { name?: string; src?: string }) {
   if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
@@ -88,10 +89,10 @@ export function CalendarFilterDropdown({
   label?: string;
 }) {
   return (
-    <details className="relative">
-      <summary className="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-        {label} ({visible.size}/{options.length}) ▾
-      </summary>
+    <DropdownDetails
+      summary={`${label} (${visible.size}/${options.length}) ▾`}
+      summaryClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+    >
       <div className="absolute right-0 z-10 mt-1 max-h-72 w-64 overflow-auto rounded border bg-white p-2 shadow">
         {options.map((c) => (
           <label key={c.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
@@ -111,7 +112,7 @@ export function CalendarFilterDropdown({
         ))}
         {options.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No calendars available.</p>}
       </div>
-    </details>
+    </DropdownDetails>
   );
 }
 
@@ -363,10 +364,10 @@ export default function CalendarPage({ me }: { me: Me }) {
             )}
             <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
             {members.length > 0 && (
-              <details className="relative">
-                <summary className="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-                  Chores ({selectedPeople.size}/{members.length}) ▾
-                </summary>
+              <DropdownDetails
+                summary={`Chores (${selectedPeople.size}/${members.length}) ▾`}
+                summaryClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+              >
                 <div className="absolute right-0 z-10 mt-1 max-h-72 w-56 overflow-auto rounded border bg-white p-2 shadow">
                   {members.map((m) => (
                     <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
@@ -385,7 +386,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                     </label>
                   ))}
                 </div>
-              </details>
+              </DropdownDetails>
             )}
           </div>
         </div>

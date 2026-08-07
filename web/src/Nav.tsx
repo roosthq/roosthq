@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { api, pluralize, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
+import DropdownDetails from './DropdownDetails';
 
 export default function Nav({
   me,
@@ -72,8 +73,7 @@ export default function Nav({
   );
   const displayLink =
     myDisplays.length > 1 ? (
-      <details className="relative">
-        <summary className="cursor-pointer list-none text-slate-500 hover:text-slate-800">Display ↗</summary>
+      <DropdownDetails summary="Display ↗">
         <div className="absolute right-0 z-10 mt-1 w-48 rounded border bg-white p-1 shadow">
           {myDisplays.map((d) => (
             <a
@@ -87,7 +87,7 @@ export default function Nav({
             </a>
           ))}
         </div>
-      </details>
+      </DropdownDetails>
     ) : (
       <a
         href={myDisplays.length === 1 ? `/?display=1&config=${myDisplays[0].id}` : '/?display=1'}
@@ -104,8 +104,7 @@ export default function Nav({
   // Same <details>/<summary> disclosure shell as displayLink above.
   function nameMenu(closeMenu: boolean) {
     return (
-      <details className="relative">
-        <summary className="cursor-pointer list-none text-slate-500 hover:text-slate-800">{me.displayName} ▾</summary>
+      <DropdownDetails summary={`${me.displayName} ▾`}>
         <div className="absolute right-0 z-10 mt-1 w-40 rounded border bg-white p-1 shadow">
           <Link
             to="/profile"
@@ -122,7 +121,7 @@ export default function Nav({
             My Settings
           </Link>
         </div>
-      </details>
+      </DropdownDetails>
     );
   }
 
