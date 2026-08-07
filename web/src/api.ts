@@ -35,6 +35,9 @@ export interface Me {
   colorTheme?: string;
   fontSizePref?: FontSize;
   notifyByEmail?: boolean;
+  // Whether a local password is set — never the hash itself. Drives whether
+  // the password-change form asks for the current one at all.
+  hasPassword?: boolean;
   // Set only while the instance owner is ghosting as this account.
   ghostedBy?: { id: string; displayName: string } | null;
 }
@@ -42,6 +45,7 @@ export interface Me {
 export interface GoogleAccountInfo {
   id: string;
   email: string | null;
+  picture: string | null;
   needsReconnect: boolean;
   createdAt: string;
 }
@@ -65,6 +69,10 @@ export interface HolidayRule {
   ordinal: number | null;
   offsetDays: number | null;
   createdAt: string;
+  // Only present on the list() response (server computes it fresh each
+  // time) — the soonest occurrence on or after today, ISO date or null for
+  // a malformed row.
+  nextOccurrence?: string | null;
 }
 
 export type HolidayRuleInput = Omit<HolidayRule, 'id' | 'createdAt'>;
@@ -138,6 +146,7 @@ export interface Member {
   hasPin?: boolean;
   colorTheme?: string;
   email?: string;
+  tokensDisabled?: boolean;
 }
 
 export interface UnlockResult {
@@ -515,6 +524,8 @@ export const api = {
     req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
   setUserRole: (id: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
+  setTokensDisabled: (id: string, disabled: boolean) =>
+    req<{ ok: boolean }>(`/users/${id}/tokens-disabled`, { method: 'PUT', body: JSON.stringify({ disabled }) }),
   removeUser: (id: string) => req(`/users/${id}`, { method: 'DELETE' }),
   resetUser: (id: string) => req<{ ok: boolean }>(`/users/${id}/reset`, { method: 'POST' }),
   setTheme: (theme: 'light' | 'dark') =>
@@ -545,8 +556,9 @@ export const api = {
 
   listFamilies: () => req<FamilyInfo[]>('/owner/families'),
   createFamily: (name: string) => req<FamilyInfo>('/owner/families', { method: 'POST', body: JSON.stringify({ name }) }),
+  deleteFamily: (id: string) => req<{ ok: boolean }>(`/owner/families/${id}`, { method: 'DELETE' }),
   ownerFamilyMembers: (familyId: string) => req<Member[]>(`/owner/families/${familyId}/members`),
-  moveUser: (id: string, familyId: string, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
+  moveUser: (id: string, familyId: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
     req<{ ok: boolean }>(`/owner/users/${id}/move`, { method: 'POST', body: JSON.stringify({ familyId, role }) }),
   ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
   unghost: () => req<{ ok: boolean }>('/owner/unghost', { method: 'POST' }),

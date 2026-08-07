@@ -1,7 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { HOLIDAY_SEED } from './holiday-seed';
-import { projectOccurrences } from './holiday-rules';
+import { projectOccurrences, nextOccurrence } from './holiday-rules';
 
 export const HOLIDAYS_CALENDAR_ID = 'holidays';
 export const HOLIDAYS_CALENDAR_NAME = 'Holidays';
@@ -56,10 +56,27 @@ export class HolidaysService {
 
   // Owner-only: the raw rule table, for the Settings admin editor. Everyone
   // else only ever sees the rendered occurrences via occurrences() below.
+  // Ordered by upcoming date (not raw month/day — that column is null for
+  // NTH_WEEKDAY/EASTER_OFFSET rows and wouldn't reflect ordinal/Easter shifts
+  // anyway), each annotated with its computed next occurrence so the UI can
+  // show a month tag and "next: <date>" without recomputing.
   async list(actorId: string) {
     await this.assertOwner(actorId);
     await this.ensureSeeded();
-    return this.prisma.holidayEvent.findMany({ orderBy: [{ month: 'asc' }, { day: 'asc' }] });
+    const rules = await this.prisma.holidayEvent.findMany();
+    const now = new Date();
+    const annotated = rules.map((r) => {
+      const next = nextOccurrence(r, now);
+      return { ...r, nextOccurrence: next ? next.toISOString().slice(0, 10) : null };
+    });
+    annotated.sort((a, b) => {
+      // Malformed rows (no computable next date) sink to the bottom rather
+      // than sorting first, since a null date otherwise reads as "earliest".
+      if (!a.nextOccurrence) return 1;
+      if (!b.nextOccurrence) return -1;
+      return a.nextOccurrence.localeCompare(b.nextOccurrence);
+    });
+    return annotated;
   }
 
   async create(actorId: string, dto: HolidayRuleInput) {

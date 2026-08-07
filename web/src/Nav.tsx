@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { api, pluralize, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
@@ -99,6 +99,33 @@ export default function Nav({
       </a>
     );
 
+  // Name -> dropdown: "View Profile" (the basic, browse-anyone page) vs
+  // "My Settings" (identity/password/avatar/PIN/Google/delete — self only).
+  // Same <details>/<summary> disclosure shell as displayLink above.
+  function nameMenu(closeMenu: boolean) {
+    return (
+      <details className="relative">
+        <summary className="cursor-pointer list-none text-slate-500 hover:text-slate-800">{me.displayName} ▾</summary>
+        <div className="absolute right-0 z-10 mt-1 w-40 rounded border bg-white p-1 shadow">
+          <Link
+            to="/profile"
+            onClick={closeMenu ? () => setMenuOpen(false) : undefined}
+            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+          >
+            View Profile
+          </Link>
+          <Link
+            to="/my-settings"
+            onClick={closeMenu ? () => setMenuOpen(false) : undefined}
+            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+          >
+            My Settings
+          </Link>
+        </div>
+      </details>
+    );
+  }
+
   const links = (
     <>
       <NavLink to="/" end className={cls} onClick={() => setMenuOpen(false)}>Calendar</NavLink>
@@ -137,7 +164,7 @@ export default function Nav({
             <option value="xl">Extra large text</option>
           </select>
           {displayLink}
-          <span className="text-slate-500">{me.displayName}</span>
+          {nameMenu(false)}
           <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
             Sign out
           </button>
@@ -177,7 +204,7 @@ export default function Nav({
             {displayLink}
           </div>
           <div className="flex items-center justify-between border-t pt-3 text-sm">
-            <span className="text-slate-500">{me.displayName}</span>
+            {nameMenu(true)}
             <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
               Sign out
             </button>

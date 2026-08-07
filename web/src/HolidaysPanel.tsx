@@ -16,6 +16,21 @@ const ORDINALS: Array<{ value: number; label: string }> = [
 ];
 
 const EMPTY: HolidayRuleInput = { title: '', ruleType: 'FIXED', month: 1, day: 1, weekday: null, ordinal: null, offsetDays: null };
+const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Both derived from the server-computed nextOccurrence (an ISO date, parsed
+// as UTC — matches how it was built in holiday-rules.ts) rather than from
+// the rule's own month/day fields, which don't exist for NTH_WEEKDAY and
+// shift year to year for EASTER_OFFSET.
+function monthTag(r: HolidayRule): string | null {
+  if (!r.nextOccurrence) return null;
+  return MONTH_SHORT[Number(r.nextOccurrence.slice(5, 7)) - 1];
+}
+function formatNext(r: HolidayRule): string {
+  if (!r.nextOccurrence) return '';
+  const [y, m, d] = r.nextOccurrence.split('-').map(Number);
+  return `next: ${new Date(y, m - 1, d).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+}
 
 // Describes what a rule actually resolves to — the point of showing this is
 // so picking "3rd Monday of January" reads back as plain English right next
@@ -221,12 +236,18 @@ export default function HolidaysPanel() {
       <ul className="space-y-1.5">
         {rules.map((r) => (
           <li key={r.id} className="flex items-center gap-3 rounded border px-3 py-2 text-sm">
+            {monthTag(r) && (
+              <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
+                {monthTag(r)}
+              </span>
+            )}
             <input
               defaultValue={r.title}
               onBlur={(e) => e.target.value.trim() && e.target.value !== r.title && patch(r.id, { title: e.target.value.trim() })}
               className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
             />
-            <span className="text-slate-400">{describe(r)}</span>
+            <span className="shrink-0 text-slate-400">{describe(r)}</span>
+            <span className="shrink-0 text-xs text-slate-400">{formatNext(r)}</span>
             <button onClick={() => del(r.id, r.title)} className="ml-auto text-xs text-red-500 hover:text-red-700">
               Delete
             </button>

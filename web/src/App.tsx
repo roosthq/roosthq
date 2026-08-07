@@ -8,6 +8,7 @@ import CalendarPage from './pages/CalendarPage';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
+import MySettingsPage from './pages/MySettingsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import RulesPage from './pages/RulesPage';
@@ -178,30 +179,16 @@ export default function App() {
           />
           <Route
             path="/profile"
-            element={
-              <ProfilePage
-                me={me}
-                tokenName={tokenName}
-                tokenIcon={tokenIcon}
-                chorePlural={chorePlural}
-                onChangeColorTheme={changeColorTheme}
-                onUpdateProfile={updateProfile}
-                onLoggedOut={logout}
-              />
-            }
+            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
           />
           <Route
             path="/profile/:id"
+            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+          />
+          <Route
+            path="/my-settings"
             element={
-              <ProfilePage
-                me={me}
-                tokenName={tokenName}
-                tokenIcon={tokenIcon}
-                chorePlural={chorePlural}
-                onChangeColorTheme={changeColorTheme}
-                onUpdateProfile={updateProfile}
-                onLoggedOut={logout}
-              />
+              <MySettingsPage me={me} onChangeColorTheme={changeColorTheme} onUpdateProfile={updateProfile} onLoggedOut={logout} />
             }
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />

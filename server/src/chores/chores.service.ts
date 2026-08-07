@@ -568,9 +568,14 @@ export class ChoresService {
       },
     });
     const recipient = inst.claimedByUserId ?? recipientUserId;
+    // The chore still completes/approves/streaks normally either way — this
+    // only gates whether either ledger entry below actually gets written.
+    const recipientTokensDisabled = recipient
+      ? !!(await this.prisma.user.findUnique({ where: { id: recipient }, select: { tokensDisabled: true } }))?.tokensDisabled
+      : false;
     const completedAt = inst.completedAt ?? new Date();
     const daysLate = Math.max(0, Math.floor((completedAt.getTime() - inst.dueDate.getTime()) / 86_400_000));
-    if (recipient && inst.chore.tokenValue > 0) {
+    if (recipient && !recipientTokensDisabled && inst.chore.tokenValue > 0) {
       const penaltyPct = Math.min(100, daysLate * inst.chore.latePenaltyPercent);
       const awarded = Math.floor(inst.chore.tokenValue * (1 - penaltyPct / 100));
       if (awarded > 0) {
@@ -597,7 +602,7 @@ export class ChoresService {
         const currentStreak = inst.chore.currentStreak + 1;
         const bestStreak = Math.max(inst.chore.bestStreak, currentStreak);
         await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak, bestStreak } });
-        if (inst.chore.streakGoal && inst.chore.streakBonusTokens > 0 && currentStreak % inst.chore.streakGoal === 0) {
+        if (!recipientTokensDisabled && inst.chore.streakGoal && inst.chore.streakBonusTokens > 0 && currentStreak % inst.chore.streakGoal === 0) {
           await this.prisma.tokenLedger.create({
             data: {
               userId: recipient,

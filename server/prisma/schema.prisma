@@ -223,7 +223,13 @@ model User {
   themePref     String  @default("light") // per-user app UI theme: light | dark
   colorTheme    String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
   fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
-  notifyByEmail Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
+  notifyByEmail Boolean @default(false)
+  // When true: chores/awards still work normally (completion, approval,
+  // streaks, trophies) but never create a TokenLedger entry for this user,
+  // and every token-balance/history UI hides for them — for a family that
+  // doesn't want tokens/rewards for some or all members. See
+  // UsersService.setTokensDisabled for who can flip this for whom.
+  tokensDisabled Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
 
   family            Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations         UserLocation[]
@@ -284,6 +290,7 @@ model GoogleAccount {
   userId          String
   googleSub       String   @unique // Google account subject id
   email           String? // captured at connect time, purely for the "which account is this" label in Settings/Profile — never used for lookup
+  picture         String? @db.Text // Google profile photo URL, same reason as email — label only
   tokensEncrypted String   @db.Text // OAuth tokens, encrypted at rest
   needsReconnect  Boolean  @default(false) // refresh token died (invalid_grant) — set on the failing call, cleared on a successful one or a fresh consent
   createdAt       DateTime @default(now())

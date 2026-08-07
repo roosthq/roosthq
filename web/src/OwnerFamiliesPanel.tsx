@@ -15,8 +15,8 @@ export default function OwnerFamiliesPanel() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
-  const [inviteRole, setInviteRole] = useState<Record<string, 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
+  const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
+  const [inviteRole, setInviteRole] = useState<Record<string, 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
   const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -100,6 +100,20 @@ export default function OwnerFamiliesPanel() {
     }
   }
 
+  async function deleteFamily(f: FamilyInfo) {
+    if (!(await confirm(`Delete "${f.name}"? This can't be undone.`, { danger: true, confirmLabel: 'Delete' }))) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await api.deleteFamily(f.id);
+      await refresh();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function ghostAs(m: Member) {
     const ok = await confirm(`Ghost as ${m.displayName}? You'll see the app exactly as they do until you return.`, {
       confirmLabel: 'Ghost',
@@ -141,15 +155,23 @@ export default function OwnerFamiliesPanel() {
           const movable = allMembers.filter((m) => m.familyId !== f.id && m.role !== 'OWNER');
           return (
             <li key={f.id} className="rounded-lg border">
-              <button
-                onClick={() => toggleExpand(f.id)}
-                className="flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-slate-50"
-              >
-                <span className="font-medium">{f.name}</span>
-                <span className="text-xs text-slate-400">
+              <div className="flex w-full items-center justify-between px-3 py-2 text-sm">
+                <button onClick={() => toggleExpand(f.id)} className="flex-1 text-left font-medium hover:underline">
+                  {f.name}
+                </button>
+                {f.memberCount === 0 && (
+                  <button
+                    disabled={busy}
+                    onClick={() => deleteFamily(f)}
+                    className="mr-2 text-xs text-red-500 hover:text-red-700 disabled:opacity-50"
+                  >
+                    Delete
+                  </button>
+                )}
+                <button onClick={() => toggleExpand(f.id)} className="text-xs text-slate-400 hover:text-slate-600">
                   {f.memberCount} member{f.memberCount === 1 ? '' : 's'} {isOpen ? '▴' : '▾'}
-                </span>
-              </button>
+                </button>
+              </div>
               {isOpen && (
                 <div className="space-y-3 border-t p-3">
                   <ul className="space-y-1">
@@ -166,7 +188,7 @@ export default function OwnerFamiliesPanel() {
                     {members?.length === 0 && <li className="text-xs text-slate-400">No members yet.</li>}
                   </ul>
 
-                  <div className="rounded bg-slate-50 p-2">
+                  <div className="rounded bg-slate-100 p-2">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="font-medium">Move someone here as</span>
                       <select
@@ -186,10 +208,11 @@ export default function OwnerFamiliesPanel() {
                       <select
                         value={moveTarget[f.id]?.role ?? 'ADULT'}
                         onChange={(e) =>
-                          setMoveTarget((prev) => ({ ...prev, [f.id]: { userId: prev[f.id]?.userId ?? '', role: e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID' } }))
+                          setMoveTarget((prev) => ({ ...prev, [f.id]: { userId: prev[f.id]?.userId ?? '', role: e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' } }))
                         }
                         className="rounded border px-2 py-1"
                       >
+                        <option value="OWNER">Owner</option>
                         <option value="FAMILY_MANAGER">Family Manager</option>
                         <option value="ADULT">Adult</option>
                         <option value="KID">Kid</option>
@@ -207,17 +230,18 @@ export default function OwnerFamiliesPanel() {
                     )}
                   </div>
 
-                  <div className="rounded bg-slate-50 p-2">
+                  <div className="rounded bg-slate-100 p-2">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="font-medium">Invite someone to this family as</span>
                       <select
                         value={inviteRole[f.id] ?? 'KID'}
-                        onChange={(e) => setInviteRole((prev) => ({ ...prev, [f.id]: e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID' }))}
+                        onChange={(e) => setInviteRole((prev) => ({ ...prev, [f.id]: e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }))}
                         className="rounded border px-2 py-1"
                       >
                         <option value="KID">Kid</option>
                         <option value="ADULT">Adult</option>
                         <option value="FAMILY_MANAGER">Family Manager</option>
+                        <option value="OWNER">Owner</option>
                       </select>
                       <button disabled={busy} onClick={() => inviteToFamily(f.id)} className="rounded border px-2 py-1 hover:bg-white disabled:opacity-50">
                         Generate invite link

@@ -87,7 +87,7 @@ export class GoogleService {
   listAccounts(userId: string) {
     return this.prisma.googleAccount.findMany({
       where: { userId },
-      select: { id: true, email: true, needsReconnect: true, createdAt: true },
+      select: { id: true, email: true, picture: true, needsReconnect: true, createdAt: true },
       orderBy: { createdAt: 'asc' },
     });
   }

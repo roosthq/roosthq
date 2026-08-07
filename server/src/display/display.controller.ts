@@ -62,6 +62,13 @@ export class DisplayController {
     return this.displays.membersFor(ctx.familyId, resolved.locationId);
   }
 
+  // Family-wide token balances for the idle picker (see DisplaysService.balancesFor).
+  @UseGuards(DisplayOrUserGuard)
+  @Get('balances')
+  balances(@FamilyCtx() ctx: FamilyContext) {
+    return this.displays.balancesFor(ctx.familyId);
+  }
+
   // Unlock a profile on the kiosk (PIN check), returns a short-lived kiosk token.
   // Rejects a profile that isn't in scope for this display's location, even if the
   // caller knows their userId — the picker isn't the only thing enforcing scope.

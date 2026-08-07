@@ -85,7 +85,7 @@ export class AuthService {
         // usable again — clears any stale "needs reconnect" from a dead
         // refresh token, whether or not Google actually sent a new one.
         // email also refreshed in case it changed since first connect.
-        data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false, email },
+        data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false, email, picture: avatar },
       });
       // Accepted an invite for a different family (e.g. fixing a mis-created account):
       // move this person into the inviting family and clean up their old empty family.
@@ -108,7 +108,7 @@ export class AuthService {
         data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       await this.invites.markAccepted(invite.id);
       return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
@@ -117,7 +117,7 @@ export class AuthService {
     // Owner adding another of their own calendars (in-browser).
     if (ctx.familyId && ctx.userId && ctx.mode === 'self') {
       await this.prisma.googleAccount.create({
-        data: { userId: ctx.userId, googleSub, email, tokensEncrypted: encTokens },
+        data: { userId: ctx.userId, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: ctx.userId, familyId: ctx.familyId, linkedMember: false };
     }
@@ -128,7 +128,7 @@ export class AuthService {
         data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: user.id, familyId: ctx.familyId, linkedMember: true };
     }
@@ -142,7 +142,7 @@ export class AuthService {
         data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
     }
@@ -348,9 +348,14 @@ export class AuthService {
         colorTheme: true,
         fontSizePref: true,
         notifyByEmail: true,
+        passwordHash: true, // stripped below — only its presence (hasPassword) ever leaves this method
       },
     });
     if (!user) return user;
+    // Never return the hash itself — just whether one exists, so the
+    // password-change form knows whether to ask for the current one.
+    const { passwordHash, ...rest } = user;
+    const withHasPassword = { ...rest, hasPassword: !!passwordHash };
     // Surface who's actually driving this session — the frontend shows a
     // "Ghosting as X — return to Owner" banner whenever this is set.
     if (session.ghostedBy) {
@@ -358,9 +363,9 @@ export class AuthService {
         where: { id: session.ghostedBy },
         select: { id: true, displayName: true },
       });
-      return { ...user, ghostedBy: owner };
+      return { ...withHasPassword, ghostedBy: owner };
     }
-    return { ...user, ghostedBy: null };
+    return { ...withHasPassword, ghostedBy: null };
   }
 
   // All members of a family, for profile switching on shared devices.

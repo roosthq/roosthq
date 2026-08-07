@@ -75,6 +75,18 @@ function occurrenceInYear(rule: HolidayRule, year: number): Date | null {
   }
 }
 
+// The soonest occurrence on or after `from` — this year's date if it hasn't
+// passed yet, otherwise next year's. Used for both "next occurrence" display
+// and sorting the holiday list by upcoming date (rather than by raw
+// month/day, which doesn't exist for NTH_WEEKDAY/EASTER_OFFSET rows and
+// wouldn't reflect ordinal/Easter shifts anyway).
+export function nextOccurrence(rule: HolidayRule, from: Date): Date | null {
+  const year = from.getUTCFullYear();
+  const thisYear = occurrenceInYear(rule, year);
+  if (thisYear && thisYear >= from) return thisYear;
+  return occurrenceInYear(rule, year + 1);
+}
+
 // All-day, CalEvent-shaped occurrences of every rule that land within
 // [start, end) — spans however many calendar years the range crosses (a
 // range straddling New Year's needs both years checked).

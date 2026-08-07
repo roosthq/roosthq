@@ -150,7 +150,9 @@ export class AwardsService {
     const grant = await this.prisma.awardGrant.create({
       data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue },
     });
-    if (tokenValue > 0) {
+    // The trophy/badge (AwardGrant) always records the award, same as a
+    // chore always completes regardless — this only gates the ledger entry.
+    if (tokenValue > 0 && !recipient.tokensDisabled) {
       await this.prisma.tokenLedger.create({
         data: {
           userId: dto.userId,
@@ -184,7 +186,11 @@ export class AwardsService {
       include: { award: true },
     });
     if (!grant) throw new NotFoundException('Award grant not found');
-    if (grant.tokenValue > 0) {
+    const recipient = await this.prisma.user.findUnique({ where: { id: grant.userId }, select: { tokensDisabled: true } });
+    // Mirrors grant()'s own gate — if tokens were disabled (still are), no
+    // forward entry exists to reverse; writing one anyway would be a
+    // phantom negative entry with nothing to offset.
+    if (grant.tokenValue > 0 && !recipient?.tokensDisabled) {
       await this.prisma.tokenLedger.create({
         data: {
           userId: grant.userId,

@@ -27,8 +27,31 @@ export class OwnerService {
   async createFamily(actorId: string, name: string) {
     await this.assertOwner(actorId);
     if (!name?.trim()) throw new BadRequestException('Name is required');
-    const family = await this.prisma.family.create({ data: { name: name.trim() } });
+    // Explicit values instead of leaning on the Prisma/MySQL column DEFAULT —
+    // a value supplied through the app's own connection always goes through
+    // the driver's configured utf8mb4 charset; a column-level DEFAULT is
+    // applied by MySQL itself using whatever charset was active when the
+    // table/column was created, which can silently mangle a 4-byte emoji
+    // default (🪙) into tofu on a brand-new family even though every other
+    // write path (which always supplies its own value) renders it fine.
+    const family = await this.prisma.family.create({
+      data: { name: name.trim(), tokenName: 'Tokens', tokenIcon: '🪙', tokenValueUsd: 1, choreWord: 'Chore' },
+    });
     return { id: family.id, name: family.name, memberCount: 0, createdAt: family.createdAt };
+  }
+
+  // Owner-only, and only when empty — deleting a family with members would
+  // orphan them (no cascade is desirable here; a family with people in it
+  // should be emptied via moveUser/removeUser first, deliberately, not as a
+  // side effect of deleting the family).
+  async deleteFamily(actorId: string, familyId: string) {
+    await this.assertOwner(actorId);
+    const family = await this.prisma.family.findUnique({ where: { id: familyId } });
+    if (!family) throw new NotFoundException('Family not found');
+    const memberCount = await this.prisma.user.count({ where: { familyId } });
+    if (memberCount > 0) throw new BadRequestException('This family still has members — move or remove them first');
+    await this.prisma.family.delete({ where: { id: familyId } });
+    return { ok: true };
   }
 
   async familyMembers(actorId: string, familyId: string) {
@@ -45,7 +68,11 @@ export class OwnerService {
   // meaning in the destination family, so they're dropped; chore assignments
   // to chores outside the new family are dropped the same way (the chore
   // itself is untouched — just this one now-cross-family assignment).
-  async moveUser(actorId: string, targetUserId: string, familyId: string, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
+  // `role` accepts 'OWNER' too — safe with no extra check because
+  // assertOwner above already guarantees the actor calling this IS an
+  // owner (multiple owners, additive: this never touches the actor's own
+  // role, so granting someone else OWNER never demotes the person doing it).
+  async moveUser(actorId: string, targetUserId: string, familyId: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
     await this.assertOwner(actorId);
     const family = await this.prisma.family.findUnique({ where: { id: familyId } });
     if (!family) throw new NotFoundException('Family not found');

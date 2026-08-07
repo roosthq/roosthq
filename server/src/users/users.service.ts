@@ -22,7 +22,7 @@ export class UsersService {
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -31,6 +31,7 @@ export class UsersService {
       avatar: u.avatar,
       hasPin: !!u.pinHash,
       colorTheme: u.colorTheme,
+      tokensDisabled: u.tokensDisabled,
     }));
   }
 
@@ -94,6 +95,27 @@ export class UsersService {
   async setNotifyByEmail(userId: string, notifyByEmail: boolean) {
     await this.prisma.user.update({ where: { id: userId }, data: { notifyByEmail } });
     return { ok: true, notifyByEmail };
+  }
+
+  // Who can flip tokensDisabled for whom (exact, as specified — deliberately
+  // narrower than the PIN/reset rules above): a kid never can; a plain adult
+  // only for a kid; a family manager for an adult, a kid, or themself (but
+  // not another family manager or the owner); the owner for anyone,
+  // including themself or another owner.
+  async setTokensDisabled(actorId: string, familyId: string, targetId: string, disabled: boolean) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor) throw new ForbiddenException();
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+
+    const allowed =
+      actor.role === 'OWNER' ||
+      (actor.role === 'FAMILY_MANAGER' && (target.id === actor.id || target.role === 'ADULT' || target.role === 'KID')) ||
+      (actor.role === 'ADULT' && target.role === 'KID');
+    if (!allowed) throw new ForbiddenException('Not allowed to change tokens for this member');
+
+    await this.prisma.user.update({ where: { id: targetId }, data: { tokensDisabled: disabled } });
+    return { ok: true };
   }
 
   // Wipe a member's token/purchase/notification history — not their account.

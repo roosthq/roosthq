@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard, SESSION_COOKIE } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -28,11 +28,16 @@ export class OwnerController {
     return this.owner.familyMembers(u.userId, id);
   }
 
+  @Delete('families/:id')
+  deleteFamily(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.owner.deleteFamily(u.userId, id);
+  }
+
   @Post('users/:id/move')
   moveUser(
     @CurrentUser() u: SessionPayload,
     @Param('id') id: string,
-    @Body() body: { familyId: string; role: 'FAMILY_MANAGER' | 'ADULT' | 'KID' },
+    @Body() body: { familyId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' },
   ) {
     return this.owner.moveUser(u.userId, id, body.familyId, body.role);
   }

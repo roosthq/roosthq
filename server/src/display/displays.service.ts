@@ -142,12 +142,20 @@ export class DisplaysService {
     return updated;
   }
 
+  // Family-wide token balances for the idle profile picker — no signed-in
+  // profile needed (same "display token is enough" rule as membersFor
+  // below), so a kid's balance is visible on the tap-your-photo screen
+  // before anyone's actually unlocked anything.
+  balancesFor(familyId: string) {
+    return this.chores.balances(familyId);
+  }
+
   // People assigned to a location (adults: one; kids: possibly several) — or the
   // whole family when the display isn't scoped to a location.
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
       where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -156,6 +164,7 @@ export class DisplaysService {
       avatar: u.avatar,
       hasPin: !!u.pinHash,
       colorTheme: u.colorTheme,
+      tokensDisabled: u.tokensDisabled,
     }));
   }
 

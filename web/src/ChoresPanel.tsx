@@ -168,6 +168,7 @@ export default function ChoresPanel({
   }, [client]);
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
+  const myTokensOff = !!members.find((m) => m.id === me.id)?.tokensDisabled;
 
   // Kids and plain adults with more than one household get tabs to filter
   // between them (or "All") — the server already limits them to their own
@@ -560,7 +561,7 @@ export default function ChoresPanel({
         </div>
       </div>
 
-      {today && (
+      {today && !myTokensOff && (
         <div className="mt-2">
           <TokenBadge icon={tokenIcon} amount={myBalance} label={tokenName} size="lg" />
         </div>
@@ -684,7 +685,9 @@ export default function ChoresPanel({
       {isAdult && !today && balances.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-slate-500">
           <span>Balances:</span>
-          {balances.map((b) => (
+          {balances
+            .filter((b) => !members.find((m) => m.id === b.userId)?.tokensDisabled)
+            .map((b) => (
             <span key={b.userId} className="flex items-center gap-1">
               {memberName(b.userId)}: <TokenBadge icon={tokenIcon} amount={b.balance} />
             </span>

@@ -15,6 +15,12 @@ export default function MembersManager({ me }: { me: Me }) {
   const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const canManagePin = (m: Member) => m.id === me.id || isFamilyManager || m.role === 'KID';
   const canReset = (m: Member) => m.id === me.id || m.role === 'KID' || isFamilyManager;
+  // Mirrors UsersService.setTokensDisabled exactly — server re-checks this
+  // too, but the row shouldn't even offer the control when it'd just 403.
+  const canToggleTokens = (m: Member) =>
+    isOwner ||
+    (me.role === 'FAMILY_MANAGER' && (m.id === me.id || m.role === 'ADULT' || m.role === 'KID')) ||
+    (me.role === 'ADULT' && m.role === 'KID');
   const { confirm } = useDialog();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
@@ -73,6 +79,10 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.setUserPin(m.id, null);
     await refresh();
   }
+  async function toggleTokens(m: Member) {
+    await api.setTokensDisabled(m.id, !m.tokensDisabled);
+    await refresh();
+  }
   async function addMember() {
     setAddError(null);
     setAddBusy(true);
@@ -122,7 +132,7 @@ export default function MembersManager({ me }: { me: Me }) {
       </div>
 
       {/* Invite */}
-      <div className="mt-3 rounded bg-slate-50 p-3">
+      <div className="mt-3 rounded bg-slate-100 p-3">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Invite someone as</span>
           <select
@@ -166,7 +176,7 @@ export default function MembersManager({ me }: { me: Me }) {
       </div>
 
       {/* Add directly — no invite link, no Google needed */}
-      <div className="mt-3 rounded bg-slate-50 p-3">
+      <div className="mt-3 rounded bg-slate-100 p-3">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Or add someone directly as</span>
           <select
@@ -261,6 +271,12 @@ export default function MembersManager({ me }: { me: Me }) {
             )}
             {m.role !== 'KID' && !m.hasPin && (
               <span className="text-xs text-amber-600">needs a PIN for kiosk</span>
+            )}
+            {canToggleTokens(m) && (
+              <label className="flex items-center gap-1 text-xs text-slate-500" title="When off: chores/awards still work, just never give tokens, and this person's token info is hidden">
+                <input type="checkbox" checked={!m.tokensDisabled} onChange={() => toggleTokens(m)} />
+                Tokens
+              </label>
             )}
             <span className="ml-auto flex items-center gap-3">
               {canReset(m) && (

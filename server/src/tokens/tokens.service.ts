@@ -89,6 +89,10 @@ export class TokensService {
     if (!reason?.trim()) throw new BadRequestException('A reason is required');
     const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
+    // Loud, not a silent no-op — a manual give/take is a deliberate adult
+    // action; better to say why nothing happened than leave them wondering
+    // where the tokens went.
+    if (member.tokensDisabled) throw new BadRequestException(`${member.displayName} has tokens turned off`);
     const entry = await this.prisma.tokenLedger.create({
       data: { userId, delta, reason: reason.trim(), type, createdById: actorId },
     });
