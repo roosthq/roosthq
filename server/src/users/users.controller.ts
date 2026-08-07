@@ -32,6 +32,13 @@ export class UsersController {
     return this.users.setRole(u.userId, u.familyId, id, body.role);
   }
 
+  // Declared before ':id' — Nest matches route literals in declaration
+  // order, so this must come first or ':id' would swallow "me" as a literal id.
+  @Delete('me')
+  removeSelf(@CurrentUser() u: SessionPayload) {
+    return this.users.removeSelf(u.userId);
+  }
+
   @Delete(':id')
   remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.users.remove(u.userId, u.familyId, id);

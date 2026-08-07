@@ -119,6 +119,27 @@ export class UsersService {
     return { ok: true };
   }
 
+  // Self-delete — adults and family managers only, confirmed client-side
+  // before this is ever called. Blocked for a kid (needs an adult to do it
+  // for them) and for the instance owner (deleting the one-of-a-kind OWNER
+  // account would strand every family-instance-wide tool — Families,
+  // Holidays — with nobody able to use them; move ownership elsewhere
+  // first). Same cleanup transaction as remove() below, just self-targeted.
+  async removeSelf(actorId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor) throw new ForbiddenException();
+    if (actor.role === 'KID') throw new ForbiddenException('Ask an adult to remove your account');
+    if (actor.role === 'OWNER') {
+      throw new ForbiddenException('The instance owner can\'t delete their own account — move ownership to someone else first');
+    }
+    await this.prisma.$transaction([
+      this.prisma.chore.deleteMany({ where: { createdById: actorId } }),
+      this.prisma.tokenLedger.deleteMany({ where: { OR: [{ userId: actorId }, { createdById: actorId }] } }),
+      this.prisma.user.delete({ where: { id: actorId } }),
+    ]);
+    return { ok: true };
+  }
+
   // Owner/family manager removes a member. Cleans up rows that would otherwise
   // block the delete (chores reference users without cascade). Can't remove
   // yourself or the instance owner (family managers included — the owner is

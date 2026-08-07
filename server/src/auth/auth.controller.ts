@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { randomBytes } from 'crypto';
 import { AuthService } from './auth.service';
@@ -139,12 +139,44 @@ export class AuthController {
     return this.auth.createLocalMember(u.userId, u.familyId, body.role, body);
   }
 
-  // Owner/family manager sets or resets a local account's password directly
-  // (the fallback for accounts with no email — see AuthService.setLocalPassword).
+  // Owner/family manager resetting someone else's password (the fallback for
+  // accounts with no email), OR self-service (any role, `id` === the caller's
+  // own — see AuthService.setLocalPassword for the currentPassword rule).
   @UseGuards(AuthGuard)
   @Put('local/:id/password')
-  setLocalPassword(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { password: string }) {
-    return this.auth.setLocalPassword(u.userId, u.familyId, id, body.password);
+  setLocalPassword(
+    @CurrentUser() u: SessionPayload,
+    @Param('id') id: string,
+    @Body() body: { password: string; currentPassword?: string },
+  ) {
+    return this.auth.setLocalPassword(u.userId, u.familyId, id, body.password, body.currentPassword);
+  }
+
+  // Self-service profile edit — display name, username, email, avatar.
+  @UseGuards(AuthGuard)
+  @Patch('me/profile')
+  updateProfile(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { displayName?: string; username?: string; email?: string | null; avatar?: string | null },
+  ) {
+    return this.auth.updateProfile(u.userId, body);
+  }
+
+  // My own connected Google accounts — label-only (email, needs-reconnect,
+  // when connected), not calendar data.
+  @UseGuards(AuthGuard)
+  @Get('google/accounts')
+  listGoogleAccounts(@CurrentUser() u: SessionPayload) {
+    return this.google.listAccounts(u.userId);
+  }
+
+  // Disconnects one of my own Google accounts. Cascades: any Calendar rows
+  // shared from it (and their CalendarShare rows) go too (schema onDelete:
+  // Cascade) — the frontend confirms that loudly before calling this.
+  @UseGuards(AuthGuard)
+  @Delete('google/accounts/:id')
+  disconnectGoogleAccount(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.google.disconnectAccount(u.userId, id);
   }
 
   // Self-service reset, only reachable for an account with an email on file.

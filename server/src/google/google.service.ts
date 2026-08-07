@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { google, calendar_v3 } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 import { PrismaService } from '../prisma.service';
@@ -81,6 +81,32 @@ export class GoogleService {
 
   calendar(client: OAuth2Client) {
     return google.calendar({ version: 'v3', auth: client });
+  }
+
+  // Self-service list for Profile/Settings — label-only, no calendar data.
+  listAccounts(userId: string) {
+    return this.prisma.googleAccount.findMany({
+      where: { userId },
+      select: { id: true, email: true, needsReconnect: true, createdAt: true },
+      orderBy: { createdAt: 'asc' },
+    });
+  }
+
+  // Best-effort token revocation (a dead refresh token, or Google's own
+  // hiccup, shouldn't block removing our own record of it) then drop the
+  // row — cascades to any Calendar rows shared from this account.
+  async disconnectAccount(userId: string, accountId: string) {
+    const account = await this.prisma.googleAccount.findFirst({ where: { id: accountId, userId } });
+    if (!account) throw new NotFoundException('Google account not found');
+    try {
+      const client = await this.clientForAccount(accountId);
+      await client.revokeCredentials();
+    } catch {
+      // Already disconnected on Google's side, or the refresh token's dead
+      // (needsReconnect) — either way there's nothing left to revoke.
+    }
+    await this.prisma.googleAccount.delete({ where: { id: accountId } });
+    return { ok: true };
   }
 
   // Run a Calendar API call against a stored account, auto-detecting a dead

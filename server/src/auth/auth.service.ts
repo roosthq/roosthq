@@ -84,7 +84,8 @@ export class AuthService {
         // Reaching the callback with a valid code proves this account is
         // usable again — clears any stale "needs reconnect" from a dead
         // refresh token, whether or not Google actually sent a new one.
-        data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false },
+        // email also refreshed in case it changed since first connect.
+        data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false, email },
       });
       // Accepted an invite for a different family (e.g. fixing a mis-created account):
       // move this person into the inviting family and clean up their old empty family.
@@ -107,7 +108,7 @@ export class AuthService {
         data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
       });
       await this.invites.markAccepted(invite.id);
       return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
@@ -116,7 +117,7 @@ export class AuthService {
     // Owner adding another of their own calendars (in-browser).
     if (ctx.familyId && ctx.userId && ctx.mode === 'self') {
       await this.prisma.googleAccount.create({
-        data: { userId: ctx.userId, googleSub, tokensEncrypted: encTokens },
+        data: { userId: ctx.userId, googleSub, email, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: ctx.userId, familyId: ctx.familyId, linkedMember: false };
     }
@@ -127,7 +128,7 @@ export class AuthService {
         data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: user.id, familyId: ctx.familyId, linkedMember: true };
     }
@@ -141,7 +142,7 @@ export class AuthService {
         data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.prisma.googleAccount.create({
-        data: { userId: user.id, googleSub, tokensEncrypted: encTokens },
+        data: { userId: user.id, googleSub, email, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
     }
@@ -230,20 +231,75 @@ export class AuthService {
     return { userId: user.id, familyId: user.familyId };
   }
 
-  // Owner/family manager resets a local account's password directly — the
-  // fallback for a kid (or anyone) with no email on file. Mirrors how PINs
-  // are already managed today.
-  async setLocalPassword(actorId: string, familyId: string, targetId: string, password: string) {
+  // Two paths in one: an owner/family manager resetting a local account's
+  // password directly (the fallback for a kid, or anyone, with no email on
+  // file — no current password needed, same as resetting a PIN), OR anyone
+  // — including a kid now — changing their OWN password. Self-service
+  // requires the current password when one's already set (nothing to
+  // confirm against on a Google-only account setting a local password for
+  // the first time) so a hijacked session cookie alone can't silently swap
+  // out someone's credential.
+  async setLocalPassword(actorId: string, familyId: string, targetId: string, password: string, currentPassword?: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
-    if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new UnauthorizedException('Adults only');
-    if (actorId !== targetId && actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER') {
+    if (!actor) throw new UnauthorizedException();
+    const isSelf = actorId === targetId;
+    const isAdminOverride = actor.role === 'OWNER' || actor.role === 'FAMILY_MANAGER';
+    if (!isSelf && !isAdminOverride) {
       throw new UnauthorizedException('Owner or family manager only, for anyone but yourself');
     }
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new BadRequestException('Member not found');
     if (!password || password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
+    if (isSelf && target.passwordHash) {
+      if (!currentPassword || !verifyPassword(currentPassword, target.passwordHash)) {
+        throw new UnauthorizedException('Current password is incorrect');
+      }
+    }
     await this.prisma.user.update({ where: { id: targetId }, data: { passwordHash: hashPassword(password) } });
     return { ok: true };
+  }
+
+  // Self-service: display name, username, email, avatar. Anyone can change
+  // their own — no role gate — but a role that requires an email on file
+  // (see emailRequired) can't blank it out via this path.
+  async updateProfile(
+    userId: string,
+    dto: { displayName?: string; username?: string; email?: string | null; avatar?: string | null },
+  ) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new UnauthorizedException();
+
+    const data: { displayName?: string; username?: string | null; email?: string | null; avatar?: string | null } = {};
+
+    if (dto.displayName !== undefined) {
+      const trimmed = dto.displayName.trim();
+      if (!trimmed) throw new BadRequestException('Display name is required');
+      data.displayName = trimmed;
+    }
+
+    if (dto.username !== undefined) {
+      const trimmed = dto.username?.trim() || null;
+      if (trimmed && trimmed !== user.username) {
+        const taken = await this.prisma.user.findUnique({ where: { username: trimmed } });
+        if (taken) throw new BadRequestException('That username is already taken');
+      }
+      data.username = trimmed;
+    }
+
+    if (dto.email !== undefined) {
+      const trimmed = dto.email?.trim() || null;
+      if (!trimmed && emailRequired(user.role)) throw new BadRequestException('Email is required for this account');
+      if (trimmed && trimmed !== user.email) {
+        const taken = await this.prisma.user.findFirst({ where: { email: trimmed, passwordHash: { not: null } } });
+        if (taken) throw new BadRequestException('An account with that email already exists');
+      }
+      data.email = trimmed;
+    }
+
+    if (dto.avatar !== undefined) data.avatar = dto.avatar?.trim() || null;
+
+    await this.prisma.user.update({ where: { id: userId }, data });
+    return this.me({ userId });
   }
 
   // Self-service path for anyone with an email on file (mainly adults/owner,
@@ -284,6 +340,7 @@ export class AuthService {
         id: true,
         displayName: true,
         email: true,
+        username: true,
         role: true,
         avatar: true,
         familyId: true,

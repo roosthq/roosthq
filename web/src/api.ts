@@ -27,6 +27,7 @@ export interface Me {
   id: string;
   displayName: string;
   email?: string;
+  username?: string;
   role: string;
   avatar?: string;
   familyId: string;
@@ -36,6 +37,13 @@ export interface Me {
   notifyByEmail?: boolean;
   // Set only while the instance owner is ghosting as this account.
   ghostedBy?: { id: string; displayName: string } | null;
+}
+
+export interface GoogleAccountInfo {
+  id: string;
+  email: string | null;
+  needsReconnect: boolean;
+  createdAt: string;
 }
 
 export interface FamilyInfo {
@@ -421,8 +429,13 @@ export const api = {
     req<{ ok: boolean }>('/auth/local/register', { method: 'POST', body: JSON.stringify(body) }),
   loginLocal: (body: { identifier: string; password: string }) =>
     req<{ ok: boolean }>('/auth/local/login', { method: 'POST', body: JSON.stringify(body) }),
-  setLocalPassword: (userId: string, password: string) =>
-    req<{ ok: boolean }>(`/auth/local/${userId}/password`, { method: 'PUT', body: JSON.stringify({ password }) }),
+  setLocalPassword: (userId: string, password: string, currentPassword?: string) =>
+    req<{ ok: boolean }>(`/auth/local/${userId}/password`, { method: 'PUT', body: JSON.stringify({ password, currentPassword }) }),
+  updateProfile: (body: Partial<{ displayName: string; username: string | null; email: string | null; avatar: string | null }>) =>
+    req<Me>('/auth/me/profile', { method: 'PATCH', body: JSON.stringify(body) }),
+  listGoogleAccounts: () => req<GoogleAccountInfo[]>('/auth/google/accounts'),
+  disconnectGoogleAccount: (id: string) => req<{ ok: boolean }>(`/auth/google/accounts/${id}`, { method: 'DELETE' }),
+  deleteMyAccount: () => req<{ ok: boolean }>('/users/me', { method: 'DELETE' }),
   createLocalMember: (body: { role: 'ADULT' | 'KID'; displayName: string; email?: string; username?: string; password?: string }) =>
     req<Member>('/auth/local/member', { method: 'POST', body: JSON.stringify(body) }),
   forgotPassword: (email: string) =>

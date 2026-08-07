@@ -86,6 +86,16 @@ export default function App() {
     }
   }
 
+  // Identity fields (unlike theme/font-size above) can genuinely fail
+  // validation (username taken, email required for this role) — no
+  // optimistic update, no swallowed error; ProfilePage awaits this and
+  // shows whatever it throws.
+  async function updateProfile(patch: Partial<{ displayName: string; username: string | null; email: string | null; avatar: string | null }>) {
+    if (!me) return;
+    const updated = await api.updateProfile(patch);
+    setMe(updated);
+  }
+
   async function changeFontSize(next: FontSize) {
     if (!me) return;
     applyFontSize(next);
@@ -175,6 +185,8 @@ export default function App() {
                 tokenIcon={tokenIcon}
                 chorePlural={chorePlural}
                 onChangeColorTheme={changeColorTheme}
+                onUpdateProfile={updateProfile}
+                onLoggedOut={logout}
               />
             }
           />
@@ -187,6 +199,8 @@ export default function App() {
                 tokenIcon={tokenIcon}
                 chorePlural={chorePlural}
                 onChangeColorTheme={changeColorTheme}
+                onUpdateProfile={updateProfile}
+                onLoggedOut={logout}
               />
             }
           />
