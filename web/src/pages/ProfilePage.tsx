@@ -129,7 +129,6 @@ export default function ProfilePage({
       )}
 
       <h2 className="text-xl font-bold">{name}</h2>
-      {tokensOff && <p className="mt-1 text-xs text-slate-400">🚫 {tokenName} are turned off for {viewingSelf ? 'you' : name}.</p>}
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {!tokensOff && (

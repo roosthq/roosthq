@@ -62,10 +62,12 @@ function Dashboard({ me }: { me: Me }) {
                 <span className="block font-medium">{m.displayName}</span>
                 <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
               </span>
-              <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
-                {tokenIcon} {balances[m.id] ?? 0}
-                <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
-              </span>
+              {!m.tokensDisabled && (
+                <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
+                  {tokenIcon} {balances[m.id] ?? 0}
+                  <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
+                </span>
+              )}
             </Link>
           </li>
         ))}
