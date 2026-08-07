@@ -381,11 +381,16 @@ html {
 }
 
 /* Form controls: adopt the token palette so inputs, selects, textareas and their
-   dropdown options theme correctly in light + dark (was the main gap). */
+   dropdown options theme correctly in light + dark (was the main gap).
+   Background is --bg, not --surface -- almost every field sits on a card
+   (which IS --surface), and a field matching its own card was invisible/
+   blended in instead of reading as an editable box. --bg is the page
+   background, always distinct from --surface by construction, so this
+   holds regardless of which card/panel a field happens to be nested in. */
 input:not([type='checkbox']):not([type='radio']),
 select,
 textarea {
-  background: var(--surface);
+  background: var(--bg);
   color: var(--text);
   border: 1px solid var(--border);
 }
@@ -398,7 +403,7 @@ input[type='radio'] {
   accent-color: var(--accent);
 }
 select option {
-  background: var(--surface);
+  background: var(--bg);
   color: var(--text);
 }
 
