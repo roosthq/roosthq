@@ -28,6 +28,11 @@
      surface visibly the theme's color instead. (srgb, not oklch: oklch's hue
      math is unstable at --bg's near-zero chroma and was rendering pink.) */
   --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  /* One step further from --bg than --surface — for a card that itself
+     sits ON a --surface container (a row inside a modal, e.g.) and needs
+     to read as distinct from it, not just from the page. Used via
+     .card-nested below. (Dark mode's blocks used to repeat --surface's own
+     hex here verbatim — identical color, zero contrast — see there.) */
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(78, 122, 76, 0.18);
   --text: #1c2e1c;
@@ -50,7 +55,7 @@
   color-scheme: dark;
   --bg: #111e11;
   --surface: #1c2e1c;
-  --surface-raised: #1c2e1c;
+  --surface-raised: color-mix(in srgb, #1c2e1c 85%, white 15%);
   --border: rgba(146, 192, 144, 0.12);
   --text: #eff4eb;
   --text-2: #92c090;
@@ -83,7 +88,7 @@
 [data-theme='ocean'][data-mode='dark'] {
   --bg: #0a1825;
   --surface: #0f2235;
-  --surface-raised: #0f2235;
+  --surface-raised: color-mix(in srgb, #0f2235 85%, white 15%);
   --border: rgba(91, 174, 221, 0.12);
   --text: #e8f2fc;
   --text-2: #3a6a90;
@@ -113,7 +118,7 @@
 [data-theme='ember'][data-mode='dark'] {
   --bg: #1e1008;
   --surface: #2a180e;
-  --surface-raised: #2a180e;
+  --surface-raised: color-mix(in srgb, #2a180e 85%, white 15%);
   --border: rgba(224, 124, 92, 0.12);
   --text: #f5ede0;
   --text-2: #7a5840;
@@ -143,7 +148,7 @@
 [data-theme='lavender'][data-mode='dark'] {
   --bg: #12101e;
   --surface: #1c1830;
-  --surface-raised: #1c1830;
+  --surface-raised: color-mix(in srgb, #1c1830 85%, white 15%);
   --border: rgba(158, 130, 232, 0.12);
   --text: #ede8fc;
   --text-2: #5844a0;
@@ -173,7 +178,7 @@
 [data-theme='slate'][data-mode='dark'] {
   --bg: #0c1420;
   --surface: #141e2e;
-  --surface-raised: #141e2e;
+  --surface-raised: color-mix(in srgb, #141e2e 85%, white 15%);
   --border: rgba(122, 170, 216, 0.12);
   --text: #e4eef8;
   --text-2: #3a5878;
@@ -203,7 +208,7 @@
 [data-theme='rose'][data-mode='dark'] {
   --bg: #1e0a12;
   --surface: #2a1020;
-  --surface-raised: #2a1020;
+  --surface-raised: color-mix(in srgb, #2a1020 85%, white 15%);
   --border: rgba(224, 122, 168, 0.12);
   --text: #fce8f0;
   --text-2: #78386a;
@@ -233,7 +238,7 @@
 [data-theme='sand'][data-mode='dark'] {
   --bg: #1c1608;
   --surface: #282010;
-  --surface-raised: #282010;
+  --surface-raised: color-mix(in srgb, #282010 85%, white 15%);
   --border: rgba(212, 168, 106, 0.12);
   --text: #f8eed8;
   --text-2: #786040;
@@ -263,7 +268,7 @@
 [data-theme='mint'][data-mode='dark'] {
   --bg: #061a12;
   --surface: #0e2a1e;
-  --surface-raised: #0e2a1e;
+  --surface-raised: color-mix(in srgb, #0e2a1e 85%, white 15%);
   --border: rgba(80, 200, 160, 0.12);
   --text: #e0f8ee;
   --text-2: #307860;
@@ -293,7 +298,7 @@
 [data-theme='midnight'][data-mode='dark'] {
   --bg: #080c1e;
   --surface: #101828;
-  --surface-raised: #101828;
+  --surface-raised: color-mix(in srgb, #101828 85%, white 15%);
   --border: rgba(138, 170, 232, 0.12);
   --text: #e0e8f8;
   --text-2: #384870;
@@ -425,6 +430,14 @@ select option {
   border-radius: 14px;
   padding: 18px 20px;
   box-shadow: 0 1px 2px rgba(28, 46, 28, 0.05);
+}
+
+/* A card that sits ON TOP of a --surface container (e.g. Modal, which is
+   itself --surface) — .panel/bg-white would be invisible against it, same
+   color. Use this instead wherever a "card" appears inside a modal/panel. */
+.card-nested {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
 }
 
 /* Logo owl: one inline mark, recolored per-role from the same tokens the rest

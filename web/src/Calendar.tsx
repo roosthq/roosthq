@@ -376,7 +376,7 @@ export default function Calendar({
         >
           <ul className="space-y-2">
             {selectedEvents.map((e) => (
-              <li key={`${e.uid}-detail`} className="flex gap-3 rounded border p-3">
+              <li key={`${e.uid}-detail`} className="card-nested flex gap-3 rounded p-3">
                 <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
                 <div className="min-w-0">
                   <div className="font-medium">{e.title ?? '(no title)'}</div>
