@@ -113,7 +113,7 @@ export function projectChoreOccurrences(
 // flat shape a Google/local calendar event uses, so Calendar.tsx renders it
 // unmodified. `renderExtra` (a Calendar.tsx prop) is how the caller bolts on
 // chore-specific action buttons for the real (non-virtual) occurrence.
-export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string): CalEvent {
+export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string, personAvatar?: string): CalEvent {
   const dueTime = occ.chore.dueTime;
   const dateStr = occ.dueDate.toISOString().slice(0, 10);
   // A real occurrence is keyed by its instance id, not its due date — two
@@ -128,6 +128,11 @@ export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, person
     calendarId: `chore-person-${occ.assigneeUserId}`,
     calendarColor: color,
     calendarName: `${personName}'s chores`,
+    // The calendar's Avatar shows this photo in the chore pill/detail row
+    // (the same "photo spot" every other event's owner gets) — falling back
+    // to their initial when they have no avatar set, same as anyone else.
+    ownerName: personName,
+    ownerAvatar: personAvatar,
     title: `🧹 ${occ.chore.title}`,
     start: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },
     end: dueTime ? { dateTime: occ.dueDate.toISOString() } : { date: dateStr },

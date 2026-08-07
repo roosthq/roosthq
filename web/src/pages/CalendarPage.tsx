@@ -158,8 +158,8 @@ export default function CalendarPage({ me }: { me: Me }) {
     const m = new Map<string, ChoreOccurrence>();
     const list: CalEvent[] = [];
     for (const occ of choreOccurrences) {
-      const name = members.find((x) => x.id === occ.assigneeUserId)?.displayName ?? 'Someone';
-      const ev = choreOccurrenceEvent(occ, personColor.get(occ.assigneeUserId) ?? '#94a3b8', name);
+      const member = members.find((x) => x.id === occ.assigneeUserId);
+      const ev = choreOccurrenceEvent(occ, personColor.get(occ.assigneeUserId) ?? '#94a3b8', member?.displayName ?? 'Someone', member?.avatar);
       m.set(ev.id, occ);
       list.push(ev);
     }

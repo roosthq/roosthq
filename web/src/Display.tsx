@@ -172,7 +172,7 @@ export default function Display() {
     if (active && range) {
       const occs = projectChoreOccurrences(chores, new Set([active.user.id]), new Date(range.start), new Date(range.end));
       for (const occ of occs) {
-        const ev = choreOccurrenceEvent(occ, PERSON_COLORS[0], active.user.displayName);
+        const ev = choreOccurrenceEvent(occ, PERSON_COLORS[0], active.user.displayName, active.user.avatar);
         m.set(ev.id, occ);
         list.push(ev);
       }
