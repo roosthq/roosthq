@@ -3,6 +3,7 @@ import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } f
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
+import { formatDateTime } from '../dateFormat';
 
 // Curated, kid-friendly picks — not exhaustive (anyone can still type any
 // emoji into the text field), just a fast default set.
@@ -109,7 +110,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
 
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {awards.map((a) => (
-          <li key={a.id} className="rounded border p-3">
+          <li key={a.id} className="rounded border bg-white p-3">
             <div className="flex items-start justify-between gap-2">
               <span className="flex min-w-0 items-center gap-2">
                 <AwardIcon icon={a.icon} size="text-2xl" />
@@ -155,14 +156,14 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
         {historyOpen && (
           <ul className="mt-3 space-y-2">
             {history.map((g) => (
-              <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-3 text-sm">
+              <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-3 text-sm">
                 <span className="flex min-w-0 flex-1 items-center gap-2">
                   <AwardIcon icon={g.award.icon} size="text-xl" />
                   <span className="min-w-0">
                     <span className="font-medium">{g.award.name}</span> → <span className="font-medium">{g.user.displayName}</span>
                     {g.note && <span className="ml-1 text-slate-400">"{g.note}"</span>}
                     <div className="text-xs text-slate-400">
-                      by {g.grantedBy.displayName} · {new Date(g.createdAt).toLocaleString(undefined, { hour12: true })}
+                      by {g.grantedBy.displayName} · {formatDateTime(g.createdAt)}
                     </div>
                   </span>
                 </span>

@@ -23,8 +23,12 @@
   /* Card surface is derived from --bg, not a flat white — a card must
      never read as the same color as the page. Light mode darkens slightly
      toward black; dark mode (below) lightens toward white instead. */
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(78, 122, 76, 0.18);
   --text: #1c2e1c;
   --text-2: #5a7858;
@@ -62,8 +66,12 @@
 
 [data-theme='ocean'] {
   --bg: #edf4fa;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(42, 123, 184, 0.16);
   --text: #0d2340;
   --text-2: #6a98b8;
@@ -90,8 +98,12 @@
 }
 [data-theme='ember'] {
   --bg: #faf5ec;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(200, 92, 58, 0.16);
   --text: #1e2a38;
   --text-2: #a09880;
@@ -118,8 +130,12 @@
 }
 [data-theme='lavender'] {
   --bg: #f4f0fb;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(114, 84, 200, 0.16);
   --text: #1a1438;
   --text-2: #9888c0;
@@ -146,8 +162,12 @@
 }
 [data-theme='slate'] {
   --bg: #eef2f7;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(58, 90, 138, 0.16);
   --text: #0e1e38;
   --text-2: #6a8aaa;
@@ -174,8 +194,12 @@
 }
 [data-theme='rose'] {
   --bg: #faf0f4;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(184, 72, 120, 0.16);
   --text: #2a1020;
   --text-2: #b888a0;
@@ -202,8 +226,12 @@
 }
 [data-theme='sand'] {
   --bg: #faf5eb;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(160, 120, 64, 0.16);
   --text: #2a1e08;
   --text-2: #a89068;
@@ -230,8 +258,12 @@
 }
 [data-theme='mint'] {
   --bg: #edfaf5;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(42, 154, 120, 0.16);
   --text: #0a2018;
   --text-2: #60a888;
@@ -258,8 +290,12 @@
 }
 [data-theme='midnight'] {
   --bg: #f0f2fa;
-  --surface: color-mix(in oklch, var(--bg) 90%, black);
-  --surface-raised: color-mix(in oklch, var(--bg) 94%, black);
+  /* srgb, not oklch — mixing a near-gray/low-chroma --bg toward black in oklch
+     is numerically unstable (hue is undefined at near-zero chroma), and was
+     rendering as a pink/magenta tint on every light theme regardless of the
+     theme's actual hue. srgb mixes channel-by-channel, no hue math, no bug. */
+  --surface: color-mix(in srgb, var(--bg) 90%, black);
+  --surface-raised: color-mix(in srgb, var(--bg) 94%, black);
   --border: rgba(74, 106, 184, 0.16);
   --text: #080c28;
   --text-2: #6878a8;

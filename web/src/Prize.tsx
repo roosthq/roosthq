@@ -2,6 +2,7 @@ import type { CropRect, Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
 import Modal from './Modal';
 import { cropBackgroundStyle } from './ImageCropper';
+import { formatDate } from './dateFormat';
 
 // Every prize gets one of these — keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
@@ -194,8 +195,8 @@ export function PrizeDetailModal({
                     <span className="min-w-0 flex-1 break-words">
                       <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
                       <span className="text-xs text-slate-400">
-                        {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
-                        {r.usedAt ? ` · used ${new Date(r.usedAt).toLocaleDateString()}` : ''}
+                        {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
+                        {r.usedAt ? ` · used ${formatDate(r.usedAt)}` : ''}
                       </span>
                     </span>
                     {onMarkUsed && r.status === 'FULFILLED' && r.prize.type === 'EVENT' && (

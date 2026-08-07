@@ -295,7 +295,7 @@ function LocationsSetting() {
         {locations.map((loc) => {
           const assigned = new Set(loc.users.map((u) => u.userId));
           return (
-            <li key={loc.id} className="rounded-lg border p-3">
+            <li key={loc.id} className="rounded-lg border bg-white p-3">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{loc.name}</span>
                 <button
@@ -407,7 +407,7 @@ function LocalCalendarsSetting() {
 
       <ul className="space-y-2">
         {calendars.map((c) => (
-          <li key={c.id} className="flex flex-wrap items-center gap-3 rounded-lg border p-3">
+          <li key={c.id} className="flex flex-wrap items-center gap-3 rounded-lg border bg-white p-3">
             <input
               type="color"
               value={c.color ?? '#94a3b8'}
@@ -532,7 +532,7 @@ function DisplayRow({
   const feats = new Set(d.enabledFeatures);
 
   return (
-    <li className="rounded-lg border p-4">
+    <li className="rounded-lg border bg-white p-4">
       <div className="flex items-center justify-between gap-2">
         <input
           defaultValue={d.name}

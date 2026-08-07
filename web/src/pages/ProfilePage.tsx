@@ -5,6 +5,7 @@ import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
 import { useDialog } from '../Dialog';
+import { formatDate } from '../dateFormat';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -146,7 +147,7 @@ export default function ProfilePage({
           <h3 className="text-sm font-semibold">🏆 Awards</h3>
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
-              <li key={a.id} className="flex items-center gap-2 rounded border px-3 py-2" title={a.description ?? undefined}>
+              <li key={a.id} className="flex items-center gap-2 rounded border bg-white px-3 py-2" title={a.description ?? undefined}>
                 <AwardIcon icon={a.icon} size="text-xl" />
                 <span className="text-sm font-medium">{a.name}</span>
                 {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
@@ -157,7 +158,7 @@ export default function ProfilePage({
       )}
 
       {isAdult && !tokensOff && (
-        <section className="mt-6 rounded border p-3">
+        <section className="mt-6 rounded border bg-white p-3">
           <h3 className="text-sm font-semibold">Adjust {tokenName}</h3>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <input
@@ -201,7 +202,7 @@ export default function ProfilePage({
                     {tokenIcon} {l.delta >= 0 ? '+' : ''}
                     {l.delta}
                   </span>
-                  <span className="text-xs text-slate-400">{new Date(l.createdAt).toLocaleDateString()}</span>
+                  <span className="text-xs text-slate-400">{formatDate(l.createdAt)}</span>
                   {isFamilyManager && (
                     <button onClick={() => deleteEntry(l)} className="text-xs text-red-500 hover:text-red-700">
                       Delete
@@ -224,7 +225,7 @@ export default function ProfilePage({
                 <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
                 <span className="flex shrink-0 items-center gap-2 text-xs text-slate-400">
                   <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
-                  {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                  {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
                   {r.approvedByUser && ` by ${r.approvedByUser.displayName}`}
                 </span>
               </li>

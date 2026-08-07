@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, type DisplayTokenInfo, type DisplayConfig } from './api';
+import { formatDate } from './dateFormat';
 
 // Owner-only panel to mint / revoke kiosk links, each bound to a display layout.
 export default function DisplayAccess() {
@@ -76,7 +77,7 @@ export default function DisplayAccess() {
           <li key={t.id} className="flex items-center justify-between gap-2">
             <span className="min-w-0 flex-1 break-words">
               {t.label ?? 'Kiosk'} → <strong className="font-medium">{displayName(t.displayConfigId)}</strong> ·{' '}
-              {new Date(t.createdAt).toLocaleDateString()}
+              {formatDate(t.createdAt)}
               {t.revokedAt && <span className="ml-2 text-red-500">revoked</span>}
             </span>
             {!t.revokedAt && (

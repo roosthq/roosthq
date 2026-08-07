@@ -154,7 +154,7 @@ export default function OwnerFamiliesPanel() {
           const isOpen = expanded === f.id;
           const movable = allMembers.filter((m) => m.familyId !== f.id && m.role !== 'OWNER');
           return (
-            <li key={f.id} className="rounded-lg border">
+            <li key={f.id} className="rounded-lg border bg-white">
               <div className="flex w-full items-center justify-between px-3 py-2 text-sm">
                 <button onClick={() => toggleExpand(f.id)} className="flex-1 text-left font-medium hover:underline">
                   {f.name}

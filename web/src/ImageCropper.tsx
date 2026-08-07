@@ -9,6 +9,7 @@ export interface CropRect {
 }
 
 const DISPLAY_MAX = 420; // px — the modal's image preview box, either dimension
+const MAX_ZOOM = 4; // how much tighter than the "largest that fits" box the crop can go
 
 // Drag-to-position crop tool: the crop window is fixed at the largest size
 // that fits the chosen aspect ratio inside the image (no zoom/resize handles
@@ -36,7 +37,11 @@ export default function ImageCropper({
 }) {
   const [natural, setNatural] = useState<{ w: number; h: number } | null>(null);
   const [display, setDisplay] = useState<{ w: number; h: number }>({ w: DISPLAY_MAX, h: DISPLAY_MAX });
+  // The zoom=1 box: largest at `aspect` that fits inside the displayed image.
+  // Zooming shrinks the box toward this as a ceiling — box never grows past it.
+  const [baseBox, setBaseBox] = useState<{ w: number; h: number } | null>(null);
   const [box, setBox] = useState<{ w: number; h: number; x: number; y: number } | null>(null);
+  const [zoom, setZoom] = useState(1);
   const dragRef = useRef<{ startX: number; startY: number; boxX: number; boxY: number } | null>(null);
 
   useEffect(() => {
@@ -55,12 +60,45 @@ export default function ImageCropper({
         bh = dh;
         bw = bh * aspect;
       }
+      const baseW = bw;
+      setBaseBox({ w: baseW, h: bh });
+      // A saved rect may already be a zoomed-in (smaller) box than the base
+      // size — rebuild the box from it directly instead of always starting
+      // back at zoom 1, so re-opening the cropper shows what was actually
+      // saved. zoom = baseW / savedW, since a box's width is baseW / zoom.
+      if (initial && initial.w > 0) {
+        bw = (initial.w / 100) * dw;
+        bh = bw / aspect;
+        setZoom(clamp(baseW / bw, 1, MAX_ZOOM));
+      } else {
+        setZoom(1);
+      }
       const startX = initial ? (initial.x / 100) * dw : (dw - bw) / 2;
       const startY = initial ? (initial.y / 100) * dh : (dh - bh) / 2;
       setBox({ w: bw, h: bh, x: clamp(startX, 0, dw - bw), y: clamp(startY, 0, dh - bh) });
     };
     img.src = src;
   }, [src, aspect, initial]);
+
+  // Slide the zoom control: box shrinks toward the image (tighter crop) as
+  // zoom increases, growing back out toward baseBox at zoom 1. Recenters on
+  // whatever the box's center currently is so zooming doesn't jump the crop
+  // somewhere unexpected, then re-clamps into the display bounds.
+  function applyZoom(z: number) {
+    if (!baseBox || !box) return;
+    const nz = clamp(z, 1, MAX_ZOOM);
+    const nw = baseBox.w / nz;
+    const nh = baseBox.h / nz;
+    const cx = box.x + box.w / 2;
+    const cy = box.y + box.h / 2;
+    setZoom(nz);
+    setBox({
+      w: nw,
+      h: nh,
+      x: clamp(cx - nw / 2, 0, display.w - nw),
+      y: clamp(cy - nh / 2, 0, display.h - nh),
+    });
+  }
 
   function onPointerDown(e: ReactPointerEvent) {
     if (!box) return;
@@ -133,6 +171,21 @@ export default function ImageCropper({
           </>
         )}
       </div>
+      {box && (
+        <div className="mt-3 flex items-center gap-2 text-slate-400">
+          <span className="text-sm">−</span>
+          <input
+            type="range"
+            min={1}
+            max={MAX_ZOOM}
+            step={0.02}
+            value={zoom}
+            onChange={(e) => applyZoom(Number(e.target.value))}
+            className="flex-1"
+          />
+          <span className="text-sm">🔍+</span>
+        </div>
+      )}
     </Modal>
   );
 }

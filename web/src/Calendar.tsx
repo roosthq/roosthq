@@ -111,10 +111,13 @@ export default function Calendar({
   // buttons) without this component knowing anything about chores.
   renderExtra?: (e: CalEvent) => ReactNode;
 }) {
-  const [cursor, setCursor] = useState(() => {
-    const n = new Date();
-    return new Date(n.getFullYear(), n.getMonth(), 1);
-  });
+  // Pivot date for whichever view is active — deliberately kept as today's
+  // actual date, not normalized to the 1st of the month: the month grid calc
+  // below only reads cursor's year/month (so this doesn't affect month view),
+  // but 1week/2week read cursor's exact day to find "this" week. Normalizing
+  // to day 1 here was why switching to 1wk/2wk always showed the start of the
+  // month instead of the week actually containing today.
+  const [cursor, setCursor] = useState(() => new Date());
   const [selected, setSelected] = useState<string | null>(null);
   // Mini (kiosk side calendar) always stays a full month — no room for a
   // range picker, and the point of "mini" is the familiar month-grid glance.
@@ -211,8 +214,9 @@ export default function Calendar({
     }
   };
   const goToday = () => {
-    const n = new Date();
-    setCursor(effectiveView === 'month' ? new Date(n.getFullYear(), n.getMonth(), 1) : n);
+    // Same reasoning as the initial cursor above — month view only cares
+    // about year/month so today's exact date works for every view.
+    setCursor(new Date());
   };
 
   return (

@@ -29,7 +29,7 @@ function monthTag(r: HolidayRule): string | null {
 function formatNext(r: HolidayRule): string {
   if (!r.nextOccurrence) return '';
   const [y, m, d] = r.nextOccurrence.split('-').map(Number);
-  return `next: ${new Date(y, m - 1, d).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+  return `next: ${new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
 }
 
 // Describes what a rule actually resolves to — the point of showing this is
@@ -115,7 +115,7 @@ export default function HolidaysPanel() {
         family can add "🎉 Holidays" to their own calendar list; nobody but you can edit what's in it.
       </p>
 
-      <div className="rounded-lg border p-3">
+      <div className="rounded-lg border bg-white p-3">
         <div className="flex flex-wrap items-end gap-2">
           <label className="text-sm">
             <span className="block text-xs text-slate-500">Name</span>
@@ -235,7 +235,7 @@ export default function HolidaysPanel() {
 
       <ul className="space-y-1.5">
         {rules.map((r) => (
-          <li key={r.id} className="flex items-center gap-3 rounded border px-3 py-2 text-sm">
+          <li key={r.id} className="flex items-center gap-3 rounded border bg-white px-3 py-2 text-sm">
             {monthTag(r) && (
               <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
                 {monthTag(r)}

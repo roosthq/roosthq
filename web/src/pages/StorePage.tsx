@@ -5,6 +5,7 @@ import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Priz
 import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+import { formatDate } from '../dateFormat';
 
 // Store cards are all the same horizontal-rectangle shape (see the grid
 // above) — the crop tool matches it, so what you select is exactly what the
@@ -137,7 +138,7 @@ export default function StorePage({
           <li key={p.id}>
             <button
               onClick={() => setViewing(p)}
-              className="flex w-full flex-col overflow-hidden rounded border text-left hover:shadow-sm"
+              className="flex w-full flex-col overflow-hidden rounded border bg-white text-left hover:shadow-sm"
             >
               {/* Fixed aspect ratio (not a fixed height) so every card lines
                   up the same regardless of whether an image, a crop, or
@@ -174,7 +175,7 @@ export default function StorePage({
           <p className="text-xs text-slate-400">Approved but the actual event hasn't happened yet.</p>
           <ul className="mt-2 space-y-1 text-sm">
             {eventsToFulfill.map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2">
+              <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="min-w-0 flex-1 break-words">
                   {isAdult && <strong className="font-medium">{memberName(r.userId)} · </strong>}
                   {r.prize.name}
@@ -199,7 +200,7 @@ export default function StorePage({
           <p className="text-xs text-slate-400">Sold, one-off prizes — revive one to put it back in the store.</p>
           <ul className="mt-2 space-y-1 text-sm">
             {archivedPrizes.map((p) => (
-              <li key={p.id} className="flex items-center justify-between gap-2 rounded border p-2">
+              <li key={p.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="min-w-0 flex-1 break-words text-slate-500">{p.name}</span>
                 <button onClick={() => toggleArchive(p)} className="shrink-0 rounded border px-3 py-1 text-xs hover:bg-slate-50">
                   Revive
@@ -216,7 +217,7 @@ export default function StorePage({
           {!isAdult && <p className="text-xs text-slate-400">Waiting for an adult to review these.</p>}
           <ul className="mt-2 space-y-1 text-sm">
             {suggestions.map((p) => (
-              <li key={p.id} className="flex items-center justify-between gap-2 rounded border p-2">
+              <li key={p.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="min-w-0 flex-1 break-words">
                   {p.name}
                   {isAdult && p.suggestedByName && (
@@ -251,7 +252,7 @@ export default function StorePage({
           <h3 className="text-md font-semibold">Pending redemptions</h3>
           <ul className="mt-2 space-y-1 text-sm">
             {pending.map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2">
+              <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="flex min-w-0 flex-1 items-center gap-2">
                   <span className="min-w-0 break-words">
                     <strong className="font-medium">{memberName(r.userId)}</strong> wants {r.prize.name}
@@ -292,7 +293,7 @@ export default function StorePage({
               <li key={r.id} className="flex justify-between border-b py-1">
                 <span>{r.prize.name}</span>
                 <span className="text-slate-400">
-                  {new Date(r.requestedAt).toLocaleDateString()} · {r.status.toLowerCase()}
+                  {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
                 </span>
               </li>
             ))}

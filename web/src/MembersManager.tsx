@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api, ROLE_ICON, ROLE_LABEL, type Me, type Member, type InviteInfo } from './api';
 import { useDialog } from './Dialog';
+import { formatDate } from './dateFormat';
 
 // Adults, family managers, and the owner can invite people and manage PINs;
 // only the owner/family manager can change roles or remove members, and only
@@ -164,7 +165,7 @@ export default function MembersManager({ me }: { me: Me }) {
               .map((i) => (
                 <li key={i.id} className="flex items-center justify-between">
                   <span>
-                    Pending invite · {ROLE_LABEL[i.role] ?? i.role} · {new Date(i.createdAt).toLocaleDateString()}
+                    Pending invite · {ROLE_LABEL[i.role] ?? i.role} · {formatDate(i.createdAt)}
                   </span>
                   <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
                     Revoke

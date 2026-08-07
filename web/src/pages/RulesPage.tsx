@@ -34,7 +34,7 @@ export default function RulesPage({ me }: { me: Me }) {
 
   function RuleRow({ r }: { r: Rule }) {
     return (
-      <li className="flex items-start justify-between gap-3 rounded border p-3">
+      <li className="flex items-start justify-between gap-3 rounded border bg-white p-3">
         <p className="min-w-0 flex-1 whitespace-pre-wrap break-words text-sm">{r.text}</p>
         {isAdult && (
           <span className="flex shrink-0 gap-2 text-xs">
