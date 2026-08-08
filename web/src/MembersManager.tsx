@@ -245,115 +245,151 @@ export default function MembersManager({ me }: { me: Me }) {
         {addError && <p className="mt-1 text-xs text-red-500">{addError}</p>}
       </div>
 
-      <ul className="mt-3 space-y-2 text-sm">
+      {/* One card per person: name + role header, then labeled settings in a
+          grid that stacks on a phone and goes two-up once there's room, then
+          the destructive actions on their own line. The old version was a
+          single wrapped row of a dozen unlabeled controls — unreadable on
+          anything narrow. */}
+      <ul className="mt-3 space-y-3 text-sm">
         {members.map((m) => (
-          <li key={m.id} className="flex flex-wrap items-center gap-3 border-b pb-2">
-            <span className="min-w-32 font-medium">{m.displayName}</span>
+          <li key={m.id} className="card-nested rounded-lg p-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-medium">{m.displayName}</span>
+              {m.role === 'OWNER' ? (
+                <span className="text-xs text-slate-400">
+                  {ROLE_ICON.OWNER} {ROLE_LABEL.OWNER}
+                </span>
+              ) : isFamilyManager ? (
+                <span className="flex items-center gap-1 text-xs">
+                  {ROLE_ICON[m.role]}
+                  <select
+                    value={m.role}
+                    onChange={(e) => changeRole(m, e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID')}
+                    className="rounded border px-2 py-1 text-xs"
+                  >
+                    <option value="FAMILY_MANAGER">Family Manager</option>
+                    <option value="ADULT">Adult</option>
+                    <option value="KID">Kid</option>
+                  </select>
+                </span>
+              ) : (
+                <span className="text-xs text-slate-400">
+                  {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
+                </span>
+              )}
+              {m.role !== 'KID' && !m.hasPin && <span className="text-xs text-amber-600">needs a PIN for kiosk</span>}
+            </div>
 
-            {m.role === 'OWNER' ? (
-              <span className="text-xs text-slate-400">{ROLE_ICON.OWNER} {ROLE_LABEL.OWNER}</span>
-            ) : isFamilyManager ? (
-              <span className="flex items-center gap-1 text-xs">
-                {ROLE_ICON[m.role]}
-                <select
-                  value={m.role}
-                  onChange={(e) => changeRole(m, e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID')}
-                  className="rounded border px-2 py-1 text-xs"
-                >
-                  <option value="FAMILY_MANAGER">Family Manager</option>
-                  <option value="ADULT">Adult</option>
-                  <option value="KID">Kid</option>
-                </select>
-              </span>
-            ) : (
-              <span className="text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
-            )}
+            <div className="mt-3 grid gap-x-4 gap-y-3 sm:grid-cols-2">
+              <div>
+                <div className="text-xs font-medium text-slate-500">Kiosk PIN</div>
+                <div className="mt-1 flex items-center gap-2">
+                  <span className="text-xs text-slate-400">{m.hasPin ? '🔒 set' : 'not set'}</span>
+                  {canManagePin(m) && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setPinFor(m);
+                          setPin('');
+                        }}
+                        className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+                      >
+                        {m.hasPin ? 'Change' : 'Set'}
+                      </button>
+                      {m.hasPin && (
+                        <button onClick={() => clearPin(m)} className="text-xs text-red-500 hover:text-red-700">
+                          Clear
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
 
-            <span className="text-xs text-slate-400">{m.hasPin ? '🔒 PIN set' : 'no PIN'}</span>
-
-            {canManagePin(m) && (
-              <>
-                <button
-                  onClick={() => {
-                    setPinFor(m);
-                    setPin('');
+              <div>
+                <div className="text-xs font-medium text-slate-500">Birthday</div>
+                <input
+                  type="date"
+                  defaultValue={m.birthday ?? ''}
+                  onBlur={(e) => {
+                    if ((e.target.value || '') !== (m.birthday ?? '')) setBirthday(m, e.target.value);
                   }}
-                  className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
-                >
-                  {m.hasPin ? 'Change PIN' : 'Set PIN'}
-                </button>
-                {m.hasPin && (
-                  <button onClick={() => clearPin(m)} className="text-xs text-red-500 hover:text-red-700">
-                    Clear
+                  className="mt-1 w-full rounded border px-2 py-1 text-xs"
+                />
+              </div>
+
+              <div>
+                <div className="text-xs font-medium text-slate-500">Weekly allowance</div>
+                <div className="mt-1 flex items-center gap-1">
+                  <input
+                    type="number"
+                    min={0}
+                    defaultValue={m.allowanceTokens ?? 0}
+                    onBlur={(e) => {
+                      const v = Math.max(0, Number(e.target.value) || 0);
+                      if (v !== (m.allowanceTokens ?? 0)) setAllowance(m, v);
+                    }}
+                    className="w-20 rounded border px-2 py-1 text-xs"
+                  />
+                  <span className="text-xs text-slate-400">per week</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="text-xs font-medium text-slate-500">Options</div>
+                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                  {canToggleTokens(m) && (
+                    <label
+                      className="flex items-center gap-1.5 text-xs text-slate-500"
+                      title="When off: chores/awards still work, just never give tokens, and this person's token info is hidden"
+                    >
+                      <input type="checkbox" checked={!m.tokensDisabled} onChange={() => toggleTokens(m)} />
+                      Earns tokens
+                    </label>
+                  )}
+                  <label
+                    className="flex items-center gap-1.5 text-xs text-slate-500"
+                    title="My Day mode: giant, icon-first task view for pre-readers"
+                  >
+                    <input type="checkbox" checked={!!m.simpleMode} onChange={() => toggleSimple(m)} />
+                    My Day view
+                  </label>
+                </div>
+              </div>
+
+              {m.role === 'KID' && (
+                <div className="sm:col-span-2">
+                  <div className="text-xs font-medium text-slate-500">Allowed to</div>
+                  <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                    {KID_PERMISSIONS.map((perm) => (
+                      <label key={perm.id} className="flex items-center gap-1.5 text-xs text-slate-500">
+                        <input
+                          type="checkbox"
+                          checked={!(m.disabledPermissions ?? []).includes(perm.id)}
+                          onChange={(e) => togglePermission(m, perm.id, e.target.checked)}
+                        />
+                        {perm.label}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {(canReset(m) || (isFamilyManager && m.role !== 'OWNER')) && (
+              <div className="mt-3 flex items-center gap-4 border-t pt-2">
+                {canReset(m) && (
+                  <button onClick={() => resetAccount(m)} className="text-xs text-amber-600 hover:text-amber-800">
+                    Reset history
                   </button>
                 )}
-              </>
+                {isFamilyManager && m.role !== 'OWNER' && (
+                  <button onClick={() => removeMember(m)} className="text-xs text-red-500 hover:text-red-700">
+                    Remove
+                  </button>
+                )}
+              </div>
             )}
-            {m.role !== 'KID' && !m.hasPin && (
-              <span className="text-xs text-amber-600">needs a PIN for kiosk</span>
-            )}
-            {canToggleTokens(m) && (
-              <label className="flex items-center gap-1 text-xs text-slate-500" title="When off: chores/awards still work, just never give tokens, and this person's token info is hidden">
-                <input type="checkbox" checked={!m.tokensDisabled} onChange={() => toggleTokens(m)} />
-                Tokens
-              </label>
-            )}
-            <label className="flex items-center gap-1 text-xs text-slate-500" title="My Day mode: giant, icon-first task view for pre-readers">
-              <input type="checkbox" checked={!!m.simpleMode} onChange={() => toggleSimple(m)} />
-              My Day
-            </label>
-            <label className="flex items-center gap-1 text-xs text-slate-500" title="Automatic weekly token grant (needs the Allowance family feature on)">
-              Allowance
-              <input
-                type="number"
-                min={0}
-                defaultValue={m.allowanceTokens ?? 0}
-                onBlur={(e) => {
-                  const v = Math.max(0, Number(e.target.value) || 0);
-                  if (v !== (m.allowanceTokens ?? 0)) setAllowance(m, v);
-                }}
-                className="w-14 rounded border px-1.5 py-0.5 text-xs"
-              />
-              /wk
-            </label>
-            <label className="flex items-center gap-1 text-xs text-slate-500" title="Birthday: shows age and automatic birthday countdowns">
-              🎂
-              <input
-                type="date"
-                defaultValue={m.birthday ?? ''}
-                onBlur={(e) => {
-                  if ((e.target.value || '') !== (m.birthday ?? '')) setBirthday(m, e.target.value);
-                }}
-                className="rounded border px-1.5 py-0.5 text-xs"
-              />
-            </label>
-            {m.role === 'KID' && (
-              <span className="flex flex-wrap items-center gap-2 text-xs text-slate-500" title="What this kid is allowed to do themselves">
-                Can:
-                {KID_PERMISSIONS.map((perm) => (
-                  <label key={perm.id} className="flex items-center gap-1" title={perm.label}>
-                    <input
-                      type="checkbox"
-                      checked={!(m.disabledPermissions ?? []).includes(perm.id)}
-                      onChange={(e) => togglePermission(m, perm.id, e.target.checked)}
-                    />
-                    {perm.id === 'grocery' ? 'grocery' : perm.id === 'store' ? 'store' : 'events'}
-                  </label>
-                ))}
-              </span>
-            )}
-            <span className="ml-auto flex items-center gap-3">
-              {canReset(m) && (
-                <button onClick={() => resetAccount(m)} className="text-xs text-amber-600 hover:text-amber-800">
-                  Reset
-                </button>
-              )}
-              {isFamilyManager && m.role !== 'OWNER' && (
-                <button onClick={() => removeMember(m)} className="text-xs text-red-500 hover:text-red-700">
-                  Remove
-                </button>
-              )}
-            </span>
           </li>
         ))}
         {members.length === 0 && <li className="text-slate-400">No members yet.</li>}

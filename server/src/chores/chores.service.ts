@@ -134,6 +134,7 @@ type StaleInstance = Prisma.ChoreInstanceGetPayload<{
 const CHORE_INCLUDE = {
   checklist: { orderBy: { sort: 'asc' as const } },
   assignees: { include: { user: { select: { id: true, displayName: true, avatar: true } } } },
+  createdBy: { select: { id: true, displayName: true } },
   location: true,
   instances: {
     orderBy: { dueDate: 'desc' as const },
@@ -144,11 +145,11 @@ const CHORE_INCLUDE = {
 
 // Who approved a completion is adult-only context — a kid sees the same
 // instance data minus that one field.
-function stripApprover<T extends { instances: Array<Record<string, unknown>> }>(chores: T[]): T[] {
-  return chores.map((c) => ({
+function stripApprover<T extends { instances: Array<Record<string, unknown>>; createdBy?: unknown }>(chores: T[]): T[] {
+  return chores.map(({ createdBy, ...c }) => ({
     ...c,
     instances: c.instances.map(({ approvedByUser, ...rest }) => rest),
-  })) as T[];
+  })) as unknown as T[];
 }
 
 // Proof photos are data URIs — hundreds of KB each. The chores list only

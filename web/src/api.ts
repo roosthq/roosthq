@@ -278,6 +278,8 @@ export interface Chore {
   assignmentType: 'SPECIFIC' | 'ANYONE';
   assignees: ChoreAssigneeRef[];
   location?: { id: string; name: string } | null;
+  // Adults only — who set this chore up (the server strips it for kids).
+  createdBy?: { id: string; displayName: string } | null;
   checklist: ChecklistItem[];
   instances: ChoreInstance[];
   allowLate: boolean;

@@ -122,6 +122,16 @@ export default function ChoresPanel({
   useEffect(() => {
     localStorage.setItem('rhq-chores-view', viewMode);
   }, [viewMode]);
+  // A 7-column table can't work at phone width — every cell wraps to four
+  // lines. Below sm we always render cards and hide the layout toggle; the
+  // saved preference is untouched, so a tablet/desktop still gets its table.
+  const [narrow, setNarrow] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
+    const onResize = () => setNarrow(window.innerWidth < 640);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  const effectiveView = narrow ? 'cards' : viewMode;
   const [sort, setSort] = useState<{ key: 'title' | 'location' | 'assigned' | 'due' | 'tokens' | 'status'; dir: 1 | -1 }>({
     key: 'due',
     dir: 1,
@@ -382,6 +392,7 @@ export default function ChoresPanel({
                 {chore.dueTime ? ` · due ${formatDueTime(chore.dueTime)}` : ''}
               </span>
               {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
+              {isAdult && chore.createdBy && <span>· added by {chore.createdBy.displayName}</span>}
               {chore.currentStreak > 0 && (
                 <span>
                   · 🔥 {chore.currentStreak} in a row
@@ -594,7 +605,7 @@ export default function ChoresPanel({
               <option value="ANYONE">Open to anyone</option>
             </select>
           )}
-          {!today && (
+          {!today && !narrow && (
             <button
               onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')}
               className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
@@ -662,7 +673,7 @@ export default function ChoresPanel({
           {rows.map(renderRow)}
           {rows.length === 0 && <li className="text-sm text-slate-400">Nothing to earn today</li>}
         </ul>
-      ) : viewMode === 'table' ? (
+      ) : effectiveView === 'table' ? (
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -681,6 +692,7 @@ export default function ChoresPanel({
                     {label} {sort.key === key ? (sort.dir === 1 ? '▲' : '▼') : ''}
                   </th>
                 ))}
+                {isAdult && <th className="px-2 py-2">Added by</th>}
                 <th className="px-2 py-2" />
               </tr>
             </thead>
@@ -697,6 +709,7 @@ export default function ChoresPanel({
                     <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
                   </td>
                   <td className="px-2 py-2 text-slate-500">{active?.status ?? '—'}</td>
+                  {isAdult && <td className="px-2 py-2 text-slate-500">{chore.createdBy?.displayName ?? '—'}</td>}
                   <td className="px-2 py-2">
                     <div className="flex items-center gap-2 whitespace-nowrap">
                       {active?.status === 'OPEN' && openToClaim && (
@@ -754,13 +767,25 @@ export default function ChoresPanel({
                           Duplicate
                         </button>
                       )}
+                      {isAdult && (
+                        <button
+                          onClick={async () => {
+                            if (await confirm(`Delete this ${choreWord.toLowerCase()}?`, { danger: true, confirmLabel: 'Delete' })) {
+                              await act(() => client.deleteChore(chore.id));
+                            }
+                          }}
+                          className="rounded border px-2 py-1 text-xs text-red-500 hover:bg-red-50"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>
               ))}
               {sortedRows.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-2 py-4 text-center text-sm text-slate-400">
+                  <td colSpan={isAdult ? 8 : 7} className="px-2 py-4 text-center text-sm text-slate-400">
                     No {chorePlural.toLowerCase()} yet.
                   </td>
                 </tr>

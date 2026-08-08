@@ -142,7 +142,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const todayKey = dateKey(new Date());
   return (
     <section className="panel">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-base font-semibold tracking-tight">🍽️ Dinner plan</h3>
         <div className="flex items-center gap-1 text-sm">
           <button onClick={() => setWeekStart(addDays(weekStart, -7))} className="rounded border px-2 py-1 hover:bg-slate-50">‹</button>
@@ -152,7 +152,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           <button onClick={() => setWeekStart(addDays(weekStart, 7))} className="rounded border px-2 py-1 hover:bg-slate-50">›</button>
         </div>
       </div>
-      <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-7">
+      <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
         {Array.from({ length: 7 }, (_, i) => {
           const d = addDays(weekStart, i);
           const k = dateKey(d);

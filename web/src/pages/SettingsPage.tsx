@@ -135,7 +135,8 @@ function Field({ label, help, children }: { label: string; help?: string; childr
   return (
     <label className="block">
       <span className="text-sm font-medium text-slate-700">{label}</span>
-      {help && <span className="ml-2 text-xs text-slate-400">{help}</span>}
+      {/* help sits under the label on phones, inline once there's room */}
+      {help && <span className="mt-0.5 block text-xs text-slate-400 sm:ml-2 sm:mt-0 sm:inline">{help}</span>}
       <div className="mt-1.5">{children}</div>
     </label>
   );
