@@ -309,7 +309,7 @@ it. Because it's self-hosted, "shipping" a phase = tagging a release others can
 ## 13. Open decisions
 
 1. ~~Final name~~ → **Roost HQ** (GitHub org `roosthq` created).
-2. ~~License~~ → **MIT** (decided).
+2. ~~License~~ → **AGPL-3.0** (switched from MIT 2026-08-08, pre-publication; deters commercial rehosting while staying open source).
 3. ~~Read vs. read/write Google Calendar~~ → **Read/write** (scope
    `.../auth/calendar`); Phase 1 implements event create/update/delete.
 4. Target deploy hardware: run the app on the same Pi as the display, or a separate

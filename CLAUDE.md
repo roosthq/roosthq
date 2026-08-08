@@ -2,7 +2,7 @@
 
 Self-hosted, single-family calendar + chores + rewards hub. Runs on a Proxmox Ubuntu
 VM, reachable over the internet via Cloudflare Tunnel, with a Raspberry Pi kiosk as a
-wall touch display. React + NestJS + Prisma + MySQL, Docker Compose. Open source (MIT).
+wall touch display. React + NestJS + Prisma + MySQL, Docker Compose. Open source (AGPL-3.0).
 
 > **State of the codebase:** built rapidly across many sessions. As of 2026-07-14,
 > Phases 1–5 plus per-profile PINs were live-verified end-to-end against the real

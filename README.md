@@ -3,7 +3,7 @@
 The family's home base — a self-hosted calendar, chore, and reward hub designed for a
 Raspberry Pi touch display and mobile devices, backed by shared Google Calendars.
 
-Self-hosted, single-family, open source (MIT). Each household runs its own instance.
+Self-hosted, single-family, open source (AGPL-3.0). Each household runs its own instance.
 
 See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
 
@@ -145,4 +145,4 @@ See [`.env.example`](./.env.example) for the full list. Never commit `.env`.
 
 ## License
 
-MIT — see [`LICENSE`](./LICENSE).
+AGPL-3.0. See [`LICENSE`](./LICENSE).
