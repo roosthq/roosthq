@@ -266,6 +266,11 @@ export default function Display() {
       .catch(() => undefined);
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- refetch widgets on live-update pushes
+  useEffect(() => {
+    loadHousehold();
+  }, [dataRefreshSignal]);
+
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
@@ -404,11 +409,6 @@ export default function Display() {
         <span>Loading display…</span>
       </div>
     );
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- refetch widgets on live-update pushes
-  useEffect(() => {
-    loadHousehold();
-  }, [dataRefreshSignal]);
 
   const famOn = (f: string) => !famDisabled.includes(f);
   const showCalendar = config.enabledFeatures.includes('calendar');
