@@ -200,8 +200,9 @@ export default function ChoresPanel({
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
   const myTokensOff = !!members.find((m) => m.id === me.id)?.tokensDisabled;
-  // "My Day" pre-reader mode: bigger text and tap targets on the today view.
-  const simple = today && !!members.find((m) => m.id === me.id)?.simpleMode;
+  // "My Day" pre-reader mode: bigger text and tap targets wherever this
+  // person sees their own list — their phone as well as the kiosk.
+  const simple = !!members.find((m) => m.id === me.id)?.simpleMode;
 
   // Kids and plain adults with more than one household get tabs to filter
   // between them (or "All") — the server already limits them to their own

@@ -3,6 +3,7 @@ import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
+import { assertKidPermission } from '../common/kid-permissions';
 
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -21,16 +22,6 @@ export class HouseholdService {
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
-  }
-
-  // Kid ability switch (User.disabledPermissions — see KID_PERMISSIONS in
-  // web/src/api.ts). Adults always pass.
-  private async assertKidPermission(userId: string, permission: string) {
-    const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u) throw new ForbiddenException();
-    if (u.role !== 'KID') return;
-    const disabled = Array.isArray(u.disabledPermissions) ? (u.disabledPermissions as string[]) : [];
-    if (disabled.includes(permission)) throw new ForbiddenException("You don't have permission for that");
   }
 
   private async assertLocation(familyId: string, locationId?: string | null) {
@@ -108,7 +99,7 @@ export class HouseholdService {
   }
 
   async addGrocery(familyId: string, actorId: string, label: string, locationId?: string | null) {
-    await this.assertKidPermission(actorId, 'grocery');
+    await assertKidPermission(this.prisma, actorId, 'grocery');
     const trimmed = label?.trim();
     if (!trimmed) throw new BadRequestException('Item is required');
     const item = await this.prisma.groceryItem.create({
@@ -119,7 +110,7 @@ export class HouseholdService {
   }
 
   async patchGrocery(familyId: string, actorId: string, id: string, dto: { checked?: boolean; label?: string }) {
-    await this.assertKidPermission(actorId, 'grocery');
+    await assertKidPermission(this.prisma, actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
     const updated = await this.prisma.groceryItem.update({
@@ -134,7 +125,7 @@ export class HouseholdService {
   }
 
   async deleteGrocery(familyId: string, actorId: string, id: string) {
-    await this.assertKidPermission(actorId, 'grocery');
+    await assertKidPermission(this.prisma, actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
     await this.prisma.groceryItem.delete({ where: { id } });

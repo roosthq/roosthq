@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { assertKidPermission } from '../common/kid-permissions';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 
@@ -233,6 +234,7 @@ export class PrizesService {
   // purchase, and — for a non-repeatable prize — archive it so it drops out of
   // the active store once someone's bought it.
   async redeem(familyId: string, actingUserId: string, prizeId: string) {
+    await assertKidPermission(this.prisma, actingUserId, 'store');
     const prize = await this.prisma.prize.findFirst({
       where: { id: prizeId, familyId },
       include: { assignments: true },

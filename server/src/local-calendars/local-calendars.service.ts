@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { Interval } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { assertKidPermission } from '../common/kid-permissions';
 
 const REMINDER_LEAD_MINUTES = 60;
 
@@ -182,6 +183,7 @@ export class LocalCalendarsService {
   }
 
   async createEvent(familyId: string, calendarId: string, actorId: string, dto: LocalEventInput) {
+    await assertKidPermission(this.prisma, actorId, 'calendarAdd');
     const calendar = await this.ownedCalendar(familyId, calendarId);
     if (!dto.title?.trim()) throw new BadRequestException('Title is required');
     const event = await this.prisma.localEvent.create({

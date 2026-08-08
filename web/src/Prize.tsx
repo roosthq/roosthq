@@ -91,6 +91,7 @@ export function PrizeDetailModal({
   memberName,
   onClose,
   onRedeem,
+  canRedeem = true,
   onEdit,
   onDelete,
   onToggleArchive,
@@ -106,6 +107,9 @@ export function PrizeDetailModal({
   memberName?: (id: string) => string;
   onClose: () => void;
   onRedeem: () => void;
+  // false when a kid's "redeem prizes" permission is switched off — they can
+  // still browse, they just can't spend (server enforces it as well).
+  canRedeem?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
   onToggleArchive?: () => void;
@@ -127,10 +131,11 @@ export function PrizeDetailModal({
           {!isAdult ? (
             <button
               onClick={onRedeem}
-              disabled={balance < prize.tokenCost}
+              disabled={balance < prize.tokenCost || !canRedeem}
+              title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
               className="rounded bg-slate-800 px-4 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40"
             >
-              {balance < prize.tokenCost ? 'Not enough' : 'Redeem'}
+              {!canRedeem ? 'Ask a grown-up' : balance < prize.tokenCost ? 'Not enough' : 'Redeem'}
             </button>
           ) : (
             <>

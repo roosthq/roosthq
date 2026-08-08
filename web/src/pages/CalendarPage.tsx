@@ -20,7 +20,7 @@ import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
-import { familyFeatureEnabled, type FamilySettings } from '../api';
+import { familyFeatureEnabled, kidPermissionEnabled, type FamilySettings } from '../api';
 import LevelBadge from '../LevelBadge';
 import DropdownDetails from '../DropdownDetails';
 
@@ -136,6 +136,9 @@ export default function CalendarPage({ me }: { me: Me }) {
   const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const isKid = me.role === 'KID';
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT'; // can connect/add calendars
+  // Kids can add events unless an adult turned that permission off (server
+  // enforces it in calendars/local-calendars createEvent).
+  const canAddEvents = kidPermissionEnabled(me, 'calendarAdd');
   const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
@@ -373,7 +376,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                 </button>
               </>
             )}
-            {addableOptions.length > 0 && (
+            {addableOptions.length > 0 && canAddEvents && (
               <button
                 onClick={() => {
                   setPrefillDate(null);
@@ -418,7 +421,7 @@ export default function CalendarPage({ me }: { me: Me }) {
         events={[...events, ...choreEventsById.list]}
         onRangeChange={onRangeChange}
         onAddEvent={
-          addableOptions.length > 0
+          addableOptions.length > 0 && canAddEvents
             ? (dateISO) => {
                 setPrefillDate(dateISO);
                 setAddingEvent(true);

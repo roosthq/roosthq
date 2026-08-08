@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { calendar_v3 } from 'googleapis';
 import { PrismaService } from '../prisma.service';
+import { assertKidPermission } from '../common/kid-permissions';
 import { GoogleService } from '../google/google.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local-calendars.service';
@@ -271,6 +272,7 @@ export class CalendarsService {
   // the app can show who added them — separate from the calendar's own Google
   // account owner.
   async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
+    await assertKidPermission(this.prisma, addedByUserId, 'calendarAdd');
     if (await this.localCalendars.isLocalId(familyId, calendarId)) {
       const created = await this.localCalendars.createEvent(
         familyId,

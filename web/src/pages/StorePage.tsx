@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member } from '../api';
+import { api, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import ImageCropper from '../ImageCropper';
@@ -63,6 +63,10 @@ export default function StorePage({
     }
   }, [isAdult, viewing]);
 
+  // A kid whose store permission is off can browse but not spend; the server
+  // enforces it too (assertKidPermission in prizes.service.redeem).
+  const canRedeem = kidPermissionEnabled(me, 'store');
+
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
     if (!(await confirm(`Spend ${p.tokenCost} ${tokenName} on "${p.name}"?`, { confirmLabel: 'Redeem' }))) return;
@@ -110,11 +114,11 @@ export default function StorePage({
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-lg font-semibold">Store</h2>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
-          {!isAdult && (
+          {!isAdult && canRedeem && (
             <button onClick={() => setSuggesting(true)} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
               + Request a prize
             </button>
@@ -311,6 +315,7 @@ export default function StorePage({
           history={prizeHistory}
           memberName={memberName}
           onClose={() => setViewing(null)}
+          canRedeem={canRedeem}
           onRedeem={() => redeem(viewing)}
           onEdit={() => {
             setEditing(viewing);
