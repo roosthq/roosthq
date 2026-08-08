@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, ROLE_ICON, ROLE_LABEL, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
@@ -82,6 +82,10 @@ export default function ProfilePage({
   const [history, setHistory] = useState<Redemption[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [streak, setStreak] = useState(0);
+  const [family, setFamily] = useState<FamilySettings | null>(null);
+  useEffect(() => {
+    api.familySettings().then(setFamily).catch(() => undefined);
+  }, []);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
 
@@ -183,6 +187,7 @@ export default function ProfilePage({
           </>
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
+        {familyFeatureEnabled(family, 'levels') && !tokensOff && <Stat label={`Level (${earned} XP)`} value={`⭐ ${levelFor(earned)}`} />}
         {streak > 0 && <Stat label="Best active streak" value={`🔥 ${streak}`} />}
       </div>
 

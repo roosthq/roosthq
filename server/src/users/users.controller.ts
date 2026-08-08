@@ -83,6 +83,16 @@ export class UsersController {
     return this.users.setNotifyByEmail(u.userId, body.notifyByEmail);
   }
 
+  // Adult sets a member's My Day simple mode / weekly allowance.
+  @Put(':id/prefs')
+  setMemberPrefs(
+    @CurrentUser() u: SessionPayload,
+    @Param('id') id: string,
+    @Body() body: { simpleMode?: boolean; allowanceTokens?: number },
+  ) {
+    return this.users.setMemberPrefs(u.userId, u.familyId, id, body);
+  }
+
   // Current user's own celebration-sound preference.
   @Put('me/sound-effects')
   setSoundEffects(@CurrentUser() u: SessionPayload, @Body() body: { soundEffects: boolean }) {

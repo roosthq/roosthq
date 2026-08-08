@@ -8,6 +8,8 @@ import { DisplaysService } from './displays.service';
 import { DisplayEventsService } from './display-events.service';
 import { DisplayTokenService } from './display-token.service';
 import { DisplayOrUserGuard, FamilyCtx, FamilyContext } from './display-auth.guard';
+import { HouseholdService } from '../household/household.service';
+import { FamilyService } from '../family/family.service';
 
 @Controller('display')
 export class DisplayController {
@@ -16,6 +18,8 @@ export class DisplayController {
     private displays: DisplaysService,
     private events: DisplayEventsService,
     private tokens: DisplayTokenService,
+    private household: HouseholdService,
+    private familySvc: FamilyService,
   ) {}
 
   // --- Read-only display routes: session OR display token ---
@@ -44,6 +48,22 @@ export class DisplayController {
   ) {
     const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
     return this.displays.events(ctx.familyId, resolved, start, end);
+  }
+
+  // Household widgets bundle (meals / countdowns / announcements / grocery
+  // count) for the kiosk — readable idle, like the rest of the display feed.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('household')
+  householdBundle(@FamilyCtx() ctx: FamilyContext) {
+    return this.household.displayBundle(ctx.familyId);
+  }
+
+  // Family settings the kiosk needs (token naming + which family features are
+  // enabled), readable with just a display token.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('family-settings')
+  familySettings(@FamilyCtx() ctx: FamilyContext) {
+    return this.familySvc.settings(ctx.familyId);
   }
 
   // "At a glance" feed for the idle screensaver: today's chores + events.

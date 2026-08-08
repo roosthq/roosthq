@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import {
   api,
+  FAMILY_FEATURES,
   COLOR_THEMES,
   type Me,
   type Member,
@@ -47,6 +48,7 @@ function FamilySettings({ me, isFamilyManager, isAdult }: { me: Me; isFamilyMana
     <>
       {isFamilyManager && <TokenNameSetting />}
       {isFamilyManager && <ChoreWordSetting />}
+      {isFamilyManager && <FamilyFeaturesSetting />}
 
       {isAdult && (
         <Section title="Family members & invites">
@@ -147,6 +149,50 @@ function SaveButton({ onClick, saved }: { onClick: () => void; saved: boolean })
       </button>
       {saved && <span className="text-sm text-green-600">Saved</span>}
     </div>
+  );
+}
+
+
+// Family-wide feature switches. Stored as the DISABLED list server-side, so
+// anything new defaults on; unchecking adds it to that list.
+function FamilyFeaturesSetting() {
+  const [disabled, setDisabled] = useState<Set<string>>(new Set());
+  const [saved, setSaved] = useState(false);
+  useEffect(() => {
+    api.familySettings().then((f) => setDisabled(new Set(f.disabledFeatures ?? []))).catch(() => undefined);
+  }, []);
+  async function toggle(id: string, on: boolean) {
+    const next = new Set(disabled);
+    if (on) next.delete(id);
+    else next.add(id);
+    setDisabled(next);
+    await api.updateFamilySettings({ disabledFeatures: [...next] });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1200);
+  }
+  return (
+    <Section
+      title="Features"
+      help="Turn whole features on or off for this family. Kiosk displays additionally pick which widgets they show, per display."
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        {FAMILY_FEATURES.map((f) => (
+          <label key={f.id} className="flex items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              className="mt-0.5"
+              checked={!disabled.has(f.id)}
+              onChange={(e) => toggle(f.id, e.target.checked)}
+            />
+            <span>
+              <span className="font-medium">{f.label}</span>
+              <span className="block text-xs text-slate-400">{f.help}</span>
+            </span>
+          </label>
+        ))}
+      </div>
+      {saved && <p className="mt-2 text-sm text-green-600">Saved</p>}
+    </Section>
   );
 }
 
@@ -538,6 +584,10 @@ const FEATURES: Array<{ id: string; label: string }> = [
   { id: 'calendar', label: 'Calendar' },
   { id: 'chores', label: 'Chores' },
   { id: 'prizes', label: 'Prizes' },
+  { id: 'meals', label: 'Meal plan' },
+  { id: 'grocery', label: 'Grocery list' },
+  { id: 'countdowns', label: 'Countdowns' },
+  { id: 'announcements', label: 'Announcements' },
 ];
 
 function DisplayRow({
@@ -642,6 +692,24 @@ function DisplayRow({
             <input type="checkbox" checked={d.soundEffects} onChange={(e) => onPatch({ soundEffects: e.target.checked })} />
             Play sounds
           </label>
+        </Field>
+
+        <Field label="Bedtime mode" help="Kiosk dims to a good-night screen inside this window. Leave blank to disable.">
+          <div className="flex items-center gap-2 text-sm">
+            <input
+              type="time"
+              value={d.bedtimeStart ?? ''}
+              onChange={(e) => onPatch({ bedtimeStart: e.target.value || null })}
+              className="rounded border px-2 py-1.5 text-sm"
+            />
+            <span className="text-slate-400">to</span>
+            <input
+              type="time"
+              value={d.bedtimeEnd ?? ''}
+              onChange={(e) => onPatch({ bedtimeEnd: e.target.value || null })}
+              className="rounded border px-2 py-1.5 text-sm"
+            />
+          </div>
         </Field>
 
         <div className="sm:col-span-2">

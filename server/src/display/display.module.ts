@@ -12,10 +12,12 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsModule } from '../notifications/notifications.module';
 import { LocalCalendarsModule } from '../local-calendars/local-calendars.module';
 import { ChoresModule } from '../chores/chores.module';
+import { HouseholdModule } from '../household/household.module';
+import { FamilyModule } from '../family/family.module';
 import { HolidaysModule } from '../holidays/holidays.module';
 
 @Module({
-  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule, ChoresModule, HolidaysModule],
+  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule, ChoresModule, HolidaysModule, HouseholdModule, FamilyModule],
   controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,

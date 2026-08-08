@@ -37,6 +37,8 @@ export interface CreateChoreDto {
   allowLate?: boolean;
   allowSkip?: boolean;
   autoApprove?: boolean;
+  requireProof?: boolean;
+  firstFinisherBonus?: number;
   latePenaltyPercent?: number;
   streakGoal?: number | null;
   streakBonusTokens?: number;
@@ -148,6 +150,16 @@ function stripApprover<T extends { instances: Array<Record<string, unknown>> }>(
   })) as T[];
 }
 
+// Proof photos are data URIs — hundreds of KB each. The chores list only
+// needs to know one EXISTS (hasProof); the actual image is fetched on demand
+// via GET instances/:id/proof by whoever's about to approve.
+function slimProof<T extends { instances: Array<Record<string, unknown>> }>(chores: T[]): T[] {
+  return chores.map((c) => ({
+    ...c,
+    instances: c.instances.map(({ proofImage, ...rest }) => ({ ...rest, hasProof: !!proofImage })),
+  })) as T[];
+}
+
 @Injectable()
 export class ChoresService {
   constructor(
@@ -205,6 +217,38 @@ export class ChoresService {
     return inst;
   }
 
+  // Family-level feature switch (Family.disabledFeatures — see FAMILY_FEATURES
+  // in web/src/api.ts). Everything defaults ON; families opt out.
+  private async featureEnabled(familyId: string, feature: string) {
+    const f = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
+    const disabled = Array.isArray(f?.disabledFeatures) ? (f!.disabledFeatures as string[]) : [];
+    return !disabled.includes(feature);
+  }
+
+  // Fetch one instance's proof photo, on demand (see slimProof above).
+  async proofImage(familyId: string, instanceId: string) {
+    const inst = await this.ownedInstance(familyId, instanceId);
+    return { image: inst.proofImage ?? null };
+  }
+
+  // Kid attaches a photo to an OPEN occurrence of a photo-proof chore, before
+  // completing it. Data-URI, capped — same storage approach as avatars.
+  async attachProof(familyId: string, userId: string, instanceId: string, image: string) {
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
+    if (!this.canAct(inst.chore, inst, userId) && !(inst.chore.assignmentType === 'ANYONE' && !inst.claimedByUserId)) {
+      throw new ForbiddenException('Not your chore');
+    }
+    if (!/^data:image\/(jpeg|png|webp);base64,/.test(image ?? '')) throw new BadRequestException('Bad image');
+    if (image.length > 600_000) throw new BadRequestException('Image too large');
+    const updated = await this.prisma.choreInstance.update({
+      where: { id: instanceId },
+      data: { proofImage: image, claimedByUserId: inst.claimedByUserId ?? (inst.chore.assignmentType === 'ANYONE' ? userId : inst.claimedByUserId) },
+    });
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return { ok: true, id: updated.id };
+  }
+
   async create(familyId: string, createdById: string, dto: CreateChoreDto) {
     await this.assertAdult(createdById);
     const tz = await this.resolveTimezone(dto.locationId);
@@ -229,6 +273,8 @@ export class ChoresService {
         allowLate: dto.allowLate ?? false,
         allowSkip: dto.allowSkip ?? false,
         autoApprove: dto.autoApprove ?? false,
+        requireProof: dto.requireProof ?? false,
+        firstFinisherBonus: Math.max(0, Math.round(dto.firstFinisherBonus ?? 0)),
         latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
@@ -251,7 +297,8 @@ export class ChoresService {
 
   async getChore(familyId: string, id: string) {
     await this.sweepMissed(familyId);
-    return this.prisma.chore.findFirst({ where: { id, familyId }, include: CHORE_INCLUDE });
+    const chore = await this.prisma.chore.findFirst({ where: { id, familyId }, include: CHORE_INCLUDE });
+    return chore ? slimProof([chore])[0] : chore;
   }
 
   // Owner/family manager see every chore, unscoped. A plain adult sees the
@@ -273,7 +320,8 @@ export class ChoresService {
         (c) => !c.locationId || myLocationIds.has(c.locationId) || c.assignees.some((a) => a.userId === actingUserId),
       );
     }
-    return actor.role === 'KID' ? stripApprover(result) : result;
+    const slim = slimProof(result);
+    return actor.role === 'KID' ? stripApprover(slim) : slim;
   }
 
   // Runs whenever anyone loads chores, as a belt-and-suspenders alongside the
@@ -303,7 +351,28 @@ export class ChoresService {
     // so this doesn't affect who gets told about the miss.
     await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED', claimedByUserId: null } });
     if (inst.chore.currentStreak !== 0) {
-      await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
+      // A banked streak freeze absorbs the miss: the occurrence still counts
+      // as missed (no reward), but the streak survives.
+      if (inst.chore.streakFreezes > 0 && (await this.featureEnabled(inst.chore.familyId, 'streakFreeze'))) {
+        await this.prisma.chore.update({
+          where: { id: inst.choreId },
+          data: { streakFreezes: { decrement: 1 } },
+        });
+        const protectees = inst.chore.assignees.map((a) => a.userId);
+        await Promise.all(
+          protectees.map((uid) =>
+            this.notifications.create(
+              inst.chore.familyId,
+              uid,
+              'STREAK_BONUS',
+              `🧊 Streak freeze used on "${inst.chore.title}" — streak safe (${inst.chore.streakFreezes - 1} left).`,
+              { link: '/chores' },
+            ),
+          ),
+        );
+      } else {
+        await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
+      }
     }
     const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
     await Promise.all(
@@ -390,6 +459,8 @@ export class ChoresService {
         ...(dto.allowLate !== undefined && { allowLate: dto.allowLate }),
         ...(dto.allowSkip !== undefined && { allowSkip: dto.allowSkip }),
         ...(dto.autoApprove !== undefined && { autoApprove: dto.autoApprove }),
+        ...(dto.requireProof !== undefined && { requireProof: dto.requireProof }),
+        ...(dto.firstFinisherBonus !== undefined && { firstFinisherBonus: Math.max(0, Math.round(dto.firstFinisherBonus)) }),
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
@@ -534,6 +605,17 @@ export class ChoresService {
     }
 
     const actor = await this.user(userId);
+    // Photo-proof chores need a picture attached before a kid can finish
+    // (adults are trusted). Only enforced while the family feature is on, so
+    // turning photoProof off never strands existing chores.
+    if (
+      inst.chore.requireProof &&
+      !inst.proofImage &&
+      !this.isAdult(actor?.role) &&
+      (await this.featureEnabled(inst.chore.familyId, 'photoProof'))
+    ) {
+      throw new BadRequestException('Add a photo first — this one needs proof.');
+    }
     // Adults don't need approval for their own chores; neither does anyone
     // on a trust chore (autoApprove) like brushing teeth.
     if (this.isAdult(actor?.role) || inst.chore.autoApprove) {
@@ -635,12 +717,14 @@ export class ChoresService {
 
     // Streak: on-time keeps it going (and can trigger a bonus); late — even
     // when allowed — breaks it, since the point is consistency.
+    let wheelBonus: number | undefined;
     if (recipient) {
       if (daysLate === 0) {
         const currentStreak = inst.chore.currentStreak + 1;
         const bestStreak = Math.max(inst.chore.bestStreak, currentStreak);
         await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak, bestStreak } });
-        if (!recipientTokensDisabled && inst.chore.streakGoal && inst.chore.streakBonusTokens > 0 && currentStreak % inst.chore.streakGoal === 0) {
+        const milestone = !!inst.chore.streakGoal && currentStreak % inst.chore.streakGoal === 0;
+        if (milestone && !recipientTokensDisabled && inst.chore.streakBonusTokens > 0) {
           await this.prisma.tokenLedger.create({
             data: {
               userId: recipient,
@@ -659,9 +743,69 @@ export class ChoresService {
             { link: '/chores' },
           );
         }
+        if (milestone) {
+          // Bonus wheel: a small random extra on every streak milestone —
+          // variable reward, the strongest habit glue there is.
+          if (!recipientTokensDisabled && (await this.featureEnabled(inst.chore.familyId, 'bonusWheel'))) {
+            wheelBonus = 1 + Math.floor(Math.random() * 5); // 1..5
+            await this.prisma.tokenLedger.create({
+              data: {
+                userId: recipient,
+                delta: wheelBonus,
+                reason: `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
+                type: 'STREAK_BONUS',
+                refId: inst.id,
+                createdById: approverId,
+              },
+            });
+            await this.notifications.create(
+              inst.chore.familyId,
+              recipient,
+              'STREAK_BONUS',
+              `🎡 Bonus wheel: +${wheelBonus} on "${inst.chore.title}"!`,
+              { link: '/chores' },
+            );
+          }
+          // Streak freeze: bank one per milestone (max 3) — spent
+          // automatically by markMissedAndAdvance instead of breaking the
+          // streak on a future miss.
+          if (inst.chore.streakFreezes < 3 && (await this.featureEnabled(inst.chore.familyId, 'streakFreeze'))) {
+            await this.prisma.chore.update({
+              where: { id: inst.chore.id },
+              data: { streakFreezes: { increment: 1 } },
+            });
+            await this.notifications.create(
+              inst.chore.familyId,
+              recipient,
+              'STREAK_BONUS',
+              `🧊 Streak freeze earned on "${inst.chore.title}" — one miss won't break the streak.`,
+              { link: '/chores' },
+            );
+          }
+        }
       } else if (inst.chore.currentStreak !== 0) {
         await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak: 0 } });
       }
+    }
+
+    // Chore race: first (only) finisher of an open-to-anyone chore gets the
+    // configured extra on top of the normal reward.
+    if (
+      recipient &&
+      !recipientTokensDisabled &&
+      inst.chore.assignmentType === 'ANYONE' &&
+      inst.chore.firstFinisherBonus > 0
+    ) {
+      await this.prisma.tokenLedger.create({
+        data: {
+          userId: recipient,
+          delta: inst.chore.firstFinisherBonus,
+          reason: `First finisher: ${inst.chore.title}`,
+          type: 'CHORE',
+          refId: inst.id,
+          createdById: approverId,
+        },
+      });
     }
 
     if (recipient && approverId !== recipient) {
@@ -679,7 +823,9 @@ export class ChoresService {
     );
     if (due) await this.createNextInstance(inst.chore.id, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
-    return updated;
+    // wheelBonus rides along so the UI can spin its wheel with the real,
+    // server-decided amount — never invented client-side.
+    return { ...updated, wheelBonus };
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {
@@ -720,12 +866,23 @@ export class ChoresService {
   }
 
   async balances(familyId: string) {
-    const grouped = await this.prisma.tokenLedger.groupBy({
-      by: ['userId'],
-      _sum: { delta: true },
-      where: { user: { familyId } },
-    });
-    return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0 }));
+    // `earned` (lifetime positive total) never goes down when tokens are
+    // spent — it's the XP behind the level badge, so spending doesn't feel
+    // like losing progress.
+    const [grouped, earnedGrouped] = await Promise.all([
+      this.prisma.tokenLedger.groupBy({
+        by: ['userId'],
+        _sum: { delta: true },
+        where: { user: { familyId } },
+      }),
+      this.prisma.tokenLedger.groupBy({
+        by: ['userId'],
+        _sum: { delta: true },
+        where: { user: { familyId }, delta: { gt: 0 } },
+      }),
+    ]);
+    const earnedBy = new Map(earnedGrouped.map((g) => [g.userId, g._sum.delta ?? 0]));
+    return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0, earned: earnedBy.get(g.userId) ?? 0 }));
   }
 
   // Still-actionable chores due on a given calendar day, for the kiosk's idle

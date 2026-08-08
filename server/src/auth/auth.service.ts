@@ -348,6 +348,7 @@ export class AuthService {
         colorTheme: true,
         fontSizePref: true,
         soundEffects: true,
+        simpleMode: true,
         notifyByEmail: true,
         passwordHash: true, // stripped below — only its presence (hasPassword) ever leaves this method
       },
@@ -373,7 +374,7 @@ export class AuthService {
   members(familyId: string) {
     return this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, tokensDisabled: true },
+      select: { id: true, displayName: true, role: true, avatar: true, tokensDisabled: true, simpleMode: true },
     });
   }
 }

@@ -45,6 +45,20 @@ export default function PendingPanel({
       .filter((i) => i.status === 'PENDING')
       .map((instance) => ({ chore, instance })),
   );
+  // Proof photo viewer: fetched on demand (list payloads only carry hasProof).
+  const [proofFor, setProofFor] = useState<string | null>(null);
+  const [proofImg, setProofImg] = useState<string | null>(null);
+  async function viewProof(instanceId: string) {
+    if (proofFor === instanceId) {
+      setProofFor(null);
+      setProofImg(null);
+      return;
+    }
+    setProofFor(instanceId);
+    setProofImg(null);
+    const r = await client.proofImage(instanceId).catch(() => ({ image: null }));
+    setProofImg(r.image);
+  }
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
 
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
@@ -63,11 +77,16 @@ export default function PendingPanel({
       </h3>
       <ul className="mt-2 space-y-2">
         {pendingChores.map(({ chore, instance }) => (
-          <li key={instance.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
+          <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
             <span className="min-w-0 flex-1 truncate">
               <span className="font-medium">{chore.title}</span>
               {instance.claimedByUserId && <span className="text-slate-400"> · {memberName(instance.claimedByUserId)}</span>}
             </span>
+            {instance.hasProof && (
+              <button onClick={() => viewProof(instance.id)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
+              </button>
+            )}
             <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
             <button
               onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget)}
@@ -78,6 +97,15 @@ export default function PendingPanel({
             <button onClick={() => act(() => client.rejectInstance(instance.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
               Reject
             </button>
+            {proofFor === instance.id && (
+              <div className="w-full">
+                {proofImg ? (
+                  <img src={proofImg} alt="proof" className="mt-1 max-h-64 rounded border" />
+                ) : (
+                  <span className="text-xs text-slate-400">Loading photo…</span>
+                )}
+              </div>
+            )}
           </li>
         ))}
         {pendingRedemptions.map((r) => (

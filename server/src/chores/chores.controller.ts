@@ -88,6 +88,16 @@ export class ChoresController {
     return this.chores.skip(u.familyId, u.userId, instanceId);
   }
 
+  @Post('instances/:instanceId/proof')
+  attachProof(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string, @Body() body: { image: string }) {
+    return this.chores.attachProof(u.familyId, u.userId, instanceId, body.image);
+  }
+
+  @Get('instances/:instanceId/proof')
+  proofImage(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.proofImage(u.familyId, instanceId);
+  }
+
   @Post('instances/:instanceId/approve')
   approve(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
     return this.chores.approve(u.familyId, u.userId, instanceId);

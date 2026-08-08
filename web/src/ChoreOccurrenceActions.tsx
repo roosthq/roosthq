@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { choreClient, type Chore, type ChoreInstance } from './api';
 import { celebrate } from './celebrate';
+import ProofButton from './ProofButton';
 import { useDialog } from './Dialog';
 import TokenBadge from './TokenBadge';
 
@@ -62,8 +63,11 @@ export default function ChoreOccurrenceActions({
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     setBusy(true);
     try {
-      await fn();
+      const res = (await fn()) as { wheelBonus?: number } | undefined;
       if (celebrateFrom) celebrate(celebrateFrom);
+      if (res && typeof res === 'object' && res.wheelBonus) {
+        await alert(`🎡 BONUS WHEEL! +${res.wheelBonus} extra!`);
+      }
       onChanged();
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
@@ -168,6 +172,9 @@ export default function ChoreOccurrenceActions({
           >
             Claim this
           </button>
+        )}
+        {dueNow && mine && chore.requireProof && (
+          <ProofButton client={client} instanceId={instance.id} hasProof={!!instance.hasProof} onChanged={onChanged} />
         )}
         {dueNow && mine && (
           <button

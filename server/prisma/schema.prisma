@@ -80,6 +80,10 @@ model Family {
   tokenIcon     String   @default("🪙") // emoji shown alongside the reward currency
   tokenValueUsd Float    @default(1) // $ value of one token, for auto-suggesting prize costs
   choreWord     String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
+  // Family-level feature kill-switches (FAMILY_FEATURES in web/src/api.ts).
+  // Stored as the DISABLED list so brand-new features default to ON for
+  // every family without a migration backfill.
+  disabledFeatures Json  @default("[]")
   createdAt     DateTime @default(now())
 
   users           User[]
@@ -94,6 +98,10 @@ model Family {
   displayTokens   DisplayToken[]
   displayConfigs  DisplayConfig[]
   invites         FamilyInvite[]
+  mealPlans       MealPlan[]
+  groceryItems    GroceryItem[]
+  countdowns      Countdown[]
+  announcements   Announcement[]
   notifications   Notification[]
 }
 
@@ -152,6 +160,8 @@ model DisplayConfig {
   onScreenKeyboard Boolean @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
   screensaverMinutes Int   @default(0) // show a full-screen clock after this many idle minutes; 0 = never
   weatherLocation String? // free-text city for the screensaver's weather (Open-Meteo geocoded); unset = no weather shown
+  bedtimeStart    String? // "HH:MM" — kiosk dims into bedtime mode inside this window; unset = never
+  bedtimeEnd      String? // "HH:MM" — end of the bedtime window (may cross midnight)
   createdById     String
   createdAt       DateTime @default(now())
 
@@ -227,6 +237,8 @@ model User {
   colorTheme    String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
   fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
   soundEffects  Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
+  simpleMode    Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
+  allowanceTokens Int   @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
   notifyByEmail Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
@@ -426,6 +438,9 @@ model Chore {
   allowLate          Boolean @default(false) // if false (default), missing the due date forfeits the reward
   allowSkip          Boolean @default(false) // assignee can skip an occurrence outright — no token, no checklist required, doesn't break streak
   autoApprove        Boolean @default(false) // completing awards tokens immediately, no adult approval step (trust chores like brushing teeth)
+  requireProof       Boolean @default(false) // kid must attach a photo before completing (family photoProof feature)
+  firstFinisherBonus Int     @default(0) // extra tokens for whoever completes an ANYONE chore ("chore race")
+  streakFreezes      Int     @default(0) // banked freezes (earned at each streak milestone); one is consumed instead of breaking the streak on a miss
   latePenaltyPercent Int     @default(25) // % of reward lost per day late, when allowLate is on
   createdById        String
   currentStreak      Int     @default(0) // consecutive on-time completions; resets on a miss
@@ -476,6 +491,7 @@ model ChoreInstance {
   approvedBy      String?
   claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
   warnedThreshold Int? // smallest due-soon minutes threshold (120/60/30/15) already notified
+  proofImage      String? @db.Text // photo attached by the kid (data URI) when chore.requireProof
 
   chore          Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks         ChoreItemCheck[]
@@ -642,4 +658,60 @@ model Redemption {
 
   @@index([prizeId])
   @@index([userId])
+}
+
+// ---- Household widgets (meals / grocery / countdowns / announcements) ----
+// Simple family-scoped lists surfaced on the kiosk and a Household page.
+
+model MealPlan {
+  id       String @id @default(cuid())
+  familyId String
+  date     String // YYYY-MM-DD local date key
+  title    String // "Tacos"
+  notes    String?
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, date]) // one dinner entry per day
+  @@index([familyId])
+}
+
+model GroceryItem {
+  id        String    @id @default(cuid())
+  familyId  String
+  label     String
+  checked   Boolean   @default(false)
+  addedById String?
+  createdAt DateTime  @default(now())
+  checkedAt DateTime?
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}
+
+model Countdown {
+  id        String   @id @default(cuid())
+  familyId  String
+  title     String
+  emoji     String   @default("🎉")
+  date      String // YYYY-MM-DD target day
+  createdAt DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  familyId    String
+  text        String    @db.Text
+  createdById String?
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime? // stops showing after this; null = until deleted
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
 }

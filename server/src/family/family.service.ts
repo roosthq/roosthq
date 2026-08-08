@@ -5,7 +5,15 @@ import { PrismaService } from '../prisma.service';
 export class FamilyService {
   constructor(private prisma: PrismaService) {}
 
-  private shape(f: { id: string; name: string; tokenName: string; tokenIcon: string; tokenValueUsd: number; choreWord: string }) {
+  private shape(f: {
+    id: string;
+    name: string;
+    tokenName: string;
+    tokenIcon: string;
+    tokenValueUsd: number;
+    choreWord: string;
+    disabledFeatures: unknown;
+  }) {
     return {
       id: f.id,
       name: f.name,
@@ -13,6 +21,7 @@ export class FamilyService {
       tokenIcon: f.tokenIcon,
       tokenValueUsd: f.tokenValueUsd,
       choreWord: f.choreWord,
+      disabledFeatures: Array.isArray(f.disabledFeatures) ? (f.disabledFeatures as string[]) : [],
     };
   }
 
@@ -24,7 +33,14 @@ export class FamilyService {
   async update(
     actorId: string,
     familyId: string,
-    data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string },
+    data: {
+      name?: string;
+      tokenName?: string;
+      tokenIcon?: string;
+      tokenValueUsd?: number;
+      choreWord?: string;
+      disabledFeatures?: string[];
+    },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor || (actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER')) {
@@ -38,6 +54,9 @@ export class FamilyService {
         ...(data.tokenIcon !== undefined && { tokenIcon: data.tokenIcon || '🪙' }),
         ...(data.tokenValueUsd !== undefined && { tokenValueUsd: data.tokenValueUsd > 0 ? data.tokenValueUsd : 1 }),
         ...(data.choreWord !== undefined && { choreWord: data.choreWord.trim() || 'Chore' }),
+        ...(data.disabledFeatures !== undefined && {
+          disabledFeatures: data.disabledFeatures.filter((x) => typeof x === 'string'),
+        }),
       },
     });
     return this.shape(f);

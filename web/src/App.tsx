@@ -13,6 +13,7 @@ import MySettingsPage from './pages/MySettingsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
 import RulesPage from './pages/RulesPage';
+import HouseholdPage from './pages/HouseholdPage';
 import AwardsPage from './pages/AwardsPage';
 
 // data-mode = light/dark; data-theme = which of the 9 color themes (see
@@ -197,6 +198,7 @@ export default function App() {
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/rules" element={<RulesPage me={me} />} />
+          <Route path="/household" element={<HouseholdPage me={me} />} />
           <Route
             path="/awards"
             element={isAdult ? <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} /> : <Navigate to="/" replace />}

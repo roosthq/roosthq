@@ -22,7 +22,7 @@ export class UsersService {
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true, allowanceTokens: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -31,6 +31,8 @@ export class UsersService {
       avatar: u.avatar,
       hasPin: !!u.pinHash,
       colorTheme: u.colorTheme,
+      simpleMode: u.simpleMode,
+      allowanceTokens: u.allowanceTokens,
       tokensDisabled: u.tokensDisabled,
     }));
   }
@@ -95,6 +97,22 @@ export class UsersService {
   async setNotifyByEmail(userId: string, notifyByEmail: boolean) {
     await this.prisma.user.update({ where: { id: userId }, data: { notifyByEmail } });
     return { ok: true, notifyByEmail };
+  }
+
+  // Adult sets a member's My Day simple mode and/or weekly allowance.
+  async setMemberPrefs(actorId: string, familyId: string, targetId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number }) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new ForbiddenException('Adults only');
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    await this.prisma.user.update({
+      where: { id: targetId },
+      data: {
+        ...(prefs.simpleMode !== undefined && { simpleMode: !!prefs.simpleMode }),
+        ...(prefs.allowanceTokens !== undefined && { allowanceTokens: Math.max(0, Math.round(prefs.allowanceTokens)) }),
+      },
+    });
+    return { ok: true };
   }
 
   // Current user's own celebration-sound preference (app surfaces; the kiosk

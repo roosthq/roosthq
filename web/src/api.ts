@@ -35,6 +35,7 @@ export interface Me {
   colorTheme?: string;
   fontSizePref?: FontSize;
   soundEffects?: boolean;
+  simpleMode?: boolean;
   notifyByEmail?: boolean;
   // Whether a local password is set — never the hash itself. Drives whether
   // the password-change form asks for the current one at all.
@@ -150,6 +151,8 @@ export interface Member {
   colorTheme?: string;
   email?: string;
   tokensDisabled?: boolean;
+  simpleMode?: boolean;
+  allowanceTokens?: number;
 }
 
 export interface UnlockResult {
@@ -211,8 +214,37 @@ export interface ChoreInstance {
   completedAt?: string;
   claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
+  hasProof?: boolean; // photo attached (fetch via proofImage())
   // Adults only — the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
+}
+
+export interface MealPlanEntry {
+  id: string;
+  date: string; // YYYY-MM-DD
+  title: string;
+  notes?: string | null;
+}
+
+export interface GroceryItem {
+  id: string;
+  label: string;
+  checked: boolean;
+  createdAt: string;
+}
+
+export interface CountdownEntry {
+  id: string;
+  title: string;
+  emoji: string;
+  date: string; // YYYY-MM-DD
+}
+
+export interface AnnouncementEntry {
+  id: string;
+  text: string;
+  createdAt: string;
+  expiresAt?: string | null;
 }
 
 export interface ChoreAssigneeRef {
@@ -236,6 +268,9 @@ export interface Chore {
   allowLate: boolean;
   allowSkip: boolean;
   autoApprove: boolean;
+  requireProof: boolean;
+  firstFinisherBonus: number;
+  streakFreezes: number;
   latePenaltyPercent: number;
   currentStreak: number;
   bestStreak: number;
@@ -246,6 +281,7 @@ export interface Chore {
 export interface Balance {
   userId: string;
   balance: number;
+  earned?: number; // lifetime positive total — XP for the level badge
 }
 
 export interface AppNotification {
@@ -331,6 +367,34 @@ export interface FamilySettings {
   tokenIcon: string;
   tokenValueUsd: number;
   choreWord: string;
+  // Family-level feature switches — stored as the DISABLED list so new
+  // features default on. See FAMILY_FEATURES.
+  disabledFeatures: string[];
+}
+
+// Everything a family can turn off wholesale (Settings > This family >
+// Features). The kiosk additionally gates its own widgets per display.
+export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }> = [
+  { id: 'levels', label: 'Levels & XP', help: 'Level badges from lifetime tokens earned — spending never lowers it.' },
+  { id: 'streakFreeze', label: 'Streak freezes', help: 'Each streak milestone banks a freeze (max 3) that absorbs one missed day.' },
+  { id: 'bonusWheel', label: 'Bonus wheel', help: 'A random 1-5 extra tokens on every streak milestone.' },
+  { id: 'photoProof', label: 'Photo proof', help: 'Chores can require a photo before a kid can mark them done.' },
+  { id: 'meals', label: 'Meal plan', help: "Plan dinners; the kiosk shows tonight's meal." },
+  { id: 'grocery', label: 'Grocery list', help: 'Shared list anyone can add to and check off.' },
+  { id: 'countdowns', label: 'Countdowns', help: 'Birthday/vacation countdown widgets.' },
+  { id: 'announcements', label: 'Announcements', help: 'Short family-wide notices on the kiosk.' },
+  { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
+  { id: 'allowance', label: 'Allowance', help: 'Automatic weekly token grants per person (set in Family & PINs).' },
+];
+
+export function familyFeatureEnabled(f: FamilySettings | null | undefined, feature: string): boolean {
+  return !f?.disabledFeatures?.includes(feature);
+}
+
+// Level = XP badge derived from lifetime tokens EARNED (never reduced by
+// spending). sqrt pacing: 1 at 0, 2 at 5, 3 at 20, 4 at 45, 5 at 80...
+export function levelFor(earned: number): number {
+  return Math.floor(Math.sqrt(Math.max(0, earned) / 5)) + 1;
 }
 
 // Naive English pluralization — good enough for a family-chosen word like
@@ -360,6 +424,8 @@ export interface DisplayConfig {
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
   weatherLocation: string | null;
+  bedtimeStart: string | null;
+  bedtimeEnd: string | null;
 }
 
 // The resolved config a kiosk renders (id may be null for legacy/default).
@@ -376,6 +442,8 @@ export interface ResolvedDisplayConfig {
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
   weatherLocation: string | null;
+  bedtimeStart: string | null;
+  bedtimeEnd: string | null;
 }
 
 // The kiosk screensaver's "at a glance" feed (GET /display/today). `date`
@@ -569,6 +637,28 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ soundEffects }),
     }),
+  setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number }) =>
+    req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
+
+  // Household widgets (meals / grocery / countdowns / announcements)
+  meals: (start: string, end: string) => req<MealPlanEntry[]>(`/household/meals?start=${start}&end=${end}`),
+  setMeal: (date: string, body: { title: string; notes?: string | null }) =>
+    req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }),
+  deleteMeal: (date: string) => req(`/household/meals/${date}`, { method: 'DELETE' }),
+  grocery: () => req<GroceryItem[]>('/household/grocery'),
+  addGrocery: (label: string) => req<GroceryItem>('/household/grocery', { method: 'POST', body: JSON.stringify({ label }) }),
+  patchGrocery: (id: string, body: { checked?: boolean; label?: string }) =>
+    req<GroceryItem>(`/household/grocery/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
+  deleteGrocery: (id: string) => req(`/household/grocery/${id}`, { method: 'DELETE' }),
+  clearCheckedGrocery: () => req('/household/grocery/checked', { method: 'DELETE' }),
+  countdowns: () => req<CountdownEntry[]>('/household/countdowns'),
+  addCountdown: (body: { title: string; date: string; emoji?: string }) =>
+    req<CountdownEntry>('/household/countdowns', { method: 'POST', body: JSON.stringify(body) }),
+  deleteCountdown: (id: string) => req(`/household/countdowns/${id}`, { method: 'DELETE' }),
+  announcements: () => req<AnnouncementEntry[]>('/household/announcements'),
+  addAnnouncement: (body: { text: string; expiresInHours?: number }) =>
+    req<AnnouncementEntry>('/household/announcements', { method: 'POST', body: JSON.stringify(body) }),
+  deleteAnnouncement: (id: string) => req(`/household/announcements/${id}`, { method: 'DELETE' }),
 
   pushPublicKey: () => req<{ key: string | null }>('/notifications/push/public-key'),
   subscribePush: (sub: { endpoint: string; keys: { p256dh: string; auth: string } }) =>
@@ -598,7 +688,7 @@ export const api = {
   deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
 
   familySettings: () => req<FamilySettings>('/family/settings'),
-  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string }) =>
+  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string; disabledFeatures?: string[] }) =>
     req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
@@ -650,6 +740,9 @@ export const api = {
     req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }),
   skipInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }),
+  attachProof: (instanceId: string, image: string) =>
+    req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }),
+  proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`),
   approveInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }),
   rejectInstance: (instanceId: string) =>
@@ -709,6 +802,9 @@ export function choreClient(kioskToken?: string) {
       req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }, kioskToken),
     skipInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }, kioskToken),
+    attachProof: (instanceId: string, image: string) =>
+      req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }, kioskToken),
+    proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`, undefined, kioskToken),
     approveInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
     rejectInstance: (instanceId: string) =>

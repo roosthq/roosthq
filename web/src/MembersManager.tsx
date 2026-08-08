@@ -84,6 +84,14 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.setTokensDisabled(m.id, !m.tokensDisabled);
     await refresh();
   }
+  async function toggleSimple(m: Member) {
+    await api.setMemberPrefs(m.id, { simpleMode: !m.simpleMode });
+    await refresh();
+  }
+  async function setAllowance(m: Member, v: number) {
+    await api.setMemberPrefs(m.id, { allowanceTokens: v });
+    await refresh();
+  }
   async function addMember() {
     setAddError(null);
     setAddBusy(true);
@@ -279,6 +287,24 @@ export default function MembersManager({ me }: { me: Me }) {
                 Tokens
               </label>
             )}
+            <label className="flex items-center gap-1 text-xs text-slate-500" title="My Day mode: giant, icon-first task view for pre-readers">
+              <input type="checkbox" checked={!!m.simpleMode} onChange={() => toggleSimple(m)} />
+              My Day
+            </label>
+            <label className="flex items-center gap-1 text-xs text-slate-500" title="Automatic weekly token grant (needs the Allowance family feature on)">
+              Allowance
+              <input
+                type="number"
+                min={0}
+                defaultValue={m.allowanceTokens ?? 0}
+                onBlur={(e) => {
+                  const v = Math.max(0, Number(e.target.value) || 0);
+                  if (v !== (m.allowanceTokens ?? 0)) setAllowance(m, v);
+                }}
+                className="w-14 rounded border px-1.5 py-0.5 text-xs"
+              />
+              /wk
+            </label>
             <span className="ml-auto flex items-center gap-3">
               {canReset(m) && (
                 <button onClick={() => resetAccount(m)} className="text-xs text-amber-600 hover:text-amber-800">

@@ -17,7 +17,15 @@ export class FamilyController {
   @Put('settings')
   update(
     @CurrentUser() u: SessionPayload,
-    @Body() body: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string },
+    @Body()
+    body: {
+      name?: string;
+      tokenName?: string;
+      tokenIcon?: string;
+      tokenValueUsd?: number;
+      choreWord?: string;
+      disabledFeatures?: string[];
+    },
   ) {
     return this.family.update(u.userId, u.familyId, body);
   }

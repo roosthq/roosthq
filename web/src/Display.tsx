@@ -13,6 +13,7 @@ import {
   type UnlockResult,
   type Balance,
 } from './api';
+import { levelFor } from './api';
 import Calendar from './Calendar';
 import { setCelebrationSound } from './celebrate';
 import ChoresPanel from './ChoresPanel';
@@ -247,6 +248,24 @@ export default function Display() {
     document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
   }, []);
 
+  // Household widgets bundle (meals/countdowns/announcements/grocery) and the
+  // family's feature switches — both readable with just the display token.
+  const [household, setHousehold] = useState<{
+    today: string;
+    meals: Array<{ date: string; title: string }>;
+    countdowns: Array<{ id: string; title: string; emoji: string; date: string }>;
+    announcements: Array<{ id: string; text: string }>;
+    groceryOpen: number;
+  } | null>(null);
+  const [famDisabled, setFamDisabled] = useState<string[]>([]);
+  const [bedtimePeekUntil, setBedtimePeekUntil] = useState(0);
+  const loadHousehold = useCallback(() => {
+    dget<NonNullable<typeof household>>('/display/household').then(setHousehold).catch(() => setHousehold(null));
+    dget<{ disabledFeatures?: string[] }>('/display/family-settings')
+      .then((f) => setFamDisabled(f.disabledFeatures ?? []))
+      .catch(() => undefined);
+  }, []);
+
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
@@ -278,6 +297,7 @@ export default function Display() {
   }, [applyIdleTheme, loadMembers, config]);
 
   useEffect(() => {
+    loadHousehold();
     loadConfig().catch(() => setError('This display link is invalid or was revoked. Ask the family owner for a new one.'));
     loadMembers();
 
@@ -385,9 +405,32 @@ export default function Display() {
       </div>
     );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- refetch widgets on live-update pushes
+  useEffect(() => {
+    loadHousehold();
+  }, [dataRefreshSignal]);
+
+  const famOn = (f: string) => !famDisabled.includes(f);
   const showCalendar = config.enabledFeatures.includes('calendar');
   const showChores = config.enabledFeatures.includes('chores');
   const showPrizes = config.enabledFeatures.includes('prizes');
+  const showMeals = config.enabledFeatures.includes('meals') && famOn('meals');
+  const showGrocery = config.enabledFeatures.includes('grocery') && famOn('grocery');
+  const showCountdowns = config.enabledFeatures.includes('countdowns') && famOn('countdowns');
+  const showAnnouncements = config.enabledFeatures.includes('announcements') && famOn('announcements');
+  const todayMeal = household?.meals.find((m) => m.date === household.today);
+  const upcomingCountdowns = (household?.countdowns ?? []).slice(0, 3);
+  // Bedtime mode: inside the configured window the kiosk dims to a good-night
+  // screen; a tap "peeks" for 5 minutes. Window may cross midnight.
+  const inBedtime = (() => {
+    if (!config.bedtimeStart || !config.bedtimeEnd) return false;
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const [sh, sm] = config.bedtimeStart.split(':').map(Number);
+    const [eh, em] = config.bedtimeEnd.split(':').map(Number);
+    const start = sh * 60 + sm;
+    const end = eh * 60 + em;
+    return start <= end ? mins >= start && mins < end : mins >= start || mins < end;
+  })();
   const personFocused = !!active && layout === 'person' && showCalendar && (showChores || showPrizes);
 
   return (
@@ -526,6 +569,39 @@ export default function Display() {
         </div>
       </header>
 
+      {showAnnouncements && (household?.announcements.length ?? 0) > 0 && (
+        <div className="mt-2 flex shrink-0 items-center gap-3 overflow-x-auto rounded-lg px-3 py-1.5 text-sm" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
+          <span className="shrink-0">📣</span>
+          {household!.announcements.map((a) => (
+            <span key={a.id} className="shrink-0 whitespace-nowrap">
+              {a.text}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {(showMeals || showCountdowns || showGrocery) && (
+        <div className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm">
+          {showMeals && (
+            <span className="card-nested rounded-full px-3 py-1">
+              🍽️ Tonight: <span className="font-semibold">{todayMeal?.title ?? 'nothing planned'}</span>
+            </span>
+          )}
+          {showCountdowns &&
+            upcomingCountdowns.map((c) => {
+              const days = Math.max(0, Math.round((new Date(`${c.date}T00:00:00`).getTime() - new Date(new Date().setHours(0, 0, 0, 0)).getTime()) / 86_400_000));
+              return (
+                <span key={c.id} className="card-nested rounded-full px-3 py-1">
+                  {c.emoji} {c.title}: <span className="font-semibold">{days === 0 ? 'today!' : `${days}d`}</span>
+                </span>
+              );
+            })}
+          {showGrocery && (household?.groceryOpen ?? 0) > 0 && (
+            <span className="card-nested rounded-full px-3 py-1">🛒 {household!.groceryOpen} on the list</span>
+          )}
+        </div>
+      )}
+
       {/* Calendar (left, fills all remaining height) and a fixed-width right
           panel that always occupies the same place: the profile picker before
           sign-in, the signed-in person's chores after. In person-focused
@@ -639,8 +715,13 @@ export default function Display() {
                         </div>
                       </span>
                       {!m.tokensDisabled && (
-                        <span className="shrink-0 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+                        <span className="shrink-0 text-right text-sm font-semibold" style={{ color: 'var(--accent)' }}>
                           {tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
+                          {famOn('levels') && (
+                            <span className="block text-[10px] font-medium text-slate-400">
+                              \u2b50 Lv {levelFor(pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0)}
+                            </span>
+                          )}
                         </span>
                       )}
                     </button>
@@ -651,6 +732,20 @@ export default function Display() {
           </aside>
         )}
       </div>
+
+      {inBedtime && Date.now() > bedtimePeekUntil && (
+        <button
+          onClick={() => setBedtimePeekUntil(Date.now() + 5 * 60_000)}
+          className="fixed inset-0 z-[90] flex flex-col items-center justify-center gap-4 text-slate-400"
+          style={{ background: 'rgba(0,0,0,0.92)' }}
+        >
+          <span className="text-7xl">🌙</span>
+          <span className="text-4xl font-semibold text-slate-300">
+            {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true })}
+          </span>
+          <span className="text-lg">Good night — tap to peek for 5 minutes</span>
+        </button>
+      )}
 
       {(addingEvent || editingEvent) && active && (
         <AddEventModal

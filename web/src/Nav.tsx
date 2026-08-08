@@ -131,6 +131,7 @@ export default function Nav({
       <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>
       <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>
       <NavLink to="/profile" className={cls} onClick={() => setMenuOpen(false)}>Profiles</NavLink>
+      <NavLink to="/household" className={cls} onClick={() => setMenuOpen(false)}>Household</NavLink>
       <NavLink to="/rules" className={cls} onClick={() => setMenuOpen(false)}>Rules</NavLink>
       {isAdult && <NavLink to="/awards" className={cls} onClick={() => setMenuOpen(false)}>Awards</NavLink>}
       {isAdult && <NavLink to="/settings" className={cls} onClick={() => setMenuOpen(false)}>Settings</NavLink>}

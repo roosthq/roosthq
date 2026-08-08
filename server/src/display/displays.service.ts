@@ -44,6 +44,8 @@ export interface DisplayConfigInput {
   onScreenKeyboard?: boolean;
   screensaverMinutes?: number;
   weatherLocation?: string | null;
+  bedtimeStart?: string | null;
+  bedtimeEnd?: string | null;
 }
 
 export interface ResolvedConfig {
@@ -59,6 +61,8 @@ export interface ResolvedConfig {
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
   weatherLocation: string | null;
+  bedtimeStart: string | null;
+  bedtimeEnd: string | null;
 }
 
 function weekRange(): { start: string; end: string } {
@@ -114,6 +118,8 @@ export class DisplaysService {
         onScreenKeyboard: dto.onScreenKeyboard ?? false,
         screensaverMinutes: Math.max(0, dto.screensaverMinutes ?? 0),
         weatherLocation: dto.weatherLocation?.trim() || null,
+        bedtimeStart: dto.bedtimeStart?.trim() || null,
+        bedtimeEnd: dto.bedtimeEnd?.trim() || null,
         createdById: actorId,
       },
     });
@@ -144,6 +150,8 @@ export class DisplaysService {
         ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
         ...(dto.screensaverMinutes !== undefined && { screensaverMinutes: Math.max(0, dto.screensaverMinutes) }),
         ...(dto.weatherLocation !== undefined && { weatherLocation: dto.weatherLocation?.trim() || null }),
+        ...(dto.bedtimeStart !== undefined && { bedtimeStart: dto.bedtimeStart?.trim() || null }),
+        ...(dto.bedtimeEnd !== undefined && { bedtimeEnd: dto.bedtimeEnd?.trim() || null }),
       },
     });
     this.displayEvents.publish(familyId, { type: 'display', id });
@@ -163,7 +171,7 @@ export class DisplaysService {
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
       where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -172,6 +180,7 @@ export class DisplaysService {
       avatar: u.avatar,
       hasPin: !!u.pinHash,
       colorTheme: u.colorTheme,
+      simpleMode: u.simpleMode,
       tokensDisabled: u.tokensDisabled,
     }));
   }
@@ -244,6 +253,8 @@ export class DisplaysService {
         onScreenKeyboard: false,
         screensaverMinutes: 0,
         weatherLocation: null,
+        bedtimeStart: null,
+        bedtimeEnd: null,
       };
     }
     return {
@@ -259,6 +270,8 @@ export class DisplaysService {
       onScreenKeyboard: false,
       screensaverMinutes: 0,
       weatherLocation: null,
+      bedtimeStart: null,
+      bedtimeEnd: null,
     };
   }
 
@@ -280,6 +293,8 @@ export class DisplaysService {
       onScreenKeyboard: boolean;
       screensaverMinutes: number;
       weatherLocation: string | null;
+      bedtimeStart: string | null;
+      bedtimeEnd: string | null;
     },
   ): Promise<ResolvedConfig> {
     const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
@@ -296,6 +311,8 @@ export class DisplaysService {
       onScreenKeyboard: c.onScreenKeyboard,
       screensaverMinutes: c.screensaverMinutes,
       weatherLocation: c.weatherLocation,
+      bedtimeStart: c.bedtimeStart,
+      bedtimeEnd: c.bedtimeEnd,
     };
   }
 

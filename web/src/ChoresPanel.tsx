@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
 import { celebrate } from './celebrate';
+import ProofButton from './ProofButton';
+import { STARTER_PACKS } from './starterPacks';
 import PendingPanel from './PendingPanel';
 import TokenBadge from './TokenBadge';
 import { useDialog } from './Dialog';
@@ -136,6 +138,7 @@ export default function ChoresPanel({
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
+  const [packsOpen, setPacksOpen] = useState(false);
   // `editing` seeds the form's fields (edit OR duplicate); `editingId` is the
   // one that decides whether submit PATCHes that chore or POSTs a new one —
   // duplicate sets `editing` but leaves `editingId` null, so it prefills from
@@ -176,6 +179,8 @@ export default function ChoresPanel({
 
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
   const myTokensOff = !!members.find((m) => m.id === me.id)?.tokensDisabled;
+  // "My Day" pre-reader mode: bigger text and tap targets on the today view.
+  const simple = today && !!members.find((m) => m.id === me.id)?.simpleMode;
 
   // Kids and plain adults with more than one household get tabs to filter
   // between them (or "All") — the server already limits them to their own
@@ -259,8 +264,13 @@ export default function ChoresPanel({
 
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     try {
-      await fn();
+      const res = (await fn()) as { wheelBonus?: number } | undefined;
       if (celebrateFrom) celebrate(celebrateFrom);
+      // Server decided a bonus-wheel spin landed — show the result. The
+      // amount is authoritative from the API, never invented here.
+      if (res && typeof res === 'object' && res.wheelBonus) {
+        await alert(`🎡 BONUS WHEEL! +${res.wheelBonus} extra ${tokenName}!`);
+      }
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
     }
@@ -355,7 +365,7 @@ export default function ChoresPanel({
       <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <span className={`break-words ${today ? 'text-sm font-semibold' : 'font-semibold'}`}>{chore.title}</span>
+            <span className={`break-words ${simple ? 'text-xl font-bold' : today ? 'text-sm font-semibold' : 'font-semibold'}`}>{chore.title}</span>
             <div className="mt-0.5 flex flex-wrap items-center gap-x-1 text-xs text-slate-400">
               <span>
                 {assignmentLabel(chore, claimedBy)}
@@ -409,10 +419,13 @@ export default function ChoresPanel({
               Claim this
             </button>
           )}
+          {active?.status === 'OPEN' && dueNow && mine && chore.requireProof && (
+            <ProofButton client={client} instanceId={active.id} hasProof={!!active.hasProof} onChanged={refresh} />
+          )}
           {active?.status === 'OPEN' && dueNow && mine && (
             <button
               onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget)}
-              className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
+              className={simple ? 'rounded-lg bg-slate-800 px-6 py-3 text-base font-semibold text-white hover:bg-slate-700' : 'rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700'}
             >
               Mark done
             </button>
@@ -579,6 +592,11 @@ export default function ChoresPanel({
               title="Switch layout"
             >
               {viewMode === 'cards' ? '☰ Table view' : '▦ Card view'}
+            </button>
+          )}
+          {!today && isAdult && (
+            <button onClick={() => setPacksOpen(true)} className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of chores">
+              📦 Packs
             </button>
           )}
           {isAdult && (
@@ -751,6 +769,17 @@ export default function ChoresPanel({
         </div>
       )}
 
+      {packsOpen && (
+        <StarterPacksModal
+          client={client}
+          members={members}
+          onClose={() => setPacksOpen(false)}
+          onDone={async () => {
+            setPacksOpen(false);
+            await refresh();
+          }}
+        />
+      )}
       {formOpen && (
         <ChoreForm
           client={client}
@@ -816,6 +845,14 @@ function ChoreForm({
   const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
   const [allowSkip, setAllowSkip] = useState(chore?.allowSkip ?? false);
   const [autoApprove, setAutoApprove] = useState(chore?.autoApprove ?? false);
+  const [requireProof, setRequireProof] = useState(chore?.requireProof ?? false);
+  const [firstFinisherBonus, setFirstFinisherBonus] = useState(chore?.firstFinisherBonus ?? 0);
+  // Which family features are on gates whether the related fields render at
+  // all — a family with photoProof off shouldn't see the checkbox.
+  const [famDisabled, setFamDisabled] = useState<string[]>([]);
+  useEffect(() => {
+    client.familySettings().then((f) => setFamDisabled(f.disabledFeatures ?? [])).catch(() => undefined);
+  }, [client]);
   const [streakEnabled, setStreakEnabled] = useState(!!chore?.streakGoal);
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
@@ -846,6 +883,8 @@ function ChoreForm({
       latePenaltyPercent: Math.max(0, Math.min(100, Number(latePenaltyPercent) || 0)),
       allowSkip,
       autoApprove,
+      requireProof,
+      firstFinisherBonus: Math.max(0, Number(firstFinisherBonus) || 0),
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
@@ -989,6 +1028,28 @@ function ChoreForm({
             </label>
           </Field>
 
+          {!famDisabled.includes('photoProof') && (
+            <Field label="Photo proof" help="A kid must attach a photo (made bed, clean room) before marking this done.">
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={requireProof} onChange={(e) => setRequireProof(e.target.checked)} />
+                Require a photo
+              </label>
+            </Field>
+          )}
+
+          {assignmentType === 'ANYONE' && (
+            <Field label="First finisher bonus" help="Extra reward for whoever grabs and finishes it — a little sibling race.">
+              <input
+                type="number"
+                min={0}
+                value={firstFinisherBonus}
+                onChange={(e) => setFirstFinisherBonus(Number(e.target.value))}
+                onFocus={(e) => e.target.select()}
+                className="w-24 rounded-md border px-3 py-2 text-sm"
+              />
+            </Field>
+          )}
+
           <Field label="Repeat" help={repeatHelp}>
             <select className="w-full rounded-md border px-3 py-2 text-sm" value={repeat} onChange={(e) => setRepeat(e.target.value)}>
               {REPEAT_OPTIONS.map((r) => (
@@ -1066,6 +1127,96 @@ function ChoreForm({
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />
           </Field>
         </div>
+    </Modal>
+  );
+}
+
+
+// One-tap chore bundles by age bucket. Picks an assignee, then creates each
+// template chore for them (server validates like any hand-made chore).
+function StarterPacksModal({
+  client,
+  members,
+  onClose,
+  onDone,
+}: {
+  client: ChoreClient;
+  members: Member[];
+  onClose: () => void;
+  onDone: () => void;
+}) {
+  const [assignee, setAssignee] = useState('');
+  const [busy, setBusy] = useState(false);
+  const kids = members.filter((m) => m.role === 'KID');
+  const candidates = kids.length ? kids : members;
+
+  async function add(packId: string) {
+    const pack = STARTER_PACKS.find((p) => p.id === packId);
+    if (!pack || !assignee) return;
+    setBusy(true);
+    try {
+      for (const c of pack.chores) {
+        await client.createChore({
+          title: c.title,
+          assignmentType: 'SPECIFIC',
+          assigneeUserIds: [assignee],
+          tokenValue: c.tokenValue,
+          recurrenceRule: c.recurrenceRule || undefined,
+          daysOfWeek: c.daysOfWeek ?? [],
+          checklist: c.checklist ?? [],
+          autoApprove: c.autoApprove ?? false,
+          allowSkip: c.allowSkip ?? false,
+        });
+      }
+      onDone();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Modal
+      header={<h3 className="text-lg font-bold">Starter packs</h3>}
+      footer={
+        <div className="flex justify-end">
+          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
+            Close
+          </button>
+        </div>
+      }
+      onBackdropClick={onClose}
+    >
+      <p className="text-sm text-slate-500">Add a ready-made, age-appropriate set of chores for one person. Everything is editable afterwards.</p>
+      <div className="mt-3">
+        <select value={assignee} onChange={(e) => setAssignee(e.target.value)} className="w-full rounded-md border px-3 py-2 text-sm">
+          <option value="">Who are these for?</option>
+          {candidates.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.displayName}
+            </option>
+          ))}
+        </select>
+      </div>
+      <ul className="mt-4 space-y-3">
+        {STARTER_PACKS.map((p) => (
+          <li key={p.id} className="card-nested rounded-lg p-3">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <span className="text-sm font-semibold">{p.label}</span>
+                <span className="ml-2 text-xs text-slate-400">ages {p.ages}</span>
+              </div>
+              <button
+                disabled={!assignee || busy}
+                onClick={() => add(p.id)}
+                className="rounded-md bg-slate-800 px-3 py-1.5 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
+              >
+                {busy ? 'Adding…' : `Add ${p.chores.length}`}
+              </button>
+            </div>
+            <p className="mt-1 text-xs text-slate-400">{p.chores.map((c) => c.title).join(' · ')}</p>
+          </li>
+        ))}
+      </ul>
     </Modal>
   );
 }
