@@ -116,7 +116,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
 
   const refresh = useCallback(() => {
     api
-      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), scope || null)
+      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), scope || 'none')
       .then((rows) => {
         // A scoped view merges the house's meals with family-wide ones; when
         // both exist on the same date, the HOUSE one wins the cell (sort
@@ -198,7 +198,7 @@ function GrocerySection({ scope }: { scope: string }) {
   const [items, setItems] = useState<GroceryItem[]>([]);
   const [label, setLabel] = useState('');
   const refresh = useCallback(() => {
-    api.grocery(scope || null).then(setItems).catch(() => setItems([]));
+    api.grocery(scope || 'none').then(setItems).catch(() => setItems([]));
   }, [scope]);
   useEffect(() => {
     refresh();
@@ -261,7 +261,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
   const [date, setDate] = useState('');
   const [emoji, setEmoji] = useState('🎉');
   const refresh = useCallback(() => {
-    api.countdowns(scope || null).then(setItems).catch(() => setItems([]));
+    api.countdowns(scope || 'none').then(setItems).catch(() => setItems([]));
   }, [scope]);
   useEffect(() => {
     refresh();
@@ -326,7 +326,7 @@ function AnnouncementsSection({ isAdult, scope }: { isAdult: boolean; scope: str
   const [items, setItems] = useState<AnnouncementEntry[]>([]);
   const [text, setText] = useState('');
   const refresh = useCallback(() => {
-    api.announcements(scope || null).then(setItems).catch(() => setItems([]));
+    api.announcements(scope || 'none').then(setItems).catch(() => setItems([]));
   }, [scope]);
   useEffect(() => {
     refresh();

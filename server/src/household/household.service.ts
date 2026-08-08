@@ -31,9 +31,11 @@ export class HouseholdService {
   }
 
   // The standard household scoping rule (same as chores/local calendars): a
-  // location sees its own items PLUS family-wide (locationId null) ones; no
-  // location filter = everything.
+  // location sees its own items PLUS family-wide (locationId null) ones.
+  // 'none' = strictly family-wide items (the Household page's Family-wide
+  // tab); no filter at all = everything (kiosk bundles for unscoped displays).
   private scope(locationId?: string | null) {
+    if (locationId === 'none') return { locationId: null };
     return locationId ? { OR: [{ locationId: null }, { locationId }] } : {};
   }
 
