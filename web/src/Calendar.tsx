@@ -325,15 +325,18 @@ export default function Calendar({
         key={animKey}
         onPointerDown={onGridPointerDown}
         onPointerUp={onGridPointerUp}
+        onPointerCancel={() => { swipeRef.current = null; }}
         className={`mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200 ${fill ? 'flex-1' : ''} ${animDir === 1 ? 'cal-slide-next' : 'cal-slide-prev'}`}
         style={{
           ...(fill ? { gridTemplateRows: `auto repeat(${rows}, minmax(0, 1fr))` } : undefined),
-          // month view: leave touch scrolling alone (only horizontal swipe
-          // is recognized there, and nothing there is scrollable
-          // horizontally anyway). 1wk/2wk also recognize a vertical swipe —
-          // blocking the browser's own vertical-pan-to-scroll there so it
-          // doesn't win the gesture before our pointerup handler sees it.
-          touchAction: effectiveView === 'month' ? 'auto' : 'pan-x',
+          // touch-action must EXCLUDE any pan direction we want to recognize
+          // as a swipe: once the browser claims a permitted pan it fires
+          // pointercancel and our pointerup never runs (mouse drags are
+          // unaffected, which is why this only broke on the kiosk's real
+          // touchscreen). Month view only swipes horizontally, so keep
+          // vertical page scroll (`pan-y`); 1wk/2wk swipe both axes, so the
+          // browser gets neither (`none`).
+          touchAction: effectiveView === 'month' ? 'pan-y' : 'none',
         }}
       >
         {WEEKDAYS.map((w) => (
