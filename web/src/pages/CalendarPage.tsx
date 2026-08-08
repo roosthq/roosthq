@@ -59,25 +59,32 @@ function Dashboard({ me }: { me: Me }) {
   return (
     <section className="mb-6">
       <h2 className="text-lg font-semibold tracking-tight">Family</h2>
-      <ul className="mt-3 flex flex-wrap gap-3">
+      {/* Full-width rows on a phone, content-sized cards from sm up. Wrapping
+          content-sized cards at 375px produced ragged tiles that split the
+          level badge across lines. */}
+      <ul className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
         {members.map((m) => (
-          <li key={m.id}>
+          <li key={m.id} className="min-w-0">
             <Link
               to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
-              className="panel panel-compact flex items-center gap-2 hover:bg-slate-50"
+              className="panel panel-compact flex w-full items-center gap-2 hover:bg-slate-50 sm:w-auto"
             >
               <Avatar name={m.displayName} src={m.avatar} size="sm" />
-              <span>
-                <span className="block text-sm font-medium">{m.displayName}</span>
-                <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-sm font-medium">{m.displayName}</span>
+                <span className="block truncate text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
               </span>
               {!m.tokensDisabled && (
-                <span className="ml-1 text-base font-bold" style={{ color: 'var(--accent)' }}>
+                <span className="ml-1 shrink-0 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
                   {tokenIcon} {balances[m.id] ?? 0}
                   <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                 </span>
               )}
-              {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && <LevelBadge earned={earnedBy[m.id] ?? 0} />}
+              {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && (
+                <span className="shrink-0 whitespace-nowrap">
+                  <LevelBadge earned={earnedBy[m.id] ?? 0} />
+                </span>
+              )}
             </Link>
           </li>
         ))}
