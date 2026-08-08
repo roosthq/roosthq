@@ -1,12 +1,12 @@
 // Completion celebration: a confetti burst (DOM + CSS, no dependencies) and
-// an optional synthesized chime (WebAudio, no audio assets). Sound is opt-in
-// per surface — the kiosk turns it on from its DisplayConfig (it has real
-// speakers); regular browser pages leave it off unless the user's own device
-// context enables it later.
+// a synthesized chime (WebAudio, no audio assets). Sound is on by default on
+// every surface — phones/tablets/desktop included — since the chime only ever
+// fires from a user's own tap (which also satisfies autoplay policies). The
+// kiosk overrides it from its DisplayConfig soundEffects toggle.
 
 const COLORS = ['#4e7a4c', '#d4c06a', '#6eaa6c', '#d4ead0', '#e07c5c', '#5baedd', '#b58ae0'];
 
-let soundEnabled = false;
+let soundEnabled = true;
 export function setCelebrationSound(on: boolean) {
   soundEnabled = on;
 }
