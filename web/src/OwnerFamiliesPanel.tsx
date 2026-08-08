@@ -134,7 +134,7 @@ export default function OwnerFamiliesPanel() {
             placeholder="e.g. Jessen Family"
             className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
           />
-          <button disabled={busy} onClick={addFamily} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50 disabled:opacity-50">
+          <button disabled={busy} onClick={addFamily} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50">
             Add family
           </button>
         </div>
@@ -154,7 +154,7 @@ export default function OwnerFamiliesPanel() {
           const isOpen = expanded === f.id;
           const movable = allMembers.filter((m) => m.familyId !== f.id && m.role !== 'OWNER');
           return (
-            <li key={f.id} className="rounded-lg border bg-white">
+            <li key={f.id} className="card-nested rounded-lg">
               <div className="flex w-full items-center justify-between px-3 py-2 text-sm">
                 <button onClick={() => toggleExpand(f.id)} className="flex-1 text-left font-medium hover:underline">
                   {f.name}
@@ -243,7 +243,7 @@ export default function OwnerFamiliesPanel() {
                         <option value="FAMILY_MANAGER">Family Manager</option>
                         <option value="OWNER">Owner</option>
                       </select>
-                      <button disabled={busy} onClick={() => inviteToFamily(f.id)} className="rounded border px-2 py-1 hover:bg-white disabled:opacity-50">
+                      <button disabled={busy} onClick={() => inviteToFamily(f.id)} className="rounded bg-slate-800 px-2 py-1 text-white hover:bg-slate-700 disabled:opacity-50">
                         Generate invite link
                       </button>
                     </div>

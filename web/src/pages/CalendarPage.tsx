@@ -344,11 +344,11 @@ export default function CalendarPage({ me }: { me: Me }) {
           <div className="flex flex-wrap gap-2">
             {isAdult && (
               <>
-                <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                <a href={`${loginUrl}?mode=self`} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
                   <span className="hidden sm:inline">+ Connect another of my Google accounts</span>
                   <span className="sm:hidden">+ Connect Google account</span>
                 </a>
-                <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                <button onClick={openPicker} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
                   Manage calendars
                 </button>
               </>
@@ -359,7 +359,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                   setPrefillDate(null);
                   setAddingEvent(true);
                 }}
-                className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+                className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
               >
                 + Add event
               </button>

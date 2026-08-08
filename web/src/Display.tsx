@@ -431,7 +431,7 @@ export default function Display() {
                 setPrefillDate(null);
                 setAddingEvent(true);
               }}
-              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
               + Add event
             </button>
@@ -439,7 +439,7 @@ export default function Display() {
           {active && isAdult && (
             <button
               onClick={() => setAddingAward(true)}
-              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
               + Add award
             </button>
@@ -447,7 +447,7 @@ export default function Display() {
           {active && isAdult && showPrizes && (
             <button
               onClick={() => setAddingPrize(true)}
-              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
               + Add prize
             </button>

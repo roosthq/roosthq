@@ -285,7 +285,7 @@ function LocationsSetting() {
             placeholder="e.g. Mom's house"
             className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
           />
-          <button onClick={add} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+          <button onClick={add} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
             Add
           </button>
         </div>
@@ -295,7 +295,7 @@ function LocationsSetting() {
         {locations.map((loc) => {
           const assigned = new Set(loc.users.map((u) => u.userId));
           return (
-            <li key={loc.id} className="rounded-lg border bg-white p-3">
+            <li key={loc.id} className="card-nested rounded-lg p-3">
               <div className="flex items-center justify-between">
                 <span className="font-medium">{loc.name}</span>
                 <button
@@ -399,7 +399,7 @@ function LocalCalendarsSetting() {
             placeholder="e.g. Shea Family"
             className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
           />
-          <button onClick={add} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+          <button onClick={add} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
             Add
           </button>
         </div>
@@ -407,7 +407,7 @@ function LocalCalendarsSetting() {
 
       <ul className="space-y-2">
         {calendars.map((c) => (
-          <li key={c.id} className="flex flex-wrap items-center gap-3 rounded-lg border bg-white p-3">
+          <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg p-3">
             <input
               type="color"
               value={c.color ?? '#94a3b8'}
@@ -489,7 +489,7 @@ function DisplaysManager() {
             placeholder="e.g. Kitchen"
             className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm sm:max-w-xs"
           />
-          <button onClick={create} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+          <button onClick={create} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
             Add
           </button>
         </div>
@@ -532,7 +532,7 @@ function DisplayRow({
   const feats = new Set(d.enabledFeatures);
 
   return (
-    <li className="rounded-lg border bg-white p-4">
+    <li className="card-nested rounded-lg p-4">
       <div className="flex items-center justify-between gap-2">
         <input
           defaultValue={d.name}

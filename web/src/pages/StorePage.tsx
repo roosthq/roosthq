@@ -115,7 +115,7 @@ export default function StorePage({
         <div className="flex items-center gap-2">
           {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
           {!isAdult && (
-            <button onClick={() => setSuggesting(true)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            <button onClick={() => setSuggesting(true)} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
               + Request a prize
             </button>
           )}
@@ -125,7 +125,7 @@ export default function StorePage({
                 setEditing(null);
                 setFormOpen(true);
               }}
-              className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+              className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
             >
               + Add prize
             </button>

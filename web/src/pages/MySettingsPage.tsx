@@ -426,7 +426,7 @@ export default function MySettingsPage({
           ))}
           {googleAccounts.length === 0 && <li className="text-sm text-slate-400">No Google account connected.</li>}
         </ul>
-        <a href={`${loginUrl}?mode=self`} className="mt-2 inline-block rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+        <a href={`${loginUrl}?mode=self`} className="mt-2 inline-block rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
           + Connect a Google account
         </a>
       </section>

@@ -101,7 +101,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
             setEditing(null);
             setFormOpen(true);
           }}
-          className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+          className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
         >
           + Add award
         </button>

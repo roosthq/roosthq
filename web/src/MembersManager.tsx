@@ -118,13 +118,13 @@ export default function MembersManager({ me }: { me: Me }) {
 
   if (!open)
     return (
-      <button onClick={() => setOpen(true)} className="rounded border bg-white px-3 py-1 hover:bg-slate-100">
+      <button onClick={() => setOpen(true)} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
         Family &amp; PINs
       </button>
     );
 
   return (
-    <div className="mt-2 w-full rounded border bg-white p-3">
+    <div className="card-nested mt-2 w-full rounded p-3">
       <div className="flex items-center justify-between">
         <span className="font-medium">Family members</span>
         <button onClick={() => setOpen(false)} className="text-sm text-slate-400 hover:text-slate-700">

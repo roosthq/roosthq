@@ -39,13 +39,13 @@ export default function DisplayAccess() {
 
   if (!open)
     return (
-      <button onClick={() => setOpen(true)} className="rounded border bg-white px-3 py-1 hover:bg-slate-100">
+      <button onClick={() => setOpen(true)} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
         Display access
       </button>
     );
 
   return (
-    <div className="mt-2 w-full rounded border bg-white p-3">
+    <div className="card-nested mt-2 w-full rounded p-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="font-medium">Display access (kiosk links)</span>
         <div className="flex items-center gap-2">

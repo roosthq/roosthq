@@ -564,7 +564,7 @@ export default function ChoresPanel({
                 setEditingId(null);
                 setFormOpen(true);
               }}
-              className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
+              className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
             >
               + New {choreWord}
             </button>

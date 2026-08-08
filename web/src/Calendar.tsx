@@ -365,7 +365,7 @@ export default function Calendar({
                   // Deliberately doesn't close this modal — the day stays
                   // highlighted and its detail view stays open underneath,
                   // so the new event shows up in it the moment it's saved.
-                  <button onClick={() => onAddEvent(selected)} className="rounded border px-2 py-1 text-sm hover:bg-slate-50">
+                  <button onClick={() => onAddEvent(selected)} className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700">
                     + Add event
                   </button>
                 )}
