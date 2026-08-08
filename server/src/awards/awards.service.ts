@@ -225,11 +225,17 @@ export class AwardsService {
   }
 
   // Net tokens a spun bonus wheel put in their pocket for this grant. Netted,
-  // not summed, so removing a grant twice (or after a manual adjustment) can't
-  // claw back more than was actually given.
+  // not summed, so a wheel bonus already reversed can't be clawed back twice.
+  // No `type` filter on purpose: WheelsService.spin writes its ledger entry as
+  // STREAK_BONUS (it serves streak milestones too) while the reversal below is
+  // an AWARD entry — matching on refId plus the reason is what actually
+  // identifies these rows.
   private async wheelTokensFor(grantId: string) {
     const entries = await this.prisma.tokenLedger.findMany({
-      where: { refId: grantId, type: 'AWARD', reason: { startsWith: 'Bonus wheel:' } },
+      where: {
+        refId: grantId,
+        OR: [{ reason: { startsWith: 'Bonus wheel:' } }, { reason: { contains: '(wheel bonus)' } }],
+      },
       select: { delta: true },
     });
     return entries.reduce((sum, e) => sum + e.delta, 0);
