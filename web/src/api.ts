@@ -34,6 +34,7 @@ export interface Me {
   themePref?: 'light' | 'dark';
   colorTheme?: string;
   fontSizePref?: FontSize;
+  soundEffects?: boolean;
   notifyByEmail?: boolean;
   // Whether a local password is set — never the hash itself. Drives whether
   // the password-change form asks for the current one at all.
@@ -562,6 +563,11 @@ export const api = {
     req<{ ok: boolean; notifyByEmail: boolean }>('/users/me/notify-by-email', {
       method: 'PUT',
       body: JSON.stringify({ notifyByEmail }),
+    }),
+  setSoundEffects: (soundEffects: boolean) =>
+    req<{ ok: boolean; soundEffects: boolean }>('/users/me/sound-effects', {
+      method: 'PUT',
+      body: JSON.stringify({ soundEffects }),
     }),
 
   pushPublicKey: () => req<{ key: string | null }>('/notifications/push/public-key'),

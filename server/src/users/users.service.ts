@@ -97,6 +97,13 @@ export class UsersService {
     return { ok: true, notifyByEmail };
   }
 
+  // Current user's own celebration-sound preference (app surfaces; the kiosk
+  // follows its display's soundEffects setting instead).
+  async setSoundEffects(userId: string, soundEffects: boolean) {
+    await this.prisma.user.update({ where: { id: userId }, data: { soundEffects: !!soundEffects } });
+    return { ok: true, soundEffects: !!soundEffects };
+  }
+
   // Who can flip tokensDisabled for whom (exact, as specified — deliberately
   // narrower than the PIN/reset rules above): a kid never can; a plain adult
   // only for a kid; a family manager for an adult, a kid, or themself (but

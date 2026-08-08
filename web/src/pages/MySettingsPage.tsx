@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, loginUrl, COLOR_THEMES, type Me, type GoogleAccountInfo } from '../api';
+import { setCelebrationSound } from '../celebrate';
 import { Avatar } from './CalendarPage';
 import ImageCropper, { cropImageToDataUri, type CropRect } from '../ImageCropper';
 import { useDialog } from '../Dialog';
@@ -118,6 +119,19 @@ export default function MySettingsPage({
     const next = !emailOn;
     setEmailOn(next);
     await api.setNotifyByEmail(next).catch(() => setEmailOn(!next));
+  }
+
+  // Celebration chime on complete/approve — applies immediately (no reload)
+  // via setCelebrationSound, persisted per user on the server.
+  const [soundOn, setSoundOn] = useState(me.soundEffects !== false);
+  async function toggleSound() {
+    const next = !soundOn;
+    setSoundOn(next);
+    setCelebrationSound(next);
+    await api.setSoundEffects(next).catch(() => {
+      setSoundOn(!next);
+      setCelebrationSound(!next);
+    });
   }
 
   async function saveIdentity() {
@@ -400,6 +414,10 @@ export default function MySettingsPage({
               Also email me notifications
             </label>
           )}
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={soundOn} onChange={toggleSound} />
+            Celebration sound when completing tasks
+          </label>
         </div>
       </section>
 

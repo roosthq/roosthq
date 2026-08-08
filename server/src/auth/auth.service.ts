@@ -347,6 +347,7 @@ export class AuthService {
         themePref: true,
         colorTheme: true,
         fontSizePref: true,
+        soundEffects: true,
         notifyByEmail: true,
         passwordHash: true, // stripped below — only its presence (hasPassword) ever leaves this method
       },

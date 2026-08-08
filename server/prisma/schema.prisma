@@ -226,6 +226,7 @@ model User {
   themePref     String  @default("light") // per-user app UI theme: light | dark
   colorTheme    String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
   fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
+  soundEffects  Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
   notifyByEmail Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,

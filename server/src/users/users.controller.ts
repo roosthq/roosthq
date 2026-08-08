@@ -82,4 +82,10 @@ export class UsersController {
   setNotifyByEmail(@CurrentUser() u: SessionPayload, @Body() body: { notifyByEmail: boolean }) {
     return this.users.setNotifyByEmail(u.userId, body.notifyByEmail);
   }
+
+  // Current user's own celebration-sound preference.
+  @Put('me/sound-effects')
+  setSoundEffects(@CurrentUser() u: SessionPayload, @Body() body: { soundEffects: boolean }) {
+    return this.users.setSoundEffects(u.userId, body.soundEffects);
+  }
 }

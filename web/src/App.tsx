@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { api, loginUrl, pluralize, type Me, type FamilySettings, type FontSize } from './api';
+import { setCelebrationSound } from './celebrate';
 import Nav from './Nav';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
@@ -40,6 +41,9 @@ export default function App() {
       applyMode(u.themePref ?? 'light');
       applyColorTheme(u.colorTheme ?? 'meadow');
       applyFontSize(u.fontSizePref ?? 'md');
+      // Per-user chime preference for the main app; the kiosk (which never
+      // renders App) sets this from its own display config instead.
+      setCelebrationSound(u.soundEffects !== false);
       try {
         setFamily(await api.familySettings());
       } catch {
