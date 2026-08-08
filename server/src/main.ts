@@ -24,6 +24,9 @@ function deactivatedAccountGate(prisma: PrismaService) {
   }
 
   return async (req: Request, res: Response, next: NextFunction) => {
+    // Logging out always works — otherwise a deactivated account is stuck with
+    // a cookie it can neither use nor clear.
+    if (req.path.endsWith('/auth/logout')) return next();
     const token = (req.headers['x-kiosk-token'] as string) ?? req.cookies?.[SESSION_COOKIE];
     if (!token) return next();
     let userId: string;
