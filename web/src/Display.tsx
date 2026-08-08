@@ -719,7 +719,7 @@ export default function Display() {
                           {tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
                           {famOn('levels') && (
                             <span className="block text-[10px] font-medium text-slate-400">
-                              \u2b50 Lv {levelFor(pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0)}
+                              ⭐ Lv {levelFor(pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0)}
                             </span>
                           )}
                         </span>
