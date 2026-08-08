@@ -71,7 +71,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <h2 className="text-xl font-bold tracking-tight">Household</h2>
       {scopeOptions.length > 0 && (
         <div className="flex flex-wrap gap-1">
@@ -93,9 +93,9 @@ export default function HouseholdPage({ me }: { me: Me }) {
         </div>
       )}
       {meals && <MealsSection isAdult={isAdult} scope={scope} />}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {grocery && <GrocerySection scope={scope} me={me} />}
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           {countdowns && <CountdownsSection isAdult={isAdult} scope={scope} />}
           {announcements && <AnnouncementsSection isAdult={isAdult} scope={scope} />}
         </div>
@@ -141,7 +141,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
 
   const todayKey = dateKey(new Date());
   return (
-    <section className="panel">
+    <section className="panel min-w-0">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-base font-semibold tracking-tight">🍽️ Dinner plan</h3>
         <div className="flex items-center gap-1 text-sm">
@@ -217,7 +217,7 @@ function GrocerySection({ scope, me }: { scope: string; me: Me }) {
   }
   const anyChecked = items.some((i) => i.checked);
   return (
-    <section className="panel">
+    <section className="panel min-w-0">
       <h3 className="text-base font-semibold tracking-tight">🛒 Grocery list</h3>
       {canEdit && (
         <div className="mt-3 flex gap-2">
@@ -299,13 +299,13 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
     refresh();
   }
   return (
-    <section className="panel">
+    <section className="panel min-w-0">
       <h3 className="text-base font-semibold tracking-tight">⏳ Countdowns</h3>
       <ul className="mt-3 space-y-2">
         {allItems.map((c) => {
           const days = daysUntil(c.date);
           return (
-            <li key={c.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
+            <li key={c.id} className="card-nested flex min-w-0 items-center gap-3 rounded-lg px-3 py-2">
               <span className="text-2xl">{c.emoji}</span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium">
@@ -363,12 +363,12 @@ function AnnouncementsSection({ isAdult, scope }: { isAdult: boolean; scope: str
     refresh();
   }
   return (
-    <section className="panel">
+    <section className="panel min-w-0">
       <h3 className="text-base font-semibold tracking-tight">📣 Announcements</h3>
       <ul className="mt-3 space-y-2">
         {items.map((a) => (
-          <li key={a.id} className="card-nested flex items-start gap-2 rounded-lg px-3 py-2 text-sm">
-            <span className="flex-1">
+          <li key={a.id} className="card-nested flex min-w-0 items-start gap-2 rounded-lg px-3 py-2 text-sm">
+            <span className="min-w-0 flex-1 break-words">
               {a.text}
               {scope && !a.locationId && <span className="ml-1 text-[10px] text-slate-400">(family-wide)</span>}
             </span>

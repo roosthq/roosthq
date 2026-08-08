@@ -176,7 +176,7 @@ function FamilyFeaturesSetting() {
       title="Features"
       help="Turn whole features on or off for this family. Kiosk displays additionally pick which widgets they show, per display."
     >
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {FAMILY_FEATURES.map((f) => (
           <label key={f.id} className="flex items-start gap-2 text-sm">
             <input
@@ -624,7 +624,7 @@ function DisplayRow({
         </button>
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Location">
           <select
             value={d.locationId ?? ''}

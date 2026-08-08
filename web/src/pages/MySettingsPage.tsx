@@ -281,7 +281,7 @@ export default function MySettingsPage({
         </div>
         {avatarError && <p className="mt-1 text-xs text-red-500">{avatarError}</p>}
 
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="block text-sm">
             <span className="text-xs font-medium text-slate-500">Display name</span>
             <input
@@ -359,7 +359,7 @@ export default function MySettingsPage({
 
       <section className="panel">
         <h3 className="text-base font-semibold tracking-tight">Password</h3>
-        <div className="mt-3 grid gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
           {/* Only asked for when one's actually already set — nothing to
               confirm against on a Google-only account setting one for the
               first time, so don't show a field (or a message) for that case. */}
