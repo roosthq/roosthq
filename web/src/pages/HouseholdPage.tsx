@@ -71,19 +71,26 @@ export default function HouseholdPage({ me }: { me: Me }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-bold tracking-tight">Household</h2>
-        {scopeOptions.length > 0 && (
-          <select value={scope} onChange={(e) => setScope(e.target.value)} className="rounded border px-2 py-1.5 text-sm">
-            <option value="">Family-wide</option>
-            {scopeOptions.map((l) => (
-              <option key={l.id} value={l.id}>
-                {l.name}
-              </option>
-            ))}
-          </select>
-        )}
-      </div>
+      <h2 className="text-xl font-bold tracking-tight">Household</h2>
+      {scopeOptions.length > 0 && (
+        <div className="flex flex-wrap gap-1">
+          <button
+            onClick={() => setScope('')}
+            className={`rounded-full border px-3 py-1 text-sm ${scope === '' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            Family-wide
+          </button>
+          {scopeOptions.map((l) => (
+            <button
+              key={l.id}
+              onClick={() => setScope(l.id)}
+              className={`rounded-full border px-3 py-1 text-sm ${scope === l.id ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              🏠 {l.name}
+            </button>
+          ))}
+        </div>
+      )}
       {meals && <MealsSection isAdult={isAdult} scope={scope} />}
       <div className="grid gap-6 lg:grid-cols-2">
         {grocery && <GrocerySection scope={scope} />}
