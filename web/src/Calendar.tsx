@@ -54,6 +54,23 @@ function coveredDays(e: CalEvent): string[] {
   return keys;
 }
 
+// Only meaningful for multi-day events — a single-day one's date is already
+// obvious from which day's modal you're looking at, so showing it there
+// too would just be clutter on every ordinary event.
+function isMultiDay(e: CalEvent): boolean {
+  const s = dayStart(e);
+  const en = dayEnd(e);
+  return !!s && !!en && keyOf(s) !== keyOf(en);
+}
+
+function dateRangeLabel(e: CalEvent): string {
+  const s = dayStart(e);
+  const en = dayEnd(e);
+  if (!s || !en) return '';
+  const opt: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+  return `${s.toLocaleDateString(undefined, opt)} – ${en.toLocaleDateString(undefined, opt)}`;
+}
+
 function timeLabel(e: CalEvent): string {
   if (isAllDay(e)) return 'All day';
   const s = e.start?.dateTime;
@@ -385,7 +402,11 @@ export default function Calendar({
         >
           <ul className="space-y-2">
             {selectedEvents.map((e) => (
-              <li key={`${e.uid}-detail`} className="card-nested flex gap-3 rounded p-3">
+              <li
+                key={`${e.uid}-detail`}
+                className="card-nested flex gap-3 rounded border-l-4 p-3"
+                style={{ borderLeftColor: e.calendarColor ?? '#94a3b8' }}
+              >
                 <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-start justify-between gap-2">
@@ -396,8 +417,20 @@ export default function Calendar({
                       </button>
                     )}
                   </div>
+                  {/* Which calendar this actually belongs to — two events with
+                      the same title on different calendars (e.g. two kids'
+                      separate "Spring Break") were otherwise indistinguishable
+                      here, even though the month grid's own pills already
+                      color-code by calendar. */}
+                  {e.calendarName && (
+                    <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: e.calendarColor ?? '#64748b' }}>
+                      <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
+                      {e.calendarName}
+                    </div>
+                  )}
                   <div className="text-sm text-slate-500">
                     {timeLabel(e)}
+                    {isMultiDay(e) ? ` · ${dateRangeLabel(e)}` : ''}
                     {e.location ? ` · ${e.location}` : ''}
                   </div>
                   {e.description && <div className="mt-1 text-sm text-slate-600 whitespace-pre-wrap break-words">{e.description}</div>}
