@@ -180,6 +180,7 @@ export class PrizesService {
     const requester = await this.prisma.user.findUnique({ where: { id: userId } });
     await this.notifications.notifyAdults(familyId, 'PRIZE_SUGGESTED', `${requester?.displayName ?? 'A kid'} wants "${dto.name}" added to the store`, {
       link: '/store',
+      refId: prize.id,
     });
     this.displayEvents.publish(familyId, { type: 'prizes' });
     return prize;
@@ -225,7 +226,10 @@ export class PrizesService {
   async remove(familyId: string, actorId: string, id: string) {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);
+    // Redemptions cascade with the prize; their notifications don't.
+    const redemptions = await this.prisma.redemption.findMany({ where: { prizeId: id }, select: { id: true } });
     await this.prisma.prize.delete({ where: { id } });
+    await this.notifications.removeByRef([id, ...redemptions.map((r) => r.id)]);
     this.displayEvents.publish(familyId, { type: 'prizes' });
     return { ok: true };
   }
@@ -274,6 +278,7 @@ export class PrizesService {
     await this.notifications.notifyAdults(familyId, 'REDEMPTION_REQUESTED', `${actor.displayName} wants "${prize.name}"`, {
       link: '/store',
       excludeUserId: actingUserId,
+      refId: redemption.id,
     });
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return redemption;
@@ -317,8 +322,11 @@ export class PrizesService {
       r.userId,
       status === 'FULFILLED' ? 'REDEMPTION_FULFILLED' : 'REDEMPTION_REJECTED',
       status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined — tokens refunded`,
-      { link: '/store' },
+      { link: '/store', refId: r.id },
     );
+    // The "wants this" ask has been answered — drop it from the adults' feed
+    // so the inbox doesn't keep nagging about a settled request.
+    await this.notifications.removeByRef(r.id);
     this.displayEvents.publish(familyId, { type: status === 'REJECTED' ? 'tokens' : 'prizes' });
     return updated;
   }

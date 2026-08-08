@@ -116,14 +116,14 @@ export default function HolidaysPanel() {
       </p>
 
       <div className="card-nested rounded-lg p-3">
-        <div className="flex flex-wrap items-end gap-2">
+        <div className="grid grid-cols-1 items-end gap-3 sm:grid-cols-2">
           <label className="text-sm">
             <span className="block text-xs text-slate-500">Name</span>
             <input
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
               placeholder="e.g. Arbor Day"
-              className="mt-1 min-w-0 rounded border px-2 py-1.5 text-sm"
+              className="mt-1 w-full min-w-0 rounded border px-2 py-1.5 text-sm"
             />
           </label>
           <label className="text-sm">
@@ -131,7 +131,7 @@ export default function HolidaysPanel() {
             <select
               value={form.ruleType}
               onChange={(e) => setRuleType(e.target.value as HolidayRuleType)}
-              className="mt-1 rounded border px-2 py-1.5 text-sm"
+              className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
             >
               <option value="FIXED">Same date every year</option>
               <option value="NTH_WEEKDAY">Nth weekday of a month</option>
@@ -146,7 +146,7 @@ export default function HolidaysPanel() {
                 <select
                   value={form.month ?? 1}
                   onChange={(e) => setForm((f) => ({ ...f, month: Number(e.target.value) }))}
-                  className="mt-1 rounded border px-2 py-1.5 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
                 >
                   {MONTHS.map((m, i) => (
                     <option key={m} value={i + 1}>{m}</option>
@@ -162,7 +162,7 @@ export default function HolidaysPanel() {
                   value={form.day ?? 1}
                   onChange={(e) => setForm((f) => ({ ...f, day: Number(e.target.value) }))}
                   onFocus={(e) => e.target.select()}
-                  className="mt-1 w-16 rounded border px-2 py-1.5 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
                 />
               </label>
             </>
@@ -175,7 +175,7 @@ export default function HolidaysPanel() {
                 <select
                   value={form.ordinal ?? 1}
                   onChange={(e) => setForm((f) => ({ ...f, ordinal: Number(e.target.value) }))}
-                  className="mt-1 rounded border px-2 py-1.5 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
                 >
                   {ORDINALS.map((o) => (
                     <option key={o.value} value={o.value}>{o.label}</option>
@@ -187,7 +187,7 @@ export default function HolidaysPanel() {
                 <select
                   value={form.weekday ?? 0}
                   onChange={(e) => setForm((f) => ({ ...f, weekday: Number(e.target.value) }))}
-                  className="mt-1 rounded border px-2 py-1.5 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
                 >
                   {WEEKDAYS.map((w, i) => (
                     <option key={w} value={i}>{w}</option>
@@ -199,7 +199,7 @@ export default function HolidaysPanel() {
                 <select
                   value={form.month ?? 1}
                   onChange={(e) => setForm((f) => ({ ...f, month: Number(e.target.value) }))}
-                  className="mt-1 rounded border px-2 py-1.5 text-sm"
+                  className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
                 >
                   {MONTHS.map((m, i) => (
                     <option key={m} value={i + 1}>{m}</option>
@@ -217,7 +217,7 @@ export default function HolidaysPanel() {
                 value={form.offsetDays ?? 0}
                 onChange={(e) => setForm((f) => ({ ...f, offsetDays: Number(e.target.value) }))}
                 onFocus={(e) => e.target.select()}
-                className="mt-1 w-20 rounded border px-2 py-1.5 text-sm"
+                className="mt-1 w-full rounded border px-2 py-1.5 text-sm"
               />
             </label>
           )}
@@ -225,35 +225,46 @@ export default function HolidaysPanel() {
           <button
             disabled={busy || !form.title.trim()}
             onClick={add}
-            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+            className="w-full rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700 disabled:opacity-50 sm:col-span-2"
           >
-            Add
+            Add holiday
           </button>
         </div>
         {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
       </div>
 
-      <ul className="space-y-1.5">
+      {/* One card per holiday. The old single-line row (tag + input + rule text
+          + next date + Delete, all shrink-0) could not fit a phone at all. */}
+      <ul className="space-y-2">
         {rules.map((r) => (
-          <li key={r.id} className="card-nested flex items-center gap-3 rounded px-3 py-2 text-sm">
-            {monthTag(r) && (
-              <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
-                {monthTag(r)}
+          <li key={r.id} className="card-nested rounded-lg p-3 text-sm">
+            <div className="flex items-center gap-2">
+              {monthTag(r) && (
+                <span
+                  className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium"
+                  style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                >
+                  {monthTag(r)}
+                </span>
+              )}
+              <input
+                defaultValue={r.title}
+                onBlur={(e) => e.target.value.trim() && e.target.value !== r.title && patch(r.id, { title: e.target.value.trim() })}
+                className="min-w-0 flex-1 rounded border px-2 py-1.5 text-sm"
+              />
+            </div>
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span className="min-w-0 text-slate-500">
+                {describe(r)}
+                {formatNext(r) && <span className="ml-2 text-slate-400">{formatNext(r)}</span>}
               </span>
-            )}
-            <input
-              defaultValue={r.title}
-              onBlur={(e) => e.target.value.trim() && e.target.value !== r.title && patch(r.id, { title: e.target.value.trim() })}
-              className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
-            />
-            <span className="shrink-0 text-slate-400">{describe(r)}</span>
-            <span className="shrink-0 text-xs text-slate-400">{formatNext(r)}</span>
-            <button onClick={() => del(r.id, r.title)} className="ml-auto text-xs text-red-500 hover:text-red-700">
-              Delete
-            </button>
+              <button onClick={() => del(r.id, r.title)} className="shrink-0 text-red-500 hover:text-red-700">
+                Delete
+              </button>
+            </div>
           </li>
         ))}
-        {rules.length === 0 && <li className="text-sm text-slate-400">No holidays yet — add one above.</li>}
+        {rules.length === 0 && <li className="text-sm text-slate-500">No holidays yet — add one above.</li>}
       </ul>
     </div>
   );

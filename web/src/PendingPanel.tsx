@@ -71,8 +71,8 @@ export default function PendingPanel({
   if (pendingChores.length === 0 && pendingRedemptions.length === 0) return null;
 
   return (
-    <section className="rounded-lg border bg-amber-50 p-3">
-      <h3 className="text-sm font-semibold text-amber-800">
+    <section className="alert-banner p-3">
+      <h3 className="text-sm font-semibold">
         Pending ({pendingChores.length + pendingRedemptions.length})
       </h3>
       <ul className="mt-2 space-y-2">

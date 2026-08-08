@@ -27,9 +27,23 @@ export class AwardsController {
     return this.awards.history(u.familyId, u.userId);
   }
 
+  // What the confirm dialog needs to describe the "also take the tokens back"
+  // checkbox: award tokens and wheel tokens actually banked from this grant.
+  @Get('grants/:grantId/impact')
+  grantImpact(@CurrentUser() u: SessionPayload, @Param('grantId') grantId: string) {
+    return this.awards.grantTokenImpact(u.familyId, u.userId, grantId);
+  }
+
+  // removeTokens defaults to true (previous behaviour); pass '0'/'false' to
+  // keep the tokens and only take the badge back.
   @Delete('grants/:grantId')
-  removeGrant(@CurrentUser() u: SessionPayload, @Param('grantId') grantId: string) {
-    return this.awards.removeGrant(u.familyId, u.userId, grantId);
+  removeGrant(
+    @CurrentUser() u: SessionPayload,
+    @Param('grantId') grantId: string,
+    @Query('removeTokens') removeTokens?: string,
+  ) {
+    const keep = removeTokens === '0' || removeTokens === 'false';
+    return this.awards.removeGrant(u.familyId, u.userId, grantId, { removeTokens: !keep });
   }
 
   @Post()

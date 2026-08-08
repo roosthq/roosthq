@@ -1,5 +1,6 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { hashPassword } from '../crypto/password';
 
 // Instance-level powers, deliberately gated on the literal OWNER role (not
 // FAMILY_MANAGER) — multi-family management and ghosting reach across every
@@ -58,8 +59,84 @@ export class OwnerService {
     await this.assertOwner(actorId);
     return this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, email: true },
+      select: { id: true, displayName: true, role: true, avatar: true, email: true, username: true, active: true },
       orderBy: { displayName: 'asc' },
+    });
+  }
+
+  // Lock an account out (or let it back in) without touching its history —
+  // the gate in main.ts refuses every request from an inactive user.
+  async setUserActive(actorId: string, targetUserId: string, active: boolean) {
+    await this.assertOwner(actorId);
+    if (targetUserId === actorId) throw new BadRequestException("You can't deactivate your own account");
+    const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
+    if (!target) throw new NotFoundException('Member not found');
+    // Never leave the instance with no way in.
+    if (!active && target.role === 'OWNER') {
+      const activeOwners = await this.prisma.user.count({ where: { role: 'OWNER', active: true } });
+      if (activeOwners <= 1) throw new BadRequestException('That is the only active owner left');
+    }
+    await this.prisma.user.update({ where: { id: targetUserId }, data: { active } });
+    return { ok: true, active };
+  }
+
+  // Hard delete. Everything of theirs cascades (ledger, assignments, awards
+  // received, notifications) — deactivation is the reversible option and the
+  // UI says so.
+  async deleteUser(actorId: string, targetUserId: string) {
+    await this.assertOwner(actorId);
+    if (targetUserId === actorId) throw new BadRequestException("You can't delete your own account here");
+    const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
+    if (!target) throw new NotFoundException('Member not found');
+    if (target.role === 'OWNER') {
+      const owners = await this.prisma.user.count({ where: { role: 'OWNER' } });
+      if (owners <= 1) throw new BadRequestException('That is the only owner left');
+    }
+    await this.prisma.user.delete({ where: { id: targetUserId } });
+    return { ok: true };
+  }
+
+  // Create an account in any family, no invite involved — the owner-side
+  // counterpart of Settings > "add directly". A password is optional (they can
+  // sign in with Google on the matching email, or get one set later).
+  async createUser(
+    actorId: string,
+    input: {
+      familyId: string;
+      role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
+      displayName: string;
+      email?: string;
+      username?: string;
+      password?: string;
+    },
+  ) {
+    await this.assertOwner(actorId);
+    const family = await this.prisma.family.findUnique({ where: { id: input.familyId } });
+    if (!family) throw new NotFoundException('Family not found');
+    const displayName = input.displayName?.trim();
+    if (!displayName) throw new BadRequestException('Name is required');
+    const email = input.email?.trim() || undefined;
+    const username = input.username?.trim() || undefined;
+    // Same rule as the invite/settings path: a grown-up needs a way to sign in.
+    if (input.role !== 'KID' && !email && !username) {
+      throw new BadRequestException('An adult needs an email address or a username to sign in with');
+    }
+    if (username) {
+      const taken = await this.prisma.user.findUnique({ where: { username } });
+      if (taken) throw new BadRequestException('That username is already taken');
+    }
+    if (input.password && input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
+    const passwordHash = input.password ? hashPassword(input.password) : undefined;
+    return this.prisma.user.create({
+      data: {
+        familyId: input.familyId,
+        role: input.role,
+        displayName,
+        email,
+        username,
+        passwordHash,
+      },
+      select: { id: true, displayName: true, role: true, email: true, username: true, active: true },
     });
   }
 

@@ -20,9 +20,16 @@ export default function Modal({
   onBackdropClick?: () => void;
 }) {
   return (
-    <div className={`fixed inset-0 flex items-center justify-center bg-black/40 p-4 ${className}`} onClick={onBackdropClick}>
+    // z-50 puts the dialog above the fixed bottom tab bar (z-40) — without it
+    // the tab bar painted over the footer and swallowed the submit button.
+    // The extra bottom padding on phones keeps the card itself clear of the
+    // bar rather than just layering on top of it.
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 pb-[calc(1rem+3.6rem+env(safe-area-inset-bottom))] lg:pb-4 ${className}`}
+      onClick={onBackdropClick}
+    >
       <div
-        className={`flex max-h-[85vh] w-full ${maxWidthClass} flex-col rounded-lg bg-white`}
+        className={`flex max-h-[85vh] w-full ${maxWidthClass} flex-col overflow-hidden rounded-lg bg-white`}
         onClick={(e) => e.stopPropagation()}
       >
         {header && <div className="shrink-0 px-5 pt-5 pb-3">{header}</div>}

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api, ROLE_ICON, ROLE_LABEL, type FamilyInfo, type Member } from './api';
 import { useDialog } from './Dialog';
+import InviteLinkBox from './InviteLinkBox';
 
 // Instance-owner-only: create families, see who's in each, move a member
 // between families (with a role for their new home), invite someone
@@ -17,7 +18,18 @@ export default function OwnerFamiliesPanel() {
 
   const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
   const [inviteRole, setInviteRole] = useState<Record<string, 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
-  const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
+  const [fresh, setFresh] = useState<{ url: string; token: string } | null>(null);
+  // "Create an account here" form, per family - no invite, no Google needed.
+  const [addForm, setAddForm] = useState<
+    Record<
+      string,
+      { role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'; displayName: string; email: string; username: string; password: string }
+    >
+  >({});
+  const blankAdd = { role: 'KID' as const, displayName: '', email: '', username: '', password: '' };
+  const addFor = (familyId: string) => addForm[familyId] ?? blankAdd;
+  const setAddFor = (familyId: string, patch: Partial<ReturnType<typeof addFor>>) =>
+    setAddForm((prev) => ({ ...prev, [familyId]: { ...addFor(familyId), ...patch } }));
 
   const refresh = useCallback(async () => {
     const f = await api.listFamilies();
@@ -92,7 +104,7 @@ export default function OwnerFamiliesPanel() {
     setError(null);
     try {
       const minted = await api.createInvite(role, undefined, familyId);
-      setFreshInviteUrl(`${window.location.origin}/?invite=${minted.token}`);
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -107,6 +119,72 @@ export default function OwnerFamiliesPanel() {
     try {
       await api.deleteFamily(f.id);
       await refresh();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function createUser(familyId: string) {
+    const form = addFor(familyId);
+    if (!form.displayName.trim()) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await api.ownerCreateUser({
+        familyId,
+        role: form.role,
+        displayName: form.displayName.trim(),
+        email: form.email.trim() || undefined,
+        username: form.username.trim() || undefined,
+        password: form.password || undefined,
+      });
+      setAddForm((prev) => ({ ...prev, [familyId]: blankAdd }));
+      await refresh();
+      await loadMembers(familyId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Deactivating is the reversible option: they keep every row of history but
+  // cannot use the app. Only the turning-off direction needs a confirm.
+  async function toggleActive(familyId: string, m: Member) {
+    const turningOff = m.active !== false;
+    if (turningOff) {
+      const ok = await confirm(
+        `Deactivate ${m.displayName}? They stay in the family and keep all their history, but cannot sign in or use the app until you turn them back on.`,
+        { danger: true, confirmLabel: 'Deactivate' },
+      );
+      if (!ok) return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      await api.ownerSetUserActive(m.id, !turningOff);
+      await loadMembers(familyId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function deleteUser(familyId: string, m: Member) {
+    const ok = await confirm(
+      `Permanently delete ${m.displayName}? Their chores, tokens, awards, and history go with them. This cannot be undone - deactivating instead keeps everything.`,
+      { danger: true, confirmLabel: 'Delete forever' },
+    );
+    if (!ok) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await api.ownerDeleteUser(m.id);
+      await refresh();
+      await loadMembers(familyId);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -141,12 +219,7 @@ export default function OwnerFamiliesPanel() {
         {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
 
-      {freshInviteUrl && (
-        <div className="rounded bg-amber-50 p-2 text-xs">
-          <p className="mb-1 font-medium text-amber-700">Send this link to join that family. One-time use:</p>
-          <code className="block break-all rounded bg-white p-2">{freshInviteUrl}</code>
-        </div>
-      )}
+      {fresh && <InviteLinkBox url={fresh.url} token={fresh.token} />}
 
       <ul className="space-y-2">
         {families.map((f) => {
@@ -174,21 +247,102 @@ export default function OwnerFamiliesPanel() {
               </div>
               {isOpen && (
                 <div className="space-y-3 border-t p-3">
-                  <ul className="space-y-1">
+                  {/* One card per member: name/role on its own line, controls
+                      wrapped beneath, so three buttons still fit a phone. */}
+                  <ul className="space-y-2">
                     {members?.map((m) => (
-                      <li key={m.id} className="flex items-center gap-2 text-sm">
-                        <span>{ROLE_ICON[m.role]}</span>
-                        <span className="flex-1">{m.displayName}</span>
-                        <span className="text-xs text-slate-400">{ROLE_LABEL[m.role] ?? m.role}</span>
-                        <button onClick={() => ghostAs(m)} className="rounded border px-2 py-0.5 text-xs hover:bg-slate-50">
-                          👻 Ghost as
-                        </button>
+                      <li key={m.id} className="rounded-lg border p-2 text-sm" style={{ background: 'var(--surface)' }}>
+                        <div className="flex min-w-0 items-center gap-2">
+                          <span>{ROLE_ICON[m.role]}</span>
+                          <span className="min-w-0 flex-1 truncate font-medium">{m.displayName}</span>
+                          {m.active === false && (
+                            <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                              Deactivated
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-0.5 truncate text-xs text-slate-500">
+                          {ROLE_LABEL[m.role] ?? m.role}
+                          {m.email ? ` · ${m.email}` : m.username ? ` · @${m.username}` : ''}
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                          <button onClick={() => ghostAs(m)} className="rounded border px-2 py-1 hover:bg-slate-50">
+                            👻 Ghost as
+                          </button>
+                          <button
+                            disabled={busy}
+                            onClick={() => toggleActive(f.id, m)}
+                            className="rounded border px-2 py-1 hover:bg-slate-50 disabled:opacity-50"
+                          >
+                            {m.active === false ? '✅ Reactivate' : '🚫 Deactivate'}
+                          </button>
+                          <button
+                            disabled={busy}
+                            onClick={() => deleteUser(f.id, m)}
+                            className="rounded border px-2 py-1 text-red-500 hover:bg-red-50 disabled:opacity-50"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </li>
                     ))}
-                    {members?.length === 0 && <li className="text-xs text-slate-400">No members yet.</li>}
+                    {members?.length === 0 && <li className="text-xs text-slate-500">No members yet.</li>}
                   </ul>
 
-                  <div className="rounded bg-slate-100 p-2">
+                  {/* Create an account outright - the owner-side equivalent of
+                      Settings > add-directly, for any family and any role. */}
+                  <div className="card-nested rounded-lg p-3">
+                    <p className="text-xs font-medium">Create an account in this family</p>
+                    <div className="mt-2 grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
+                      <select
+                        value={addFor(f.id).role}
+                        onChange={(e) => setAddFor(f.id, { role: e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' })}
+                        className="w-full rounded border px-2 py-1.5"
+                      >
+                        <option value="KID">Kid</option>
+                        <option value="ADULT">Adult</option>
+                        <option value="FAMILY_MANAGER">Family Manager</option>
+                        <option value="OWNER">Owner</option>
+                      </select>
+                      <input
+                        value={addFor(f.id).displayName}
+                        onChange={(e) => setAddFor(f.id, { displayName: e.target.value })}
+                        placeholder="Name (required)"
+                        className="w-full min-w-0 rounded border px-2 py-1.5"
+                      />
+                      <input
+                        value={addFor(f.id).email}
+                        onChange={(e) => setAddFor(f.id, { email: e.target.value })}
+                        placeholder={addFor(f.id).role === 'KID' ? 'Email (optional)' : 'Email'}
+                        className="w-full min-w-0 rounded border px-2 py-1.5"
+                      />
+                      <input
+                        value={addFor(f.id).username}
+                        onChange={(e) => setAddFor(f.id, { username: e.target.value })}
+                        placeholder="Username (optional)"
+                        className="w-full min-w-0 rounded border px-2 py-1.5"
+                      />
+                      <input
+                        type="password"
+                        value={addFor(f.id).password}
+                        onChange={(e) => setAddFor(f.id, { password: e.target.value })}
+                        placeholder="Password (optional, 8+)"
+                        className="w-full min-w-0 rounded border px-2 py-1.5 sm:col-span-2"
+                      />
+                      <button
+                        disabled={busy || !addFor(f.id).displayName.trim()}
+                        onClick={() => createUser(f.id)}
+                        className="w-full rounded bg-slate-800 px-3 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50 sm:col-span-2"
+                      >
+                        Create account
+                      </button>
+                    </div>
+                    <p className="mt-2 text-xs text-slate-500">
+                      No invite, no email sent. A grown-up needs an email or a username so they have something to sign in with.
+                    </p>
+                  </div>
+
+                  <div className="card-nested rounded-lg p-3">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="font-medium">Move someone here as</span>
                       <select
@@ -196,7 +350,7 @@ export default function OwnerFamiliesPanel() {
                         onChange={(e) =>
                           setMoveTarget((prev) => ({ ...prev, [f.id]: { userId: e.target.value, role: prev[f.id]?.role ?? 'ADULT' } }))
                         }
-                        className="rounded border px-2 py-1"
+                        className="w-full min-w-0 rounded border px-2 py-1.5 sm:w-auto"
                       >
                         <option value="">Pick a member…</option>
                         {movable.map((m) => (
@@ -210,7 +364,7 @@ export default function OwnerFamiliesPanel() {
                         onChange={(e) =>
                           setMoveTarget((prev) => ({ ...prev, [f.id]: { userId: prev[f.id]?.userId ?? '', role: e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' } }))
                         }
-                        className="rounded border px-2 py-1"
+                        className="w-full min-w-0 rounded border px-2 py-1.5 sm:w-auto"
                       >
                         <option value="OWNER">Owner</option>
                         <option value="FAMILY_MANAGER">Family Manager</option>
@@ -226,24 +380,28 @@ export default function OwnerFamiliesPanel() {
                       </button>
                     </div>
                     {allMembers.length === 0 && (
-                      <p className="mt-1 text-xs text-slate-400">Expand another family first to see members to move.</p>
+                      <p className="mt-1 text-xs text-slate-500">Expand another family first to see members to move.</p>
                     )}
                   </div>
 
-                  <div className="rounded bg-slate-100 p-2">
+                  <div className="card-nested rounded-lg p-3">
                     <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="font-medium">Invite someone to this family as</span>
                       <select
                         value={inviteRole[f.id] ?? 'KID'}
                         onChange={(e) => setInviteRole((prev) => ({ ...prev, [f.id]: e.target.value as 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }))}
-                        className="rounded border px-2 py-1"
+                        className="w-full min-w-0 rounded border px-2 py-1.5 sm:w-auto"
                       >
                         <option value="KID">Kid</option>
                         <option value="ADULT">Adult</option>
                         <option value="FAMILY_MANAGER">Family Manager</option>
                         <option value="OWNER">Owner</option>
                       </select>
-                      <button disabled={busy} onClick={() => inviteToFamily(f.id)} className="rounded bg-slate-800 px-2 py-1 text-white hover:bg-slate-700 disabled:opacity-50">
+                      <button
+                        disabled={busy}
+                        onClick={() => inviteToFamily(f.id)}
+                        className="w-full rounded bg-slate-800 px-3 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50 sm:w-auto"
+                      >
                         Generate invite link
                       </button>
                     </div>
@@ -253,7 +411,7 @@ export default function OwnerFamiliesPanel() {
             </li>
           );
         })}
-        {families.length === 0 && <li className="text-sm text-slate-400">No families yet.</li>}
+        {families.length === 0 && <li className="text-sm text-slate-500">No families yet.</li>}
       </ul>
     </div>
   );

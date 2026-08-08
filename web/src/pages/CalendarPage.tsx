@@ -344,7 +344,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       <Dashboard me={me} />
 
       {needsReconnect && (
-        <div className="mb-4 flex flex-wrap items-center gap-2 rounded border border-amber-300 bg-amber-50 p-3 text-sm text-amber-800">
+        <div className="alert-banner mb-4 flex flex-wrap items-center gap-2 p-3 text-sm">
           <span className="flex-1">
             A connected Google account's calendar access expired — its calendars and events won't show up until it's
             reconnected. Signing out and back in won't fix this by itself; it needs to go through Google's consent
@@ -352,7 +352,7 @@ export default function CalendarPage({ me }: { me: Me }) {
           </span>
           <a
             href={`${loginUrl}?mode=self&reconnect=1`}
-            className="shrink-0 rounded border border-amber-400 bg-white px-3 py-1.5 font-medium hover:bg-amber-100"
+            className="shrink-0 rounded border px-3 py-1.5 font-medium hover:bg-slate-50"
           >
             Reconnect Google account
           </a>

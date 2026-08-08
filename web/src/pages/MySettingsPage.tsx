@@ -104,6 +104,14 @@ export default function MySettingsPage({
   useEffect(() => {
     currentPushSubscription().then((s) => setPushOn(!!s)).catch(() => undefined);
   }, []);
+  // React Router does not scroll to #hash targets on its own, so a deep link
+  // like /my-settings#notifications would land silently at the top.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const t = setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }), 50);
+    return () => clearTimeout(t);
+  }, []);
   async function togglePush() {
     setPushBusy(true);
     try {
@@ -417,7 +425,9 @@ export default function MySettingsPage({
         </div>
       </section>
 
-      <section className="panel">
+      {/* id + scroll-margin: the Notifications page deep-links straight here
+          (#notifications) because people could not find these controls. */}
+      <section id="notifications" className="panel scroll-mt-20">
         <h3 className="text-base font-semibold tracking-tight">Notifications</h3>
         <div className="mt-3 space-y-2 text-sm">
           {pushSupported() && (

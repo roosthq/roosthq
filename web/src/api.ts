@@ -157,6 +157,8 @@ export interface Member {
   allowanceTokens?: number;
   birthday?: string | null; // YYYY-MM-DD
   disabledPermissions?: string[];
+  username?: string | null;
+  active?: boolean; // instance-owner lockout switch (owner member lists only)
 }
 
 export interface UnlockResult {
@@ -716,11 +718,27 @@ export const api = {
   createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string, familyId?: string) =>
     req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label, familyId }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
+  // Server builds the link from the request origin; we only say who gets it.
+  emailInvite: (token: string, email: string) =>
+    req<{ ok: boolean; sentTo: string }>('/invites/email', { method: 'POST', body: JSON.stringify({ token, email }) }),
 
   listFamilies: () => req<FamilyInfo[]>('/owner/families'),
   createFamily: (name: string) => req<FamilyInfo>('/owner/families', { method: 'POST', body: JSON.stringify({ name }) }),
   deleteFamily: (id: string) => req<{ ok: boolean }>(`/owner/families/${id}`, { method: 'DELETE' }),
   ownerFamilyMembers: (familyId: string) => req<Member[]>(`/owner/families/${familyId}/members`),
+  // Instance-owner user controls: lock out (reversible), delete (not), and
+  // create an account in any family without an invite.
+  ownerSetUserActive: (id: string, active: boolean) =>
+    req<{ ok: boolean; active: boolean }>(`/owner/users/${id}/active`, { method: 'POST', body: JSON.stringify({ active }) }),
+  ownerDeleteUser: (id: string) => req<{ ok: boolean }>(`/owner/users/${id}`, { method: 'DELETE' }),
+  ownerCreateUser: (body: {
+    familyId: string;
+    role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
+    displayName: string;
+    email?: string;
+    username?: string;
+    password?: string;
+  }) => req<Member>('/owner/users', { method: 'POST', body: JSON.stringify(body) }),
   moveUser: (id: string, familyId: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
     req<{ ok: boolean }>(`/owner/users/${id}/move`, { method: 'POST', body: JSON.stringify({ familyId, role }) }),
   ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
@@ -822,7 +840,12 @@ export const api = {
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
   grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
     req<{ wheelQueued?: boolean }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
-  removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
+  // What removing a grant would claw back, split by source, so the confirm
+  // dialog can name the actual numbers instead of guessing.
+  awardGrantImpact: (grantId: string) =>
+    req<{ award: number; wheel: number; total: number }>(`/awards/grants/${grantId}/impact`),
+  removeAwardGrant: (grantId: string, removeTokens = true) =>
+    req(`/awards/grants/${grantId}?removeTokens=${removeTokens ? '1' : '0'}`, { method: 'DELETE' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

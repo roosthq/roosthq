@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, KID_PERMISSIONS, ROLE_ICON, ROLE_LABEL, type Me, type Member, type InviteInfo } from './api';
+import InviteLinkBox from './InviteLinkBox';
 import { useDialog } from './Dialog';
 import { formatDate } from './dateFormat';
 
@@ -29,7 +30,8 @@ export default function MembersManager({ me }: { me: Me }) {
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [inviteRole, setInviteRole] = useState<'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>('KID');
-  const [freshInviteUrl, setFreshInviteUrl] = useState<string | null>(null);
+  // Keep the raw token, not just the URL: emailing the invite needs it.
+  const [fresh, setFresh] = useState<{ url: string; token: string } | null>(null);
   const [addRole, setAddRole] = useState<'ADULT' | 'KID'>('KID');
   const [addName, setAddName] = useState('');
   const [addEmail, setAddEmail] = useState('');
@@ -49,7 +51,7 @@ export default function MembersManager({ me }: { me: Me }) {
 
   async function createInvite() {
     const minted = await api.createInvite(inviteRole);
-    setFreshInviteUrl(`${window.location.origin}/?invite=${minted.token}`);
+    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
     await refresh();
   }
   async function revokeInvite(id: string) {
@@ -169,14 +171,7 @@ export default function MembersManager({ me }: { me: Me }) {
             Generate invite link
           </button>
         </div>
-        {freshInviteUrl && (
-          <div className="mt-2 rounded bg-amber-50 p-2 text-xs">
-            <p className="mb-1 font-medium text-amber-700">
-              Send this link to the family member. They open it, sign in with Google, and join. One-time use:
-            </p>
-            <code className="block break-all rounded bg-white p-2">{freshInviteUrl}</code>
-          </div>
-        )}
+        {fresh && <InviteLinkBox url={fresh.url} token={fresh.token} />}
         {invites.filter((i) => !i.acceptedAt).length > 0 && (
           <ul className="mt-2 space-y-1 text-xs">
             {invites

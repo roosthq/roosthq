@@ -42,6 +42,32 @@ export class OwnerController {
     return this.owner.moveUser(u.userId, id, body.familyId, body.role);
   }
 
+  @Post('users')
+  createUser(
+    @CurrentUser() u: SessionPayload,
+    @Body()
+    body: {
+      familyId: string;
+      role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
+      displayName: string;
+      email?: string;
+      username?: string;
+      password?: string;
+    },
+  ) {
+    return this.owner.createUser(u.userId, body);
+  }
+
+  @Post('users/:id/active')
+  setUserActive(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { active: boolean }) {
+    return this.owner.setUserActive(u.userId, id, !!body.active);
+  }
+
+  @Delete('users/:id')
+  deleteUser(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.owner.deleteUser(u.userId, id);
+  }
+
   // Mints a session acting as the target user, remembering the real owner
   // so the frontend can offer "Return to Owner" and this can be undone.
   @Post('ghost/:id')

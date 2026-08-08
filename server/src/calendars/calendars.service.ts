@@ -290,7 +290,9 @@ export class CalendarsService {
         requestBody: { ...body, extendedProperties: { private: { roostHqAddedBy: addedByUserId } } } as never,
       }),
     );
-    this.notifyCalendarEvent(familyId, c.id, c.name, addedByUserId, (body.summary as string) ?? 'an event').catch(() => undefined);
+    this.notifyCalendarEvent(familyId, c.id, c.name, addedByUserId, (body.summary as string) ?? 'an event', data.id ?? undefined).catch(
+      () => undefined,
+    );
     this.displayEvents.publish(familyId, { type: 'calendar' });
     return data;
   }
@@ -305,12 +307,14 @@ export class CalendarsService {
     calendarName: string,
     addedByUserId: string,
     summary: string,
+    eventId?: string,
   ) {
     const adder = await this.prisma.user.findUnique({ where: { id: addedByUserId } });
     const title = `${adder?.displayName ?? 'Someone'} added "${summary}" to ${calendarName}`;
     await this.notifications.notifyAdults(familyId, 'CALENDAR_EVENT_ADDED', title, {
       link: '/',
       excludeUserId: addedByUserId,
+      refId: eventId,
     });
 
     const displays = await this.prisma.displayConfig.findMany({ where: { familyId } });
@@ -324,7 +328,7 @@ export class CalendarsService {
       where: { familyId, role: 'KID', locations: { some: { locationId: { in: [...locationIds] } } } },
     });
     await Promise.all(
-      kids.map((k) => this.notifications.create(familyId, k.id, 'CALENDAR_EVENT_ADDED', title, { link: '/' })),
+      kids.map((k) => this.notifications.create(familyId, k.id, 'CALENDAR_EVENT_ADDED', title, { link: '/', refId: eventId })),
     );
   }
 
@@ -367,6 +371,7 @@ export class CalendarsService {
         eventId,
       }),
     );
+    await this.notifications.removeByRef(eventId);
     this.displayEvents.publish(familyId, { type: 'calendar' });
     return { ok: true };
   }

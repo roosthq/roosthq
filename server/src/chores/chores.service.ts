@@ -369,7 +369,7 @@ export class ChoresService {
               uid,
               'STREAK_BONUS',
               `🧊 Streak freeze used on "${inst.chore.title}" — streak safe (${inst.chore.streakFreezes - 1} left).`,
-              { link: '/chores' },
+              { link: '/chores', refId: inst.id },
             ),
           ),
         );
@@ -380,7 +380,7 @@ export class ChoresService {
     const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
     await Promise.all(
       recipients.map((uid) =>
-        this.notifications.create(inst.chore.familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores' }),
+        this.notifications.create(inst.chore.familyId, uid, 'CHORE_MISSED', `Missed: "${inst.chore.title}"`, { link: '/chores', refId: inst.id }),
       ),
     );
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
@@ -430,7 +430,7 @@ export class ChoresService {
             uid,
             'CHORE_DUE_SOON',
             `"${inst.chore.title}" is due in ${this.dueSoonLabel(threshold)}`,
-            { link: '/chores' },
+            { link: '/chores', refId: inst.id },
           ),
         ),
       );
@@ -524,7 +524,11 @@ export class ChoresService {
   async remove(familyId: string, userId: string, id: string) {
     await this.assertAdult(userId);
     await this.ownedChore(familyId, id);
+    // Occurrences cascade with the chore; their notifications don't (refId is
+    // not a real FK), so collect the ids first and clear them after.
+    const instances = await this.prisma.choreInstance.findMany({ where: { choreId: id }, select: { id: true } });
     await this.prisma.chore.delete({ where: { id } });
+    await this.notifications.removeByRef([id, ...instances.map((i) => i.id)]);
     this.displayEvents.publish(familyId, { type: 'chores' });
     return { ok: true };
   }
@@ -632,7 +636,7 @@ export class ChoresService {
       inst.chore.familyId,
       'CHORE_PENDING',
       `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" — needs approval`,
-      { link: '/chores' },
+      { link: '/chores', refId: inst.id },
     );
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;

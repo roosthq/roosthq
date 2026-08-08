@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { api, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
 import { formatDateTime } from '../dateFormat';
@@ -52,9 +53,11 @@ export default function NotificationsPage({ me }: { me: Me }) {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      {/* Wraps rather than sharing one line: at 375px the toggle plus
+          "Mark all read" does not fit beside the heading. */}
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-lg font-semibold">{view === 'family' ? 'Family activity' : 'Notifications'}</h2>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {isAdult && (
             <div className="flex rounded border text-sm">
               <button
@@ -76,6 +79,11 @@ export default function NotificationsPage({ me }: { me: Me }) {
               Mark all read
             </button>
           )}
+          {/* People could not find where to turn push/email on — deep-link to
+              the exact section instead of making them hunt through settings. */}
+          <Link to="/my-settings#notifications" className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            ⚙️ <span className="hidden sm:inline">Notification </span>settings
+          </Link>
         </div>
       </div>
 

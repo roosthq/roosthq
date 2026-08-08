@@ -1,12 +1,16 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
+import { EmailService } from '../notifications/email.service';
 
 type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 
 @Injectable()
 export class InvitesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private email: EmailService,
+  ) {}
 
   private hash(raw: string): string {
     return createHash('sha256').update(raw).digest('hex');
@@ -58,6 +62,34 @@ export class InvitesService {
       createdAt: i.createdAt,
       acceptedAt: i.acceptedAt,
     }));
+  }
+
+  // Mail an already-minted invite link to whoever it's for. The link is built
+  // from the request's own origin (passed in by the controller), never from a
+  // client-supplied URL, so nothing arbitrary ends up in an outbound email.
+  async emailInvite(familyId: string, userId: string, token: string, to: string, baseUrl: string) {
+    const actor = await this.assertAdultOrOwner(userId);
+    const address = (to || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) throw new BadRequestException('That does not look like an email address');
+    if (!this.email.enabled) {
+      throw new BadRequestException('Email is not set up on this server yet — copy the link and send it yourself.');
+    }
+    const inv = await this.resolve(token);
+    if (!inv) throw new NotFoundException('That invite has expired or already been used');
+    // Same scoping rule as create(): your own family, unless you're the owner.
+    if (inv.familyId !== familyId && actor.role !== 'OWNER') throw new ForbiddenException('Not your invite');
+    const family = await this.prisma.family.findUnique({ where: { id: inv.familyId }, select: { name: true } });
+    const url = `${baseUrl.replace(/\/+$/, '')}/?invite=${token}`;
+    const body = [
+      `${actor.displayName} invited you to join ${family?.name ?? 'their family'} on Roost HQ.`,
+      '',
+      'Open this link to accept, then sign in to join:',
+      url,
+      '',
+      'The link works once and only for you. If you were not expecting this, you can ignore it.',
+    ].join('\n');
+    await this.email.send(address, `${actor.displayName} invited you to Roost HQ`, body);
+    return { ok: true, sentTo: address };
   }
 
   async revoke(familyId: string, userId: string, id: string) {

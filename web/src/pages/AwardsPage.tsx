@@ -60,6 +60,12 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<AwardCatalogItem | null>(null);
   const [granting, setGranting] = useState<AwardCatalogItem | null>(null);
+  const [removing, setRemoving] = useState<{
+    grant: AwardGrantHistoryItem;
+    impact: { award: number; wheel: number; total: number };
+    removeTokens: boolean;
+  } | null>(null);
+  const [removeBusy, setRemoveBusy] = useState(false);
 
   const refresh = useCallback(async () => {
     const [a, members, h] = await Promise.all([api.awardsCatalog(), api.listUsers(), api.awardHistory()]);
@@ -79,17 +85,28 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
     await refresh();
   }
 
-  async function removeGrant(g: AwardGrantHistoryItem) {
-    const tokenNote = g.tokenValue > 0 ? ` and take back ${g.tokenValue} ${tokenName}` : '';
-    if (
-      !(await confirm(`Remove "${g.award.name}" from ${g.user.displayName}${tokenNote}?`, {
-        danger: true,
-        confirmLabel: 'Remove',
-      }))
-    )
-      return;
-    await api.removeAwardGrant(g.id);
-    await refresh();
+  // Removing a grant is two separate decisions: take the badge back (always),
+  // and take the tokens back (a choice — they may have earned those fairly and
+  // only the badge was a mistake). So this needs a real dialog with a checkbox
+  // rather than the generic confirm(), and the numbers come from the server
+  // since a spun bonus wheel's amount isn't in the history row.
+  async function askRemoveGrant(g: AwardGrantHistoryItem) {
+    const impact = await api.awardGrantImpact(g.id).catch(() => ({ award: g.tokenValue, wheel: 0, total: g.tokenValue }));
+    setRemoving({ grant: g, impact, removeTokens: impact.total > 0 });
+  }
+
+  async function confirmRemoveGrant() {
+    if (!removing) return;
+    setRemoveBusy(true);
+    try {
+      await api.removeAwardGrant(removing.grant.id, removing.removeTokens);
+      setRemoving(null);
+      await refresh();
+    } catch (e) {
+      await alert(e instanceof Error ? e.message : 'Could not remove that award.');
+    } finally {
+      setRemoveBusy(false);
+    }
   }
 
   return (
@@ -178,7 +195,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
                 </span>
                 <span className="flex shrink-0 items-center gap-3">
                   {g.tokenValue > 0 && <TokenBadge icon={tokenIcon} amount={g.tokenValue} />}
-                  <button onClick={() => removeGrant(g)} className="text-xs text-red-500 hover:text-red-700">
+                  <button onClick={() => askRemoveGrant(g)} className="text-xs text-red-500 hover:text-red-700">
                     Remove
                   </button>
                 </span>
@@ -188,6 +205,59 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
           </ul>
         )}
       </section>
+
+      {removing && (
+        <Modal
+          header={<h3 className="text-base font-semibold">Remove award</h3>}
+          onBackdropClick={() => setRemoving(null)}
+          footer={
+            <div className="flex flex-wrap justify-end gap-2">
+              <button onClick={() => setRemoving(null)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                Cancel
+              </button>
+              <button
+                onClick={confirmRemoveGrant}
+                disabled={removeBusy}
+                className="rounded bg-red-600 px-3 py-2 text-sm text-white hover:bg-red-500 disabled:opacity-50"
+              >
+                {removeBusy ? 'Removing…' : 'Remove award'}
+              </button>
+            </div>
+          }
+        >
+          <p className="text-sm">
+            Take "<span className="font-medium">{removing.grant.award.name}</span>" back from{' '}
+            <span className="font-medium">{removing.grant.user.displayName}</span>?
+          </p>
+          {removing.impact.total > 0 ? (
+            <label className="card-nested mt-3 flex items-start gap-2 rounded-lg p-3 text-sm">
+              <input
+                type="checkbox"
+                checked={removing.removeTokens}
+                onChange={(e) => setRemoving({ ...removing, removeTokens: e.target.checked })}
+                className="mt-0.5"
+              />
+              <span>
+                <span className="font-medium">
+                  Also take back {removing.impact.total} {tokenName}
+                </span>
+                <span className="block text-xs text-slate-500">
+                  {removing.impact.award > 0 && `${removing.impact.award} from the award`}
+                  {removing.impact.award > 0 && removing.impact.wheel > 0 && ' · '}
+                  {removing.impact.wheel > 0 && `${removing.impact.wheel} from the bonus wheel`}
+                  {'. '}
+                  Leave this off to keep the {tokenName} and only remove the award itself.
+                </span>
+              </span>
+            </label>
+          ) : (
+            <p className="mt-2 text-xs text-slate-500">No {tokenName} came with this award, so nothing to take back.</p>
+          )}
+          <p className="mt-3 text-xs text-slate-500">
+            Their notification about this award goes away too. An unspun bonus wheel is cancelled either way.
+          </p>
+        </Modal>
+      )}
 
       {formOpen && (
         <AwardForm

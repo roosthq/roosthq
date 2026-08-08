@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
@@ -20,6 +20,20 @@ export class InvitesController {
   @Get()
   list(@CurrentUser() u: SessionPayload) {
     return this.invites.list(u.familyId);
+  }
+
+  // Email a link for an invite that was just minted. The base URL comes from
+  // the request, not the body — the client only says who to send it to.
+  @Post('email')
+  emailInvite(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { token: string; email: string },
+    @Req() req: { headers: Record<string, string | string[] | undefined> },
+  ) {
+    const origin = typeof req.headers.origin === 'string' ? req.headers.origin : undefined;
+    const host = typeof req.headers.host === 'string' ? req.headers.host : 'localhost';
+    const base = origin ?? `https://${host}`;
+    return this.invites.emailInvite(u.familyId, u.userId, body.token, body.email, base);
   }
 
   @Delete(':id')

@@ -24,11 +24,11 @@ export class NotificationsService {
     userId: string,
     type: NotificationType,
     title: string,
-    opts: { body?: string; link?: string } = {},
+    opts: { body?: string; link?: string; refId?: string } = {},
   ) {
     try {
       await this.prisma.notification.create({
-        data: { familyId, userId, type, title, body: opts.body, link: opts.link },
+        data: { familyId, userId, type, title, body: opts.body, link: opts.link, refId: opts.refId },
       });
     } catch {
       // Notifications are a convenience, not core to the action that triggered
@@ -42,6 +42,17 @@ export class NotificationsService {
     if (user?.notifyByEmail && user.email) {
       await this.email.send(user.email, title, opts.body ?? title);
     }
+  }
+
+  // Called from delete paths: when the thing a notification points at is gone,
+  // the notification goes with it. Silent no-op when nothing matches.
+  async removeByRef(refId: string | string[]) {
+    const ids = (Array.isArray(refId) ? refId : [refId]).filter(Boolean);
+    if (ids.length === 0) return { removed: 0 };
+    const r = await this.prisma.notification
+      .deleteMany({ where: { refId: { in: ids } } })
+      .catch(() => ({ count: 0 }));
+    return { removed: r.count };
   }
 
   get pushPublicKey(): string | null {
@@ -60,7 +71,7 @@ export class NotificationsService {
     familyId: string,
     type: NotificationType,
     title: string,
-    opts: { body?: string; link?: string; excludeUserId?: string } = {},
+    opts: { body?: string; link?: string; refId?: string; excludeUserId?: string } = {},
   ) {
     const adults = await this.prisma.user.findMany({
       where: {

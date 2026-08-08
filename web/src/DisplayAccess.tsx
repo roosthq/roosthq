@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { CopyableLink } from './InviteLinkBox';
 import { api, type DisplayTokenInfo, type DisplayConfig } from './api';
 import { formatDate } from './dateFormat';
 
@@ -64,11 +65,9 @@ export default function DisplayAccess() {
       </div>
 
       {freshUrl && (
-        <div className="mt-3 rounded bg-amber-50 p-2 text-xs">
-          <p className="mb-1 font-medium text-amber-700">
-            Copy this now — the token is shown only once. Open it on the Pi's browser:
-          </p>
-          <code className="block break-all rounded bg-white p-2">{freshUrl}</code>
+        <div className="alert-banner mt-3 p-3 text-xs">
+          <p className="mb-2 font-medium">Copy this now — the token is shown only once. Open it on the Pi's browser:</p>
+          <CopyableLink url={freshUrl} />
         </div>
       )}
 

@@ -117,6 +117,11 @@ model Notification {
   title     String
   body      String?          @db.Text
   link      String? // relative app path to deep-link to, e.g. /store
+  // The thing this notification is about (award grant, chore instance, prize,
+  // event...). Not a real FK — it points at several different tables — but it
+  // lets a delete take its notifications with it instead of leaving a feed
+  // entry that deep-links to something that no longer exists.
+  refId     String?
   createdAt DateTime         @default(now())
   readAt    DateTime?
 
@@ -125,6 +130,7 @@ model Notification {
 
   @@index([familyId])
   @@index([userId, readAt])
+  @@index([refId])
 }
 
 // One browser/device's Web Push subscription. A person can have several
@@ -246,6 +252,10 @@ model User {
   // the DISABLED list so kids can do everything until an adult turns
   // something off. Ignored for adult roles.
   disabledPermissions Json    @default("[]")
+  // Instance-owner switch: false locks the account out entirely (every API
+  // request is refused, existing session cookie or not) without deleting any
+  // of their history. See the deactivated-account gate in main.ts.
+  active              Boolean @default(true)
   notifyByEmail       Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,

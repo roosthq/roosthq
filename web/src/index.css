@@ -512,6 +512,32 @@ select option {
   border: 1px solid var(--border);
 }
 
+/* --text-muted is tuned for the page background; on a raised card it drops
+   to roughly 2:1 and stops being readable. Secondary text inside a nested
+   card uses the stronger --text-2 instead. */
+.card-nested .text-slate-400,
+.card-nested .text-slate-300 {
+  color: var(--text-2) !important;
+}
+
+/* Attention banners (fresh invite link, "needs reconnect", pending
+   approvals). These were hardcoded bg-amber-50/text-amber-800: bright yellow
+   in every theme, blinding in dark mode. One token-derived treatment
+   instead — the family's own accent hue at low saturation, with the brand
+   gold only as the left edge, so it reads as "notice" in light AND dark
+   without fighting the palette. */
+.alert-banner {
+  background: color-mix(in srgb, var(--surface-raised) 82%, var(--today) 18%);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, var(--today) 40%);
+  border-left: 3px solid var(--today);
+  color: var(--text);
+  border-radius: 10px;
+}
+.alert-banner .text-slate-400,
+.alert-banner .text-slate-500 {
+  color: var(--text-2) !important;
+}
+
 /* Logo owl: one inline mark, recolored per-role from the same tokens the rest
    of the app uses — automatically matches both light/dark and whichever
    per-person color theme is active, no separate asset per combination.

@@ -104,7 +104,11 @@ export class AwardsService {
   async remove(familyId: string, actorId: string, id: string) {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);
+    // Grants cascade away with the award; their notifications don't (refId is
+    // not a real FK), so collect the ids before the delete and clear them.
+    const grants = await this.prisma.awardGrant.findMany({ where: { awardId: id }, select: { id: true } });
     await this.prisma.award.delete({ where: { id } });
+    await this.notifications.removeByRef(grants.map((g) => g.id));
     return { ok: true };
   }
 
@@ -193,7 +197,7 @@ export class AwardsService {
         dto.userId,
         'AWARD_GRANTED',
         `🎡 "${award.name}" comes with a bonus wheel — go spin it!`,
-        { link: '/chores' },
+        { link: '/chores', refId: grant.id },
       );
     }
     await this.notifications.create(
@@ -201,39 +205,65 @@ export class AwardsService {
       dto.userId,
       'AWARD_GRANTED',
       `${actor.displayName} gave you the "${award.name}" award!`,
-      { link: '/profile' },
+      { link: '/profile', refId: grant.id },
     );
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ...grant, wheelQueued };
   }
 
-  // Undo a specific grant: removes the badge (so it no longer counts toward
-  // "earned") and reverses its tokens with a new negative ledger entry rather
-  // than deleting the original — same audit-trail convention as a rejected
-  // redemption refund elsewhere in this app.
-  async removeGrant(familyId: string, actorId: string, grantId: string) {
+  // What removing this grant would cost the recipient in tokens, split by
+  // source, so the confirm dialog can say exactly what the checkbox controls.
+  async grantTokenImpact(familyId: string, actorId: string, grantId: string) {
     await this.assertAdult(actorId);
+    const grant = await this.prisma.awardGrant.findFirst({
+      where: { id: grantId, award: { familyId } },
+      select: { id: true, userId: true, tokenValue: true },
+    });
+    if (!grant) throw new NotFoundException('Award grant not found');
+    const wheel = await this.wheelTokensFor(grant.id);
+    return { award: grant.tokenValue, wheel, total: grant.tokenValue + wheel };
+  }
+
+  // Net tokens a spun bonus wheel put in their pocket for this grant. Netted,
+  // not summed, so removing a grant twice (or after a manual adjustment) can't
+  // claw back more than was actually given.
+  private async wheelTokensFor(grantId: string) {
+    const entries = await this.prisma.tokenLedger.findMany({
+      where: { refId: grantId, type: 'AWARD', reason: { startsWith: 'Bonus wheel:' } },
+      select: { delta: true },
+    });
+    return entries.reduce((sum, e) => sum + e.delta, 0);
+  }
+
+  // Undo a specific grant: removes the badge (so it no longer counts toward
+  // "earned") and, when `removeTokens`, reverses its tokens with a new negative
+  // ledger entry rather than deleting the original — same audit-trail
+  // convention as a rejected redemption refund elsewhere in this app.
+  // `removeTokens: false` leaves the tokens banked (they earned them fairly,
+  // the badge was just given by mistake).
+  async removeGrant(familyId: string, actorId: string, grantId: string, opts: { removeTokens?: boolean } = {}) {
+    await this.assertAdult(actorId);
+    const removeTokens = opts.removeTokens ?? true;
     const grant = await this.prisma.awardGrant.findFirst({
       where: { id: grantId, award: { familyId } },
       include: { award: true },
     });
     if (!grant) throw new NotFoundException('Award grant not found');
     const recipient = await this.prisma.user.findUnique({ where: { id: grant.userId }, select: { tokensDisabled: true } });
+    // An unspun wheel from this grant simply goes away, tokens or not — there
+    // is nothing left to spin for.
+    await this.wheels.deleteUnspunFor(grant.id);
     // Mirrors grant()'s own gate — if tokens were disabled (still are), no
     // forward entry exists to reverse; writing one anyway would be a
     // phantom negative entry with nothing to offset.
-    // An unspun wheel from this grant simply goes away.
-    await this.wheels.deleteUnspunFor(grant.id);
-    // A wheel they already spun gets reversed like any other award tokens.
-    if (!recipient?.tokensDisabled) {
-      const wheelEntries = await this.prisma.tokenLedger.findMany({
-        where: { refId: grant.id, type: 'AWARD', delta: { gt: 0 }, reason: { startsWith: 'Bonus wheel:' } },
-      });
-      for (const w of wheelEntries) {
+    if (removeTokens && !recipient?.tokensDisabled) {
+      // A wheel they already spun gets reversed like any other award tokens.
+      const wheelTokens = await this.wheelTokensFor(grant.id);
+      if (wheelTokens > 0) {
         await this.prisma.tokenLedger.create({
           data: {
             userId: grant.userId,
-            delta: -w.delta,
+            delta: -wheelTokens,
             reason: `Removed award: ${grant.award.name} (wheel bonus)`,
             type: 'AWARD',
             refId: grant.id,
@@ -241,21 +271,24 @@ export class AwardsService {
           },
         });
       }
-    }
-    if (grant.tokenValue > 0 && !recipient?.tokensDisabled) {
-      await this.prisma.tokenLedger.create({
-        data: {
-          userId: grant.userId,
-          delta: -grant.tokenValue,
-          reason: `Removed award: ${grant.award.name}`,
-          type: 'AWARD',
-          refId: grant.id,
-          createdById: actorId,
-        },
-      });
+      if (grant.tokenValue > 0) {
+        await this.prisma.tokenLedger.create({
+          data: {
+            userId: grant.userId,
+            delta: -grant.tokenValue,
+            reason: `Removed award: ${grant.award.name}`,
+            type: 'AWARD',
+            refId: grant.id,
+            createdById: actorId,
+          },
+        });
+      }
     }
     await this.prisma.awardGrant.delete({ where: { id: grantId } });
+    // The "you got an award!" / "go spin your wheel" feed entries deep-link to
+    // something that no longer exists — take them with it.
+    await this.notifications.removeByRef(grant.id);
     this.displayEvents.publish(familyId, { type: 'tokens' });
-    return { ok: true };
+    return { ok: true, tokensRemoved: removeTokens };
   }
 }

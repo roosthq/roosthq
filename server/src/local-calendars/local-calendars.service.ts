@@ -85,7 +85,9 @@ export class LocalCalendarsService {
   async remove(familyId: string, actorId: string, id: string) {
     await this.assertAdult(actorId);
     await this.ownedCalendar(familyId, id);
+    const events = await this.prisma.localEvent.findMany({ where: { localCalendarId: id }, select: { id: true } });
     await this.prisma.localCalendar.delete({ where: { id } });
+    await this.notifications.removeByRef(events.map((e) => e.id));
     return { ok: true };
   }
 
@@ -198,7 +200,7 @@ export class LocalCalendarsService {
         createdById: actorId,
       },
     });
-    this.notifyEvent(familyId, calendar.id, calendar.name, actorId, event.title).catch(() => undefined);
+    this.notifyEvent(familyId, calendar.id, calendar.name, actorId, event.title, event.id).catch(() => undefined);
     return event;
   }
 
@@ -224,22 +226,26 @@ export class LocalCalendarsService {
     const event = await this.eventOrThrow(calendarId, eventId);
     await this.assertCanEdit(familyId, actorId, event.createdById);
     await this.prisma.localEvent.delete({ where: { id: eventId } });
+    await this.notifications.removeByRef(eventId);
     return { ok: true };
   }
 
   // Same "adults always, kids only if it's on one of their location's kiosks"
   // rule as CalendarsService.notifyCalendarEvent, kept in sync deliberately.
-  private async notifyEvent(familyId: string, calendarId: string, calendarName: string, addedByUserId: string, title: string) {
+  private async notifyEvent(familyId: string, calendarId: string, calendarName: string, addedByUserId: string, title: string, eventId: string) {
     const adder = await this.prisma.user.findUnique({ where: { id: addedByUserId } });
     const notifTitle = `${adder?.displayName ?? 'Someone'} added "${title}" to ${calendarName}`;
     await this.notifications.notifyAdults(familyId, 'CALENDAR_EVENT_ADDED', notifTitle, {
       link: '/',
       excludeUserId: addedByUserId,
+      refId: eventId,
     });
 
     const kidIds = await this.kidsInScope(familyId, calendarId);
     await Promise.all(
-      kidIds.map((id) => this.notifications.create(familyId, id, 'CALENDAR_EVENT_ADDED', notifTitle, { link: '/' })),
+      kidIds.map((id) =>
+        this.notifications.create(familyId, id, 'CALENDAR_EVENT_ADDED', notifTitle, { link: '/', refId: eventId }),
+      ),
     );
   }
 
@@ -279,9 +285,17 @@ export class LocalCalendarsService {
       const label = minutes >= 60 ? `${Math.round(minutes / 60)} hour${minutes >= 120 ? 's' : ''}` : `${minutes} minutes`;
       const title = `"${event.title}" starts in ${label}`;
       const kidIds = await this.kidsInScope(event.calendar.familyId, event.calendar.id);
-      await this.notifications.notifyAdults(event.calendar.familyId, 'CALENDAR_EVENT_REMINDER', title, { link: '/' });
+      await this.notifications.notifyAdults(event.calendar.familyId, 'CALENDAR_EVENT_REMINDER', title, {
+        link: '/',
+        refId: event.id,
+      });
       await Promise.all(
-        kidIds.map((id) => this.notifications.create(event.calendar.familyId, id, 'CALENDAR_EVENT_REMINDER', title, { link: '/' })),
+        kidIds.map((id) =>
+          this.notifications.create(event.calendar.familyId, id, 'CALENDAR_EVENT_REMINDER', title, {
+            link: '/',
+            refId: event.id,
+          }),
+        ),
       );
     }
   }
