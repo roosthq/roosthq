@@ -10,32 +10,37 @@ export class HouseholdController {
   constructor(private household: HouseholdService) {}
 
   @Get('meals')
-  meals(@CurrentUser() u: SessionPayload, @Query('start') start: string, @Query('end') end: string) {
-    return this.household.meals(u.familyId, start, end);
+  meals(
+    @CurrentUser() u: SessionPayload,
+    @Query('start') start: string,
+    @Query('end') end: string,
+    @Query('locationId') locationId?: string,
+  ) {
+    return this.household.meals(u.familyId, start, end, locationId || null);
   }
 
   @Put('meals/:date')
   setMeal(
     @CurrentUser() u: SessionPayload,
     @Param('date') date: string,
-    @Body() body: { title?: string; notes?: string | null },
+    @Body() body: { title?: string; notes?: string | null; locationId?: string | null },
   ) {
     return this.household.setMeal(u.familyId, u.userId, date, body);
   }
 
   @Delete('meals/:date')
-  deleteMeal(@CurrentUser() u: SessionPayload, @Param('date') date: string) {
-    return this.household.deleteMeal(u.familyId, u.userId, date);
+  deleteMeal(@CurrentUser() u: SessionPayload, @Param('date') date: string, @Query('locationId') locationId?: string) {
+    return this.household.deleteMeal(u.familyId, u.userId, date, locationId || null);
   }
 
   @Get('grocery')
-  grocery(@CurrentUser() u: SessionPayload) {
-    return this.household.grocery(u.familyId);
+  grocery(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.household.grocery(u.familyId, locationId || null);
   }
 
   @Post('grocery')
-  addGrocery(@CurrentUser() u: SessionPayload, @Body() body: { label: string }) {
-    return this.household.addGrocery(u.familyId, u.userId, body.label);
+  addGrocery(@CurrentUser() u: SessionPayload, @Body() body: { label: string; locationId?: string | null }) {
+    return this.household.addGrocery(u.familyId, u.userId, body.label, body.locationId);
   }
 
   @Patch('grocery/:id')
@@ -44,8 +49,8 @@ export class HouseholdController {
   }
 
   @Delete('grocery/checked')
-  clearChecked(@CurrentUser() u: SessionPayload) {
-    return this.household.clearCheckedGrocery(u.familyId);
+  clearChecked(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.household.clearCheckedGrocery(u.familyId, locationId || null);
   }
 
   @Delete('grocery/:id')
@@ -54,12 +59,15 @@ export class HouseholdController {
   }
 
   @Get('countdowns')
-  countdowns(@CurrentUser() u: SessionPayload) {
-    return this.household.countdowns(u.familyId);
+  countdowns(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.household.countdowns(u.familyId, locationId || null);
   }
 
   @Post('countdowns')
-  addCountdown(@CurrentUser() u: SessionPayload, @Body() body: { title: string; date: string; emoji?: string }) {
+  addCountdown(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { title: string; date: string; emoji?: string; locationId?: string | null },
+  ) {
     return this.household.addCountdown(u.familyId, u.userId, body);
   }
 
@@ -69,12 +77,15 @@ export class HouseholdController {
   }
 
   @Get('announcements')
-  announcements(@CurrentUser() u: SessionPayload) {
-    return this.household.announcements(u.familyId);
+  announcements(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.household.announcements(u.familyId, locationId || null);
   }
 
   @Post('announcements')
-  addAnnouncement(@CurrentUser() u: SessionPayload, @Body() body: { text: string; expiresInHours?: number }) {
+  addAnnouncement(
+    @CurrentUser() u: SessionPayload,
+    @Body() body: { text: string; expiresInHours?: number; locationId?: string | null },
+  ) {
     return this.household.addAnnouncement(u.familyId, u.userId, body);
   }
 

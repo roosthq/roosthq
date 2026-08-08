@@ -54,8 +54,9 @@ export class DisplayController {
   // count) for the kiosk — readable idle, like the rest of the display feed.
   @UseGuards(DisplayOrUserGuard)
   @Get('household')
-  householdBundle(@FamilyCtx() ctx: FamilyContext) {
-    return this.household.displayBundle(ctx.familyId);
+  async householdBundle(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    return this.household.displayBundle(ctx.familyId, resolved.locationId);
   }
 
   // Family settings the kiosk needs (token naming + which family features are

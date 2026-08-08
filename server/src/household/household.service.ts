@@ -23,6 +23,20 @@ export class HouseholdService {
     if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
   }
 
+  private async assertLocation(familyId: string, locationId?: string | null) {
+    if (!locationId) return null;
+    const loc = await this.prisma.location.findFirst({ where: { id: locationId, familyId } });
+    if (!loc) throw new BadRequestException('Location not found');
+    return locationId;
+  }
+
+  // The standard household scoping rule (same as chores/local calendars): a
+  // location sees its own items PLUS family-wide (locationId null) ones; no
+  // location filter = everything.
+  private scope(locationId?: string | null) {
+    return locationId ? { OR: [{ locationId: null }, { locationId }] } : {};
+  }
+
   private async featureEnabled(familyId: string, feature: string) {
     const f = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
     const disabled = Array.isArray(f?.disabledFeatures) ? (f!.disabledFeatures as string[]) : [];
@@ -31,30 +45,42 @@ export class HouseholdService {
 
   // ---- Meals ----
 
-  meals(familyId: string, start: string, end: string) {
+  meals(familyId: string, start: string, end: string, locationId?: string | null) {
     return this.prisma.mealPlan.findMany({
-      where: { familyId, date: { gte: start, lte: end } },
+      where: { familyId, date: { gte: start, lte: end }, ...this.scope(locationId) },
       orderBy: { date: 'asc' },
     });
   }
 
-  async setMeal(familyId: string, actorId: string, date: string, dto: { title?: string; notes?: string | null }) {
+  // One dinner per day PER SCOPE (family-wide vs each household) — enforced
+  // here since MySQL can't unique-index a nullable locationId usefully.
+  async setMeal(
+    familyId: string,
+    actorId: string,
+    date: string,
+    dto: { title?: string; notes?: string | null; locationId?: string | null },
+  ) {
     await this.assertAdult(actorId);
     if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
     const title = dto.title?.trim();
     if (!title) throw new BadRequestException('Title is required');
-    const meal = await this.prisma.mealPlan.upsert({
-      where: { familyId_date: { familyId, date } },
-      create: { familyId, date, title, notes: dto.notes?.trim() || null },
-      update: { title, ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }) },
-    });
+    const locationId = await this.assertLocation(familyId, dto.locationId);
+    const existing = await this.prisma.mealPlan.findFirst({ where: { familyId, date, locationId } });
+    const meal = existing
+      ? await this.prisma.mealPlan.update({
+          where: { id: existing.id },
+          data: { title, ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }) },
+        })
+      : await this.prisma.mealPlan.create({
+          data: { familyId, date, title, locationId, notes: dto.notes?.trim() || null },
+        });
     this.displayEvents.publish(familyId, { type: 'household' });
     return meal;
   }
 
-  async deleteMeal(familyId: string, actorId: string, date: string) {
+  async deleteMeal(familyId: string, actorId: string, date: string, locationId?: string | null) {
     await this.assertAdult(actorId);
-    await this.prisma.mealPlan.deleteMany({ where: { familyId, date } });
+    await this.prisma.mealPlan.deleteMany({ where: { familyId, date, locationId: locationId || null } });
     this.displayEvents.publish(familyId, { type: 'household' });
     return { ok: true };
   }
@@ -62,18 +88,18 @@ export class HouseholdService {
   // ---- Grocery list ----
   // Anyone in the family can add/check/remove — it's the fridge notepad.
 
-  grocery(familyId: string) {
+  grocery(familyId: string, locationId?: string | null) {
     return this.prisma.groceryItem.findMany({
-      where: { familyId },
+      where: { familyId, ...this.scope(locationId) },
       orderBy: [{ checked: 'asc' }, { createdAt: 'desc' }],
     });
   }
 
-  async addGrocery(familyId: string, actorId: string, label: string) {
+  async addGrocery(familyId: string, actorId: string, label: string, locationId?: string | null) {
     const trimmed = label?.trim();
     if (!trimmed) throw new BadRequestException('Item is required');
     const item = await this.prisma.groceryItem.create({
-      data: { familyId, label: trimmed.slice(0, 120), addedById: actorId },
+      data: { familyId, label: trimmed.slice(0, 120), addedById: actorId, locationId: await this.assertLocation(familyId, locationId) },
     });
     this.displayEvents.publish(familyId, { type: 'household' });
     return item;
@@ -101,24 +127,28 @@ export class HouseholdService {
     return { ok: true };
   }
 
-  async clearCheckedGrocery(familyId: string) {
-    await this.prisma.groceryItem.deleteMany({ where: { familyId, checked: true } });
+  async clearCheckedGrocery(familyId: string, locationId?: string | null) {
+    await this.prisma.groceryItem.deleteMany({ where: { familyId, checked: true, ...this.scope(locationId) } });
     this.displayEvents.publish(familyId, { type: 'household' });
     return { ok: true };
   }
 
   // ---- Countdowns ----
 
-  countdowns(familyId: string) {
-    return this.prisma.countdown.findMany({ where: { familyId }, orderBy: { date: 'asc' } });
+  countdowns(familyId: string, locationId?: string | null) {
+    return this.prisma.countdown.findMany({ where: { familyId, ...this.scope(locationId) }, orderBy: { date: 'asc' } });
   }
 
-  async addCountdown(familyId: string, actorId: string, dto: { title: string; date: string; emoji?: string }) {
+  async addCountdown(
+    familyId: string,
+    actorId: string,
+    dto: { title: string; date: string; emoji?: string; locationId?: string | null },
+  ) {
     await this.assertAdult(actorId);
     if (!dto.title?.trim()) throw new BadRequestException('Title is required');
     if (!DATE_KEY.test(dto.date ?? '')) throw new BadRequestException('Bad date');
     const c = await this.prisma.countdown.create({
-      data: { familyId, title: dto.title.trim(), date: dto.date, emoji: dto.emoji?.trim() || '🎉' },
+      data: { familyId, title: dto.title.trim(), date: dto.date, emoji: dto.emoji?.trim() || '🎉', locationId: await this.assertLocation(familyId, dto.locationId) },
     });
     this.displayEvents.publish(familyId, { type: 'household' });
     return c;
@@ -135,14 +165,21 @@ export class HouseholdService {
 
   // ---- Announcements ----
 
-  announcements(familyId: string) {
+  announcements(familyId: string, locationId?: string | null) {
     return this.prisma.announcement.findMany({
-      where: { familyId, OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
+      where: {
+        familyId,
+        AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }, this.scope(locationId)],
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
 
-  async addAnnouncement(familyId: string, actorId: string, dto: { text: string; expiresInHours?: number }) {
+  async addAnnouncement(
+    familyId: string,
+    actorId: string,
+    dto: { text: string; expiresInHours?: number; locationId?: string | null },
+  ) {
     await this.assertAdult(actorId);
     if (!dto.text?.trim()) throw new BadRequestException('Text is required');
     const expiresAt =
@@ -150,7 +187,7 @@ export class HouseholdService {
         ? new Date(Date.now() + dto.expiresInHours * 3_600_000)
         : null;
     const a = await this.prisma.announcement.create({
-      data: { familyId, text: dto.text.trim().slice(0, 500), createdById: actorId, expiresAt },
+      data: { familyId, text: dto.text.trim().slice(0, 500), createdById: actorId, expiresAt, locationId: await this.assertLocation(familyId, dto.locationId) },
     });
     this.displayEvents.publish(familyId, { type: 'household' });
     return a;
@@ -167,25 +204,30 @@ export class HouseholdService {
 
   // ---- Kiosk bundle: everything the display widgets need in one call ----
 
-  async displayBundle(familyId: string) {
+  // locationId = the display's own household scope, so a kiosk at dad's
+  // house shows dad's-house dinner, not mom's.
+  async displayBundle(familyId: string, locationId?: string | null) {
     const today = localDateKey(new Date());
     const [meals, countdowns, announcements, groceryOpen] = await Promise.all([
       this.prisma.mealPlan.findMany({
-        where: { familyId, date: { gte: today } },
+        where: { familyId, date: { gte: today }, ...this.scope(locationId) },
         orderBy: { date: 'asc' },
         take: 3,
       }),
       this.prisma.countdown.findMany({
-        where: { familyId, date: { gte: today } },
+        where: { familyId, date: { gte: today }, ...this.scope(locationId) },
         orderBy: { date: 'asc' },
         take: 4,
       }),
       this.prisma.announcement.findMany({
-        where: { familyId, OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] },
+        where: {
+          familyId,
+          AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }, this.scope(locationId)],
+        },
         orderBy: { createdAt: 'desc' },
         take: 3,
       }),
-      this.prisma.groceryItem.count({ where: { familyId, checked: false } }),
+      this.prisma.groceryItem.count({ where: { familyId, checked: false, ...this.scope(locationId) } }),
     ]);
     return { today, meals, countdowns, announcements, groceryOpen };
   }

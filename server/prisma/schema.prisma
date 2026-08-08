@@ -74,17 +74,17 @@ enum RedemptionStatus {
 // ---------- Tenant & people ----------
 
 model Family {
-  id            String   @id @default(cuid())
-  name          String
-  tokenName     String   @default("Tokens") // what the family calls their reward currency
-  tokenIcon     String   @default("🪙") // emoji shown alongside the reward currency
-  tokenValueUsd Float    @default(1) // $ value of one token, for auto-suggesting prize costs
-  choreWord     String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
+  id               String   @id @default(cuid())
+  name             String
+  tokenName        String   @default("Tokens") // what the family calls their reward currency
+  tokenIcon        String   @default("🪙") // emoji shown alongside the reward currency
+  tokenValueUsd    Float    @default(1) // $ value of one token, for auto-suggesting prize costs
+  choreWord        String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
   // Family-level feature kill-switches (FAMILY_FEATURES in web/src/api.ts).
   // Stored as the DISABLED list so brand-new features default to ON for
   // every family without a migration backfill.
-  disabledFeatures Json  @default("[]")
-  createdAt     DateTime @default(now())
+  disabledFeatures Json     @default("[]")
+  createdAt        DateTime @default(now())
 
   users           User[]
   locations       Location[]
@@ -146,24 +146,24 @@ model PushSubscription {
 // Each has its own set of calendars, enabled features, and theme, so different
 // kiosks can show different things.
 model DisplayConfig {
-  id              String   @id @default(cuid())
-  familyId        String
-  name            String
-  locationId      String? // scopes this kiosk to one location: only people (and
+  id                 String   @id @default(cuid())
+  familyId           String
+  name               String
+  locationId         String? // scopes this kiosk to one location: only people (and
   // calendars they share) assigned to it show up here
-  calendarIds     Json
-  enabledFeatures Json
-  theme           String   @default("light")
-  colorTheme      String   @default("meadow") // which of the 9 hues (see COLOR_THEMES) this kiosk shows when idle
-  soundEffects    Boolean  @default(true) // celebration chime on chore complete/approve (kiosk has speakers)
-  fontSize        String   @default("md") // sm | md | lg | xl
-  onScreenKeyboard Boolean @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
-  screensaverMinutes Int   @default(0) // show a full-screen clock after this many idle minutes; 0 = never
-  weatherLocation String? // free-text city for the screensaver's weather (Open-Meteo geocoded); unset = no weather shown
-  bedtimeStart    String? // "HH:MM" — kiosk dims into bedtime mode inside this window; unset = never
-  bedtimeEnd      String? // "HH:MM" — end of the bedtime window (may cross midnight)
-  createdById     String
-  createdAt       DateTime @default(now())
+  calendarIds        Json
+  enabledFeatures    Json
+  theme              String   @default("light")
+  colorTheme         String   @default("meadow") // which of the 9 hues (see COLOR_THEMES) this kiosk shows when idle
+  soundEffects       Boolean  @default(true) // celebration chime on chore complete/approve (kiosk has speakers)
+  fontSize           String   @default("md") // sm | md | lg | xl
+  onScreenKeyboard   Boolean  @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
+  screensaverMinutes Int      @default(0) // show a full-screen clock after this many idle minutes; 0 = never
+  weatherLocation    String? // free-text city for the screensaver's weather (Open-Meteo geocoded); unset = no weather shown
+  bedtimeStart       String? // "HH:MM" — kiosk dims into bedtime mode inside this window; unset = never
+  bedtimeEnd         String? // "HH:MM" — end of the bedtime window (may cross midnight)
+  createdById        String
+  createdAt          DateTime @default(now())
 
   family   Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location Location?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
@@ -224,53 +224,53 @@ model DisplayToken {
 }
 
 model User {
-  id            String  @id @default(cuid())
-  familyId      String
-  role          Role
-  displayName   String
-  email         String? // required for adults/owner at signup; kids may have none (parent-managed)
-  passwordHash  String? @db.Text // local (non-Google) login; null if this account only ever uses Google
-  username      String? @unique // local-login id for accounts with no email (mainly kids)
-  pinHash       String? // optional per-profile PIN
-  avatar        String? @db.Text // Google photo URLs can exceed the default varchar(191)
-  themePref     String  @default("light") // per-user app UI theme: light | dark
-  colorTheme    String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
-  fontSizePref  String  @default("md") // per-user app text size: sm | md | lg | xl
-  soundEffects  Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
-  simpleMode    Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
-  allowanceTokens Int   @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
-  notifyByEmail Boolean @default(false)
+  id              String  @id @default(cuid())
+  familyId        String
+  role            Role
+  displayName     String
+  email           String? // required for adults/owner at signup; kids may have none (parent-managed)
+  passwordHash    String? @db.Text // local (non-Google) login; null if this account only ever uses Google
+  username        String? @unique // local-login id for accounts with no email (mainly kids)
+  pinHash         String? // optional per-profile PIN
+  avatar          String? @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref       String  @default("light") // per-user app UI theme: light | dark
+  colorTheme      String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
+  fontSizePref    String  @default("md") // per-user app text size: sm | md | lg | xl
+  soundEffects    Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
+  simpleMode      Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
+  allowanceTokens Int     @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
+  notifyByEmail   Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
   // and every token-balance/history UI hides for them — for a family that
   // doesn't want tokens/rewards for some or all members. See
   // UsersService.setTokensDisabled for who can flip this for whom.
-  tokensDisabled Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
+  tokensDisabled  Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
 
-  family            Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  locations         UserLocation[]
-  googleAccounts    GoogleAccount[]
-  calendarShares    CalendarShare[]
-  choreAssignments  ChoreAssignee[]
-  createdChores     Chore[]            @relation("ChoreCreatedBy")
-  ledgerEntries     TokenLedger[]      @relation("LedgerUser")
-  ledgerCreated     TokenLedger[]      @relation("LedgerCreatedBy")
-  prizeAssigns      PrizeAssignment[]
-  redemptions       Redemption[]
-  createdPrizes     Prize[]            @relation("PrizeCreatedBy")
-  suggestedPrizes   Prize[]            @relation("PrizeSuggestedBy")
-  rulesForMe        Rule[]             @relation("RuleTarget")
-  rulesCreated      Rule[]             @relation("RuleCreatedBy")
-  createdAwards     Award[]            @relation("AwardCreatedBy")
-  awardsReceived    AwardGrant[]       @relation("AwardGrantUser")
-  awardsGranted     AwardGrant[]       @relation("AwardGrantedBy")
-  approvedChores    ChoreInstance[]    @relation("ChoreInstanceApprovedBy")
-  approvedRedemptions Redemption[]     @relation("RedemptionApprovedBy")
-  createdLocalCalendars LocalCalendar[] @relation("LocalCalendarCreatedBy")
-  createdLocalEvents    LocalEvent[]    @relation("LocalEventCreatedBy")
-  passwordResetTokens PasswordResetToken[]
-  notifications     Notification[]
-  pushSubscriptions PushSubscription[]
+  family                Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  locations             UserLocation[]
+  googleAccounts        GoogleAccount[]
+  calendarShares        CalendarShare[]
+  choreAssignments      ChoreAssignee[]
+  createdChores         Chore[]              @relation("ChoreCreatedBy")
+  ledgerEntries         TokenLedger[]        @relation("LedgerUser")
+  ledgerCreated         TokenLedger[]        @relation("LedgerCreatedBy")
+  prizeAssigns          PrizeAssignment[]
+  redemptions           Redemption[]
+  createdPrizes         Prize[]              @relation("PrizeCreatedBy")
+  suggestedPrizes       Prize[]              @relation("PrizeSuggestedBy")
+  rulesForMe            Rule[]               @relation("RuleTarget")
+  rulesCreated          Rule[]               @relation("RuleCreatedBy")
+  createdAwards         Award[]              @relation("AwardCreatedBy")
+  awardsReceived        AwardGrant[]         @relation("AwardGrantUser")
+  awardsGranted         AwardGrant[]         @relation("AwardGrantedBy")
+  approvedChores        ChoreInstance[]      @relation("ChoreInstanceApprovedBy")
+  approvedRedemptions   Redemption[]         @relation("RedemptionApprovedBy")
+  createdLocalCalendars LocalCalendar[]      @relation("LocalCalendarCreatedBy")
+  createdLocalEvents    LocalEvent[]         @relation("LocalEventCreatedBy")
+  passwordResetTokens   PasswordResetToken[]
+  notifications         Notification[]
+  pushSubscriptions     PushSubscription[]
 
   @@index([familyId])
 }
@@ -306,7 +306,7 @@ model GoogleAccount {
   userId          String
   googleSub       String   @unique // Google account subject id
   email           String? // captured at connect time, purely for the "which account is this" label in Settings/Profile — never used for lookup
-  picture         String? @db.Text // Google profile photo URL, same reason as email — label only
+  picture         String?  @db.Text // Google profile photo URL, same reason as email — label only
   tokensEncrypted String   @db.Text // OAuth tokens, encrypted at rest
   needsReconnect  Boolean  @default(false) // refresh token died (invalid_grant) — set on the failing call, cleared on a successful one or a fresh consent
   createdAt       DateTime @default(now())
@@ -368,17 +368,17 @@ model LocalCalendar {
 }
 
 model LocalEvent {
-  id              String   @id @default(cuid())
+  id              String    @id @default(cuid())
   localCalendarId String
   title           String
-  description     String?  @db.Text
+  description     String?   @db.Text
   location        String?
-  allDay          Boolean  @default(false)
+  allDay          Boolean   @default(false)
   startAt         DateTime
   endAt           DateTime
   remindedAt      DateTime? // set once the "starting soon" reminder has fired, so it never double-sends
   createdById     String
-  createdAt       DateTime @default(now())
+  createdAt       DateTime  @default(now())
 
   calendar  LocalCalendar @relation(fields: [localCalendarId], references: [id], onDelete: Cascade)
   createdBy User          @relation("LocalEventCreatedBy", fields: [createdById], references: [id])
@@ -398,13 +398,13 @@ model LocalEvent {
 // (see HolidaysService.assertOwner) — same one-of-a-kind Role.OWNER gate
 // OwnerService uses for multi-family admin.
 model HolidayEvent {
-  id       String @id @default(cuid())
-  title    String
-  ruleType String // FIXED | NTH_WEEKDAY | EASTER_OFFSET — see HolidaysService for the shape each expects
-  month    Int? // 1-12 — FIXED, NTH_WEEKDAY
-  day      Int? // 1-31 — FIXED only
-  weekday  Int? // 0 (Sun) - 6 (Sat) — NTH_WEEKDAY only
-  ordinal  Int? // 1-4, or -1 for "last" — NTH_WEEKDAY only
+  id         String @id @default(cuid())
+  title      String
+  ruleType   String // FIXED | NTH_WEEKDAY | EASTER_OFFSET — see HolidaysService for the shape each expects
+  month      Int? // 1-12 — FIXED, NTH_WEEKDAY
+  day        Int? // 1-31 — FIXED only
+  weekday    Int? // 0 (Sun) - 6 (Sat) — NTH_WEEKDAY only
+  ordinal    Int? // 1-4, or -1 for "last" — NTH_WEEKDAY only
   offsetDays Int? // days relative to Easter Sunday (0 = Easter itself, -2 = Good Friday) — EASTER_OFFSET only
 
   createdAt DateTime @default(now())
@@ -491,7 +491,7 @@ model ChoreInstance {
   approvedBy      String?
   claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
   warnedThreshold Int? // smallest due-soon minutes threshold (120/60/30/15) already notified
-  proofImage      String? @db.Text // photo attached by the kid (data URI) when chore.requireProof
+  proofImage      String?             @db.Text // photo attached by the kid (data URI) when chore.requireProof
 
   chore          Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks         ChoreItemCheck[]
@@ -664,26 +664,29 @@ model Redemption {
 // Simple family-scoped lists surfaced on the kiosk and a Household page.
 
 model MealPlan {
-  id       String @id @default(cuid())
-  familyId String
-  date     String // YYYY-MM-DD local date key
-  title    String // "Tacos"
-  notes    String?
+  id         String  @id @default(cuid())
+  familyId   String
+  locationId String? // which household's dinner this is; null = family-wide
+  date       String // YYYY-MM-DD local date key
+  title      String // "Tacos"
+  notes      String?
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
-  @@unique([familyId, date]) // one dinner entry per day
-  @@index([familyId])
+  // One dinner per day PER SCOPE (enforced in code — a nullable column can't
+  // carry that in a MySQL unique index).
+  @@index([familyId, date])
 }
 
 model GroceryItem {
-  id        String    @id @default(cuid())
-  familyId  String
-  label     String
-  checked   Boolean   @default(false)
-  addedById String?
-  createdAt DateTime  @default(now())
-  checkedAt DateTime?
+  locationId String? // scoping household; null = family-wide (visible everywhere)
+  id         String    @id @default(cuid())
+  familyId   String
+  label      String
+  checked    Boolean   @default(false)
+  addedById  String?
+  createdAt  DateTime  @default(now())
+  checkedAt  DateTime?
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
@@ -691,12 +694,13 @@ model GroceryItem {
 }
 
 model Countdown {
-  id        String   @id @default(cuid())
-  familyId  String
-  title     String
-  emoji     String   @default("🎉")
-  date      String // YYYY-MM-DD target day
-  createdAt DateTime @default(now())
+  locationId String? // scoping household; null = family-wide (visible everywhere)
+  id         String   @id @default(cuid())
+  familyId   String
+  title      String
+  emoji      String   @default("🎉")
+  date       String // YYYY-MM-DD target day
+  createdAt  DateTime @default(now())
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
@@ -704,6 +708,7 @@ model Countdown {
 }
 
 model Announcement {
+  locationId  String? // scoping household; null = family-wide (visible everywhere)
   id          String    @id @default(cuid())
   familyId    String
   text        String    @db.Text

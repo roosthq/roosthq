@@ -4,11 +4,13 @@ import {
   familyFeatureEnabled,
   type AnnouncementEntry,
   type CountdownEntry,
+  type FamilyLocation,
   type FamilySettings,
   type GroceryItem,
   type Me,
   type MealPlanEntry,
 } from '../api';
+import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
 
 function dateKey(d: Date): string {
@@ -32,10 +34,27 @@ function daysUntil(key: string): number {
 // "kitchen wall" page. Sections appear only when the family feature is on.
 export default function HouseholdPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const [family, setFamily] = useState<FamilySettings | null>(null);
+  // Which household this page is looking at. '' = family-wide: reads show
+  // only family-wide items and writes create family-wide ones. A location
+  // shows that household's items PLUS family-wide, and writes go to that
+  // household — same scoping rule as chores. Kids/adults default to their
+  // own household when they have exactly one.
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [scope, setScope] = useState<string>('');
   useEffect(() => {
     api.familySettings().then(setFamily).catch(() => undefined);
+    api.locations().then((locs) => {
+      setLocations(locs);
+      if (!isTopManager) {
+        const mine = myLocationIds(locs, me.id);
+        if (mine.length === 1) setScope(mine[0]);
+      }
+    }).catch(() => setLocations([]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const scopeOptions = isTopManager ? locations : locations.filter((l) => myLocationIds(locations, me.id).includes(l.id));
 
   const meals = familyFeatureEnabled(family, 'meals');
   const grocery = familyFeatureEnabled(family, 'grocery');
@@ -52,20 +71,32 @@ export default function HouseholdPage({ me }: { me: Me }) {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-bold tracking-tight">Household</h2>
-      {meals && <MealsSection isAdult={isAdult} />}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-xl font-bold tracking-tight">Household</h2>
+        {scopeOptions.length > 0 && (
+          <select value={scope} onChange={(e) => setScope(e.target.value)} className="rounded border px-2 py-1.5 text-sm">
+            <option value="">Family-wide</option>
+            {scopeOptions.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.name}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+      {meals && <MealsSection isAdult={isAdult} scope={scope} />}
       <div className="grid gap-6 lg:grid-cols-2">
-        {grocery && <GrocerySection />}
+        {grocery && <GrocerySection scope={scope} />}
         <div className="space-y-6">
-          {countdowns && <CountdownsSection isAdult={isAdult} />}
-          {announcements && <AnnouncementsSection isAdult={isAdult} />}
+          {countdowns && <CountdownsSection isAdult={isAdult} scope={scope} />}
+          {announcements && <AnnouncementsSection isAdult={isAdult} scope={scope} />}
         </div>
       </div>
     </div>
   );
 }
 
-function MealsSection({ isAdult }: { isAdult: boolean }) {
+function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [weekStart, setWeekStart] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() - d.getDay());
@@ -78,18 +109,18 @@ function MealsSection({ isAdult }: { isAdult: boolean }) {
 
   const refresh = useCallback(() => {
     api
-      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)))
+      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), scope || null)
       .then((rows) => setMeals(Object.fromEntries(rows.map((m) => [m.date, m]))))
       .catch(() => setMeals({}));
-  }, [weekStart]);
+  }, [weekStart, scope]);
   useEffect(() => {
     refresh();
   }, [refresh]);
 
   async function save(date: string) {
     const title = draft.trim();
-    if (title) await api.setMeal(date, { title });
-    else if (meals[date]) await api.deleteMeal(date);
+    if (title) await api.setMeal(date, { title, locationId: scope || null });
+    else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null);
     setEditing(null);
     refresh();
   }
@@ -147,12 +178,12 @@ function MealsSection({ isAdult }: { isAdult: boolean }) {
   );
 }
 
-function GrocerySection() {
+function GrocerySection({ scope }: { scope: string }) {
   const [items, setItems] = useState<GroceryItem[]>([]);
   const [label, setLabel] = useState('');
   const refresh = useCallback(() => {
-    api.grocery().then(setItems).catch(() => setItems([]));
-  }, []);
+    api.grocery(scope || null).then(setItems).catch(() => setItems([]));
+  }, [scope]);
   useEffect(() => {
     refresh();
   }, [refresh]);
@@ -161,7 +192,7 @@ function GrocerySection() {
     const l = label.trim();
     if (!l) return;
     setLabel('');
-    await api.addGrocery(l);
+    await api.addGrocery(l, scope || null);
     refresh();
   }
   const anyChecked = items.some((i) => i.checked);
@@ -197,7 +228,7 @@ function GrocerySection() {
         {items.length === 0 && <li className="text-sm text-slate-400">Nothing needed. Nice.</li>}
       </ul>
       {anyChecked && (
-        <button onClick={() => api.clearCheckedGrocery().then(refresh)} className="mt-3 rounded border px-3 py-1 text-xs hover:bg-slate-50">
+        <button onClick={() => api.clearCheckedGrocery(scope || null).then(refresh)} className="mt-3 rounded border px-3 py-1 text-xs hover:bg-slate-50">
           Clear checked
         </button>
       )}
@@ -205,21 +236,21 @@ function GrocerySection() {
   );
 }
 
-function CountdownsSection({ isAdult }: { isAdult: boolean }) {
+function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [items, setItems] = useState<CountdownEntry[]>([]);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [emoji, setEmoji] = useState('🎉');
   const refresh = useCallback(() => {
-    api.countdowns().then(setItems).catch(() => setItems([]));
-  }, []);
+    api.countdowns(scope || null).then(setItems).catch(() => setItems([]));
+  }, [scope]);
   useEffect(() => {
     refresh();
   }, [refresh]);
 
   async function add() {
     if (!title.trim() || !date) return;
-    await api.addCountdown({ title: title.trim(), date, emoji });
+    await api.addCountdown({ title: title.trim(), date, emoji, locationId: scope || null });
     setTitle('');
     setDate('');
     refresh();
@@ -269,19 +300,19 @@ function CountdownsSection({ isAdult }: { isAdult: boolean }) {
   );
 }
 
-function AnnouncementsSection({ isAdult }: { isAdult: boolean }) {
+function AnnouncementsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [items, setItems] = useState<AnnouncementEntry[]>([]);
   const [text, setText] = useState('');
   const refresh = useCallback(() => {
-    api.announcements().then(setItems).catch(() => setItems([]));
-  }, []);
+    api.announcements(scope || null).then(setItems).catch(() => setItems([]));
+  }, [scope]);
   useEffect(() => {
     refresh();
   }, [refresh]);
 
   async function add() {
     if (!text.trim()) return;
-    await api.addAnnouncement({ text: text.trim() });
+    await api.addAnnouncement({ text: text.trim(), locationId: scope || null });
     setText('');
     refresh();
   }

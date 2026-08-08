@@ -221,6 +221,7 @@ export interface ChoreInstance {
 
 export interface MealPlanEntry {
   id: string;
+  locationId?: string | null; // null = family-wide
   date: string; // YYYY-MM-DD
   title: string;
   notes?: string | null;
@@ -228,6 +229,7 @@ export interface MealPlanEntry {
 
 export interface GroceryItem {
   id: string;
+  locationId?: string | null; // null = family-wide
   label: string;
   checked: boolean;
   createdAt: string;
@@ -235,6 +237,7 @@ export interface GroceryItem {
 
 export interface CountdownEntry {
   id: string;
+  locationId?: string | null; // null = family-wide
   title: string;
   emoji: string;
   date: string; // YYYY-MM-DD
@@ -242,6 +245,7 @@ export interface CountdownEntry {
 
 export interface AnnouncementEntry {
   id: string;
+  locationId?: string | null; // null = family-wide
   text: string;
   createdAt: string;
   expiresAt?: string | null;
@@ -640,23 +644,31 @@ export const api = {
   setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number }) =>
     req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
 
-  // Household widgets (meals / grocery / countdowns / announcements)
-  meals: (start: string, end: string) => req<MealPlanEntry[]>(`/household/meals?start=${start}&end=${end}`),
-  setMeal: (date: string, body: { title: string; notes?: string | null }) =>
+  // Household widgets (meals / grocery / countdowns / announcements).
+  // locationId scopes reads to one household (its items + family-wide ones)
+  // and writes to that household; omit for family-wide.
+  meals: (start: string, end: string, locationId?: string | null) =>
+    req<MealPlanEntry[]>(`/household/meals?start=${start}&end=${end}${locationId ? `&locationId=${locationId}` : ''}`),
+  setMeal: (date: string, body: { title: string; notes?: string | null; locationId?: string | null }) =>
     req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }),
-  deleteMeal: (date: string) => req(`/household/meals/${date}`, { method: 'DELETE' }),
-  grocery: () => req<GroceryItem[]>('/household/grocery'),
-  addGrocery: (label: string) => req<GroceryItem>('/household/grocery', { method: 'POST', body: JSON.stringify({ label }) }),
+  deleteMeal: (date: string, locationId?: string | null) =>
+    req(`/household/meals/${date}${locationId ? `?locationId=${locationId}` : ''}`, { method: 'DELETE' }),
+  grocery: (locationId?: string | null) => req<GroceryItem[]>(`/household/grocery${locationId ? `?locationId=${locationId}` : ''}`),
+  addGrocery: (label: string, locationId?: string | null) =>
+    req<GroceryItem>('/household/grocery', { method: 'POST', body: JSON.stringify({ label, locationId }) }),
   patchGrocery: (id: string, body: { checked?: boolean; label?: string }) =>
     req<GroceryItem>(`/household/grocery/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteGrocery: (id: string) => req(`/household/grocery/${id}`, { method: 'DELETE' }),
-  clearCheckedGrocery: () => req('/household/grocery/checked', { method: 'DELETE' }),
-  countdowns: () => req<CountdownEntry[]>('/household/countdowns'),
-  addCountdown: (body: { title: string; date: string; emoji?: string }) =>
+  clearCheckedGrocery: (locationId?: string | null) =>
+    req(`/household/grocery/checked${locationId ? `?locationId=${locationId}` : ''}`, { method: 'DELETE' }),
+  countdowns: (locationId?: string | null) =>
+    req<CountdownEntry[]>(`/household/countdowns${locationId ? `?locationId=${locationId}` : ''}`),
+  addCountdown: (body: { title: string; date: string; emoji?: string; locationId?: string | null }) =>
     req<CountdownEntry>('/household/countdowns', { method: 'POST', body: JSON.stringify(body) }),
   deleteCountdown: (id: string) => req(`/household/countdowns/${id}`, { method: 'DELETE' }),
-  announcements: () => req<AnnouncementEntry[]>('/household/announcements'),
-  addAnnouncement: (body: { text: string; expiresInHours?: number }) =>
+  announcements: (locationId?: string | null) =>
+    req<AnnouncementEntry[]>(`/household/announcements${locationId ? `?locationId=${locationId}` : ''}`),
+  addAnnouncement: (body: { text: string; expiresInHours?: number; locationId?: string | null }) =>
     req<AnnouncementEntry>('/household/announcements', { method: 'POST', body: JSON.stringify(body) }),
   deleteAnnouncement: (id: string) => req(`/household/announcements/${id}`, { method: 'DELETE' }),
 
