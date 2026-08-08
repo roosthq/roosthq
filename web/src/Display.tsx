@@ -236,11 +236,12 @@ export default function Display() {
 
   // The display's own light/dark mode (data-mode) — a property of the
   // physical kiosk, never overridden by whoever's signed in (see unlock()
-  // below). data-theme (the color hue) resets to the brand default here and
-  // is the only thing a signed-in profile's own preference changes.
+  // below). data-theme (the color hue) resets to this kiosk's own configured
+  // default here (Settings > Touch displays > Default color theme) and is
+  // the only thing a signed-in profile's own preference changes.
   const applyIdleTheme = useCallback((c: ResolvedDisplayConfig) => {
     document.documentElement.setAttribute('data-mode', c.theme === 'dark' ? 'dark' : 'light');
-    document.documentElement.setAttribute('data-theme', 'meadow');
+    document.documentElement.setAttribute('data-theme', c.colorTheme || 'meadow');
     document.documentElement.setAttribute('data-font-size', ['sm', 'lg', 'xl'].includes(c.fontSize) ? c.fontSize : 'md');
   }, []);
 

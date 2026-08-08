@@ -38,6 +38,7 @@ export interface DisplayConfigInput {
   calendarIds?: string[];
   enabledFeatures?: string[];
   theme?: string;
+  colorTheme?: string;
   fontSize?: string;
   onScreenKeyboard?: boolean;
   screensaverMinutes?: number;
@@ -51,6 +52,7 @@ export interface ResolvedConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  colorTheme: string;
   fontSize: string;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
@@ -104,6 +106,7 @@ export class DisplaysService {
         calendarIds,
         enabledFeatures: dto.enabledFeatures ?? ['calendar', 'chores'],
         theme: dto.theme ?? 'light',
+        colorTheme: dto.colorTheme ?? 'meadow',
         fontSize: dto.fontSize ?? 'md',
         onScreenKeyboard: dto.onScreenKeyboard ?? false,
         screensaverMinutes: Math.max(0, dto.screensaverMinutes ?? 0),
@@ -132,6 +135,7 @@ export class DisplaysService {
         ...(calendarIds !== undefined && { calendarIds }),
         ...(dto.enabledFeatures !== undefined && { enabledFeatures: dto.enabledFeatures }),
         ...(dto.theme !== undefined && { theme: dto.theme }),
+        ...(dto.colorTheme !== undefined && { colorTheme: dto.colorTheme }),
         ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
         ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
         ...(dto.screensaverMinutes !== undefined && { screensaverMinutes: Math.max(0, dto.screensaverMinutes) }),
@@ -230,6 +234,7 @@ export class DisplaysService {
         calendarIds: (legacy.defaultCalendarIds as string[]) ?? [],
         enabledFeatures: (legacy.enabledFeatures as string[]) ?? ['calendar'],
         theme: legacy.theme,
+        colorTheme: 'meadow',
         fontSize: 'md',
         onScreenKeyboard: false,
         screensaverMinutes: 0,
@@ -243,6 +248,7 @@ export class DisplaysService {
       calendarIds: [],
       enabledFeatures: ['calendar'],
       theme: 'light',
+      colorTheme: 'meadow',
       fontSize: 'md',
       onScreenKeyboard: false,
       screensaverMinutes: 0,
@@ -262,6 +268,7 @@ export class DisplaysService {
       calendarIds: unknown;
       enabledFeatures: unknown;
       theme: string;
+      colorTheme: string;
       fontSize: string;
       onScreenKeyboard: boolean;
       screensaverMinutes: number;
@@ -276,6 +283,7 @@ export class DisplaysService {
       calendarIds,
       enabledFeatures: (c.enabledFeatures as string[]) ?? ['calendar'],
       theme: c.theme,
+      colorTheme: c.colorTheme,
       fontSize: c.fontSize,
       onScreenKeyboard: c.onScreenKeyboard,
       screensaverMinutes: c.screensaverMinutes,

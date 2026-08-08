@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import {
   api,
+  COLOR_THEMES,
   type Me,
   type Member,
   type SharedCalendar,
@@ -578,6 +579,20 @@ function DisplayRow({
           <select value={d.theme} onChange={(e) => onPatch({ theme: e.target.value })} className="w-full rounded border px-2 py-1.5 text-sm">
             <option value="light">Light</option>
             <option value="dark">Dark</option>
+          </select>
+        </Field>
+
+        <Field label="Default color theme" help="Shown whenever nobody's signed in — a signed-in person's own color still takes over.">
+          <select
+            value={d.colorTheme}
+            onChange={(e) => onPatch({ colorTheme: e.target.value })}
+            className="w-full rounded border px-2 py-1.5 text-sm"
+          >
+            {COLOR_THEMES.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.label}
+              </option>
+            ))}
           </select>
         </Field>
 

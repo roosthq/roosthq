@@ -350,6 +350,7 @@ export interface DisplayConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  colorTheme: string;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
@@ -364,6 +365,7 @@ export interface ResolvedDisplayConfig {
   calendarIds: string[];
   enabledFeatures: string[];
   theme: string;
+  colorTheme: string;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
