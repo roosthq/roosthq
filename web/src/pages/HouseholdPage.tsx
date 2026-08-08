@@ -110,7 +110,13 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const refresh = useCallback(() => {
     api
       .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), scope || null)
-      .then((rows) => setMeals(Object.fromEntries(rows.map((m) => [m.date, m]))))
+      .then((rows) => {
+        // A scoped view merges the house's meals with family-wide ones; when
+        // both exist on the same date, the HOUSE one wins the cell (sort
+        // family-wide first so scoped rows overwrite them in the dict).
+        const sorted = [...rows].sort((a, b) => (a.locationId ? 1 : 0) - (b.locationId ? 1 : 0));
+        setMeals(Object.fromEntries(sorted.map((m) => [m.date, m])));
+      })
       .catch(() => setMeals({}));
   }, [weekStart, scope]);
   useEffect(() => {
@@ -168,6 +174,9 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                   className="mt-1 w-full rounded px-1 py-1 text-left text-sm hover:bg-slate-50 disabled:cursor-default"
                 >
                   {meal?.title || <span className="text-slate-300">{isAdult ? '+ add' : '—'}</span>}
+                  {meal && scope && !meal.locationId && (
+                    <span className="block text-[10px] text-slate-400">family-wide</span>
+                  )}
                 </button>
               )}
             </li>
@@ -219,7 +228,10 @@ function GrocerySection({ scope }: { scope: string }) {
               checked={i.checked}
               onChange={(e) => api.patchGrocery(i.id, { checked: e.target.checked }).then(refresh)}
             />
-            <span className={`flex-1 ${i.checked ? 'text-slate-400 line-through' : ''}`}>{i.label}</span>
+            <span className={`flex-1 ${i.checked ? 'text-slate-400 line-through' : ''}`}>
+              {i.label}
+              {scope && !i.locationId && <span className="ml-1 text-[10px] text-slate-400">(family-wide)</span>}
+            </span>
             <button onClick={() => api.deleteGrocery(i.id).then(refresh)} className="text-xs text-slate-400 hover:text-red-500">
               ✕
             </button>
@@ -265,7 +277,10 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
             <li key={c.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
               <span className="text-2xl">{c.emoji}</span>
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-medium">{c.title}</span>
+                <span className="block truncate text-sm font-medium">
+                  {c.title}
+                  {scope && !c.locationId && <span className="ml-1 text-[10px] font-normal text-slate-400">(family-wide)</span>}
+                </span>
                 <span className="block text-xs text-slate-400">{formatDate(new Date(`${c.date}T00:00:00`))}</span>
               </span>
               <span className="text-lg font-bold" style={{ color: 'var(--accent)' }}>
@@ -322,7 +337,10 @@ function AnnouncementsSection({ isAdult, scope }: { isAdult: boolean; scope: str
       <ul className="mt-3 space-y-2">
         {items.map((a) => (
           <li key={a.id} className="card-nested flex items-start gap-2 rounded-lg px-3 py-2 text-sm">
-            <span className="flex-1">{a.text}</span>
+            <span className="flex-1">
+              {a.text}
+              {scope && !a.locationId && <span className="ml-1 text-[10px] text-slate-400">(family-wide)</span>}
+            </span>
             {isAdult && (
               <button onClick={() => api.deleteAnnouncement(a.id).then(refresh)} className="text-xs text-slate-400 hover:text-red-500">
                 ✕
