@@ -234,6 +234,7 @@ export interface Chore {
   instances: ChoreInstance[];
   allowLate: boolean;
   allowSkip: boolean;
+  autoApprove: boolean;
   latePenaltyPercent: number;
   currentStreak: number;
   bestStreak: number;
@@ -353,6 +354,7 @@ export interface DisplayConfig {
   enabledFeatures: string[];
   theme: string;
   colorTheme: string;
+  soundEffects: boolean;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;
@@ -368,6 +370,7 @@ export interface ResolvedDisplayConfig {
   enabledFeatures: string[];
   theme: string;
   colorTheme: string;
+  soundEffects: boolean;
   fontSize: FontSize;
   onScreenKeyboard: boolean;
   screensaverMinutes: number;

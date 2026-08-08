@@ -637,6 +637,13 @@ function DisplayRow({
           </select>
         </Field>
 
+        <Field label="Sound effects" help="Celebration chime when someone completes a chore on this display.">
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={d.soundEffects} onChange={(e) => onPatch({ soundEffects: e.target.checked })} />
+            Play sounds
+          </label>
+        </Field>
+
         <div className="sm:col-span-2">
           <Field label="Features">
             <div className="flex flex-wrap gap-3">

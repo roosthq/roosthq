@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { choreClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
+import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
+import { celebrate } from './celebrate';
+import PendingPanel from './PendingPanel';
 import TokenBadge from './TokenBadge';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
@@ -86,10 +88,15 @@ export default function ChoresPanel({
   variant = 'full',
   locationId,
   refreshSignal,
+  showPending = false,
 }: {
   me: Actor;
   client?: ChoreClient;
   variant?: 'full' | 'today';
+  // Adults get the "waiting on a yes/no" inbox pinned above the list — the
+  // main portal turns this on; the kiosk already renders PendingPanel in its
+  // own layout slot, so it stays off there to avoid doubling up.
+  showPending?: boolean;
   // Scope to one location's chores (plus location-less/"global" ones) — used on
   // the kiosk display, which represents whoever lives at a given location, not
   // the whole family. Omit entirely for the normal portal (unscoped).
@@ -250,9 +257,10 @@ export default function ChoresPanel({
     return chore.assignees.some((a) => a.userId === me.id);
   }
 
-  async function act(fn: () => Promise<unknown>) {
+  async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     try {
       await fn();
+      if (celebrateFrom) celebrate(celebrateFrom);
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
     }
@@ -307,18 +315,34 @@ export default function ChoresPanel({
   // meant to browse siblings' assignments, just what's theirs to do plus
   // whatever's open to claim. A chore with multiple assignees shows up under
   // each of them (or just this kid, if that's the only one they can see).
+  // Kids get a "Today" bucket pinned first — the stuff they can actually do
+  // right now — so the answer to "what do I have to do?" is the top of the
+  // page, not a scan of every group. Adults keep the plain by-person layout
+  // (they're managing everyone, not hunting their own list).
+  const kidTodayRows =
+    !today && !isAdult
+      ? rows.filter((r) => r.dueNow && r.active?.status === 'OPEN' && (r.mine || r.openToClaim))
+      : [];
+  const kidTodayIds = new Set(kidTodayRows.map((r) => r.chore.id));
+
   const groups = today
     ? []
     : [
+        { key: 'TODAY', label: '⭐ Today', rows: kidTodayRows },
         ...(isAdult ? members : members.filter((m) => m.id === me.id)).map((m) => ({
           key: m.id,
           label: m.displayName,
-          rows: rows.filter((r) => r.chore.assignmentType === 'SPECIFIC' && r.chore.assignees.some((a) => a.userId === m.id)),
+          rows: rows.filter(
+            (r) =>
+              !kidTodayIds.has(r.chore.id) &&
+              r.chore.assignmentType === 'SPECIFIC' &&
+              r.chore.assignees.some((a) => a.userId === m.id),
+          ),
         })),
         {
           key: 'ANYONE',
           label: 'Open to anyone',
-          rows: rows.filter((r) => r.chore.assignmentType === 'ANYONE'),
+          rows: rows.filter((r) => !kidTodayIds.has(r.chore.id) && r.chore.assignmentType === 'ANYONE'),
         },
       ]
         .filter((g) => g.rows.length > 0)
@@ -387,7 +411,7 @@ export default function ChoresPanel({
           )}
           {active?.status === 'OPEN' && dueNow && mine && (
             <button
-              onClick={() => act(() => client.completeInstance(active.id))}
+              onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget)}
               className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700"
             >
               Mark done
@@ -410,7 +434,7 @@ export default function ChoresPanel({
           {active?.status === 'PENDING' && isAdult && (
             <>
               <button
-                onClick={() => act(() => client.approveInstance(active.id))}
+                onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget)}
                 className="rounded-md bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"
               >
                 Approve
@@ -578,6 +602,19 @@ export default function ChoresPanel({
         </div>
       )}
 
+      {showPending && isAdult && (
+        <div className="mt-3">
+          <PendingPanel
+            chores={chores}
+            client={client}
+            prizeClient={prizeClient()}
+            members={members}
+            tokenIcon={tokenIcon}
+            onChanged={refresh}
+          />
+        </div>
+      )}
+
       {today ? (
         <ul className="mt-3 space-y-2">
           {rows.map(renderRow)}
@@ -627,7 +664,7 @@ export default function ChoresPanel({
                       )}
                       {active?.status === 'OPEN' && dueNow && mine && (
                         <button
-                          onClick={() => act(() => client.completeInstance(active.id))}
+                          onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget)}
                           className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700"
                         >
                           Mark done
@@ -643,7 +680,7 @@ export default function ChoresPanel({
                       )}
                       {active?.status === 'PENDING' && isAdult && (
                         <>
-                          <button onClick={() => act(() => client.approveInstance(active.id))} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
+                          <button onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget)} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
                             Approve
                           </button>
                           <button onClick={() => act(() => client.rejectInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-white">
@@ -778,6 +815,7 @@ function ChoreForm({
   const [allowLate, setAllowLate] = useState(chore?.allowLate ?? false);
   const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
   const [allowSkip, setAllowSkip] = useState(chore?.allowSkip ?? false);
+  const [autoApprove, setAutoApprove] = useState(chore?.autoApprove ?? false);
   const [streakEnabled, setStreakEnabled] = useState(!!chore?.streakGoal);
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
@@ -807,6 +845,7 @@ function ChoreForm({
       allowLate,
       latePenaltyPercent: Math.max(0, Math.min(100, Number(latePenaltyPercent) || 0)),
       allowSkip,
+      autoApprove,
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
@@ -937,6 +976,16 @@ function ChoreForm({
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={allowSkip} onChange={(e) => setAllowSkip(e.target.checked)} />
               Allow skipping
+            </label>
+          </Field>
+
+          <Field
+            label="Approval"
+            help="Trust chore: completing it awards the reward immediately, with no adult approval step. For habits you don't need to inspect, like brushing teeth."
+          >
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={autoApprove} onChange={(e) => setAutoApprove(e.target.checked)} />
+              Auto-approve on completion
             </label>
           </Field>
 

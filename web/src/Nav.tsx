@@ -137,8 +137,33 @@ export default function Nav({
     </>
   );
 
+  // Phone/tablet: the four everyday destinations live in a fixed bottom tab
+  // bar (thumb-reachable, kid-findable); the hamburger keeps the long tail
+  // (Rules, Awards, Settings, theme, sign out). index.css pads the body via
+  // body:has(.bottom-tabs) so page content never hides behind it — the kiosk
+  // renders no Nav, so it gets no padding.
+  const tabCls = ({ isActive }: { isActive: boolean }) =>
+    `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
+  const bottomTabs = (
+    <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
+      <NavLink to="/" end className={tabCls}>
+        <span className="text-xl leading-none">📅</span>Calendar
+      </NavLink>
+      <NavLink to="/chores" className={tabCls}>
+        <span className="text-xl leading-none">✅</span>{chorePlural}
+      </NavLink>
+      <NavLink to="/store" className={tabCls}>
+        <span className="text-xl leading-none">🛍️</span>Store
+      </NavLink>
+      <NavLink to="/profile" className={tabCls}>
+        <span className="text-xl leading-none">👤</span>Profiles
+      </NavLink>
+    </div>
+  );
+
   return (
     <nav className="border-b px-4 py-3 sm:px-6">
+      {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
           <span className="mr-2 sm:mr-3">

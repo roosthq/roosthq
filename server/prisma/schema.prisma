@@ -147,6 +147,7 @@ model DisplayConfig {
   enabledFeatures Json
   theme           String   @default("light")
   colorTheme      String   @default("meadow") // which of the 9 hues (see COLOR_THEMES) this kiosk shows when idle
+  soundEffects    Boolean  @default(true) // celebration chime on chore complete/approve (kiosk has speakers)
   fontSize        String   @default("md") // sm | md | lg | xl
   onScreenKeyboard Boolean @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
   screensaverMinutes Int   @default(0) // show a full-screen clock after this many idle minutes; 0 = never
@@ -423,6 +424,7 @@ model Chore {
   recurrenceRule     String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
   allowLate          Boolean @default(false) // if false (default), missing the due date forfeits the reward
   allowSkip          Boolean @default(false) // assignee can skip an occurrence outright — no token, no checklist required, doesn't break streak
+  autoApprove        Boolean @default(false) // completing awards tokens immediately, no adult approval step (trust chores like brushing teeth)
   latePenaltyPercent Int     @default(25) // % of reward lost per day late, when allowLate is on
   createdById        String
   currentStreak      Int     @default(0) // consecutive on-time completions; resets on a miss

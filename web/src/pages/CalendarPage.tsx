@@ -22,10 +22,11 @@ import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type Chor
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
 import DropdownDetails from '../DropdownDetails';
 
-export function Avatar({ name, src }: { name?: string; src?: string }) {
-  if (src) return <img src={src} alt={name ?? ''} className="h-10 w-10 rounded-full object-cover" />;
+export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
+  const cls = size === 'sm' ? 'h-8 w-8' : 'h-10 w-10';
+  if (src) return <img src={src} alt={name ?? ''} className={`${cls} rounded-full object-cover`} />;
   return (
-    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-300 font-semibold text-slate-700">
+    <span className={`${cls} inline-flex items-center justify-center rounded-full bg-slate-300 font-semibold text-slate-700`}>
       {(name ?? '?').charAt(0).toUpperCase()}
     </span>
   );
@@ -55,15 +56,15 @@ function Dashboard({ me }: { me: Me }) {
           <li key={m.id}>
             <Link
               to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
-              className="panel flex items-center gap-3 hover:bg-slate-50"
+              className="panel panel-compact flex items-center gap-2 hover:bg-slate-50"
             >
-              <Avatar name={m.displayName} src={m.avatar} />
+              <Avatar name={m.displayName} src={m.avatar} size="sm" />
               <span>
-                <span className="block font-medium">{m.displayName}</span>
+                <span className="block text-sm font-medium">{m.displayName}</span>
                 <span className="block text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
               </span>
               {!m.tokensDisabled && (
-                <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
+                <span className="ml-1 text-base font-bold" style={{ color: 'var(--accent)' }}>
                   {tokenIcon} {balances[m.id] ?? 0}
                   <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                 </span>

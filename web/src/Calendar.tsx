@@ -404,16 +404,38 @@ export default function Calendar({
                       screens; below sm there's only room for a per-calendar
                       dot + count — tap the day for the rest. */}
                   <div className="hidden space-y-0.5 sm:block">
-                    {dayEvents.slice(0, maxChips).map((e) => (
-                      <div
-                        key={`${e.uid}-${k}`}
-                        className={`flex items-center overflow-hidden rounded-full font-medium text-white ${pillCls}`}
-                        style={{ background: e.calendarColor ?? '#94a3b8' }}
-                      >
-                        <Avatar name={e.ownerName} src={e.ownerAvatar} />
-                        <span className="truncate">{e.title ?? '(no title)'}</span>
-                      </div>
-                    ))}
+                    {dayEvents.slice(0, maxChips).map((e) => {
+                      // Multi-day events render as one continuous bar: square
+                      // inner edges + negative margins push each day's segment
+                      // through the cell padding so consecutive cells connect,
+                      // instead of repeating a fully-rounded pill per day. The
+                      // title (and avatar) paints only on the first day and at
+                      // each week's Sunday restart — continuation segments stay
+                      // blank so it doesn't read as many identical events.
+                      const s = dayStart(e);
+                      const en = dayEnd(e);
+                      const multi = !!s && !!en && keyOf(s) !== keyOf(en);
+                      const first = !multi || (s ? keyOf(s) === k : true);
+                      const last = !multi || (en ? keyOf(en) === k : true);
+                      const showContent = first || d.getDay() === 0;
+                      return (
+                        <div
+                          key={`${e.uid}-${k}`}
+                          className={`flex items-center overflow-hidden font-medium text-white ${
+                            !multi
+                              ? 'rounded-full'
+                              : `${first ? 'rounded-l-full' : '-ml-1'} ${last ? 'rounded-r-full' : '-mr-1'}`
+                          } ${pillCls}`}
+                          style={{ background: e.calendarColor ?? '#94a3b8' }}
+                        >
+                          {first && <Avatar name={e.ownerName} src={e.ownerAvatar} />}
+                          {/* nbsp + min-h keep continuation segments (no
+                              avatar) as tall as the first segment, so the bar
+                              doesn't thin out mid-span. */}
+                          <span className="min-h-4 truncate">{showContent ? e.title ?? '(no title)' : ' '}</span>
+                        </div>
+                      );
+                    })}
                     {dayEvents.length > maxChips && (
                       <div className="text-xs text-slate-400">+{dayEvents.length - maxChips} more</div>
                     )}

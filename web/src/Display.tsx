@@ -14,6 +14,7 @@ import {
   type Balance,
 } from './api';
 import Calendar from './Calendar';
+import { setCelebrationSound } from './celebrate';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import KioskAccountPanel from './KioskAccountPanel';
@@ -249,6 +250,9 @@ export default function Display() {
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
+    // Kiosk is the one surface with speakers on purpose — celebration sound
+    // follows this display's own setting (Settings > Touch displays).
+    setCelebrationSound(c.soundEffects !== false);
     if (!activeRef.current) applyIdleTheme(c);
   }, [applyIdleTheme]);
 

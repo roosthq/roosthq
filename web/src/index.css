@@ -423,6 +423,47 @@ select option {
   }
 }
 
+/* Confetti burst (celebrate.ts) — pieces fly outward from the tapped
+   element, spin, and fade. Host is a zero-size anchor at the burst origin. */
+.confetti-host {
+  position: fixed;
+  z-index: 100;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-burst 900ms ease-out forwards;
+}
+@keyframes confetti-burst {
+  0% {
+    transform: translate(0, 0) rotate(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dx), calc(var(--dy) + 60px)) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+/* Bottom tab bar (Nav.tsx, < lg only): fixed to the viewport bottom, so give
+   the page matching bottom padding — but only when the bar is actually in
+   the DOM. The kiosk view renders no Nav (and no .bottom-tabs), so it stays
+   unpadded. */
+@media (max-width: 1023.98px) {
+  body:has(.bottom-tabs) {
+    padding-bottom: calc(3.6rem + env(safe-area-inset-bottom));
+  }
+}
+
 /* Calendar page-turn animation — triggered on every navigation (prev/next
    buttons, swipe, Today), keyed by a counter so React remounts the grid and
    re-plays the animation each time. Direction-tagged (next slides in from
@@ -454,6 +495,13 @@ select option {
   border-radius: 14px;
   padding: 18px 20px;
   box-shadow: 0 1px 2px rgba(28, 46, 28, 0.05);
+}
+
+/* Compact modifier for .panel — person chips (Family strip, Profiles picker)
+   were full-size panels and ate half a phone screen. */
+.panel-compact {
+  padding: 8px 14px;
+  border-radius: 10px;
 }
 
 /* A card that sits ON TOP of a --surface container (e.g. Modal, which is

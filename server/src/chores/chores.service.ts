@@ -36,6 +36,7 @@ export interface CreateChoreDto {
   dueDate?: string;
   allowLate?: boolean;
   allowSkip?: boolean;
+  autoApprove?: boolean;
   latePenaltyPercent?: number;
   streakGoal?: number | null;
   streakBonusTokens?: number;
@@ -227,6 +228,7 @@ export class ChoresService {
         recurrenceRule: dto.recurrenceRule,
         allowLate: dto.allowLate ?? false,
         allowSkip: dto.allowSkip ?? false,
+        autoApprove: dto.autoApprove ?? false,
         latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
@@ -387,6 +389,7 @@ export class ChoresService {
         ...(dto.recurrenceRule !== undefined && { recurrenceRule: dto.recurrenceRule }),
         ...(dto.allowLate !== undefined && { allowLate: dto.allowLate }),
         ...(dto.allowSkip !== undefined && { allowSkip: dto.allowSkip }),
+        ...(dto.autoApprove !== undefined && { autoApprove: dto.autoApprove }),
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
@@ -531,8 +534,9 @@ export class ChoresService {
     }
 
     const actor = await this.user(userId);
-    // Adults don't need approval for their own chores.
-    if (this.isAdult(actor?.role)) {
+    // Adults don't need approval for their own chores; neither does anyone
+    // on a trust chore (autoApprove) like brushing teeth.
+    if (this.isAdult(actor?.role) || inst.chore.autoApprove) {
       return this.finalizeApproval(inst.id, userId, userId);
     }
     const updated = await this.prisma.choreInstance.update({

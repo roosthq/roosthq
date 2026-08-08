@@ -18,6 +18,39 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
+// Tokens earned per day over the last 30 days as a small inline area chart —
+// makes "am I doing better lately?" visible at a glance without a reports
+// page. Pure SVG, no library.
+function EarnedSparkline({ ledger, label }: { ledger: LedgerEntry[]; label: string }) {
+  const days = 30;
+  const byDay = new Array<number>(days).fill(0);
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() - (days - 1));
+  for (const l of ledger) {
+    if (l.delta <= 0) continue;
+    const d = new Date(l.createdAt);
+    d.setHours(0, 0, 0, 0);
+    const idx = Math.round((d.getTime() - start.getTime()) / 86_400_000);
+    if (idx >= 0 && idx < days) byDay[idx] += l.delta;
+  }
+  const max = Math.max(1, ...byDay);
+  if (byDay.every((v) => v === 0)) return null;
+  const W = 300;
+  const H = 40;
+  const step = W / (days - 1);
+  const pts = byDay.map((v, i) => `${(i * step).toFixed(1)},${(H - (v / max) * (H - 4)).toFixed(1)}`);
+  return (
+    <div className="panel mt-3">
+      <div className="mb-1 text-xs text-slate-500">{label}</div>
+      <svg viewBox={`0 0 ${W} ${H}`} className="h-10 w-full" preserveAspectRatio="none" role="img" aria-label={label}>
+        <polygon points={`0,${H} ${pts.join(' ')} ${W},${H}`} fill="var(--accent)" opacity="0.15" />
+        <polyline points={pts.join(' ')} fill="none" stroke="var(--accent)" strokeWidth="2" />
+      </svg>
+    </div>
+  );
+}
+
 // The basic, browse-anyone view — stats, awards, token/purchase history, and
 // (adults) a quick manual token adjust. Deliberately kept simple: everything
 // about managing YOUR OWN account (identity, password, avatar, PIN, Google
@@ -48,6 +81,7 @@ export default function ProfilePage({
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [history, setHistory] = useState<Redemption[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
+  const [streak, setStreak] = useState(0);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
 
@@ -67,6 +101,16 @@ export default function ProfilePage({
     // too) — skip the call rather than surface a 403 when browsing a sibling.
     if (isAdult || viewingSelf) api.earnedAwards(targetId).then(setAwards).catch(() => setAwards([]));
     else setAwards([]);
+    // Longest active streak across this person's chores — the flame lives on
+    // task cards already; the profile is where kids come to brag about it.
+    api
+      .chores()
+      .then((cs) =>
+        setStreak(
+          Math.max(0, ...cs.filter((c) => c.assignees.some((a) => a.userId === targetId)).map((c) => c.currentStreak)),
+        ),
+      )
+      .catch(() => setStreak(0));
   }, [targetId, isAdult, viewingSelf]);
 
   useEffect(() => {
@@ -105,18 +149,18 @@ export default function ProfilePage({
               <li key={m.id}>
                 <Link
                   to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
-                  className="panel flex items-center gap-3 hover:bg-slate-50"
+                  className="panel panel-compact flex items-center gap-2 hover:bg-slate-50"
                   style={m.id === targetId ? { boxShadow: 'inset 0 0 0 2px var(--accent)' } : undefined}
                 >
-                  <Avatar name={m.displayName} src={m.avatar} />
+                  <Avatar name={m.displayName} src={m.avatar} size="sm" />
                   <span>
-                    <span className="block font-medium">{m.displayName}</span>
+                    <span className="block text-sm font-medium">{m.displayName}</span>
                     <span className="block text-xs text-slate-400">
                       {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
                   {!m.tokensDisabled && (
-                    <span className="ml-2 text-lg font-bold" style={{ color: 'var(--accent)' }}>
+                    <span className="ml-1 text-base font-bold" style={{ color: 'var(--accent)' }}>
                       {tokenIcon} {allBalances[m.id] ?? 0}
                       <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                     </span>
@@ -130,7 +174,7 @@ export default function ProfilePage({
 
       <h2 className="text-xl font-bold">{name}</h2>
 
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
         {!tokensOff && (
           <>
             <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
@@ -139,7 +183,10 @@ export default function ProfilePage({
           </>
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
+        {streak > 0 && <Stat label="Best active streak" value={`🔥 ${streak}`} />}
       </div>
+
+      {!tokensOff && <EarnedSparkline ledger={ledger} label={`${tokenName} earned, last 30 days`} />}
 
       {(isAdult || viewingSelf) && awards.length > 0 && (
         <section className="mt-6">

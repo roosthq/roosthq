@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Chore, ChoreClient, Member, PrizeClient, Redemption } from './api';
+import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
 
 // Kiosk-only, adult+ visible: everything currently waiting on a yes/no —
@@ -46,8 +47,9 @@ export default function PendingPanel({
   );
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
 
-  async function act(fn: () => Promise<unknown>) {
+  async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     await fn();
+    if (celebrateFrom) celebrate(celebrateFrom);
     refresh();
     onChanged();
   }
@@ -68,7 +70,7 @@ export default function PendingPanel({
             </span>
             <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
             <button
-              onClick={() => act(() => client.approveInstance(instance.id))}
+              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget)}
               className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
             >
               Approve
