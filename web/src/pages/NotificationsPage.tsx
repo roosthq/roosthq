@@ -82,7 +82,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
           {/* People could not find where to turn push/email on — deep-link to
               the exact section instead of making them hunt through settings. */}
           <Link to="/my-settings#notifications" className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-            ⚙️ <span className="hidden sm:inline">Notification </span>settings
+            ⚙️ Notification settings
           </Link>
         </div>
       </div>

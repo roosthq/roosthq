@@ -82,21 +82,24 @@ export default function InviteLinkBox({ url, token }: { url: string; token: stri
         Send this link to the family member. They open it, sign in, and join. One-time use.
       </p>
       <CopyableLink url={url} />
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      {/* Or have the server mail it. Stacked on a phone: an email field and a
+          button side by side leaves neither one usable at 375px. */}
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto]">
         <input
           type="email"
           inputMode="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email it to them instead"
-          className="min-w-0 flex-1 rounded border px-2 py-1.5 text-xs"
+          placeholder="Email address"
+          className="w-full min-w-0 rounded border px-2 py-2 text-xs"
         />
         <button
           onClick={sendEmail}
           disabled={sending || !email.trim()}
-          className="rounded bg-slate-800 px-3 py-1.5 font-medium text-white hover:bg-slate-700 disabled:opacity-50"
+          className="w-full rounded bg-slate-800 px-3 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50 sm:w-auto"
         >
-          {sending ? 'Sending…' : 'Send invite'}
+          {sending ? 'Sending…' : '✉️ Email invite'}
         </button>
       </div>
       {sent && <p className="mt-2 text-green-700">Invite sent to {sent}.</p>}
