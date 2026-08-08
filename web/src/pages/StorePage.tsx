@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
+import { api, prizeClient, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import ImageCropper from '../ImageCropper';
@@ -380,7 +380,17 @@ export default function StorePage({
   );
 }
 
-function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
+export function SuggestPrizeModal({
+  onClose,
+  onSaved,
+  kioskToken,
+}: {
+  onClose: () => void;
+  onSaved: () => void;
+  // Set when this is opened from the wall display, so the request is filed as
+  // the kiosk-selected profile instead of a browser session.
+  kioskToken?: string;
+}) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
@@ -390,7 +400,9 @@ function SuggestPrizeModal({ onClose, onSaved }: { onClose: () => void; onSaved:
     if (!name.trim()) return;
     setSaving(true);
     try {
-      await api.suggestPrize({ name: name.trim(), description: description.trim() || undefined, url: url.trim() || undefined });
+      const body = { name: name.trim(), description: description.trim() || undefined, url: url.trim() || undefined };
+      if (kioskToken) await prizeClient(kioskToken).suggestPrize(body);
+      else await api.suggestPrize(body);
       onSaved();
     } finally {
       setSaving(false);

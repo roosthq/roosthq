@@ -878,6 +878,8 @@ export function prizeClient(kioskToken?: string) {
       req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
     redemptions: (userId: string) => req<Redemption[]>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
+    suggestPrize: (body: { name: string; description?: string; image?: string; url?: string }) =>
+      req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     // Family-wide, not scoped to one person — for the kiosk's adult-only
     // "pending approvals" panel. Filter to status REQUESTED client-side.
     allRedemptions: () => req<Redemption[]>('/prizes/redemptions', undefined, kioskToken),

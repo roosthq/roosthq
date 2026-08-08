@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { prizeClient, type StorePrize, type PrizeClient } from './api';
+import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient } from './api';
 import TokenBadge from './TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal } from './Prize';
 import { useDialog } from './Dialog';
+import { SuggestPrizeModal } from './pages/StorePage';
 
 type Actor = { id: string; role: string; displayName: string };
 
@@ -13,12 +14,15 @@ export default function PrizesPanel({
   me,
   client: clientProp,
   refreshSignal,
+  kioskToken,
 }: {
   me: Actor;
   client?: PrizeClient;
   // Bump this (e.g. on an incoming live-update push) to force an immediate
   // refetch from outside — see ChoresPanel's identical prop for why.
   refreshSignal?: number;
+  // Kiosk profile token — needed to file a wishlist request as this person.
+  kioskToken?: string;
 }) {
   const client = clientProp ?? prizeClient();
   const { alert, confirm } = useDialog();
@@ -27,6 +31,15 @@ export default function PrizesPanel({
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const [viewing, setViewing] = useState<StorePrize | null>(null);
+  const [suggesting, setSuggesting] = useState(false);
+  const [self, setSelf] = useState<Member | null>(null);
+  // Wishlist requests aren't prizes yet: they have no cost and can't be
+  // redeemed. The server already hides other people's, so anything suggested
+  // here is this person's own — show it in its own "waiting" list instead of
+  // mixed into the store at 0 tokens with a Redeem button.
+  const storePrizes = prizes.filter((p) => !p.suggested);
+  const myRequests = prizes.filter((p) => p.suggested);
+  const canRequest = kidPermissionEnabled(self, 'store');
 
   const refresh = useCallback(async () => {
     const [p, b] = await Promise.all([client.prizes(), client.tokenBalance(me.id)]);
@@ -48,7 +61,10 @@ export default function PrizesPanel({
       setTokenName(s.tokenName);
       setTokenIcon(s.tokenIcon);
     }).catch(() => undefined);
-  }, [client]);
+    // The unlock payload doesn't carry permission flags, so read them off the
+    // member list to know whether this kid may request/redeem.
+    client.listUsers().then((us) => setSelf(us.find((u) => u.id === me.id) ?? null)).catch(() => undefined);
+  }, [client, me.id]);
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
@@ -64,12 +80,22 @@ export default function PrizesPanel({
 
   return (
     <section className="mt-4">
-      <h2 className="text-lg font-bold tracking-tight">Store</h2>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-lg font-bold tracking-tight">Store</h2>
+        {canRequest && (
+          <button
+            onClick={() => setSuggesting(true)}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+          >
+            + Request a prize
+          </button>
+        )}
+      </div>
       <div className="mt-2">
         <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />
       </div>
       <ul className="mt-3 space-y-2">
-        {prizes.map((p) => (
+        {storePrizes.map((p) => (
           <li key={p.id}>
             <button
               onClick={() => setViewing(p)}
@@ -86,8 +112,35 @@ export default function PrizesPanel({
             </button>
           </li>
         ))}
-        {prizes.length === 0 && <li className="text-sm text-slate-400">Nothing in the store yet.</li>}
+        {storePrizes.length === 0 && <li className="text-sm text-slate-400">Nothing in the store yet.</li>}
       </ul>
+
+      {myRequests.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-sm font-semibold">My requests</h3>
+          <p className="text-xs text-slate-400">Waiting for an adult to review these.</p>
+          <ul className="mt-2 space-y-1.5">
+            {myRequests.map((p) => (
+              <li key={p.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
+                <PrizeImage src={p.image} alt={p.name} className="h-8 w-8 shrink-0 rounded" />
+                <span className="min-w-0 flex-1 truncate">{p.name}</span>
+                <span className="shrink-0 text-xs text-amber-600">Pending</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {suggesting && (
+        <SuggestPrizeModal
+          kioskToken={kioskToken}
+          onClose={() => setSuggesting(false)}
+          onSaved={async () => {
+            setSuggesting(false);
+            await refresh();
+          }}
+        />
+      )}
 
       {viewing && (
         <PrizeDetailModal
@@ -96,6 +149,7 @@ export default function PrizesPanel({
           tokenIcon={tokenIcon}
           isAdult={false}
           balance={balance}
+          canRedeem={!viewing.suggested && kidPermissionEnabled(self, 'store')}
           onClose={() => setViewing(null)}
           onRedeem={() => redeem(viewing)}
         />

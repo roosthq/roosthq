@@ -269,9 +269,17 @@ export default function ChoresPanel({
         (mine && active?.status === 'OPEN' && dueSoon) ||
         openToClaim ||
         (active?.status === 'PENDING' && (mine || isAdult));
-      return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday };
+      // What a kid should see at all: something they can actually do right
+      // now, something waiting on an adult, or a skip they might undo.
+      // Anything already approved today, or not due until later, drops off
+      // their list until it comes round again (or an adult re-enables it).
+      const actionableNow =
+        (active?.status === 'OPEN' && dueNow && (mine || openToClaim)) ||
+        (active?.status === 'PENDING' && mine) ||
+        (active?.status === 'SKIPPED' && mine);
+      return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday, actionableNow };
     })
-    .filter((r) => !today || r.relevantToday);
+    .filter((r) => (!today || r.relevantToday) && (isAdult || r.actionableNow));
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'member';
 

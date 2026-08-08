@@ -684,7 +684,14 @@ export default function Display() {
                       refreshSignal={dataRefreshSignal}
                     />
                   )}
-                  {showPrizes && <PrizesPanel me={active.user} client={kioskPrizeClient} refreshSignal={dataRefreshSignal} />}
+                  {showPrizes && (
+                    <PrizesPanel
+                      me={active.user}
+                      client={kioskPrizeClient}
+                      kioskToken={active.token}
+                      refreshSignal={dataRefreshSignal}
+                    />
+                  )}
                   <KioskAccountPanel
                     me={active.user}
                     client={kioskPrizeClient}
