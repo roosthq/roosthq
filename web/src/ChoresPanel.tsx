@@ -15,6 +15,9 @@ import { myLocationIds } from './displayScope';
 // completing isn't, until it's actually due).
 const UPCOMING_DAYS = 3;
 
+// Last household picked in the chore form — new chores start there.
+const LAST_CHORE_LOCATION_KEY = 'roosthq.lastChoreLocationId';
+
 const REPEAT_OPTIONS: Array<{ value: string; label: string; help: string }> = [
   { value: '', label: 'One time', help: 'Happens once and is done.' },
   { value: 'DAILY', label: 'Every day', help: 'Can be done once each day.' },
@@ -284,6 +287,15 @@ export default function ChoresPanel({
     return chore.assignees.some((a) => a.userId === me.id);
   }
 
+  // Skipping forfeits the reward, so make sure that's the intent — kids read
+  // "Skip" as "later", not as "I'm not doing this".
+  async function confirmSkip(): Promise<boolean> {
+    return confirm(
+      `Skip this ${choreWord.toLowerCase()} for today? It counts as not doing it, so no ${tokenName} are earned. It won't break a streak.`,
+      { confirmLabel: 'Yes, skip it' },
+    );
+  }
+
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     try {
       await fn();
@@ -453,10 +465,21 @@ export default function ChoresPanel({
           )}
           {active?.status === 'OPEN' && dueNow && mine && chore.allowSkip && (
             <button
-              onClick={() => act(() => client.skipInstance(active.id))}
+              onClick={async () => {
+                if (await confirmSkip()) await act(() => client.skipInstance(active.id));
+              }}
               className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
             >
               Skip
+            </button>
+          )}
+          {active?.status === 'SKIPPED' && (mine || isAdult) && (
+            <button
+              onClick={() => act(() => client.unskipInstance(active.id))}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+              title="Put it back on the list for today"
+            >
+              Undo skip
             </button>
           )}
           {active?.status === 'OPEN' && dueNow && !mine && !openToClaim && (
@@ -728,10 +751,20 @@ export default function ChoresPanel({
                       )}
                       {active?.status === 'OPEN' && dueNow && mine && chore.allowSkip && (
                         <button
-                          onClick={() => act(() => client.skipInstance(active.id))}
+                          onClick={async () => {
+                            if (await confirmSkip()) await act(() => client.skipInstance(active.id));
+                          }}
                           className="rounded border px-2 py-1 text-xs hover:bg-white"
                         >
                           Skip
+                        </button>
+                      )}
+                      {active?.status === 'SKIPPED' && (mine || isAdult) && (
+                        <button
+                          onClick={() => act(() => client.unskipInstance(active.id))}
+                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                        >
+                          Undo skip
                         </button>
                       )}
                       {active?.status === 'PENDING' && isAdult && (
@@ -902,7 +935,12 @@ function ChoreForm({
   const [daysOfWeek, setDaysOfWeek] = useState<Set<number>>(new Set(chore ? resolveDaysOfWeek(chore) : []));
   const [dueTime, setDueTime] = useState(chore?.dueTime ?? '');
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
-  const [locationId, setLocationId] = useState(chore?.location?.id ?? '');
+  // New chores default to whichever household was picked last — most families
+  // add several in a row for the same place. An existing chore always shows
+  // its own location.
+  const [locationId, setLocationId] = useState(
+    chore?.location?.id ?? (choreId ? '' : localStorage.getItem(LAST_CHORE_LOCATION_KEY) ?? ''),
+  );
   const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
   const [allowLate, setAllowLate] = useState(chore?.allowLate ?? false);
   const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
@@ -951,6 +989,7 @@ function ChoreForm({
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
+    localStorage.setItem(LAST_CHORE_LOCATION_KEY, locationId || '');
     if (choreId) await client.updateChore(choreId, body);
     else await client.createChore(body);
     onSaved();

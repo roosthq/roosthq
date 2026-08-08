@@ -851,9 +851,36 @@ export class ChoresService {
     const chore = await this.ownedChore(familyId, choreId);
     const tz = await this.resolveTimezone(chore.locationId);
     const due = dueInstant(todayKeyInZone(tz), chore.dueTime, tz);
-    // Re-use an already-open instance instead of stacking a second one on top of
-    // it — clicking "Enable again" more than once shouldn't leave two open
-    // occurrences (e.g. this week's normal cycle and a manual one) alive at once.
+
+    // An occurrence for today's slot may already exist in a finished state —
+    // typically the one that was just skipped or missed. (choreId, dueDate) is
+    // unique, so moving/creating another row at that same instant used to blow
+    // up with a constraint error ("Enable again" on a skipped chore threw);
+    // revive that row instead.
+    const atDue = await this.prisma.choreInstance.findFirst({ where: { choreId, dueDate: due } });
+    if (atDue) {
+      const updated =
+        atDue.status === 'OPEN'
+          ? atDue
+          : await this.prisma.choreInstance.update({
+              where: { id: atDue.id },
+              data: {
+                status: 'OPEN',
+                completedAt: null,
+                approvedBy: null,
+                proofImage: null,
+                // A claim only means something while someone's actually doing
+                // it; an ANYONE chore goes back up for grabs.
+                claimedByUserId: chore.assignmentType === 'ANYONE' ? null : atDue.claimedByUserId,
+              },
+            });
+      this.displayEvents.publish(familyId, { type: 'chores' });
+      return updated;
+    }
+
+    // Otherwise re-use an already-open instance rather than stacking a second
+    // one on top of it — clicking "Enable again" twice shouldn't leave two
+    // open occurrences (this cycle's and a manual one) alive at once.
     const existing = await this.prisma.choreInstance.findFirst({ where: { choreId, status: 'OPEN' } });
     if (existing) {
       const updated = await this.prisma.choreInstance.update({ where: { id: existing.id }, data: { dueDate: due } });
@@ -863,6 +890,32 @@ export class ChoresService {
     await this.createNextInstance(choreId, due);
     this.displayEvents.publish(familyId, { type: 'chores' });
     return this.prisma.choreInstance.findFirst({ where: { choreId, dueDate: due } });
+  }
+
+  // Undo a skip on one specific occurrence: back to OPEN, and the follow-up
+  // occurrence that skip() spawned is removed so the schedule doesn't end up
+  // with both. Whoever it belongs to can undo their own skip (nothing was
+  // awarded for it), as can any adult.
+  async unskip(familyId: string, userId: string, instanceId: string) {
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (inst.status !== 'SKIPPED') throw new BadRequestException('That occurrence was not skipped');
+    const actor = await this.user(userId);
+    if (!this.isAdult(actor?.role) && !this.canAct(inst.chore, inst, userId)) {
+      throw new ForbiddenException('Not your chore');
+    }
+    // Drop the next occurrence skip() created, so undoing leaves exactly one
+    // live occurrence. Only ever a later, untouched OPEN row.
+    const spawned = await this.prisma.choreInstance.findFirst({
+      where: { choreId: inst.choreId, status: 'OPEN', dueDate: { gt: inst.dueDate }, completedAt: null },
+      orderBy: { dueDate: 'asc' },
+    });
+    if (spawned) await this.prisma.choreInstance.delete({ where: { id: spawned.id } });
+    const updated = await this.prisma.choreInstance.update({
+      where: { id: instanceId },
+      data: { status: 'OPEN', completedAt: null, claimedByUserId: inst.chore.assignmentType === 'ANYONE' ? null : inst.claimedByUserId },
+    });
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return updated;
   }
 
   async balances(familyId: string) {

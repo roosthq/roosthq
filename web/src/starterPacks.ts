@@ -37,7 +37,7 @@ export const STARTER_PACKS: StarterPack[] = [
     ages: '7-11',
     chores: [
       { title: 'Make bed', tokenValue: 1, recurrenceRule: 'DAILY', autoApprove: true },
-      { title: 'Homework', tokenValue: 2, recurrenceRule: 'WEEKLY', daysOfWeek: [1, 2, 3, 4, 5], allowSkip: true },
+      { title: 'Homework', tokenValue: 2, recurrenceRule: 'WEEKLY', daysOfWeek: [1, 2, 3, 4, 5] },
       { title: 'Set the table', tokenValue: 1, recurrenceRule: 'DAILY' },
       { title: 'Take out trash', tokenValue: 2, recurrenceRule: 'WEEKLY', daysOfWeek: [1, 4] },
       {
@@ -56,8 +56,8 @@ export const STARTER_PACKS: StarterPack[] = [
     chores: [
       { title: 'Do own laundry', tokenValue: 3, recurrenceRule: 'WEEKLY', daysOfWeek: [0] },
       { title: 'Dishes / load dishwasher', tokenValue: 2, recurrenceRule: 'DAILY' },
-      { title: 'Mow the lawn', tokenValue: 5, recurrenceRule: 'WEEKLY', daysOfWeek: [6], allowSkip: true },
-      { title: 'Homework', tokenValue: 2, recurrenceRule: 'WEEKLY', daysOfWeek: [1, 2, 3, 4, 5], allowSkip: true },
+      { title: 'Mow the lawn', tokenValue: 5, recurrenceRule: 'WEEKLY', daysOfWeek: [6] },
+      { title: 'Homework', tokenValue: 2, recurrenceRule: 'WEEKLY', daysOfWeek: [1, 2, 3, 4, 5] },
       { title: 'Cook dinner once a week', tokenValue: 5, recurrenceRule: 'WEEKLY', daysOfWeek: [3] },
     ],
   },

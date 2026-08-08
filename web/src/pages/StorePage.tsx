@@ -111,6 +111,8 @@ export default function StorePage({
   const suggestions = prizes.filter((p) => p.suggested);
   const pending = history.filter((r) => r.status === 'REQUESTED');
   const eventsToFulfill = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !r.usedAt);
+  // Claimed events — adults can un-claim one that was ticked off by mistake.
+  const eventsDone = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !!r.usedAt);
 
   return (
     <div>
@@ -172,6 +174,30 @@ export default function StorePage({
         ))}
         {activePrizes.length === 0 && <li className="text-sm text-slate-400">No prizes yet.</li>}
       </ul>
+
+      {isAdult && eventsDone.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md font-semibold">Events done</h3>
+          <p className="text-xs text-slate-400">Marked as happened. Put one back if it was a mistake.</p>
+          <ul className="mt-2 space-y-1 text-sm">
+            {eventsDone.map((r) => (
+              <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
+                <span className="min-w-0 flex-1 break-words">
+                  <strong className="font-medium">{memberName(r.userId)} · </strong>
+                  {r.prize.name}
+                  {r.usedAt && <span className="ml-1 text-xs text-slate-400">{formatDate(r.usedAt)}</span>}
+                </span>
+                <button
+                  onClick={() => markUsed(r.id, false)}
+                  className="shrink-0 rounded border px-3 py-1 text-xs hover:bg-slate-50"
+                >
+                  Mark as not done
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {eventsToFulfill.length > 0 && (
         <section className="mt-8">

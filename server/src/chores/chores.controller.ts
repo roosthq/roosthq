@@ -88,6 +88,11 @@ export class ChoresController {
     return this.chores.skip(u.familyId, u.userId, instanceId);
   }
 
+  @Post('instances/:instanceId/unskip')
+  unskip(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.unskip(u.familyId, u.userId, instanceId);
+  }
+
   @Post('instances/:instanceId/proof')
   attachProof(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string, @Body() body: { image: string }) {
     return this.chores.attachProof(u.familyId, u.userId, instanceId, body.image);

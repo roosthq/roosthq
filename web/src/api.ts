@@ -786,6 +786,8 @@ export const api = {
     req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }),
   skipInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }),
+  unskipInstance: (instanceId: string) =>
+    req(`/chores/instances/${instanceId}/unskip`, { method: 'POST' }),
   attachProof: (instanceId: string, image: string) =>
     req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }),
   proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`),
@@ -848,6 +850,8 @@ export function choreClient(kioskToken?: string) {
       req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }, kioskToken),
     skipInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }, kioskToken),
+    unskipInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/unskip`, { method: 'POST' }, kioskToken),
     attachProof: (instanceId: string, image: string) =>
       req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }, kioskToken),
     proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`, undefined, kioskToken),

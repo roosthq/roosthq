@@ -27,7 +27,7 @@ export default function ChoreOccurrenceActions({
   // Kiosk profile token — omit for the main (session-cookie) portal.
   token?: string;
 }) {
-  const { alert } = useDialog();
+  const { alert, confirm } = useDialog();
   const [busy, setBusy] = useState(false);
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
@@ -119,9 +119,18 @@ export default function ChoreOccurrenceActions({
   }
   if (instance.status === 'SKIPPED') {
     return (
-      <div className="mt-2 flex items-center gap-2">
+      <div className="mt-2 flex flex-wrap items-center gap-2">
         {tokenRow}
         <span className="text-xs text-slate-400">Skipped</span>
+        {(mine || isAdult) && (
+          <button
+            disabled={busy}
+            onClick={() => act(() => client.unskipInstance(instance.id))}
+            className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-50"
+          >
+            Undo skip
+          </button>
+        )}
       </div>
     );
   }
@@ -185,7 +194,13 @@ export default function ChoreOccurrenceActions({
         {dueNow && mine && chore.allowSkip && (
           <button
             disabled={busy}
-            onClick={() => act(() => client.skipInstance(instance.id))}
+            onClick={async () => {
+              const ok = await confirm(
+                "Skip this for today? It counts as not doing it, so no reward is earned. It won't break a streak.",
+                { confirmLabel: 'Yes, skip it' },
+              );
+              if (ok) await act(() => client.skipInstance(instance.id));
+            }}
             className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-50"
           >
             Skip
