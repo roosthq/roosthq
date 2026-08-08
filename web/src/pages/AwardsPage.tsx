@@ -119,9 +119,18 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
             </div>
             {a.description && <p className="mt-1 text-sm text-slate-500">{a.description}</p>}
-            {a.defaultTokenValue > 0 && (
-              <div className="mt-1">
-                <TokenBadge icon={tokenIcon} amount={a.defaultTokenValue} />
+            {(a.defaultTokenValue > 0 || (a.wheelMax ?? 0) > 0) && (
+              <div className="mt-1 flex flex-wrap items-center gap-2">
+                {a.defaultTokenValue > 0 && <TokenBadge icon={tokenIcon} amount={a.defaultTokenValue} />}
+                {(a.wheelMax ?? 0) > 0 && (
+                  <span
+                    className="rounded-full px-2 py-0.5 text-xs font-medium"
+                    style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                    title={`Giving this also queues a bonus wheel worth ${a.wheelMin ?? 1}-${a.wheelMax} ${tokenName} for them to spin`}
+                  >
+                    🎡 wheel {a.wheelMin ?? 1}-{a.wheelMax}
+                  </span>
+                )}
               </div>
             )}
             <div className="mt-3 flex gap-2 text-xs">
@@ -399,6 +408,11 @@ function GrantModal({
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
   const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
+  // This award's wheel, adjustable for THIS handover only — the award's own
+  // default range is untouched.
+  const [wheelOn, setWheelOn] = useState((award.wheelMax ?? 0) > 0);
+  const [wheelMin, setWheelMin] = useState(award.wheelMin && award.wheelMin > 0 ? award.wheelMin : 1);
+  const [wheelMax, setWheelMax] = useState(award.wheelMax && award.wheelMax > 0 ? award.wheelMax : 5);
   const [saving, setSaving] = useState(false);
 
   async function submit() {
@@ -409,6 +423,8 @@ function GrantModal({
         userId,
         note: note.trim() || undefined,
         tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
+        wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
+        wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
       });
       // A wheel attached to this award is queued for the KID to spin on their
       // own screen — nothing spins here.
@@ -426,6 +442,7 @@ function GrantModal({
         <h3 className="flex items-center gap-2 text-lg font-semibold">
           <AwardIcon icon={award.icon} />
           Give "{award.name}"
+          {(award.wheelMax ?? 0) > 0 && <span className="text-sm font-normal text-slate-400">🎡 has a wheel</span>}
         </h3>
       }
       footer={
@@ -467,6 +484,40 @@ function GrantModal({
           />
         </label>
 
+        <div className="rounded border p-3">
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={wheelOn} onChange={(e) => setWheelOn(e.target.checked)} />
+            <span>
+              🎡 Include a bonus wheel
+              {(award.wheelMax ?? 0) > 0 && <span className="ml-1 text-xs text-slate-400">(this award normally does)</span>}
+            </span>
+          </label>
+          <p className="mt-1 text-xs text-slate-400">
+            They spin it themselves on their phone or the kiosk — the amount is decided when they spin.
+          </p>
+          {wheelOn && (
+            <div className="mt-2 flex items-center gap-2 text-sm">
+              <input
+                type="number"
+                min={1}
+                value={wheelMin}
+                onChange={(e) => setWheelMin(Number(e.target.value))}
+                onFocus={(e) => e.target.select()}
+                className="w-20 rounded border px-2 py-1.5 text-sm"
+              />
+              <span className="text-slate-400">to</span>
+              <input
+                type="number"
+                min={1}
+                value={wheelMax}
+                onChange={(e) => setWheelMax(Number(e.target.value))}
+                onFocus={(e) => e.target.select()}
+                className="w-20 rounded border px-2 py-1.5 text-sm"
+              />
+              <span className="text-xs text-slate-400">{tokenName}</span>
+            </div>
+          )}
+        </div>
         <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
     </Modal>

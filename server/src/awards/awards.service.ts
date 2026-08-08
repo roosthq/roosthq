@@ -17,6 +17,10 @@ export interface GrantInput {
   userId: string;
   note?: string;
   tokenValue?: number;
+  // Per-grant override of the award's own wheel range. Omit to use the
+  // award's default; send wheelMax 0 to hand this one over without a wheel.
+  wheelMin?: number;
+  wheelMax?: number;
 }
 
 @Injectable()
@@ -179,8 +183,10 @@ export class AwardsService {
     // the wheel is QUEUED for the recipient to spin on their own screen or
     // the kiosk. The grown-up handing over the award never spins it for them.
     let wheelQueued = false;
-    if (award.wheelMax > 0 && !recipient.tokensDisabled) {
-      await this.wheels.create(familyId, dto.userId, award.wheelMin, award.wheelMax, `Bonus wheel: ${award.name}`, grant.id);
+    const wheelMax = Math.max(0, Math.floor(dto.wheelMax ?? award.wheelMax));
+    const wheelMin = Math.max(1, Math.floor(dto.wheelMin ?? award.wheelMin));
+    if (wheelMax > 0 && !recipient.tokensDisabled) {
+      await this.wheels.create(familyId, dto.userId, wheelMin, wheelMax, `Bonus wheel: ${award.name}`, grant.id);
       wheelQueued = true;
       await this.notifications.create(
         familyId,

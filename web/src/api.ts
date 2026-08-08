@@ -820,7 +820,7 @@ export const api = {
     kioskToken?: string,
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
-  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }, kioskToken?: string) =>
+  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
     req<{ wheelQueued?: boolean }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
 };
@@ -889,7 +889,7 @@ export function prizeClient(kioskToken?: string) {
       req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     commonReasons: () => req<string[]>('/tokens/reasons', undefined, kioskToken),
     awardsCatalog: () => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
-    grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }) =>
+    grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number; wheelMin?: number; wheelMax?: number }) =>
       req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     listUsers: () => req<Member[]>('/users', undefined, kioskToken),
     setPin: (userId: string, pin: string | null) =>
