@@ -150,6 +150,12 @@ export class LocalCalendarsService {
         calendarId: e.localCalendarId,
         calendarColor: c?.color ?? undefined,
         calendarName: c?.name ?? undefined,
+        // Local events have no Google-account owner to show an avatar for —
+        // ownerAvatar is always empty, which left every local event stuck
+        // showing the generic "?" fallback. The calendar's own photo (if
+        // set) stands in for that instead, same purpose (recognize at a
+        // glance whose/which this is).
+        ownerAvatar: c?.image ?? undefined,
         title: e.title,
         start: e.allDay ? { date: isoDate(e.startAt) } : { dateTime: e.startAt.toISOString() },
         end: e.allDay ? { date: isoDate(e.endAt) } : { dateTime: e.endAt.toISOString() },
