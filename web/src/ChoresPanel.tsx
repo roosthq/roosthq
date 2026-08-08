@@ -393,6 +393,14 @@ export default function ChoresPanel({
               Mark done
             </button>
           )}
+          {active?.status === 'OPEN' && dueNow && mine && chore.allowSkip && (
+            <button
+              onClick={() => act(() => client.skipInstance(active.id))}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+            >
+              Skip
+            </button>
+          )}
           {active?.status === 'OPEN' && dueNow && !mine && !openToClaim && (
             <span className="text-xs text-slate-400">Not assigned to you</span>
           )}
@@ -422,6 +430,9 @@ export default function ChoresPanel({
           )}
           {active?.status === 'MISSED' && (
             <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
+          )}
+          {active?.status === 'SKIPPED' && (
+            <span className="text-xs font-medium text-slate-400">Skipped</span>
           )}
 
           {isAdult && !today && (
@@ -622,6 +633,14 @@ export default function ChoresPanel({
                           Mark done
                         </button>
                       )}
+                      {active?.status === 'OPEN' && dueNow && mine && chore.allowSkip && (
+                        <button
+                          onClick={() => act(() => client.skipInstance(active.id))}
+                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                        >
+                          Skip
+                        </button>
+                      )}
                       {active?.status === 'PENDING' && isAdult && (
                         <>
                           <button onClick={() => act(() => client.approveInstance(active.id))} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
@@ -758,6 +777,7 @@ function ChoreForm({
   const [locations, setLocations] = useState<Array<{ id: string; name: string }>>([]);
   const [allowLate, setAllowLate] = useState(chore?.allowLate ?? false);
   const [latePenaltyPercent, setLatePenaltyPercent] = useState(chore?.latePenaltyPercent ?? 25);
+  const [allowSkip, setAllowSkip] = useState(chore?.allowSkip ?? false);
   const [streakEnabled, setStreakEnabled] = useState(!!chore?.streakGoal);
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
@@ -786,6 +806,7 @@ function ChoreForm({
       locationId: locationId || null,
       allowLate,
       latePenaltyPercent: Math.max(0, Math.min(100, Number(latePenaltyPercent) || 0)),
+      allowSkip,
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
     };
@@ -907,6 +928,16 @@ function ChoreForm({
                 % reward lost per day late
               </label>
             )}
+          </Field>
+
+          <Field
+            label="Skipping"
+            help={`Lets whoever it's assigned to skip an occurrence outright — no reward, no checklist, doesn't count as missed. For something genuinely optional some days, like homework that isn't assigned every night.`}
+          >
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={allowSkip} onChange={(e) => setAllowSkip(e.target.checked)} />
+              Allow skipping
+            </label>
           </Field>
 
           <Field label="Repeat" help={repeatHelp}>

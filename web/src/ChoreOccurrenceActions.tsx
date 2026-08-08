@@ -114,6 +114,14 @@ export default function ChoreOccurrenceActions({
       </div>
     );
   }
+  if (instance.status === 'SKIPPED') {
+    return (
+      <div className="mt-2 flex items-center gap-2">
+        {tokenRow}
+        <span className="text-xs text-slate-400">Skipped</span>
+      </div>
+    );
+  }
 
   if (instance.status === 'PENDING') {
     return (
@@ -166,6 +174,15 @@ export default function ChoreOccurrenceActions({
             className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
           >
             Mark done
+          </button>
+        )}
+        {dueNow && mine && chore.allowSkip && (
+          <button
+            disabled={busy}
+            onClick={() => act(() => client.skipInstance(instance.id))}
+            className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-50"
+          >
+            Skip
           </button>
         )}
         {dueNow && !mine && !openToClaim && <span className="text-xs text-slate-400">Not assigned to you</span>}

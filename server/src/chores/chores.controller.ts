@@ -83,6 +83,11 @@ export class ChoresController {
     return this.chores.complete(u.familyId, u.userId, instanceId);
   }
 
+  @Post('instances/:instanceId/skip')
+  skip(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.skip(u.familyId, u.userId, instanceId);
+  }
+
   @Post('instances/:instanceId/approve')
   approve(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
     return this.chores.approve(u.familyId, u.userId, instanceId);

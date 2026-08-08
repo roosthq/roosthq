@@ -204,7 +204,7 @@ export interface ChecklistItem {
 export interface ChoreInstance {
   id: string;
   dueDate: string;
-  status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED' | 'MISSED';
+  status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED' | 'MISSED' | 'SKIPPED';
   completedAt?: string;
   claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
@@ -231,6 +231,7 @@ export interface Chore {
   checklist: ChecklistItem[];
   instances: ChoreInstance[];
   allowLate: boolean;
+  allowSkip: boolean;
   latePenaltyPercent: number;
   currentStreak: number;
   bestStreak: number;
@@ -634,6 +635,8 @@ export const api = {
     req(`/chores/instances/${instanceId}/check`, { method: 'POST', body: JSON.stringify({ checklistId, checked }) }),
   completeInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }),
+  skipInstance: (instanceId: string) =>
+    req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }),
   approveInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }),
   rejectInstance: (instanceId: string) =>
@@ -691,6 +694,8 @@ export function choreClient(kioskToken?: string) {
       req(`/chores/instances/${instanceId}/check`, { method: 'POST', body: JSON.stringify({ checklistId, checked }) }, kioskToken),
     completeInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/complete`, { method: 'POST' }, kioskToken),
+    skipInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/skip`, { method: 'POST' }, kioskToken),
     approveInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
     rejectInstance: (instanceId: string) =>

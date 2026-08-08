@@ -35,6 +35,7 @@ export interface CreateChoreDto {
   checklist?: string[];
   dueDate?: string;
   allowLate?: boolean;
+  allowSkip?: boolean;
   latePenaltyPercent?: number;
   streakGoal?: number | null;
   streakBonusTokens?: number;
@@ -225,6 +226,7 @@ export class ChoresService {
         tokenValue: dto.tokenValue ?? 0,
         recurrenceRule: dto.recurrenceRule,
         allowLate: dto.allowLate ?? false,
+        allowSkip: dto.allowSkip ?? false,
         latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
@@ -384,6 +386,7 @@ export class ChoresService {
         ...(dto.tokenValue !== undefined && { tokenValue: dto.tokenValue }),
         ...(dto.recurrenceRule !== undefined && { recurrenceRule: dto.recurrenceRule }),
         ...(dto.allowLate !== undefined && { allowLate: dto.allowLate }),
+        ...(dto.allowSkip !== undefined && { allowSkip: dto.allowSkip }),
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
@@ -542,6 +545,37 @@ export class ChoresService {
       `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" — needs approval`,
       { link: '/chores' },
     );
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return updated;
+  }
+
+  // Assignee (or the claimer, for an ANYONE chore) deliberately skips this
+  // occurrence instead of doing it — for a chore that's genuinely optional
+  // some days (chore.allowSkip), e.g. homework that isn't assigned every
+  // night. No approval step, no checklist requirement (skip is an
+  // alternative to completing, not a shortcut through it), no token, and
+  // the streak carries through untouched — a skip isn't a failure the way
+  // a miss is, so it neither continues nor breaks it.
+  async skip(familyId: string, userId: string, instanceId: string) {
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (!inst.chore.allowSkip) throw new BadRequestException('Skipping is not allowed for this chore');
+    if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
+
+    // Auto-claim an ANYONE chore for the person skipping it — same as complete().
+    if (inst.chore.assignmentType === 'ANYONE' && !inst.claimedByUserId) {
+      await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: userId } });
+      inst.claimedByUserId = userId;
+    }
+    if (!this.canAct(inst.chore, inst, userId)) throw new ForbiddenException('Not your chore');
+
+    const updated = await this.prisma.choreInstance.update({
+      where: { id: instanceId },
+      data: { status: 'SKIPPED', completedAt: new Date(), claimedByUserId: inst.claimedByUserId ?? userId },
+    });
+
+    const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    if (due) await this.createNextInstance(inst.choreId, due);
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
   }

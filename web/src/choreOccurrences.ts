@@ -115,7 +115,16 @@ export function projectChoreOccurrences(
 // chore-specific action buttons for the real (non-virtual) occurrence.
 export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string, personAvatar?: string): CalEvent {
   const dueTime = occ.chore.dueTime;
-  const dateStr = occ.dueDate.toISOString().slice(0, 10);
+  // Local calendar date, not toISOString().slice(0,10) — a no-due-time
+  // occurrence's dueDate is "end of day in the chore's OWN timezone"
+  // (see chores.service.ts's dueInstant), an absolute instant that, once
+  // past ~5-7pm in any US timezone, has already crossed into the NEXT day
+  // in UTC. Slicing the ISO string put it a full day later than the day it
+  // was actually completed for/due on — the browser's local Y/M/D is what
+  // Calendar.tsx's own day-bucketing (keyOf) uses everywhere else, so this
+  // needs to match that, not UTC.
+  const d = occ.dueDate;
+  const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   // A real occurrence is keyed by its instance id, not its due date — two
   // distinct ChoreInstance rows can (due to a known server-side bug, already
   // flagged separately) share an identical due date, and without this a day

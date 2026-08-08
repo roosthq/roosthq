@@ -26,6 +26,7 @@ enum ChoreInstanceStatus {
   APPROVED
   REJECTED
   MISSED // due date passed with no completion and the chore doesn't allow late credit
+  SKIPPED // deliberately skipped (chore.allowSkip) — no token, doesn't count as missed
 }
 
 enum LedgerType {
@@ -419,6 +420,7 @@ model Chore {
   tokenValue         Int     @default(0)
   recurrenceRule     String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
   allowLate          Boolean @default(false) // if false (default), missing the due date forfeits the reward
+  allowSkip          Boolean @default(false) // assignee can skip an occurrence outright — no token, no checklist required, doesn't break streak
   latePenaltyPercent Int     @default(25) // % of reward lost per day late, when allowLate is on
   createdById        String
   currentStreak      Int     @default(0) // consecutive on-time completions; resets on a miss
