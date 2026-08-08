@@ -452,7 +452,7 @@ export default function Calendar({
                 if (swipeRef.current?.swiped) return;
                 setSelected(k);
               }}
-              className={`${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
+              className={`${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} flex flex-col items-stretch justify-start p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
               style={{
                 background: isToday
                   ? 'rgba(212,192,106,0.16)'
