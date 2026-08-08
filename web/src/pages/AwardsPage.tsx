@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
-import WheelModal from '../WheelModal';
 import TokenBadge from '../TokenBadge';
 import { formatDateTime } from '../dateFormat';
 
@@ -395,13 +394,12 @@ function GrantModal({
   kids: Member[];
   tokenName: string;
   onClose: () => void;
-  onGranted: (kidName: string) => void;
+  onGranted: (kidName: string, wheelQueued?: boolean) => void;
 }) {
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
   const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
   const [saving, setSaving] = useState(false);
-  const [wheel, setWheel] = useState<{ amount: number; min: number; max: number } | null>(null);
 
   async function submit() {
     if (!userId) return;
@@ -412,28 +410,12 @@ function GrantModal({
         note: note.trim() || undefined,
         tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
       });
-      if (res?.wheelBonus) {
-        // Let the kid (or the grown-up doing the granting) spin it before the
-        // modal goes away — the amount is already banked server-side.
-        setWheel({ amount: res.wheelBonus, min: res.wheelMin || 1, max: res.wheelMax || 5 });
-        return;
-      }
-      onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them');
+      // A wheel attached to this award is queued for the KID to spin on their
+      // own screen — nothing spins here.
+      onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them', !!res?.wheelQueued);
     } finally {
       setSaving(false);
     }
-  }
-
-  if (wheel) {
-    return (
-      <WheelModal
-        amount={wheel.amount}
-        min={wheel.min}
-        max={wheel.max}
-        label={`Bonus wheel: ${award.name}`}
-        onClose={() => onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them')}
-      />
-    );
   }
 
   const input = 'w-full rounded border px-3 py-2 text-sm';

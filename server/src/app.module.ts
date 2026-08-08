@@ -20,6 +20,7 @@ import { LocalCalendarsModule } from './local-calendars/local-calendars.module';
 import { OwnerModule } from './owner/owner.module';
 import { HolidaysModule } from './holidays/holidays.module';
 import { HouseholdModule } from './household/household.module';
+import { WheelsModule } from './wheels/wheels.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { HouseholdModule } from './household/household.module';
     OwnerModule,
     HolidaysModule,
     HouseholdModule,
+    WheelsModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

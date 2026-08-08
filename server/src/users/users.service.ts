@@ -152,6 +152,17 @@ export class UsersService {
     };
   }
 
+  // Current user's own birthday. Kids don't manage their own (an adult sets
+  // it in Family & PINs) — everyone else does.
+  async setOwnBirthday(userId: string, birthday: string | null) {
+    const u = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!u) throw new ForbiddenException();
+    if (u.role === 'KID') throw new ForbiddenException('An adult sets a kid’s birthday');
+    const valid = birthday && /^\d{4}-\d{2}-\d{2}$/.test(birthday) ? birthday : null;
+    await this.prisma.user.update({ where: { id: userId }, data: { birthday: valid } });
+    return { ok: true, birthday: valid };
+  }
+
   // Current user's own celebration-sound preference (app surfaces; the kiosk
   // follows its display's soundEffects setting instead).
   async setSoundEffects(userId: string, soundEffects: boolean) {

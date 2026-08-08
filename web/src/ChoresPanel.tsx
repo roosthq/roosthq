@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
+import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation, type PendingWheel } from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
 import WheelModal from './WheelModal';
@@ -140,7 +140,16 @@ export default function ChoresPanel({
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
   const [packsOpen, setPacksOpen] = useState(false);
-  const [wheel, setWheel] = useState<{ amount: number; min: number; max: number } | null>(null);
+  // Wheels this person has earned and not yet spun. Shown as a big call-to-
+  // action; spinning happens on THEIR screen (phone, tablet, or kiosk).
+  const [pendingWheels, setPendingWheels] = useState<PendingWheel[]>([]);
+  const [wheel, setWheel] = useState<PendingWheel | null>(null);
+  const refreshWheels = useCallback(() => {
+    client.pendingWheels().then(setPendingWheels).catch(() => setPendingWheels([]));
+  }, [client]);
+  useEffect(() => {
+    refreshWheels();
+  }, [refreshWheels, refreshSignal]);
   // `editing` seeds the form's fields (edit OR duplicate); `editingId` is the
   // one that decides whether submit PATCHes that chore or POSTs a new one —
   // duplicate sets `editing` but leaves `editingId` null, so it prefills from
@@ -266,13 +275,11 @@ export default function ChoresPanel({
 
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     try {
-      const res = (await fn()) as { wheelBonus?: number; wheelMin?: number; wheelMax?: number } | undefined;
+      await fn();
       if (celebrateFrom) celebrate(celebrateFrom);
-      // Server decided a bonus-wheel spin landed — the wheel is theater that
-      // always stops on the server's amount, never invented here.
-      if (res && typeof res === 'object' && res.wheelBonus) {
-        setWheel({ amount: res.wheelBonus, min: res.wheelMin ?? 1, max: res.wheelMax ?? 5 });
-      }
+      // A milestone may have queued a wheel for whoever did the chore — it
+      // shows up as the banner below for them to spin themselves.
+      refreshWheels();
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
     }
@@ -544,17 +551,17 @@ export default function ChoresPanel({
         </div>
       )}
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className={today ? 'text-lg font-bold tracking-tight' : 'text-xl font-bold tracking-tight'}>
           {today ? 'Today' : chorePlural}
         </h2>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
           {!today && (
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${chorePlural.toLowerCase()}…`}
-              className="rounded-md border px-2 py-1.5 text-sm"
+              className="min-w-0 flex-1 rounded-md border px-2 py-1.5 text-sm sm:w-44 sm:flex-none"
             />
           )}
           {showLocationDropdown && (
@@ -619,6 +626,21 @@ export default function ChoresPanel({
       {today && !myTokensOff && (
         <div className="mt-2">
           <TokenBadge icon={tokenIcon} amount={myBalance} label={tokenName} size="lg" />
+        </div>
+      )}
+
+      {pendingWheels.length > 0 && (
+        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg p-3" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
+          <span className="text-2xl">🎡</span>
+          <span className="min-w-0 flex-1 text-sm font-semibold">
+            You have {pendingWheels.length === 1 ? 'a bonus wheel' : `${pendingWheels.length} bonus wheels`} to spin!
+          </span>
+          <button
+            onClick={() => setWheel(pendingWheels[0])}
+            className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+          >
+            Spin now
+          </button>
         </div>
       )}
 
@@ -771,7 +793,19 @@ export default function ChoresPanel({
         </div>
       )}
 
-      {wheel && <WheelModal amount={wheel.amount} min={wheel.min} max={wheel.max} onClose={() => setWheel(null)} />}
+      {wheel && (
+        <WheelModal
+          min={wheel.minTokens}
+          max={wheel.maxTokens}
+          label={wheel.reason.replace(/^Bonus wheel: /, '')}
+          onSpin={async () => (await client.spinWheel(wheel.id)).amount}
+          onClose={() => {
+            setWheel(null);
+            refreshWheels();
+            refresh();
+          }}
+        />
+      )}
       {packsOpen && (
         <StarterPacksModal
           client={client}

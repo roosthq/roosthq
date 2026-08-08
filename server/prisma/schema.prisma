@@ -99,6 +99,7 @@ model Family {
   displayConfigs  DisplayConfig[]
   invites         FamilyInvite[]
   mealPlans       MealPlan[]
+  wheelSpins      WheelSpin[]
   groceryItems    GroceryItem[]
   countdowns      Countdown[]
   announcements   Announcement[]
@@ -269,6 +270,7 @@ model User {
   rulesCreated          Rule[]               @relation("RuleCreatedBy")
   createdAwards         Award[]              @relation("AwardCreatedBy")
   awardsReceived        AwardGrant[]         @relation("AwardGrantUser")
+  wheelSpins            WheelSpin[]          @relation("WheelSpinUser")
   awardsGranted         AwardGrant[]         @relation("AwardGrantedBy")
   approvedChores        ChoreInstance[]      @relation("ChoreInstanceApprovedBy")
   approvedRedemptions   Redemption[]         @relation("RedemptionApprovedBy")
@@ -726,5 +728,29 @@ model Announcement {
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
+  @@index([familyId])
+}
+
+// A bonus wheel the recipient still has to spin. Earned by a streak milestone
+// or an award grant, but deliberately NOT banked at earn time: an adult
+// approving a chore (or handing out an award) shouldn't be the one who spins
+// the kid's wheel. The amount is rolled server-side at spin time, inside
+// [min,max], then written to the ledger.
+model WheelSpin {
+  id        String    @id @default(cuid())
+  familyId  String
+  userId    String // who gets to spin
+  minTokens Int       @default(1)
+  maxTokens Int       @default(5)
+  reason    String // e.g. "Bonus wheel: Homework (5 in a row)"
+  refId     String? // originating AwardGrant / ChoreInstance id, for reversal
+  amount    Int? // rolled at spin time; null while unspun
+  spunAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user   User   @relation("WheelSpinUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, spunAt])
   @@index([familyId])
 }

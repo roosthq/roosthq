@@ -39,6 +39,9 @@ export default function MySettingsPage({
   const [identitySaved, setIdentitySaved] = useState(false);
   const [identityError, setIdentityError] = useState<string | null>(null);
   const [identityBusy, setIdentityBusy] = useState(false);
+  // Kids don't manage their own birthday (an adult does, in Family & PINs).
+  const canEditBirthday = me.role !== 'KID';
+  const [birthdayDraft, setBirthdayDraft] = useState(me.birthday ?? '');
 
   useEffect(() => {
     setDisplayNameDraft(me.displayName);
@@ -143,6 +146,9 @@ export default function MySettingsPage({
         username: usernameDraft.trim() || null,
         email: emailDraft.trim() || null,
       });
+      if (canEditBirthday && (birthdayDraft || '') !== (me.birthday ?? '')) {
+        await api.setOwnBirthday(birthdayDraft || null);
+      }
       setIdentitySaved(true);
       setTimeout(() => setIdentitySaved(false), 1500);
     } catch (e) {
@@ -293,6 +299,18 @@ export default function MySettingsPage({
               className="mt-1 w-full rounded border px-3 py-1.5 text-sm"
             />
           </label>
+          {canEditBirthday && (
+            <label className="block text-sm">
+              <span className="text-xs font-medium text-slate-500">Birthday</span>
+              <input
+                type="date"
+                value={birthdayDraft}
+                onChange={(e) => setBirthdayDraft(e.target.value)}
+                className="mt-1 w-full rounded border px-3 py-1.5 text-sm"
+              />
+              <span className="mt-1 block text-[11px] text-slate-400">Shows your age and adds a birthday countdown.</span>
+            </label>
+          )}
           <label className="block text-sm sm:col-span-2">
             <span className="text-xs font-medium text-slate-500">Email{emailRequiredForMe ? '' : ' (optional)'}</span>
             <input

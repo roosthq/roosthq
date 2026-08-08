@@ -9,6 +9,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
+import { WheelsService } from '../wheels/wheels.service';
 import {
   DEFAULT_TIMEZONE,
   addDaysToKey,
@@ -166,6 +167,7 @@ export class ChoresService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
+    private wheels: WheelsService,
   ) {}
 
   private async user(userId: string) {
@@ -717,7 +719,6 @@ export class ChoresService {
 
     // Streak: on-time keeps it going (and can trigger a bonus); late — even
     // when allowed — breaks it, since the point is consistency.
-    let wheelBonus: number | undefined;
     if (recipient) {
       if (daysLate === 0) {
         const currentStreak = inst.chore.currentStreak + 1;
@@ -744,25 +745,23 @@ export class ChoresService {
           );
         }
         if (milestone) {
-          // Bonus wheel: a small random extra on every streak milestone —
-          // variable reward, the strongest habit glue there is.
+          // Bonus wheel: QUEUED for whoever did the chore, not rolled here.
+          // An adult approving it shouldn't be the one who spins the kid's
+          // wheel, and the amount stays unknown until the wheel stops.
           if (!recipientTokensDisabled && (await this.featureEnabled(inst.chore.familyId, 'bonusWheel'))) {
-            wheelBonus = 1 + Math.floor(Math.random() * 5); // 1..5
-            await this.prisma.tokenLedger.create({
-              data: {
-                userId: recipient,
-                delta: wheelBonus,
-                reason: `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
-                type: 'STREAK_BONUS',
-                refId: inst.id,
-                createdById: approverId,
-              },
-            });
+            await this.wheels.create(
+              inst.chore.familyId,
+              recipient,
+              1,
+              5,
+              `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
+              inst.id,
+            );
             await this.notifications.create(
               inst.chore.familyId,
               recipient,
               'STREAK_BONUS',
-              `🎡 Bonus wheel: +${wheelBonus} on "${inst.chore.title}"!`,
+              `🎡 You earned a bonus wheel on "${inst.chore.title}" — go spin it!`,
               { link: '/chores' },
             );
           }
@@ -823,9 +822,7 @@ export class ChoresService {
     );
     if (due) await this.createNextInstance(inst.chore.id, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
-    // wheelBonus rides along so the UI can spin its wheel with the real,
-    // server-decided amount — never invented client-side.
-    return { ...updated, wheelBonus, wheelMin: wheelBonus ? 1 : undefined, wheelMax: wheelBonus ? 5 : undefined };
+    return updated;
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {

@@ -11,14 +11,20 @@ export default function WheelModal({
   min,
   max,
   label,
+  onSpin,
   onClose,
 }: {
-  amount: number;
+  // Known up front (legacy/immediate wheels) or resolved by onSpin() — the
+  // server rolls when the person actually spins, so the result can't be known
+  // before the flick.
+  amount?: number;
   min: number;
   max: number;
   label?: string;
+  onSpin?: () => Promise<number>;
   onClose: () => void;
 }) {
+  const [rolled, setRolled] = useState<number | undefined>(amount);
   // Segment values min..max, repeated until the wheel has >= 8 slices so a
   // small range (1-3) still looks like a wheel.
   const segments = useMemo(() => {
@@ -29,12 +35,15 @@ export default function WheelModal({
     return out;
   }, [min, max]);
 
-  // Which slice we land on — picked once, among slices holding the amount.
+  // Which slice we land on — chosen once the amount is known (immediately for
+  // a pre-rolled wheel, or as soon as the spin request comes back).
   const targetIndex = useMemo(() => {
-    const matches = segments.map((v, i) => (v === amount ? i : -1)).filter((i) => i >= 0);
+    if (rolled === undefined) return 0;
+    const matches = segments.map((v, i) => (v === rolled ? i : -1)).filter((i) => i >= 0);
     return matches[Math.floor(Math.random() * matches.length)] ?? 0;
-  }, [segments, amount]);
+  }, [segments, rolled]);
 
+  void targetIndex;
   const [done, setDone] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const wheelRef = useRef<SVGSVGElement>(null);
@@ -56,13 +65,29 @@ export default function WheelModal({
   // Animate from the current rotation to a final rotation that puts the
   // target slice's center under the top pointer, with ease-out so it "runs
   // out of steam" naturally.
-  function launch(velocityDegPerMs: number) {
+  async function launch(velocityDegPerMs: number) {
     if (spinning || done) return;
     setSpinning(true);
+    // Ask the server for the result first (it decides), then animate to it.
+    let target = rolled;
+    if (target === undefined && onSpin) {
+      try {
+        target = await onSpin();
+        setRolled(target);
+      } catch {
+        setSpinning(false);
+        return;
+      }
+    }
+    const targetIdx = (() => {
+      if (target === undefined) return 0;
+      const matches = segments.map((v, i) => (v === target ? i : -1)).filter((i) => i >= 0);
+      return matches[Math.floor(Math.random() * matches.length)] ?? 0;
+    })();
     const speed = Math.min(4, Math.max(1.2, Math.abs(velocityDegPerMs)));
     const baseTravel = speed * 1400; // faster fling = longer spin
     // Target slice center must end at the top (pointer): rotation ≡ -center (mod 360).
-    const targetCenter = targetIndex * segAngle + segAngle / 2;
+    const targetCenter = targetIdx * segAngle + segAngle / 2;
     const desiredMod = ((-targetCenter % 360) + 360) % 360;
     const start = rotation.current;
     const minFinal = start + Math.max(baseTravel, 3 * 360);
@@ -172,7 +197,7 @@ export default function WheelModal({
       </div>
       {done ? (
         <>
-          <div className="text-5xl font-extrabold text-white">+{amount}!</div>
+          <div className="text-5xl font-extrabold text-white">+{rolled}!</div>
           <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
             Collect
           </button>

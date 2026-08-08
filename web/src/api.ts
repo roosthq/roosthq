@@ -223,6 +223,13 @@ export interface ChoreInstance {
   approvedByUser?: { id: string; displayName: string } | null;
 }
 
+export interface PendingWheel {
+  id: string;
+  minTokens: number;
+  maxTokens: number;
+  reason: string;
+}
+
 export interface MealPlanEntry {
   id: string;
   locationId?: string | null; // null = family-wide
@@ -655,6 +662,10 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ notifyByEmail }),
     }),
+  pendingWheels: () => req<PendingWheel[]>('/wheels/pending'),
+  spinWheel: (id: string) => req<{ amount: number; min: number; max: number; reason?: string }>(`/wheels/${id}/spin`, { method: 'POST' }),
+  setOwnBirthday: (birthday: string | null) =>
+    req<{ ok: boolean; birthday: string | null }>('/users/me/birthday', { method: 'PUT', body: JSON.stringify({ birthday }) }),
   setSoundEffects: (soundEffects: boolean) =>
     req<{ ok: boolean; soundEffects: boolean }>('/users/me/sound-effects', {
       method: 'PUT',
@@ -806,7 +817,7 @@ export const api = {
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
   grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }, kioskToken?: string) =>
-    req<{ wheelBonus?: number; wheelMin?: number; wheelMax?: number }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+    req<{ wheelQueued?: boolean }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
 };
 
@@ -838,6 +849,9 @@ export function choreClient(kioskToken?: string) {
     attachProof: (instanceId: string, image: string) =>
       req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }, kioskToken),
     proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`, undefined, kioskToken),
+    pendingWheels: () => req<PendingWheel[]>('/wheels/pending', undefined, kioskToken),
+    spinWheel: (id: string) =>
+      req<{ amount: number; min: number; max: number; reason?: string }>(`/wheels/${id}/spin`, { method: 'POST' }, kioskToken),
     approveInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
     rejectInstance: (instanceId: string) =>

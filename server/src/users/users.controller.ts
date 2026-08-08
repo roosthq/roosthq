@@ -99,6 +99,12 @@ export class UsersController {
     return this.users.givenStats(u.familyId, id);
   }
 
+  // Current user sets their own birthday (kids can't — adults do it for them).
+  @Put('me/birthday')
+  setOwnBirthday(@CurrentUser() u: SessionPayload, @Body() body: { birthday: string | null }) {
+    return this.users.setOwnBirthday(u.userId, body.birthday);
+  }
+
   // Current user's own celebration-sound preference.
   @Put('me/sound-effects')
   setSoundEffects(@CurrentUser() u: SessionPayload, @Body() body: { soundEffects: boolean }) {

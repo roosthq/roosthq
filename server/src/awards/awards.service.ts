@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
+import { WheelsService } from '../wheels/wheels.service';
 
 export interface AwardInput {
   name: string;
@@ -24,6 +25,7 @@ export class AwardsService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
+    private wheels: WheelsService,
   ) {}
 
   private isAdult(role: string) {
@@ -173,25 +175,20 @@ export class AwardsService {
       });
     }
     // Bonus wheel attached to this award: server picks the amount (client
-    // wheels are pure theater landing on it), banked immediately.
-    let wheelBonus: number | undefined;
+    // wheels are pure theater landing on it) — but nothing is banked here:
+    // the wheel is QUEUED for the recipient to spin on their own screen or
+    // the kiosk. The grown-up handing over the award never spins it for them.
+    let wheelQueued = false;
     if (award.wheelMax > 0 && !recipient.tokensDisabled) {
-      const lo = Math.min(award.wheelMin, award.wheelMax);
-      const hi = Math.max(award.wheelMin, award.wheelMax);
-      wheelBonus = lo + Math.floor(Math.random() * (hi - lo + 1));
-      await this.prisma.tokenLedger.create({
-        data: {
-          userId: dto.userId,
-          delta: wheelBonus,
-          reason: `Bonus wheel: ${award.name}`,
-          type: 'AWARD',
-          refId: grant.id,
-          createdById: actorId,
-        },
-      });
-      await this.notifications.create(familyId, dto.userId, 'AWARD_GRANTED', `🎡 Bonus wheel: +${wheelBonus} with "${award.name}"!`, {
-        link: '/profile',
-      });
+      await this.wheels.create(familyId, dto.userId, award.wheelMin, award.wheelMax, `Bonus wheel: ${award.name}`, grant.id);
+      wheelQueued = true;
+      await this.notifications.create(
+        familyId,
+        dto.userId,
+        'AWARD_GRANTED',
+        `🎡 "${award.name}" comes with a bonus wheel — go spin it!`,
+        { link: '/chores' },
+      );
     }
     await this.notifications.create(
       familyId,
@@ -201,7 +198,7 @@ export class AwardsService {
       { link: '/profile' },
     );
     this.displayEvents.publish(familyId, { type: 'tokens' });
-    return { ...grant, wheelBonus, wheelMin: award.wheelMin, wheelMax: award.wheelMax };
+    return { ...grant, wheelQueued };
   }
 
   // Undo a specific grant: removes the badge (so it no longer counts toward
@@ -219,7 +216,9 @@ export class AwardsService {
     // Mirrors grant()'s own gate — if tokens were disabled (still are), no
     // forward entry exists to reverse; writing one anyway would be a
     // phantom negative entry with nothing to offset.
-    // Reverse any wheel bonus banked with this grant too.
+    // An unspun wheel from this grant simply goes away.
+    await this.wheels.deleteUnspunFor(grant.id);
+    // A wheel they already spun gets reversed like any other award tokens.
     if (!recipient?.tokensDisabled) {
       const wheelEntries = await this.prisma.tokenLedger.findMany({
         where: { refId: grant.id, type: 'AWARD', delta: { gt: 0 }, reason: { startsWith: 'Bonus wheel:' } },
