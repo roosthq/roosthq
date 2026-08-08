@@ -18,6 +18,12 @@ const UPCOMING_DAYS = 3;
 // Last household picked in the chore form — new chores start there.
 const LAST_CHORE_LOCATION_KEY = 'roosthq.lastChoreLocationId';
 
+// Pending wheels store a full reason like "Bonus wheel: Homework (5 in a
+// row)"; the UI only wants the part that says what earned it.
+function wheelSource(w: { reason: string }): string {
+  return w.reason.replace(/^Bonus wheel:\s*/, '');
+}
+
 const REPEAT_OPTIONS: Array<{ value: string; label: string; help: string }> = [
   { value: '', label: 'One time', help: 'Happens once and is done.' },
   { value: 'DAILY', label: 'Every day', help: 'Can be done once each day.' },
@@ -673,17 +679,33 @@ export default function ChoresPanel({
       )}
 
       {pendingWheels.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg p-3" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
-          <span className="text-2xl">🎡</span>
-          <span className="min-w-0 flex-1 text-sm font-semibold">
-            You have {pendingWheels.length === 1 ? 'a bonus wheel' : `${pendingWheels.length} bonus wheels`} to spin!
-          </span>
-          <button
-            onClick={() => setWheel(pendingWheels[0])}
-            className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-          >
-            Spin now
-          </button>
+        <div className="mt-3 rounded-lg p-3" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-2xl">🎡</span>
+            <span className="min-w-0 flex-1 text-sm font-semibold">
+              {pendingWheels.length === 1
+                ? `You earned a bonus wheel for ${wheelSource(pendingWheels[0])}!`
+                : `You have ${pendingWheels.length} bonus wheels to spin!`}
+            </span>
+            <button
+              onClick={() => setWheel(pendingWheels[0])}
+              className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+            >
+              Spin now
+            </button>
+          </div>
+          {pendingWheels.length > 1 && (
+            <ul className="mt-2 space-y-1 text-xs">
+              {pendingWheels.map((w) => (
+                <li key={w.id} className="flex items-center justify-between gap-2">
+                  <span className="min-w-0 flex-1 truncate">{wheelSource(w)}</span>
+                  <button onClick={() => setWheel(w)} className="shrink-0 rounded border px-2 py-0.5 hover:bg-white/40">
+                    Spin
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
 
@@ -864,7 +886,8 @@ export default function ChoresPanel({
         <WheelModal
           min={wheel.minTokens}
           max={wheel.maxTokens}
-          label={wheel.reason.replace(/^Bonus wheel: /, '')}
+          source={wheelSource(wheel)}
+          tokenName={tokenName}
           onSpin={async () => (await client.spinWheel(wheel.id)).amount}
           onClose={() => {
             setWheel(null);

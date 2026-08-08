@@ -11,6 +11,8 @@ export default function WheelModal({
   min,
   max,
   label,
+  source,
+  tokenName = 'tokens',
   onSpin,
   onClose,
 }: {
@@ -21,6 +23,10 @@ export default function WheelModal({
   min: number;
   max: number;
   label?: string;
+  // What earned this wheel ("Good behavior", "Homework (5 in a row)") — shown
+  // before and after the spin so a kid knows what they're being rewarded for.
+  source?: string;
+  tokenName?: string;
   onSpin?: () => Promise<number>;
   onClose: () => void;
 }) {
@@ -49,12 +55,17 @@ export default function WheelModal({
   const wheelRef = useRef<SVGSVGElement>(null);
   const rotation = useRef(0);
   const raf = useRef(0);
-  const drag = useRef<{ lastAngle: number; lastTime: number; velocity: number; active: boolean }>({
-    lastAngle: 0,
-    lastTime: 0,
-    velocity: 0,
-    active: false,
-  });
+  // A quick flick can produce very few pointermove events, so track the whole
+  // gesture (total sweep + elapsed time), not just the last sample — the first
+  // version only launched on a slow-ish drag and a real flick did nothing.
+  const drag = useRef<{
+    lastAngle: number;
+    lastTime: number;
+    velocity: number;
+    totalSweep: number;
+    startTime: number;
+    active: boolean;
+  }>({ lastAngle: 0, lastTime: 0, velocity: 0, totalSweep: 0, startTime: 0, active: false });
 
   const segAngle = 360 / segments.length;
 
@@ -121,7 +132,8 @@ export default function WheelModal({
 
   function onPointerDown(e: React.PointerEvent) {
     if (spinning || done) return;
-    drag.current = { lastAngle: angleAt(e), lastTime: performance.now(), velocity: 0, active: true };
+    const now = performance.now();
+    drag.current = { lastAngle: angleAt(e), lastTime: now, velocity: 0, totalSweep: 0, startTime: now, active: true };
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
   }
   function onPointerMove(e: React.PointerEvent) {
@@ -134,6 +146,7 @@ export default function WheelModal({
     if (delta < -180) delta += 360;
     const dt = Math.max(1, now - d.lastTime);
     d.velocity = delta / dt;
+    d.totalSweep += Math.abs(delta);
     d.lastAngle = angle;
     d.lastTime = now;
     // Wheel follows the finger while dragging.
@@ -144,7 +157,13 @@ export default function WheelModal({
     const d = drag.current;
     if (!d.active) return;
     d.active = false;
-    if (Math.abs(d.velocity) > 0.25) launch(Math.abs(d.velocity) * 2);
+    // Either the instantaneous flick speed OR the average across the gesture
+    // is enough — and any deliberate sweep (>25 degrees) spins even if the
+    // finger left the wheel before a fast sample landed.
+    const elapsed = Math.max(1, performance.now() - d.startTime);
+    const avg = d.totalSweep / elapsed;
+    const speed = Math.max(Math.abs(d.velocity), avg);
+    if (speed > 0.08 || d.totalSweep > 25) launch(Math.max(1.2, speed * 2));
   }
 
   const R = 150;
@@ -153,8 +172,15 @@ export default function WheelModal({
 
   return (
     <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-4 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-      <h2 className="text-2xl font-bold text-white">🎡 {label ?? 'Bonus wheel!'}</h2>
-      <p className="text-sm text-slate-300">{done ? 'You won:' : 'Flick the wheel to spin!'}</p>
+      <h2 className="text-2xl font-bold text-white">🎡 Bonus wheel</h2>
+      {(source ?? label) && (
+        <p className="max-w-xs text-center text-base font-semibold" style={{ color: 'var(--today)' }}>
+          You earned it for {source ?? label}
+        </p>
+      )}
+      <p className="max-w-xs text-center text-sm text-slate-300">
+        {done ? 'You won' : 'Spin the wheel: put your finger on it and swipe around in a circle, or press the Spin button.'}
+      </p>
       <div className="relative" style={{ touchAction: 'none' }}>
         {/* pointer */}
         <div
@@ -197,7 +223,10 @@ export default function WheelModal({
       </div>
       {done ? (
         <>
-          <div className="text-5xl font-extrabold text-white">+{rolled}!</div>
+          <div className="text-5xl font-extrabold text-white">
+            +{rolled} {tokenName}!
+          </div>
+          {(source ?? label) && <div className="text-sm text-slate-300">for {source ?? label}</div>}
           <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
             Collect
           </button>
