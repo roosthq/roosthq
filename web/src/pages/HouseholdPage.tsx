@@ -10,6 +10,7 @@ import {
   type Me,
   type MealPlanEntry,
 } from '../api';
+import { kidPermissionEnabled, type Member } from '../api';
 import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
 
@@ -93,7 +94,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
       )}
       {meals && <MealsSection isAdult={isAdult} scope={scope} />}
       <div className="grid gap-6 lg:grid-cols-2">
-        {grocery && <GrocerySection scope={scope} />}
+        {grocery && <GrocerySection scope={scope} me={me} />}
         <div className="space-y-6">
           {countdowns && <CountdownsSection isAdult={isAdult} scope={scope} />}
           {announcements && <AnnouncementsSection isAdult={isAdult} scope={scope} />}
@@ -194,9 +195,12 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   );
 }
 
-function GrocerySection({ scope }: { scope: string }) {
+function GrocerySection({ scope, me }: { scope: string; me: Me }) {
   const [items, setItems] = useState<GroceryItem[]>([]);
   const [label, setLabel] = useState('');
+  // Kid permission gate: the server enforces this too; hiding the inputs just
+  // keeps the page honest about what a tap will do.
+  const canEdit = kidPermissionEnabled(me as { role?: string; disabledPermissions?: string[] }, 'grocery');
   const refresh = useCallback(() => {
     api.grocery(scope || 'none').then(setItems).catch(() => setItems([]));
   }, [scope]);
@@ -215,33 +219,38 @@ function GrocerySection({ scope }: { scope: string }) {
   return (
     <section className="panel">
       <h3 className="text-base font-semibold tracking-tight">🛒 Grocery list</h3>
-      <div className="mt-3 flex gap-2">
-        <input
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && add()}
-          placeholder="Add an item…"
-          className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm"
-        />
-        <button onClick={add} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-          Add
-        </button>
-      </div>
+      {canEdit && (
+        <div className="mt-3 flex gap-2">
+          <input
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && add()}
+            placeholder="Add an item…"
+            className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm"
+          />
+          <button onClick={add} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+            Add
+          </button>
+        </div>
+      )}
       <ul className="mt-3 space-y-1">
         {items.map((i) => (
           <li key={i.id} className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"
               checked={i.checked}
+              disabled={!canEdit}
               onChange={(e) => api.patchGrocery(i.id, { checked: e.target.checked }).then(refresh)}
             />
             <span className={`flex-1 ${i.checked ? 'text-slate-400 line-through' : ''}`}>
               {i.label}
               {scope && !i.locationId && <span className="ml-1 text-[10px] text-slate-400">(family-wide)</span>}
             </span>
-            <button onClick={() => api.deleteGrocery(i.id).then(refresh)} className="text-xs text-slate-400 hover:text-red-500">
-              ✕
-            </button>
+            {canEdit && (
+              <button onClick={() => api.deleteGrocery(i.id).then(refresh)} className="text-xs text-slate-400 hover:text-red-500">
+                ✕
+              </button>
+            )}
           </li>
         ))}
         {items.length === 0 && <li className="text-sm text-slate-400">Nothing needed. Nice.</li>}
@@ -257,12 +266,27 @@ function GrocerySection({ scope }: { scope: string }) {
 
 function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [items, setItems] = useState<CountdownEntry[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [emoji, setEmoji] = useState('🎉');
   const refresh = useCallback(() => {
     api.countdowns(scope || 'none').then(setItems).catch(() => setItems([]));
+    api.members().then(setMembers).catch(() => setMembers([]));
   }, [scope]);
+  // Birthdays ride along as synthetic, non-deletable countdowns (next 90d).
+  const birthdayItems: CountdownEntry[] = members
+    .filter((m) => m.birthday)
+    .map((m) => {
+      const [, mm, dd] = m.birthday!.split('-');
+      const year = new Date().getFullYear();
+      const todayKey2 = dateKey(new Date());
+      const thisYear = `${year}-${mm}-${dd}`;
+      const next = thisYear >= todayKey2 ? thisYear : `${year + 1}-${mm}-${dd}`;
+      return { id: `bday-${m.id}`, title: `${m.displayName}'s birthday`, emoji: '🎂', date: next };
+    })
+    .filter((b) => daysUntil(b.date) <= 90);
+  const allItems = [...items, ...birthdayItems].sort((a, b) => a.date.localeCompare(b.date));
   useEffect(() => {
     refresh();
   }, [refresh]);
@@ -278,7 +302,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
     <section className="panel">
       <h3 className="text-base font-semibold tracking-tight">⏳ Countdowns</h3>
       <ul className="mt-3 space-y-2">
-        {items.map((c) => {
+        {allItems.map((c) => {
           const days = daysUntil(c.date);
           return (
             <li key={c.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
@@ -293,7 +317,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
               <span className="text-lg font-bold" style={{ color: 'var(--accent)' }}>
                 {days <= 0 ? '🎊 today!' : `${days}d`}
               </span>
-              {isAdult && (
+              {isAdult && !c.id.startsWith('bday-') && (
                 <button onClick={() => api.deleteCountdown(c.id).then(refresh)} className="text-xs text-slate-400 hover:text-red-500">
                   ✕
                 </button>
@@ -301,7 +325,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
             </li>
           );
         })}
-        {items.length === 0 && <li className="text-sm text-slate-400">Nothing coming up — add a birthday or trip.</li>}
+        {allItems.length === 0 && <li className="text-sm text-slate-400">Nothing coming up — add a trip, or set birthdays in Family & PINs.</li>}
       </ul>
       {isAdult && (
         <div className="mt-3 flex flex-wrap gap-2">

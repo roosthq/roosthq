@@ -23,6 +23,16 @@ export class HouseholdService {
     if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
   }
 
+  // Kid ability switch (User.disabledPermissions — see KID_PERMISSIONS in
+  // web/src/api.ts). Adults always pass.
+  private async assertKidPermission(userId: string, permission: string) {
+    const u = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!u) throw new ForbiddenException();
+    if (u.role !== 'KID') return;
+    const disabled = Array.isArray(u.disabledPermissions) ? (u.disabledPermissions as string[]) : [];
+    if (disabled.includes(permission)) throw new ForbiddenException("You don't have permission for that");
+  }
+
   private async assertLocation(familyId: string, locationId?: string | null) {
     if (!locationId) return null;
     const loc = await this.prisma.location.findFirst({ where: { id: locationId, familyId } });
@@ -98,6 +108,7 @@ export class HouseholdService {
   }
 
   async addGrocery(familyId: string, actorId: string, label: string, locationId?: string | null) {
+    await this.assertKidPermission(actorId, 'grocery');
     const trimmed = label?.trim();
     if (!trimmed) throw new BadRequestException('Item is required');
     const item = await this.prisma.groceryItem.create({
@@ -107,7 +118,8 @@ export class HouseholdService {
     return item;
   }
 
-  async patchGrocery(familyId: string, id: string, dto: { checked?: boolean; label?: string }) {
+  async patchGrocery(familyId: string, actorId: string, id: string, dto: { checked?: boolean; label?: string }) {
+    await this.assertKidPermission(actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
     const updated = await this.prisma.groceryItem.update({
@@ -121,7 +133,8 @@ export class HouseholdService {
     return updated;
   }
 
-  async deleteGrocery(familyId: string, id: string) {
+  async deleteGrocery(familyId: string, actorId: string, id: string) {
+    await this.assertKidPermission(actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
     await this.prisma.groceryItem.delete({ where: { id } });
@@ -210,7 +223,7 @@ export class HouseholdService {
   // house shows dad's-house dinner, not mom's.
   async displayBundle(familyId: string, locationId?: string | null) {
     const today = localDateKey(new Date());
-    const [meals, countdowns, announcements, groceryOpen] = await Promise.all([
+    const [meals, countdowns, announcements, groceryOpen, people] = await Promise.all([
       this.prisma.mealPlan.findMany({
         where: { familyId, date: { gte: today }, ...this.scope(locationId) },
         orderBy: { date: 'asc' },
@@ -230,8 +243,27 @@ export class HouseholdService {
         take: 3,
       }),
       this.prisma.groceryItem.count({ where: { familyId, checked: false, ...this.scope(locationId) } }),
+      this.prisma.user.findMany({ where: { familyId, birthday: { not: null } }, select: { displayName: true, birthday: true } }),
     ]);
-    return { today, meals, countdowns, announcements, groceryOpen };
+    // Birthdays inside the next 60 days ride along as synthetic countdowns
+    // (family-wide by nature — a birthday belongs to the person, not a house).
+    const withBirthdays = [...countdowns];
+    for (const person of people) {
+      const next = nextBirthday(person.birthday!, today);
+      if (next && daysBetween(today, next) <= 60) {
+        withBirthdays.push({
+          id: `bday-${person.displayName}`,
+          familyId,
+          locationId: null,
+          title: `${person.displayName}'s birthday`,
+          emoji: '🎂',
+          date: next,
+          createdAt: new Date(),
+        });
+      }
+    }
+    withBirthdays.sort((a, b) => a.date.localeCompare(b.date));
+    return { today, meals, countdowns: withBirthdays.slice(0, 4), announcements, groceryOpen };
   }
 
   // ---- Weekly automation ----
@@ -288,6 +320,19 @@ export class HouseholdService {
       await this.notifications.notifyAdults(fam.id, 'STREAK_BONUS', `This week: ${parts.join(' · ')}`, { link: '/chores' });
     }
   }
+}
+
+// Next occurrence of a MM-DD on/after `fromKey` (handles year rollover).
+function nextBirthday(birthday: string, fromKey: string): string | null {
+  const m = birthday.match(/^\d{4}-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  const year = Number(fromKey.slice(0, 4));
+  const thisYear = `${year}-${m[1]}-${m[2]}`;
+  return thisYear >= fromKey ? thisYear : `${year + 1}-${m[1]}-${m[2]}`;
+}
+
+function daysBetween(a: string, b: string): number {
+  return Math.round((new Date(`${b}T00:00:00`).getTime() - new Date(`${a}T00:00:00`).getTime()) / 86_400_000);
 }
 
 function localDateKey(d: Date): string {

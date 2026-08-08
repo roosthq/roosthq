@@ -45,7 +45,7 @@ export class HouseholdController {
 
   @Patch('grocery/:id')
   patchGrocery(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { checked?: boolean; label?: string }) {
-    return this.household.patchGrocery(u.familyId, id, body);
+    return this.household.patchGrocery(u.familyId, u.userId, id, body);
   }
 
   @Delete('grocery/checked')
@@ -55,7 +55,7 @@ export class HouseholdController {
 
   @Delete('grocery/:id')
   deleteGrocery(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
-    return this.household.deleteGrocery(u.familyId, id);
+    return this.household.deleteGrocery(u.familyId, u.userId, id);
   }
 
   @Get('countdowns')

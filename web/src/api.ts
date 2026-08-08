@@ -36,6 +36,8 @@ export interface Me {
   fontSizePref?: FontSize;
   soundEffects?: boolean;
   simpleMode?: boolean;
+  birthday?: string | null;
+  disabledPermissions?: string[];
   notifyByEmail?: boolean;
   // Whether a local password is set — never the hash itself. Drives whether
   // the password-change form asks for the current one at all.
@@ -153,6 +155,8 @@ export interface Member {
   tokensDisabled?: boolean;
   simpleMode?: boolean;
   allowanceTokens?: number;
+  birthday?: string | null; // YYYY-MM-DD
+  disabledPermissions?: string[];
 }
 
 export interface UnlockResult {
@@ -310,6 +314,8 @@ export interface Rule {
 
 export interface AwardCatalogItem {
   id: string;
+  wheelMin?: number;
+  wheelMax?: number; // 0/undefined = no wheel
   name: string;
   icon: string | null;
   description: string | null;
@@ -390,6 +396,19 @@ export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }>
   { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
   { id: 'allowance', label: 'Allowance', help: 'Automatic weekly token grants per person (set in Family & PINs).' },
 ];
+
+// Per-kid ability switches (User.disabledPermissions) — adults manage them
+// per member in Family & PINs; the server enforces them for KID roles.
+export const KID_PERMISSIONS: Array<{ id: string; label: string }> = [
+  { id: 'grocery', label: 'Add & check grocery items' },
+  { id: 'store', label: 'Redeem prizes from the store' },
+  { id: 'calendarAdd', label: 'Add calendar events' },
+];
+
+export function kidPermissionEnabled(m: { role?: string; disabledPermissions?: string[] } | null | undefined, permission: string): boolean {
+  if (!m || m.role !== 'KID') return true;
+  return !(m.disabledPermissions ?? []).includes(permission);
+}
 
 export function familyFeatureEnabled(f: FamilySettings | null | undefined, feature: string): boolean {
   return !f?.disabledFeatures?.includes(feature);
@@ -641,8 +660,10 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ soundEffects }),
     }),
-  setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number }) =>
+  setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] }) =>
     req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
+  givenStats: (userId: string) =>
+    req<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number }>(`/users/${userId}/given-stats`),
 
   // Household widgets (meals / grocery / countdowns / announcements).
   // locationId scopes reads to one household (its items + family-wide ones)
@@ -776,16 +797,16 @@ export const api = {
   awardsCatalog: (kioskToken?: string) => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
   earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
   awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
-  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number }, kioskToken?: string) =>
+  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
     req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   updateAward: (
     id: string,
-    body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number }>,
+    body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number; wheelMin: number; wheelMax: number }>,
     kioskToken?: string,
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
   grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number }, kioskToken?: string) =>
-    req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+    req<{ wheelBonus?: number; wheelMin?: number; wheelMax?: number }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   removeAwardGrant: (grantId: string) => req(`/awards/grants/${grantId}`, { method: 'DELETE' }),
 };
 

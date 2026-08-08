@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
+import LevelBadge from '../LevelBadge';
 import { useDialog } from '../Dialog';
 import { formatDate } from '../dateFormat';
 
@@ -82,6 +83,7 @@ export default function ProfilePage({
   const [history, setHistory] = useState<Redemption[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [streak, setStreak] = useState(0);
+  const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   useEffect(() => {
     api.familySettings().then(setFamily).catch(() => undefined);
@@ -115,6 +117,7 @@ export default function ProfilePage({
         ),
       )
       .catch(() => setStreak(0));
+    api.givenStats(targetId).then(setGiven).catch(() => setGiven(null));
   }, [targetId, isAdult, viewingSelf]);
 
   useEffect(() => {
@@ -124,6 +127,8 @@ export default function ProfilePage({
   const member = members.find((m) => m.id === targetId);
   const tokensOff = !!member?.tokensDisabled;
   const name = viewingSelf ? me.displayName : member?.displayName ?? 'Member';
+  const age = member?.birthday ? Math.floor((Date.now() - new Date(`${member.birthday}T00:00:00`).getTime()) / (365.25 * 86_400_000)) : null;
+  const targetIsAdult = member ? member.role !== 'KID' : false;
   const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
   const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
   const choresDone = ledger.filter((l) => l.type === 'CHORE').length;
@@ -176,7 +181,10 @@ export default function ProfilePage({
         </div>
       )}
 
-      <h2 className="text-xl font-bold">{name}</h2>
+      <h2 className="text-xl font-bold">
+        {name}
+        {age !== null && <span className="ml-2 text-sm font-normal text-slate-400">age {age}</span>}
+      </h2>
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
         {!tokensOff && (
@@ -187,11 +195,23 @@ export default function ProfilePage({
           </>
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
-        {familyFeatureEnabled(family, 'levels') && !tokensOff && <Stat label={`Level (${earned} XP)`} value={`⭐ ${levelFor(earned)}`} />}
+        {familyFeatureEnabled(family, 'levels') && !tokensOff && <LevelBadge earned={earned} size="lg" />}
         {streak > 0 && <Stat label="Best active streak" value={`🔥 ${streak}`} />}
       </div>
 
       {!tokensOff && <EarnedSparkline ledger={ledger} label={`${tokenName} earned, last 30 days`} />}
+
+      {targetIsAdult && given && (given.tokensGiven > 0 || given.awardsGiven > 0 || given.approvals > 0 || given.rejections > 0) && (
+        <section className="mt-6">
+          <h3 className="text-sm font-semibold">Given out</h3>
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Stat label={`${tokenName} given`} value={`${tokenIcon} ${given.tokensGiven}`} />
+            <Stat label="Awards given" value={given.awardsGiven} />
+            <Stat label="Approvals" value={given.approvals} />
+            <Stat label="Sent back" value={given.rejections} />
+          </div>
+        </section>
+      )}
 
       {(isAdult || viewingSelf) && awards.length > 0 && (
         <section className="mt-6">

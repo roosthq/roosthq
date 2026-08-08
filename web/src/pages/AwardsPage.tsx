@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+import WheelModal from '../WheelModal';
 import TokenBadge from '../TokenBadge';
 import { formatDateTime } from '../dateFormat';
 
@@ -226,6 +227,9 @@ export function AwardForm({
   const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState(award?.description ?? '');
   const [defaultTokenValue, setDefaultTokenValue] = useState(award?.defaultTokenValue ?? 0);
+  const [wheelOn, setWheelOn] = useState((award?.wheelMax ?? 0) > 0);
+  const [wheelMin, setWheelMin] = useState(award?.wheelMin && award.wheelMin > 0 ? award.wheelMin : 1);
+  const [wheelMax, setWheelMax] = useState(award?.wheelMax && award.wheelMax > 0 ? award.wheelMax : 5);
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -247,6 +251,8 @@ export function AwardForm({
       icon: icon.trim(),
       description: description.trim() || undefined,
       defaultTokenValue: Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
+      wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
+      wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
     };
     if (award) await api.updateAward(award.id, body, kioskToken);
     else await api.createAward(body, kioskToken);
@@ -344,6 +350,35 @@ export function AwardForm({
             />
             <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award — adjustable each time.</span>
           </label>
+
+          <div className="rounded border p-3">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={wheelOn} onChange={(e) => setWheelOn(e.target.checked)} />
+              Attach a bonus wheel
+            </label>
+            <p className="mt-1 text-xs text-slate-400">Granting this award also spins a wheel for extra tokens in this range.</p>
+            {wheelOn && (
+              <div className="mt-2 flex items-center gap-2 text-sm">
+                <input
+                  type="number"
+                  min={1}
+                  value={wheelMin}
+                  onChange={(e) => setWheelMin(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
+                  className="w-20 rounded border px-2 py-1.5 text-sm"
+                />
+                <span className="text-slate-400">to</span>
+                <input
+                  type="number"
+                  min={1}
+                  value={wheelMax}
+                  onChange={(e) => setWheelMax(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
+                  className="w-20 rounded border px-2 py-1.5 text-sm"
+                />
+              </div>
+            )}
+          </div>
         </div>
     </Modal>
   );
@@ -366,20 +401,39 @@ function GrantModal({
   const [note, setNote] = useState('');
   const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
   const [saving, setSaving] = useState(false);
+  const [wheel, setWheel] = useState<{ amount: number; min: number; max: number } | null>(null);
 
   async function submit() {
     if (!userId) return;
     setSaving(true);
     try {
-      await api.grantAward(award.id, {
+      const res = await api.grantAward(award.id, {
         userId,
         note: note.trim() || undefined,
         tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
       });
+      if (res?.wheelBonus) {
+        // Let the kid (or the grown-up doing the granting) spin it before the
+        // modal goes away — the amount is already banked server-side.
+        setWheel({ amount: res.wheelBonus, min: res.wheelMin || 1, max: res.wheelMax || 5 });
+        return;
+      }
       onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them');
     } finally {
       setSaving(false);
     }
+  }
+
+  if (wheel) {
+    return (
+      <WheelModal
+        amount={wheel.amount}
+        min={wheel.min}
+        max={wheel.max}
+        label={`Bonus wheel: ${award.name}`}
+        onClose={() => onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them')}
+      />
+    );
   }
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
@@ -430,6 +484,7 @@ function GrantModal({
             onFocus={(e) => e.target.select()}
           />
         </label>
+
         <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
     </Modal>

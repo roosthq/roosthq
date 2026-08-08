@@ -13,7 +13,7 @@ import {
   type UnlockResult,
   type Balance,
 } from './api';
-import { levelFor } from './api';
+import LevelBadge from './LevelBadge';
 import Calendar from './Calendar';
 import { setCelebrationSound } from './celebrate';
 import ChoresPanel from './ChoresPanel';
@@ -715,13 +715,9 @@ export default function Display() {
                         </div>
                       </span>
                       {!m.tokensDisabled && (
-                        <span className="shrink-0 text-right text-sm font-semibold" style={{ color: 'var(--accent)' }}>
-                          {tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
-                          {famOn('levels') && (
-                            <span className="block text-[10px] font-medium text-slate-400">
-                              ⭐ Lv {levelFor(pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0)}
-                            </span>
-                          )}
+                        <span className="flex shrink-0 flex-col items-end gap-0.5 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+                          <span>{tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}</span>
+                          {famOn('levels') && <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} />}
                         </span>
                       )}
                     </button>

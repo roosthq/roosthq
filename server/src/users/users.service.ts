@@ -22,7 +22,7 @@ export class UsersService {
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true, allowanceTokens: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true, allowanceTokens: true, birthday: true, disabledPermissions: true },
     });
     return users.map((u) => ({
       id: u.id,
@@ -33,6 +33,8 @@ export class UsersService {
       colorTheme: u.colorTheme,
       simpleMode: u.simpleMode,
       allowanceTokens: u.allowanceTokens,
+      birthday: u.birthday,
+      disabledPermissions: Array.isArray(u.disabledPermissions) ? u.disabledPermissions : [],
       tokensDisabled: u.tokensDisabled,
     }));
   }
@@ -100,7 +102,12 @@ export class UsersService {
   }
 
   // Adult sets a member's My Day simple mode and/or weekly allowance.
-  async setMemberPrefs(actorId: string, familyId: string, targetId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number }) {
+  async setMemberPrefs(
+    actorId: string,
+    familyId: string,
+    targetId: string,
+    prefs: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
+  ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new ForbiddenException('Adults only');
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
@@ -110,9 +117,39 @@ export class UsersService {
       data: {
         ...(prefs.simpleMode !== undefined && { simpleMode: !!prefs.simpleMode }),
         ...(prefs.allowanceTokens !== undefined && { allowanceTokens: Math.max(0, Math.round(prefs.allowanceTokens)) }),
+        ...(prefs.birthday !== undefined && {
+          birthday: prefs.birthday && /^\d{4}-\d{2}-\d{2}$/.test(prefs.birthday) ? prefs.birthday : null,
+        }),
+        ...(prefs.disabledPermissions !== undefined && {
+          disabledPermissions: prefs.disabledPermissions.filter((x) => typeof x === 'string'),
+        }),
       },
     });
     return { ok: true };
+  }
+
+  // Adult "giving" stats for the profile page: what this person has handed
+  // out, not what they've earned. Approvals exclude self-approvals (an adult
+  // finishing their own chore isn't reviewing anyone).
+  async givenStats(familyId: string, targetId: string) {
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    const [given, awards, approvals] = await Promise.all([
+      this.prisma.tokenLedger.aggregate({
+        where: { createdById: targetId, delta: { gt: 0 }, userId: { not: targetId }, user: { familyId } },
+        _sum: { delta: true },
+      }),
+      this.prisma.awardGrant.count({ where: { grantedById: targetId, award: { familyId } } }),
+      this.prisma.choreInstance.count({
+        where: { approvedBy: targetId, status: 'APPROVED', chore: { familyId }, NOT: { claimedByUserId: targetId } },
+      }),
+    ]);
+    return {
+      tokensGiven: given._sum.delta ?? 0,
+      awardsGiven: awards,
+      approvals,
+      rejections: target.rejectionsGiven,
+    };
   }
 
   // Current user's own celebration-sound preference (app surfaces; the kiosk

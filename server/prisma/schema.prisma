@@ -224,28 +224,34 @@ model DisplayToken {
 }
 
 model User {
-  id              String  @id @default(cuid())
-  familyId        String
-  role            Role
-  displayName     String
-  email           String? // required for adults/owner at signup; kids may have none (parent-managed)
-  passwordHash    String? @db.Text // local (non-Google) login; null if this account only ever uses Google
-  username        String? @unique // local-login id for accounts with no email (mainly kids)
-  pinHash         String? // optional per-profile PIN
-  avatar          String? @db.Text // Google photo URLs can exceed the default varchar(191)
-  themePref       String  @default("light") // per-user app UI theme: light | dark
-  colorTheme      String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
-  fontSizePref    String  @default("md") // per-user app text size: sm | md | lg | xl
-  soundEffects    Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
-  simpleMode      Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
-  allowanceTokens Int     @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
-  notifyByEmail   Boolean @default(false)
+  id                  String  @id @default(cuid())
+  familyId            String
+  role                Role
+  displayName         String
+  email               String? // required for adults/owner at signup; kids may have none (parent-managed)
+  passwordHash        String? @db.Text // local (non-Google) login; null if this account only ever uses Google
+  username            String? @unique // local-login id for accounts with no email (mainly kids)
+  pinHash             String? // optional per-profile PIN
+  avatar              String? @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref           String  @default("light") // per-user app UI theme: light | dark
+  colorTheme          String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
+  fontSizePref        String  @default("md") // per-user app text size: sm | md | lg | xl
+  soundEffects        Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
+  simpleMode          Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
+  allowanceTokens     Int     @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
+  rejectionsGiven     Int     @default(0) // lifetime count of chore completions this adult sent back (tracked from 2026-08; adult profile stat)
+  birthday            String? // YYYY-MM-DD — age display + automatic birthday countdowns
+  // Per-kid ability switches (KID_PERMISSIONS in web/src/api.ts). Stored as
+  // the DISABLED list so kids can do everything until an adult turns
+  // something off. Ignored for adult roles.
+  disabledPermissions Json    @default("[]")
+  notifyByEmail       Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
   // and every token-balance/history UI hides for them — for a family that
   // doesn't want tokens/rewards for some or all members. See
   // UsersService.setTokensDisabled for who can flip this for whom.
-  tokensDisabled  Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
+  tokensDisabled      Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
 
   family                Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations             UserLocation[]
@@ -564,6 +570,8 @@ model Award {
   icon              String?  @db.Text // emoji, or an uploaded icon as a data: URI
   description       String?  @db.Text
   defaultTokenValue Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
+  wheelMin          Int      @default(1) // bonus-wheel range attached to this award (see wheelMax)
+  wheelMax          Int      @default(0) // 0 = no wheel; >0 = granting also spins a wheel worth wheelMin..wheelMax extra tokens
   createdById       String
   createdAt         DateTime @default(now())
 

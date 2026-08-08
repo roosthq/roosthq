@@ -825,12 +825,14 @@ export class ChoresService {
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
     // wheelBonus rides along so the UI can spin its wheel with the real,
     // server-decided amount — never invented client-side.
-    return { ...updated, wheelBonus };
+    return { ...updated, wheelBonus, wheelMin: wheelBonus ? 1 : undefined, wheelMax: wheelBonus ? 5 : undefined };
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {
     await this.assertAdult(approverId);
     const inst = await this.ownedInstance(familyId, instanceId);
+    // Adult-profile stat; lifetime counter, tracked from 2026-08 onward.
+    await this.prisma.user.update({ where: { id: approverId }, data: { rejectionsGiven: { increment: 1 } } });
     const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: { status: 'OPEN', completedAt: null },

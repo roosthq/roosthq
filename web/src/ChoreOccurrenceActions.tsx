@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { choreClient, type Chore, type ChoreInstance } from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
+import WheelModal from './WheelModal';
 import { useDialog } from './Dialog';
 import TokenBadge from './TokenBadge';
 
@@ -29,6 +30,7 @@ export default function ChoreOccurrenceActions({
 }) {
   const { alert } = useDialog();
   const [busy, setBusy] = useState(false);
+  const [wheel, setWheel] = useState<{ amount: number; min: number; max: number } | null>(null);
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const client = choreClient(token);
@@ -63,10 +65,10 @@ export default function ChoreOccurrenceActions({
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     setBusy(true);
     try {
-      const res = (await fn()) as { wheelBonus?: number } | undefined;
+      const res = (await fn()) as { wheelBonus?: number; wheelMin?: number; wheelMax?: number } | undefined;
       if (celebrateFrom) celebrate(celebrateFrom);
       if (res && typeof res === 'object' && res.wheelBonus) {
-        await alert(`🎡 BONUS WHEEL! +${res.wheelBonus} extra!`);
+        setWheel({ amount: res.wheelBonus, min: res.wheelMin ?? 1, max: res.wheelMax ?? 5 });
       }
       onChanged();
     } catch (e) {
@@ -132,6 +134,7 @@ export default function ChoreOccurrenceActions({
   if (instance.status === 'PENDING') {
     return (
       <div className="mt-2">
+        {wheel && <WheelModal amount={wheel.amount} min={wheel.min} max={wheel.max} onClose={() => setWheel(null)} />}
         <div className="flex flex-wrap items-center gap-2">
           {tokenRow}
           <span className="text-xs font-medium text-amber-600">Pending approval</span>
@@ -161,6 +164,7 @@ export default function ChoreOccurrenceActions({
 
   return (
     <div className="mt-2">
+      {wheel && <WheelModal amount={wheel.amount} min={wheel.min} max={wheel.max} onClose={() => setWheel(null)} />}
       <div className="flex flex-wrap items-center gap-2">{tokenRow}</div>
       {checklist}
       <div className="mt-2 flex flex-wrap items-center gap-2">

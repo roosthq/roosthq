@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, ROLE_ICON, ROLE_LABEL, type Me, type Member, type InviteInfo } from './api';
+import { api, KID_PERMISSIONS, ROLE_ICON, ROLE_LABEL, type Me, type Member, type InviteInfo } from './api';
 import { useDialog } from './Dialog';
 import { formatDate } from './dateFormat';
 
@@ -90,6 +90,17 @@ export default function MembersManager({ me }: { me: Me }) {
   }
   async function setAllowance(m: Member, v: number) {
     await api.setMemberPrefs(m.id, { allowanceTokens: v });
+    await refresh();
+  }
+  async function setBirthday(m: Member, v: string) {
+    await api.setMemberPrefs(m.id, { birthday: v || null });
+    await refresh();
+  }
+  async function togglePermission(m: Member, permission: string, allowed: boolean) {
+    const disabled = new Set(m.disabledPermissions ?? []);
+    if (allowed) disabled.delete(permission);
+    else disabled.add(permission);
+    await api.setMemberPrefs(m.id, { disabledPermissions: [...disabled] });
     await refresh();
   }
   async function addMember() {
@@ -305,6 +316,32 @@ export default function MembersManager({ me }: { me: Me }) {
               />
               /wk
             </label>
+            <label className="flex items-center gap-1 text-xs text-slate-500" title="Birthday: shows age and automatic birthday countdowns">
+              🎂
+              <input
+                type="date"
+                defaultValue={m.birthday ?? ''}
+                onBlur={(e) => {
+                  if ((e.target.value || '') !== (m.birthday ?? '')) setBirthday(m, e.target.value);
+                }}
+                className="rounded border px-1.5 py-0.5 text-xs"
+              />
+            </label>
+            {m.role === 'KID' && (
+              <span className="flex flex-wrap items-center gap-2 text-xs text-slate-500" title="What this kid is allowed to do themselves">
+                Can:
+                {KID_PERMISSIONS.map((perm) => (
+                  <label key={perm.id} className="flex items-center gap-1" title={perm.label}>
+                    <input
+                      type="checkbox"
+                      checked={!(m.disabledPermissions ?? []).includes(perm.id)}
+                      onChange={(e) => togglePermission(m, perm.id, e.target.checked)}
+                    />
+                    {perm.id === 'grocery' ? 'grocery' : perm.id === 'store' ? 'store' : 'events'}
+                  </label>
+                ))}
+              </span>
+            )}
             <span className="ml-auto flex items-center gap-3">
               {canReset(m) && (
                 <button onClick={() => resetAccount(m)} className="text-xs text-amber-600 hover:text-amber-800">

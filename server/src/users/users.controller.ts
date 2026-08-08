@@ -88,9 +88,15 @@ export class UsersController {
   setMemberPrefs(
     @CurrentUser() u: SessionPayload,
     @Param('id') id: string,
-    @Body() body: { simpleMode?: boolean; allowanceTokens?: number },
+    @Body() body: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
   ) {
     return this.users.setMemberPrefs(u.userId, u.familyId, id, body);
+  }
+
+  // "What has this person given out" — adult profile stats.
+  @Get(':id/given-stats')
+  givenStats(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.users.givenStats(u.familyId, id);
   }
 
   // Current user's own celebration-sound preference.

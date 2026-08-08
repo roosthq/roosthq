@@ -20,7 +20,8 @@ import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
-import { levelFor, familyFeatureEnabled, type FamilySettings } from '../api';
+import { familyFeatureEnabled, type FamilySettings } from '../api';
+import LevelBadge from '../LevelBadge';
 import DropdownDetails from '../DropdownDetails';
 
 export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
@@ -76,11 +77,7 @@ function Dashboard({ me }: { me: Me }) {
                   <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                 </span>
               )}
-              {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && (
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold" title={`${earnedBy[m.id] ?? 0} lifetime ${tokenName}`}>
-                  ⭐ Lv {levelFor(earnedBy[m.id] ?? 0)}
-                </span>
-              )}
+              {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && <LevelBadge earned={earnedBy[m.id] ?? 0} />}
             </Link>
           </li>
         ))}

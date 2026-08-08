@@ -8,6 +8,8 @@ export interface AwardInput {
   icon?: string | null;
   description?: string | null;
   defaultTokenValue?: number;
+  wheelMin?: number;
+  wheelMax?: number; // 0 = no wheel attached to this award
 }
 
 export interface GrantInput {
@@ -55,6 +57,8 @@ export class AwardsService {
       icon: a.icon,
       description: a.description,
       defaultTokenValue: a.defaultTokenValue,
+      wheelMin: a.wheelMin,
+      wheelMax: a.wheelMax,
       grantCount: a._count.grants,
     }));
   }
@@ -68,6 +72,8 @@ export class AwardsService {
         icon: dto.icon || null,
         description: dto.description || null,
         defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue ?? 0)),
+        wheelMin: Math.max(1, Math.floor(dto.wheelMin ?? 1)),
+        wheelMax: Math.max(0, Math.floor(dto.wheelMax ?? 0)),
         createdById: actorId,
       },
     });
@@ -83,6 +89,8 @@ export class AwardsService {
         ...(dto.icon !== undefined && { icon: dto.icon || null }),
         ...(dto.description !== undefined && { description: dto.description || null }),
         ...(dto.defaultTokenValue !== undefined && { defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue)) }),
+        ...(dto.wheelMin !== undefined && { wheelMin: Math.max(1, Math.floor(dto.wheelMin)) }),
+        ...(dto.wheelMax !== undefined && { wheelMax: Math.max(0, Math.floor(dto.wheelMax)) }),
       },
     });
   }
@@ -164,6 +172,27 @@ export class AwardsService {
         },
       });
     }
+    // Bonus wheel attached to this award: server picks the amount (client
+    // wheels are pure theater landing on it), banked immediately.
+    let wheelBonus: number | undefined;
+    if (award.wheelMax > 0 && !recipient.tokensDisabled) {
+      const lo = Math.min(award.wheelMin, award.wheelMax);
+      const hi = Math.max(award.wheelMin, award.wheelMax);
+      wheelBonus = lo + Math.floor(Math.random() * (hi - lo + 1));
+      await this.prisma.tokenLedger.create({
+        data: {
+          userId: dto.userId,
+          delta: wheelBonus,
+          reason: `Bonus wheel: ${award.name}`,
+          type: 'AWARD',
+          refId: grant.id,
+          createdById: actorId,
+        },
+      });
+      await this.notifications.create(familyId, dto.userId, 'AWARD_GRANTED', `🎡 Bonus wheel: +${wheelBonus} with "${award.name}"!`, {
+        link: '/profile',
+      });
+    }
     await this.notifications.create(
       familyId,
       dto.userId,
@@ -172,7 +201,7 @@ export class AwardsService {
       { link: '/profile' },
     );
     this.displayEvents.publish(familyId, { type: 'tokens' });
-    return grant;
+    return { ...grant, wheelBonus, wheelMin: award.wheelMin, wheelMax: award.wheelMax };
   }
 
   // Undo a specific grant: removes the badge (so it no longer counts toward
@@ -190,6 +219,24 @@ export class AwardsService {
     // Mirrors grant()'s own gate — if tokens were disabled (still are), no
     // forward entry exists to reverse; writing one anyway would be a
     // phantom negative entry with nothing to offset.
+    // Reverse any wheel bonus banked with this grant too.
+    if (!recipient?.tokensDisabled) {
+      const wheelEntries = await this.prisma.tokenLedger.findMany({
+        where: { refId: grant.id, type: 'AWARD', delta: { gt: 0 }, reason: { startsWith: 'Bonus wheel:' } },
+      });
+      for (const w of wheelEntries) {
+        await this.prisma.tokenLedger.create({
+          data: {
+            userId: grant.userId,
+            delta: -w.delta,
+            reason: `Removed award: ${grant.award.name} (wheel bonus)`,
+            type: 'AWARD',
+            refId: grant.id,
+            createdById: actorId,
+          },
+        });
+      }
+    }
     if (grant.tokenValue > 0 && !recipient?.tokensDisabled) {
       await this.prisma.tokenLedger.create({
         data: {

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation } from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
+import WheelModal from './WheelModal';
 import { STARTER_PACKS } from './starterPacks';
 import PendingPanel from './PendingPanel';
 import TokenBadge from './TokenBadge';
@@ -139,6 +140,7 @@ export default function ChoresPanel({
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
   const [packsOpen, setPacksOpen] = useState(false);
+  const [wheel, setWheel] = useState<{ amount: number; min: number; max: number } | null>(null);
   // `editing` seeds the form's fields (edit OR duplicate); `editingId` is the
   // one that decides whether submit PATCHes that chore or POSTs a new one —
   // duplicate sets `editing` but leaves `editingId` null, so it prefills from
@@ -264,12 +266,12 @@ export default function ChoresPanel({
 
   async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
     try {
-      const res = (await fn()) as { wheelBonus?: number } | undefined;
+      const res = (await fn()) as { wheelBonus?: number; wheelMin?: number; wheelMax?: number } | undefined;
       if (celebrateFrom) celebrate(celebrateFrom);
-      // Server decided a bonus-wheel spin landed — show the result. The
-      // amount is authoritative from the API, never invented here.
+      // Server decided a bonus-wheel spin landed — the wheel is theater that
+      // always stops on the server's amount, never invented here.
       if (res && typeof res === 'object' && res.wheelBonus) {
-        await alert(`🎡 BONUS WHEEL! +${res.wheelBonus} extra ${tokenName}!`);
+        setWheel({ amount: res.wheelBonus, min: res.wheelMin ?? 1, max: res.wheelMax ?? 5 });
       }
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
@@ -769,6 +771,7 @@ export default function ChoresPanel({
         </div>
       )}
 
+      {wheel && <WheelModal amount={wheel.amount} min={wheel.min} max={wheel.max} onClose={() => setWheel(null)} />}
       {packsOpen && (
         <StarterPacksModal
           client={client}
