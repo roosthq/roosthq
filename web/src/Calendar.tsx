@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 import type { CalEvent } from './api';
 import Modal from './Modal';
 
@@ -245,6 +245,53 @@ export default function Calendar({
     setCursor(new Date());
   };
 
+  // Slide-in animation on every navigation (buttons, swipe, Today) — keyed
+  // off animKey so the grid remounts and re-triggers the CSS animation each
+  // time, direction-tagged so "next" and "prev" slide in from opposite
+  // sides. Swipe: left/right always pages like the ‹/› buttons; up/down
+  // does the same but only in 1wk/2wk (a month grid has no natural "up/down
+  // is a week" reading, so it's left alone there — page scroll still works).
+  const [animDir, setAnimDir] = useState<1 | -1>(1);
+  const [animKey, setAnimKey] = useState(0);
+  const navigate = (delta: 1 | -1) => {
+    setAnimDir(delta);
+    setAnimKey((k) => k + 1);
+    shift(delta);
+  };
+  const jumpToday = () => {
+    setAnimDir(cursor <= new Date() ? 1 : -1);
+    setAnimKey((k) => k + 1);
+    goToday();
+  };
+
+  // Simple threshold-based swipe recognizer (start/end point, no live drag
+  // tracking) on the day grid itself. `swiped` on the ref (not state) so the
+  // day-cell button's own onClick — which fires right after pointerup — can
+  // check it synchronously and skip opening the day modal for what was
+  // actually a page-turn, not a tap.
+  const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
+  const SWIPE_THRESHOLD = 45;
+  function onGridPointerDown(e: ReactPointerEvent) {
+    swipeRef.current = { x: e.clientX, y: e.clientY, swiped: false };
+  }
+  function onGridPointerUp(e: ReactPointerEvent) {
+    const s = swipeRef.current;
+    if (!s) return;
+    const dx = e.clientX - s.x;
+    const dy = e.clientY - s.y;
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (Math.abs(dx) > SWIPE_THRESHOLD) {
+        s.swiped = true;
+        navigate(dx < 0 ? 1 : -1);
+      }
+    } else if (effectiveView === '1week' || effectiveView === '2week') {
+      if (Math.abs(dy) > SWIPE_THRESHOLD) {
+        s.swiped = true;
+        navigate(dy < 0 ? 1 : -1);
+      }
+    }
+  }
+
   return (
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
@@ -263,20 +310,31 @@ export default function Calendar({
               ))}
             </div>
           )}
-          <button onClick={() => shift(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
+          <button onClick={() => navigate(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
           {/* Kept even in mini (the kiosk's person-focused side calendar) — a
               compressed calendar is exactly where jumping back to today
               matters most, since there's no room to see much else. */}
-          <button onClick={goToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
+          <button onClick={jumpToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
             Today
           </button>
-          <button onClick={() => shift(1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>›</button>
+          <button onClick={() => navigate(1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>›</button>
         </div>
       </div>
 
       <div
-        className={`mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200 ${fill ? 'flex-1' : ''}`}
-        style={fill ? { gridTemplateRows: `auto repeat(${rows}, minmax(0, 1fr))` } : undefined}
+        key={animKey}
+        onPointerDown={onGridPointerDown}
+        onPointerUp={onGridPointerUp}
+        className={`mt-3 grid grid-cols-7 gap-px overflow-hidden rounded border bg-slate-200 ${fill ? 'flex-1' : ''} ${animDir === 1 ? 'cal-slide-next' : 'cal-slide-prev'}`}
+        style={{
+          ...(fill ? { gridTemplateRows: `auto repeat(${rows}, minmax(0, 1fr))` } : undefined),
+          // month view: leave touch scrolling alone (only horizontal swipe
+          // is recognized there, and nothing there is scrollable
+          // horizontally anyway). 1wk/2wk also recognize a vertical swipe —
+          // blocking the browser's own vertical-pan-to-scroll there so it
+          // doesn't win the gesture before our pointerup handler sees it.
+          touchAction: effectiveView === 'month' ? 'auto' : 'pan-x',
+        }}
       >
         {WEEKDAYS.map((w) => (
           <div key={w} className={`bg-slate-50 text-center font-medium text-slate-500 ${large ? 'py-1 text-sm' : mini ? 'py-0.5 text-[10px]' : 'py-1 text-xs'}`}>
@@ -302,7 +360,13 @@ export default function Calendar({
           return (
             <button
               key={k}
-              onClick={() => setSelected(k)}
+              onClick={() => {
+                // A swipe that ends over a day cell shouldn't also open it —
+                // onGridPointerUp (bubbled up from this same pointerup) already
+                // set this synchronously, before the click fires.
+                if (swipeRef.current?.swiped) return;
+                setSelected(k);
+              }}
               className={`${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
               style={{
                 background: isToday

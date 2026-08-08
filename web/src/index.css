@@ -423,6 +423,30 @@ select option {
   }
 }
 
+/* Calendar page-turn animation — triggered on every navigation (prev/next
+   buttons, swipe, Today), keyed by a counter so React remounts the grid and
+   re-plays the animation each time. Direction-tagged (next slides in from
+   the right, prev from the left) regardless of whether the gesture that
+   triggered it was horizontal or vertical — one consistent motion either way. */
+@keyframes cal-slide-next {
+  from {
+    transform: translateX(18px);
+    opacity: 0;
+  }
+}
+@keyframes cal-slide-prev {
+  from {
+    transform: translateX(-18px);
+    opacity: 0;
+  }
+}
+.cal-slide-next {
+  animation: cal-slide-next 200ms ease-out;
+}
+.cal-slide-prev {
+  animation: cal-slide-prev 200ms ease-out;
+}
+
 /* Panel / card surface used across pages */
 .panel {
   background: var(--surface);

@@ -531,7 +531,7 @@ export default function Display() {
           changes: same Calendar component, same click-through day modal. */}
       <div className="mt-3 flex min-h-0 flex-1 gap-6">
         {showCalendar && (
-          <div className={personFocused ? 'h-full w-72 shrink-0' : 'h-full min-w-0 flex-1'}>
+          <div className={`h-full transition-all duration-300 ease-in-out ${personFocused ? 'w-72 shrink-0' : 'min-w-0 flex-1'}`}>
             <Calendar
               events={[...events, ...choreEventsById.list]}
               onRangeChange={onRangeChange}
@@ -566,7 +566,7 @@ export default function Display() {
         )}
 
         {(showChores || showPrizes) && (
-          <aside className={personFocused ? 'flex h-full flex-1 flex-col' : 'flex h-full w-80 shrink-0 flex-col'}>
+          <aside className={`flex h-full flex-col transition-all duration-300 ease-in-out ${personFocused ? 'flex-1' : 'w-80 shrink-0'}`}>
             {active ? (
               <>
                 <div className="flex shrink-0 items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
