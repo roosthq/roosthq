@@ -83,6 +83,8 @@ export default function Calendar({
   events,
   onRangeChange,
   onAddEvent,
+  onEditEvent,
+  canEditEvent,
   size = 'normal',
   fill = false,
   touchControls = false,
@@ -94,6 +96,13 @@ export default function Calendar({
   // whatever day was clicked — omit to leave the modal without one (the
   // kiosk's read-only "mini" calendar doesn't want it, for instance).
   onAddEvent?: (dateISO: string) => void;
+  // Renders an "Edit" button on an event's row in the day-detail modal —
+  // omit to leave events non-editable there. Paired with canEditEvent since
+  // not every event this component renders is actually a real, writable
+  // calendar event (a holiday occurrence or a chore's pseudo-event has
+  // nothing to PATCH/DELETE).
+  onEditEvent?: (e: CalEvent) => void;
+  canEditEvent?: (e: CalEvent) => boolean;
   // 'mini' is the small "windows-style" side calendar for the kiosk's
   // person-focused layout — day numbers and per-calendar dots only, no event
   // text (there's no room for it), but still fully clickable/navigable.
@@ -378,8 +387,15 @@ export default function Calendar({
             {selectedEvents.map((e) => (
               <li key={`${e.uid}-detail`} className="card-nested flex gap-3 rounded p-3">
                 <Avatar name={e.ownerName} src={e.ownerAvatar} size="md" />
-                <div className="min-w-0">
-                  <div className="font-medium">{e.title ?? '(no title)'}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="font-medium">{e.title ?? '(no title)'}</div>
+                    {onEditEvent && canEditEvent?.(e) && (
+                      <button onClick={() => onEditEvent(e)} className="shrink-0 rounded border px-2 py-0.5 text-xs hover:bg-slate-50">
+                        Edit
+                      </button>
+                    )}
+                  </div>
                   <div className="text-sm text-slate-500">
                     {timeLabel(e)}
                     {e.location ? ` · ${e.location}` : ''}

@@ -108,7 +108,11 @@ export function CalendarFilterDropdown({
                 onChange(next);
               }}
             />
-            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+            {c.image ? (
+              <img src={c.image} alt="" className="h-4 w-4 shrink-0 rounded-full object-cover" />
+            ) : (
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+            )}
             <span className="truncate">{c.name}</span>
           </label>
         ))}
@@ -130,6 +134,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [addingEvent, setAddingEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<CalEvent | null>(null);
   const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [needsReconnect, setNeedsReconnect] = useState(false);
   const [members, setMembers] = useState<Member[]>([]);
@@ -233,6 +238,11 @@ export default function CalendarPage({ me }: { me: Me }) {
     () => (allowedIds ? shared.filter((c) => allowedIds.has(c.id)) : shared),
     [allowedIds, shared],
   );
+  // Holidays are visible/toggleable like any other calendar but aren't a
+  // real writable calendar underneath — nothing to POST/PATCH/DELETE against
+  // — so they're excluded from what "+ Add event" (and editing) offer.
+  const addableOptions = useMemo(() => filterOptions.filter((c) => c.source !== 'holiday'), [filterOptions]);
+  const addableCalendarIds = useMemo(() => new Set(addableOptions.map((c) => c.id)), [addableOptions]);
 
   const refreshShared = useCallback(async () => {
     if (!scopeReady) return; // don't reveal anything (even briefly) before scope is known
@@ -353,7 +363,7 @@ export default function CalendarPage({ me }: { me: Me }) {
                 </button>
               </>
             )}
-            {filterOptions.length > 0 && (
+            {addableOptions.length > 0 && (
               <button
                 onClick={() => {
                   setPrefillDate(null);
@@ -398,13 +408,15 @@ export default function CalendarPage({ me }: { me: Me }) {
         events={[...events, ...choreEventsById.list]}
         onRangeChange={onRangeChange}
         onAddEvent={
-          filterOptions.length > 0
+          addableOptions.length > 0
             ? (dateISO) => {
                 setPrefillDate(dateISO);
                 setAddingEvent(true);
               }
             : undefined
         }
+        canEditEvent={(e) => addableCalendarIds.has(e.calendarId)}
+        onEditEvent={(e) => setEditingEvent(e)}
         renderExtra={(e) => {
           const occ = choreEventsById.map.get(e.id);
           if (!occ) return null;
@@ -412,14 +424,28 @@ export default function CalendarPage({ me }: { me: Me }) {
         }}
       />
 
-      {addingEvent && (
+      {(addingEvent || editingEvent) && (
         <AddEventModal
-          options={filterOptions}
+          options={addableOptions}
           initialDate={prefillDate ?? undefined}
-          onClose={() => setAddingEvent(false)}
+          existing={editingEvent ?? undefined}
+          onClose={() => {
+            setAddingEvent(false);
+            setEditingEvent(null);
+          }}
           onCreate={async (calendarId, body) => {
             await api.createCalendarEvent(calendarId, body);
             setAddingEvent(false);
+            refreshEvents();
+          }}
+          onUpdate={async (calendarId, eventId, body) => {
+            await api.updateCalendarEvent(calendarId, eventId, body);
+            setEditingEvent(null);
+            refreshEvents();
+          }}
+          onDelete={async (calendarId, eventId) => {
+            await api.deleteCalendarEvent(calendarId, eventId);
+            setEditingEvent(null);
             refreshEvents();
           }}
         />

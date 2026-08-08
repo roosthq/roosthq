@@ -89,6 +89,7 @@ export interface SharedCalendar {
   id: string;
   name: string;
   color?: string;
+  image?: string | null;
   googleCalendarId?: string;
   shareCount?: number;
   sharedByMe?: boolean;
@@ -99,6 +100,7 @@ export interface SharedCalendar {
 export interface LocalCalendarInput {
   name: string;
   color?: string;
+  image?: string | null;
   locationId?: string | null;
 }
 

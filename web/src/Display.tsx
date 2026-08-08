@@ -62,6 +62,7 @@ export default function Display() {
 
   const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
   const [addingEvent, setAddingEvent] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<CalEvent | null>(null);
   const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [addingAward, setAddingAward] = useState(false);
   const [addingPrize, setAddingPrize] = useState(false);
@@ -331,6 +332,12 @@ export default function Display() {
       .catch(() => setCalendarOptions([]));
   }, [active, config]);
 
+  // Holidays can be on a display's configured calendars (to be seen) without
+  // being a real writable calendar underneath — see CalendarPage's identical
+  // addableOptions for why these are excluded from add/edit specifically.
+  const addableCalendarOptions = useMemo(() => calendarOptions.filter((c) => c.source !== 'holiday'), [calendarOptions]);
+  const addableCalendarIds = useMemo(() => new Set(addableCalendarOptions.map((c) => c.id)), [addableCalendarOptions]);
+
   const onRangeChange = useCallback((s: string, e: string) => setRange({ start: s, end: e }), []);
 
   function selectProfile(m: Member) {
@@ -426,7 +433,7 @@ export default function Display() {
           )}
         </div>
         <div className="flex flex-wrap items-center justify-end gap-3">
-          {active && showCalendar && calendarOptions.length > 0 && (
+          {active && showCalendar && addableCalendarOptions.length > 0 && (
             <button
               onClick={() => {
                 setPrefillDate(null);
@@ -530,13 +537,15 @@ export default function Display() {
               onRangeChange={onRangeChange}
               touchControls
               onAddEvent={
-                active && calendarOptions.length > 0
+                active && addableCalendarOptions.length > 0
                   ? (dateISO) => {
                       setPrefillDate(dateISO);
                       setAddingEvent(true);
                     }
                   : undefined
               }
+              canEditEvent={(e) => addableCalendarIds.has(e.calendarId)}
+              onEditEvent={active ? (e) => setEditingEvent(e) : undefined}
               size={!active ? 'normal' : personFocused ? 'mini' : 'compact'}
               fill
               renderExtra={(e) => {
@@ -639,14 +648,28 @@ export default function Display() {
         )}
       </div>
 
-      {addingEvent && active && (
+      {(addingEvent || editingEvent) && active && (
         <AddEventModal
-          options={calendarOptions}
+          options={addableCalendarOptions}
           initialDate={prefillDate ?? undefined}
-          onClose={() => setAddingEvent(false)}
+          existing={editingEvent ?? undefined}
+          onClose={() => {
+            setAddingEvent(false);
+            setEditingEvent(null);
+          }}
           onCreate={async (calendarId, body) => {
             await api.createCalendarEvent(calendarId, body, active.token);
             setAddingEvent(false);
+            refreshEvents();
+          }}
+          onUpdate={async (calendarId, eventId, body) => {
+            await api.updateCalendarEvent(calendarId, eventId, body, active.token);
+            setEditingEvent(null);
+            refreshEvents();
+          }}
+          onDelete={async (calendarId, eventId) => {
+            await api.deleteCalendarEvent(calendarId, eventId, active.token);
+            setEditingEvent(null);
             refreshEvents();
           }}
         />

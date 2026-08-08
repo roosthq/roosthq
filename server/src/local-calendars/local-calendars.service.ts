@@ -9,6 +9,7 @@ export interface LocalCalendarInput {
   name: string;
   color?: string;
   locationId?: string | null;
+  image?: string | null;
 }
 
 export interface LocalEventInput {
@@ -51,7 +52,14 @@ export class LocalCalendarsService {
       if (!loc) throw new BadRequestException('Location not found');
     }
     return this.prisma.localCalendar.create({
-      data: { familyId, name: dto.name.trim(), color: dto.color, locationId: dto.locationId || null, createdById: actorId },
+      data: {
+        familyId,
+        name: dto.name.trim(),
+        color: dto.color,
+        image: dto.image || null,
+        locationId: dto.locationId || null,
+        createdById: actorId,
+      },
     });
   }
 
@@ -67,6 +75,7 @@ export class LocalCalendarsService {
       data: {
         ...(dto.name !== undefined && { name: dto.name.trim() }),
         ...(dto.color !== undefined && { color: dto.color }),
+        ...(dto.image !== undefined && { image: dto.image || null }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId || null }),
       },
     });
@@ -88,6 +97,7 @@ export class LocalCalendarsService {
       id: c.id,
       name: c.name,
       color: c.color,
+      image: c.image,
       locationId: c.locationId,
       source: 'local' as const,
     }));
@@ -108,6 +118,7 @@ export class LocalCalendarsService {
       id: c.id,
       name: c.name,
       color: c.color,
+      image: c.image,
       locationId: c.locationId,
       source: 'local' as const,
     }));

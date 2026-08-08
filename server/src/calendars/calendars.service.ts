@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { calendar_v3 } from 'googleapis';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
@@ -339,6 +339,7 @@ export class CalendarsService {
       return updated;
     }
     const c = await this.calendarOrThrow(familyId, calendarId);
+    await this.assertCanEditGoogleEvent(c, eventId, actorId);
     const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
       cal.events.patch({
         calendarId: c.googleCalendarId,
@@ -357,6 +358,7 @@ export class CalendarsService {
       return removed;
     }
     const c = await this.calendarOrThrow(familyId, calendarId);
+    await this.assertCanEditGoogleEvent(c, eventId, actorId);
     await this.google.withCalendar(c.googleAccountId, (cal) =>
       cal.events.delete({
         calendarId: c.googleCalendarId,
@@ -365,5 +367,24 @@ export class CalendarsService {
     );
     this.displayEvents.publish(familyId, { type: 'calendar' });
     return { ok: true };
+  }
+
+  // Mirrors LocalCalendarsService.assertCanEdit — an adult always may, and
+  // whoever originally added it may edit their own — for a Google-backed
+  // event too. Without this, updateEvent/deleteEvent had NO permission check
+  // at all on this branch (createEvent's own attribution-stamping was the
+  // only place "who added it" was ever recorded), so any family member could
+  // edit or delete literally any event on any shared Google calendar the
+  // moment there was UI for it. addedBy is read back from the event's own
+  // extendedProperties (the same field createEvent stamps it with), not
+  // stored anywhere else.
+  private async assertCanEditGoogleEvent(c: { googleAccountId: string; googleCalendarId: string; familyId: string }, eventId: string, actorId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (actor && actor.familyId === c.familyId && ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) return;
+    const { data } = await this.google.withCalendar(c.googleAccountId, (cal) =>
+      cal.events.get({ calendarId: c.googleCalendarId, eventId }),
+    );
+    const addedBy = (data.extendedProperties?.private as Record<string, string> | undefined)?.roostHqAddedBy;
+    if (addedBy !== actorId) throw new ForbiddenException('Only an adult, or whoever added it, can change this event');
   }
 }

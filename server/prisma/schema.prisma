@@ -340,6 +340,7 @@ model LocalCalendar {
   locationId  String?
   name        String
   color       String?
+  image       String?  @db.Text // data: URI — lets a local calendar show a photo/icon instead of just its color dot
   createdById String
   createdAt   DateTime @default(now())
 

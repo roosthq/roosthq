@@ -14,6 +14,7 @@ import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
 import { useDialog } from '../Dialog';
+import { resizeImageFile } from '../Prize';
 
 // Owner-only sections reach across every family in the instance (Families,
 // Holidays) — everything else here only ever affects the current family.
@@ -378,7 +379,7 @@ function LocalCalendarsSetting() {
     setName('');
     await refresh();
   }
-  async function patch(id: string, body: Partial<{ name: string; color: string; locationId: string | null }>) {
+  async function patch(id: string, body: Partial<{ name: string; color: string; image: string | null; locationId: string | null }>) {
     await api.updateLocalCalendar(id, body);
     await refresh();
   }
@@ -387,6 +388,11 @@ function LocalCalendarsSetting() {
       await api.deleteLocalCalendar(id);
       await refresh();
     }
+  }
+  async function onPhotoFile(id: string, file: File | undefined) {
+    if (!file) return;
+    const dataUri = await resizeImageFile(file, 160, 0.8);
+    await patch(id, { image: dataUri });
   }
 
   return (
@@ -409,6 +415,28 @@ function LocalCalendarsSetting() {
       <ul className="space-y-2">
         {calendars.map((c) => (
           <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg p-3">
+            <label
+              title="Upload a photo so this calendar is recognizable at a glance — defaults to just the color swatch if you skip this."
+              className="relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-full border"
+              style={!c.image ? { background: c.color ?? '#94a3b8' } : undefined}
+            >
+              {c.image && <img src={c.image} alt="" className="h-full w-full object-cover" />}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => onPhotoFile(c.id, e.target.files?.[0])}
+                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+              />
+            </label>
+            {c.image && (
+              <button
+                onClick={() => patch(c.id, { image: null })}
+                className="text-xs text-slate-400 hover:text-slate-600"
+                title="Remove photo, go back to just the color swatch"
+              >
+                Remove photo
+              </button>
+            )}
             <input
               type="color"
               value={c.color ?? '#94a3b8'}
