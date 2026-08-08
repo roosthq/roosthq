@@ -205,12 +205,28 @@ export default function Calendar({
         else m.set(k, [e]);
       }
     }
+    // One deterministic order applied to EVERY cell: longest multi-day spans
+    // first, then all-day, then timed. Cells used to sort independently by
+    // time only, so a multi-day bar sat in row 0 in one cell and row 1 in the
+    // next (whenever the neighbors differed) — visually snapping the
+    // "continuous" bar apart. Longest-first keeps a bar in the same row for
+    // its whole span in all but pathological overlaps.
+    const spanDays = (e: CalEvent) => {
+      const s = dayStart(e);
+      const en = dayEnd(e);
+      return s && en ? Math.round((en.getTime() - s.getTime()) / 86_400_000) + 1 : 1;
+    };
     for (const arr of m.values()) {
       arr.sort((a, b) => {
+        const sa = spanDays(a);
+        const sb = spanDays(b);
+        if (sa !== sb) return sb - sa;
         const aAll = isAllDay(a) ? 0 : 1;
         const bAll = isAllDay(b) ? 0 : 1;
         if (aAll !== bAll) return aAll - bAll;
-        return (a.start?.dateTime ?? '').localeCompare(b.start?.dateTime ?? '');
+        const st = (a.start?.dateTime ?? a.start?.date ?? '').localeCompare(b.start?.dateTime ?? b.start?.date ?? '');
+        if (st !== 0) return st;
+        return (a.uid ?? '').localeCompare(b.uid ?? '');
       });
     }
     return m;
@@ -423,9 +439,13 @@ export default function Calendar({
                           key={`${e.uid}-${k}`}
                           className={`flex items-center overflow-hidden font-medium text-white ${
                             !multi
-                              ? 'rounded-full'
-                              : `${first ? 'rounded-l-full' : '-ml-1'} ${last ? 'rounded-r-full' : '-mr-1'}`
-                          } ${pillCls}`}
+                              ? `rounded-full ${pillCls}`
+                              : // Fixed sizing for multi-day segments: pillCls
+                                // scales with each CELL's own event count, so a
+                                // bar crossing a busy day used to change
+                                // thickness mid-span.
+                                `${first ? 'rounded-l-full' : '-ml-1'} ${last ? 'rounded-r-full' : '-mr-1'} gap-1 px-1.5 py-0.5 text-xs`
+                          }`}
                           style={{ background: e.calendarColor ?? '#94a3b8' }}
                         >
                           {first && <Avatar name={e.ownerName} src={e.ownerAvatar} />}
