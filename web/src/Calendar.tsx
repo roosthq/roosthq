@@ -232,6 +232,72 @@ export default function Calendar({
     return m;
   }, [events]);
 
+  // Full lane allocation for multi-day bars, computed per week row: every
+  // spanning event gets a stable lane (greedy first-fit, earliest-start
+  // first), and every cell it covers renders that lane at the same list
+  // index — with invisible same-height spacers filling any lane above it
+  // that's unused on that particular day. That's what keeps a bar in one
+  // straight line across the week even when neighboring days have different
+  // event counts. Single-day items always render below the lanes.
+  type LaneSeg = { e: CalEvent; isStart: boolean; isEnd: boolean; isWeekStart: boolean };
+  const laneMap = useMemo(() => {
+    const cellLanes = new Map<string, Array<LaneSeg | null>>();
+    if (mini) return cellLanes;
+    const spanning = events.filter((e) => {
+      const s = dayStart(e);
+      const en = dayEnd(e);
+      return s && en && keyOf(s) !== keyOf(en);
+    });
+    if (!spanning.length) return cellLanes;
+    for (let w = 0; w < days.length; w += 7) {
+      const week = days.slice(w, w + 7);
+      const wStart = week[0];
+      const wEndExcl = new Date(week[week.length - 1]);
+      wEndExcl.setHours(23, 59, 59, 999);
+      const segs = spanning
+        .map((e) => {
+          const s = dayStart(e)!;
+          const en = dayEnd(e)!;
+          if (en < wStart || s > wEndExcl) return null;
+          const startIdx = Math.max(0, Math.round((s.getTime() - wStart.getTime()) / 86_400_000));
+          const endIdx = Math.min(week.length - 1, Math.round((en.getTime() - wStart.getTime()) / 86_400_000));
+          return { e, startIdx, endIdx };
+        })
+        .filter((x): x is { e: CalEvent; startIdx: number; endIdx: number } => !!x)
+        .sort(
+          (a, b) =>
+            a.startIdx - b.startIdx ||
+            b.endIdx - a.endIdx ||
+            (a.e.uid ?? '').localeCompare(b.e.uid ?? ''),
+        );
+      // Greedy first-fit: lane i is free for a segment iff the last segment
+      // placed in lane i ended before this one starts.
+      const laneEnds: number[] = [];
+      for (const seg of segs) {
+        let lane = laneEnds.findIndex((end) => end < seg.startIdx);
+        if (lane === -1) {
+          lane = laneEnds.length;
+          laneEnds.push(seg.endIdx);
+        } else {
+          laneEnds[lane] = seg.endIdx;
+        }
+        for (let i = seg.startIdx; i <= seg.endIdx; i++) {
+          const k = keyOf(week[i]);
+          const arr = cellLanes.get(k) ?? [];
+          while (arr.length <= lane) arr.push(null);
+          arr[lane] = {
+            e: seg.e,
+            isStart: keyOf(dayStart(seg.e)!) === k,
+            isEnd: keyOf(dayEnd(seg.e)!) === k,
+            isWeekStart: i === seg.startIdx,
+          };
+          cellLanes.set(k, arr);
+        }
+      }
+    }
+    return cellLanes;
+  }, [events, days, mini]);
+
   const todayKey = keyOf(new Date());
   const rangeLabel =
     effectiveView === 'month'
@@ -418,47 +484,56 @@ export default function Calendar({
                 <>
                   {/* Solid-color pills (the calendar's own color) on wider
                       screens; below sm there's only room for a per-calendar
-                      dot + count — tap the day for the rest. */}
+                      dot + count — tap the day for the rest. Multi-day events
+                      render first via laneMap: same lane index in every cell
+                      they cover (spacers hold empty lanes), fixed height, so
+                      each bar reads as one straight continuous line across
+                      the week. Single-day items stack under the lanes. */}
                   <div className="hidden space-y-0.5 sm:block">
-                    {dayEvents.slice(0, maxChips).map((e) => {
-                      // Multi-day events render as one continuous bar: square
-                      // inner edges + negative margins push each day's segment
-                      // through the cell padding so consecutive cells connect,
-                      // instead of repeating a fully-rounded pill per day. The
-                      // title (and avatar) paints only on the first day and at
-                      // each week's Sunday restart — continuation segments stay
-                      // blank so it doesn't read as many identical events.
-                      const s = dayStart(e);
-                      const en = dayEnd(e);
-                      const multi = !!s && !!en && keyOf(s) !== keyOf(en);
-                      const first = !multi || (s ? keyOf(s) === k : true);
-                      const last = !multi || (en ? keyOf(en) === k : true);
-                      const showContent = first || d.getDay() === 0;
-                      return (
+                    {(laneMap.get(k) ?? []).map((seg, laneIdx) =>
+                      seg ? (
                         <div
-                          key={`${e.uid}-${k}`}
-                          className={`flex items-center overflow-hidden font-medium text-white ${
-                            !multi
-                              ? `rounded-full ${pillCls}`
-                              : // Fixed sizing for multi-day segments: pillCls
-                                // scales with each CELL's own event count, so a
-                                // bar crossing a busy day used to change
-                                // thickness mid-span.
-                                `${first ? 'rounded-l-full' : '-ml-1'} ${last ? 'rounded-r-full' : '-mr-1'} gap-1 px-1.5 py-0.5 text-xs`
-                          }`}
-                          style={{ background: e.calendarColor ?? '#94a3b8' }}
+                          key={`${seg.e.uid}-${k}`}
+                          className={`flex h-5 items-center gap-1 overflow-hidden px-1.5 text-xs font-medium text-white ${
+                            seg.isStart ? 'rounded-l-full' : '-ml-1'
+                          } ${seg.isEnd ? 'rounded-r-full' : '-mr-1'}`}
+                          style={{ background: seg.e.calendarColor ?? '#94a3b8' }}
                         >
-                          {first && <Avatar name={e.ownerName} src={e.ownerAvatar} />}
-                          {/* nbsp + min-h keep continuation segments (no
-                              avatar) as tall as the first segment, so the bar
-                              doesn't thin out mid-span. */}
-                          <span className="min-h-4 truncate">{showContent ? e.title ?? '(no title)' : ' '}</span>
+                          {/* Title/avatar repaint at each week's first covered
+                              day, so a bar wrapping rows never goes nameless. */}
+                          {seg.isWeekStart && <Avatar name={seg.e.ownerName} src={seg.e.ownerAvatar} />}
+                          <span className="truncate">{seg.isWeekStart ? seg.e.title ?? '(no title)' : ' '}</span>
                         </div>
-                      );
-                    })}
-                    {dayEvents.length > maxChips && (
-                      <div className="text-xs text-slate-400">+{dayEvents.length - maxChips} more</div>
+                      ) : (
+                        <div key={`lane-spacer-${laneIdx}-${k}`} className="h-5" />
+                      ),
                     )}
+                    {(() => {
+                      const laneCount = (laneMap.get(k) ?? []).length;
+                      const singles = dayEvents.filter((e) => {
+                        const s = dayStart(e);
+                        const en = dayEnd(e);
+                        return !(s && en && keyOf(s) !== keyOf(en));
+                      });
+                      const room = Math.max(0, maxChips - laneCount);
+                      return (
+                        <>
+                          {singles.slice(0, room).map((e) => (
+                            <div
+                              key={`${e.uid}-${k}`}
+                              className={`flex items-center overflow-hidden rounded-full font-medium text-white ${pillCls}`}
+                              style={{ background: e.calendarColor ?? '#94a3b8' }}
+                            >
+                              <Avatar name={e.ownerName} src={e.ownerAvatar} />
+                              <span className="truncate">{e.title ?? '(no title)'}</span>
+                            </div>
+                          ))}
+                          {singles.length > room && (
+                            <div className="text-xs text-slate-400">+{singles.length - room} more</div>
+                          )}
+                        </>
+                      );
+                    })()}
                   </div>
                   <div className="flex flex-wrap gap-1 sm:hidden">
                     {Array.from(
