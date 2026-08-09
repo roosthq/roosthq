@@ -29,6 +29,7 @@ import OnScreenKeyboard from './OnScreenKeyboard';
 import Screensaver from './Screensaver';
 import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
+import DinnerWeekModal from './DinnerWeekModal';
 import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, dpatch, displayToken as token } from './displayApi';
 
@@ -69,6 +70,7 @@ export default function Display() {
   const [addingAward, setAddingAward] = useState(false);
   const [addingPrize, setAddingPrize] = useState(false);
   const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
+  const [dinnerWeekOpen, setDinnerWeekOpen] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
@@ -602,9 +604,13 @@ export default function Display() {
       {(showMeals || showCountdowns || showGrocery) && (
         <div className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm">
           {showMeals && (
-            <span className="card-nested rounded-full px-3 py-1">
+            <button
+              onClick={() => setDinnerWeekOpen(true)}
+              className="card-nested rounded-full px-3 py-1 hover:opacity-80"
+              title="See the whole week's dinner plan"
+            >
               🍽️ Tonight: <span className="font-semibold">{todayMeal?.title ?? 'nothing planned'}</span>
-            </span>
+            </button>
           )}
           {showCountdowns &&
             upcomingCountdowns.map((c) => {
@@ -774,6 +780,9 @@ export default function Display() {
           options={addableCalendarOptions}
           initialDate={prefillDate ?? undefined}
           existing={editingEvent ?? undefined}
+          showMeal={showMeals}
+          canEditMeal={isAdult}
+          mealLocationId={config.locationId}
           onClose={() => {
             setAddingEvent(false);
             setEditingEvent(null);
@@ -818,6 +827,15 @@ export default function Display() {
           tokenName={tokenName}
           onClose={() => setAddingTokenAdjust(false)}
           onSaved={() => setAddingTokenAdjust(false)}
+        />
+      )}
+
+      {dinnerWeekOpen && household && (
+        <DinnerWeekModal
+          around={household.today}
+          locationId={config.locationId}
+          canEdit={isAdult}
+          onClose={() => setDinnerWeekOpen(false)}
         />
       )}
 

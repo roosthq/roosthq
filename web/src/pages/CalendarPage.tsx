@@ -157,6 +157,10 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [editingEvent, setEditingEvent] = useState<CalEvent | null>(null);
   const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [needsReconnect, setNeedsReconnect] = useState(false);
+  const [mealsEnabled, setMealsEnabled] = useState(false);
+  useEffect(() => {
+    api.familySettings().then((f) => setMealsEnabled(familyFeatureEnabled(f, 'meals'))).catch(() => undefined);
+  }, []);
   const [members, setMembers] = useState<Member[]>([]);
   const [chores, setChores] = useState<Chore[]>([]);
   const [selectedPeople, setSelectedPeople] = useState<Set<string>>(new Set());
@@ -449,6 +453,8 @@ export default function CalendarPage({ me }: { me: Me }) {
           options={addableOptions}
           initialDate={prefillDate ?? undefined}
           existing={editingEvent ?? undefined}
+          showMeal={mealsEnabled}
+          canEditMeal={isAdult}
           onClose={() => {
             setAddingEvent(false);
             setEditingEvent(null);

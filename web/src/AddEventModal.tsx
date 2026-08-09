@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import type { CalEvent, EventInput, SharedCalendar } from './api';
+import { useEffect, useState } from 'react';
+import { api, type CalEvent, type EventInput, type MealPlanEntry, type SharedCalendar } from './api';
 import Modal from './Modal';
+import DinnerWeekModal from './DinnerWeekModal';
 
 function addDays(dateStr: string, days: number): string {
   const d = new Date(`${dateStr}T00:00:00`);
@@ -55,6 +56,9 @@ export default function AddEventModal({
   options,
   initialDate,
   existing,
+  showMeal,
+  canEditMeal,
+  mealLocationId,
   onClose,
   onCreate,
   onUpdate,
@@ -67,6 +71,14 @@ export default function AddEventModal({
   initialDate?: string;
   // The event being edited, or omit entirely to create a new one.
   existing?: CalEvent;
+  // Shows that day's dinner plan (with a link to the whole week) at the top
+  // of the form — only for a brand-new event, since that's what a plain day
+  // click opens. `canEditMeal` gates the inline edit; setMeal is adult-only
+  // server-side regardless, this just keeps the control from appearing to a
+  // kid who can still add their own calendar events.
+  showMeal?: boolean;
+  canEditMeal?: boolean;
+  mealLocationId?: string | null;
   onClose: () => void;
   onCreate?: (calendarId: string, body: EventInput) => Promise<void>;
   onUpdate?: (calendarId: string, eventId: string, body: Partial<EventInput>) => Promise<void>;
@@ -90,6 +102,34 @@ export default function AddEventModal({
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+
+  // Dinner plan for whichever day this event starts on — only for a
+  // brand-new event (a day click, not editing something that already
+  // exists). Refetches as the start date changes so it always matches what's
+  // currently in the form, not just wherever the day click originally landed.
+  const [meal, setMeal] = useState<MealPlanEntry | null>(null);
+  const [editingMeal, setEditingMeal] = useState(false);
+  const [mealDraft, setMealDraft] = useState('');
+  const [dinnerWeekOpen, setDinnerWeekOpen] = useState(false);
+  useEffect(() => {
+    if (!showMeal || existing) return;
+    api
+      .meals(startDate, startDate, mealLocationId ?? undefined)
+      .then((rows) => setMeal(rows.find((r) => !mealLocationId || r.locationId === mealLocationId) ?? rows[0] ?? null))
+      .catch(() => setMeal(null));
+  }, [showMeal, existing, startDate, mealLocationId]);
+
+  async function saveMeal() {
+    const title = mealDraft.trim();
+    if (title) {
+      const saved = await api.setMeal(startDate, { title, locationId: mealLocationId ?? null });
+      setMeal(saved);
+    } else if (meal) {
+      await api.deleteMeal(startDate, meal.locationId ?? null);
+      setMeal(null);
+    }
+    setEditingMeal(false);
+  }
 
   const calendarName = options.find((o) => o.id === calendarId)?.name ?? existing?.calendarName ?? calendarId;
 
@@ -146,6 +186,7 @@ export default function AddEventModal({
   }
 
   return (
+    <>
     <Modal
       header={<h3 className="text-lg font-semibold">{existing ? 'Edit event' : 'Add event'}</h3>}
       footer={
@@ -175,6 +216,36 @@ export default function AddEventModal({
       }
     >
         <div className="space-y-2 text-sm">
+          {showMeal && !existing && (
+            <div className="alert-banner flex flex-wrap items-center gap-2 p-2 text-sm">
+              <span className="shrink-0">🍽️</span>
+              {editingMeal ? (
+                <input
+                  autoFocus
+                  value={mealDraft}
+                  onChange={(e) => setMealDraft(e.target.value)}
+                  onBlur={saveMeal}
+                  onKeyDown={(e) => e.key === 'Enter' && saveMeal()}
+                  placeholder="Dinner…"
+                  className="min-w-0 flex-1 rounded border px-2 py-1"
+                />
+              ) : (
+                <button
+                  disabled={!canEditMeal}
+                  onClick={() => {
+                    setEditingMeal(true);
+                    setMealDraft(meal?.title ?? '');
+                  }}
+                  className="min-w-0 flex-1 truncate text-left disabled:cursor-default"
+                >
+                  {meal?.title ?? <span className="text-slate-400">{canEditMeal ? 'No dinner planned — tap to add' : 'No dinner planned'}</span>}
+                </button>
+              )}
+              <button onClick={() => setDinnerWeekOpen(true)} className="shrink-0 text-xs underline hover:no-underline">
+                See the week
+              </button>
+            </div>
+          )}
           <label className="block">
             <span className="text-slate-500">Calendar</span>
             {existing ? (
@@ -291,5 +362,22 @@ export default function AddEventModal({
           {err && <p className="text-red-500">{err}</p>}
         </div>
     </Modal>
+    {dinnerWeekOpen && (
+      <DinnerWeekModal
+        around={startDate}
+        locationId={mealLocationId}
+        canEdit={!!canEditMeal}
+        onClose={() => {
+          setDinnerWeekOpen(false);
+          // Reflect anything just changed in the week view back onto this
+          // day's row without waiting for the next startDate-keyed refetch.
+          api
+            .meals(startDate, startDate, mealLocationId ?? undefined)
+            .then((rows) => setMeal(rows.find((r) => !mealLocationId || r.locationId === mealLocationId) ?? rows[0] ?? null))
+            .catch(() => undefined);
+        }}
+      />
+    )}
+    </>
   );
 }
