@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 
@@ -20,6 +20,16 @@ export class DisplayTokenService {
   // Returns the raw token exactly once; only the hash is stored.
   async mint(familyId: string, userId: string, label?: string, displayConfigId?: string) {
     await this.assertOwner(userId);
+    // Never trusted the caller's displayConfigId belonged to their own
+    // family — an owner ghosted/switched between families (or just a bad
+    // request) could mint a token scoped to THEIR familyId that points at
+    // someone else's display config, which the kiosk this token ends up on
+    // would then never resolve correctly (or worse, silently show the wrong
+    // family's config, if a future lookup ever forgot to filter by family).
+    if (displayConfigId) {
+      const config = await this.prisma.displayConfig.findFirst({ where: { id: displayConfigId, familyId } });
+      if (!config) throw new BadRequestException('That display does not belong to this family');
+    }
     const raw = randomBytes(24).toString('hex');
     const record = await this.prisma.displayToken.create({
       data: { familyId, tokenHash: this.hash(raw), label, displayConfigId: displayConfigId ?? null },
