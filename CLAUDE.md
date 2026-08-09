@@ -1,4 +1,4 @@
-# Roost HQ — Project Context for Claude Code
+# Roost HQ - Project Context for Claude Code
 
 Self-hosted, single-family calendar + chores + rewards hub. Runs on a Proxmox Ubuntu
 VM, reachable over the internet via Cloudflare Tunnel, with a Raspberry Pi kiosk as a
@@ -6,9 +6,9 @@ wall touch display. React + NestJS + Prisma + MySQL, Docker Compose. Open source
 
 > **State of the codebase:** built rapidly across many sessions. As of 2026-07-14,
 > Phases 1–5 plus per-profile PINs were live-verified end-to-end against the real
-> deployment (see `PLANNING.md` §12) — two real bugs found in that pass (an infinite
+> deployment (see `PLANNING.md` §12) - two real bugs found in that pass (an infinite
 > polling loop, and a kiosk-identity/cookie-priority bug in `AuthGuard`) are fixed.
-> This is Casey's test platform, not real family production use yet — mutations
+> This is Casey's test platform, not real family production use yet - mutations
 > against it for testing don't need the caution a real production system would.
 > New features still need their own verification pass; when something breaks, ask for
 > `docker compose logs` output and fix from the actual error.
@@ -17,7 +17,7 @@ wall touch display. React + NestJS + Prisma + MySQL, Docker Compose. Open source
 
 ```
 server/            NestJS API (TypeScript, Prisma, MySQL)
-  prisma/schema.prisma   the data model — source of truth
+  prisma/schema.prisma   the data model - source of truth
   src/<feature>/         one folder per module (auth, calendars, chores, tokens,
                          prizes, display, invites, users, family, locations, google)
 web/               React + Vite + Tailwind (TypeScript)
@@ -79,13 +79,13 @@ Full first-time setup (Docker install, Cloudflare Tunnel, Google OAuth) is in `D
 - **git must run natively on the user's machine**, not in any sandbox mounted over the
   Windows folder (file-locking fails). Use HTTPS remote or an SSH key registered on
   GitHub (public key on GitHub, not `authorized_keys`).
-- **The build is `tsc && vite build`** — TypeScript errors fail the whole web build;
+- **The build is `tsc && vite build`** - TypeScript errors fail the whole web build;
   read `docker compose logs web` for the exact file/line.
 - Google OAuth is in **Testing** mode (100-user cap, 7-day token expiry). Publish the
   OAuth app to **Production** (unverified is fine for one family) for durable logins.
 - **DB backups**: the prod overlay runs a `backup` sidecar (mysqldump, gzip) nightly to
   `./backups` on the VM, pruning anything older than `BACKUP_RETENTION_DAYS` (env var,
-  default 14). Not app code — survives `docker compose up --build server web` deploys.
+  default 14). Not app code - survives `docker compose up --build server web` deploys.
 
 ## Deploy target specifics
 - Host: Proxmox Ubuntu VM, project at `/opt/roost-hq`, auto-starts via Docker restart

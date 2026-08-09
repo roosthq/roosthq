@@ -1,11 +1,38 @@
 # Roost HQ
 
-The family's home base — a self-hosted calendar, chore, and reward hub designed for a
-Raspberry Pi touch display and mobile devices, backed by shared Google Calendars.
+The family's home base: a self-hosted calendar, chores, and rewards hub for a
+Raspberry Pi touch display and mobile devices, backed by shared Google Calendars
+(or fully local calendars, no Google required).
 
 Self-hosted, single-family, open source (AGPL-3.0). Each household runs its own instance.
 
-See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
+See [`PLANNING.md`](./PLANNING.md) for the full architecture, roadmap, and feature backlog.
+
+## What's in it
+
+- **Calendar:** shared Google Calendars (deduped) and/or fully local calendars, month/2-week/1-week
+  views, multi-day event spanning, swipe navigation between periods.
+- **Chores:** recurring (daily/weekly/monthly/custom), per-location, checklists, photo-proof,
+  auto-approve, "claim it" (open-to-anyone) chores, streaks and streak freezes.
+- **Tokens:** ledger-derived balances, manual adjustments with an audit trail, family-configurable
+  token name/icon.
+- **Prizes & Store:** kid-requested redemptions, adult approval, real price hidden from kids,
+  item or event type.
+- **Awards:** one-off recognitions with a note ("helped without asking"), visible to the kid who
+  earned them, with an optional bonus token wheel.
+- **Rules:** shared and per-kid house rules, viewable from the app or the kiosk.
+- **Gamification:** levels/XP, bonus spin wheels, chore races, per-family toggle.
+- **Household widgets:** meal plan, grocery list, countdowns, announcements; family-wide or
+  per-house scoped.
+- **Accounts:** Google OAuth and/or local username+password; kid accounts can be created without
+  any email at all.
+- **Multi-family + ghosting:** an app-owner role can manage several families and "ghost" into any
+  account for support, with a persistent banner and a one-click way back.
+- **Kiosk (Pi touch display):** profile picker with live token/level badges, PIN unlock,
+  big touch targets, dinner-plan swipe carousel, and in-kiosk access to Rules and My Stats so a kid
+  never has to leave the wall display.
+- **PWA + mobile:** installable, bottom tab bar on phones, a header-level pending-approvals
+  indicator visible on every page for both adults and kids.
 
 ## Stack
 
@@ -13,7 +40,8 @@ See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
 - **Backend:** NestJS + TypeScript + Prisma (`server/`)
 - **Database:** MySQL 8
 - **Packaging:** Docker Compose
-- **Auth / calendar:** Google OAuth 2.0
+- **Auth:** Google OAuth 2.0 and/or local password auth; a short-lived kiosk token for the touch
+  display, and a separate read-only display token for unattended kiosk boot
 
 ## Repo layout
 
@@ -24,7 +52,7 @@ See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
 ├── server/                # NestJS API + Prisma
 │   └── prisma/schema.prisma
 ├── web/                   # React + Vite frontend
-└── PLANNING.md            # architecture & roadmap
+└── PLANNING.md            # architecture, roadmap, and backlog
 ```
 
 ## Quick start (development)
@@ -35,7 +63,8 @@ See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
    git clone git@github.com:roosthq/<repo>.git
    cd <repo>
    cp .env.example .env
-   # edit .env with your Google OAuth credentials (see below) and a DB password
+   # edit .env with your Google OAuth credentials (see below, optional if you only
+   # want local accounts) and a DB password
    ```
 
 2. **Run with Docker Compose**
@@ -54,10 +83,14 @@ See [`PLANNING.md`](./PLANNING.md) for the full architecture and feature plan.
    docker compose exec server npx prisma db push
    ```
 
-## Google OAuth setup (required, one-time)
+## Google OAuth setup (optional)
 
-Because Roost HQ is self-hosted, **you register your own Google OAuth client** — there
-is no shared central app.
+Google sign-in and Google Calendar sharing are optional. Local accounts (username +
+password, including kid accounts with no email) work without any Google setup at all.
+Skip this section entirely for a Google-free deployment.
+
+Because Roost HQ is self-hosted, **you register your own Google OAuth client** if you
+want Google features. There is no shared central app.
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a
    new project (e.g. "Roost HQ").
@@ -65,9 +98,9 @@ is no shared central app.
 3. Configure the **OAuth consent screen**:
    - User type: **External**, status **Testing** is fine for a household.
    - Add each family Google account under **Test users** (Testing mode caps at 100
-     users and shows an "unverified app" notice — expected for self-hosting).
+     users and shows an "unverified app" notice, expected for self-hosting).
    - Scopes: `openid`, `email`, `profile`, and
-     `https://www.googleapis.com/auth/calendar` (full read/write — the app both
+     `https://www.googleapis.com/auth/calendar` (full read/write, the app both
      displays and creates/edits events).
 4. Create an **OAuth client ID** (type: Web application):
    - Authorized redirect URI (dev): `http://localhost:3000/api/auth/google/callback`
@@ -81,63 +114,27 @@ is no shared central app.
 To reach Roost HQ from phones and other locations, deploy behind a **Cloudflare
 Tunnel** (no open router ports, automatic HTTPS). **[`DEPLOY.md`](./DEPLOY.md) is a
 copy-paste, step-by-step guide** covering: installing Docker + git on a fresh Ubuntu
-VM, where to put the project (`/opt/roost-hq`), generating secrets, the tunnel + Google
-setup, launching, and **auto-starting on reboot** (via Docker restart policies, plus an
-optional systemd unit at [`deploy/roost-hq.service`](./deploy/roost-hq.service)).
+VM, where to put the project (`/opt/roost-hq`), generating secrets, the tunnel and
+Google setup, launching, and **auto-starting on reboot** (via Docker restart
+policies, plus an optional systemd unit at [`deploy/roost-hq.service`](./deploy/roost-hq.service)).
 
-It's still a single-family app — only Google accounts you add as test users can sign in.
+It's still a single-family app. If you use Google sign-in, only accounts you add as
+test users can sign in; local accounts have no such cap.
 
-## API endpoints (Phase 1)
+## API
 
-All routes are served under the `/api` prefix (e.g. `GET /api/health`, `GET /api/auth/me`).
+Every feature area above has its own NestJS module under `server/src/<feature>/`
+(`auth`, `calendars`, `chores`, `tokens`, `prizes`, `awards`, `rules`, `display`,
+`family`, `locations`, `users`, `owner`, `google`), each exposing routes under
+`/api/<feature>`. The route list has grown too large to hand-maintain here without
+drifting out of date. Read the controller in the relevant module for the exact
+routes, or `web/src/api.ts` for the client-side call signatures the frontend
+actually uses.
 
-Auth:
-- `GET /auth/google` — start Google consent flow.
-- `GET /auth/google/callback` — OAuth callback; sets session cookie, redirects to web.
-  If already signed in, links the new Google account into the current family.
-- `GET /auth/me` — current signed-in user.
-- `GET /auth/members` — all members of the family (for profile switching).
-- `POST /auth/logout` — clear session.
-
-Calendars:
-- `GET /calendars/google` — calendars available on connected Google accounts (picker).
-- `POST /calendars/share` — share selected calendars into the family (deduped).
-- `GET /calendars` — shared calendars with share counts.
-- `GET /calendars/events?calendarIds=a,b&start=ISO&end=ISO` — deduped events (by iCalUID).
-- `POST /calendars/:calendarId/events` — create an event.
-- `PATCH /calendars/:calendarId/events/:eventId` — update an event.
-- `DELETE /calendars/:calendarId/events/:eventId` — delete an event.
-
-Display (Phase 2):
-- `GET /display/settings` — current display settings (session **or** display token).
-- `GET /display/events` — this week's deduped events for the default calendars
-  (session **or** display token; server resolves which calendars from settings).
-- `GET /display/stream` — Server-Sent Events; pushes settings changes live to the
-  kiosk (session **or** display token via `?token=`).
-- `PUT /display/settings` — update settings (owner only): `defaultCalendarIds`,
-  `enabledFeatures`, `theme`.
-
-Display tokens (unattended kiosk auth, owner only):
-- `POST /display/tokens` `{ label? }` — mint a token (raw value returned **once**).
-- `GET /display/tokens` — list tokens (no raw values).
-- `DELETE /display/tokens/:id` — revoke.
-
-Kiosk setup: in the app (as owner) open **Display access → Generate kiosk link**, copy
-the URL, and point the Pi's browser at it. The link looks like
-`http://<server>:5173/?display=1&token=<token>` and needs no login. Revoke anytime.
-
-Locations (Phase 3):
-- `GET /locations`, `POST /locations`, `PATCH /locations/:id`, `DELETE /locations/:id`
-- `POST /locations/:id/assign` `{ userId }`, `DELETE /locations/:id/users/:userId`
-
-Chores & tokens (Phase 3):
-- `GET /chores` (optional `?assigneeUserId=&locationId=`), `POST /chores`,
-  `GET /chores/:id`, `PATCH /chores/:id`, `DELETE /chores/:id`
-- `POST /chores/instances/:id/check` `{ checklistId, checked }`
-- `POST /chores/instances/:id/complete` — kid marks done → pending
-- `POST /chores/instances/:id/approve` — adult approves → awards tokens, spawns next
-- `POST /chores/instances/:id/reject` — back to open
-- `GET /chores/balances` — token balances per family member (derived from the ledger)
+Kiosk setup: in the app (as owner or family manager) open **Display access →
+Generate kiosk link**, copy the URL, and point the Pi's browser at it. The link
+looks like `https://<server>/?display=1&token=<token>` and needs no login. Revoke
+anytime.
 
 ## Environment variables
 
