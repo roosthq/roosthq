@@ -565,6 +565,22 @@ export class ChoresService {
     return updated;
   }
 
+  // Self-service release of your OWN claim on an "anyone" chore — for
+  // second-guessing, or letting a sibling take it after all. Kid-usable
+  // (unlike setClaim below, which is the adult override for reassigning
+  // someone else's claim). Scoped to OPEN only: once it's submitted for
+  // approval there's nothing left to back out of, and an adult still has
+  // setClaim/assign for that broader case.
+  async unclaim(familyId: string, userId: string, instanceId: string) {
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (inst.chore.assignmentType !== 'ANYONE') throw new BadRequestException('This chore is not open to claim');
+    if (inst.claimedByUserId !== userId) throw new ForbiddenException("This isn't your claim to release");
+    if (inst.status !== 'OPEN') throw new BadRequestException('Already submitted — an adult can reassign it if needed');
+    const updated = await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: null } });
+    this.displayEvents.publish(familyId, { type: 'chores' });
+    return updated;
+  }
+
   // Adult assigns (or clears, userId=null) who a claimed occurrence belongs to.
   async setClaim(familyId: string, actorId: string, instanceId: string, userId: string | null) {
     await this.assertAdult(actorId);

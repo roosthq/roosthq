@@ -59,6 +59,13 @@ export class ChoresController {
     return this.chores.claim(u.familyId, u.userId, instanceId);
   }
 
+  // Kid backs out of their own claim (still OPEN only) — separate from the
+  // adult-only /assign below, which can reassign anyone's claim any time.
+  @Post('instances/:instanceId/unclaim')
+  unclaim(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.unclaim(u.familyId, u.userId, instanceId);
+  }
+
   // Adult assigns/unassigns a claimed occurrence.
   @Post('instances/:instanceId/assign')
   assign(

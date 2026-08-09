@@ -487,6 +487,15 @@ export default function ChoresPanel({
               Skip
             </button>
           )}
+          {active?.status === 'OPEN' && mine && chore.assignmentType === 'ANYONE' && (
+            <button
+              onClick={() => act(() => client.unclaimInstance(active.id))}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+              title="Let someone else take this one"
+            >
+              Unclaim
+            </button>
+          )}
           {active?.status === 'SKIPPED' && (mine || isAdult) && (
             <button
               onClick={() => act(() => client.unskipInstance(active.id))}
@@ -787,6 +796,15 @@ export default function ChoresPanel({
                           className="rounded border px-2 py-1 text-xs hover:bg-white"
                         >
                           Skip
+                        </button>
+                      )}
+                      {active?.status === 'OPEN' && mine && chore.assignmentType === 'ANYONE' && (
+                        <button
+                          onClick={() => act(() => client.unclaimInstance(active.id))}
+                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          title="Let someone else take this one"
+                        >
+                          Unclaim
                         </button>
                       )}
                       {active?.status === 'SKIPPED' && (mine || isAdult) && (

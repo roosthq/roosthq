@@ -889,6 +889,10 @@ export function choreClient(kioskToken?: string) {
     reopenChore: (id: string) => req(`/chores/${id}/reopen`, { method: 'POST' }, kioskToken),
     claimInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/claim`, { method: 'POST' }, kioskToken),
+    // Kid backing out of their own still-open claim — the adult-only
+    // assignInstance below can reassign anyone's claim any time instead.
+    unclaimInstance: (instanceId: string) =>
+      req(`/chores/instances/${instanceId}/unclaim`, { method: 'POST' }, kioskToken),
     assignInstance: (instanceId: string, userId: string | null) =>
       req(`/chores/instances/${instanceId}/assign`, { method: 'POST', body: JSON.stringify({ userId }) }, kioskToken),
     checkItem: (instanceId: string, checklistId: string, checked: boolean) =>
