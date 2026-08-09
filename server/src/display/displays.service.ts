@@ -32,6 +32,33 @@ function keyToIso(key: DateKey): string {
   return `${key.y}-${String(key.m).padStart(2, '0')}-${String(key.d).padStart(2, '0')}`;
 }
 
+// Google (and iCal generally) treats an all-day event's start/end.date as
+// timezone-naive UTC-midnight for query purposes, not the location's own
+// midnight. For any zone behind UTC, "today's" end-of-day instant
+// (23:59:59.999 local) lands well into UTC tomorrow — past tomorrow's
+// midnight-UTC all-day start — so the Google API's timeMin/timeMax window
+// hands back tomorrow's all-day event alongside today's. That's the actual
+// bleed the screensaver was showing.
+//
+// Fix: for all-day events specifically, ignore the instant-based window
+// Google (or anything else) matched on and check plain calendar-date
+// membership instead — end.date is exclusive per the iCal/Google convention,
+// so a genuine 3-day trip still shows on all 3 days, just never on a 4th.
+function isAllDayEvent(e: Record<string, unknown>): boolean {
+  const start = e.start as { dateTime?: string; date?: string } | undefined;
+  return !!start?.date && !start?.dateTime;
+}
+
+function allDayEventCoversKey(e: Record<string, unknown>, key: DateKey): boolean {
+  const start = e.start as { date?: string } | undefined;
+  const end = e.end as { date?: string } | undefined;
+  const dayIso = keyToIso(key);
+  const startIso = start?.date;
+  if (!startIso) return false;
+  const endIso = end?.date ?? startIso;
+  return dayIso >= startIso && dayIso < endIso;
+}
+
 export interface DisplayConfigInput {
   name?: string;
   locationId?: string | null;
@@ -356,7 +383,12 @@ export class DisplaysService {
         this.chores.dueOnDay(familyId, config.locationId, key, tz, { excludePassed: isToday }),
         this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),
       ]);
-      const events = isToday ? rawEvents.filter((e) => !eventHasPassed(e, now)) : rawEvents;
+      // All-day membership is checked on every day walked, not just today —
+      // the same UTC-boundary bleed would otherwise just shift the wrong
+      // event onto whichever future day's fetch happened to catch it.
+      const events = rawEvents
+        .filter((e) => !isAllDayEvent(e) || allDayEventCoversKey(e, key))
+        .filter((e) => !isToday || !eventHasPassed(e, now));
       if (chores.length || events.length || offset === 14) {
         return { date: keyToIso(key), isToday, chores, events };
       }
