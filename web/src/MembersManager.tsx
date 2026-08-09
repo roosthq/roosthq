@@ -306,11 +306,18 @@ export default function MembersManager({ me }: { me: Me }) {
                 {/* Kid-only: keeps the PIN on file but the kiosk stops asking
                     for it — for a kid who keeps locking themselves out.
                     Doesn't apply to adults, whose PIN is a real kiosk
-                    security boundary, not a convenience. */}
-                {m.role === 'KID' && m.hasPin && canManagePin(m) && (
-                  <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500">
-                    <input type="checkbox" checked={!!m.pinDisabled} onChange={() => togglePinDisabled(m)} />
-                    Don't ask for PIN on the kiosk
+                    security boundary, not a convenience. Shown even with no
+                    PIN set (disabled + explained) rather than vanishing
+                    outright — a control that disappears reads as missing. */}
+                {m.role === 'KID' && canManagePin(m) && (
+                  <label className={`mt-1.5 flex items-center gap-1.5 text-xs ${m.hasPin ? 'text-slate-500' : 'text-slate-400'}`}>
+                    <input
+                      type="checkbox"
+                      checked={!!m.pinDisabled}
+                      disabled={!m.hasPin}
+                      onChange={() => togglePinDisabled(m)}
+                    />
+                    {m.hasPin ? "Don't ask for PIN on the kiosk" : "Don't ask for PIN on the kiosk (set a PIN first)"}
                   </label>
                 )}
               </div>
