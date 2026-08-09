@@ -650,6 +650,12 @@ export const api = {
     }>,
   ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
+  // Pushes a reload to every kiosk currently on this config (or, with no id,
+  // every kiosk in the family) over the SSE stream they already hold open —
+  // fixes a frozen/stuck Pi without walking over to it. Can't reach a kiosk
+  // whose display token was actually revoked; its stream was never connected.
+  reloadDisplay: (displayConfigId?: string) =>
+    req<{ ok: boolean }>('/displays/reload', { method: 'POST', body: JSON.stringify({ displayConfigId }) }),
   // Calendars selectable for a display: all shared calendars, or (scoped) only
   // those shared by someone assigned to that location.
   displaysCalendars: (locationId?: string | null) =>

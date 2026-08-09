@@ -603,6 +603,17 @@ function DisplayRow({
   onDelete: () => void;
 }) {
   const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+  const [reloaded, setReloaded] = useState(false);
+
+  // Pushed over the SSE stream every kiosk on this display already holds
+  // open — fixes a frozen/stuck Pi without walking over to it. Only reaches
+  // a kiosk that's actually still connected; one whose display link was
+  // revoked never had a live stream to push to in the first place.
+  async function onReload() {
+    await api.reloadDisplay(d.id);
+    setReloaded(true);
+    setTimeout(() => setReloaded(false), 2000);
+  }
 
   useEffect(() => {
     api.displaysCalendars(d.locationId).then(setCalendars).catch(() => setCalendars([]));
@@ -619,6 +630,9 @@ function DisplayRow({
           onBlur={(e) => e.target.value !== d.name && onPatch({ name: e.target.value })}
           className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm font-medium"
         />
+        <button onClick={onReload} className="shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-50" title="Reload any kiosk currently showing this display">
+          {reloaded ? '✓ Sent' : '🔄 Reload kiosk'}
+        </button>
         <button onClick={onDelete} className="shrink-0 text-xs text-red-500 hover:text-red-700">
           Delete
         </button>

@@ -237,6 +237,15 @@ export default function Display() {
     activeRef.current = active;
   }, [active]);
 
+  // Same reason: the SSE mount effect needs this kiosk's own display-config
+  // id to decide whether a remote reload push is actually for it (an adult
+  // can target one kiosk, or all of them), without reconnecting the stream
+  // every time config reloads.
+  const configIdRef = useRef<string | null>(null);
+  useEffect(() => {
+    configIdRef.current = config?.id ?? null;
+  }, [config?.id]);
+
   // The display's own light/dark mode (data-mode) — a property of the
   // physical kiosk, never overridden by whoever's signed in (see unlock()
   // below). data-theme (the color hue) resets to this kiosk's own configured
@@ -314,11 +323,21 @@ export default function Display() {
     const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
     const es = new EventSource(streamUrl, { withCredentials: true });
     es.onmessage = (e) => {
-      let type = 'display';
+      let payload: { type?: string; displayConfigId?: string | null } = {};
       try {
-        type = JSON.parse(e.data)?.type ?? 'display';
+        payload = JSON.parse(e.data) ?? {};
       } catch {
         // legacy/untyped payload — treat as a config change
+      }
+      const type = payload.type ?? 'display';
+      if (type === 'reload') {
+        // Untargeted (no displayConfigId) means "every kiosk in the family" —
+        // an adult fixing a stuck/broken kiosk from Settings without walking
+        // over to the Pi. Targeted means only the one they picked.
+        if (!payload.displayConfigId || payload.displayConfigId === configIdRef.current) {
+          window.location.reload();
+        }
+        return;
       }
       if (type === 'calendar') {
         refreshEventsRef.current();

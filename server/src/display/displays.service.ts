@@ -127,6 +127,19 @@ export class DisplaysService {
     return this.prisma.displayConfig.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
   }
 
+  // Pushes a reload over the same SSE stream every kiosk already holds open —
+  // for a Pi that's frozen, stuck on a stale render, or otherwise misbehaving,
+  // without anyone walking over to it. Scoped to one display config, or every
+  // kiosk in the family when omitted. Can't help a kiosk whose own display
+  // token was actually revoked (its stream never connected in the first place
+  // — nothing is listening); this only reaches ones that are still up.
+  async remoteReload(actorId: string, familyId: string, displayConfigId?: string | null) {
+    await this.assertAdult(actorId);
+    if (displayConfigId) await this.owned(familyId, displayConfigId);
+    this.displayEvents.publish(familyId, { type: 'reload', displayConfigId: displayConfigId ?? null });
+    return { ok: true };
+  }
+
   async create(familyId: string, actorId: string, dto: DisplayConfigInput) {
     await this.assertAdult(actorId);
     const locationId = dto.locationId ?? null;

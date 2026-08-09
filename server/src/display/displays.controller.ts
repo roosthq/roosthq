@@ -36,4 +36,11 @@ export class DisplaysController {
   remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.displays.remove(u.familyId, u.userId, id);
   }
+
+  // Remote "reload this kiosk" — pushed over the display's own SSE stream, no
+  // Pi access needed. Omit displayConfigId to reload every kiosk in the family.
+  @Post('reload')
+  reload(@CurrentUser() u: SessionPayload, @Body() body: { displayConfigId?: string }) {
+    return this.displays.remoteReload(u.userId, u.familyId, body.displayConfigId || null);
+  }
 }

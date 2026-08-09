@@ -80,9 +80,18 @@ export default function DisplayAccess() {
               {t.revokedAt && <span className="ml-2 text-red-500">revoked</span>}
             </span>
             {!t.revokedAt && (
-              <button onClick={() => revoke(t.id)} className="shrink-0 text-xs text-red-500 hover:text-red-700">
-                Revoke
-              </button>
+              <>
+                <button
+                  onClick={() => api.reloadDisplay(t.displayConfigId ?? undefined)}
+                  className="shrink-0 rounded border px-2 py-0.5 text-xs hover:bg-slate-50"
+                  title="Reload this kiosk if it's stuck (does nothing if its link was actually revoked)"
+                >
+                  🔄
+                </button>
+                <button onClick={() => revoke(t.id)} className="shrink-0 text-xs text-red-500 hover:text-red-700">
+                  Revoke
+                </button>
+              </>
             )}
           </li>
         ))}
