@@ -1,5 +1,16 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { choreClient, prizeClient, pluralize, type Chore, type Member, type Balance, type ChoreClient, type FamilyLocation, type PendingWheel } from './api';
+import {
+  choreClient,
+  prizeClient,
+  pluralize,
+  DATA_REFRESH_EVENT,
+  type Chore,
+  type Member,
+  type Balance,
+  type ChoreClient,
+  type FamilyLocation,
+  type PendingWheel,
+} from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
 import WheelModal from './WheelModal';
@@ -198,6 +209,21 @@ export default function ChoresPanel({
   useEffect(() => {
     if (refreshSignal !== undefined) refresh();
   }, [refreshSignal]);
+
+  // The kiosk gets live updates over its own SSE stream (refreshSignal
+  // above); the main portal has no such stream, so a chore/wheel granted
+  // while this was already mounted (e.g. opening a notification that leads
+  // back to a page already open in another tab) would otherwise sit stale
+  // until an unrelated remount or a manual reload.
+  useEffect(() => {
+    const onDataRefresh = () => {
+      refresh();
+      refreshWheels();
+    };
+    window.addEventListener(DATA_REFRESH_EVENT, onDataRefresh);
+    return () => window.removeEventListener(DATA_REFRESH_EVENT, onDataRefresh);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh/refreshWheels are stable per client
+  }, []);
 
   useEffect(() => {
     client.familySettings().then((s) => {

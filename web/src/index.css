@@ -578,3 +578,35 @@ select option {
 [data-mode='dark'] .owl-belly {
   fill: var(--accent);
 }
+
+/* Kiosk touch sizing — the wall display is used by kids with imprecise
+   little fingers, not a mouse. Blanket-upsizes interactive controls when
+   Display.tsx's root carries this class; !important because most of what
+   it's overriding is a Tailwind utility class already on the element
+   (px-2 py-1 text-xs and friends), same reasoning as the theme bridge
+   above. Deliberately broad rather than hunting down every button
+   one-by-one — a missed one just stays normal-sized, never broken. */
+.kiosk-mode button,
+.kiosk-mode select,
+.kiosk-mode a[role='button'] {
+  min-height: 2.75rem !important;
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.6rem !important;
+  font-size: 1rem !important;
+}
+.kiosk-mode input[type='checkbox'] {
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+}
+.kiosk-mode input[type='radio'] {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
+/* A row of icon-only chips (theme swatches, screensaver/fullscreen toggles in
+   the header) shouldn't grow to the same min-height as a labeled button —
+   opt out explicitly rather than let them balloon and break the header row. */
+.kiosk-mode .kiosk-compact-btn {
+  min-height: 0 !important;
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
+}

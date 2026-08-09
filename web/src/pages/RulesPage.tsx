@@ -3,7 +3,10 @@ import { api, type Me, type Rule, type Member } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 
-export default function RulesPage({ me }: { me: Me }) {
+// `me` only ever needs `.role` here — typed loosely (not the full `Me`) so
+// the kiosk can pass its active profile's user object directly, which has
+// no `familyId` (kiosk auth is a bearer token, not a family-scoped session).
+export default function RulesPage({ me, kioskToken }: { me: Pick<Me, 'role'>; kioskToken?: string }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const { confirm } = useDialog();
   const [rules, setRules] = useState<Rule[]>([]);
@@ -12,12 +15,12 @@ export default function RulesPage({ me }: { me: Me }) {
   const [editing, setEditing] = useState<Rule | null>(null);
 
   const refresh = useCallback(async () => {
-    setRules(await api.rules());
+    setRules(await api.rules(kioskToken));
     if (isAdult) {
       const members = await api.listUsers();
       setKids(members.filter((m) => m.role === 'KID'));
     }
-  }, [isAdult]);
+  }, [isAdult, kioskToken]);
 
   useEffect(() => {
     refresh();
@@ -25,7 +28,7 @@ export default function RulesPage({ me }: { me: Me }) {
 
   async function del(r: Rule) {
     if (!(await confirm('Delete this rule?', { danger: true, confirmLabel: 'Delete' }))) return;
-    await api.deleteRule(r.id);
+    await api.deleteRule(r.id, kioskToken);
     await refresh();
   }
 
@@ -137,6 +140,9 @@ function RuleForm({
   async function submit() {
     if (!text.trim()) return;
     const body = { text: text.trim(), targetUserId: targetUserId || null };
+    // Adult-only form (kids never open this) — always via the main app's own
+    // cookie session, even if an adult happens to be looking at this on the
+    // kiosk itself, so no kioskToken plumbing needed here.
     if (rule) await api.updateRule(rule.id, body);
     else await api.createRule(body);
     onSaved();

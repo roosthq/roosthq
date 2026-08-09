@@ -367,6 +367,10 @@ export interface EarnedAward {
   icon: string | null;
   description: string | null;
   count: number;
+  // The adult's note on why each one was given, newest first, non-empty
+  // only — a kid earning the same award repeatedly can have a different
+  // reason each time.
+  notes: string[];
 }
 
 export interface AwardGrantHistoryItem {
@@ -579,6 +583,14 @@ export const BASE_URL = BASE;
 // Fired on window whenever a notification's read state changes, so the Nav
 // bell badge can refetch immediately instead of waiting for its next poll.
 export const NOTIFICATIONS_CHANGED_EVENT = 'rhq:notifications-changed';
+
+// Fired on window whenever opening a notification implies something else
+// changed server-side (a new bonus wheel, a redemption's status, etc) — the
+// main portal has no SSE stream the way the kiosk does, so without this a
+// component that already mounted before the change happened (e.g. ChoresPanel
+// sitting open when a wheel got granted) never refetches until an unrelated
+// remount or a manual reload. Listeners: ChoresPanel (wheels + chores).
+export const DATA_REFRESH_EVENT = 'rhq:data-refresh';
 export const displayStreamUrl = `${BASE}/display/stream`;
 
 export const api = {
@@ -713,8 +725,12 @@ export const api = {
     }),
   setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] }) =>
     req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
-  givenStats: (userId: string) =>
-    req<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number }>(`/users/${userId}/given-stats`),
+  givenStats: (userId: string, kioskToken?: string) =>
+    req<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number }>(
+      `/users/${userId}/given-stats`,
+      undefined,
+      kioskToken,
+    ),
 
   // Household widgets (meals / grocery / countdowns / announcements).
   // locationId scopes reads to one household (its items + family-wide ones)
@@ -790,15 +806,15 @@ export const api = {
     req<HolidayRule>(`/holidays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
 
-  familySettings: () => req<FamilySettings>('/family/settings'),
+  familySettings: (kioskToken?: string) => req<FamilySettings>('/family/settings', undefined, kioskToken),
   updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string; disabledFeatures?: string[] }) =>
     req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
-  tokenBalance: (userId?: string) =>
-    req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`),
-  tokenLedger: (userId?: string) =>
-    req<LedgerEntry[]>(`/tokens/ledger${userId ? `?userId=${userId}` : ''}`),
+  tokenBalance: (userId?: string, kioskToken?: string) =>
+    req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
+  tokenLedger: (userId?: string, kioskToken?: string) =>
+    req<LedgerEntry[]>(`/tokens/ledger${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
   adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
     req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
   deleteLedgerEntry: (id: string) => req(`/tokens/ledger/${id}`, { method: 'DELETE' }),
@@ -862,15 +878,19 @@ export const api = {
   markNotificationRead: (id: string) => req(`/notifications/${id}/read`, { method: 'POST' }),
   markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
 
-  rules: () => req<Rule[]>('/rules'),
-  createRule: (body: { text: string; targetUserId?: string | null }) =>
-    req<Rule>('/rules', { method: 'POST', body: JSON.stringify(body) }),
-  updateRule: (id: string, body: Partial<{ text: string; targetUserId: string | null }>) =>
-    req<Rule>(`/rules/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
-  deleteRule: (id: string) => req(`/rules/${id}`, { method: 'DELETE' }),
+  // kioskToken lets a kid pull this up on the kiosk itself, not just their
+  // own phone/tablet — read-only for them either way (server-scoped to
+  // shared + their own targeted rules; see rules.service.ts's list()).
+  rules: (kioskToken?: string) => req<Rule[]>('/rules', undefined, kioskToken),
+  createRule: (body: { text: string; targetUserId?: string | null }, kioskToken?: string) =>
+    req<Rule>('/rules', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  updateRule: (id: string, body: Partial<{ text: string; targetUserId: string | null }>, kioskToken?: string) =>
+    req<Rule>(`/rules/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
+  deleteRule: (id: string, kioskToken?: string) => req(`/rules/${id}`, { method: 'DELETE' }, kioskToken),
 
   awardsCatalog: (kioskToken?: string) => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
-  earnedAwards: (userId?: string) => req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`),
+  earnedAwards: (userId?: string, kioskToken?: string) =>
+    req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
   awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
   createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
     req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }, kioskToken),

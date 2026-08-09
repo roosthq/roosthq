@@ -13,6 +13,7 @@ import {
 import { kidPermissionEnabled, type Member } from '../api';
 import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
+import { useWeekSwipe } from '../useWeekSwipe';
 
 function dateKey(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -109,6 +110,8 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
 
+  const { navigate, animKey, animClass, swipeProps } = useWeekSwipe((delta) => setWeekStart((w) => addDays(w, delta * 7)));
+
   const refresh = useCallback(() => {
     api
       .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), scope || 'none')
@@ -139,21 +142,23 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-base font-semibold tracking-tight">🍽️ Dinner plan</h3>
         <div className="flex items-center gap-1 text-sm">
-          <button onClick={() => setWeekStart(addDays(weekStart, -7))} className="rounded border px-2 py-1 hover:bg-slate-50">‹</button>
+          <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
           <span className="px-1 text-slate-500">
             {weekStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} week
           </span>
-          <button onClick={() => setWeekStart(addDays(weekStart, 7))} className="rounded border px-2 py-1 hover:bg-slate-50">›</button>
+          <button onClick={() => navigate(1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">›</button>
         </div>
       </div>
-      <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7">
+      {/* Swipeable, same recognizer as the calendar's own day grid — drag
+          anywhere in the grid to page weeks, not just the ‹/› buttons. */}
+      <ul key={animKey} {...swipeProps} className={`mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
         {Array.from({ length: 7 }, (_, i) => {
           const d = addDays(weekStart, i);
           const k = dateKey(d);
           const meal = meals[k];
           return (
-            <li key={k} className={`card-nested rounded-lg p-2 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
-              <div className="text-xs font-medium text-slate-400">
+            <li key={k} className={`card-nested rounded-lg p-2.5 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
+              <div className="text-sm font-medium text-slate-500">
                 {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
               </div>
               {editing === k ? (
@@ -163,7 +168,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                   onChange={(e) => setDraft(e.target.value)}
                   onBlur={() => save(k)}
                   onKeyDown={(e) => e.key === 'Enter' && save(k)}
-                  className="mt-1 w-full rounded border px-1.5 py-1 text-sm"
+                  className="mt-1.5 w-full rounded border px-2 py-1.5 text-base"
                   placeholder="Dinner…"
                 />
               ) : (
@@ -173,11 +178,11 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                     setEditing(k);
                     setDraft(meal?.title ?? '');
                   }}
-                  className="mt-1 w-full rounded px-1 py-1 text-left text-sm hover:bg-slate-50 disabled:cursor-default"
+                  className="mt-1.5 min-h-[2.5rem] w-full rounded px-2 py-1.5 text-left text-base leading-snug hover:bg-slate-50 disabled:cursor-default"
                 >
-                  {meal?.title || <span className="text-slate-300">{isAdult ? '+ add' : '—'}</span>}
+                  {meal?.title || <span className="text-slate-400">{isAdult ? '+ add' : '—'}</span>}
                   {meal && scope && !meal.locationId && (
-                    <span className="block text-[10px] text-slate-400">family-wide</span>
+                    <span className="block text-xs text-slate-400">family-wide</span>
                   )}
                 </button>
               )}

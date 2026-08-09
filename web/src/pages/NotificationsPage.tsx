@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { api, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
+import { api, DATA_REFRESH_EVENT, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
 import { formatDateTime } from '../dateFormat';
 
 const TYPE_ICON: Record<string, string> = {
@@ -42,6 +42,11 @@ export default function NotificationsPage({ me }: { me: Me }) {
       setItems((prev) => prev.map((i) => (i.id === n.id ? { ...i, readAt: new Date().toISOString() } : i)));
       window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
     }
+    // A notification always means something changed server-side since it
+    // was created — a new bonus wheel to spin, a redemption's status, an
+    // approval. Wherever it's about to navigate may already be mounted
+    // (e.g. /chores sitting open in another tab) and won't otherwise know.
+    window.dispatchEvent(new Event(DATA_REFRESH_EVENT));
     if (n.link) navigate(n.link);
   }
 

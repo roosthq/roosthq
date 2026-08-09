@@ -216,12 +216,26 @@ export default function ProfilePage({
       {(isAdult || viewingSelf) && awards.length > 0 && (
         <section className="mt-6">
           <h3 className="text-sm font-semibold">🏆 Awards</h3>
+          {/* Notes shown inline, not just a hover title — a kid on a touch
+              screen (kiosk or tablet) has no hover, so "why they got it"
+              needs to actually be visible, not hidden behind a tooltip. */}
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
-              <li key={a.id} className="flex items-center gap-2 rounded border bg-white px-3 py-2" title={a.description ?? undefined}>
-                <AwardIcon icon={a.icon} size="text-xl" />
-                <span className="text-sm font-medium">{a.name}</span>
-                {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
+              <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2" title={a.description ?? undefined}>
+                <div className="flex items-center gap-2">
+                  <AwardIcon icon={a.icon} size="text-xl" />
+                  <span className="text-sm font-medium">{a.name}</span>
+                  {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
+                </div>
+                {a.notes.length > 0 && (
+                  <ul className="mt-1 space-y-0.5 pl-1 text-xs text-slate-500">
+                    {a.notes.map((note, i) => (
+                      <li key={i} className="truncate" title={note}>
+                        "{note}"
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>

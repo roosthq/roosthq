@@ -30,6 +30,9 @@ import Screensaver from './Screensaver';
 import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
 import DinnerWeekModal from './DinnerWeekModal';
+import KioskStatsModal from './KioskStatsModal';
+import RulesPage from './pages/RulesPage';
+import Modal from './Modal';
 import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, dpatch, displayToken as token } from './displayApi';
 
@@ -71,6 +74,8 @@ export default function Display() {
   const [addingPrize, setAddingPrize] = useState(false);
   const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
   const [dinnerWeekOpen, setDinnerWeekOpen] = useState(false);
+  const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
+  const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
@@ -346,6 +351,12 @@ export default function Display() {
       } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
         refreshChores();
         setDataRefreshSignal((n) => n + 1);
+        // The idle picker's token/level badges (pickerBalances) were only
+        // ever loaded once on mount or when locking an adult back out — a
+        // balance change pushed while the picker was already on screen (a
+        // sibling using another kiosk, or the main app) never showed up
+        // until one of those two triggers happened to fire again.
+        loadMembers();
       } else {
         loadConfig().catch(() => undefined);
       }
@@ -455,7 +466,7 @@ export default function Display() {
   const personFocused = !!active && layout === 'person' && showCalendar && (showChores || showPrizes);
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden p-4">
+    <div className="kiosk-mode flex h-screen flex-col overflow-hidden p-4">
       <header className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 border-b pb-3">
         <div className="flex items-center gap-3">
           <Logo size={40} />
@@ -558,7 +569,7 @@ export default function Display() {
             <button
               onClick={toggleTheme}
               title={config.theme === 'dark' ? 'Switch this display to light mode' : 'Switch this display to dark mode'}
-              className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
             >
               {config.theme === 'dark' ? '☀️' : '🌑'}
             </button>
@@ -569,21 +580,21 @@ export default function Display() {
               setScreensaverOn(true);
             }}
             title="Screensaver"
-            className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
           >
             🌙
           </button>
           <button
             onClick={() => window.location.reload()}
             title="Refresh"
-            className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
           >
             ⟳
           </button>
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? 'Exit full screen' : 'Full screen'}
-            className="rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
           >
             {isFullscreen ? '⤡' : '⛶'}
           </button>
@@ -717,6 +728,17 @@ export default function Display() {
                       refreshSignal={dataRefreshSignal}
                     />
                   )}
+                  {/* Same things the main app's own pages give everyone —
+                      rules and your own stats — reachable without switching
+                      to a phone/tablet just to look at them. */}
+                  <div className="flex flex-wrap gap-2">
+                    <button onClick={() => setKioskRulesOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      📋 Rules
+                    </button>
+                    <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      📊 My stats
+                    </button>
+                  </div>
                   <KioskAccountPanel
                     me={active.user}
                     client={kioskPrizeClient}
@@ -836,6 +858,28 @@ export default function Display() {
           locationId={config.locationId}
           canEdit={isAdult}
           onClose={() => setDinnerWeekOpen(false)}
+        />
+      )}
+
+      {kioskRulesOpen && active && (
+        <Modal onBackdropClick={() => setKioskRulesOpen(false)} footer={
+          <button onClick={() => setKioskRulesOpen(false)} className="rounded border px-4 py-2.5 text-base hover:bg-slate-50">
+            Close
+          </button>
+        }>
+          <RulesPage me={active.user} kioskToken={active.token} />
+        </Modal>
+      )}
+
+      {kioskStatsOpen && active && (
+        <KioskStatsModal
+          userId={active.user.id}
+          displayName={active.user.displayName}
+          tokenName={tokenName}
+          tokenIcon={tokenIcon}
+          chores={chores}
+          kioskToken={active.token}
+          onClose={() => setKioskStatsOpen(false)}
         />
       )}
 

@@ -4,6 +4,7 @@ import { api, pluralize, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, ty
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
+import PendingIndicator from './PendingIndicator';
 
 export default function Nav({
   me,
@@ -167,13 +168,16 @@ export default function Nav({
       {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
-          <span className="mr-2 sm:mr-3">
+          {/* Home for now — the landing route becomes a real Dashboard
+              later, at which point this points there instead. */}
+          <Link to="/" className="mr-2 sm:mr-3 hover:opacity-80">
             <Logo size={26} />
-          </span>
+          </Link>
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>
         </div>
         <div className="hidden items-center gap-3 text-sm lg:flex">
           {bell}
+          <PendingIndicator me={me} />
           <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
             {me.themePref === 'dark' ? '☀︎' : '☾'}
           </button>
@@ -197,6 +201,7 @@ export default function Nav({
 
         <div className="flex items-center gap-3 lg:hidden">
           {bell}
+          <PendingIndicator me={me} />
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}

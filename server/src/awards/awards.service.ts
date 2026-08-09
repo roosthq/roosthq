@@ -124,12 +124,31 @@ export class AwardsService {
     const grants = await this.prisma.awardGrant.findMany({
       where: { userId: targetUserId, award: { familyId } },
       include: { award: true },
+      orderBy: { createdAt: 'desc' },
     });
-    const byAward = new Map<string, { id: string; name: string; icon: string | null; description: string | null; count: number }>();
+    const byAward = new Map<
+      string,
+      { id: string; name: string; icon: string | null; description: string | null; count: number; notes: string[] }
+    >();
     for (const g of grants) {
       const existing = byAward.get(g.awardId);
-      if (existing) existing.count += 1;
-      else byAward.set(g.awardId, { id: g.award.id, name: g.award.name, icon: g.award.icon, description: g.award.description, count: 1 });
+      // The adult's note on WHY this one was given ("for cleaning the
+      // garage") — a kid earning the same award type more than once can have
+      // a different reason each time, so this collects every non-empty one,
+      // newest first (grants are already fetched in that order).
+      if (existing) {
+        existing.count += 1;
+        if (g.note) existing.notes.push(g.note);
+      } else {
+        byAward.set(g.awardId, {
+          id: g.award.id,
+          name: g.award.name,
+          icon: g.award.icon,
+          description: g.award.description,
+          count: 1,
+          notes: g.note ? [g.note] : [],
+        });
+      }
     }
     return [...byAward.values()];
   }
