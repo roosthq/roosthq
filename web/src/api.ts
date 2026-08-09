@@ -237,6 +237,21 @@ export interface ChoreInstance {
   approvedByUser?: { id: string; displayName: string } | null;
 }
 
+// One row of the adults-only "did this actually work right" activity log —
+// every occurrence of every chore (or one chore's, with choreId), unlike the
+// main chore list's per-chore 5-row cap.
+export interface ChoreHistoryEntry {
+  id: string;
+  choreId: string;
+  choreTitle: string;
+  status: 'OPEN' | 'PENDING' | 'APPROVED' | 'REJECTED' | 'MISSED' | 'SKIPPED';
+  dueDate: string;
+  completedAt: string | null;
+  claimedByUserId: string | null;
+  claimedByName: string | null;
+  approvedByUser: { id: string; displayName: string } | null;
+}
+
 export interface PendingWheel {
   id: string;
   minTokens: number;
@@ -820,6 +835,9 @@ export const api = {
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),
+  // Adults-only full activity log (no per-chore cap, unlike the main list) —
+  // omit choreId for everything, or pass it to drill into one chore.
+  choreHistory: (choreId?: string) => req<ChoreHistoryEntry[]>(`/chores/history${choreId ? `?choreId=${choreId}` : ''}`),
   createChore: (body: Record<string, unknown>) =>
     req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }),
   checkItem: (instanceId: string, checklistId: string, checked: boolean) =>

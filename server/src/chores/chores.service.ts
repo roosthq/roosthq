@@ -952,6 +952,46 @@ export class ChoresService {
     return updated;
   }
 
+  // Full activity log — every occurrence of every chore (or, with choreId,
+  // just one), not the main list's per-chore 5-row cap. Adults-only (owner,
+  // family manager, or plain adult — never a kid) so this is purely a
+  // "check things are actually working right" tool, not something a kid
+  // digs through to find an old missed chore. Capped at 300 like the other
+  // history views in this app (awards/notifications) — plenty for spot
+  // checks; not meant to be a permanent unbounded archive.
+  async history(familyId: string, actorId: string, choreId?: string) {
+    await this.assertAdult(actorId);
+    if (choreId) await this.ownedChore(familyId, choreId);
+    const instances = await this.prisma.choreInstance.findMany({
+      where: { chore: { familyId }, ...(choreId ? { choreId } : {}) },
+      orderBy: { dueDate: 'desc' },
+      take: 300,
+      include: {
+        chore: { select: { id: true, title: true } },
+        approvedByUser: { select: { id: true, displayName: true } },
+      },
+    });
+    // claimedByUserId isn't a real relation (it's shared with the SPECIFIC-
+    // assignment meaning too), so resolve display names separately rather
+    // than adding a schema relation just for this read.
+    const claimerIds = [...new Set(instances.map((i) => i.claimedByUserId).filter((v): v is string => !!v))];
+    const claimers = claimerIds.length
+      ? await this.prisma.user.findMany({ where: { id: { in: claimerIds } }, select: { id: true, displayName: true } })
+      : [];
+    const nameById = new Map(claimers.map((u) => [u.id, u.displayName]));
+    return instances.map((i) => ({
+      id: i.id,
+      choreId: i.choreId,
+      choreTitle: i.chore.title,
+      status: i.status,
+      dueDate: i.dueDate,
+      completedAt: i.completedAt,
+      claimedByUserId: i.claimedByUserId,
+      claimedByName: i.claimedByUserId ? nameById.get(i.claimedByUserId) ?? 'Removed member' : null,
+      approvedByUser: i.approvedByUser,
+    }));
+  }
+
   async balances(familyId: string) {
     // `earned` (lifetime positive total) never goes down when tokens are
     // spent — it's the XP behind the level badge, so spending doesn't feel

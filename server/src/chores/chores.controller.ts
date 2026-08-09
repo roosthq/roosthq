@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
@@ -26,6 +27,14 @@ export class ChoresController {
   @Get('balances')
   balances(@CurrentUser() u: SessionPayload) {
     return this.chores.balances(u.familyId);
+  }
+
+  // Adults-only (owner/family manager/adult — no kid) full activity log,
+  // unlike the main list's per-chore 5-instance cap. Declared before the
+  // :id route so /chores/history doesn't get swallowed as a chore id.
+  @Get('history')
+  history(@CurrentUser() u: SessionPayload, @Query('choreId') choreId?: string) {
+    return this.chores.history(u.familyId, u.userId, choreId);
   }
 
   @Get(':id')
