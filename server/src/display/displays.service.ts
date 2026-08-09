@@ -171,14 +171,17 @@ export class DisplaysService {
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
       where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true },
+      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, pinDisabled: true, colorTheme: true, tokensDisabled: true, simpleMode: true },
     });
     return users.map((u) => ({
       id: u.id,
       displayName: u.displayName,
       role: u.role,
       avatar: u.avatar,
-      hasPin: !!u.pinHash,
+      // Whether the kiosk should actually prompt for a PIN — a kid with a
+      // stored PIN they've been temporarily excused from entering shows no
+      // lock icon and unlocks with a tap, same as never having set one.
+      hasPin: !!u.pinHash && !u.pinDisabled,
       colorTheme: u.colorTheme,
       simpleMode: u.simpleMode,
       tokensDisabled: u.tokensDisabled,

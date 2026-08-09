@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { hashPassword } from '../crypto/password';
+import { AuditLogService } from '../security/audit-log.service';
 
 // Instance-level powers, deliberately gated on the literal OWNER role (not
 // FAMILY_MANAGER) — multi-family management and ghosting reach across every
@@ -8,12 +9,20 @@ import { hashPassword } from '../crypto/password';
 // per-family role split added alongside this.
 @Injectable()
 export class OwnerService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private audit: AuditLogService,
+  ) {}
 
   private async assertOwner(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!u || u.role !== 'OWNER') throw new ForbiddenException('Owner only');
     return u;
+  }
+
+  auditLog(actorId: string) {
+    // Read access is the same bar as everything else here.
+    return this.assertOwner(actorId).then(() => this.audit.list());
   }
 
   async listFamilies(actorId: string) {
@@ -38,7 +47,38 @@ export class OwnerService {
     const family = await this.prisma.family.create({
       data: { name: name.trim(), tokenName: 'Tokens', tokenIcon: '🪙', tokenValueUsd: 1, choreWord: 'Chore' },
     });
+    const owner = await this.prisma.user.findUnique({ where: { id: actorId } });
+    await this.audit.record({
+      actorId,
+      actorName: owner?.displayName ?? 'Owner',
+      action: 'family.create',
+      targetId: family.id,
+      targetLabel: family.name,
+    });
     return { id: family.id, name: family.name, memberCount: 0, createdAt: family.createdAt };
+  }
+
+  // Owner-only rename — the family's own members can rename their reward
+  // currency, chore word, etc. from Settings, but the family's own NAME is
+  // instance-level identity (it's what tells families apart in this panel),
+  // so only the owner touches it.
+  async renameFamily(actorId: string, familyId: string, name: string) {
+    const owner = await this.assertOwner(actorId);
+    const trimmed = name?.trim();
+    if (!trimmed) throw new BadRequestException('Name is required');
+    const family = await this.prisma.family.findUnique({ where: { id: familyId } });
+    if (!family) throw new NotFoundException('Family not found');
+    if (trimmed === family.name) return { id: family.id, name: family.name };
+    const updated = await this.prisma.family.update({ where: { id: familyId }, data: { name: trimmed } });
+    await this.audit.record({
+      actorId,
+      actorName: owner.displayName,
+      action: 'family.rename',
+      targetId: family.id,
+      targetLabel: updated.name,
+      detail: `"${family.name}" -> "${updated.name}"`,
+    });
+    return { id: updated.id, name: updated.name };
   }
 
   // Owner-only, and only when empty — deleting a family with members would
@@ -46,12 +86,13 @@ export class OwnerService {
   // should be emptied via moveUser/removeUser first, deliberately, not as a
   // side effect of deleting the family).
   async deleteFamily(actorId: string, familyId: string) {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     const family = await this.prisma.family.findUnique({ where: { id: familyId } });
     if (!family) throw new NotFoundException('Family not found');
     const memberCount = await this.prisma.user.count({ where: { familyId } });
     if (memberCount > 0) throw new BadRequestException('This family still has members — move or remove them first');
     await this.prisma.family.delete({ where: { id: familyId } });
+    await this.audit.record({ actorId, actorName: owner.displayName, action: 'family.delete', targetId: familyId, targetLabel: family.name });
     return { ok: true };
   }
 
@@ -67,7 +108,7 @@ export class OwnerService {
   // Lock an account out (or let it back in) without touching its history —
   // the gate in main.ts refuses every request from an inactive user.
   async setUserActive(actorId: string, targetUserId: string, active: boolean) {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     if (targetUserId === actorId) throw new BadRequestException("You can't deactivate your own account");
     const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
     if (!target) throw new NotFoundException('Member not found');
@@ -77,6 +118,13 @@ export class OwnerService {
       if (activeOwners <= 1) throw new BadRequestException('That is the only active owner left');
     }
     await this.prisma.user.update({ where: { id: targetUserId }, data: { active } });
+    await this.audit.record({
+      actorId,
+      actorName: owner.displayName,
+      action: active ? 'user.reactivate' : 'user.deactivate',
+      targetId: target.id,
+      targetLabel: target.displayName,
+    });
     return { ok: true, active };
   }
 
@@ -84,7 +132,7 @@ export class OwnerService {
   // received, notifications) — deactivation is the reversible option and the
   // UI says so.
   async deleteUser(actorId: string, targetUserId: string) {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     if (targetUserId === actorId) throw new BadRequestException("You can't delete your own account here");
     const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
     if (!target) throw new NotFoundException('Member not found');
@@ -93,6 +141,14 @@ export class OwnerService {
       if (owners <= 1) throw new BadRequestException('That is the only owner left');
     }
     await this.prisma.user.delete({ where: { id: targetUserId } });
+    await this.audit.record({
+      actorId,
+      actorName: owner.displayName,
+      action: 'user.delete',
+      targetId: target.id,
+      targetLabel: target.displayName,
+      detail: `role: ${target.role}`,
+    });
     return { ok: true };
   }
 
@@ -110,7 +166,7 @@ export class OwnerService {
       password?: string;
     },
   ) {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     const family = await this.prisma.family.findUnique({ where: { id: input.familyId } });
     if (!family) throw new NotFoundException('Family not found');
     const displayName = input.displayName?.trim();
@@ -127,7 +183,7 @@ export class OwnerService {
     }
     if (input.password && input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
     const passwordHash = input.password ? hashPassword(input.password) : undefined;
-    return this.prisma.user.create({
+    const created = await this.prisma.user.create({
       data: {
         familyId: input.familyId,
         role: input.role,
@@ -138,6 +194,15 @@ export class OwnerService {
       },
       select: { id: true, displayName: true, role: true, email: true, username: true, active: true },
     });
+    await this.audit.record({
+      actorId,
+      actorName: owner.displayName,
+      action: 'user.create',
+      targetId: created.id,
+      targetLabel: created.displayName,
+      detail: `role: ${created.role} · family: ${family.name}`,
+    });
+    return created;
   }
 
   // Move an existing member into a different family, assigning their role
@@ -150,7 +215,7 @@ export class OwnerService {
   // owner (multiple owners, additive: this never touches the actor's own
   // role, so granting someone else OWNER never demotes the person doing it).
   async moveUser(actorId: string, targetUserId: string, familyId: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     const family = await this.prisma.family.findUnique({ where: { id: familyId } });
     if (!family) throw new NotFoundException('Family not found');
     const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
@@ -165,6 +230,14 @@ export class OwnerService {
       }),
       this.prisma.user.update({ where: { id: targetUserId }, data: { familyId, role } }),
     ]);
+    await this.audit.record({
+      actorId,
+      actorName: owner.displayName,
+      action: 'user.move',
+      targetId: target.id,
+      targetLabel: target.displayName,
+      detail: `-> ${family.name} as ${role}`,
+    });
     return { ok: true };
   }
 
@@ -173,9 +246,13 @@ export class OwnerService {
   // as "switch family" (pick any member of another family) and "ghost into a
   // specific account" (pick a kid vs an adult) — same mechanism either way.
   async ghost(actorId: string, targetUserId: string) {
-    await this.assertOwner(actorId);
+    const owner = await this.assertOwner(actorId);
     const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
     if (!target) throw new NotFoundException('Member not found');
+    // Acting as someone else is exactly the kind of thing an audit trail is
+    // for, even though it's routine here for testing — no side effects on
+    // the target's data, just a record of who looked.
+    await this.audit.record({ actorId, actorName: owner.displayName, action: 'ghost.start', targetId: target.id, targetLabel: target.displayName });
     return { userId: target.id, familyId: target.familyId, ghostedBy: actorId };
   }
 

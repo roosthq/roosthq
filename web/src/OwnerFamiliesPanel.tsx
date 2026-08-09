@@ -1,7 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ROLE_ICON, ROLE_LABEL, type FamilyInfo, type Member } from './api';
+import { api, ROLE_ICON, ROLE_LABEL, type AuditLogEntry, type FamilyInfo, type Member } from './api';
 import { useDialog } from './Dialog';
 import InviteLinkBox from './InviteLinkBox';
+import { formatDateTime } from './dateFormat';
+
+// "user.deactivate" -> "deactivated". Covers every action string OwnerService
+// actually writes; falls back to the raw dotted string for anything new so a
+// forgotten label never renders as blank.
+const AUDIT_ACTION_LABEL: Record<string, string> = {
+  'family.create': 'created family',
+  'family.rename': 'renamed family',
+  'family.delete': 'deleted family',
+  'user.create': 'created account',
+  'user.move': 'moved account',
+  'user.deactivate': 'deactivated',
+  'user.reactivate': 'reactivated',
+  'user.delete': 'deleted account',
+  'ghost.start': 'ghosted as',
+};
 
 // Instance-owner-only: create families, see who's in each, move a member
 // between families (with a role for their new home), invite someone
@@ -15,6 +31,10 @@ export default function OwnerFamiliesPanel() {
   const [newFamilyName, setNewFamilyName] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [renaming, setRenaming] = useState<{ id: string; name: string } | null>(null);
+  const [auditOpen, setAuditOpen] = useState(false);
+  const [auditLog, setAuditLog] = useState<AuditLogEntry[]>([]);
+  const [auditLoaded, setAuditLoaded] = useState(false);
 
   const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
   const [inviteRole, setInviteRole] = useState<Record<string, 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
@@ -109,6 +129,30 @@ export default function OwnerFamiliesPanel() {
       setError((e as Error).message);
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function saveRename() {
+    if (!renaming || !renaming.name.trim()) return;
+    setBusy(true);
+    setError(null);
+    try {
+      await api.renameFamily(renaming.id, renaming.name.trim());
+      setRenaming(null);
+      await refresh();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function toggleAudit() {
+    const opening = !auditOpen;
+    setAuditOpen(opening);
+    if (opening && !auditLoaded) {
+      setAuditLoaded(true);
+      api.auditLog().then(setAuditLog).catch(() => setAuditLog([]));
     }
   }
 
@@ -228,23 +272,55 @@ export default function OwnerFamiliesPanel() {
           const movable = allMembers.filter((m) => m.familyId !== f.id && m.role !== 'OWNER');
           return (
             <li key={f.id} className="card-nested rounded-lg">
-              <div className="flex w-full items-center justify-between px-3 py-2 text-sm">
-                <button onClick={() => toggleExpand(f.id)} className="flex-1 text-left font-medium hover:underline">
-                  {f.name}
-                </button>
-                {f.memberCount === 0 && (
+              {renaming?.id === f.id ? (
+                <div className="flex w-full flex-wrap items-center gap-2 px-3 py-2 text-sm">
+                  <input
+                    autoFocus
+                    value={renaming.name}
+                    onChange={(e) => setRenaming({ id: f.id, name: e.target.value })}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') saveRename();
+                      if (e.key === 'Escape') setRenaming(null);
+                    }}
+                    className="min-w-0 flex-1 rounded border px-2 py-1"
+                  />
                   <button
-                    disabled={busy}
-                    onClick={() => deleteFamily(f)}
-                    className="mr-2 text-xs text-red-500 hover:text-red-700 disabled:opacity-50"
+                    disabled={busy || !renaming.name.trim()}
+                    onClick={saveRename}
+                    className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
                   >
-                    Delete
+                    Save
                   </button>
-                )}
-                <button onClick={() => toggleExpand(f.id)} className="text-xs text-slate-400 hover:text-slate-600">
-                  {f.memberCount} member{f.memberCount === 1 ? '' : 's'} {isOpen ? '▴' : '▾'}
-                </button>
-              </div>
+                  <button onClick={() => setRenaming(null)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div className="flex w-full items-center gap-2 px-3 py-2 text-sm">
+                  <button onClick={() => toggleExpand(f.id)} className="min-w-0 flex-1 truncate text-left font-medium hover:underline">
+                    {f.name}
+                  </button>
+                  <button
+                    onClick={() => setRenaming({ id: f.id, name: f.name })}
+                    className="shrink-0 text-xs text-slate-400 hover:text-slate-600"
+                    title="Rename family"
+                  >
+                    ✏️
+                  </button>
+                  {f.memberCount === 0 && (
+                    <button
+                      disabled={busy}
+                      onClick={() => deleteFamily(f)}
+                      className="shrink-0 text-xs text-red-500 hover:text-red-700 disabled:opacity-50"
+                    >
+                      Delete
+                    </button>
+                  )}
+                  <button onClick={() => toggleExpand(f.id)} className="shrink-0 text-xs text-slate-400 hover:text-slate-600">
+                    {f.memberCount} member{f.memberCount === 1 ? '' : 's'} {isOpen ? '▴' : '▾'}
+                  </button>
+                </div>
+              )}
               {isOpen && (
                 <div className="space-y-3 border-t p-3">
                   {/* One card per member: name/role on its own line, controls
@@ -413,6 +489,29 @@ export default function OwnerFamiliesPanel() {
         })}
         {families.length === 0 && <li className="text-sm text-slate-500">No families yet.</li>}
       </ul>
+
+      {/* Who did what: every owner-level action (deactivate, delete, move,
+          create, rename, ghost) — none of it has a UI undo, so this is the
+          only record of it. */}
+      <div className="card-nested rounded-lg p-3">
+        <button onClick={toggleAudit} className="text-sm font-semibold hover:underline">
+          {auditOpen ? '▾' : '▸'} Activity log
+        </button>
+        {auditOpen && (
+          <ul className="mt-2 space-y-1.5 text-xs">
+            {auditLog.map((a) => (
+              <li key={a.id} className="flex flex-wrap items-baseline gap-1 border-b pb-1.5 last:border-0 last:pb-0">
+                <span className="font-medium">{a.actorName}</span>
+                <span className="text-slate-500">{AUDIT_ACTION_LABEL[a.action] ?? a.action}</span>
+                {a.targetLabel && <span className="font-medium">{a.targetLabel}</span>}
+                {a.detail && <span className="text-slate-500">({a.detail})</span>}
+                <span className="ml-auto shrink-0 text-slate-400">{formatDateTime(a.createdAt)}</span>
+              </li>
+            ))}
+            {auditLoaded && auditLog.length === 0 && <li className="text-slate-500">Nothing logged yet.</li>}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

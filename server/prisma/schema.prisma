@@ -239,6 +239,10 @@ model User {
   passwordHash        String? @db.Text // local (non-Google) login; null if this account only ever uses Google
   username            String? @unique // local-login id for accounts with no email (mainly kids)
   pinHash             String? // optional per-profile PIN
+  // Kid-only escape hatch: keeps pinHash on file but the kiosk stops asking
+  // for it — for a kid who kept locking themselves out. Ignored for adults;
+  // see DisplayService.unlock.
+  pinDisabled         Boolean @default(false)
   avatar              String? @db.Text // Google photo URLs can exceed the default varchar(191)
   themePref           String  @default("light") // per-user app UI theme: light | dark
   colorTheme          String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
@@ -763,4 +767,21 @@ model WheelSpin {
 
   @@index([userId, spunAt])
   @@index([familyId])
+}
+
+// Instance-owner action trail: who deactivated/deleted/created/moved a user,
+// created/deleted/renamed a family, or ghosted as someone. No FK to User —
+// deliberately: the whole point is the record survives the actor or target
+// being deleted, so names are snapshotted as plain strings at write time.
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorId     String? // the owner who did it; null if that owner account is later deleted
+  actorName   String // snapshot, since actorId may go stale
+  action      String // e.g. "user.deactivate", "family.rename", "ghost.start"
+  targetId    String?
+  targetLabel String? // snapshot of the target's name at the time
+  detail      String? @db.Text // extra context: old -> new value, family name, etc.
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
 }

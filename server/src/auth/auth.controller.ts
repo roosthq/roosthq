@@ -6,6 +6,7 @@ import { GoogleService } from '../google/google.service';
 import { signSession, verifySession, SessionPayload } from './jwt';
 import { AuthGuard, SESSION_COOKIE } from './auth.guard';
 import { CurrentUser } from './current-user.decorator';
+import { LoginThrottleService } from '../security/login-throttle.service';
 
 const STATE_COOKIE = 'rhq_oauth_state';
 const INVITE_COOKIE = 'rhq_invite';
@@ -21,6 +22,7 @@ export class AuthController {
   constructor(
     private auth: AuthService,
     private google: GoogleService,
+    private throttle: LoginThrottleService,
   ) {}
 
   // Kick off the Google consent flow.
@@ -131,8 +133,18 @@ export class AuthController {
 
   @Post('local/login')
   async localLogin(@Body() body: { identifier: string; password: string }, @Res() res: Response) {
+    // Keyed on the identifier, not the caller's IP — a family sits behind one
+    // home IP, so an IP-only lockout would let one kid mashing a wrong PIN-ish
+    // guess lock out the whole household. Case-insensitive to match how
+    // email/username lookups already work in AuthService.loginLocal.
+    const key = `login:${body.identifier.trim().toLowerCase()}`;
+    this.throttle.assertNotLocked(key);
     const result = await this.auth.loginLocal(body.identifier, body.password);
-    if (!result) throw new UnauthorizedException('Incorrect email/username or password');
+    if (!result) {
+      this.throttle.recordFailure(key);
+      throw new UnauthorizedException('Incorrect email/username or password');
+    }
+    this.throttle.recordSuccess(key);
     res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId }), {
       ...cookieBase,
       maxAge: 30 * 24 * 60 * 60 * 1000,

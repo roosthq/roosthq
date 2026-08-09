@@ -23,6 +23,15 @@ export class UsersController {
     return this.users.setPin(u.userId, u.familyId, id, body.pin ?? null);
   }
 
+  @Put(':id/pin-disabled')
+  setPinDisabled(
+    @CurrentUser() u: SessionPayload,
+    @Param('id') id: string,
+    @Body() body: { disabled: boolean },
+  ) {
+    return this.users.setPinDisabled(u.userId, u.familyId, id, !!body.disabled);
+  }
+
   @Put(':id/tokens-disabled')
   setTokensDisabled(
     @CurrentUser() u: SessionPayload,

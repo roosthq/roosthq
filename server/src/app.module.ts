@@ -21,10 +21,12 @@ import { OwnerModule } from './owner/owner.module';
 import { HolidaysModule } from './holidays/holidays.module';
 import { HouseholdModule } from './household/household.module';
 import { WheelsModule } from './wheels/wheels.module';
+import { SecurityModule } from './security/security.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
+    SecurityModule,
     DisplayEventsModule,
     AuthModule,
     CalendarsModule,

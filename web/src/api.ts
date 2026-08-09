@@ -61,6 +61,17 @@ export interface FamilyInfo {
   createdAt: string;
 }
 
+export interface AuditLogEntry {
+  id: string;
+  actorId: string | null;
+  actorName: string;
+  action: string;
+  targetId: string | null;
+  targetLabel: string | null;
+  detail: string | null;
+  createdAt: string;
+}
+
 export type HolidayRuleType = 'FIXED' | 'NTH_WEEKDAY' | 'EASTER_OFFSET';
 
 export interface HolidayRule {
@@ -159,6 +170,7 @@ export interface Member {
   disabledPermissions?: string[];
   username?: string | null;
   active?: boolean; // instance-owner lockout switch (owner member lists only)
+  pinDisabled?: boolean; // kid-only: PIN stored but kiosk doesn't ask for it
 }
 
 export interface UnlockResult {
@@ -646,6 +658,9 @@ export const api = {
   listUsers: () => req<Member[]>('/users'),
   setUserPin: (id: string, pin: string | null) =>
     req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
+  // Kid-only: keep the stored PIN but stop the kiosk from asking for it.
+  setPinDisabled: (id: string, disabled: boolean) =>
+    req<{ ok: boolean; pinDisabled: boolean }>(`/users/${id}/pin-disabled`, { method: 'PUT', body: JSON.stringify({ disabled }) }),
   setUserRole: (id: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
     req(`/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) }),
   setTokensDisabled: (id: string, disabled: boolean) =>
@@ -725,6 +740,9 @@ export const api = {
   listFamilies: () => req<FamilyInfo[]>('/owner/families'),
   createFamily: (name: string) => req<FamilyInfo>('/owner/families', { method: 'POST', body: JSON.stringify({ name }) }),
   deleteFamily: (id: string) => req<{ ok: boolean }>(`/owner/families/${id}`, { method: 'DELETE' }),
+  renameFamily: (id: string, name: string) =>
+    req<{ id: string; name: string }>(`/owner/families/${id}`, { method: 'PATCH', body: JSON.stringify({ name }) }),
+  auditLog: () => req<AuditLogEntry[]>('/owner/audit-log'),
   ownerFamilyMembers: (familyId: string) => req<Member[]>(`/owner/families/${familyId}/members`),
   // Instance-owner user controls: lock out (reversible), delete (not), and
   // create an account in any family without an invite.

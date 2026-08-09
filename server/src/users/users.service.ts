@@ -22,7 +22,20 @@ export class UsersService {
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, colorTheme: true, tokensDisabled: true, simpleMode: true, allowanceTokens: true, birthday: true, disabledPermissions: true },
+      select: {
+        id: true,
+        displayName: true,
+        role: true,
+        avatar: true,
+        pinHash: true,
+        pinDisabled: true,
+        colorTheme: true,
+        tokensDisabled: true,
+        simpleMode: true,
+        allowanceTokens: true,
+        birthday: true,
+        disabledPermissions: true,
+      },
     });
     return users.map((u) => ({
       id: u.id,
@@ -30,6 +43,7 @@ export class UsersService {
       role: u.role,
       avatar: u.avatar,
       hasPin: !!u.pinHash,
+      pinDisabled: u.pinDisabled,
       colorTheme: u.colorTheme,
       simpleMode: u.simpleMode,
       allowanceTokens: u.allowanceTokens,
@@ -56,6 +70,26 @@ export class UsersService {
       data: { pinHash: pin ? hashPin(pin) : null },
     });
     return { ok: true };
+  }
+
+  // Turns off the PIN requirement on the kiosk without touching the stored
+  // PIN itself — a kid who keeps locking themselves out can go PIN-free, and
+  // flipping it back on later doesn't force resetting a new PIN. Kids only:
+  // an adult's PIN is a real security boundary at the kiosk (see
+  // DisplayService.unlock), not a convenience, so there's no self-service
+  // way to waive it for an adult or the owner.
+  async setPinDisabled(actorId: string, familyId: string, targetId: string, disabled: boolean) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor) throw new ForbiddenException();
+    const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    if (target.role !== 'KID') throw new ForbiddenException('Only a kid PIN can be disabled this way');
+
+    const allowed = isFamilyManager(actor.role) || actor.role === 'ADULT';
+    if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
+
+    await this.prisma.user.update({ where: { id: targetId }, data: { pinDisabled: disabled } });
+    return { ok: true, pinDisabled: disabled };
   }
 
   // Owner/family manager can change roles (e.g. mark a newly-added member as a

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthGuard, SESSION_COOKIE } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -31,6 +31,18 @@ export class OwnerController {
   @Delete('families/:id')
   deleteFamily(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.owner.deleteFamily(u.userId, id);
+  }
+
+  @Patch('families/:id')
+  renameFamily(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { name: string }) {
+    return this.owner.renameFamily(u.userId, id, body.name);
+  }
+
+  // Recent instance-owner actions: who deactivated/deleted/created/moved a
+  // user, created/deleted/renamed a family, or ghosted as someone.
+  @Get('audit-log')
+  auditLog(@CurrentUser() u: SessionPayload) {
+    return this.owner.auditLog(u.userId);
   }
 
   @Post('users/:id/move')

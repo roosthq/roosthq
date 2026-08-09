@@ -9,6 +9,7 @@ import { DisplayEventsService } from './display-events.service';
 import { CalendarsService } from '../calendars/calendars.service';
 import { verifyPin } from '../crypto/pin';
 import { signKiosk } from '../auth/jwt';
+import { LoginThrottleService } from '../security/login-throttle.service';
 
 const DEFAULT_FEATURES = ['calendar', 'chores', 'tokens', 'prizes'];
 
@@ -35,6 +36,7 @@ export class DisplayService {
     private prisma: PrismaService,
     private events: DisplayEventsService,
     private calendars: CalendarsService,
+    private throttle: LoginThrottleService,
   ) {}
 
   // Events for the family's default display calendars. The kiosk doesn't need to know
@@ -56,8 +58,21 @@ export class DisplayService {
     if (!user) throw new NotFoundException('Profile not found');
     const isAdult = user.role === 'OWNER' || user.role === 'FAMILY_MANAGER' || user.role === 'ADULT';
 
-    if (user.pinHash) {
-      if (!pin || !verifyPin(pin, user.pinHash)) throw new UnauthorizedException('Wrong PIN');
+    // pinDisabled only ever excuses a KID from re-entering a PIN they keep
+    // forgetting — an adult still must have and use one; that requirement is
+    // the actual security boundary between "anyone at the kiosk" and "an
+    // adult", so it can't be waived the same way.
+    if (user.pinHash && !(user.pinDisabled && !isAdult)) {
+      // A PIN is 4-6 digits — trivially guessable without a lockout. Keyed
+      // per-profile, not per-display, so the same kid mashing buttons on two
+      // different kiosks in the house still only gets one attempt budget.
+      const key = `pin:${familyId}:${userId}`;
+      this.throttle.assertNotLocked(key);
+      if (!pin || !verifyPin(pin, user.pinHash)) {
+        this.throttle.recordFailure(key);
+        throw new UnauthorizedException('Wrong PIN');
+      }
+      this.throttle.recordSuccess(key);
     } else if (isAdult) {
       throw new ForbiddenException('This adult needs a PIN set (in the app) before using the kiosk');
     }

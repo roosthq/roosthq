@@ -82,6 +82,10 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.setUserPin(m.id, null);
     await refresh();
   }
+  async function togglePinDisabled(m: Member) {
+    await api.setPinDisabled(m.id, !m.pinDisabled);
+    await refresh();
+  }
   async function toggleTokens(m: Member) {
     await api.setTokensDisabled(m.id, !m.tokensDisabled);
     await refresh();
@@ -299,6 +303,16 @@ export default function MembersManager({ me }: { me: Me }) {
                     </>
                   )}
                 </div>
+                {/* Kid-only: keeps the PIN on file but the kiosk stops asking
+                    for it — for a kid who keeps locking themselves out.
+                    Doesn't apply to adults, whose PIN is a real kiosk
+                    security boundary, not a convenience. */}
+                {m.role === 'KID' && m.hasPin && canManagePin(m) && (
+                  <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500">
+                    <input type="checkbox" checked={!!m.pinDisabled} onChange={() => togglePinDisabled(m)} />
+                    Don't ask for PIN on the kiosk
+                  </label>
+                )}
               </div>
 
               <div>
