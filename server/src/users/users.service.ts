@@ -53,8 +53,11 @@ export class UsersService {
     }));
   }
 
-  // Everyone manages their own PIN. Adults additionally manage kids' PINs.
-  // Only the owner/family manager manages another adult's (or their own via the same rule).
+  // Everyone manages their own PIN. Adults additionally manage kids' PINs —
+  // except a kid whose PIN has been turned off entirely (pinDisabled): they
+  // can still be cleared (pin: null is always a no-op-or-better), but not
+  // given a new one, so the "no PIN for this kid" decision actually sticks
+  // instead of being one "Set" tap away from undone.
   async setPin(actorId: string, familyId: string, targetId: string, pin: string | null) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor) throw new ForbiddenException();
@@ -64,6 +67,7 @@ export class UsersService {
     const isSelf = actorId === targetId;
     const allowed = isSelf || isFamilyManager(actor.role) || (actor.role === 'ADULT' && target.role === 'KID');
     if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
+    if (pin && target.pinDisabled) throw new ForbiddenException('PINs are turned off for this kid — allow one first');
 
     await this.prisma.user.update({
       where: { id: targetId },
@@ -72,12 +76,12 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Turns off the PIN requirement on the kiosk without touching the stored
-  // PIN itself — a kid who keeps locking themselves out can go PIN-free, and
-  // flipping it back on later doesn't force resetting a new PIN. Kids only:
-  // an adult's PIN is a real security boundary at the kiosk (see
-  // DisplayService.unlock), not a convenience, so there's no self-service
-  // way to waive it for an adult or the owner.
+  // Kid-only master switch: not just "don't ask" — nobody can give this kid a
+  // kiosk PIN at all until it's turned back off. Turning it on clears
+  // whatever PIN was already stored, so the "no PIN" decision is immediate
+  // and can't be undone by simply leaving a stale one in place. Adults are
+  // exempt on purpose: their PIN is a real kiosk security boundary (see
+  // DisplayService.unlock), not a convenience, so it can't be waived at all.
   async setPinDisabled(actorId: string, familyId: string, targetId: string, disabled: boolean) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor) throw new ForbiddenException();
@@ -88,7 +92,10 @@ export class UsersService {
     const allowed = isFamilyManager(actor.role) || actor.role === 'ADULT';
     if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
 
-    await this.prisma.user.update({ where: { id: targetId }, data: { pinDisabled: disabled } });
+    await this.prisma.user.update({
+      where: { id: targetId },
+      data: { pinDisabled: disabled, ...(disabled ? { pinHash: null } : {}) },
+    });
     return { ok: true, pinDisabled: disabled };
   }
 

@@ -283,8 +283,10 @@ export default function MembersManager({ me }: { me: Me }) {
               <div>
                 <div className="text-xs font-medium text-slate-500">Kiosk PIN</div>
                 <div className="mt-1 flex items-center gap-2">
-                  <span className="text-xs text-slate-400">{m.hasPin ? '🔒 set' : 'not set'}</span>
-                  {canManagePin(m) && (
+                  <span className="text-xs text-slate-400">
+                    {m.pinDisabled ? 'turned off' : m.hasPin ? '🔒 set' : 'not set'}
+                  </span>
+                  {canManagePin(m) && !m.pinDisabled && (
                     <>
                       <button
                         onClick={() => {
@@ -303,21 +305,15 @@ export default function MembersManager({ me }: { me: Me }) {
                     </>
                   )}
                 </div>
-                {/* Kid-only: keeps the PIN on file but the kiosk stops asking
-                    for it — for a kid who keeps locking themselves out.
-                    Doesn't apply to adults, whose PIN is a real kiosk
-                    security boundary, not a convenience. Shown even with no
-                    PIN set (disabled + explained) rather than vanishing
-                    outright — a control that disappears reads as missing. */}
+                {/* Kid-only master switch: not "excuse them from re-entering
+                    it" but "nobody can give this kid a PIN at all" — turning
+                    it on clears whatever PIN existed and hides Set/Change
+                    above. Doesn't apply to adults, whose PIN is a real kiosk
+                    security boundary, not something to opt out of. */}
                 {m.role === 'KID' && canManagePin(m) && (
-                  <label className={`mt-1.5 flex items-center gap-1.5 text-xs ${m.hasPin ? 'text-slate-500' : 'text-slate-400'}`}>
-                    <input
-                      type="checkbox"
-                      checked={!!m.pinDisabled}
-                      disabled={!m.hasPin}
-                      onChange={() => togglePinDisabled(m)}
-                    />
-                    {m.hasPin ? "Don't ask for PIN on the kiosk" : "Don't ask for PIN on the kiosk (set a PIN first)"}
+                  <label className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-500">
+                    <input type="checkbox" checked={!!m.pinDisabled} onChange={() => togglePinDisabled(m)} />
+                    Don't let this kid have a kiosk PIN
                   </label>
                 )}
               </div>

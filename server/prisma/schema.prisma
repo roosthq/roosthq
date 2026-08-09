@@ -239,9 +239,9 @@ model User {
   passwordHash        String? @db.Text // local (non-Google) login; null if this account only ever uses Google
   username            String? @unique // local-login id for accounts with no email (mainly kids)
   pinHash             String? // optional per-profile PIN
-  // Kid-only escape hatch: keeps pinHash on file but the kiosk stops asking
-  // for it — for a kid who kept locking themselves out. Ignored for adults;
-  // see DisplayService.unlock.
+  // Kid-only master switch: true means nobody can give this kid a kiosk PIN
+  // at all (UsersService.setPin refuses), and any existing one was cleared
+  // the moment this was turned on. Ignored for adults; see DisplayService.unlock.
   pinDisabled         Boolean @default(false)
   avatar              String? @db.Text // Google photo URLs can exceed the default varchar(191)
   themePref           String  @default("light") // per-user app UI theme: light | dark

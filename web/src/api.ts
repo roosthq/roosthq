@@ -170,7 +170,7 @@ export interface Member {
   disabledPermissions?: string[];
   username?: string | null;
   active?: boolean; // instance-owner lockout switch (owner member lists only)
-  pinDisabled?: boolean; // kid-only: PIN stored but kiosk doesn't ask for it
+  pinDisabled?: boolean; // kid-only: PIN capability turned off entirely (can't have one)
 }
 
 export interface UnlockResult {
@@ -658,7 +658,7 @@ export const api = {
   listUsers: () => req<Member[]>('/users'),
   setUserPin: (id: string, pin: string | null) =>
     req(`/users/${id}/pin`, { method: 'PUT', body: JSON.stringify({ pin }) }),
-  // Kid-only: keep the stored PIN but stop the kiosk from asking for it.
+  // Kid-only master switch: blocks setting a PIN at all, clears any existing one.
   setPinDisabled: (id: string, disabled: boolean) =>
     req<{ ok: boolean; pinDisabled: boolean }>(`/users/${id}/pin-disabled`, { method: 'PUT', body: JSON.stringify({ disabled }) }),
   setUserRole: (id: string, role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID') =>
