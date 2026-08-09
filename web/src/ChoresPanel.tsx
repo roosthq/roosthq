@@ -392,6 +392,24 @@ export default function ChoresPanel({
     setSort((prev) => (prev.key === key ? { key, dir: prev.dir === 1 ? -1 : 1 } : { key, dir: 1 }));
   }
 
+  // Kiosk ("today") order: whichever chore is already assigned to you beats
+  // one you've claimed but isn't formally yours, which beats one still open
+  // for anyone to claim, which beats everything else (an adult's view of
+  // someone else's pending approval, mainly). Ties within a bucket break by
+  // due time so nothing due sooner hides behind something due later.
+  function kioskPriority(r: Row): number {
+    if (r.mine && r.chore.assignmentType !== 'ANYONE') return 0; // assigned to me
+    if (r.mine) return 1; // an ANYONE chore I already claimed
+    if (r.openToClaim) return 2; // ANYONE chore still up for grabs
+    return 3;
+  }
+  const todayRows = today
+    ? [...rows].sort((a, b) => {
+        const diff = kioskPriority(a) - kioskPriority(b);
+        return diff !== 0 ? diff : (a.active?.dueDate ?? '').localeCompare(b.active?.dueDate ?? '');
+      })
+    : rows;
+
   // Adults get the full roster grouped by person, so they can see who has
   // what at a glance. A kid only ever gets their own group — a kid isn't
   // meant to browse siblings' assignments, just what's theirs to do plus
@@ -759,8 +777,8 @@ export default function ChoresPanel({
 
       {today ? (
         <ul className="mt-3 space-y-2">
-          {rows.map(renderRow)}
-          {rows.length === 0 && <li className="text-sm text-slate-400">Nothing to earn today</li>}
+          {todayRows.map(renderRow)}
+          {todayRows.length === 0 && <li className="text-sm text-slate-400">Nothing to earn today</li>}
         </ul>
       ) : effectiveView === 'table' ? (
         <div className="mt-4 overflow-x-auto">

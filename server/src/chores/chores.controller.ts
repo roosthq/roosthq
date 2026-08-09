@@ -57,6 +57,15 @@ export class ChoresController {
     return this.chores.remove(u.familyId, u.userId, id);
   }
 
+  // Owner/family-manager-only change history for one chore (create/edit/
+  // delete, who did it and what changed) — separate from the adults-visible
+  // /chores/history above, which is instance activity (completed/approved),
+  // not a settings audit trail.
+  @Get(':id/audit')
+  audit(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.chores.auditTrail(u.familyId, u.userId, id);
+  }
+
   // Re-enable a chore to be done again now.
   @Post(':id/reopen')
   reopen(@CurrentUser() u: SessionPayload, @Param('id') id: string) {

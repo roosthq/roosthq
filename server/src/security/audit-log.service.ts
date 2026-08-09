@@ -9,7 +9,15 @@ import { PrismaService } from '../prisma.service';
 export class AuditLogService {
   constructor(private prisma: PrismaService) {}
 
-  async record(entry: { actorId: string; actorName: string; action: string; targetId?: string; targetLabel?: string; detail?: string }) {
+  async record(entry: {
+    actorId: string;
+    actorName: string;
+    action: string;
+    targetId?: string;
+    targetLabel?: string;
+    detail?: string;
+    familyId?: string;
+  }) {
     await this.prisma.auditLog
       .create({
         data: {
@@ -19,6 +27,7 @@ export class AuditLogService {
           targetId: entry.targetId,
           targetLabel: entry.targetLabel,
           detail: entry.detail,
+          familyId: entry.familyId,
         },
       })
       .catch(() => undefined);
@@ -26,5 +35,14 @@ export class AuditLogService {
 
   list(limit = 200) {
     return this.prisma.auditLog.findMany({ orderBy: { createdAt: 'desc' }, take: limit });
+  }
+
+  // Per-entity change history (e.g. one chore's create/edit/delete trail).
+  // Always pass the caller's own familyId — targetId alone is an opaque id;
+  // without this filter a guessed/enumerated id from another family would
+  // work just as well, including for a target that's since been deleted and
+  // so can't be re-checked against its own row anymore.
+  listForTarget(targetId: string, familyId: string, limit = 200) {
+    return this.prisma.auditLog.findMany({ where: { targetId, familyId }, orderBy: { createdAt: 'desc' }, take: limit });
   }
 }

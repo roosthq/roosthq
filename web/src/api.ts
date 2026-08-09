@@ -252,6 +252,20 @@ export interface ChoreHistoryEntry {
   approvedByUser: { id: string; displayName: string } | null;
 }
 
+// One entry in a chore's settings-change audit trail (create/edit/delete,
+// who did it) — distinct from ChoreHistoryEntry above, which is per-occurrence
+// activity (completed/approved), not a record of who changed what setting.
+export interface ChoreAuditEntry {
+  id: string;
+  actorId: string | null;
+  actorName: string;
+  action: string;
+  targetId: string | null;
+  targetLabel: string | null;
+  detail: string | null;
+  createdAt: string;
+}
+
 export interface PendingWheel {
   id: string;
   minTokens: number;
@@ -854,6 +868,8 @@ export const api = {
   // Adults-only full activity log (no per-chore cap, unlike the main list) —
   // omit choreId for everything, or pass it to drill into one chore.
   choreHistory: (choreId?: string) => req<ChoreHistoryEntry[]>(`/chores/history${choreId ? `?choreId=${choreId}` : ''}`),
+  // Owner/family-manager only — server 403s anyone else.
+  choreAudit: (choreId: string) => req<ChoreAuditEntry[]>(`/chores/${choreId}/audit`),
   createChore: (body: Record<string, unknown>) =>
     req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }),
   checkItem: (instanceId: string, checklistId: string, checked: boolean) =>

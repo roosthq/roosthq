@@ -781,7 +781,14 @@ model AuditLog {
   targetId    String?
   targetLabel String? // snapshot of the target's name at the time
   detail      String? @db.Text // extra context: old -> new value, family name, etc.
+  // Nullable: app-owner actions (family.*, user.*, ghost.*) aren't scoped to
+  // a single family the same way, so they leave this unset. Per-family
+  // actions (chore.* so far) always set it — required so a lookup by
+  // targetId alone (e.g. a deleted chore's history) can still be scoped to
+  // the caller's own family instead of trusting an opaque id.
+  familyId    String?
   createdAt   DateTime @default(now())
 
   @@index([createdAt])
+  @@index([targetId, familyId])
 }

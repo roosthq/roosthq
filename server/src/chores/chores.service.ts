@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { WheelsService } from '../wheels/wheels.service';
+import { AuditLogService } from '../security/audit-log.service';
 import {
   DEFAULT_TIMEZONE,
   addDaysToKey,
@@ -50,6 +51,71 @@ export type UpdateChoreDto = Partial<CreateChoreDto>;
 function clampPercent(v: number | undefined, fallback: number): number {
   if (v == null || Number.isNaN(v)) return fallback;
   return Math.max(0, Math.min(100, Math.round(v)));
+}
+
+// Human-readable snapshot of a chore's settings, for the audit log at
+// create/delete time (update() has diffChoreFields() for an actual diff).
+function describeChoreSettings(fields: { tokenValue?: number | null; recurrenceRule?: string | null; dueTime?: string | null; allowLate?: boolean | null; allowSkip?: boolean | null; autoApprove?: boolean | null; requireProof?: boolean | null; firstFinisherBonus?: number | null; streakGoal?: number | null }, assignmentType: string): string {
+  const parts: string[] = [`assignment: ${assignmentType === 'ANYONE' ? 'open to anyone' : 'specific people'}`];
+  if (fields.tokenValue != null) parts.push(`tokens: ${fields.tokenValue}`);
+  if (fields.recurrenceRule) parts.push(`recurrence: ${fields.recurrenceRule}`);
+  if (fields.dueTime) parts.push(`due time: ${fields.dueTime}`);
+  if (fields.allowLate) parts.push('allows late');
+  if (fields.allowSkip) parts.push('allows skip');
+  if (fields.autoApprove) parts.push('auto-approve');
+  if (fields.requireProof) parts.push('requires photo proof');
+  if (fields.firstFinisherBonus) parts.push(`first-finisher bonus: ${fields.firstFinisherBonus}`);
+  if (fields.streakGoal) parts.push(`streak goal: ${fields.streakGoal}`);
+  return parts.join(', ');
+}
+
+const CHORE_DIFF_FIELDS = [
+  ['title', 'title'],
+  ['tokenValue', 'tokens'],
+  ['recurrenceRule', 'recurrence'],
+  ['dueTime', 'due time'],
+  ['locationId', 'location'],
+  ['allowLate', 'allow late'],
+  ['allowSkip', 'allow skip'],
+  ['autoApprove', 'auto-approve'],
+  ['requireProof', 'requires proof'],
+  ['firstFinisherBonus', 'first-finisher bonus'],
+  ['latePenaltyPercent', 'late penalty %'],
+  ['streakGoal', 'streak goal'],
+  ['streakBonusTokens', 'streak bonus tokens'],
+] as const;
+
+// Only the fields UpdateChoreDto can actually carry — a plain scalar
+// before/after compare per field, plus the handful of relation-shaped ones
+// (assignees, checklist, day/date scheduling) that need their own logic.
+function diffChoreFields(
+  before: Prisma.ChoreGetPayload<{ include: { assignees: true } }>,
+  dto: UpdateChoreDto,
+  newAssignmentType: 'ANYONE' | 'SPECIFIC' | undefined,
+): string[] {
+  const changes: string[] = [];
+  for (const [key, label] of CHORE_DIFF_FIELDS) {
+    const dtoVal = dto[key];
+    if (dtoVal === undefined) continue;
+    const beforeVal = before[key];
+    if (dtoVal !== beforeVal) changes.push(`${label}: ${beforeVal ?? '(none)'} -> ${dtoVal ?? '(none)'}`);
+  }
+  if (newAssignmentType && newAssignmentType !== before.assignmentType) {
+    const label = (t: string) => (t === 'ANYONE' ? 'open to anyone' : 'specific people');
+    changes.push(`assignment: ${label(before.assignmentType)} -> ${label(newAssignmentType)}`);
+  }
+  if (dto.assigneeUserIds) {
+    const beforeIds = before.assignees.map((a) => a.userId).sort().join(',');
+    const afterIds = [...dto.assigneeUserIds].sort().join(',');
+    if (beforeIds !== afterIds) changes.push(`assignees changed (${before.assignees.length} -> ${dto.assigneeUserIds.length})`);
+  }
+  if (dto.checklist) changes.push('checklist updated');
+  if (dto.dayOfWeek !== undefined || dto.daysOfWeek !== undefined) {
+    const beforeDays = resolveDaysOfWeek(before).join(',');
+    const afterDays = (dto.daysOfWeek?.length ? dto.daysOfWeek : dto.dayOfWeek != null ? [dto.dayOfWeek] : []).join(',');
+    if (afterDays && beforeDays !== afterDays) changes.push(`days: ${beforeDays || '(none)'} -> ${afterDays}`);
+  }
+  return changes;
 }
 
 // A chore's `daysOfWeek` (new, multi-day) always wins when set; `dayOfWeek`
@@ -183,6 +249,7 @@ export class ChoresService {
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
     private wheels: WheelsService,
+    private audit: AuditLogService,
   ) {}
 
   private async user(userId: string) {
@@ -267,7 +334,7 @@ export class ChoresService {
   }
 
   async create(familyId: string, createdById: string, dto: CreateChoreDto) {
-    await this.assertAdult(createdById);
+    const actor = await this.assertAdult(createdById);
     const tz = await this.resolveTimezone(dto.locationId);
     const assignmentType = dto.assignmentType === 'ANYONE' ? 'ANYONE' : 'SPECIFIC';
     // A SPECIFIC chore with nobody picked is assigned to no one and claimable
@@ -309,6 +376,15 @@ export class ChoresService {
       data: { choreId: chore.id, dueDate: firstDueDate(dto, tz) },
     });
     this.displayEvents.publish(familyId, { type: 'chores' });
+    await this.audit.record({
+      actorId: createdById,
+      actorName: actor.displayName,
+      action: 'chore.create',
+      targetId: chore.id,
+      targetLabel: chore.title,
+      detail: describeChoreSettings(dto, assignmentType),
+      familyId,
+    });
     return this.getChore(familyId, chore.id);
   }
 
@@ -452,7 +528,7 @@ export class ChoresService {
   }
 
   async update(familyId: string, userId: string, id: string, dto: UpdateChoreDto) {
-    await this.assertAdult(userId);
+    const actor = await this.assertAdult(userId);
     const before = await this.ownedChore(familyId, id);
     const assignmentType =
       dto.assignmentType === 'ANYONE' ? 'ANYONE' : dto.assignmentType === 'SPECIFIC' ? 'SPECIFIC' : undefined;
@@ -532,19 +608,54 @@ export class ChoresService {
     }
 
     this.displayEvents.publish(familyId, { type: 'chores' });
+    const diff = diffChoreFields(before, dto, assignmentType);
+    if (diff.length) {
+      await this.audit.record({
+        actorId: userId,
+        actorName: actor.displayName,
+        action: 'chore.update',
+        targetId: id,
+        targetLabel: dto.title ?? before.title,
+        detail: diff.join('; '),
+        familyId,
+      });
+    }
     return this.getChore(familyId, id);
   }
 
   async remove(familyId: string, userId: string, id: string) {
-    await this.assertAdult(userId);
-    await this.ownedChore(familyId, id);
+    const actor = await this.assertAdult(userId);
+    const chore = await this.ownedChore(familyId, id);
     // Occurrences cascade with the chore; their notifications don't (refId is
     // not a real FK), so collect the ids first and clear them after.
     const instances = await this.prisma.choreInstance.findMany({ where: { choreId: id }, select: { id: true } });
     await this.prisma.chore.delete({ where: { id } });
     await this.notifications.removeByRef([id, ...instances.map((i) => i.id)]);
     this.displayEvents.publish(familyId, { type: 'chores' });
+    // targetLabel carries the title since the chore itself is gone by the
+    // time anyone reads this back — there's nothing left to look up.
+    await this.audit.record({
+      actorId: userId,
+      actorName: actor.displayName,
+      action: 'chore.delete',
+      targetId: id,
+      targetLabel: chore.title,
+      detail: describeChoreSettings(chore, chore.assignmentType),
+      familyId,
+    });
     return { ok: true };
+  }
+
+  // Owner/family manager only — everyone else can edit a chore but not
+  // review its change history, per Casey's call. listForTarget() itself
+  // filters by familyId (not just targetId), so this stays correctly scoped
+  // even for a chore that's since been deleted and has no row left to check.
+  async auditTrail(familyId: string, userId: string, choreId: string) {
+    const actor = await this.user(userId);
+    if (actor?.role !== 'OWNER' && actor?.role !== 'FAMILY_MANAGER') {
+      throw new ForbiddenException('Owners and family managers only');
+    }
+    return this.audit.listForTarget(choreId, familyId);
   }
 
   // Whether a user may act on (complete/check) an instance.

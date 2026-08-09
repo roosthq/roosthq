@@ -13,6 +13,7 @@ import {
   type UnlockResult,
   type Balance,
 } from './api';
+import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
 import Calendar from './Calendar';
 import { setCelebrationSound } from './celebrate';
@@ -74,6 +75,7 @@ export default function Display() {
   const [addingPrize, setAddingPrize] = useState(false);
   const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
   const [dinnerWeekOpen, setDinnerWeekOpen] = useState(false);
+  const [revealedCountdowns, setRevealedCountdowns] = useState<Set<string>>(new Set());
   const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
@@ -626,10 +628,26 @@ export default function Display() {
           {showCountdowns &&
             upcomingCountdowns.map((c) => {
               const days = Math.max(0, Math.round((new Date(`${c.date}T00:00:00`).getTime() - new Date(new Date().setHours(0, 0, 0, 0)).getTime()) / 86_400_000));
+              const revealed = revealedCountdowns.has(c.id);
               return (
-                <span key={c.id} className="card-nested rounded-full px-3 py-1">
-                  {c.emoji} {c.title}: <span className="font-semibold">{days === 0 ? 'today!' : `${days}d`}</span>
-                </span>
+                <button
+                  key={c.id}
+                  onClick={() =>
+                    setRevealedCountdowns((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(c.id)) next.delete(c.id);
+                      else next.add(c.id);
+                      return next;
+                    })
+                  }
+                  className="card-nested rounded-full px-3 py-1 hover:opacity-80"
+                  title="Tap to see the date"
+                >
+                  {c.emoji} {c.title}:{' '}
+                  <span className="font-semibold">
+                    {revealed ? formatDate(new Date(`${c.date}T00:00:00`)) : days === 0 ? 'today!' : `${days}d`}
+                  </span>
+                </button>
               );
             })}
           {showGrocery && (household?.groceryOpen ?? 0) > 0 && (
@@ -700,6 +718,19 @@ export default function Display() {
                   </button>
                 </div>
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
+                  {/* Same things the main app's own pages give everyone —
+                      rules and your own stats — reachable without switching
+                      to a phone/tablet just to look at them. Kept at the very
+                      top since they're a quick look-up, not something to dig
+                      for under the chores list. */}
+                  <div className="flex flex-wrap gap-2">
+                    <button onClick={() => setKioskRulesOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      📋 Rules
+                    </button>
+                    <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      📊 My stats
+                    </button>
+                  </div>
                   {isAdult && kioskChoreClient && kioskPrizeClient && (
                     <PendingPanel
                       chores={chores}
@@ -728,17 +759,6 @@ export default function Display() {
                       refreshSignal={dataRefreshSignal}
                     />
                   )}
-                  {/* Same things the main app's own pages give everyone —
-                      rules and your own stats — reachable without switching
-                      to a phone/tablet just to look at them. */}
-                  <div className="flex flex-wrap gap-2">
-                    <button onClick={() => setKioskRulesOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
-                      📋 Rules
-                    </button>
-                    <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
-                      📊 My stats
-                    </button>
-                  </div>
                   <KioskAccountPanel
                     me={active.user}
                     client={kioskPrizeClient}
