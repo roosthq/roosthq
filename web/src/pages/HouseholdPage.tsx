@@ -37,21 +37,21 @@ export default function HouseholdPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const [family, setFamily] = useState<FamilySettings | null>(null);
-  // Which household this page is looking at. '' = family-wide: reads show
-  // only family-wide items and writes create family-wide ones. A location
-  // shows that household's items PLUS family-wide, and writes go to that
-  // household — same scoping rule as chores. Kids/adults default to their
-  // own household when they have exactly one.
+  // Which household this page is looking at. Always a real location once the
+  // family has any — locations already are the scoping mechanism, so there's
+  // no separate "family-wide" view to pick. '' only ever applies to a family
+  // with zero locations defined (everything is implicitly one household).
+  // A location's view still merges in any legacy item that has no location
+  // (locationId null), it just can't be the ONLY thing shown anymore.
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [scope, setScope] = useState<string>('');
   useEffect(() => {
     api.familySettings().then(setFamily).catch(() => undefined);
     api.locations().then((locs) => {
       setLocations(locs);
-      if (!isTopManager) {
-        const mine = myLocationIds(locs, me.id);
-        if (mine.length === 1) setScope(mine[0]);
-      }
+      const mine = myLocationIds(locs, me.id);
+      const options = isTopManager ? locs : locs.filter((l) => mine.includes(l.id));
+      if (options.length > 0) setScope(options[0].id);
     }).catch(() => setLocations([]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -73,14 +73,8 @@ export default function HouseholdPage({ me }: { me: Me }) {
   return (
     <div className="min-w-0 space-y-6">
       <h2 className="text-xl font-bold tracking-tight">Household</h2>
-      {scopeOptions.length > 0 && (
+      {scopeOptions.length > 1 && (
         <div className="flex flex-wrap gap-1">
-          <button
-            onClick={() => setScope('')}
-            className={`rounded-full border px-3 py-1 text-sm ${scope === '' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
-          >
-            Family-wide
-          </button>
           {scopeOptions.map((l) => (
             <button
               key={l.id}
