@@ -183,7 +183,7 @@ export class AuthController {
     @CurrentUser() u: SessionPayload,
     @Body() body: { displayName?: string; username?: string; email?: string | null; avatar?: string | null },
   ) {
-    return this.auth.updateProfile(u.userId, body);
+    return this.auth.updateProfile(u.userId, body, u.ghostedBy);
   }
 
   // My own connected Google accounts — label-only (email, needs-reconnect,

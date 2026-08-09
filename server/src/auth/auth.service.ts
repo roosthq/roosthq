@@ -265,6 +265,7 @@ export class AuthService {
   async updateProfile(
     userId: string,
     dto: { displayName?: string; username?: string; email?: string | null; avatar?: string | null },
+    ghostedBy?: string,
   ) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new UnauthorizedException();
@@ -299,7 +300,12 @@ export class AuthService {
     if (dto.avatar !== undefined) data.avatar = dto.avatar?.trim() || null;
 
     await this.prisma.user.update({ where: { id: userId }, data });
-    return this.me({ userId });
+    // Same fix as the OAuth-reconnect flow (auth.controller.ts): re-deriving
+    // "me" after an action must carry the ghost session forward, or this
+    // explicitly returns ghostedBy: null and silently ends an app-owner's
+    // ghost session (banner gone) the moment they edit their name/avatar/etc
+    // while ghosted — even though the actual session cookie never changed.
+    return this.me({ userId, ghostedBy });
   }
 
   // Self-service path for anyone with an email on file (mainly adults/owner,

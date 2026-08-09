@@ -98,8 +98,15 @@ export default function App() {
   // shows whatever it throws.
   async function updateProfile(patch: Partial<{ displayName: string; username: string | null; email: string | null; avatar: string | null }>) {
     if (!me) return;
+    // Merge, don't replace: the server returns a plain User row, which has
+    // no ghostedBy column (it's a session/JWT-only field, stamped in by
+    // api.me() reading the cookie, not the DB) — replacing `me` outright
+    // with that row silently ended the "Ghosting as X" banner on the next
+    // identity/avatar edit, even though the underlying ghost session was
+    // completely untouched. Same bug class as the OAuth-reconnect one fixed
+    // server-side in auth.controller.ts; this was the client-side sibling.
     const updated = await api.updateProfile(patch);
-    setMe(updated);
+    setMe((prev) => (prev ? { ...prev, ...updated } : updated));
   }
 
   async function changeFontSize(next: FontSize) {
