@@ -96,13 +96,27 @@ function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime:
   const key = dateKeyInZone(from, tz);
   // A real day pattern (2+ days) always advances within/across the week to
   // the next matching day — "Mon-Fri homework" needs Tue after Mon, not a
-  // flat +7. A single day (0 or 1 entries) keeps the exact legacy interval
-  // math per rule, so nothing about existing chores changes.
+  // flat +7.
   if (daysOfWeek.length > 1) return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
+  // A single scheduled day (e.g. "Saturday weekly") re-derives from that
+  // actual weekday too, rather than blindly adding 7 to whatever the
+  // previous instance's dueDate happened to be. Pure interval math is only
+  // safe if the anchor is already on the right day — but it doesn't stay
+  // there: reopen() ("Enable again") deliberately creates an occurrence due
+  // *today* regardless of the chore's schedule, and once that becomes the
+  // anchor, +7-forever would permanently drift the whole chore onto the
+  // wrong weekday instead of snapping back to Saturday. This self-corrects
+  // every time instead. BIWEEKLY/DAILY/MONTHLY have no weekday to re-derive
+  // from, so they're unaffected — pure interval math for those, unchanged.
+  if (daysOfWeek.length === 1 && rule === 'WEEKLY') {
+    return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
+  }
   switch (rule) {
     case 'DAILY':
       return dueInstant(addDaysToKey(key, 1), dueTime, tz);
     case 'WEEKLY':
+      // No daysOfWeek configured at all (legacy plain-weekly chore, no day
+      // pattern) — nothing to re-derive from, keep the flat +7.
       return dueInstant(addDaysToKey(key, 7), dueTime, tz);
     case 'BIWEEKLY':
       return dueInstant(addDaysToKey(key, 14), dueTime, tz);
