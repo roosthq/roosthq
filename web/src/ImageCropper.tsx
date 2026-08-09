@@ -8,16 +8,16 @@ export interface CropRect {
   h: number; // % height
 }
 
-const DISPLAY_MAX = 420; // px — the modal's image preview box, either dimension
+const DISPLAY_MAX = 420; // px - the modal's image preview box, either dimension
 const MAX_ZOOM = 4; // how much tighter than the "largest that fits" box the crop can go
 
 // Drag-to-position crop tool: the crop window is fixed at the largest size
 // that fits the chosen aspect ratio inside the image (no zoom/resize handles
-// — keeps this to a single interaction instead of a full pan+zoom widget),
+// - keeps this to a single interaction instead of a full pan+zoom widget),
 // and the whole window drags around to choose which part of the image shows.
 // Works for both mouse and touch via pointer events. Returns the chosen
 // rectangle as percentages of the image's OWN natural dimensions, not
-// display pixels — the caller decides what to do with it (crop for real, in
+// display pixels - the caller decides what to do with it (crop for real, in
 // pixels, for an avatar; or just save the rect as metadata for a prize card,
 // leaving the source image untouched).
 export default function ImageCropper({
@@ -38,7 +38,7 @@ export default function ImageCropper({
   const [natural, setNatural] = useState<{ w: number; h: number } | null>(null);
   const [display, setDisplay] = useState<{ w: number; h: number }>({ w: DISPLAY_MAX, h: DISPLAY_MAX });
   // The zoom=1 box: largest at `aspect` that fits inside the displayed image.
-  // Zooming shrinks the box toward this as a ceiling — box never grows past it.
+  // Zooming shrinks the box toward this as a ceiling - box never grows past it.
   const [baseBox, setBaseBox] = useState<{ w: number; h: number } | null>(null);
   const [box, setBox] = useState<{ w: number; h: number; x: number; y: number } | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -63,7 +63,7 @@ export default function ImageCropper({
       const baseW = bw;
       setBaseBox({ w: baseW, h: bh });
       // A saved rect may already be a zoomed-in (smaller) box than the base
-      // size — rebuild the box from it directly instead of always starting
+      // size - rebuild the box from it directly instead of always starting
       // back at zoom 1, so re-opening the cropper shows what was actually
       // saved. zoom = baseW / savedW, since a box's width is baseW / zoom.
       if (initial && initial.w > 0) {
@@ -155,7 +155,7 @@ export default function ImageCropper({
         <img src={src} alt="" className="absolute inset-0 h-full w-full" draggable={false} />
         {box && (
           <>
-            {/* Darken everything outside the crop box — four bars around it rather
+            {/* Darken everything outside the crop box - four bars around it rather
                 than a mask/clip-path, so this stays plain divs. */}
             <div className="absolute inset-x-0 top-0 bg-black/50" style={{ height: box.y }} />
             <div className="absolute inset-x-0 bottom-0 bg-black/50" style={{ top: box.y + box.h }} />
@@ -194,7 +194,7 @@ function clamp(v: number, min: number, max: number): number {
   return Math.min(Math.max(v, min), max < min ? min : max);
 }
 
-// Physically crops+re-encodes — for an avatar, where the app already always
+// Physically crops+re-encodes - for an avatar, where the app already always
 // stores a fresh downscaled copy (never the original), so there's no "keep
 // the original intact" requirement to preserve. NOT used for prizes: those
 // keep the crop as metadata only (see StorePage's imageCrop), since a prize
@@ -225,7 +225,7 @@ export function cropImageToDataUri(src: string, rect: CropRect, maxDim = 320, qu
 
 // CSS technique for a NON-destructive crop preview: a background-image sized
 // and positioned so only the saved rect shows, at whatever size the caller's
-// container is — the source pixels/URL are never touched. Spread this onto
+// container is - the source pixels/URL are never touched. Spread this onto
 // a container div's style (with backgroundImage additionally set to the
 // image src) instead of rendering an <img>.
 export function cropBackgroundStyle(rect: CropRect | null | undefined): CSSProperties {
@@ -233,7 +233,7 @@ export function cropBackgroundStyle(rect: CropRect | null | undefined): CSSPrope
   const bgWidthPct = 10000 / rect.w; // background-size width needed so the rect's own width fills the box
   const bgHeightPct = 10000 / rect.h;
   // background-position: 0% means the rect's left edge is at the box's left
-  // edge; 100% means the rect's right edge is at the box's right edge —
+  // edge; 100% means the rect's right edge is at the box's right edge -
   // interpolate by how far into the (background-size - box-size) span the
   // rect's offset sits.
   const posX = rect.w >= 100 ? 0 : (rect.x / (100 - rect.w)) * 100;

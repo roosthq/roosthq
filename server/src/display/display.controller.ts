@@ -51,7 +51,7 @@ export class DisplayController {
   }
 
   // Household widgets bundle (meals / countdowns / announcements / grocery
-  // count) for the kiosk — readable idle, like the rest of the display feed.
+  // count) for the kiosk - readable idle, like the rest of the display feed.
   @UseGuards(DisplayOrUserGuard)
   @Get('household')
   async householdBundle(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
@@ -75,7 +75,7 @@ export class DisplayController {
     return this.displays.todaysSummary(ctx.familyId, resolved);
   }
 
-  // Profiles for the kiosk picker — scoped to the display's location, if it has one.
+  // Profiles for the kiosk picker - scoped to the display's location, if it has one.
   @UseGuards(DisplayOrUserGuard)
   @Get('members')
   async members(@FamilyCtx() ctx: FamilyContext, @Query('config') config?: string) {
@@ -92,7 +92,7 @@ export class DisplayController {
 
   // Unlock a profile on the kiosk (PIN check), returns a short-lived kiosk token.
   // Rejects a profile that isn't in scope for this display's location, even if the
-  // caller knows their userId — the picker isn't the only thing enforcing scope.
+  // caller knows their userId - the picker isn't the only thing enforcing scope.
   @UseGuards(DisplayOrUserGuard)
   @Post('unlock')
   async unlock(
@@ -108,7 +108,7 @@ export class DisplayController {
     return this.display.unlock(ctx.familyId, body.userId, body.pin);
   }
 
-  // On-the-fly light/dark toggle, right from the kiosk header — no adult
+  // On-the-fly light/dark toggle, right from the kiosk header - no adult
   // unlock needed, same trust level as the screensaver/refresh/fullscreen
   // buttons next to it (see DisplaysService.setTheme for why).
   @UseGuards(DisplayOrUserGuard)

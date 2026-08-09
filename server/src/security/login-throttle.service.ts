@@ -8,13 +8,13 @@ interface Entry {
 
 // Escalating lockout after repeated failed guesses against a low-entropy
 // credential (a local password, or worse, a 4-digit kiosk PIN). Shared by
-// AuthController.localLogin and DisplayService.unlock — same mechanism, keyed
+// AuthController.localLogin and DisplayService.unlock - same mechanism, keyed
 // differently (identifier vs familyId:userId) so a lockout on one never
 // blocks the other.
 //
 // In-memory, not DB-backed: this instance is a single process, and the point
 // is to blunt automated guessing while the process is up, not to survive a
-// redeploy. A restart clearing the table is an accepted tradeoff, not a gap —
+// redeploy. A restart clearing the table is an accepted tradeoff, not a gap -
 // anyone who can trigger a redeploy already has far more access than this
 // guards against.
 @Injectable()
@@ -60,7 +60,7 @@ export class LoginThrottleService {
     this.attempts.set(key, e);
   }
 
-  // A correct credential wipes the slate — no lingering half-lockout after
+  // A correct credential wipes the slate - no lingering half-lockout after
   // someone finally gets their own password right.
   recordSuccess(key: string) {
     this.attempts.delete(key);

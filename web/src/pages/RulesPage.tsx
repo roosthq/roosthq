@@ -3,7 +3,7 @@ import { api, type Me, type Rule, type Member } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 
-// `me` only ever needs `.role` here — typed loosely (not the full `Me`) so
+// `me` only ever needs `.role` here - typed loosely (not the full `Me`) so
 // the kiosk can pass its active profile's user object directly, which has
 // no `familyId` (kiosk auth is a bearer token, not a family-scoped session).
 export default function RulesPage({ me, kioskToken }: { me: Pick<Me, 'role'>; kioskToken?: string }) {
@@ -140,7 +140,7 @@ function RuleForm({
   async function submit() {
     if (!text.trim()) return;
     const body = { text: text.trim(), targetUserId: targetUserId || null };
-    // Adult-only form (kids never open this) — always via the main app's own
+    // Adult-only form (kids never open this) - always via the main app's own
     // cookie session, even if an adult happens to be looking at this on the
     // kiosk itself, so no kioskToken plumbing needed here.
     if (rule) await api.updateRule(rule.id, body);

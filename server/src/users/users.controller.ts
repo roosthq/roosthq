@@ -50,7 +50,7 @@ export class UsersController {
     return this.users.setRole(u.userId, u.familyId, id, body.role);
   }
 
-  // Declared before ':id' — Nest matches route literals in declaration
+  // Declared before ':id' - Nest matches route literals in declaration
   // order, so this must come first or ':id' would swallow "me" as a literal id.
   @Delete('me')
   removeSelf(@CurrentUser() u: SessionPayload) {
@@ -102,13 +102,13 @@ export class UsersController {
     return this.users.setMemberPrefs(u.userId, u.familyId, id, body);
   }
 
-  // "What has this person given out" — adult profile stats.
+  // "What has this person given out" - adult profile stats.
   @Get(':id/given-stats')
   givenStats(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.users.givenStats(u.familyId, id);
   }
 
-  // Current user sets their own birthday (kids can't — adults do it for them).
+  // Current user sets their own birthday (kids can't - adults do it for them).
   @Put('me/birthday')
   setOwnBirthday(@CurrentUser() u: SessionPayload, @Body() body: { birthday: string | null }) {
     return this.users.setOwnBirthday(u.userId, body.birthday);

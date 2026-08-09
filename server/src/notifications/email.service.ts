@@ -11,7 +11,7 @@ export class EmailService {
     const host = process.env.SMTP_HOST;
     this.from = process.env.SMTP_FROM || 'Roost HQ <noreply@example.com>';
     if (!host) {
-      this.logger.warn('SMTP_HOST not set — email notifications disabled');
+      this.logger.warn('SMTP_HOST not set - email notifications disabled');
       return;
     }
     this.transporter = nodemailer.createTransport({
@@ -26,7 +26,7 @@ export class EmailService {
     return !!this.transporter;
   }
 
-  // Best-effort, never throws — email is a convenience fallback, not core.
+  // Best-effort, never throws - email is a convenience fallback, not core.
   async send(to: string, subject: string, body: string) {
     if (!this.transporter) return;
     try {

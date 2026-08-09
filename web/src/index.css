@@ -7,32 +7,32 @@
   --color-surface: var(--surface);
 }
 
-/* Roost HQ design tokens — from the design handoff's tokens-all-themes.css.
+/* Roost HQ design tokens - from the design handoff's tokens-all-themes.css.
    Two independent attributes on <html>: data-theme selects the hue (9
    options, see COLOR_THEMES in api.ts), data-mode selects light/dark. :root
    and [data-mode='dark'] carry the Meadow (brand default) values
    unconditionally, so an absent/unrecognized data-theme value still renders
    a complete, correct theme instead of a half-applied one. --today (owl beak
-   gold) is mode/hue-independent by design — never set inside a theme block. */
+   gold) is mode/hue-independent by design - never set inside a theme block. */
 :root {
-  /* Reinforces the <meta name="color-scheme"> in index.html — tells the
+  /* Reinforces the <meta name="color-scheme"> in index.html - tells the
      browser this page has genuine light/dark handling of its own, so Chrome's
      "Auto Dark Theme for web content" doesn't repaint it on top of ours. */
   color-scheme: light;
   --bg: #eff4eb;
-  /* Card surface is derived from --bg, not a flat white — a card must
+  /* Card surface is derived from --bg, not a flat white - a card must
      never read as the same color as the page. Mixed toward --accent, not
      black/white: every light --bg here is an already-near-white pastel, so
      darkening toward black just desaturates it back to gray (looked
-     washed-out/colorless) — mixing toward the theme's own accent keeps the
+     washed-out/colorless) - mixing toward the theme's own accent keeps the
      surface visibly the theme's color instead. (srgb, not oklch: oklch's hue
      math is unstable at --bg's near-zero chroma and was rendering pink.) */
   --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
-  /* One step further from --bg than --surface — for a card that itself
+  /* One step further from --bg than --surface - for a card that itself
      sits ON a --surface container (a row inside a modal, e.g.) and needs
      to read as distinct from it, not just from the page. Used via
      .card-nested below. (Dark mode's blocks used to repeat --surface's own
-     hex here verbatim — identical color, zero contrast — see there.) */
+     hex here verbatim - identical color, zero contrast - see there.) */
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(78, 122, 76, 0.18);
   --text: #1c2e1c;
@@ -42,9 +42,9 @@
   --accent-hover: color-mix(in oklch, #4e7a4c 80%, black);
   --tag-bg: #d4ead0;
   --tag-text: #2c5228;
-  --today: #d4c06a; /* owl beak gold — "today" accent */
+  --today: #d4c06a; /* owl beak gold - "today" accent */
   --surface-off: #e5e7eb; /* days outside the viewed month (neutral gray) */
-  /* Token/reward pill (TokenBadge) — derived from --accent so it's
+  /* Token/reward pill (TokenBadge) - derived from --accent so it's
      theme-correct in all 9 hues without a per-theme block, unlike the flat
      bg-amber-100/text-amber-700 it replaces via the bridge below. */
   --reward-bg: color-mix(in oklch, var(--accent) 18%, white);
@@ -319,7 +319,7 @@ body {
 
 /* Text-size preference: scales the root rem base, so every Tailwind text-*
    utility (all rem-based) scales proportionally with it. Applied via
-   data-font-size on <html> — per-account in the main app, per-kiosk on the
+   data-font-size on <html> - per-account in the main app, per-kiosk on the
    touch display. */
 html {
   font-size: 16px;
@@ -376,7 +376,7 @@ html {
 .hover\:bg-slate-100:hover {
   background: var(--tag-bg) !important;
 }
-/* Token/reward pill (TokenBadge) — was flat amber, invisible/foreign against
+/* Token/reward pill (TokenBadge) - was flat amber, invisible/foreign against
    a dark card; now theme-derived (see --reward-bg/--reward-text above). */
 .bg-amber-100 {
   background: var(--reward-bg) !important;
@@ -413,7 +413,7 @@ select option {
 }
 
 /* iOS Safari zooms the whole page in on focus for any input/select/textarea
-   whose font-size computes under 16px — several are text-sm/text-xs (14/12px).
+   whose font-size computes under 16px - several are text-sm/text-xs (14/12px).
    Force 16px on small screens only, so desktop's compact look is untouched. */
 @media (max-width: 640px) {
   input:not([type='checkbox']):not([type='radio']),
@@ -423,7 +423,7 @@ select option {
   }
 }
 
-/* Confetti burst (celebrate.ts) — pieces fly outward from the tapped
+/* Confetti burst (celebrate.ts) - pieces fly outward from the tapped
    element, spin, and fade. Host is a zero-size anchor at the burst origin. */
 .confetti-host {
   position: fixed;
@@ -455,7 +455,7 @@ select option {
 }
 
 /* Bottom tab bar (Nav.tsx, < lg only): fixed to the viewport bottom, so give
-   the page matching bottom padding — but only when the bar is actually in
+   the page matching bottom padding - but only when the bar is actually in
    the DOM. The kiosk view renders no Nav (and no .bottom-tabs), so it stays
    unpadded. */
 @media (max-width: 1023.98px) {
@@ -464,11 +464,11 @@ select option {
   }
 }
 
-/* Calendar page-turn animation — triggered on every navigation (prev/next
+/* Calendar page-turn animation - triggered on every navigation (prev/next
    buttons, swipe, Today), keyed by a counter so React remounts the grid and
    re-plays the animation each time. Direction-tagged (next slides in from
    the right, prev from the left) regardless of whether the gesture that
-   triggered it was horizontal or vertical — one consistent motion either way. */
+   triggered it was horizontal or vertical - one consistent motion either way. */
 @keyframes cal-slide-next {
   from {
     transform: translateX(18px);
@@ -497,7 +497,7 @@ select option {
   box-shadow: 0 1px 2px rgba(28, 46, 28, 0.05);
 }
 
-/* Compact modifier for .panel — person chips (Family strip, Profiles picker)
+/* Compact modifier for .panel - person chips (Family strip, Profiles picker)
    were full-size panels and ate half a phone screen. */
 .panel-compact {
   padding: 8px 14px;
@@ -505,7 +505,7 @@ select option {
 }
 
 /* A card that sits ON TOP of a --surface container (e.g. Modal, which is
-   itself --surface) — .panel/bg-white would be invisible against it, same
+   itself --surface) - .panel/bg-white would be invisible against it, same
    color. Use this instead wherever a "card" appears inside a modal/panel. */
 .card-nested {
   background: var(--surface-raised);
@@ -523,7 +523,7 @@ select option {
 /* Attention banners (fresh invite link, "needs reconnect", pending
    approvals). These were hardcoded bg-amber-50/text-amber-800: bright yellow
    in every theme, blinding in dark mode. One token-derived treatment
-   instead — the family's own accent hue at low saturation, with the brand
+   instead - the family's own accent hue at low saturation, with the brand
    gold only as the left edge, so it reads as "notice" in light AND dark
    without fighting the palette. */
 .alert-banner {
@@ -539,7 +539,7 @@ select option {
 }
 
 /* Logo owl: one inline mark, recolored per-role from the same tokens the rest
-   of the app uses — automatically matches both light/dark and whichever
+   of the app uses - automatically matches both light/dark and whichever
    per-person color theme is active, no separate asset per combination.
    Pupils and beak are fixed (not var-driven) per the design handoff, so eyes
    read as black/gold in every single theme instead of drifting toward
@@ -579,13 +579,13 @@ select option {
   fill: var(--accent);
 }
 
-/* Kiosk touch sizing — the wall display is used by kids with imprecise
+/* Kiosk touch sizing - the wall display is used by kids with imprecise
    little fingers, not a mouse. Blanket-upsizes interactive controls when
    Display.tsx's root carries this class; !important because most of what
    it's overriding is a Tailwind utility class already on the element
    (px-2 py-1 text-xs and friends), same reasoning as the theme bridge
    above. Deliberately broad rather than hunting down every button
-   one-by-one — a missed one just stays normal-sized, never broken. */
+   one-by-one - a missed one just stays normal-sized, never broken. */
 .kiosk-mode button,
 .kiosk-mode select,
 .kiosk-mode a[role='button'] {
@@ -603,7 +603,7 @@ select option {
   height: 1.5rem !important;
 }
 /* A row of icon-only chips (theme swatches, screensaver/fullscreen toggles in
-   the header) shouldn't grow to the same min-height as a labeled button —
+   the header) shouldn't grow to the same min-height as a labeled button -
    opt out explicitly rather than let them balloon and break the header row. */
 .kiosk-mode .kiosk-compact-btn {
   min-height: 0 !important;

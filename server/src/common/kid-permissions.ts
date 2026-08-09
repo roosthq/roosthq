@@ -1,7 +1,7 @@
 import { ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
-// Per-kid ability switches (User.disabledPermissions — KID_PERMISSIONS in
+// Per-kid ability switches (User.disabledPermissions - KID_PERMISSIONS in
 // web/src/api.ts). Stored as the DISABLED list so a kid can do everything
 // until an adult turns something off, and so new permissions default to
 // allowed without a backfill. Adults are never restricted by these.

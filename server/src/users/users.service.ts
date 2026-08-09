@@ -53,7 +53,7 @@ export class UsersService {
     }));
   }
 
-  // Everyone manages their own PIN. Adults additionally manage kids' PINs —
+  // Everyone manages their own PIN. Adults additionally manage kids' PINs -
   // except a kid whose PIN has been turned off entirely (pinDisabled): they
   // can still be cleared (pin: null is always a no-op-or-better), but not
   // given a new one, so the "no PIN for this kid" decision actually sticks
@@ -67,7 +67,7 @@ export class UsersService {
     const isSelf = actorId === targetId;
     const allowed = isSelf || isFamilyManager(actor.role) || (actor.role === 'ADULT' && target.role === 'KID');
     if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
-    if (pin && target.pinDisabled) throw new ForbiddenException('PINs are turned off for this kid — allow one first');
+    if (pin && target.pinDisabled) throw new ForbiddenException('PINs are turned off for this kid - allow one first');
 
     await this.prisma.user.update({
       where: { id: targetId },
@@ -76,7 +76,7 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Kid-only master switch: not just "don't ask" — nobody can give this kid a
+  // Kid-only master switch: not just "don't ask" - nobody can give this kid a
   // kiosk PIN at all until it's turned back off. Turning it on clears
   // whatever PIN was already stored, so the "no PIN" decision is immediate
   // and can't be undone by simply leaving a stale one in place. Adults are
@@ -100,7 +100,7 @@ export class UsersService {
   }
 
   // Owner/family manager can change roles (e.g. mark a newly-added member as a
-  // KID) — but only the instance owner can grant or revoke the OWNER role
+  // KID) - but only the instance owner can grant or revoke the OWNER role
   // itself, since that role now carries instance-wide powers (multi-family,
   // ghosting), not just this family's.
   async setRole(actorId: string, familyId: string, targetId: string, role: Role) {
@@ -194,7 +194,7 @@ export class UsersService {
   }
 
   // Current user's own birthday. Kids don't manage their own (an adult sets
-  // it in Family & PINs) — everyone else does.
+  // it in Family & PINs) - everyone else does.
   async setOwnBirthday(userId: string, birthday: string | null) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!u) throw new ForbiddenException();
@@ -211,7 +211,7 @@ export class UsersService {
     return { ok: true, soundEffects: !!soundEffects };
   }
 
-  // Who can flip tokensDisabled for whom (exact, as specified — deliberately
+  // Who can flip tokensDisabled for whom (exact, as specified - deliberately
   // narrower than the PIN/reset rules above): a kid never can; a plain adult
   // only for a kid; a family manager for an adult, a kid, or themself (but
   // not another family manager or the owner); the owner for anyone,
@@ -232,7 +232,7 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Wipe a member's token/purchase/notification history — not their account.
+  // Wipe a member's token/purchase/notification history - not their account.
   // Everyone can reset themselves; any adult/owner/family manager can reset a
   // kid; only the owner/family manager can reset another adult or owner.
   // Leaves the User row itself alone (role, PIN, theme, text size, email-notify
@@ -255,18 +255,18 @@ export class UsersService {
     return { ok: true };
   }
 
-  // Self-delete — adults and family managers only, confirmed client-side
+  // Self-delete - adults and family managers only, confirmed client-side
   // before this is ever called. Blocked for a kid (needs an adult to do it
   // for them) and for the instance owner (deleting the one-of-a-kind OWNER
-  // account would strand every family-instance-wide tool — Families,
-  // Holidays — with nobody able to use them; move ownership elsewhere
+  // account would strand every family-instance-wide tool - Families,
+  // Holidays - with nobody able to use them; move ownership elsewhere
   // first). Same cleanup transaction as remove() below, just self-targeted.
   async removeSelf(actorId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor) throw new ForbiddenException();
     if (actor.role === 'KID') throw new ForbiddenException('Ask an adult to remove your account');
     if (actor.role === 'OWNER') {
-      throw new ForbiddenException('The instance owner can\'t delete their own account — move ownership to someone else first');
+      throw new ForbiddenException('The instance owner can\'t delete their own account - move ownership to someone else first');
     }
     await this.prisma.$transaction([
       this.prisma.chore.deleteMany({ where: { createdById: actorId } }),
@@ -278,7 +278,7 @@ export class UsersService {
 
   // Owner/family manager removes a member. Cleans up rows that would otherwise
   // block the delete (chores reference users without cascade). Can't remove
-  // yourself or the instance owner (family managers included — the owner is
+  // yourself or the instance owner (family managers included - the owner is
   // the one protected account).
   async remove(actorId: string, familyId: string, targetId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });

@@ -19,7 +19,7 @@ const EMPTY: HolidayRuleInput = { title: '', ruleType: 'FIXED', month: 1, day: 1
 const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Both derived from the server-computed nextOccurrence (an ISO date, parsed
-// as UTC — matches how it was built in holiday-rules.ts) rather than from
+// as UTC - matches how it was built in holiday-rules.ts) rather than from
 // the rule's own month/day fields, which don't exist for NTH_WEEKDAY and
 // shift year to year for EASTER_OFFSET.
 function monthTag(r: HolidayRule): string | null {
@@ -32,7 +32,7 @@ function formatNext(r: HolidayRule): string {
   return `next: ${new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
 }
 
-// Describes what a rule actually resolves to — the point of showing this is
+// Describes what a rule actually resolves to - the point of showing this is
 // so picking "3rd Monday of January" reads back as plain English right next
 // to the row, not just as three raw numbers.
 function describe(r: HolidayRule): string {
@@ -48,7 +48,7 @@ function describe(r: HolidayRule): string {
 }
 
 // Owner-only: instance-wide "Holidays" calendar every family can add to
-// their own picker (Calendar page filter, display config) — see
+// their own picker (Calendar page filter, display config) - see
 // HolidaysService for why this lives outside any one family. Rules, not
 // stored dates, so "4th Thursday of November" stays correct every year.
 export default function HolidaysPanel() {
@@ -111,7 +111,7 @@ export default function HolidaysPanel() {
   return (
     <div className="space-y-4">
       <p className="text-xs text-slate-400">
-        Rules, not fixed dates — a "4th Thursday of November" holiday lands on the right day every year without upkeep. Any
+        Rules, not fixed dates - a "4th Thursday of November" holiday lands on the right day every year without upkeep. Any
         family can add "🎉 Holidays" to their own calendar list; nobody but you can edit what's in it.
       </p>
 
@@ -264,7 +264,7 @@ export default function HolidaysPanel() {
             </div>
           </li>
         ))}
-        {rules.length === 0 && <li className="text-sm text-slate-500">No holidays yet — add one above.</li>}
+        {rules.length === 0 && <li className="text-sm text-slate-500">No holidays yet - add one above.</li>}
       </ul>
     </div>
   );

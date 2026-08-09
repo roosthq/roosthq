@@ -23,7 +23,7 @@ export class InvitesController {
   }
 
   // Email a link for an invite that was just minted. The base URL comes from
-  // the request, not the body — the client only says who to send it to.
+  // the request, not the body - the client only says who to send it to.
   @Post('email')
   emailInvite(
     @CurrentUser() u: SessionPayload,

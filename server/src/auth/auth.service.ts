@@ -72,9 +72,9 @@ export class AuthService {
       include: { user: true },
     });
 
-    // Returning account — refresh tokens. Without prompt=consent forced on every
+    // Returning account - refresh tokens. Without prompt=consent forced on every
     // login, Google usually omits refresh_token from a repeat authorization, so
-    // merge onto the previously stored tokens instead of overwriting — otherwise
+    // merge onto the previously stored tokens instead of overwriting - otherwise
     // the very next login would wipe out the refresh_token we already have.
     if (existing) {
       const current = JSON.parse(decrypt(existing.tokensEncrypted));
@@ -82,7 +82,7 @@ export class AuthService {
       await this.prisma.googleAccount.update({
         where: { id: existing.id },
         // Reaching the callback with a valid code proves this account is
-        // usable again — clears any stale "needs reconnect" from a dead
+        // usable again - clears any stale "needs reconnect" from a dead
         // refresh token, whether or not Google actually sent a new one.
         // email also refreshed in case it changed since first connect.
         data: { tokensEncrypted: encrypt(JSON.stringify(merged)), needsReconnect: false, email, picture: avatar },
@@ -151,7 +151,7 @@ export class AuthService {
     return { status: 'need_invite' };
   }
 
-  // Google is now optional — a family can be bootstrapped, or a member added,
+  // Google is now optional - a family can be bootstrapped, or a member added,
   // entirely with a local username/email + password. Mirrors
   // handleGoogleCallback's branching (invite vs. first-ever login vs. nobody
   // home) but for local credentials instead of a Google profile.
@@ -161,7 +161,7 @@ export class AuthService {
     if (!input.password || input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
     const invite = input.inviteToken ? await this.invites.resolve(input.inviteToken) : null;
     // Self-registering with no invite always bootstraps a brand-new family as
-    // its OWNER — never a kid — so email is required either way here.
+    // its OWNER - never a kid - so email is required either way here.
     const role = invite?.role ?? 'OWNER';
     if (emailRequired(role) && !email) throw new BadRequestException('Email is required');
     if (!email && !username) throw new BadRequestException('An email or username is required');
@@ -196,7 +196,7 @@ export class AuthService {
   }
 
   // Adult/owner adds a member directly (Settings "add a kid" flow, task #11)
-  // — always requires an existing session (ctx), never bootstraps a family.
+  // - always requires an existing session (ctx), never bootstraps a family.
   async createLocalMember(
     actorId: string,
     familyId: string,
@@ -233,8 +233,8 @@ export class AuthService {
 
   // Two paths in one: an owner/family manager resetting a local account's
   // password directly (the fallback for a kid, or anyone, with no email on
-  // file — no current password needed, same as resetting a PIN), OR anyone
-  // — including a kid now — changing their OWN password. Self-service
+  // file - no current password needed, same as resetting a PIN), OR anyone
+  // - including a kid now - changing their OWN password. Self-service
   // requires the current password when one's already set (nothing to
   // confirm against on a Google-only account setting a local password for
   // the first time) so a hijacked session cookie alone can't silently swap
@@ -260,7 +260,7 @@ export class AuthService {
   }
 
   // Self-service: display name, username, email, avatar. Anyone can change
-  // their own — no role gate — but a role that requires an email on file
+  // their own - no role gate - but a role that requires an email on file
   // (see emailRequired) can't blank it out via this path.
   async updateProfile(
     userId: string,
@@ -304,7 +304,7 @@ export class AuthService {
     // "me" after an action must carry the ghost session forward, or this
     // explicitly returns ghostedBy: null and silently ends an app-owner's
     // ghost session (banner gone) the moment they edit their name/avatar/etc
-    // while ghosted — even though the actual session cookie never changed.
+    // while ghosted - even though the actual session cookie never changed.
     return this.me({ userId, ghostedBy });
   }
 
@@ -358,16 +358,16 @@ export class AuthService {
         birthday: true,
         disabledPermissions: true,
         notifyByEmail: true,
-        passwordHash: true, // stripped below — only its presence (hasPassword) ever leaves this method
+        passwordHash: true, // stripped below - only its presence (hasPassword) ever leaves this method
       },
     });
     if (!user) return user;
-    // Never return the hash itself — just whether one exists, so the
+    // Never return the hash itself - just whether one exists, so the
     // password-change form knows whether to ask for the current one.
     const { passwordHash, ...rest } = user;
     const withHasPassword = { ...rest, hasPassword: !!passwordHash };
-    // Surface who's actually driving this session — the frontend shows a
-    // "Ghosting as X — return to Owner" banner whenever this is set.
+    // Surface who's actually driving this session - the frontend shows a
+    // "Ghosting as X - return to Owner" banner whenever this is set.
     if (session.ghostedBy) {
       const owner = await this.prisma.user.findUnique({
         where: { id: session.ghostedBy },

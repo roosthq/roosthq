@@ -1,6 +1,6 @@
 import { BASE_URL } from './api';
 
-// Shared by Display.tsx and Screensaver.tsx — pulled out to its own module so
+// Shared by Display.tsx and Screensaver.tsx - pulled out to its own module so
 // neither has to import the other just to reuse these (Display already
 // renders Screensaver; importing back the other way would be circular).
 export const displayToken = new URLSearchParams(window.location.search).get('token');

@@ -11,11 +11,11 @@ import {
   unsubscribeFromPush,
 } from '../push';
 
-// Everything about managing YOUR OWN account, in one place — separate from
+// Everything about managing YOUR OWN account, in one place - separate from
 // the basic Profile view (stats/awards/ledger, which anyone can browse for
 // anyone) and from Settings (family/instance-wide config). Identity, PIN,
 // password, avatar, color theme, connected Google accounts, notification
-// prefs, and self-delete all live here, self-only — never reachable for
+// prefs, and self-delete all live here, self-only - never reachable for
 // anyone else's account, unlike Profile's :id route.
 export default function MySettingsPage({
   me,
@@ -71,7 +71,7 @@ export default function MySettingsPage({
   // Delete account
   const [deleteBusy, setDeleteBusy] = useState(false);
 
-  // PIN — self only (managing a kid's/another adult's PIN stays in Settings
+  // PIN - self only (managing a kid's/another adult's PIN stays in Settings
   // > Family members, which already covers that cross-person case).
   const [me2, setMe2] = useState<{ hasPin?: boolean } | null>(null);
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function MySettingsPage({
       setPinError(null);
       setMe2((prev) => (prev ? { ...prev, hasPin: !!pin } : prev));
     } catch {
-      setPinError('Could not save PIN — try again.');
+      setPinError('Could not save PIN - try again.');
     }
   }
   async function clearPin() {
@@ -132,7 +132,7 @@ export default function MySettingsPage({
     await api.setNotifyByEmail(next).catch(() => setEmailOn(!next));
   }
 
-  // Celebration chime on complete/approve — applies immediately (no reload)
+  // Celebration chime on complete/approve - applies immediately (no reload)
   // via setCelebrationSound, persisted per user on the server.
   const [soundOn, setSoundOn] = useState(me.soundEffects !== false);
   async function toggleSound() {
@@ -240,7 +240,7 @@ export default function MySettingsPage({
 
   async function deleteMyAccount() {
     const ok = await confirm(
-      "Delete your account? This permanently removes your profile, token history, and purchase history — it can't be undone.",
+      "Delete your account? This permanently removes your profile, token history, and purchase history - it can't be undone.",
       { danger: true, confirmLabel: 'Delete my account' },
     );
     if (!ok) return;
@@ -279,7 +279,7 @@ export default function MySettingsPage({
             </label>
           </div>
           <div className="text-xs text-slate-400">
-            {avatarBusy ? 'Saving…' : 'Tap the camera to change your photo — you can pick which part shows.'}
+            {avatarBusy ? 'Saving…' : 'Tap the camera to change your photo - you can pick which part shows.'}
             {me.avatar && !avatarBusy && (
               <button onClick={removeAvatar} className="ml-2 text-red-500 hover:text-red-700">
                 Remove
@@ -303,7 +303,7 @@ export default function MySettingsPage({
             <input
               value={usernameDraft}
               onChange={(e) => setUsernameDraft(e.target.value)}
-              placeholder="Optional — for signing in without email"
+              placeholder="Optional - for signing in without email"
               className="mt-1 w-full rounded border px-3 py-1.5 text-sm"
             />
           </label>
@@ -368,7 +368,7 @@ export default function MySettingsPage({
       <section className="panel">
         <h3 className="text-base font-semibold tracking-tight">Password</h3>
         <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {/* Only asked for when one's actually already set — nothing to
+          {/* Only asked for when one's actually already set - nothing to
               confirm against on a Google-only account setting one for the
               first time, so don't show a field (or a message) for that case. */}
           {me.hasPassword && (

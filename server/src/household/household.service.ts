@@ -7,7 +7,7 @@ import { assertKidPermission } from '../common/kid-permissions';
 
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 
-// Meals / grocery / countdowns / announcements — the "kitchen wall" extras —
+// Meals / grocery / countdowns / announcements - the "kitchen wall" extras -
 // plus the weekly automation crons (digest, allowance). All family-scoped;
 // which of them a family actually uses is governed by Family.disabledFeatures
 // (checked here for the crons; the UI gates the widgets).
@@ -55,7 +55,7 @@ export class HouseholdService {
     });
   }
 
-  // One dinner per day PER SCOPE (family-wide vs each household) — enforced
+  // One dinner per day PER SCOPE (family-wide vs each household) - enforced
   // here since MySQL can't unique-index a nullable locationId usefully.
   async setMeal(
     familyId: string,
@@ -89,7 +89,7 @@ export class HouseholdService {
   }
 
   // ---- Grocery list ----
-  // Anyone in the family can add/check/remove — it's the fridge notepad.
+  // Anyone in the family can add/check/remove - it's the fridge notepad.
 
   grocery(familyId: string, locationId?: string | null) {
     return this.prisma.groceryItem.findMany({
@@ -237,7 +237,7 @@ export class HouseholdService {
       this.prisma.user.findMany({ where: { familyId, birthday: { not: null } }, select: { displayName: true, birthday: true } }),
     ]);
     // Birthdays inside the next 60 days ride along as synthetic countdowns
-    // (family-wide by nature — a birthday belongs to the person, not a house).
+    // (family-wide by nature - a birthday belongs to the person, not a house).
     const withBirthdays = [...countdowns];
     for (const person of people) {
       const next = nextBirthday(person.birthday!, today);
@@ -260,7 +260,7 @@ export class HouseholdService {
   // ---- Weekly automation ----
 
   // Weekly allowance: every Monday morning, grant each person's configured
-  // allowanceTokens — unless the family turned the feature off.
+  // allowanceTokens - unless the family turned the feature off.
   @Cron('0 7 * * 1')
   async allowanceCron() {
     const users = await this.prisma.user.findMany({
@@ -279,7 +279,7 @@ export class HouseholdService {
     }
   }
 
-  // Weekly digest: Sunday evening, tell the adults how the week went —
+  // Weekly digest: Sunday evening, tell the adults how the week went -
   // approved chore counts and tokens earned per person.
   @Cron('0 18 * * 0')
   async digestCron() {

@@ -20,7 +20,7 @@ export class DisplayOrUserGuard implements CanActivate {
   async canActivate(ctx: ExecutionContext): Promise<boolean> {
     const req = ctx.switchToHttp().getRequest();
 
-    // Display token takes priority over an ambient cookie — a kiosk link carries
+    // Display token takes priority over an ambient cookie - a kiosk link carries
     // an explicit "show this specific display" instruction that must win even in
     // a browser that also happens to have an owner session cookie (e.g. testing
     // multiple kiosk links from the same admin browser tab). Same fix as

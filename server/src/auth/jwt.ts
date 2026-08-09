@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 export interface SessionPayload {
   userId: string;
   familyId: string;
-  // Set only while the instance owner is ghosting as this user — the real
+  // Set only while the instance owner is ghosting as this user - the real
   // owner's own userId, so "return to owner" can rebuild their session
   // without a second round-trip through the DB to remember who they were.
   ghostedBy?: string;

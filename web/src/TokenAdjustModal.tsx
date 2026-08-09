@@ -4,7 +4,7 @@ import { AwardIcon } from './pages/AwardsPage';
 import type { AwardCatalogItem, Member, PrizeClient } from './api';
 
 // Generic starting points shown alongside whatever this family has actually
-// typed before (fetched via client.commonReasons()) — a mix of give/take so
+// typed before (fetched via client.commonReasons()) - a mix of give/take so
 // there's always something to tap regardless of which way the adjustment
 // goes. Deduped against the fetched list case-insensitively so a preset that
 // matches real history doesn't show twice.
@@ -224,7 +224,7 @@ export default function TokenAdjustModal({
           <div>
             <span className="text-sm text-slate-500">Award</span>
             {awards.length === 0 ? (
-              <p className="mt-1 text-xs text-slate-400">No awards in the catalog yet — add one from the header first.</p>
+              <p className="mt-1 text-xs text-slate-400">No awards in the catalog yet - add one from the header first.</p>
             ) : (
               <div className="mt-1 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
                 {awards.map((a) => (
@@ -269,7 +269,7 @@ export default function TokenAdjustModal({
             />
             {selectedAward && (
               <span className="mt-1 block text-xs text-slate-400">
-                Pre-filled from this award's default ({selectedAward.defaultTokenValue}) — adjustable.
+                Pre-filled from this award's default ({selectedAward.defaultTokenValue}) - adjustable.
               </span>
             )}
           </label>

@@ -26,7 +26,7 @@ export class InvitesService {
   // Adults can invite new kids/adults; owner/family manager can additionally
   // invite a family manager; only the instance owner can invite another owner.
   // targetFamilyId lets the instance owner invite someone into a family other
-  // than their own (e.g. a brand-new family they just created) — ignored for
+  // than their own (e.g. a brand-new family they just created) - ignored for
   // anyone else, who can only ever invite into their own family.
   async create(familyId: string, userId: string, role: Role, label?: string, targetFamilyId?: string) {
     const actor = await this.assertAdultOrOwner(userId);
@@ -72,7 +72,7 @@ export class InvitesService {
     const address = (to || '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) throw new BadRequestException('That does not look like an email address');
     if (!this.email.enabled) {
-      throw new BadRequestException('Email is not set up on this server yet — copy the link and send it yourself.');
+      throw new BadRequestException('Email is not set up on this server yet - copy the link and send it yourself.');
     }
     const inv = await this.resolve(token);
     if (!inv) throw new NotFoundException('That invite has expired or already been used');

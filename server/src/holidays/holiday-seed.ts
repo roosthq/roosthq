@@ -1,4 +1,4 @@
-// Default holiday set — US federal + common cultural — seeded once when the
+// Default holiday set - US federal + common cultural - seeded once when the
 // HolidayEvent table is empty (see HolidaysService.ensureSeeded). Not a
 // migration: the instance owner can freely edit/delete/add to this list
 // afterward from Settings; this only fires if nobody's touched it yet.

@@ -27,7 +27,7 @@ export class RulesService {
   }
 
   // Adults see every rule (grouped by who it's for, in the UI); kids see the
-  // shared ones plus whatever's specifically theirs — not other kids' rules.
+  // shared ones plus whatever's specifically theirs - not other kids' rules.
   async list(familyId: string, actingUserId: string) {
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const adult = !!actor && this.isAdult(actor.role);

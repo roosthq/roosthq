@@ -4,10 +4,10 @@ import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
 import DropdownDetails from './DropdownDetails';
 
-// Everyone's own "what's waiting" — in the header, so it's reachable from
+// Everyone's own "what's waiting" - in the header, so it's reachable from
 // any page, not just /chores. An adult gets the same approve/reject actions
 // PendingPanel already has; a kid gets a read-only "still waiting on Casey"
-// list (there is nothing for them to click here — the point is just being
+// list (there is nothing for them to click here - the point is just being
 // able to check, without hunting for the right page, whether their chore
 // or prize request actually went through).
 export default function PendingIndicator({ me }: { me: Me }) {
@@ -22,7 +22,7 @@ export default function PendingIndicator({ me }: { me: Me }) {
 
   useEffect(() => {
     refresh();
-    // No SSE on the main portal (only the kiosk has one) — a light poll plus
+    // No SSE on the main portal (only the kiosk has one) - a light poll plus
     // the same cross-page refresh signal notifications use keeps this from
     // ever being too stale to trust.
     const id = setInterval(refresh, 60_000);
@@ -63,8 +63,8 @@ export default function PendingIndicator({ me }: { me: Me }) {
             <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
               <span className="min-w-0 flex-1 truncate">
                 <span className="font-medium">{chore.title}</span>
-                {isAdult && instance.claimedByUserId && <span className="text-slate-400"> — needs approval</span>}
-                {!isAdult && <span className="text-slate-400"> — waiting on an adult</span>}
+                {isAdult && instance.claimedByUserId && <span className="text-slate-400"> - needs approval</span>}
+                {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
               </span>
               {isAdult ? (
                 <span className="flex shrink-0 items-center gap-1">
@@ -88,7 +88,7 @@ export default function PendingIndicator({ me }: { me: Me }) {
               <span className="min-w-0 flex-1 truncate">
                 {isAdult && <span className="font-medium">{r.user?.displayName ?? 'Someone'} wants </span>}
                 <span className={isAdult ? '' : 'font-medium'}>{r.prize.name}</span>
-                {!isAdult && <span className="text-slate-400"> — waiting on an adult</span>}
+                {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
               </span>
               {isAdult ? (
                 <span className="flex shrink-0 items-center gap-1">

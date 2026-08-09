@@ -39,7 +39,7 @@ export class TokensService {
 
   // Full transaction history for a member (earning + spending). Who created
   // each entry (an adult's manual adjustment, an approval, an award) is
-  // adult-only context — a kid sees the same entries minus that one field.
+  // adult-only context - a kid sees the same entries minus that one field.
   async ledger(familyId: string, actingUserId: string, targetUserId: string) {
     const member = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
@@ -63,7 +63,7 @@ export class TokensService {
   }
 
   // Owner-only: strike a specific history entry entirely (not a reversing
-  // entry like an award removal — this actually deletes the row, and since
+  // entry like an award removal - this actually deletes the row, and since
   // balance is derived by summing the ledger, that alone corrects it).
   async deleteLedgerEntry(familyId: string, actorId: string, entryId: string) {
     await this.assertOwner(actorId);
@@ -89,7 +89,7 @@ export class TokensService {
     if (!reason?.trim()) throw new BadRequestException('A reason is required');
     const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
-    // Loud, not a silent no-op — a manual give/take is a deliberate adult
+    // Loud, not a silent no-op - a manual give/take is a deliberate adult
     // action; better to say why nothing happened than leave them wondering
     // where the tokens went.
     if (member.tokensDisabled) throw new BadRequestException(`${member.displayName} has tokens turned off`);
@@ -101,7 +101,7 @@ export class TokensService {
   }
 
   // Distinct reasons an adult has actually typed before for a manual
-  // give/take, most-used first — lets the quick-adjust modal offer real
+  // give/take, most-used first - lets the quick-adjust modal offer real
   // family history instead of only generic presets. Scoped to
   // MANUAL/PHYSICAL entries only: chore/award/redeem reasons are
   // system-generated text, not something anyone picked from a list.

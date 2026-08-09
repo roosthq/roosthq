@@ -3,7 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
 
 // Pending bonus wheels. Earning one (streak milestone, or an award an adult
-// hands over) never banks tokens by itself — the person who EARNED it spins
+// hands over) never banks tokens by itself - the person who EARNED it spins
 // it, on their own screen or the kiosk, and the server rolls the amount at
 // that moment. That way an adult approving a chore never "uses up" a kid's
 // spin, and the reward stays unguessable until the wheel stops.
@@ -34,7 +34,7 @@ export class WheelsService {
   }
 
   // Spin it: roll inside the stored range, write the ledger entry, stamp it
-  // spun. Only the owner of the wheel can spin (adults can't spin for a kid —
+  // spun. Only the owner of the wheel can spin (adults can't spin for a kid -
   // that's the whole point).
   async spin(familyId: string, userId: string, id: string) {
     const spin = await this.prisma.wheelSpin.findFirst({ where: { id, familyId } });

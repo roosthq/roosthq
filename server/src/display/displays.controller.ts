@@ -15,7 +15,7 @@ export class DisplaysController {
   }
 
   // Calendars selectable for a display: all shared calendars, or (with
-  // ?locationId=) only those shared by someone assigned to that location —
+  // ?locationId=) only those shared by someone assigned to that location -
   // for the Settings UI to offer valid choices as the location changes.
   @Get('calendars')
   calendarsForLocation(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
@@ -37,7 +37,7 @@ export class DisplaysController {
     return this.displays.remove(u.familyId, u.userId, id);
   }
 
-  // Remote "reload this kiosk" — pushed over the display's own SSE stream, no
+  // Remote "reload this kiosk" - pushed over the display's own SSE stream, no
   // Pi access needed. Omit displayConfigId to reload every kiosk in the family.
   @Post('reload')
   reload(@CurrentUser() u: SessionPayload, @Body() body: { displayConfigId?: string }) {

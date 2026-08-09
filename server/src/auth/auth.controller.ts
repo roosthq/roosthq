@@ -41,7 +41,7 @@ export class AuthController {
     // Carry an invite token through the Google round-trip via a short-lived cookie.
     if (invite) res.cookie(INVITE_COOKIE, invite, { ...cookieBase, maxAge: 10 * 60 * 1000 });
     // Fixing a dead refresh token needs the consent screen forced (see
-    // GoogleService.authUrl) — a plain re-login won't reissue one.
+    // GoogleService.authUrl) - a plain re-login won't reissue one.
     res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`, reconnect === '1'));
   }
 
@@ -86,7 +86,7 @@ export class AuthController {
       inviteToken,
     });
 
-    // Unknown account with no invite — don't sign in, send them to a "need invite" page.
+    // Unknown account with no invite - don't sign in, send them to a "need invite" page.
     if (result.status === 'need_invite') {
       return res.redirect(`${WEB_URL}/?auth=need_invite`);
     }
@@ -95,12 +95,12 @@ export class AuthController {
     // establish/refresh the session for the account that just logged in.
     if (!result.linkedMember) {
       // mode=self reconnects/adds a Google account to whoever's ALREADY signed
-      // in (result.userId === existingUserId) — re-signing the session here
+      // in (result.userId === existingUserId) - re-signing the session here
       // was dropping the ghostedBy claim even when the identity didn't
       // actually change, which silently ended an app-owner's ghost session
       // (banner gone, no "return to owner") the moment they reconnected a
       // Google account while ghosted. Only carry it forward when the
-      // resulting user is still the one that was ghosted — a genuine
+      // resulting user is still the one that was ghosted - a genuine
       // identity change (a different account) should NOT inherit it.
       const ghostedBy = result.userId === existingUserId ? existingGhostedBy : undefined;
       res.cookie(SESSION_COOKIE, signSession({ userId: result.userId, familyId: result.familyId, ghostedBy }), {
@@ -111,10 +111,10 @@ export class AuthController {
     return res.redirect(`${WEB_URL}/?auth=${result.linkedMember ? 'member_added' : 'ok'}`);
   }
 
-  // Google is optional — register/log in with just a local password instead.
+  // Google is optional - register/log in with just a local password instead.
   // inviteToken comes straight from the URL's ?invite= param (the SPA already
   // has it client-side) rather than the cookie dance the Google redirect
-  // flow needs — there's no redirect round-trip here to carry it across.
+  // flow needs - there's no redirect round-trip here to carry it across.
   @Post('local/register')
   async localRegister(
     @Body() body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string },
@@ -133,7 +133,7 @@ export class AuthController {
 
   @Post('local/login')
   async localLogin(@Body() body: { identifier: string; password: string }, @Res() res: Response) {
-    // Keyed on the identifier, not the caller's IP — a family sits behind one
+    // Keyed on the identifier, not the caller's IP - a family sits behind one
     // home IP, so an IP-only lockout would let one kid mashing a wrong PIN-ish
     // guess lock out the whole household. Case-insensitive to match how
     // email/username lookups already work in AuthService.loginLocal.
@@ -152,7 +152,7 @@ export class AuthController {
     return res.json({ ok: true });
   }
 
-  // Adult/owner adds a member (typically a kid) directly from Settings —
+  // Adult/owner adds a member (typically a kid) directly from Settings -
   // no invite link, no Google/email required.
   @UseGuards(AuthGuard)
   @Post('local/member')
@@ -165,7 +165,7 @@ export class AuthController {
 
   // Owner/family manager resetting someone else's password (the fallback for
   // accounts with no email), OR self-service (any role, `id` === the caller's
-  // own — see AuthService.setLocalPassword for the currentPassword rule).
+  // own - see AuthService.setLocalPassword for the currentPassword rule).
   @UseGuards(AuthGuard)
   @Put('local/:id/password')
   setLocalPassword(
@@ -176,7 +176,7 @@ export class AuthController {
     return this.auth.setLocalPassword(u.userId, u.familyId, id, body.password, body.currentPassword);
   }
 
-  // Self-service profile edit — display name, username, email, avatar.
+  // Self-service profile edit - display name, username, email, avatar.
   @UseGuards(AuthGuard)
   @Patch('me/profile')
   updateProfile(
@@ -186,7 +186,7 @@ export class AuthController {
     return this.auth.updateProfile(u.userId, body, u.ghostedBy);
   }
 
-  // My own connected Google accounts — label-only (email, needs-reconnect,
+  // My own connected Google accounts - label-only (email, needs-reconnect,
   // when connected), not calendar data.
   @UseGuards(AuthGuard)
   @Get('google/accounts')
@@ -196,7 +196,7 @@ export class AuthController {
 
   // Disconnects one of my own Google accounts. Cascades: any Calendar rows
   // shared from it (and their CalendarShare rows) go too (schema onDelete:
-  // Cascade) — the frontend confirms that loudly before calling this.
+  // Cascade) - the frontend confirms that loudly before calling this.
   @UseGuards(AuthGuard)
   @Delete('google/accounts/:id')
   disconnectGoogleAccount(@CurrentUser() u: SessionPayload, @Param('id') id: string) {

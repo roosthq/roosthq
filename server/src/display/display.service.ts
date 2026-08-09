@@ -40,7 +40,7 @@ export class DisplayService {
   ) {}
 
   // Events for the family's default display calendars. The kiosk doesn't need to know
-  // which calendars — the server resolves them from settings. Accepts an optional
+  // which calendars - the server resolves them from settings. Accepts an optional
   // date range (for the month grid); defaults to this week.
   async displayEvents(familyId: string, start?: string, end?: string) {
     const settings = await this.get(familyId);
@@ -59,11 +59,11 @@ export class DisplayService {
     const isAdult = user.role === 'OWNER' || user.role === 'FAMILY_MANAGER' || user.role === 'ADULT';
 
     // pinDisabled only ever excuses a KID from re-entering a PIN they keep
-    // forgetting — an adult still must have and use one; that requirement is
+    // forgetting - an adult still must have and use one; that requirement is
     // the actual security boundary between "anyone at the kiosk" and "an
     // adult", so it can't be waived the same way.
     if (user.pinHash && !(user.pinDisabled && !isAdult)) {
-      // A PIN is 4-6 digits — trivially guessable without a lockout. Keyed
+      // A PIN is 4-6 digits - trivially guessable without a lockout. Keyed
       // per-profile, not per-display, so the same kid mashing buttons on two
       // different kiosks in the house still only gets one attempt budget.
       const key = `pin:${familyId}:${userId}`;

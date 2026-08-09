@@ -17,7 +17,7 @@ export class LocationsService {
     return this.prisma.location.create({ data: { familyId, name, timezone: DEFAULT_TIMEZONE } });
   }
 
-  // Also covers timezone — everything time-related for chores at this
+  // Also covers timezone - everything time-related for chores at this
   // location (due dates, "missed" checks) is computed in it.
   async update(familyId: string, id: string, data: { name?: string; timezone?: string }) {
     await this.owned(familyId, id);

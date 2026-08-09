@@ -48,7 +48,7 @@ export class AwardsService {
     return a;
   }
 
-  // The full catalog — adults only, since a kid seeing this would spoil the
+  // The full catalog - adults only, since a kid seeing this would spoil the
   // surprise of anything not yet given to them.
   async catalog(familyId: string, actorId: string) {
     await this.assertAdult(actorId);
@@ -112,7 +112,7 @@ export class AwardsService {
     return { ok: true };
   }
 
-  // What a kid has actually been given — only award types with >=1 grant to
+  // What a kid has actually been given - only award types with >=1 grant to
   // them, each with how many times. This is the one award-related view a kid
   // (or anyone looking at their own profile) is allowed to see.
   async earned(familyId: string, actingUserId: string, targetUserId: string) {
@@ -133,7 +133,7 @@ export class AwardsService {
     for (const g of grants) {
       const existing = byAward.get(g.awardId);
       // The adult's note on WHY this one was given ("for cleaning the
-      // garage") — a kid earning the same award type more than once can have
+      // garage") - a kid earning the same award type more than once can have
       // a different reason each time, so this collects every non-empty one,
       // newest first (grants are already fetched in that order).
       if (existing) {
@@ -153,7 +153,7 @@ export class AwardsService {
     return [...byAward.values()];
   }
 
-  // Adults-only, family-wide grant history — who gave what to whom, the note,
+  // Adults-only, family-wide grant history - who gave what to whom, the note,
   // the token value actually given, and when. Newest first.
   async history(familyId: string, actorId: string) {
     await this.assertAdult(actorId);
@@ -188,7 +188,7 @@ export class AwardsService {
       data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue },
     });
     // The trophy/badge (AwardGrant) always records the award, same as a
-    // chore always completes regardless — this only gates the ledger entry.
+    // chore always completes regardless - this only gates the ledger entry.
     if (tokenValue > 0 && !recipient.tokensDisabled) {
       await this.prisma.tokenLedger.create({
         data: {
@@ -202,7 +202,7 @@ export class AwardsService {
       });
     }
     // Bonus wheel attached to this award: server picks the amount (client
-    // wheels are pure theater landing on it) — but nothing is banked here:
+    // wheels are pure theater landing on it) - but nothing is banked here:
     // the wheel is QUEUED for the recipient to spin on their own screen or
     // the kiosk. The grown-up handing over the award never spins it for them.
     let wheelQueued = false;
@@ -215,7 +215,7 @@ export class AwardsService {
         familyId,
         dto.userId,
         'AWARD_GRANTED',
-        `🎡 "${award.name}" comes with a bonus wheel — go spin it!`,
+        `🎡 "${award.name}" comes with a bonus wheel - go spin it!`,
         { link: '/chores', refId: grant.id },
       );
     }
@@ -247,7 +247,7 @@ export class AwardsService {
   // not summed, so a wheel bonus already reversed can't be clawed back twice.
   // No `type` filter on purpose: WheelsService.spin writes its ledger entry as
   // STREAK_BONUS (it serves streak milestones too) while the reversal below is
-  // an AWARD entry — matching on refId plus the reason is what actually
+  // an AWARD entry - matching on refId plus the reason is what actually
   // identifies these rows.
   private async wheelTokensFor(grantId: string) {
     const entries = await this.prisma.tokenLedger.findMany({
@@ -262,7 +262,7 @@ export class AwardsService {
 
   // Undo a specific grant: removes the badge (so it no longer counts toward
   // "earned") and, when `removeTokens`, reverses its tokens with a new negative
-  // ledger entry rather than deleting the original — same audit-trail
+  // ledger entry rather than deleting the original - same audit-trail
   // convention as a rejected redemption refund elsewhere in this app.
   // `removeTokens: false` leaves the tokens banked (they earned them fairly,
   // the badge was just given by mistake).
@@ -275,10 +275,10 @@ export class AwardsService {
     });
     if (!grant) throw new NotFoundException('Award grant not found');
     const recipient = await this.prisma.user.findUnique({ where: { id: grant.userId }, select: { tokensDisabled: true } });
-    // An unspun wheel from this grant simply goes away, tokens or not — there
+    // An unspun wheel from this grant simply goes away, tokens or not - there
     // is nothing left to spin for.
     await this.wheels.deleteUnspunFor(grant.id);
-    // Mirrors grant()'s own gate — if tokens were disabled (still are), no
+    // Mirrors grant()'s own gate - if tokens were disabled (still are), no
     // forward entry exists to reverse; writing one anyway would be a
     // phantom negative entry with nothing to offset.
     if (removeTokens && !recipient?.tokensDisabled) {
@@ -311,7 +311,7 @@ export class AwardsService {
     }
     await this.prisma.awardGrant.delete({ where: { id: grantId } });
     // The "you got an award!" / "go spin your wheel" feed entries deep-link to
-    // something that no longer exists — take them with it.
+    // something that no longer exists - take them with it.
     await this.notifications.removeByRef(grant.id);
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ok: true, tokensRemoved: removeTokens };

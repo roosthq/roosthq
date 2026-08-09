@@ -6,18 +6,18 @@ import { formatDate } from './dateFormat';
 
 // Adults, family managers, and the owner can invite people and manage PINs;
 // only the owner/family manager can change roles or remove members, and only
-// the owner/family manager can manage another adult's PIN — plain adults may
+// the owner/family manager can manage another adult's PIN - plain adults may
 // only manage their own PIN and any kid's. Resetting history follows the
 // same shape: yourself always, any kid, but another adult or a manager-tier
 // account only if you're the owner or a family manager yourself. The owner
-// account itself is protected from role changes/removal here — that's a
+// account itself is protected from role changes/removal here - that's a
 // deliberate separate flow, not a quick dropdown pick.
 export default function MembersManager({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const canManagePin = (m: Member) => m.id === me.id || isFamilyManager || m.role === 'KID';
   const canReset = (m: Member) => m.id === me.id || m.role === 'KID' || isFamilyManager;
-  // Mirrors UsersService.setTokensDisabled exactly — server re-checks this
+  // Mirrors UsersService.setTokensDisabled exactly - server re-checks this
   // too, but the row shouldn't even offer the control when it'd just 403.
   const canToggleTokens = (m: Member) =>
     isOwner ||
@@ -133,7 +133,7 @@ export default function MembersManager({ me }: { me: Me }) {
   }
   async function resetAccount(m: Member) {
     const ok = await confirm(
-      `Reset ${m.displayName}'s account? This permanently clears their token balance, full token history, purchase history, and notifications — it can't be undone. Their PIN, theme, text size, and other settings stay exactly as they are.`,
+      `Reset ${m.displayName}'s account? This permanently clears their token balance, full token history, purchase history, and notifications - it can't be undone. Their PIN, theme, text size, and other settings stay exactly as they are.`,
       { danger: true, confirmLabel: 'Reset' },
     );
     if (!ok) return;
@@ -194,7 +194,7 @@ export default function MembersManager({ me }: { me: Me }) {
         )}
       </div>
 
-      {/* Add directly — no invite link, no Google needed */}
+      {/* Add directly - no invite link, no Google needed */}
       <div className="mt-3 rounded bg-slate-100 p-3">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Or add someone directly as</span>
@@ -247,7 +247,7 @@ export default function MembersManager({ me }: { me: Me }) {
       {/* One card per person: name + role header, then labeled settings in a
           grid that stacks on a phone and goes two-up once there's room, then
           the destructive actions on their own line. The old version was a
-          single wrapped row of a dozen unlabeled controls — unreadable on
+          single wrapped row of a dozen unlabeled controls - unreadable on
           anything narrow. */}
       <ul className="mt-3 space-y-3 text-sm">
         {members.map((m) => (
@@ -306,7 +306,7 @@ export default function MembersManager({ me }: { me: Me }) {
                   )}
                 </div>
                 {/* Kid-only master switch: not "excuse them from re-entering
-                    it" but "nobody can give this kid a PIN at all" — turning
+                    it" but "nobody can give this kid a PIN at all" - turning
                     it on clears whatever PIN existed and hides Set/Change
                     above. Doesn't apply to adults, whose PIN is a real kiosk
                     security boundary, not something to opt out of. */}

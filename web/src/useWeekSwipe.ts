@@ -1,7 +1,7 @@
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 
 // Shared swipe-to-page recognizer for any week-at-a-time grid (dinner plan,
-// and anything else that pages by a fixed unit) — same threshold-based
+// and anything else that pages by a fixed unit) - same threshold-based
 // approach as Calendar.tsx's day-grid swipe (mouse drags work the same as a
 // real touchscreen; both just fire pointerdown/up). Returns the props to
 // spread onto the swipeable container plus the two bits needed to drive the
@@ -39,7 +39,7 @@ export function useWeekSwipe(onNavigate: (delta: 1 | -1) => void) {
       onPointerCancel: () => {
         swipeRef.current = null;
       },
-      // Horizontal-only recognizer, so keep vertical page scroll working —
+      // Horizontal-only recognizer, so keep vertical page scroll working -
       // same reasoning as Calendar.tsx's month view (see there for why this
       // has to exclude the axis being recognized or a real touchscreen
       // fires pointercancel before pointerup ever runs).

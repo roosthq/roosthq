@@ -94,8 +94,8 @@ function Dashboard({ me }: { me: Me }) {
 }
 
 // Compact multi-select: a checkbox list tucked behind a summary toggle instead
-// of a wall of pills. Used by every role — only the candidate `options` differ.
-// Also reused in Settings (touch display calendar picker) — same shape there.
+// of a wall of pills. Used by every role - only the candidate `options` differ.
+// Also reused in Settings (touch display calendar picker) - same shape there.
 export function CalendarFilterDropdown({
   options,
   visible,
@@ -198,7 +198,7 @@ export default function CalendarPage({ me }: { me: Me }) {
     return { map: m, list };
   }, [choreOccurrences, members, personColor]);
 
-  // Checked proactively so a dead Google connection surfaces on page load —
+  // Checked proactively so a dead Google connection surfaces on page load -
   // not just as a mysteriously-empty calendar or a "Manage calendars" click
   // that quietly does nothing.
   useEffect(() => {
@@ -206,7 +206,7 @@ export default function CalendarPage({ me }: { me: Me }) {
     api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
   }, [isAdult]);
 
-  // Everyone still gets to filter — but non-owners only get to choose among a
+  // Everyone still gets to filter - but non-owners only get to choose among a
   // location-scoped subset: adults see calendars shared by anyone at their own
   // location; kids see whatever's on their location's touch display. Owners see
   // (and can filter among) every shared family calendar.
@@ -214,7 +214,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   // allowedIds/scopeReady are resolved together in one async pass (not derived
   // piecemeal from several independent fetches) specifically so there's no
   // window where "the location/display data hasn't loaded yet" is indistinguishable
-  // from "this person has no restriction" — that gap used to let a kid's very
+  // from "this person has no restriction" - that gap used to let a kid's very
   // first render show (and fetch events for) every family calendar, including
   // ones they don't have access to, before narrowing a moment later.
   const [allowedIds, setAllowedIds] = useState<Set<string> | null>(null);
@@ -263,8 +263,8 @@ export default function CalendarPage({ me }: { me: Me }) {
     [allowedIds, shared],
   );
   // Holidays are visible/toggleable like any other calendar but aren't a
-  // real writable calendar underneath — nothing to POST/PATCH/DELETE against
-  // — so they're excluded from what "+ Add event" (and editing) offer.
+  // real writable calendar underneath - nothing to POST/PATCH/DELETE against
+  // - so they're excluded from what "+ Add event" (and editing) offer.
   const addableOptions = useMemo(() => filterOptions.filter((c) => c.source !== 'holiday'), [filterOptions]);
   const addableCalendarIds = useMemo(() => new Set(addableOptions.map((c) => c.id)), [addableOptions]);
 
@@ -302,15 +302,15 @@ export default function CalendarPage({ me }: { me: Me }) {
       // and unchecking one removes my share of it.
       setPicked(new Set(shared.filter((c) => c.sharedByMe && c.googleCalendarId).map((c) => c.googleCalendarId as string)));
     } catch {
-      // Re-check status rather than assume — this could be any failure, but
+      // Re-check status rather than assume - this could be any failure, but
       // if it's specifically a dead Google connection the banner should now
       // reflect that instead of the click just silently doing nothing.
       const s = await api.googleAccountStatus().catch(() => ({ needsReconnect: false }));
       setNeedsReconnect(s.needsReconnect);
       await alert(
         s.needsReconnect
-          ? 'A connected Google account needs to be reconnected before calendars can be managed — see the banner above.'
-          : "Couldn't load your Google calendars — try again in a moment.",
+          ? 'A connected Google account needs to be reconnected before calendars can be managed - see the banner above.'
+          : "Couldn't load your Google calendars - try again in a moment.",
       );
     }
   }
@@ -357,7 +357,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       {needsReconnect && (
         <div className="alert-banner mb-4 flex flex-wrap items-center gap-2 p-3 text-sm">
           <span className="flex-1">
-            A connected Google account's calendar access expired — its calendars and events won't show up until it's
+            A connected Google account's calendar access expired - its calendars and events won't show up until it's
             reconnected. Signing out and back in won't fix this by itself; it needs to go through Google's consent
             screen again.
           </span>

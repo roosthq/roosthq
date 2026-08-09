@@ -25,7 +25,7 @@ export class CalendarsController {
     return this.calendars.listGoogleCalendars(u.userId);
   }
 
-  // Whether a connected Google account needs reconnecting — checked
+  // Whether a connected Google account needs reconnecting - checked
   // proactively on page load, not just after a click quietly does nothing.
   @Get('google/status')
   googleStatus(@CurrentUser() u: SessionPayload) {

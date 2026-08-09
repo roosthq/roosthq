@@ -14,7 +14,7 @@ const ACTION_COLOR: Record<string, string> = {
   'chore.delete': 'text-red-500',
 };
 
-// Owner/family-manager only — who created, edited, or deleted a chore, and
+// Owner/family-manager only - who created, edited, or deleted a chore, and
 // exactly what settings changed. Separate from ChoreHistoryPanel, which is
 // visible to any adult and tracks occurrence activity (completed/approved),
 // not a record of who touched the chore's own settings. Per-chore only (no

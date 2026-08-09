@@ -7,7 +7,7 @@ import { SuggestPrizeModal } from './pages/StorePage';
 
 type Actor = { id: string; role: string; displayName: string };
 
-// Kiosk-only prize browsing + redeeming — adding/editing prizes stays on the
+// Kiosk-only prize browsing + redeeming - adding/editing prizes stays on the
 // normal portal (adults use StorePage for that); this is deliberately a
 // read-and-redeem-only view for whoever's signed into the touch display.
 export default function PrizesPanel({
@@ -19,9 +19,9 @@ export default function PrizesPanel({
   me: Actor;
   client?: PrizeClient;
   // Bump this (e.g. on an incoming live-update push) to force an immediate
-  // refetch from outside — see ChoresPanel's identical prop for why.
+  // refetch from outside - see ChoresPanel's identical prop for why.
   refreshSignal?: number;
-  // Kiosk profile token — needed to file a wishlist request as this person.
+  // Kiosk profile token - needed to file a wishlist request as this person.
   kioskToken?: string;
 }) {
   const client = clientProp ?? prizeClient();
@@ -35,7 +35,7 @@ export default function PrizesPanel({
   const [self, setSelf] = useState<Member | null>(null);
   // Wishlist requests aren't prizes yet: they have no cost and can't be
   // redeemed. The server already hides other people's, so anything suggested
-  // here is this person's own — show it in its own "waiting" list instead of
+  // here is this person's own - show it in its own "waiting" list instead of
   // mixed into the store at 0 tokens with a Redeem button.
   const storePrizes = prizes.filter((p) => !p.suggested);
   const myRequests = prizes.filter((p) => p.suggested);
@@ -74,7 +74,7 @@ export default function PrizesPanel({
       setViewing(null);
       await refresh();
     } catch {
-      await alert('Could not redeem — not enough ' + tokenName + '?');
+      await alert('Could not redeem - not enough ' + tokenName + '?');
     }
   }
 

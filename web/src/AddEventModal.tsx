@@ -19,12 +19,12 @@ const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 // Remembers the last calendar picked for a quick-add, so re-opening this
 // modal doesn't require re-selecting it every single time. Per-browser, not
-// synced anywhere — deliberately low-stakes, just a UI convenience.
+// synced anywhere - deliberately low-stakes, just a UI convenience.
 const LAST_CALENDAR_KEY = 'roosthq.lastEventCalendarId';
 
 // Reads a Google/local event's own start/end strings directly (no Date object
 // round-trip) so the fields shown here are exactly what the event actually
-// says — going through Date would silently convert into the browser's own
+// says - going through Date would silently convert into the browser's own
 // timezone, which can differ from the timezone the event was created in.
 function prefillFromExisting(e: CalEvent) {
   const isAllDay = !!e.start?.date && !e.start?.dateTime;
@@ -46,9 +46,9 @@ function prefillFromExisting(e: CalEvent) {
   };
 }
 
-// Add — or edit — an event on any calendar the signed-in person already has
+// Add - or edit - an event on any calendar the signed-in person already has
 // write access to (the `options` list is pre-scoped by the caller to exclude
-// read-only ones like Holidays) — attribution is stamped server-side from
+// read-only ones like Holidays) - attribution is stamped server-side from
 // the session, not passed in here. Supports all-day, multi-day, and
 // start/end time blocks, mirroring how Google Calendar itself builds an
 // event resource.
@@ -65,14 +65,14 @@ export default function AddEventModal({
   onDelete,
 }: {
   options: SharedCalendar[];
-  // Prefills both start/end — from the calendar day-modal's "+ Add event",
+  // Prefills both start/end - from the calendar day-modal's "+ Add event",
   // which already knows which day was clicked. Falls back to today. Ignored
   // when `existing` is set (its own dates win).
   initialDate?: string;
   // The event being edited, or omit entirely to create a new one.
   existing?: CalEvent;
   // Shows that day's dinner plan (with a link to the whole week) at the top
-  // of the form — only for a brand-new event, since that's what a plain day
+  // of the form - only for a brand-new event, since that's what a plain day
   // click opens. `canEditMeal` gates the inline edit; setMeal is adult-only
   // server-side regardless, this just keeps the control from appearing to a
   // kid who can still add their own calendar events.
@@ -103,7 +103,7 @@ export default function AddEventModal({
   const [deleting, setDeleting] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  // Dinner plan for whichever day this event starts on — only for a
+  // Dinner plan for whichever day this event starts on - only for a
   // brand-new event (a day click, not editing something that already
   // exists). Refetches as the start date changes so it always matches what's
   // currently in the form, not just wherever the day click originally landed.
@@ -167,7 +167,7 @@ export default function AddEventModal({
         localStorage.setItem(LAST_CALENDAR_KEY, calendarId);
       }
     } catch {
-      setErr(existing ? 'Could not save changes — try again.' : 'Could not add the event — try again.');
+      setErr(existing ? 'Could not save changes - try again.' : 'Could not add the event - try again.');
     } finally {
       setSaving(false);
     }
@@ -180,7 +180,7 @@ export default function AddEventModal({
     try {
       await onDelete?.(existing.calendarId, existing.id);
     } catch {
-      setErr('Could not delete — try again.');
+      setErr('Could not delete - try again.');
       setDeleting(false);
     }
   }
@@ -238,7 +238,7 @@ export default function AddEventModal({
                   }}
                   className="min-w-0 flex-1 truncate text-left disabled:cursor-default"
                 >
-                  {meal?.title ?? <span className="text-slate-400">{canEditMeal ? 'No dinner planned — tap to add' : 'No dinner planned'}</span>}
+                  {meal?.title ?? <span className="text-slate-400">{canEditMeal ? 'No dinner planned - tap to add' : 'No dinner planned'}</span>}
                 </button>
               )}
               <button onClick={() => setDinnerWeekOpen(true)} className="shrink-0 text-xs underline hover:no-underline">
@@ -250,7 +250,7 @@ export default function AddEventModal({
             <span className="text-slate-500">Calendar</span>
             {existing ? (
               // Moving an event to a different calendar isn't supported (the
-              // update call is scoped to the calendar it's already on) —
+              // update call is scoped to the calendar it's already on) -
               // shown as plain text instead of a picker that would silently
               // do nothing if changed.
               <p className="mt-1 w-full rounded border bg-slate-50 px-2 py-1.5 text-slate-600">{calendarName}</p>

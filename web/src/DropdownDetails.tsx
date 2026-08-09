@@ -1,7 +1,7 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 
 // Native <details>/<summary> makes a decent zero-JS dropdown shell (the
-// summary toggles it, no open/close state to manage) — except it has no
+// summary toggles it, no open/close state to manage) - except it has no
 // built-in "close when you click anywhere else", so it just stays open
 // forever until the summary is clicked again. This wraps it with exactly
 // that one missing behavior; everything else about <details> is untouched.

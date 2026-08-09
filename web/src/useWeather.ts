@@ -18,7 +18,7 @@ export interface WeatherNow {
 }
 
 // WMO weather codes (what Open-Meteo returns) collapsed to a simple icon +
-// label — not exhaustive, just the common buckets a glance actually needs.
+// label - not exhaustive, just the common buckets a glance actually needs.
 const WMO: Record<number, { icon: string; label: string }> = {
   0: { icon: '☀️', label: 'Clear' },
   1: { icon: '🌤️', label: 'Mostly clear' },
@@ -49,7 +49,7 @@ function describe(code: number): { icon: string; label: string } {
 
 // `new Date("2026-08-06")` parses a date-only string as UTC midnight, so
 // displaying it via toLocaleDateString (which converts to the browser's
-// local zone) shifts it back a calendar day for anyone west of UTC —
+// local zone) shifts it back a calendar day for anyone west of UTC -
 // Phoenix (UTC-7) would show that instant as 5pm the day before, making
 // every forecast date render one day early. Parse as local-time components
 // instead, no UTC round-trip.
@@ -63,7 +63,7 @@ const REFRESH_MS = 15 * 60_000;
 // Geocodes `location` once per distinct string (Open-Meteo's free, keyless
 // geocoding + forecast APIs), then polls current conditions + a 10-day daily
 // forecast (one combined request) every 15 minutes. Shared by the kiosk
-// header and the screensaver via one call site each — same data, same
+// header and the screensaver via one call site each - same data, same
 // schedule, no duplicate polling.
 export function useWeather(location: string | null | undefined): WeatherNow | null {
   const [weather, setWeather] = useState<WeatherNow | null>(null);
@@ -113,7 +113,7 @@ export function useWeather(location: string | null | undefined): WeatherNow | nu
           : [];
         setWeather({ tempF: Math.round(temp), icon: desc.icon, label: desc.label, lat, lon, forecast });
       } catch {
-        // transient network blip — keep showing the last-known reading
+        // transient network blip - keep showing the last-known reading
         // rather than clearing it.
       }
     }

@@ -7,7 +7,7 @@ import { ChoresService } from '../chores/chores.service';
 import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, type DateKey } from '../common/timezone';
 import { HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
 
-// Same synthetic entry CalendarsService.listShared appends — kept in sync
+// Same synthetic entry CalendarsService.listShared appends - kept in sync
 // deliberately (both need the exact same id/name/color so a display's
 // calendarIds selection round-trips against either picker).
 const HOLIDAYS_CALENDAR_ENTRY = {
@@ -18,7 +18,7 @@ const HOLIDAYS_CALENDAR_ENTRY = {
 };
 
 // An event has "passed" once its end (or start, if it has no end) is
-// behind us — all-day events (date-only, no dateTime) never count as
+// behind us - all-day events (date-only, no dateTime) never count as
 // passed within the day they're already scoped to.
 function eventHasPassed(e: Record<string, unknown>, now: Date): boolean {
   const start = e.start as { dateTime?: string; date?: string } | undefined;
@@ -35,14 +35,14 @@ function keyToIso(key: DateKey): string {
 // Google (and iCal generally) treats an all-day event's start/end.date as
 // timezone-naive UTC-midnight for query purposes, not the location's own
 // midnight. For any zone behind UTC, "today's" end-of-day instant
-// (23:59:59.999 local) lands well into UTC tomorrow — past tomorrow's
-// midnight-UTC all-day start — so the Google API's timeMin/timeMax window
+// (23:59:59.999 local) lands well into UTC tomorrow - past tomorrow's
+// midnight-UTC all-day start - so the Google API's timeMin/timeMax window
 // hands back tomorrow's all-day event alongside today's. That's the actual
 // bleed the screensaver was showing.
 //
 // Fix: for all-day events specifically, ignore the instant-based window
 // Google (or anything else) matched on and check plain calendar-date
-// membership instead — end.date is exclusive per the iCal/Google convention,
+// membership instead - end.date is exclusive per the iCal/Google convention,
 // so a genuine 3-day trip still shows on all 3 days, just never on a 4th.
 function isAllDayEvent(e: Record<string, unknown>): boolean {
   const start = e.start as { dateTime?: string; date?: string } | undefined;
@@ -127,12 +127,12 @@ export class DisplaysService {
     return this.prisma.displayConfig.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
   }
 
-  // Pushes a reload over the same SSE stream every kiosk already holds open —
+  // Pushes a reload over the same SSE stream every kiosk already holds open -
   // for a Pi that's frozen, stuck on a stale render, or otherwise misbehaving,
   // without anyone walking over to it. Scoped to one display config, or every
   // kiosk in the family when omitted. Can't help a kiosk whose own display
   // token was actually revoked (its stream never connected in the first place
-  // — nothing is listening); this only reaches ones that are still up.
+  // - nothing is listening); this only reaches ones that are still up.
   async remoteReload(actorId: string, familyId: string, displayConfigId?: string | null) {
     await this.assertAdult(actorId);
     if (displayConfigId) await this.owned(familyId, displayConfigId);
@@ -169,7 +169,7 @@ export class DisplaysService {
     await this.assertAdult(actorId);
     const existing = await this.owned(familyId, id);
     // If the location is changing (or calendars are), re-check calendarIds against
-    // whoever is in scope now — a calendar shared only by someone outside the new
+    // whoever is in scope now - a calendar shared only by someone outside the new
     // location shouldn't silently stay selected.
     const locationId = dto.locationId !== undefined ? dto.locationId : existing.locationId;
     const calendarIds =
@@ -198,7 +198,7 @@ export class DisplaysService {
     return updated;
   }
 
-  // Family-wide token balances for the idle profile picker — no signed-in
+  // Family-wide token balances for the idle profile picker - no signed-in
   // profile needed (same "display token is enough" rule as membersFor
   // below), so a kid's balance is visible on the tap-your-photo screen
   // before anyone's actually unlocked anything.
@@ -206,7 +206,7 @@ export class DisplaysService {
     return this.chores.balances(familyId);
   }
 
-  // People assigned to a location (adults: one; kids: possibly several) — or the
+  // People assigned to a location (adults: one; kids: possibly several) - or the
   // whole family when the display isn't scoped to a location.
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
@@ -218,7 +218,7 @@ export class DisplaysService {
       displayName: u.displayName,
       role: u.role,
       avatar: u.avatar,
-      // Whether the kiosk should actually prompt for a PIN — a kid with a
+      // Whether the kiosk should actually prompt for a PIN - a kid with a
       // stored PIN they've been temporarily excused from entering shows no
       // lock icon and unlocks with a tap, same as never having set one.
       hasPin: !!u.pinHash && !u.pinDisabled,
@@ -228,7 +228,7 @@ export class DisplaysService {
     }));
   }
 
-  // Calendars shared by anyone in a location — or every shared family calendar
+  // Calendars shared by anyone in a location - or every shared family calendar
   // when there's no location scope.
   async calendarsForLocation(familyId: string, locationId?: string | null) {
     const google = await this.prisma.calendar.findMany({
@@ -248,7 +248,7 @@ export class DisplaysService {
     return calendarIds.filter((id) => allowed.has(id));
   }
 
-  // Flips this kiosk's own light/dark setting — deliberately reachable with
+  // Flips this kiosk's own light/dark setting - deliberately reachable with
   // just the display token, no signed-in adult, same as the other physical
   // kiosk controls (screensaver-now, refresh, fullscreen). It's a property of
   // the hardware sitting on the wall, not a family-data mutation, so gating
@@ -368,17 +368,17 @@ export class DisplaysService {
 
   // Combined "at a glance" feed for the kiosk's idle screensaver: still-open
   // chores plus calendar events, scoped exactly like the rest of a display's
-  // config (location for chores, calendarIds for events) — works with just a
+  // config (location for chores, calendarIds for events) - works with just a
   // display token, no signed-in profile needed.
   //
   // Today's already-passed items are dropped (a chore due at 8am, or an
   // event that already ended, has nothing left to tell you at 9pm). If
   // that leaves today empty, walks forward day by day (capped at 14) for the
-  // next day with anything at all, unfiltered — nothing "passed" yet on a
+  // next day with anything at all, unfiltered - nothing "passed" yet on a
   // day that hasn't happened.
   async todaysSummary(familyId: string, config: ResolvedConfig) {
     // Same fix as ChoresService.dueToday: "today" has to mean the display's
-    // own location's wall-clock day, not the server process's ambient UTC —
+    // own location's wall-clock day, not the server process's ambient UTC -
     // otherwise a naive UTC day boundary shows tomorrow's (or yesterday's)
     // events depending on the hour, for any family not in UTC.
     const tz = config.locationId
@@ -396,7 +396,7 @@ export class DisplaysService {
         this.chores.dueOnDay(familyId, config.locationId, key, tz, { excludePassed: isToday }),
         this.events(familyId, config, startOfDay.toISOString(), endOfDay.toISOString()),
       ]);
-      // All-day membership is checked on every day walked, not just today —
+      // All-day membership is checked on every day walked, not just today -
       // the same UTC-boundary bleed would otherwise just shift the wrong
       // event onto whichever future day's fetch happened to catch it.
       const events = rawEvents

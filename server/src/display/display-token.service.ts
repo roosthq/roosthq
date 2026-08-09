@@ -21,7 +21,7 @@ export class DisplayTokenService {
   async mint(familyId: string, userId: string, label?: string, displayConfigId?: string) {
     await this.assertOwner(userId);
     // Never trusted the caller's displayConfigId belonged to their own
-    // family — an owner ghosted/switched between families (or just a bad
+    // family - an owner ghosted/switched between families (or just a bad
     // request) could mint a token scoped to THEIR familyId that points at
     // someone else's display config, which the kiosk this token ends up on
     // would then never resolve correctly (or worse, silently show the wrong

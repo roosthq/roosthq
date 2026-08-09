@@ -15,7 +15,7 @@ export class AwardsController {
     return this.awards.catalog(u.familyId, u.userId);
   }
 
-  // What a given member has actually earned — defaults to the caller.
+  // What a given member has actually earned - defaults to the caller.
   @Get('earned')
   earned(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string) {
     return this.awards.earned(u.familyId, u.userId, userId || u.userId);

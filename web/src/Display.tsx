@@ -54,7 +54,7 @@ export default function Display() {
   const [error, setError] = useState<string | null>(null);
 
   const [members, setMembers] = useState<Member[]>([]);
-  // Family-wide balances for the idle profile picker — display-token-scoped
+  // Family-wide balances for the idle profile picker - display-token-scoped
   // (DisplayController.balances), no signed-in profile needed, same as
   // `members` itself right below.
   const [pickerBalances, setPickerBalances] = useState<Balance[]>([]);
@@ -82,7 +82,7 @@ export default function Display() {
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('🪙');
   const [chores, setChores] = useState<Chore[]>([]);
-  // Bumped on any incoming chores/prizes/tokens live-update push — passed down
+  // Bumped on any incoming chores/prizes/tokens live-update push - passed down
   // to ChoresPanel/PrizesPanel so they refetch immediately instead of only on
   // mount. refreshEvents isn't declared yet at this point in the component, so
   // it's read through a ref (populated by an effect further down) rather than
@@ -90,7 +90,7 @@ export default function Display() {
   const [dataRefreshSignal, setDataRefreshSignal] = useState(0);
   const refreshEventsRef = useRef<() => void>(() => undefined);
   // Forces a signed-in adult/family-manager/owner back to the idle picker
-  // whenever the screensaver comes up (idle timeout or the manual button) —
+  // whenever the screensaver comes up (idle timeout or the manual button) -
   // a kid tapping the screen awake should never land in an adult's still-
   // signed-in session. Kids stay signed in; only adult+ gets kicked. Reads
   // through a ref (populated by an effect further down, after activeRef/
@@ -99,17 +99,17 @@ export default function Display() {
   const lockIfAdultRef = useRef<() => void>(() => undefined);
 
   // Full-screen clock after N idle minutes (DisplayConfig.screensaverMinutes,
-  // 0 = disabled). This effect only ever *arms* the screensaver — it never
+  // 0 = disabled). This effect only ever *arms* the screensaver - it never
   // turns it off. Turning it off is Screensaver's own onClick's job alone
   // (see onDismiss below). Reason: touchstart/mousedown fire on the SAME tap
   // that dismisses the overlay, before the click that actually does the
-  // dismissing — if this reschedule function also called
+  // dismissing - if this reschedule function also called
   // setScreensaverOn(false) synchronously on that touchstart, the overlay
   // would unmount mid-gesture and the browser's synthesized click (which
   // follows touchend) would re-hit-test and land on whatever's now
   // underneath instead of being absorbed by the overlay. Rescheduling the
   // *next* idle timeout on every activity event is still correct and safe
-  // here — it just must not touch the current on/off state.
+  // here - it just must not touch the current on/off state.
   const [screensaverOn, setScreensaverOn] = useState(false);
   useEffect(() => {
     const minutes = config?.screensaverMinutes ?? 0;
@@ -132,7 +132,7 @@ export default function Display() {
   }, [config?.screensaverMinutes]);
 
   // If the setting gets turned off entirely (0) while the screensaver is up,
-  // still let it go dark — separate from the effect above so that one can
+  // still let it go dark - separate from the effect above so that one can
   // stay "arm only", never "turn off".
   useEffect(() => {
     if (!config?.screensaverMinutes) setScreensaverOn(false);
@@ -145,7 +145,7 @@ export default function Display() {
   const weather = useWeather(config?.weatherLocation);
   const [showForecast, setShowForecast] = useState(false);
 
-  // Header clock — the date next to it was previously a one-shot
+  // Header clock - the date next to it was previously a one-shot
   // `new Date()` at render time, which never advances on its own since
   // nothing else re-renders this component every minute.
   const [now, setNow] = useState(new Date());
@@ -175,7 +175,7 @@ export default function Display() {
   }, [refreshChores]);
 
   // The signed-in person's own chores, current + projected future, plotted
-  // onto the same calendar grid as everyone's events — same feature as the
+  // onto the same calendar grid as everyone's events - same feature as the
   // main portal's "Chores" person-picker, just always scoped to whoever's
   // signed into this kiosk profile instead of an opt-in multi-select.
   const choreEventsById = useMemo(() => {
@@ -192,7 +192,7 @@ export default function Display() {
     return { map: m, list };
   }, [active, chores, range]);
 
-  // Which pane is the main focus — persisted across reloads (the kiosk stays
+  // Which pane is the main focus - persisted across reloads (the kiosk stays
   // powered on for weeks; a refresh shouldn't quietly reset it back).
   const [layout, setLayout] = useState<'calendar' | 'person'>(
     () => (localStorage.getItem('rhq-kiosk-layout') as 'calendar' | 'person') || 'calendar',
@@ -212,7 +212,7 @@ export default function Display() {
     else document.documentElement.requestFullscreen().catch(() => undefined);
   }
 
-  // The kiosk's own light/dark setting (config.theme) — previously only
+  // The kiosk's own light/dark setting (config.theme) - previously only
   // editable from Settings on another device. Deliberately NOT gated on
   // being signed in as an adult: it's a property of the physical display
   // sitting on the wall (same trust level as the screensaver/refresh/
@@ -231,7 +231,7 @@ export default function Display() {
     try {
       await dpatch('/display/theme', { theme: next });
     } catch {
-      // Revert — e.g. a network hiccup; nothing else on this screen surfaces
+      // Revert - e.g. a network hiccup; nothing else on this screen surfaces
       // API errors.
       document.documentElement.setAttribute('data-mode', prevAttr ?? 'light');
       setConfig((c) => (c ? { ...c, theme: next === 'dark' ? 'light' : 'dark' } : c));
@@ -239,7 +239,7 @@ export default function Display() {
   }
 
   // Tracked in a ref (not state) so loadConfig's identity stays stable across
-  // unlock/lock — it's a dependency of the mount effect that opens the SSE
+  // unlock/lock - it's a dependency of the mount effect that opens the SSE
   // stream, and that stream shouldn't reconnect every time a profile switches.
   const activeRef = useRef<UnlockResult | null>(null);
   useEffect(() => {
@@ -255,7 +255,7 @@ export default function Display() {
     configIdRef.current = config?.id ?? null;
   }, [config?.id]);
 
-  // The display's own light/dark mode (data-mode) — a property of the
+  // The display's own light/dark mode (data-mode) - a property of the
   // physical kiosk, never overridden by whoever's signed in (see unlock()
   // below). data-theme (the color hue) resets to this kiosk's own configured
   // default here (Settings > Touch displays > Default color theme) and is
@@ -267,7 +267,7 @@ export default function Display() {
   }, []);
 
   // Household widgets bundle (meals/countdowns/announcements/grocery) and the
-  // family's feature switches — both readable with just the display token.
+  // family's feature switches - both readable with just the display token.
   const [household, setHousehold] = useState<{
     today: string;
     meals: Array<{ date: string; title: string }>;
@@ -292,14 +292,14 @@ export default function Display() {
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
-    // Kiosk is the one surface with speakers on purpose — celebration sound
+    // Kiosk is the one surface with speakers on purpose - celebration sound
     // follows this display's own setting (Settings > Touch displays).
     setCelebrationSound(c.soundEffects !== false);
     if (!activeRef.current) applyIdleTheme(c);
   }, [applyIdleTheme]);
 
   // Re-fetched whenever the profile picker is shown again (see "Switch / lock"
-  // below), not just once at mount — otherwise a PIN set mid-session keeps
+  // below), not just once at mount - otherwise a PIN set mid-session keeps
   // showing as absent (no 🔒 badge) and picking that profile again skips
   // straight to unlock() with no PIN entered, which then just fails silently.
   const loadMembers = useCallback(() => {
@@ -328,7 +328,7 @@ export default function Display() {
     // scheduled miss-sweep) push a typed event here so this kiosk reflects
     // them immediately instead of only on next reload. Config changes (the
     // legacy/untyped case too, for anything published before this existed)
-    // fall through to loadConfig — the safest catch-all.
+    // fall through to loadConfig - the safest catch-all.
     const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
     const es = new EventSource(streamUrl, { withCredentials: true });
     es.onmessage = (e) => {
@@ -336,11 +336,11 @@ export default function Display() {
       try {
         payload = JSON.parse(e.data) ?? {};
       } catch {
-        // legacy/untyped payload — treat as a config change
+        // legacy/untyped payload - treat as a config change
       }
       const type = payload.type ?? 'display';
       if (type === 'reload') {
-        // Untargeted (no displayConfigId) means "every kiosk in the family" —
+        // Untargeted (no displayConfigId) means "every kiosk in the family" -
         // an adult fixing a stuck/broken kiosk from Settings without walking
         // over to the Pi. Targeted means only the one they picked.
         if (!payload.displayConfigId || payload.displayConfigId === configIdRef.current) {
@@ -354,7 +354,7 @@ export default function Display() {
         refreshChores();
         setDataRefreshSignal((n) => n + 1);
         // The idle picker's token/level badges (pickerBalances) were only
-        // ever loaded once on mount or when locking an adult back out — a
+        // ever loaded once on mount or when locking an adult back out - a
         // balance change pushed while the picker was already on screen (a
         // sibling using another kiosk, or the main app) never showed up
         // until one of those two triggers happened to fire again.
@@ -396,7 +396,7 @@ export default function Display() {
   }, [active, config]);
 
   // Holidays can be on a display's configured calendars (to be seen) without
-  // being a real writable calendar underneath — see CalendarPage's identical
+  // being a real writable calendar underneath - see CalendarPage's identical
   // addableOptions for why these are excluded from add/edit specifically.
   const addableCalendarOptions = useMemo(() => calendarOptions.filter((c) => c.source !== 'holiday'), [calendarOptions]);
   const addableCalendarIds = useMemo(() => new Set(addableCalendarOptions.map((c) => c.id)), [addableCalendarOptions]);
@@ -418,7 +418,7 @@ export default function Display() {
       const result = await dpost<UnlockResult>('/display/unlock', { userId: m.id, pin: enteredPin });
       setActive(result);
       // Light/dark stays the kiosk's own setting (config.theme, applied by
-      // applyIdleTheme) — it's a property of the physical display, not the
+      // applyIdleTheme) - it's a property of the physical display, not the
       // person. Only the color hue follows whoever's signed in.
       document.documentElement.setAttribute('data-theme', result.user.colorTheme || 'meadow');
       setPinFor(null);
@@ -426,10 +426,10 @@ export default function Display() {
       setPinError(null);
     } catch {
       // If this came from the no-PIN-prompt path (a stale "no PIN" flag) the
-      // dialog was never open — open it now instead of failing invisibly.
+      // dialog was never open - open it now instead of failing invisibly.
       setPinFor(m);
       setPin('');
-      setPinError('Wrong PIN — try again.');
+      setPinError('Wrong PIN - try again.');
     }
   }
 
@@ -659,9 +659,9 @@ export default function Display() {
       {/* Calendar (left, fills all remaining height) and a fixed-width right
           panel that always occupies the same place: the profile picker before
           sign-in, the signed-in person's chores after. In person-focused
-          layout the two swap proportions — calendar shrinks to a small
+          layout the two swap proportions - calendar shrinks to a small
           "windows-style" side widget (dots only) and the person's own stuff
-          becomes the main event — but neither one's actual functionality
+          becomes the main event - but neither one's actual functionality
           changes: same Calendar component, same click-through day modal. */}
       <div className="mt-3 flex min-h-0 flex-1 gap-6">
         {showCalendar && (
@@ -718,8 +718,8 @@ export default function Display() {
                   </button>
                 </div>
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
-                  {/* Same things the main app's own pages give everyone —
-                      rules and your own stats — reachable without switching
+                  {/* Same things the main app's own pages give everyone -
+                      rules and your own stats - reachable without switching
                       to a phone/tablet just to look at them. Kept at the very
                       top since they're a quick look-up, not something to dig
                       for under the chores list. */}
@@ -813,7 +813,7 @@ export default function Display() {
           <span className="text-4xl font-semibold text-slate-300">
             {now.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', hour12: true })}
           </span>
-          <span className="text-lg">Good night — tap to peek for 5 minutes</span>
+          <span className="text-lg">Good night - tap to peek for 5 minutes</span>
         </button>
       )}
 

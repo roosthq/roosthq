@@ -1,6 +1,6 @@
 // Timezone-aware date math using only Intl (Node's ICU build), no external
 // dependency. Every "due date" in this app is meant to be end-of-day
-// (23:59:59.999) in the chore's own location's timezone — not the server
+// (23:59:59.999) in the chore's own location's timezone - not the server
 // process's ambient one (UTC inside the Docker image), which is what caused
 // due times to render as ~5pm the previous day: midnight UTC on a Mountain
 // Time family's screen is 5-6pm the day before.
@@ -47,7 +47,7 @@ export function timeInZone(key: DateKey, hh: number, mm: number, timeZone: strin
   return zonedTimeToUtc(key.y, key.m, key.d, hh, mm, 0, 0, timeZone);
 }
 
-// Parses "HH:mm" (validating range) — returns null for anything else so
+// Parses "HH:mm" (validating range) - returns null for anything else so
 // callers can cleanly fall back to end-of-day.
 export function parseHHmm(s: string | null | undefined): { hh: number; mm: number } | null {
   if (!s) return null;
@@ -60,7 +60,7 @@ export function parseHHmm(s: string | null | undefined): { hh: number; mm: numbe
 }
 
 // The due instant for a calendar day: dueTime's wall-clock time if it parses,
-// otherwise end-of-day — the fallback every chore used before dueTime existed.
+// otherwise end-of-day - the fallback every chore used before dueTime existed.
 export function dueInstant(key: DateKey, dueTime: string | null | undefined, timeZone: string): Date {
   const parsed = parseHHmm(dueTime);
   return parsed ? timeInZone(key, parsed.hh, parsed.mm, timeZone) : endOfDayInZone(key, timeZone);
@@ -77,7 +77,7 @@ export function todayKeyInZone(timeZone: string): DateKey {
   return dateKeyInZone(new Date(), timeZone);
 }
 
-// Day of week (0=Sun) for a calendar key — pure calendar math (Date.UTC never
+// Day of week (0=Sun) for a calendar key - pure calendar math (Date.UTC never
 // has DST), so this is exact regardless of which zone the key came from.
 export function dowOfKey(key: DateKey): number {
   return new Date(Date.UTC(key.y, key.m - 1, key.d)).getUTCDay();

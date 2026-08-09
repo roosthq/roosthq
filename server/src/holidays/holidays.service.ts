@@ -21,7 +21,7 @@ export interface HolidayRuleInput {
 
 // The single global "Holidays" calendar every family can add to their own
 // picker (CalendarsService merges its projected occurrences in wherever
-// HOLIDAYS_CALENDAR_ID appears in a requested calendarIds list) — deliberately
+// HOLIDAYS_CALENDAR_ID appears in a requested calendarIds list) - deliberately
 // not family-scoped (see HolidayEvent in schema.prisma) and editable only by
 // the instance owner, the same literal Role.OWNER gate OwnerService uses for
 // multi-family admin.
@@ -46,7 +46,7 @@ export class HolidaysService {
   }
 
   // Seeds the default US-federal-plus-cultural set the first time this is
-  // called against an empty table — not a migration, so the owner freely
+  // called against an empty table - not a migration, so the owner freely
   // editing/deleting afterward never gets silently re-seeded.
   async ensureSeeded() {
     const count = await this.prisma.holidayEvent.count();
@@ -56,7 +56,7 @@ export class HolidaysService {
 
   // Owner-only: the raw rule table, for the Settings admin editor. Everyone
   // else only ever sees the rendered occurrences via occurrences() below.
-  // Ordered by upcoming date (not raw month/day — that column is null for
+  // Ordered by upcoming date (not raw month/day - that column is null for
   // NTH_WEEKDAY/EASTER_OFFSET rows and wouldn't reflect ordinal/Easter shifts
   // anyway), each annotated with its computed next occurrence so the UI can
   // show a month tag and "next: <date>" without recomputing.
@@ -131,7 +131,7 @@ export class HolidaysService {
     return { ok: true };
   }
 
-  // Flat CalEvent-shaped occurrences for [timeMin, timeMax) — what
+  // Flat CalEvent-shaped occurrences for [timeMin, timeMax) - what
   // CalendarsService.events() merges in whenever HOLIDAYS_CALENDAR_ID is
   // among the requested calendarIds. All-day by construction (a holiday
   // doesn't have a time of day), tagged with the shared sentinel color/name

@@ -22,7 +22,7 @@ export interface LocalEventInput {
   end: string;
 }
 
-// Calendars/events that live entirely in the app — no Google account
+// Calendars/events that live entirely in the app - no Google account
 // required. CalendarsService merges these into the shared calendar list and
 // the aggregated events feed so the rest of the app (filter dropdown, the
 // month grid, the kiosk) treats them exactly like a Google calendar.
@@ -92,7 +92,7 @@ export class LocalCalendarsService {
   }
 
   // Every local calendar in the family, shaped like SharedCalendar (minus
-  // the Google-only fields) — used by CalendarsService.listShared for the
+  // the Google-only fields) - used by CalendarsService.listShared for the
   // owner's unrestricted view.
   async listForFamily(familyId: string) {
     const calendars = await this.prisma.localCalendar.findMany({ where: { familyId } });
@@ -107,7 +107,7 @@ export class LocalCalendarsService {
   }
 
   // Local calendars in scope for a location: the location's own calendars
-  // plus every family-wide one (locationId null) — mirrors how a
+  // plus every family-wide one (locationId null) - mirrors how a
   // location-scoped kiosk still shows family-wide Google calendars via
   // DisplaysService.calendarsForLocation.
   async calendarsForLocation(familyId: string, locationId?: string | null) {
@@ -153,7 +153,7 @@ export class LocalCalendarsService {
         calendarId: e.localCalendarId,
         calendarColor: c?.color ?? undefined,
         calendarName: c?.name ?? undefined,
-        // Local events have no Google-account owner to show an avatar for —
+        // Local events have no Google-account owner to show an avatar for -
         // ownerAvatar is always empty, which left every local event stuck
         // showing the generic "?" fallback. The calendar's own photo (if
         // set) stands in for that instead, same purpose (recognize at a
@@ -249,7 +249,7 @@ export class LocalCalendarsService {
     );
   }
 
-  // Which kids can actually see this calendar — it's on a kiosk display
+  // Which kids can actually see this calendar - it's on a kiosk display
   // scoped to one of their locations. Adults/owner always see every local
   // calendar, so they don't need this check.
   private async kidsInScope(familyId: string, calendarId: string): Promise<string[]> {
@@ -267,7 +267,7 @@ export class LocalCalendarsService {
     return kids.map((k) => k.id);
   }
 
-  // "Starting soon" reminder for timed events (all-day events aren't covered —
+  // "Starting soon" reminder for timed events (all-day events aren't covered -
   // there's no location timezone plumbed through here to know what "morning
   // of" means for them). Fires once per event via remindedAt, same
   // never-double-send pattern as ChoresService.pollDueDates' warnedThreshold.

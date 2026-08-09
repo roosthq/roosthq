@@ -5,7 +5,7 @@ import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
 import { formatDateTime } from '../dateFormat';
 
-// Curated, kid-friendly picks — not exhaustive (anyone can still type any
+// Curated, kid-friendly picks - not exhaustive (anyone can still type any
 // emoji into the text field), just a fast default set.
 const EMOJI_OPTIONS = [
   '🏆', '🥇', '🥈', '🥉', '🏅', '🎖️', '⭐', '🌟', '✨', '💫',
@@ -14,7 +14,7 @@ const EMOJI_OPTIONS = [
   '😇', '😎', '🥳', '💯', '✅', '🧹', '🍽️', '🛏️', '🌱', '🎯',
 ];
 
-// Icons are either a short emoji string or an uploaded image (data: URI) —
+// Icons are either a short emoji string or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
 export function AwardIcon({ icon, size = 'text-2xl' }: { icon: string | null; size?: string }) {
   if (icon?.startsWith('data:')) return <img src={icon} alt="" className="h-7 w-7 rounded object-cover" />;
@@ -22,7 +22,7 @@ export function AwardIcon({ icon, size = 'text-2xl' }: { icon: string | null; si
 }
 
 // Square, fixed-size icons so the catalog and profile grids line up no
-// matter what someone uploads — center-crop to square, then downscale.
+// matter what someone uploads - center-crop to square, then downscale.
 function resizeSquareIconFile(file: File, dim = 128): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -49,7 +49,7 @@ function resizeSquareIconFile(file: File, dim = 128): Promise<string> {
 }
 
 // Adults-only: create/manage the award catalog and hand awards out. Kids
-// never see this page (Nav hides the link) or the catalog — only what
+// never see this page (Nav hides the link) or the catalog - only what
 // they've actually been given, on their own profile.
 export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string; tokenIcon: string }) {
   const { confirm, alert } = useDialog();
@@ -86,7 +86,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   }
 
   // Removing a grant is two separate decisions: take the badge back (always),
-  // and take the tokens back (a choice — they may have earned those fairly and
+  // and take the tokens back (a choice - they may have earned those fairly and
   // only the badge was a mistake). So this needs a real dialog with a checkbox
   // rather than the generic confirm(), and the numbers come from the server
   // since a spun bonus wheel's amount isn't in the history row.
@@ -402,7 +402,7 @@ export function AwardForm({
               <div className="mt-2">
                 <input type="file" accept="image/*" onChange={onFile} className="block text-sm" />
                 <p className="mt-1 text-xs text-slate-400">
-                  Ideal size: 128×128px, square — anything else gets center-cropped to a square automatically.
+                  Ideal size: 128×128px, square - anything else gets center-cropped to a square automatically.
                 </p>
                 {uploading && <p className="mt-1 text-xs text-slate-400">Processing image…</p>}
               </div>
@@ -426,7 +426,7 @@ export function AwardForm({
               onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
               onFocus={(e) => e.target.select()}
             />
-            <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award — adjustable each time.</span>
+            <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award - adjustable each time.</span>
           </label>
 
           <div className="rounded border p-3">
@@ -478,7 +478,7 @@ function GrantModal({
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
   const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
-  // This award's wheel, adjustable for THIS handover only — the award's own
+  // This award's wheel, adjustable for THIS handover only - the award's own
   // default range is untouched.
   const [wheelOn, setWheelOn] = useState((award.wheelMax ?? 0) > 0);
   const [wheelMin, setWheelMin] = useState(award.wheelMin && award.wheelMin > 0 ? award.wheelMin : 1);
@@ -497,7 +497,7 @@ function GrantModal({
         wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
       });
       // A wheel attached to this award is queued for the KID to spin on their
-      // own screen — nothing spins here.
+      // own screen - nothing spins here.
       onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them', !!res?.wheelQueued);
     } finally {
       setSaving(false);
@@ -563,7 +563,7 @@ function GrantModal({
             </span>
           </label>
           <p className="mt-1 text-xs text-slate-400">
-            They spin it themselves on their phone or the kiosk — the amount is decided when they spin.
+            They spin it themselves on their phone or the kiosk - the amount is decided when they spin.
           </p>
           {wheelOn && (
             <div className="mt-2 flex items-center gap-2 text-sm">

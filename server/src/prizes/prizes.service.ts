@@ -70,7 +70,7 @@ export class PrizesService {
   }
 
   // Non-adult visibility: global + assigned scope, not archived, not an
-  // unapproved suggestion (unless it's their own), and — for a located prize —
+  // unapproved suggestion (unless it's their own), and - for a located prize -
   // only if the person belongs to that location, UNLESS the prize is assigned
   // to them directly (that overrides the location gate).
   private visibleTo(
@@ -160,7 +160,7 @@ export class PrizesService {
     return prize;
   }
 
-  // A kid submits a wishlist item — created with no cost (an adult sets that
+  // A kid submits a wishlist item - created with no cost (an adult sets that
   // on approval), defaulted to "for me" so it stays private until approved.
   async suggest(familyId: string, userId: string, dto: PrizeSuggestionInput) {
     const prize = await this.prisma.prize.create({
@@ -235,7 +235,7 @@ export class PrizesService {
   }
 
   // Redeem: check eligibility + balance, deduct tokens (ledger), record the
-  // purchase, and — for a non-repeatable prize — archive it so it drops out of
+  // purchase, and - for a non-repeatable prize - archive it so it drops out of
   // the active store once someone's bought it.
   async redeem(familyId: string, actingUserId: string, prizeId: string) {
     await assertKidPermission(this.prisma, actingUserId, 'store');
@@ -308,7 +308,7 @@ export class PrizesService {
           createdById: actorId,
         },
       });
-      // The sale didn't go through — put a one-off prize back in the store.
+      // The sale didn't go through - put a one-off prize back in the store.
       if (!r.prize.repeatable && r.prize.archived) {
         await this.prisma.prize.update({ where: { id: r.prizeId }, data: { archived: false } });
       }
@@ -321,17 +321,17 @@ export class PrizesService {
       familyId,
       r.userId,
       status === 'FULFILLED' ? 'REDEMPTION_FULFILLED' : 'REDEMPTION_REJECTED',
-      status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined — tokens refunded`,
+      status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined - tokens refunded`,
       { link: '/store', refId: r.id },
     );
-    // The "wants this" ask has been answered — drop it from the adults' feed
+    // The "wants this" ask has been answered - drop it from the adults' feed
     // so the inbox doesn't keep nagging about a settled request.
     await this.notifications.removeByRef(r.id);
     this.displayEvents.publish(familyId, { type: status === 'REJECTED' ? 'tokens' : 'prizes' });
     return updated;
   }
 
-  // EVENT prizes only: mark whether the actual event has happened yet —
+  // EVENT prizes only: mark whether the actual event has happened yet -
   // separate from FULFILLED, which just means the redemption was approved.
   async setRedemptionUsed(familyId: string, actorId: string, redemptionId: string, used: boolean) {
     await this.assertAdult(actorId);
@@ -346,7 +346,7 @@ export class PrizesService {
   }
 
   // Purchase history: a member's own, the whole family, or (adults only) one
-  // prize's full buyer history — surfaced in that prize's detail view.
+  // prize's full buyer history - surfaced in that prize's detail view.
   async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string } = {}) {
     if (opts.prizeId) await this.assertAdult(actingUserId);
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });

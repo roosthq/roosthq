@@ -19,7 +19,7 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-// Tokens earned per day over the last 30 days as a small inline area chart —
+// Tokens earned per day over the last 30 days as a small inline area chart -
 // makes "am I doing better lately?" visible at a glance without a reports
 // page. Pure SVG, no library.
 function EarnedSparkline({ ledger, label }: { ledger: LedgerEntry[]; label: string }) {
@@ -52,10 +52,10 @@ function EarnedSparkline({ ledger, label }: { ledger: LedgerEntry[]; label: stri
   );
 }
 
-// The basic, browse-anyone view — stats, awards, token/purchase history, and
+// The basic, browse-anyone view - stats, awards, token/purchase history, and
 // (adults) a quick manual token adjust. Deliberately kept simple: everything
 // about managing YOUR OWN account (identity, password, avatar, PIN, Google
-// accounts, delete) lives on My Settings instead — this page never mutates
+// accounts, delete) lives on My Settings instead - this page never mutates
 // your own account, only ever someone's token ledger (an adult action, not
 // a self-management one).
 export default function ProfilePage({
@@ -104,10 +104,10 @@ export default function ProfilePage({
     api.listUsers().then(setMembers).catch(() => setMembers([]));
     api.tokenBalances().then((bs) => setAllBalances(Object.fromEntries(bs.map((x) => [x.userId, x.balance])))).catch(() => undefined);
     // A kid can only ever see their own earned awards (server enforces this
-    // too) — skip the call rather than surface a 403 when browsing a sibling.
+    // too) - skip the call rather than surface a 403 when browsing a sibling.
     if (isAdult || viewingSelf) api.earnedAwards(targetId).then(setAwards).catch(() => setAwards([]));
     else setAwards([]);
-    // Longest active streak across this person's chores — the flame lives on
+    // Longest active streak across this person's chores - the flame lives on
     // task cards already; the profile is where kids come to brag about it.
     api
       .chores()
@@ -216,7 +216,7 @@ export default function ProfilePage({
       {(isAdult || viewingSelf) && awards.length > 0 && (
         <section className="mt-6">
           <h3 className="text-sm font-semibold">🏆 Awards</h3>
-          {/* Notes shown inline, not just a hover title — a kid on a touch
+          {/* Notes shown inline, not just a hover title - a kid on a touch
               screen (kiosk or tablet) has no hover, so "why they got it"
               needs to actually be visible, not hidden behind a tooltip. */}
           <ul className="mt-2 flex flex-wrap gap-3">

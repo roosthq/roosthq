@@ -26,12 +26,12 @@ interface DialogApi {
 
 const DialogContext = createContext<DialogApi | null>(null);
 
-// Drop-in, styled replacement for window.alert/window.confirm — same
+// Drop-in, styled replacement for window.alert/window.confirm - same
 // call-and-await shape, but a real modal instead of a native browser dialog.
 export function DialogProvider({ children }: { children: ReactNode }) {
   const [request, setRequest] = useState<Request | null>(null);
   // Guards against the (rare) case of a second call firing before the first
-  // dialog closes — queue it instead of clobbering the pending resolve.
+  // dialog closes - queue it instead of clobbering the pending resolve.
   const queue = useRef<Request[]>([]);
 
   const show = useCallback((req: Request) => {

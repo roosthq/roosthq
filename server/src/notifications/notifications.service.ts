@@ -17,7 +17,7 @@ export class NotificationsService {
   }
 
   // Called by other services when something notification-worthy happens.
-  // Fire-and-forget from the caller's perspective — never throws upward.
+  // Fire-and-forget from the caller's perspective - never throws upward.
   // Writes the in-app feed entry, then best-effort fans out to push/email.
   async create(
     familyId: string,
@@ -32,7 +32,7 @@ export class NotificationsService {
       });
     } catch {
       // Notifications are a convenience, not core to the action that triggered
-      // them — a failure here shouldn't roll back or fail the caller's request.
+      // them - a failure here shouldn't roll back or fail the caller's request.
       return;
     }
 
@@ -84,7 +84,7 @@ export class NotificationsService {
     await Promise.all(adults.map((a) => this.create(familyId, a.id, type, title, opts)));
   }
 
-  // Mine (default), or — adults only — the whole family's activity.
+  // Mine (default), or - adults only - the whole family's activity.
   async list(familyId: string, actingUserId: string, opts: { all?: boolean } = {}) {
     if (opts.all) {
       const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });

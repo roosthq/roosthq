@@ -26,7 +26,7 @@ import { myLocationIds } from './displayScope';
 // completing isn't, until it's actually due).
 const UPCOMING_DAYS = 3;
 
-// Last household picked in the chore form — new chores start there.
+// Last household picked in the chore form - new chores start there.
 const LAST_CHORE_LOCATION_KEY = 'roosthq.lastChoreLocationId';
 
 // Pending wheels store a full reason like "Bonus wheel: Homework (5 in a
@@ -57,7 +57,7 @@ function resolveDaysOfWeek(chore: { daysOfWeek?: number[] | null; dayOfWeek?: nu
   return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
 }
 
-// Client-side mirror of the server's nextDue() — purely for display, so a
+// Client-side mirror of the server's nextDue() - purely for display, so a
 // repeating chore that's due today still tells a kid it's coming back rather
 // than looking like a one-off (no "Next: ..." line shows once it's due now).
 function nextOccurrence(rule: string, fromDueDate: string, daysOfWeek: number[]): Date {
@@ -116,16 +116,16 @@ export default function ChoresPanel({
   me: Actor;
   client?: ChoreClient;
   variant?: 'full' | 'today';
-  // Adults get the "waiting on a yes/no" inbox pinned above the list — the
+  // Adults get the "waiting on a yes/no" inbox pinned above the list - the
   // main portal turns this on; the kiosk already renders PendingPanel in its
   // own layout slot, so it stays off there to avoid doubling up.
   showPending?: boolean;
-  // Scope to one location's chores (plus location-less/"global" ones) — used on
+  // Scope to one location's chores (plus location-less/"global" ones) - used on
   // the kiosk display, which represents whoever lives at a given location, not
   // the whole family. Omit entirely for the normal portal (unscoped).
   locationId?: string | null;
   // Bump this (e.g. on an incoming live-update push) to force an immediate
-  // refetch from outside — the kiosk uses this so a chore claimed/finished on
+  // refetch from outside - the kiosk uses this so a chore claimed/finished on
   // someone else's phone shows up here without a page reload.
   refreshSignal?: number;
 }) {
@@ -142,7 +142,7 @@ export default function ChoresPanel({
   useEffect(() => {
     localStorage.setItem('rhq-chores-view', viewMode);
   }, [viewMode]);
-  // A 7-column table can't work at phone width — every cell wraps to four
+  // A 7-column table can't work at phone width - every cell wraps to four
   // lines. Below sm we always render cards and hide the layout toggle; the
   // saved preference is untouched, so a tablet/desktop still gets its table.
   const [narrow, setNarrow] = useState(() => window.innerWidth < 640);
@@ -181,7 +181,7 @@ export default function ChoresPanel({
     refreshWheels();
   }, [refreshWheels, refreshSignal]);
   // `editing` seeds the form's fields (edit OR duplicate); `editingId` is the
-  // one that decides whether submit PATCHes that chore or POSTs a new one —
+  // one that decides whether submit PATCHes that chore or POSTs a new one -
   // duplicate sets `editing` but leaves `editingId` null, so it prefills from
   // the source chore but always creates a fresh row.
   const [editing, setEditing] = useState<Chore | null>(null);
@@ -236,11 +236,11 @@ export default function ChoresPanel({
   const myBalance = balances.find((b) => b.userId === me.id)?.balance ?? 0;
   const myTokensOff = !!members.find((m) => m.id === me.id)?.tokensDisabled;
   // "My Day" pre-reader mode: bigger text and tap targets wherever this
-  // person sees their own list — their phone as well as the kiosk.
+  // person sees their own list - their phone as well as the kiosk.
   const simple = !!members.find((m) => m.id === me.id)?.simpleMode;
 
   // Kids and plain adults with more than one household get tabs to filter
-  // between them (or "All") — the server already limits them to their own
+  // between them (or "All") - the server already limits them to their own
   // households' chores (plus unscoped ones, plus anything actually assigned
   // to them), this is just the client-side split of that same set, one
   // household at a time. Owner/family manager see every household's chores
@@ -258,7 +258,7 @@ export default function ChoresPanel({
 
   // A chore with no location is "global" (visible everywhere); one with a
   // location only shows when that's the active scope. Picking "All
-  // households" (or having just one) drops this filter entirely — that's
+  // households" (or having just one) drops this filter entirely - that's
   // still where anything assigned to you at a household you're not in shows
   // up (the server includes it; a single household tab intentionally won't).
   const activeLocationId = locationId ?? (showHouseholdTabs ? householdTab : '');
@@ -274,7 +274,7 @@ export default function ChoresPanel({
   // one due now, else the soonest upcoming (so "Enable again" surfaces its new
   // one). In 'today' mode, keep: mine and due-or-coming-up-soon, anything open
   // to claim soon (claiming ahead is allowed server-side even though
-  // completing isn't), or pending approval (mine, or — for adults — anyone's).
+  // completing isn't), or pending approval (mine, or - for adults - anyone's).
   const rows = scopedChores
     .map((chore) => {
       const endOfToday = new Date();
@@ -327,7 +327,7 @@ export default function ChoresPanel({
     return chore.assignees.some((a) => a.userId === me.id);
   }
 
-  // Skipping forfeits the reward, so make sure that's the intent — kids read
+  // Skipping forfeits the reward, so make sure that's the intent - kids read
   // "Skip" as "later", not as "I'm not doing this".
   async function confirmSkip(): Promise<boolean> {
     return confirm(
@@ -340,7 +340,7 @@ export default function ChoresPanel({
     try {
       await fn();
       if (celebrateFrom) celebrate(celebrateFrom);
-      // A milestone may have queued a wheel for whoever did the chore — it
+      // A milestone may have queued a wheel for whoever did the chore - it
       // shows up as the banner below for them to spin themselves.
       refreshWheels();
     } catch (e) {
@@ -351,7 +351,7 @@ export default function ChoresPanel({
 
   type Row = (typeof rows)[number];
 
-  // Table view's sort — same `rows` the card view groups by person, just
+  // Table view's sort - same `rows` the card view groups by person, just
   // flattened and ordered instead of bucketed, so switching views never
   // changes which chores are visible, only how they're arranged.
   const sortedRows = [...rows].sort((a, b) => {
@@ -411,12 +411,12 @@ export default function ChoresPanel({
     : rows;
 
   // Adults get the full roster grouped by person, so they can see who has
-  // what at a glance. A kid only ever gets their own group — a kid isn't
+  // what at a glance. A kid only ever gets their own group - a kid isn't
   // meant to browse siblings' assignments, just what's theirs to do plus
   // whatever's open to claim. A chore with multiple assignees shows up under
   // each of them (or just this kid, if that's the only one they can see).
-  // Kids get a "Today" bucket pinned first — the stuff they can actually do
-  // right now — so the answer to "what do I have to do?" is the top of the
+  // Kids get a "Today" bucket pinned first - the stuff they can actually do
+  // right now - so the answer to "what do I have to do?" is the top of the
   // page, not a scan of every group. Adults keep the plain by-person layout
   // (they're managing everyone, not hunting their own list).
   const kidTodayRows =
@@ -573,11 +573,11 @@ export default function ChoresPanel({
           )}
           {active?.status === 'APPROVED' && (
             <span className="text-xs text-green-600">
-              Done ✓{active.approvedByUser && ` — approved by ${active.approvedByUser.displayName}`}
+              Done ✓{active.approvedByUser && ` - approved by ${active.approvedByUser.displayName}`}
             </span>
           )}
           {active?.status === 'MISSED' && (
-            <span className="text-xs font-medium text-red-500">Missed — no {tokenName} earned</span>
+            <span className="text-xs font-medium text-red-500">Missed - no {tokenName} earned</span>
           )}
           {active?.status === 'SKIPPED' && (
             <span className="text-xs font-medium text-slate-400">Skipped</span>
@@ -609,7 +609,7 @@ export default function ChoresPanel({
                   setEditingId(null);
                   setFormOpen(true);
                 }}
-                title={`Prefill a new ${choreWord.toLowerCase()} with these same settings — handy for one-per-person chores instead of a shared one`}
+                title={`Prefill a new ${choreWord.toLowerCase()} with these same settings - handy for one-per-person chores instead of a shared one`}
                 className="hover:text-slate-700"
               >
                 Duplicate
@@ -807,16 +807,16 @@ export default function ChoresPanel({
               {sortedRows.map(({ chore, active, claimedBy, mine, dueNow, openToClaim }) => (
                 <tr key={chore.id} className="border-b last:border-0 hover:bg-slate-50">
                   <td className="px-2 py-2 font-medium">{chore.title}</td>
-                  <td className="px-2 py-2 text-slate-500">{chore.location?.name ?? '—'}</td>
+                  <td className="px-2 py-2 text-slate-500">{chore.location?.name ?? '-'}</td>
                   <td className="px-2 py-2 text-slate-500">{assignmentLabel(chore, claimedBy)}</td>
                   <td className="px-2 py-2 text-slate-500">
-                    {active ? new Date(active.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '—'}
+                    {active ? new Date(active.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : '-'}
                   </td>
                   <td className="px-2 py-2">
                     <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
                   </td>
-                  <td className="px-2 py-2 text-slate-500">{active?.status ?? '—'}</td>
-                  {isAdult && <td className="px-2 py-2 text-slate-500">{chore.createdBy?.displayName ?? '—'}</td>}
+                  <td className="px-2 py-2 text-slate-500">{active?.status ?? '-'}</td>
+                  {isAdult && <td className="px-2 py-2 text-slate-500">{chore.createdBy?.displayName ?? '-'}</td>}
                   <td className="px-2 py-2">
                     <div className="flex items-center gap-2 whitespace-nowrap">
                       {active?.status === 'OPEN' && openToClaim && (
@@ -1008,7 +1008,7 @@ function ChoreForm({
 }: {
   client: ChoreClient;
   members: Member[];
-  // Seeds every field below regardless of mode — for a duplicate, `chore` is
+  // Seeds every field below regardless of mode - for a duplicate, `chore` is
   // the source row but `choreId` is null, so submit() below still POSTs a new
   // one instead of PATCHing the original.
   chore: Chore | null;
@@ -1028,7 +1028,7 @@ function ChoreForm({
   const [daysOfWeek, setDaysOfWeek] = useState<Set<number>>(new Set(chore ? resolveDaysOfWeek(chore) : []));
   const [dueTime, setDueTime] = useState(chore?.dueTime ?? '');
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
-  // New chores default to whichever household was picked last — most families
+  // New chores default to whichever household was picked last - most families
   // add several in a row for the same place. An existing chore always shows
   // its own location.
   const [locationId, setLocationId] = useState(
@@ -1042,7 +1042,7 @@ function ChoreForm({
   const [requireProof, setRequireProof] = useState(chore?.requireProof ?? false);
   const [firstFinisherBonus, setFirstFinisherBonus] = useState(chore?.firstFinisherBonus ?? 0);
   // Which family features are on gates whether the related fields render at
-  // all — a family with photoProof off shouldn't see the checkbox.
+  // all - a family with photoProof off shouldn't see the checkbox.
   const [famDisabled, setFamDisabled] = useState<string[]>([]);
   useEffect(() => {
     client.familySettings().then((f) => setFamDisabled(f.disabledFeatures ?? [])).catch(() => undefined);
@@ -1057,7 +1057,7 @@ function ChoreForm({
 
   const repeatHelp = REPEAT_OPTIONS.find((r) => r.value === repeat)?.help ?? '';
   // A SPECIFIC chore with nobody picked is assigned to no one and claimable
-  // by no one — it'd save fine but then never appear in any group, with no
+  // by no one - it'd save fine but then never appear in any group, with no
   // way to find or edit it again.
   const needsAssignee = assignmentType === 'SPECIFIC' && assignees.size === 0;
 
@@ -1109,7 +1109,7 @@ function ChoreForm({
         <div className="space-y-4">
           {isDuplicate && (
             <p className="rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-700">
-              Duplicating "{chore?.title}" — this creates a separate {choreWord.toLowerCase()}, not a copy linked to the
+              Duplicating "{chore?.title}" - this creates a separate {choreWord.toLowerCase()}, not a copy linked to the
               original. Its own history and streak start fresh.
             </p>
           )}
@@ -1153,14 +1153,14 @@ function ChoreForm({
             {assignmentType === 'SPECIFIC' && assignees.size > 1 && (
               <p className="mt-1 text-xs text-amber-600">
                 Shared: it's one {choreWord.toLowerCase()} for all {assignees.size} people. Whoever marks it done
-                first finishes it for everyone else too, and only that person gets the reward — it won't show as
+                first finishes it for everyone else too, and only that person gets the reward - it won't show as
                 still-to-do for the others. Want each person tracked (and paid) separately instead? Use "Duplicate"
                 on a saved {choreWord.toLowerCase()} to make one per person.
               </p>
             )}
           </Field>
 
-          <Field label="Location" help="Optional — for split households, who sees this depends on their location.">
+          <Field label="Location" help="Optional - for split households, who sees this depends on their location.">
             <select className="w-full rounded-md border px-3 py-2 text-sm" value={locationId} onChange={(e) => setLocationId(e.target.value)}>
               <option value="">No location</option>
               {locations.map((l) => (
@@ -1179,7 +1179,7 @@ function ChoreForm({
             label="If missed"
             help={
               allowLate
-                ? "Can still be marked done late — reward shrinks the longer it's overdue."
+                ? "Can still be marked done late - reward shrinks the longer it's overdue."
                 : 'Missing the due date forfeits the reward entirely (default).'
             }
           >
@@ -1205,7 +1205,7 @@ function ChoreForm({
 
           <Field
             label="Skipping"
-            help={`Lets whoever it's assigned to skip an occurrence outright — no reward, no checklist, doesn't count as missed. For something genuinely optional some days, like homework that isn't assigned every night.`}
+            help={`Lets whoever it's assigned to skip an occurrence outright - no reward, no checklist, doesn't count as missed. For something genuinely optional some days, like homework that isn't assigned every night.`}
           >
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={allowSkip} onChange={(e) => setAllowSkip(e.target.checked)} />
@@ -1233,7 +1233,7 @@ function ChoreForm({
           )}
 
           {assignmentType === 'ANYONE' && (
-            <Field label="First finisher bonus" help="Extra reward for whoever grabs and finishes it — a little sibling race.">
+            <Field label="First finisher bonus" help="Extra reward for whoever grabs and finishes it - a little sibling race.">
               <input
                 type="number"
                 min={0}
@@ -1256,7 +1256,7 @@ function ChoreForm({
           </Field>
 
           {(repeat === '' || repeat === 'WEEKLY' || repeat === 'BIWEEKLY') && (
-            <Field label="Day(s) of week" help="Optional — pick one, or several for something like Mon-Fri homework.">
+            <Field label="Day(s) of week" help="Optional - pick one, or several for something like Mon-Fri homework.">
               <div className="flex flex-wrap gap-1">
                 {DOW.map((d, i) => (
                   <button
@@ -1279,7 +1279,7 @@ function ChoreForm({
             </Field>
           )}
 
-          <Field label="Due by" help="Optional — a specific time of day. Leave blank for end of day (11:59pm).">
+          <Field label="Due by" help="Optional - a specific time of day. Leave blank for end of day (11:59pm).">
             <input
               type="time"
               className="w-40 rounded-md border px-3 py-2 text-sm"
@@ -1288,7 +1288,7 @@ function ChoreForm({
             />
           </Field>
 
-          <Field label="Streak bonus" help="Optional — extra tokens for keeping a streak of on-time completions going.">
+          <Field label="Streak bonus" help="Optional - extra tokens for keeping a streak of on-time completions going.">
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={streakEnabled} onChange={(e) => setStreakEnabled(e.target.checked)} />
               Award a bonus every so many in a row
@@ -1318,7 +1318,7 @@ function ChoreForm({
             )}
           </Field>
 
-          <Field label="Checklist" help="Optional — one sub-task per line.">
+          <Field label="Checklist" help="Optional - one sub-task per line.">
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />
           </Field>
         </div>

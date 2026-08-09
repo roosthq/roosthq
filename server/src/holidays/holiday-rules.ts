@@ -1,5 +1,5 @@
 // Pure date math for projecting a HolidayEvent rule into concrete dates for
-// a given year — kept separate from HolidaysService so it's trivially unit
+// a given year - kept separate from HolidaysService so it's trivially unit
 // testable and has zero Prisma/Nest dependencies.
 
 export interface HolidayRule {
@@ -13,7 +13,7 @@ export interface HolidayRule {
   offsetDays: number | null;
 }
 
-// Anonymous Gregorian algorithm (Meeus/Jones/Butcher) — the standard
+// Anonymous Gregorian algorithm (Meeus/Jones/Butcher) - the standard
 // closed-form calculation for the Sunday of Western Easter, valid for any
 // Gregorian year. Returns a UTC midnight Date for that year's Easter Sunday.
 export function easterSunday(year: number): Date {
@@ -55,7 +55,7 @@ function isoDate(d: Date): string {
 }
 
 // This rule's date in `year`, or null if the rule is malformed (missing a
-// field its ruleType needs) — malformed rows are skipped rather than
+// field its ruleType needs) - malformed rows are skipped rather than
 // thrown on, so one bad row never blanks the whole calendar for everyone.
 function occurrenceInYear(rule: HolidayRule, year: number): Date | null {
   switch (rule.ruleType) {
@@ -75,7 +75,7 @@ function occurrenceInYear(rule: HolidayRule, year: number): Date | null {
   }
 }
 
-// The soonest occurrence on or after `from` — this year's date if it hasn't
+// The soonest occurrence on or after `from` - this year's date if it hasn't
 // passed yet, otherwise next year's. Used for both "next occurrence" display
 // and sorting the holiday list by upcoming date (rather than by raw
 // month/day, which doesn't exist for NTH_WEEKDAY/EASTER_OFFSET rows and
@@ -88,7 +88,7 @@ export function nextOccurrence(rule: HolidayRule, from: Date): Date | null {
 }
 
 // All-day, CalEvent-shaped occurrences of every rule that land within
-// [start, end) — spans however many calendar years the range crosses (a
+// [start, end) - spans however many calendar years the range crosses (a
 // range straddling New Year's needs both years checked).
 export function projectOccurrences(rules: HolidayRule[], start: Date, end: Date) {
   const out: Array<{

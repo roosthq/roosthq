@@ -3,8 +3,8 @@ import type { Chore, ChoreClient, Member, PrizeClient, Redemption } from './api'
 import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
 
-// Kiosk-only, adult+ visible: everything currently waiting on a yes/no —
-// chore completions pending approval, and prize redemption requests — in one
+// Kiosk-only, adult+ visible: everything currently waiting on a yes/no -
+// chore completions pending approval, and prize redemption requests - in one
 // glance-able list instead of hunting through the full chores/store views.
 export default function PendingPanel({
   chores,

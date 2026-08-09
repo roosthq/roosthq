@@ -3,9 +3,9 @@ import type { CalEvent, Chore, ChoreInstance } from './api';
 export const PERSON_COLORS = ['#0ea5e9', '#a855f7', '#f97316', '#22c55e', '#ec4899', '#6366f1', '#eab308', '#ef4444'];
 
 // A chore occurrence plotted onto the calendar. `instance` is a real DB row
-// (actionable — claim/complete/approve all work) only for the most recent
+// (actionable - claim/complete/approve all work) only for the most recent
 // known occurrence per chore; anything projected further out is virtual
-// (informational only — there's no row to act on yet, and the server
+// (informational only - there's no row to act on yet, and the server
 // wouldn't let you complete a future-dated one anyway).
 export interface ChoreOccurrence {
   chore: Chore;
@@ -19,7 +19,7 @@ function resolveDaysOfWeek(chore: { daysOfWeek?: number[] | null; dayOfWeek?: nu
   return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
 }
 
-// Client-side mirror of the server's nextDue() (see chores.service.ts) — same
+// Client-side mirror of the server's nextDue() (see chores.service.ts) - same
 // math ChoresPanel's "Next: ..." label already uses, generalized into a loop.
 // Returns the SAME instant when the chore doesn't recur, so callers can
 // detect "nothing further to project" and stop.
@@ -59,7 +59,7 @@ const MAX_PROJECTED_STEPS = 60;
 // Project every occurrence (real + virtual) of the given people's chores
 // that falls within [rangeStart, rangeEnd]. SPECIFIC chores project forward
 // from their latest known instance; ANYONE chores only ever show their real
-// current instance (if claimed by one of `personIds`) — there's no assignee
+// current instance (if claimed by one of `personIds`) - there's no assignee
 // to attribute an unclaimed future occurrence to.
 export function projectChoreOccurrences(
   chores: Chore[],
@@ -98,7 +98,7 @@ export function projectChoreOccurrences(
     let cursor = new Date(latest.dueDate);
     for (let i = 0; i < MAX_PROJECTED_STEPS; i++) {
       const next = stepOccurrence(chore.recurrenceRule, cursor, daysOfWeek);
-      if (next.getTime() === cursor.getTime()) break; // one-time chore — nothing further
+      if (next.getTime() === cursor.getTime()) break; // one-time chore - nothing further
       cursor = next;
       if (cursor > rangeEnd) break;
       if (cursor >= rangeStart) {
@@ -109,23 +109,23 @@ export function projectChoreOccurrences(
   return out;
 }
 
-// A single point-in-time pseudo-event for the calendar grid/day-modal — same
+// A single point-in-time pseudo-event for the calendar grid/day-modal - same
 // flat shape a Google/local calendar event uses, so Calendar.tsx renders it
 // unmodified. `renderExtra` (a Calendar.tsx prop) is how the caller bolts on
 // chore-specific action buttons for the real (non-virtual) occurrence.
 export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, personName: string, personAvatar?: string): CalEvent {
   const dueTime = occ.chore.dueTime;
-  // Local calendar date, not toISOString().slice(0,10) — a no-due-time
+  // Local calendar date, not toISOString().slice(0,10) - a no-due-time
   // occurrence's dueDate is "end of day in the chore's OWN timezone"
   // (see chores.service.ts's dueInstant), an absolute instant that, once
   // past ~5-7pm in any US timezone, has already crossed into the NEXT day
   // in UTC. Slicing the ISO string put it a full day later than the day it
-  // was actually completed for/due on — the browser's local Y/M/D is what
+  // was actually completed for/due on - the browser's local Y/M/D is what
   // Calendar.tsx's own day-bucketing (keyOf) uses everywhere else, so this
   // needs to match that, not UTC.
   const d = occ.dueDate;
   const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  // A real occurrence is keyed by its instance id, not its due date — two
+  // A real occurrence is keyed by its instance id, not its due date - two
   // distinct ChoreInstance rows can (due to a known server-side bug, already
   // flagged separately) share an identical due date, and without this a day
   // modal's action buttons would silently act on whichever one the id
@@ -138,7 +138,7 @@ export function choreOccurrenceEvent(occ: ChoreOccurrence, color: string, person
     calendarColor: color,
     calendarName: `${personName}'s chores`,
     // The calendar's Avatar shows this photo in the chore pill/detail row
-    // (the same "photo spot" every other event's owner gets) — falling back
+    // (the same "photo spot" every other event's owner gets) - falling back
     // to their initial when they have no avatar set, same as anyone else.
     ownerName: personName,
     ownerAvatar: personAvatar,

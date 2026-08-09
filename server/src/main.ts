@@ -24,7 +24,7 @@ function deactivatedAccountGate(prisma: PrismaService) {
   }
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    // Logging out always works — otherwise a deactivated account is stuck with
+    // Logging out always works - otherwise a deactivated account is stuck with
     // a cookie it can neither use nor clear.
     if (req.path.endsWith('/auth/logout')) return next();
     const token = (req.headers['x-kiosk-token'] as string) ?? req.cookies?.[SESSION_COOKIE];
@@ -33,7 +33,7 @@ function deactivatedAccountGate(prisma: PrismaService) {
     try {
       userId = verifySession(token).userId;
     } catch {
-      return next(); // invalid token — let AuthGuard produce the 401
+      return next(); // invalid token - let AuthGuard produce the 401
     }
     if (Date.now() - loadedAt > INACTIVE_TTL_MS) {
       loading = loading ?? refresh().finally(() => (loading = null));
@@ -49,7 +49,7 @@ function deactivatedAccountGate(prisma: PrismaService) {
 
 async function bootstrap() {
   // Default body limit is too small for an uploaded-image data URI (base64'd prize
-  // photos) — bump it. bodyParser: false so these replace Nest's defaults instead
+  // photos) - bump it. bodyParser: false so these replace Nest's defaults instead
   // of fighting them.
   const app = await NestFactory.create(AppModule, { bodyParser: false });
   app.use(json({ limit: '5mb' }));

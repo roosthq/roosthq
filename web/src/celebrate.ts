@@ -1,6 +1,6 @@
 // Completion celebration: a confetti burst (DOM + CSS, no dependencies) and
 // a synthesized chime (WebAudio, no audio assets). Sound is on by default on
-// every surface — phones/tablets/desktop included — since the chime only ever
+// every surface - phones/tablets/desktop included - since the chime only ever
 // fires from a user's own tap (which also satisfies autoplay policies). The
 // kiosk overrides it from its DisplayConfig soundEffects toggle.
 
@@ -18,7 +18,7 @@ function chime() {
     const ctx = audioCtx;
     if (ctx.state === 'suspended') void ctx.resume();
     const t0 = ctx.currentTime;
-    // Two quick rising notes — reads as "coin collected", short enough to
+    // Two quick rising notes - reads as "coin collected", short enough to
     // never get old on a kiosk that hears it many times a day.
     for (const [i, freq] of [987.77, 1318.51].entries()) {
       const osc = ctx.createOscillator();
@@ -34,7 +34,7 @@ function chime() {
       osc.stop(start + 0.25);
     }
   } catch {
-    // No AudioContext (old browser, blocked autoplay) — celebration is
+    // No AudioContext (old browser, blocked autoplay) - celebration is
     // visual-only, never an error.
   }
 }

@@ -10,7 +10,7 @@ async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Pr
   const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...init, headers });
   if (!res.ok) {
     // Surface the server's actual message (e.g. "Password must be at least
-    // 8 characters") instead of a generic "400 Bad Request" — every caller
+    // 8 characters") instead of a generic "400 Bad Request" - every caller
     // that does `catch (e) { alert(e.message) }` benefits, not just new ones.
     const body = await res.json().catch(() => null);
     const message = typeof body?.message === 'string' ? body.message : Array.isArray(body?.message) ? body.message[0] : null;
@@ -39,7 +39,7 @@ export interface Me {
   birthday?: string | null;
   disabledPermissions?: string[];
   notifyByEmail?: boolean;
-  // Whether a local password is set — never the hash itself. Drives whether
+  // Whether a local password is set - never the hash itself. Drives whether
   // the password-change form asks for the current one at all.
   hasPassword?: boolean;
   // Set only while the instance owner is ghosting as this account.
@@ -85,7 +85,7 @@ export interface HolidayRule {
   offsetDays: number | null;
   createdAt: string;
   // Only present on the list() response (server computes it fresh each
-  // time) — the soonest occurrence on or after today, ISO date or null for
+  // time) - the soonest occurrence on or after today, ISO date or null for
   // a malformed row.
   nextOccurrence?: string | null;
 }
@@ -178,7 +178,7 @@ export interface UnlockResult {
   user: { id: string; displayName: string; role: string; avatar?: string; colorTheme?: string };
 }
 
-// Kiosk-identifiable per-person full page theme ("micro-theme") — swaps the
+// Kiosk-identifiable per-person full page theme ("micro-theme") - swaps the
 // whole palette (bg/surface/text/border/tags), not just an accent color. Keep
 // in sync with COLOR_THEMES in server/src/users/users.service.ts.
 export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
@@ -193,7 +193,7 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
   { id: 'midnight', label: 'Midnight', swatch: '#4a6ab8' },
 ];
 
-// Shown next to a role anywhere it appears — profile switchers, the family
+// Shown next to a role anywhere it appears - profile switchers, the family
 // member list in Settings, invite rows.
 export const ROLE_ICON: Record<string, string> = {
   OWNER: '👑',
@@ -202,7 +202,7 @@ export const ROLE_ICON: Record<string, string> = {
   KID: '🧒',
 };
 
-// Human-readable label for a role — needed anywhere a role gets displayed
+// Human-readable label for a role - needed anywhere a role gets displayed
 // as text, since the raw enum value (FAMILY_MANAGER) doesn't read as UI copy.
 export const ROLE_LABEL: Record<string, string> = {
   OWNER: 'Owner',
@@ -233,11 +233,11 @@ export interface ChoreInstance {
   claimedByUserId?: string | null;
   checks: Array<{ checklistId: string }>;
   hasProof?: boolean; // photo attached (fetch via proofImage())
-  // Adults only — the server omits this entirely for a kid's session.
+  // Adults only - the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
 }
 
-// One row of the adults-only "did this actually work right" activity log —
+// One row of the adults-only "did this actually work right" activity log -
 // every occurrence of every chore (or one chore's, with choreId), unlike the
 // main chore list's per-chore 5-row cap.
 export interface ChoreHistoryEntry {
@@ -253,7 +253,7 @@ export interface ChoreHistoryEntry {
 }
 
 // One entry in a chore's settings-change audit trail (create/edit/delete,
-// who did it) — distinct from ChoreHistoryEntry above, which is per-occurrence
+// who did it) - distinct from ChoreHistoryEntry above, which is per-occurrence
 // activity (completed/approved), not a record of who changed what setting.
 export interface ChoreAuditEntry {
   id: string;
@@ -321,7 +321,7 @@ export interface Chore {
   assignmentType: 'SPECIFIC' | 'ANYONE';
   assignees: ChoreAssigneeRef[];
   location?: { id: string; name: string } | null;
-  // Adults only — who set this chore up (the server strips it for kids).
+  // Adults only - who set this chore up (the server strips it for kids).
   createdBy?: { id: string; displayName: string } | null;
   checklist: ChecklistItem[];
   instances: ChoreInstance[];
@@ -341,7 +341,7 @@ export interface Chore {
 export interface Balance {
   userId: string;
   balance: number;
-  earned?: number; // lifetime positive total — XP for the level badge
+  earned?: number; // lifetime positive total - XP for the level badge
 }
 
 export interface AppNotification {
@@ -382,7 +382,7 @@ export interface EarnedAward {
   description: string | null;
   count: number;
   // The adult's note on why each one was given, newest first, non-empty
-  // only — a kid earning the same award repeatedly can have a different
+  // only - a kid earning the same award repeatedly can have a different
   // reason each time.
   notes: string[];
 }
@@ -433,7 +433,7 @@ export interface FamilySettings {
   tokenIcon: string;
   tokenValueUsd: number;
   choreWord: string;
-  // Family-level feature switches — stored as the DISABLED list so new
+  // Family-level feature switches - stored as the DISABLED list so new
   // features default on. See FAMILY_FEATURES.
   disabledFeatures: string[];
 }
@@ -441,7 +441,7 @@ export interface FamilySettings {
 // Everything a family can turn off wholesale (Settings > This family >
 // Features). The kiosk additionally gates its own widgets per display.
 export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }> = [
-  { id: 'levels', label: 'Levels & XP', help: 'Level badges from lifetime tokens earned — spending never lowers it.' },
+  { id: 'levels', label: 'Levels & XP', help: 'Level badges from lifetime tokens earned - spending never lowers it.' },
   { id: 'streakFreeze', label: 'Streak freezes', help: 'Each streak milestone banks a freeze (max 3) that absorbs one missed day.' },
   { id: 'bonusWheel', label: 'Bonus wheel', help: 'A random 1-5 extra tokens on every streak milestone.' },
   { id: 'photoProof', label: 'Photo proof', help: 'Chores can require a photo before a kid can mark them done.' },
@@ -453,7 +453,7 @@ export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }>
   { id: 'allowance', label: 'Allowance', help: 'Automatic weekly token grants per person (set in Family & PINs).' },
 ];
 
-// Per-kid ability switches (User.disabledPermissions) — adults manage them
+// Per-kid ability switches (User.disabledPermissions) - adults manage them
 // per member in Family & PINs; the server enforces them for KID roles.
 export const KID_PERMISSIONS: Array<{ id: string; label: string }> = [
   { id: 'grocery', label: 'Add & check grocery items' },
@@ -476,7 +476,7 @@ export function levelFor(earned: number): number {
   return Math.floor(Math.sqrt(Math.max(0, earned) / 5)) + 1;
 }
 
-// Naive English pluralization — good enough for a family-chosen word like
+// Naive English pluralization - good enough for a family-chosen word like
 // "Chore" -> "Chores" or "Quest" -> "Quests"; families with an irregular word
 // can just type the plural form they want with a trailing "s" already there.
 export function pluralize(word: string): string {
@@ -526,7 +526,7 @@ export interface ResolvedDisplayConfig {
 }
 
 // The kiosk screensaver's "at a glance" feed (GET /display/today). `date`
-// (YYYY-MM-DD) is whichever day this actually is — today with its passed
+// (YYYY-MM-DD) is whichever day this actually is - today with its passed
 // items dropped, or the next day with anything at all if today's now empty.
 export interface DisplayTodaySummary {
   date: string;
@@ -542,11 +542,11 @@ export interface LedgerEntry {
   type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM' | 'STREAK_BONUS' | 'AWARD';
   refId?: string | null;
   createdAt: string;
-  // Adults only — the server omits this entirely for a kid's session.
+  // Adults only - the server omits this entirely for a kid's session.
   createdByName?: string;
 }
 
-// Same shape as ImageCropper's CropRect — duplicated here (rather than
+// Same shape as ImageCropper's CropRect - duplicated here (rather than
 // imported) so this file stays free of any React-component dependency.
 export interface CropRect {
   x: number;
@@ -560,9 +560,9 @@ export interface StorePrize {
   name: string;
   description?: string | null;
   image?: string | null;
-  // Which region of `image` shows on the store card — never applied to the
+  // Which region of `image` shows on the store card - never applied to the
   // image itself (see Prize model comment). Null/absent = show the whole
-  // thing (cover-fit) — same as a prize created before this existed.
+  // thing (cover-fit) - same as a prize created before this existed.
   imageCrop?: CropRect | null;
   url?: string | null;
   realPrice?: string | number | null;
@@ -588,7 +588,7 @@ export interface Redemption {
   usedAt?: string | null;
   prize: { name: string; tokenCost: number; type: string };
   user?: { id: string; displayName: string };
-  // Adults only — the server omits this entirely for a kid's session.
+  // Adults only - the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
 }
 
@@ -599,7 +599,7 @@ export const BASE_URL = BASE;
 export const NOTIFICATIONS_CHANGED_EVENT = 'rhq:notifications-changed';
 
 // Fired on window whenever opening a notification implies something else
-// changed server-side (a new bonus wheel, a redemption's status, etc) — the
+// changed server-side (a new bonus wheel, a redemption's status, etc) - the
 // main portal has no SSE stream the way the kiosk does, so without this a
 // component that already mounted before the change happened (e.g. ChoresPanel
 // sitting open when a wheel got granted) never refetches until an unrelated
@@ -692,7 +692,7 @@ export const api = {
   ) => req<DisplayConfig>(`/displays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteDisplay: (id: string) => req(`/displays/${id}`, { method: 'DELETE' }),
   // Pushes a reload to every kiosk currently on this config (or, with no id,
-  // every kiosk in the family) over the SSE stream they already hold open —
+  // every kiosk in the family) over the SSE stream they already hold open -
   // fixes a frozen/stuck Pi without walking over to it. Can't reach a kiosk
   // whose display token was actually revoked; its stream was never connected.
   reloadDisplay: (displayConfigId?: string) =>
@@ -813,7 +813,7 @@ export const api = {
   ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
   unghost: () => req<{ ok: boolean }>('/owner/unghost', { method: 'POST' }),
 
-  // Global "Holidays" calendar rule set — owner-only (see HolidaysService).
+  // Global "Holidays" calendar rule set - owner-only (see HolidaysService).
   listHolidays: () => req<HolidayRule[]>('/holidays'),
   createHoliday: (body: HolidayRuleInput) => req<HolidayRule>('/holidays', { method: 'POST', body: JSON.stringify(body) }),
   updateHoliday: (id: string, body: Partial<HolidayRuleInput>) =>
@@ -865,10 +865,10 @@ export const api = {
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),
-  // Adults-only full activity log (no per-chore cap, unlike the main list) —
+  // Adults-only full activity log (no per-chore cap, unlike the main list) -
   // omit choreId for everything, or pass it to drill into one chore.
   choreHistory: (choreId?: string) => req<ChoreHistoryEntry[]>(`/chores/history${choreId ? `?choreId=${choreId}` : ''}`),
-  // Owner/family-manager only — server 403s anyone else.
+  // Owner/family-manager only - server 403s anyone else.
   choreAudit: (choreId: string) => req<ChoreAuditEntry[]>(`/chores/${choreId}/audit`),
   createChore: (body: Record<string, unknown>) =>
     req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }),
@@ -895,7 +895,7 @@ export const api = {
   markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
 
   // kioskToken lets a kid pull this up on the kiosk itself, not just their
-  // own phone/tablet — read-only for them either way (server-scoped to
+  // own phone/tablet - read-only for them either way (server-scoped to
   // shared + their own targeted rules; see rules.service.ts's list()).
   rules: (kioskToken?: string) => req<Rule[]>('/rules', undefined, kioskToken),
   createRule: (body: { text: string; targetUserId?: string | null }, kioskToken?: string) =>
@@ -943,7 +943,7 @@ export function choreClient(kioskToken?: string) {
     reopenChore: (id: string) => req(`/chores/${id}/reopen`, { method: 'POST' }, kioskToken),
     claimInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/claim`, { method: 'POST' }, kioskToken),
-    // Kid backing out of their own still-open claim — the adult-only
+    // Kid backing out of their own still-open claim - the adult-only
     // assignInstance below can reassign anyone's claim any time instead.
     unclaimInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/unclaim`, { method: 'POST' }, kioskToken),
@@ -972,7 +972,7 @@ export function choreClient(kioskToken?: string) {
 
 export type ChoreClient = ReturnType<typeof choreClient>;
 
-// Prize/redeem operations bound to the same auth context as choreClient —
+// Prize/redeem operations bound to the same auth context as choreClient -
 // lets a kid browse and redeem prizes from the kiosk (adding/editing prizes
 // stays admin-portal-only, so there's no create/update/delete here).
 export function prizeClient(kioskToken?: string) {
@@ -985,7 +985,7 @@ export function prizeClient(kioskToken?: string) {
     redemptions: (userId: string) => req<Redemption[]>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
     suggestPrize: (body: { name: string; description?: string; image?: string; url?: string }) =>
       req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
-    // Family-wide, not scoped to one person — for the kiosk's adult-only
+    // Family-wide, not scoped to one person - for the kiosk's adult-only
     // "pending approvals" panel. Filter to status REQUESTED client-side.
     allRedemptions: () => req<Redemption[]>('/prizes/redemptions', undefined, kioskToken),
     fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }, kioskToken),

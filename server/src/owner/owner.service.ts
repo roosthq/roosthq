@@ -4,7 +4,7 @@ import { hashPassword } from '../crypto/password';
 import { AuditLogService } from '../security/audit-log.service';
 
 // Instance-level powers, deliberately gated on the literal OWNER role (not
-// FAMILY_MANAGER) — multi-family management and ghosting reach across every
+// FAMILY_MANAGER) - multi-family management and ghosting reach across every
 // family in the instance, not just one, so they stay narrower than the
 // per-family role split added alongside this.
 @Injectable()
@@ -37,7 +37,7 @@ export class OwnerService {
   async createFamily(actorId: string, name: string) {
     await this.assertOwner(actorId);
     if (!name?.trim()) throw new BadRequestException('Name is required');
-    // Explicit values instead of leaning on the Prisma/MySQL column DEFAULT —
+    // Explicit values instead of leaning on the Prisma/MySQL column DEFAULT -
     // a value supplied through the app's own connection always goes through
     // the driver's configured utf8mb4 charset; a column-level DEFAULT is
     // applied by MySQL itself using whatever charset was active when the
@@ -58,7 +58,7 @@ export class OwnerService {
     return { id: family.id, name: family.name, memberCount: 0, createdAt: family.createdAt };
   }
 
-  // Owner-only rename — the family's own members can rename their reward
+  // Owner-only rename - the family's own members can rename their reward
   // currency, chore word, etc. from Settings, but the family's own NAME is
   // instance-level identity (it's what tells families apart in this panel),
   // so only the owner touches it.
@@ -81,7 +81,7 @@ export class OwnerService {
     return { id: updated.id, name: updated.name };
   }
 
-  // Owner-only, and only when empty — deleting a family with members would
+  // Owner-only, and only when empty - deleting a family with members would
   // orphan them (no cascade is desirable here; a family with people in it
   // should be emptied via moveUser/removeUser first, deliberately, not as a
   // side effect of deleting the family).
@@ -90,7 +90,7 @@ export class OwnerService {
     const family = await this.prisma.family.findUnique({ where: { id: familyId } });
     if (!family) throw new NotFoundException('Family not found');
     const memberCount = await this.prisma.user.count({ where: { familyId } });
-    if (memberCount > 0) throw new BadRequestException('This family still has members — move or remove them first');
+    if (memberCount > 0) throw new BadRequestException('This family still has members - move or remove them first');
     await this.prisma.family.delete({ where: { id: familyId } });
     await this.audit.record({ actorId, actorName: owner.displayName, action: 'family.delete', targetId: familyId, targetLabel: family.name });
     return { ok: true };
@@ -105,7 +105,7 @@ export class OwnerService {
     });
   }
 
-  // Lock an account out (or let it back in) without touching its history —
+  // Lock an account out (or let it back in) without touching its history -
   // the gate in main.ts refuses every request from an inactive user.
   async setUserActive(actorId: string, targetUserId: string, active: boolean) {
     const owner = await this.assertOwner(actorId);
@@ -129,7 +129,7 @@ export class OwnerService {
   }
 
   // Hard delete. Everything of theirs cascades (ledger, assignments, awards
-  // received, notifications) — deactivation is the reversible option and the
+  // received, notifications) - deactivation is the reversible option and the
   // UI says so.
   async deleteUser(actorId: string, targetUserId: string) {
     const owner = await this.assertOwner(actorId);
@@ -152,7 +152,7 @@ export class OwnerService {
     return { ok: true };
   }
 
-  // Create an account in any family, no invite involved — the owner-side
+  // Create an account in any family, no invite involved - the owner-side
   // counterpart of Settings > "add directly". A password is optional (they can
   // sign in with Google on the matching email, or get one set later).
   async createUser(
@@ -209,8 +209,8 @@ export class OwnerService {
   // there. Location/calendar shares are family-scoped and don't carry any
   // meaning in the destination family, so they're dropped; chore assignments
   // to chores outside the new family are dropped the same way (the chore
-  // itself is untouched — just this one now-cross-family assignment).
-  // `role` accepts 'OWNER' too — safe with no extra check because
+  // itself is untouched - just this one now-cross-family assignment).
+  // `role` accepts 'OWNER' too - safe with no extra check because
   // assertOwner above already guarantees the actor calling this IS an
   // owner (multiple owners, additive: this never touches the actor's own
   // role, so granting someone else OWNER never demotes the person doing it).
@@ -244,20 +244,20 @@ export class OwnerService {
   // Mint a session acting as `targetUserId`, stamping who's really behind it
   // so the UI can show a "Ghosting as X" banner and offer a way back. Doubles
   // as "switch family" (pick any member of another family) and "ghost into a
-  // specific account" (pick a kid vs an adult) — same mechanism either way.
+  // specific account" (pick a kid vs an adult) - same mechanism either way.
   async ghost(actorId: string, targetUserId: string) {
     const owner = await this.assertOwner(actorId);
     const target = await this.prisma.user.findUnique({ where: { id: targetUserId } });
     if (!target) throw new NotFoundException('Member not found');
     // Acting as someone else is exactly the kind of thing an audit trail is
-    // for, even though it's routine here for testing — no side effects on
+    // for, even though it's routine here for testing - no side effects on
     // the target's data, just a record of who looked.
     await this.audit.record({ actorId, actorName: owner.displayName, action: 'ghost.start', targetId: target.id, targetLabel: target.displayName });
     return { userId: target.id, familyId: target.familyId, ghostedBy: actorId };
   }
 
   // Rebuild the real owner's own session from the ghostedBy id stamped into
-  // the current one — re-checked against the DB (role could theoretically
+  // the current one - re-checked against the DB (role could theoretically
   // have changed mid-ghost) rather than trusted blindly from the token.
   async unghost(ghostedBy: string) {
     const owner = await this.prisma.user.findUnique({ where: { id: ghostedBy } });

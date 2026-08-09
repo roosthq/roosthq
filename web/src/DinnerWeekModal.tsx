@@ -20,13 +20,13 @@ function startOfWeek(d: Date): Date {
   return x;
 }
 
-// The week's dinner plan as a popout — same 7-day grid and inline-edit
+// The week's dinner plan as a popout - same 7-day grid and inline-edit
 // pattern as the Household page's widget, just reachable from wherever
 // someone glances at "tonight" and wants the whole week instead: the
 // kiosk's "Tonight" banner, and a day click on the main calendar (which
 // opens this on the week containing that day, so the clicked day's own
-// plan is right there in context). Sized for a touch screen first — this
-// showed up tiny/hard-to-read on the kiosk — and swipeable left/right
+// plan is right there in context). Sized for a touch screen first - this
+// showed up tiny/hard-to-read on the kiosk - and swipeable left/right
 // between weeks like the calendar's own paging, not just the ‹/› buttons.
 export default function DinnerWeekModal({
   around,
@@ -34,7 +34,7 @@ export default function DinnerWeekModal({
   canEdit,
   onClose,
 }: {
-  // Any date within the week to show — defaults to today.
+  // Any date within the week to show - defaults to today.
   around?: string;
   locationId?: string | null;
   canEdit: boolean;
@@ -100,7 +100,7 @@ export default function DinnerWeekModal({
       }
     >
       {/* Swipe left/right pages the week, same threshold-based recognizer as
-          the calendar's own day grid — a drag anywhere in this area works,
+          the calendar's own day grid - a drag anywhere in this area works,
           not just the ‹/› buttons. */}
       <ul key={animKey} {...swipeProps} className={`grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
         {Array.from({ length: 7 }, (_, i) => {

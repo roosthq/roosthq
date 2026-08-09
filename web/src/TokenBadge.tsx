@@ -1,4 +1,4 @@
-// Single canonical look for a token amount, wherever it shows up — chore cost
+// Single canonical look for a token amount, wherever it shows up - chore cost
 // tags, balances, prize costs, ledger entries. Two sizes: 'sm' for an inline
 // tag next to other content, 'lg' for a standalone "you have N" display.
 export default function TokenBadge({

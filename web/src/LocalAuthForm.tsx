@@ -4,7 +4,7 @@ import { api } from './api';
 const input = 'w-full rounded-lg border px-3 py-2 text-sm';
 
 // The Google button stays the fast path; this is the "no Google account, or
-// don't want to use it" alternative — a local username/email + password.
+// don't want to use it" alternative - a local username/email + password.
 // Also handles the two side-quests that come with self-service passwords:
 // "I forgot it" and the reset-link landing page.
 export default function LocalAuthForm({
@@ -39,7 +39,7 @@ export default function LocalAuthForm({
           setBusy(true);
           try {
             await api.resetPassword(resetToken, password);
-            setNotice('Password reset — you can sign in now.');
+            setNotice('Password reset - you can sign in now.');
             window.history.replaceState(null, '', window.location.pathname);
           } catch (err) {
             setError((err as Error).message);

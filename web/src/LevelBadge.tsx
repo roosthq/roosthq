@@ -31,7 +31,7 @@ export default function LevelBadge({ earned, size = 'sm' }: { earned: number; si
     );
   }
   return (
-    <span className="inline-block text-center" title={`${earned} XP — ${next - earned} more to level ${level + 1}`}>
+    <span className="inline-block text-center" title={`${earned} XP - ${next - earned} more to level ${level + 1}`}>
       <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">⭐ Lv {level}</span>
       <span className="mx-auto mt-0.5 block h-1 w-12 overflow-hidden rounded-full bg-slate-100">
         <span className="block h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />

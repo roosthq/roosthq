@@ -4,7 +4,7 @@ import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { HolidaysService, HolidayRuleInput } from './holidays.service';
 
-// Owner-only admin CRUD for the global holiday rule set — read access here is
+// Owner-only admin CRUD for the global holiday rule set - read access here is
 // also owner-only (there's nothing a regular family admin needs from the raw
 // rule list; they just get the rendered occurrences via /calendars/events
 // once "Holidays" is in their calendarIds, same as any other calendar).

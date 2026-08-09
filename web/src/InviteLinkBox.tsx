@@ -50,7 +50,7 @@ export function CopyableLink({ url }: { url: string }) {
       <button onClick={copy} className="mt-2 rounded border px-3 py-1.5 font-medium hover:bg-slate-50">
         {copied ? '✓ Copied' : '📋 Copy link'}
       </button>
-      {failed && <p className="mt-1 text-red-600">Could not copy automatically — the link is selected, copy it manually.</p>}
+      {failed && <p className="mt-1 text-red-600">Could not copy automatically - the link is selected, copy it manually.</p>}
     </>
   );
 }

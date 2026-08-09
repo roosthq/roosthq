@@ -17,7 +17,7 @@ import HouseholdPage from './pages/HouseholdPage';
 import AwardsPage from './pages/AwardsPage';
 
 // data-mode = light/dark; data-theme = which of the 9 color themes (see
-// COLOR_THEMES in api.ts). Two independent attributes — see index.css.
+// COLOR_THEMES in api.ts). Two independent attributes - see index.css.
 function applyMode(t: string) {
   document.documentElement.setAttribute('data-mode', t === 'dark' ? 'dark' : 'light');
 }
@@ -93,14 +93,14 @@ export default function App() {
   }
 
   // Identity fields (unlike theme/font-size above) can genuinely fail
-  // validation (username taken, email required for this role) — no
+  // validation (username taken, email required for this role) - no
   // optimistic update, no swallowed error; ProfilePage awaits this and
   // shows whatever it throws.
   async function updateProfile(patch: Partial<{ displayName: string; username: string | null; email: string | null; avatar: string | null }>) {
     if (!me) return;
     // Merge, don't replace: the server returns a plain User row, which has
     // no ghostedBy column (it's a session/JWT-only field, stamped in by
-    // api.me() reading the cookie, not the DB) — replacing `me` outright
+    // api.me() reading the cookie, not the DB) - replacing `me` outright
     // with that row silently ended the "Ghosting as X" banner on the next
     // identity/avatar edit, even though the underlying ghost session was
     // completely untouched. Same bug class as the OAuth-reconnect one fixed

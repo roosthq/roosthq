@@ -15,7 +15,7 @@ export interface ShareSelection {
   color?: string;
 }
 
-// Appended to every family's calendar list unconditionally — the single
+// Appended to every family's calendar list unconditionally - the single
 // global "Holidays" calendar (see HolidaysService), not something any family
 // creates or owns. Its id doubles as the sentinel calendarIds entries use
 // to opt into it (a DisplayConfig.calendarIds / Calendar-page filter array
@@ -40,14 +40,14 @@ export class CalendarsService {
   ) {}
 
   // Google calendars available across the user's connected accounts (the
-  // picker) — only ones this account actually owns (or has been granted
+  // picker) - only ones this account actually owns (or has been granted
   // owner-level access to, which covers a deliberately shared household
   // calendar), not just anything merely shared to them read/write. Sharing
   // someone else's personal calendar into the family by accident isn't the
   // point; sharing your own, or a calendar you're a real co-owner of, is.
   //
   // One dead account (expired Google token) shouldn't blank the whole picker
-  // for every other connected account — skip it and mark it for reconnect
+  // for every other connected account - skip it and mark it for reconnect
   // instead of throwing for the whole request.
   async listGoogleCalendars(userId: string) {
     const accounts = await this.prisma.googleAccount.findMany({ where: { userId } });
@@ -79,7 +79,7 @@ export class CalendarsService {
     return out;
   }
 
-  // Whether any of this user's connected Google accounts need reconnecting —
+  // Whether any of this user's connected Google accounts need reconnecting -
   // so the calendar page can show that proactively instead of only after a
   // click silently does nothing.
   async accountStatus(userId: string) {
@@ -179,7 +179,7 @@ export class CalendarsService {
         );
         items = data.items ?? [];
       } catch {
-        // This calendar's account needs reconnecting (already marked) — skip
+        // This calendar's account needs reconnecting (already marked) - skip
         // just its events rather than failing the whole aggregated view.
         continue;
       }
@@ -210,7 +210,7 @@ export class CalendarsService {
     events.push(...localEvents);
     if (wantsHolidays) events.push(...(await this.holidays.occurrences(timeMin, timeMax)));
 
-    // Resolve "added by" to a display name — a separate identity from the
+    // Resolve "added by" to a display name - a separate identity from the
     // calendar's owner (whose Google account it is), added by whoever actually
     // used the app to create it.
     const addedByIds = [...new Set(events.map((e) => e.addedByUserId).filter((v): v is string => !!v))];
@@ -234,13 +234,13 @@ export class CalendarsService {
   }
 
   // A calendarId in these routes may point at a Google-backed Calendar or a
-  // LocalCalendar — the frontend (AddEventModal, the kiosk) doesn't know or
+  // LocalCalendar - the frontend (AddEventModal, the kiosk) doesn't know or
   // care which, it just posts to `/calendars/:calendarId/events`.
   // A timed dateTime here is a naive "YYYY-MM-DDTHH:mm:ss" plus a separate
   // timeZone field (how AddEventModal builds it, mirroring Google's event
-  // resource shape) — NOT an ISO instant. `new Date(...)` on a string with no
+  // resource shape) - NOT an ISO instant. `new Date(...)` on a string with no
   // offset parses as the JS runtime's local time, which inside the Docker
-  // container is UTC, not the browser's zone — so every timed local event
+  // container is UTC, not the browser's zone - so every timed local event
   // would land 6-7 hours off for anyone not in UTC. Resolve it properly here
   // before it ever reaches LocalCalendarsService.
   private resolveDateTime(v: { date?: string; dateTime?: string; timeZone?: string } | undefined): string | undefined {
@@ -269,7 +269,7 @@ export class CalendarsService {
 
   // body is a Google Calendar event resource (summary, start, end, location, ...).
   // addedByUserId is stamped into extendedProperties so events created through
-  // the app can show who added them — separate from the calendar's own Google
+  // the app can show who added them - separate from the calendar's own Google
   // account owner.
   async createEvent(familyId: string, calendarId: string, addedByUserId: string, body: Record<string, unknown>) {
     await assertKidPermission(this.prisma, addedByUserId, 'calendarAdd');
@@ -299,7 +299,7 @@ export class CalendarsService {
 
   // Adults always get notified (mirrors them generally seeing the whole family
   // calendar); a kid only gets notified if the calendar is actually on one of
-  // their own location's kiosk displays — same rule that governs what they can
+  // their own location's kiosk displays - same rule that governs what they can
   // see in the app in the first place.
   private async notifyCalendarEvent(
     familyId: string,
@@ -376,8 +376,8 @@ export class CalendarsService {
     return { ok: true };
   }
 
-  // Mirrors LocalCalendarsService.assertCanEdit — an adult always may, and
-  // whoever originally added it may edit their own — for a Google-backed
+  // Mirrors LocalCalendarsService.assertCanEdit - an adult always may, and
+  // whoever originally added it may edit their own - for a Google-backed
   // event too. Without this, updateEvent/deleteEvent had NO permission check
   // at all on this branch (createEvent's own attribution-stamping was the
   // only place "who added it" was ever recorded), so any family member could

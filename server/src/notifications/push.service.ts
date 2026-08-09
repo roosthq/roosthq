@@ -20,7 +20,7 @@ export class PushService {
       webpush.setVapidDetails(process.env.VAPID_SUBJECT || 'mailto:admin@example.com', publicKey, privateKey);
       this.enabled = true;
     } else {
-      this.logger.warn('VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY not set — web push disabled');
+      this.logger.warn('VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY not set - web push disabled');
     }
   }
 

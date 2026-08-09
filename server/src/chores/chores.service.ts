@@ -85,11 +85,11 @@ const CHORE_DIFF_FIELDS = [
   ['streakBonusTokens', 'streak bonus tokens'],
 ] as const;
 
-// Only the fields UpdateChoreDto can actually carry — a plain scalar
+// Only the fields UpdateChoreDto can actually carry - a plain scalar
 // before/after compare per field, plus the handful of relation-shaped ones
 // (assignees, checklist, day/date scheduling) that need their own logic.
 function diffChoreFields(
-  before: Prisma.ChoreGetPayload<{ include: { assignees: true } }>,
+  before: Prisma.ChoreGetPayload<{ include: { assignees: true; checklist: true } }>,
   dto: UpdateChoreDto,
   newAssignmentType: 'ANYONE' | 'SPECIFIC' | undefined,
 ): string[] {
@@ -109,7 +109,13 @@ function diffChoreFields(
     const afterIds = [...dto.assigneeUserIds].sort().join(',');
     if (beforeIds !== afterIds) changes.push(`assignees changed (${before.assignees.length} -> ${dto.assigneeUserIds.length})`);
   }
-  if (dto.checklist) changes.push('checklist updated');
+  // The edit form always resends the full checklist, whether or not it
+  // actually touched it, so only log this when the labels genuinely differ.
+  if (dto.checklist) {
+    const beforeLabels = before.checklist.map((c) => c.label).join('|');
+    const afterLabels = dto.checklist.join('|');
+    if (beforeLabels !== afterLabels) changes.push('checklist updated');
+  }
   if (dto.dayOfWeek !== undefined || dto.daysOfWeek !== undefined) {
     const beforeDays = resolveDaysOfWeek(before).join(',');
     const afterDays = (dto.daysOfWeek?.length ? dto.daysOfWeek : dto.dayOfWeek != null ? [dto.dayOfWeek] : []).join(',');
@@ -126,9 +132,9 @@ function resolveDaysOfWeek(chore: { daysOfWeek: unknown; dayOfWeek: number | nul
   return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
 }
 
-// Every due date produced here resolves through dueInstant() — dueTime's
+// Every due date produced here resolves through dueInstant() - dueTime's
 // wall-clock time in the chore's own location timezone if set, otherwise
-// end-of-day (23:59:59.999) — never the server process's ambient timezone
+// end-of-day (23:59:59.999) - never the server process's ambient timezone
 // (UTC in the Docker image), which is what made due times render as ~5-6pm
 // the day before on a Mountain Time family's screen.
 
@@ -146,13 +152,13 @@ function offsetToNextDayInSet(fromDow: number, days: number[], strictlyAfter: bo
 }
 
 // Next occurrence of ANY day in `days` strictly after `fromKey` (wraps into
-// next week if needed) — the general form of "next weekday" that also
+// next week if needed) - the general form of "next weekday" that also
 // handles a Mon/Wed/Fri-style pattern, not just a single anchor day.
 function nextDayInSetAfter(fromKey: DateKey, days: number[]): DateKey {
   return addDaysToKey(fromKey, offsetToNextDayInSet(dowOfKey(fromKey), days, true));
 }
 
-// Same as above but "today counts" — used for the very first occurrence, so
+// Same as above but "today counts" - used for the very first occurrence, so
 // a chore due today shows up today instead of a week from now.
 function nextDayInSetFrom(fromKey: DateKey, days: number[]): DateKey {
   return addDaysToKey(fromKey, offsetToNextDayInSet(dowOfKey(fromKey), days, false));
@@ -161,19 +167,19 @@ function nextDayInSetFrom(fromKey: DateKey, days: number[]): DateKey {
 function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string): Date | null {
   const key = dateKeyInZone(from, tz);
   // A real day pattern (2+ days) always advances within/across the week to
-  // the next matching day — "Mon-Fri homework" needs Tue after Mon, not a
+  // the next matching day - "Mon-Fri homework" needs Tue after Mon, not a
   // flat +7.
   if (daysOfWeek.length > 1) return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
   // A single scheduled day (e.g. "Saturday weekly") re-derives from that
   // actual weekday too, rather than blindly adding 7 to whatever the
   // previous instance's dueDate happened to be. Pure interval math is only
-  // safe if the anchor is already on the right day — but it doesn't stay
+  // safe if the anchor is already on the right day - but it doesn't stay
   // there: reopen() ("Enable again") deliberately creates an occurrence due
   // *today* regardless of the chore's schedule, and once that becomes the
   // anchor, +7-forever would permanently drift the whole chore onto the
   // wrong weekday instead of snapping back to Saturday. This self-corrects
   // every time instead. BIWEEKLY/DAILY/MONTHLY have no weekday to re-derive
-  // from, so they're unaffected — pure interval math for those, unchanged.
+  // from, so they're unaffected - pure interval math for those, unchanged.
   if (daysOfWeek.length === 1 && rule === 'WEEKLY') {
     return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
   }
@@ -182,7 +188,7 @@ function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime:
       return dueInstant(addDaysToKey(key, 1), dueTime, tz);
     case 'WEEKLY':
       // No daysOfWeek configured at all (legacy plain-weekly chore, no day
-      // pattern) — nothing to re-derive from, keep the flat +7.
+      // pattern) - nothing to re-derive from, keep the flat +7.
       return dueInstant(addDaysToKey(key, 7), dueTime, tz);
     case 'BIWEEKLY':
       return dueInstant(addDaysToKey(key, 14), dueTime, tz);
@@ -223,7 +229,7 @@ const CHORE_INCLUDE = {
   },
 };
 
-// Who approved a completion is adult-only context — a kid sees the same
+// Who approved a completion is adult-only context - a kid sees the same
 // instance data minus that one field.
 function stripApprover<T extends { instances: Array<Record<string, unknown>>; createdBy?: unknown }>(chores: T[]): T[] {
   return chores.map(({ createdBy, ...c }) => ({
@@ -232,7 +238,7 @@ function stripApprover<T extends { instances: Array<Record<string, unknown>>; cr
   })) as unknown as T[];
 }
 
-// Proof photos are data URIs — hundreds of KB each. The chores list only
+// Proof photos are data URIs - hundreds of KB each. The chores list only
 // needs to know one EXISTS (hasProof); the actual image is fetched on demand
 // via GET instances/:id/proof by whoever's about to approve.
 function slimProof<T extends { instances: Array<Record<string, unknown>> }>(chores: T[]): T[] {
@@ -264,7 +270,7 @@ export class ChoresService {
     return u!;
   }
 
-  // The timezone due-date math for a chore should use — its location's, or
+  // The timezone due-date math for a chore should use - its location's, or
   // the instance-wide default if it has none / isn't scoped to one.
   private async resolveTimezone(locationId?: string | null): Promise<string> {
     if (!locationId) return DEFAULT_TIMEZONE;
@@ -273,13 +279,19 @@ export class ChoresService {
   }
 
   private async ownedChore(familyId: string, id: string) {
-    const chore = await this.prisma.chore.findFirst({ where: { id, familyId }, include: { assignees: true } });
+    // checklist included alongside assignees so update()'s diff can tell a
+    // genuine checklist edit from the edit form simply resubmitting the same
+    // list it was given (which it always does, unconditionally).
+    const chore = await this.prisma.chore.findFirst({
+      where: { id, familyId },
+      include: { assignees: true, checklist: { orderBy: { sort: 'asc' } } },
+    });
     if (!chore) throw new NotFoundException('Chore not found');
     return chore;
   }
 
   // Creates the "next" instance for a chore, silently no-oping if one already
-  // exists at that exact due date — the DB's @@unique([choreId, dueDate]) is
+  // exists at that exact due date - the DB's @@unique([choreId, dueDate]) is
   // the actual guard (sweepMissed/pollDueDates/finalizeApproval can all race
   // to spawn the same next occurrence); this just turns that race's loser
   // into a no-op instead of a 500.
@@ -301,7 +313,7 @@ export class ChoresService {
     return inst;
   }
 
-  // Family-level feature switch (Family.disabledFeatures — see FAMILY_FEATURES
+  // Family-level feature switch (Family.disabledFeatures - see FAMILY_FEATURES
   // in web/src/api.ts). Everything defaults ON; families opt out.
   private async featureEnabled(familyId: string, feature: string) {
     const f = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
@@ -316,7 +328,7 @@ export class ChoresService {
   }
 
   // Kid attaches a photo to an OPEN occurrence of a photo-proof chore, before
-  // completing it. Data-URI, capped — same storage approach as avatars.
+  // completing it. Data-URI, capped - same storage approach as avatars.
   async attachProof(familyId: string, userId: string, instanceId: string, image: string) {
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
@@ -338,7 +350,7 @@ export class ChoresService {
     const tz = await this.resolveTimezone(dto.locationId);
     const assignmentType = dto.assignmentType === 'ANYONE' ? 'ANYONE' : 'SPECIFIC';
     // A SPECIFIC chore with nobody picked is assigned to no one and claimable
-    // by no one — it'd exist in the DB but never match any group in the UI,
+    // by no one - it'd exist in the DB but never match any group in the UI,
     // effectively vanishing with no way to find or edit it again.
     if (assignmentType === 'SPECIFIC' && !dto.assigneeUserIds?.length) {
       throw new BadRequestException('Pick at least one person, or switch to "Open to anyone".');
@@ -395,11 +407,11 @@ export class ChoresService {
   }
 
   // Owner/family manager see every chore, unscoped. A plain adult sees the
-  // same household scoping a kid does — chores with no location, or one of
+  // same household scoping a kid does - chores with no location, or one of
   // their own locations, plus (regardless of location) anything actually
   // assigned to them, so a cross-household assignment or an
   // upcoming/missed occurrence they can still act on never disappears.
-  // Only kids get the approver field stripped — a plain adult still sees it.
+  // Only kids get the approver field stripped - a plain adult still sees it.
   async list(familyId: string, actingUserId: string) {
     await this.sweepMissed(familyId);
     const chores = await this.prisma.chore.findMany({ where: { familyId }, include: CHORE_INCLUDE });
@@ -418,7 +430,7 @@ export class ChoresService {
   }
 
   // Runs whenever anyone loads chores, as a belt-and-suspenders alongside the
-  // timer-based sweep below (pollDueDates) — so a family whose app instance
+  // timer-based sweep below (pollDueDates) - so a family whose app instance
   // somehow missed a poll still self-heals the moment someone opens the page.
   private async sweepMissed(familyId: string) {
     const stale = await this.prisma.choreInstance.findMany({
@@ -429,16 +441,16 @@ export class ChoresService {
   }
 
   // Any OPEN instance whose due date has fully passed, on a chore that doesn't
-  // allow late credit, forfeits its reward (-> MISSED) and — since the next
-  // occurrence otherwise only ever gets created on approval — spawns the next
+  // allow late credit, forfeits its reward (-> MISSED) and - since the next
+  // occurrence otherwise only ever gets created on approval - spawns the next
   // one so the schedule doesn't freeze.
   //
   // dueDate is already a precise, zone-correct absolute instant (computed via
   // dueInstant() when it was set), so "dueDate < now" needs no further
-  // per-instance zone handling — comparing two absolute instants is
+  // per-instance zone handling - comparing two absolute instants is
   // zone-agnostic by construction.
   private async markMissedAndAdvance(inst: StaleInstance) {
-    // Clear the claim too — for an ANYONE chore, missing it shouldn't leave
+    // Clear the claim too - for an ANYONE chore, missing it shouldn't leave
     // it stuck looking claimed by someone who didn't do it; the notify-the-
     // claimant logic just below still reads the pre-update `inst` in memory,
     // so this doesn't affect who gets told about the miss.
@@ -458,7 +470,7 @@ export class ChoresService {
               inst.chore.familyId,
               uid,
               'STREAK_BONUS',
-              `🧊 Streak freeze used on "${inst.chore.title}" — streak safe (${inst.chore.streakFreezes - 1} left).`,
+              `🧊 Streak freeze used on "${inst.chore.title}" - streak safe (${inst.chore.streakFreezes - 1} left).`,
               { link: '/chores', refId: inst.id },
             ),
           ),
@@ -479,7 +491,7 @@ export class ChoresService {
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
   }
 
-  // Warning thresholds (minutes before due) — 2h, then hourly, then 30/15min,
+  // Warning thresholds (minutes before due) - 2h, then hourly, then 30/15min,
   // then CHORE_MISSED (see markMissedAndAdvance) tells them they blew it.
   private static readonly DUE_SOON_THRESHOLDS = [120, 60, 30, 15];
 
@@ -533,7 +545,7 @@ export class ChoresService {
     const assignmentType =
       dto.assignmentType === 'ANYONE' ? 'ANYONE' : dto.assignmentType === 'SPECIFIC' ? 'SPECIFIC' : undefined;
     // Same rule as create(): a SPECIFIC chore can't end up with nobody
-    // assigned — check the effective state after this edit, not just what
+    // assigned - check the effective state after this edit, not just what
     // this particular request happened to touch.
     const effectiveAssigneeCount = dto.assigneeUserIds !== undefined ? dto.assigneeUserIds.length : before.assignees.length;
     if ((assignmentType ?? before.assignmentType) === 'SPECIFIC' && effectiveAssigneeCount === 0) {
@@ -579,13 +591,13 @@ export class ChoresService {
       }
     }
 
-    // nextDue() just adds a fixed interval to the previous instance's dueDate —
+    // nextDue() just adds a fixed interval to the previous instance's dueDate -
     // it never re-derives from dayOfWeek. So without this, changing "which day"
     // a chore falls on only updates the label; the actual still-open occurrence
     // (and everything generated after it) keeps running on the old schedule.
     // Only re-anchor when the day/rule actually changed (not just resent
     // unchanged by the edit form), and only touch an instance nobody has acted
-    // on yet — never PENDING/APPROVED — so a manual "Enable again" grace
+    // on yet - never PENDING/APPROVED - so a manual "Enable again" grace
     // instance isn't silently snapped back by an unrelated edit.
     const dayChanged = dto.dayOfWeek !== undefined && dto.dayOfWeek !== before.dayOfWeek;
     const daysChanged = dto.daysOfWeek !== undefined && JSON.stringify(dto.daysOfWeek ?? []) !== JSON.stringify(resolveDaysOfWeek(before));
@@ -633,7 +645,7 @@ export class ChoresService {
     await this.notifications.removeByRef([id, ...instances.map((i) => i.id)]);
     this.displayEvents.publish(familyId, { type: 'chores' });
     // targetLabel carries the title since the chore itself is gone by the
-    // time anyone reads this back — there's nothing left to look up.
+    // time anyone reads this back - there's nothing left to look up.
     await this.audit.record({
       actorId: userId,
       actorName: actor.displayName,
@@ -646,7 +658,7 @@ export class ChoresService {
     return { ok: true };
   }
 
-  // Owner/family manager only — everyone else can edit a chore but not
+  // Owner/family manager only - everyone else can edit a chore but not
   // review its change history, per Casey's call. listForTarget() itself
   // filters by familyId (not just targetId), so this stays correctly scoped
   // even for a chore that's since been deleted and has no row left to check.
@@ -676,7 +688,7 @@ export class ChoresService {
     return updated;
   }
 
-  // Self-service release of your OWN claim on an "anyone" chore — for
+  // Self-service release of your OWN claim on an "anyone" chore - for
   // second-guessing, or letting a sibling take it after all. Kid-usable
   // (unlike setClaim below, which is the adult override for reassigning
   // someone else's claim). Scoped to OPEN only: once it's submitted for
@@ -686,7 +698,7 @@ export class ChoresService {
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.chore.assignmentType !== 'ANYONE') throw new BadRequestException('This chore is not open to claim');
     if (inst.claimedByUserId !== userId) throw new ForbiddenException("This isn't your claim to release");
-    if (inst.status !== 'OPEN') throw new BadRequestException('Already submitted — an adult can reassign it if needed');
+    if (inst.status !== 'OPEN') throw new BadRequestException('Already submitted - an adult can reassign it if needed');
     const updated = await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: null } });
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
@@ -736,7 +748,7 @@ export class ChoresService {
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
     const endOfToday = endOfDayInZone(todayKeyInZone(tz), tz);
     if (inst.dueDate > endOfToday) {
-      throw new BadRequestException('Not available yet — this occurrence is scheduled for later.');
+      throw new BadRequestException('Not available yet - this occurrence is scheduled for later.');
     }
     // Belt-and-suspenders: the periodic sweep (see sweepMissed) normally flips a
     // stale instance to MISSED before this is ever reachable from the UI, but
@@ -762,7 +774,7 @@ export class ChoresService {
       !this.isAdult(actor?.role) &&
       (await this.featureEnabled(inst.chore.familyId, 'photoProof'))
     ) {
-      throw new BadRequestException('Add a photo first — this one needs proof.');
+      throw new BadRequestException('Add a photo first - this one needs proof.');
     }
     // Adults don't need approval for their own chores; neither does anyone
     // on a trust chore (autoApprove) like brushing teeth.
@@ -776,7 +788,7 @@ export class ChoresService {
     await this.notifications.notifyAdults(
       inst.chore.familyId,
       'CHORE_PENDING',
-      `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" — needs approval`,
+      `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" - needs approval`,
       { link: '/chores', refId: inst.id },
     );
     this.displayEvents.publish(familyId, { type: 'chores' });
@@ -784,18 +796,18 @@ export class ChoresService {
   }
 
   // Assignee (or the claimer, for an ANYONE chore) deliberately skips this
-  // occurrence instead of doing it — for a chore that's genuinely optional
+  // occurrence instead of doing it - for a chore that's genuinely optional
   // some days (chore.allowSkip), e.g. homework that isn't assigned every
   // night. No approval step, no checklist requirement (skip is an
   // alternative to completing, not a shortcut through it), no token, and
-  // the streak carries through untouched — a skip isn't a failure the way
+  // the streak carries through untouched - a skip isn't a failure the way
   // a miss is, so it neither continues nor breaks it.
   async skip(familyId: string, userId: string, instanceId: string) {
     const inst = await this.ownedInstance(familyId, instanceId);
     if (!inst.chore.allowSkip) throw new BadRequestException('Skipping is not allowed for this chore');
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
 
-    // Auto-claim an ANYONE chore for the person skipping it — same as complete().
+    // Auto-claim an ANYONE chore for the person skipping it - same as complete().
     if (inst.chore.assignmentType === 'ANYONE' && !inst.claimedByUserId) {
       await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { claimedByUserId: userId } });
       inst.claimedByUserId = userId;
@@ -836,7 +848,7 @@ export class ChoresService {
       },
     });
     const recipient = inst.claimedByUserId ?? recipientUserId;
-    // The chore still completes/approves/streaks normally either way — this
+    // The chore still completes/approves/streaks normally either way - this
     // only gates whether either ledger entry below actually gets written.
     const recipientTokensDisabled = recipient
       ? !!(await this.prisma.user.findUnique({ where: { id: recipient }, select: { tokensDisabled: true } }))?.tokensDisabled
@@ -863,8 +875,8 @@ export class ChoresService {
       }
     }
 
-    // Streak: on-time keeps it going (and can trigger a bonus); late — even
-    // when allowed — breaks it, since the point is consistency.
+    // Streak: on-time keeps it going (and can trigger a bonus); late - even
+    // when allowed - breaks it, since the point is consistency.
     if (recipient) {
       if (daysLate === 0) {
         const currentStreak = inst.chore.currentStreak + 1;
@@ -907,11 +919,11 @@ export class ChoresService {
               inst.chore.familyId,
               recipient,
               'STREAK_BONUS',
-              `🎡 You earned a bonus wheel on "${inst.chore.title}" — go spin it!`,
+              `🎡 You earned a bonus wheel on "${inst.chore.title}" - go spin it!`,
               { link: '/chores' },
             );
           }
-          // Streak freeze: bank one per milestone (max 3) — spent
+          // Streak freeze: bank one per milestone (max 3) - spent
           // automatically by markMissedAndAdvance instead of breaking the
           // streak on a future miss.
           if (inst.chore.streakFreezes < 3 && (await this.featureEnabled(inst.chore.familyId, 'streakFreeze'))) {
@@ -923,7 +935,7 @@ export class ChoresService {
               inst.chore.familyId,
               recipient,
               'STREAK_BONUS',
-              `🧊 Streak freeze earned on "${inst.chore.title}" — one miss won't break the streak.`,
+              `🧊 Streak freeze earned on "${inst.chore.title}" - one miss won't break the streak.`,
               { link: '/chores' },
             );
           }
@@ -981,7 +993,7 @@ export class ChoresService {
       data: { status: 'OPEN', completedAt: null },
     });
     if (inst.claimedByUserId) {
-      await this.notifications.create(familyId, inst.claimedByUserId, 'CHORE_REJECTED', `"${inst.chore.title}" was sent back — try again`, {
+      await this.notifications.create(familyId, inst.claimedByUserId, 'CHORE_REJECTED', `"${inst.chore.title}" was sent back - try again`, {
         link: '/chores',
       });
     }
@@ -997,7 +1009,7 @@ export class ChoresService {
     const tz = await this.resolveTimezone(chore.locationId);
     const due = dueInstant(todayKeyInZone(tz), chore.dueTime, tz);
 
-    // An occurrence for today's slot may already exist in a finished state —
+    // An occurrence for today's slot may already exist in a finished state -
     // typically the one that was just skipped or missed. (choreId, dueDate) is
     // unique, so moving/creating another row at that same instant used to blow
     // up with a constraint error ("Enable again" on a skipped chore threw);
@@ -1024,7 +1036,7 @@ export class ChoresService {
     }
 
     // Otherwise re-use an already-open instance rather than stacking a second
-    // one on top of it — clicking "Enable again" twice shouldn't leave two
+    // one on top of it - clicking "Enable again" twice shouldn't leave two
     // open occurrences (this cycle's and a manual one) alive at once.
     const existing = await this.prisma.choreInstance.findFirst({ where: { choreId, status: 'OPEN' } });
     if (existing) {
@@ -1063,12 +1075,12 @@ export class ChoresService {
     return updated;
   }
 
-  // Full activity log — every occurrence of every chore (or, with choreId,
+  // Full activity log - every occurrence of every chore (or, with choreId,
   // just one), not the main list's per-chore 5-row cap. Adults-only (owner,
-  // family manager, or plain adult — never a kid) so this is purely a
+  // family manager, or plain adult - never a kid) so this is purely a
   // "check things are actually working right" tool, not something a kid
   // digs through to find an old missed chore. Capped at 300 like the other
-  // history views in this app (awards/notifications) — plenty for spot
+  // history views in this app (awards/notifications) - plenty for spot
   // checks; not meant to be a permanent unbounded archive.
   async history(familyId: string, actorId: string, choreId?: string) {
     await this.assertAdult(actorId);
@@ -1105,7 +1117,7 @@ export class ChoresService {
 
   async balances(familyId: string) {
     // `earned` (lifetime positive total) never goes down when tokens are
-    // spent — it's the XP behind the level badge, so spending doesn't feel
+    // spent - it's the XP behind the level badge, so spending doesn't feel
     // like losing progress.
     const [grouped, earnedGrouped] = await Promise.all([
       this.prisma.tokenLedger.groupBy({
@@ -1124,13 +1136,13 @@ export class ChoresService {
   }
 
   // Still-actionable chores due on a given calendar day, for the kiosk's idle
-  // screensaver "at a glance" list — no signed-in profile needed, so this
+  // screensaver "at a glance" list - no signed-in profile needed, so this
   // can't reuse list()'s per-user scoping. Same location rule as the rest of
   // the app: unscoped (locationId null, the kiosk isn't tied to a household)
   // sees everything; scoped sees location-less chores plus that one
   // location's. `excludePassed` drops OPEN instances whose due instant has
-  // already gone by (dueDate already IS the precise due instant — end-of-day
-  // if the chore has no dueTime, else that exact wall-clock time — so a plain
+  // already gone by (dueDate already IS the precise due instant - end-of-day
+  // if the chore has no dueTime, else that exact wall-clock time - so a plain
   // `dueDate >= now` comparison is all that's needed); PENDING instances
   // (awaiting approval) are never excluded by this since they're not
   // "upcoming," they already happened.
@@ -1167,7 +1179,7 @@ export class ChoresService {
     }));
   }
 
-  // "Today" has to mean the location's (or family default) wall-clock day —
+  // "Today" has to mean the location's (or family default) wall-clock day -
   // the server process runs UTC (Docker), so a naive `new Date()` +
   // setHours(0,0,0,0) computes UTC midnight, which for a Mountain-time
   // family is already mid-evening the day before or after depending on the

@@ -21,7 +21,7 @@ const STATUS_COLOR: Record<string, string> = {
 };
 
 // Adults-only (owner/family manager/adult; a kid never sees this) full
-// activity log — every occurrence of every chore, not the main list's
+// activity log - every occurrence of every chore, not the main list's
 // per-chore 5-row cap. For spot-checking that the schedule/approval/claim
 // machinery is actually doing what it should, not day-to-day use, so it
 // starts collapsed same as the Awards page's history.
@@ -40,7 +40,7 @@ export default function ChoreHistoryPanel() {
     }
   }
 
-  // Refetch scoped server-side when a specific chore is picked — cheaper
+  // Refetch scoped server-side when a specific chore is picked - cheaper
   // than pulling everything and filtering client-side once there's enough
   // history that the unscoped 300-row cap could cut a chore's older rows.
   useEffect(() => {
@@ -96,9 +96,9 @@ export default function ChoreHistoryPanel() {
                     <td className="px-2 py-1.5 font-medium">{r.choreTitle}</td>
                     <td className="px-2 py-1.5 text-slate-500">{formatDateTime(r.dueDate)}</td>
                     <td className={`px-2 py-1.5 font-medium ${STATUS_COLOR[r.status] ?? ''}`}>{STATUS_LABEL[r.status] ?? r.status}</td>
-                    <td className="px-2 py-1.5 text-slate-500">{r.claimedByName ?? '—'}</td>
-                    <td className="px-2 py-1.5 text-slate-500">{r.approvedByUser?.displayName ?? '—'}</td>
-                    <td className="px-2 py-1.5 text-slate-500">{r.completedAt ? formatDateTime(r.completedAt) : '—'}</td>
+                    <td className="px-2 py-1.5 text-slate-500">{r.claimedByName ?? '-'}</td>
+                    <td className="px-2 py-1.5 text-slate-500">{r.approvedByUser?.displayName ?? '-'}</td>
+                    <td className="px-2 py-1.5 text-slate-500">{r.completedAt ? formatDateTime(r.completedAt) : '-'}</td>
                   </tr>
                 ))}
                 {rows.length === 0 && (

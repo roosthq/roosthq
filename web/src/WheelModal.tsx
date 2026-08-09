@@ -4,7 +4,7 @@ import { celebrate } from './celebrate';
 const COLORS = ['#4e7a4c', '#d4c06a', '#5baedd', '#e07c5c', '#b58ae0', '#2a9a78', '#b84878', '#a07840'];
 
 // Full-screen bonus wheel. The AMOUNT is already decided (and banked) by the
-// server — this wheel is theater that always lands on it. Spin by dragging
+// server - this wheel is theater that always lands on it. Spin by dragging
 // (finger velocity on the kiosk/tablet) or with the Spin button.
 export default function WheelModal({
   amount,
@@ -16,14 +16,14 @@ export default function WheelModal({
   onSpin,
   onClose,
 }: {
-  // Known up front (legacy/immediate wheels) or resolved by onSpin() — the
+  // Known up front (legacy/immediate wheels) or resolved by onSpin() - the
   // server rolls when the person actually spins, so the result can't be known
   // before the flick.
   amount?: number;
   min: number;
   max: number;
   label?: string;
-  // What earned this wheel ("Good behavior", "Homework (5 in a row)") — shown
+  // What earned this wheel ("Good behavior", "Homework (5 in a row)") - shown
   // before and after the spin so a kid knows what they're being rewarded for.
   source?: string;
   tokenName?: string;
@@ -41,7 +41,7 @@ export default function WheelModal({
     return out;
   }, [min, max]);
 
-  // Which slice we land on — chosen once the amount is known (immediately for
+  // Which slice we land on - chosen once the amount is known (immediately for
   // a pre-rolled wheel, or as soon as the spin request comes back).
   const targetIndex = useMemo(() => {
     if (rolled === undefined) return 0;
@@ -56,7 +56,7 @@ export default function WheelModal({
   const rotation = useRef(0);
   const raf = useRef(0);
   // A quick flick can produce very few pointermove events, so track the whole
-  // gesture (total sweep + elapsed time), not just the last sample — the first
+  // gesture (total sweep + elapsed time), not just the last sample - the first
   // version only launched on a slow-ish drag and a real flick did nothing.
   const drag = useRef<{
     lastAngle: number;
@@ -158,7 +158,7 @@ export default function WheelModal({
     if (!d.active) return;
     d.active = false;
     // Either the instantaneous flick speed OR the average across the gesture
-    // is enough — and any deliberate sweep (>25 degrees) spins even if the
+    // is enough - and any deliberate sweep (>25 degrees) spins even if the
     // finger left the wheel before a fast sample landed.
     const elapsed = Math.max(1, performance.now() - d.startTime);
     const avg = d.totalSweep / elapsed;

@@ -1,6 +1,6 @@
 // Roost HQ brand lockup: pixel-owl mark (theme-aware) + wordmark. The mark is
 // inline (not an <img>) so its fills can key off the same CSS variables as the
-// rest of the app — one shape, automatically recolored for light/dark and for
+// rest of the app - one shape, automatically recolored for light/dark and for
 // whichever per-person theme (see COLOR_THEMES in api.ts) is active.
 //
 // `size` is a design px value at the app's default 16px root font size; it's

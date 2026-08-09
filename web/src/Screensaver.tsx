@@ -24,7 +24,7 @@ function choreTime(hhmm: string | null): string {
 
 // Full-screen clock + "at a glance" (today's chores/events) + weather, shown
 // after DisplayConfig.screensaverMinutes of no touch/mouse/key activity (see
-// the idle-timer effect in Display.tsx). Tapping anywhere dismisses it — the
+// the idle-timer effect in Display.tsx). Tapping anywhere dismisses it - the
 // tap itself also counts as activity via the same document-level listeners,
 // so the idle timer restarts automatically.
 export default function Screensaver({ weather, onDismiss }: { weather: WeatherNow | null; onDismiss: () => void }) {
@@ -37,7 +37,7 @@ export default function Screensaver({ weather, onDismiss }: { weather: WeatherNo
   }, []);
 
   // Refetches only while this component is mounted (i.e. only while the
-  // screensaver is actually showing) — no point polling chores/events in the
+  // screensaver is actually showing) - no point polling chores/events in the
   // background when nobody's looking at this view.
   useEffect(() => {
     let stopped = false;
@@ -59,12 +59,12 @@ export default function Screensaver({ weather, onDismiss }: { weather: WeatherNo
 
   return (
     <div
-      // onClick only — NOT onTouchStart. Dismissing on touchstart unmounts this
+      // onClick only - NOT onTouchStart. Dismissing on touchstart unmounts this
       // overlay mid-gesture, so the browser's synthetic click that follows
       // touchend re-hit-tests at that screen position and lands on whatever's
       // now underneath (opening a chore/event/whatever was there). Handling
       // only the final click means this overlay is still mounted for the
-      // whole tap and fully absorbs it — nothing leaks through.
+      // whole tap and fully absorbs it - nothing leaks through.
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -73,7 +73,7 @@ export default function Screensaver({ weather, onDismiss }: { weather: WeatherNo
       className="fixed inset-0 z-[100] flex cursor-pointer flex-col items-center justify-center gap-8 bg-black px-8 text-white"
     >
       {/* Slow drift so the bright clock text isn't pinned to the exact same
-          pixels for hours at a stretch — cheap insurance against LCD burn-in,
+          pixels for hours at a stretch - cheap insurance against LCD burn-in,
           imperceptible as motion. */}
       <style>{`
         @keyframes rhq-screensaver-drift {

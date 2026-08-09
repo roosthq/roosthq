@@ -50,7 +50,7 @@ export default function KioskAccountPanel({
       await refresh();
       onPinChanged?.();
     } catch {
-      setPinError('Could not save PIN — try again.');
+      setPinError('Could not save PIN - try again.');
     }
   }
 
@@ -70,7 +70,7 @@ export default function KioskAccountPanel({
     try {
       await client.setColorTheme(id);
     } catch {
-      await alert('Could not save color — try again.');
+      await alert('Could not save color - try again.');
       await refresh();
     }
   }

@@ -27,7 +27,7 @@ export async function currentPushSubscription(): Promise<PushSubscription | null
 }
 
 // Requests browser permission (if not already granted/denied), subscribes,
-// and registers the subscription with the server. Throws on denial/failure —
+// and registers the subscription with the server. Throws on denial/failure -
 // callers should surface that via the Dialog, not swallow it silently.
 export async function subscribeToPush(): Promise<void> {
   if (!pushSupported()) throw new Error('Push notifications are not supported in this browser.');

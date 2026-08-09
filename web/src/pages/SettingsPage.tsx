@@ -18,7 +18,7 @@ import { useDialog } from '../Dialog';
 import { resizeImageFile } from '../Prize';
 
 // Owner-only sections reach across every family in the instance (Families,
-// Holidays) — everything else here only ever affects the current family.
+// Holidays) - everything else here only ever affects the current family.
 // Splitting those into tabs keeps "create a whole new family" and "rename
 // our reward currency" from sitting in the same undifferentiated list, which
 // only an owner would otherwise notice (everyone else only ever sees the
@@ -56,14 +56,14 @@ function FamilySettings({ me, isFamilyManager, isAdult }: { me: Me; isFamilyMana
         </Section>
       )}
 
-      <Section title="Locations" help="For split households — group people so calendars and displays can be scoped per house.">
+      <Section title="Locations" help="For split households - group people so calendars and displays can be scoped per house.">
         <LocationsSetting />
       </Section>
 
       {isAdult && (
         <Section
           title="Local calendars"
-          help="Calendars that live in the app — no Google account needed. Give one a location to scope it to a household."
+          help="Calendars that live in the app - no Google account needed. Give one a location to scope it to a household."
         >
           <LocalCalendarsSetting />
         </Section>
@@ -127,7 +127,7 @@ function Section({ title, help, children }: { title: string; help?: string; chil
   );
 }
 
-// Consistent labeled-field shell for every form control on this page — label
+// Consistent labeled-field shell for every form control on this page - label
 // above, control below, optional help text. Matches the pattern ChoresPanel's
 // forms already use, so Settings reads like the rest of the app instead of
 // its own thing.
@@ -285,7 +285,7 @@ function ChoreWordSetting() {
   );
 }
 
-// Real, complete IANA zone list straight from the browser — every modern
+// Real, complete IANA zone list straight from the browser - every modern
 // browser (including iOS Safari 15.4+) supports this. Falls back to a short
 // curated list on anything ancient enough not to.
 const TIMEZONES: string[] =
@@ -463,7 +463,7 @@ function LocalCalendarsSetting() {
         {calendars.map((c) => (
           <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg p-3">
             <label
-              title="Upload a photo so this calendar is recognizable at a glance — defaults to just the color swatch if you skip this."
+              title="Upload a photo so this calendar is recognizable at a glance - defaults to just the color swatch if you skip this."
               className="relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-full border"
               style={!c.image ? { background: c.color ?? '#94a3b8' } : undefined}
             >
@@ -512,7 +512,7 @@ function LocalCalendarsSetting() {
             </button>
           </li>
         ))}
-        {calendars.length === 0 && <li className="text-sm text-slate-400">No local calendars yet — add one above.</li>}
+        {calendars.length === 0 && <li className="text-sm text-slate-400">No local calendars yet - add one above.</li>}
       </ul>
     </div>
   );
@@ -575,7 +575,7 @@ function DisplaysManager() {
         {displays.map((d) => (
           <DisplayRow key={d.id} display={d} locations={locations} onPatch={(body) => patch(d.id, body)} onDelete={() => del(d.id)} />
         ))}
-        {displays.length === 0 && <li className="text-sm text-slate-400">No displays yet — add one above.</li>}
+        {displays.length === 0 && <li className="text-sm text-slate-400">No displays yet - add one above.</li>}
       </ul>
     </div>
   );
@@ -606,7 +606,7 @@ function DisplayRow({
   const [reloaded, setReloaded] = useState(false);
 
   // Pushed over the SSE stream every kiosk on this display already holds
-  // open — fixes a frozen/stuck Pi without walking over to it. Only reaches
+  // open - fixes a frozen/stuck Pi without walking over to it. Only reaches
   // a kiosk that's actually still connected; one whose display link was
   // revoked never had a live stream to push to in the first place.
   async function onReload() {
@@ -675,7 +675,7 @@ function DisplayRow({
           </select>
         </Field>
 
-        <Field label="Default color theme" help="Shown whenever nobody's signed in — a signed-in person's own color still takes over.">
+        <Field label="Default color theme" help="Shown whenever nobody's signed in - a signed-in person's own color still takes over.">
           <select
             value={d.colorTheme}
             onChange={(e) => onPatch({ colorTheme: e.target.value })}
@@ -779,7 +779,7 @@ function DisplayRow({
                 }}
                 className="w-20 rounded border px-2 py-1"
               />
-              <span className="text-slate-500">idle minutes (0 = never) — tap anywhere to wake it</span>
+              <span className="text-slate-500">idle minutes (0 = never) - tap anywhere to wake it</span>
             </div>
           </Field>
         </div>

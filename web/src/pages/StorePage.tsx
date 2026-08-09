@@ -8,7 +8,7 @@ import Modal from '../Modal';
 import { formatDate } from '../dateFormat';
 
 // Store cards are all the same horizontal-rectangle shape (see the grid
-// above) — the crop tool matches it, so what you select is exactly what the
+// above) - the crop tool matches it, so what you select is exactly what the
 // card will show.
 const PRIZE_CROP_ASPECT = 16 / 9;
 
@@ -53,7 +53,7 @@ export default function StorePage({
     refresh();
   }, [refresh]);
 
-  // Full buyer history for whichever prize is open in the detail modal —
+  // Full buyer history for whichever prize is open in the detail modal -
   // adults/owners only (enforced server-side too).
   useEffect(() => {
     if (isAdult && viewing) {
@@ -75,7 +75,7 @@ export default function StorePage({
       setViewing(null);
       await refresh();
     } catch {
-      await alert('Could not redeem — not enough ' + tokenName + '?');
+      await alert('Could not redeem - not enough ' + tokenName + '?');
     }
   }
 
@@ -111,7 +111,7 @@ export default function StorePage({
   const suggestions = prizes.filter((p) => p.suggested);
   const pending = history.filter((r) => r.status === 'REQUESTED');
   const eventsToFulfill = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !r.usedAt);
-  // Claimed events — adults can un-claim one that was ticked off by mistake.
+  // Claimed events - adults can un-claim one that was ticked off by mistake.
   const eventsDone = history.filter((r) => r.status === 'FULFILLED' && r.prize.type === 'EVENT' && !!r.usedAt);
 
   return (
@@ -148,7 +148,7 @@ export default function StorePage({
             >
               {/* Fixed aspect ratio (not a fixed height) so every card lines
                   up the same regardless of whether an image, a crop, or
-                  neither is set — a missing image's placeholder box is the
+                  neither is set - a missing image's placeholder box is the
                   exact same size as a photo would be. */}
               <PrizeImage src={p.image} alt={p.name} crop={p.imageCrop} className="aspect-[16/9] w-full" />
               <div className="flex flex-1 flex-col p-3">
@@ -227,7 +227,7 @@ export default function StorePage({
       {isAdult && archivedPrizes.length > 0 && (
         <section className="mt-8">
           <h3 className="text-md font-semibold">Archived</h3>
-          <p className="text-xs text-slate-400">Sold, one-off prizes — revive one to put it back in the store.</p>
+          <p className="text-xs text-slate-400">Sold, one-off prizes - revive one to put it back in the store.</p>
           <ul className="mt-2 space-y-1 text-sm">
             {archivedPrizes.map((p) => (
               <li key={p.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
@@ -473,7 +473,7 @@ export function PrizeForm({
   const [url, setUrl] = useState(prize?.url ?? '');
   const [realPrice, setRealPrice] = useState(prize?.realPrice != null ? String(prize.realPrice) : '');
   const [tokenCost, setTokenCost] = useState(prize?.tokenCost ?? 0);
-  // Once true, real-price changes stop overwriting tokenCost — the adult took
+  // Once true, real-price changes stop overwriting tokenCost - the adult took
   // the wheel. Starts true when editing an existing prize (don't clobber it).
   const [tokenCostTouched, setTokenCostTouched] = useState(!!prize);
   const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
@@ -500,7 +500,7 @@ export function PrizeForm({
     setUploading(true);
     try {
       setImage(await resizeImageFile(file));
-      setImageCrop(null); // a genuinely new image — the old crop rect doesn't apply to it
+      setImageCrop(null); // a genuinely new image - the old crop rect doesn't apply to it
     } catch {
       await alert('Could not read that image.');
     } finally {
@@ -539,7 +539,7 @@ export function PrizeForm({
           <h3 className="text-lg font-semibold">{prize ? (prize.suggested ? 'Review request' : 'Edit prize') : 'Add prize'}</h3>
           {prize?.suggested && (
             <p className="mt-1 text-xs text-amber-600">
-              Requested by {prize.suggestedByName ?? 'a kid'} — fill in the token cost and anything else, then approve.
+              Requested by {prize.suggestedByName ?? 'a kid'} - fill in the token cost and anything else, then approve.
             </p>
           )}
         </>
@@ -595,13 +595,13 @@ export function PrizeForm({
                     {imageCrop ? 'Adjust crop' : 'Crop for the store card'}
                   </button>
                   <p className="mt-1 text-xs text-slate-400">
-                    Only affects the small card — the full image still shows when someone opens the prize
+                    Only affects the small card - the full image still shows when someone opens the prize
                     {imageMode === 'url' ? ' or the link' : ''}. Nothing about the {imageMode === 'url' ? 'URL' : 'photo'} itself changes.
                   </p>
                 </div>
               </div>
             )}
-            {!image && <p className="mt-1 text-xs text-slate-400">No image yet — a default icon will show instead.</p>}
+            {!image && <p className="mt-1 text-xs text-slate-400">No image yet - a default icon will show instead.</p>}
           </div>
 
           <input className={input} placeholder="Link URL (optional)" value={url} onChange={(e) => setUrl(e.target.value)} />
@@ -626,7 +626,7 @@ export function PrizeForm({
             </label>
           </div>
           {realPrice !== '' && !tokenCostTouched && (
-            <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) — edit to override.</p>
+            <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) - edit to override.</p>
           )}
 
           <label className="flex items-center gap-2 text-sm">
@@ -635,8 +635,8 @@ export function PrizeForm({
           </label>
           <p className="text-xs text-slate-400">
             {repeatable
-              ? 'Stays in the store — anyone eligible can buy it any number of times.'
-              : "Sold once, then archived — you'll need to revive it from the archive to sell it again."}
+              ? 'Stays in the store - anyone eligible can buy it any number of times.'
+              : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
           </p>
 
           <div>

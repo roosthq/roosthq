@@ -1,4 +1,4 @@
-// Age-bucketed chore template bundles — one-tap setup for a new kid (or a
+// Age-bucketed chore template bundles - one-tap setup for a new kid (or a
 // new family, once this is open sourced). Each template maps straight onto
 // the createChore body; the picker fills in assigneeUserIds.
 

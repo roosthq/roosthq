@@ -20,7 +20,7 @@ const TYPE_ICON: Record<string, string> = {
   AWARD_GRANTED: '🏆',
 };
 
-// Push/email notification prefs moved to My Settings — this page is the
+// Push/email notification prefs moved to My Settings - this page is the
 // feed/list only now.
 export default function NotificationsPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
@@ -43,7 +43,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
       window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
     }
     // A notification always means something changed server-side since it
-    // was created — a new bonus wheel to spin, a redemption's status, an
+    // was created - a new bonus wheel to spin, a redemption's status, an
     // approval. Wherever it's about to navigate may already be mounted
     // (e.g. /chores sitting open in another tab) and won't otherwise know.
     window.dispatchEvent(new Event(DATA_REFRESH_EVENT));
@@ -84,7 +84,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
               Mark all read
             </button>
           )}
-          {/* People could not find where to turn push/email on — deep-link to
+          {/* People could not find where to turn push/email on - deep-link to
               the exact section instead of making them hunt through settings. */}
           <Link to="/my-settings#notifications" className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
             ⚙️ Notification settings

@@ -6,12 +6,12 @@ import { useDialog } from './Dialog';
 import TokenBadge from './TokenBadge';
 
 // The full chore card (token value, checklist, actions) condensed for a
-// single occurrence inside the calendar's day-detail modal — same info and
+// single occurrence inside the calendar's day-detail modal - same info and
 // same actions ChoresPanel offers, so "manage it from the calendar" really
 // does mean the normal chore management, checklist included. A required
 // checklist item blocks completion server-side, so without the checkboxes
 // here there was no way to satisfy that from the calendar at all. A virtual
-// (projected, not-yet-real) occurrence has nothing to act on — the server
+// (projected, not-yet-real) occurrence has nothing to act on - the server
 // wouldn't let you complete a future-dated instance anyway.
 export default function ChoreOccurrenceActions({
   chore,
@@ -24,7 +24,7 @@ export default function ChoreOccurrenceActions({
   instance: ChoreInstance | null;
   me: { id: string; role: string };
   onChanged: () => void;
-  // Kiosk profile token — omit for the main (session-cookie) portal.
+  // Kiosk profile token - omit for the main (session-cookie) portal.
   token?: string;
 }) {
   const { alert, confirm } = useDialog();
@@ -52,7 +52,7 @@ export default function ChoreOccurrenceActions({
   const claimedBy = instance.claimedByUserId;
   const mine = chore.assignmentType === 'ANYONE' ? claimedBy === me.id : chore.assignees.some((a) => a.userId === me.id);
   const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && instance.status === 'OPEN';
-  // "Due today" (any time before midnight), not "due clock-time has passed" —
+  // "Due today" (any time before midnight), not "due clock-time has passed" -
   // matches ChoresPanel's dueNow exactly, so the day modal and the sidebar
   // never disagree about whether an occurrence is actionable yet.
   const endOfToday = new Date();
@@ -95,7 +95,7 @@ export default function ChoreOccurrenceActions({
         <div className="flex items-center gap-2">
           {tokenRow}
           <span className="text-xs text-green-600">
-            Done ✓{instance.approvedByUser && ` — approved by ${instance.approvedByUser.displayName}`}
+            Done ✓{instance.approvedByUser && ` - approved by ${instance.approvedByUser.displayName}`}
           </span>
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function ChoreOccurrenceActions({
     return (
       <div className="mt-2 flex items-center gap-2">
         {tokenRow}
-        <span className="text-xs text-red-500">Rejected — try again</span>
+        <span className="text-xs text-red-500">Rejected - try again</span>
       </div>
     );
   }

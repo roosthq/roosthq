@@ -54,7 +54,7 @@ function coveredDays(e: CalEvent): string[] {
   return keys;
 }
 
-// Only meaningful for multi-day events — a single-day one's date is already
+// Only meaningful for multi-day events - a single-day one's date is already
 // obvious from which day's modal you're looking at, so showing it there
 // too would just be clutter on every ordinary event.
 function isMultiDay(e: CalEvent): boolean {
@@ -110,10 +110,10 @@ export default function Calendar({
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
   // Renders an "+ Add event" button in the day-detail modal, prefilled with
-  // whatever day was clicked — omit to leave the modal without one (the
+  // whatever day was clicked - omit to leave the modal without one (the
   // kiosk's read-only "mini" calendar doesn't want it, for instance).
   onAddEvent?: (dateISO: string) => void;
-  // Renders an "Edit" button on an event's row in the day-detail modal —
+  // Renders an "Edit" button on an event's row in the day-detail modal -
   // omit to leave events non-editable there. Paired with canEditEvent since
   // not every event this component renders is actually a real, writable
   // calendar event (a holiday occurrence or a chore's pseudo-event has
@@ -121,23 +121,23 @@ export default function Calendar({
   onEditEvent?: (e: CalEvent) => void;
   canEditEvent?: (e: CalEvent) => boolean;
   // 'mini' is the small "windows-style" side calendar for the kiosk's
-  // person-focused layout — day numbers and per-calendar dots only, no event
+  // person-focused layout - day numbers and per-calendar dots only, no event
   // text (there's no room for it), but still fully clickable/navigable.
   size?: 'normal' | 'large' | 'compact' | 'mini';
   // Stretch the day grid to fill the parent's height (rows share it equally)
   // instead of sizing each cell to a fixed min-height. Parent must give this
   // component a bounded height (e.g. flex-1 in a flex column) for it to work.
   fill?: boolean;
-  // Bigger prev/today/next/view-range buttons — the kiosk sets this
+  // Bigger prev/today/next/view-range buttons - the kiosk sets this
   // regardless of `size`, since a finger needs a larger target than a mouse
   // cursor does no matter how the grid itself is sized.
   touchControls?: boolean;
-  // Extra content under an event's description in the day-detail modal —
+  // Extra content under an event's description in the day-detail modal -
   // lets a caller bolt on domain-specific actions (e.g. chore claim/complete
   // buttons) without this component knowing anything about chores.
   renderExtra?: (e: CalEvent) => ReactNode;
 }) {
-  // Pivot date for whichever view is active — deliberately kept as today's
+  // Pivot date for whichever view is active - deliberately kept as today's
   // actual date, not normalized to the 1st of the month: the month grid calc
   // below only reads cursor's year/month (so this doesn't affect month view),
   // but 1week/2week read cursor's exact day to find "this" week. Normalizing
@@ -145,7 +145,7 @@ export default function Calendar({
   // month instead of the week actually containing today.
   const [cursor, setCursor] = useState(() => new Date());
   const [selected, setSelected] = useState<string | null>(null);
-  // Mini (kiosk side calendar) always stays a full month — no room for a
+  // Mini (kiosk side calendar) always stays a full month - no room for a
   // range picker, and the point of "mini" is the familiar month-grid glance.
   const [view, setView] = useState<ViewRange>('month');
   const effectiveView = size === 'mini' ? 'month' : view;
@@ -208,7 +208,7 @@ export default function Calendar({
     // One deterministic order applied to EVERY cell: longest multi-day spans
     // first, then all-day, then timed. Cells used to sort independently by
     // time only, so a multi-day bar sat in row 0 in one cell and row 1 in the
-    // next (whenever the neighbors differed) — visually snapping the
+    // next (whenever the neighbors differed) - visually snapping the
     // "continuous" bar apart. Longest-first keeps a bar in the same row for
     // its whole span in all but pathological overlaps.
     const spanDays = (e: CalEvent) => {
@@ -235,7 +235,7 @@ export default function Calendar({
   // Full lane allocation for multi-day bars, computed per week row: every
   // spanning event gets a stable lane (greedy first-fit, earliest-start
   // first), and every cell it covers renders that lane at the same list
-  // index — with invisible same-height spacers filling any lane above it
+  // index - with invisible same-height spacers filling any lane above it
   // that's unused on that particular day. That's what keeps a bar in one
   // straight line across the week even when neighboring days have different
   // event counts. Single-day items always render below the lanes.
@@ -322,17 +322,17 @@ export default function Calendar({
     }
   };
   const goToday = () => {
-    // Same reasoning as the initial cursor above — month view only cares
+    // Same reasoning as the initial cursor above - month view only cares
     // about year/month so today's exact date works for every view.
     setCursor(new Date());
   };
 
-  // Slide-in animation on every navigation (buttons, swipe, Today) — keyed
+  // Slide-in animation on every navigation (buttons, swipe, Today) - keyed
   // off animKey so the grid remounts and re-triggers the CSS animation each
   // time, direction-tagged so "next" and "prev" slide in from opposite
   // sides. Swipe: left/right always pages like the ‹/› buttons; up/down
   // does the same but only in 1wk/2wk (a month grid has no natural "up/down
-  // is a week" reading, so it's left alone there — page scroll still works).
+  // is a week" reading, so it's left alone there - page scroll still works).
   const [animDir, setAnimDir] = useState<1 | -1>(1);
   const [animKey, setAnimKey] = useState(0);
   const navigate = (delta: 1 | -1) => {
@@ -348,7 +348,7 @@ export default function Calendar({
 
   // Simple threshold-based swipe recognizer (start/end point, no live drag
   // tracking) on the day grid itself. `swiped` on the ref (not state) so the
-  // day-cell button's own onClick — which fires right after pointerup — can
+  // day-cell button's own onClick - which fires right after pointerup - can
   // check it synchronously and skip opening the day modal for what was
   // actually a page-turn, not a tap.
   const swipeRef = useRef<{ x: number; y: number; swiped: boolean } | null>(null);
@@ -393,7 +393,7 @@ export default function Calendar({
             </div>
           )}
           <button onClick={() => navigate(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
-          {/* Kept even in mini (the kiosk's person-focused side calendar) — a
+          {/* Kept even in mini (the kiosk's person-focused side calendar) - a
               compressed calendar is exactly where jumping back to today
               matters most, since there's no room to see much else. */}
           <button onClick={jumpToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
@@ -433,7 +433,7 @@ export default function Calendar({
           const isSelected = k === selected;
           const dayEvents = byDay.get(k) ?? [];
           // Pills default large so they stand out; only shrink once a day's
-          // too crowded for that to fit — sized off this day's own count, not
+          // too crowded for that to fit - sized off this day's own count, not
           // the component's overall size prop (a busy day in "large" mode
           // still needs to shrink its pills same as a busy day anywhere else).
           const pillCls =
@@ -446,7 +446,7 @@ export default function Calendar({
             <button
               key={k}
               onClick={() => {
-                // A swipe that ends over a day cell shouldn't also open it —
+                // A swipe that ends over a day cell shouldn't also open it -
                 // onGridPointerUp (bubbled up from this same pointerup) already
                 // set this synchronously, before the click fires.
                 if (swipeRef.current?.swiped) return;
@@ -484,7 +484,7 @@ export default function Calendar({
                 <>
                   {/* Solid-color pills (the calendar's own color) on wider
                       screens; below sm there's only room for a per-calendar
-                      dot + count — tap the day for the rest. Multi-day events
+                      dot + count - tap the day for the rest. Multi-day events
                       render first via laneMap: same lane index in every cell
                       they cover (spacers hold empty lanes), fixed height, so
                       each bar reads as one straight continuous line across
@@ -572,7 +572,7 @@ export default function Calendar({
               </h3>
               <div className="flex items-center gap-3">
                 {onAddEvent && (
-                  // Deliberately doesn't close this modal — the day stays
+                  // Deliberately doesn't close this modal - the day stays
                   // highlighted and its detail view stays open underneath,
                   // so the new event shows up in it the moment it's saved.
                   <button onClick={() => onAddEvent(selected)} className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700">
@@ -601,7 +601,7 @@ export default function Calendar({
                       </button>
                     )}
                   </div>
-                  {/* Which calendar this actually belongs to — two events with
+                  {/* Which calendar this actually belongs to - two events with
                       the same title on different calendars (e.g. two kids'
                       separate "Spring Break") were otherwise indistinguishable
                       here, even though the month grid's own pills already

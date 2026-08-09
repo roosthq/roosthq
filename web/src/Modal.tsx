@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 // Shared modal shell: header and footer never scroll, only the body between
-// them does — so the title and Cancel/Submit row stay on screen no matter
+// them does - so the title and Cancel/Submit row stay on screen no matter
 // how tall the content gets (long forms, lists, small phones with the
 // keyboard open). max-h caps the card itself; the body is what gives.
 export default function Modal({
@@ -20,7 +20,7 @@ export default function Modal({
   onBackdropClick?: () => void;
 }) {
   return (
-    // z-50 puts the dialog above the fixed bottom tab bar (z-40) — without it
+    // z-50 puts the dialog above the fixed bottom tab bar (z-40) - without it
     // the tab bar painted over the footer and swallowed the submit button.
     // The extra bottom padding on phones keeps the card itself clear of the
     // bar rather than just layering on top of it.

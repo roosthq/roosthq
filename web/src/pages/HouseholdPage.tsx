@@ -32,14 +32,14 @@ function daysUntil(key: string): number {
   return Math.round((target.getTime() - today.getTime()) / 86_400_000);
 }
 
-// Meal plan + grocery list + countdowns + announcements — the family's
+// Meal plan + grocery list + countdowns + announcements - the family's
 // "kitchen wall" page. Sections appear only when the family feature is on.
 export default function HouseholdPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const [family, setFamily] = useState<FamilySettings | null>(null);
   // Which household this page is looking at. Always a real location once the
-  // family has any — locations already are the scoping mechanism, so there's
+  // family has any - locations already are the scoping mechanism, so there's
   // no separate "family-wide" view to pick. '' only ever applies to a family
   // with zero locations defined (everything is implicitly one household).
   // A location's view still merges in any legacy item that has no location
@@ -149,7 +149,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           <button onClick={() => navigate(1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">›</button>
         </div>
       </div>
-      {/* Swipeable, same recognizer as the calendar's own day grid — drag
+      {/* Swipeable, same recognizer as the calendar's own day grid - drag
           anywhere in the grid to page weeks, not just the ‹/› buttons. */}
       <ul key={animKey} {...swipeProps} className={`mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
         {Array.from({ length: 7 }, (_, i) => {
@@ -180,7 +180,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                   }}
                   className="mt-1.5 min-h-[2.5rem] w-full rounded px-2 py-1.5 text-left text-base leading-snug hover:bg-slate-50 disabled:cursor-default"
                 >
-                  {meal?.title || <span className="text-slate-400">{isAdult ? '+ add' : '—'}</span>}
+                  {meal?.title || <span className="text-slate-400">{isAdult ? '+ add' : '-'}</span>}
                   {meal && scope && !meal.locationId && (
                     <span className="block text-xs text-slate-400">family-wide</span>
                   )}
@@ -324,7 +324,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
             </li>
           );
         })}
-        {allItems.length === 0 && <li className="text-sm text-slate-400">Nothing coming up — add a trip, or set birthdays in Family & PINs.</li>}
+        {allItems.length === 0 && <li className="text-sm text-slate-400">Nothing coming up - add a trip, or set birthdays in Family & PINs.</li>}
       </ul>
       {isAdult && (
         <div className="mt-3 flex flex-wrap gap-2">

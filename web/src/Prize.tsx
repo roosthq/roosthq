@@ -4,7 +4,7 @@ import Modal from './Modal';
 import { cropBackgroundStyle } from './ImageCropper';
 import { formatDate } from './dateFormat';
 
-// Every prize gets one of these — keeps the type row present on every card
+// Every prize gets one of these - keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
 // line up.
 export const TYPE_TAG: Record<StorePrize['type'], { icon: string; label: string; className: string }> = {
@@ -13,7 +13,7 @@ export const TYPE_TAG: Record<StorePrize['type'], { icon: string; label: string;
 };
 
 // Downscale + re-encode client-side so an uploaded photo doesn't blow up the
-// request body or the database row — this app stores images as data: URIs,
+// request body or the database row - this app stores images as data: URIs,
 // no separate file storage.
 export function resizeImageFile(file: File, maxDim = 480, quality = 0.75): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -41,9 +41,9 @@ export function resizeImageFile(file: File, maxDim = 480, quality = 0.75): Promi
 }
 
 // Two render modes: no `crop` (the full/uncropped detail view) uses
-// object-contain so the whole image is always visible — a taller box with
+// object-contain so the whole image is always visible - a taller box with
 // letterboxing beats a cropped one there. With a `crop` (the small store
-// card) renders as a sized+positioned background instead of an <img> —
+// card) renders as a sized+positioned background instead of an <img> -
 // shows only the saved rect, at whatever size this box is, without ever
 // touching the source image/URL (see Prize.imageCrop in schema.prisma).
 export function PrizeImage({
@@ -58,7 +58,7 @@ export function PrizeImage({
   crop?: CropRect | null;
 }) {
   if (src && crop) {
-    // NOT the bg-slate-100 class here — the theme bridge remaps it to a
+    // NOT the bg-slate-100 class here - the theme bridge remaps it to a
     // `background` SHORTHAND with !important (see index.css), which resets
     // every background-* longhand including the ones set below, `!important`
     // stylesheet rules beating inline styles regardless of shorthand vs
@@ -102,12 +102,12 @@ export function PrizeDetailModal({
   tokenIcon: string;
   isAdult: boolean;
   balance: number;
-  // Purchase history for this prize — adults/owners only; omit entirely for kids.
+  // Purchase history for this prize - adults/owners only; omit entirely for kids.
   history?: Redemption[];
   memberName?: (id: string) => string;
   onClose: () => void;
   onRedeem: () => void;
-  // false when a kid's "redeem prizes" permission is switched off — they can
+  // false when a kid's "redeem prizes" permission is switched off - they can
   // still browse, they just can't spend (server enforces it as well).
   canRedeem?: boolean;
   onEdit?: () => void;
@@ -178,7 +178,7 @@ export function PrizeDetailModal({
         )}
         {isAdult && (
           <p className="mt-1 text-xs text-slate-400">
-            {prize.repeatable ? 'Repeats — stays in the store after purchase.' : 'One-off — archives itself once bought.'}
+            {prize.repeatable ? 'Repeats - stays in the store after purchase.' : 'One-off - archives itself once bought.'}
           </p>
         )}
         {prize.createdByName && <p className="mt-1 text-xs text-slate-400">Added by {prize.createdByName}</p>}

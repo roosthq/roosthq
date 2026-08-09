@@ -54,7 +54,7 @@ export default function Nav({
   }, []);
 
   // Below lg (i.e. phones and portrait tablets), the full link row + controls
-  // row don't fit — they used to just wrap onto a tall stack of half-legible
+  // row don't fit - they used to just wrap onto a tall stack of half-legible
   // lines. Collapse into a hamburger menu instead.
   const [menuOpen, setMenuOpen] = useState(false);
   const bell = (
@@ -101,7 +101,7 @@ export default function Nav({
     );
 
   // Name -> dropdown: "View Profile" (the basic, browse-anyone page) vs
-  // "My Settings" (identity/password/avatar/PIN/Google/delete — self only).
+  // "My Settings" (identity/password/avatar/PIN/Google/delete - self only).
   // Same <details>/<summary> disclosure shell as displayLink above.
   function nameMenu(closeMenu: boolean) {
     return (
@@ -142,7 +142,7 @@ export default function Nav({
   // Phone/tablet: the four everyday destinations live in a fixed bottom tab
   // bar (thumb-reachable, kid-findable); the hamburger keeps the long tail
   // (Rules, Awards, Settings, theme, sign out). index.css pads the body via
-  // body:has(.bottom-tabs) so page content never hides behind it — the kiosk
+  // body:has(.bottom-tabs) so page content never hides behind it - the kiosk
   // renders no Nav, so it gets no padding.
   const tabCls = ({ isActive }: { isActive: boolean }) =>
     `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
@@ -168,7 +168,7 @@ export default function Nav({
       {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
-          {/* Home for now — the landing route becomes a real Dashboard
+          {/* Home for now - the landing route becomes a real Dashboard
               later, at which point this points there instead. */}
           <Link to="/" className="mr-2 sm:mr-3 hover:opacity-80">
             <Logo size={26} />

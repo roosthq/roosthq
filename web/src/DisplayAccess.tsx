@@ -66,7 +66,7 @@ export default function DisplayAccess() {
 
       {freshUrl && (
         <div className="alert-banner mt-3 p-3 text-xs">
-          <p className="mb-2 font-medium">Copy this now — the token is shown only once. Open it on the Pi's browser:</p>
+          <p className="mb-2 font-medium">Copy this now - the token is shown only once. Open it on the Pi's browser:</p>
           <CopyableLink url={freshUrl} />
         </div>
       )}

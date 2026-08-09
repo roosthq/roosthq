@@ -18,7 +18,7 @@ function isNumericField(el: Field): boolean {
 }
 
 // React tracks each input's value through its own property setter, so setting
-// `.value` directly (and firing a plain 'input' event) gets silently ignored —
+// `.value` directly (and firing a plain 'input' event) gets silently ignored -
 // go through the native prototype setter instead, same trick RTL/Enzyme use.
 function setNativeValue(el: Field, value: string) {
   const proto = el instanceof HTMLTextAreaElement ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype;
@@ -58,13 +58,13 @@ function pressEnter(el: Field) {
 
 const LETTER_ROWS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
 // Same two symbol layers a phone keyboard's "123"/"#+=" toggle cycles
-// through — row 3 (the punctuation five + the toggle-back button) matches
+// through - row 3 (the punctuation five + the toggle-back button) matches
 // real phone keyboards on both layers.
 const SYMBOL_ROWS_1 = ['1234567890', `-/:;()$&@"`, `.,?!'`];
 const SYMBOL_ROWS_2 = ['[]{}#%^*+=', '_\\|~<>€£¥•', `.,?!'`];
 
 // Pops a touch keyboard above whatever text field is focused anywhere on the
-// page — Chromium's kiosk mode on the Pi has no hardware keyboard and no
+// page - Chromium's kiosk mode on the Pi has no hardware keyboard and no
 // built-in on-screen one, unlike a phone browser. Togglable per-display via
 // DisplayConfig.onScreenKeyboard since a kiosk with a real keyboard attached
 // doesn't want this popping up.
@@ -72,12 +72,12 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
   const [field, setField] = useState<Field | null>(null);
   const [shift, setShift] = useState(false);
   const [numeric, setNumeric] = useState(false);
-  // Only meaningful when numeric is false — which symbol layer (if any) a
+  // Only meaningful when numeric is false - which symbol layer (if any) a
   // text field is showing. Reset to letters on every new focus so switching
   // fields doesn't leave you stranded on a symbols page.
   const [mode, setMode] = useState<'letters' | 'symbols1' | 'symbols2'>('letters');
   // <input type="number"> doesn't support selectionStart/selectionEnd at all
-  // (only text/search/tel/password/url do) — the browser still shows a
+  // (only text/search/tel/password/url do) - the browser still shows a
   // visual selection when it's select()-ed on focus (most numeric inputs in
   // this app do that), but our insertAtCursor/pressBackspace have no way to
   // see it, so they always fall back to "end of value" and every keystroke
@@ -101,7 +101,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
       freshFocusRef.current = true;
     }
     // Hides on blur unless focus landed on another editable field (handled by
-    // the focusin above firing right after) — a short delay lets that happen
+    // the focusin above firing right after) - a short delay lets that happen
     // first instead of the keyboard flashing closed between fields.
     function onFocusOut() {
       setTimeout(() => {
@@ -130,7 +130,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
   function backspace() {
     if (freshFocusRef.current) {
       freshFocusRef.current = false;
-      // The "selection" being deleted is the whole value — clear it rather
+      // The "selection" being deleted is the whole value - clear it rather
       // than trimming one character off the end.
       if (field instanceof HTMLInputElement && field.type === 'number') {
         setNativeValue(field, '');
@@ -145,7 +145,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
 
   return (
     // preventDefault on mousedown (not click) stops the browser's default
-    // "move focus to whatever was pressed" — without it every tap here would
+    // "move focus to whatever was pressed" - without it every tap here would
     // blur the field it's supposed to be typing into.
     <div
       onMouseDown={(e) => e.preventDefault()}
@@ -154,7 +154,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
       <div className="mx-auto max-w-2xl space-y-1.5">
         {numeric ? (
           // Phone-style dialpad (3x4, fixed width) instead of stretching all
-          // 10 digits + backspace + enter across the full keyboard width —
+          // 10 digits + backspace + enter across the full keyboard width -
           // that read as too thin/spread out to tap accurately.
           <div className="mx-auto grid w-72 grid-cols-3 gap-2">
             {'123456789'.split('').map((d) => (
@@ -215,7 +215,7 @@ export default function OnScreenKeyboard({ enabled }: { enabled: boolean }) {
             </div>
           </>
         ) : (
-          // symbols1 ("123") and symbols2 ("#+=") — the two punctuation/symbol
+          // symbols1 ("123") and symbols2 ("#+=") - the two punctuation/symbol
           // layers a phone keyboard's numbers key cycles through. Row 3 (the
           // toggle-back button + the same five punctuation marks + backspace)
           // matches real phone keyboards on both layers.

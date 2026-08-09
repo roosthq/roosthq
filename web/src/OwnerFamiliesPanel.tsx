@@ -21,7 +21,7 @@ const AUDIT_ACTION_LABEL: Record<string, string> = {
 
 // Instance-owner-only: create families, see who's in each, move a member
 // between families (with a role for their new home), invite someone
-// straight into a specific family, and ghost as anyone — to switch into
+// straight into a specific family, and ghost as anyone - to switch into
 // another family's view or to see the app as a kid/adult would.
 export default function OwnerFamiliesPanel() {
   const { confirm } = useDialog();
@@ -73,7 +73,7 @@ export default function OwnerFamiliesPanel() {
     if (!membersByFamily[familyId]) await loadMembers(familyId);
   }
 
-  // Every member across every family, for the "move someone here" picker —
+  // Every member across every family, for the "move someone here" picker -
   // fetched once per family the first time any section is expanded, so this
   // stays cheap for the handful of families a self-hosted instance has.
   const allMembers: Array<Member & { familyId: string; familyName: string }> = families.flatMap((f) =>
@@ -102,7 +102,7 @@ export default function OwnerFamiliesPanel() {
     setError(null);
     try {
       await api.moveUser(target.userId, familyId, target.role);
-      // The member's old family's member list is now stale too — drop both.
+      // The member's old family's member list is now stale too - drop both.
       setMembersByFamily((prev) => {
         const next = { ...prev };
         delete next[familyId];
@@ -491,7 +491,7 @@ export default function OwnerFamiliesPanel() {
       </ul>
 
       {/* Who did what: every owner-level action (deactivate, delete, move,
-          create, rename, ghost) — none of it has a UI undo, so this is the
+          create, rename, ghost) - none of it has a UI undo, so this is the
           only record of it. */}
       <div className="card-nested rounded-lg p-3">
         <button onClick={toggleAudit} className="text-sm font-semibold hover:underline">

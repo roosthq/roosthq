@@ -29,7 +29,7 @@ export class ChoresController {
     return this.chores.balances(u.familyId);
   }
 
-  // Adults-only (owner/family manager/adult — no kid) full activity log,
+  // Adults-only (owner/family manager/adult - no kid) full activity log,
   // unlike the main list's per-chore 5-instance cap. Declared before the
   // :id route so /chores/history doesn't get swallowed as a chore id.
   @Get('history')
@@ -58,7 +58,7 @@ export class ChoresController {
   }
 
   // Owner/family-manager-only change history for one chore (create/edit/
-  // delete, who did it and what changed) — separate from the adults-visible
+  // delete, who did it and what changed) - separate from the adults-visible
   // /chores/history above, which is instance activity (completed/approved),
   // not a settings audit trail.
   @Get(':id/audit')
@@ -77,7 +77,7 @@ export class ChoresController {
     return this.chores.claim(u.familyId, u.userId, instanceId);
   }
 
-  // Kid backs out of their own claim (still OPEN only) — separate from the
+  // Kid backs out of their own claim (still OPEN only) - separate from the
   // adult-only /assign below, which can reassign anyone's claim any time.
   @Post('instances/:instanceId/unclaim')
   unclaim(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {

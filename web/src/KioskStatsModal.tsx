@@ -15,12 +15,12 @@ function Stat({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-// The kiosk's answer to "what does my profile page show" — same numbers
+// The kiosk's answer to "what does my profile page show" - same numbers
 // (balance, earned, level, best streak, awards with their notes), fetched
 // through the kiosk-token-aware calls instead of the cookie-session ones
 // the main app's ProfilePage uses, since the active kiosk profile has no
 // cookie session at all. Deliberately lighter than ProfilePage (no 30-day
-// sparkline, no purchase history) — this is "check your own stats without
+// sparkline, no purchase history) - this is "check your own stats without
 // leaving the kiosk," not a full second copy of that page.
 export default function KioskStatsModal({
   userId,

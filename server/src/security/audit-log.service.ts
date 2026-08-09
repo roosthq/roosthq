@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
-// Instance-owner action trail. No FK to User on purpose — the record has to
+// Instance-owner action trail. No FK to User on purpose - the record has to
 // survive the actor or target being deleted, which is exactly the kind of
 // action this logs. Best-effort: a logging failure should never roll back or
 // block the action it's describing.
@@ -38,7 +38,7 @@ export class AuditLogService {
   }
 
   // Per-entity change history (e.g. one chore's create/edit/delete trail).
-  // Always pass the caller's own familyId — targetId alone is an opaque id;
+  // Always pass the caller's own familyId - targetId alone is an opaque id;
   // without this filter a guessed/enumerated id from another family would
   // work just as well, including for a target that's since been deleted and
   // so can't be re-checked against its own row anymore.
