@@ -423,10 +423,19 @@ export default function Display() {
 
   const refreshEvents = useCallback(() => {
     if (!range) return;
-    dget<CalEvent[]>('/display/events', { start: range.start, end: range.end })
+    // Pass the currently-unlocked profile's id so per-user calendar color
+    // overrides (My Settings > Calendars) apply here too, not just in the
+    // main app - without it, the kiosk always showed a calendar's plain
+    // default color, even for someone who'd picked their own. No active
+    // profile (nobody's unlocked yet) just means no override to apply.
+    dget<CalEvent[]>('/display/events', {
+      start: range.start,
+      end: range.end,
+      ...(active ? { userId: active.user.id } : {}),
+    })
       .then(setEvents)
       .catch(() => setEvents([]));
-  }, [range]);
+  }, [range, active]);
 
   useEffect(() => {
     refreshEventsRef.current = refreshEvents;

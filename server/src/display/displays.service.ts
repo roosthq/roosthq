@@ -359,11 +359,16 @@ export class DisplaysService {
     };
   }
 
-  // Events for a resolved display config.
-  async events(familyId: string, config: ResolvedConfig, start?: string, end?: string) {
+  // Events for a resolved display config. userId (the kiosk's currently
+  // unlocked profile, if any) is client-supplied off a read-only display-
+  // token route - re-check it's actually a member of this family before
+  // trusting it for a per-user calendar color lookup, rather than passing
+  // an arbitrary caller-supplied id straight through.
+  async events(familyId: string, config: ResolvedConfig, start?: string, end?: string, userId?: string) {
     if (!config.calendarIds.length) return [];
     const range = start && end ? { start, end } : weekRange();
-    return this.calendars.events(familyId, config.calendarIds, range.start, range.end);
+    const verifiedUserId = userId && (await this.prisma.user.findFirst({ where: { id: userId, familyId } })) ? userId : undefined;
+    return this.calendars.events(familyId, config.calendarIds, range.start, range.end, verifiedUserId);
   }
 
   // Combined "at a glance" feed for the kiosk's idle screensaver: still-open

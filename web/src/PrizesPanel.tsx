@@ -39,7 +39,17 @@ export default function PrizesPanel({
   // mixed into the store at 0 tokens with a Redeem button.
   const storePrizes = prizes.filter((p) => !p.suggested);
   const myRequests = prizes.filter((p) => p.suggested);
-  const canRequest = kidPermissionEnabled(self, 'store');
+  // kidPermissionEnabled defaults to true for anyone who isn't a KID (there's
+  // nothing to gate for an adult) - fine for redeeming, but "request" only
+  // makes sense as a kid asking an adult for something; without the role
+  // check every adult+ on the kiosk saw a "+ Request a prize" button that
+  // just... suggested a prize to themselves.
+  const canRequest = me.role === 'KID' && kidPermissionEnabled(self, 'store');
+  // A balance is meaningless for whoever this family doesn't run tokens for
+  // (typically adults, but the same flag can be set per-kid too) - the
+  // item's own price tag below is unaffected, that's the item's cost, not
+  // this person's balance.
+  const showBalance = !self?.tokensDisabled;
 
   const refresh = useCallback(async () => {
     const [p, b] = await Promise.all([client.prizes(), client.tokenBalance(me.id)]);
@@ -91,9 +101,11 @@ export default function PrizesPanel({
           </button>
         )}
       </div>
-      <div className="mt-2">
-        <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />
-      </div>
+      {showBalance && (
+        <div className="mt-2">
+          <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />
+        </div>
+      )}
       <ul className="mt-3 space-y-2">
         {storePrizes.map((p) => (
           <li key={p.id}>

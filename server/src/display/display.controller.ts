@@ -45,9 +45,13 @@ export class DisplayController {
     @Query('config') config?: string,
     @Query('start') start?: string,
     @Query('end') end?: string,
+    // The kiosk-unlocked profile's id (if any) - lets a signed-in person's
+    // own calendar color overrides apply here too. Optional: nobody has to
+    // be signed in for the kiosk's read-only calendar view to work at all.
+    @Query('userId') userId?: string,
   ) {
     const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
-    return this.displays.events(ctx.familyId, resolved, start, end);
+    return this.displays.events(ctx.familyId, resolved, start, end, userId);
   }
 
   // Household widgets bundle (meals / countdowns / announcements / grocery
