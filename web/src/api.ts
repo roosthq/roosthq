@@ -790,14 +790,19 @@ export const api = {
   // Household widgets (meals / grocery / countdowns / announcements).
   // locationId scopes reads to one household (its items + family-wide ones)
   // and writes to that household; omit for family-wide.
-  meals: (start: string, end: string, locationId?: string | null) =>
-    req<MealPlanEntry[]>(`/household/meals?start=${start}&end=${end}${locationId ? `&locationId=${locationId}` : ''}`),
+  meals: (start: string, end: string, locationId?: string | null, kioskToken?: string) =>
+    req<MealPlanEntry[]>(
+      `/household/meals?start=${start}&end=${end}${locationId ? `&locationId=${locationId}` : ''}`,
+      undefined,
+      kioskToken,
+    ),
   setMeal: (
     date: string,
     body: { title?: string; notes?: string | null; locationId?: string | null; isEatingOut?: boolean; eatOutPlaceId?: string | null },
-  ) => req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }),
-  deleteMeal: (date: string, locationId?: string | null) =>
-    req(`/household/meals/${date}${locationId ? `?locationId=${locationId}` : ''}`, { method: 'DELETE' }),
+    kioskToken?: string,
+  ) => req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }, kioskToken),
+  deleteMeal: (date: string, locationId?: string | null, kioskToken?: string) =>
+    req(`/household/meals/${date}${locationId ? `?locationId=${locationId}` : ''}`, { method: 'DELETE' }, kioskToken),
   spinEatOut: (date: string, locationId?: string | null) =>
     req<MealPlanEntry>(`/household/meals/${date}/spin-out`, { method: 'POST', body: JSON.stringify({ locationId }) }),
   eatOutPlaces: () => req<EatOutPlace[]>('/household/eat-out-places'),

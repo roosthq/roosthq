@@ -1030,6 +1030,7 @@ export default function Display() {
           around={household.today}
           locationId={config.locationId}
           canEdit={isAdult}
+          kioskToken={active?.token}
           onClose={() => setDinnerWeekOpen(false)}
         />
       )}

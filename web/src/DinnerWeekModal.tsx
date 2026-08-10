@@ -32,12 +32,18 @@ export default function DinnerWeekModal({
   around,
   locationId,
   canEdit,
+  kioskToken,
   onClose,
 }: {
   // Any date within the week to show - defaults to today.
   around?: string;
   locationId?: string | null;
   canEdit: boolean;
+  // Set when this modal is opened from the kiosk (Display.tsx) - without it,
+  // every read/write below goes out with no auth at all (the kiosk has no
+  // cookie session of its own) and just silently fails. Undefined on the
+  // main app, which authenticates via cookie same as everywhere else.
+  kioskToken?: string;
   onClose: () => void;
 }) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(around ? new Date(`${around}T00:00:00`) : new Date()));
@@ -49,7 +55,7 @@ export default function DinnerWeekModal({
 
   const refresh = useCallback(() => {
     api
-      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), locationId ?? undefined)
+      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), locationId ?? undefined, kioskToken)
       .then((rows) => {
         // Same merge rule as the Household widget: a scoped view shows the
         // house's own meal over a family-wide one on the same date.
@@ -57,15 +63,15 @@ export default function DinnerWeekModal({
         setMeals(Object.fromEntries(sorted.map((m) => [m.date, m])));
       })
       .catch(() => setMeals({}));
-  }, [weekStart, locationId]);
+  }, [weekStart, locationId, kioskToken]);
   useEffect(() => {
     refresh();
   }, [refresh]);
 
   async function save(date: string) {
     const title = draft.trim();
-    if (title) await api.setMeal(date, { title, locationId: locationId ?? null });
-    else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null);
+    if (title) await api.setMeal(date, { title, locationId: locationId ?? null }, kioskToken);
+    else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null, kioskToken);
     setEditing(null);
     refresh();
   }
