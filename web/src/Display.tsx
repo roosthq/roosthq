@@ -571,6 +571,14 @@ export default function Display() {
               + Add award
             </button>
           )}
+          {active && isAdult && showPrizes && (
+            <button
+              onClick={() => setAddingPrize(true)}
+              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
+            >
+              + Add prize
+            </button>
+          )}
           {active && isAdult && kioskPrizeClient && (
             <button
               onClick={async () => {
@@ -581,25 +589,17 @@ export default function Display() {
                   setAwardsCatalog([]);
                 }
               }}
-              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
-            >
-              🏆 Give award
-            </button>
-          )}
-          {active && isAdult && showPrizes && (
-            <button
-              onClick={() => setAddingPrize(true)}
               className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
-              + Add prize
+              🏆 Give award
             </button>
           )}
           {active && isAdult && (
             <button
               onClick={() => setAddingTokenAdjust(true)}
-              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
-              🪙 Give/take
+              🪙 Adjust {tokenName}
             </button>
           )}
           {active && showCalendar && (showChores || showPrizes) && (
