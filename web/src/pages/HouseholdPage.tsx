@@ -90,7 +90,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
           ))}
         </div>
       )}
-      {meals && <MealsSection isAdult={isAdult} scope={scope} />}
+      {meals && <MealsSection isAdult={isAdult} scope={scope} locations={scopeOptions} />}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {grocery && <GrocerySection scope={scope} me={me} />}
         <div className="min-w-0 space-y-6">
@@ -102,7 +102,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
   );
 }
 
-function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
+function MealsSection({ isAdult, scope, locations }: { isAdult: boolean; scope: string; locations: FamilyLocation[] }) {
   const [weekStart, setWeekStart] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() - d.getDay());
@@ -198,7 +198,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
               summary="Favorite places ▾"
               summaryClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
             >
-              <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
+              <EatOutPlacesPanel places={places} scope={scope} locations={locations} onChanged={refreshPlaces} />
             </DropdownDetails>
           )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
@@ -307,7 +307,17 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
 // dropdown in the Dinner plan header rather than its own top-level section,
 // since it's setup done rarely (once, then occasionally tweaked) compared to
 // the weekly grid it feeds.
-function EatOutPlacesPanel({ places, scope, onChanged }: { places: EatOutPlace[]; scope: string; onChanged: () => void }) {
+function EatOutPlacesPanel({
+  places,
+  scope,
+  locations,
+  onChanged,
+}: {
+  places: EatOutPlace[];
+  scope: string;
+  locations: FamilyLocation[];
+  onChanged: () => void;
+}) {
   const [name, setName] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -332,15 +342,32 @@ function EatOutPlacesPanel({ places, scope, onChanged }: { places: EatOutPlace[]
     onChanged();
   }
 
+  async function reassign(id: string, locationId: string) {
+    await api.updateEatOutPlace(id, { locationId: locationId || null });
+    onChanged();
+  }
+
   return (
-    <div className="absolute right-0 z-10 mt-1 w-64 rounded border bg-white p-2 shadow">
-      <ul className="max-h-48 space-y-1 overflow-auto">
+    <div className="absolute right-0 z-10 mt-1 w-72 rounded border bg-white p-2 shadow">
+      <ul className="max-h-56 space-y-1 overflow-auto">
         {places.map((p) => (
-          <li key={p.id} className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-sm hover:bg-slate-50">
-            <span className="min-w-0 flex-1 truncate">
-              {p.name}
-              {scope && !p.locationId && <span className="ml-1 text-xs text-slate-400">(family-wide)</span>}
-            </span>
+          <li key={p.id} className="flex items-center gap-1.5 rounded px-1.5 py-1 text-sm hover:bg-slate-50">
+            <span className="min-w-0 flex-1 truncate">{p.name}</span>
+            {locations.length > 0 && (
+              <select
+                value={p.locationId ?? ''}
+                onChange={(e) => reassign(p.id, e.target.value)}
+                title="Which house this place belongs to"
+                className="min-w-0 max-w-[7rem] rounded border px-1 py-0.5 text-xs text-slate-500"
+              >
+                <option value="">Family-wide</option>
+                {locations.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.name}
+                  </option>
+                ))}
+              </select>
+            )}
             <button onClick={() => remove(p.id)} className="shrink-0 text-xs text-slate-400 hover:text-red-500">
               ✕
             </button>

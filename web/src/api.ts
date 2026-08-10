@@ -810,6 +810,8 @@ export const api = {
     req<EatOutPlace[]>(`/household/eat-out-places${locationId ? `?locationId=${locationId}` : ''}`, undefined, kioskToken),
   addEatOutPlace: (name: string, notes?: string, locationId?: string | null) =>
     req<EatOutPlace>('/household/eat-out-places', { method: 'POST', body: JSON.stringify({ name, notes, locationId }) }),
+  updateEatOutPlace: (id: string, body: { name?: string; notes?: string | null; locationId?: string | null }) =>
+    req<EatOutPlace>(`/household/eat-out-places/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteEatOutPlace: (id: string) => req(`/household/eat-out-places/${id}`, { method: 'DELETE' }),
   grocery: (locationId?: string | null) => req<GroceryItem[]>(`/household/grocery${locationId ? `?locationId=${locationId}` : ''}`),
   addGrocery: (label: string, locationId?: string | null) =>

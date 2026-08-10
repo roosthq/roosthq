@@ -59,7 +59,7 @@ export class HouseholdController {
   updateEatOutPlace(
     @CurrentUser() u: SessionPayload,
     @Param('id') id: string,
-    @Body() body: { name?: string; notes?: string | null },
+    @Body() body: { name?: string; notes?: string | null; locationId?: string | null },
   ) {
     return this.household.updateEatOutPlace(u.familyId, u.userId, id, body);
   }

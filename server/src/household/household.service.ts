@@ -164,15 +164,17 @@ export class HouseholdService {
     });
   }
 
-  async updateEatOutPlace(familyId: string, actorId: string, id: string, dto: { name?: string; notes?: string | null }) {
+  async updateEatOutPlace(familyId: string, actorId: string, id: string, dto: { name?: string; notes?: string | null; locationId?: string | null }) {
     await this.assertAdult(actorId);
     const place = await this.prisma.eatOutPlace.findFirst({ where: { id, familyId } });
     if (!place) throw new NotFoundException('Place not found');
+    const locationId = dto.locationId !== undefined ? await this.assertLocation(familyId, dto.locationId) : undefined;
     return this.prisma.eatOutPlace.update({
       where: { id },
       data: {
         ...(dto.name !== undefined && { name: dto.name.trim().slice(0, 120) || place.name }),
         ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }),
+        ...(locationId !== undefined && { locationId }),
       },
     });
   }
