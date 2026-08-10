@@ -1031,6 +1031,7 @@ export default function Display() {
           locationId={config.locationId}
           canEdit={isAdult}
           kioskToken={active?.token}
+          kioskDisplay
           onClose={() => setDinnerWeekOpen(false)}
         />
       )}

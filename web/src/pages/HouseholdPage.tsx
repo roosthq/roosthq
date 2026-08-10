@@ -97,7 +97,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
           Every other household widget is turned off. {isAdult ? 'Enable them under Family Settings → Features.' : ''}
         </p>
       )}
-      {meals && <MealsSection isAdult={isAdult} scope={scope} locations={scopeOptions} />}
+      {meals && <MealsSection isAdult={isAdult} scope={scope} />}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {grocery && <GrocerySection scope={scope} me={me} />}
         <div className="min-w-0 space-y-6">
@@ -109,7 +109,7 @@ export default function HouseholdPage({ me }: { me: Me }) {
   );
 }
 
-function MealsSection({ isAdult, scope, locations }: { isAdult: boolean; scope: string; locations: FamilyLocation[] }) {
+function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [weekStart, setWeekStart] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() - d.getDay());
@@ -205,7 +205,7 @@ function MealsSection({ isAdult, scope, locations }: { isAdult: boolean; scope: 
               summary="Favorite places ▾"
               summaryClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
             >
-              <EatOutPlacesPanel places={places} scope={scope} locations={locations} onChanged={refreshPlaces} />
+              <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
             </DropdownDetails>
           )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
@@ -317,12 +317,10 @@ function MealsSection({ isAdult, scope, locations }: { isAdult: boolean; scope: 
 function EatOutPlacesPanel({
   places,
   scope,
-  locations,
   onChanged,
 }: {
   places: EatOutPlace[];
   scope: string;
-  locations: FamilyLocation[];
   onChanged: () => void;
 }) {
   const [name, setName] = useState('');
@@ -349,32 +347,19 @@ function EatOutPlacesPanel({
     onChanged();
   }
 
-  async function reassign(id: string, locationId: string) {
-    await api.updateEatOutPlace(id, { locationId: locationId || null });
-    onChanged();
-  }
-
+  // Reassigning a place's house used to be a <select> right in this list -
+  // removed (list was unreadable, the select ate most of the row's width on
+  // a name that's often long, e.g. "Picazzo's Healthy Italian Kitchen").
+  // Only ever needed it once, to fix data that landed family-wide by mistake
+  // when this feature first shipped - api.updateEatOutPlace(id, {locationId})
+  // still exists in api.ts if this needs to come back, just not wired to
+  // any control here right now.
   return (
-    <div className="absolute right-0 z-10 mt-1 w-72 rounded border bg-white p-2 shadow">
+    <div className="absolute right-0 z-10 mt-1 w-72 max-w-[calc(100vw-2rem)] rounded border bg-white p-2 shadow">
       <ul className="max-h-56 space-y-1 overflow-auto">
         {places.map((p) => (
-          <li key={p.id} className="flex items-center gap-1.5 rounded px-1.5 py-1 text-sm hover:bg-slate-50">
-            <span className="min-w-0 flex-1 truncate">{p.name}</span>
-            {locations.length > 0 && (
-              <select
-                value={p.locationId ?? ''}
-                onChange={(e) => reassign(p.id, e.target.value)}
-                title="Which house this place belongs to"
-                className="min-w-0 max-w-[7rem] rounded border px-1 py-0.5 text-xs text-slate-500"
-              >
-                <option value="">Family-wide</option>
-                {locations.map((l) => (
-                  <option key={l.id} value={l.id}>
-                    {l.name}
-                  </option>
-                ))}
-              </select>
-            )}
+          <li key={p.id} className="flex items-start gap-2 rounded px-1.5 py-1.5 text-sm hover:bg-slate-50">
+            <span className="min-w-0 flex-1 break-words">{p.name}</span>
             <button onClick={() => remove(p.id)} className="shrink-0 text-xs text-slate-400 hover:text-red-500">
               ✕
             </button>

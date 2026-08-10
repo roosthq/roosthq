@@ -63,6 +63,24 @@ export class DisplayController {
     return this.household.displayBundle(ctx.familyId, resolved.locationId);
   }
 
+  // The full week's dinner plan (DinnerWeekModal's own popup, opened from
+  // the "Tonight" banner) - that banner is readable idle, with nobody signed
+  // in, off the household bundle above; the popup it opens needs the same
+  // read access, not just whoever happens to be unlocked. Writing a day
+  // still goes through the real kiosk-token-gated household endpoints -
+  // this is read-only.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('meals')
+  async meals(
+    @FamilyCtx() ctx: FamilyContext,
+    @Query('start') start: string,
+    @Query('end') end: string,
+    @Query('config') config?: string,
+  ) {
+    const resolved = await this.displays.resolveConfig(ctx.familyId, ctx.displayConfigId ?? config);
+    return this.household.meals(ctx.familyId, start, end, resolved.locationId);
+  }
+
   // Family settings the kiosk needs (token naming + which family features are
   // enabled), readable with just a display token.
   @UseGuards(DisplayOrUserGuard)

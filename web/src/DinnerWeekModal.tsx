@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api, type EatOutPlace, type MealPlanEntry } from './api';
+import { dget } from './displayApi';
 import Modal from './Modal';
 import { useWeekSwipe } from './useWeekSwipe';
 
@@ -33,6 +34,7 @@ export default function DinnerWeekModal({
   locationId,
   canEdit,
   kioskToken,
+  kioskDisplay,
   onClose,
 }: {
   // Any date within the week to show - defaults to today.
@@ -40,10 +42,19 @@ export default function DinnerWeekModal({
   locationId?: string | null;
   canEdit: boolean;
   // Set when this modal is opened from the kiosk (Display.tsx) - without it,
-  // every read/write below goes out with no auth at all (the kiosk has no
-  // cookie session of its own) and just silently fails. Undefined on the
-  // main app, which authenticates via cookie same as everywhere else.
+  // every WRITE below goes out with no auth at all (the kiosk has no cookie
+  // session of its own) and just silently fails. Undefined on the main app,
+  // which authenticates via cookie same as everywhere else. Also undefined
+  // on the kiosk itself whenever nobody's unlocked a profile - that's exactly
+  // when reads need `kioskDisplay` below instead.
   kioskToken?: string;
+  // Set (regardless of kioskToken) when this modal is opened from the kiosk -
+  // reads go through the display-token route instead of api.meals(), so the
+  // week's plan still shows with nobody signed in (matching the "Tonight"
+  // banner that opens this, which is readable idle off the same feed).
+  // Writes are unaffected by this - they still need a real kioskToken and
+  // canEdit, which is already false with nobody signed in.
+  kioskDisplay?: boolean;
   onClose: () => void;
 }) {
   const [weekStart, setWeekStart] = useState(() => startOfWeek(around ? new Date(`${around}T00:00:00`) : new Date()));
@@ -57,8 +68,12 @@ export default function DinnerWeekModal({
   const { navigate, animKey, animClass, swipeProps } = useWeekSwipe((delta) => setWeekStart((w) => addDays(w, delta * 7)));
 
   const refresh = useCallback(() => {
-    api
-      .meals(dateKey(weekStart), dateKey(addDays(weekStart, 6)), locationId ?? undefined, kioskToken)
+    const start = dateKey(weekStart);
+    const end = dateKey(addDays(weekStart, 6));
+    const fetchMeals = kioskDisplay
+      ? dget<MealPlanEntry[]>('/display/meals', { start, end })
+      : api.meals(start, end, locationId ?? undefined, kioskToken);
+    fetchMeals
       .then((rows) => {
         // Same merge rule as the Household widget: a scoped view shows the
         // house's own meal over a family-wide one on the same date.
@@ -66,7 +81,7 @@ export default function DinnerWeekModal({
         setMeals(Object.fromEntries(sorted.map((m) => [m.date, m])));
       })
       .catch(() => setMeals({}));
-  }, [weekStart, locationId, kioskToken]);
+  }, [weekStart, locationId, kioskToken, kioskDisplay]);
   useEffect(() => {
     refresh();
   }, [refresh]);
