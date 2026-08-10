@@ -35,6 +35,16 @@ export default function DisplayAccess() {
     await refresh();
   }
 
+  // Only the hash is ever stored server-side, so a link closed/lost before
+  // the Pi's browser got pointed at it can't be shown again - this mints a
+  // fresh one on the same display (old one revoked) and reuses the same
+  // reveal-it banner mint() does.
+  async function regenerate(id: string) {
+    const minted = await api.regenerateDisplayToken(id);
+    setFreshUrl(`${window.location.origin}/?display=1&token=${minted.token}`);
+    await refresh();
+  }
+
   function displayName(displayConfigId?: string | null) {
     if (!displayConfigId) return 'Default display';
     return displays.find((d) => d.id === displayConfigId)?.name ?? 'Deleted display';
@@ -81,6 +91,13 @@ export default function DisplayAccess() {
                   title="Reload this kiosk if it's stuck (does nothing if its link was actually revoked)"
                 >
                   🔄
+                </button>
+                <button
+                  onClick={() => regenerate(t.id)}
+                  className="shrink-0 text-xs text-slate-500 hover:text-slate-800"
+                  title="Lost the link, or need to re-copy it? Mints a fresh one for this display and revokes this one."
+                >
+                  🔁 Get link
                 </button>
                 <button onClick={() => revoke(t.id)} className="shrink-0 text-xs text-red-500 hover:text-red-700">
                   Revoke

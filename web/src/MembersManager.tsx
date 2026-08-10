@@ -61,6 +61,15 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.revokeInvite(id);
     await refresh();
   }
+  // Only the hash is ever stored server-side, so a link closed/lost after
+  // creation can't be shown again - this mints a fresh one (same role/label,
+  // old one revoked) and reuses the exact same reveal-it box createInvite()
+  // does, so copy/email both work on the new link right away.
+  async function regenerateInvite(id: string) {
+    const minted = await api.regenerateInvite(id);
+    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
+    await refresh();
+  }
   async function changeRole(m: Member, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
     await api.setUserRole(m.id, role);
     await refresh();
@@ -174,13 +183,22 @@ export default function MembersManager({ me }: { me: Me }) {
             {invites
               .filter((i) => !i.acceptedAt)
               .map((i) => (
-                <li key={i.id} className="flex items-center justify-between">
+                <li key={i.id} className="flex items-center justify-between gap-2">
                   <span>
                     Pending invite · {ROLE_LABEL[i.role] ?? i.role} · {formatDate(i.createdAt)}
                   </span>
-                  <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
-                    Revoke
-                  </button>
+                  <span className="flex shrink-0 items-center gap-3">
+                    <button
+                      onClick={() => regenerateInvite(i.id)}
+                      className="text-slate-500 hover:text-slate-800"
+                      title="Lost the link, or need to send it again? Mints a fresh one and revokes this one."
+                    >
+                      🔁 Get link
+                    </button>
+                    <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
+                      Revoke
+                    </button>
+                  </span>
                 </li>
               ))}
           </ul>

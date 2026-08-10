@@ -173,4 +173,10 @@ export class DisplayController {
   revokeToken(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.tokens.revoke(u.familyId, u.userId, id);
   }
+
+  @UseGuards(AuthGuard)
+  @Post('tokens/:id/regenerate')
+  regenerateToken(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.tokens.regenerate(u.familyId, u.userId, id);
+  }
 }

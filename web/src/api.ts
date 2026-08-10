@@ -771,6 +771,7 @@ export const api = {
   mintDisplayToken: (label?: string, displayConfigId?: string) =>
     req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label, displayConfigId }) }),
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
+  regenerateDisplayToken: (id: string) => req<MintedToken>(`/display/tokens/${id}/regenerate`, { method: 'POST' }),
 
   listDisplays: () => req<DisplayConfig[]>('/displays'),
   createDisplay: (body: {
@@ -908,6 +909,7 @@ export const api = {
   createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string, familyId?: string) =>
     req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label, familyId }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
+  regenerateInvite: (id: string) => req<MintedInvite>(`/invites/${id}/regenerate`, { method: 'POST' }),
   // Server builds the link from the request origin; we only say who gets it.
   emailInvite: (token: string, email: string) =>
     req<{ ok: boolean; sentTo: string }>('/invites/email', { method: 'POST', body: JSON.stringify({ token, email }) }),

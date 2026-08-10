@@ -98,6 +98,22 @@ export class InvitesService {
     return { ok: true };
   }
 
+  // Only the hash is ever stored, so a lost/expired-from-view link can't be
+  // recovered - this mints a fresh one with the same role/label and revokes
+  // the old, same net effect as "show me that link again" without ever
+  // keeping a usable token sitting in the database.
+  async regenerate(familyId: string, userId: string, id: string) {
+    await this.assertAdultOrOwner(userId);
+    const existing = await this.prisma.familyInvite.findFirst({ where: { id, familyId, acceptedAt: null } });
+    if (!existing) throw new NotFoundException('Invite not found (or already accepted)');
+    await this.prisma.familyInvite.delete({ where: { id } });
+    const raw = randomBytes(24).toString('hex');
+    const inv = await this.prisma.familyInvite.create({
+      data: { familyId, role: existing.role, label: existing.label, tokenHash: this.hash(raw), createdById: userId },
+    });
+    return { id: inv.id, role: inv.role, label: inv.label, token: raw };
+  }
+
   // Used by the auth callback: resolve a raw token to a live, unused invite.
   async resolve(raw: string) {
     const inv = await this.prisma.familyInvite.findFirst({

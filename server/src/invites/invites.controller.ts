@@ -40,4 +40,12 @@ export class InvitesController {
   revoke(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.invites.revoke(u.familyId, u.userId, id);
   }
+
+  // Fresh token, same role/label, old one revoked - the only way to get a
+  // usable link again once the original's been lost/closed (only the hash
+  // is stored, by design).
+  @Post(':id/regenerate')
+  regenerate(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.invites.regenerate(u.familyId, u.userId, id);
+  }
 }

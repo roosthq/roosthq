@@ -60,6 +60,22 @@ export class DisplayTokenService {
     return { ok: true };
   }
 
+  // Only the hash is ever stored, so a lost/closed-before-copying link can't
+  // be recovered - this mints a fresh one bound to the same display/label
+  // and revokes the old, same net effect as "show me that link again"
+  // without ever keeping a usable token sitting in the database.
+  async regenerate(familyId: string, userId: string, id: string) {
+    await this.assertOwner(userId);
+    const existing = await this.prisma.displayToken.findFirst({ where: { id, familyId } });
+    if (!existing) throw new BadRequestException('Kiosk link not found');
+    await this.prisma.displayToken.update({ where: { id }, data: { revokedAt: new Date() } });
+    const raw = randomBytes(24).toString('hex');
+    const record = await this.prisma.displayToken.create({
+      data: { familyId, tokenHash: this.hash(raw), label: existing.label, displayConfigId: existing.displayConfigId },
+    });
+    return { id: record.id, label: record.label, token: raw };
+  }
+
   // Resolve a raw token to its family + which display config it shows.
   async resolve(raw: string): Promise<{ familyId: string; displayConfigId: string | null } | null> {
     const token = await this.prisma.displayToken.findFirst({
