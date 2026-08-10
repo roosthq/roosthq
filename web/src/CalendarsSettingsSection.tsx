@@ -1,0 +1,186 @@
+import { useCallback, useEffect, useState } from 'react';
+import { api, loginUrl, type GoogleCalendar, type SharedCalendar } from './api';
+import { useDialog } from './Dialog';
+import Modal from './Modal';
+
+// "My Settings" -> Calendars: a personal color override per calendar (native
+// color input - a calendar's color is already a freeform hex, same as what
+// Google or a local calendar's creator picked, so there's no fixed palette
+// to match here like the profile theme swatches use) plus the same
+// share/unshare management the Calendar page's "Manage calendars" offers.
+// Self-contained (fetches its own calendar list) so it doesn't depend on the
+// Calendar page's internal state at all.
+export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean }) {
+  const { alert } = useDialog();
+  const [shared, setShared] = useState<SharedCalendar[]>([]);
+  const [needsReconnect, setNeedsReconnect] = useState(false);
+  const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
+  const [picked, setPicked] = useState<Set<string>>(new Set());
+  const [savingId, setSavingId] = useState<string | null>(null);
+
+  const refresh = useCallback(() => {
+    api.sharedCalendars().then(setShared).catch(() => setShared([]));
+  }, []);
+  useEffect(() => {
+    refresh();
+    api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
+  }, [refresh]);
+
+  async function setColor(calendarId: string, color: string) {
+    setSavingId(calendarId);
+    setShared((prev) => prev.map((c) => (c.id === calendarId ? { ...c, color } : c)));
+    try {
+      await api.setCalendarColor(calendarId, color);
+    } catch {
+      refresh(); // roll back to the real state if the save failed
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  async function resetColor(calendarId: string) {
+    setSavingId(calendarId);
+    try {
+      await api.setCalendarColor(calendarId, null);
+    } finally {
+      setSavingId(null);
+      refresh(); // pick back up the calendar's own underlying color
+    }
+  }
+
+  async function openPicker() {
+    try {
+      const cals = await api.googleCalendars();
+      setPicker(cals);
+      setPicked(new Set(shared.filter((c) => c.sharedByMe && c.googleCalendarId).map((c) => c.googleCalendarId as string)));
+    } catch {
+      const s = await api.googleAccountStatus().catch(() => ({ needsReconnect: false }));
+      setNeedsReconnect(s.needsReconnect);
+      await alert(
+        s.needsReconnect
+          ? "A connected Google account needs to be reconnected before calendars can be managed - see the banner above."
+          : "Couldn't load your Google calendars - try again in a moment.",
+      );
+    }
+  }
+
+  async function doShare() {
+    if (!picker) return;
+    const pickerIds = new Set(picker.map((c) => c.googleCalendarId));
+    const alreadyMineIds = new Set(shared.filter((c) => c.sharedByMe && c.googleCalendarId).map((c) => c.googleCalendarId as string));
+
+    const byAccount = new Map<string, GoogleCalendar[]>();
+    for (const c of picker) {
+      if (!picked.has(c.googleCalendarId) || alreadyMineIds.has(c.googleCalendarId)) continue;
+      const arr = byAccount.get(c.googleAccountId) ?? [];
+      arr.push(c);
+      byAccount.set(c.googleAccountId, arr);
+    }
+    for (const [accountId, cals] of byAccount) {
+      await api.share(accountId, cals.map((c) => ({ googleCalendarId: c.googleCalendarId, name: c.name, color: c.color })));
+    }
+
+    const toRemove = [...alreadyMineIds].filter((id) => pickerIds.has(id) && !picked.has(id));
+    await Promise.all(toRemove.map((id) => api.unshare(id)));
+
+    setPicker(null);
+    refresh();
+  }
+
+  return (
+    <section className="panel">
+      <div className="flex items-center justify-between gap-2">
+        <div>
+          <h3 className="text-base font-semibold tracking-tight">Calendars</h3>
+          <p className="mt-1 text-sm text-slate-500">
+            Pick your own color for each calendar - it only changes how it looks for you, not for anyone else.
+          </p>
+        </div>
+        {isAdult && (
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+              + Connect Google
+            </a>
+            <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+              Manage calendars
+            </button>
+          </div>
+        )}
+      </div>
+
+      {needsReconnect && (
+        <p className="alert-banner mt-3 rounded p-2 text-sm">
+          A connected Google account's calendar access expired - reconnect it from the Calendar page to see its
+          calendars here again.
+        </p>
+      )}
+
+      <ul className="mt-3 space-y-2">
+        {shared.map((c) => (
+          <li key={c.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
+            <span className="min-w-0 flex-1 truncate text-sm font-medium">{c.name}</span>
+            <input
+              type="color"
+              value={c.color ?? '#94a3b8'}
+              onChange={(e) => setColor(c.id, e.target.value)}
+              disabled={savingId === c.id}
+              title="Pick a color"
+              className="h-8 w-10 shrink-0 cursor-pointer rounded border p-0.5"
+            />
+            <button
+              onClick={() => resetColor(c.id)}
+              disabled={savingId === c.id}
+              className="shrink-0 text-xs text-slate-400 hover:text-slate-600"
+              title="Reset to this calendar's own color"
+            >
+              Reset
+            </button>
+          </li>
+        ))}
+        {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet.</li>}
+      </ul>
+
+      {picker && (
+        <Modal
+          header={<h3 className="text-lg font-semibold">Add or remove calendars</h3>}
+          onBackdropClick={() => setPicker(null)}
+          footer={
+            <div className="flex justify-end gap-2">
+              <button onClick={() => setPicker(null)} className="rounded border px-3 py-1.5 text-sm">
+                Cancel
+              </button>
+              <button onClick={doShare} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+                Save
+              </button>
+            </div>
+          }
+        >
+          <ul className="space-y-1">
+            {picker.map((c) => (
+              <li key={c.googleCalendarId}>
+                <label className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
+                  <input
+                    type="checkbox"
+                    checked={picked.has(c.googleCalendarId)}
+                    onChange={(e) =>
+                      setPicked((prev) => {
+                        const next = new Set(prev);
+                        if (e.target.checked) next.add(c.googleCalendarId);
+                        else next.delete(c.googleCalendarId);
+                        return next;
+                      })
+                    }
+                  />
+                  <span className="h-3 w-3 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+                  <span className="min-w-0 flex-1 truncate">{c.name}</span>
+                  {c.primary && <span className="text-xs text-slate-400">primary</span>}
+                </label>
+              </li>
+            ))}
+            {picker.length === 0 && <li className="text-sm text-slate-400">No calendars found on your Google account.</li>}
+          </ul>
+        </Modal>
+      )}
+    </section>
+  );
+}

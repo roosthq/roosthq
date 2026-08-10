@@ -1,7 +1,7 @@
 {
   "name": "@roosthq/web",
   "version": "0.1.0",
-  "description": "Roost HQ frontend — React + Vite",
+  "description": "Roost HQ frontend - React + Vite",
   "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {

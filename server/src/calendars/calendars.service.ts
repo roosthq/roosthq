@@ -150,12 +150,59 @@ export class CalendarsService {
       source: 'google' as const,
     }));
     const local = await this.localCalendars.listForFamily(familyId);
-    return [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
+    const all = [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
+    return this.applyColorOverrides(all, userId);
+  }
+
+  // Every calendar/event color below is whatever the calendar itself carries
+  // (Google's own color, or whatever a local calendar's creator picked) -
+  // fine as a shared default, but a viewer who wants a different color for
+  // just their own view shouldn't need to change it for the whole family.
+  // This is that personal override, applied last so it always wins.
+  private async getColorOverrides(userId: string): Promise<Map<string, string>> {
+    const rows = await this.prisma.userCalendarColor.findMany({ where: { userId } });
+    return new Map(rows.map((r) => [r.calendarId, r.color]));
+  }
+
+  private async applyColorOverrides<T extends { id: string; color?: string | null }>(
+    items: T[],
+    userId: string,
+  ): Promise<T[]> {
+    const overrides = await this.getColorOverrides(userId);
+    if (overrides.size === 0) return items;
+    return items.map((item) => (overrides.has(item.id) ? { ...item, color: overrides.get(item.id) } : item));
+  }
+
+  // Set (or, with color null, clear) the requesting user's personal color
+  // override for one calendar. Scoped to familyId even though the override
+  // itself isn't family-specific data - just so a stray/garbage calendarId
+  // from outside your own family can't silently create an orphaned row.
+  async setColor(familyId: string, userId: string, calendarId: string, color: string | null) {
+    const exists =
+      calendarId === HOLIDAYS_CALENDAR_ID ||
+      (await this.prisma.calendar.findFirst({ where: { id: calendarId, familyId }, select: { id: true } })) ||
+      (await this.prisma.localCalendar.findFirst({ where: { id: calendarId, familyId }, select: { id: true } }));
+    if (!exists) throw new NotFoundException('Calendar not found');
+
+    if (!color) {
+      await this.prisma.userCalendarColor.deleteMany({ where: { userId, calendarId } });
+      return { ok: true, color: null };
+    }
+    await this.prisma.userCalendarColor.upsert({
+      where: { userId_calendarId: { userId, calendarId } },
+      update: { color },
+      create: { userId, calendarId, color },
+    });
+    return { ok: true, color };
   }
 
   // Aggregate events across selected shared calendars, deduped by iCalUID so the
   // same event on two shared calendars only appears once.
-  async events(familyId: string, calendarIds: string[], timeMin: string, timeMax: string) {
+  // userId is optional: the kiosk/display feeds (display.service.ts,
+  // displays.service.ts) call this for a shared, unpersonalized view with no
+  // single "current user" to apply an override for - only the main app's own
+  // per-session call (calendars.controller.ts) passes one.
+  async events(familyId: string, calendarIds: string[], timeMin: string, timeMax: string, userId?: string) {
     const calendars = await this.prisma.calendar.findMany({
       where: { familyId, id: { in: calendarIds } },
       include: { googleAccount: { include: { user: true } } },
@@ -222,6 +269,13 @@ export class CalendarsService {
       const nameById = new Map(addedByUsers.map((u) => [u.id, u.displayName]));
       for (const e of events) {
         if (e.addedByUserId) e.addedByName = nameById.get(e.addedByUserId);
+      }
+    }
+
+    const overrides = userId ? await this.getColorOverrides(userId) : new Map<string, string>();
+    if (overrides.size > 0) {
+      for (const e of events as Array<{ calendarId?: string; calendarColor?: string }>) {
+        if (e.calendarId && overrides.has(e.calendarId)) e.calendarColor = overrides.get(e.calendarId);
       }
     }
     return events;

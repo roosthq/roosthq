@@ -1,7 +1,7 @@
 {
   "name": "@roosthq/server",
   "version": "0.1.0",
-  "description": "Roost HQ API — NestJS + Prisma",
+  "description": "Roost HQ API - NestJS + Prisma",
   "license": "AGPL-3.0-only",
   "scripts": {
     "build": "nest build",

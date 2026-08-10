@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -63,7 +64,14 @@ export class CalendarsController {
     @Query('end') end: string,
   ) {
     const ids = (calendarIds ?? '').split(',').filter(Boolean);
-    return this.calendars.events(u.familyId, ids, start, end);
+    return this.calendars.events(u.familyId, ids, start, end, u.userId);
+  }
+
+  // My own personal color override for one calendar - doesn't touch the
+  // calendar itself, just how it renders for me. body.color: null clears it.
+  @Put(':calendarId/color')
+  setColor(@CurrentUser() u: SessionPayload, @Param('calendarId') calendarId: string, @Body() body: { color: string | null }) {
+    return this.calendars.setColor(u.familyId, u.userId, calendarId, body.color);
   }
 
   @Post(':calendarId/events')

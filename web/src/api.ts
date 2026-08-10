@@ -636,6 +636,11 @@ export const api = {
     req('/calendars/share', { method: 'POST', body: JSON.stringify({ googleAccountId, selections }) }),
   unshare: (googleCalendarId: string) =>
     req('/calendars/unshare', { method: 'POST', body: JSON.stringify({ googleCalendarId }) }),
+  // My own personal override of how a calendar renders for me - null clears
+  // it back to the calendar's own color. Works for Google, local, or the
+  // Holidays sentinel id, since the server keys this off calendarId alone.
+  setCalendarColor: (calendarId: string, color: string | null) =>
+    req<{ ok: boolean; color: string | null }>(`/calendars/${calendarId}/color`, { method: 'PUT', body: JSON.stringify({ color }) }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
   createCalendarEvent: (

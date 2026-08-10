@@ -1,4 +1,4 @@
-// Roost HQ — data model (see PLANNING.md §10)
+// Roost HQ - data model (see PLANNING.md §10)
 // Self-hosted, single-family. family_id is retained on core tables to keep the
 // door open to multi-family later; it is not required for single-family use.
 
@@ -14,7 +14,7 @@ datasource db {
 // ---------- Enums ----------
 
 enum Role {
-  OWNER // instance-level: multi-family creation/management, ghosting — see #18/#19
+  OWNER // instance-level: multi-family creation/management, ghosting - see #18/#19
   FAMILY_MANAGER // full family-management powers (everything OWNER used to mean before the instance-level split)
   ADULT
   KID
@@ -26,7 +26,7 @@ enum ChoreInstanceStatus {
   APPROVED
   REJECTED
   MISSED // due date passed with no completion and the chore doesn't allow late credit
-  SKIPPED // deliberately skipped (chore.allowSkip) — no token, doesn't count as missed
+  SKIPPED // deliberately skipped (chore.allowSkip) - no token, doesn't count as missed
 }
 
 enum LedgerType {
@@ -107,7 +107,7 @@ model Family {
 }
 
 // In-app notification feed. Same table backs a personal "notifications" view
-// (mine, unread-badged) and an adult-only family-wide "activity" view — the
+// (mine, unread-badged) and an adult-only family-wide "activity" view - the
 // list() query just widens the where-clause for adults asking for the latter.
 model Notification {
   id        String           @id @default(cuid())
@@ -118,7 +118,7 @@ model Notification {
   body      String?          @db.Text
   link      String? // relative app path to deep-link to, e.g. /store
   // The thing this notification is about (award grant, chore instance, prize,
-  // event...). Not a real FK — it points at several different tables — but it
+  // event...). Not a real FK - it points at several different tables - but it
   // lets a delete take its notifications with it instead of leaving a feed
   // entry that deep-links to something that no longer exists.
   refId     String?
@@ -134,12 +134,12 @@ model Notification {
 }
 
 // One browser/device's Web Push subscription. A person can have several
-// (phone + kiosk browser, etc.) — all get pushed to on a new notification.
+// (phone + kiosk browser, etc.) - all get pushed to on a new notification.
 model PushSubscription {
   id           String   @id @default(cuid())
   userId       String
   endpoint     String   @db.Text
-  endpointHash String   @unique // sha256(endpoint) — endpoint itself is too long to index/unique directly
+  endpointHash String   @unique // sha256(endpoint) - endpoint itself is too long to index/unique directly
   p256dh       String   @db.Text
   auth         String   @db.Text
   createdAt    DateTime @default(now())
@@ -167,8 +167,8 @@ model DisplayConfig {
   onScreenKeyboard   Boolean  @default(false) // pop up a touch keyboard on text fields (Pi kiosks have no hardware one)
   screensaverMinutes Int      @default(0) // show a full-screen clock after this many idle minutes; 0 = never
   weatherLocation    String? // free-text city for the screensaver's weather (Open-Meteo geocoded); unset = no weather shown
-  bedtimeStart       String? // "HH:MM" — kiosk dims into bedtime mode inside this window; unset = never
-  bedtimeEnd         String? // "HH:MM" — end of the bedtime window (may cross midnight)
+  bedtimeStart       String? // "HH:MM" - kiosk dims into bedtime mode inside this window; unset = never
+  bedtimeEnd         String? // "HH:MM" - end of the bedtime window (may cross midnight)
   createdById        String
   createdAt          DateTime @default(now())
 
@@ -198,7 +198,7 @@ model FamilyInvite {
   @@index([familyId])
 }
 
-// Self-service "forgot password" — only reachable for a user with an email
+// Self-service "forgot password" - only reachable for a user with an email
 // set (kids typically don't have one; an adult/owner resets those directly).
 model PasswordResetToken {
   id        String    @id @default(cuid())
@@ -251,7 +251,7 @@ model User {
   simpleMode          Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
   allowanceTokens     Int     @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
   rejectionsGiven     Int     @default(0) // lifetime count of chore completions this adult sent back (tracked from 2026-08; adult profile stat)
-  birthday            String? // YYYY-MM-DD — age display + automatic birthday countdowns
+  birthday            String? // YYYY-MM-DD - age display + automatic birthday countdowns
   // Per-kid ability switches (KID_PERMISSIONS in web/src/api.ts). Stored as
   // the DISABLED list so kids can do everything until an adult turns
   // something off. Ignored for adult roles.
@@ -263,7 +263,7 @@ model User {
   notifyByEmail       Boolean @default(false)
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
-  // and every token-balance/history UI hides for them — for a family that
+  // and every token-balance/history UI hides for them - for a family that
   // doesn't want tokens/rewards for some or all members. See
   // UsersService.setTokensDisabled for who can flip this for whom.
   tokensDisabled      Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
@@ -272,6 +272,7 @@ model User {
   locations             UserLocation[]
   googleAccounts        GoogleAccount[]
   calendarShares        CalendarShare[]
+  calendarColors        UserCalendarColor[]
   choreAssignments      ChoreAssignee[]
   createdChores         Chore[]              @relation("ChoreCreatedBy")
   ledgerEntries         TokenLedger[]        @relation("LedgerUser")
@@ -301,7 +302,7 @@ model Location {
   id       String @id @default(cuid())
   familyId String
   name     String
-  timezone String @default("UTC") // IANA name, e.g. "America/Denver" — drives due-date math for chores here
+  timezone String @default("UTC") // IANA name, e.g. "America/Denver" - drives due-date math for chores here
 
   family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
   users          UserLocation[]
@@ -327,10 +328,10 @@ model GoogleAccount {
   id              String   @id @default(cuid())
   userId          String
   googleSub       String   @unique // Google account subject id
-  email           String? // captured at connect time, purely for the "which account is this" label in Settings/Profile — never used for lookup
-  picture         String?  @db.Text // Google profile photo URL, same reason as email — label only
+  email           String? // captured at connect time, purely for the "which account is this" label in Settings/Profile - never used for lookup
+  picture         String?  @db.Text // Google profile photo URL, same reason as email - label only
   tokensEncrypted String   @db.Text // OAuth tokens, encrypted at rest
-  needsReconnect  Boolean  @default(false) // refresh token died (invalid_grant) — set on the failing call, cleared on a successful one or a fresh consent
+  needsReconnect  Boolean  @default(false) // refresh token died (invalid_grant) - set on the failing call, cleared on a successful one or a fresh consent
   createdAt       DateTime @default(now())
 
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -345,7 +346,7 @@ model Calendar {
   id               String  @id @default(cuid())
   familyId         String
   googleAccountId  String
-  googleCalendarId String // dedup key — one row per unique Google calendar
+  googleCalendarId String // dedup key - one row per unique Google calendar
   name             String
   color            String?
 
@@ -367,7 +368,25 @@ model CalendarShare {
   @@id([calendarId, userId])
 }
 
-// A calendar that lives entirely in the app — no Google account needed.
+// A viewer's personal override of how a calendar's color renders for them,
+// on top of whatever color the calendar itself carries (Calendar.color or
+// LocalCalendar.color, set from Google or by whoever created it). calendarId
+// deliberately has no FK - it can point at either table (or the Holidays
+// sentinel id), so this stays one generic mechanism instead of two.
+model UserCalendarColor {
+  id         String   @id @default(cuid())
+  userId     String
+  calendarId String
+  color      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, calendarId])
+}
+
+// A calendar that lives entirely in the app - no Google account needed.
 // Optionally scoped to a Location (e.g. one calendar per household); a
 // family-wide one just leaves locationId null.
 model LocalCalendar {
@@ -376,7 +395,7 @@ model LocalCalendar {
   locationId  String?
   name        String
   color       String?
-  image       String?  @db.Text // data: URI — lets a local calendar show a photo/icon instead of just its color dot
+  image       String?  @db.Text // data: URI - lets a local calendar show a photo/icon instead of just its color dot
   createdById String
   createdAt   DateTime @default(now())
 
@@ -411,23 +430,23 @@ model LocalEvent {
 
 // ---------- System (instance-wide, not family-scoped) ----------
 
-// One rule that projects into a concrete date every year — not a stored
+// One rule that projects into a concrete date every year - not a stored
 // date, so "4th Thursday of November" stays correct forever without a
 // yearly refresh. Deliberately has no familyId: this is the single global
 // "Holidays" calendar every family can add (CalendarsService.events()
 // merges its projected occurrences in whenever HOLIDAYS_CALENDAR_ID is
 // among the requested calendarIds), editable only by the instance owner
-// (see HolidaysService.assertOwner) — same one-of-a-kind Role.OWNER gate
+// (see HolidaysService.assertOwner) - same one-of-a-kind Role.OWNER gate
 // OwnerService uses for multi-family admin.
 model HolidayEvent {
   id         String @id @default(cuid())
   title      String
-  ruleType   String // FIXED | NTH_WEEKDAY | EASTER_OFFSET — see HolidaysService for the shape each expects
-  month      Int? // 1-12 — FIXED, NTH_WEEKDAY
-  day        Int? // 1-31 — FIXED only
-  weekday    Int? // 0 (Sun) - 6 (Sat) — NTH_WEEKDAY only
-  ordinal    Int? // 1-4, or -1 for "last" — NTH_WEEKDAY only
-  offsetDays Int? // days relative to Easter Sunday (0 = Easter itself, -2 = Good Friday) — EASTER_OFFSET only
+  ruleType   String // FIXED | NTH_WEEKDAY | EASTER_OFFSET - see HolidaysService for the shape each expects
+  month      Int? // 1-12 - FIXED, NTH_WEEKDAY
+  day        Int? // 1-31 - FIXED only
+  weekday    Int? // 0 (Sun) - 6 (Sat) - NTH_WEEKDAY only
+  ordinal    Int? // 1-4, or -1 for "last" - NTH_WEEKDAY only
+  offsetDays Int? // days relative to Easter Sunday (0 = Easter itself, -2 = Good Friday) - EASTER_OFFSET only
 
   createdAt DateTime @default(now())
 }
@@ -451,14 +470,14 @@ model Chore {
   familyId           String
   title              String
   assignmentType     String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
-  dayOfWeek          Int? // legacy single-day anchor — superseded by daysOfWeek, kept so old rows still resolve
-  daysOfWeek         Json? // int[] (0=Sun..6=Sat) — which weekdays this recurs on, e.g. Mon-Fri homework
+  dayOfWeek          Int? // legacy single-day anchor - superseded by daysOfWeek, kept so old rows still resolve
+  daysOfWeek         Json? // int[] (0=Sun..6=Sat) - which weekdays this recurs on, e.g. Mon-Fri homework
   dueTime            String? // "HH:mm" in the chore's location timezone; null = due end of day
   locationId         String?
   tokenValue         Int     @default(0)
   recurrenceRule     String? // DAILY | WEEKLY | BIWEEKLY | MONTHLY | null = single
   allowLate          Boolean @default(false) // if false (default), missing the due date forfeits the reward
-  allowSkip          Boolean @default(false) // assignee can skip an occurrence outright — no token, no checklist required, doesn't break streak
+  allowSkip          Boolean @default(false) // assignee can skip an occurrence outright - no token, no checklist required, doesn't break streak
   autoApprove        Boolean @default(false) // completing awards tokens immediately, no adult approval step (trust chores like brushing teeth)
   requireProof       Boolean @default(false) // kid must attach a photo before completing (family photoProof feature)
   firstFinisherBonus Int     @default(0) // extra tokens for whoever completes an ANYONE chore ("chore race")
@@ -536,7 +555,7 @@ model ChoreItemCheck {
 }
 
 // ---------- Tokens ----------
-// Balance is DERIVED from the ledger (sum of deltas) — no mutable balance column.
+// Balance is DERIVED from the ledger (sum of deltas) - no mutable balance column.
 
 model TokenLedger {
   id          String     @id @default(cuid())
@@ -556,7 +575,7 @@ model TokenLedger {
 
 // ---------- Rules ----------
 
-// Plain reference text, not tied to tokens/chores — a shared house-rules
+// Plain reference text, not tied to tokens/chores - a shared house-rules
 // entry (targetUserId null, visible to every kid) or one adult wrote for a
 // specific kid (visible only to that kid, plus every adult).
 model Rule {
@@ -578,7 +597,7 @@ model Rule {
 
 // A pre-created award "type" (e.g. "Good Sport", "Extra Kind") an adult can
 // hand out over and over. Kids only ever see the ones they've actually been
-// given — the catalog itself is adults-only, so a surprise stays a surprise.
+// given - the catalog itself is adults-only, so a surprise stays a surprise.
 model Award {
   id                String   @id @default(cuid())
   familyId          String
@@ -598,7 +617,7 @@ model Award {
   @@index([familyId])
 }
 
-// One instance of an award being given to a kid — repeatable, so the same
+// One instance of an award being given to a kid - repeatable, so the same
 // Award can have many grants for the same user (the count is just how many).
 model AwardGrant {
   id          String   @id @default(cuid())
@@ -606,7 +625,7 @@ model AwardGrant {
   userId      String
   grantedById String
   note        String?  @db.Text
-  tokenValue  Int      @default(0) // snapshot of what was actually awarded this time — Award.defaultTokenValue can change later without rewriting history
+  tokenValue  Int      @default(0) // snapshot of what was actually awarded this time - Award.defaultTokenValue can change later without rewriting history
   createdAt   DateTime @default(now())
 
   award     Award @relation(fields: [awardId], references: [id], onDelete: Cascade)
@@ -626,7 +645,7 @@ model Prize {
   description   String?    @db.Text
   image         String?    @db.Text // URL, or a data: URI for an uploaded image
   // Which region of `image` shows on the small store-card thumbnail, as
-  // {x,y,w,h} percentages of the image's own natural size — metadata only,
+  // {x,y,w,h} percentages of the image's own natural size - metadata only,
   // never applied to the image itself. Deliberately non-destructive: image
   // can be a URL with no local pixels to touch, and even for an upload the
   // original stays intact for the full-size detail view. Card rendering
@@ -638,10 +657,10 @@ model Prize {
   tokenCost     Int
   type          PrizeType  @default(ITEM)
   scope         PrizeScope @default(GLOBAL)
-  locationId    String? // optional — which house/location this prize belongs to
+  locationId    String? // optional - which house/location this prize belongs to
   repeatable    Boolean    @default(true) // false = one-off; auto-archives once redeemed
   archived      Boolean    @default(false) // out of the active store; can be revived
-  createdById   String? // who added it — shown to everyone, not just adults
+  createdById   String? // who added it - shown to everyone, not just adults
   suggested     Boolean    @default(false) // kid-submitted wishlist item, awaiting adult approval
   suggestedById String?
 
@@ -697,7 +716,7 @@ model MealPlan {
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
-  // One dinner per day PER SCOPE (enforced in code — a nullable column can't
+  // One dinner per day PER SCOPE (enforced in code - a nullable column can't
   // carry that in a MySQL unique index).
   @@index([familyId, date])
 }
@@ -770,7 +789,7 @@ model WheelSpin {
 }
 
 // Instance-owner action trail: who deactivated/deleted/created/moved a user,
-// created/deleted/renamed a family, or ghosted as someone. No FK to User —
+// created/deleted/renamed a family, or ghosted as someone. No FK to User -
 // deliberately: the whole point is the record survives the actor or target
 // being deleted, so names are snapshotted as plain strings at write time.
 model AuditLog {
@@ -783,7 +802,7 @@ model AuditLog {
   detail      String? @db.Text // extra context: old -> new value, family name, etc.
   // Nullable: app-owner actions (family.*, user.*, ghost.*) aren't scoped to
   // a single family the same way, so they leave this unset. Per-family
-  // actions (chore.* so far) always set it — required so a lookup by
+  // actions (chore.* so far) always set it - required so a lookup by
   // targetId alone (e.g. a deleted chore's history) can still be scoped to
   // the caller's own family instead of trusting an opaque id.
   familyId    String?

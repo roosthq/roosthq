@@ -4,6 +4,7 @@ import { setCelebrationSound } from '../celebrate';
 import { Avatar } from './CalendarPage';
 import ImageCropper, { cropImageToDataUri, type CropRect } from '../ImageCropper';
 import { useDialog } from '../Dialog';
+import CalendarsSettingsSection from '../CalendarsSettingsSection';
 import {
   pushSupported,
   currentPushSubscription,
@@ -424,6 +425,8 @@ export default function MySettingsPage({
           ))}
         </div>
       </section>
+
+      <CalendarsSettingsSection isAdult={me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT'} />
 
       {/* id + scroll-margin: the Notifications page deep-links straight here
           (#notifications) because people could not find these controls. */}
