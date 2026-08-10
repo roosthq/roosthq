@@ -259,11 +259,12 @@ export default function MembersManager({ me }: { me: Me }) {
           grid that stacks on a phone and goes two-up once there's room, then
           the destructive actions on their own line. The old version was a
           single wrapped row of a dozen unlabeled controls - unreadable on
-          anything narrow. Same bg-slate-100 treatment as Invite/Add above -
-          every section on this page reads as one of these tinted blocks. */}
+          anything narrow. card-tinted, not bg-slate-100: these cards are
+          much bigger than Invite/Add above, and bg-slate-100 alone read as
+          washed-out pale in light mode - see --card-tint in index.css. */}
       <ul className="mt-3 space-y-3 text-sm">
         {members.map((m) => (
-          <li key={m.id} className="rounded-lg bg-slate-100 p-3">
+          <li key={m.id} className="rounded-lg card-tinted p-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-medium">{m.displayName}</span>
               {m.role === 'OWNER' ? (

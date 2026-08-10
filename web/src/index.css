@@ -42,6 +42,15 @@
   --accent-hover: color-mix(in oklch, #4e7a4c 80%, black);
   --tag-bg: #d4ead0;
   --tag-text: #2c5228;
+  /* --tag-bg alone is fine for a small pill, but washes out across a big
+     card (Family & PINs' member cards) - too close to --bg/white form
+     fields to read as a distinct block. Mixed further toward --accent so
+     it reads with real depth, closer to how --tag-bg already looks against
+     dark mode's near-black page (that relationship doesn't need fixing -
+     see [data-mode='dark'] below, where this is left as plain --tag-bg).
+     A pure function of --tag-bg/--accent, so every theme gets this for
+     free without a per-theme override. */
+  --card-tint: color-mix(in srgb, var(--tag-bg) 65%, var(--accent) 35%);
   --today: #d4c06a; /* owl beak gold - "today" accent */
   --surface-off: #e5e7eb; /* days outside the viewed month (neutral gray) */
   /* Token/reward pill (TokenBadge) - derived from --accent so it's
@@ -64,6 +73,7 @@
   --accent-hover: color-mix(in oklch, #6eaa6c 85%, white);
   --tag-bg: #243824;
   --tag-text: #92c090;
+  --card-tint: var(--tag-bg); /* already reads with plenty of depth against a dark page - no deepening needed */
   --surface-off: #212121; /* dark gray */
   --reward-bg: color-mix(in oklch, var(--accent) 28%, black);
   --reward-text: color-mix(in oklch, var(--accent) 65%, white);
@@ -346,6 +356,11 @@ html {
 .bg-slate-100 {
   background: var(--tag-bg) !important;
 }
+/* Same idea as .bg-slate-100 but for a big card, not a small pill/tag -
+   see --card-tint above. Family & PINs' member cards use this. */
+.card-tinted {
+  background: var(--card-tint) !important;
+}
 .bg-slate-200 {
   background: var(--border) !important;
 }
@@ -519,7 +534,9 @@ select option {
 .card-nested .text-slate-400,
 .card-nested .text-slate-300,
 .bg-slate-100 .text-slate-400,
-.bg-slate-100 .text-slate-300 {
+.bg-slate-100 .text-slate-300,
+.card-tinted .text-slate-400,
+.card-tinted .text-slate-300 {
   color: var(--text-2) !important;
 }
 
