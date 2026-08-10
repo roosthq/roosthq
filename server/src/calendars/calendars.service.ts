@@ -62,14 +62,10 @@ export class CalendarsService {
       try {
         const { data } = await this.google.withCalendar(acc.id, (cal) => cal.calendarList.list());
         for (const item of data.items ?? []) {
-          // Owner/writer/reader all carry real event content - shareable.
-          // freeBusyReader only ever exposes busy/free blocks, no titles, so
-          // it's excluded (nothing worth showing family-wide anyway). This
-          // used to require accessRole === 'owner', which meant a calendar
-          // you only subscribe to (a public holiday calendar, someone else's
-          // shared calendar) could get shared once but then vanish from this
-          // picker forever - no way to see it, let alone unshare it, again.
-          if (item.accessRole === 'freeBusyReader') continue;
+          // Editable only (owner or writer) - a read-only subscription
+          // (a public holiday calendar, someone else's shared calendar)
+          // isn't meant to be re-shared from here.
+          if (item.accessRole !== 'owner' && item.accessRole !== 'writer') continue;
           out.push({
             googleAccountId: acc.id,
             googleCalendarId: item.id as string,
@@ -102,6 +98,7 @@ export class CalendarsService {
     googleAccountId: string,
     selections: ShareSelection[],
   ) {
+    await assertKidPermission(this.prisma, userId, 'calendarShare');
     const results = [];
     for (const sel of selections) {
       const calendar = await this.prisma.calendar.upsert({
@@ -129,6 +126,7 @@ export class CalendarsService {
   // shares it, drop the Calendar row entirely instead of leaving a zombie
   // entry with a 0 share count.
   async unshare(familyId: string, userId: string, googleCalendarId: string) {
+    await assertKidPermission(this.prisma, userId, 'calendarShare');
     const calendar = await this.prisma.calendar.findUnique({
       where: { familyId_googleCalendarId: { familyId, googleCalendarId } },
     });

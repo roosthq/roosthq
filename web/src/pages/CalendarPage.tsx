@@ -82,6 +82,10 @@ export default function CalendarPage({ me }: { me: Me }) {
   const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const isKid = me.role === 'KID';
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT'; // can connect/add calendars
+  // A kid can connect their own Google account and share/unshare from it too
+  // - on by default, same as every other KID_PERMISSIONS entry; an adult can
+  // turn it off (or back on) per kid in Family & PINs.
+  const canManageCalendars = isAdult || (isKid && kidPermissionEnabled(me, 'calendarShare'));
   // Kids can add events unless an adult turned that permission off (server
   // enforces it in calendars/local-calendars createEvent).
   const canAddEvents = kidPermissionEnabled(me, 'calendarAdd');
@@ -152,9 +156,9 @@ export default function CalendarPage({ me }: { me: Me }) {
   // not just as a mysteriously-empty calendar or a "Manage calendars" click
   // that quietly does nothing.
   useEffect(() => {
-    if (!isAdult) return;
+    if (!canManageCalendars) return;
     api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
-  }, [isAdult]);
+  }, [canManageCalendars]);
 
   // "Manage calendars" (the share/unshare picker) only makes sense once
   // there's a connected Google account to pick FROM - without one it just
@@ -162,9 +166,9 @@ export default function CalendarPage({ me }: { me: Me }) {
   // stays up regardless; that's how you get your first one connected.
   const [hasGoogleAccount, setHasGoogleAccount] = useState(false);
   useEffect(() => {
-    if (!isAdult) return;
+    if (!canManageCalendars) return;
     api.listGoogleAccounts().then((accts) => setHasGoogleAccount(accts.length > 0)).catch(() => undefined);
-  }, [isAdult]);
+  }, [canManageCalendars]);
 
   // Everyone still gets to filter - but non-owners only get to choose among a
   // location-scoped subset: adults see calendars shared by anyone at their own
@@ -357,7 +361,7 @@ export default function CalendarPage({ me }: { me: Me }) {
             Calendars <span className="text-slate-400">({visible.size}/{filterOptions.length})</span>
           </h2>
           <div className="flex flex-wrap gap-2">
-            {isAdult && (
+            {canManageCalendars && (
               <>
                 <a href={`${loginUrl}?mode=self`} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
                   <span className="hidden sm:inline">+ Connect another of my Google accounts</span>

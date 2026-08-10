@@ -553,6 +553,7 @@ export const KID_PERMISSIONS: Array<{ id: string; label: string }> = [
   { id: 'grocery', label: 'Add & check grocery items' },
   { id: 'store', label: 'Redeem prizes from the store' },
   { id: 'calendarAdd', label: 'Add calendar events' },
+  { id: 'calendarShare', label: 'Share/unshare their own Google calendars (once connected)' },
 ];
 
 export function kidPermissionEnabled(m: { role?: string; disabledPermissions?: string[] } | null | undefined, permission: string): boolean {
