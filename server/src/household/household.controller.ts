@@ -46,12 +46,12 @@ export class HouseholdController {
   }
 
   @Get('eat-out-places')
-  eatOutPlaces(@CurrentUser() u: SessionPayload) {
-    return this.household.eatOutPlaces(u.familyId);
+  eatOutPlaces(@CurrentUser() u: SessionPayload, @Query('locationId') locationId?: string) {
+    return this.household.eatOutPlaces(u.familyId, locationId || null);
   }
 
   @Post('eat-out-places')
-  addEatOutPlace(@CurrentUser() u: SessionPayload, @Body() body: { name: string; notes?: string | null }) {
+  addEatOutPlace(@CurrentUser() u: SessionPayload, @Body() body: { name: string; notes?: string | null; locationId?: string | null }) {
     return this.household.addEatOutPlace(u.familyId, u.userId, body);
   }
 

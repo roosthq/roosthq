@@ -726,11 +726,15 @@ model MealPlan {
   @@index([eatOutPlaceId])
 }
 
-// A family's list of favorite restaurants/places for "Out" nights - adults
-// maintain this; the meal-plan spin picks uniformly at random from it.
+// A household's list of favorite restaurants/places for "Out" nights - adults
+// maintain this; the meal-plan spin picks uniformly at random from it. Same
+// household-scoping convention as GroceryItem/Countdown/Announcement:
+// locationId null = family-wide (visible/spinnable from every house), a real
+// id = that house's own list plus whatever's family-wide.
 model EatOutPlace {
   id          String   @id @default(cuid())
   familyId    String
+  locationId  String?
   name        String
   notes       String?
   createdById String

@@ -144,21 +144,23 @@ export class HouseholdService {
   }
 
   // ---- Out-to-eat picker ----
-  // A family-maintained list of favorite places; "spinning" a day picks one
-  // uniformly at random. Same fairness rule as everywhere else with a random
-  // payout: the server rolls, the client only ever finds out the result -
-  // there's no client-suppliable "which place did I get" input anywhere here.
+  // A household-maintained list of favorite places (same family-wide-vs-house
+  // scoping as grocery/countdowns/announcements below); "spinning" a day
+  // picks one uniformly at random. Same fairness rule as everywhere else with
+  // a random payout: the server rolls, the client only ever finds out the
+  // result - there's no client-suppliable "which place did I get" input here.
 
-  eatOutPlaces(familyId: string) {
-    return this.prisma.eatOutPlace.findMany({ where: { familyId }, orderBy: { name: 'asc' } });
+  eatOutPlaces(familyId: string, locationId?: string | null) {
+    return this.prisma.eatOutPlace.findMany({ where: { familyId, ...this.scope(locationId) }, orderBy: { name: 'asc' } });
   }
 
-  async addEatOutPlace(familyId: string, actorId: string, dto: { name: string; notes?: string | null }) {
+  async addEatOutPlace(familyId: string, actorId: string, dto: { name: string; notes?: string | null; locationId?: string | null }) {
     await this.assertAdult(actorId);
     const name = dto.name?.trim();
     if (!name) throw new BadRequestException('Name is required');
+    const locationId = await this.assertLocation(familyId, dto.locationId);
     return this.prisma.eatOutPlace.create({
-      data: { familyId, name: name.slice(0, 120), notes: dto.notes?.trim() || null, createdById: actorId },
+      data: { familyId, locationId, name: name.slice(0, 120), notes: dto.notes?.trim() || null, createdById: actorId },
     });
   }
 
@@ -185,14 +187,15 @@ export class HouseholdService {
 
   // Picks a place for an already-"Out" day. Creates the day as Out if it
   // doesn't exist yet (spinning implies wanting to eat out that day even if
-  // nobody explicitly toggled it on first).
+  // nobody explicitly toggled it on first). Spins among this house's own
+  // places plus whatever's family-wide - same merge rule as reading them.
   async spinEatOut(familyId: string, actorId: string, date: string, locationId?: string | null) {
     await this.assertAdult(actorId);
     if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
-    const places = await this.prisma.eatOutPlace.findMany({ where: { familyId } });
+    const resolvedLocationId = await this.assertLocation(familyId, locationId);
+    const places = await this.prisma.eatOutPlace.findMany({ where: { familyId, ...this.scope(resolvedLocationId) } });
     if (!places.length) throw new BadRequestException('Add at least one place first');
     const winner = places[Math.floor(Math.random() * places.length)];
-    const resolvedLocationId = await this.assertLocation(familyId, locationId);
     const existing = await this.prisma.mealPlan.findFirst({ where: { familyId, date, locationId: resolvedLocationId } });
     const meal = existing
       ? await this.prisma.mealPlan.update({

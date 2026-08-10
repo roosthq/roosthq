@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, type MealPlanEntry } from './api';
+import { api, type EatOutPlace, type MealPlanEntry } from './api';
 import Modal from './Modal';
 import { useWeekSwipe } from './useWeekSwipe';
 
@@ -50,6 +50,9 @@ export default function DinnerWeekModal({
   const [meals, setMeals] = useState<Record<string, MealPlanEntry>>({});
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
+  const [places, setPlaces] = useState<EatOutPlace[]>([]);
+  const [spinningKey, setSpinningKey] = useState<string | null>(null);
+  const [spinDisplay, setSpinDisplay] = useState('');
 
   const { navigate, animKey, animClass, swipeProps } = useWeekSwipe((delta) => setWeekStart((w) => addDays(w, delta * 7)));
 
@@ -68,11 +71,48 @@ export default function DinnerWeekModal({
     refresh();
   }, [refresh]);
 
+  // Places are only ever needed to render the pick/spin controls, so don't
+  // bother fetching them for a read-only viewer (kids, or the main app's own
+  // popup when opened non-editable).
+  useEffect(() => {
+    if (canEdit) api.eatOutPlaces(locationId, kioskToken).then(setPlaces).catch(() => setPlaces([]));
+  }, [canEdit, locationId, kioskToken]);
+
   async function save(date: string) {
     const title = draft.trim();
     if (title) await api.setMeal(date, { title, locationId: locationId ?? null }, kioskToken);
     else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null, kioskToken);
     setEditing(null);
+    refresh();
+  }
+
+  // Same toggle/pick/spin logic as the Household page's fuller widget - see
+  // that file's comments for the fairness rule (server always rolls first).
+  async function toggleOut(k: string) {
+    const meal = meals[k];
+    if (meal?.isEatingOut) await api.deleteMeal(k, meal.locationId ?? null, kioskToken);
+    else await api.setMeal(k, { isEatingOut: true, locationId: locationId ?? null }, kioskToken);
+    refresh();
+  }
+
+  async function pickPlace(k: string, placeId: string) {
+    if (!placeId) return;
+    await api.setMeal(k, { isEatingOut: true, eatOutPlaceId: placeId, locationId: locationId ?? null }, kioskToken);
+    refresh();
+  }
+
+  async function spin(k: string) {
+    if (!places.length || spinningKey) return;
+    setSpinningKey(k);
+    const interval = window.setInterval(() => {
+      setSpinDisplay(places[Math.floor(Math.random() * places.length)].name);
+    }, 90);
+    try {
+      await api.spinEatOut(k, locationId ?? null, kioskToken);
+    } finally {
+      window.clearInterval(interval);
+      setSpinningKey(null);
+    }
     refresh();
   }
 
@@ -120,16 +160,51 @@ export default function DinnerWeekModal({
                 k === aroundKey && k !== todayKey ? 'ring-2 ring-[var(--accent)]' : ''
               }`}
             >
-              <div className="text-sm font-medium text-slate-500">
-                {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
+              <div className="flex items-center justify-between gap-1">
+                <div className="text-sm font-medium text-slate-500">
+                  {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
+                </div>
+                {canEdit && (
+                  <button
+                    onClick={() => toggleOut(k)}
+                    title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
+                    className={`shrink-0 rounded px-1 text-sm ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
+                  >
+                    🍽️
+                  </button>
+                )}
               </div>
               {meal?.isEatingOut ? (
-                // Read-only here even for adults - picking/spinning a place
-                // lives on the Household page's fuller Dinner plan widget;
-                // this popup is a quick glance, not the editing surface.
-                <div className="mt-1.5 min-h-[2.75rem] px-2 py-2 text-left text-lg leading-snug">
-                  {meal.eatOutPlaceName ? <>🍽️ {meal.eatOutPlaceName}</> : <span className="text-slate-400">🍽️ Out - TBD</span>}
-                </div>
+                spinningKey === k ? (
+                  <div className="mt-1.5 min-h-[2.75rem] px-2 py-2 text-left text-lg leading-snug">
+                    🎲 <span className="text-slate-400">{spinDisplay || '…'}</span>
+                  </div>
+                ) : (
+                  <div className="mt-1.5 space-y-1.5">
+                    <div className="min-h-[1.75rem] px-2 text-lg leading-snug">
+                      {meal.eatOutPlaceName ? <>🍽️ {meal.eatOutPlaceName}</> : <span className="text-slate-400">🍽️ Out - TBD</span>}
+                    </div>
+                    {canEdit && places.length > 0 && (
+                      <div className="flex items-center gap-1 px-1">
+                        <select
+                          value=""
+                          onChange={(e) => pickPlace(k, e.target.value)}
+                          className="min-w-0 flex-1 rounded border px-1.5 py-1.5 text-sm"
+                        >
+                          <option value="">Pick…</option>
+                          {places.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button onClick={() => spin(k)} title="Spin to pick randomly" className="shrink-0 rounded border px-2 py-1.5 text-sm hover:bg-slate-50">
+                          🎲
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
               ) : editing === k ? (
                 <input
                   autoFocus

@@ -135,8 +135,8 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   }, [refresh]);
 
   const refreshPlaces = useCallback(() => {
-    api.eatOutPlaces().then(setPlaces).catch(() => setPlaces([]));
-  }, []);
+    api.eatOutPlaces(scope || 'none').then(setPlaces).catch(() => setPlaces([]));
+  }, [scope]);
   useEffect(() => {
     if (isAdult) refreshPlaces();
   }, [isAdult, refreshPlaces]);
@@ -198,7 +198,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
               summary="Favorite places ▾"
               summaryClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
             >
-              <EatOutPlacesPanel places={places} onChanged={refreshPlaces} />
+              <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
             </DropdownDetails>
           )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
@@ -307,7 +307,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
 // dropdown in the Dinner plan header rather than its own top-level section,
 // since it's setup done rarely (once, then occasionally tweaked) compared to
 // the weekly grid it feeds.
-function EatOutPlacesPanel({ places, onChanged }: { places: EatOutPlace[]; onChanged: () => void }) {
+function EatOutPlacesPanel({ places, scope, onChanged }: { places: EatOutPlace[]; scope: string; onChanged: () => void }) {
   const [name, setName] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -316,7 +316,10 @@ function EatOutPlacesPanel({ places, onChanged }: { places: EatOutPlace[]; onCha
     if (!trimmed) return;
     setSaving(true);
     try {
-      await api.addEatOutPlace(trimmed);
+      // Same convention as grocery/countdowns/announcements in this file -
+      // a new place belongs to whichever house is currently in view, not the
+      // whole family, unless there's no real house to scope it to.
+      await api.addEatOutPlace(trimmed, undefined, scope || null);
       setName('');
       onChanged();
     } finally {
@@ -334,7 +337,10 @@ function EatOutPlacesPanel({ places, onChanged }: { places: EatOutPlace[]; onCha
       <ul className="max-h-48 space-y-1 overflow-auto">
         {places.map((p) => (
           <li key={p.id} className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-sm hover:bg-slate-50">
-            <span className="min-w-0 flex-1 truncate">{p.name}</span>
+            <span className="min-w-0 flex-1 truncate">
+              {p.name}
+              {scope && !p.locationId && <span className="ml-1 text-xs text-slate-400">(family-wide)</span>}
+            </span>
             <button onClick={() => remove(p.id)} className="shrink-0 text-xs text-slate-400 hover:text-red-500">
               ✕
             </button>
