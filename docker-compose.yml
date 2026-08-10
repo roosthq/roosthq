@@ -52,11 +52,15 @@ services:
   web:
     # Dockerfile's default (final) stage is the prod static-file server -
     # dev wants the `dev` stage instead (node_modules + hot-reload vite
-    # server; source gets bind-mounted over it below anyway).
+    # server; source gets bind-mounted over it below anyway). No `command:`
+    # override needed - the `dev` stage's own CMD already runs `npm run dev`;
+    # setting one here anyway would leak into docker-compose.prod.yml's merge
+    # (compose merges `command:` across -f files same as `build:` - learned
+    # that the hard way immediately after fixing the exact same issue for
+    # `target`, in the very same deploy).
     build:
       context: ./web
       target: dev
-    command: npm run dev
     restart: unless-stopped
     depends_on:
       - server
