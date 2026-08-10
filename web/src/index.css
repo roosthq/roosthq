@@ -514,9 +514,12 @@ select option {
 
 /* --text-muted is tuned for the page background; on a raised card it drops
    to roughly 2:1 and stops being readable. Secondary text inside a nested
-   card uses the stronger --text-2 instead. */
+   card - or a bg-slate-100 section, same problem, different token - uses
+   the stronger --text-2 instead. */
 .card-nested .text-slate-400,
-.card-nested .text-slate-300 {
+.card-nested .text-slate-300,
+.bg-slate-100 .text-slate-400,
+.bg-slate-100 .text-slate-300 {
   color: var(--text-2) !important;
 }
 
