@@ -50,7 +50,13 @@ services:
       - /app/node_modules
 
   web:
-    build: ./web
+    # Dockerfile's default (final) stage is the prod static-file server -
+    # dev wants the `dev` stage instead (node_modules + hot-reload vite
+    # server; source gets bind-mounted over it below anyway).
+    build:
+      context: ./web
+      target: dev
+    command: npm run dev
     restart: unless-stopped
     depends_on:
       - server

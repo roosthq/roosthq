@@ -71,6 +71,19 @@ docker compose exec server npx prisma db push
 Full first-time setup (Docker install, Cloudflare Tunnel, Google OAuth) is in `DEPLOY.md`.
 
 ### Gotchas learned the hard way
+- **`web`'s build is baked into the image, not run at container start.**
+  `web/Dockerfile` is multi-stage: `builder` (installs + `npm run build`),
+  `dev` (hot-reload, used by `docker-compose.yml`, source bind-mounted over
+  it), `runtime` (default/final stage - just `serve`s the already-built
+  `dist/`, used by `docker-compose.prod.yml`). It used to run `npm run build`
+  as the prod container's own start command - every restart silently
+  rebuilt from whatever was on disk, and occasionally `--build` didn't
+  actually recreate the container, leaving a stale bundle running with no
+  error anywhere. Now a deploy either lands in the image or the build fails
+  loudly. `VITE_API_BASE_URL` is a build ARG for `web` now (see
+  `docker-compose.prod.yml`), not a runtime env var - it gets inlined by
+  `vite build` at image-build time, so setting it at container start is too
+  late to do anything.
 - **Prisma + Alpine fails.** The server image is `node:20-slim` + `openssl` on purpose.
 - **`prisma db push` may need `--accept-data-loss`** in the non-interactive container
   when a column/table changes.

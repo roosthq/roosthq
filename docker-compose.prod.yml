@@ -14,11 +14,18 @@ services:
     command: npm run start:prod
     volumes: !reset []
 
-  # Serve the built frontend (instead of the Vite dev server).
+  # Reset back to the Dockerfile's default (final/runtime) stage - the base
+  # compose file points `web` at the `dev` stage for hot-reload, which prod
+  # doesn't want. VITE_API_BASE_URL has to be a build ARG now, not a runtime
+  # env var: `vite build` inlines it at image-build time (that's the whole
+  # point of moving the build there), so setting it at container start would
+  # be too late to do anything.
   web:
-    command: sh -c "npm run build && npx vite preview --host --port 5173"
-    environment:
-      VITE_API_BASE_URL: /api
+    build:
+      context: ./web
+      args:
+        VITE_API_BASE_URL: /api
+    volumes: !reset []
 
   # Reverse proxy: routes /api to the server, everything else to the frontend.
   caddy:
