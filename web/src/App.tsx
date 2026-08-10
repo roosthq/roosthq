@@ -173,7 +173,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       {me.ghostedBy && (
-        <div className="flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">
+        <div className="no-print flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">
           <span>
             👻 Ghosting as <strong>{me.displayName}</strong>
           </span>

@@ -610,3 +610,21 @@ select option {
   padding-top: 0.4rem !important;
   padding-bottom: 0.4rem !important;
 }
+
+/* Printable Agenda (#14): any page can opt UI chrome out of printing with
+   .no-print (nav, toolbars, buttons, the ghost banner) - used by Calendar.tsx's
+   "print this week" button on the main calendar page. Everything else prints
+   as-is; the calendar grid itself needs no special handling since it's plain
+   markup. break-inside: avoid keeps a single day's event list from being
+   sliced across a page boundary where paper size forces the grid to wrap. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+  }
+  .cal-day-cell {
+    break-inside: avoid;
+  }
+}

@@ -289,7 +289,7 @@ export default function CalendarPage({ me }: { me: Me }) {
   return (
     <div>
       {needsReconnect && (
-        <div className="alert-banner mb-4 flex flex-wrap items-center gap-2 p-3 text-sm">
+        <div className="alert-banner no-print mb-4 flex flex-wrap items-center gap-2 p-3 text-sm">
           <span className="flex-1">
             A connected Google account's calendar access expired - its calendars and events won't show up until it's
             reconnected. Signing out and back in won't fix this by itself; it needs to go through Google's consent
@@ -304,7 +304,7 @@ export default function CalendarPage({ me }: { me: Me }) {
         </div>
       )}
 
-      <section>
+      <section className="no-print">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold">
             Calendars <span className="text-slate-400">({visible.size}/{filterOptions.length})</span>
@@ -365,6 +365,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       <Calendar
         events={[...events, ...choreEventsById.list]}
         onRangeChange={onRangeChange}
+        showPrint
         onAddEvent={
           addableOptions.length > 0 && canAddEvents
             ? (dateISO) => {

@@ -106,6 +106,7 @@ export default function Calendar({
   fill = false,
   touchControls = false,
   renderExtra,
+  showPrint = false,
 }: {
   events: CalEvent[];
   onRangeChange: (startISO: string, endISO: string) => void;
@@ -136,6 +137,12 @@ export default function Calendar({
   // lets a caller bolt on domain-specific actions (e.g. chore claim/complete
   // buttons) without this component knowing anything about chores.
   renderExtra?: (e: CalEvent) => ReactNode;
+  // "Print this week" button (main calendar page only - the kiosk has no
+  // printer, and the mini side calendar has no room). Forces 1-week view
+  // first (a printed month grid is too cramped to read on paper) then opens
+  // the browser print dialog; index.css's @media print rules hide everything
+  // outside the grid itself (nav, toolbars, these very controls).
+  showPrint?: boolean;
 }) {
   // Pivot date for whichever view is active - deliberately kept as today's
   // actual date, not normalized to the 1st of the month: the month grid calc
@@ -374,11 +381,26 @@ export default function Calendar({
     }
   }
 
+  function handlePrint() {
+    // A printed month grid is too cramped to read on paper - force the same
+    // week-at-a-glance view the fridge printout is meant to be, then wait two
+    // frames for that view switch to actually render before opening the
+    // browser's print dialog (window.print() is synchronous/blocking, so it
+    // has to happen strictly after the new grid is on screen, not before).
+    setView('1week');
+    requestAnimationFrame(() => requestAnimationFrame(() => window.print()));
+  }
+
   return (
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
         <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{rangeLabel}</h2>
-        <div className="flex items-center gap-1">
+        <div className="no-print flex items-center gap-1">
+          {showPrint && !mini && (
+            <button onClick={handlePrint} title="Print this week for the fridge" className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
+              🖨️
+            </button>
+          )}
           {!mini && (
             <div className="mr-1 flex rounded border text-sm">
               {(['1week', '2week', 'month'] as const).map((v) => (
@@ -452,7 +474,7 @@ export default function Calendar({
                 if (swipeRef.current?.swiped) return;
                 setSelected(k);
               }}
-              className={`${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} flex flex-col items-stretch justify-start p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
+              className={`cal-day-cell ${fill ? 'h-full min-h-0 overflow-hidden' : cellMin} flex flex-col items-stretch justify-start p-1 text-left ${inMonth ? 'bg-white' : 'text-slate-400'}`}
               style={{
                 background: isToday
                   ? 'rgba(212,192,106,0.16)'

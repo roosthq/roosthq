@@ -187,7 +187,7 @@ export default function Nav({
   );
 
   return (
-    <nav className="border-b px-4 py-3 sm:px-6">
+    <nav className="no-print border-b px-4 py-3 sm:px-6">
       {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
