@@ -355,7 +355,7 @@ function EatOutPlacesPanel({
   // still exists in api.ts if this needs to come back, just not wired to
   // any control here right now.
   return (
-    <div className="absolute right-0 z-10 mt-1 w-72 max-w-[calc(100vw-2rem)] rounded border bg-white p-2 shadow">
+    <div className="absolute left-0 z-10 mt-1 w-72 max-w-[calc(100vw-2rem)] rounded border bg-white p-2 shadow">
       <ul className="max-h-56 space-y-1 overflow-auto">
         {places.map((p) => (
           <li key={p.id} className="flex items-start gap-2 rounded px-1.5 py-1.5 text-sm hover:bg-slate-50">
