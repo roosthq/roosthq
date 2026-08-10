@@ -12,6 +12,7 @@ import {
   type SharedCalendar,
   type UnlockResult,
   type Balance,
+  type AwardCatalogItem,
 } from './api';
 import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
@@ -24,7 +25,7 @@ import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS } from './choreOccurrences';
 import Logo from './Logo';
-import { AwardForm } from './pages/AwardsPage';
+import { AwardForm, AwardIcon, GrantModal } from './pages/AwardsPage';
 import { PrizeForm } from './pages/StorePage';
 import OnScreenKeyboard from './OnScreenKeyboard';
 import Screensaver from './Screensaver';
@@ -72,6 +73,9 @@ export default function Display() {
   const [editingEvent, setEditingEvent] = useState<CalEvent | null>(null);
   const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [addingAward, setAddingAward] = useState(false);
+  const [awardPickerOpen, setAwardPickerOpen] = useState(false);
+  const [awardsCatalog, setAwardsCatalog] = useState<AwardCatalogItem[]>([]);
+  const [grantingAward, setGrantingAward] = useState<AwardCatalogItem | null>(null);
   const [addingPrize, setAddingPrize] = useState(false);
   const [addingTokenAdjust, setAddingTokenAdjust] = useState(false);
   const [dinnerWeekOpen, setDinnerWeekOpen] = useState(false);
@@ -567,6 +571,21 @@ export default function Display() {
               + Add award
             </button>
           )}
+          {active && isAdult && kioskPrizeClient && (
+            <button
+              onClick={async () => {
+                setAwardPickerOpen(true);
+                try {
+                  setAwardsCatalog(await kioskPrizeClient.awardsCatalog());
+                } catch {
+                  setAwardsCatalog([]);
+                }
+              }}
+              className="rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              🏆 Give award
+            </button>
+          )}
           {active && isAdult && showPrizes && (
             <button
               onClick={() => setAddingPrize(true)}
@@ -883,6 +902,53 @@ export default function Display() {
 
       {addingAward && active && (
         <AwardForm award={null} kioskToken={active.token} onClose={() => setAddingAward(false)} onSaved={() => setAddingAward(false)} />
+      )}
+
+      {/* Two-step: pick which existing award to hand out, then GrantModal
+          (the same flow AwardsPage.tsx uses) actually gives it - this was
+          missing entirely on the kiosk before, "+ Add award" only ever
+          defined new award types, never handed one out. */}
+      {awardPickerOpen && active && (
+        <Modal
+          header={<h3 className="text-lg font-semibold">Give an award</h3>}
+          onBackdropClick={() => setAwardPickerOpen(false)}
+          footer={
+            <button onClick={() => setAwardPickerOpen(false)} className="rounded border px-3 py-1.5 text-sm">
+              Cancel
+            </button>
+          }
+        >
+          <ul className="space-y-1">
+            {awardsCatalog.map((a) => (
+              <li key={a.id}>
+                <button
+                  onClick={() => {
+                    setAwardPickerOpen(false);
+                    setGrantingAward(a);
+                  }}
+                  className="flex w-full items-center gap-2 rounded px-2 py-2 text-left text-sm hover:bg-slate-50"
+                >
+                  <AwardIcon icon={a.icon} />
+                  {a.name}
+                </button>
+              </li>
+            ))}
+            {awardsCatalog.length === 0 && (
+              <li className="text-sm text-slate-400">No awards yet - use "+ Add award" to create one first.</li>
+            )}
+          </ul>
+        </Modal>
+      )}
+
+      {grantingAward && active && (
+        <GrantModal
+          award={grantingAward}
+          kids={members.filter((m) => m.role === 'KID')}
+          tokenName={tokenName}
+          kioskToken={active.token}
+          onClose={() => setGrantingAward(null)}
+          onGranted={() => setGrantingAward(null)}
+        />
       )}
 
       {addingPrize && active && (

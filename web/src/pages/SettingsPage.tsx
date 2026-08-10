@@ -70,6 +70,15 @@ function FamilySettings({ me, isFamilyManager, isAdult }: { me: Me; isFamilyMana
       )}
 
       {isFamilyManager && (
+        <Section
+          title="Calendar colors"
+          help="The default color everyone sees for a calendar, unless they've picked their own in My Settings."
+        >
+          <CalendarColorsSetting />
+        </Section>
+      )}
+
+      {isFamilyManager && (
         <Section title="Touch displays">
           <DisplaysManager />
           <div className="mt-6 border-t pt-4">
@@ -515,6 +524,56 @@ function LocalCalendarsSetting() {
         {calendars.length === 0 && <li className="text-sm text-slate-400">No local calendars yet - add one above.</li>}
       </ul>
     </div>
+  );
+}
+
+// Owner/family-manager only: the shared default color for every calendar in
+// the family (Google-backed ones have never had an edit UI at all until now
+// - only local calendars could be recolored, via LocalCalendarsSetting
+// above). A personal override set in My Settings still wins over this for
+// whoever set one; this just changes what everyone else sees.
+function CalendarColorsSetting() {
+  const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+  const [savingId, setSavingId] = useState<string | null>(null);
+
+  const refresh = useCallback(() => {
+    api.sharedCalendars().then(setCalendars).catch(() => setCalendars([]));
+  }, []);
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  async function setColor(id: string, color: string) {
+    setSavingId(id);
+    setCalendars((prev) => prev.map((c) => (c.id === id ? { ...c, color } : c)));
+    try {
+      await api.setCalendarBaseColor(id, color);
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  // Holidays is a synthetic entry with no real row to recolor (see
+  // HOLIDAYS_CALENDAR_ENTRY server-side) - skip it here.
+  const editable = calendars.filter((c) => c.source !== 'holiday');
+
+  return (
+    <ul className="space-y-2">
+      {editable.map((c) => (
+        <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg px-3 py-2">
+          <span className="min-w-0 flex-1 truncate text-sm font-medium">{c.name}</span>
+          <span className="shrink-0 text-xs text-slate-400">{c.source === 'local' ? 'Local' : 'Google'}</span>
+          <input
+            type="color"
+            value={c.color ?? '#94a3b8'}
+            onChange={(e) => setColor(c.id, e.target.value)}
+            disabled={savingId === c.id}
+            className="h-8 w-10 shrink-0 cursor-pointer rounded border p-0.5"
+          />
+        </li>
+      ))}
+      {editable.length === 0 && <li className="text-sm text-slate-400">No calendars yet.</li>}
+    </ul>
   );
 }
 

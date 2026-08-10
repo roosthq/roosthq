@@ -154,6 +154,45 @@ export class CalendarsService {
     return this.applyColorOverrides(all, userId);
   }
 
+  // Same shape as listShared(), but restricted to calendars relevant to the
+  // caller's own location(s) - "relevant" meaning transitively, the same way
+  // DisplaysService.calendarsForLocation already scopes Google calendars:
+  // whoever SHARED it belongs to that location (or shares it family-wide,
+  // no location of their own). A person with no location at all (unassigned,
+  // or an owner who never set one) gets the unrestricted list - there's
+  // nothing sensible to scope by. Local calendars use their own real
+  // locationId directly, same rule as everywhere else in the app.
+  async listSharedForLocation(familyId: string, userId: string) {
+    const myLocs = new Set(
+      (await this.prisma.userLocation.findMany({ where: { userId }, select: { locationId: true } })).map((r) => r.locationId),
+    );
+    if (myLocs.size === 0) return this.listShared(familyId, userId);
+
+    const calendars = await this.prisma.calendar.findMany({
+      where: { familyId },
+      include: { shares: { include: { user: { include: { locations: true } } } } },
+    });
+    const visible = calendars.filter((c) =>
+      c.shares.some((s) => {
+        const sharerLocs = s.user.locations.map((l) => l.locationId);
+        return sharerLocs.length === 0 || sharerLocs.some((id) => myLocs.has(id));
+      }),
+    );
+    const google = visible.map((c) => ({
+      id: c.id,
+      name: c.name,
+      color: c.color,
+      googleCalendarId: c.googleCalendarId,
+      shareCount: c.shares.length,
+      sharedByMe: c.shares.some((s) => s.userId === userId),
+      source: 'google' as const,
+    }));
+    const localAll = await this.localCalendars.listForFamily(familyId);
+    const local = localAll.filter((c) => !c.locationId || myLocs.has(c.locationId));
+    const all = [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
+    return this.applyColorOverrides(all, userId);
+  }
+
   // Every calendar/event color below is whatever the calendar itself carries
   // (Google's own color, or whatever a local calendar's creator picked) -
   // fine as a shared default, but a viewer who wants a different color for
@@ -171,6 +210,29 @@ export class CalendarsService {
     const overrides = await this.getColorOverrides(userId);
     if (overrides.size === 0) return items;
     return items.map((item) => (overrides.has(item.id) ? { ...item, color: overrides.get(item.id) } : item));
+  }
+
+  // Owner/family-manager only: change the calendar's own actual color (what
+  // Google gave it, or what a local calendar's creator picked), not a
+  // personal override - this is the shared default everyone sees unless they
+  // set their own override on top of it. Holidays has no real row to update
+  // (it's a synthetic entry, see HOLIDAYS_CALENDAR_ENTRY), so it's excluded.
+  async setBaseColor(familyId: string, userId: string, calendarId: string, color: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (actor?.role !== 'OWNER' && actor?.role !== 'FAMILY_MANAGER') {
+      throw new ForbiddenException('Owners and family managers only');
+    }
+    const google = await this.prisma.calendar.findFirst({ where: { id: calendarId, familyId } });
+    if (google) {
+      await this.prisma.calendar.update({ where: { id: calendarId }, data: { color } });
+      return { ok: true };
+    }
+    const local = await this.prisma.localCalendar.findFirst({ where: { id: calendarId, familyId } });
+    if (local) {
+      await this.prisma.localCalendar.update({ where: { id: calendarId }, data: { color } });
+      return { ok: true };
+    }
+    throw new NotFoundException('Calendar not found');
   }
 
   // Set (or, with color null, clear) the requesting user's personal color

@@ -55,6 +55,15 @@ export class CalendarsController {
     return this.calendars.listShared(u.familyId, u.userId);
   }
 
+  // Same, restricted to calendars relevant to my own location(s) - the
+  // personal color-override picker in My Settings uses this, not the
+  // unrestricted list above (that one's for the family-wide admin view on
+  // the main Settings page, and for the share/unshare picker itself).
+  @Get('mine')
+  listMine(@CurrentUser() u: SessionPayload) {
+    return this.calendars.listSharedForLocation(u.familyId, u.userId);
+  }
+
   // Deduped events across selected calendars in a time window.
   @Get('events')
   events(
@@ -72,6 +81,13 @@ export class CalendarsController {
   @Put(':calendarId/color')
   setColor(@CurrentUser() u: SessionPayload, @Param('calendarId') calendarId: string, @Body() body: { color: string | null }) {
     return this.calendars.setColor(u.familyId, u.userId, calendarId, body.color);
+  }
+
+  // Owner/family-manager only: the calendar's own shared default color, not
+  // a personal override (service enforces the role check).
+  @Put(':calendarId/base-color')
+  setBaseColor(@CurrentUser() u: SessionPayload, @Param('calendarId') calendarId: string, @Body() body: { color: string }) {
+    return this.calendars.setBaseColor(u.familyId, u.userId, calendarId, body.color);
   }
 
   @Post(':calendarId/events')

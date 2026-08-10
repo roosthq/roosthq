@@ -19,7 +19,10 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
   const [savingId, setSavingId] = useState<string | null>(null);
 
   const refresh = useCallback(() => {
-    api.sharedCalendars().then(setShared).catch(() => setShared([]));
+    // Scoped to my own location(s) - a person at one house shouldn't have to
+    // wade through every calendar shared by every other house in the family
+    // just to color their own.
+    api.myCalendars().then(setShared).catch(() => setShared([]));
   }, []);
   useEffect(() => {
     refresh();
@@ -89,15 +92,15 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
 
   return (
     <section className="panel">
-      <div className="flex items-center justify-between gap-2">
-        <div>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="min-w-0">
           <h3 className="text-base font-semibold tracking-tight">Calendars</h3>
           <p className="mt-1 text-sm text-slate-500">
             Pick your own color for each calendar - it only changes how it looks for you, not for anyone else.
           </p>
         </div>
         {isAdult && (
-          <div className="flex shrink-0 flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
               + Connect Google
             </a>

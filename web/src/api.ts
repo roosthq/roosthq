@@ -641,6 +641,12 @@ export const api = {
   // Holidays sentinel id, since the server keys this off calendarId alone.
   setCalendarColor: (calendarId: string, color: string | null) =>
     req<{ ok: boolean; color: string | null }>(`/calendars/${calendarId}/color`, { method: 'PUT', body: JSON.stringify({ color }) }),
+  // Calendars relevant to my own location(s) only - the personal color
+  // picker in My Settings uses this instead of the unrestricted list.
+  myCalendars: () => req<SharedCalendar[]>('/calendars/mine'),
+  // Owner/family-manager only - the calendar's own shared default color.
+  setCalendarBaseColor: (calendarId: string, color: string) =>
+    req<{ ok: boolean }>(`/calendars/${calendarId}/base-color`, { method: 'PUT', body: JSON.stringify({ color }) }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
   createCalendarEvent: (

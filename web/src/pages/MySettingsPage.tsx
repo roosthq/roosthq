@@ -256,7 +256,7 @@ export default function MySettingsPage({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <h2 className="text-lg font-semibold">My Settings</h2>
 
       <section className="panel">
@@ -368,7 +368,7 @@ export default function MySettingsPage({
 
       <section className="panel">
         <h3 className="text-base font-semibold tracking-tight">Password</h3>
-        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
           {/* Only asked for when one's actually already set - nothing to
               confirm against on a Google-only account setting one for the
               first time, so don't show a field (or a message) for that case. */}

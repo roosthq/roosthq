@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { assertKidPermission } from '../common/kid-permissions';
+import { DEFAULT_TIMEZONE, todayKeyInZone } from '../common/timezone';
 
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -38,6 +39,18 @@ export class HouseholdService {
   private scope(locationId?: string | null) {
     if (locationId === 'none') return { locationId: null };
     return locationId ? { OR: [{ locationId: null }, { locationId }] } : {};
+  }
+
+  // Same rule chores.service.ts uses: a location's own timezone, falling
+  // back to the instance default for anything family-wide/unscoped. "Today"
+  // for the kitchen wall has to mean today where that kitchen actually is,
+  // not wherever the server container's clock happens to be (UTC, in
+  // practice) - that's what was showing tomorrow's dinner on the kiosk
+  // during evening hours in any zone west of UTC.
+  private async resolveTimezone(locationId?: string | null): Promise<string> {
+    if (!locationId) return DEFAULT_TIMEZONE;
+    const loc = await this.prisma.location.findUnique({ where: { id: locationId }, select: { timezone: true } });
+    return loc?.timezone || DEFAULT_TIMEZONE;
   }
 
   private async featureEnabled(familyId: string, feature: string) {
@@ -213,7 +226,9 @@ export class HouseholdService {
   // locationId = the display's own household scope, so a kiosk at dad's
   // house shows dad's-house dinner, not mom's.
   async displayBundle(familyId: string, locationId?: string | null) {
-    const today = localDateKey(new Date());
+    const tz = await this.resolveTimezone(locationId);
+    const key = todayKeyInZone(tz);
+    const today = `${key.y}-${String(key.m).padStart(2, '0')}-${String(key.d).padStart(2, '0')}`;
     const [meals, countdowns, announcements, groceryOpen, people] = await Promise.all([
       this.prisma.mealPlan.findMany({
         where: { familyId, date: { gte: today }, ...this.scope(locationId) },
@@ -324,8 +339,4 @@ function nextBirthday(birthday: string, fromKey: string): string | null {
 
 function daysBetween(a: string, b: string): number {
   return Math.round((new Date(`${b}T00:00:00`).getTime() - new Date(`${a}T00:00:00`).getTime()) / 86_400_000);
-}
-
-function localDateKey(d: Date): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }

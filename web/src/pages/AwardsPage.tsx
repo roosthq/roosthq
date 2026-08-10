@@ -462,16 +462,21 @@ export function AwardForm({
   );
 }
 
-function GrantModal({
+// Exported so the kiosk (Display.tsx) can reuse this exact flow - granting
+// an existing award to a kid - instead of only being able to define new
+// award catalog entries there.
+export function GrantModal({
   award,
   kids,
   tokenName,
+  kioskToken,
   onClose,
   onGranted,
 }: {
   award: AwardCatalogItem;
   kids: Member[];
   tokenName: string;
+  kioskToken?: string;
   onClose: () => void;
   onGranted: (kidName: string, wheelQueued?: boolean) => void;
 }) {
@@ -489,13 +494,17 @@ function GrantModal({
     if (!userId) return;
     setSaving(true);
     try {
-      const res = await api.grantAward(award.id, {
-        userId,
-        note: note.trim() || undefined,
-        tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
-        wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
-        wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
-      });
+      const res = await api.grantAward(
+        award.id,
+        {
+          userId,
+          note: note.trim() || undefined,
+          tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
+          wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
+          wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
+        },
+        kioskToken,
+      );
       // A wheel attached to this award is queued for the KID to spin on their
       // own screen - nothing spins here.
       onGranted(kids.find((k) => k.id === userId)?.displayName ?? 'them', !!res?.wheelQueued);
