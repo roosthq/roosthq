@@ -66,12 +66,9 @@ export default function HouseholdPage({ me }: { me: Me }) {
   const grocery = familyFeatureEnabled(family, 'grocery');
   const countdowns = familyFeatureEnabled(family, 'countdowns');
   const announcements = familyFeatureEnabled(family, 'announcements');
+  const rules = familyFeatureEnabled(family, 'rules');
 
-  // Rules has no feature flag - it's always on, so it's the one section that
-  // still has something to show even with meals/grocery/countdowns/
-  // announcements all switched off. That's why this no longer bails out to a
-  // single "everything's off" message the way it used to.
-  const allWidgetsOff = family && !meals && !grocery && !countdowns && !announcements;
+  const allWidgetsOff = family && !meals && !grocery && !countdowns && !announcements && !rules;
 
   return (
     <div className="min-w-0 space-y-6">
@@ -89,9 +86,11 @@ export default function HouseholdPage({ me }: { me: Me }) {
           ))}
         </div>
       )}
-      <section id="rules" className="panel min-w-0 scroll-mt-4">
-        <RulesPage me={me} />
-      </section>
+      {rules && (
+        <section id="rules" className="panel min-w-0 scroll-mt-4">
+          <RulesPage me={me} />
+        </section>
+      )}
       {allWidgetsOff && (
         <p className="text-sm text-slate-500">
           Every other household widget is turned off. {isAdult ? 'Enable them under Family Settings → Features.' : ''}

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import {
   api,
-  FAMILY_FEATURES,
   COLOR_THEMES,
   type Me,
   type Member,
@@ -14,16 +13,15 @@ import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
+import FeaturesTab from './FeaturesTab';
 import { useDialog } from '../Dialog';
 import { resizeImageFile } from '../Prize';
-import IconPicker from '../IconPicker';
 
-type TabId = 'family' | 'features' | 'people' | 'calendars' | 'locations' | 'displays' | 'instance';
+type TabId = 'features' | 'family' | 'calendars' | 'locations' | 'displays' | 'instance';
 
 const TAB_LABELS: Record<TabId, string> = {
-  family: 'Family',
   features: 'Features',
-  people: 'People & PINs',
+  family: 'Family',
   calendars: 'Calendars',
   locations: 'Locations',
   displays: 'Displays',
@@ -43,8 +41,8 @@ export default function SettingsPage({ me }: { me: Me }) {
   // "locations" tabs below need nothing tighter than that.
 
   const tabs: TabId[] = [
-    ...(isFamilyManager ? (['family', 'features'] as TabId[]) : []),
-    'people',
+    ...(isFamilyManager ? (['features'] as TabId[]) : []),
+    'family',
     ...(isFamilyManager ? (['calendars'] as TabId[]) : []),
     'locations',
     ...(isFamilyManager ? (['displays'] as TabId[]) : []),
@@ -70,14 +68,8 @@ export default function SettingsPage({ me }: { me: Me }) {
       </div>
 
       <div className="space-y-6">
+        {activeTab === 'features' && <FeaturesTab />}
         {activeTab === 'family' && (
-          <>
-            <TokenNameSetting />
-            <ChoreWordSetting />
-          </>
-        )}
-        {activeTab === 'features' && <FamilyFeaturesSetting />}
-        {activeTab === 'people' && (
           <Section title="People & PINs">
             <MembersManager me={me} />
           </Section>
@@ -156,141 +148,6 @@ function Field({ label, help, children }: { label: string; help?: string; childr
       {help && <span className="mt-0.5 block text-xs text-slate-400 sm:ml-2 sm:mt-0 sm:inline">{help}</span>}
       <div className="mt-1.5">{children}</div>
     </label>
-  );
-}
-
-function SaveButton({ onClick, saved }: { onClick: () => void; saved: boolean }) {
-  return (
-    <div className="flex items-center gap-3">
-      <button onClick={onClick} className="rounded bg-slate-800 px-4 py-2 text-sm text-white hover:bg-slate-700">
-        Save
-      </button>
-      {saved && <span className="text-sm text-green-600">Saved</span>}
-    </div>
-  );
-}
-
-
-// Family-wide feature switches. Stored as the DISABLED list server-side, so
-// anything new defaults on; unchecking adds it to that list.
-function FamilyFeaturesSetting() {
-  const [disabled, setDisabled] = useState<Set<string>>(new Set());
-  const [saved, setSaved] = useState(false);
-  useEffect(() => {
-    api.familySettings().then((f) => setDisabled(new Set(f.disabledFeatures ?? []))).catch(() => undefined);
-  }, []);
-  async function toggle(id: string, on: boolean) {
-    const next = new Set(disabled);
-    if (on) next.delete(id);
-    else next.add(id);
-    setDisabled(next);
-    await api.updateFamilySettings({ disabledFeatures: [...next] });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 1200);
-  }
-  return (
-    <Section
-      title="Features"
-      help="Turn whole features on or off for this family. Kiosk displays additionally pick which widgets they show, per display."
-    >
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {FAMILY_FEATURES.map((f) => (
-          <label key={f.id} className="flex items-start gap-2 text-sm">
-            <input
-              type="checkbox"
-              className="mt-0.5"
-              checked={!disabled.has(f.id)}
-              onChange={(e) => toggle(f.id, e.target.checked)}
-            />
-            <span>
-              <span className="font-medium">{f.label}</span>
-              <span className="block text-xs text-slate-400">{f.help}</span>
-            </span>
-          </label>
-        ))}
-      </div>
-      {saved && <p className="mt-2 text-sm text-green-600">Saved</p>}
-    </Section>
-  );
-}
-
-function TokenNameSetting() {
-  const [name, setName] = useState('Tokens');
-  const [icon, setIcon] = useState('🪙');
-  const [valueUsd, setValueUsd] = useState(1);
-  const [saved, setSaved] = useState(false);
-  useEffect(() => {
-    api.familySettings().then((f) => {
-      setName(f.tokenName);
-      setIcon(f.tokenIcon);
-      setValueUsd(f.tokenValueUsd);
-    }).catch(() => undefined);
-  }, []);
-  async function save() {
-    await api.updateFamilySettings({ tokenName: name, tokenIcon: icon, tokenValueUsd: valueUsd });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 1500);
-  }
-  return (
-    <Section title="Reward name">
-      <div className="space-y-4">
-        <Field label="What do you call your reward currency?">
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full max-w-xs rounded border px-3 py-1.5 text-sm"
-          />
-        </Field>
-        <div className="flex flex-wrap gap-4">
-          <Field label="Icon">
-            <IconPicker value={icon} onChange={setIcon} />
-          </Field>
-          <Field label="1 unit = how many dollars?" help={`e.g. 1 ${icon} ${name || 'Tokens'} = $${valueUsd || 0}`}>
-            <input
-              type="number"
-              min={0.01}
-              step={0.01}
-              value={valueUsd}
-              onChange={(e) => setValueUsd(Number(e.target.value))}
-              onFocus={(e) => e.target.select()}
-              className="w-24 rounded border px-3 py-1.5 text-sm"
-            />
-          </Field>
-        </div>
-        <p className="text-xs text-slate-400">
-          The $ value is used to suggest a token cost for prizes based on their real price (rounded down).
-        </p>
-        <SaveButton onClick={save} saved={saved} />
-      </div>
-    </Section>
-  );
-}
-
-function ChoreWordSetting() {
-  const [word, setWord] = useState('Chore');
-  const [saved, setSaved] = useState(false);
-  useEffect(() => {
-    api.familySettings().then((f) => setWord(f.choreWord)).catch(() => undefined);
-  }, []);
-  async function save() {
-    await api.updateFamilySettings({ choreWord: word });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 1500);
-  }
-  return (
-    <Section title="Chore language">
-      <div className="space-y-4">
-        <Field label="What do you call chores?" help='try "Quest" or "Task" to put the focus on earning'>
-          <input
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            placeholder="Chore"
-            className="w-full max-w-xs rounded border px-3 py-1.5 text-sm"
-          />
-        </Field>
-        <SaveButton onClick={save} saved={saved} />
-      </div>
-    </Section>
   );
 }
 

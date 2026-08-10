@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
+import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 
 @Injectable()
 export class TokensService {
@@ -21,6 +22,7 @@ export class TokensService {
 
   // Balance for a single user (derived by summing the ledger).
   async balance(familyId: string, userId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return { userId, balance: 0 };
     const member = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
     const agg = await this.prisma.tokenLedger.aggregate({ where: { userId }, _sum: { delta: true } });
@@ -29,6 +31,7 @@ export class TokensService {
 
   // Balances for the whole family.
   async balances(familyId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return [];
     const grouped = await this.prisma.tokenLedger.groupBy({
       by: ['userId'],
       _sum: { delta: true },
@@ -41,6 +44,7 @@ export class TokensService {
   // each entry (an adult's manual adjustment, an approval, an award) is
   // adult-only context - a kid sees the same entries minus that one field.
   async ledger(familyId: string, actingUserId: string, targetUserId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return [];
     const member = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
@@ -84,6 +88,7 @@ export class TokensService {
     reason: string,
     type: 'MANUAL' | 'PHYSICAL' = 'MANUAL',
   ) {
+    await assertFeatureEnabled(this.prisma, familyId, 'tokens');
     await this.assertAdult(actorId);
     if (!Number.isInteger(delta) || delta === 0) throw new BadRequestException('delta must be a non-zero integer');
     if (!reason?.trim()) throw new BadRequestException('A reason is required');

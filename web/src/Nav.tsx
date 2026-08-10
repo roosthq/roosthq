@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { api, pluralize, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig } from './api';
+import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig, type FamilySettings } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
@@ -31,9 +31,18 @@ export default function Nav({
   }, [me.id]);
 
   const [chorePlural, setChorePlural] = useState('Chores');
+  const [family, setFamily] = useState<FamilySettings | null>(null);
   useEffect(() => {
-    api.familySettings().then((f) => setChorePlural(pluralize(f.choreWord))).catch(() => undefined);
+    api.familySettings().then((f) => {
+      setChorePlural(pluralize(f.choreWord));
+      setFamily(f);
+    }).catch(() => undefined);
   }, []);
+  const choresOn = familyFeatureEnabled(family, 'chores');
+  // Store and Awards share one page (StorePage.tsx) - show the link if
+  // either is on; which tab StorePage lands on is its own call.
+  const storeOn = familyFeatureEnabled(family, 'store') || familyFeatureEnabled(family, 'awards');
+  const householdOn = familyFeatureEnabled(family, 'household');
 
   const [unread, setUnread] = useState(0);
   useEffect(() => {
@@ -147,9 +156,9 @@ export default function Nav({
   const links = (
     <>
       <NavLink to="/" end className={cls} onClick={() => setMenuOpen(false)}>Calendar</NavLink>
-      <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>
-      <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>
-      <NavLink to="/household" className={cls} onClick={() => setMenuOpen(false)}>Household</NavLink>
+      {choresOn && <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>}
+      {storeOn && <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>}
+      {householdOn && <NavLink to="/household" className={cls} onClick={() => setMenuOpen(false)}>Household</NavLink>}
       <NavLink to="/profile" className={cls} onClick={() => setMenuOpen(false)}>Profiles</NavLink>
       {isAdult && <NavLink to="/settings" className={cls} onClick={() => setMenuOpen(false)}>Family Settings</NavLink>}
     </>
@@ -168,12 +177,16 @@ export default function Nav({
       <NavLink to="/" end className={tabCls}>
         <span className="text-xl leading-none">📅</span>Calendar
       </NavLink>
-      <NavLink to="/chores" className={tabCls}>
-        <span className="text-xl leading-none">✅</span>{chorePlural}
-      </NavLink>
-      <NavLink to="/store" className={tabCls}>
-        <span className="text-xl leading-none">🛍️</span>Store
-      </NavLink>
+      {choresOn && (
+        <NavLink to="/chores" className={tabCls}>
+          <span className="text-xl leading-none">✅</span>{chorePlural}
+        </NavLink>
+      )}
+      {storeOn && (
+        <NavLink to="/store" className={tabCls}>
+          <span className="text-xl leading-none">🛍️</span>Store
+        </NavLink>
+      )}
       <NavLink to="/profile" className={tabCls}>
         <span className="text-xl leading-none">👤</span>Profiles
       </NavLink>

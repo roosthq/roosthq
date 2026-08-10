@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { assertKidPermission } from '../common/kid-permissions';
+import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 
@@ -96,6 +97,7 @@ export class PrizesService {
   // Adults see everything (incl. real price, archived prizes, all
   // suggestions); kids see only what visibleTo() allows, no real price.
   async list(familyId: string, actingUserId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'store'))) return [];
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     const adult = !!actor && this.isAdult(actor.role);
     const myLocationIds = new Set((actor?.locations ?? []).map((l) => l.locationId));
@@ -133,6 +135,7 @@ export class PrizesService {
   }
 
   async create(familyId: string, actorId: string, dto: PrizeInput) {
+    await assertFeatureEnabled(this.prisma, familyId, 'store');
     await this.assertAdult(actorId);
     const prize = await this.prisma.prize.create({
       data: {
@@ -163,6 +166,7 @@ export class PrizesService {
   // A kid submits a wishlist item - created with no cost (an adult sets that
   // on approval), defaulted to "for me" so it stays private until approved.
   async suggest(familyId: string, userId: string, dto: PrizeSuggestionInput) {
+    await assertFeatureEnabled(this.prisma, familyId, 'store');
     const prize = await this.prisma.prize.create({
       data: {
         familyId,
@@ -238,6 +242,7 @@ export class PrizesService {
   // purchase, and - for a non-repeatable prize - archive it so it drops out of
   // the active store once someone's bought it.
   async redeem(familyId: string, actingUserId: string, prizeId: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'store');
     await assertKidPermission(this.prisma, actingUserId, 'store');
     const prize = await this.prisma.prize.findFirst({
       where: { id: prizeId, familyId },
@@ -348,6 +353,7 @@ export class PrizesService {
   // Purchase history: a member's own, the whole family, or (adults only) one
   // prize's full buyer history - surfaced in that prize's detail view.
   async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string } = {}) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'store'))) return [];
     if (opts.prizeId) await this.assertAdult(actingUserId);
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const isAdult = !!actor && this.isAdult(actor.role);

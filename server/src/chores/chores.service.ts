@@ -23,6 +23,7 @@ import {
   todayKeyInZone,
   type DateKey,
 } from '../common/timezone';
+import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 
 export interface CreateChoreDto {
   title: string;
@@ -313,12 +314,10 @@ export class ChoresService {
     return inst;
   }
 
-  // Family-level feature switch (Family.disabledFeatures - see FAMILY_FEATURES
-  // in web/src/api.ts). Everything defaults ON; families opt out.
-  private async featureEnabled(familyId: string, feature: string) {
-    const f = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
-    const disabled = Array.isArray(f?.disabledFeatures) ? (f!.disabledFeatures as string[]) : [];
-    return !disabled.includes(feature);
+  // Thin wrapper so existing call sites below don't all need editing -
+  // shared with household.service.ts via common/features.ts.
+  private featureEnabled(familyId: string, feature: string) {
+    return isFeatureEnabled(this.prisma, familyId, feature);
   }
 
   // Fetch one instance's proof photo, on demand (see slimProof above).
@@ -346,6 +345,7 @@ export class ChoresService {
   }
 
   async create(familyId: string, createdById: string, dto: CreateChoreDto) {
+    await assertFeatureEnabled(this.prisma, familyId, 'chores');
     const actor = await this.assertAdult(createdById);
     const tz = await this.resolveTimezone(dto.locationId);
     const assignmentType = dto.assignmentType === 'ANYONE' ? 'ANYONE' : 'SPECIFIC';
@@ -413,6 +413,7 @@ export class ChoresService {
   // upcoming/missed occurrence they can still act on never disappears.
   // Only kids get the approver field stripped - a plain adult still sees it.
   async list(familyId: string, actingUserId: string) {
+    if (!(await this.featureEnabled(familyId, 'chores'))) return [];
     await this.sweepMissed(familyId);
     const chores = await this.prisma.chore.findMany({ where: { familyId }, include: CHORE_INCLUDE });
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
@@ -678,6 +679,7 @@ export class ChoresService {
 
   // Claim an open ("anyone") chore occurrence.
   async claim(familyId: string, userId: string, instanceId: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'chores');
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.chore.assignmentType !== 'ANYONE') throw new BadRequestException('This chore is not open to claim');
     if (inst.claimedByUserId && inst.claimedByUserId !== userId) {
@@ -735,6 +737,7 @@ export class ChoresService {
   // Mark done. Only the assignee/claimer can. Can't complete a future occurrence
   // (enforces once-per-period). Adults completing their own chore self-approve.
   async complete(familyId: string, userId: string, instanceId: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'chores');
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
 
@@ -850,9 +853,10 @@ export class ChoresService {
     const recipient = inst.claimedByUserId ?? recipientUserId;
     // The chore still completes/approves/streaks normally either way - this
     // only gates whether either ledger entry below actually gets written.
-    const recipientTokensDisabled = recipient
-      ? !!(await this.prisma.user.findUnique({ where: { id: recipient }, select: { tokensDisabled: true } }))?.tokensDisabled
-      : false;
+    const recipientTokensDisabled =
+      (recipient
+        ? !!(await this.prisma.user.findUnique({ where: { id: recipient }, select: { tokensDisabled: true } }))?.tokensDisabled
+        : false) || !(await this.featureEnabled(inst.chore.familyId, 'tokens'));
     const completedAt = inst.completedAt ?? new Date();
     const daysLate = Math.max(0, Math.floor((completedAt.getTime() - inst.dueDate.getTime()) / 86_400_000));
     if (recipient && !recipientTokensDisabled && inst.chore.tokenValue > 0) {

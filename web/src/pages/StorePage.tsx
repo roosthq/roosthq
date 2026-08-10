@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { api, prizeClient, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
+import { api, prizeClient, familyFeatureEnabled, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import ImageCropper from '../ImageCropper';
@@ -37,6 +37,23 @@ export default function StorePage({
     setParams(next === 'awards' ? { tab: 'awards' } : {}, { replace: true });
   }
   const { alert, confirm } = useDialog();
+  // Store (prizes) and Awards are independent top-level features that happen
+  // to share this one page/route (nav reorg, 2026-08 predates the feature-
+  // toggle tree) - each tab only shows if its own feature is on, and the
+  // default tab shifts to whichever one actually is if the other's off.
+  const [family, setFamily] = useState<FamilySettings | null>(null);
+  useEffect(() => {
+    api.familySettings().then(setFamily).catch(() => undefined);
+  }, []);
+  const storeOn = familyFeatureEnabled(family, 'store');
+  const awardsOn = familyFeatureEnabled(family, 'awards');
+  useEffect(() => {
+    if (family && isAdult) {
+      if (tab === 'prizes' && !storeOn && awardsOn) selectTab('awards');
+      else if (tab === 'awards' && !awardsOn && storeOn) selectTab('prizes');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [family, storeOn, awardsOn]);
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -151,7 +168,7 @@ export default function StorePage({
         </div>
       </div>
 
-      {isAdult && (
+      {isAdult && storeOn && awardsOn && (
         <div className="mt-3 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
           <button
             onClick={() => selectTab('prizes')}
@@ -168,10 +185,14 @@ export default function StorePage({
         </div>
       )}
 
-      {tab === 'awards' && isAdult ? (
+      {tab === 'awards' && isAdult && awardsOn ? (
         <div className="mt-4">
           <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} />
         </div>
+      ) : !storeOn ? (
+        <p className="mt-4 text-sm text-slate-500">
+          The store is turned off for this family.{isAdult ? ' Enable it under Family Settings → Features.' : ''}
+        </p>
       ) : (
         <>
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

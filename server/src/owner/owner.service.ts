@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { PrismaService } from '../prisma.service';
 import { hashPassword } from '../crypto/password';
 import { AuditLogService } from '../security/audit-log.service';
+import { defaultDisabledFeatures } from '../common/features';
 
 // Instance-level powers, deliberately gated on the literal OWNER role (not
 // FAMILY_MANAGER) - multi-family management and ghosting reach across every
@@ -45,7 +46,14 @@ export class OwnerService {
     // default (🪙) into tofu on a brand-new family even though every other
     // write path (which always supplies its own value) renders it fine.
     const family = await this.prisma.family.create({
-      data: { name: name.trim(), tokenName: 'Tokens', tokenIcon: '🪙', tokenValueUsd: 1, choreWord: 'Chore' },
+      data: {
+        name: name.trim(),
+        tokenName: 'Tokens',
+        tokenIcon: '🪙',
+        tokenValueUsd: 1,
+        choreWord: 'Chore',
+        disabledFeatures: defaultDisabledFeatures(),
+      },
     });
     const owner = await this.prisma.user.findUnique({ where: { id: actorId } });
     await this.audit.record({

@@ -56,6 +56,28 @@ export class LocationsService {
     return { ok: true };
   }
 
+  // Self-service version of assign/unassign above - the caller sets their
+  // OWN full set of locations in one call (My Account, and the "pick your
+  // location(s)" join modal for anyone with none yet). Unlike assign(), which
+  // takes an arbitrary userId, this can never touch anyone else's rows.
+  async selfJoin(familyId: string, userId: string, locationIds: string[]) {
+    const ids = [...new Set(locationIds)];
+    if (!ids.length) throw new BadRequestException('Pick at least one location');
+    const valid = await this.prisma.location.findMany({ where: { familyId, id: { in: ids } }, select: { id: true } });
+    if (valid.length !== ids.length) throw new BadRequestException('Location not found');
+    await this.prisma.userLocation.deleteMany({ where: { userId, locationId: { notIn: ids } } });
+    await Promise.all(
+      ids.map((locationId) =>
+        this.prisma.userLocation.upsert({
+          where: { userId_locationId: { userId, locationId } },
+          update: {},
+          create: { userId, locationId },
+        }),
+      ),
+    );
+    return { ok: true };
+  }
+
   private async owned(familyId: string, id: string) {
     const loc = await this.prisma.location.findFirst({ where: { id, familyId } });
     if (!loc) throw new NotFoundException('Location not found');

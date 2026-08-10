@@ -80,7 +80,7 @@ model Family {
   tokenIcon        String   @default("🪙") // emoji shown alongside the reward currency
   tokenValueUsd    Float    @default(1) // $ value of one token, for auto-suggesting prize costs
   choreWord        String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
-  // Family-level feature kill-switches (FAMILY_FEATURES in web/src/api.ts).
+  // Family-level feature kill-switches (FEATURE_TREE in web/src/api.ts).
   // Stored as the DISABLED list so brand-new features default to ON for
   // every family without a migration backfill.
   disabledFeatures Json     @default("[]")

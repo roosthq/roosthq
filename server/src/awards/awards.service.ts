@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { WheelsService } from '../wheels/wheels.service';
+import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 
 export interface AwardInput {
   name: string;
@@ -51,6 +52,7 @@ export class AwardsService {
   // The full catalog - adults only, since a kid seeing this would spoil the
   // surprise of anything not yet given to them.
   async catalog(familyId: string, actorId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'awards'))) return [];
     await this.assertAdult(actorId);
     const awards = await this.prisma.award.findMany({
       where: { familyId },
@@ -70,6 +72,7 @@ export class AwardsService {
   }
 
   async create(familyId: string, actorId: string, dto: AwardInput) {
+    await assertFeatureEnabled(this.prisma, familyId, 'awards');
     await this.assertAdult(actorId);
     return this.prisma.award.create({
       data: {
@@ -116,6 +119,7 @@ export class AwardsService {
   // them, each with how many times. This is the one award-related view a kid
   // (or anyone looking at their own profile) is allowed to see.
   async earned(familyId: string, actingUserId: string, targetUserId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'awards'))) return [];
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     if (!actor) throw new ForbiddenException();
     if (!this.isAdult(actor.role) && actingUserId !== targetUserId) {
@@ -179,6 +183,7 @@ export class AwardsService {
   }
 
   async grant(familyId: string, actorId: string, awardId: string, dto: GrantInput) {
+    await assertFeatureEnabled(this.prisma, familyId, 'awards');
     const actor = await this.assertAdult(actorId);
     const award = await this.owned(familyId, awardId);
     const recipient = await this.prisma.user.findFirst({ where: { id: dto.userId, familyId } });

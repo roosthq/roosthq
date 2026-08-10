@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { sanitizeDisabledFeatures } from '../common/features';
 
 @Injectable()
 export class FamilyService {
@@ -55,7 +56,7 @@ export class FamilyService {
         ...(data.tokenValueUsd !== undefined && { tokenValueUsd: data.tokenValueUsd > 0 ? data.tokenValueUsd : 1 }),
         ...(data.choreWord !== undefined && { choreWord: data.choreWord.trim() || 'Chore' }),
         ...(data.disabledFeatures !== undefined && {
-          disabledFeatures: data.disabledFeatures.filter((x) => typeof x === 'string'),
+          disabledFeatures: sanitizeDisabledFeatures(data.disabledFeatures),
         }),
       },
     });

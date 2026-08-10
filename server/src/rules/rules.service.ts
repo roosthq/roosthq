@@ -1,5 +1,6 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 
 export interface RuleInput {
   text: string;
@@ -29,6 +30,7 @@ export class RulesService {
   // Adults see every rule (grouped by who it's for, in the UI); kids see the
   // shared ones plus whatever's specifically theirs - not other kids' rules.
   async list(familyId: string, actingUserId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'rules'))) return [];
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const adult = !!actor && this.isAdult(actor.role);
     const rules = await this.prisma.rule.findMany({
@@ -49,6 +51,7 @@ export class RulesService {
   }
 
   async create(familyId: string, actorId: string, dto: RuleInput) {
+    await assertFeatureEnabled(this.prisma, familyId, 'rules');
     await this.assertAdult(actorId);
     return this.prisma.rule.create({
       data: { familyId, text: dto.text, targetUserId: dto.targetUserId || null, createdById: actorId },

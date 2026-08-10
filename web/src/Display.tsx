@@ -5,7 +5,9 @@ import {
   choreClient,
   prizeClient,
   ROLE_ICON,
+  familyFeatureEnabled,
   type CalEvent,
+  type FamilySettings,
   type Chore,
   type ResolvedDisplayConfig,
   type Member,
@@ -508,10 +510,13 @@ export default function Display() {
       </div>
     );
 
-  const famOn = (f: string) => !famDisabled.includes(f);
+  // Ancestor-aware, not a raw list check - a sub-feature (meals, levels, ...)
+  // also needs its top-level module (household, tokens, ...) on, same rule
+  // familyFeatureEnabled() applies everywhere else in the app.
+  const famOn = (f: string) => familyFeatureEnabled({ disabledFeatures: famDisabled } as FamilySettings, f);
   const showCalendar = config.enabledFeatures.includes('calendar');
-  const showChores = config.enabledFeatures.includes('chores');
-  const showPrizes = config.enabledFeatures.includes('prizes');
+  const showChores = config.enabledFeatures.includes('chores') && famOn('chores');
+  const showPrizes = config.enabledFeatures.includes('prizes') && famOn('store');
   const showMeals = config.enabledFeatures.includes('meals') && famOn('meals');
   const showGrocery = config.enabledFeatures.includes('grocery') && famOn('grocery');
   const showCountdowns = config.enabledFeatures.includes('countdowns') && famOn('countdowns');
@@ -596,7 +601,7 @@ export default function Display() {
                     + Add event
                   </button>
                 )}
-                {isAdult && (
+                {isAdult && famOn('awards') && (
                   <button
                     onClick={(e) => {
                       setAddingAward(true);
@@ -618,7 +623,7 @@ export default function Display() {
                     + Add prize
                   </button>
                 )}
-                {isAdult && kioskPrizeClient && (
+                {isAdult && famOn('awards') && kioskPrizeClient && (
                   <button
                     onClick={async (e) => {
                       setAwardPickerOpen(true);
@@ -634,7 +639,7 @@ export default function Display() {
                     🏆 Give award
                   </button>
                 )}
-                {isAdult && (
+                {isAdult && famOn('tokens') && (
                   <button
                     onClick={(e) => {
                       setAddingTokenAdjust(true);
@@ -830,9 +835,11 @@ export default function Display() {
                       top since they're a quick look-up, not something to dig
                       for under the chores list. */}
                   <div className="flex flex-wrap gap-2">
+                    {famOn('rules') && (
                     <button onClick={() => setKioskRulesOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
                       📋 Rules
                     </button>
+                    )}
                     <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
                       📊 My stats
                     </button>
@@ -894,7 +901,7 @@ export default function Display() {
                           {(m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
                         </div>
                       </span>
-                      {!m.tokensDisabled && (
+                      {!m.tokensDisabled && famOn('tokens') && (
                         <span className="flex shrink-0 flex-col items-end gap-0.5 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
                           <span>{tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}</span>
                           {famOn('levels') && <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} />}

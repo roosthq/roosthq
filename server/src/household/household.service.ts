@@ -5,6 +5,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { assertKidPermission } from '../common/kid-permissions';
 import { DEFAULT_TIMEZONE, todayKeyInZone } from '../common/timezone';
+import { assertFeatureEnabled, isFeatureEnabled, sanitizeDisabledFeatures } from '../common/features';
 
 const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -53,10 +54,10 @@ export class HouseholdService {
     return loc?.timezone || DEFAULT_TIMEZONE;
   }
 
-  private async featureEnabled(familyId: string, feature: string) {
-    const f = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
-    const disabled = Array.isArray(f?.disabledFeatures) ? (f!.disabledFeatures as string[]) : [];
-    return !disabled.includes(feature);
+  // Thin wrapper so existing call sites below don't all need editing -
+  // shared with chores.service.ts via common/features.ts.
+  private featureEnabled(familyId: string, feature: string) {
+    return isFeatureEnabled(this.prisma, familyId, feature);
   }
 
   // ---- Meals ----
@@ -68,7 +69,8 @@ export class HouseholdService {
     return { ...rest, eatOutPlaceName: eatOutPlace?.name ?? null };
   }
 
-  meals(familyId: string, start: string, end: string, locationId?: string | null) {
+  async meals(familyId: string, start: string, end: string, locationId?: string | null) {
+    if (!(await this.featureEnabled(familyId, 'meals'))) return [];
     return this.prisma.mealPlan
       .findMany({
         where: { familyId, date: { gte: start, lte: end }, ...this.scope(locationId) },
@@ -86,6 +88,7 @@ export class HouseholdService {
     date: string,
     dto: { title?: string; notes?: string | null; locationId?: string | null; isEatingOut?: boolean; eatOutPlaceId?: string | null },
   ) {
+    await assertFeatureEnabled(this.prisma, familyId, 'meals');
     await this.assertAdult(actorId);
     if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
     const isEatingOut = !!dto.isEatingOut;
@@ -137,6 +140,7 @@ export class HouseholdService {
   }
 
   async deleteMeal(familyId: string, actorId: string, date: string, locationId?: string | null) {
+    await assertFeatureEnabled(this.prisma, familyId, 'meals');
     await this.assertAdult(actorId);
     await this.prisma.mealPlan.deleteMany({ where: { familyId, date, locationId: locationId || null } });
     this.displayEvents.publish(familyId, { type: 'household' });
@@ -150,11 +154,13 @@ export class HouseholdService {
   // a random payout: the server rolls, the client only ever finds out the
   // result - there's no client-suppliable "which place did I get" input here.
 
-  eatOutPlaces(familyId: string, locationId?: string | null) {
+  async eatOutPlaces(familyId: string, locationId?: string | null) {
+    if (!(await this.featureEnabled(familyId, 'meals'))) return [];
     return this.prisma.eatOutPlace.findMany({ where: { familyId, ...this.scope(locationId) }, orderBy: { name: 'asc' } });
   }
 
   async addEatOutPlace(familyId: string, actorId: string, dto: { name: string; notes?: string | null; locationId?: string | null }) {
+    await assertFeatureEnabled(this.prisma, familyId, 'meals');
     await this.assertAdult(actorId);
     const name = dto.name?.trim();
     if (!name) throw new BadRequestException('Name is required');
@@ -192,6 +198,7 @@ export class HouseholdService {
   // nobody explicitly toggled it on first). Spins among this house's own
   // places plus whatever's family-wide - same merge rule as reading them.
   async spinEatOut(familyId: string, actorId: string, date: string, locationId?: string | null) {
+    await assertFeatureEnabled(this.prisma, familyId, 'meals');
     await this.assertAdult(actorId);
     if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
     const resolvedLocationId = await this.assertLocation(familyId, locationId);
@@ -216,7 +223,8 @@ export class HouseholdService {
   // ---- Grocery list ----
   // Anyone in the family can add/check/remove - it's the fridge notepad.
 
-  grocery(familyId: string, locationId?: string | null) {
+  async grocery(familyId: string, locationId?: string | null) {
+    if (!(await this.featureEnabled(familyId, 'grocery'))) return [];
     return this.prisma.groceryItem.findMany({
       where: { familyId, ...this.scope(locationId) },
       orderBy: [{ checked: 'asc' }, { createdAt: 'desc' }],
@@ -224,6 +232,7 @@ export class HouseholdService {
   }
 
   async addGrocery(familyId: string, actorId: string, label: string, locationId?: string | null) {
+    await assertFeatureEnabled(this.prisma, familyId, 'grocery');
     await assertKidPermission(this.prisma, actorId, 'grocery');
     const trimmed = label?.trim();
     if (!trimmed) throw new BadRequestException('Item is required');
@@ -235,6 +244,7 @@ export class HouseholdService {
   }
 
   async patchGrocery(familyId: string, actorId: string, id: string, dto: { checked?: boolean; label?: string }) {
+    await assertFeatureEnabled(this.prisma, familyId, 'grocery');
     await assertKidPermission(this.prisma, actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
@@ -250,6 +260,7 @@ export class HouseholdService {
   }
 
   async deleteGrocery(familyId: string, actorId: string, id: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'grocery');
     await assertKidPermission(this.prisma, actorId, 'grocery');
     const item = await this.prisma.groceryItem.findFirst({ where: { id, familyId } });
     if (!item) throw new NotFoundException('Item not found');
@@ -266,7 +277,8 @@ export class HouseholdService {
 
   // ---- Countdowns ----
 
-  countdowns(familyId: string, locationId?: string | null) {
+  async countdowns(familyId: string, locationId?: string | null) {
+    if (!(await this.featureEnabled(familyId, 'countdowns'))) return [];
     return this.prisma.countdown.findMany({ where: { familyId, ...this.scope(locationId) }, orderBy: { date: 'asc' } });
   }
 
@@ -275,6 +287,7 @@ export class HouseholdService {
     actorId: string,
     dto: { title: string; date: string; emoji?: string; locationId?: string | null },
   ) {
+    await assertFeatureEnabled(this.prisma, familyId, 'countdowns');
     await this.assertAdult(actorId);
     if (!dto.title?.trim()) throw new BadRequestException('Title is required');
     if (!DATE_KEY.test(dto.date ?? '')) throw new BadRequestException('Bad date');
@@ -286,6 +299,7 @@ export class HouseholdService {
   }
 
   async deleteCountdown(familyId: string, actorId: string, id: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'countdowns');
     await this.assertAdult(actorId);
     const c = await this.prisma.countdown.findFirst({ where: { id, familyId } });
     if (!c) throw new NotFoundException('Countdown not found');
@@ -296,7 +310,8 @@ export class HouseholdService {
 
   // ---- Announcements ----
 
-  announcements(familyId: string, locationId?: string | null) {
+  async announcements(familyId: string, locationId?: string | null) {
+    if (!(await this.featureEnabled(familyId, 'announcements'))) return [];
     return this.prisma.announcement.findMany({
       where: {
         familyId,
@@ -311,6 +326,7 @@ export class HouseholdService {
     actorId: string,
     dto: { text: string; expiresInHours?: number; locationId?: string | null },
   ) {
+    await assertFeatureEnabled(this.prisma, familyId, 'announcements');
     await this.assertAdult(actorId);
     if (!dto.text?.trim()) throw new BadRequestException('Text is required');
     const expiresAt =
@@ -325,6 +341,7 @@ export class HouseholdService {
   }
 
   async deleteAnnouncement(familyId: string, actorId: string, id: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'announcements');
     await this.assertAdult(actorId);
     const a = await this.prisma.announcement.findFirst({ where: { id, familyId } });
     if (!a) throw new NotFoundException('Announcement not found');
@@ -341,32 +358,46 @@ export class HouseholdService {
     const tz = await this.resolveTimezone(locationId);
     const key = todayKeyInZone(tz);
     const today = `${key.y}-${String(key.m).padStart(2, '0')}-${String(key.d).padStart(2, '0')}`;
-    const [mealRows, countdowns, announcements, groceryOpen, people] = await Promise.all([
-      this.prisma.mealPlan.findMany({
-        where: { familyId, date: { gte: today }, ...this.scope(locationId) },
-        include: { eatOutPlace: { select: { name: true } } },
-        orderBy: { date: 'asc' },
-        take: 3,
-      }),
-      this.prisma.countdown.findMany({
-        where: { familyId, date: { gte: today }, ...this.scope(locationId) },
-        orderBy: { date: 'asc' },
-        take: 4,
-      }),
-      this.prisma.announcement.findMany({
-        where: {
-          familyId,
-          AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }, this.scope(locationId)],
-        },
-        orderBy: { createdAt: 'desc' },
-        take: 3,
-      }),
-      this.prisma.groceryItem.count({ where: { familyId, checked: false, ...this.scope(locationId) } }),
-      this.prisma.user.findMany({ where: { familyId, birthday: { not: null } }, select: { displayName: true, birthday: true } }),
+
+    const fam = await this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } });
+    const disabled = sanitizeDisabledFeatures(fam?.disabledFeatures);
+    if (disabled.includes('household')) return { today, meals: [], countdowns: [], announcements: [], groceryOpen: 0 };
+    const on = (f: string) => !disabled.includes(f);
+
+    const [mealRows, countdownRows, announcements, groceryOpen, people] = await Promise.all([
+      on('meals')
+        ? this.prisma.mealPlan.findMany({
+            where: { familyId, date: { gte: today }, ...this.scope(locationId) },
+            include: { eatOutPlace: { select: { name: true } } },
+            orderBy: { date: 'asc' },
+            take: 3,
+          })
+        : Promise.resolve([]),
+      on('countdowns')
+        ? this.prisma.countdown.findMany({
+            where: { familyId, date: { gte: today }, ...this.scope(locationId) },
+            orderBy: { date: 'asc' },
+            take: 4,
+          })
+        : Promise.resolve([]),
+      on('announcements')
+        ? this.prisma.announcement.findMany({
+            where: {
+              familyId,
+              AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }, this.scope(locationId)],
+            },
+            orderBy: { createdAt: 'desc' },
+            take: 3,
+          })
+        : Promise.resolve([]),
+      on('grocery') ? this.prisma.groceryItem.count({ where: { familyId, checked: false, ...this.scope(locationId) } }) : Promise.resolve(0),
+      on('countdowns')
+        ? this.prisma.user.findMany({ where: { familyId, birthday: { not: null } }, select: { displayName: true, birthday: true } })
+        : Promise.resolve([]),
     ]);
     // Birthdays inside the next 60 days ride along as synthetic countdowns
     // (family-wide by nature - a birthday belongs to the person, not a house).
-    const withBirthdays = [...countdowns];
+    const withBirthdays = [...countdownRows];
     for (const person of people) {
       const next = nextBirthday(person.birthday!, today);
       if (next && daysBetween(today, next) <= 60) {

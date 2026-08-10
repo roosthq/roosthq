@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { sanitizeDisabledFeatures } from '../common/features';
 
 export interface SearchHit {
   id: string;
@@ -36,15 +37,22 @@ export class SearchService {
     const empty: SearchResult = { chores: [], events: [], notifications: [], rules: [], prizes: [], awards: [] };
     if (query.length < 2) return empty;
 
-    const actor = await this.prisma.user.findUnique({ where: { id: userId } });
+    const [actor, fam] = await Promise.all([
+      this.prisma.user.findUnique({ where: { id: userId } }),
+      this.prisma.family.findUnique({ where: { id: familyId }, select: { disabledFeatures: true } }),
+    ]);
     const adult = !!actor && isAdult(actor.role);
+    const disabled = sanitizeDisabledFeatures(fam?.disabledFeatures);
+    const on = (f: string) => !disabled.includes(f);
 
     const [chores, events, notifications, rules, prizes, awards] = await Promise.all([
-      this.prisma.chore.findMany({
-        where: { familyId, title: { contains: query } },
-        include: { location: { select: { name: true } } },
-        take: PER_CATEGORY_LIMIT,
-      }),
+      on('chores')
+        ? this.prisma.chore.findMany({
+            where: { familyId, title: { contains: query } },
+            include: { location: { select: { name: true } } },
+            take: PER_CATEGORY_LIMIT,
+          })
+        : Promise.resolve([]),
       this.prisma.localEvent.findMany({
         where: { title: { contains: query }, calendar: { familyId } },
         include: { calendar: { select: { name: true } } },
@@ -58,21 +66,25 @@ export class SearchService {
         orderBy: { createdAt: 'desc' },
         take: PER_CATEGORY_LIMIT,
       }),
-      this.prisma.rule.findMany({
-        where: {
-          familyId,
-          text: { contains: query },
-          ...(adult ? {} : { OR: [{ targetUserId: null }, { targetUserId: userId }] }),
-        },
-        take: PER_CATEGORY_LIMIT,
-      }),
-      this.prisma.prize.findMany({
-        where: { familyId, name: { contains: query }, archived: false },
-        take: PER_CATEGORY_LIMIT,
-      }),
+      on('rules')
+        ? this.prisma.rule.findMany({
+            where: {
+              familyId,
+              text: { contains: query },
+              ...(adult ? {} : { OR: [{ targetUserId: null }, { targetUserId: userId }] }),
+            },
+            take: PER_CATEGORY_LIMIT,
+          })
+        : Promise.resolve([]),
+      on('store')
+        ? this.prisma.prize.findMany({
+            where: { familyId, name: { contains: query }, archived: false },
+            take: PER_CATEGORY_LIMIT,
+          })
+        : Promise.resolve([]),
       // Award catalog page is adult+-only in the app, so keep it out of a
       // kid's search results too rather than exposing an otherwise-hidden page.
-      adult
+      adult && on('awards')
         ? this.prisma.award.findMany({
             where: { familyId, name: { contains: query } },
             take: PER_CATEGORY_LIMIT,

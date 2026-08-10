@@ -7,6 +7,7 @@ import { EmailService } from '../notifications/email.service';
 import { encrypt, decrypt } from '../crypto/token-crypto';
 import { hashPassword, verifyPassword } from '../crypto/password';
 import { DEFAULT_COLOR_THEME } from '../users/users.service';
+import { defaultDisabledFeatures } from '../common/features';
 
 const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
 const RESET_TOKEN_TTL_MS = 60 * 60 * 1000; // 1 hour
@@ -137,7 +138,9 @@ export class AuthService {
     // after that, joining requires an invite.
     const familyCount = await this.prisma.family.count();
     if (familyCount === 0) {
-      const family = await this.prisma.family.create({ data: { name: `${name}'s Family` } });
+      const family = await this.prisma.family.create({
+        data: { name: `${name}'s Family`, disabledFeatures: defaultDisabledFeatures() },
+      });
       const user = await this.prisma.user.create({
         data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
       });
@@ -185,7 +188,9 @@ export class AuthService {
 
     const familyCount = await this.prisma.family.count();
     if (familyCount === 0) {
-      const family = await this.prisma.family.create({ data: { name: `${input.displayName}'s Family` } });
+      const family = await this.prisma.family.create({
+        data: { name: `${input.displayName}'s Family`, disabledFeatures: defaultDisabledFeatures() },
+      });
       const user = await this.prisma.user.create({
         data: { familyId: family.id, role: 'OWNER', displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
       });

@@ -5,6 +5,7 @@ import { Avatar } from './CalendarPage';
 import ImageCropper, { cropImageToDataUri, type CropRect } from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import CalendarsSettingsSection from '../CalendarsSettingsSection';
+import LocationsSection from '../LocationsSection';
 import {
   pushSupported,
   currentPushSubscription,
@@ -425,6 +426,8 @@ export default function MySettingsPage({
           ))}
         </div>
       </section>
+
+      <LocationsSection me={me} />
 
       <CalendarsSettingsSection isAdult={me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT'} />
 

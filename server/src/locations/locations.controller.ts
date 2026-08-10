@@ -29,6 +29,11 @@ export class LocationsController {
     return this.locations.remove(u.familyId, id);
   }
 
+  @Post('self-join')
+  selfJoin(@CurrentUser() u: SessionPayload, @Body() body: { locationIds: string[] }) {
+    return this.locations.selfJoin(u.familyId, u.userId, body.locationIds ?? []);
+  }
+
   @Post(':id/assign')
   assign(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { userId: string }) {
     return this.locations.assign(u.familyId, id, body.userId);

@@ -104,8 +104,12 @@ export default function CalendarPage({ me }: { me: Me }) {
   const [prefillDate, setPrefillDate] = useState<string | null>(null);
   const [needsReconnect, setNeedsReconnect] = useState(false);
   const [mealsEnabled, setMealsEnabled] = useState(false);
+  const [choresEnabled, setChoresEnabled] = useState(true);
   useEffect(() => {
-    api.familySettings().then((f) => setMealsEnabled(familyFeatureEnabled(f, 'meals'))).catch(() => undefined);
+    api.familySettings().then((f) => {
+      setMealsEnabled(familyFeatureEnabled(f, 'meals'));
+      setChoresEnabled(familyFeatureEnabled(f, 'chores'));
+    }).catch(() => undefined);
   }, []);
   const [members, setMembers] = useState<Member[]>([]);
   const [chores, setChores] = useState<Chore[]>([]);
@@ -150,6 +154,16 @@ export default function CalendarPage({ me }: { me: Me }) {
   useEffect(() => {
     if (!isAdult) return;
     api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
+  }, [isAdult]);
+
+  // "Manage calendars" (the share/unshare picker) only makes sense once
+  // there's a connected Google account to pick FROM - without one it just
+  // opened to an empty picker with nothing to do. The "+ Connect" button
+  // stays up regardless; that's how you get your first one connected.
+  const [hasGoogleAccount, setHasGoogleAccount] = useState(false);
+  useEffect(() => {
+    if (!isAdult) return;
+    api.listGoogleAccounts().then((accts) => setHasGoogleAccount(accts.length > 0)).catch(() => undefined);
   }, [isAdult]);
 
   // Everyone still gets to filter - but non-owners only get to choose among a
@@ -216,7 +230,12 @@ export default function CalendarPage({ me }: { me: Me }) {
 
   const refreshShared = useCallback(async () => {
     if (!scopeReady) return; // don't reveal anything (even briefly) before scope is known
-    const cals = await api.sharedCalendars();
+    // Location-scoped, not the unrestricted family-wide list (that one's for
+    // the admin view on Family Settings > Calendars) - only calendars shared
+    // by someone at a location I'm actually part of (or shared family-wide).
+    // A person in no location gets the unrestricted list; there's nothing
+    // sensible to scope by.
+    const cals = await api.myCalendars();
     setShared(cals);
     const ids = cals.map((c) => c.id);
     setVisible(new Set(allowedIds ? ids.filter((id) => allowedIds.has(id)) : ids));
@@ -344,9 +363,11 @@ export default function CalendarPage({ me }: { me: Me }) {
                   <span className="hidden sm:inline">+ Connect another of my Google accounts</span>
                   <span className="sm:hidden">+ Connect Google account</span>
                 </a>
-                <button onClick={openPicker} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-                  Manage calendars
-                </button>
+                {hasGoogleAccount && (
+                  <button onClick={openPicker} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+                    Manage calendars
+                  </button>
+                )}
               </>
             )}
             {addableOptions.length > 0 && canAddEvents && (
@@ -361,7 +382,7 @@ export default function CalendarPage({ me }: { me: Me }) {
               </button>
             )}
             <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
-            {members.length > 0 && (
+            {choresEnabled && members.length > 0 && (
               <DropdownDetails
                 summary={`Chores (${selectedPeople.size}/${members.length}) ▾`}
                 summaryClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"

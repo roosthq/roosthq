@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { api, loginUrl, pluralize, type Me, type FamilySettings, type FontSize } from './api';
+import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySettings, type FontSize, type FamilyLocation } from './api';
+import { myLocationIds } from './displayScope';
+import LocationJoinModal from './LocationJoinModal';
 import { setCelebrationSound } from './celebrate';
 import Nav from './Nav';
 import Logo from './Logo';
@@ -32,6 +34,7 @@ function applyFontSize(f: string) {
 export default function App() {
   const [me, setMe] = useState<Me | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
+  const [locations, setLocations] = useState<FamilyLocation[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   async function loadMe() {
@@ -48,6 +51,11 @@ export default function App() {
         setFamily(await api.familySettings());
       } catch {
         /* ignore */
+      }
+      try {
+        setLocations(await api.locations());
+      } catch {
+        setLocations([]);
       }
     } catch {
       setMe(null);
@@ -160,6 +168,17 @@ export default function App() {
   const choreWord = family?.choreWord ?? 'Chore';
   const chorePlural = pluralize(choreWord);
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  const choresOn = familyFeatureEnabled(family, 'chores');
+  // Store and Awards are independent features that share the /store route
+  // (see StorePage.tsx) - the route itself only needs blocking if BOTH are
+  // off; which tab shows is StorePage's own call.
+  const storeRouteOn = familyFeatureEnabled(family, 'store') || familyFeatureEnabled(family, 'awards');
+  const householdOn = familyFeatureEnabled(family, 'household');
+  // Blocking: every role including kids, everywhere except the kiosk (which
+  // never mounts App - see main.tsx) - if this family HAS locations, being
+  // in none of them silently hides calendars/kiosk displays/scoped Household
+  // items with no clue why, so it's not something to let slide unnoticed.
+  const needsLocation = !!locations && locations.length > 0 && myLocationIds(locations, me.id).length === 0;
 
   async function returnToOwner() {
     await api.unghost();
@@ -169,6 +188,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
+      {needsLocation && (
+        <LocationJoinModal locations={locations!} onJoined={() => api.locations().then(setLocations).catch(() => undefined)} />
+      )}
       {me.ghostedBy && (
         <div className="no-print flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">
           <span>
@@ -183,10 +205,10 @@ export default function App() {
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
-          <Route path="/chores" element={<ChoresPage me={me} />} />
+          <Route path="/chores" element={choresOn ? <ChoresPage me={me} /> : <Navigate to="/" replace />} />
           <Route
             path="/store"
-            element={<StorePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} tokenValueUsd={tokenValueUsd} />}
+            element={storeRouteOn ? <StorePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} tokenValueUsd={tokenValueUsd} /> : <Navigate to="/" replace />}
           />
           <Route
             path="/profile"
@@ -204,7 +226,7 @@ export default function App() {
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/household" element={<HouseholdPage me={me} />} />
+          <Route path="/household" element={householdOn ? <HouseholdPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
           {/* Nav reorg (2026-08): Dashboard, Agenda, Rules, and Awards folded
               into Calendar/Household/Store respectively - these keep old
@@ -212,8 +234,8 @@ export default function App() {
               links from 404ing instead of silently updating every reference. */}
           <Route path="/dashboard" element={<Navigate to="/" replace />} />
           <Route path="/agenda" element={<Navigate to="/?view=agenda" replace />} />
-          <Route path="/rules" element={<Navigate to="/household#rules" replace />} />
-          <Route path="/awards" element={<Navigate to="/store?tab=awards" replace />} />
+          <Route path="/rules" element={householdOn ? <Navigate to="/household#rules" replace /> : <Navigate to="/" replace />} />
+          <Route path="/awards" element={storeRouteOn ? <Navigate to="/store?tab=awards" replace /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

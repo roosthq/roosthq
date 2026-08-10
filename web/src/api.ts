@@ -464,25 +464,88 @@ export interface FamilySettings {
   tokenValueUsd: number;
   choreWord: string;
   // Family-level feature switches - stored as the DISABLED list so new
-  // features default on. See FAMILY_FEATURES.
+  // features default on. See FEATURE_TREE.
   disabledFeatures: string[];
 }
 
-// Everything a family can turn off wholesale (Settings > This family >
-// Features). The kiosk additionally gates its own widgets per display.
-export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }> = [
-  { id: 'levels', label: 'Levels & XP', help: 'Level badges from lifetime tokens earned - spending never lowers it.' },
-  { id: 'streakFreeze', label: 'Streak freezes', help: 'Each streak milestone banks a freeze (max 3) that absorbs one missed day.' },
-  { id: 'bonusWheel', label: 'Bonus wheel', help: 'A random 1-5 extra tokens on every streak milestone.' },
-  { id: 'photoProof', label: 'Photo proof', help: 'Chores can require a photo before a kid can mark them done.' },
-  { id: 'meals', label: 'Meal plan', help: "Plan dinners; the kiosk shows tonight's meal." },
-  { id: 'grocery', label: 'Grocery list', help: 'Shared list anyone can add to and check off.' },
-  { id: 'countdowns', label: 'Countdowns', help: 'Birthday/vacation countdown widgets.' },
-  { id: 'announcements', label: 'Announcements', help: 'Short family-wide notices on the kiosk.' },
-  { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
-  { id: 'allowance', label: 'Allowance', help: 'Automatic weekly token grants per person (set in Family & PINs).' },
-  { id: 'leaderboard', label: 'Kid leaderboard', help: 'Ranks kids by level on the Profiles page. Off if sibling comparison is not something you want.' },
+// Everything a family can turn off wholesale (Family Settings > Features),
+// as a tree: 5 top-level modules, each with the sub-features that already
+// existed as a flat list before this - see MEMORY/the 2026-08 nav+features
+// reorg. `requires` names another TOP-LEVEL id that must also be on -
+// checked the same way a tree parent is (see featureAncestors below) so a
+// child can depend on a sibling's parent without being nested under it
+// (Store isn't a child of Tokens - it just doesn't work without it).
+export interface FeatureNode {
+  id: string;
+  label: string;
+  help: string;
+  requires?: string;
+  children?: FeatureNode[];
+}
+
+export const FEATURE_TREE: FeatureNode[] = [
+  {
+    id: 'tokens',
+    label: 'Tokens',
+    help: 'The reward currency itself - balances, ledger, give/take. Off hides every token balance and action everywhere, including the kiosk.',
+    children: [
+      { id: 'levels', label: 'Levels & XP', help: 'Level badges from lifetime tokens earned - spending never lowers it.' },
+      { id: 'leaderboard', label: 'Kid leaderboard', help: 'Ranks kids by level on the Profiles page. Off if sibling comparison is not something you want.' },
+      { id: 'allowance', label: 'Weekly allowance', help: 'Automatic weekly token grants per person (set in Family).' },
+      { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
+    ],
+  },
+  {
+    id: 'chores',
+    label: 'Chores',
+    help: 'The task/chore system. Off removes Chores from the nav, the kiosk chores panel, and every chore entry on the calendar/agenda.',
+    children: [
+      { id: 'photoProof', label: 'Photo proof', help: 'Chores can require a photo before a kid can mark them done.' },
+      { id: 'streakFreeze', label: 'Streak freezes', help: 'Each streak milestone banks a freeze (max 3) that absorbs one missed day.' },
+      { id: 'bonusWheel', label: 'Bonus wheel', help: 'A random 1-5 extra tokens on every streak milestone.', requires: 'tokens' },
+    ],
+  },
+  {
+    id: 'store',
+    label: 'Store',
+    help: 'Prizes and redemptions.',
+    requires: 'tokens',
+  },
+  {
+    id: 'awards',
+    label: 'Awards',
+    help: 'The award catalog and give-it flow - independent of Tokens, an award can be a pure badge with no token value.',
+  },
+  {
+    id: 'household',
+    label: 'Household',
+    help: 'The whole Household page - off hides the page, its nav link, and the kiosk\'s "Tonight" banner entirely.',
+    children: [
+      { id: 'meals', label: 'Dinner plans', help: "Plan dinners (incl. the eat-out picker); the kiosk shows tonight's meal." },
+      { id: 'grocery', label: 'Grocery list', help: 'Shared list anyone can add to and check off.' },
+      { id: 'countdowns', label: 'Countdowns', help: 'Birthday/vacation countdown widgets.' },
+      { id: 'announcements', label: 'Announcements', help: 'Short family-wide notices on the kiosk.' },
+      { id: 'rules', label: 'Rules', help: 'House rules, shared or per-kid.' },
+    ],
+  },
 ];
+
+// Every real feature id in the tree, flattened - used to validate whatever
+// gets written to disabledFeatures (server does the same) so a stray/typo'd
+// string can't silently accumulate in that list forever.
+export const ALL_FEATURE_IDS: string[] = FEATURE_TREE.flatMap((n) => [n.id, ...(n.children ?? []).map((c) => c.id)]);
+
+// The set of ids a feature transitively depends on - its tree parent (if
+// it's a child) plus whatever it `requires` (if anything). All of them have
+// to be enabled for this one to actually do anything.
+function featureAncestors(id: string): string[] {
+  for (const node of FEATURE_TREE) {
+    if (node.id === id) return node.requires ? [node.requires] : [];
+    const child = node.children?.find((c) => c.id === id);
+    if (child) return child.requires ? [node.id, child.requires] : [node.id];
+  }
+  return [];
+}
 
 // Per-kid ability switches (User.disabledPermissions) - adults manage them
 // per member in Family & PINs; the server enforces them for KID roles.
@@ -498,7 +561,9 @@ export function kidPermissionEnabled(m: { role?: string; disabledPermissions?: s
 }
 
 export function familyFeatureEnabled(f: FamilySettings | null | undefined, feature: string): boolean {
-  return !f?.disabledFeatures?.includes(feature);
+  const disabled = f?.disabledFeatures ?? [];
+  if (disabled.includes(feature)) return false;
+  return featureAncestors(feature).every((a) => !disabled.includes(a));
 }
 
 // Level = XP badge derived from lifetime tokens EARNED (never reduced by
@@ -899,6 +964,10 @@ export const api = {
   assignLocation: (id: string, userId: string) =>
     req(`/locations/${id}/assign`, { method: 'POST', body: JSON.stringify({ userId }) }),
   unassignLocation: (id: string, userId: string) => req(`/locations/${id}/users/${userId}`, { method: 'DELETE' }),
+  // Self-service: set MY OWN full set of locations in one call - the join
+  // modal (zero locations yet) and My Account (change anytime) both use this.
+  selfJoinLocations: (locationIds: string[]) =>
+    req('/locations/self-join', { method: 'POST', body: JSON.stringify({ locationIds }) }),
 
   prizes: () => req<StorePrize[]>('/prizes'),
   createPrize: (body: Record<string, unknown>, kioskToken?: string) =>
