@@ -14,6 +14,7 @@ import { kidPermissionEnabled, type Member } from '../api';
 import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
 import { useWeekSwipe } from '../useWeekSwipe';
+import IconPicker from '../IconPicker';
 
 function dateKey(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -328,7 +329,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
       </ul>
       {isAdult && (
         <div className="mt-3 flex flex-wrap gap-2">
-          <input value={emoji} onChange={(e) => setEmoji(e.target.value)} className="w-12 rounded border px-2 py-1.5 text-center text-sm" />
+          <IconPicker value={emoji} onChange={setEmoji} buttonSize="h-9 w-12 text-lg" />
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}

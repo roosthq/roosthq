@@ -3,16 +3,8 @@ import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } f
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
+import IconPicker from '../IconPicker';
 import { formatDateTime } from '../dateFormat';
-
-// Curated, kid-friendly picks - not exhaustive (anyone can still type any
-// emoji into the text field), just a fast default set.
-const EMOJI_OPTIONS = [
-  '🏆', '🥇', '🥈', '🥉', '🏅', '🎖️', '⭐', '🌟', '✨', '💫',
-  '🔥', '💪', '👏', '🙌', '🤝', '❤️', '🎉', '🎈', '🎁', '👑',
-  '🦸', '🦸‍♀️', '🦸‍♂️', '🚀', '🌈', '☀️', '🐾', '📚', '🎨', '⚽',
-  '😇', '😎', '🥳', '💯', '✅', '🧹', '🍽️', '🛏️', '🌱', '🎯',
-];
 
 // Icons are either a short emoji string or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
@@ -376,28 +368,9 @@ export function AwardForm({
             </div>
 
             {iconMode === 'emoji' ? (
-              <>
-                <div className="mt-2 grid grid-cols-10 gap-1">
-                  {EMOJI_OPTIONS.map((e) => (
-                    <button
-                      key={e}
-                      type="button"
-                      onClick={() => setIcon(e)}
-                      className={`flex h-8 w-8 items-center justify-center rounded text-lg hover:bg-slate-100 ${
-                        icon === e ? 'bg-slate-800' : ''
-                      }`}
-                    >
-                      {e}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  className={`${input} mt-2`}
-                  placeholder="Or type any emoji"
-                  value={icon.startsWith('data:') ? '' : icon}
-                  onChange={(e) => setIcon(e.target.value)}
-                />
-              </>
+              <div className="mt-2">
+                <IconPicker value={icon} onChange={setIcon} />
+              </div>
             ) : (
               <div className="mt-2">
                 <input type="file" accept="image/*" onChange={onFile} className="block text-sm" />

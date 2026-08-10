@@ -16,6 +16,7 @@ import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
 import { useDialog } from '../Dialog';
 import { resizeImageFile } from '../Prize';
+import IconPicker from '../IconPicker';
 
 // Owner-only sections reach across every family in the instance (Families,
 // Holidays) - everything else here only ever affects the current family.
@@ -206,8 +207,6 @@ function FamilyFeaturesSetting() {
   );
 }
 
-const TOKEN_ICONS = ['🪙', '💰', '💎', '⭐', '🎫', '🎟️', '🏆', '🍬', '🔶', '🟡', '❤️', '🎁'];
-
 function TokenNameSetting() {
   const [name, setName] = useState('Tokens');
   const [icon, setIcon] = useState('🪙');
@@ -237,13 +236,7 @@ function TokenNameSetting() {
         </Field>
         <div className="flex flex-wrap gap-4">
           <Field label="Icon">
-            <select value={icon} onChange={(e) => setIcon(e.target.value)} className="rounded border px-2 py-1.5 text-lg">
-              {TOKEN_ICONS.map((i) => (
-                <option key={i} value={i}>
-                  {i}
-                </option>
-              ))}
-            </select>
+            <IconPicker value={icon} onChange={setIcon} />
           </Field>
           <Field label="1 unit = how many dollars?" help={`e.g. 1 ${icon} ${name || 'Tokens'} = $${valueUsd || 0}`}>
             <input
