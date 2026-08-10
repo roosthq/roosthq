@@ -348,6 +348,11 @@ export default function Display() {
         }
         return;
       }
+      if (type === 'ping') {
+        // Pure keep-alive (see DisplayEventsService.stream) - nothing to do,
+        // its only job is to keep this connection from going idle.
+        return;
+      }
       if (type === 'calendar') {
         refreshEventsRef.current();
       } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
