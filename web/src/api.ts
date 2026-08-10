@@ -271,6 +271,7 @@ export interface PendingWheel {
   minTokens: number;
   maxTokens: number;
   reason: string;
+  style: 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE';
 }
 
 export interface MealPlanEntry {

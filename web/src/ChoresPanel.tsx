@@ -13,7 +13,7 @@ import {
 } from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
-import WheelModal from './WheelModal';
+import RewardRevealModal from './RewardRevealModal';
 import { STARTER_PACKS } from './starterPacks';
 import PendingPanel from './PendingPanel';
 import TokenBadge from './TokenBadge';
@@ -965,9 +965,8 @@ export default function ChoresPanel({
       )}
 
       {wheel && (
-        <WheelModal
-          min={wheel.minTokens}
-          max={wheel.maxTokens}
+        <RewardRevealModal
+          wheel={wheel}
           source={wheelSource(wheel)}
           tokenName={tokenName}
           onSpin={async () => (await client.spinWheel(wheel.id)).amount}

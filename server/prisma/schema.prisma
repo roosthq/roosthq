@@ -775,6 +775,11 @@ model WheelSpin {
   userId    String // who gets to spin
   minTokens Int       @default(1)
   maxTokens Int       @default(5)
+  // Which reveal presentation the client shows - purely visual, the actual
+  // roll (min..max, server-side, at spin time) is identical regardless. Set
+  // randomly at creation so a kid gets a mix instead of the same one every
+  // time (see REWARD_STYLES in wheels.service.ts).
+  style     String    @default("WHEEL")
   reason    String // e.g. "Bonus wheel: Homework (5 in a row)"
   refId     String? // originating AwardGrant / ChoreInstance id, for reversal
   amount    Int? // rolled at spin time; null while unspun

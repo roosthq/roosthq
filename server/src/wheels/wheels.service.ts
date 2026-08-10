@@ -7,6 +7,14 @@ import { DisplayEventsService } from '../display/display-events.service';
 // it, on their own screen or the kiosk, and the server rolls the amount at
 // that moment. That way an adult approving a chore never "uses up" a kid's
 // spin, and the reward stays unguessable until the wheel stops.
+
+// The reveal presentation the client shows - purely cosmetic, spin() below
+// rolls identically regardless of which one a given WheelSpin got. Kept as
+// plain strings (not a Prisma enum) so the client and this list can add a
+// new style without a migration.
+export const REWARD_STYLES = ['WHEEL', 'MYSTERY_BOX', 'SCRATCH_CARD', 'SLOT_MACHINE'] as const;
+export type RewardStyle = (typeof REWARD_STYLES)[number];
+
 @Injectable()
 export class WheelsService {
   constructor(
@@ -14,12 +22,15 @@ export class WheelsService {
     private displayEvents: DisplayEventsService,
   ) {}
 
-  // Called from chores/awards when a wheel is earned.
-  async create(familyId: string, userId: string, min: number, max: number, reason: string, refId?: string) {
+  // Called from chores/awards when a wheel is earned. style is normally left
+  // unset so it's randomized here - a kid who keeps earning bonus rounds
+  // gets a mix of presentations over time instead of the same one always.
+  async create(familyId: string, userId: string, min: number, max: number, reason: string, refId?: string, style?: RewardStyle) {
     const lo = Math.max(1, Math.min(min, max));
     const hi = Math.max(lo, Math.max(min, max));
+    const chosenStyle = style ?? REWARD_STYLES[Math.floor(Math.random() * REWARD_STYLES.length)];
     const spin = await this.prisma.wheelSpin.create({
-      data: { familyId, userId, minTokens: lo, maxTokens: hi, reason, refId: refId ?? null },
+      data: { familyId, userId, minTokens: lo, maxTokens: hi, reason, refId: refId ?? null, style: chosenStyle },
     });
     this.displayEvents.publish(familyId, { type: 'chores' });
     return spin;
