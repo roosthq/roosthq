@@ -14,15 +14,19 @@ services:
     command: npm run start:prod
     volumes: !reset []
 
-  # Reset back to the Dockerfile's default (final/runtime) stage - the base
-  # compose file points `web` at the `dev` stage for hot-reload, which prod
-  # doesn't want. VITE_API_BASE_URL has to be a build ARG now, not a runtime
-  # env var: `vite build` inlines it at image-build time (that's the whole
-  # point of moving the build there), so setting it at container start would
-  # be too late to do anything.
+  # Explicitly re-target `runtime` - compose deep-merges the `build:` mapping
+  # across files rather than replacing it wholesale, so leaving `target` out
+  # here would silently inherit the base file's `target: dev` (hot-reload
+  # stage, no built dist/ at all) instead of overriding it. Learned that one
+  # by shipping it: the resulting prod image's own CMD was `npm run dev`.
+  # VITE_API_BASE_URL has to be a build ARG now, not a runtime env var -
+  # `vite build` inlines it at image-build time (that's the whole point of
+  # moving the build there), so setting it at container start would be too
+  # late to do anything.
   web:
     build:
       context: ./web
+      target: runtime
       args:
         VITE_API_BASE_URL: /api
     volumes: !reset []
