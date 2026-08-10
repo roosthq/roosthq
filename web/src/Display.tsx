@@ -329,46 +329,75 @@ export default function Display() {
     // them immediately instead of only on next reload. Config changes (the
     // legacy/untyped case too, for anything published before this existed)
     // fall through to loadConfig - the safest catch-all.
-    const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
-    const es = new EventSource(streamUrl, { withCredentials: true });
-    es.onmessage = (e) => {
-      let payload: { type?: string; displayConfigId?: string | null } = {};
-      try {
-        payload = JSON.parse(e.data) ?? {};
-      } catch {
-        // legacy/untyped payload - treat as a config change
-      }
-      const type = payload.type ?? 'display';
-      if (type === 'reload') {
-        // Untargeted (no displayConfigId) means "every kiosk in the family" -
-        // an adult fixing a stuck/broken kiosk from Settings without walking
-        // over to the Pi. Targeted means only the one they picked.
-        if (!payload.displayConfigId || payload.displayConfigId === configIdRef.current) {
-          window.location.reload();
+    let stopped = false;
+    let es: EventSource | null = null;
+    let retryTimer: number | undefined;
+
+    function connect() {
+      if (stopped) return;
+      const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
+      const source = new EventSource(streamUrl, { withCredentials: true });
+      es = source;
+      source.onmessage = (e) => {
+        let payload: { type?: string; displayConfigId?: string | null } = {};
+        try {
+          payload = JSON.parse(e.data) ?? {};
+        } catch {
+          // legacy/untyped payload - treat as a config change
         }
-        return;
-      }
-      if (type === 'ping') {
-        // Pure keep-alive (see DisplayEventsService.stream) - nothing to do,
-        // its only job is to keep this connection from going idle.
-        return;
-      }
-      if (type === 'calendar') {
-        refreshEventsRef.current();
-      } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
-        refreshChores();
-        setDataRefreshSignal((n) => n + 1);
-        // The idle picker's token/level badges (pickerBalances) were only
-        // ever loaded once on mount or when locking an adult back out - a
-        // balance change pushed while the picker was already on screen (a
-        // sibling using another kiosk, or the main app) never showed up
-        // until one of those two triggers happened to fire again.
-        loadMembers();
-      } else {
-        loadConfig().catch(() => undefined);
-      }
+        const type = payload.type ?? 'display';
+        if (type === 'reload') {
+          // Untargeted (no displayConfigId) means "every kiosk in the family" -
+          // an adult fixing a stuck/broken kiosk from Settings without walking
+          // over to the Pi. Targeted means only the one they picked.
+          if (!payload.displayConfigId || payload.displayConfigId === configIdRef.current) {
+            window.location.reload();
+          }
+          return;
+        }
+        if (type === 'ping') {
+          // Pure keep-alive (see DisplayEventsService.stream) - nothing to do,
+          // its only job is to keep this connection from going idle.
+          return;
+        }
+        if (type === 'calendar') {
+          refreshEventsRef.current();
+        } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
+          refreshChores();
+          setDataRefreshSignal((n) => n + 1);
+          // The idle picker's token/level badges (pickerBalances) were only
+          // ever loaded once on mount or when locking an adult back out - a
+          // balance change pushed while the picker was already on screen (a
+          // sibling using another kiosk, or the main app) never showed up
+          // until one of those two triggers happened to fire again.
+          loadMembers();
+        } else {
+          loadConfig().catch(() => undefined);
+        }
+      };
+      // The browser's own auto-retry only covers a mid-stream drop. Per spec,
+      // if a *reconnect* attempt gets a non-2xx response (a 502 while the
+      // server container is mid-restart during a deploy, or any brief origin
+      // blip) the EventSource permanently closes itself instead - readyState
+      // goes to CLOSED and it never tries again on its own, silently, with no
+      // visible error on the kiosk. That's exactly how this stayed "stuck"
+      // for good after one badly-timed deploy. Detect that specific case and
+      // reconnect ourselves.
+      source.onerror = () => {
+        if (stopped) return;
+        if (source.readyState === EventSource.CLOSED) {
+          source.close();
+          retryTimer = window.setTimeout(connect, 5000);
+        }
+      };
+    }
+    connect();
+
+    return () => {
+      stopped = true;
+      if (retryTimer) window.clearTimeout(retryTimer);
+      es?.close();
     };
-    return () => es.close();
   }, [loadConfig, loadMembers, refreshChores]);
 
   const refreshEvents = useCallback(() => {
