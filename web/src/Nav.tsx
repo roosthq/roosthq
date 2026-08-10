@@ -57,6 +57,11 @@ export default function Nav({
   // row don't fit - they used to just wrap onto a tall stack of half-legible
   // lines. Collapse into a hamburger menu instead.
   const [menuOpen, setMenuOpen] = useState(false);
+  const searchLink = (
+    <NavLink to="/search" onClick={() => setMenuOpen(false)} className="text-slate-500 hover:text-slate-800" title="Search">
+      🔍
+    </NavLink>
+  );
   const bell = (
     <NavLink
       to="/notifications"
@@ -185,6 +190,7 @@ export default function Nav({
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>
         </div>
         <div className="hidden items-center gap-3 text-sm lg:flex">
+          {searchLink}
           {bell}
           <PendingIndicator me={me} />
           <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
@@ -209,6 +215,7 @@ export default function Nav({
         </div>
 
         <div className="flex items-center gap-3 lg:hidden">
+          {searchLink}
           {bell}
           <PendingIndicator me={me} />
           <button

@@ -37,6 +37,7 @@ import RulesPage from './pages/RulesPage';
 import Modal from './Modal';
 import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, dpatch, displayToken as token } from './displayApi';
+import DropdownDetails from './DropdownDetails';
 
 function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean }) {
   const cls = big ? 'h-14 w-14 text-xl' : 'h-8 w-8 text-sm';
@@ -552,55 +553,75 @@ export default function Display() {
           )}
         </div>
         <div className="flex flex-wrap items-center justify-end gap-3">
-          {active && showCalendar && addableCalendarOptions.length > 0 && (
-            <button
-              onClick={() => {
-                setPrefillDate(null);
-                setAddingEvent(true);
-              }}
-              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
+          {active && (isAdult || (showCalendar && addableCalendarOptions.length > 0)) && (
+            <DropdownDetails
+              summary="+ Add ▾"
+              summaryClassName="cursor-pointer list-none rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
             >
-              + Add event
-            </button>
-          )}
-          {active && isAdult && (
-            <button
-              onClick={() => setAddingAward(true)}
-              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
-            >
-              + Add award
-            </button>
-          )}
-          {active && isAdult && showPrizes && (
-            <button
-              onClick={() => setAddingPrize(true)}
-              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
-            >
-              + Add prize
-            </button>
-          )}
-          {active && isAdult && kioskPrizeClient && (
-            <button
-              onClick={async () => {
-                setAwardPickerOpen(true);
-                try {
-                  setAwardsCatalog(await kioskPrizeClient.awardsCatalog());
-                } catch {
-                  setAwardsCatalog([]);
-                }
-              }}
-              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
-            >
-              🏆 Give award
-            </button>
-          )}
-          {active && isAdult && (
-            <button
-              onClick={() => setAddingTokenAdjust(true)}
-              className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700"
-            >
-              🪙 Adjust {tokenName}
-            </button>
+              <div className="absolute right-0 z-10 mt-1 w-44 rounded border bg-white p-1 text-sm shadow-lg">
+                {showCalendar && addableCalendarOptions.length > 0 && (
+                  <button
+                    onClick={(e) => {
+                      setPrefillDate(null);
+                      setAddingEvent(true);
+                      e.currentTarget.closest('details')?.removeAttribute('open');
+                    }}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                  >
+                    + Add event
+                  </button>
+                )}
+                {isAdult && (
+                  <button
+                    onClick={(e) => {
+                      setAddingAward(true);
+                      e.currentTarget.closest('details')?.removeAttribute('open');
+                    }}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                  >
+                    + Add award
+                  </button>
+                )}
+                {isAdult && showPrizes && (
+                  <button
+                    onClick={(e) => {
+                      setAddingPrize(true);
+                      e.currentTarget.closest('details')?.removeAttribute('open');
+                    }}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                  >
+                    + Add prize
+                  </button>
+                )}
+                {isAdult && kioskPrizeClient && (
+                  <button
+                    onClick={async (e) => {
+                      setAwardPickerOpen(true);
+                      e.currentTarget.closest('details')?.removeAttribute('open');
+                      try {
+                        setAwardsCatalog(await kioskPrizeClient.awardsCatalog());
+                      } catch {
+                        setAwardsCatalog([]);
+                      }
+                    }}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                  >
+                    🏆 Give award
+                  </button>
+                )}
+                {isAdult && (
+                  <button
+                    onClick={(e) => {
+                      setAddingTokenAdjust(true);
+                      e.currentTarget.closest('details')?.removeAttribute('open');
+                    }}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                  >
+                    🪙 Adjust {tokenName}
+                  </button>
+                )}
+              </div>
+            </DropdownDetails>
           )}
           {active && showCalendar && (showChores || showPrizes) && (
             <div className="flex rounded border p-0.5 text-sm text-slate-500">
@@ -765,7 +786,7 @@ export default function Display() {
                       loadMembers();
                       applyIdleTheme(config);
                     }}
-                    className="ml-auto shrink-0 rounded border px-2 py-1 text-xs hover:bg-white"
+                    className="ml-auto shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-100"
                   >
                     Switch / lock
                   </button>

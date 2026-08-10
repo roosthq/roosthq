@@ -22,6 +22,7 @@ import { HolidaysModule } from './holidays/holidays.module';
 import { HouseholdModule } from './household/household.module';
 import { WheelsModule } from './wheels/wheels.module';
 import { SecurityModule } from './security/security.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { SecurityModule } from './security/security.module';
     HolidaysModule,
     HouseholdModule,
     WheelsModule,
+    SearchModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

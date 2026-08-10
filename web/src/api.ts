@@ -23,6 +23,22 @@ export const loginUrl = `${BASE}/auth/google`;
 
 export type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 
+export interface SearchHit {
+  id: string;
+  label: string;
+  sublabel?: string;
+  link: string;
+}
+
+export interface SearchResult {
+  chores: SearchHit[];
+  events: SearchHit[];
+  notifications: SearchHit[];
+  rules: SearchHit[];
+  prizes: SearchHit[];
+  awards: SearchHit[];
+}
+
 export interface Me {
   id: string;
   displayName: string;
@@ -876,6 +892,7 @@ export const api = {
   },
   fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }),
   rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }),
+  search: (q: string, kioskToken?: string) => req<SearchResult>(`/search?q=${encodeURIComponent(q)}`, undefined, kioskToken),
   markRedemptionUsed: (id: string, used: boolean) =>
     req(`/prizes/redemptions/${id}/used`, { method: 'PATCH', body: JSON.stringify({ used }) }),
 

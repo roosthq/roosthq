@@ -136,7 +136,11 @@ export default function ChoresPanel({
   const today = variant === 'today';
   const [personFilter, setPersonFilter] = useState('');
   const [locationFilter, setLocationFilter] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  // Prefilled from ?q= when arriving via the global Search page - read directly
+  // off window.location rather than react-router's useSearchParams, since this
+  // component is also mounted by the kiosk (Display.tsx), which runs outside
+  // any <BrowserRouter> and would crash on that hook.
+  const [searchQuery, setSearchQuery] = useState(() => new URLSearchParams(window.location.search).get('q') ?? '');
   const [viewMode, setViewMode] = useState<'cards' | 'table'>(
     () => (localStorage.getItem('rhq-chores-view') as 'cards' | 'table') || 'cards',
   );
@@ -840,7 +844,7 @@ export default function ChoresPanel({
                   <td className="px-2 py-2">
                     <div className="flex items-center gap-2 whitespace-nowrap">
                       {active?.status === 'OPEN' && openToClaim && (
-                        <button onClick={() => act(() => client.claimInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-white">
+                        <button onClick={() => act(() => client.claimInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-100">
                           Claim
                         </button>
                       )}
@@ -857,7 +861,7 @@ export default function ChoresPanel({
                           onClick={async () => {
                             if (await confirmSkip()) await act(() => client.skipInstance(active.id));
                           }}
-                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
                         >
                           Skip
                         </button>
@@ -865,7 +869,7 @@ export default function ChoresPanel({
                       {active?.status === 'OPEN' && mine && chore.assignmentType === 'ANYONE' && (
                         <button
                           onClick={() => act(() => client.unclaimInstance(active.id))}
-                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
                           title="Let someone else take this one"
                         >
                           Unclaim
@@ -874,7 +878,7 @@ export default function ChoresPanel({
                       {active?.status === 'SKIPPED' && (mine || isAdult) && (
                         <button
                           onClick={() => act(() => client.unskipInstance(active.id))}
-                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
                         >
                           Undo skip
                         </button>
@@ -896,7 +900,7 @@ export default function ChoresPanel({
                             setEditingId(chore.id);
                             setFormOpen(true);
                           }}
-                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
                         >
                           Edit
                         </button>
@@ -908,7 +912,7 @@ export default function ChoresPanel({
                             setEditingId(null);
                             setFormOpen(true);
                           }}
-                          className="rounded border px-2 py-1 text-xs hover:bg-white"
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
                         >
                           Duplicate
                         </button>

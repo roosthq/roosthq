@@ -16,6 +16,7 @@ import NotificationsPage from './pages/NotificationsPage';
 import RulesPage from './pages/RulesPage';
 import HouseholdPage from './pages/HouseholdPage';
 import AwardsPage from './pages/AwardsPage';
+import SearchPage from './pages/SearchPage';
 
 // data-mode = light/dark; data-theme = which of the 9 color themes (see
 // COLOR_THEMES in api.ts). Two independent attributes - see index.css.
@@ -206,6 +207,7 @@ export default function App() {
             }
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/rules" element={<RulesPage me={me} />} />
           <Route path="/household" element={<HouseholdPage me={me} />} />
           <Route
