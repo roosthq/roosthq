@@ -39,6 +39,22 @@ import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, dpatch, displayToken as token } from './displayApi';
 import DropdownDetails from './DropdownDetails';
 
+// A plain window.location.reload() is a NAVIGATION, not a guaranteed fresh
+// fetch - the browser (and, worse, Cloudflare's edge in front of the tunnel)
+// can serve it straight from cache under that exact URL. A kiosk that's been
+// sitting on the same URL for weeks then "reload"s into the very cached copy
+// it's trying to get away from - reported live: a Pi kiosk kept showing a
+// pre-fix build even after both the in-app Refresh button and a full device
+// restart. Appending a fresh cache-busting query param makes this a genuinely
+// new URL neither the browser nor any upstream cache has ever seen before,
+// forcing a real network fetch regardless of what any Cache-Control header
+// says - existing params (display=1, config, token) are preserved.
+function hardReload() {
+  const url = new URL(window.location.href);
+  url.searchParams.set('_r', Date.now().toString());
+  window.location.href = url.toString();
+}
+
 function Avatar({ name, src, big }: { name?: string; src?: string; big?: boolean }) {
   const cls = big ? 'h-14 w-14 text-xl' : 'h-8 w-8 text-sm';
   if (src) return <img src={src} alt={name ?? ''} className={`${cls} rounded-full object-cover`} />;
@@ -356,7 +372,7 @@ export default function Display() {
           // an adult fixing a stuck/broken kiosk from Settings without walking
           // over to the Pi. Targeted means only the one they picked.
           if (!payload.displayConfigId || payload.displayConfigId === configIdRef.current) {
-            window.location.reload();
+            hardReload();
           }
           return;
         }
@@ -661,7 +677,7 @@ export default function Display() {
             🌙
           </button>
           <button
-            onClick={() => window.location.reload()}
+            onClick={hardReload}
             title="Refresh"
             className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
           >

@@ -2,12 +2,24 @@
 # Caddy serves plain HTTP on :80 inside the Docker network.
 #   /api/*  -> API server (keeps the /api prefix the server expects)
 #   /*      -> frontend
+#
+# Cache-Control: no-store on the frontend response is deliberate, not an
+# oversight - this is a live app, not a static site. Without it, a plain
+# reload (the kiosk's Refresh button, or an SSE-triggered auto-reload after a
+# deploy) can be served a stale copy from Cloudflare's edge cache sitting in
+# front of the tunnel, or the browser's own disk cache, and neither surfaces
+# any sign of it - it just quietly shows old content until someone notices a
+# recent fix isn't there. Reported live on a kiosk Pi that stayed stale
+# through both a manual refresh and a full device restart. The tiny bit of
+# extra bandwidth from never edge/browser-caching the JS bundle is worth it
+# for a kiosk that reloads at most a few times a day.
 :80 {
 	@api path /api/*
 	handle @api {
 		reverse_proxy server:3000
 	}
 	handle {
+		header Cache-Control "no-store"
 		reverse_proxy web:5173
 	}
 }
