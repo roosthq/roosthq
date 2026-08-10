@@ -17,6 +17,7 @@ import { formatDate } from '../dateFormat';
 import { useWeekSwipe } from '../useWeekSwipe';
 import IconPicker from '../IconPicker';
 import DropdownDetails from '../DropdownDetails';
+import RulesPage from './RulesPage';
 
 function dateKey(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -66,13 +67,11 @@ export default function HouseholdPage({ me }: { me: Me }) {
   const countdowns = familyFeatureEnabled(family, 'countdowns');
   const announcements = familyFeatureEnabled(family, 'announcements');
 
-  if (family && !meals && !grocery && !countdowns && !announcements) {
-    return (
-      <p className="text-sm text-slate-500">
-        All household features are turned off. {isAdult ? 'Enable them under Settings → Features.' : ''}
-      </p>
-    );
-  }
+  // Rules has no feature flag - it's always on, so it's the one section that
+  // still has something to show even with meals/grocery/countdowns/
+  // announcements all switched off. That's why this no longer bails out to a
+  // single "everything's off" message the way it used to.
+  const allWidgetsOff = family && !meals && !grocery && !countdowns && !announcements;
 
   return (
     <div className="min-w-0 space-y-6">
@@ -89,6 +88,14 @@ export default function HouseholdPage({ me }: { me: Me }) {
             </button>
           ))}
         </div>
+      )}
+      <section id="rules" className="panel min-w-0 scroll-mt-4">
+        <RulesPage me={me} />
+      </section>
+      {allWidgetsOff && (
+        <p className="text-sm text-slate-500">
+          Every other household widget is turned off. {isAdult ? 'Enable them under Family Settings → Features.' : ''}
+        </p>
       )}
       {meals && <MealsSection isAdult={isAdult} scope={scope} locations={scopeOptions} />}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

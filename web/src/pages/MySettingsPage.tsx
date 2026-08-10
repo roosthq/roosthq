@@ -257,7 +257,7 @@ export default function MySettingsPage({
 
   return (
     <div className="min-w-0 space-y-6">
-      <h2 className="text-lg font-semibold">My Settings</h2>
+      <h2 className="text-lg font-semibold">My Account</h2>
 
       <section className="panel">
         <h3 className="text-base font-semibold tracking-tight">Photo &amp; identity</h3>

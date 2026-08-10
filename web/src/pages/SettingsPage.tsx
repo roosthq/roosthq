@@ -18,111 +18,118 @@ import { useDialog } from '../Dialog';
 import { resizeImageFile } from '../Prize';
 import IconPicker from '../IconPicker';
 
-// Owner-only sections reach across every family in the instance (Families,
-// Holidays) - everything else here only ever affects the current family.
-// Splitting those into tabs keeps "create a whole new family" and "rename
-// our reward currency" from sitting in the same undifferentiated list, which
-// only an owner would otherwise notice (everyone else only ever sees the
-// family tab's content anyway, so they don't get tabs at all).
-function GlobalSettings() {
-  return (
-    <>
-      <Section
-        title="Families"
-        help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
-      >
-        <OwnerFamiliesPanel />
-      </Section>
+type TabId = 'family' | 'features' | 'people' | 'calendars' | 'locations' | 'displays' | 'instance';
 
-      <Section
-        title="Holidays"
-        help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
-      >
-        <HolidaysPanel />
-      </Section>
-    </>
-  );
-}
+const TAB_LABELS: Record<TabId, string> = {
+  family: 'Family',
+  features: 'Features',
+  people: 'People & PINs',
+  calendars: 'Calendars',
+  locations: 'Locations',
+  displays: 'Displays',
+  instance: 'Instance',
+};
 
-function FamilySettings({ me, isFamilyManager, isAdult }: { me: Me; isFamilyManager: boolean; isAdult: boolean }) {
-  return (
-    <>
-      {isFamilyManager && <TokenNameSetting />}
-      {isFamilyManager && <ChoreWordSetting />}
-      {isFamilyManager && <FamilyFeaturesSetting />}
-
-      {isAdult && (
-        <Section title="Family members & invites">
-          <MembersManager me={me} />
-        </Section>
-      )}
-
-      <Section title="Locations" help="For split households - group people so calendars and displays can be scoped per house.">
-        <LocationsSetting />
-      </Section>
-
-      {isAdult && (
-        <Section
-          title="Local calendars"
-          help="Calendars that live in the app - no Google account needed. Give one a location to scope it to a household."
-        >
-          <LocalCalendarsSetting />
-        </Section>
-      )}
-
-      {isFamilyManager && (
-        <Section
-          title="Calendar colors"
-          help="The default color everyone sees for a calendar, unless they've picked their own in My Settings."
-        >
-          <CalendarColorsSetting />
-        </Section>
-      )}
-
-      {isFamilyManager && (
-        <Section title="Touch displays">
-          <DisplaysManager />
-          <div className="mt-6 border-t pt-4">
-            <DisplayAccess />
-          </div>
-        </Section>
-      )}
-    </>
-  );
-}
-
+// One tab rail instead of three different reveal patterns (a plain stacked
+// list, an ad hoc "This family / Instance-wide" mode switch, and a nested
+// border-top afterthought for Display access) - same route, same
+// components underneath, no gate changes: which tabs exist is exactly the
+// same isFamilyManager/isAdult/isOwner logic this page already had, just
+// deciding tab membership instead of Section visibility.
 export default function SettingsPage({ me }: { me: Me }) {
   const isOwner = me.role === 'OWNER';
   const isFamilyManager = isOwner || me.role === 'FAMILY_MANAGER';
-  const isAdult = isFamilyManager || me.role === 'ADULT';
-  const [tab, setTab] = useState<'family' | 'global'>('family');
+  // Route itself (App.tsx) already gates /settings to isAdult - "people" and
+  // "locations" tabs below need nothing tighter than that.
+
+  const tabs: TabId[] = [
+    ...(isFamilyManager ? (['family', 'features'] as TabId[]) : []),
+    'people',
+    ...(isFamilyManager ? (['calendars'] as TabId[]) : []),
+    'locations',
+    ...(isFamilyManager ? (['displays'] as TabId[]) : []),
+    ...(isOwner ? (['instance'] as TabId[]) : []),
+  ];
+  const [tab, setTab] = useState<TabId>(tabs[0]);
+  const activeTab = tabs.includes(tab) ? tab : tabs[0];
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-semibold">Settings</h2>
+      <h2 className="text-lg font-semibold">Family Settings</h2>
 
-      {isOwner && (
-        <div className="flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
+      <div className="no-print flex flex-wrap gap-1 border-b pb-2">
+        {tabs.map((t) => (
           <button
-            onClick={() => setTab('family')}
-            className={`rounded px-4 py-1.5 ${tab === 'family' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            key={t}
+            onClick={() => setTab(t)}
+            className={`rounded px-3 py-1.5 text-sm ${activeTab === t ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
           >
-            This family
+            {TAB_LABELS[t]}
           </button>
-          <button
-            onClick={() => setTab('global')}
-            className={`rounded px-4 py-1.5 ${tab === 'global' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
-          >
-            Instance-wide
-          </button>
-        </div>
-      )}
+        ))}
+      </div>
 
-      {isOwner && tab === 'global' ? (
-        <GlobalSettings />
-      ) : (
-        <FamilySettings me={me} isFamilyManager={isFamilyManager} isAdult={isAdult} />
-      )}
+      <div className="space-y-6">
+        {activeTab === 'family' && (
+          <>
+            <TokenNameSetting />
+            <ChoreWordSetting />
+          </>
+        )}
+        {activeTab === 'features' && <FamilyFeaturesSetting />}
+        {activeTab === 'people' && (
+          <Section title="People & PINs">
+            <MembersManager me={me} />
+          </Section>
+        )}
+        {activeTab === 'calendars' && (
+          <>
+            <Section
+              title="Calendar colors"
+              help="The default color everyone sees for a calendar (Google or local), unless they've picked their own in My Account."
+            >
+              <CalendarColorsSetting />
+            </Section>
+            <Section
+              title="Local calendars"
+              help="Calendars that live in the app - no Google account needed. Give one a location to scope it to a household. Set a local calendar's color above, alongside every other calendar's."
+            >
+              <LocalCalendarsSetting />
+            </Section>
+          </>
+        )}
+        {activeTab === 'locations' && (
+          <Section title="Locations" help="For split households - group people so calendars and displays can be scoped per house.">
+            <LocationsSetting />
+          </Section>
+        )}
+        {activeTab === 'displays' && (
+          <>
+            <Section title="Displays">
+              <DisplaysManager />
+            </Section>
+            <Section title="Kiosk links" help="Mint or revoke the bearer-token links a physical kiosk actually opens.">
+              <DisplayAccess />
+            </Section>
+          </>
+        )}
+        {activeTab === 'instance' && (
+          <>
+            <Section
+              title="Families"
+              help="Instance-wide: create families, move members between them, invite someone directly into one, or ghost as any account."
+            >
+              <OwnerFamiliesPanel />
+            </Section>
+            <Section
+              title="Holidays"
+              help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
+            >
+              <HolidaysPanel />
+            </Section>
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -487,12 +494,6 @@ function LocalCalendarsSetting() {
               </button>
             )}
             <input
-              type="color"
-              value={c.color ?? '#94a3b8'}
-              onChange={(e) => patch(c.id, { color: e.target.value })}
-              className="h-7 w-7 shrink-0 cursor-pointer rounded border"
-            />
-            <input
               defaultValue={c.name}
               onBlur={(e) => e.target.value.trim() && e.target.value !== c.name && patch(c.id, { name: e.target.value.trim() })}
               className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
@@ -521,10 +522,11 @@ function LocalCalendarsSetting() {
 }
 
 // Owner/family-manager only: the shared default color for every calendar in
-// the family (Google-backed ones have never had an edit UI at all until now
-// - only local calendars could be recolored, via LocalCalendarsSetting
-// above). A personal override set in My Settings still wins over this for
-// whoever set one; this just changes what everyone else sees.
+// the family, Google-backed or local - one list, one control, instead of
+// local calendars having their own separate (and redundant) color picker
+// down in LocalCalendarsSetting below. A personal override set in My Account
+// still wins over this for whoever set one; this just changes what everyone
+// else sees.
 function CalendarColorsSetting() {
   const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
   const [savingId, setSavingId] = useState<string | null>(null);

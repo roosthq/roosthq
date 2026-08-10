@@ -3,7 +3,7 @@ import { api, loginUrl, type GoogleCalendar, type SharedCalendar } from './api';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
 
-// "My Settings" -> Calendars: a personal color override per calendar (native
+// "My Account" -> Calendars: a personal color override per calendar (native
 // color input - a calendar's color is already a freeform hex, same as what
 // Google or a local calendar's creator picked, so there's no fixed palette
 // to match here like the profile theme swatches use) plus the same

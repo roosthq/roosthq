@@ -55,7 +55,7 @@ function EarnedSparkline({ ledger, label }: { ledger: LedgerEntry[]; label: stri
 // The basic, browse-anyone view - stats, awards, token/purchase history, and
 // (adults) a quick manual token adjust. Deliberately kept simple: everything
 // about managing YOUR OWN account (identity, password, avatar, PIN, Google
-// accounts, delete) lives on My Settings instead - this page never mutates
+// accounts, delete) lives on My Account instead - this page never mutates
 // your own account, only ever someone's token ledger (an adult action, not
 // a self-management one).
 export default function ProfilePage({

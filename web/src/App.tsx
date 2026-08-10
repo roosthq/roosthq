@@ -6,18 +6,14 @@ import Nav from './Nav';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
 import CalendarPage from './pages/CalendarPage';
-import DashboardPage from './pages/DashboardPage';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
 import MySettingsPage from './pages/MySettingsPage';
 import SettingsPage from './pages/SettingsPage';
 import NotificationsPage from './pages/NotificationsPage';
-import RulesPage from './pages/RulesPage';
 import HouseholdPage from './pages/HouseholdPage';
-import AwardsPage from './pages/AwardsPage';
 import SearchPage from './pages/SearchPage';
-import AgendaPage from './pages/AgendaPage';
 
 // data-mode = light/dark; data-theme = which of the 9 color themes (see
 // COLOR_THEMES in api.ts). Two independent attributes - see index.css.
@@ -187,7 +183,6 @@ export default function App() {
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
-          <Route path="/dashboard" element={isAdult ? <DashboardPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="/chores" element={<ChoresPage me={me} />} />
           <Route
             path="/store"
@@ -209,14 +204,16 @@ export default function App() {
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/agenda" element={<AgendaPage />} />
-          <Route path="/rules" element={<RulesPage me={me} />} />
           <Route path="/household" element={<HouseholdPage me={me} />} />
-          <Route
-            path="/awards"
-            element={isAdult ? <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} /> : <Navigate to="/" replace />}
-          />
           <Route path="/settings" element={isAdult ? <SettingsPage me={me} /> : <Navigate to="/" replace />} />
+          {/* Nav reorg (2026-08): Dashboard, Agenda, Rules, and Awards folded
+              into Calendar/Household/Store respectively - these keep old
+              bookmarks, PWA shortcuts, notification links, and search-result
+              links from 404ing instead of silently updating every reference. */}
+          <Route path="/dashboard" element={<Navigate to="/" replace />} />
+          <Route path="/agenda" element={<Navigate to="/?view=agenda" replace />} />
+          <Route path="/rules" element={<Navigate to="/household#rules" replace />} />
+          <Route path="/awards" element={<Navigate to="/store?tab=awards" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

@@ -20,7 +20,7 @@ const TYPE_ICON: Record<string, string> = {
   AWARD_GRANTED: '🏆',
 };
 
-// Push/email notification prefs moved to My Settings - this page is the
+// Push/email notification prefs moved to My Account - this page is the
 // feed/list only now.
 export default function NotificationsPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';

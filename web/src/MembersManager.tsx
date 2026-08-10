@@ -26,7 +26,6 @@ export default function MembersManager({ me }: { me: Me }) {
   const { confirm } = useDialog();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<InviteInfo[]>([]);
-  const [open, setOpen] = useState(false);
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [inviteRole, setInviteRole] = useState<'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>('KID');
@@ -45,9 +44,13 @@ export default function MembersManager({ me }: { me: Me }) {
     setMembers(m);
     setInvites(inv);
   }
+  // Reveal button removed (nav reorg, 2026-08) - this now has its own
+  // dedicated "People & PINs" tab in Family Settings, which is already the
+  // disclosure step; a second collapse on top of that was double-clicking to
+  // see the same thing.
   useEffect(() => {
-    if (open) refresh();
-  }, [open]);
+    refresh();
+  }, []);
 
   async function createInvite() {
     const minted = await api.createInvite(inviteRole);
@@ -141,20 +144,10 @@ export default function MembersManager({ me }: { me: Me }) {
     await refresh();
   }
 
-  if (!open)
-    return (
-      <button onClick={() => setOpen(true)} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
-        Family &amp; PINs
-      </button>
-    );
-
   return (
     <div className="card-nested mt-2 w-full rounded p-3">
       <div className="flex items-center justify-between">
         <span className="font-medium">Family members</span>
-        <button onClick={() => setOpen(false)} className="text-sm text-slate-400 hover:text-slate-700">
-          Close
-        </button>
       </div>
 
       {/* Invite */}

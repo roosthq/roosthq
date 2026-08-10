@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   api,
   choreClient,
@@ -19,6 +20,7 @@ import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type Chor
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
 import { familyFeatureEnabled, kidPermissionEnabled } from '../api';
 import DropdownDetails from '../DropdownDetails';
+import AgendaPage from './AgendaPage';
 
 export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
   const cls = size === 'sm' ? 'h-8 w-8' : 'h-10 w-10';
@@ -83,6 +85,13 @@ export default function CalendarPage({ me }: { me: Me }) {
   // Kids can add events unless an adult turned that permission off (server
   // enforces it in calendars/local-calendars createEvent).
   const canAddEvents = kidPermissionEnabled(me, 'calendarAdd');
+  // Agenda folded in as a view mode (nav reorg, 2026-08) rather than its own
+  // route - it's the same events+chores stream this page already fetches,
+  // just rendered as a printable day-by-day list instead of a grid. The old
+  // /agenda route redirects here with ?view=agenda so existing links/
+  // bookmarks land on the right mode instead of just the default grid.
+  const [params] = useSearchParams();
+  const [view, setView] = useState<'grid' | 'agenda'>(params.get('view') === 'agenda' ? 'agenda' : 'grid');
   const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
@@ -304,6 +313,25 @@ export default function CalendarPage({ me }: { me: Me }) {
         </div>
       )}
 
+      <div className="no-print mb-4 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
+        <button
+          onClick={() => setView('grid')}
+          className={`rounded px-4 py-1.5 ${view === 'grid' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+        >
+          Grid
+        </button>
+        <button
+          onClick={() => setView('agenda')}
+          className={`rounded px-4 py-1.5 ${view === 'agenda' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+        >
+          Agenda
+        </button>
+      </div>
+
+      {view === 'agenda' ? (
+        <AgendaPage />
+      ) : (
+        <>
       <section className="no-print">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-lg font-semibold">
@@ -382,6 +410,8 @@ export default function CalendarPage({ me }: { me: Me }) {
           return <ChoreOccurrenceActions chore={occ.chore} instance={occ.instance} me={me} onChanged={refreshChores} />;
         }}
       />
+        </>
+      )}
 
       {(addingEvent || editingEvent) && (
         <AddEventModal

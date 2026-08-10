@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { api, prizeClient, type CropRect, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
@@ -6,6 +7,7 @@ import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 import { formatDate } from '../dateFormat';
+import AwardsPage from './AwardsPage';
 
 // Store cards are all the same horizontal-rectangle shape (see the grid
 // above) - the crop tool matches it, so what you select is exactly what the
@@ -24,6 +26,16 @@ export default function StorePage({
   tokenValueUsd: number;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  // Awards folded in as a second, adult-only tab (nav reorg, 2026-08) - same
+  // reward-catalog-CRUD-plus-grant-flow mental model as Prizes, just a lower-
+  // frequency one, so it doesn't need its own top-level nav slot. Kids never
+  // see the tab bar at all; they only ever had Prizes.
+  const [params, setParams] = useSearchParams();
+  const [tab, setTab] = useState<'prizes' | 'awards'>(isAdult && params.get('tab') === 'awards' ? 'awards' : 'prizes');
+  function selectTab(next: 'prizes' | 'awards') {
+    setTab(next);
+    setParams(next === 'awards' ? { tab: 'awards' } : {}, { replace: true });
+  }
   const { alert, confirm } = useDialog();
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
@@ -125,7 +137,7 @@ export default function StorePage({
               + Request a prize
             </button>
           )}
-          {isAdult && (
+          {isAdult && tab === 'prizes' && (
             <button
               onClick={() => {
                 setEditing(null);
@@ -139,6 +151,29 @@ export default function StorePage({
         </div>
       </div>
 
+      {isAdult && (
+        <div className="mt-3 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
+          <button
+            onClick={() => selectTab('prizes')}
+            className={`rounded px-4 py-1.5 ${tab === 'prizes' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            Prizes
+          </button>
+          <button
+            onClick={() => selectTab('awards')}
+            className={`rounded px-4 py-1.5 ${tab === 'awards' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+          >
+            Awards
+          </button>
+        </div>
+      )}
+
+      {tab === 'awards' && isAdult ? (
+        <div className="mt-4">
+          <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} />
+        </div>
+      ) : (
+        <>
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {activePrizes.map((p) => (
           <li key={p.id}>
@@ -375,6 +410,8 @@ export default function StorePage({
             await refresh();
           }}
         />
+      )}
+        </>
       )}
     </div>
   );

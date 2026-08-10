@@ -106,7 +106,7 @@ export default function Nav({
     );
 
   // Name -> dropdown: "View Profile" (the basic, browse-anyone page) vs
-  // "My Settings" (identity/password/avatar/PIN/Google/delete - self only).
+  // "My Account" (identity/password/avatar/PIN/Google/delete - self only).
   // Same <details>/<summary> disclosure shell as displayLink above.
   //
   // Alignment differs by where this gets mounted: the desktop copy sits at
@@ -131,50 +131,43 @@ export default function Nav({
             onClick={closeMenu ? () => setMenuOpen(false) : undefined}
             className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
           >
-            My Settings
+            My Account
           </Link>
         </div>
       </DropdownDetails>
     );
   }
 
+  // Nav reorg (2026-08): one map for every role - Dashboard is gone
+  // (PendingIndicator, right here in the nav bar, already covered its one
+  // non-redundant job for every adult, on every page); Agenda/Rules/Awards
+  // folded into Calendar/Household/Store as views/sections/tabs rather than
+  // separate destinations. Settings renamed "Family Settings" to stop it
+  // reading as a near-duplicate of "My Account" (see nameMenu above).
   const links = (
     <>
-      {isAdult && <NavLink to="/dashboard" className={cls} onClick={() => setMenuOpen(false)}>Dashboard</NavLink>}
       <NavLink to="/" end className={cls} onClick={() => setMenuOpen(false)}>Calendar</NavLink>
-      <NavLink to="/agenda" className={cls} onClick={() => setMenuOpen(false)}>Agenda</NavLink>
       <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>
       <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>
-      <NavLink to="/profile" className={cls} onClick={() => setMenuOpen(false)}>Profiles</NavLink>
       <NavLink to="/household" className={cls} onClick={() => setMenuOpen(false)}>Household</NavLink>
-      <NavLink to="/rules" className={cls} onClick={() => setMenuOpen(false)}>Rules</NavLink>
-      {isAdult && <NavLink to="/awards" className={cls} onClick={() => setMenuOpen(false)}>Awards</NavLink>}
-      {isAdult && <NavLink to="/settings" className={cls} onClick={() => setMenuOpen(false)}>Settings</NavLink>}
+      <NavLink to="/profile" className={cls} onClick={() => setMenuOpen(false)}>Profiles</NavLink>
+      {isAdult && <NavLink to="/settings" className={cls} onClick={() => setMenuOpen(false)}>Family Settings</NavLink>}
     </>
   );
 
   // Phone/tablet: the four everyday destinations live in a fixed bottom tab
-  // bar (thumb-reachable, kid-findable); the hamburger keeps the long tail
-  // (Rules, Awards, Settings, theme, sign out). index.css pads the body via
+  // bar (thumb-reachable, kid-findable), identical for every role now that
+  // Dashboard is gone; the hamburger keeps the long tail (Household,
+  // Settings, theme, sign out). index.css pads the body via
   // body:has(.bottom-tabs) so page content never hides behind it - the kiosk
   // renders no Nav, so it gets no padding.
   const tabCls = ({ isActive }: { isActive: boolean }) =>
     `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
   const bottomTabs = (
     <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
-      {/* Adults get Dashboard in the first (most reachable) slot instead of
-          Calendar - Calendar is still one tap away from there, and still has
-          its own nav link, just no longer the default landing spot. Kids
-          keep Calendar here since they have no Dashboard. */}
-      {isAdult ? (
-        <NavLink to="/dashboard" className={tabCls}>
-          <span className="text-xl leading-none">📊</span>Dashboard
-        </NavLink>
-      ) : (
-        <NavLink to="/" end className={tabCls}>
-          <span className="text-xl leading-none">📅</span>Calendar
-        </NavLink>
-      )}
+      <NavLink to="/" end className={tabCls}>
+        <span className="text-xl leading-none">📅</span>Calendar
+      </NavLink>
       <NavLink to="/chores" className={tabCls}>
         <span className="text-xl leading-none">✅</span>{chorePlural}
       </NavLink>
@@ -192,7 +185,7 @@ export default function Nav({
       {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
-          <Link to={isAdult ? '/dashboard' : '/'} className="mr-2 sm:mr-3 hover:opacity-80">
+          <Link to="/" className="mr-2 sm:mr-3 hover:opacity-80">
             <Logo size={26} />
           </Link>
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>

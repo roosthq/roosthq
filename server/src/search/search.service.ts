@@ -102,7 +102,8 @@ export class SearchService {
       rules: rules.map((r) => ({
         id: r.id,
         label: r.text,
-        link: '/rules',
+        // Rules folded into Household as a section, not its own route.
+        link: '/household#rules',
       })),
       prizes: prizes.map((p) => ({
         id: p.id,
@@ -112,7 +113,8 @@ export class SearchService {
       awards: awards.map((a) => ({
         id: a.id,
         label: a.name,
-        link: '/awards',
+        // Awards folded into Store as an adult-only tab, not its own route.
+        link: '/store?tab=awards',
       })),
     };
   }

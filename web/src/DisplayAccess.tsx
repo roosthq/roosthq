@@ -3,13 +3,15 @@ import { CopyableLink } from './InviteLinkBox';
 import { api, type DisplayTokenInfo, type DisplayConfig } from './api';
 import { formatDate } from './dateFormat';
 
-// Owner-only panel to mint / revoke kiosk links, each bound to a display layout.
+// Owner-only panel to mint / revoke kiosk links, each bound to a display
+// layout - lives in Family Settings' own "Kiosk links" tab (nav reorg,
+// 2026-08), which is already the disclosure step; no reveal button needed
+// on top of that anymore.
 export default function DisplayAccess() {
   const [tokens, setTokens] = useState<DisplayTokenInfo[]>([]);
   const [displays, setDisplays] = useState<DisplayConfig[]>([]);
   const [selected, setSelected] = useState('');
   const [freshUrl, setFreshUrl] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
 
   async function refresh() {
     const [t, d] = await Promise.all([api.listDisplayTokens(), api.listDisplays()]);
@@ -19,8 +21,8 @@ export default function DisplayAccess() {
   }
 
   useEffect(() => {
-    if (open) refresh();
-  }, [open]);
+    refresh();
+  }, []);
 
   async function mint() {
     const minted = await api.mintDisplayToken('Kiosk', selected || undefined);
@@ -38,17 +40,9 @@ export default function DisplayAccess() {
     return displays.find((d) => d.id === displayConfigId)?.name ?? 'Deleted display';
   }
 
-  if (!open)
-    return (
-      <button onClick={() => setOpen(true)} className="rounded bg-slate-800 px-3 py-1 text-white hover:bg-slate-700">
-        Display access
-      </button>
-    );
-
   return (
     <div className="card-nested mt-2 w-full rounded p-3">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-medium">Display access (kiosk links)</span>
         <div className="flex items-center gap-2">
           <select value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded border px-2 py-1 text-xs">
             {displays.length === 0 && <option value="">Default display</option>}
