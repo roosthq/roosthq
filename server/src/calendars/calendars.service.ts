@@ -62,7 +62,14 @@ export class CalendarsService {
       try {
         const { data } = await this.google.withCalendar(acc.id, (cal) => cal.calendarList.list());
         for (const item of data.items ?? []) {
-          if (item.accessRole !== 'owner') continue;
+          // Owner/writer/reader all carry real event content - shareable.
+          // freeBusyReader only ever exposes busy/free blocks, no titles, so
+          // it's excluded (nothing worth showing family-wide anyway). This
+          // used to require accessRole === 'owner', which meant a calendar
+          // you only subscribe to (a public holiday calendar, someone else's
+          // shared calendar) could get shared once but then vanish from this
+          // picker forever - no way to see it, let alone unshare it, again.
+          if (item.accessRole === 'freeBusyReader') continue;
           out.push({
             googleAccountId: acc.id,
             googleCalendarId: item.id as string,
