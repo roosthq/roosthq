@@ -99,6 +99,7 @@ model Family {
   displayConfigs  DisplayConfig[]
   invites         FamilyInvite[]
   mealPlans       MealPlan[]
+  eatOutPlaces    EatOutPlace[]
   wheelSpins      WheelSpin[]
   groceryItems    GroceryItem[]
   countdowns      Countdown[]
@@ -707,18 +708,38 @@ model Redemption {
 // Simple family-scoped lists surfaced on the kiosk and a Household page.
 
 model MealPlan {
-  id         String  @id @default(cuid())
-  familyId   String
-  locationId String? // which household's dinner this is; null = family-wide
-  date       String // YYYY-MM-DD local date key
-  title      String // "Tacos"
-  notes      String?
+  id            String  @id @default(cuid())
+  familyId      String
+  locationId    String? // which household's dinner this is; null = family-wide
+  date          String // YYYY-MM-DD local date key
+  title         String // "Tacos" - ignored (but kept, so switching back off "Out" restores it) once isEatingOut
+  notes         String?
+  isEatingOut   Boolean @default(false)
+  eatOutPlaceId String? // set once a place is chosen/spun; null = "Out" but undecided yet
 
-  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  family      Family       @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  eatOutPlace EatOutPlace? @relation(fields: [eatOutPlaceId], references: [id], onDelete: SetNull)
 
   // One dinner per day PER SCOPE (enforced in code - a nullable column can't
   // carry that in a MySQL unique index).
   @@index([familyId, date])
+  @@index([eatOutPlaceId])
+}
+
+// A family's list of favorite restaurants/places for "Out" nights - adults
+// maintain this; the meal-plan spin picks uniformly at random from it.
+model EatOutPlace {
+  id          String   @id @default(cuid())
+  familyId    String
+  name        String
+  notes       String?
+  createdById String
+  createdAt   DateTime @default(now())
+
+  family    Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  mealPlans MealPlan[]
+
+  @@index([familyId])
 }
 
 model GroceryItem {

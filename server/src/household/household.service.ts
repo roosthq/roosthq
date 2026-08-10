@@ -61,11 +61,21 @@ export class HouseholdService {
 
   // ---- Meals ----
 
+  // Flatten the eatOutPlace relation into a plain name - callers/the client
+  // type (MealPlanEntry) never need the nested object, just its name.
+  private mapMeal<T extends { eatOutPlace?: { name: string } | null }>(m: T) {
+    const { eatOutPlace, ...rest } = m;
+    return { ...rest, eatOutPlaceName: eatOutPlace?.name ?? null };
+  }
+
   meals(familyId: string, start: string, end: string, locationId?: string | null) {
-    return this.prisma.mealPlan.findMany({
-      where: { familyId, date: { gte: start, lte: end }, ...this.scope(locationId) },
-      orderBy: { date: 'asc' },
-    });
+    return this.prisma.mealPlan
+      .findMany({
+        where: { familyId, date: { gte: start, lte: end }, ...this.scope(locationId) },
+        include: { eatOutPlace: { select: { name: true } } },
+        orderBy: { date: 'asc' },
+      })
+      .then((rows) => rows.map((r) => this.mapMeal(r)));
   }
 
   // One dinner per day PER SCOPE (family-wide vs each household) - enforced
@@ -74,24 +84,56 @@ export class HouseholdService {
     familyId: string,
     actorId: string,
     date: string,
-    dto: { title?: string; notes?: string | null; locationId?: string | null },
+    dto: { title?: string; notes?: string | null; locationId?: string | null; isEatingOut?: boolean; eatOutPlaceId?: string | null },
   ) {
     await this.assertAdult(actorId);
     if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
-    const title = dto.title?.trim();
+    const isEatingOut = !!dto.isEatingOut;
+    // A dish name is required for a normal dinner, but meaningless for an
+    // "Out" night - default it to something readable rather than force the
+    // caller to make one up (the UI never even shows a title field for Out).
+    const title = isEatingOut ? dto.title?.trim() || 'Out' : dto.title?.trim();
     if (!title) throw new BadRequestException('Title is required');
     const locationId = await this.assertLocation(familyId, dto.locationId);
+    let eatOutPlaceId: string | null | undefined = undefined;
+    if (dto.eatOutPlaceId !== undefined) {
+      if (dto.eatOutPlaceId === null) {
+        eatOutPlaceId = null;
+      } else {
+        const place = await this.prisma.eatOutPlace.findFirst({ where: { id: dto.eatOutPlaceId, familyId } });
+        if (!place) throw new BadRequestException('Place not found');
+        eatOutPlaceId = place.id;
+      }
+    }
     const existing = await this.prisma.mealPlan.findFirst({ where: { familyId, date, locationId } });
     const meal = existing
       ? await this.prisma.mealPlan.update({
           where: { id: existing.id },
-          data: { title, ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }) },
+          data: {
+            title,
+            isEatingOut,
+            // Switching a day back to a normal dinner clears whatever place
+            // was picked - otherwise it'd silently reappear if "Out" got
+            // re-checked later.
+            eatOutPlaceId: isEatingOut ? eatOutPlaceId : null,
+            ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }),
+          },
+          include: { eatOutPlace: { select: { name: true } } },
         })
       : await this.prisma.mealPlan.create({
-          data: { familyId, date, title, locationId, notes: dto.notes?.trim() || null },
+          data: {
+            familyId,
+            date,
+            title,
+            locationId,
+            isEatingOut,
+            eatOutPlaceId: isEatingOut ? (eatOutPlaceId ?? null) : null,
+            notes: dto.notes?.trim() || null,
+          },
+          include: { eatOutPlace: { select: { name: true } } },
         });
     this.displayEvents.publish(familyId, { type: 'household' });
-    return meal;
+    return this.mapMeal(meal);
   }
 
   async deleteMeal(familyId: string, actorId: string, date: string, locationId?: string | null) {
@@ -99,6 +141,71 @@ export class HouseholdService {
     await this.prisma.mealPlan.deleteMany({ where: { familyId, date, locationId: locationId || null } });
     this.displayEvents.publish(familyId, { type: 'household' });
     return { ok: true };
+  }
+
+  // ---- Out-to-eat picker ----
+  // A family-maintained list of favorite places; "spinning" a day picks one
+  // uniformly at random. Same fairness rule as everywhere else with a random
+  // payout: the server rolls, the client only ever finds out the result -
+  // there's no client-suppliable "which place did I get" input anywhere here.
+
+  eatOutPlaces(familyId: string) {
+    return this.prisma.eatOutPlace.findMany({ where: { familyId }, orderBy: { name: 'asc' } });
+  }
+
+  async addEatOutPlace(familyId: string, actorId: string, dto: { name: string; notes?: string | null }) {
+    await this.assertAdult(actorId);
+    const name = dto.name?.trim();
+    if (!name) throw new BadRequestException('Name is required');
+    return this.prisma.eatOutPlace.create({
+      data: { familyId, name: name.slice(0, 120), notes: dto.notes?.trim() || null, createdById: actorId },
+    });
+  }
+
+  async updateEatOutPlace(familyId: string, actorId: string, id: string, dto: { name?: string; notes?: string | null }) {
+    await this.assertAdult(actorId);
+    const place = await this.prisma.eatOutPlace.findFirst({ where: { id, familyId } });
+    if (!place) throw new NotFoundException('Place not found');
+    return this.prisma.eatOutPlace.update({
+      where: { id },
+      data: {
+        ...(dto.name !== undefined && { name: dto.name.trim().slice(0, 120) || place.name }),
+        ...(dto.notes !== undefined && { notes: dto.notes?.trim() || null }),
+      },
+    });
+  }
+
+  async deleteEatOutPlace(familyId: string, actorId: string, id: string) {
+    await this.assertAdult(actorId);
+    const place = await this.prisma.eatOutPlace.findFirst({ where: { id, familyId } });
+    if (!place) throw new NotFoundException('Place not found');
+    await this.prisma.eatOutPlace.delete({ where: { id } });
+    return { ok: true };
+  }
+
+  // Picks a place for an already-"Out" day. Creates the day as Out if it
+  // doesn't exist yet (spinning implies wanting to eat out that day even if
+  // nobody explicitly toggled it on first).
+  async spinEatOut(familyId: string, actorId: string, date: string, locationId?: string | null) {
+    await this.assertAdult(actorId);
+    if (!DATE_KEY.test(date)) throw new BadRequestException('Bad date');
+    const places = await this.prisma.eatOutPlace.findMany({ where: { familyId } });
+    if (!places.length) throw new BadRequestException('Add at least one place first');
+    const winner = places[Math.floor(Math.random() * places.length)];
+    const resolvedLocationId = await this.assertLocation(familyId, locationId);
+    const existing = await this.prisma.mealPlan.findFirst({ where: { familyId, date, locationId: resolvedLocationId } });
+    const meal = existing
+      ? await this.prisma.mealPlan.update({
+          where: { id: existing.id },
+          data: { isEatingOut: true, eatOutPlaceId: winner.id },
+          include: { eatOutPlace: { select: { name: true } } },
+        })
+      : await this.prisma.mealPlan.create({
+          data: { familyId, date, title: 'Out', locationId: resolvedLocationId, isEatingOut: true, eatOutPlaceId: winner.id },
+          include: { eatOutPlace: { select: { name: true } } },
+        });
+    this.displayEvents.publish(familyId, { type: 'household' });
+    return this.mapMeal(meal);
   }
 
   // ---- Grocery list ----
@@ -229,9 +336,10 @@ export class HouseholdService {
     const tz = await this.resolveTimezone(locationId);
     const key = todayKeyInZone(tz);
     const today = `${key.y}-${String(key.m).padStart(2, '0')}-${String(key.d).padStart(2, '0')}`;
-    const [meals, countdowns, announcements, groceryOpen, people] = await Promise.all([
+    const [mealRows, countdowns, announcements, groceryOpen, people] = await Promise.all([
       this.prisma.mealPlan.findMany({
         where: { familyId, date: { gte: today }, ...this.scope(locationId) },
+        include: { eatOutPlace: { select: { name: true } } },
         orderBy: { date: 'asc' },
         take: 3,
       }),
@@ -269,6 +377,7 @@ export class HouseholdService {
       }
     }
     withBirthdays.sort((a, b) => a.date.localeCompare(b.date));
+    const meals = mealRows.map((r) => this.mapMeal(r));
     return { today, meals, countdowns: withBirthdays.slice(0, 4), announcements, groceryOpen };
   }
 

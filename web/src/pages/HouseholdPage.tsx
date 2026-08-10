@@ -4,6 +4,7 @@ import {
   familyFeatureEnabled,
   type AnnouncementEntry,
   type CountdownEntry,
+  type EatOutPlace,
   type FamilyLocation,
   type FamilySettings,
   type GroceryItem,
@@ -15,6 +16,7 @@ import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
 import { useWeekSwipe } from '../useWeekSwipe';
 import IconPicker from '../IconPicker';
+import DropdownDetails from '../DropdownDetails';
 
 function dateKey(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -110,6 +112,9 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const [meals, setMeals] = useState<Record<string, MealPlanEntry>>({});
   const [editing, setEditing] = useState<string | null>(null);
   const [draft, setDraft] = useState('');
+  const [places, setPlaces] = useState<EatOutPlace[]>([]);
+  const [spinningKey, setSpinningKey] = useState<string | null>(null);
+  const [spinDisplay, setSpinDisplay] = useState('');
 
   const { navigate, animKey, animClass, swipeProps } = useWeekSwipe((delta) => setWeekStart((w) => addDays(w, delta * 7)));
 
@@ -129,6 +134,13 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
     refresh();
   }, [refresh]);
 
+  const refreshPlaces = useCallback(() => {
+    api.eatOutPlaces().then(setPlaces).catch(() => setPlaces([]));
+  }, []);
+  useEffect(() => {
+    if (isAdult) refreshPlaces();
+  }, [isAdult, refreshPlaces]);
+
   async function save(date: string) {
     const title = draft.trim();
     if (title) await api.setMeal(date, { title, locationId: scope || null });
@@ -137,12 +149,58 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
     refresh();
   }
 
+  // "Out" toggle: on sets isEatingOut with no dish name (server defaults the
+  // title to "Out"); off just deletes the row entirely - there's no real
+  // dish name to fall back to, same as clearing a normal day's text.
+  async function toggleOut(k: string) {
+    const meal = meals[k];
+    if (meal?.isEatingOut) {
+      await api.deleteMeal(k, meal.locationId ?? null);
+    } else {
+      await api.setMeal(k, { isEatingOut: true, locationId: scope || null });
+    }
+    refresh();
+  }
+
+  async function pickPlace(k: string, placeId: string) {
+    if (!placeId) return;
+    await api.setMeal(k, { isEatingOut: true, eatOutPlaceId: placeId, locationId: scope || null });
+    refresh();
+  }
+
+  // Server always rolls the real winner (in the awaited spinEatOut call)
+  // before this ever settles - the rapid-fire local names underneath are
+  // pure decoration while we wait, same "server decides, client just
+  // animates" rule every other random-reward feature in the app follows.
+  async function spin(k: string) {
+    if (!places.length || spinningKey) return;
+    setSpinningKey(k);
+    const interval = window.setInterval(() => {
+      setSpinDisplay(places[Math.floor(Math.random() * places.length)].name);
+    }, 90);
+    try {
+      await api.spinEatOut(k, scope || null);
+    } finally {
+      window.clearInterval(interval);
+      setSpinningKey(null);
+    }
+    refresh();
+  }
+
   const todayKey = dateKey(new Date());
   return (
     <section className="panel min-w-0">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="text-base font-semibold tracking-tight">🍽️ Dinner plan</h3>
-        <div className="flex items-center gap-1 text-sm">
+        <div className="flex items-center gap-2 text-sm">
+          {isAdult && (
+            <DropdownDetails
+              summary="Favorite places ▾"
+              summaryClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
+            >
+              <EatOutPlacesPanel places={places} onChanged={refreshPlaces} />
+            </DropdownDetails>
+          )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
           <span className="px-1 text-slate-500">
             {weekStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} week
@@ -159,10 +217,60 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           const meal = meals[k];
           return (
             <li key={k} className={`card-nested rounded-lg p-2.5 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
-              <div className="text-sm font-medium text-slate-500">
-                {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
+              <div className="flex items-center justify-between gap-1">
+                <div className="text-sm font-medium text-slate-500">
+                  {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
+                </div>
+                {isAdult && (
+                  <button
+                    onClick={() => toggleOut(k)}
+                    title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
+                    className={`shrink-0 rounded px-1 text-xs ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
+                  >
+                    🍽️
+                  </button>
+                )}
               </div>
-              {editing === k ? (
+              {meal?.isEatingOut ? (
+                spinningKey === k ? (
+                  <div className="mt-1.5 min-h-[2.5rem] w-full rounded px-2 py-1.5 text-left text-base leading-snug">
+                    🎲 <span className="text-slate-400">{spinDisplay || '…'}</span>
+                  </div>
+                ) : (
+                  <div className="mt-1.5 space-y-1">
+                    <div className="min-h-[1.5rem] px-2 text-base leading-snug">
+                      {meal.eatOutPlaceName ? (
+                        <>🍽️ {meal.eatOutPlaceName}</>
+                      ) : (
+                        <span className="text-slate-400">🍽️ Out - TBD</span>
+                      )}
+                    </div>
+                    {isAdult && places.length > 0 && (
+                      <div className="flex items-center gap-1 px-1">
+                        <select
+                          value=""
+                          onChange={(e) => pickPlace(k, e.target.value)}
+                          className="min-w-0 flex-1 rounded border px-1 py-1 text-xs"
+                        >
+                          <option value="">Pick…</option>
+                          {places.map((p) => (
+                            <option key={p.id} value={p.id}>
+                              {p.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => spin(k)}
+                          title="Spin to pick randomly"
+                          className="shrink-0 rounded border px-1.5 py-1 text-xs hover:bg-slate-50"
+                        >
+                          🎲
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )
+              ) : editing === k ? (
                 <input
                   autoFocus
                   value={draft}
@@ -192,6 +300,65 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
         })}
       </ul>
     </section>
+  );
+}
+
+// Adults' favorite eat-out places - tucked behind the "Favorite places"
+// dropdown in the Dinner plan header rather than its own top-level section,
+// since it's setup done rarely (once, then occasionally tweaked) compared to
+// the weekly grid it feeds.
+function EatOutPlacesPanel({ places, onChanged }: { places: EatOutPlace[]; onChanged: () => void }) {
+  const [name, setName] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  async function add() {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    setSaving(true);
+    try {
+      await api.addEatOutPlace(trimmed);
+      setName('');
+      onChanged();
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function remove(id: string) {
+    await api.deleteEatOutPlace(id);
+    onChanged();
+  }
+
+  return (
+    <div className="absolute right-0 z-10 mt-1 w-64 rounded border bg-white p-2 shadow">
+      <ul className="max-h-48 space-y-1 overflow-auto">
+        {places.map((p) => (
+          <li key={p.id} className="flex items-center justify-between gap-2 rounded px-1.5 py-1 text-sm hover:bg-slate-50">
+            <span className="min-w-0 flex-1 truncate">{p.name}</span>
+            <button onClick={() => remove(p.id)} className="shrink-0 text-xs text-slate-400 hover:text-red-500">
+              ✕
+            </button>
+          </li>
+        ))}
+        {places.length === 0 && <li className="px-1.5 py-1 text-xs text-slate-400">No places added yet.</li>}
+      </ul>
+      <div className="mt-2 flex gap-1 border-t pt-2">
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && add()}
+          placeholder="Add a place…"
+          className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
+        />
+        <button
+          onClick={add}
+          disabled={saving || !name.trim()}
+          className="shrink-0 rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+        >
+          Add
+        </button>
+      </div>
+    </div>
   );
 }
 

@@ -291,7 +291,7 @@ export default function Display() {
   // family's feature switches - both readable with just the display token.
   const [household, setHousehold] = useState<{
     today: string;
-    meals: Array<{ date: string; title: string }>;
+    meals: Array<{ date: string; title: string; isEatingOut?: boolean; eatOutPlaceName?: string | null }>;
     countdowns: Array<{ id: string; title: string; emoji: string; date: string }>;
     announcements: Array<{ id: string; text: string }>;
     groceryOpen: number;
@@ -712,7 +712,14 @@ export default function Display() {
               className="card-nested rounded-full px-3 py-1 hover:opacity-80"
               title="See the whole week's dinner plan"
             >
-              🍽️ Tonight: <span className="font-semibold">{todayMeal?.title ?? 'nothing planned'}</span>
+              🍽️ Tonight:{' '}
+              <span className="font-semibold">
+                {todayMeal
+                  ? todayMeal.isEatingOut
+                    ? todayMeal.eatOutPlaceName ?? 'Out - TBD'
+                    : todayMeal.title
+                  : 'nothing planned'}
+              </span>
             </button>
           )}
           {showCountdowns &&

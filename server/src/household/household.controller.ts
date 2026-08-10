@@ -23,7 +23,14 @@ export class HouseholdController {
   setMeal(
     @CurrentUser() u: SessionPayload,
     @Param('date') date: string,
-    @Body() body: { title?: string; notes?: string | null; locationId?: string | null },
+    @Body()
+    body: {
+      title?: string;
+      notes?: string | null;
+      locationId?: string | null;
+      isEatingOut?: boolean;
+      eatOutPlaceId?: string | null;
+    },
   ) {
     return this.household.setMeal(u.familyId, u.userId, date, body);
   }
@@ -31,6 +38,35 @@ export class HouseholdController {
   @Delete('meals/:date')
   deleteMeal(@CurrentUser() u: SessionPayload, @Param('date') date: string, @Query('locationId') locationId?: string) {
     return this.household.deleteMeal(u.familyId, u.userId, date, locationId || null);
+  }
+
+  @Post('meals/:date/spin-out')
+  spinEatOut(@CurrentUser() u: SessionPayload, @Param('date') date: string, @Body() body: { locationId?: string | null }) {
+    return this.household.spinEatOut(u.familyId, u.userId, date, body?.locationId ?? null);
+  }
+
+  @Get('eat-out-places')
+  eatOutPlaces(@CurrentUser() u: SessionPayload) {
+    return this.household.eatOutPlaces(u.familyId);
+  }
+
+  @Post('eat-out-places')
+  addEatOutPlace(@CurrentUser() u: SessionPayload, @Body() body: { name: string; notes?: string | null }) {
+    return this.household.addEatOutPlace(u.familyId, u.userId, body);
+  }
+
+  @Patch('eat-out-places/:id')
+  updateEatOutPlace(
+    @CurrentUser() u: SessionPayload,
+    @Param('id') id: string,
+    @Body() body: { name?: string; notes?: string | null },
+  ) {
+    return this.household.updateEatOutPlace(u.familyId, u.userId, id, body);
+  }
+
+  @Delete('eat-out-places/:id')
+  deleteEatOutPlace(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.household.deleteEatOutPlace(u.familyId, u.userId, id);
   }
 
   @Get('grocery')

@@ -296,6 +296,15 @@ export interface MealPlanEntry {
   date: string; // YYYY-MM-DD
   title: string;
   notes?: string | null;
+  isEatingOut?: boolean;
+  eatOutPlaceId?: string | null;
+  eatOutPlaceName?: string | null; // null while isEatingOut but nobody's picked/spun a place yet
+}
+
+export interface EatOutPlace {
+  id: string;
+  name: string;
+  notes?: string | null;
 }
 
 export interface GroceryItem {
@@ -783,10 +792,18 @@ export const api = {
   // and writes to that household; omit for family-wide.
   meals: (start: string, end: string, locationId?: string | null) =>
     req<MealPlanEntry[]>(`/household/meals?start=${start}&end=${end}${locationId ? `&locationId=${locationId}` : ''}`),
-  setMeal: (date: string, body: { title: string; notes?: string | null; locationId?: string | null }) =>
-    req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }),
+  setMeal: (
+    date: string,
+    body: { title?: string; notes?: string | null; locationId?: string | null; isEatingOut?: boolean; eatOutPlaceId?: string | null },
+  ) => req<MealPlanEntry>(`/household/meals/${date}`, { method: 'PUT', body: JSON.stringify(body) }),
   deleteMeal: (date: string, locationId?: string | null) =>
     req(`/household/meals/${date}${locationId ? `?locationId=${locationId}` : ''}`, { method: 'DELETE' }),
+  spinEatOut: (date: string, locationId?: string | null) =>
+    req<MealPlanEntry>(`/household/meals/${date}/spin-out`, { method: 'POST', body: JSON.stringify({ locationId }) }),
+  eatOutPlaces: () => req<EatOutPlace[]>('/household/eat-out-places'),
+  addEatOutPlace: (name: string, notes?: string) =>
+    req<EatOutPlace>('/household/eat-out-places', { method: 'POST', body: JSON.stringify({ name, notes }) }),
+  deleteEatOutPlace: (id: string) => req(`/household/eat-out-places/${id}`, { method: 'DELETE' }),
   grocery: (locationId?: string | null) => req<GroceryItem[]>(`/household/grocery${locationId ? `?locationId=${locationId}` : ''}`),
   addGrocery: (label: string, locationId?: string | null) =>
     req<GroceryItem>('/household/grocery', { method: 'POST', body: JSON.stringify({ label, locationId }) }),

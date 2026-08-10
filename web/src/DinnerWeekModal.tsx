@@ -117,7 +117,14 @@ export default function DinnerWeekModal({
               <div className="text-sm font-medium text-slate-500">
                 {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
               </div>
-              {editing === k ? (
+              {meal?.isEatingOut ? (
+                // Read-only here even for adults - picking/spinning a place
+                // lives on the Household page's fuller Dinner plan widget;
+                // this popup is a quick glance, not the editing surface.
+                <div className="mt-1.5 min-h-[2.75rem] px-2 py-2 text-left text-lg leading-snug">
+                  {meal.eatOutPlaceName ? <>🍽️ {meal.eatOutPlaceName}</> : <span className="text-slate-400">🍽️ Out - TBD</span>}
+                </div>
+              ) : editing === k ? (
                 <input
                   autoFocus
                   value={draft}
