@@ -320,7 +320,10 @@ export interface Chore {
   dueTime?: string | null;
   assignmentType: 'SPECIFIC' | 'ANYONE';
   assignees: ChoreAssigneeRef[];
-  location?: { id: string; name: string } | null;
+  // timezone here (already returned by the server, just not typed before) -
+  // "due today" for this chore has to mean today in its own location's
+  // zone, not the viewing device's.
+  location?: { id: string; name: string; timezone?: string } | null;
   // Adults only - who set this chore up (the server strips it for kids).
   createdBy?: { id: string; displayName: string } | null;
   checklist: ChecklistItem[];

@@ -20,6 +20,7 @@ import TokenBadge from './TokenBadge';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
 import { myLocationIds } from './displayScope';
+import { addDaysToKey, endOfDayInZone, todayKeyInZone } from './timezone';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -275,12 +276,31 @@ export default function ChoresPanel({
   // one). In 'today' mode, keep: mine and due-or-coming-up-soon, anything open
   // to claim soon (claiming ahead is allowed server-side even though
   // completing isn't), or pending approval (mine, or - for adults - anyone's).
+  // "Due today"/"due soon" for a chore has to mean today in ITS OWN
+  // location's timezone, not whatever timezone the viewing device's clock
+  // happens to be set to - a kiosk (or phone) even one zone off from its own
+  // household silently dropped still-due-today chores right around the real
+  // day boundary, with no visible error, just an assigned chore vanishing.
+  // Falls back to the first family location (in practice, almost always the
+  // only real timezone that applies) for a family-wide chore with no
+  // location of its own, and only to the viewing device's own clock if the
+  // family has no location at all set up yet.
+  const fallbackTimezone = locations[0]?.timezone;
   const rows = scopedChores
     .map((chore) => {
-      const endOfToday = new Date();
-      endOfToday.setHours(23, 59, 59, 999);
-      const endOfWindow = new Date(endOfToday);
-      endOfWindow.setDate(endOfWindow.getDate() + UPCOMING_DAYS);
+      const tz = chore.location?.timezone || fallbackTimezone;
+      let endOfToday: Date;
+      let endOfWindow: Date;
+      if (tz) {
+        const todayKey = todayKeyInZone(tz);
+        endOfToday = endOfDayInZone(todayKey, tz);
+        endOfWindow = endOfDayInZone(addDaysToKey(todayKey, UPCOMING_DAYS), tz);
+      } else {
+        endOfToday = new Date();
+        endOfToday.setHours(23, 59, 59, 999);
+        endOfWindow = new Date(endOfToday);
+        endOfWindow.setDate(endOfWindow.getDate() + UPCOMING_DAYS);
+      }
 
       const insts = chore.instances;
       const pending = insts.find((i) => i.status === 'PENDING');
