@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
 import CalendarPage from './pages/CalendarPage';
+import DashboardPage from './pages/DashboardPage';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
@@ -184,6 +185,7 @@ export default function App() {
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
+          <Route path="/dashboard" element={isAdult ? <DashboardPage me={me} /> : <Navigate to="/" replace />} />
           <Route path="/chores" element={<ChoresPage me={me} />} />
           <Route
             path="/store"

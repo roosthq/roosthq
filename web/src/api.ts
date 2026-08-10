@@ -455,6 +455,7 @@ export const FAMILY_FEATURES: Array<{ id: string; label: string; help: string }>
   { id: 'announcements', label: 'Announcements', help: 'Short family-wide notices on the kiosk.' },
   { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
   { id: 'allowance', label: 'Allowance', help: 'Automatic weekly token grants per person (set in Family & PINs).' },
+  { id: 'leaderboard', label: 'Kid leaderboard', help: 'Ranks kids by level on the Profiles page. Off if sibling comparison is not something you want.' },
 ];
 
 // Per-kid ability switches (User.disabledPermissions) - adults manage them

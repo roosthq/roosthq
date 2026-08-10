@@ -128,6 +128,7 @@ export default function Nav({
 
   const links = (
     <>
+      {isAdult && <NavLink to="/dashboard" className={cls} onClick={() => setMenuOpen(false)}>Dashboard</NavLink>}
       <NavLink to="/" end className={cls} onClick={() => setMenuOpen(false)}>Calendar</NavLink>
       <NavLink to="/chores" className={cls} onClick={() => setMenuOpen(false)}>{chorePlural}</NavLink>
       <NavLink to="/store" className={cls} onClick={() => setMenuOpen(false)}>Store</NavLink>
@@ -148,9 +149,19 @@ export default function Nav({
     `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
   const bottomTabs = (
     <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
-      <NavLink to="/" end className={tabCls}>
-        <span className="text-xl leading-none">📅</span>Calendar
-      </NavLink>
+      {/* Adults get Dashboard in the first (most reachable) slot instead of
+          Calendar - Calendar is still one tap away from there, and still has
+          its own nav link, just no longer the default landing spot. Kids
+          keep Calendar here since they have no Dashboard. */}
+      {isAdult ? (
+        <NavLink to="/dashboard" className={tabCls}>
+          <span className="text-xl leading-none">📊</span>Dashboard
+        </NavLink>
+      ) : (
+        <NavLink to="/" end className={tabCls}>
+          <span className="text-xl leading-none">📅</span>Calendar
+        </NavLink>
+      )}
       <NavLink to="/chores" className={tabCls}>
         <span className="text-xl leading-none">✅</span>{chorePlural}
       </NavLink>
@@ -168,9 +179,7 @@ export default function Nav({
       {bottomTabs}
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-1">
-          {/* Home for now - the landing route becomes a real Dashboard
-              later, at which point this points there instead. */}
-          <Link to="/" className="mr-2 sm:mr-3 hover:opacity-80">
+          <Link to={isAdult ? '/dashboard' : '/'} className="mr-2 sm:mr-3 hover:opacity-80">
             <Logo size={26} />
           </Link>
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
@@ -78,6 +78,7 @@ export default function ProfilePage({
 
   const [members, setMembers] = useState<Member[]>([]);
   const [allBalances, setAllBalances] = useState<Record<string, number>>({});
+  const [earnedBy, setEarnedBy] = useState<Record<string, number>>({});
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -102,7 +103,12 @@ export default function ProfilePage({
     setHistory(r);
     // Everyone (kids included) can browse all family profiles, same as adults.
     api.listUsers().then(setMembers).catch(() => setMembers([]));
-    api.tokenBalances().then((bs) => setAllBalances(Object.fromEntries(bs.map((x) => [x.userId, x.balance])))).catch(() => undefined);
+    // balances() (not tokenBalances()) so the roster/leaderboard below can
+    // level-rank people, not just show their current balance.
+    api.balances().then((bs) => {
+      setAllBalances(Object.fromEntries(bs.map((x) => [x.userId, x.balance])));
+      setEarnedBy(Object.fromEntries(bs.map((x) => [x.userId, x.earned ?? 0])));
+    }).catch(() => undefined);
     // A kid can only ever see their own earned awards (server enforces this
     // too) - skip the call rather than surface a 403 when browsing a sibling.
     if (isAdult || viewingSelf) api.earnedAwards(targetId).then(setAwards).catch(() => setAwards([]));
@@ -153,31 +159,60 @@ export default function ProfilePage({
       {members.length > 0 && (
         <div className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Profiles</h2>
-          <ul className="mt-3 flex flex-wrap gap-3">
+          {/* Full-width rows on a phone, content-sized cards from sm up -
+              wrapping content-sized cards at 375px split the level badge
+              across lines. */}
+          <ul className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
             {members.map((m) => (
-              <li key={m.id}>
+              <li key={m.id} className="min-w-0">
                 <Link
                   to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
-                  className="panel panel-compact flex items-center gap-2 hover:bg-slate-50"
+                  className="panel panel-compact flex w-full items-center gap-2 hover:bg-slate-50 sm:w-auto"
                   style={m.id === targetId ? { boxShadow: 'inset 0 0 0 2px var(--accent)' } : undefined}
                 >
                   <Avatar name={m.displayName} src={m.avatar} size="sm" />
-                  <span>
-                    <span className="block text-sm font-medium">{m.displayName}</span>
-                    <span className="block text-xs text-slate-400">
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium">{m.displayName}</span>
+                    <span className="block truncate text-xs text-slate-400">
                       {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
                   {!m.tokensDisabled && (
-                    <span className="ml-1 text-base font-bold" style={{ color: 'var(--accent)' }}>
+                    <span className="ml-1 shrink-0 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
                       {tokenIcon} {allBalances[m.id] ?? 0}
                       <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
+                    </span>
+                  )}
+                  {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && (
+                    <span className="shrink-0 whitespace-nowrap">
+                      <LevelBadge earned={earnedBy[m.id] ?? 0} />
                     </span>
                   )}
                 </Link>
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {familyFeatureEnabled(family, 'leaderboard') && members.filter((m) => m.role === 'KID' && !m.tokensDisabled).length > 1 && (
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold tracking-tight">🏆 Leaderboard</h2>
+          <p className="mt-0.5 text-xs text-slate-400">Ranked by level, not just balance - so it isn't always whoever's oldest.</p>
+          <ol className="mt-3 space-y-1.5">
+            {members
+              .filter((m) => m.role === 'KID' && !m.tokensDisabled)
+              .map((m) => ({ m, level: levelFor(earnedBy[m.id] ?? 0), earned: earnedBy[m.id] ?? 0 }))
+              .sort((a, b) => (b.level !== a.level ? b.level - a.level : b.earned - a.earned))
+              .map(({ m }, i) => (
+                <li key={m.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
+                  <span className="w-5 shrink-0 text-center text-sm font-semibold text-slate-400">{i + 1}</span>
+                  <Avatar name={m.displayName} src={m.avatar} size="sm" />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{m.displayName}</span>
+                  <LevelBadge earned={earnedBy[m.id] ?? 0} />
+                </li>
+              ))}
+          </ol>
         </div>
       )}
 

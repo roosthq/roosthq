@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   api,
   choreClient,
   loginUrl,
-  ROLE_ICON,
-  ROLE_LABEL,
   type Me,
   type Member,
   type GoogleCalendar,
@@ -20,8 +17,7 @@ import { useDialog } from '../Dialog';
 import { myLocationIds, displaysForLocations } from '../displayScope';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
-import { familyFeatureEnabled, kidPermissionEnabled, type FamilySettings } from '../api';
-import LevelBadge from '../LevelBadge';
+import { familyFeatureEnabled, kidPermissionEnabled } from '../api';
 import DropdownDetails from '../DropdownDetails';
 
 export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
@@ -31,65 +27,6 @@ export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string
     <span className={`${cls} inline-flex items-center justify-center rounded-full bg-slate-300 font-semibold text-slate-700`}>
       {(name ?? '?').charAt(0).toUpperCase()}
     </span>
-  );
-}
-
-function Dashboard({ me }: { me: Me }) {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [balances, setBalances] = useState<Record<string, number>>({});
-  const [tokenName, setTokenName] = useState('Tokens');
-  const [tokenIcon, setTokenIcon] = useState('🪙');
-
-  const [earnedBy, setEarnedBy] = useState<Record<string, number>>({});
-  const [family, setFamily] = useState<FamilySettings | null>(null);
-  useEffect(() => {
-    api.members().then(setMembers).catch(() => setMembers([]));
-    api.balances().then((b) => {
-      setBalances(Object.fromEntries(b.map((x) => [x.userId, x.balance])));
-      setEarnedBy(Object.fromEntries(b.map((x) => [x.userId, x.earned ?? 0])));
-    }).catch(() => undefined);
-    api.familySettings().then((f) => {
-      setFamily(f);
-      setTokenName(f.tokenName);
-      setTokenIcon(f.tokenIcon);
-    }).catch(() => undefined);
-  }, []);
-
-  if (members.length === 0) return null;
-  return (
-    <section className="mb-6">
-      <h2 className="text-lg font-semibold tracking-tight">Family</h2>
-      {/* Full-width rows on a phone, content-sized cards from sm up. Wrapping
-          content-sized cards at 375px produced ragged tiles that split the
-          level badge across lines. */}
-      <ul className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-3">
-        {members.map((m) => (
-          <li key={m.id} className="min-w-0">
-            <Link
-              to={m.id === me.id ? '/profile' : `/profile/${m.id}`}
-              className="panel panel-compact flex w-full items-center gap-2 hover:bg-slate-50 sm:w-auto"
-            >
-              <Avatar name={m.displayName} src={m.avatar} size="sm" />
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-medium">{m.displayName}</span>
-                <span className="block truncate text-xs text-slate-400">{ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}</span>
-              </span>
-              {!m.tokensDisabled && (
-                <span className="ml-1 shrink-0 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
-                  {tokenIcon} {balances[m.id] ?? 0}
-                  <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
-                </span>
-              )}
-              {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && (
-                <span className="shrink-0 whitespace-nowrap">
-                  <LevelBadge earned={earnedBy[m.id] ?? 0} />
-                </span>
-              )}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 }
 
@@ -344,7 +281,6 @@ export default function CalendarPage({ me }: { me: Me }) {
   if (!scopeReady) {
     return (
       <div>
-        <Dashboard me={me} />
         <p className="text-sm text-slate-400">Loading your calendar…</p>
       </div>
     );
@@ -352,8 +288,6 @@ export default function CalendarPage({ me }: { me: Me }) {
 
   return (
     <div>
-      <Dashboard me={me} />
-
       {needsReconnect && (
         <div className="alert-banner mb-4 flex flex-wrap items-center gap-2 p-3 text-sm">
           <span className="flex-1">
