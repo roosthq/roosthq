@@ -108,10 +108,17 @@ export default function Nav({
   // Name -> dropdown: "View Profile" (the basic, browse-anyone page) vs
   // "My Settings" (identity/password/avatar/PIN/Google/delete - self only).
   // Same <details>/<summary> disclosure shell as displayLink above.
+  //
+  // Alignment differs by where this gets mounted: the desktop copy sits at
+  // the far right of the nav bar (right-0, panel opens leftward - fits), but
+  // the mobile copy sits at the far LEFT of its row (name on the left,
+  // "Sign out" on the right) - right-0 there anchored the panel's right edge
+  // to that tiny summary, pushing its left edge off the left of the screen
+  // entirely. left-0 for that one instead.
   function nameMenu(closeMenu: boolean) {
     return (
       <DropdownDetails summary={`${me.displayName} ▾`}>
-        <div className="absolute right-0 z-10 mt-1 w-40 rounded border bg-white p-1 shadow">
+        <div className={`absolute ${closeMenu ? 'left-0' : 'right-0'} z-10 mt-1 w-40 rounded border bg-white p-1 shadow`}>
           <Link
             to="/profile"
             onClick={closeMenu ? () => setMenuOpen(false) : undefined}
