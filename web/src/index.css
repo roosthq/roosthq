@@ -413,8 +413,15 @@
 }
 
 html,
+/* Backlog #6: the page itself, not just its cards, was a flat single-color
+   fill. A soft ambient glow from the upper-left - same "there's a light
+   source" language the today-badge and card sheens already use - fading
+   into the plain --bg by mid-page so it never fights with content or reads
+   as a visible band. `fixed` so it doesn't repeat/shift while scrolling a
+   tall page. Pure function of --bg/--accent, so every theme's own hue shows
+   through instead of a generic gray wash. */
 body {
-  background: var(--bg);
+  background: radial-gradient(circle at 15% -10%, color-mix(in srgb, var(--bg) 85%, var(--accent) 15%) 0%, var(--bg) 55%) fixed;
   color: var(--text);
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }

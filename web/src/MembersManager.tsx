@@ -155,9 +155,7 @@ export default function MembersManager({ me }: { me: Me }) {
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <span className="font-medium">Family members</span>
-      </div>
+      <h3 className="text-base font-semibold tracking-tight">People &amp; PINs</h3>
 
       {/* Invite */}
       <div className="mt-3 rounded bg-slate-100 p-3">

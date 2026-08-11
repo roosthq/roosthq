@@ -69,11 +69,7 @@ export default function SettingsPage({ me }: { me: Me }) {
 
       <div className="space-y-6">
         {activeTab === 'features' && <FeaturesTab />}
-        {activeTab === 'family' && (
-          <Section title="People & PINs">
-            <MembersManager me={me} />
-          </Section>
-        )}
+        {activeTab === 'family' && <MembersManager me={me} />}
         {activeTab === 'calendars' && (
           <>
             <Section
