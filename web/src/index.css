@@ -490,11 +490,18 @@ html {
    artifact at that size - browsers don't always antialias a large blur
    radius cleanly around a small rounded-full element. A tiny flat toggle
    just doesn't need "elevated button" depth. */
+/* A single tight, small-radius shadow - not --shadow-sm/-md (both have a
+   second, wider-blur layer meant for a card-sized surface; at 40x24px that
+   wider layer is what was clipping into a visible square). One shadow
+   layer, small blur, no inset highlight, no transition - plenty of
+   definition without the room to artifact. */
 .switch-on {
   background: var(--accent) !important;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-tint) 30%, transparent);
 }
 .switch-off {
   background: var(--surface-off) !important;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-tint) 18%, transparent);
 }
 /* Primary CTAs -> brand accent. Diagonal gradient + layered shadow + inset
    top highlight instead of a flat fill (backlog #6, tier C confirmed against
