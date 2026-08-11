@@ -171,6 +171,18 @@
   --reward-text: color-mix(in oklch, var(--accent) 65%, white);
 }
 
+/* Every theme below this point (ocean through indigo) had --text-2 copy-pasted
+   as the SAME hex as --text-muted - the "stronger secondary text" token was
+   silently identical to the "weakest tertiary" one, so anything the
+   .card-nested/.bg-slate-100/etc override (below, ~line 979) bumps from
+   text-slate-400 UP to --text-2 landed at the exact same barely-there
+   contrast it was trying to escape (measured ~1.7:1 against a raised card -
+   unreadable). Only meadow's hand-tuned :root/[data-mode='dark'] block (above)
+   ever gave --text-2 its own value. Fixed as a formula, not 26 new hand-picked
+   hexes: mixed 55/45 toward --text so text-2 always sits meaningfully closer
+   to --text than --text-muted does, in every theme, in both modes, without
+   drifting if text/text-muted ever get retuned. Confirmed via computed-style
+   contrast check against a live dark card (was 1.7:1, now ~4:1+). */
 [data-theme='ocean'] {
   --bg: #edf4fa;
   /* see :root's --surface comment: mixed toward --accent so the card
@@ -179,7 +191,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(42, 123, 184, 0.16);
   --text: #0d2340;
-  --text-2: #6a98b8;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #6a98b8;
   --accent: #2a7bb8;
   --accent-hover: color-mix(in oklch, #2a7bb8 80%, black);
@@ -193,7 +205,7 @@
   --surface-raised: color-mix(in srgb, #0f2235 85%, white 15%);
   --border: rgba(91, 174, 221, 0.12);
   --text: #e8f2fc;
-  --text-2: #3a6a90;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #3a6a90;
   --accent: #5baedd;
   --accent-hover: color-mix(in oklch, #5baedd 85%, white);
@@ -209,7 +221,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(200, 92, 58, 0.16);
   --text: #1e2a38;
-  --text-2: #a09880;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #a09880;
   --accent: #c85c3a;
   --accent-hover: color-mix(in oklch, #c85c3a 80%, black);
@@ -223,7 +235,7 @@
   --surface-raised: color-mix(in srgb, #2a180e 85%, white 15%);
   --border: rgba(224, 124, 92, 0.12);
   --text: #f5ede0;
-  --text-2: #7a5840;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #7a5840;
   --accent: #e07c5c;
   --accent-hover: color-mix(in oklch, #e07c5c 85%, white);
@@ -239,7 +251,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(114, 84, 200, 0.16);
   --text: #1a1438;
-  --text-2: #9888c0;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #9888c0;
   --accent: #7254c8;
   --accent-hover: color-mix(in oklch, #7254c8 80%, black);
@@ -253,7 +265,7 @@
   --surface-raised: color-mix(in srgb, #1c1830 85%, white 15%);
   --border: rgba(158, 130, 232, 0.12);
   --text: #ede8fc;
-  --text-2: #5844a0;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #5844a0;
   --accent: #9e82e8;
   --accent-hover: color-mix(in oklch, #9e82e8 85%, white);
@@ -269,7 +281,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(58, 90, 138, 0.16);
   --text: #0e1e38;
-  --text-2: #6a8aaa;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #6a8aaa;
   --accent: #3a5a8a;
   --accent-hover: color-mix(in oklch, #3a5a8a 80%, black);
@@ -283,7 +295,7 @@
   --surface-raised: color-mix(in srgb, #141e2e 85%, white 15%);
   --border: rgba(122, 170, 216, 0.12);
   --text: #e4eef8;
-  --text-2: #3a5878;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #3a5878;
   --accent: #7aaad8;
   --accent-hover: color-mix(in oklch, #7aaad8 85%, white);
@@ -299,7 +311,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(184, 72, 120, 0.16);
   --text: #2a1020;
-  --text-2: #b888a0;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #b888a0;
   --accent: #b84878;
   --accent-hover: color-mix(in oklch, #b84878 80%, black);
@@ -313,7 +325,7 @@
   --surface-raised: color-mix(in srgb, #2a1020 85%, white 15%);
   --border: rgba(224, 122, 168, 0.12);
   --text: #fce8f0;
-  --text-2: #78386a;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #78386a;
   --accent: #e07aa8;
   --accent-hover: color-mix(in oklch, #e07aa8 85%, white);
@@ -329,7 +341,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(160, 120, 64, 0.16);
   --text: #2a1e08;
-  --text-2: #a89068;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #a89068;
   --accent: #a07840;
   --accent-hover: color-mix(in oklch, #a07840 80%, black);
@@ -343,7 +355,7 @@
   --surface-raised: color-mix(in srgb, #282010 85%, white 15%);
   --border: rgba(212, 168, 106, 0.12);
   --text: #f8eed8;
-  --text-2: #786040;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #786040;
   --accent: #d4a86a;
   --accent-hover: color-mix(in oklch, #d4a86a 85%, white);
@@ -359,7 +371,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(42, 154, 120, 0.16);
   --text: #0a2018;
-  --text-2: #60a888;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #60a888;
   --accent: #2a9a78;
   --accent-hover: color-mix(in oklch, #2a9a78 80%, black);
@@ -373,7 +385,7 @@
   --surface-raised: color-mix(in srgb, #0e2a1e 85%, white 15%);
   --border: rgba(80, 200, 160, 0.12);
   --text: #e0f8ee;
-  --text-2: #307860;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #307860;
   --accent: #50c8a0;
   --accent-hover: color-mix(in oklch, #50c8a0 85%, white);
@@ -389,7 +401,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(74, 106, 184, 0.16);
   --text: #080c28;
-  --text-2: #6878a8;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #6878a8;
   --accent: #4a6ab8;
   --accent-hover: color-mix(in oklch, #4a6ab8 80%, black);
@@ -403,7 +415,7 @@
   --surface-raised: color-mix(in srgb, #101828 85%, white 15%);
   --border: rgba(138, 170, 232, 0.12);
   --text: #e0e8f8;
-  --text-2: #384870;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #384870;
   --accent: #8aaae8;
   --accent-hover: color-mix(in oklch, #8aaae8 85%, white);
@@ -419,7 +431,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(100, 100, 96, 0.16);
   --text: #1e1e1c;
-  --text-2: #8a8a84;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #8a8a84;
   --accent: #6b6b64;
   --accent-hover: color-mix(in oklch, #6b6b64 80%, black);
@@ -433,7 +445,7 @@
   --surface-raised: color-mix(in srgb, #201f1c 85%, white 15%);
   --border: rgba(180, 180, 172, 0.12);
   --text: #f0f0ec;
-  --text-2: #78786e;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #78786e;
   --accent: #9a9a90;
   --accent-hover: color-mix(in oklch, #9a9a90 85%, white);
@@ -449,7 +461,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(194, 59, 59, 0.16);
   --text: #380e0e;
-  --text-2: #b88080;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #b88080;
   --accent: #c23b3b;
   --accent-hover: color-mix(in oklch, #c23b3b 80%, black);
@@ -463,7 +475,7 @@
   --surface-raised: color-mix(in srgb, #2c1010 85%, white 15%);
   --border: rgba(224, 110, 110, 0.12);
   --text: #fbe8e6;
-  --text-2: #8a4040;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #8a4040;
   --accent: #e07070;
   --accent-hover: color-mix(in oklch, #e07070 85%, white);
@@ -479,7 +491,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(31, 143, 143, 0.16);
   --text: #0a2828;
-  --text-2: #60a0a0;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #60a0a0;
   --accent: #1f8f8f;
   --accent-hover: color-mix(in oklch, #1f8f8f 80%, black);
@@ -493,7 +505,7 @@
   --surface-raised: color-mix(in srgb, #0e2828 85%, white 15%);
   --border: rgba(90, 200, 200, 0.12);
   --text: #e0f8f8;
-  --text-2: #307878;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #307878;
   --accent: #4ac0c0;
   --accent-hover: color-mix(in oklch, #4ac0c0 85%, white);
@@ -509,7 +521,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(201, 147, 46, 0.16);
   --text: #2a2008;
-  --text-2: #a89060;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #a89060;
   --accent: #c9932e;
   --accent-hover: color-mix(in oklch, #c9932e 80%, black);
@@ -523,7 +535,7 @@
   --surface-raised: color-mix(in srgb, #241c0c 85%, white 15%);
   --border: rgba(224, 180, 100, 0.12);
   --text: #f8eed8;
-  --text-2: #78683c;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #78683c;
   --accent: #d8ad5c;
   --accent-hover: color-mix(in oklch, #d8ad5c 85%, white);
@@ -539,7 +551,7 @@
   --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
   --border: rgba(87, 80, 200, 0.16);
   --text: #14103a;
-  --text-2: #8a84c0;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #8a84c0;
   --accent: #5750c8;
   --accent-hover: color-mix(in oklch, #5750c8 80%, black);
@@ -553,7 +565,7 @@
   --surface-raised: color-mix(in srgb, #16122c 85%, white 15%);
   --border: rgba(150, 140, 232, 0.12);
   --text: #e8e6fa;
-  --text-2: #56508a;
+  --text-2: color-mix(in oklch, var(--text) 55%, var(--text-muted) 45%);
   --text-muted: #56508a;
   --accent: #8a82e8;
   --accent-hover: color-mix(in oklch, #8a82e8 85%, white);
