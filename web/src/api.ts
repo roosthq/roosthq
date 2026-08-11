@@ -495,6 +495,9 @@ export interface FamilySettings {
   // Which sound plays for which action slot (#1) - see SOUND_SLOTS in
   // sounds.ts. A slot with no entry falls back to the default chime.
   soundAssignments: Record<string, { type: 'builtin' | 'custom'; id: string }>;
+  // #8 - roughly how often (days) an eligible kid gets a surprise reward
+  // game, on average. Only matters while the surpriseReward sub-feature is on.
+  surpriseRewardDays: number;
 }
 
 export interface CustomSound {
@@ -529,6 +532,11 @@ export const FEATURE_TREE: FeatureNode[] = [
       { id: 'leaderboard', label: 'Kid leaderboard', help: 'Ranks kids by level on the Profiles page. Off if sibling comparison is not something you want.' },
       { id: 'allowance', label: 'Weekly allowance', help: 'Automatic weekly token grants per person (set in Family).' },
       { id: 'digest', label: 'Weekly digest', help: 'Sunday-evening summary of chores done and tokens earned, sent to adults.' },
+      {
+        id: 'surpriseReward',
+        label: 'Surprise rewards',
+        help: 'A rare, unscheduled reward game - off by default, since a random token grant nobody asked for is a bad surprise in the wrong direction.',
+      },
     ],
   },
   {
@@ -1002,6 +1010,7 @@ export const api = {
     choreWord?: string;
     disabledFeatures?: string[];
     soundAssignments?: Record<string, { type: 'builtin' | 'custom'; id: string }>;
+    surpriseRewardDays?: number;
   }) => req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   customSounds: () => req<CustomSound[]>('/sounds/custom'),

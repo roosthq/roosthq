@@ -85,7 +85,7 @@ function FeatureCard({
               {node.id === 'tokens' && <TokenFields family={family} onSaved={onFamilyChanged} />}
               {node.id === 'chores' && <ChoreWordField family={family} onSaved={onFamilyChanged} />}
               {node.children?.map((child) => (
-                <SubFeatureRow key={child.id} node={child} disabled={disabled} onToggle={onToggle} />
+                <SubFeatureRow key={child.id} node={child} disabled={disabled} onToggle={onToggle} family={family} onFamilyChanged={onFamilyChanged} />
               ))}
             </div>
           </div>
@@ -95,16 +95,32 @@ function FeatureCard({
   );
 }
 
-function SubFeatureRow({ node, disabled, onToggle }: { node: FeatureNode; disabled: Set<string>; onToggle: (id: string, on: boolean) => void }) {
+function SubFeatureRow({
+  node,
+  disabled,
+  onToggle,
+  family,
+  onFamilyChanged,
+}: {
+  node: FeatureNode;
+  disabled: Set<string>;
+  onToggle: (id: string, on: boolean) => void;
+  family: FamilySettings;
+  onFamilyChanged: (f: FamilySettings) => void;
+}) {
   const blockedBy = node.requires && disabled.has(node.requires) ? FEATURE_TREE.find((n) => n.id === node.requires)?.label : null;
+  const isOn = !disabled.has(node.id) && !blockedBy;
   return (
-    <div className="flex items-start justify-between gap-3 pl-1">
-      <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium">{node.label}</p>
-        <p className="text-xs text-slate-400">{node.help}</p>
-        {blockedBy && <p className="text-xs font-medium text-amber-600">Needs {blockedBy} on first.</p>}
+    <div className="pl-1">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-medium">{node.label}</p>
+          <p className="text-xs text-slate-400">{node.help}</p>
+          {blockedBy && <p className="text-xs font-medium text-amber-600">Needs {blockedBy} on first.</p>}
+        </div>
+        <Switch size="sm" checked={isOn} disabled={!!blockedBy} onChange={(v) => onToggle(node.id, v)} label={node.label} />
       </div>
-      <Switch size="sm" checked={!disabled.has(node.id) && !blockedBy} disabled={!!blockedBy} onChange={(v) => onToggle(node.id, v)} label={node.label} />
+      {node.id === 'surpriseReward' && isOn && <SurpriseRewardField family={family} onSaved={onFamilyChanged} />}
     </div>
   );
 }
@@ -160,6 +176,45 @@ function TokenFields({ family, onSaved }: { family: FamilySettings; onSaved: (f:
         </button>
         {saved && <span className="text-sm text-green-600">Saved</span>}
       </div>
+    </div>
+  );
+}
+
+// #8 - the one adjustable knob for surprise rewards: roughly how often, in
+// days, an eligible kid should get one on average. The cron itself
+// (household.service.ts) rolls 1-in-N odds per kid per day rather than a
+// fixed date, so this is an average, not a countdown.
+function SurpriseRewardField({ family, onSaved }: { family: FamilySettings; onSaved: (f: FamilySettings) => void }) {
+  const [days, setDays] = useState(family.surpriseRewardDays);
+  const [saved, setSaved] = useState(false);
+
+  async function save() {
+    const updated = await api.updateFamilySettings({ surpriseRewardDays: Math.max(1, Math.floor(Number(days) || 30)) });
+    onSaved(updated);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  }
+
+  return (
+    <div className="mt-2 flex flex-wrap items-end gap-3 pl-1">
+      <label className="block text-sm">
+        <span className="text-slate-500">About once every</span>
+        <span className="mt-1 flex items-center gap-2">
+          <input
+            type="number"
+            min={1}
+            value={days}
+            onChange={(e) => setDays(Number(e.target.value))}
+            onFocus={(e) => e.target.select()}
+            className={`${input} w-20`}
+          />
+          <span className="text-slate-500">days, per kid</span>
+        </span>
+      </label>
+      <button onClick={save} className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">
+        Save
+      </button>
+      {saved && <span className="text-sm text-green-600">Saved</span>}
     </div>
   );
 }

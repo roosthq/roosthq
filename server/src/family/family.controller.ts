@@ -27,6 +27,7 @@ export class FamilyController {
       choreWord?: string;
       disabledFeatures?: string[];
       soundAssignments?: Record<string, SoundAssignment>;
+      surpriseRewardDays?: number;
     },
   ) {
     return this.family.update(u.userId, u.familyId, body);

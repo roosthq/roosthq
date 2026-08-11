@@ -16,7 +16,7 @@ export interface FeatureNode {
 export const FEATURE_TREE: FeatureNode[] = [
   {
     id: 'tokens',
-    children: [{ id: 'levels' }, { id: 'leaderboard' }, { id: 'allowance' }, { id: 'digest' }],
+    children: [{ id: 'levels' }, { id: 'leaderboard' }, { id: 'allowance' }, { id: 'digest' }, { id: 'surpriseReward' }],
   },
   {
     id: 'chores',
@@ -61,7 +61,12 @@ function envDisabled(id: string): boolean {
 }
 
 export function defaultDisabledFeatures(): string[] {
-  return TOP_LEVEL_IDS.filter(envDisabled);
+  // Every OTHER sub-feature defaults on the instant its parent module is on
+  // (see the comment above envDisabled) - surpriseReward is the deliberate
+  // exception (#8's resolved plan): a random-token-grant feature opting
+  // itself in for a self-hoster who never asked for it would be a bad
+  // surprise in the wrong direction. Off until a family turns it on.
+  return [...TOP_LEVEL_IDS.filter(envDisabled), 'surpriseReward'];
 }
 
 // Server-side mirror of SOUND_SLOTS/BUILTIN_SOUNDS in web/src/sounds.ts - same

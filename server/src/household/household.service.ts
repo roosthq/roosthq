@@ -3,6 +3,7 @@ import { Cron } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
+import { RewardGamesService } from '../reward-games/reward-games.service';
 import { assertKidPermission } from '../common/kid-permissions';
 import { DEFAULT_TIMEZONE, todayKeyInZone } from '../common/timezone';
 import { assertFeatureEnabled, isFeatureEnabled, sanitizeDisabledFeatures } from '../common/features';
@@ -19,6 +20,7 @@ export class HouseholdService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
+    private rewardGames: RewardGamesService,
   ) {}
 
   private async assertAdult(userId: string) {
@@ -469,6 +471,47 @@ export class HouseholdService {
       }
       if (!parts.length) continue;
       await this.notifications.notifyAdults(fam.id, 'STREAK_BONUS', `This week: ${parts.join(' · ')}`, { link: '/chores' });
+    }
+  }
+
+  // #8 - rare unscheduled surprise reward. Off by default (see
+  // defaultDisabledFeatures in common/features.ts); a small DAILY
+  // probability check per eligible kid, not a fixed calendar date, so it
+  // stays a genuine surprise rather than "oh, it's the 15th again."
+  // Skips anyone who already has an unclaimed surprise waiting - refId is
+  // null only for THIS cron's rows (every other RewardGame source always
+  // sets one), so that's a clean, unique way to detect "already has one
+  // pending" without a dedicated flag.
+  @Cron('0 9 * * *')
+  async surpriseRewardCron() {
+    const families = await this.prisma.family.findMany({
+      select: { id: true, surpriseRewardDays: true },
+    });
+    for (const fam of families) {
+      if (!(await this.featureEnabled(fam.id, 'surpriseReward'))) continue;
+      const days = Math.max(1, fam.surpriseRewardDays || 30);
+      const kids = await this.prisma.user.findMany({
+        where: { familyId: fam.id, role: 'KID', tokensDisabled: false },
+        select: { id: true, displayName: true },
+      });
+      for (const kid of kids) {
+        if (Math.random() >= 1 / days) continue;
+        const pending = await this.prisma.rewardGame.count({ where: { userId: kid.id, spunAt: null, refId: null } });
+        if (pending > 0) continue;
+        await this.rewardGames.createFromPool(
+          fam.id,
+          kid.id,
+          [
+            { kind: 'TOKENS', min: 1, max: 5, weight: 8 },
+            { kind: 'TOKENS', min: 6, max: 12, weight: 2 },
+          ],
+          { reason: 'Surprise!' },
+        );
+        await this.notifications.create(fam.id, kid.id, 'STREAK_BONUS', "🎁 Surprise! You've got something waiting.", {
+          link: '/chores',
+        });
+        this.displayEvents.publish(fam.id, { type: 'chores' });
+      }
     }
   }
 }

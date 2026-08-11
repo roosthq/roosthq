@@ -90,6 +90,10 @@ model Family {
   // A slot with no entry falls back to the default built-in chime. Owner/
   // family-manager only to edit; family-wide, no per-person override.
   soundAssignments Json     @default("{}")
+  // #8 - roughly how often (in days) an eligible kid should get a surprise
+  // reward game on average; the daily cron rolls 1-in-N odds per kid per
+  // day rather than a fixed calendar date, so it stays genuinely surprising.
+  surpriseRewardDays Int    @default(30)
   createdAt        DateTime @default(now())
 
   users           User[]

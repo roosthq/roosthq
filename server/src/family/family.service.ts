@@ -16,6 +16,7 @@ export class FamilyService {
     choreWord: string;
     disabledFeatures: unknown;
     soundAssignments: unknown;
+    surpriseRewardDays: number;
   }) {
     return {
       id: f.id,
@@ -29,6 +30,7 @@ export class FamilyService {
         f.soundAssignments && typeof f.soundAssignments === 'object' && !Array.isArray(f.soundAssignments)
           ? (f.soundAssignments as Record<string, SoundAssignment>)
           : {},
+      surpriseRewardDays: f.surpriseRewardDays,
     };
   }
 
@@ -48,6 +50,7 @@ export class FamilyService {
       choreWord?: string;
       disabledFeatures?: string[];
       soundAssignments?: Record<string, SoundAssignment>;
+      surpriseRewardDays?: number;
     },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
@@ -71,6 +74,7 @@ export class FamilyService {
           disabledFeatures: sanitizeDisabledFeatures(data.disabledFeatures),
         }),
         ...(sanitizedSounds !== undefined && { soundAssignments: sanitizedSounds as unknown as Prisma.InputJsonValue }),
+        ...(data.surpriseRewardDays !== undefined && { surpriseRewardDays: Math.max(1, Math.floor(data.surpriseRewardDays)) }),
       },
     });
     return this.shape(f);
