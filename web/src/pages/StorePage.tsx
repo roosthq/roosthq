@@ -379,7 +379,10 @@ export default function StorePage({
           <ul className="mt-2 space-y-1 text-sm text-slate-600">
             {history.map((r) => (
               <li key={r.id} className="flex justify-between border-b py-1">
-                <span>{r.prize.name}</span>
+                <span>
+                  {r.prize.name}
+                  {r.source === 'GAME' && <span className="ml-1.5 text-xs text-slate-400">🎮 won it</span>}
+                </span>
                 <span className="text-slate-400">
                   {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
                 </span>

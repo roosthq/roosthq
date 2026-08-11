@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
-import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member } from '../api';
+import { api, type AwardCatalogItem, type AwardGrantHistoryItem, type Member, type PoolEntry, type GameType, type StorePrize } from '../api';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
 import IconPicker from '../IconPicker';
 import { formatDateTime } from '../dateFormat';
 import { AWARD_PACKS } from '../awardPacks';
+import { GAME_TYPES, GAME_TYPE_META, fakePreviewSpin } from '../rewardGames';
+import RewardRevealModal from '../RewardRevealModal';
 
 // Icons are either a short emoji string or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
@@ -135,7 +137,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
             </div>
             {a.description && <p className="mt-1 text-sm text-slate-500">{a.description}</p>}
-            {(a.defaultTokenValue > 0 || (a.wheelMax ?? 0) > 0) && (
+            {(a.defaultTokenValue > 0 || (a.wheelMax ?? 0) > 0 || (a.pool?.length ?? 0) > 0) && (
               <div className="mt-1 flex flex-wrap items-center gap-2">
                 {a.defaultTokenValue > 0 && <TokenBadge icon={tokenIcon} amount={a.defaultTokenValue} />}
                 {(a.wheelMax ?? 0) > 0 && (
@@ -145,6 +147,15 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
                     title={`Giving this also queues a bonus wheel worth ${a.wheelMin ?? 1}-${a.wheelMax} ${tokenName} for them to spin`}
                   >
                     🎡 wheel {a.wheelMin ?? 1}-{a.wheelMax}
+                  </span>
+                )}
+                {(a.pool?.length ?? 0) > 0 && (
+                  <span
+                    className="rounded-full px-2 py-0.5 text-xs font-medium"
+                    style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                    title={`Giving this also queues a reward game from a ${a.pool!.length}-entry pool`}
+                  >
+                    🎮 reward game
                   </span>
                 )}
               </div>
@@ -315,9 +326,45 @@ export function AwardForm({
   const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState(award?.description ?? '');
   const [defaultTokenValue, setDefaultTokenValue] = useState(award?.defaultTokenValue ?? 0);
-  const [wheelOn, setWheelOn] = useState((award?.wheelMax ?? 0) > 0);
+  // Chance bonus on top of the flat value above - a wheel range and a #5
+  // pool are mutually exclusive with EACH OTHER (not with the flat value,
+  // which stays independent so existing "tokens + wheel" awards keep working
+  // exactly as they do today).
+  const [chanceType, setChanceType] = useState<'none' | 'wheel' | 'pool'>(
+    award?.pool?.length ? 'pool' : (award?.wheelMax ?? 0) > 0 ? 'wheel' : 'none',
+  );
   const [wheelMin, setWheelMin] = useState(award?.wheelMin && award.wheelMin > 0 ? award.wheelMin : 1);
   const [wheelMax, setWheelMax] = useState(award?.wheelMax && award.wheelMax > 0 ? award.wheelMax : 5);
+  const [pool, setPool] = useState<PoolEntry[]>(award?.pool ?? []);
+  const [gameType, setGameType] = useState<GameType | ''>(award?.gameType ?? '');
+  const [slotCount, setSlotCount] = useState(award?.slotCount ?? 6);
+  const [prizes, setPrizes] = useState<StorePrize[]>([]);
+  const [previewStyle, setPreviewStyle] = useState<GameType | null>(null);
+
+  useEffect(() => {
+    if (chanceType === 'pool' && prizes.length === 0) api.prizes().then(setPrizes).catch(() => undefined);
+  }, [chanceType, prizes.length]);
+
+  function addTokenRow() {
+    setPool((p) => [...p, { kind: 'TOKENS', min: 1, max: 5, weight: 1 }]);
+  }
+  function addPrizeRow() {
+    setPool((p) => [...p, { kind: 'PRIZE', prizeId: prizes[0]?.id ?? '', weight: 1 }]);
+  }
+  function updateRow(i: number, patch: Partial<PoolEntry>) {
+    setPool((p) => p.map((r, idx) => (idx === i ? ({ ...r, ...patch } as PoolEntry) : r)));
+  }
+  function removeRow(i: number) {
+    setPool((p) => p.filter((_, idx) => idx !== i));
+  }
+
+  // Cosmetic range for the preview's wheel/slot-reel animation - same
+  // derivation the server uses for the real thing (reward-games.service.ts).
+  function previewRange() {
+    const tokenEntries = pool.filter((p): p is { kind: 'TOKENS'; min: number; max: number; weight?: number } => p.kind === 'TOKENS');
+    if (!tokenEntries.length) return { min: 1, max: 10 };
+    return { min: Math.min(...tokenEntries.map((p) => p.min)), max: Math.max(...tokenEntries.map((p) => p.max)) };
+  }
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -340,7 +387,10 @@ export function AwardForm({
       description: description.trim() || undefined,
       defaultTokenValue: Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
       wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
-      wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
+      wheelMax: chanceType === 'wheel' ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
+      pool: chanceType === 'pool' ? pool : null,
+      gameType: chanceType === 'pool' && gameType ? gameType : null,
+      slotCount: chanceType === 'pool' ? Math.max(2, Math.floor(Number(slotCount) || 6)) : null,
     };
     if (award) await api.updateAward(award.id, body, kioskToken);
     else await api.createAward(body, kioskToken);
@@ -421,13 +471,25 @@ export function AwardForm({
           </label>
 
           <div className="rounded border p-3">
-            <label className="flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={wheelOn} onChange={(e) => setWheelOn(e.target.checked)} />
-              Attach a bonus wheel
-            </label>
-            <p className="mt-1 text-xs text-slate-400">Granting this award also spins a wheel for extra tokens in this range.</p>
-            {wheelOn && (
-              <div className="mt-2 flex items-center gap-2 text-sm">
+            <span className="text-sm font-medium">Chance bonus</span>
+            <p className="mt-0.5 text-xs text-slate-400">On top of the flat value above - a wheel range or a pool, never both.</p>
+            <div className="mt-2 flex flex-wrap gap-4 text-sm">
+              <label className="flex items-center gap-1.5">
+                <input type="radio" checked={chanceType === 'none'} onChange={() => setChanceType('none')} />
+                None
+              </label>
+              <label className="flex items-center gap-1.5">
+                <input type="radio" checked={chanceType === 'wheel'} onChange={() => setChanceType('wheel')} />
+                🎡 Token range (wheel)
+              </label>
+              <label className="flex items-center gap-1.5">
+                <input type="radio" checked={chanceType === 'pool'} onChange={() => setChanceType('pool')} />
+                🎮 Pool (new)
+              </label>
+            </div>
+
+            {chanceType === 'wheel' && (
+              <div className="mt-3 flex items-center gap-2 text-sm">
                 <input
                   type="number"
                   min={1}
@@ -445,10 +507,150 @@ export function AwardForm({
                   onFocus={(e) => e.target.select()}
                   className="w-20 rounded border px-2 py-1.5 text-sm"
                 />
+                <span className="text-xs text-slate-400">extra tokens, rolled when they spin</span>
+              </div>
+            )}
+
+            {chanceType === 'pool' && (
+              <div className="mt-3 space-y-3">
+                <div>
+                  <span className="text-xs font-medium text-slate-500">Prize pool - a mix of token ranges and real prizes, each with a relative weight</span>
+                  <ul className="mt-1.5 space-y-1.5">
+                    {pool.map((row, i) => (
+                      <li key={i} className="flex flex-wrap items-center gap-1.5 rounded-lg border p-1.5 text-xs">
+                        {row.kind === 'TOKENS' ? (
+                          <>
+                            <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium">🪙</span>
+                            <input
+                              type="number"
+                              min={0}
+                              value={row.min}
+                              onChange={(e) => updateRow(i, { min: Number(e.target.value) } as Partial<PoolEntry>)}
+                              onFocus={(e) => e.target.select()}
+                              className="w-14 rounded border px-1.5 py-1"
+                            />
+                            <span className="text-slate-400">to</span>
+                            <input
+                              type="number"
+                              min={0}
+                              value={row.max}
+                              onChange={(e) => updateRow(i, { max: Number(e.target.value) } as Partial<PoolEntry>)}
+                              onFocus={(e) => e.target.select()}
+                              className="w-14 rounded border px-1.5 py-1"
+                            />
+                            <span className="text-slate-400">tokens</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium">🎁</span>
+                            <select
+                              value={row.prizeId}
+                              onChange={(e) => updateRow(i, { prizeId: e.target.value } as Partial<PoolEntry>)}
+                              className="rounded border px-1.5 py-1"
+                            >
+                              {prizes.length === 0 && <option value="">No prizes in the store yet</option>}
+                              {prizes.map((p) => (
+                                <option key={p.id} value={p.id}>
+                                  {p.name}
+                                </option>
+                              ))}
+                            </select>
+                          </>
+                        )}
+                        <span className="ml-auto flex items-center gap-1 text-slate-400">
+                          weight
+                          <input
+                            type="number"
+                            min={1}
+                            value={row.weight ?? 1}
+                            onChange={(e) => updateRow(i, { weight: Number(e.target.value) } as Partial<PoolEntry>)}
+                            onFocus={(e) => e.target.select()}
+                            className="w-12 rounded border px-1.5 py-1"
+                          />
+                        </span>
+                        <button type="button" onClick={() => removeRow(i)} className="text-red-500 hover:text-red-700">
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                    {pool.length === 0 && <li className="text-xs text-slate-400">No rows yet - add at least one below.</li>}
+                  </ul>
+                  <div className="mt-2 flex gap-2">
+                    <button type="button" onClick={addTokenRow} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                      + Token range
+                    </button>
+                    <button type="button" onClick={addPrizeRow} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                      + Prize
+                    </button>
+                  </div>
+                </div>
+
+                <label className="block text-xs">
+                  <span className="text-slate-500">How many boxes/reels/etc to show</span>
+                  <input
+                    type="number"
+                    min={2}
+                    max={12}
+                    value={slotCount}
+                    onChange={(e) => setSlotCount(Number(e.target.value))}
+                    onFocus={(e) => e.target.select()}
+                    className="mt-1 w-16 rounded border px-2 py-1"
+                  />
+                </label>
+
+                <div>
+                  <span className="text-xs font-medium text-slate-500">Game type - preview any of these before picking</span>
+                  <div className="mt-1.5 grid grid-cols-3 gap-1.5 sm:grid-cols-4">
+                    <label
+                      className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === '' ? 'ring-2 ring-slate-800' : ''}`}
+                    >
+                      <input type="radio" className="sr-only" checked={gameType === ''} onChange={() => setGameType('')} />
+                      <span className="text-base">🎲</span>
+                      <span className="font-medium">Surprise me</span>
+                      <span className="text-slate-400">Random each time</span>
+                    </label>
+                    {GAME_TYPES.map((gt) => (
+                      <label
+                        key={gt}
+                        className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === gt ? 'ring-2 ring-slate-800' : ''}`}
+                      >
+                        <input type="radio" className="sr-only" checked={gameType === gt} onChange={() => setGameType(gt)} />
+                        <span className="text-base">{GAME_TYPE_META[gt].icon}</span>
+                        <span className="font-medium">{GAME_TYPE_META[gt].label}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setPreviewStyle(gt);
+                          }}
+                          className="mt-0.5 self-start rounded border px-1 py-0.5 text-[10px] hover:bg-slate-50"
+                        >
+                          ▶ Preview
+                        </button>
+                      </label>
+                    ))}
+                  </div>
+                </div>
               </div>
             )}
           </div>
         </div>
+
+        {previewStyle && (
+          <RewardRevealModal
+            wheel={{
+              id: 'preview',
+              minTokens: previewRange().min,
+              maxTokens: previewRange().max,
+              slotCount,
+              reason: 'Preview',
+              style: previewStyle,
+            }}
+            tokenName="tokens"
+            onSpin={() => fakePreviewSpin(previewRange().min, previewRange().max)}
+            onClose={() => setPreviewStyle(null)}
+          />
+        )}
     </Modal>
   );
 }
@@ -513,6 +715,7 @@ export function GrantModal({
           <AwardIcon icon={award.icon} />
           Give "{award.name}"
           {(award.wheelMax ?? 0) > 0 && <span className="text-sm font-normal text-slate-400">🎡 has a wheel</span>}
+          {(award.pool?.length ?? 0) > 0 && <span className="text-sm font-normal text-slate-400">🎮 has a reward game</span>}
         </h3>
       }
       footer={

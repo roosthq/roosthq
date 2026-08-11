@@ -291,8 +291,18 @@ export interface PendingWheel {
   id: string;
   minTokens: number;
   maxTokens: number;
+  slotCount?: number | null;
   reason: string;
-  style: 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE';
+  style: 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE' | 'DICE_ROLL' | 'COIN_FLIP' | 'GIFT_BOX' | 'PLINKO';
+}
+
+export interface SpinResponse {
+  wonKind: 'TOKENS' | 'PRIZE';
+  amount?: number;
+  min?: number;
+  max?: number;
+  prize?: { name: string; icon: string | null } | null;
+  reason?: string;
 }
 
 export interface MealPlanEntry {
@@ -400,10 +410,20 @@ export interface Rule {
   createdAt: string;
 }
 
+export type PoolEntry =
+  | { kind: 'TOKENS'; min: number; max: number; weight?: number }
+  | { kind: 'PRIZE'; prizeId: string; weight?: number };
+
+export type GameType = 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE' | 'DICE_ROLL' | 'COIN_FLIP' | 'GIFT_BOX' | 'PLINKO';
+
 export interface AwardCatalogItem {
   id: string;
   wheelMin?: number;
   wheelMax?: number; // 0/undefined = no wheel
+  // #5 Pool reward type - mutually exclusive with the wheel range above.
+  pool?: PoolEntry[] | null;
+  gameType?: GameType | null; // pinned, or null = "surprise me"
+  slotCount?: number | null;
   name: string;
   icon: string | null;
   description: string | null;
@@ -697,6 +717,9 @@ export interface Redemption {
   prizeId: string;
   userId: string;
   status: 'REQUESTED' | 'APPROVED' | 'REJECTED' | 'FULFILLED';
+  // 'PURCHASE' (default) or 'GAME' - a #5 reward game rolled this prize,
+  // already auto-fulfilled, never enters the pending-approval queue.
+  source?: 'PURCHASE' | 'GAME';
   requestedAt: string;
   usedAt?: string | null;
   prize: { name: string; tokenCost: number; type: string };
@@ -854,7 +877,7 @@ export const api = {
       body: JSON.stringify({ notifyByEmail }),
     }),
   pendingWheels: () => req<PendingWheel[]>('/wheels/pending'),
-  spinWheel: (id: string) => req<{ amount: number; min: number; max: number; reason?: string }>(`/wheels/${id}/spin`, { method: 'POST' }),
+  spinWheel: (id: string) => req<SpinResponse>(`/wheels/${id}/spin`, { method: 'POST' }),
   setOwnBirthday: (birthday: string | null) =>
     req<{ ok: boolean; birthday: string | null }>('/users/me/birthday', { method: 'PUT', body: JSON.stringify({ birthday }) }),
   setSoundEffects: (soundEffects: boolean) =>
@@ -1067,11 +1090,33 @@ export const api = {
   earnedAwards: (userId?: string, kioskToken?: string) =>
     req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
   awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
-  createAward: (body: { name: string; icon?: string; description?: string; defaultTokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
-    req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  createAward: (
+    body: {
+      name: string;
+      icon?: string;
+      description?: string;
+      defaultTokenValue?: number;
+      wheelMin?: number;
+      wheelMax?: number;
+      pool?: PoolEntry[] | null;
+      gameType?: GameType | null;
+      slotCount?: number | null;
+    },
+    kioskToken?: string,
+  ) => req<AwardCatalogItem>('/awards', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
   updateAward: (
     id: string,
-    body: Partial<{ name: string; icon: string; description: string; defaultTokenValue: number; wheelMin: number; wheelMax: number }>,
+    body: Partial<{
+      name: string;
+      icon: string;
+      description: string;
+      defaultTokenValue: number;
+      wheelMin: number;
+      wheelMax: number;
+      pool: PoolEntry[] | null;
+      gameType: GameType | null;
+      slotCount: number | null;
+    }>,
     kioskToken?: string,
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
@@ -1120,8 +1165,7 @@ export function choreClient(kioskToken?: string) {
       req(`/chores/instances/${instanceId}/proof`, { method: 'POST', body: JSON.stringify({ image }) }, kioskToken),
     proofImage: (instanceId: string) => req<{ image: string | null }>(`/chores/instances/${instanceId}/proof`, undefined, kioskToken),
     pendingWheels: () => req<PendingWheel[]>('/wheels/pending', undefined, kioskToken),
-    spinWheel: (id: string) =>
-      req<{ amount: number; min: number; max: number; reason?: string }>(`/wheels/${id}/spin`, { method: 'POST' }, kioskToken),
+    spinWheel: (id: string) => req<SpinResponse>(`/wheels/${id}/spin`, { method: 'POST' }, kioskToken),
     approveInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
     rejectInstance: (instanceId: string) =>

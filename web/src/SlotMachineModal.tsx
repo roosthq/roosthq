@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { celebrate } from './celebrate';
+import type { SpinResult } from './rewardGames';
 
 // Same fairness contract as WheelModal - a different reveal animation for
-// the same underlying WheelSpin (server rolls at spin time regardless).
+// the same underlying RewardGame (server rolls at spin time regardless).
 export default function SlotMachineModal({
   min,
   max,
@@ -15,13 +16,13 @@ export default function SlotMachineModal({
   max: number;
   source?: string;
   tokenName?: string;
-  onSpin: () => Promise<number>;
+  onSpin: () => Promise<SpinResult>;
   onClose: () => void;
 }) {
-  const [amount, setAmount] = useState<number | null>(null);
+  const [result, setResult] = useState<SpinResult | null>(null);
   const [spinning, setSpinning] = useState(false);
   const [done, setDone] = useState(false);
-  const [displayValue, setDisplayValue] = useState(min);
+  const [displayValue, setDisplayValue] = useState<string | number>(min);
   const spinInterval = useRef<number | undefined>(undefined);
 
   async function pull() {
@@ -33,9 +34,9 @@ export default function SlotMachineModal({
     spinInterval.current = window.setInterval(() => {
       setDisplayValue(min + Math.floor(Math.random() * (max - min + 1)));
     }, 80);
-    let result: number;
+    let r: SpinResult;
     try {
-      result = await onSpin();
+      r = await onSpin();
     } catch {
       window.clearInterval(spinInterval.current);
       setSpinning(false);
@@ -43,8 +44,8 @@ export default function SlotMachineModal({
     }
     setTimeout(() => {
       window.clearInterval(spinInterval.current);
-      setDisplayValue(result);
-      setAmount(result);
+      setDisplayValue(r.wonKind === 'PRIZE' ? r.prize?.icon ?? '🎁' : (r.amount ?? 0));
+      setResult(r);
       setSpinning(false);
       setDone(true);
       celebrate(undefined, 'rewardGameWin');
@@ -65,11 +66,15 @@ export default function SlotMachineModal({
       <div className="flex h-28 w-28 items-center justify-center rounded-xl border-4 border-yellow-400 bg-slate-900 text-6xl font-extrabold text-yellow-300 shadow-lg">
         {displayValue}
       </div>
-      {done ? (
+      {done && result ? (
         <>
-          <div className="text-5xl font-extrabold text-white">
-            +{amount} {tokenName}!
-          </div>
+          {result.wonKind === 'PRIZE' ? (
+            <div className="text-4xl font-extrabold text-white">{result.prize?.name}!</div>
+          ) : (
+            <div className="text-5xl font-extrabold text-white">
+              +{result.amount} {tokenName}!
+            </div>
+          )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
           <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
             Collect

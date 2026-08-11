@@ -52,6 +52,7 @@ enum NotificationType {
   CALENDAR_EVENT_ADDED
   CALENDAR_EVENT_REMINDER
   AWARD_GRANTED
+  GAME_PRIZE_WON // a reward game (#5) rolled a real Prize, not tokens - adult needs to get it ready
 }
 
 enum PrizeType {
@@ -105,7 +106,7 @@ model Family {
   invites         FamilyInvite[]
   mealPlans       MealPlan[]
   eatOutPlaces    EatOutPlace[]
-  wheelSpins      WheelSpin[]
+  rewardGames     RewardGame[]
   groceryItems    GroceryItem[]
   countdowns      Countdown[]
   announcements   Announcement[]
@@ -309,7 +310,7 @@ model User {
   rulesCreated          Rule[]               @relation("RuleCreatedBy")
   createdAwards         Award[]              @relation("AwardCreatedBy")
   awardsReceived        AwardGrant[]         @relation("AwardGrantUser")
-  wheelSpins            WheelSpin[]          @relation("WheelSpinUser")
+  rewardGames           RewardGame[]         @relation("RewardGameUser")
   awardsGranted         AwardGrant[]         @relation("AwardGrantedBy")
   approvedChores        ChoreInstance[]      @relation("ChoreInstanceApprovedBy")
   approvedRedemptions   Redemption[]         @relation("RedemptionApprovedBy")
@@ -632,6 +633,13 @@ model Award {
   defaultTokenValue Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
   wheelMin          Int      @default(1) // bonus-wheel range attached to this award (see wheelMax)
   wheelMax          Int      @default(0) // 0 = no wheel; >0 = granting also spins a wheel worth wheelMin..wheelMax extra tokens
+  // #5 "Pool" reward type - a third option alongside the flat defaultTokenValue
+  // and the plain wheelMin/wheelMax range above. Null poolJson = not using
+  // this; when set, granting queues a RewardGame with this weighted pool
+  // instead of (not additive with) the flat value or the plain wheel.
+  poolJson          Json?    // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}]
+  poolGameType      String?  // pinned game type, or null = "surprise me" (default)
+  poolSlotCount     Int?     // cosmetic box/reel count
   createdById       String
   createdAt         DateTime @default(now())
 
@@ -695,6 +703,7 @@ model Prize {
   suggestedBy User?             @relation("PrizeSuggestedBy", fields: [suggestedById], references: [id], onDelete: SetNull)
   assignments PrizeAssignment[]
   redemptions Redemption[]
+  gameWins    RewardGame[] // #5 - reward-game pool rolls that won this prize
 
   @@index([familyId])
   @@index([locationId])
@@ -715,6 +724,11 @@ model Redemption {
   prizeId     String
   userId      String
   status      RedemptionStatus @default(REQUESTED)
+  // 'PURCHASE' (default - spent tokens, needs the normal approve/reject flow)
+  // or 'GAME' (#5 reward game rolled this Prize - already created FULFILLED,
+  // never enters the pending-approval queue, no reject: "you already won it"
+  // is a different contract than "you spent tokens on it").
+  source      String           @default("PURCHASE")
   requestedAt DateTime         @default(now())
   approvedBy  String?
   usedAt      DateTime? // EVENT prizes only: when the event actually happened,
@@ -818,28 +832,51 @@ model Announcement {
 // approving a chore (or handing out an award) shouldn't be the one who spins
 // the kid's wheel. The amount is rolled server-side at spin time, inside
 // [min,max], then written to the ledger.
-model WheelSpin {
+// Renamed from WheelSpin (#5 - "the load-bearing feature") but kept mapped to
+// the same physical table: a full model rename would drop/recreate on
+// `db push` and lose every family's existing spin history, and there's no
+// upside to that over @@map. minTokens/maxTokens/amount are the ORIGINAL
+// simple range-roll path (still used as-is by the plain streak-bonus wheel -
+// chores.service.ts - and a plain award-attached wheel - awards.service.ts);
+// poolJson/wonKind/wonPrizeId/slotCount are the NEW pool path (a weighted mix
+// of token ranges and real Prizes, only set when an award's "Pool" reward
+// type is used). A row uses exactly one path - never both.
+model RewardGame {
   id        String    @id @default(cuid())
   familyId  String
-  userId    String // who gets to spin
+  userId    String // who gets to play
   minTokens Int       @default(1)
   maxTokens Int       @default(5)
   // Which reveal presentation the client shows - purely visual, the actual
-  // roll (min..max, server-side, at spin time) is identical regardless. Set
-  // randomly at creation so a kid gets a mix instead of the same one every
-  // time (see REWARD_STYLES in wheels.service.ts).
-  style     String    @default("WHEEL")
+  // roll (server-side, at play time) is identical regardless. Set randomly
+  // at creation so a kid gets a mix instead of the same one every time,
+  // unless the granter pinned a specific one (see GAME_TYPES in
+  // reward-games.service.ts). Field name kept as `style` (pre-dates the
+  // gameType/RewardGame rename) rather than churning every existing row.
+  style      String    @default("WHEEL")
+  // Weighted prize pool: [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}].
+  // Null = legacy/simple range-roll path (minTokens..maxTokens only).
+  poolJson   Json?
+  // Cosmetic - how many boxes/reels/etc the client renders. Null = the game
+  // type's own default.
+  slotCount  Int?
+  // Set at play time (spin()): what the pool actually rolled. Null/unset on
+  // the simple range-roll path, where the ledger entry IS the record.
+  wonKind    String?
+  wonPrizeId String?
   reason    String // e.g. "Bonus wheel: Homework (5 in a row)"
   refId     String? // originating AwardGrant / ChoreInstance id, for reversal
-  amount    Int? // rolled at spin time; null while unspun
+  amount    Int? // rolled at play time; null while unplayed
   spunAt    DateTime?
   createdAt DateTime  @default(now())
 
-  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  user   User   @relation("WheelSpinUser", fields: [userId], references: [id], onDelete: Cascade)
+  family    Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user      User    @relation("RewardGameUser", fields: [userId], references: [id], onDelete: Cascade)
+  wonPrize  Prize?  @relation(fields: [wonPrizeId], references: [id], onDelete: SetNull)
 
   @@index([userId, spunAt])
   @@index([familyId])
+  @@map("WheelSpin")
 }
 
 // Instance-owner action trail: who deactivated/deleted/created/moved a user,

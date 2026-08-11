@@ -1,8 +1,9 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
-import { WheelsService } from '../wheels/wheels.service';
+import { RewardGamesService, GAME_TYPES, PoolEntry, GameType } from '../reward-games/reward-games.service';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 
 export interface AwardInput {
@@ -12,6 +13,13 @@ export interface AwardInput {
   defaultTokenValue?: number;
   wheelMin?: number;
   wheelMax?: number; // 0 = no wheel attached to this award
+  // #5 "Pool" reward type - a third option alongside defaultTokenValue and
+  // the plain wheelMin/wheelMax range. Mutually exclusive with both: when
+  // set (non-empty), granting queues a pool-based RewardGame instead of
+  // either of the other two, not additive with them.
+  pool?: PoolEntry[] | null;
+  gameType?: GameType | null; // pinned game type, or null/omitted = "surprise me"
+  slotCount?: number | null;
 }
 
 export interface GrantInput {
@@ -30,8 +38,27 @@ export class AwardsService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
-    private wheels: WheelsService,
+    private rewardGames: RewardGamesService,
   ) {}
+
+  // Whatever a client sends for pool, keep only well-shaped entries - same
+  // never-trust-the-client-blindly spirit as sanitizeDisabledFeatures. An
+  // empty/invalid pool is treated as "not using this reward type" (null).
+  private sanitizePool(input: unknown): PoolEntry[] | null {
+    if (!Array.isArray(input) || input.length === 0) return null;
+    const out: PoolEntry[] = [];
+    for (const raw of input) {
+      if (!raw || typeof raw !== 'object') continue;
+      const p = raw as Record<string, unknown>;
+      const weight = typeof p.weight === 'number' && p.weight > 0 ? p.weight : 1;
+      if (p.kind === 'TOKENS' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'TOKENS', min: Math.max(0, Math.floor(p.min)), max: Math.max(0, Math.floor(p.max)), weight });
+      } else if (p.kind === 'PRIZE' && typeof p.prizeId === 'string' && p.prizeId) {
+        out.push({ kind: 'PRIZE', prizeId: p.prizeId, weight });
+      }
+    }
+    return out.length ? out : null;
+  }
 
   private isAdult(role: string) {
     return role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT';
@@ -67,6 +94,9 @@ export class AwardsService {
       defaultTokenValue: a.defaultTokenValue,
       wheelMin: a.wheelMin,
       wheelMax: a.wheelMax,
+      pool: (a.poolJson as PoolEntry[] | null) ?? null,
+      gameType: a.poolGameType as GameType | null,
+      slotCount: a.poolSlotCount,
       grantCount: a._count.grants,
     }));
   }
@@ -74,6 +104,7 @@ export class AwardsService {
   async create(familyId: string, actorId: string, dto: AwardInput) {
     await assertFeatureEnabled(this.prisma, familyId, 'awards');
     await this.assertAdult(actorId);
+    const pool = this.sanitizePool(dto.pool);
     return this.prisma.award.create({
       data: {
         familyId,
@@ -83,6 +114,9 @@ export class AwardsService {
         defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue ?? 0)),
         wheelMin: Math.max(1, Math.floor(dto.wheelMin ?? 1)),
         wheelMax: Math.max(0, Math.floor(dto.wheelMax ?? 0)),
+        poolJson: (pool ?? Prisma.JsonNull) as unknown as Prisma.InputJsonValue,
+        poolGameType: pool && dto.gameType && GAME_TYPES.includes(dto.gameType) ? dto.gameType : null,
+        poolSlotCount: pool ? (dto.slotCount ?? null) : null,
         createdById: actorId,
       },
     });
@@ -91,6 +125,7 @@ export class AwardsService {
   async update(familyId: string, actorId: string, id: string, dto: Partial<AwardInput>) {
     await this.assertAdult(actorId);
     await this.owned(familyId, id);
+    const pool = dto.pool !== undefined ? this.sanitizePool(dto.pool) : undefined;
     return this.prisma.award.update({
       where: { id },
       data: {
@@ -100,6 +135,9 @@ export class AwardsService {
         ...(dto.defaultTokenValue !== undefined && { defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue)) }),
         ...(dto.wheelMin !== undefined && { wheelMin: Math.max(1, Math.floor(dto.wheelMin)) }),
         ...(dto.wheelMax !== undefined && { wheelMax: Math.max(0, Math.floor(dto.wheelMax)) }),
+        ...(pool !== undefined && { poolJson: (pool ?? Prisma.JsonNull) as unknown as Prisma.InputJsonValue }),
+        ...(dto.gameType !== undefined && { poolGameType: dto.gameType && GAME_TYPES.includes(dto.gameType) ? dto.gameType : null }),
+        ...(dto.slotCount !== undefined && { poolSlotCount: dto.slotCount ?? null }),
       },
     });
   }
@@ -206,15 +244,34 @@ export class AwardsService {
         },
       });
     }
-    // Bonus wheel attached to this award: server picks the amount (client
-    // wheels are pure theater landing on it) - but nothing is banked here:
-    // the wheel is QUEUED for the recipient to spin on their own screen or
-    // the kiosk. The grown-up handing over the award never spins it for them.
+    // Bonus wheel / reward game attached to this award: server picks the
+    // outcome (client presentations are pure theater landing on it) - but
+    // nothing is banked here: it's QUEUED for the recipient to play on their
+    // own screen or the kiosk. The grown-up handing over the award never
+    // plays it for them. Pool (#5) and the plain wheelMin/wheelMax range are
+    // mutually exclusive reward types, not additive - pool wins if both are
+    // somehow set (shouldn't happen; the client form is a radio choice).
     let wheelQueued = false;
+    const pool = (award.poolJson as PoolEntry[] | null) ?? null;
     const wheelMax = Math.max(0, Math.floor(dto.wheelMax ?? award.wheelMax));
     const wheelMin = Math.max(1, Math.floor(dto.wheelMin ?? award.wheelMin));
-    if (wheelMax > 0 && !recipient.tokensDisabled) {
-      await this.wheels.create(familyId, dto.userId, wheelMin, wheelMax, `Bonus wheel: ${award.name}`, grant.id);
+    if (pool && !recipient.tokensDisabled) {
+      await this.rewardGames.createFromPool(familyId, dto.userId, pool, {
+        reason: `Reward game: ${award.name}`,
+        refId: grant.id,
+        gameType: award.poolGameType as GameType | null,
+        slotCount: award.poolSlotCount,
+      });
+      wheelQueued = true;
+      await this.notifications.create(
+        familyId,
+        dto.userId,
+        'AWARD_GRANTED',
+        `🎮 "${award.name}" comes with a reward game - go play it!`,
+        { link: '/chores', refId: grant.id },
+      );
+    } else if (wheelMax > 0 && !recipient.tokensDisabled) {
+      await this.rewardGames.create(familyId, dto.userId, wheelMin, wheelMax, `Bonus wheel: ${award.name}`, grant.id);
       wheelQueued = true;
       await this.notifications.create(
         familyId,
@@ -250,10 +307,10 @@ export class AwardsService {
 
   // Net tokens a spun bonus wheel put in their pocket for this grant. Netted,
   // not summed, so a wheel bonus already reversed can't be clawed back twice.
-  // No `type` filter on purpose: WheelsService.spin writes its ledger entry as
-  // STREAK_BONUS (it serves streak milestones too) while the reversal below is
-  // an AWARD entry - matching on refId plus the reason is what actually
-  // identifies these rows.
+  // No `type` filter on purpose: RewardGamesService.spin writes its ledger
+  // entry as STREAK_BONUS (it serves streak milestones too) while the
+  // reversal below is an AWARD entry - matching on refId plus the reason is
+  // what actually identifies these rows.
   private async wheelTokensFor(grantId: string) {
     const entries = await this.prisma.tokenLedger.findMany({
       where: {
@@ -282,7 +339,7 @@ export class AwardsService {
     const recipient = await this.prisma.user.findUnique({ where: { id: grant.userId }, select: { tokensDisabled: true } });
     // An unspun wheel from this grant simply goes away, tokens or not - there
     // is nothing left to spin for.
-    await this.wheels.deleteUnspunFor(grant.id);
+    await this.rewardGames.deleteUnspunFor(grant.id);
     // Mirrors grant()'s own gate - if tokens were disabled (still are), no
     // forward entry exists to reverse; writing one anyway would be a
     // phantom negative entry with nothing to offset.

@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
-import { WheelsService } from '../wheels/wheels.service';
+import { RewardGamesService } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
 import {
   DEFAULT_TIMEZONE,
@@ -257,7 +257,7 @@ export class ChoresService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
-    private wheels: WheelsService,
+    private rewardGames: RewardGamesService,
     private audit: AuditLogService,
   ) {}
 
@@ -932,7 +932,7 @@ export class ChoresService {
           // An adult approving it shouldn't be the one who spins the kid's
           // wheel, and the amount stays unknown until the wheel stops.
           if (wheelActive) {
-            await this.wheels.create(
+            await this.rewardGames.create(
               inst.chore.familyId,
               recipient,
               1,

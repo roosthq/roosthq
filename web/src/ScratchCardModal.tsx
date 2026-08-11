@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { celebrate } from './celebrate';
+import type { SpinResult } from './rewardGames';
 
 // Same fairness contract as WheelModal - a different reveal animation for
-// the same underlying WheelSpin (server rolls at spin time regardless).
+// the same underlying RewardGame (server rolls at spin time regardless).
 export default function ScratchCardModal({
   min,
   max,
@@ -15,10 +16,10 @@ export default function ScratchCardModal({
   max: number;
   source?: string;
   tokenName?: string;
-  onSpin: () => Promise<number>;
+  onSpin: () => Promise<SpinResult>;
   onClose: () => void;
 }) {
-  const [amount, setAmount] = useState<number | null>(null);
+  const [result, setResult] = useState<SpinResult | null>(null);
   const [scratching, setScratching] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
@@ -26,10 +27,10 @@ export default function ScratchCardModal({
     if (scratching || revealed) return;
     setScratching(true);
     try {
-      const result = await onSpin();
-      setAmount(result);
+      const r = await onSpin();
+      setResult(r);
       // Let the scratch-wipe transition (see the covered <button> below)
-      // finish before calling it done - same "motion before the number"
+      // finish before calling it done - same "motion before the outcome"
       // beat the wheel and the box both use.
       setTimeout(() => {
         setRevealed(true);
@@ -50,10 +51,12 @@ export default function ScratchCardModal({
         </p>
       )}
       <p className="max-w-xs text-center text-sm text-slate-300">
-        {revealed ? 'You won' : scratching ? 'Scratching…' : `Tap to scratch (${min}-${max} ${tokenName})`}
+        {revealed ? 'You won' : scratching ? 'Scratching…' : `Tap to scratch (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <div className="relative flex h-40 w-64 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg">
-        <div className="text-4xl font-extrabold text-slate-800">{amount !== null ? `+${amount}` : '?'}</div>
+      <div className="relative flex h-40 w-64 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg p-2 text-center">
+        <div className="text-3xl font-extrabold text-slate-800">
+          {result === null ? '?' : result.wonKind === 'PRIZE' ? `${result.prize?.icon ?? '🎁'} ${result.prize?.name}` : `+${result.amount}`}
+        </div>
         {!revealed && (
           <button
             onClick={scratch}
@@ -67,11 +70,15 @@ export default function ScratchCardModal({
           </button>
         )}
       </div>
-      {revealed && (
+      {revealed && result && (
         <>
-          <div className="text-5xl font-extrabold text-white">
-            +{amount} {tokenName}!
-          </div>
+          {result.wonKind === 'PRIZE' ? (
+            <div className="text-4xl font-extrabold text-white">{result.prize?.name}!</div>
+          ) : (
+            <div className="text-5xl font-extrabold text-white">
+              +{result.amount} {tokenName}!
+            </div>
+          )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
           <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
             Collect

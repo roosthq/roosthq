@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { celebrate } from './celebrate';
+import type { SpinResult } from './rewardGames';
 
 const COLORS = ['#4e7a4c', '#d4c06a', '#5baedd', '#e07c5c', '#b58ae0', '#2a9a78', '#b84878', '#a07840'];
 
@@ -27,10 +28,14 @@ export default function WheelModal({
   // before and after the spin so a kid knows what they're being rewarded for.
   source?: string;
   tokenName?: string;
-  onSpin?: () => Promise<number>;
+  onSpin?: () => Promise<SpinResult>;
   onClose: () => void;
 }) {
   const [rolled, setRolled] = useState<number | undefined>(amount);
+  // The wedge the wheel lands on is always a NUMBER (cosmetic - theater only,
+  // per #5's fairness rule). A prize win still lands on some wedge, then the
+  // reveal text below overrides it with the actual prize instead of a count.
+  const [result, setResult] = useState<SpinResult | undefined>(amount !== undefined ? { wonKind: 'TOKENS', amount } : undefined);
   // Segment values min..max, repeated until the wheel has >= 8 slices so a
   // small range (1-3) still looks like a wheel.
   const segments = useMemo(() => {
@@ -83,7 +88,11 @@ export default function WheelModal({
     let target = rolled;
     if (target === undefined && onSpin) {
       try {
-        target = await onSpin();
+        const r = await onSpin();
+        setResult(r);
+        // A prize win has no meaningful wedge - land on a random one, since
+        // the reveal text (not the wedge) is what actually shows the prize.
+        target = r.wonKind === 'TOKENS' ? r.amount : segments[Math.floor(Math.random() * segments.length)];
         setRolled(target);
       } catch {
         setSpinning(false);
@@ -223,9 +232,16 @@ export default function WheelModal({
       </div>
       {done ? (
         <>
-          <div className="text-5xl font-extrabold text-white">
-            +{rolled} {tokenName}!
-          </div>
+          {result?.wonKind === 'PRIZE' ? (
+            <div className="flex flex-col items-center gap-1 text-4xl font-extrabold text-white">
+              <span className="text-5xl">{result.prize?.icon ?? '🎁'}</span>
+              <span>{result.prize?.name}!</span>
+            </div>
+          ) : (
+            <div className="text-5xl font-extrabold text-white">
+              +{rolled} {tokenName}!
+            </div>
+          )}
           {(source ?? label) && <div className="text-sm text-slate-300">for {source ?? label}</div>}
           <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
             Collect

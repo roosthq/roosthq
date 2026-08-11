@@ -984,7 +984,7 @@ export default function ChoresPanel({
           wheel={wheel}
           source={wheelSource(wheel)}
           tokenName={tokenName}
-          onSpin={async () => (await client.spinWheel(wheel.id)).amount}
+          onSpin={async () => client.spinWheel(wheel.id)}
           onClose={() => {
             setWheel(null);
             refreshWheels();

@@ -20,7 +20,7 @@ import { LocalCalendarsModule } from './local-calendars/local-calendars.module';
 import { OwnerModule } from './owner/owner.module';
 import { HolidaysModule } from './holidays/holidays.module';
 import { HouseholdModule } from './household/household.module';
-import { WheelsModule } from './wheels/wheels.module';
+import { RewardGamesModule } from './reward-games/reward-games.module';
 import { SecurityModule } from './security/security.module';
 import { SearchModule } from './search/search.module';
 import { SoundsModule } from './sounds/sounds.module';
@@ -47,7 +47,7 @@ import { SoundsModule } from './sounds/sounds.module';
     OwnerModule,
     HolidaysModule,
     HouseholdModule,
-    WheelsModule,
+    RewardGamesModule,
     SearchModule,
     SoundsModule,
   ],
