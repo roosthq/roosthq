@@ -5,6 +5,8 @@
 // the moment of picking, regardless of which of the 8 presentations below is
 // showing it.
 
+import type { PoolEntry } from './api';
+
 export interface SpinResult {
   wonKind: 'TOKENS' | 'PRIZE';
   amount?: number;
@@ -39,7 +41,44 @@ export const GAME_TYPE_META: Record<GameType, { label: string; icon: string; hel
 // the reveal modal something to show so an adult can compare presentations
 // before picking one. A brief delay so it still feels like "playing", not an
 // instant snap.
-export function fakePreviewSpin(min: number, max: number): Promise<SpinResult> {
-  const amount = min + Math.floor(Math.random() * (Math.max(min, max) - min + 1));
-  return new Promise((resolve) => setTimeout(() => resolve({ wonKind: 'TOKENS', amount }), 250));
+//
+// Mirrors the REAL weighted pick (reward-games.service.ts rollPool) so a
+// prize entry in the pool actually shows up sometimes in preview too, not
+// just a token amount - otherwise "preview" never demonstrates what winning
+// an actual prize looks like, which is the whole point of previewing a pool
+// that includes one.
+export function fakePreviewRoll(
+  pool: PoolEntry[],
+  prizeNameById: Record<string, string>,
+  fallbackMin: number,
+  fallbackMax: number,
+): Promise<SpinResult> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (!pool.length) {
+        const amount = fallbackMin + Math.floor(Math.random() * (Math.max(fallbackMin, fallbackMax) - fallbackMin + 1));
+        resolve({ wonKind: 'TOKENS', amount });
+        return;
+      }
+      const totalWeight = pool.reduce((s, p) => s + (p.weight ?? 1), 0);
+      let r = Math.random() * totalWeight;
+      let picked = pool[pool.length - 1];
+      for (const p of pool) {
+        r -= p.weight ?? 1;
+        if (r <= 0) {
+          picked = p;
+          break;
+        }
+      }
+      if (picked.kind === 'PRIZE') {
+        // Real reveal never shows the product photo either (see
+        // reward-games.service.ts's prizeIcon()) - just the name, falling
+        // back to a generic 🎁 in the modal itself.
+        resolve({ wonKind: 'PRIZE', prize: { name: prizeNameById[picked.prizeId] ?? 'Prize', icon: null } });
+      } else {
+        const amount = picked.min + Math.floor(Math.random() * (Math.max(picked.min, picked.max) - picked.min + 1));
+        resolve({ wonKind: 'TOKENS', amount });
+      }
+    }, 250);
+  });
 }

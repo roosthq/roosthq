@@ -6,7 +6,7 @@ import TokenBadge from '../TokenBadge';
 import IconPicker from '../IconPicker';
 import { formatDateTime } from '../dateFormat';
 import { AWARD_PACKS } from '../awardPacks';
-import { GAME_TYPES, GAME_TYPE_META, fakePreviewSpin } from '../rewardGames';
+import { GAME_TYPES, GAME_TYPE_META, fakePreviewRoll } from '../rewardGames';
 import RewardRevealModal from '../RewardRevealModal';
 import { PrizeImage } from '../Prize';
 
@@ -701,7 +701,14 @@ export function AwardForm({
               style: previewStyle,
             }}
             tokenName="tokens"
-            onSpin={() => fakePreviewSpin(previewRange().min, previewRange().max)}
+            onSpin={() =>
+              fakePreviewRoll(
+                pool,
+                Object.fromEntries(prizes.map((p) => [p.id, p.name])),
+                previewRange().min,
+                previewRange().max,
+              )
+            }
             onClose={() => setPreviewStyle(null)}
           />
         )}
