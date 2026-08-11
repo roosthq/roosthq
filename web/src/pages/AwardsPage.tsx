@@ -597,7 +597,7 @@ export function AwardForm({
                               </button>
                             ) : (
                               <span className="block text-xs text-amber-600">
-                                {prizes.length === 0 ? 'No prizes in the store yet - add one first.' : 'Pick a prize below ↓'}
+                                {poolablePrizes.length === 0 ? 'No award-only prizes yet - mark one "Award only" in the Prizes tab first.' : 'Pick a prize below ↓'}
                               </span>
                             )}
 
@@ -616,7 +616,7 @@ export function AwardForm({
 
                           {row.kind === 'PRIZE' && pickerOpenFor === i && (
                             <div className="mt-2 grid max-h-48 grid-cols-2 gap-1.5 overflow-y-auto rounded-lg border p-1.5 sm:grid-cols-3">
-                              {prizes.map((p) => (
+                              {poolablePrizes.map((p) => (
                                 <button
                                   key={p.id}
                                   type="button"
@@ -633,7 +633,11 @@ export function AwardForm({
                                   </span>
                                 </button>
                               ))}
-                              {prizes.length === 0 && <span className="col-span-full text-xs text-slate-400">No prizes in the store yet.</span>}
+                              {poolablePrizes.length === 0 && (
+                                <span className="col-span-full text-xs text-slate-400">
+                                  No award-only prizes yet - mark one &quot;Award only&quot; in the Prizes tab first.
+                                </span>
+                              )}
                             </div>
                           )}
                         </li>
