@@ -189,7 +189,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       {needsLocation && (
-        <LocationJoinModal locations={locations!} onJoined={() => api.locations().then(setLocations).catch(() => undefined)} />
+        // Full reload, not just a locations re-fetch - every page that
+        // scopes its own data by location (Calendar's calendar list,
+        // Household's widgets, Displays) already ran its own fetch effects
+        // before this modal ever appeared, using the "no location yet"
+        // state. Re-fetching just `locations` here cleared the modal but
+        // left all of that stale until a real navigation/reload happened.
+        <LocationJoinModal locations={locations!} onJoined={() => window.location.reload()} />
       )}
       {me.ghostedBy && (
         <div className="no-print flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">

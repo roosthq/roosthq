@@ -163,15 +163,19 @@ export class CalendarsService {
   // caller's own location(s) - "relevant" meaning transitively, the same way
   // DisplaysService.calendarsForLocation already scopes Google calendars:
   // whoever SHARED it belongs to that location (or shares it family-wide,
-  // no location of their own). A person with no location at all (unassigned,
-  // or an owner who never set one) gets the unrestricted list - there's
-  // nothing sensible to scope by. Local calendars use their own real
+  // no location of their own). A person with NO location yet (before they've
+  // gone through the location-join modal every role gets) sees ONLY the
+  // truly family-wide shares - myLocs is empty, so the filter below already
+  // reduces to exactly that on its own (sharerLocs.length === 0 is the only
+  // branch that can still be true); this used to special-case that as
+  // "nothing sensible to scope by" and hand back the fully unrestricted
+  // list instead, which is exactly the bug - everything showed up before
+  // anyone had picked a location at all. Local calendars use their own real
   // locationId directly, same rule as everywhere else in the app.
   async listSharedForLocation(familyId: string, userId: string) {
     const myLocs = new Set(
       (await this.prisma.userLocation.findMany({ where: { userId }, select: { locationId: true } })).map((r) => r.locationId),
     );
-    if (myLocs.size === 0) return this.listShared(familyId, userId);
 
     const calendars = await this.prisma.calendar.findMany({
       where: { familyId },

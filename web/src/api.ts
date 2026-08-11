@@ -207,6 +207,11 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
   { id: 'sand', label: 'Sand', swatch: '#a07840' },
   { id: 'mint', label: 'Mint', swatch: '#2a9a78' },
   { id: 'midnight', label: 'Midnight', swatch: '#4a6ab8' },
+  { id: 'stone', label: 'Stone', swatch: '#6b6b64' },
+  { id: 'crimson', label: 'Crimson', swatch: '#c23b3b' },
+  { id: 'teal', label: 'Teal', swatch: '#1f8f8f' },
+  { id: 'amber', label: 'Amber', swatch: '#c9932e' },
+  { id: 'indigo', label: 'Indigo', swatch: '#5750c8' },
 ];
 
 // Shown next to a role anywhere it appears - profile switchers, the family

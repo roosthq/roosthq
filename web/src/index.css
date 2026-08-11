@@ -411,6 +411,156 @@
   --tag-text: #8aaae8;
   --surface-off: #212121;
 }
+[data-theme='stone'] {
+  --bg: #f3f3f1;
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
+  --border: rgba(100, 100, 96, 0.16);
+  --text: #1e1e1c;
+  --text-2: #8a8a84;
+  --text-muted: #8a8a84;
+  --accent: #6b6b64;
+  --accent-hover: color-mix(in oklch, #6b6b64 80%, black);
+  --tag-bg: #dedad2;
+  --tag-text: #4a4a44;
+  --surface-off: #e5e7eb;
+}
+[data-theme='stone'][data-mode='dark'] {
+  --bg: #161614;
+  --surface: #201f1c;
+  --surface-raised: color-mix(in srgb, #201f1c 85%, white 15%);
+  --border: rgba(180, 180, 172, 0.12);
+  --text: #f0f0ec;
+  --text-2: #78786e;
+  --text-muted: #78786e;
+  --accent: #9a9a90;
+  --accent-hover: color-mix(in oklch, #9a9a90 85%, white);
+  --tag-bg: #2a2a26;
+  --tag-text: #b8b8ac;
+  --surface-off: #212121;
+}
+[data-theme='crimson'] {
+  --bg: #fbf1ef;
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
+  --border: rgba(194, 59, 59, 0.16);
+  --text: #380e0e;
+  --text-2: #b88080;
+  --text-muted: #b88080;
+  --accent: #c23b3b;
+  --accent-hover: color-mix(in oklch, #c23b3b 80%, black);
+  --tag-bg: #f5d0cc;
+  --tag-text: #8a2020;
+  --surface-off: #e5e7eb;
+}
+[data-theme='crimson'][data-mode='dark'] {
+  --bg: #200a0a;
+  --surface: #2c1010;
+  --surface-raised: color-mix(in srgb, #2c1010 85%, white 15%);
+  --border: rgba(224, 110, 110, 0.12);
+  --text: #fbe8e6;
+  --text-2: #8a4040;
+  --text-muted: #8a4040;
+  --accent: #e07070;
+  --accent-hover: color-mix(in oklch, #e07070 85%, white);
+  --tag-bg: #3a1414;
+  --tag-text: #e07070;
+  --surface-off: #212121;
+}
+[data-theme='teal'] {
+  --bg: #eef8f8;
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
+  --border: rgba(31, 143, 143, 0.16);
+  --text: #0a2828;
+  --text-2: #60a0a0;
+  --text-muted: #60a0a0;
+  --accent: #1f8f8f;
+  --accent-hover: color-mix(in oklch, #1f8f8f 80%, black);
+  --tag-bg: #bce8e8;
+  --tag-text: #0a5858;
+  --surface-off: #e5e7eb;
+}
+[data-theme='teal'][data-mode='dark'] {
+  --bg: #061818;
+  --surface: #0e2828;
+  --surface-raised: color-mix(in srgb, #0e2828 85%, white 15%);
+  --border: rgba(90, 200, 200, 0.12);
+  --text: #e0f8f8;
+  --text-2: #307878;
+  --text-muted: #307878;
+  --accent: #4ac0c0;
+  --accent-hover: color-mix(in oklch, #4ac0c0 85%, white);
+  --tag-bg: #0a2a2a;
+  --tag-text: #4ac0c0;
+  --surface-off: #212121;
+}
+[data-theme='amber'] {
+  --bg: #faf6ec;
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
+  --border: rgba(201, 147, 46, 0.16);
+  --text: #2a2008;
+  --text-2: #a89060;
+  --text-muted: #a89060;
+  --accent: #c9932e;
+  --accent-hover: color-mix(in oklch, #c9932e 80%, black);
+  --tag-bg: #f0dcae;
+  --tag-text: #7a5a10;
+  --surface-off: #e5e7eb;
+}
+[data-theme='amber'][data-mode='dark'] {
+  --bg: #1c1608;
+  --surface: #241c0c;
+  --surface-raised: color-mix(in srgb, #241c0c 85%, white 15%);
+  --border: rgba(224, 180, 100, 0.12);
+  --text: #f8eed8;
+  --text-2: #78683c;
+  --text-muted: #78683c;
+  --accent: #d8ad5c;
+  --accent-hover: color-mix(in oklch, #d8ad5c 85%, white);
+  --tag-bg: #3a2c10;
+  --tag-text: #d8ad5c;
+  --surface-off: #212121;
+}
+[data-theme='indigo'] {
+  --bg: #f0eefa;
+  /* see :root's --surface comment: mixed toward --accent so the card
+     actually reads as this theme's color, not just a darker gray. */
+  --surface: color-mix(in srgb, var(--bg) 80%, var(--accent) 20%);
+  --surface-raised: color-mix(in srgb, var(--bg) 88%, var(--accent) 12%);
+  --border: rgba(87, 80, 200, 0.16);
+  --text: #14103a;
+  --text-2: #8a84c0;
+  --text-muted: #8a84c0;
+  --accent: #5750c8;
+  --accent-hover: color-mix(in oklch, #5750c8 80%, black);
+  --tag-bg: #d8d4f5;
+  --tag-text: #302090;
+  --surface-off: #e5e7eb;
+}
+[data-theme='indigo'][data-mode='dark'] {
+  --bg: #0e0c20;
+  --surface: #16122c;
+  --surface-raised: color-mix(in srgb, #16122c 85%, white 15%);
+  --border: rgba(150, 140, 232, 0.12);
+  --text: #e8e6fa;
+  --text-2: #56508a;
+  --text-muted: #56508a;
+  --accent: #8a82e8;
+  --accent-hover: color-mix(in oklch, #8a82e8 85%, white);
+  --tag-bg: #1c1838;
+  --tag-text: #8a82e8;
+  --surface-off: #212121;
+}
 
 html,
 /* Backlog #6: the page itself, not just its cards, was a flat single-color

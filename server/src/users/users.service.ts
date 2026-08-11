@@ -8,7 +8,7 @@ function isFamilyManager(role?: string): boolean {
 }
 type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 const FONT_SIZES: FontSize[] = ['sm', 'md', 'lg', 'xl'];
-export const COLOR_THEMES = ['meadow', 'ocean', 'ember', 'lavender', 'slate', 'rose', 'sand', 'mint', 'midnight'];
+export const COLOR_THEMES = ['meadow', 'ocean', 'ember', 'lavender', 'slate', 'rose', 'sand', 'mint', 'midnight', 'stone', 'crimson', 'teal', 'amber', 'indigo'];
 // Self-hosters can pick which theme new members start on via DEFAULT_COLOR_THEME
 // in .env; falls back to the brand default if unset or not a real theme id.
 export const DEFAULT_COLOR_THEME = COLOR_THEMES.includes(process.env.DEFAULT_COLOR_THEME ?? '')
