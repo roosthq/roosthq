@@ -99,9 +99,13 @@ export function DialogProvider({ children }: { children: ReactNode }) {
               <button
                 autoFocus
                 onClick={handleOk}
-                className={`rounded px-4 py-1.5 text-sm text-white hover:opacity-90 ${
-                  request.kind === 'confirm' && request.danger ? 'bg-red-600' : 'bg-slate-800'
-                }`}
+                className={
+                  request.kind === 'confirm' && request.danger && request.confirmLabel?.startsWith('Delete')
+                    ? 'btn-delete rounded px-4 py-1.5 text-sm'
+                    : `rounded px-4 py-1.5 text-sm text-white hover:opacity-90 ${
+                        request.kind === 'confirm' && request.danger ? 'bg-red-600' : 'bg-slate-800'
+                      }`
+                }
               >
                 {request.kind === 'confirm' ? request.confirmLabel ?? 'OK' : 'OK'}
               </button>

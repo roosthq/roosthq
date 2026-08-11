@@ -355,7 +355,7 @@ export default function OwnerFamiliesPanel() {
                           <button
                             disabled={busy}
                             onClick={() => deleteUser(f.id, m)}
-                            className="rounded border px-2 py-1 text-red-500 hover:bg-red-50 disabled:opacity-50"
+                            className="btn-delete rounded px-2 py-1 disabled:opacity-50"
                           >
                             Delete
                           </button>

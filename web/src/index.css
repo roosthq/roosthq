@@ -680,6 +680,71 @@ html {
   background: #fff !important;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
+/* Reward-game reveal modals (#5): a full-screen dark overlay + wheel/dice/
+   plinko/etc board, deliberately the SAME regardless of the family's color
+   theme - a wheel spinning at night shouldn't change look because someone
+   picked "lavender". Named rgm dash prefixed classes, never the plain
+   Tailwind background/text names, specifically so the bridge rules above -
+   which correctly retheme those exact names everywhere else - never touch
+   them. Using the plain Tailwind names directly here was the actual bug
+   behind "dice/plinko numbers invisible in dark mode": a literal white die
+   face or dark pegboard silently became a theme-derived gradient that
+   could land anywhere on the light/dark spectrum depending on the
+   family's theme. */
+.rgm-btn {
+  background: #fff !important;
+  color: #1e293b !important;
+}
+.rgm-btn:hover {
+  background: #e2e8f0 !important;
+}
+.rgm-surface {
+  background: #fff !important;
+  color: #1e293b;
+}
+.rgm-dark {
+  background: #0f172a !important;
+}
+.rgm-dark-2 {
+  background: #1e293b !important;
+}
+.rgm-dark-3 {
+  background: #334155 !important;
+}
+.rgm-muted-text {
+  color: #94a3b8 !important;
+}
+/* Delete buttons, site-wide: literal black/white swap by mode, not the
+   theme's own accent/danger tint - white button + black text in light mode,
+   black button + white text in dark mode. Deliberately not "red" (this
+   codebase's usual danger color) - the ask was specifically a neutral
+   inverted-monochrome button, not a colored one. */
+.btn-delete {
+  background: #fff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
+.btn-delete:hover {
+  background: #f1f1f1 !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .btn-delete {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  :root:not([data-theme='light']) .btn-delete:hover {
+    background: #2a2a2a !important;
+  }
+}
+:root[data-theme='dark'] .btn-delete {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+:root[data-theme='dark'] .btn-delete:hover {
+  background: #2a2a2a;
+}
 /* Primary CTAs -> brand accent. Diagonal gradient + layered shadow + inset
    top highlight instead of a flat fill (backlog #6, tier C confirmed against
    a live comparison) - lifts and deepens its shadow on hover, flattens

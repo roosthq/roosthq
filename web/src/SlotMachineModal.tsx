@@ -107,7 +107,7 @@ export default function SlotMachineModal({
         <div className="rounded-2xl p-4" style={{ background: 'linear-gradient(160deg, #7a1f2b, #4a1018)', border: '4px solid #d4af37' }}>
           <div className="flex gap-2 rounded-lg bg-slate-900 p-2" style={{ border: '3px solid #d4af37' }}>
             {reels.map((sym, i) => (
-              <div key={i} className="flex h-16 w-14 items-center justify-center rounded bg-white text-4xl shadow-inner">
+              <div key={i} className="rgm-surface flex h-16 w-14 items-center justify-center rounded text-4xl shadow-inner">
                 {sym}
               </div>
             ))}
@@ -146,7 +146,7 @@ export default function SlotMachineModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>

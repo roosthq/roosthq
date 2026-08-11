@@ -140,7 +140,7 @@ export function PrizeDetailModal({
           ) : (
             <>
               {onDelete && (
-                <button onClick={onDelete} className="rounded border px-4 py-1.5 text-sm text-red-500 hover:bg-red-50">
+                <button onClick={onDelete} className="btn-delete rounded px-4 py-1.5 text-sm">
                   Delete
                 </button>
               )}

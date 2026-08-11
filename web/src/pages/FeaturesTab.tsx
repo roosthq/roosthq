@@ -387,7 +387,7 @@ function SoundsPanel({ family, onFamilyChanged }: { family: FamilySettings; onFa
               <button type="button" onClick={() => playCustomSound(c.dataUri)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
                 ▶
               </button>
-              <button type="button" onClick={() => removeCustom(c.id)} className="text-xs text-red-500 hover:text-red-700">
+              <button type="button" onClick={() => removeCustom(c.id)} className="btn-delete rounded px-2 py-0.5 text-xs">
                 Delete
               </button>
             </li>

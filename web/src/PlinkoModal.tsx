@@ -2,14 +2,45 @@ import { useEffect, useRef, useState } from 'react';
 import { celebrate } from './celebrate';
 import type { SpinResult } from './rewardGames';
 
-const ROWS = 7;
+const BOARD_W = 288;
+const BOARD_H = 260;
+const SLOT_H = 28;
+const PHYSICS_H = BOARD_H - SLOT_H;
+const PEG_ROWS = 6;
+const PEGS_PER_ROW = 7;
+const PEG_R = 4;
+const BALL_R = 7;
+const GRAVITY = 0.32;
+const BOUNCE_DAMPING = 0.55;
 
-// Same fairness contract as every other reveal - onSpin() alone decides the
-// outcome; the ball's path down the pegboard is cosmetic. Unlike the first
-// version of this component, the path is driven step-by-step (one rAF tween
-// per peg row) so the ball's on-screen x position and the slot that lights
-// up at the bottom are THE SAME NUMBER - it used to pick a random "landed"
-// slot independently of where the ball visually stopped.
+interface Peg {
+  x: number;
+  y: number;
+}
+
+function buildPegs(): Peg[] {
+  const pegs: Peg[] = [];
+  const colSpacing = BOARD_W / (PEGS_PER_ROW + 1);
+  const rowSpacing = (PHYSICS_H - 50) / PEG_ROWS;
+  for (let row = 0; row < PEG_ROWS; row++) {
+    const y = 35 + row * rowSpacing;
+    const offset = row % 2 === 1 ? colSpacing / 2 : 0;
+    for (let col = 0; col < PEGS_PER_ROW; col++) {
+      const x = colSpacing * (col + 1) + offset;
+      if (x > BALL_R && x < BOARD_W - BALL_R) pegs.push({ x, y });
+    }
+  }
+  return pegs;
+}
+const PEGS = buildPegs();
+
+// A REAL gravity + peg-bounce sim, not a scripted step-by-step tween - the
+// ball actually falls, actually bounces off pegs (reflected velocity, not a
+// pre-picked path), and whichever "?" box it happens to land in is the one
+// that flips to show the outcome. Same fairness rule every other reveal
+// uses: onSpin() alone decides the outcome; the physics only decides
+// which box gets to show it, and any box showing any outcome is equally
+// fair (see #5's plan doc - "every box is cosmetically identical").
 export default function PlinkoModal({
   min,
   max,
@@ -30,31 +61,61 @@ export default function PlinkoModal({
   const [result, setResult] = useState<SpinResult | null>(null);
   const [dropping, setDropping] = useState(false);
   const [landedSlot, setLandedSlot] = useState<number | null>(null);
-  // Fractional x (0..1) and y (0..1) of the ball, updated every frame.
-  const [ballX, setBallX] = useState(0.5);
-  const [ballY, setBallY] = useState(0);
-  // The ref, not the state, is read between tween() calls - state updates
-  // are batched/async, so reading `ballX` itself from the loop below would
-  // see a stale value from whenever drop() was called, never advancing.
-  const pos = useRef({ x: 0.5, y: 0 });
+  const [ballPos, setBallPos] = useState({ x: BOARD_W / 2, y: 0 });
+  const [ballVisible, setBallVisible] = useState(false);
   const raf = useRef(0);
 
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
-  // Tween the ball from wherever `pos` currently is to (x1,y1) over `ms`.
-  function tween(x1: number, y1: number, ms: number): Promise<void> {
-    const x0 = pos.current.x;
-    const y0 = pos.current.y;
+  function runPhysics(): Promise<number> {
     return new Promise((resolve) => {
-      const t0 = performance.now();
-      const step = (t: number) => {
-        const p = Math.min(1, (t - t0) / ms);
-        const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; // ease-in-out, gravity-ish
-        pos.current = { x: x0 + (x1 - x0) * eased, y: y0 + (y1 - y0) * eased };
-        setBallX(pos.current.x);
-        setBallY(pos.current.y);
-        if (p < 1) raf.current = requestAnimationFrame(step);
-        else resolve();
+      const ball = { x: BOARD_W / 2 + (Math.random() - 0.5) * 6, y: BALL_R, vx: (Math.random() - 0.5) * 1.2, vy: 0 };
+      setBallVisible(true);
+      const step = () => {
+        ball.vy += GRAVITY;
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        // Walls
+        if (ball.x < BALL_R) {
+          ball.x = BALL_R;
+          ball.vx = Math.abs(ball.vx) * BOUNCE_DAMPING;
+        } else if (ball.x > BOARD_W - BALL_R) {
+          ball.x = BOARD_W - BALL_R;
+          ball.vx = -Math.abs(ball.vx) * BOUNCE_DAMPING;
+        }
+
+        // Pegs - reflect velocity off the first one we're overlapping this frame.
+        for (const peg of PEGS) {
+          const dx = ball.x - peg.x;
+          const dy = ball.y - peg.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = BALL_R + PEG_R;
+          if (dist < minDist && dist > 0.001) {
+            const nx = dx / dist;
+            const ny = dy / dist;
+            // Push the ball back out of the peg so it doesn't tunnel/stick.
+            const overlap = minDist - dist;
+            ball.x += nx * overlap;
+            ball.y += ny * overlap;
+            // Reflect velocity across the collision normal, damped, plus a
+            // little random kick - a real Galton board's chaos comes from
+            // tiny variations at each bounce, not a deterministic path.
+            const vDotN = ball.vx * nx + ball.vy * ny;
+            ball.vx = (ball.vx - 2 * vDotN * nx) * BOUNCE_DAMPING + (Math.random() - 0.5) * 0.6;
+            ball.vy = (ball.vy - 2 * vDotN * ny) * BOUNCE_DAMPING;
+            break;
+          }
+        }
+
+        setBallPos({ x: ball.x, y: ball.y });
+
+        if (ball.y >= PHYSICS_H - BALL_R) {
+          const slot = Math.min(slotCount - 1, Math.max(0, Math.floor((ball.x / BOARD_W) * slotCount)));
+          resolve(slot);
+          return;
+        }
+        raf.current = requestAnimationFrame(step);
       };
       raf.current = requestAnimationFrame(step);
     });
@@ -64,30 +125,21 @@ export default function PlinkoModal({
     if (dropping || result) return;
     setDropping(true);
     setLandedSlot(null);
-    pos.current = { x: 0.5, y: 0 };
-    setBallX(0.5);
-    setBallY(0);
-    let r: SpinResult;
+    setBallVisible(false);
     const spinPromise = onSpin();
-    // Walk down the pegboard one row at a time, nudging left/right at each
-    // peg - this is what actually produces the zigzag, not a single CSS
-    // animation with a precomputed endpoint.
-    let x = 0.5;
-    for (let row = 0; row < ROWS; row++) {
-      const nudge = (Math.random() < 0.5 ? -1 : 1) * (0.5 / ROWS) * (0.6 + Math.random() * 0.6);
-      x = Math.min(0.95, Math.max(0.05, x + nudge));
-      await tween(x, (row + 1) / ROWS, 260);
-    }
-    try {
-      r = await spinPromise;
-    } catch {
+    const [slot, r] = await Promise.all([
+      runPhysics(),
+      spinPromise.catch(() => null),
+    ]);
+    if (!r) {
       setDropping(false);
+      setBallVisible(false);
       return;
     }
-    const finalSlot = Math.min(slotCount - 1, Math.max(0, Math.floor(x * slotCount)));
-    setLandedSlot(finalSlot);
+    setLandedSlot(slot);
     setResult(r);
     setDropping(false);
+    setBallVisible(false);
     celebrate(undefined, 'rewardGameWin');
   }
 
@@ -102,25 +154,33 @@ export default function PlinkoModal({
       <p className="max-w-xs text-center text-sm text-slate-300">
         {result ? 'You won' : dropping ? 'Dropping…' : `Drop the ball (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <div className="relative h-64 w-72 overflow-hidden rounded-xl bg-slate-800 shadow-lg">
-        {Array.from({ length: ROWS }, (_, r) => (
-          <div key={r} className="absolute flex w-full justify-around" style={{ top: `${8 + r * (78 / ROWS)}%` }}>
-            {Array.from({ length: r % 2 === 0 ? 6 : 5 }, (_, i) => (
-              <span key={i} className="h-1.5 w-1.5 rounded-full bg-slate-500" />
-            ))}
-          </div>
+      <div className="rgm-dark-2 relative overflow-hidden rounded-xl shadow-lg" style={{ width: BOARD_W, height: BOARD_H }}>
+        {PEGS.map((peg, i) => (
+          <span
+            key={i}
+            className="rgm-muted-text absolute rounded-full"
+            style={{ width: PEG_R * 2, height: PEG_R * 2, left: peg.x - PEG_R, top: peg.y - PEG_R, background: 'currentColor' }}
+          />
         ))}
-        <div
-          className="absolute h-4 w-4 rounded-full bg-white shadow"
-          style={{ left: `${ballX * 100}%`, top: `${8 + ballY * 78}%`, transform: 'translate(-50%, -50%)' }}
-        />
-        <div className="absolute bottom-0 flex w-full justify-around border-t border-slate-600">
+        {ballVisible && (
+          <div
+            className="rgm-surface absolute rounded-full shadow"
+            style={{ width: BALL_R * 2, height: BALL_R * 2, left: ballPos.x - BALL_R, top: ballPos.y - BALL_R }}
+          />
+        )}
+        <div className="absolute bottom-0 flex w-full" style={{ height: SLOT_H, borderTop: '1px solid #475569' }}>
           {Array.from({ length: slotCount }, (_, i) => (
             <span
               key={i}
-              className={`flex h-7 flex-1 items-center justify-center text-[10px] ${landedSlot === i ? 'bg-amber-400 font-bold text-slate-900' : 'bg-slate-700 text-slate-400'}`}
+              className="flex flex-1 items-center justify-center border-r text-sm"
+              style={{
+                borderColor: '#475569',
+                background: landedSlot === i ? '#fbbf24' : '#334155',
+                color: landedSlot === i ? '#1e293b' : '#94a3b8',
+                fontWeight: landedSlot === i ? 700 : 400,
+              }}
             >
-              {i + 1}
+              {landedSlot === i && result ? (result.wonKind === 'PRIZE' ? result.prize?.icon ?? '🎁' : `+${result.amount}`) : '?'}
             </span>
           ))}
         </div>
@@ -138,16 +198,12 @@ export default function PlinkoModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>
       ) : (
-        <button
-          disabled={dropping}
-          onClick={drop}
-          className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200 disabled:opacity-50"
-        >
+        <button disabled={dropping} onClick={() => void drop()} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold disabled:opacity-50">
           {dropping ? 'Dropping…' : 'Drop ball'}
         </button>
       )}

@@ -845,6 +845,13 @@ export class ChoresService {
       where: { id: instanceId },
       include: { chore: { include: { location: true } } },
     });
+    // Idempotency guard: two surfaces both showing this instance as pending
+    // (the chores page and the hourglass indicator, say) can both fire an
+    // approve - without this, the second one re-ran EVERY side effect below
+    // (token ledger, streak bonus, wheel queue, notifications) a second
+    // time, doubling the reward for one approval. Same "already done, just
+    // return it" pattern reward-games.service.ts's spin() already uses.
+    if (inst.status === 'APPROVED') return inst;
     const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: {

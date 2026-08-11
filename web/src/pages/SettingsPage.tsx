@@ -214,7 +214,7 @@ function LocationsSetting() {
                     await api.deleteLocation(loc.id);
                     await refresh();
                   }}
-                  className="text-xs text-red-500 hover:text-red-700"
+                  className="btn-delete rounded px-2 py-0.5 text-xs"
                 >
                   Delete
                 </button>
@@ -363,7 +363,7 @@ function LocalCalendarsSetting() {
                 </option>
               ))}
             </select>
-            <button onClick={() => del(c.id, c.name)} className="ml-auto text-xs text-red-500 hover:text-red-700">
+            <button onClick={() => del(c.id, c.name)} className="btn-delete ml-auto rounded px-2 py-0.5 text-xs">
               Delete
             </button>
           </li>
@@ -540,7 +540,7 @@ function DisplayRow({
         <button onClick={onReload} className="shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-50" title="Reload any kiosk currently showing this display">
           {reloaded ? '✓ Sent' : '🔄 Reload kiosk'}
         </button>
-        <button onClick={onDelete} className="shrink-0 text-xs text-red-500 hover:text-red-700">
+        <button onClick={onDelete} className="btn-delete shrink-0 rounded px-2 py-0.5 text-xs">
           Delete
         </button>
       </div>

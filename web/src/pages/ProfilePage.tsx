@@ -355,7 +355,7 @@ export default function ProfilePage({
                   </span>
                   <span className="text-xs text-slate-400">{formatDate(l.createdAt)}</span>
                   {isFamilyManager && (
-                    <button onClick={() => deleteEntry(l)} className="text-xs text-red-500 hover:text-red-700">
+                    <button onClick={() => deleteEntry(l)} className="btn-delete rounded px-2 py-0.5 text-xs">
                       Delete
                     </button>
                   )}

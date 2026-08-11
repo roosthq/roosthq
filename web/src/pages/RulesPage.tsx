@@ -50,7 +50,7 @@ export default function RulesPage({ me, kioskToken }: { me: Pick<Me, 'role'>; ki
             >
               Edit
             </button>
-            <button onClick={() => del(r)} className="text-red-500 hover:underline">
+            <button onClick={() => del(r)} className="btn-delete rounded px-2 py-0.5">
               Delete
             </button>
           </span>

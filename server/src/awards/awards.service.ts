@@ -226,7 +226,13 @@ export class AwardsService {
     const award = await this.owned(familyId, awardId);
     const recipient = await this.prisma.user.findFirst({ where: { id: dto.userId, familyId } });
     if (!recipient) throw new NotFoundException('Family member not found');
-    const tokenValue = Math.max(0, Math.floor(dto.tokenValue ?? award.defaultTokenValue));
+    // A pool award decides everything at play time - nothing gets banked at
+    // grant time, no matter what the client sends. Enforced here too (not
+    // just hidden client-side) since this is a real correctness bug if it
+    // slips through: a kid seeing tokens land before they've even played
+    // the game defeats the entire "find out by playing" point of it.
+    const hasPool = !!(award.poolJson as unknown[] | null)?.length;
+    const tokenValue = hasPool ? 0 : Math.max(0, Math.floor(dto.tokenValue ?? award.defaultTokenValue));
     const grant = await this.prisma.awardGrant.create({
       data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue },
     });

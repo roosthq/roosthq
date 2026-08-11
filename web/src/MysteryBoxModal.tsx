@@ -90,7 +90,7 @@ export default function MysteryBoxModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>

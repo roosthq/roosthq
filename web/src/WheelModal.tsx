@@ -224,13 +224,27 @@ export default function WheelModal({
             const y0 = cy + R * Math.sin(a0);
             const x1 = cx + R * Math.cos(a1);
             const y1 = cy + R * Math.sin(a1);
-            const mid = ((i + 0.5) * segAngle - 90) * (Math.PI / 180);
+            const midDeg = (i + 0.5) * segAngle - 90;
+            const mid = (midDeg * Math.PI) / 180;
             const tx = cx + R * 0.62 * Math.cos(mid);
             const ty = cy + R * 0.62 * Math.sin(mid);
             return (
               <g key={i}>
                 <path d={`M ${cx} ${cy} L ${x0} ${y0} A ${R} ${R} 0 0 1 ${x1} ${y1} Z`} fill={COLORS[i % COLORS.length]} stroke="#111" strokeWidth="1" />
-                <text x={tx} y={ty} fill="#fff" fontSize="22" fontWeight="700" textAnchor="middle" dominantBaseline="central">
+                {/* Rotated to face outward along its own radius, same as a
+                    real prize wheel - reads normally on the right half,
+                    upside-down on the left half, which is exactly how an
+                    actual spinning wheel toy looks. */}
+                <text
+                  x={tx}
+                  y={ty}
+                  fill="#fff"
+                  fontSize="22"
+                  fontWeight="700"
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  transform={`rotate(${midDeg} ${tx} ${ty})`}
+                >
                   {v}
                 </text>
               </g>
@@ -255,7 +269,7 @@ export default function WheelModal({
             </div>
           )}
           {(source ?? label) && <div className="text-sm text-slate-300">for {source ?? label}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>
@@ -263,7 +277,7 @@ export default function WheelModal({
         <button
           disabled={spinning}
           onClick={() => launch((Math.random() < 0.5 ? -1 : 1) * (1.5 + Math.random() * 1.5))}
-          className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200 disabled:opacity-50"
+          className="rgm-btn rounded-lg px-6 py-2.5 font-semibold disabled:opacity-50"
         >
           {spinning ? 'Spinning…' : 'Spin'}
         </button>

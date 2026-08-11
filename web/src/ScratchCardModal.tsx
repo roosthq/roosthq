@@ -145,8 +145,8 @@ export default function ScratchCardModal({
       <p className="max-w-xs text-center text-sm text-slate-300">
         {revealed ? 'You won' : `Scratch it off (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <div className="relative flex h-40 w-64 items-center justify-center overflow-hidden rounded-xl bg-white shadow-lg" style={{ touchAction: 'none' }}>
-        <div className="px-3 text-center text-2xl font-extrabold text-slate-800">{displayValue}</div>
+      <div className="rgm-surface relative flex h-40 w-64 items-center justify-center overflow-hidden rounded-xl shadow-lg" style={{ touchAction: 'none' }}>
+        <div className="px-3 text-center text-2xl font-extrabold" style={{ color: '#1e293b' }}>{displayValue}</div>
         <canvas
           ref={canvasRef}
           width={CANVAS_W}
@@ -170,7 +170,7 @@ export default function ScratchCardModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>

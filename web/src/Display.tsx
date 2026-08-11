@@ -20,6 +20,7 @@ import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
 import Calendar from './Calendar';
 import { celebrate, setCelebrationSound } from './celebrate';
+import { setTokensBadgeEnabled } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
@@ -307,6 +308,10 @@ export default function Display() {
     dget<{ disabledFeatures?: string[]; soundAssignments?: Record<string, SoundAssignment> }>('/display/family-settings')
       .then((f) => {
         setFamDisabled(f.disabledFeatures ?? []);
+        // 'tokens' is top-level (no ancestors to walk) - a direct check is
+        // equivalent to familyFeatureEnabled() here and avoids needing a
+        // full FamilySettings-shaped object just for this one flag.
+        setTokensBadgeEnabled(!(f.disabledFeatures ?? []).includes('tokens'));
         dget<{ id: string; dataUri: string }[]>('/display/custom-sounds')
           .then((custom) => setSoundAssignments(f.soundAssignments, custom))
           .catch(() => setSoundAssignments(f.soundAssignments, []));

@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type FontSize, type DisplayConfig, type FamilySettings } from './api';
+import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type DisplayConfig, type FamilySettings } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
 import PendingIndicator from './PendingIndicator';
+import PendingGamesIndicator from './PendingGamesIndicator';
 
 export default function Nav({
   me,
   onLogout,
   onToggleTheme,
-  onChangeFontSize,
 }: {
   me: Me;
   onLogout: () => void;
   onToggleTheme: () => void;
-  onChangeFontSize: (size: FontSize) => void;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const cls = ({ isActive }: { isActive: boolean }) =>
@@ -207,20 +206,10 @@ export default function Nav({
           {searchLink}
           {bell}
           <PendingIndicator me={me} />
+          <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
           <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
             {me.themePref === 'dark' ? '☀︎' : '☾'}
           </button>
-          <select
-            value={me.fontSizePref ?? 'md'}
-            onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
-            title="Text size"
-            className="rounded border bg-transparent px-1 py-0.5 text-xs text-slate-500"
-          >
-            <option value="sm">Small text</option>
-            <option value="md">Normal text</option>
-            <option value="lg">Large text</option>
-            <option value="xl">Extra large text</option>
-          </select>
           {displayLink}
           {nameMenu(false)}
           <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
@@ -232,6 +221,7 @@ export default function Nav({
           {searchLink}
           {bell}
           <PendingIndicator me={me} />
+          <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -250,17 +240,6 @@ export default function Nav({
             <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
               {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
             </button>
-            <select
-              value={me.fontSizePref ?? 'md'}
-              onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
-              title="Text size"
-              className="rounded border bg-transparent px-1 py-1.5 text-xs text-slate-500"
-            >
-              <option value="sm">Small text</option>
-              <option value="md">Normal text</option>
-              <option value="lg">Large text</option>
-              <option value="xl">Extra large text</option>
-            </select>
             {displayLink}
           </div>
           <div className="flex items-center justify-between border-t pt-3 text-sm">

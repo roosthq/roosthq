@@ -82,8 +82,8 @@ export default function GiftBoxModal({
       <p className="max-w-xs text-center text-sm text-slate-300">
         {result ? 'You won' : unwrapping ? 'Unwrapping…' : `Tap to unwrap (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <button onClick={unwrap} disabled={unwrapping || !!result} className="relative h-40 w-40 rounded-lg bg-white shadow-lg disabled:cursor-default">
-        <span className="absolute inset-0 flex items-center justify-center text-4xl font-extrabold text-slate-800">
+      <button onClick={unwrap} disabled={unwrapping || !!result} className="rgm-surface relative h-40 w-40 rounded-lg shadow-lg disabled:cursor-default">
+        <span className="absolute inset-0 flex items-center justify-center text-4xl font-extrabold" style={{ color: '#1e293b' }}>
           {result === null ? '?' : result.wonKind === 'PRIZE' ? result.prize?.icon ?? '🎁' : `+${result.amount}`}
         </span>
         {flap('tl')}
@@ -108,7 +108,7 @@ export default function GiftBoxModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>

@@ -5,6 +5,7 @@ import { myLocationIds } from './displayScope';
 import LocationJoinModal from './LocationJoinModal';
 import { setCelebrationSound } from './celebrate';
 import { setSoundAssignments } from './sounds';
+import { setTokensBadgeEnabled } from './TokenBadge';
 import Nav from './Nav';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
@@ -51,6 +52,7 @@ export default function App() {
       try {
         const f = await api.familySettings();
         setFamily(f);
+        setTokensBadgeEnabled(familyFeatureEnabled(f, 'tokens'));
         // Custom uploads are family-wide, same as the assignments themselves -
         // fetch once here rather than gating it behind opening Settings.
         const custom = await api.customSounds().catch(() => []);
@@ -213,7 +215,7 @@ export default function App() {
           </button>
         </div>
       )}
-      <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} onChangeFontSize={changeFontSize} />
+      <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} />
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
@@ -233,7 +235,13 @@ export default function App() {
           <Route
             path="/my-settings"
             element={
-              <MySettingsPage me={me} onChangeColorTheme={changeColorTheme} onUpdateProfile={updateProfile} onLoggedOut={logout} />
+              <MySettingsPage
+                me={me}
+                onChangeColorTheme={changeColorTheme}
+                onChangeFontSize={changeFontSize}
+                onUpdateProfile={updateProfile}
+                onLoggedOut={logout}
+              />
             }
           />
           <Route path="/notifications" element={<NotificationsPage me={me} />} />

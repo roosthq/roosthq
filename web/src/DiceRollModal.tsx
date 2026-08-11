@@ -17,20 +17,26 @@ const PIP_LAYOUT: Record<number, [number, number][]> = {
 // screen from arm's length).
 function Die({ value, size = 84 }: { value: number; size?: number }) {
   return (
+    // Hardcoded #fff/#111, not the bg-white/bg-slate-900 Tailwind classes -
+    // this app's global CSS bridge remaps those to theme-derived colors (see
+    // index.css), which in dark mode turns a "white die, black pips" face
+    // into something dark-on-dark and unreadable. A die face is white on
+    // black always, same reasoning as Switch.tsx's knob.
     <div
-      className="relative rounded-2xl bg-white shadow-lg"
-      style={{ width: size, height: size, border: '3px solid #1c2e1c' }}
+      className="relative rounded-2xl shadow-lg"
+      style={{ width: size, height: size, background: '#fff', border: '3px solid #1c2e1c' }}
     >
       {PIP_LAYOUT[value]?.map(([r, c], i) => (
         <span
           key={i}
-          className="absolute rounded-full bg-slate-900"
+          className="absolute rounded-full"
           style={{
             width: size * 0.16,
             height: size * 0.16,
             left: `${(c + 0.5) * (100 / 3)}%`,
             top: `${(r + 0.5) * (100 / 3)}%`,
             transform: 'translate(-50%, -50%)',
+            background: '#111',
           }}
         />
       ))}
@@ -117,16 +123,12 @@ export default function DiceRollModal({
             </div>
           )}
           {source && <div className="text-sm text-slate-300">for {source}</div>}
-          <button onClick={onClose} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+          <button onClick={onClose} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold">
             Collect
           </button>
         </>
       ) : (
-        <button
-          disabled={rolling}
-          onClick={shake}
-          className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200 disabled:opacity-50"
-        >
+        <button disabled={rolling} onClick={shake} className="rgm-btn rounded-lg px-6 py-2.5 font-semibold disabled:opacity-50">
           {rolling ? 'Rolling…' : 'Shake & drop'}
         </button>
       )}

@@ -177,7 +177,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
               >
                 Edit
               </button>
-              <button onClick={() => del(a)} className="rounded border px-3 py-1 text-red-500 hover:bg-red-50">
+              <button onClick={() => del(a)} className="btn-delete rounded px-3 py-1">
                 Delete
               </button>
             </div>
@@ -348,11 +348,16 @@ export function AwardForm({
     if (chanceType === 'pool' && prizes.length === 0) api.prizes().then(setPrizes).catch(() => undefined);
   }, [chanceType, prizes.length]);
 
+  // Only prizes explicitly marked "Award only" are poolable - a regular
+  // purchasable Store prize doesn't belong in a surprise pool (it's just
+  // buyable directly, no game needed to find out).
+  const poolablePrizes = prizes.filter((p) => p.visibility === 'AWARD_ONLY');
+
   function addTokenRow() {
     setPool((p) => [...p, { kind: 'TOKENS', min: 1, max: 5, weight: 1 }]);
   }
   function addPrizeRow() {
-    setPool((p) => [...p, { kind: 'PRIZE', prizeId: prizes[0]?.id ?? '', weight: 1 }]);
+    setPool((p) => [...p, { kind: 'PRIZE', prizeId: poolablePrizes[0]?.id ?? '', weight: 1 }]);
     setPickerOpenFor(pool.length); // open the picker on the row that's about to exist
   }
   function updateRow(i: number, patch: Partial<PoolEntry>) {
@@ -396,7 +401,7 @@ export function AwardForm({
       name: name.trim(),
       icon: icon.trim(),
       description: description.trim() || undefined,
-      defaultTokenValue: Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
+      defaultTokenValue: chanceType === 'pool' ? 0 : Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
       wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
       wheelMax: chanceType === 'wheel' ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
       pool: chanceType === 'pool' ? pool : null,
@@ -468,18 +473,25 @@ export function AwardForm({
             onChange={(e) => setDescription(e.target.value)}
           />
 
-          <label className="block text-sm">
-            <span className="text-slate-500">Default token value</span>
-            <input
-              type="number"
-              min={0}
-              className={`${input} mt-1 w-28`}
-              value={defaultTokenValue}
-              onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
-              onFocus={(e) => e.target.select()}
-            />
-            <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award - adjustable each time.</span>
-          </label>
+          {chanceType === 'pool' ? (
+            <p className="text-xs text-slate-400">
+              No flat token value for a Pool award - the pool itself decides what they get, and nothing should be
+              banked until they actually play it.
+            </p>
+          ) : (
+            <label className="block text-sm">
+              <span className="text-slate-500">Default token value</span>
+              <input
+                type="number"
+                min={0}
+                className={`${input} mt-1 w-28`}
+                value={defaultTokenValue}
+                onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
+                onFocus={(e) => e.target.select()}
+              />
+              <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award - adjustable each time.</span>
+            </label>
+          )}
 
           <div className="rounded border p-3">
             <span className="text-sm font-medium">Chance bonus</span>
@@ -528,7 +540,7 @@ export function AwardForm({
                   <span className="text-xs font-medium text-slate-500">Prize pool - a mix of token ranges and real prizes, each with a relative weight</span>
                   <ul className="mt-1.5 space-y-2">
                     {pool.map((row, i) => {
-                      const selectedPrize = row.kind === 'PRIZE' ? prizes.find((p) => p.id === row.prizeId) : undefined;
+                      const selectedPrize = row.kind === 'PRIZE' ? prizes.find((p) => p.id === row.prizeId) : undefined; // full `prizes` here, not poolablePrizes - a pool made before a prize got switched to STORE should still show its name
                       return (
                         <li key={i} className="card-nested rounded-lg p-2.5 text-sm">
                           <div className="flex items-center justify-between gap-2">
@@ -734,9 +746,10 @@ export function GrantModal({
   onClose: () => void;
   onGranted: (kidName: string, wheelQueued?: boolean) => void;
 }) {
+  const hasPool = (award.pool?.length ?? 0) > 0;
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
-  const [tokenValue, setTokenValue] = useState(award.defaultTokenValue);
+  const [tokenValue, setTokenValue] = useState(hasPool ? 0 : award.defaultTokenValue);
   // This award's wheel, adjustable for THIS handover only - the award's own
   // default range is untouched.
   const [wheelOn, setWheelOn] = useState((award.wheelMax ?? 0) > 0);
@@ -753,7 +766,7 @@ export function GrantModal({
         {
           userId,
           note: note.trim() || undefined,
-          tokenValue: Math.max(0, Math.floor(Number(tokenValue) || 0)),
+          tokenValue: hasPool ? 0 : Math.max(0, Math.floor(Number(tokenValue) || 0)),
           wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
           wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
         },
@@ -806,18 +819,25 @@ export function GrantModal({
           </select>
           {kids.length === 0 && <p className="mt-1 text-xs text-red-500">No kids in the family yet.</p>}
         </label>
-        <label className="block text-sm">
-          <span className="text-slate-500">{tokenName}</span>
-          <input
-            type="number"
-            min={0}
-            className={`${input} mt-1`}
-            value={tokenValue}
-            onChange={(e) => setTokenValue(Number(e.target.value))}
-            onFocus={(e) => e.target.select()}
-          />
-        </label>
+        {hasPool ? (
+          <p className="text-xs text-slate-400">
+            🎮 This award's reward game decides what they get - nothing's banked until they play it.
+          </p>
+        ) : (
+          <label className="block text-sm">
+            <span className="text-slate-500">{tokenName}</span>
+            <input
+              type="number"
+              min={0}
+              className={`${input} mt-1`}
+              value={tokenValue}
+              onChange={(e) => setTokenValue(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
+            />
+          </label>
+        )}
 
+        {!hasPool && (
         <div className="rounded border p-3">
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={wheelOn} onChange={(e) => setWheelOn(e.target.checked)} />
@@ -852,6 +872,7 @@ export function GrantModal({
             </div>
           )}
         </div>
+        )}
         <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
     </Modal>

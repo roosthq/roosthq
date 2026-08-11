@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, loginUrl, COLOR_THEMES, type Me, type GoogleAccountInfo } from '../api';
+import { api, loginUrl, COLOR_THEMES, type Me, type GoogleAccountInfo, type FontSize } from '../api';
 import { setCelebrationSound } from '../celebrate';
 import { Avatar } from './CalendarPage';
 import ImageCropper, { cropImageToDataUri, type CropRect } from '../ImageCropper';
@@ -22,11 +22,13 @@ import {
 export default function MySettingsPage({
   me,
   onChangeColorTheme,
+  onChangeFontSize,
   onUpdateProfile,
   onLoggedOut,
 }: {
   me: Me;
   onChangeColorTheme: (id: string) => void;
+  onChangeFontSize: (size: FontSize) => void;
   onUpdateProfile: (patch: Partial<{ displayName: string; username: string | null; email: string | null; avatar: string | null }>) => Promise<void>;
   onLoggedOut: () => void;
 }) {
@@ -425,6 +427,19 @@ export default function MySettingsPage({
             />
           ))}
         </div>
+        <label className="mt-4 block text-sm">
+          <span className="text-slate-500">Text size</span>
+          <select
+            value={me.fontSizePref ?? 'md'}
+            onChange={(e) => onChangeFontSize(e.target.value as FontSize)}
+            className="mt-1 w-full max-w-xs rounded border px-3 py-2 text-sm"
+          >
+            <option value="sm">Small text</option>
+            <option value="md">Normal text</option>
+            <option value="lg">Large text</option>
+            <option value="xl">Extra large text</option>
+          </select>
+        </label>
       </section>
 
       <LocationsSection me={me} />

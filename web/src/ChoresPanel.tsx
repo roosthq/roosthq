@@ -655,7 +655,7 @@ export default function ChoresPanel({
                     await act(() => client.deleteChore(chore.id));
                   }
                 }}
-                className="text-red-500 hover:text-red-700"
+                className="btn-delete rounded px-2 py-0.5"
               >
                 Delete
               </button>
@@ -935,7 +935,7 @@ export default function ChoresPanel({
                               await act(() => client.deleteChore(chore.id));
                             }
                           }}
-                          className="rounded border px-2 py-1 text-xs text-red-500 hover:bg-red-50"
+                          className="btn-delete rounded px-2 py-1 text-xs"
                         >
                           Delete
                         </button>

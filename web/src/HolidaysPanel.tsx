@@ -258,7 +258,7 @@ export default function HolidaysPanel() {
                 {describe(r)}
                 {formatNext(r) && <span className="ml-2 text-slate-400">{formatNext(r)}</span>}
               </span>
-              <button onClick={() => del(r.id, r.title)} className="shrink-0 text-red-500 hover:text-red-700">
+              <button onClick={() => del(r.id, r.title)} className="btn-delete shrink-0 rounded px-2 py-0.5 text-xs">
                 Delete
               </button>
             </div>
