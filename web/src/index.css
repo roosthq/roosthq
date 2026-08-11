@@ -514,6 +514,17 @@ html {
   background: var(--surface-off) !important;
   box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-tint) 18%, transparent);
 }
+/* The sliding knob used .bg-white before - now a themed gradient with a
+   decorative hairline edge (see .bg-white above), both wrong for a ~16px
+   circle: it lost the plain "white dot" contrast a slider knob needs against
+   its own track, reading as just another solid-colored blob with no visible
+   slider at all. Real, plain white, always, regardless of theme/mode - the
+   universal toggle-knob convention, not something that should ride the
+   theme tint. */
+.switch-knob {
+  background: #fff !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
 /* Primary CTAs -> brand accent. Diagonal gradient + layered shadow + inset
    top highlight instead of a flat fill (backlog #6, tier C confirmed against
    a live comparison) - lifts and deepens its shadow on hover, flattens
@@ -741,9 +752,14 @@ select option {
    instead - the family's own accent hue at low saturation, with the brand
    gold only as the left edge, so it reads as "notice" in light AND dark
    without fighting the palette. */
+/* The comment above already said "accent hue, gold only as the left edge" -
+   the background/border below were still mixing --today (the gold) in
+   directly, which is what actually read as a muddy yellowish-brown. Fixed
+   to match what this was always supposed to be: --accent for the wash,
+   --today reserved for just the thin left stripe. */
 .alert-banner {
-  background: color-mix(in srgb, var(--surface-raised) 82%, var(--today) 18%);
-  border: 1px solid color-mix(in srgb, var(--border) 60%, var(--today) 40%);
+  background: color-mix(in srgb, var(--surface-raised) 82%, var(--accent) 18%);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, var(--accent) 40%);
   border-left: 3px solid var(--today);
   color: var(--text);
   border-radius: 10px;

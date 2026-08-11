@@ -155,7 +155,9 @@ export default function MembersManager({ me }: { me: Me }) {
 
   return (
     <>
-      <h3 className="text-base font-semibold tracking-tight">People &amp; PINs</h3>
+      <div className="panel">
+        <h3 className="text-base font-semibold tracking-tight">Add people</h3>
+        <p className="mt-1 text-sm text-slate-500">Invite someone with a link (or have the server email it), or add a local account directly - no invite needed.</p>
 
       {/* Invite */}
       <div className="mt-3 rounded bg-slate-100 p-3">
@@ -252,6 +254,7 @@ export default function MembersManager({ me }: { me: Me }) {
         </div>
         {addError && <p className="mt-1 text-xs text-red-500">{addError}</p>}
       </div>
+      </div>
 
       {/* One card per person: name + role header, then labeled settings in a
           grid that stacks on a phone and goes two-up once there's room, then
@@ -260,7 +263,9 @@ export default function MembersManager({ me }: { me: Me }) {
           anything narrow. card-tinted, not bg-slate-100: these cards are
           much bigger than Invite/Add above, and bg-slate-100 alone read as
           washed-out pale in light mode - see --card-tint in index.css. */}
-      <ul className="mt-3 space-y-3 text-sm">
+      <div className="panel mt-4">
+        <h3 className="text-base font-semibold tracking-tight">People</h3>
+        <ul className="mt-3 space-y-3 text-sm">
         {members.map((m) => (
           <li key={m.id} className="rounded-lg card-tinted p-3">
             <div className="flex flex-wrap items-center gap-2">
@@ -416,7 +421,8 @@ export default function MembersManager({ me }: { me: Me }) {
           </li>
         ))}
         {members.length === 0 && <li className="text-slate-400">No members yet.</li>}
-      </ul>
+        </ul>
+      </div>
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">

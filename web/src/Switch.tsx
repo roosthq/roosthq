@@ -1,9 +1,11 @@
 // A real switch (role="switch", keyboard-operable, visible focus ring) - not
 // a styled checkbox. Every on/off toggle in the Features tab uses this,
-// top-level and sub-feature alike. .switch-on/.switch-off are its own flat
-// theme-aware classes (index.css), not .bg-slate-800/.bg-slate-300 - those
-// carry the big-shadow CTA-button treatment now, which rendered as a visible
-// square artifact on a pill this small.
+// top-level and sub-feature alike. Track uses .switch-on/.switch-off (flat
+// theme colors, no shadow/gradient - .bg-slate-800/.bg-slate-300 carry the
+// big-shadow CTA-button treatment now, which artifacted into a visible
+// square on a pill this small). Knob uses .switch-knob (plain white, always
+// - .bg-white is now a themed gradient with a decorative edge, which made
+// the slider knob disappear into the track instead of reading as a knob).
 export default function Switch({
   checked,
   onChange,
@@ -33,7 +35,7 @@ export default function Switch({
       } ${checked ? 'switch-on' : 'switch-off'}`}
     >
       <span
-        className={`absolute left-0.5 top-0.5 rounded-full bg-white shadow transition-transform ${knob} ${checked ? travel : 'translate-x-0'}`}
+        className={`switch-knob absolute left-0.5 top-0.5 rounded-full transition-transform ${knob} ${checked ? travel : 'translate-x-0'}`}
       />
     </button>
   );
