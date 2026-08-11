@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { celebrate } from './celebrate';
 import type { SpinResult } from './rewardGames';
 
-const ROWS = 6;
-const PEG_ROWS = Array.from({ length: ROWS }, (_, r) => r);
+const ROWS = 7;
 
-// Same fairness contract as every other reveal - the ball's zigzag path down
-// the pegboard is a random cosmetic walk, not a physics sim; the slot it
-// lands in doesn't decide anything, onSpin() already did.
+// Same fairness contract as every other reveal - onSpin() alone decides the
+// outcome; the ball's path down the pegboard is cosmetic. Unlike the first
+// version of this component, the path is driven step-by-step (one rAF tween
+// per peg row) so the ball's on-screen x position and the slot that lights
+// up at the bottom are THE SAME NUMBER - it used to pick a random "landed"
+// slot independently of where the ball visually stopped.
 export default function PlinkoModal({
   min,
   max,
@@ -28,37 +30,69 @@ export default function PlinkoModal({
   const [result, setResult] = useState<SpinResult | null>(null);
   const [dropping, setDropping] = useState(false);
   const [landedSlot, setLandedSlot] = useState<number | null>(null);
-  // A random left/right nudge per peg row - purely cosmetic, drawn once per
-  // drop so the ball's path is different every time.
-  const [path, setPath] = useState<number[]>(() => PEG_ROWS.map(() => (Math.random() < 0.5 ? -1 : 1)));
+  // Fractional x (0..1) and y (0..1) of the ball, updated every frame.
+  const [ballX, setBallX] = useState(0.5);
+  const [ballY, setBallY] = useState(0);
+  // The ref, not the state, is read between tween() calls - state updates
+  // are batched/async, so reading `ballX` itself from the loop below would
+  // see a stale value from whenever drop() was called, never advancing.
+  const pos = useRef({ x: 0.5, y: 0 });
+  const raf = useRef(0);
+
+  useEffect(() => () => cancelAnimationFrame(raf.current), []);
+
+  // Tween the ball from wherever `pos` currently is to (x1,y1) over `ms`.
+  function tween(x1: number, y1: number, ms: number): Promise<void> {
+    const x0 = pos.current.x;
+    const y0 = pos.current.y;
+    return new Promise((resolve) => {
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const p = Math.min(1, (t - t0) / ms);
+        const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2; // ease-in-out, gravity-ish
+        pos.current = { x: x0 + (x1 - x0) * eased, y: y0 + (y1 - y0) * eased };
+        setBallX(pos.current.x);
+        setBallY(pos.current.y);
+        if (p < 1) raf.current = requestAnimationFrame(step);
+        else resolve();
+      };
+      raf.current = requestAnimationFrame(step);
+    });
+  }
 
   async function drop() {
     if (dropping || result) return;
     setDropping(true);
-    setPath(PEG_ROWS.map(() => (Math.random() < 0.5 ? -1 : 1)));
+    setLandedSlot(null);
+    pos.current = { x: 0.5, y: 0 };
+    setBallX(0.5);
+    setBallY(0);
     let r: SpinResult;
+    const spinPromise = onSpin();
+    // Walk down the pegboard one row at a time, nudging left/right at each
+    // peg - this is what actually produces the zigzag, not a single CSS
+    // animation with a precomputed endpoint.
+    let x = 0.5;
+    for (let row = 0; row < ROWS; row++) {
+      const nudge = (Math.random() < 0.5 ? -1 : 1) * (0.5 / ROWS) * (0.6 + Math.random() * 0.6);
+      x = Math.min(0.95, Math.max(0.05, x + nudge));
+      await tween(x, (row + 1) / ROWS, 260);
+    }
     try {
-      r = await onSpin();
+      r = await spinPromise;
     } catch {
       setDropping(false);
       return;
     }
-    setLandedSlot(Math.floor(Math.random() * slotCount));
-    setTimeout(() => {
-      setResult(r);
-      setDropping(false);
-      celebrate(undefined, 'rewardGameWin');
-    }, 1300);
+    const finalSlot = Math.min(slotCount - 1, Math.max(0, Math.floor(x * slotCount)));
+    setLandedSlot(finalSlot);
+    setResult(r);
+    setDropping(false);
+    celebrate(undefined, 'rewardGameWin');
   }
-
-  // Net horizontal drift across all rows, as a percentage offset for the ball.
-  const drift = path.reduce((s, d) => s + d, 0) * 6;
 
   return (
     <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-4 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-      <style>{`
-        @keyframes plinko-fall { 0% { top: 0%; } 100% { top: 92%; } }
-      `}</style>
       <h2 className="text-2xl font-bold text-white">⚪ Plinko drop</h2>
       {source && (
         <p className="max-w-xs text-center text-base font-semibold" style={{ color: 'var(--today)' }}>
@@ -68,27 +102,23 @@ export default function PlinkoModal({
       <p className="max-w-xs text-center text-sm text-slate-300">
         {result ? 'You won' : dropping ? 'Dropping…' : `Drop the ball (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <div className="relative h-56 w-64 overflow-hidden rounded-xl bg-slate-800 shadow-lg">
-        {PEG_ROWS.map((r) => (
-          <div key={r} className="absolute flex w-full justify-around" style={{ top: `${8 + r * 13}%` }}>
-            {Array.from({ length: r % 2 === 0 ? 5 : 4 }, (_, i) => (
+      <div className="relative h-64 w-72 overflow-hidden rounded-xl bg-slate-800 shadow-lg">
+        {Array.from({ length: ROWS }, (_, r) => (
+          <div key={r} className="absolute flex w-full justify-around" style={{ top: `${8 + r * (78 / ROWS)}%` }}>
+            {Array.from({ length: r % 2 === 0 ? 6 : 5 }, (_, i) => (
               <span key={i} className="h-1.5 w-1.5 rounded-full bg-slate-500" />
             ))}
           </div>
         ))}
         <div
-          className="absolute left-1/2 h-4 w-4 -translate-x-1/2 rounded-full bg-white shadow"
-          style={
-            dropping
-              ? { animation: 'plinko-fall 1.2s ease-in forwards', left: `calc(50% + ${drift}%)` }
-              : { top: landedSlot !== null ? '92%' : '0%', left: `calc(50% + ${drift}%)` }
-          }
+          className="absolute h-4 w-4 rounded-full bg-white shadow"
+          style={{ left: `${ballX * 100}%`, top: `${8 + ballY * 78}%`, transform: 'translate(-50%, -50%)' }}
         />
         <div className="absolute bottom-0 flex w-full justify-around border-t border-slate-600">
           {Array.from({ length: slotCount }, (_, i) => (
             <span
               key={i}
-              className={`flex h-6 w-6 items-center justify-center rounded-b text-[10px] ${landedSlot === i && !dropping ? 'bg-amber-400 text-slate-900 font-bold' : 'bg-slate-700 text-slate-400'}`}
+              className={`flex h-7 flex-1 items-center justify-center text-[10px] ${landedSlot === i ? 'bg-amber-400 font-bold text-slate-900' : 'bg-slate-700 text-slate-400'}`}
             >
               {i + 1}
             </span>

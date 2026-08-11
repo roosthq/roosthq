@@ -142,6 +142,25 @@ export class UsersService {
     return { ok: true, notifyByEmail };
   }
 
+  // #4 - level-up celebration. Level is XP derived from lifetime tokens
+  // EARNED (never reduced by spending) - same sqrt-pacing formula as
+  // levelFor() in web/src/api.ts, kept in sync by hand like the other
+  // client/server mirrors in this codebase. Comparing against (and then
+  // bumping) lastCelebratedLevel in the SAME request is what makes this
+  // idempotent - a refresh, or two surfaces checking at once, never fires
+  // it twice for the same level.
+  async levelCheck(userId: string) {
+    const user = await this.prisma.user.findUniqueOrThrow({ where: { id: userId } });
+    const agg = await this.prisma.tokenLedger.aggregate({ where: { userId, delta: { gt: 0 } }, _sum: { delta: true } });
+    const earned = agg._sum.delta ?? 0;
+    const newLevel = Math.floor(Math.sqrt(Math.max(0, earned) / 5)) + 1;
+    if (newLevel > user.lastCelebratedLevel) {
+      await this.prisma.user.update({ where: { id: userId }, data: { lastCelebratedLevel: newLevel } });
+      return { leveledUp: true, oldLevel: user.lastCelebratedLevel, newLevel };
+    }
+    return { leveledUp: false, oldLevel: user.lastCelebratedLevel, newLevel };
+  }
+
   // Adult sets a member's My Day simple mode and/or weekly allowance.
   async setMemberPrefs(
     actorId: string,

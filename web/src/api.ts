@@ -702,6 +702,10 @@ export interface StorePrize {
   tokenCost: number;
   type: 'ITEM' | 'EVENT';
   scope: 'GLOBAL' | 'SPECIFIC';
+  // 'STORE' (default, purchasable/visible to kids) or 'AWARD_ONLY' (hidden -
+  // never shows in the kid-facing Store list, only reachable via a #5
+  // reward-game pool).
+  visibility?: 'STORE' | 'AWARD_ONLY';
   assignedUserIds: string[];
   location?: { id: string; name: string } | null;
   repeatable: boolean;
@@ -876,6 +880,10 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ notifyByEmail }),
     }),
+  // #4 - safe to call from any surface looking at this person; only fires
+  // (and takes effect) once per level, server-side.
+  levelCheck: (kioskToken?: string) =>
+    req<{ leveledUp: boolean; oldLevel: number; newLevel: number }>('/users/me/level-check', undefined, kioskToken),
   pendingWheels: () => req<PendingWheel[]>('/wheels/pending'),
   spinWheel: (id: string) => req<SpinResponse>(`/wheels/${id}/spin`, { method: 'POST' }),
   setOwnBirthday: (birthday: string | null) =>

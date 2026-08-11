@@ -7,6 +7,7 @@ import TokenBadge from '../TokenBadge';
 import LevelBadge from '../LevelBadge';
 import { useDialog } from '../Dialog';
 import { formatDate } from '../dateFormat';
+import { celebrate } from '../celebrate';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -86,9 +87,27 @@ export default function ProfilePage({
   const [streak, setStreak] = useState(0);
   const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
+  const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
   useEffect(() => {
     api.familySettings().then(setFamily).catch(() => undefined);
   }, []);
+
+  // #4 - checked once whenever you're actually looking at your OWN profile
+  // (never someone else's - an adult browsing a kid's profile shouldn't
+  // spoil or steal their level-up moment). Idempotent server-side, so this
+  // firing on every mount is fine.
+  useEffect(() => {
+    if (!viewingSelf) return;
+    api
+      .levelCheck()
+      .then((r) => {
+        if (r.leveledUp) setLevelUpTo(r.newLevel);
+      })
+      .catch(() => undefined);
+  }, [viewingSelf]);
+  useEffect(() => {
+    if (levelUpTo !== null) celebrate(undefined, 'levelUp');
+  }, [levelUpTo]);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
 
@@ -156,6 +175,18 @@ export default function ProfilePage({
 
   return (
     <div>
+      {levelUpTo !== null && (
+        <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
+          <div className="text-6xl">⭐</div>
+          <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
+          <p className="max-w-xs text-center text-sm text-slate-300">
+            {name} reached level {levelUpTo} - keep it up!
+          </p>
+          <button onClick={() => setLevelUpTo(null)} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+            Nice!
+          </button>
+        </div>
+      )}
       {members.length > 0 && (
         <div className="mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Profiles</h2>

@@ -3,6 +3,7 @@ import { api, familyFeatureEnabled, type Chore, type EarnedAward, type FamilySet
 import Modal from './Modal';
 import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
+import { celebrate } from './celebrate';
 
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
@@ -43,12 +44,24 @@ export default function KioskStatsModal({
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [family, setFamily] = useState<FamilySettings | null>(null);
+  const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
 
   useEffect(() => {
     api.tokenBalance(userId, kioskToken).then((b) => setBalance(b.balance)).catch(() => undefined);
     api.tokenLedger(userId, kioskToken).then(setLedger).catch(() => setLedger([]));
     api.earnedAwards(userId, kioskToken).then(setAwards).catch(() => setAwards([]));
     api.familySettings(kioskToken).then(setFamily).catch(() => undefined);
+    // #4 - this modal is one of the three spots that count as "actually
+    // looking at this person" (see users.service.ts levelCheck comment).
+    api
+      .levelCheck(kioskToken)
+      .then((r) => {
+        if (r.leveledUp) {
+          setLevelUpTo(r.newLevel);
+          celebrate(undefined, 'levelUp');
+        }
+      })
+      .catch(() => undefined);
   }, [userId, kioskToken]);
 
   const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
@@ -56,6 +69,19 @@ export default function KioskStatsModal({
   const bestStreak = Math.max(0, ...chores.filter((c) => c.assignees.some((a) => a.userId === userId)).map((c) => c.currentStreak), 0);
 
   return (
+    <>
+      {levelUpTo !== null && (
+        <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
+          <div className="text-6xl">⭐</div>
+          <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
+          <p className="max-w-xs text-center text-sm text-slate-300">
+            {displayName} reached level {levelUpTo} - keep it up!
+          </p>
+          <button onClick={() => setLevelUpTo(null)} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+            Nice!
+          </button>
+        </div>
+      )}
     <Modal
       header={<h3 className="text-2xl font-semibold">{displayName}'s stats</h3>}
       onBackdropClick={onClose}
@@ -102,5 +128,6 @@ export default function KioskStatsModal({
         </div>
       )}
     </Modal>
+    </>
   );
 }

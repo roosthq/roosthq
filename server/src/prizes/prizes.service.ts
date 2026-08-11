@@ -32,6 +32,8 @@ export interface PrizeInput {
   repeatable?: boolean;
   archived?: boolean;
   suggested?: boolean;
+  // 'STORE' (default) or 'AWARD_ONLY' - see schema.prisma's Prize.visibility.
+  visibility?: 'STORE' | 'AWARD_ONLY';
 }
 
 export interface PrizeSuggestionInput {
@@ -81,11 +83,15 @@ export class PrizesService {
       suggested: boolean;
       suggestedById: string | null;
       locationId: string | null;
+      visibility: string;
       assignments: { userId: string }[];
     },
     actingUserId: string,
     myLocationIds: Set<string>,
   ): boolean {
+    // Award-only: never in the kid-facing list, no matter what else would
+    // otherwise make it visible - the whole point is it stays a surprise.
+    if (p.visibility === 'AWARD_ONLY') return false;
     if (p.archived) return false;
     if (p.suggested && p.suggestedById !== actingUserId) return false;
     const assignedToMe = p.assignments.some((a) => a.userId === actingUserId);
@@ -123,6 +129,7 @@ export class PrizesService {
         tokenCost: p.tokenCost,
         type: p.type,
         scope: p.scope,
+        visibility: p.visibility,
         assignedUserIds: p.assignments.map((a) => a.userId),
         location: p.location ? { id: p.location.id, name: p.location.name } : null,
         repeatable: p.repeatable,
@@ -150,6 +157,7 @@ export class PrizesService {
         tokenCost: dto.tokenCost ?? 0,
         type: dto.type ?? 'ITEM',
         scope: dto.scope ?? 'GLOBAL',
+        visibility: dto.visibility ?? 'STORE',
         locationId: dto.locationId ?? null,
         repeatable: dto.repeatable ?? true,
         createdById: actorId,
@@ -206,6 +214,7 @@ export class PrizesService {
         ...(dto.tokenCost !== undefined && { tokenCost: dto.tokenCost }),
         ...(dto.type !== undefined && { type: dto.type }),
         ...(dto.scope !== undefined && { scope: dto.scope }),
+        ...(dto.visibility !== undefined && { visibility: dto.visibility }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
         ...(dto.repeatable !== undefined && { repeatable: dto.repeatable }),
         ...(dto.archived !== undefined && { archived: dto.archived }),

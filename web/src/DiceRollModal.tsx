@@ -2,7 +2,41 @@ import { useEffect, useRef, useState } from 'react';
 import { celebrate } from './celebrate';
 import type { SpinResult } from './rewardGames';
 
-const PIPS: Record<number, string> = { 1: '⚀', 2: '⚁', 3: '⚂', 4: '⚃', 5: '⚄', 6: '⚅' };
+// Pip layout per face, as (row, col) on a 3x3 grid.
+const PIP_LAYOUT: Record<number, [number, number][]> = {
+  1: [[1, 1]],
+  2: [[0, 0], [2, 2]],
+  3: [[0, 0], [1, 1], [2, 2]],
+  4: [[0, 0], [0, 2], [2, 0], [2, 2]],
+  5: [[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]],
+  6: [[0, 0], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2]],
+};
+
+// A real die face - white rounded square, solid black pips - not a unicode
+// glyph (too small/thin to read at a glance, especially on a kiosk touch
+// screen from arm's length).
+function Die({ value, size = 84 }: { value: number; size?: number }) {
+  return (
+    <div
+      className="relative rounded-2xl bg-white shadow-lg"
+      style={{ width: size, height: size, border: '3px solid #1c2e1c' }}
+    >
+      {PIP_LAYOUT[value]?.map(([r, c], i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-slate-900"
+          style={{
+            width: size * 0.16,
+            height: size * 0.16,
+            left: `${(c + 0.5) * (100 / 3)}%`,
+            top: `${(r + 0.5) * (100 / 3)}%`,
+            transform: 'translate(-50%, -50%)',
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 // Same fairness contract as every other reveal - the outcome is decided by
 // onSpin() server-side; the dice pips are cosmetic. There's no real "total ->
@@ -66,9 +100,9 @@ export default function DiceRollModal({
       <p className="max-w-xs text-center text-sm text-slate-300">
         {result ? 'You won' : rolling ? 'Rolling…' : `Shake to roll (${min}-${max} ${tokenName}, or a real prize)`}
       </p>
-      <div className={`flex gap-4 text-7xl ${rolling ? 'animate-bounce' : ''}`}>
-        <span>{PIPS[faces[0]]}</span>
-        <span>{PIPS[faces[1]]}</span>
+      <div className={`flex gap-5 ${rolling ? 'animate-bounce' : ''}`}>
+        <Die value={faces[0]} />
+        <Die value={faces[1]} />
       </div>
       {result ? (
         <>

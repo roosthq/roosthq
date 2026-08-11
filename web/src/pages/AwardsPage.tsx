@@ -8,6 +8,7 @@ import { formatDateTime } from '../dateFormat';
 import { AWARD_PACKS } from '../awardPacks';
 import { GAME_TYPES, GAME_TYPE_META, fakePreviewSpin } from '../rewardGames';
 import RewardRevealModal from '../RewardRevealModal';
+import { PrizeImage } from '../Prize';
 
 // Icons are either a short emoji string or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
@@ -340,6 +341,8 @@ export function AwardForm({
   const [slotCount, setSlotCount] = useState(award?.slotCount ?? 6);
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [previewStyle, setPreviewStyle] = useState<GameType | null>(null);
+  // Which pool row's prize picker is currently expanded (only one at a time).
+  const [pickerOpenFor, setPickerOpenFor] = useState<number | null>(null);
 
   useEffect(() => {
     if (chanceType === 'pool' && prizes.length === 0) api.prizes().then(setPrizes).catch(() => undefined);
@@ -350,12 +353,20 @@ export function AwardForm({
   }
   function addPrizeRow() {
     setPool((p) => [...p, { kind: 'PRIZE', prizeId: prizes[0]?.id ?? '', weight: 1 }]);
+    setPickerOpenFor(pool.length); // open the picker on the row that's about to exist
   }
   function updateRow(i: number, patch: Partial<PoolEntry>) {
     setPool((p) => p.map((r, idx) => (idx === i ? ({ ...r, ...patch } as PoolEntry) : r)));
   }
   function removeRow(i: number) {
     setPool((p) => p.filter((_, idx) => idx !== i));
+  }
+  // Each row's real odds given the others' weights - shown so "weight 3 vs
+  // weight 1" isn't just an abstract number an adult has to do math on.
+  function poolPercent(i: number): number {
+    const total = pool.reduce((s, r) => s + (r.weight ?? 1), 0);
+    if (total <= 0) return 0;
+    return Math.round(((pool[i]?.weight ?? 1) / total) * 100);
   }
 
   // Cosmetic range for the preview's wheel/slot-reel animation - same
@@ -515,64 +526,107 @@ export function AwardForm({
               <div className="mt-3 space-y-3">
                 <div>
                   <span className="text-xs font-medium text-slate-500">Prize pool - a mix of token ranges and real prizes, each with a relative weight</span>
-                  <ul className="mt-1.5 space-y-1.5">
-                    {pool.map((row, i) => (
-                      <li key={i} className="flex flex-wrap items-center gap-1.5 rounded-lg border p-1.5 text-xs">
-                        {row.kind === 'TOKENS' ? (
-                          <>
-                            <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium">🪙</span>
-                            <input
-                              type="number"
-                              min={0}
-                              value={row.min}
-                              onChange={(e) => updateRow(i, { min: Number(e.target.value) } as Partial<PoolEntry>)}
-                              onFocus={(e) => e.target.select()}
-                              className="w-14 rounded border px-1.5 py-1"
-                            />
-                            <span className="text-slate-400">to</span>
-                            <input
-                              type="number"
-                              min={0}
-                              value={row.max}
-                              onChange={(e) => updateRow(i, { max: Number(e.target.value) } as Partial<PoolEntry>)}
-                              onFocus={(e) => e.target.select()}
-                              className="w-14 rounded border px-1.5 py-1"
-                            />
-                            <span className="text-slate-400">tokens</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium">🎁</span>
-                            <select
-                              value={row.prizeId}
-                              onChange={(e) => updateRow(i, { prizeId: e.target.value } as Partial<PoolEntry>)}
-                              className="rounded border px-1.5 py-1"
-                            >
-                              {prizes.length === 0 && <option value="">No prizes in the store yet</option>}
+                  <ul className="mt-1.5 space-y-2">
+                    {pool.map((row, i) => {
+                      const selectedPrize = row.kind === 'PRIZE' ? prizes.find((p) => p.id === row.prizeId) : undefined;
+                      return (
+                        <li key={i} className="card-nested rounded-lg p-2.5 text-sm">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                              {row.kind === 'TOKENS' ? '🪙 Token range' : '🎁 Prize'}
+                              <span
+                                className="rounded-full px-1.5 py-0.5 font-semibold"
+                                style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                                title="Chance of this row winning, given every other row's weight"
+                              >
+                                {poolPercent(i)}%
+                              </span>
+                            </span>
+                            <button type="button" onClick={() => removeRow(i)} className="text-xs text-red-500 hover:text-red-700">
+                              Remove
+                            </button>
+                          </div>
+
+                          <div className="mt-1.5 flex flex-wrap items-center gap-2">
+                            {row.kind === 'TOKENS' ? (
+                              <span className="flex items-center gap-1.5">
+                                <input
+                                  type="number"
+                                  min={0}
+                                  value={row.min}
+                                  onChange={(e) => updateRow(i, { min: Number(e.target.value) } as Partial<PoolEntry>)}
+                                  onFocus={(e) => e.target.select()}
+                                  className="w-16 rounded border px-2 py-1.5 text-sm"
+                                />
+                                <span className="text-slate-400">to</span>
+                                <input
+                                  type="number"
+                                  min={0}
+                                  value={row.max}
+                                  onChange={(e) => updateRow(i, { max: Number(e.target.value) } as Partial<PoolEntry>)}
+                                  onFocus={(e) => e.target.select()}
+                                  className="w-16 rounded border px-2 py-1.5 text-sm"
+                                />
+                                <span className="text-xs text-slate-400">tokens</span>
+                              </span>
+                            ) : selectedPrize && pickerOpenFor !== i ? (
+                              <button
+                                type="button"
+                                onClick={() => setPickerOpenFor(i)}
+                                className="flex items-center gap-2 rounded-lg border px-2 py-1.5 text-left hover:bg-slate-50"
+                              >
+                                <PrizeImage src={selectedPrize.image} alt="" crop={selectedPrize.imageCrop} className="h-10 w-10 shrink-0 rounded" />
+                                <span className="min-w-0">
+                                  <span className="block truncate font-medium">{selectedPrize.name}</span>
+                                  <span className="block text-xs text-slate-400">
+                                    <TokenBadge icon="🪙" amount={selectedPrize.tokenCost} /> · change
+                                  </span>
+                                </span>
+                              </button>
+                            ) : (
+                              <span className="block text-xs text-amber-600">
+                                {prizes.length === 0 ? 'No prizes in the store yet - add one first.' : 'Pick a prize below ↓'}
+                              </span>
+                            )}
+
+                            <span className="ml-auto flex items-center gap-1 text-xs text-slate-400">
+                              weight
+                              <input
+                                type="number"
+                                min={1}
+                                value={row.weight ?? 1}
+                                onChange={(e) => updateRow(i, { weight: Number(e.target.value) } as Partial<PoolEntry>)}
+                                onFocus={(e) => e.target.select()}
+                                className="w-12 rounded border px-1.5 py-1"
+                              />
+                            </span>
+                          </div>
+
+                          {row.kind === 'PRIZE' && pickerOpenFor === i && (
+                            <div className="mt-2 grid max-h-48 grid-cols-2 gap-1.5 overflow-y-auto rounded-lg border p-1.5 sm:grid-cols-3">
                               {prizes.map((p) => (
-                                <option key={p.id} value={p.id}>
-                                  {p.name}
-                                </option>
+                                <button
+                                  key={p.id}
+                                  type="button"
+                                  onClick={() => {
+                                    updateRow(i, { prizeId: p.id } as Partial<PoolEntry>);
+                                    setPickerOpenFor(null);
+                                  }}
+                                  className={`flex items-center gap-1.5 rounded-lg border p-1.5 text-left hover:bg-slate-50 ${row.prizeId === p.id ? 'ring-2 ring-slate-800' : ''}`}
+                                >
+                                  <PrizeImage src={p.image} alt="" crop={p.imageCrop} className="h-8 w-8 shrink-0 rounded" />
+                                  <span className="min-w-0">
+                                    <span className="block truncate text-xs font-medium">{p.name}</span>
+                                    <span className="block text-[10px] text-slate-400">🪙 {p.tokenCost}</span>
+                                  </span>
+                                </button>
                               ))}
-                            </select>
-                          </>
-                        )}
-                        <span className="ml-auto flex items-center gap-1 text-slate-400">
-                          weight
-                          <input
-                            type="number"
-                            min={1}
-                            value={row.weight ?? 1}
-                            onChange={(e) => updateRow(i, { weight: Number(e.target.value) } as Partial<PoolEntry>)}
-                            onFocus={(e) => e.target.select()}
-                            className="w-12 rounded border px-1.5 py-1"
-                          />
-                        </span>
-                        <button type="button" onClick={() => removeRow(i)} className="text-red-500 hover:text-red-700">
-                          Remove
-                        </button>
-                      </li>
-                    ))}
+                              {prizes.length === 0 && <span className="col-span-full text-xs text-slate-400">No prizes in the store yet.</span>}
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
                     {pool.length === 0 && <li className="text-xs text-slate-400">No rows yet - add at least one below.</li>}
                   </ul>
                   <div className="mt-2 flex gap-2">

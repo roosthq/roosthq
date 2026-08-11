@@ -19,7 +19,7 @@ import {
 import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
 import Calendar from './Calendar';
-import { setCelebrationSound } from './celebrate';
+import { celebrate, setCelebrationSound } from './celebrate';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
@@ -80,6 +80,7 @@ export default function Display() {
   // `members` itself right below.
   const [pickerBalances, setPickerBalances] = useState<Balance[]>([]);
   const [active, setActive] = useState<UnlockResult | null>(null);
+  const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
   // Keyed on the token string (not `active`) so this stays referentially stable
   // across re-renders instead of feeding ChoresPanel a new client every time.
   const kioskChoreClient = useMemo(() => (active ? choreClient(active.token) : undefined), [active?.token]);
@@ -342,6 +343,7 @@ export default function Display() {
       const role = cur?.user.role;
       if (cur && config && (role === 'OWNER' || role === 'FAMILY_MANAGER' || role === 'ADULT')) {
         setActive(null);
+        setLevelUpTo(null);
         loadMembers();
         applyIdleTheme(config);
       }
@@ -496,6 +498,17 @@ export default function Display() {
       setPinFor(null);
       setPin('');
       setPinError(null);
+      // #4 - a kiosk unlock is one of the three spots that count as
+      // "actually looking at this person" (see users.service.ts).
+      api
+        .levelCheck(result.token)
+        .then((r) => {
+          if (r.leveledUp) {
+            setLevelUpTo(r.newLevel);
+            celebrate(undefined, 'levelUp');
+          }
+        })
+        .catch(() => undefined);
     } catch {
       // If this came from the no-PIN-prompt path (a stale "no PIN" flag) the
       // dialog was never open - open it now instead of failing invisibly.
@@ -544,6 +557,18 @@ export default function Display() {
 
   return (
     <div className="kiosk-mode flex h-screen flex-col overflow-hidden p-4">
+      {levelUpTo !== null && (
+        <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
+          <div className="text-6xl">⭐</div>
+          <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
+          <p className="max-w-xs text-center text-sm text-slate-300">
+            {active?.user.displayName} reached level {levelUpTo} - keep it up!
+          </p>
+          <button onClick={() => setLevelUpTo(null)} className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200">
+            Nice!
+          </button>
+        </div>
+      )}
       <header className="grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-3 border-b pb-3">
         <div className="flex items-center gap-3">
           <Logo size={40} />
@@ -826,6 +851,7 @@ export default function Display() {
                   <button
                     onClick={() => {
                       setActive(null);
+                      setLevelUpTo(null);
                       loadMembers();
                       applyIdleTheme(config);
                     }}

@@ -92,6 +92,14 @@ export class UsersController {
     return this.users.setNotifyByEmail(u.userId, body.notifyByEmail);
   }
 
+  // #4 - checked whenever a surface is actually looking at this person
+  // (their own profile, a kiosk unlock, the kiosk stats modal). Atomically
+  // bumps lastCelebratedLevel in the same request so it never double-fires.
+  @Get('me/level-check')
+  levelCheck(@CurrentUser() u: SessionPayload) {
+    return this.users.levelCheck(u.userId);
+  }
+
   // Adult sets a member's My Day simple mode / weekly allowance.
   @Put(':id/prefs')
   setMemberPrefs(

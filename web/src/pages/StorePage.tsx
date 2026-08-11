@@ -217,6 +217,15 @@ export default function StorePage({
                   <span className={TYPE_TAG[p.type].className}>
                     {TYPE_TAG[p.type].icon} {TYPE_TAG[p.type].label}
                   </span>
+                  {p.visibility === 'AWARD_ONLY' && (
+                    <span
+                      className="rounded-full px-2 py-0.5 font-medium"
+                      style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                      title="Hidden from the Store - kids never see this, only reachable via a reward game"
+                    >
+                      🎮 award only
+                    </span>
+                  )}
                   {p.location && <span className="text-slate-400">📍 {p.location.name}</span>}
                 </div>
                 {p.description ? (
@@ -542,6 +551,7 @@ export function PrizeForm({
   const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
   const [repeatable, setRepeatable] = useState(prize?.repeatable ?? true);
   const [scope, setScope] = useState<'GLOBAL' | 'SPECIFIC'>(prize?.scope ?? 'GLOBAL');
+  const [visibility, setVisibility] = useState<'STORE' | 'AWARD_ONLY'>(prize?.visibility ?? 'STORE');
   const [assignedUserIds, setAssignedUserIds] = useState<Set<string>>(new Set(prize?.assignedUserIds ?? []));
   const [locationId, setLocationId] = useState(prize?.location?.id ?? '');
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
@@ -584,6 +594,7 @@ export function PrizeForm({
       type,
       repeatable,
       scope,
+      visibility,
       assignedUserIds: scope === 'SPECIFIC' ? [...assignedUserIds] : [],
       locationId: locationId || null,
       ...(prize?.suggested ? { suggested: false } : {}),
@@ -701,6 +712,25 @@ export function PrizeForm({
               ? 'Stays in the store - anyone eligible can buy it any number of times.'
               : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
           </p>
+
+          <div>
+            <span className="text-sm text-slate-500">Visibility</span>
+            <div className="mt-1 flex gap-3 text-sm">
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={visibility === 'STORE'} onChange={() => setVisibility('STORE')} />
+                🛍️ Purchasable in the Store
+              </label>
+              <label className="flex items-center gap-1">
+                <input type="radio" checked={visibility === 'AWARD_ONLY'} onChange={() => setVisibility('AWARD_ONLY')} />
+                🎮 Award only (hidden)
+              </label>
+            </div>
+            <p className="mt-1 text-xs text-slate-400">
+              {visibility === 'AWARD_ONLY'
+                ? "Kids never see this in the Store or know it exists - it only shows up if a reward game's pool rolls it. A genuine surprise."
+                : 'Shows in the Store like any other prize - kids can browse and buy it with tokens.'}
+            </p>
+          </div>
 
           <div>
             <span className="text-sm text-slate-500">Who can redeem?</span>

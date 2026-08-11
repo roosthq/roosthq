@@ -281,6 +281,11 @@ model User {
   // the DISABLED list so kids can do everything until an adult turns
   // something off. Ignored for adult roles.
   disabledPermissions Json    @default("[]")
+  // #4 - which level this person's own last celebration already covered.
+  // Starts at 1 (not 0) so a brand-new account - already "level 1" the
+  // instant it exists - doesn't immediately fire a hollow "you leveled up
+  // to 1!" the first time anything checks.
+  lastCelebratedLevel Int     @default(1)
   // Instance-owner switch: false locks the account out entirely (every API
   // request is refused, existing session cookie or not) without deleting any
   // of their history. See the deactivated-account gate in main.ts.
@@ -693,6 +698,12 @@ model Prize {
   locationId    String? // optional - which house/location this prize belongs to
   repeatable    Boolean    @default(true) // false = one-off; auto-archives once redeemed
   archived      Boolean    @default(false) // out of the active store; can be revived
+  // 'STORE' (default, purchasable with tokens, visible to kids) or
+  // 'AWARD_ONLY' (hidden from the kid-facing store list entirely - only
+  // reachable by being rolled in a #5 reward-game pool; a genuine surprise,
+  // never something a kid could just buy or even know exists). Adults still
+  // see and can edit AWARD_ONLY prizes in the Store's own management list.
+  visibility    String     @default("STORE")
   createdById   String? // who added it - shown to everyone, not just adults
   suggested     Boolean    @default(false) // kid-submitted wishlist item, awaiting adult approval
   suggestedById String?

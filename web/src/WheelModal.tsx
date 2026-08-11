@@ -68,9 +68,10 @@ export default function WheelModal({
     lastTime: number;
     velocity: number;
     totalSweep: number;
+    netAngle: number; // signed - which way the drag actually went, unlike totalSweep
     startTime: number;
     active: boolean;
-  }>({ lastAngle: 0, lastTime: 0, velocity: 0, totalSweep: 0, startTime: 0, active: false });
+  }>({ lastAngle: 0, lastTime: 0, velocity: 0, totalSweep: 0, netAngle: 0, startTime: 0, active: false });
 
   const segAngle = 360 / segments.length;
 
@@ -104,14 +105,21 @@ export default function WheelModal({
       const matches = segments.map((v, i) => (v === target ? i : -1)).filter((i) => i >= 0);
       return matches[Math.floor(Math.random() * matches.length)] ?? 0;
     })();
+    // Sign carries the actual drag/flick direction - lost with Math.abs, the
+    // wheel would keep launching clockwise even off a counter-clockwise flick,
+    // which reads as "snapping back" the instant you let go.
+    const sign = velocityDegPerMs < 0 ? -1 : 1;
     const speed = Math.min(4, Math.max(1.2, Math.abs(velocityDegPerMs)));
-    const baseTravel = speed * 1400; // faster fling = longer spin
+    const baseTravelMag = Math.max(speed * 1400, 3 * 360); // faster fling = longer spin
     // Target slice center must end at the top (pointer): rotation ≡ -center (mod 360).
     const targetCenter = targetIdx * segAngle + segAngle / 2;
     const desiredMod = ((-targetCenter % 360) + 360) % 360;
     const start = rotation.current;
-    const minFinal = start + Math.max(baseTravel, 3 * 360);
-    const final = minFinal + ((desiredMod - (minFinal % 360) + 360) % 360);
+    const minFinal = start + sign * baseTravelMag;
+    const rem = ((minFinal % 360) + 360) % 360;
+    // Keep travelling in the SAME direction (sign) past minFinal until the
+    // target slice lines up - never double back the other way to get there.
+    const final = sign > 0 ? minFinal + ((desiredMod - rem + 360) % 360) : minFinal - ((rem - desiredMod + 360) % 360);
     const duration = 2600 + speed * 600;
     const t0 = performance.now();
     const tick = (t: number) => {
@@ -142,7 +150,7 @@ export default function WheelModal({
   function onPointerDown(e: React.PointerEvent) {
     if (spinning || done) return;
     const now = performance.now();
-    drag.current = { lastAngle: angleAt(e), lastTime: now, velocity: 0, totalSweep: 0, startTime: now, active: true };
+    drag.current = { lastAngle: angleAt(e), lastTime: now, velocity: 0, totalSweep: 0, netAngle: 0, startTime: now, active: true };
     (e.currentTarget as Element).setPointerCapture(e.pointerId);
   }
   function onPointerMove(e: React.PointerEvent) {
@@ -156,6 +164,7 @@ export default function WheelModal({
     const dt = Math.max(1, now - d.lastTime);
     d.velocity = delta / dt;
     d.totalSweep += Math.abs(delta);
+    d.netAngle += delta;
     d.lastAngle = angle;
     d.lastTime = now;
     // Wheel follows the finger while dragging.
@@ -168,11 +177,14 @@ export default function WheelModal({
     d.active = false;
     // Either the instantaneous flick speed OR the average across the gesture
     // is enough - and any deliberate sweep (>25 degrees) spins even if the
-    // finger left the wheel before a fast sample landed.
+    // finger left the wheel before a fast sample landed. Direction comes from
+    // netAngle (signed), not totalSweep (unsigned) or the last instantaneous
+    // sample (noisy right at release) - whichever way you actually dragged.
     const elapsed = Math.max(1, performance.now() - d.startTime);
     const avg = d.totalSweep / elapsed;
     const speed = Math.max(Math.abs(d.velocity), avg);
-    if (speed > 0.08 || d.totalSweep > 25) launch(Math.max(1.2, speed * 2));
+    const sign = d.netAngle < 0 ? -1 : 1;
+    if (speed > 0.08 || d.totalSweep > 25) launch(sign * Math.max(1.2, speed * 2));
   }
 
   const R = 150;
@@ -250,7 +262,7 @@ export default function WheelModal({
       ) : (
         <button
           disabled={spinning}
-          onClick={() => launch(1.5 + Math.random() * 1.5)}
+          onClick={() => launch((Math.random() < 0.5 ? -1 : 1) * (1.5 + Math.random() * 1.5))}
           className="rounded-lg bg-white px-6 py-2.5 font-semibold text-slate-800 hover:bg-slate-200 disabled:opacity-50"
         >
           {spinning ? 'Spinning…' : 'Spin'}
