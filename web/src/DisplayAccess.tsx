@@ -51,7 +51,7 @@ export default function DisplayAccess() {
   }
 
   return (
-    <div className="card-nested mt-2 w-full rounded p-3">
+    <div>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <select value={selected} onChange={(e) => setSelected(e.target.value)} className="rounded border px-2 py-1 text-xs">

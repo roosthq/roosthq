@@ -154,7 +154,7 @@ export default function MembersManager({ me }: { me: Me }) {
   }
 
   return (
-    <div className="card-nested mt-2 w-full rounded p-3">
+    <>
       <div className="flex items-center justify-between">
         <span className="font-medium">Family members</span>
       </div>
@@ -445,6 +445,6 @@ export default function MembersManager({ me }: { me: Me }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -53,25 +53,62 @@
   --card-tint: color-mix(in srgb, var(--tag-bg) 65%, var(--accent) 35%);
   --today: #d4c06a; /* owl beak gold - "today" accent */
   /* Design pass (2026-08, backlog #6 - "reads flat/plain, wants gradients,
-     shadows, a more modern feel"): a shared depth system, not per-component
-     one-offs, so it holds up across all 9 color themes x light/dark without
-     hand-tuning each. --shadow-tint is the color shadows are MIXED FROM (see
-     .panel below) - the theme's own dark text in light mode (a colored, on-
-     brand shadow reads better than flat gray), flipped to real black in dark
-     mode below, since a shadow mixed from near-white --text there would be a
-     glow, not a shadow. Two tiers: -sm for cards/panels/buttons sitting on
-     the page, -md for things raised further above it (menus, modals). */
+     shadows, a more modern feel"). Round 2 (tier C, confirmed against a live
+     comparison artifact): bolder diagonal sheen + real elevation + a hover
+     lift, not the barely-visible round-1 attempt. Still a pure function of
+     existing tokens - --shadow-tint flips to real black in dark mode below
+     (mixing near-white --text into a shadow would be a glow, not a shadow),
+     everything else recomputes automatically per theme with no per-theme
+     duplication. Nesting is intentionally the SAME tier at every depth
+     (card-in-a-card gets the identical treatment, not a calmer fallback) -
+     confirmed against a live nested-card comparison, not assumed. */
   --shadow-tint: var(--text);
   --shadow-sm: 0 1px 2px color-mix(in srgb, var(--shadow-tint) 10%, transparent),
     0 3px 8px color-mix(in srgb, var(--shadow-tint) 7%, transparent);
   --shadow-md: 0 2px 6px color-mix(in srgb, var(--shadow-tint) 14%, transparent),
-    0 16px 32px color-mix(in srgb, var(--shadow-tint) 18%, transparent);
-  /* Subtle top-to-bottom lift for cards and primary buttons - lighter at the
-     top edge, same tone by the bottom, so it reads as gently domed rather
-     than a flat fill. Kept understated on purpose (8% is a big color-mix
-     swing already at this size) - the point is depth, not a visible stripe. */
-  --surface-gradient: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, white 8%) 0%, var(--surface) 100%);
-  --accent-gradient: linear-gradient(180deg, color-mix(in oklch, var(--accent) 88%, white) 0%, var(--accent) 100%);
+    0 14px 32px color-mix(in srgb, var(--shadow-tint) 18%, transparent);
+  --shadow-md-hover: 0 4px 8px color-mix(in srgb, var(--shadow-tint) 20%, transparent),
+    0 16px 32px color-mix(in srgb, var(--shadow-tint) 26%, transparent);
+  --shadow-btn: 0 2px 4px color-mix(in srgb, var(--shadow-tint) 16%, transparent),
+    0 10px 24px color-mix(in srgb, var(--shadow-tint) 20%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --shadow-btn-hover: 0 4px 8px color-mix(in srgb, var(--shadow-tint) 20%, transparent),
+    0 16px 32px color-mix(in srgb, var(--shadow-tint) 26%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  /* Three-stop diagonal sheen (not a flat fill, not a plain top-to-bottom
+     stripe) - one per surface tier, since each tier's own base color differs
+     (--surface for .panel, --surface-raised for .card-nested, --card-tint
+     for .card-tinted). Same formula shape each time: lighter at the top-left,
+     the tier's own color through the middle, nudged a touch deeper by the
+     bottom-right so it reads as gently domed. */
+  --surface-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--surface) 88%, white 12%) 0%,
+    var(--surface) 60%,
+    var(--surface-raised) 100%
+  );
+  --surface-raised-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--surface-raised) 88%, white 12%) 0%,
+    var(--surface-raised) 60%,
+    color-mix(in srgb, var(--surface-raised) 85%, var(--accent) 15%) 100%
+  );
+  --card-tint-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--card-tint) 88%, white 12%) 0%,
+    var(--card-tint) 60%,
+    color-mix(in srgb, var(--card-tint) 85%, var(--accent) 15%) 100%
+  );
+  --accent-gradient: linear-gradient(
+    160deg,
+    color-mix(in oklch, var(--accent) 70%, white) 0%,
+    var(--accent) 55%,
+    var(--accent-hover) 100%
+  );
+  /* "Today" marker - was a flat gold disc. Off-center radial (a light source,
+     not a sticker) plus a soft ring instead of a hard edge. */
+  --today-gradient: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--today) 70%, white) 0%, var(--today) 55%, color-mix(in srgb, var(--today) 80%, black) 100%);
+  --today-shadow: 0 2px 6px color-mix(in srgb, var(--today) 65%, black 20%), 0 0 0 3px color-mix(in srgb, var(--today) 45%, transparent);
   --surface-off: #e5e7eb; /* days outside the viewed month (neutral gray) */
   /* Token/reward pill (TokenBadge) - derived from --accent so it's
      theme-correct in all 9 hues without a per-theme block, unlike the flat
@@ -103,7 +140,32 @@
     0 3px 10px color-mix(in srgb, var(--shadow-tint) 20%, transparent);
   --shadow-md: 0 2px 8px color-mix(in srgb, var(--shadow-tint) 32%, transparent),
     0 18px 40px color-mix(in srgb, var(--shadow-tint) 36%, transparent);
-  --surface-gradient: linear-gradient(180deg, color-mix(in srgb, var(--surface) 100%, white 6%) 0%, var(--surface) 100%);
+  --shadow-md-hover: 0 4px 10px color-mix(in srgb, var(--shadow-tint) 38%, transparent),
+    0 22px 48px color-mix(in srgb, var(--shadow-tint) 42%, transparent);
+  --shadow-btn: 0 2px 6px color-mix(in srgb, var(--shadow-tint) 32%, transparent),
+    0 10px 24px color-mix(in srgb, var(--shadow-tint) 36%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-btn-hover: 0 4px 10px color-mix(in srgb, var(--shadow-tint) 38%, transparent),
+    0 16px 32px color-mix(in srgb, var(--shadow-tint) 42%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  --surface-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--surface) 100%, white 9%) 0%,
+    var(--surface) 60%,
+    color-mix(in srgb, var(--surface) 92%, black 8%) 100%
+  );
+  --surface-raised-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--surface-raised) 100%, white 9%) 0%,
+    var(--surface-raised) 60%,
+    color-mix(in srgb, var(--surface-raised) 92%, black 8%) 100%
+  );
+  --card-tint-gradient: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--card-tint) 100%, white 9%) 0%,
+    var(--card-tint) 60%,
+    color-mix(in srgb, var(--card-tint) 92%, black 8%) 100%
+  );
   --surface-off: #212121; /* dark gray */
   --reward-bg: color-mix(in oklch, var(--accent) 28%, black);
   --reward-text: color-mix(in oklch, var(--accent) 65%, white);
@@ -387,10 +449,13 @@ html {
   background: var(--tag-bg) !important;
 }
 /* Same idea as .bg-slate-100 but for a big card, not a small pill/tag -
-   see --card-tint above. Family & PINs' member cards use this. */
+   see --card-tint above. Family & PINs' member cards use this. Same tier as
+   every other card (see --card-tint-gradient) - nesting one of these inside
+   a .panel/.card-nested is the confirmed look, not a calmer fallback. */
 .card-tinted {
-  background: var(--card-tint) !important;
-  box-shadow: var(--shadow-sm);
+  background: var(--card-tint-gradient) !important;
+  box-shadow: var(--shadow-md);
+  position: relative;
 }
 .bg-slate-200 {
   background: var(--border) !important;
@@ -411,15 +476,25 @@ html {
 .border-t {
   border-color: var(--border) !important;
 }
-/* Primary CTAs -> brand accent. Gradient + shadow instead of a flat fill -
-   was reading flat/plain (backlog #6); flattens back to solid --accent-hover
-   on hover/press, a normal "give" cue. */
+/* Primary CTAs -> brand accent. Diagonal gradient + layered shadow + inset
+   top highlight instead of a flat fill (backlog #6, tier C confirmed against
+   a live comparison) - lifts and deepens its shadow on hover, flattens
+   toward --accent-hover on active press for real tactile "give". Only
+   elements that opt into .hover\:bg-slate-700 get the lift/transform - a
+   static accent-filled badge with no hover class attached stays put. */
 .bg-slate-800 {
   background: var(--accent-gradient) !important;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-btn);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 .hover\:bg-slate-700:hover {
   background: var(--accent-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-btn-hover);
+}
+.hover\:bg-slate-700:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-btn);
 }
 /* Top nav - was just a flat border, no separation from the page scrolling
    underneath it. Doesn't apply on the kiosk (Display.tsx renders no Nav). */
@@ -430,6 +505,11 @@ nav.no-print {
    alone for separation, no shadow of its own, so it read flat against it. */
 .modal-card {
   box-shadow: var(--shadow-md);
+}
+/* Calendar's "today" disc - was a flat fill (see --today-gradient/-shadow). */
+.today-badge {
+  background: var(--today-gradient) !important;
+  box-shadow: var(--today-shadow);
 }
 .hover\:bg-slate-50:hover,
 .hover\:bg-slate-100:hover {
@@ -555,7 +635,8 @@ select option {
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px 20px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  position: relative;
 }
 
 /* Compact modifier for .panel - person chips (Family strip, Profiles picker)
@@ -567,11 +648,35 @@ select option {
 
 /* A card that sits ON TOP of a --surface container (e.g. Modal, which is
    itself --surface) - .panel/bg-white would be invisible against it, same
-   color. Use this instead wherever a "card" appears inside a modal/panel. */
+   color. Use this instead wherever a "card" appears inside a modal/panel.
+   Same tier as .panel/.card-tinted (see --surface-raised-gradient) - a
+   nested card gets the identical treatment, confirmed against a live
+   nested-card comparison rather than assumed to be "too much" stacked. */
 .card-nested {
-  background: var(--surface-raised);
+  background: var(--surface-raised-gradient);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+/* Hairline light-catch along the top-left edge of every raised card - a thin
+   gradient ring, not a visible stripe, using mask-composite to punch out
+   everything but a 1px border. Shared across all three card tiers so it's
+   one rule, not three. */
+.panel::before,
+.card-nested::before,
+.card-tinted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(165deg, color-mix(in oklch, var(--accent) 45%, white) 0%, transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 /* --text-muted is tuned for the page background; on a raised card it drops

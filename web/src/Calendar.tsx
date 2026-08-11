@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 import type { CalEvent } from './api';
 import Modal from './Modal';
 
@@ -6,6 +6,18 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 function keyOf(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// Every event chip carries its own arbitrary color (the calendar's, not the
+// theme's) - a flat fill for backlog #6's "reads flat/plain". Same
+// lighter-at-top-to-true-color sheen the theme's own cards get, built from
+// whatever color this particular chip has rather than --accent, plus the
+// same shadow token every other raised surface uses.
+function chipStyle(color: string): CSSProperties {
+  return {
+    background: `linear-gradient(180deg, color-mix(in srgb, ${color} 78%, white 22%) 0%, ${color} 100%)`,
+    boxShadow: 'var(--shadow-sm)',
+  };
 }
 
 function isAllDay(e: CalEvent): boolean {
@@ -490,9 +502,9 @@ export default function Calendar({
             >
               <div
                 className={`${mini ? 'mb-0.5 text-[11px]' : 'mb-1'} ${large ? 'text-base' : 'text-xs'} font-medium ${
-                  isToday ? `inline-flex items-center justify-center rounded-full ${mini ? 'h-4 w-4' : 'h-6 w-6'}` : ''
+                  isToday ? `today-badge inline-flex items-center justify-center rounded-full ${mini ? 'h-4 w-4' : 'h-6 w-6'}` : ''
                 }`}
-                style={isToday ? { background: 'var(--today)', color: '#1c2e1c' } : undefined}
+                style={isToday ? { color: '#1c2e1c' } : undefined}
               >
                 {d.getDate()}
               </div>
@@ -519,7 +531,7 @@ export default function Calendar({
                           className={`flex h-5 items-center gap-1 overflow-hidden px-1.5 text-xs font-medium text-white ${
                             seg.isStart ? 'rounded-l-full' : '-ml-1'
                           } ${seg.isEnd ? 'rounded-r-full' : '-mr-1'}`}
-                          style={{ background: seg.e.calendarColor ?? '#94a3b8' }}
+                          style={chipStyle(seg.e.calendarColor ?? '#94a3b8')}
                         >
                           {/* Title/avatar repaint at each week's first covered
                               day, so a bar wrapping rows never goes nameless. */}
@@ -544,7 +556,7 @@ export default function Calendar({
                             <div
                               key={`${e.uid}-${k}`}
                               className={`flex items-center overflow-hidden rounded-full font-medium text-white ${pillCls}`}
-                              style={{ background: e.calendarColor ?? '#94a3b8' }}
+                              style={chipStyle(e.calendarColor ?? '#94a3b8')}
                             >
                               <Avatar name={e.ownerName} src={e.ownerAvatar} />
                               <span className="truncate">{e.title ?? '(no title)'}</span>
