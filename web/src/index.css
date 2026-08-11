@@ -555,6 +555,30 @@ nav.no-print {
 .modal-card {
   box-shadow: var(--shadow-md);
 }
+/* Chore history/audit tables (the only real <table>s in the app) - were
+   plain rows with just a border-bottom, no color/depth at all even after
+   the rest of the depth pass. Tinted header, zebra-striped body using the
+   same tone every other sub-card uses, rounded top corners so it reads as
+   one contained block rather than a raw HTML table sitting loose. */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table thead tr {
+  background: var(--surface-raised);
+}
+table thead th:first-child {
+  border-top-left-radius: 8px;
+}
+table thead th:last-child {
+  border-top-right-radius: 8px;
+}
+table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--surface-raised) 55%, transparent);
+}
+table tbody tr:hover {
+  background: var(--surface-raised);
+}
 /* Calendar's "today" disc - was a flat fill (see --today-gradient/-shadow). */
 .today-badge {
   background: var(--today-gradient) !important;

@@ -327,7 +327,7 @@ export default function OwnerFamiliesPanel() {
                       wrapped beneath, so three buttons still fit a phone. */}
                   <ul className="space-y-2">
                     {members?.map((m) => (
-                      <li key={m.id} className="rounded-lg border p-2 text-sm" style={{ background: 'var(--surface)' }}>
+                      <li key={m.id} className="card-nested rounded-lg p-2 text-sm">
                         <div className="flex min-w-0 items-center gap-2">
                           <span>{ROLE_ICON[m.role]}</span>
                           <span className="min-w-0 flex-1 truncate font-medium">{m.displayName}</span>

@@ -160,7 +160,7 @@ export default function MembersManager({ me }: { me: Me }) {
         <p className="mt-1 text-sm text-slate-500">Invite someone with a link (or have the server email it), or add a local account directly - no invite needed.</p>
 
       {/* Invite */}
-      <div className="mt-3 rounded bg-slate-100 p-3">
+      <div className="mt-3 card-nested rounded-lg p-3">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Invite someone as</span>
           <select
@@ -206,7 +206,7 @@ export default function MembersManager({ me }: { me: Me }) {
       </div>
 
       {/* Add directly - no invite link, no Google needed */}
-      <div className="mt-3 rounded bg-slate-100 p-3">
+      <div className="mt-3 card-nested rounded-lg p-3">
         <div className="flex flex-wrap items-center gap-2 text-sm">
           <span className="font-medium">Or add someone directly as</span>
           <select
@@ -260,14 +260,15 @@ export default function MembersManager({ me }: { me: Me }) {
           grid that stacks on a phone and goes two-up once there's room, then
           the destructive actions on their own line. The old version was a
           single wrapped row of a dozen unlabeled controls - unreadable on
-          anything narrow. card-tinted, not bg-slate-100: these cards are
-          much bigger than Invite/Add above, and bg-slate-100 alone read as
-          washed-out pale in light mode - see --card-tint in index.css. */}
+          anything narrow. card-nested, same as every other sub-card in the
+          app (Starter packs, Locations, Holidays, ...) - member cards used
+          to be their own separate card-tinted treatment, which just read as
+          a mismatched, different-colored block next to everything else. */}
       <div className="panel mt-4">
         <h3 className="text-base font-semibold tracking-tight">People</h3>
         <ul className="mt-3 space-y-3 text-sm">
         {members.map((m) => (
-          <li key={m.id} className="rounded-lg card-tinted p-3">
+          <li key={m.id} className="card-nested rounded-lg p-3">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-medium">{m.displayName}</span>
               {m.role === 'OWNER' ? (
