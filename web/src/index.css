@@ -446,8 +446,19 @@ html {
 /* Brand + theme bridge: remap the Tailwind utilities used across the app to the
    token palette so the whole UI adopts the brand and responds to light/dark
    without editing every component. */
+/* This is the card surface most of the app actually uses (chore cards, prize
+   cards, household widgets, notifications, modals, ...) - .panel is only
+   Settings' own wrapper. Same tier-C gradient/shadow as .panel (identical
+   --surface-gradient), or the depth pass only ever showed up in Settings,
+   nowhere someone actually spends their day. */
+/* Gradient only, no shadow forced on here - .bg-white spans everything from
+   full-page cards down to a tiny icon-picker swatch, and .panel already
+   proved a big-blur shadow on something Switch.tsx-sized artifacts into a
+   visible square. Each component that wants elevation already adds its own
+   appropriately-scaled shadow class; this only fixes the flat-color part. */
 .bg-white {
-  background: var(--surface) !important;
+  background: var(--surface-gradient) !important;
+  position: relative;
 }
 .bg-slate-50 {
   background: var(--bg) !important;
@@ -692,7 +703,8 @@ select option {
    one rule, not three. */
 .panel::before,
 .card-nested::before,
-.card-tinted::before {
+.card-tinted::before,
+.bg-white::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -715,7 +727,11 @@ select option {
 .bg-slate-100 .text-slate-400,
 .bg-slate-100 .text-slate-300,
 .card-tinted .text-slate-400,
-.card-tinted .text-slate-300 {
+.card-tinted .text-slate-300,
+.bg-white .text-slate-400,
+.bg-white .text-slate-300,
+.panel .text-slate-400,
+.panel .text-slate-300 {
   color: var(--text-2) !important;
 }
 
