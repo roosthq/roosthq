@@ -30,7 +30,7 @@ export const GAME_TYPE_META: Record<GameType, { label: string; icon: string; hel
   SLOT_MACHINE: { label: 'Slot machine', icon: '🎰', help: 'Pull the lever, three reels spin' },
   DICE_ROLL: { label: 'Dice roll', icon: '🎲', help: 'Shake and drop - the total picks the tier' },
   COIN_FLIP: { label: 'Coin flip', icon: '🪙', help: 'Fast heads/tails double-or-nothing' },
-  GIFT_BOX: { label: 'Gift box unwrap', icon: '🎁', help: 'Wrapped presents - same mechanic as mystery box, different flavor' },
+  GIFT_BOX: { label: 'Gift box unwrap', icon: '🎁', help: 'One wrapped present, paper peels open in place' },
   PLINKO: { label: 'Plinko drop', icon: '⚪', help: 'Ball bounces down pegs into a payout slot' },
 };
 

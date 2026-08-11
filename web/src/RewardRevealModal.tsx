@@ -4,6 +4,7 @@ import ScratchCardModal from './ScratchCardModal';
 import SlotMachineModal from './SlotMachineModal';
 import DiceRollModal from './DiceRollModal';
 import CoinFlipModal from './CoinFlipModal';
+import GiftBoxModal from './GiftBoxModal';
 import PlinkoModal from './PlinkoModal';
 import type { PendingWheel } from './api';
 import type { SpinResult } from './rewardGames';
@@ -29,9 +30,9 @@ export default function RewardRevealModal({
   const props = { min: wheel.minTokens, max: wheel.maxTokens, slotCount: wheel.slotCount ?? undefined, source, tokenName, onSpin, onClose };
   switch (wheel.style) {
     case 'MYSTERY_BOX':
-      return <MysteryBoxModal {...props} flavor="box" />;
+      return <MysteryBoxModal {...props} />;
     case 'GIFT_BOX':
-      return <MysteryBoxModal {...props} flavor="gift" />;
+      return <GiftBoxModal {...props} />;
     case 'SCRATCH_CARD':
       return <ScratchCardModal {...props} />;
     case 'SLOT_MACHINE':

@@ -4,15 +4,11 @@ import type { SpinResult } from './rewardGames';
 
 // Same fairness contract as WheelModal - onSpin() is the only thing that
 // decides the outcome (server-side, at the moment of picking), this is just
-// a different reveal animation for the same underlying RewardGame. Also
-// backs Gift Box Unwrap (flavor="gift") - the plan calls that "the same
-// mechanic as mystery box, different flavor for variety," so it really is
-// this component with a different header/emoji/color, not a second copy.
+// a different reveal animation for the same underlying RewardGame.
 export default function MysteryBoxModal({
   min,
   max,
   slotCount = 6,
-  flavor = 'box',
   source,
   tokenName = 'tokens',
   onSpin,
@@ -21,7 +17,6 @@ export default function MysteryBoxModal({
   min: number;
   max: number;
   slotCount?: number;
-  flavor?: 'box' | 'gift';
   source?: string;
   tokenName?: string;
   onSpin: () => Promise<SpinResult>;
@@ -51,13 +46,10 @@ export default function MysteryBoxModal({
   }
 
   const done = result !== null;
-  const isGift = flavor === 'gift';
-  const boxEmoji = isGift ? '🎀' : '🎁';
-  const gradient = isGift ? 'linear-gradient(135deg, #e07c5c, #d4c06a)' : 'linear-gradient(135deg, #d4c06a, #b58ae0)';
 
   return (
     <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-4 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-      <h2 className="text-2xl font-bold text-white">{isGift ? '🎁 Gift box unwrap' : '📦 Mystery box'}</h2>
+      <h2 className="text-2xl font-bold text-white">📦 Mystery box</h2>
       {source && (
         <p className="max-w-xs text-center text-base font-semibold" style={{ color: 'var(--today)' }}>
           You earned it for {source}
@@ -66,7 +58,7 @@ export default function MysteryBoxModal({
       {!done ? (
         <>
           <p className="max-w-xs text-center text-sm text-slate-300">
-            Pick {isGift ? 'a present' : 'a box'}! Somewhere between {min} and {max} {tokenName} (or a real prize).
+            Pick a box! Somewhere between {min} and {max} {tokenName} (or a real prize).
           </p>
           <div className="grid grid-cols-3 gap-4">
             {Array.from({ length: slotCount }, (_, i) => (
@@ -77,9 +69,9 @@ export default function MysteryBoxModal({
                 className={`flex h-20 w-20 items-center justify-center rounded-xl text-4xl shadow-lg transition-transform sm:h-24 sm:w-24 ${
                   openedIndex === i ? 'scale-110 animate-bounce' : 'hover:scale-105'
                 } ${openedIndex !== null && openedIndex !== i ? 'opacity-30' : ''}`}
-                style={{ background: gradient }}
+                style={{ background: 'linear-gradient(135deg, #d4c06a, #b58ae0)' }}
               >
-                {boxEmoji}
+                📦
               </button>
             ))}
           </div>
