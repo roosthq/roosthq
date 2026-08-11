@@ -366,6 +366,7 @@ export interface Chore {
   bestStreak: number;
   streakGoal?: number | null;
   streakBonusTokens: number;
+  useWheelForBonus: boolean;
 }
 
 export interface Balance {

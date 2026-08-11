@@ -45,6 +45,7 @@ export interface CreateChoreDto {
   latePenaltyPercent?: number;
   streakGoal?: number | null;
   streakBonusTokens?: number;
+  useWheelForBonus?: boolean;
 }
 
 export type UpdateChoreDto = Partial<CreateChoreDto>;
@@ -84,6 +85,7 @@ const CHORE_DIFF_FIELDS = [
   ['latePenaltyPercent', 'late penalty %'],
   ['streakGoal', 'streak goal'],
   ['streakBonusTokens', 'streak bonus tokens'],
+  ['useWheelForBonus', 'use wheel for bonus'],
 ] as const;
 
 // Only the fields UpdateChoreDto can actually carry - a plain scalar
@@ -374,6 +376,7 @@ export class ChoresService {
         latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25),
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
+        useWheelForBonus: !!dto.useWheelForBonus,
         createdById,
         assignees:
           assignmentType === 'SPECIFIC' && dto.assigneeUserIds?.length
@@ -570,6 +573,7 @@ export class ChoresService {
         ...(dto.latePenaltyPercent !== undefined && { latePenaltyPercent: clampPercent(dto.latePenaltyPercent, 25) }),
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
+        ...(dto.useWheelForBonus !== undefined && { useWheelForBonus: !!dto.useWheelForBonus }),
     };
     await this.prisma.chore.update({ where: { id }, data: updateData });
 
@@ -887,7 +891,18 @@ export class ChoresService {
         const bestStreak = Math.max(inst.chore.bestStreak, currentStreak);
         await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak, bestStreak } });
         const milestone = !!inst.chore.streakGoal && currentStreak % inst.chore.streakGoal === 0;
-        if (milestone && !recipientTokensDisabled && inst.chore.streakBonusTokens > 0) {
+        // Wheel and flat bonus are mutually exclusive PER CHORE, not additive
+        // and not a blanket family-wide override: a chore only spins the
+        // wheel if it opted into useWheelForBonus itself, on top of the
+        // family's bonusWheel feature also being on. Every other chore keeps
+        // its plain streakBonusTokens exactly as configured, regardless of
+        // whether bonusWheel is enabled for the family at all.
+        const wheelActive =
+          milestone &&
+          inst.chore.useWheelForBonus &&
+          !recipientTokensDisabled &&
+          (await this.featureEnabled(inst.chore.familyId, 'bonusWheel'));
+        if (milestone && !wheelActive && !recipientTokensDisabled && inst.chore.streakBonusTokens > 0) {
           await this.prisma.tokenLedger.create({
             data: {
               userId: recipient,
@@ -910,7 +925,7 @@ export class ChoresService {
           // Bonus wheel: QUEUED for whoever did the chore, not rolled here.
           // An adult approving it shouldn't be the one who spins the kid's
           // wheel, and the amount stays unknown until the wheel stops.
-          if (!recipientTokensDisabled && (await this.featureEnabled(inst.chore.familyId, 'bonusWheel'))) {
+          if (wheelActive) {
             await this.wheels.create(
               inst.chore.familyId,
               recipient,

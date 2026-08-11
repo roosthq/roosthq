@@ -491,9 +491,11 @@ export default function ChoresPanel({
               {chore.currentStreak > 0 && (
                 <span>
                   · 🔥 {chore.currentStreak} in a row
-                  {!!chore.streakGoal && chore.streakBonusTokens > 0
-                    ? ` (bonus every ${chore.streakGoal})`
-                    : ''}
+                  {!!chore.streakGoal && chore.useWheelForBonus
+                    ? ` (🎡 wheel every ${chore.streakGoal})`
+                    : !!chore.streakGoal && chore.streakBonusTokens > 0
+                      ? ` (bonus every ${chore.streakGoal})`
+                      : ''}
                 </span>
               )}
             </div>
@@ -1073,6 +1075,7 @@ function ChoreForm({
   const [streakEnabled, setStreakEnabled] = useState(!!chore?.streakGoal);
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
+  const [useWheelForBonus, setUseWheelForBonus] = useState(chore?.useWheelForBonus ?? false);
 
   useEffect(() => {
     client.locations().then(setLocations).catch(() => undefined);
@@ -1104,6 +1107,7 @@ function ChoreForm({
       firstFinisherBonus: Math.max(0, Number(firstFinisherBonus) || 0),
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
+      useWheelForBonus: streakEnabled && useWheelForBonus,
     };
     localStorage.setItem(LAST_CHORE_LOCATION_KEY, locationId || '');
     if (choreId) await client.updateChore(choreId, body);
@@ -1331,13 +1335,24 @@ function ChoreForm({
                 <input
                   type="number"
                   min={0}
-                  className="w-20 rounded-md border px-2 py-1 text-sm"
+                  disabled={useWheelForBonus}
+                  className="w-20 rounded-md border px-2 py-1 text-sm disabled:opacity-40"
                   value={streakBonusTokens}
                   onChange={(e) => setStreakBonusTokens(Number(e.target.value))}
                   onFocus={(e) => e.target.select()}
                 />
                 bonus tokens
               </div>
+            )}
+            {/* Wheel and flat bonus tokens are mutually exclusive per chore
+                (never both, never one silently overriding the other family-
+                wide) - only offered at all once the family's turned the
+                bonusWheel feature on. */}
+            {streakEnabled && !famDisabled.includes('bonusWheel') && !famDisabled.includes('tokens') && (
+              <label className="mt-2 flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={useWheelForBonus} onChange={(e) => setUseWheelForBonus(e.target.checked)} />
+                🎡 Spin the bonus wheel instead of awarding flat tokens
+              </label>
             )}
           </Field>
 

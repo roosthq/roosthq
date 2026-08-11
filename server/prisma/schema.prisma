@@ -489,6 +489,7 @@ model Chore {
   bestStreak         Int     @default(0)
   streakGoal         Int? // award a bonus every N in a row; null/0 = disabled
   streakBonusTokens  Int     @default(0)
+  useWheelForBonus   Boolean @default(false) // this chore's streak milestone spins the bonus wheel INSTEAD of streakBonusTokens - never both. Only meaningful with the family's bonusWheel feature also on.
 
   family    Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location  Location?        @relation(fields: [locationId], references: [id])
