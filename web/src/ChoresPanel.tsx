@@ -360,10 +360,14 @@ export default function ChoresPanel({
     );
   }
 
-  async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
+  async function act(
+    fn: () => Promise<unknown>,
+    celebrateFrom?: HTMLElement,
+    slot: string | ((result: unknown) => string) = 'notification',
+  ) {
     try {
-      await fn();
-      if (celebrateFrom) celebrate(celebrateFrom);
+      const result = await fn();
+      if (celebrateFrom) celebrate(celebrateFrom, typeof slot === 'function' ? slot(result) : slot);
       // A milestone may have queued a wheel for whoever did the chore - it
       // shows up as the banner below for them to spin themselves.
       refreshWheels();
@@ -372,6 +376,11 @@ export default function ChoresPanel({
     }
     await refresh();
   }
+
+  // Approve response carries milestoneHit (chores.service.ts) so the
+  // approver's own tap plays the distinct streak-milestone sound instead of
+  // the plain "chore approved" one when this approval also hit a streak goal.
+  const approveSlot = (r: unknown) => ((r as { milestoneHit?: boolean } | undefined)?.milestoneHit ? 'streakMilestone' : 'choreApproved');
 
   type Row = (typeof rows)[number];
 
@@ -541,7 +550,7 @@ export default function ChoresPanel({
           )}
           {active?.status === 'OPEN' && dueNow && mine && (
             <button
-              onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget)}
+              onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget, 'choreCompleted')}
               className={simple ? 'rounded-lg bg-slate-800 px-6 py-3 text-base font-semibold text-white hover:bg-slate-700' : 'rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700'}
             >
               Mark done
@@ -584,7 +593,7 @@ export default function ChoresPanel({
           {active?.status === 'PENDING' && isAdult && (
             <>
               <button
-                onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget)}
+                onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget, approveSlot)}
                 className="rounded-md bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"
               >
                 Approve
@@ -852,7 +861,7 @@ export default function ChoresPanel({
                       )}
                       {active?.status === 'OPEN' && dueNow && mine && (
                         <button
-                          onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget)}
+                          onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget, 'choreCompleted')}
                           className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700"
                         >
                           Mark done
@@ -887,7 +896,7 @@ export default function ChoresPanel({
                       )}
                       {active?.status === 'PENDING' && isAdult && (
                         <>
-                          <button onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget)} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
+                          <button onClick={(e) => act(() => client.approveInstance(active.id), e.currentTarget, approveSlot)} className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500">
                             Approve
                           </button>
                           <button onClick={() => act(() => client.rejectInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-white">

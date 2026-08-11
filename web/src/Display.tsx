@@ -20,6 +20,7 @@ import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
 import Calendar from './Calendar';
 import { setCelebrationSound } from './celebrate';
+import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import KioskAccountPanel from './KioskAccountPanel';
@@ -302,8 +303,13 @@ export default function Display() {
   const [bedtimePeekUntil, setBedtimePeekUntil] = useState(0);
   const loadHousehold = useCallback(() => {
     dget<NonNullable<typeof household>>('/display/household').then(setHousehold).catch(() => setHousehold(null));
-    dget<{ disabledFeatures?: string[] }>('/display/family-settings')
-      .then((f) => setFamDisabled(f.disabledFeatures ?? []))
+    dget<{ disabledFeatures?: string[]; soundAssignments?: Record<string, SoundAssignment> }>('/display/family-settings')
+      .then((f) => {
+        setFamDisabled(f.disabledFeatures ?? []);
+        dget<{ id: string; dataUri: string }[]>('/display/custom-sounds')
+          .then((custom) => setSoundAssignments(f.soundAssignments, custom))
+          .catch(() => setSoundAssignments(f.soundAssignments, []));
+      })
       .catch(() => undefined);
   }, []);
 

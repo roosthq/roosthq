@@ -64,6 +64,55 @@ export function defaultDisabledFeatures(): string[] {
   return TOP_LEVEL_IDS.filter(envDisabled);
 }
 
+// Server-side mirror of SOUND_SLOTS/BUILTIN_SOUNDS in web/src/sounds.ts - same
+// hand-kept-in-sync pattern as FEATURE_TREE above. Used only to validate
+// whatever gets written to Family.soundAssignments; the actual sound
+// playback is entirely client-side.
+export const SOUND_SLOTS: string[] = [
+  'choreCompleted',
+  'choreApproved',
+  'streakMilestone',
+  'redemptionFulfilled',
+  'rewardGameWin',
+  'levelUp',
+  'notification',
+];
+
+export const BUILTIN_SOUND_IDS: string[] = [
+  'chime',
+  'pop',
+  'coin',
+  'successBell',
+  'sparkle',
+  'xylophone',
+  'whooshUp',
+  'bloop',
+  'fanfare',
+  'gentleDing',
+];
+
+export interface SoundAssignment {
+  type: 'builtin' | 'custom';
+  id: string;
+}
+
+// Drops any slot that isn't real, any assignment missing a valid
+// type/id, and any 'custom' assignment pointing at a sound this family
+// doesn't actually own (a deleted upload, or a stray id) - same
+// never-let-garbage-pile-up spirit as sanitizeDisabledFeatures.
+export function sanitizeSoundAssignments(input: unknown, ownedCustomIds: string[]): Record<string, SoundAssignment> {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return {};
+  const out: Record<string, SoundAssignment> = {};
+  for (const [slot, val] of Object.entries(input as Record<string, unknown>)) {
+    if (!SOUND_SLOTS.includes(slot) || !val || typeof val !== 'object') continue;
+    const { type, id } = val as { type?: unknown; id?: unknown };
+    if (typeof id !== 'string') continue;
+    if (type === 'builtin' && BUILTIN_SOUND_IDS.includes(id)) out[slot] = { type, id };
+    else if (type === 'custom' && ownedCustomIds.includes(id)) out[slot] = { type, id };
+  }
+  return out;
+}
+
 export function featureEnabled(disabledFeatures: unknown, feature: string): boolean {
   const disabled = sanitizeDisabledFeatures(disabledFeatures);
   if (disabled.includes(feature)) return false;

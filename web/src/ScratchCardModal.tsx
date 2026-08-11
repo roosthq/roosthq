@@ -34,7 +34,7 @@ export default function ScratchCardModal({
       setTimeout(() => {
         setRevealed(true);
         setScratching(false);
-        celebrate();
+        celebrate(undefined, 'rewardGameWin');
       }, 900);
     } catch {
       setScratching(false);

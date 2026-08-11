@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { FamilyService } from './family.service';
+import { SoundAssignment } from '../common/features';
 
 @UseGuards(AuthGuard)
 @Controller('family')
@@ -25,6 +26,7 @@ export class FamilyController {
       tokenValueUsd?: number;
       choreWord?: string;
       disabledFeatures?: string[];
+      soundAssignments?: Record<string, SoundAssignment>;
     },
   ) {
     return this.family.update(u.userId, u.familyId, body);

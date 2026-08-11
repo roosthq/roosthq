@@ -8,6 +8,7 @@ import { useDialog } from '../Dialog';
 import Modal from '../Modal';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
+import { celebrate } from '../celebrate';
 
 // Store cards are all the same horizontal-rectangle shape (see the grid
 // above) - the crop tool matches it, so what you select is exactly what the
@@ -347,8 +348,9 @@ export default function StorePage({
                 </span>
                 <span className="flex gap-2">
                   <button
-                    onClick={async () => {
+                    onClick={async (e) => {
                       await api.fulfillRedemption(r.id);
+                      celebrate(e.currentTarget, 'redemptionFulfilled');
                       await refresh();
                     }}
                     className="rounded bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"

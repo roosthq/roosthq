@@ -60,11 +60,15 @@ export default function ChoreOccurrenceActions({
   const dueNow = new Date(instance.dueDate).getTime() <= endOfToday.getTime();
   const checked = new Set(instance.checks.map((c) => c.checklistId));
 
-  async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
+  async function act(
+    fn: () => Promise<unknown>,
+    celebrateFrom?: HTMLElement,
+    slot: string | ((result: unknown) => string) = 'notification',
+  ) {
     setBusy(true);
     try {
-      await fn();
-      if (celebrateFrom) celebrate(celebrateFrom);
+      const result = await fn();
+      if (celebrateFrom) celebrate(celebrateFrom, typeof slot === 'function' ? slot(result) : slot);
       onChanged();
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
@@ -72,6 +76,11 @@ export default function ChoreOccurrenceActions({
       setBusy(false);
     }
   }
+
+  // Approve response carries milestoneHit (see chores.service.ts) so the
+  // approver's own tap plays the distinct streak-milestone sound instead of
+  // the plain "chore approved" one when this approval also hit a streak goal.
+  const approveSlot = (r: unknown) => ((r as { milestoneHit?: boolean } | undefined)?.milestoneHit ? 'streakMilestone' : 'choreApproved');
 
   const checklist = chore.checklist.length > 0 && (
     <ul className="mt-2 space-y-1">
@@ -147,7 +156,7 @@ export default function ChoreOccurrenceActions({
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <button
               disabled={busy}
-              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget)}
+              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget, approveSlot)}
               className="rounded-md bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500 disabled:opacity-50"
             >
               Approve
@@ -185,7 +194,7 @@ export default function ChoreOccurrenceActions({
         {dueNow && mine && (
           <button
             disabled={busy}
-            onClick={(e) => act(() => client.completeInstance(instance.id), e.currentTarget)}
+            onClick={(e) => act(() => client.completeInstance(instance.id), e.currentTarget, 'choreCompleted')}
             className="rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
           >
             Mark done

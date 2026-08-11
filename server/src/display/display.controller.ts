@@ -10,6 +10,7 @@ import { DisplayTokenService } from './display-token.service';
 import { DisplayOrUserGuard, FamilyCtx, FamilyContext } from './display-auth.guard';
 import { HouseholdService } from '../household/household.service';
 import { FamilyService } from '../family/family.service';
+import { SoundsService } from '../sounds/sounds.service';
 
 @Controller('display')
 export class DisplayController {
@@ -20,6 +21,7 @@ export class DisplayController {
     private tokens: DisplayTokenService,
     private household: HouseholdService,
     private familySvc: FamilyService,
+    private soundsSvc: SoundsService,
   ) {}
 
   // --- Read-only display routes: session OR display token ---
@@ -87,6 +89,14 @@ export class DisplayController {
   @Get('family-settings')
   familySettings(@FamilyCtx() ctx: FamilyContext) {
     return this.familySvc.settings(ctx.familyId);
+  }
+
+  // Custom uploaded sounds (#1) - the kiosk needs the actual clips, not just
+  // the assignment map, since it plays celebration sounds itself.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('custom-sounds')
+  customSounds(@FamilyCtx() ctx: FamilyContext) {
+    return this.soundsSvc.list(ctx.familyId);
   }
 
   // "At a glance" feed for the idle screensaver: today's chores + events.

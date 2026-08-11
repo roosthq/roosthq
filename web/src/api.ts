@@ -472,6 +472,16 @@ export interface FamilySettings {
   // Family-level feature switches - stored as the DISABLED list so new
   // features default on. See FEATURE_TREE.
   disabledFeatures: string[];
+  // Which sound plays for which action slot (#1) - see SOUND_SLOTS in
+  // sounds.ts. A slot with no entry falls back to the default chime.
+  soundAssignments: Record<string, { type: 'builtin' | 'custom'; id: string }>;
+}
+
+export interface CustomSound {
+  id: string;
+  label: string;
+  dataUri: string;
+  createdAt: string;
 }
 
 // Everything a family can turn off wholesale (Family Settings > Features),
@@ -953,8 +963,20 @@ export const api = {
   deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
 
   familySettings: (kioskToken?: string) => req<FamilySettings>('/family/settings', undefined, kioskToken),
-  updateFamilySettings: (data: { name?: string; tokenName?: string; tokenIcon?: string; tokenValueUsd?: number; choreWord?: string; disabledFeatures?: string[] }) =>
-    req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
+  updateFamilySettings: (data: {
+    name?: string;
+    tokenName?: string;
+    tokenIcon?: string;
+    tokenValueUsd?: number;
+    choreWord?: string;
+    disabledFeatures?: string[];
+    soundAssignments?: Record<string, { type: 'builtin' | 'custom'; id: string }>;
+  }) => req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
+
+  customSounds: () => req<CustomSound[]>('/sounds/custom'),
+  createCustomSound: (body: { label: string; dataUri: string }) =>
+    req<CustomSound>('/sounds/custom', { method: 'POST', body: JSON.stringify(body) }),
+  deleteCustomSound: (id: string) => req<{ ok: boolean }>(`/sounds/custom/${id}`, { method: 'DELETE' }),
 
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
   tokenBalance: (userId?: string, kioskToken?: string) =>

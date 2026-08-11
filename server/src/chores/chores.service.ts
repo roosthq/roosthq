@@ -884,13 +884,19 @@ export class ChoresService {
     }
 
     // Streak: on-time keeps it going (and can trigger a bonus); late - even
-    // when allowed - breaks it, since the point is consistency.
+    // when allowed - breaks it, since the point is consistency. Surfaced back
+    // to the approver's own client so it can play the distinct "streak
+    // milestone" sound (celebrate.ts) instead of the plain "chore approved"
+    // one - sound playback is always client-side, tied to whoever tapped
+    // Approve, never pushed to the recipient's device.
+    let milestoneHit = false;
     if (recipient) {
       if (daysLate === 0) {
         const currentStreak = inst.chore.currentStreak + 1;
         const bestStreak = Math.max(inst.chore.bestStreak, currentStreak);
         await this.prisma.chore.update({ where: { id: inst.chore.id }, data: { currentStreak, bestStreak } });
         const milestone = !!inst.chore.streakGoal && currentStreak % inst.chore.streakGoal === 0;
+        milestoneHit = milestone;
         // Wheel and flat bonus are mutually exclusive PER CHORE, not additive
         // and not a blanket family-wide override: a chore only spins the
         // wheel if it opted into useWheelForBonus itself, on top of the
@@ -999,7 +1005,7 @@ export class ChoresService {
     );
     if (due) await this.createNextInstance(inst.chore.id, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
-    return updated;
+    return { ...updated, milestoneHit };
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {

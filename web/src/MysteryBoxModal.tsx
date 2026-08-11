@@ -36,7 +36,7 @@ export default function MysteryBoxModal({
       setTimeout(() => {
         setAmount(result);
         setOpening(false);
-        celebrate();
+        celebrate(undefined, 'rewardGameWin');
       }, 700);
     } catch {
       setOpening(false);

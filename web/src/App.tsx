@@ -4,6 +4,7 @@ import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySet
 import { myLocationIds } from './displayScope';
 import LocationJoinModal from './LocationJoinModal';
 import { setCelebrationSound } from './celebrate';
+import { setSoundAssignments } from './sounds';
 import Nav from './Nav';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
@@ -48,7 +49,12 @@ export default function App() {
       // renders App) sets this from its own display config instead.
       setCelebrationSound(u.soundEffects !== false);
       try {
-        setFamily(await api.familySettings());
+        const f = await api.familySettings();
+        setFamily(f);
+        // Custom uploads are family-wide, same as the assignments themselves -
+        // fetch once here rather than gating it behind opening Settings.
+        const custom = await api.customSounds().catch(() => []);
+        setSoundAssignments(f.soundAssignments, custom);
       } catch {
         /* ignore */
       }

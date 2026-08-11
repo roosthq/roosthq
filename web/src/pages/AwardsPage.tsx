@@ -5,6 +5,7 @@ import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
 import IconPicker from '../IconPicker';
 import { formatDateTime } from '../dateFormat';
+import { AWARD_PACKS } from '../awardPacks';
 
 // Icons are either a short emoji string or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
@@ -50,6 +51,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   const [history, setHistory] = useState<AwardGrantHistoryItem[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [packsOpen, setPacksOpen] = useState(false);
   const [editing, setEditing] = useState<AwardCatalogItem | null>(null);
   const [granting, setGranting] = useState<AwardCatalogItem | null>(null);
   const [removing, setRemoving] = useState<{
@@ -105,15 +107,20 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
     <div>
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Awards</h2>
-        <button
-          onClick={() => {
-            setEditing(null);
-            setFormOpen(true);
-          }}
-          className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
-        >
-          + Add award
-        </button>
+        <span className="flex gap-2">
+          <button onClick={() => setPacksOpen(true)} className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of award badges">
+            📦 Packs
+          </button>
+          <button
+            onClick={() => {
+              setEditing(null);
+              setFormOpen(true);
+            }}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+          >
+            + Add award
+          </button>
+        </span>
       </div>
       <p className="mt-1 text-xs text-slate-400">Kids only ever see an award once they've been given it.</p>
 
@@ -249,6 +256,17 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
             Their notification about this award goes away too. An unspun bonus wheel is cancelled either way.
           </p>
         </Modal>
+      )}
+
+      {packsOpen && (
+        <AwardPacksModal
+          existingNames={awards.map((a) => a.name.toLowerCase())}
+          onClose={() => setPacksOpen(false)}
+          onDone={async () => {
+            setPacksOpen(false);
+            await refresh();
+          }}
+        />
       )}
 
       {formOpen && (
@@ -572,6 +590,87 @@ export function GrantModal({
         </div>
         <input className={input} placeholder="Note (optional)" value={note} onChange={(e) => setNote(e.target.value)} />
       </div>
+    </Modal>
+  );
+}
+
+// Award packs go straight into the shared catalog - no "who's this for"
+// picker first, unlike chore packs. Skips any badge whose name already
+// exists in the catalog so re-opening this after adding a pack once doesn't
+// pile up duplicates.
+function AwardPacksModal({
+  existingNames,
+  onClose,
+  onDone,
+}: {
+  existingNames: string[];
+  onClose: () => void;
+  onDone: () => void;
+}) {
+  const [busyId, setBusyId] = useState<string | null>(null);
+
+  async function add(packId: string) {
+    const pack = AWARD_PACKS.find((p) => p.id === packId);
+    if (!pack) return;
+    setBusyId(packId);
+    try {
+      for (const a of pack.awards) {
+        if (existingNames.includes(a.name.toLowerCase())) continue;
+        await api.createAward({
+          name: a.name,
+          icon: a.icon,
+          description: a.description,
+          defaultTokenValue: a.defaultTokenValue,
+          wheelMin: a.wheelMin,
+          wheelMax: a.wheelMax,
+        });
+      }
+      onDone();
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  return (
+    <Modal
+      header={<h3 className="text-lg font-bold">Award packs</h3>}
+      footer={
+        <div className="flex justify-end">
+          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
+            Close
+          </button>
+        </div>
+      }
+      onBackdropClick={onClose}
+    >
+      <p className="text-sm text-slate-500">
+        Add a ready-made set of badges to the catalog. Everything is editable afterwards - names, icons,
+        token bonuses, all of it.
+      </p>
+      <ul className="mt-4 space-y-3">
+        {AWARD_PACKS.map((p) => {
+          const newCount = p.awards.filter((a) => !existingNames.includes(a.name.toLowerCase())).length;
+          return (
+            <li key={p.id} className="card-nested rounded-lg p-3">
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <span className="text-sm font-semibold">
+                    {p.theme} {p.label}
+                  </span>
+                </div>
+                <button
+                  disabled={busyId !== null || newCount === 0}
+                  onClick={() => add(p.id)}
+                  className="rounded-md bg-slate-800 px-3 py-1.5 text-xs text-white hover:bg-slate-700 disabled:opacity-50"
+                >
+                  {busyId === p.id ? 'Adding…' : newCount === 0 ? 'Already added' : `Add ${newCount}`}
+                </button>
+              </div>
+              <p className="mt-1 text-xs text-slate-400">{p.awards.map((a) => `${a.icon} ${a.name}`).join(' · ')}</p>
+            </li>
+          );
+        })}
+      </ul>
     </Modal>
   );
 }

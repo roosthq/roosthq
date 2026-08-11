@@ -43,11 +43,14 @@ export default function PendingIndicator({ me }: { me: Me }) {
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
   const total = pendingChores.length + pendingRedemptions.length;
 
-  async function act(fn: () => Promise<unknown>, el?: HTMLElement) {
-    await fn();
-    if (el) celebrate(el);
+  async function act(fn: () => Promise<unknown>, el?: HTMLElement, slot: string | ((result: unknown) => string) = 'notification') {
+    const result = await fn();
+    if (el) celebrate(el, typeof slot === 'function' ? slot(result) : slot);
     refresh();
   }
+
+  // See chores.service.ts - approve's response carries milestoneHit.
+  const approveSlot = (r: unknown) => ((r as { milestoneHit?: boolean } | undefined)?.milestoneHit ? 'streakMilestone' : 'choreApproved');
 
   if (total === 0) return null;
 
@@ -69,7 +72,7 @@ export default function PendingIndicator({ me }: { me: Me }) {
               {isAdult ? (
                 <span className="flex shrink-0 items-center gap-1">
                   <button
-                    onClick={(e) => act(() => api.approveInstance(instance.id), e.currentTarget)}
+                    onClick={(e) => act(() => api.approveInstance(instance.id), e.currentTarget, approveSlot)}
                     className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
                   >
                     Approve
@@ -94,7 +97,7 @@ export default function PendingIndicator({ me }: { me: Me }) {
                 <span className="flex shrink-0 items-center gap-1">
                   <TokenBadge icon="🪙" amount={r.prize.tokenCost} />
                   <button
-                    onClick={() => act(() => api.fulfillRedemption(r.id))}
+                    onClick={(e) => act(() => api.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
                     className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
                   >
                     Fulfilled

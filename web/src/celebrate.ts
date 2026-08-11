@@ -1,8 +1,11 @@
 // Completion celebration: a confetti burst (DOM + CSS, no dependencies) and
-// a synthesized chime (WebAudio, no audio assets). Sound is on by default on
-// every surface - phones/tablets/desktop included - since the chime only ever
-// fires from a user's own tap (which also satisfies autoplay policies). The
-// kiosk overrides it from its DisplayConfig soundEffects toggle.
+// a sound from this family's #1 sound library (sounds.ts - defaults to the
+// original two-note chime until a family assigns something else). Sound is
+// on by default on every surface - phones/tablets/desktop included - since it
+// only ever fires from a user's own tap (which also satisfies autoplay
+// policies). The kiosk overrides it from its DisplayConfig soundEffects toggle.
+
+import { playSlotSound } from './sounds';
 
 const COLORS = ['#4e7a4c', '#d4c06a', '#6eaa6c', '#d4ead0', '#e07c5c', '#5baedd', '#b58ae0'];
 
@@ -11,37 +14,10 @@ export function setCelebrationSound(on: boolean) {
   soundEnabled = on;
 }
 
-let audioCtx: AudioContext | null = null;
-function chime() {
-  try {
-    audioCtx ??= new AudioContext();
-    const ctx = audioCtx;
-    if (ctx.state === 'suspended') void ctx.resume();
-    const t0 = ctx.currentTime;
-    // Two quick rising notes - reads as "coin collected", short enough to
-    // never get old on a kiosk that hears it many times a day.
-    for (const [i, freq] of [987.77, 1318.51].entries()) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.value = freq;
-      const start = t0 + i * 0.09;
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(0.18, start + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.22);
-      osc.connect(gain).connect(ctx.destination);
-      osc.start(start);
-      osc.stop(start + 0.25);
-    }
-  } catch {
-    // No AudioContext (old browser, blocked autoplay) - celebration is
-    // visual-only, never an error.
-  }
-}
-
 // Burst confetti from the center of `from` (usually the tapped button), or
-// screen-center when no element is handy.
-export function celebrate(from?: HTMLElement | null) {
+// screen-center when no element is handy. `slot` picks which of this
+// family's assigned sounds plays - see SOUND_SLOTS in sounds.ts.
+export function celebrate(from?: HTMLElement | null, slot: string = 'notification') {
   const rect = from?.getBoundingClientRect();
   const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
   const cy = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
@@ -66,5 +42,5 @@ export function celebrate(from?: HTMLElement | null) {
   document.body.appendChild(host);
   setTimeout(() => host.remove(), 1100);
 
-  if (soundEnabled) chime();
+  if (soundEnabled) playSlotSound(slot);
 }

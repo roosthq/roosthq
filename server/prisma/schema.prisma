@@ -84,6 +84,11 @@ model Family {
   // Stored as the DISABLED list so brand-new features default to ON for
   // every family without a migration backfill.
   disabledFeatures Json     @default("[]")
+  // Which sound plays for which action slot (celebrate.ts on the client) -
+  // { [slot: string]: { type: 'builtin', id: string } | { type: 'custom', id: string } }.
+  // A slot with no entry falls back to the default built-in chime. Owner/
+  // family-manager only to edit; family-wide, no per-person override.
+  soundAssignments Json     @default("{}")
   createdAt        DateTime @default(now())
 
   users           User[]
@@ -105,6 +110,24 @@ model Family {
   countdowns      Countdown[]
   announcements   Announcement[]
   notifications   Notification[]
+  customSounds    CustomSound[]
+}
+
+// A family-uploaded sound (celebrate.ts custom slot assignment). dataUri is
+// @db.LongText, not the @db.Text most other data: URI fields in this schema
+// use - TEXT's 65KB cap is fine for a small icon photo, but a base64-encoded
+// audio clip (up to ~250KB raw per the client-side cap) overflows it.
+model CustomSound {
+  id          String   @id @default(cuid())
+  familyId    String
+  label       String
+  dataUri     String   @db.LongText
+  createdById String
+  createdAt   DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
 }
 
 // In-app notification feed. Same table backs a personal "notifications" view

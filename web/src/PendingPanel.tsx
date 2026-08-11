@@ -61,12 +61,19 @@ export default function PendingPanel({
   }
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
 
-  async function act(fn: () => Promise<unknown>, celebrateFrom?: HTMLElement) {
-    await fn();
-    if (celebrateFrom) celebrate(celebrateFrom);
+  async function act(
+    fn: () => Promise<unknown>,
+    celebrateFrom?: HTMLElement,
+    slot: string | ((result: unknown) => string) = 'notification',
+  ) {
+    const result = await fn();
+    if (celebrateFrom) celebrate(celebrateFrom, typeof slot === 'function' ? slot(result) : slot);
     refresh();
     onChanged();
   }
+
+  // See chores.service.ts - approve's response carries milestoneHit.
+  const approveSlot = (r: unknown) => ((r as { milestoneHit?: boolean } | undefined)?.milestoneHit ? 'streakMilestone' : 'choreApproved');
 
   if (pendingChores.length === 0 && pendingRedemptions.length === 0) return null;
 
@@ -89,7 +96,7 @@ export default function PendingPanel({
             )}
             <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
             <button
-              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget)}
+              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget, approveSlot)}
               className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
             >
               Approve
@@ -115,7 +122,7 @@ export default function PendingPanel({
             </span>
             <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
             <button
-              onClick={() => act(() => prizeClient.fulfillRedemption(r.id))}
+              onClick={(e) => act(() => prizeClient.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
               className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
             >
               Fulfilled

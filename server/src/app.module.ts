@@ -23,6 +23,7 @@ import { HouseholdModule } from './household/household.module';
 import { WheelsModule } from './wheels/wheels.module';
 import { SecurityModule } from './security/security.module';
 import { SearchModule } from './search/search.module';
+import { SoundsModule } from './sounds/sounds.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { SearchModule } from './search/search.module';
     HouseholdModule,
     WheelsModule,
     SearchModule,
+    SoundsModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

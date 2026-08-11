@@ -115,7 +115,7 @@ export default function WheelModal({
       } else {
         setSpinning(false);
         setDone(true);
-        celebrate(wheelRef.current ? (wheelRef.current as unknown as HTMLElement) : undefined);
+        celebrate(wheelRef.current ? (wheelRef.current as unknown as HTMLElement) : undefined, 'rewardGameWin');
       }
     };
     raf.current = requestAnimationFrame(tick);

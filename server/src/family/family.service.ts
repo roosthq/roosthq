@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
-import { sanitizeDisabledFeatures } from '../common/features';
+import { sanitizeDisabledFeatures, sanitizeSoundAssignments, SoundAssignment } from '../common/features';
 
 @Injectable()
 export class FamilyService {
@@ -14,6 +15,7 @@ export class FamilyService {
     tokenValueUsd: number;
     choreWord: string;
     disabledFeatures: unknown;
+    soundAssignments: unknown;
   }) {
     return {
       id: f.id,
@@ -23,6 +25,10 @@ export class FamilyService {
       tokenValueUsd: f.tokenValueUsd,
       choreWord: f.choreWord,
       disabledFeatures: Array.isArray(f.disabledFeatures) ? (f.disabledFeatures as string[]) : [],
+      soundAssignments:
+        f.soundAssignments && typeof f.soundAssignments === 'object' && !Array.isArray(f.soundAssignments)
+          ? (f.soundAssignments as Record<string, SoundAssignment>)
+          : {},
     };
   }
 
@@ -41,11 +47,17 @@ export class FamilyService {
       tokenValueUsd?: number;
       choreWord?: string;
       disabledFeatures?: string[];
+      soundAssignments?: Record<string, SoundAssignment>;
     },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor || (actor.role !== 'OWNER' && actor.role !== 'FAMILY_MANAGER')) {
       throw new ForbiddenException('Owner or family manager only');
+    }
+    let sanitizedSounds: Record<string, SoundAssignment> | undefined;
+    if (data.soundAssignments !== undefined) {
+      const owned = await this.prisma.customSound.findMany({ where: { familyId }, select: { id: true } });
+      sanitizedSounds = sanitizeSoundAssignments(data.soundAssignments, owned.map((c) => c.id));
     }
     const f = await this.prisma.family.update({
       where: { id: familyId },
@@ -58,6 +70,7 @@ export class FamilyService {
         ...(data.disabledFeatures !== undefined && {
           disabledFeatures: sanitizeDisabledFeatures(data.disabledFeatures),
         }),
+        ...(sanitizedSounds !== undefined && { soundAssignments: sanitizedSounds as unknown as Prisma.InputJsonValue }),
       },
     });
     return this.shape(f);

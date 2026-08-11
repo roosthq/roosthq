@@ -47,7 +47,7 @@ export default function SlotMachineModal({
       setAmount(result);
       setSpinning(false);
       setDone(true);
-      celebrate();
+      celebrate(undefined, 'rewardGameWin');
     }, 1400);
   }
 

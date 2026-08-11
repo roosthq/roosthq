@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { api, FEATURE_TREE, type FamilySettings, type FeatureNode } from '../api';
+import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { api, FEATURE_TREE, type FamilySettings, type FeatureNode, type CustomSound } from '../api';
 import Switch from '../Switch';
 import IconPicker from '../IconPicker';
+import { useDialog } from '../Dialog';
+import { BUILTIN_SOUNDS, SOUND_SLOTS, playBuiltinSound, playCustomSound } from '../sounds';
 
 const input = 'w-full rounded border px-3 py-1.5 text-sm';
 
@@ -43,6 +45,7 @@ export default function FeaturesTab() {
         <FeatureCard key={node.id} node={node} disabled={disabled} onToggle={setFeature} family={family} onFamilyChanged={setFamily} />
       ))}
       {saved && <p className="text-sm text-green-600">Saved</p>}
+      <SoundsPanel family={family} onFamilyChanged={setFamily} />
     </div>
   );
 }
@@ -186,6 +189,168 @@ function ChoreWordField({ family, onSaved }: { family: FamilySettings; onSaved: 
           Save
         </button>
         {saved && <span className="text-sm text-green-600">Saved</span>}
+      </div>
+    </div>
+  );
+}
+
+// #1: family-wide sound library. A standalone card, not tied to any one
+// FEATURE_TREE node - every slot here fires regardless of which modules are
+// on (a chore-completed chime still matters with tokens off, say).
+function SoundsPanel({ family, onFamilyChanged }: { family: FamilySettings; onFamilyChanged: (f: FamilySettings) => void }) {
+  const { alert } = useDialog();
+  const [custom, setCustom] = useState<CustomSound[]>([]);
+  const [uploadLabel, setUploadLabel] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    api.customSounds().then(setCustom).catch(() => undefined);
+  }, []);
+
+  function valueFor(slotId: string): string {
+    const a = family.soundAssignments[slotId];
+    return a ? `${a.type}:${a.id}` : 'builtin:chime';
+  }
+
+  async function setSlot(slotId: string, value: string) {
+    const [type, id] = value.split(':') as ['builtin' | 'custom', string];
+    const next = { ...family.soundAssignments, [slotId]: { type, id } };
+    const updated = await api.updateFamilySettings({ soundAssignments: next });
+    onFamilyChanged(updated);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1200);
+  }
+
+  function preview(value: string) {
+    const [type, id] = value.split(':');
+    if (type === 'custom') {
+      const c = custom.find((s) => s.id === id);
+      if (c) playCustomSound(c.dataUri);
+    } else {
+      playBuiltinSound(id);
+    }
+  }
+
+  async function onUploadFile(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    if (!uploadLabel.trim()) {
+      await alert('Give this sound a name first.');
+      return;
+    }
+    if (file.size > 260_000) {
+      await alert('That file is too big - keep custom sounds under ~250KB.');
+      return;
+    }
+    setUploading(true);
+    try {
+      const dataUri = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error ?? new Error('Could not read file'));
+        reader.readAsDataURL(file);
+      });
+      // A data: URI has no separate "duration" field to check server-side -
+      // read it back through a throwaway <audio> element for the 4s cap.
+      const duration = await new Promise<number>((resolve) => {
+        const a = new Audio(dataUri);
+        a.onloadedmetadata = () => resolve(a.duration || 0);
+        a.onerror = () => resolve(0);
+      });
+      if (duration > 4.5) {
+        await alert('Keep custom sounds to 4 seconds or under.');
+        return;
+      }
+      const created = await api.createCustomSound({ label: uploadLabel.trim(), dataUri });
+      setCustom((c) => [...c, created]);
+      setUploadLabel('');
+    } catch {
+      await alert('Could not read that file.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function removeCustom(id: string) {
+    await api.deleteCustomSound(id);
+    setCustom((c) => c.filter((s) => s.id !== id));
+    // Any slot pointing at this upload was cleared server-side too - refetch
+    // so the dropdowns below reflect that instead of showing a stale value.
+    onFamilyChanged(await api.familySettings());
+  }
+
+  return (
+    <div className="panel">
+      <h3 className="text-base font-semibold tracking-tight">🔊 Sounds</h3>
+      <p className="mt-0.5 text-sm text-slate-500">Which sound plays for which moment - family-wide, same set for everyone.</p>
+
+      <div className="mt-3 space-y-2">
+        {SOUND_SLOTS.map((slot) => {
+          const value = valueFor(slot.id);
+          return (
+            <div key={slot.id} className="card-nested flex flex-wrap items-center gap-2 rounded-lg p-2 text-sm">
+              <div className="min-w-[11rem] flex-1">
+                <p className="font-medium">{slot.label}</p>
+                <p className="text-xs text-slate-400">{slot.help}</p>
+              </div>
+              <select value={value} onChange={(e) => setSlot(slot.id, e.target.value)} className={`${input} w-auto`}>
+                <optgroup label="Built-in">
+                  {BUILTIN_SOUNDS.map((s) => (
+                    <option key={s.id} value={`builtin:${s.id}`}>
+                      {s.label}
+                    </option>
+                  ))}
+                </optgroup>
+                {custom.length > 0 && (
+                  <optgroup label="Custom">
+                    {custom.map((c) => (
+                      <option key={c.id} value={`custom:${c.id}`}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </select>
+              <button type="button" onClick={() => preview(value)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50" title="Play this sound">
+                ▶ Preview
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      {saved && <p className="mt-2 text-sm text-green-600">Saved</p>}
+
+      <div className="mt-4 border-t pt-3">
+        <p className="text-sm font-medium">Custom sounds</p>
+        <p className="text-xs text-slate-400">Up to ~250KB, 4 seconds - anything longer gets rejected with why.</p>
+        <ul className="mt-2 space-y-1">
+          {custom.map((c) => (
+            <li key={c.id} className="flex items-center gap-2 text-sm">
+              <span className="flex-1">{c.label}</span>
+              <button type="button" onClick={() => playCustomSound(c.dataUri)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                ▶
+              </button>
+              <button type="button" onClick={() => removeCustom(c.id)} className="text-xs text-red-500 hover:text-red-700">
+                Delete
+              </button>
+            </li>
+          ))}
+          {custom.length === 0 && <li className="text-xs text-slate-400">No custom sounds uploaded yet.</li>}
+        </ul>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <input
+            value={uploadLabel}
+            onChange={(e) => setUploadLabel(e.target.value)}
+            placeholder="Name this sound"
+            className={`${input} max-w-xs`}
+          />
+          <label className="cursor-pointer rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            {uploading ? 'Uploading…' : '+ Upload a sound'}
+            <input type="file" accept="audio/*" onChange={onUploadFile} className="hidden" disabled={uploading} />
+          </label>
+        </div>
       </div>
     </div>
   );
