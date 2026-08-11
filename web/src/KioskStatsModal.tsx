@@ -92,9 +92,13 @@ export default function KioskStatsModal({
       }
     >
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
-        <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
-        <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
+        {familyFeatureEnabled(family, 'tokens') && (
+          <>
+            <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
+            <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
+            <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
+          </>
+        )}
         <Stat label="Best active streak" value={`🔥 ${bestStreak}`} />
       </div>
       {family && familyFeatureEnabled(family, 'levels') && (

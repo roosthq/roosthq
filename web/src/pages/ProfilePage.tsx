@@ -150,7 +150,14 @@ export default function ProfilePage({
   }, [refresh]);
 
   const member = members.find((m) => m.id === targetId);
-  const tokensOff = !!member?.tokensDisabled;
+  // Two independent reasons tokens can be off for what's rendered here: this
+  // one PERSON has them disabled (a per-kid permission), or the whole family
+  // does (the Tokens feature switch) - either one means hide every balance,
+  // same as TokenBadge's own family-wide gate does for the components that
+  // go through it. The raw {tokenIcon} spans below don't, so they need this
+  // checked explicitly instead.
+  const familyTokensOn = familyFeatureEnabled(family, 'tokens');
+  const tokensOff = !!member?.tokensDisabled || !familyTokensOn;
   const name = viewingSelf ? me.displayName : member?.displayName ?? 'Member';
   const age = member?.birthday ? Math.floor((Date.now() - new Date(`${member.birthday}T00:00:00`).getTime()) / (365.25 * 86_400_000)) : null;
   const targetIsAdult = member ? member.role !== 'KID' : false;
@@ -208,13 +215,13 @@ export default function ProfilePage({
                       {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
-                  {!m.tokensDisabled && (
+                  {!m.tokensDisabled && familyTokensOn && (
                     <span className="ml-1 shrink-0 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
                       {tokenIcon} {allBalances[m.id] ?? 0}
                       <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                     </span>
                   )}
-                  {!m.tokensDisabled && familyFeatureEnabled(family, 'levels') && (
+                  {!m.tokensDisabled && familyTokensOn && familyFeatureEnabled(family, 'levels') && (
                     <span className="shrink-0 whitespace-nowrap">
                       <LevelBadge earned={earnedBy[m.id] ?? 0} />
                     </span>
@@ -271,7 +278,7 @@ export default function ProfilePage({
         <section className="mt-6">
           <h3 className="text-sm font-semibold">Given out</h3>
           <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat label={`${tokenName} given`} value={`${tokenIcon} ${given.tokensGiven}`} />
+            {!tokensOff && <Stat label={`${tokenName} given`} value={`${tokenIcon} ${given.tokensGiven}`} />}
             <Stat label="Awards given" value={given.awardsGiven} />
             <Stat label="Approvals" value={given.approvals} />
             <Stat label="Sent back" value={given.rejections} />

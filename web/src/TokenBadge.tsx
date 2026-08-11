@@ -12,6 +12,13 @@ let tokensVisible = true;
 export function setTokensBadgeEnabled(on: boolean) {
   tokensVisible = on;
 }
+// For the rare spot that renders a token amount as raw text instead of
+// through the component below (a Stat tile's string `value`, which can't
+// hold JSX) - same flag, so those stay in sync with everything that does
+// go through TokenBadge.
+export function tokensBadgeEnabled(): boolean {
+  return tokensVisible;
+}
 
 // Single canonical look for a token amount, wherever it shows up - chore cost
 // tags, balances, prize costs, ledger entries. Two sizes: 'sm' for an inline
