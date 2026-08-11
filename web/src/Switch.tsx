@@ -1,8 +1,9 @@
 // A real switch (role="switch", keyboard-operable, visible focus ring) - not
 // a styled checkbox. Every on/off toggle in the Features tab uses this,
-// top-level and sub-feature alike. bg-slate-800/bg-slate-300 ride the
-// existing theme bridge (index.css) automatically, same as every other
-// solid/outline control in the app - no new color tokens needed.
+// top-level and sub-feature alike. .switch-on/.switch-off are its own flat
+// theme-aware classes (index.css), not .bg-slate-800/.bg-slate-300 - those
+// carry the big-shadow CTA-button treatment now, which rendered as a visible
+// square artifact on a pill this small.
 export default function Switch({
   checked,
   onChange,
@@ -29,7 +30,7 @@ export default function Switch({
       onClick={() => !disabled && onChange(!checked)}
       className={`relative shrink-0 rounded-full transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 ${track} ${
         disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'
-      } ${checked ? 'bg-slate-800' : 'bg-slate-300'}`}
+      } ${checked ? 'switch-on' : 'switch-off'}`}
     >
       <span
         className={`absolute left-0.5 top-0.5 rounded-full bg-white shadow transition-transform ${knob} ${checked ? travel : 'translate-x-0'}`}

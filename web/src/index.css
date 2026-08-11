@@ -483,6 +483,19 @@ html {
 .border-t {
   border-color: var(--border) !important;
 }
+/* Switch.tsx's track - deliberately its OWN flat classes, not .bg-slate-800/
+   .bg-slate-300. Those got the big blurred tier-C button treatment below
+   (gradient + large-blur layered shadow + hover transform), which is far
+   too much shadow for a 40x24px pill and was rendering as a visible square
+   artifact at that size - browsers don't always antialias a large blur
+   radius cleanly around a small rounded-full element. A tiny flat toggle
+   just doesn't need "elevated button" depth. */
+.switch-on {
+  background: var(--accent) !important;
+}
+.switch-off {
+  background: var(--surface-off) !important;
+}
 /* Primary CTAs -> brand accent. Diagonal gradient + layered shadow + inset
    top highlight instead of a flat fill (backlog #6, tier C confirmed against
    a live comparison) - lifts and deepens its shadow on hover, flattens
