@@ -511,7 +511,7 @@ export default function MySettingsPage({
 
       {settingPin && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-xs rounded-lg bg-white p-5 text-center">
+          <div className="modal-card w-full max-w-xs rounded-lg bg-white p-5 text-center">
             <h3 className="text-lg font-semibold">Your PIN</h3>
             <input
               autoFocus

@@ -1071,7 +1071,7 @@ export default function Display() {
 
       {pinFor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-xs rounded-lg bg-white p-6 text-center">
+          <div className="modal-card w-full max-w-xs rounded-lg bg-white p-6 text-center">
             <Avatar name={pinFor.displayName} src={pinFor.avatar} big />
             <h3 className="mt-2 text-lg font-semibold">{pinFor.displayName}</h3>
             <p className="text-sm text-slate-500">Enter PIN</p>

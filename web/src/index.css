@@ -52,6 +52,26 @@
      free without a per-theme override. */
   --card-tint: color-mix(in srgb, var(--tag-bg) 65%, var(--accent) 35%);
   --today: #d4c06a; /* owl beak gold - "today" accent */
+  /* Design pass (2026-08, backlog #6 - "reads flat/plain, wants gradients,
+     shadows, a more modern feel"): a shared depth system, not per-component
+     one-offs, so it holds up across all 9 color themes x light/dark without
+     hand-tuning each. --shadow-tint is the color shadows are MIXED FROM (see
+     .panel below) - the theme's own dark text in light mode (a colored, on-
+     brand shadow reads better than flat gray), flipped to real black in dark
+     mode below, since a shadow mixed from near-white --text there would be a
+     glow, not a shadow. Two tiers: -sm for cards/panels/buttons sitting on
+     the page, -md for things raised further above it (menus, modals). */
+  --shadow-tint: var(--text);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--shadow-tint) 10%, transparent),
+    0 3px 8px color-mix(in srgb, var(--shadow-tint) 7%, transparent);
+  --shadow-md: 0 2px 6px color-mix(in srgb, var(--shadow-tint) 14%, transparent),
+    0 16px 32px color-mix(in srgb, var(--shadow-tint) 18%, transparent);
+  /* Subtle top-to-bottom lift for cards and primary buttons - lighter at the
+     top edge, same tone by the bottom, so it reads as gently domed rather
+     than a flat fill. Kept understated on purpose (8% is a big color-mix
+     swing already at this size) - the point is depth, not a visible stripe. */
+  --surface-gradient: linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, white 8%) 0%, var(--surface) 100%);
+  --accent-gradient: linear-gradient(180deg, color-mix(in oklch, var(--accent) 88%, white) 0%, var(--accent) 100%);
   --surface-off: #e5e7eb; /* days outside the viewed month (neutral gray) */
   /* Token/reward pill (TokenBadge) - derived from --accent so it's
      theme-correct in all 9 hues without a per-theme block, unlike the flat
@@ -74,6 +94,16 @@
   --tag-bg: #243824;
   --tag-text: #92c090;
   --card-tint: var(--tag-bg); /* already reads with plenty of depth against a dark page - no deepening needed */
+  /* --text is near-white here - mixing it into a shadow would be a glow, not
+     a shadow. Real black instead, and bumped up in the formula's own
+     percentages via a stronger tint mix (dark surfaces are naturally lower-
+     contrast against a black shadow than a light surface is). */
+  --shadow-tint: #000000;
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--shadow-tint) 24%, transparent),
+    0 3px 10px color-mix(in srgb, var(--shadow-tint) 20%, transparent);
+  --shadow-md: 0 2px 8px color-mix(in srgb, var(--shadow-tint) 32%, transparent),
+    0 18px 40px color-mix(in srgb, var(--shadow-tint) 36%, transparent);
+  --surface-gradient: linear-gradient(180deg, color-mix(in srgb, var(--surface) 100%, white 6%) 0%, var(--surface) 100%);
   --surface-off: #212121; /* dark gray */
   --reward-bg: color-mix(in oklch, var(--accent) 28%, black);
   --reward-text: color-mix(in oklch, var(--accent) 65%, white);
@@ -360,6 +390,7 @@ html {
    see --card-tint above. Family & PINs' member cards use this. */
 .card-tinted {
   background: var(--card-tint) !important;
+  box-shadow: var(--shadow-sm);
 }
 .bg-slate-200 {
   background: var(--border) !important;
@@ -380,12 +411,25 @@ html {
 .border-t {
   border-color: var(--border) !important;
 }
-/* Primary CTAs -> brand accent */
+/* Primary CTAs -> brand accent. Gradient + shadow instead of a flat fill -
+   was reading flat/plain (backlog #6); flattens back to solid --accent-hover
+   on hover/press, a normal "give" cue. */
 .bg-slate-800 {
-  background: var(--accent) !important;
+  background: var(--accent-gradient) !important;
+  box-shadow: var(--shadow-sm);
 }
 .hover\:bg-slate-700:hover {
   background: var(--accent-hover) !important;
+}
+/* Top nav - was just a flat border, no separation from the page scrolling
+   underneath it. Doesn't apply on the kiosk (Display.tsx renders no Nav). */
+nav.no-print {
+  box-shadow: var(--shadow-sm);
+}
+/* The floating card inside a modal backdrop - was relying on the backdrop
+   alone for separation, no shadow of its own, so it read flat against it. */
+.modal-card {
+  box-shadow: var(--shadow-md);
 }
 .hover\:bg-slate-50:hover,
 .hover\:bg-slate-100:hover {
@@ -503,13 +547,15 @@ select option {
   animation: cal-slide-prev 200ms ease-out;
 }
 
-/* Panel / card surface used across pages */
+/* Panel / card surface used across pages. Gradient + shadow both theme-
+   derived (see --surface-gradient/--shadow-sm) - was a flat fill with a
+   hardcoded gray shadow that never adapted to theme or dark mode. */
 .panel {
-  background: var(--surface);
+  background: var(--surface-gradient);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 18px 20px;
-  box-shadow: 0 1px 2px rgba(28, 46, 28, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Compact modifier for .panel - person chips (Family strip, Profiles picker)
@@ -525,6 +571,7 @@ select option {
 .card-nested {
   background: var(--surface-raised);
   border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 /* --text-muted is tuned for the page background; on a raised card it drops

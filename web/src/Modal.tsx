@@ -29,7 +29,7 @@ export default function Modal({
       onClick={onBackdropClick}
     >
       <div
-        className={`flex max-h-[85vh] w-full ${maxWidthClass} flex-col overflow-hidden rounded-lg bg-white`}
+        className={`modal-card flex max-h-[85vh] w-full ${maxWidthClass} flex-col overflow-hidden rounded-lg bg-white`}
         onClick={(e) => e.stopPropagation()}
       >
         {header && <div className="shrink-0 px-5 pt-5 pb-3">{header}</div>}
