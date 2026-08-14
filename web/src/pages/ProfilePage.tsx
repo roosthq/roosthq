@@ -100,7 +100,10 @@ export default function ProfilePage({
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [streak, setStreak] = useState(0);
-  const [freezesBanked, setFreezesBanked] = useState(0);
+  // Chore-earned bank only - the person-level bonus bank (manually granted,
+  // awarded, or won) comes from `member.bonusStreakFreezes` instead, added
+  // in below where the two are combined for display.
+  const [choreFreezesBanked, setChoreFreezesBanked] = useState(0);
   const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
@@ -163,11 +166,11 @@ export default function ProfilePage({
       .then((cs) => {
         const mine = cs.filter((c) => c.assignees.some((a) => a.userId === targetId));
         setStreak(Math.max(0, ...mine.map((c) => c.currentStreak)));
-        setFreezesBanked(mine.reduce((sum, c) => sum + c.streakFreezes, 0));
+        setChoreFreezesBanked(mine.reduce((sum, c) => sum + c.streakFreezes, 0));
       })
       .catch(() => {
         setStreak(0);
-        setFreezesBanked(0);
+        setChoreFreezesBanked(0);
       });
     api.givenStats(targetId).then(setGiven).catch(() => setGiven(null));
   }, [targetId, isAdult, viewingSelf]);
@@ -188,6 +191,10 @@ export default function ProfilePage({
   const name = viewingSelf ? me.displayName : member?.displayName ?? 'Member';
   const age = member?.birthday ? Math.floor((Date.now() - new Date(`${member.birthday}T00:00:00`).getTime()) / (365.25 * 86_400_000)) : null;
   const targetIsAdult = member ? member.role !== 'KID' : false;
+  // Chore-earned bank + the person-level bonus bank (manually granted,
+  // awarded, or won) - two separate numbers, shown as one total since
+  // neither means anything to a kid on its own.
+  const freezesBanked = choreFreezesBanked + (member?.bonusStreakFreezes ?? 0);
   const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
   const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
   const choresDone = ledger.filter((l) => l.type === 'CHORE').length;

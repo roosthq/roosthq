@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, familyFeatureEnabled, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
+import { api, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
 import Modal from './Modal';
 import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
@@ -58,9 +58,17 @@ export default function KioskStatsModal({
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
+  const [bonusStreakFreezes, setBonusStreakFreezes] = useState(0);
 
   useEffect(() => {
     api.tokenBalance(userId, kioskToken).then((b) => setBalance(b.balance)).catch(() => undefined);
+    // Person-level bonus freeze bank (manually granted, awarded, or won) -
+    // not carried on `active.user` in Display.tsx (a login-time snapshot),
+    // so fetched fresh here same as everything else on this modal.
+    prizeClient(kioskToken)
+      .listUsers()
+      .then((users) => setBonusStreakFreezes(users.find((u) => u.id === userId)?.bonusStreakFreezes ?? 0))
+      .catch(() => setBonusStreakFreezes(0));
     // take=200: this only ever feeds the earned/spent sums below, never
     // rendered as a list - a bigger one-shot window beats real pagination
     // here, since paginating would make those totals visibly incomplete.
@@ -84,7 +92,7 @@ export default function KioskStatsModal({
   const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
   const myChores = chores.filter((c) => c.assignees.some((a) => a.userId === userId));
   const bestStreak = Math.max(0, ...myChores.map((c) => c.currentStreak), 0);
-  const freezesBanked = myChores.reduce((sum, c) => sum + c.streakFreezes, 0);
+  const freezesBanked = myChores.reduce((sum, c) => sum + c.streakFreezes, 0) + bonusStreakFreezes;
 
   return (
     <>

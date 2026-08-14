@@ -187,6 +187,9 @@ export interface Member {
   username?: string | null;
   active?: boolean; // instance-owner lockout switch (owner member lists only)
   pinDisabled?: boolean; // kid-only: PIN capability turned off entirely (can't have one)
+  // Person-level freeze bank - manually granted, awarded, or won; see
+  // StreakFreezeService. Separate from any chore's own earned bank.
+  bonusStreakFreezes?: number;
 }
 
 export interface UnlockResult {

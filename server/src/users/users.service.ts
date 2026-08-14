@@ -35,6 +35,7 @@ export class UsersService {
         allowanceTokens: true,
         birthday: true,
         disabledPermissions: true,
+        bonusStreakFreezes: true,
       },
     });
     return users.map((u) => ({
@@ -50,6 +51,7 @@ export class UsersService {
       birthday: u.birthday,
       disabledPermissions: Array.isArray(u.disabledPermissions) ? u.disabledPermissions : [],
       tokensDisabled: u.tokensDisabled,
+      bonusStreakFreezes: u.bonusStreakFreezes,
     }));
   }
 
