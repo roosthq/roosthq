@@ -145,6 +145,71 @@ sudo systemctl enable --now roost-kiosk
 
 Reboot to confirm it comes up on its own: `sudo reboot`.
 
+### Note: Pi 2/3 (no full desktop environment)
+
+The systemd approach above assumes Raspberry Pi OS's normal desktop
+(LXDE/Wayfire/Labwc) is running and Chromium just needs launching inside it.
+On a Pi 2/3 - not recommended for new setups (see **What you need** above),
+but this is how an existing one was actually built, and stays here so
+whoever's maintaining it doesn't have to reverse-engineer it - a full desktop
+is often skipped entirely to save the RAM/CPU it costs on that weaker
+hardware. Instead: console autologin runs `startx` straight into a bare X11
+session with no window manager at all, and `.xinitrc` launches Chromium
+directly.
+
+Autologin on the console (`sudo raspi-config` → **System Options** → **Boot /
+Auto Login** → **Console Autologin**, or by hand):
+
+```bash
+sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
+sudo tee /etc/systemd/system/getty@tty1.service.d/autologin.conf <<'EOF'
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin <your-username> --noclear %I $TERM
+EOF
+```
+
+`~/.bash_profile` (only on a console login, not over SSH):
+
+```bash
+if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+  startx
+fi
+```
+
+`~/.xinitrc`:
+
+```bash
+xset s off; xset s noblank; xset -dpms
+chromium \
+  --kiosk \
+  --window-size=1920,1080 --window-position=0,0 --start-fullscreen \
+  --force-device-scale-factor=1 \
+  --noerrdialogs --disable-infobars --disable-session-crashed-bubble \
+  --disable-translate --incognito \
+  --disable-gpu --disable-gpu-compositing --disable-software-rasterizer \
+  "https://roost.yourdomain.com/?display=1&token=<long-token>"
+```
+
+Notes specific to this path:
+- `--disable-gpu`/`--disable-gpu-compositing`/`--disable-software-rasterizer`
+  - **the opposite of the caveat under Moving to new hardware below.** A Pi
+  2/3's VideoCore IV GPU struggles with Chromium's GPU compositing and this
+  avoids the crashes/artifacts that causes; a Pi 4/5's GPU doesn't have that
+  problem, so drop these three flags if you ever do move to one.
+- `--window-size`/`--window-position`/`--start-fullscreen` do the `--kiosk`
+  flag's job again more explicitly - belt-and-suspenders for a bare X11
+  session with no compositor managing window geometry for you.
+- `xset` lives directly in `.xinitrc` here (not the systemd service) since
+  there's no desktop session for step 5 below to hook into.
+- No `Restart=always` equivalent - if Chromium crashes, X exits, and
+  `startx` doesn't relaunch it on its own. The [network
+  watchdog](#network-watchdog-optional) below covers the reboot-if-stuck
+  case, but a Chromium crash that leaves X itself alive would sit blank
+  until the next watchdog-triggered reboot. Worth wrapping `chromium` in a
+  small retry loop in `.xinitrc` if this matters to you (`until chromium ...;
+  do sleep 2; done`).
+
 ## 5. Keep the screen from sleeping
 
 Raspberry Pi OS will blank the screen after inactivity by default - bad for
