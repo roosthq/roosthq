@@ -913,23 +913,28 @@ select option {
    re-plays the animation each time. Direction-tagged (next slides in from
    the right, prev from the left) regardless of whether the gesture that
    triggered it was horizontal or vertical - one consistent motion either way. */
+/* A real page-turn, not a nudge - was 18px (barely a fade with a twitch),
+   widened to read as an actual slide. 6% of the grid's own width (not a
+   fixed px value) so it scales sensibly from a phone-width mini calendar up
+   to the kiosk's full-width month grid, instead of being imperceptible on
+   one and janky-large on the other. */
 @keyframes cal-slide-next {
   from {
-    transform: translateX(18px);
+    transform: translateX(6%);
     opacity: 0;
   }
 }
 @keyframes cal-slide-prev {
   from {
-    transform: translateX(-18px);
+    transform: translateX(-6%);
     opacity: 0;
   }
 }
 .cal-slide-next {
-  animation: cal-slide-next 200ms ease-out;
+  animation: cal-slide-next 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cal-slide-prev {
-  animation: cal-slide-prev 200ms ease-out;
+  animation: cal-slide-prev 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Panel / card surface used across pages. Gradient + shadow both theme-
@@ -1097,17 +1102,12 @@ select option {
   padding-bottom: 0.4rem !important;
 }
 
-/* Touch, not mouse - a real touchscreen's mouse pointer is either invisible
-   already or a leftover ghost cursor from the driver's synthetic events, and
-   without user-select:none a touch-drag over ordinary text (a chore title, a
-   member name in the side panel's scroll list) gets read as "start selecting
-   text" instead of "scroll this list" - the browser can't tell a slow drag
-   from a selection gesture on its own. Scoped to .kiosk-mode only - the main
-   app is still mouse-driven for everyone browsing from a phone/laptop, and
-   hiding the cursor there would just be broken, not helpful. */
+/* user-select:none - a touch-drag over ordinary text (a chore title, a
+   member name in the side panel's scroll list) otherwise gets read as "start
+   selecting text" instead of "scroll this list" on ANY device, mouse or
+   touch, so this part stays unconditional on .kiosk-mode. */
 .kiosk-mode,
 .kiosk-mode * {
-  cursor: none !important;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
@@ -1117,6 +1117,18 @@ select option {
 .kiosk-mode [contenteditable] {
   -webkit-user-select: text;
   user-select: text;
+}
+/* Hiding the cursor is different - that one broke previewing the kiosk on a
+   real desktop/laptop (Casey's own use case: checking ?display=1 in regular
+   Chrome, mouse and hover both very much present). Gated behind
+   (hover: none) and (pointer: coarse) - true for a real touchscreen's
+   finger input, false for any mouse-driven device even when it's rendering
+   the exact same .kiosk-mode markup. */
+@media (hover: none) and (pointer: coarse) {
+  .kiosk-mode,
+  .kiosk-mode * {
+    cursor: none !important;
+  }
 }
 
 /* Printable Agenda (#14): any page can opt UI chrome out of printing with

@@ -437,21 +437,73 @@ export default function Display() {
     };
   }, [loadConfig, loadMembers, refreshChores]);
 
+  // Paging months/weeks used to blink: Calendar.tsx's grid remounts (and its
+  // slide-in animation plays) the instant the cursor changes - free, no
+  // network involved - but this array stayed whatever the PREVIOUS range's
+  // events were until the new fetch resolved, then replaced all at once.
+  // On a real network round-trip (even a fast one), that reads as "new month
+  // slides in showing stale events, then they pop" - not a clean slide.
+  //
+  // Cache by range+user so re-visiting a range already fetched this session
+  // is instant (stale-while-revalidate: serve the cached array immediately,
+  // still refetch in the background to catch anything that changed), and
+  // prefetch the adjacent range in the direction just paged so the NEXT
+  // press is usually already warm too. Capped at 6 entries (current + a
+  // couple pages either side) - this is a kiosk that runs for weeks, not
+  // a cache meant to remember every range ever visited.
+  const eventsCache = useRef(new Map<string, CalEvent[]>());
+  const rangeKey = useCallback(
+    (r: { start: string; end: string }) => `${active?.user.id ?? ''}|${r.start}|${r.end}`,
+    [active?.user.id],
+  );
+
+  const fetchRange = useCallback(
+    (r: { start: string; end: string }): Promise<CalEvent[]> =>
+      dget<CalEvent[]>('/display/events', {
+        start: r.start,
+        end: r.end,
+        ...(active ? { userId: active.user.id } : {}),
+      }),
+    [active],
+  );
+
+  function cacheSet(key: string, evs: CalEvent[]) {
+    const cache = eventsCache.current;
+    cache.delete(key); // re-insert at the end so this counts as most-recently-used
+    cache.set(key, evs);
+    while (cache.size > 6) cache.delete(cache.keys().next().value as string);
+  }
+
   const refreshEvents = useCallback(() => {
     if (!range) return;
-    // Pass the currently-unlocked profile's id so per-user calendar color
-    // overrides (My Account > Calendars) apply here too, not just in the
-    // main app - without it, the kiosk always showed a calendar's plain
-    // default color, even for someone who'd picked their own. No active
-    // profile (nobody's unlocked yet) just means no override to apply.
-    dget<CalEvent[]>('/display/events', {
-      start: range.start,
-      end: range.end,
-      ...(active ? { userId: active.user.id } : {}),
-    })
-      .then(setEvents)
-      .catch(() => setEvents([]));
-  }, [range, active]);
+    const key = rangeKey(range);
+    const cached = eventsCache.current.get(key);
+    if (cached) setEvents(cached); // instant - no blank/stale gap while the background refresh below runs
+    fetchRange(range)
+      .then((evs) => {
+        cacheSet(key, evs);
+        setEvents(evs);
+      })
+      .catch(() => {
+        if (!cached) setEvents([]);
+      });
+
+    // Prefetch both neighboring pages (same span as the current range, shifted
+    // by its own length) - cache-only, never touches `events` state, so a
+    // slow/failed prefetch can't affect what's on screen right now.
+    const spanMs = new Date(range.end).getTime() - new Date(range.start).getTime();
+    for (const dir of [-1, 1] as const) {
+      const neighbor = {
+        start: new Date(new Date(range.start).getTime() + dir * spanMs).toISOString(),
+        end: new Date(new Date(range.end).getTime() + dir * spanMs).toISOString(),
+      };
+      const neighborKey = rangeKey(neighbor);
+      if (eventsCache.current.has(neighborKey)) continue;
+      fetchRange(neighbor)
+        .then((evs) => cacheSet(neighborKey, evs))
+        .catch(() => undefined);
+    }
+  }, [range, rangeKey, fetchRange]);
 
   useEffect(() => {
     refreshEventsRef.current = refreshEvents;
@@ -866,7 +918,7 @@ export default function Display() {
                     Switch / lock
                   </button>
                 </div>
-                <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto">
+                <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
                   {/* Same things the main app's own pages give everyone -
                       rules and your own stats - reachable without switching
                       to a phone/tablet just to look at them. Kept at the very
@@ -921,7 +973,7 @@ export default function Display() {
             ) : (
               <>
                 <span className="shrink-0 text-sm text-slate-500">Tap your photo:</span>
-                <div className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto">
+                <div className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
                   {members.map((m) => (
                     <button
                       key={m.id}
