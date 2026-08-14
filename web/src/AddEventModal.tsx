@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api, type CalEvent, type EventInput, type MealPlanEntry, type SharedCalendar } from './api';
 import Modal from './Modal';
+import LucideIcon from './LucideIcon';
 import DinnerWeekModal from './DinnerWeekModal';
 
 function addDays(dateStr: string, days: number): string {
@@ -218,7 +219,7 @@ export default function AddEventModal({
         <div className="space-y-2 text-sm">
           {showMeal && !existing && (
             <div className="alert-banner flex flex-wrap items-center gap-2 p-2 text-sm">
-              <span className="shrink-0">🍽️</span>
+              <span className="shrink-0"><LucideIcon name="utensils-crossed" size={16} /></span>
               {editingMeal ? (
                 <input
                   autoFocus

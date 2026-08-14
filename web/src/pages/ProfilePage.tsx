@@ -198,7 +198,7 @@ export default function ProfilePage({
     <div>
       {levelUpTo !== null && (
         <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-          <div className="text-6xl">⭐</div>
+          <LucideIcon name="star" size={60} />
           <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
           <p className="max-w-xs text-center text-sm text-slate-300">
             {name} reached level {levelUpTo} - keep it up!
@@ -226,7 +226,7 @@ export default function ProfilePage({
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{m.displayName}</span>
                     <span className="block truncate text-xs text-slate-400">
-                      {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
+                      <LucideIcon name={ROLE_ICON[m.role]} size={12} /> {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
                   {!m.tokensDisabled && familyTokensOn && (
@@ -250,7 +250,9 @@ export default function ProfilePage({
 
       {familyFeatureEnabled(family, 'leaderboard') && members.filter((m) => m.role === 'KID' && !m.tokensDisabled).length > 1 && (
         <div className="mb-4">
-          <h2 className="text-lg font-semibold tracking-tight">🏆 Leaderboard</h2>
+          <h2 className="flex items-center gap-1.5 text-lg font-semibold tracking-tight">
+            <LucideIcon name="trophy" size={18} /> Leaderboard
+          </h2>
           <p className="mt-0.5 text-xs text-slate-400">Ranked by level, not just balance - so it isn't always whoever's oldest.</p>
           <ol className="mt-3 space-y-1.5">
             {members
@@ -284,7 +286,17 @@ export default function ProfilePage({
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
         {familyFeatureEnabled(family, 'levels') && !tokensOff && <LevelBadge earned={earned} size="lg" />}
-        {streak > 0 && <Stat label="Best active streak" value={`🔥 ${streak}`} />}
+        {streak > 0 && (
+          <Stat
+            label="Best active streak"
+            value={
+              <span className="inline-flex items-center gap-1">
+                <LucideIcon name="flame" size={24} />
+                {streak}
+              </span>
+            }
+          />
+        )}
       </div>
 
       {!tokensOff && <EarnedSparkline ledger={ledger} label={`${tokenName} earned, last 30 days`} />}
@@ -303,7 +315,9 @@ export default function ProfilePage({
 
       {(isAdult || viewingSelf) && awards.length > 0 && (
         <section className="mt-6">
-          <h3 className="text-sm font-semibold">🏆 Awards</h3>
+          <h3 className="flex items-center gap-1 text-sm font-semibold">
+            <LucideIcon name="trophy" size={14} /> Awards
+          </h3>
           {/* Notes shown inline, not just a hover title - a kid on a touch
               screen (kiosk or tablet) has no hover, so "why they got it"
               needs to actually be visible, not hidden behind a tooltip. */}

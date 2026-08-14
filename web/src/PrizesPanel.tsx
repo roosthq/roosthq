@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient } from './api';
 import TokenBadge from './TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal } from './Prize';
+import LucideIcon from './LucideIcon';
 import { useDialog } from './Dialog';
 import { SuggestPrizeModal } from './pages/StorePage';
 
@@ -29,7 +30,7 @@ export default function PrizesPanel({
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [tokenName, setTokenName] = useState('Tokens');
-  const [tokenIcon, setTokenIcon] = useState('🪙');
+  const [tokenIcon, setTokenIcon] = useState('coins'); // Lucide name - see App.tsx tokenIcon comment
   const [viewing, setViewing] = useState<StorePrize | null>(null);
   const [suggesting, setSuggesting] = useState(false);
   const [self, setSelf] = useState<Member | null>(null);
@@ -116,8 +117,8 @@ export default function PrizesPanel({
               <PrizeImage src={p.image} alt={p.name} className="h-10 w-10 shrink-0 rounded" />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium">{p.name}</span>
-                <span className={`text-xs ${TYPE_TAG[p.type].className}`}>
-                  {TYPE_TAG[p.type].icon} {TYPE_TAG[p.type].label}
+                <span className={`flex items-center gap-1 text-xs ${TYPE_TAG[p.type].className}`}>
+                  <LucideIcon name={TYPE_TAG[p.type].icon} size={12} /> {TYPE_TAG[p.type].label}
                 </span>
               </span>
               <TokenBadge icon={tokenIcon} amount={p.tokenCost} />

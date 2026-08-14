@@ -11,6 +11,7 @@ import { DisplayOrUserGuard, FamilyCtx, FamilyContext } from './display-auth.gua
 import { HouseholdService } from '../household/household.service';
 import { FamilyService } from '../family/family.service';
 import { SoundsService } from '../sounds/sounds.service';
+import { IconsService } from '../icons/icons.service';
 
 @Controller('display')
 export class DisplayController {
@@ -22,6 +23,7 @@ export class DisplayController {
     private household: HouseholdService,
     private familySvc: FamilyService,
     private soundsSvc: SoundsService,
+    private iconsSvc: IconsService,
   ) {}
 
   // --- Read-only display routes: session OR display token ---
@@ -97,6 +99,15 @@ export class DisplayController {
   @Get('custom-sounds')
   customSounds(@FamilyCtx() ctx: FamilyContext) {
     return this.soundsSvc.list(ctx.familyId);
+  }
+
+  // Effective icon-set map (icon-overhaul) - readable idle, same as
+  // family-settings above: countdown widgets, the token icon, etc. all need
+  // to resolve their render style before anyone's signed in.
+  @UseGuards(DisplayOrUserGuard)
+  @Get('icons')
+  icons(@FamilyCtx() ctx: FamilyContext) {
+    return this.iconsSvc.effective(ctx.familyId);
   }
 
   // "At a glance" feed for the idle screensaver: today's chores + events.

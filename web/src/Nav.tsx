@@ -6,6 +6,7 @@ import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
 import PendingIndicator from './PendingIndicator';
 import PendingGamesIndicator from './PendingGamesIndicator';
+import LucideIcon from './LucideIcon';
 
 export default function Nav({
   me,
@@ -174,20 +175,20 @@ export default function Nav({
   const bottomTabs = (
     <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
       <NavLink to="/" end className={tabCls}>
-        <span className="text-xl leading-none">📅</span>Calendar
+        <LucideIcon name="calendar" size={20} />Calendar
       </NavLink>
       {choresOn && (
         <NavLink to="/chores" className={tabCls}>
-          <span className="text-xl leading-none">✅</span>{chorePlural}
+          <LucideIcon name="check-square" size={20} />{chorePlural}
         </NavLink>
       )}
       {storeOn && (
         <NavLink to="/store" className={tabCls}>
-          <span className="text-xl leading-none">🛍️</span>Store
+          <LucideIcon name="shopping-bag" size={20} />Store
         </NavLink>
       )}
       <NavLink to="/profile" className={tabCls}>
-        <span className="text-xl leading-none">👤</span>Profiles
+        <LucideIcon name="user" size={20} />Profiles
       </NavLink>
     </div>
   );

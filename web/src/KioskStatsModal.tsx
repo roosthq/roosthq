@@ -85,7 +85,7 @@ export default function KioskStatsModal({
     <>
       {levelUpTo !== null && (
         <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-          <div className="text-6xl">⭐</div>
+          <LucideIcon name="star" size={60} />
           <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
           <p className="max-w-xs text-center text-sm text-slate-300">
             {displayName} reached level {levelUpTo} - keep it up!
@@ -112,7 +112,15 @@ export default function KioskStatsModal({
             <Stat label={`${tokenName} spent`} value={<TokenStat icon={tokenIcon} amount={spent} />} />
           </>
         )}
-        <Stat label="Best active streak" value={`🔥 ${bestStreak}`} />
+        <Stat
+          label="Best active streak"
+          value={
+            <span className="inline-flex items-center gap-1">
+              <LucideIcon name="flame" size={24} />
+              {bestStreak}
+            </span>
+          }
+        />
       </div>
       {family && familyFeatureEnabled(family, 'levels') && (
         <div className="mt-4">
@@ -121,7 +129,9 @@ export default function KioskStatsModal({
       )}
       {awards.length > 0 && (
         <div className="mt-5">
-          <h4 className="text-sm font-semibold">🏆 Awards</h4>
+          <h4 className="flex items-center gap-1 text-sm font-semibold">
+            <LucideIcon name="trophy" size={14} /> Awards
+          </h4>
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
               <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2">

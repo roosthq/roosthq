@@ -29,7 +29,7 @@ export default function ChoreOccurrenceActions({
 }) {
   const { alert, confirm } = useDialog();
   const [busy, setBusy] = useState(false);
-  const [tokenIcon, setTokenIcon] = useState('🪙');
+  const [tokenIcon, setTokenIcon] = useState('coins'); // Lucide name - see App.tsx tokenIcon comment
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const client = choreClient(token);
 

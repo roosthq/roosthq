@@ -25,15 +25,18 @@ export const GAME_TYPES = [
 ] as const;
 export type GameType = (typeof GAME_TYPES)[number];
 
+// icon is a Lucide/icon-catalog key (see icons/catalog.ts), not an emoji -
+// same reasoning as Award.icon/Family.tokenIcon (LucideIcon renders this
+// through the family's chosen colorful set, defaulting to Noto).
 export const GAME_TYPE_META: Record<GameType, { label: string; icon: string; help: string }> = {
-  WHEEL: { label: 'Wheel spin', icon: '🎡', help: 'Price-is-right style spinning wheel' },
-  MYSTERY_BOX: { label: 'Mystery box picker', icon: '📦', help: 'Grid of identical crates, pick one' },
-  SCRATCH_CARD: { label: 'Scratch card', icon: '🎟️', help: 'Drag to reveal under a gray coating' },
-  SLOT_MACHINE: { label: 'Slot machine', icon: '🎰', help: 'Pull the lever, three reels spin' },
-  DICE_ROLL: { label: 'Dice roll', icon: '🎲', help: 'Shake and drop - the total picks the tier' },
-  COIN_FLIP: { label: 'Coin flip', icon: '🪙', help: 'Fast heads/tails double-or-nothing' },
-  GIFT_BOX: { label: 'Gift box unwrap', icon: '🎁', help: 'One wrapped present, paper peels open in place' },
-  PLINKO: { label: 'Plinko drop', icon: '⚪', help: 'Ball bounces down pegs into a payout slot' },
+  WHEEL: { label: 'Wheel spin', icon: 'ferris-wheel', help: 'Price-is-right style spinning wheel' },
+  MYSTERY_BOX: { label: 'Mystery box picker', icon: 'package-2', help: 'Grid of identical crates, pick one' },
+  SCRATCH_CARD: { label: 'Scratch card', icon: 'tickets', help: 'Drag to reveal under a gray coating' },
+  SLOT_MACHINE: { label: 'Slot machine', icon: 'slot-machine', help: 'Pull the lever, three reels spin' },
+  DICE_ROLL: { label: 'Dice roll', icon: 'dice-5', help: 'Shake and drop - the total picks the tier' },
+  COIN_FLIP: { label: 'Coin flip', icon: 'coins', help: 'Fast heads/tails double-or-nothing' },
+  GIFT_BOX: { label: 'Gift box unwrap', icon: 'gift', help: 'One wrapped present, paper peels open in place' },
+  PLINKO: { label: 'Plinko drop', icon: 'plinko-ball', help: 'Ball bounces down pegs into a payout slot' },
 };
 
 // Client-only fake roll for the pool builder's live preview (#5's resolved

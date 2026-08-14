@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { api, DATA_REFRESH_EVENT, type PendingWheel } from './api';
 import DropdownDetails from './DropdownDetails';
 import RewardRevealModal from './RewardRevealModal';
+import LucideIcon from './LucideIcon';
 
 // Same "still there is a gray blank spot on Chores" problem the ⏳ hourglass
 // solved for pending chores/redemptions, but for #5 reward games: a kid
@@ -38,7 +39,11 @@ export default function PendingGamesIndicator({ tokenName }: { tokenName: string
   return (
     <>
       <DropdownDetails
-        summary={`🎁 ${games.length}`}
+        summary={
+          <span className="inline-flex items-center gap-1">
+            <LucideIcon name="gift" size={14} /> {games.length}
+          </span>
+        }
         summaryClassName="cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100"
       >
         <div className="absolute right-0 z-30 mt-2 w-72 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">

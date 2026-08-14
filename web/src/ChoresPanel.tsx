@@ -17,6 +17,7 @@ import RewardRevealModal from './RewardRevealModal';
 import { STARTER_PACKS } from './starterPacks';
 import PendingPanel from './PendingPanel';
 import TokenBadge from './TokenBadge';
+import LucideIcon from './LucideIcon';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
 import { myLocationIds } from './displayScope';
@@ -171,7 +172,7 @@ export default function ChoresPanel({
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [householdTab, setHouseholdTab] = useState('');
   const [tokenName, setTokenName] = useState('Tokens');
-  const [tokenIcon, setTokenIcon] = useState('🪙');
+  const [tokenIcon, setTokenIcon] = useState('coins'); // Lucide name - see App.tsx tokenIcon comment
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
   const [packsOpen, setPacksOpen] = useState(false);
@@ -461,7 +462,15 @@ export default function ChoresPanel({
   const groups = today
     ? []
     : [
-        { key: 'TODAY', label: '⭐ Today', rows: kidTodayRows },
+        {
+          key: 'TODAY',
+          label: (
+            <span className="inline-flex items-center gap-1">
+              <LucideIcon name="star" size={14} /> Today
+            </span>
+          ),
+          rows: kidTodayRows,
+        },
         ...(isAdult ? members : members.filter((m) => m.id === me.id)).map((m) => ({
           key: m.id,
           label: m.displayName,
@@ -498,13 +507,15 @@ export default function ChoresPanel({
               {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
               {isAdult && chore.createdBy && <span>· added by {chore.createdBy.displayName}</span>}
               {chore.currentStreak > 0 && (
-                <span>
-                  · 🔥 {chore.currentStreak} in a row
-                  {!!chore.streakGoal && chore.useWheelForBonus
-                    ? ` (🎡 wheel every ${chore.streakGoal})`
-                    : !!chore.streakGoal && chore.streakBonusTokens > 0
-                      ? ` (bonus every ${chore.streakGoal})`
-                      : ''}
+                <span className="inline-flex items-center gap-1">
+                  · <LucideIcon name="flame" size={12} /> {chore.currentStreak} in a row
+                  {!!chore.streakGoal && chore.useWheelForBonus ? (
+                    <>
+                      (<LucideIcon name="ferris-wheel" size={12} /> wheel every {chore.streakGoal})
+                    </>
+                  ) : !!chore.streakGoal && chore.streakBonusTokens > 0 ? (
+                    `(bonus every ${chore.streakGoal})`
+                  ) : null}
                 </span>
               )}
             </div>
@@ -741,8 +752,8 @@ export default function ChoresPanel({
             </button>
           )}
           {!today && isAdult && (
-            <button onClick={() => setPacksOpen(true)} className="rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of chores">
-              📦 Packs
+            <button onClick={() => setPacksOpen(true)} className="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of chores">
+              <LucideIcon name="package" size={14} /> Packs
             </button>
           )}
           {isAdult && (
@@ -769,7 +780,7 @@ export default function ChoresPanel({
       {pendingWheels.length > 0 && (
         <div className="mt-3 rounded-lg p-3" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-2xl">🎡</span>
+            <LucideIcon name="ferris-wheel" size={24} />
             <span className="min-w-0 flex-1 text-sm font-semibold">
               {pendingWheels.length === 1
                 ? `You earned a bonus wheel for ${wheelSource(pendingWheels[0])}!`
@@ -1360,7 +1371,7 @@ function ChoreForm({
             {streakEnabled && !famDisabled.includes('bonusWheel') && !famDisabled.includes('tokens') && (
               <label className="mt-2 flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={useWheelForBonus} onChange={(e) => setUseWheelForBonus(e.target.checked)} />
-                🎡 Spin the bonus wheel instead of awarding flat tokens
+                <LucideIcon name="ferris-wheel" size={14} /> Spin the bonus wheel instead of awarding flat tokens
               </label>
             )}
           </Field>

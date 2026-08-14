@@ -75,26 +75,26 @@ enum RedemptionStatus {
 // ---------- Tenant & people ----------
 
 model Family {
-  id               String   @id @default(cuid())
-  name             String
-  tokenName        String   @default("Tokens") // what the family calls their reward currency
-  tokenIcon        String   @default("🪙") // emoji shown alongside the reward currency
-  tokenValueUsd    Float    @default(1) // $ value of one token, for auto-suggesting prize costs
-  choreWord        String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
+  id                 String   @id @default(cuid())
+  name               String
+  tokenName          String   @default("Tokens") // what the family calls their reward currency
+  tokenIcon          String   @default("coins") // Lucide icon name (lucideData.ts) shown alongside the reward currency - NOT a raw emoji; LucideIcon/AppIcon render a name, and a stray "🪙" here (this field's value before the icon migration) silently renders nothing
+  tokenValueUsd      Float    @default(1) // $ value of one token, for auto-suggesting prize costs
+  choreWord          String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
   // Family-level feature kill-switches (FEATURE_TREE in web/src/api.ts).
   // Stored as the DISABLED list so brand-new features default to ON for
   // every family without a migration backfill.
-  disabledFeatures Json     @default("[]")
+  disabledFeatures   Json     @default("[]")
   // Which sound plays for which action slot (celebrate.ts on the client) -
   // { [slot: string]: { type: 'builtin', id: string } | { type: 'custom', id: string } }.
   // A slot with no entry falls back to the default built-in chime. Owner/
   // family-manager only to edit; family-wide, no per-person override.
-  soundAssignments Json     @default("{}")
+  soundAssignments   Json     @default("{}")
   // #8 - roughly how often (in days) an eligible kid should get a surprise
   // reward game on average; the daily cron rolls 1-in-N odds per kid per
   // day rather than a fixed calendar date, so it stays genuinely surprising.
-  surpriseRewardDays Int    @default(30)
-  createdAt        DateTime @default(now())
+  surpriseRewardDays Int      @default(30)
+  createdAt          DateTime @default(now())
 
   users           User[]
   locations       Location[]
@@ -116,6 +116,38 @@ model Family {
   announcements   Announcement[]
   notifications   Notification[]
   customSounds    CustomSound[]
+  iconSettings    FamilyIconSetting[]
+}
+
+// ---------- Icons ----------
+// Which icon SET (NOTO | TWEMOJI | FLUENT_3D - see ICON_SETS in
+// web/src/icons/catalog.ts) a given content icon-key renders with. Two
+// tiers, same shape, resolved family -> app -> hardcoded NOTO default (see
+// IconsService.effective): AppIconSetting is the instance-owner's
+// platform-wide default (no row = NOTO); FamilyIconSetting is a per-family
+// override on top of that (no row = inherit the app/platform default).
+// iconKey is a free string validated against ICON_KEYS server-side
+// (common/icons.ts mirrors the catalog, same pattern as SOUND_SLOTS/
+// FEATURE_TREE) rather than an enum, so adding a new pickable icon later
+// never needs a migration.
+
+model AppIconSetting {
+  iconKey   String   @id
+  iconSet   String
+  updatedAt DateTime @updatedAt
+}
+
+model FamilyIconSetting {
+  id        String   @id @default(cuid())
+  familyId  String
+  iconKey   String
+  iconSet   String
+  updatedAt DateTime @updatedAt
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@unique([familyId, iconKey])
+  @@index([familyId])
 }
 
 // A family-uploaded sound (celebrate.ts custom slot assignment). dataUri is
@@ -646,9 +678,9 @@ model Award {
   // and the plain wheelMin/wheelMax range above. Null poolJson = not using
   // this; when set, granting queues a RewardGame with this weighted pool
   // instead of (not additive with) the flat value or the plain wheel.
-  poolJson          Json?    // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}]
-  poolGameType      String?  // pinned game type, or null = "surprise me" (default)
-  poolSlotCount     Int?     // cosmetic box/reel count
+  poolJson          Json? // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}]
+  poolGameType      String? // pinned game type, or null = "surprise me" (default)
+  poolSlotCount     Int? // cosmetic box/reel count
   createdById       String
   createdAt         DateTime @default(now())
 
@@ -819,7 +851,7 @@ model Countdown {
   id         String   @id @default(cuid())
   familyId   String
   title      String
-  emoji      String   @default("🎉")
+  emoji      String   @default("party-popper") // Lucide icon name (lucideData.ts) despite the field name - see Family.tokenIcon's comment above; rendered via LucideIcon in Display.tsx/HouseholdPage.tsx
   date       String // YYYY-MM-DD target day
   createdAt  DateTime @default(now())
 
@@ -857,11 +889,11 @@ model Announcement {
 // of token ranges and real Prizes, only set when an award's "Pool" reward
 // type is used). A row uses exactly one path - never both.
 model RewardGame {
-  id        String    @id @default(cuid())
-  familyId  String
-  userId    String // who gets to play
-  minTokens Int       @default(1)
-  maxTokens Int       @default(5)
+  id         String    @id @default(cuid())
+  familyId   String
+  userId     String // who gets to play
+  minTokens  Int       @default(1)
+  maxTokens  Int       @default(5)
   // Which reveal presentation the client shows - purely visual, the actual
   // roll (server-side, at play time) is identical regardless. Set randomly
   // at creation so a kid gets a mix instead of the same one every time,
@@ -879,15 +911,15 @@ model RewardGame {
   // the simple range-roll path, where the ledger entry IS the record.
   wonKind    String?
   wonPrizeId String?
-  reason    String // e.g. "Bonus wheel: Homework (5 in a row)"
-  refId     String? // originating AwardGrant / ChoreInstance id, for reversal
-  amount    Int? // rolled at play time; null while unplayed
-  spunAt    DateTime?
-  createdAt DateTime  @default(now())
+  reason     String // e.g. "Bonus wheel: Homework (5 in a row)"
+  refId      String? // originating AwardGrant / ChoreInstance id, for reversal
+  amount     Int? // rolled at play time; null while unplayed
+  spunAt     DateTime?
+  createdAt  DateTime  @default(now())
 
-  family    Family  @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  user      User    @relation("RewardGameUser", fields: [userId], references: [id], onDelete: Cascade)
-  wonPrize  Prize?  @relation(fields: [wonPrizeId], references: [id], onDelete: SetNull)
+  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user     User   @relation("RewardGameUser", fields: [userId], references: [id], onDelete: Cascade)
+  wonPrize Prize? @relation(fields: [wonPrizeId], references: [id], onDelete: SetNull)
 
   @@index([userId, spunAt])
   @@index([familyId])
@@ -905,7 +937,7 @@ model AuditLog {
   action      String // e.g. "user.deactivate", "family.rename", "ghost.start"
   targetId    String?
   targetLabel String? // snapshot of the target's name at the time
-  detail      String? @db.Text // extra context: old -> new value, family name, etc.
+  detail      String?  @db.Text // extra context: old -> new value, family name, etc.
   // Nullable: app-owner actions (family.*, user.*, ghost.*) aren't scoped to
   // a single family the same way, so they leave this unset. Per-family
   // actions (chore.* so far) always set it - required so a lookup by

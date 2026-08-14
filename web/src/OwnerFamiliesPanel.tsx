@@ -3,6 +3,7 @@ import { api, ROLE_ICON, ROLE_LABEL, type AuditLogEntry, type FamilyInfo, type M
 import { useDialog } from './Dialog';
 import InviteLinkBox from './InviteLinkBox';
 import { formatDateTime } from './dateFormat';
+import LucideIcon from './LucideIcon';
 
 // "user.deactivate" -> "deactivated". Covers every action string OwnerService
 // actually writes; falls back to the raw dotted string for anything new so a
@@ -329,7 +330,7 @@ export default function OwnerFamiliesPanel() {
                     {members?.map((m) => (
                       <li key={m.id} className="card-nested rounded-lg p-2 text-sm">
                         <div className="flex min-w-0 items-center gap-2">
-                          <span>{ROLE_ICON[m.role]}</span>
+                          <LucideIcon name={ROLE_ICON[m.role]} size={14} />
                           <span className="min-w-0 flex-1 truncate font-medium">{m.displayName}</span>
                           {m.active === false && (
                             <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">

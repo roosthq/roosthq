@@ -122,7 +122,7 @@ export default function Display() {
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [tokenName, setTokenName] = useState('Tokens');
-  const [tokenIcon, setTokenIcon] = useState('🪙');
+  const [tokenIcon, setTokenIcon] = useState('coins'); // Lucide name - see App.tsx tokenIcon comment
   const [chores, setChores] = useState<Chore[]>([]);
   // Bumped on any incoming chores/prizes/tokens live-update push - passed down
   // to ChoresPanel/PrizesPanel so they refetch immediately instead of only on
@@ -644,7 +644,7 @@ export default function Display() {
     <div className="kiosk-mode flex h-screen flex-col overflow-hidden p-4">
       {levelUpTo !== null && (
         <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-          <div className="text-6xl">⭐</div>
+          <LucideIcon name="star" size={60} />
           <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
           <p className="max-w-xs text-center text-sm text-slate-300">
             {active?.user.displayName} reached level {levelUpTo} - keep it up!
@@ -750,9 +750,9 @@ export default function Display() {
                         setAwardsCatalog([]);
                       }
                     }}
-                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                    className="flex w-full items-center gap-1 rounded px-2 py-1.5 text-left hover:bg-slate-50"
                   >
-                    🏆 Give award
+                    <LucideIcon name="trophy" size={14} /> Give award
                   </button>
                 )}
                 {isAdult && famOn('tokens') && (
@@ -774,9 +774,9 @@ export default function Display() {
               <button
                 onClick={() => setLayout('calendar')}
                 title="Calendar-focused"
-                className={`rounded px-2 py-1 ${layout === 'calendar' ? 'bg-slate-800 text-white' : 'hover:bg-slate-100'}`}
+                className={`flex items-center gap-1 rounded px-2 py-1 ${layout === 'calendar' ? 'bg-slate-800 text-white' : 'hover:bg-slate-100'}`}
               >
-                📅 Calendar
+                <LucideIcon name="calendar" size={14} /> Calendar
               </button>
               <button
                 onClick={() => setLayout('person')}
@@ -842,7 +842,7 @@ export default function Display() {
               className="card-nested rounded-full px-3 py-1 hover:opacity-80"
               title="See the whole week's dinner plan"
             >
-              🍽️ Tonight:{' '}
+              <LucideIcon name="utensils-crossed" size={14} className="inline -mt-0.5" /> Tonight:{' '}
               <span className="font-semibold">
                 {todayMeal
                   ? todayMeal.isEatingOut
@@ -878,7 +878,9 @@ export default function Display() {
               );
             })}
           {showGrocery && (household?.groceryOpen ?? 0) > 0 && (
-            <span className="card-nested rounded-full px-3 py-1">🛒 {household!.groceryOpen} on the list</span>
+            <span className="card-nested inline-flex items-center gap-1 rounded-full px-3 py-1">
+              <LucideIcon name="shopping-cart" size={14} /> {household!.groceryOpen} on the list
+            </span>
           )}
         </div>
       )}
@@ -963,8 +965,8 @@ export default function Display() {
                       for under the chores list. */}
                   <div className="flex flex-wrap gap-2">
                     {famOn('rules') && (
-                    <button onClick={() => setKioskRulesOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
-                      📋 Rules
+                    <button onClick={() => setKioskRulesOpen(true)} className="flex items-center gap-1.5 rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      <LucideIcon name="clipboard-list" size={16} /> Rules
                     </button>
                     )}
                     <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
@@ -1020,7 +1022,7 @@ export default function Display() {
                       <Avatar name={m.displayName} src={m.avatar} big />
                       <span className="min-w-0 flex-1">
                         <div className="flex items-center gap-1 truncate text-sm font-medium">
-                          <span>{ROLE_ICON[m.role]}</span>
+                          <LucideIcon name={ROLE_ICON[m.role]} size={14} />
                           {m.displayName}
                         </div>
                         {/* Reserve this line's height for every row, PIN or not, so rows stay aligned. */}

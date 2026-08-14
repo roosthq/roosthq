@@ -16,9 +16,20 @@ import { HouseholdModule } from '../household/household.module';
 import { FamilyModule } from '../family/family.module';
 import { HolidaysModule } from '../holidays/holidays.module';
 import { SoundsModule } from '../sounds/sounds.module';
+import { IconsModule } from '../icons/icons.module';
 
 @Module({
-  imports: [NotificationsModule, LocalCalendarsModule, DisplayEventsModule, ChoresModule, HolidaysModule, HouseholdModule, FamilyModule, SoundsModule],
+  imports: [
+    NotificationsModule,
+    LocalCalendarsModule,
+    DisplayEventsModule,
+    ChoresModule,
+    HolidaysModule,
+    HouseholdModule,
+    FamilyModule,
+    SoundsModule,
+    IconsModule,
+  ],
   controllers: [DisplayController, DisplaysController],
   providers: [
     DisplayService,

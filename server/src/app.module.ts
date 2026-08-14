@@ -24,6 +24,7 @@ import { RewardGamesModule } from './reward-games/reward-games.module';
 import { SecurityModule } from './security/security.module';
 import { SearchModule } from './search/search.module';
 import { SoundsModule } from './sounds/sounds.module';
+import { IconsModule } from './icons/icons.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { SoundsModule } from './sounds/sounds.module';
     RewardGamesModule,
     SearchModule,
     SoundsModule,
+    IconsModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

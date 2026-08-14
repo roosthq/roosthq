@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { api, type SearchHit, type SearchResult } from '../api';
+import LucideIcon from '../LucideIcon';
 
 const EMPTY: SearchResult = { chores: [], events: [], notifications: [], rules: [], prizes: [], awards: [] };
 
 const SECTIONS: Array<{ key: keyof SearchResult; icon: string; label: string }> = [
-  { key: 'chores', icon: '✅', label: 'Chores' },
-  { key: 'events', icon: '📅', label: 'Calendar events' },
-  { key: 'notifications', icon: '🔔', label: 'Your notifications' },
-  { key: 'rules', icon: '📋', label: 'Rules' },
-  { key: 'prizes', icon: '🛍️', label: 'Store' },
-  { key: 'awards', icon: '🏆', label: 'Awards' },
+  { key: 'chores', icon: 'check-square', label: 'Chores' },
+  { key: 'events', icon: 'calendar', label: 'Calendar events' },
+  { key: 'notifications', icon: 'bell', label: 'Your notifications' },
+  { key: 'rules', icon: 'clipboard-list', label: 'Rules' },
+  { key: 'prizes', icon: 'shopping-bag', label: 'Store' },
+  { key: 'awards', icon: 'trophy', label: 'Awards' },
 ];
 
 // Searches everything the app itself stores - chores, local calendar events,
@@ -86,8 +87,8 @@ export default function SearchPage() {
           if (hits.length === 0) return null;
           return (
             <section key={s.key} className="panel">
-              <h3 className="text-sm font-semibold tracking-tight text-slate-500">
-                {s.icon} {s.label}
+              <h3 className="flex items-center gap-1 text-sm font-semibold tracking-tight text-slate-500">
+                <LucideIcon name={s.icon} size={14} /> {s.label}
               </h3>
               <ul className="mt-2 space-y-1">
                 {hits.map((h) => (

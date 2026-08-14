@@ -215,12 +215,13 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
 ];
 
 // Shown next to a role anywhere it appears - profile switchers, the family
-// member list in Settings, invite rows.
+// member list in Settings, invite rows. Values are Lucide icon names (see
+// LucideIcon.tsx), rendered via <LucideIcon name={ROLE_ICON[role]}/>.
 export const ROLE_ICON: Record<string, string> = {
-  OWNER: '👑',
-  FAMILY_MANAGER: '🗝️',
-  ADULT: '🧑',
-  KID: '🧒',
+  OWNER: 'crown',
+  FAMILY_MANAGER: 'key',
+  ADULT: 'user',
+  KID: 'baby',
 };
 
 // Human-readable label for a role - needed anywhere a role gets displayed
@@ -480,6 +481,17 @@ export interface MintedInvite {
   role: string;
   label?: string;
   token: string;
+}
+
+// Icon-overhaul (2026-08) - see server IconsService.effective. `effective` is
+// the fully-resolved render set for every catalog key (always complete -
+// falls back to NOTO for anything neither tier has overridden); `familySet`/
+// `appSet` are the raw override layers (only the keys each tier actually set)
+// so the Settings UI can show "inherited" vs "overridden" and reset one.
+export interface IconSettingsResponse {
+  effective: Record<string, string>;
+  familySet: Record<string, string>;
+  appSet: Record<string, string>;
 }
 
 export interface FamilySettings {
@@ -1002,6 +1014,14 @@ export const api = {
   deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
 
   familySettings: (kioskToken?: string) => req<FamilySettings>('/family/settings', undefined, kioskToken),
+
+  // Icon-overhaul (2026-08): resolved render-set per icon-key, plus both raw
+  // override layers - see IconsService.effective server-side.
+  iconSettings: (kioskToken?: string) => req<IconSettingsResponse>('/icons/effective', undefined, kioskToken),
+  setFamilyIconSetting: (iconKey: string, iconSet: string | null) =>
+    req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(iconKey)}`, { method: 'PUT', body: JSON.stringify({ iconSet }) }),
+  setAppIconSetting: (iconKey: string, iconSet: string | null) =>
+    req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(iconKey)}`, { method: 'PUT', body: JSON.stringify({ iconSet }) }),
   updateFamilySettings: (data: {
     name?: string;
     tokenName?: string;

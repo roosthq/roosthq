@@ -6,6 +6,7 @@ import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Priz
 import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+import LucideIcon from '../LucideIcon';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
 import { celebrate } from '../celebrate';
@@ -214,8 +215,8 @@ export default function StorePage({
                   <TokenBadge icon={tokenIcon} amount={p.tokenCost} />
                 </div>
                 <div className="mt-1 flex items-center gap-2 text-xs">
-                  <span className={TYPE_TAG[p.type].className}>
-                    {TYPE_TAG[p.type].icon} {TYPE_TAG[p.type].label}
+                  <span className={`flex items-center gap-1 ${TYPE_TAG[p.type].className}`}>
+                    <LucideIcon name={TYPE_TAG[p.type].icon} size={12} /> {TYPE_TAG[p.type].label}
                   </span>
                   {p.visibility === 'AWARD_ONLY' && (
                     <span
@@ -223,7 +224,7 @@ export default function StorePage({
                       style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
                       title="Hidden from the Store - kids never see this, only reachable via a reward game"
                     >
-                      🎮 award only
+                      <LucideIcon name="gamepad-2" size={12} className="inline -mt-0.5" /> award only
                     </span>
                   )}
                   {p.location && <span className="text-slate-400">📍 {p.location.name}</span>}
@@ -390,7 +391,11 @@ export default function StorePage({
               <li key={r.id} className="flex justify-between border-b py-1">
                 <span>
                   {r.prize.name}
-                  {r.source === 'GAME' && <span className="ml-1.5 text-xs text-slate-400">🎮 won it</span>}
+                  {r.source === 'GAME' && (
+                    <span className="ml-1.5 inline-flex items-center gap-1 text-xs text-slate-400">
+                      <LucideIcon name="gamepad-2" size={12} /> won it
+                    </span>
+                  )}
                 </span>
                 <span className="text-slate-400">
                   {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
@@ -718,11 +723,11 @@ export function PrizeForm({
             <div className="mt-1 flex gap-3 text-sm">
               <label className="flex items-center gap-1">
                 <input type="radio" checked={visibility === 'STORE'} onChange={() => setVisibility('STORE')} />
-                🛍️ Purchasable in the Store
+                <LucideIcon name="shopping-bag" size={14} /> Purchasable in the Store
               </label>
               <label className="flex items-center gap-1">
                 <input type="radio" checked={visibility === 'AWARD_ONLY'} onChange={() => setVisibility('AWARD_ONLY')} />
-                🎮 Award only (hidden)
+                <LucideIcon name="gamepad-2" size={14} /> Award only (hidden)
               </label>
             </div>
             <p className="mt-1 text-xs text-slate-400">

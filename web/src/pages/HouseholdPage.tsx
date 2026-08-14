@@ -198,7 +198,9 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   return (
     <section className="panel min-w-0">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-base font-semibold tracking-tight">🍽️ Dinner plan</h3>
+        <h3 className="flex items-center gap-1.5 text-base font-semibold tracking-tight">
+          <LucideIcon name="utensils-crossed" size={16} /> Dinner plan
+        </h3>
         <div className="flex items-center gap-2 text-sm">
           {isAdult && (
             <DropdownDetails
@@ -234,22 +236,26 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                     title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
                     className={`shrink-0 rounded px-1 text-xs ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
                   >
-                    🍽️
+                    <LucideIcon name="utensils-crossed" size={14} />
                   </button>
                 )}
               </div>
               {meal?.isEatingOut ? (
                 spinningKey === k ? (
-                  <div className="mt-1.5 min-h-[2.5rem] w-full rounded px-2 py-1.5 text-left text-base leading-snug">
-                    🎲 <span className="text-slate-400">{spinDisplay || '…'}</span>
+                  <div className="mt-1.5 flex min-h-[2.5rem] w-full items-center gap-1 rounded px-2 py-1.5 text-left text-base leading-snug">
+                    <LucideIcon name="dice-5" size={16} /> <span className="text-slate-400">{spinDisplay || '…'}</span>
                   </div>
                 ) : (
                   <div className="mt-1.5 space-y-1">
                     <div className="min-h-[1.5rem] px-2 text-base leading-snug">
                       {meal.eatOutPlaceName ? (
-                        <>🍽️ {meal.eatOutPlaceName}</>
+                        <span className="inline-flex items-center gap-1">
+                          <LucideIcon name="utensils-crossed" size={14} /> {meal.eatOutPlaceName}
+                        </span>
                       ) : (
-                        <span className="text-slate-400">🍽️ Out - TBD</span>
+                        <span className="inline-flex items-center gap-1 text-slate-400">
+                          <LucideIcon name="utensils-crossed" size={14} /> Out - TBD
+                        </span>
                       )}
                     </div>
                     {isAdult && places.length > 0 && (
@@ -271,7 +277,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
                           title="Spin to pick randomly"
                           className="shrink-0 rounded border px-1.5 py-1 text-xs hover:bg-slate-50"
                         >
-                          🎲
+                          <LucideIcon name="dice-5" size={12} />
                         </button>
                       </div>
                     )}
@@ -410,7 +416,9 @@ function GrocerySection({ scope, me }: { scope: string; me: Me }) {
   const anyChecked = items.some((i) => i.checked);
   return (
     <section className="panel min-w-0">
-      <h3 className="text-base font-semibold tracking-tight">🛒 Grocery list</h3>
+      <h3 className="flex items-center gap-1.5 text-base font-semibold tracking-tight">
+        <LucideIcon name="shopping-cart" size={16} /> Grocery list
+      </h3>
       {canEdit && (
         <div className="mt-3 flex gap-2">
           <input
@@ -461,7 +469,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
   const [members, setMembers] = useState<Member[]>([]);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
-  const [emoji, setEmoji] = useState('🎉');
+  const [emoji, setEmoji] = useState('party-popper'); // Lucide name, not a raw emoji - see Countdown.emoji's schema comment
   const refresh = useCallback(() => {
     api.countdowns(scope || 'none').then(setItems).catch(() => setItems([]));
     api.members().then(setMembers).catch(() => setMembers([]));
@@ -475,7 +483,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
       const todayKey2 = dateKey(new Date());
       const thisYear = `${year}-${mm}-${dd}`;
       const next = thisYear >= todayKey2 ? thisYear : `${year + 1}-${mm}-${dd}`;
-      return { id: `bday-${m.id}`, title: `${m.displayName}'s birthday`, emoji: '🎂', date: next };
+      return { id: `bday-${m.id}`, title: `${m.displayName}'s birthday`, emoji: 'cake', date: next }; // Lucide name, not a raw emoji
     })
     .filter((b) => daysUntil(b.date) <= 90);
   const allItems = [...items, ...birthdayItems].sort((a, b) => a.date.localeCompare(b.date));
@@ -492,7 +500,9 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
   }
   return (
     <section className="panel min-w-0">
-      <h3 className="text-base font-semibold tracking-tight">⏳ Countdowns</h3>
+      <h3 className="flex items-center gap-1.5 text-base font-semibold tracking-tight">
+        <LucideIcon name="hourglass" size={16} /> Countdowns
+      </h3>
       <ul className="mt-3 space-y-2">
         {allItems.map((c) => {
           const days = daysUntil(c.date);

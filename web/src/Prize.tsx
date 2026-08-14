@@ -1,15 +1,17 @@
 import type { CropRect, Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
 import Modal from './Modal';
+import LucideIcon from './LucideIcon';
 import { cropBackgroundStyle } from './ImageCropper';
 import { formatDate } from './dateFormat';
 
 // Every prize gets one of these - keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
-// line up.
+// line up. `icon` is a Lucide icon name (see LucideIcon.tsx) - render via
+// <LucideIcon name={TYPE_TAG[type].icon}/>, not as raw text.
 export const TYPE_TAG: Record<StorePrize['type'], { icon: string; label: string; className: string }> = {
-  ITEM: { icon: '📦', label: 'Item', className: 'text-slate-500' },
-  EVENT: { icon: '🎟', label: 'Event', className: 'text-purple-500' },
+  ITEM: { icon: 'gift', label: 'Item', className: 'text-slate-500' },
+  EVENT: { icon: 'ticket', label: 'Event', className: 'text-purple-500' },
 };
 
 // Downscale + re-encode client-side so an uploaded photo doesn't blow up the
@@ -76,7 +78,7 @@ export function PrizeImage({
   if (src) return <img src={src} alt={alt} className={`${className} bg-slate-100 object-contain`} />;
   return (
     <div className={`${className} flex items-center justify-center bg-slate-100 text-slate-300`}>
-      <span className="text-4xl">🎁</span>
+      <LucideIcon name="gift" size={36} />
     </div>
   );
 }
@@ -162,8 +164,8 @@ export function PrizeDetailModal({
         <PrizeImage src={prize.image} alt={prize.name} className="h-72 w-full rounded" />
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <TokenBadge icon={tokenIcon} amount={prize.tokenCost} label={tokenName} size="lg" />
-          <span className={`text-sm ${TYPE_TAG[prize.type].className}`}>
-            {TYPE_TAG[prize.type].icon} {TYPE_TAG[prize.type].label}
+          <span className={`flex items-center gap-1 text-sm ${TYPE_TAG[prize.type].className}`}>
+            <LucideIcon name={TYPE_TAG[prize.type].icon} size={14} /> {TYPE_TAG[prize.type].label}
           </span>
           {prize.location && <span className="text-sm text-slate-400">📍 {prize.location.name}</span>}
           {prize.archived && <span className="text-sm font-medium text-amber-600">Archived</span>}

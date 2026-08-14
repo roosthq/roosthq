@@ -14,10 +14,11 @@ import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
 import FeaturesTab from './FeaturesTab';
+import IconsTab from './IconsTab';
 import { useDialog } from '../Dialog';
 import { resizeImageFile } from '../Prize';
 
-type TabId = 'features' | 'family' | 'calendars' | 'locations' | 'displays' | 'instance';
+type TabId = 'features' | 'family' | 'calendars' | 'locations' | 'displays' | 'icons' | 'instance';
 
 const TAB_LABELS: Record<TabId, string> = {
   features: 'Features',
@@ -25,6 +26,7 @@ const TAB_LABELS: Record<TabId, string> = {
   calendars: 'Calendars',
   locations: 'Locations',
   displays: 'Displays',
+  icons: 'Icons',
   instance: 'Instance',
 };
 
@@ -46,6 +48,7 @@ export default function SettingsPage({ me }: { me: Me }) {
     ...(isFamilyManager ? (['calendars'] as TabId[]) : []),
     'locations',
     ...(isFamilyManager ? (['displays'] as TabId[]) : []),
+    ...(isFamilyManager ? (['icons'] as TabId[]) : []),
     ...(isOwner ? (['instance'] as TabId[]) : []),
   ];
   const [tab, setTab] = useState<TabId>(tabs[0]);
@@ -101,6 +104,7 @@ export default function SettingsPage({ me }: { me: Me }) {
             </Section>
           </>
         )}
+        {activeTab === 'icons' && <IconsTab isOwner={isOwner} />}
         {activeTab === 'instance' && (
           <>
             <Section

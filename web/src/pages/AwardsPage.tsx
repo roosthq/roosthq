@@ -594,7 +594,7 @@ export function AwardForm({
                                 <span className="min-w-0">
                                   <span className="block truncate font-medium">{selectedPrize.name}</span>
                                   <span className="block text-xs text-slate-400">
-                                    <TokenBadge icon="🪙" amount={selectedPrize.tokenCost} /> · change
+                                    <TokenBadge icon="coins" amount={selectedPrize.tokenCost} /> · change
                                   </span>
                                 </span>
                               </button>
@@ -678,7 +678,7 @@ export function AwardForm({
                       className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === '' ? 'ring-2 ring-slate-800' : ''}`}
                     >
                       <input type="radio" className="sr-only" checked={gameType === ''} onChange={() => setGameType('')} />
-                      <span className="text-base">🎲</span>
+                      <LucideIcon name="dice-5" size={20} />
                       <span className="font-medium">Surprise me</span>
                       <span className="text-slate-400">Random each time</span>
                     </label>
@@ -688,7 +688,7 @@ export function AwardForm({
                         className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === gt ? 'ring-2 ring-slate-800' : ''}`}
                       >
                         <input type="radio" className="sr-only" checked={gameType === gt} onChange={() => setGameType(gt)} />
-                        <span className="text-base">{GAME_TYPE_META[gt].icon}</span>
+                        <LucideIcon name={GAME_TYPE_META[gt].icon} size={20} />
                         <span className="font-medium">{GAME_TYPE_META[gt].label}</span>
                         <button
                           type="button"
@@ -946,8 +946,9 @@ function AwardPacksModal({
             <li key={p.id} className="card-nested rounded-lg p-3">
               <div className="flex items-center justify-between gap-2">
                 <div>
-                  <span className="text-sm font-semibold">
-                    {p.theme} {p.label}
+                  <span className="flex items-center gap-1.5 text-sm font-semibold">
+                    <LucideIcon name={p.theme} size={16} />
+                    {p.label}
                   </span>
                 </div>
                 <button

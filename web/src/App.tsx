@@ -171,7 +171,7 @@ export default function App() {
   }
 
   const tokenName = family?.tokenName ?? 'Tokens';
-  const tokenIcon = family?.tokenIcon ?? '🪙';
+  const tokenIcon = family?.tokenIcon ?? 'coins'; // Lucide name, not the emoji - LucideIcon/AppIcon renders a name, not a raw character (a literal 🪙 here silently renders nothing)
   const tokenValueUsd = family?.tokenValueUsd ?? 1;
   const choreWord = family?.choreWord ?? 'Chore';
   const chorePlural = pluralize(choreWord);

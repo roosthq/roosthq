@@ -3,6 +3,7 @@ import { api, KID_PERMISSIONS, ROLE_ICON, ROLE_LABEL, type Me, type Member, type
 import InviteLinkBox from './InviteLinkBox';
 import { useDialog } from './Dialog';
 import { formatDate } from './dateFormat';
+import LucideIcon from './LucideIcon';
 
 // Adults, family managers, and the owner can invite people and manage PINs;
 // only the owner/family manager can change roles or remove members, and only
@@ -273,11 +274,11 @@ export default function MembersManager({ me }: { me: Me }) {
               <span className="font-medium">{m.displayName}</span>
               {m.role === 'OWNER' ? (
                 <span className="text-xs text-slate-400">
-                  {ROLE_ICON.OWNER} {ROLE_LABEL.OWNER}
+                  <LucideIcon name={ROLE_ICON.OWNER} size={12} /> {ROLE_LABEL.OWNER}
                 </span>
               ) : isFamilyManager ? (
                 <span className="flex items-center gap-1 text-xs">
-                  {ROLE_ICON[m.role]}
+                  <LucideIcon name={ROLE_ICON[m.role]} size={12} />
                   <select
                     value={m.role}
                     onChange={(e) => changeRole(m, e.target.value as 'FAMILY_MANAGER' | 'ADULT' | 'KID')}
@@ -290,7 +291,7 @@ export default function MembersManager({ me }: { me: Me }) {
                 </span>
               ) : (
                 <span className="text-xs text-slate-400">
-                  {ROLE_ICON[m.role]} {ROLE_LABEL[m.role] ?? m.role}
+                  <LucideIcon name={ROLE_ICON[m.role]} size={12} /> {ROLE_LABEL[m.role] ?? m.role}
                 </span>
               )}
               {m.role !== 'KID' && !m.hasPin && <span className="text-xs text-amber-600">needs a PIN for kiosk</span>}
