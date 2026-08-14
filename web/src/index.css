@@ -1097,6 +1097,28 @@ select option {
   padding-bottom: 0.4rem !important;
 }
 
+/* Touch, not mouse - a real touchscreen's mouse pointer is either invisible
+   already or a leftover ghost cursor from the driver's synthetic events, and
+   without user-select:none a touch-drag over ordinary text (a chore title, a
+   member name in the side panel's scroll list) gets read as "start selecting
+   text" instead of "scroll this list" - the browser can't tell a slow drag
+   from a selection gesture on its own. Scoped to .kiosk-mode only - the main
+   app is still mouse-driven for everyone browsing from a phone/laptop, and
+   hiding the cursor there would just be broken, not helpful. */
+.kiosk-mode,
+.kiosk-mode * {
+  cursor: none !important;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.kiosk-mode input,
+.kiosk-mode textarea,
+.kiosk-mode [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 /* Printable Agenda (#14): any page can opt UI chrome out of printing with
    .no-print (nav, toolbars, buttons, the ghost banner) - used by Calendar.tsx's
    "print this week" button on the main calendar page. Everything else prints
