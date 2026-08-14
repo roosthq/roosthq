@@ -152,6 +152,13 @@ export default function CalendarPage({ me }: { me: Me }) {
     return { map: m, list };
   }, [choreOccurrences, members, personColor]);
 
+  // Same fix as Display.tsx's own allCalendarEvents - a fresh array on every
+  // render here was breaking Calendar's own byDay/laneMap memoization
+  // (keyed on referential equality of `events`), forcing it to redo the
+  // full day-grouping/lane-allocation work on every render of this page,
+  // not just when the actual events changed.
+  const allCalendarEvents = useMemo(() => [...events, ...choreEventsById.list], [events, choreEventsById.list]);
+
   // Checked proactively so a dead Google connection surfaces on page load -
   // not just as a mysteriously-empty calendar or a "Manage calendars" click
   // that quietly does nothing.
@@ -416,7 +423,7 @@ export default function CalendarPage({ me }: { me: Me }) {
       </section>
 
       <Calendar
-        events={[...events, ...choreEventsById.list]}
+        events={allCalendarEvents}
         onRangeChange={onRangeChange}
         showPrint
         onAddEvent={
