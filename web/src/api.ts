@@ -1029,10 +1029,16 @@ export const api = {
   // Icon-overhaul (2026-08): sparse slot overrides, plus both raw layers -
   // see IconsService.effective server-side.
   iconSettings: (kioskToken?: string) => req<IconSettingsResponse>('/icons/effective', undefined, kioskToken),
+  // pick: null clears the override (DELETE) - a separate verb from PUT-with-
+  // null-body, since Express's JSON parser rejects a bare `null` root value.
   setFamilySlotIcon: (slotId: string, pick: SlotPick | null) =>
-    req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) }),
+    pick
+      ? req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) })
+      : req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(slotId)}`, { method: 'DELETE' }),
   setAppSlotIcon: (slotId: string, pick: SlotPick | null) =>
-    req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) }),
+    pick
+      ? req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) })
+      : req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'DELETE' }),
   updateFamilySettings: (data: {
     name?: string;
     tokenName?: string;
