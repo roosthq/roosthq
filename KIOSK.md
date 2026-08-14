@@ -206,6 +206,79 @@ Two different problems, two different fixes:
   - attach a keyboard temporarily and retype the URL in Chromium
     (`Ctrl+L` still works even in kiosk mode).
 
+## Network watchdog (optional)
+
+Not part of the base setup above, but worth doing: the kiosk depends on
+Wi-Fi/internet staying up, and a Pi that silently drops off the network just
+sits there showing stale data with no obvious sign anything's wrong. This
+timer checks the app's health endpoint every minute and self-heals in two
+stages - bounce Wi-Fi first (cheap, fixes most transient drops), reboot only
+if that didn't work.
+
+Create `/usr/local/bin/roosthq-watchdog.sh`:
+
+```bash
+#!/bin/bash
+URL="https://roost.yourdomain.com/api/health"
+STATE=/tmp/roosthq-watchdog-fails
+if curl -fsS --max-time 8 "$URL" >/dev/null 2>&1; then
+  echo 0 > "$STATE"
+  exit 0
+fi
+fails=$(($(cat "$STATE" 2>/dev/null || echo 0) + 1))
+echo "$fails" > "$STATE"
+logger "roosthq-watchdog: health check failed ($fails)"
+if [ "$fails" -eq 3 ]; then
+  logger "roosthq-watchdog: bouncing wifi"
+  ip link set wlan0 down; sleep 3; ip link set wlan0 up
+elif [ "$fails" -ge 6 ]; then
+  logger "roosthq-watchdog: still down, rebooting"
+  echo 0 > "$STATE"
+  reboot
+fi
+```
+
+```bash
+sudo chmod +x /usr/local/bin/roosthq-watchdog.sh
+```
+
+Create `/etc/systemd/system/roosthq-watchdog.service`:
+
+```ini
+[Unit]
+Description=Roost HQ kiosk network watchdog
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/roosthq-watchdog.sh
+```
+
+Create `/etc/systemd/system/roosthq-watchdog.timer`:
+
+```ini
+[Unit]
+Description=Run Roost HQ watchdog every minute
+
+[Timer]
+OnBootSec=60
+OnUnitActiveSec=60
+Unit=roosthq-watchdog.service
+
+[Install]
+WantedBy=timers.target
+```
+
+Enable the timer (not the service directly - the timer triggers it):
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now roosthq-watchdog.timer
+```
+
+`ip link set wlan0` assumes Wi-Fi; on Ethernet the bounce step is a no-op
+worth skipping (drop those two lines) since a wired link dropping usually
+means the switch/router is down, not something rebooting the Pi's NIC fixes.
+
 ## Moving to new hardware
 
 **You cannot move a kiosk to a newer/older Pi by swapping the SD card.**
@@ -224,13 +297,30 @@ error - worth pulling off before wiping it:
 
 - **The kiosk link itself, and any custom Chromium flags.** If you never
   saved the link anywhere else, this is your only remaining copy - the token
-  is shown once, at mint time, and never again:
+  is shown once, at mint time, and never again. Check both places this doc
+  has ever pointed a kiosk at, since an older/leaner setup (no desktop
+  environment, console autologin + `startx` instead of systemd) may use
+  `.xinitrc` instead of the service file below:
   ```bash
-  cat /etc/systemd/system/roost-kiosk.service
+  cat /etc/systemd/system/roost-kiosk.service 2>/dev/null
+  grep chromium ~/.xinitrc 2>/dev/null
   ```
-  Grab the whole `ExecStart` line. Reuse the URL/token verbatim on the new
-  Pi; just recheck the binary name (`chromium` vs `chromium-browser`) if
-  you're jumping OS releases (see step 2 above).
+  Grab the whole command line, flags included. Reuse the URL/token verbatim
+  on the new Pi; recheck the binary name (`chromium` vs `chromium-browser`)
+  if you're jumping OS releases (see step 2 above). **Don't blindly copy
+  `--disable-gpu`/`--disable-gpu-compositing`/`--disable-software-rasterizer`
+  forward if you find them** - those are a workaround for a weak GPU (Pi
+  2/3-era VideoCore), not a Roost HQ requirement. A Pi 4/5's GPU doesn't need
+  it; carrying the flags over just forces slower software rendering for no
+  reason. Try without them first.
+- **A network watchdog**, if one was set up (see
+  [Network watchdog](#network-watchdog-optional) below - not part of the
+  base setup, easy to miss if whoever set up the old Pi added one and never
+  wrote it down anywhere else):
+  ```bash
+  systemctl list-timers --all 2>&1 | grep -i watchdog
+  cat /etc/systemd/system/roosthq-watchdog.* /usr/local/bin/roosthq-watchdog.sh 2>/dev/null
+  ```
 - **Screen rotation**, if the display is mounted rotated:
   ```bash
   grep display_rotate /boot/firmware/config.txt 2>/dev/null || grep display_rotate /boot/config.txt
