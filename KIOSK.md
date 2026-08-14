@@ -88,12 +88,32 @@ your server setup uses) - the Pi never needs a Google account or a password.
 
 ## 4. Autostart Chromium in kiosk mode
 
-The most portable way - a `systemd` service - doesn't depend on which desktop
-environment/compositor your Raspberry Pi OS version defaults to (this has
-changed more than once between releases: LXDE/X11 on older ones, Wayfire or
-Labwc/Wayland on current Bookworm+).
+A `systemd` service is the most portable way to autostart this - but **which
+environment variables it needs depends on whether your desktop session is
+X11 or Wayland**, and current Raspberry Pi OS (Bookworm and Trixie alike)
+defaults to Wayland (Wayfire, or Labwc on the newest releases). Check which
+one you actually have before writing the service - don't assume:
 
-Create `/etc/systemd/system/roost-kiosk.service`:
+```bash
+loginctl show-session $(loginctl | awk '/tty1/{print $1}') -p Type
+```
+
+Prints `Type=wayland` or `Type=x11`. If you're not sure that's the right
+session, `who` shows which sessions are active and `ps aux | grep -i
+'wayfire\|labwc\|Xorg'` shows which compositor is actually running.
+
+**If it says `wayland`** (current default - confirmed live against a fresh
+Raspberry Pi OS Trixie/Labwc install), Chromium needs `WAYLAND_DISPLAY` and
+`XDG_RUNTIME_DIR`, not `DISPLAY`/`XAUTHORITY` - the session genuinely has no
+`DISPLAY` variable set at all, so a service using `DISPLAY=:0` starts
+Chromium against a display server that isn't there. Confirm the socket name
+and your user's UID first:
+
+```bash
+ls /run/user/$(id -u <your-username>)/wayland-*
+```
+
+(usually `wayland-0`). Create `/etc/systemd/system/roost-kiosk.service`:
 
 ```ini
 [Unit]
@@ -103,11 +123,12 @@ Wants=graphical.target
 
 [Service]
 User=<your-username>
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/<your-username>/.Xauthority
+Environment=XDG_RUNTIME_DIR=/run/user/<uid>
+Environment=WAYLAND_DISPLAY=wayland-0
 ExecStartPre=/bin/sleep 5
 ExecStart=/usr/bin/chromium \
   --kiosk "https://roost.yourdomain.com/?display=1&token=<long-token>" \
+  --ozone-platform=wayland \
   --noerrdialogs \
   --disable-infobars \
   --disable-session-crashed-bubble \
@@ -123,7 +144,20 @@ RestartSec=3
 WantedBy=graphical.target
 ```
 
-Notes on those flags:
+`--ozone-platform=wayland` forces native Wayland rendering explicitly rather
+than relying on Chromium's auto-detection picking it correctly - confirmed
+via the running process's own args, GPU-accelerated (`--use-angle=gles`
+against `/dev/dri/card1`), no Xwayland involved.
+
+**If it says `x11`** (older releases, or a desktop you deliberately kept on
+X11), use `DISPLAY`/`XAUTHORITY` instead and drop `--ozone-platform`:
+
+```ini
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/<your-username>/.Xauthority
+```
+
+Notes on the Chromium flags (apply either way):
 - `--kiosk` - full screen, no address bar/tabs/nothing touchable outside the page.
 - `--disable-session-crashed-bubble` / `--noerrdialogs` - Chromium normally
   asks "restore pages?" after an unclean shutdown (e.g. a power cut); this
@@ -135,6 +169,17 @@ Notes on those flags:
   few seconds. Combined with the app's own remote-reload (below), this means
   the Pi mostly takes care of itself.
 - Swap `chromium` for `chromium-browser` if that's what step 2 found.
+
+Verify it actually stayed up (a wrong `DISPLAY`/`WAYLAND_DISPLAY` value fails
+silently into a restart loop, not a clear error):
+
+```bash
+sudo systemctl status roost-kiosk --no-pager
+systemctl show roost-kiosk --property=NRestarts
+```
+
+`NRestarts=0` and steady climbing `etime` in `ps -p <pid> -o etime` means
+it's actually up, not crash-looping between `RestartSec` intervals.
 
 Replace `<your-username>` and the URL/token, then enable it:
 
@@ -223,8 +268,16 @@ xset -dpms
 ```
 
 On the newer Wayland-based desktop (Wayfire/Labwc), there's no `xset`
-equivalent needed the same way - screen blanking is usually already off by
-default for a kiosk-style session. If the screen still sleeps, check
+equivalent - screen blanking is off by default there (confirmed: no idle
+daemon running, nothing in `~/.config/labwc/rc.xml`, and
+`raspi-config nonint get_blanking` reports disabled). Confirm on your own
+box the same way if you want to be sure rather than take this on faith:
+
+```bash
+sudo raspi-config nonint get_blanking  # 1 = disabled (what you want)
+```
+
+If the screen still sleeps despite that, check
 **Raspberry Pi Configuration → Display** for a blanking/screensaver option.
 
 ## 6. Rotate the display (wall-mounted portrait, etc.)
