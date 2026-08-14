@@ -296,7 +296,6 @@ export default function ProfilePage({
           </>
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
-        {familyFeatureEnabled(family, 'levels') && !tokensOff && <LevelBadge earned={earned} size="lg" />}
         {streak > 0 && (
           <Stat
             label="Best active streak"
@@ -320,6 +319,15 @@ export default function ProfilePage({
           />
         )}
       </div>
+
+      {/* Full-width, not a grid tile - matches KioskStatsModal's placement so
+          the XP bar has room to actually read as a progress bar instead of
+          being squeezed into one stat-tile's worth of width. */}
+      {familyFeatureEnabled(family, 'levels') && !tokensOff && (
+        <div className="mt-3">
+          <LevelBadge earned={earned} size="lg" />
+        </div>
+      )}
 
       {!tokensOff && <EarnedSparkline ledger={ledger} label={`${tokenName} earned, last 30 days`} />}
 

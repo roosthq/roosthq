@@ -22,7 +22,11 @@ export default function LevelBadge({ earned, size = 'sm' }: { earned: number; si
           <LucideIcon name="star" slot="badge.level" size={24} /> {level}
         </div>
         <div className="text-xs text-slate-500">Level</div>
-        <div className="mx-auto mt-2 h-2 w-full max-w-[9rem] overflow-hidden rounded-full bg-slate-100">
+        {/* No max-width cap (used to clamp to 9rem, sized for the old
+            grid-tile placement) - now that the card itself is full width
+            (see ProfilePage/KioskStatsModal), the bar fills the card's own
+            padded interior instead of sitting stub-short in the middle. */}
+        <div className="mx-auto mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-100">
           <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
         </div>
         <div className="mt-1 text-[10px] text-slate-400">
