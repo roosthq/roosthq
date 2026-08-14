@@ -145,7 +145,14 @@ session, `who` shows which sessions are active and `ps aux | grep -i
 'wayfire\|labwc\|Xorg'` shows which compositor is actually running.
 
 **On `x11`** (the touchscreen-recommended path above, or any older release
-that was never switched off it), use `DISPLAY`/`XAUTHORITY`:
+that was never switched off it), use `DISPLAY`/`XAUTHORITY` - **and disable
+DPMS/screen-blanking explicitly, it is not off by default here.** Confirmed
+live: this X11 session shipped with `Standby: 600 Suspend: 600 Off: 600`
+(10-minute screen-off timers) still active - unlike Wayland/Labwc, which
+(per step 5 below) genuinely does default to blanking disabled. Skipping
+this step means the kiosk goes dark after 10 idle minutes with nothing
+obviously wrong - it's still running, still responding, the screen is just
+off:
 
 ```ini
 [Unit]
@@ -158,6 +165,9 @@ User=<your-username>
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/<your-username>/.Xauthority
 ExecStartPre=/bin/sleep 5
+ExecStartPre=/usr/bin/xset s off
+ExecStartPre=/usr/bin/xset s noblank
+ExecStartPre=/usr/bin/xset -dpms
 ExecStart=/usr/bin/chromium \
   --kiosk "https://roost.yourdomain.com/?display=1&token=<long-token>" \
   --ozone-platform=x11 \
@@ -297,13 +307,21 @@ Notes specific to this path:
 ## 5. Keep the screen from sleeping
 
 Raspberry Pi OS will blank the screen after inactivity by default - bad for
-a wall display. If you're on the X11 desktop (older releases), add to the
-same service (or a small autostart script run before Chromium):
+a wall display. If you're on X11 (the touchscreen-recommended path, or any
+older release), step 4's service already includes this as `ExecStartPre`
+lines - if you skipped ahead or wrote your own service, add these:
 
 ```bash
 xset s off
 xset s noblank
 xset -dpms
+```
+
+Confirm it actually took (found and fixed live: DPMS's default 10-minute
+timers were still active on a freshly-switched X11 session until this ran):
+
+```bash
+DISPLAY=:0 xset -q | grep -A3 DPMS   # "DPMS is Disabled" is what you want
 ```
 
 On the newer Wayland-based desktop (Wayfire/Labwc), there's no `xset`
