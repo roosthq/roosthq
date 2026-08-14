@@ -197,7 +197,12 @@ export class RewardGamesService {
     if (picked.kind === 'STREAK_FREEZE') {
       const amount = picked.min + Math.floor(Math.random() * (picked.max - picked.min + 1));
       await this.prisma.rewardGame.update({ where: { id: game.id }, data: { spunAt: new Date(), amount, wonKind: 'STREAK_FREEZE' } });
-      await this.streakFreeze.grant(game.userId, amount);
+      await this.streakFreeze.grant(game.userId, amount, {
+        reason: game.reason,
+        createdById: game.userId,
+        refId: game.refId ?? undefined,
+        type: 'GAME',
+      });
       this.displayEvents.publish(game.familyId, { type: 'tokens' });
       return { wonKind: 'STREAK_FREEZE' as const, amount, min: picked.min, max: picked.max, reason: game.reason };
     }

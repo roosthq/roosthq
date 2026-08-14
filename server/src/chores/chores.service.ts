@@ -490,7 +490,10 @@ export class ChoresService {
         );
       } else if (freezeOn && inst.chore.assignees.length === 1) {
         const assigneeId = inst.chore.assignees[0].userId;
-        const { consumed, remaining } = await this.streakFreeze.consumeOne(assigneeId);
+        const { consumed, remaining } = await this.streakFreeze.consumeOne(assigneeId, {
+          reason: `Streak freeze used on "${inst.chore.title}"`,
+          refId: inst.id,
+        });
         if (consumed) {
           await this.notifications.create(
             inst.chore.familyId,

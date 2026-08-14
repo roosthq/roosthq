@@ -359,6 +359,8 @@ model User {
   createdChores         Chore[]              @relation("ChoreCreatedBy")
   ledgerEntries         TokenLedger[]        @relation("LedgerUser")
   ledgerCreated         TokenLedger[]        @relation("LedgerCreatedBy")
+  streakFreezeLedger        StreakFreezeLedger[] @relation("StreakFreezeLedgerUser")
+  streakFreezeLedgerCreated StreakFreezeLedger[] @relation("StreakFreezeLedgerCreatedBy")
   prizeAssigns          PrizeAssignment[]
   redemptions           Redemption[]
   createdPrizes         Prize[]              @relation("PrizeCreatedBy")
@@ -654,6 +656,34 @@ model TokenLedger {
   createdBy User @relation("LedgerCreatedBy", fields: [createdById], references: [id])
 
   @@index([userId])
+}
+
+// Audit log for User.bonusStreakFreezes (the person-level bank - see
+// StreakFreezeService) ONLY - the per-chore Chore.streakFreezes bank's own
+// earn/use events stay notification-only (unchanged), since this bank is the
+// one that previously had no durable record at all beyond a POST response
+// nobody could look back at.
+model StreakFreezeLedger {
+  id          String                 @id @default(cuid())
+  userId      String
+  delta       Int // positive = granted/earned, negative = used/taken back
+  reason      String
+  type        StreakFreezeLedgerType
+  refId       String? // AwardGrant / RewardGame / ChoreInstance id
+  createdById String
+  createdAt   DateTime               @default(now())
+
+  user      User @relation("StreakFreezeLedgerUser", fields: [userId], references: [id], onDelete: Cascade)
+  createdBy User @relation("StreakFreezeLedgerCreatedBy", fields: [createdById], references: [id])
+
+  @@index([userId])
+}
+
+enum StreakFreezeLedgerType {
+  MANUAL // adult manual give/take
+  AWARD // granted (or clawed back) alongside an Award
+  GAME // won from a reward game
+  CHORE_USED // consumed to protect a single-assignee chore's streak
 }
 
 // ---------- Rules ----------

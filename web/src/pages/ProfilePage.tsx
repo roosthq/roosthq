@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
-import TokenBadge from '../TokenBadge';
 import LevelBadge from '../LevelBadge';
 import { useDialog } from '../Dialog';
 import { formatDate } from '../dateFormat';
@@ -132,13 +131,14 @@ export default function ProfilePage({
   const [freezeDelta, setFreezeDelta] = useState(0);
   const [freezeReason, setFreezeReason] = useState('');
 
-  // Purchase history is a plain browsable list - nothing else on this page
-  // does math over it, so it gets real pagination. Token history below is
-  // different: earned/spent/choresDone/the sparkline all derive from that
-  // SAME array, so paginating it would make those totals visibly incomplete
-  // the moment there's a "Load more" to click - it stays a single larger
-  // (take=200) fetch instead, in the main refresh() below.
-  const redemptionsPage = usePaginatedList<Redemption>((skip) => api.redemptions({ userId: targetId, skip }), [targetId]);
+  // The merged "what happened" timeline (tokens, awards, purchases, streak
+  // freezes) - a plain browsable list, nothing else on this page does math
+  // over it, so it gets real pagination. `ledger` below is different:
+  // earned/spent/choresDone/the sparkline all derive from that SAME array,
+  // so paginating IT would make those totals visibly incomplete the moment
+  // there's a "Load more" to click - it stays a single larger (take=200)
+  // fetch instead, in the main refresh() below.
+  const activityPage = usePaginatedList<ActivityEntry>((skip) => api.activity(targetId, skip), [targetId]);
 
   const refresh = useCallback(async () => {
     const [b, l] = await Promise.all([api.tokenBalance(targetId), api.tokenLedger(targetId, undefined, 0, 200)]);
@@ -205,6 +205,7 @@ export default function ProfilePage({
     setDelta(0);
     setReason('');
     await refresh();
+    await activityPage.reload();
   }
 
   async function adjustFreeze(sign: 1 | -1) {
@@ -213,13 +214,23 @@ export default function ProfilePage({
     setFreezeDelta(0);
     setFreezeReason('');
     await refresh();
+    await activityPage.reload();
   }
 
-  async function deleteEntry(l: LedgerEntry) {
-    if (!(await confirm(`Delete "${l.reason}" (${l.delta >= 0 ? '+' : ''}${l.delta})? This can't be undone.`, { danger: true, confirmLabel: 'Delete' })))
+  // Only ever offered on a TOKEN_* row (see the "isFamilyManager &&" gate
+  // below) - the real TokenLedger id is everything after the first ':' in
+  // the merged row's own "token:<id>" key.
+  async function deleteActivityEntry(a: ActivityEntry) {
+    if (
+      !(await confirm(`Delete "${a.label}" (${(a.amount ?? 0) >= 0 ? '+' : ''}${a.amount})? This can't be undone.`, {
+        danger: true,
+        confirmLabel: 'Delete',
+      }))
+    )
       return;
-    await api.deleteLedgerEntry(l.id);
+    await api.deleteLedgerEntry(a.id.slice(a.id.indexOf(':') + 1));
     await refresh();
+    await activityPage.reload();
   }
 
   return (
@@ -456,55 +467,50 @@ export default function ProfilePage({
         </section>
       )}
 
-      {!tokensOff && (
-        <section className="mt-6">
-          <h3 className="text-sm font-semibold">{tokenName} history</h3>
-          <ul className="mt-2 space-y-1 text-sm">
-            {ledger.map((l) => (
-              <li key={l.id} className="flex items-center justify-between gap-2 border-b py-1">
-                <span className="min-w-0 flex-1 break-words">
-                  {l.reason} <span className="text-xs text-slate-400">({l.type.toLowerCase()})</span>
-                  {l.createdByName && <span className="text-xs text-slate-400"> · by {l.createdByName}</span>}
-                </span>
-                <span className="flex shrink-0 items-center gap-3">
-                  <span className={`flex items-center gap-1 font-medium ${l.delta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    <LucideIcon name={tokenIcon} size={14} />
-                    {l.delta >= 0 ? '+' : ''}
-                    {l.delta}
+      <section className="mt-6">
+        <h3 className="text-sm font-semibold">History</h3>
+        <p className="mt-0.5 text-xs text-slate-400">Everything that's happened - tokens, awards, purchases, and streak freezes, together.</p>
+        <ul className="mt-2 space-y-1 text-sm">
+          {activityPage.items.map((a) => (
+            <li key={a.id} className="flex items-center gap-3 border-b py-1.5">
+              {/* Left column: what kind of thing this is. */}
+              <span className="flex w-6 shrink-0 items-center justify-center">
+                {a.kind === 'AWARD_BADGE' ? (
+                  <AwardIcon icon={a.icon ?? null} size={18} />
+                ) : a.kind === 'REDEMPTION' ? (
+                  <LucideIcon name="shopping-bag" size={18} />
+                ) : a.kind.startsWith('FREEZE_') ? (
+                  <LucideIcon name="snowflake" slot="badge.streakFreeze" size={18} />
+                ) : (
+                  <LucideIcon name={tokenIcon} size={18} />
+                )}
+              </span>
+              <span className="min-w-0 flex-1 break-words">
+                {a.label}
+                {a.createdByName && <span className="text-xs text-slate-400"> · by {a.createdByName}</span>}
+                {a.detail && <span className="block text-xs text-slate-400">"{a.detail}"</span>}
+              </span>
+              <span className="flex shrink-0 items-center gap-3">
+                {a.amount !== undefined && (
+                  <span className={`flex items-center gap-1 font-medium ${a.amount >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {a.amountUnit === 'FREEZE' ? <LucideIcon name="snowflake" size={14} /> : <LucideIcon name={tokenIcon} size={14} />}
+                    {a.amount >= 0 ? '+' : ''}
+                    {a.amount}
                   </span>
-                  <span className="text-xs text-slate-400">{formatDate(l.createdAt)}</span>
-                  {isFamilyManager && (
-                    <button onClick={() => deleteEntry(l)} className="btn-delete rounded px-2 py-0.5 text-xs">
-                      Delete
-                    </button>
-                  )}
-                </span>
-              </li>
-            ))}
-            {ledger.length === 0 && <li className="text-slate-400">No activity yet.</li>}
-          </ul>
-        </section>
-      )}
-
-      {!tokensOff && (
-        <section className="mt-6">
-          <h3 className="text-sm font-semibold">Purchase history</h3>
-          <ul className="mt-2 space-y-1 text-sm">
-            {redemptionsPage.items.map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1">
-                <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
-                <span className="flex shrink-0 items-center gap-2 text-xs text-slate-400">
-                  <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
-                  {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
-                  {r.approvedByUser && ` by ${r.approvedByUser.displayName}`}
-                </span>
-              </li>
-            ))}
-            {redemptionsPage.items.length === 0 && !redemptionsPage.loading && <li className="text-slate-400">No purchases yet.</li>}
-          </ul>
-          <LoadMoreButton hasMore={redemptionsPage.hasMore} loading={redemptionsPage.loadingMore} onClick={redemptionsPage.loadMore} />
-        </section>
-      )}
+                )}
+                <span className="text-xs text-slate-400">{formatDate(a.createdAt)}</span>
+                {isFamilyManager && a.kind.startsWith('TOKEN_') && (
+                  <button onClick={() => deleteActivityEntry(a)} className="btn-delete rounded px-2 py-0.5 text-xs">
+                    Delete
+                  </button>
+                )}
+              </span>
+            </li>
+          ))}
+          {activityPage.items.length === 0 && !activityPage.loading && <li className="text-slate-400">No activity yet.</li>}
+        </ul>
+        <LoadMoreButton hasMore={activityPage.hasMore} loading={activityPage.loadingMore} onClick={activityPage.loadMore} />
+      </section>
     </div>
   );
 }

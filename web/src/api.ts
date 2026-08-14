@@ -720,6 +720,23 @@ export interface LedgerEntry {
   createdByName?: string;
 }
 
+// One row of the merged profile timeline (tokens + awards + purchases +
+// streak freezes) - see TokensService.activity. `kind` picks the left-column
+// icon client-side: TOKEN_* uses the family's own token icon, AWARD_BADGE
+// uses that award's own icon (carried in `icon` below), REDEMPTION and
+// FREEZE_* get a fixed icon each.
+export interface ActivityEntry {
+  id: string; // "<source>:<rowId>" - a real deletable TokenLedger row's id is everything after the first ':'
+  kind: string;
+  label: string;
+  detail?: string | null;
+  icon?: string | null;
+  amount?: number;
+  amountUnit?: 'TOKENS' | 'FREEZE';
+  createdAt: string;
+  createdByName?: string;
+}
+
 // Same shape as ImageCropper's CropRect - duplicated here (rather than
 // imported) so this file stays free of any React-component dependency.
 export interface CropRect {
@@ -1083,6 +1100,11 @@ export const api = {
   adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
     req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
   deleteLedgerEntry: (id: string) => req(`/tokens/ledger/${id}`, { method: 'DELETE' }),
+  activity: (userId?: string, skip = 0, take = 50) => {
+    const sp = new URLSearchParams({ skip: String(skip), take: String(take) });
+    if (userId) sp.set('userId', userId);
+    return req<{ items: ActivityEntry[]; hasMore: boolean }>(`/tokens/activity?${sp}`);
+  },
 
   locations: (kioskToken?: string) => req<FamilyLocation[]>('/locations', undefined, kioskToken),
   createLocation: (name: string) => req<FamilyLocation>('/locations', { method: 'POST', body: JSON.stringify({ name }) }),

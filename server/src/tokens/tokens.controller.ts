@@ -26,6 +26,12 @@ export class TokensController {
     return this.tokens.ledger(u.familyId, u.userId, userId ?? u.userId, p.skip, p.take);
   }
 
+  @Get('activity')
+  activity(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.tokens.activity(u.familyId, u.userId, userId ?? u.userId, p.skip, p.take);
+  }
+
   @Delete('ledger/:id')
   deleteLedgerEntry(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.tokens.deleteLedgerEntry(u.familyId, u.userId, id);

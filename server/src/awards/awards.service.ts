@@ -276,7 +276,14 @@ export class AwardsService {
     }
     // Not gated by tokensDisabled - freezes aren't tokens, and a family that
     // disabled tokens for someone hasn't necessarily opted them out of this.
-    if (streakFreezeValue > 0) await this.streakFreeze.grant(dto.userId, streakFreezeValue);
+    if (streakFreezeValue > 0) {
+      await this.streakFreeze.grant(dto.userId, streakFreezeValue, {
+        reason: `Award: ${award.name}`,
+        createdById: actorId,
+        refId: grant.id,
+        type: 'AWARD',
+      });
+    }
     // Bonus wheel / reward game attached to this award: server picks the
     // outcome (client presentations are pure theater landing on it) - but
     // nothing is banked here: it's QUEUED for the recipient to play on their
@@ -407,7 +414,13 @@ export class AwardsService {
     // Freezes aren't part of the removeTokens checkbox (that UI only ever
     // promised to leave TOKENS alone) - always clawed back on removal, same
     // as the badge itself always goes away regardless of that checkbox.
-    if (grant.streakFreezeValue > 0) await this.streakFreeze.take(grant.userId, grant.streakFreezeValue);
+    if (grant.streakFreezeValue > 0) {
+      await this.streakFreeze.take(grant.userId, grant.streakFreezeValue, {
+        reason: `Removed award: ${grant.award.name}`,
+        createdById: actorId,
+        refId: grant.id,
+      });
+    }
     await this.prisma.awardGrant.delete({ where: { id: grantId } });
     // The "you got an award!" / "go spin your wheel" feed entries deep-link to
     // something that no longer exists - take them with it.
