@@ -76,6 +76,21 @@ export default function Display() {
   const [range, setRange] = useState<{ start: string; end: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Hiding the cursor should only ever happen on the real touchscreen, never
+  // when previewing ?display=1 from a normal mouse-driven desktop/laptop -
+  // see index.css's own note on .kiosk-mode. That used to be a
+  // @media (hover: none) and (pointer: coarse) CSS gate, which is the
+  // textbook-correct way to ask this - except this specific Linux/Chromium
+  // build reports (pointer: coarse) as false and (hover: hover) as true even
+  // on the kiosk's own real touchscreen (confirmed live via CDP against the
+  // actual device: matchMedia said mouse, navigator.maxTouchPoints correctly
+  // said 10). The media feature is unreliable here; maxTouchPoints isn't -
+  // checking that in JS instead and driving the cursor rule off a class
+  // instead of a media query.
+  useEffect(() => {
+    if (navigator.maxTouchPoints > 0) document.documentElement.classList.add('touch-device');
+  }, []);
+
   const [members, setMembers] = useState<Member[]>([]);
   // Family-wide balances for the idle profile picker - display-token-scoped
   // (DisplayController.balances), no signed-in profile needed, same as

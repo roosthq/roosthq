@@ -1120,15 +1120,18 @@ select option {
 }
 /* Hiding the cursor is different - that one broke previewing the kiosk on a
    real desktop/laptop (Casey's own use case: checking ?display=1 in regular
-   Chrome, mouse and hover both very much present). Gated behind
-   (hover: none) and (pointer: coarse) - true for a real touchscreen's
-   finger input, false for any mouse-driven device even when it's rendering
-   the exact same .kiosk-mode markup. */
-@media (hover: none) and (pointer: coarse) {
-  .kiosk-mode,
-  .kiosk-mode * {
-    cursor: none !important;
-  }
+   Chrome, mouse and hover both very much present). This was
+   @media (hover: none) and (pointer: coarse) - the textbook-correct CSS way
+   to ask "is this a touch-primary device" - except confirmed live (CDP
+   against the actual kiosk hardware) that this specific Linux/Chromium build
+   reports (pointer: coarse) as false and (hover: hover) as true even on the
+   real touchscreen. The media feature is unreliable on this platform;
+   Display.tsx checks navigator.maxTouchPoints in JS instead (which correctly
+   read 10) and toggles this class, rather than depending on a media query
+   that doesn't reflect the real hardware here. */
+.touch-device .kiosk-mode,
+.touch-device .kiosk-mode * {
+  cursor: none !important;
 }
 
 /* Printable Agenda (#14): any page can opt UI chrome out of printing with
