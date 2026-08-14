@@ -23,6 +23,7 @@ function renderInSet(key: string, set: string, size: number | string, className:
     <img
       src={`/icons/${SET_TO_FOLDER[resolvedSet]}/${key}.${ext}`}
       alt=""
+      loading="lazy"
       className={className}
       style={{ width: px, height: px, display: 'inline-block', objectFit: 'contain' }}
       draggable={false}
