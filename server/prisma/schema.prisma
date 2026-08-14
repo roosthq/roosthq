@@ -116,37 +116,44 @@ model Family {
   announcements   Announcement[]
   notifications   Notification[]
   customSounds    CustomSound[]
-  iconSettings    FamilyIconSetting[]
+  slotIcons       FamilySlotIcon[]
 }
 
 // ---------- Icons ----------
-// Which icon SET (NOTO | TWEMOJI | FLUENT_3D - see ICON_SETS in
-// web/src/icons/catalog.ts) a given content icon-key renders with. Two
-// tiers, same shape, resolved family -> app -> hardcoded NOTO default (see
-// IconsService.effective): AppIconSetting is the instance-owner's
-// platform-wide default (no row = NOTO); FamilyIconSetting is a per-family
-// override on top of that (no row = inherit the app/platform default).
-// iconKey is a free string validated against ICON_KEYS server-side
-// (common/icons.ts mirrors the catalog, same pattern as SOUND_SLOTS/
-// FEATURE_TREE) rather than an enum, so adding a new pickable icon later
-// never needs a migration.
+// A "slot" is a named UI position (nav.calendar, kiosk.giveAward,
+// notif.AWARD_GRANTED, ... - see ICON_SLOTS in web/src/icons/slots.ts) that
+// normally renders its own hardcoded default icon (in Noto). These two
+// tables let it render a COMPLETELY DIFFERENT catalog icon instead - not
+// just a different art style of the same icon - because that's the actual
+// ask: "if I want the calendar icon to be a smiley face, I should be able
+// to do that." iconKey is the catalog concept actually shown (validated
+// against ICON_KEYS); iconSet is which style it renders in (NOTO | TWEMOJI |
+// FLUENT_3D | LUCIDE). Two tiers, resolved family -> app -> the slot's own
+// hardcoded default (see IconsService.effective) - AppSlotIcon is the
+// instance-owner's platform-wide pick, FamilySlotIcon a per-family override
+// on top. slotId/iconKey are free strings validated server-side
+// (common/icons.ts mirrors both lists, same pattern as SOUND_SLOTS/
+// FEATURE_TREE) rather than enums, so adding a new slot or catalog icon
+// later never needs a migration.
 
-model AppIconSetting {
-  iconKey   String   @id
+model AppSlotIcon {
+  slotId    String   @id
+  iconKey   String
   iconSet   String
   updatedAt DateTime @updatedAt
 }
 
-model FamilyIconSetting {
+model FamilySlotIcon {
   id        String   @id @default(cuid())
   familyId  String
+  slotId    String
   iconKey   String
   iconSet   String
   updatedAt DateTime @updatedAt
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
-  @@unique([familyId, iconKey])
+  @@unique([familyId, slotId])
   @@index([familyId])
 }
 

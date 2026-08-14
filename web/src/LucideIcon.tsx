@@ -1,64 +1,68 @@
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import { findIcon } from './icons/catalog';
-import { useEffectiveIconSet } from './icons/settingsStore';
+import { findIcon, type IconSetName } from './icons/catalog';
+import { useSlotPick } from './icons/settingsStore';
 
-// Renders an icon stored as a plain Lucide name string (Family.tokenIcon,
-// Award.icon, Countdown.emoji - all migrated off literal emoji characters,
-// see the migration note in server/README or ask about roosthq-icon-
-// migration). DynamicIcon lazy-imports just the one icon actually needed
-// instead of bundling all ~2000 Lucide icons up front - the tradeoff is an
-// async load (briefly blank, then the icon pops in), same as any lazy image.
+const SET_TO_FOLDER: Record<string, string> = { NOTO: 'noto', TWEMOJI: 'twemoji', FLUENT_3D: 'fluent3d' };
+
+function renderInSet(key: string, set: string, size: number | string, className: string | undefined) {
+  const entry = findIcon(key);
+  if (set === 'LUCIDE' || !entry) {
+    return <DynamicIcon name={(entry?.lucideFallback ?? key) as IconName} size={size} className={className} />;
+  }
+  // The requested style might genuinely not exist for this concept (Noto
+  // ships no country flags at all; a few brand-new emoji aren't in Twemoji
+  // yet) - fall through the other real sets before giving up on an image
+  // entirely, so a picked-but-unavailable style never renders broken.
+  const resolvedSet = entry.available.includes(set as IconSetName) ? set : entry.available[0];
+  if (!resolvedSet) {
+    return <DynamicIcon name={(entry.lucideFallback ?? key) as IconName} size={size} className={className} />;
+  }
+  const ext = resolvedSet === 'FLUENT_3D' ? entry.fluentExt : 'svg';
+  const px = typeof size === 'number' ? `${size}px` : size;
+  return (
+    <img
+      src={`/icons/${SET_TO_FOLDER[resolvedSet]}/${key}.${ext}`}
+      alt=""
+      className={className}
+      style={{ width: px, height: px, display: 'inline-block', objectFit: 'contain' }}
+      draggable={false}
+    />
+  );
+}
+
+// Renders an icon. `name` is either a plain catalog/Lucide key (legacy
+// behavior: falls back to plain Lucide if it's not a real catalog key -
+// DynamicIcon itself no-ops on an unrecognized name rather than throwing,
+// see the old doc comment history) or an explicit "SET:key" compound
+// (e.g. "TWEMOJI:party-popper") written by the enhanced IconPicker for a
+// per-instance field (Award.icon/Family.tokenIcon/Countdown.emoji) where the
+// user picked a specific style rather than "use the default" - that always
+// wins over everything else, it's an explicit per-instance choice.
 //
-// `name` is untrusted-ish (comes from the DB, and a pre-migration row or a
-// still-unmigrated custom value could be almost anything) - DynamicIcon
-// itself already no-ops (renders nothing) on an unrecognized name rather
-// than throwing, so a stray/legacy value degrades to "no icon shown", not a
-// crash. That's acceptable here: every write path (IconPicker) only ever
-// writes a name this file's own lucideData.ts curated list offers, so an
-// unrecognized value only happens for data this migration didn't reach.
-//
-// Icon-overhaul (2026-08): every name that's ALSO in the icons/catalog.ts
-// curated list (the same ~200 names, since the catalog reuses lucideData.ts
-// verbatim) now renders through whichever colorful set (Noto/Twemoji/
-// Fluent-3D) the family (or the platform default) has picked for that
-// concept, defaulting to Noto - see IconsService.effective and
-// icons/settingsStore.ts. A name outside the catalog (a hand-typed exact
-// Lucide name via IconPicker's manual field, or a pure-chrome name that was
-// never part of the curated list) always renders the plain Lucide glyph,
-// unaffected - this is automatic from the catalog membership check, not a
-// per-call-site flag, so nothing else in the app needed to change.
+// `slot` (icon-overhaul, 2026-08) opts a call site into the family/app slot
+// override system (Settings -> Icons): if the family or platform owner has
+// picked a DIFFERENT icon+style for this named UI position, that renders
+// instead of `name` - see icons/slots.ts for the id list. Omit `slot`
+// for anything that isn't a customizable position (a per-instance field
+// already covered by its own picker, or a name outside the slot catalog).
 export default function LucideIcon({
   name,
+  slot,
   size = 20,
   className,
 }: {
   name: string;
+  slot?: string;
   size?: number | string;
   className?: string;
 }) {
-  const entry = findIcon(name);
-  // useEffectiveIconSet always runs (React hook rules) - harmless no-op
-  // lookup when `name` isn't a catalog key at all.
-  const resolvedSet = useEffectiveIconSet(name);
+  const compound = /^(LUCIDE|NOTO|TWEMOJI|FLUENT_3D):(.+)$/i.exec(name);
+  if (compound) return renderInSet(compound[2], compound[1].toUpperCase(), size, className);
 
-  if (entry && resolvedSet && resolvedSet !== 'LUCIDE') {
-    const ext = resolvedSet === 'FLUENT_3D' ? 'png' : 'svg';
-    const folder = resolvedSet === 'NOTO' ? 'noto' : resolvedSet === 'TWEMOJI' ? 'twemoji' : 'fluent3d';
-    const px = typeof size === 'number' ? `${size}px` : size;
-    return (
-      <img
-        src={`/icons/${folder}/${entry.key}.${ext}`}
-        alt=""
-        className={className}
-        style={{ width: px, height: px, display: 'inline-block', objectFit: 'contain' }}
-        draggable={false}
-      />
-    );
-  }
+  const slotPick = useSlotPick(slot);
+  if (slotPick) return renderInSet(slotPick.iconKey, slotPick.iconSet, size, className);
 
-  // Pre-load flash, explicit 'LUCIDE' style, or not a catalog key at all -
-  // plain Lucide glyph. entry?.lucideFallback covers the 2 catalog keys
-  // (slot-machine, plinko-ball) that aren't themselves real Lucide names.
-  const lucideName = entry?.lucideFallback ?? name;
-  return <DynamicIcon name={lucideName as IconName} size={size} className={className} />;
+  if (findIcon(name)) return renderInSet(name, 'NOTO', size, className);
+
+  return <DynamicIcon name={name as IconName} size={size} className={className} />;
 }

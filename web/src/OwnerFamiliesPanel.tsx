@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ROLE_ICON, ROLE_LABEL, type AuditLogEntry, type FamilyInfo, type Member } from './api';
+import { api, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type AuditLogEntry, type FamilyInfo, type Member } from './api';
 import { useDialog } from './Dialog';
 import InviteLinkBox from './InviteLinkBox';
 import { formatDateTime } from './dateFormat';
@@ -330,7 +330,7 @@ export default function OwnerFamiliesPanel() {
                     {members?.map((m) => (
                       <li key={m.id} className="card-nested rounded-lg p-2 text-sm">
                         <div className="flex min-w-0 items-center gap-2">
-                          <LucideIcon name={ROLE_ICON[m.role]} size={14} />
+                          <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           <span className="min-w-0 flex-1 truncate font-medium">{m.displayName}</span>
                           {m.active === false && (
                             <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">

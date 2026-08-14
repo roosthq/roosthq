@@ -216,12 +216,20 @@ export const COLOR_THEMES: { id: string; label: string; swatch: string }[] = [
 
 // Shown next to a role anywhere it appears - profile switchers, the family
 // member list in Settings, invite rows. Values are Lucide icon names (see
-// LucideIcon.tsx), rendered via <LucideIcon name={ROLE_ICON[role]}/>.
+// LucideIcon.tsx), rendered via <LucideIcon name={ROLE_ICON[role]} slot={ROLE_SLOT[role]}/>
+// so a family/platform icon-slot override (Settings -> Icons) can replace it.
 export const ROLE_ICON: Record<string, string> = {
   OWNER: 'crown',
   FAMILY_MANAGER: 'key',
   ADULT: 'user',
   KID: 'baby',
+};
+
+export const ROLE_SLOT: Record<string, string> = {
+  OWNER: 'role.owner',
+  FAMILY_MANAGER: 'role.familyManager',
+  ADULT: 'role.adult',
+  KID: 'role.kid',
 };
 
 // Human-readable label for a role - needed anywhere a role gets displayed
@@ -483,15 +491,18 @@ export interface MintedInvite {
   token: string;
 }
 
-// Icon-overhaul (2026-08) - see server IconsService.effective. `effective` is
-// the fully-resolved render set for every catalog key (always complete -
-// falls back to NOTO for anything neither tier has overridden); `familySet`/
-// `appSet` are the raw override layers (only the keys each tier actually set)
-// so the Settings UI can show "inherited" vs "overridden" and reset one.
+// Icon-overhaul (2026-08) - see server IconsService.effective. Sparse: a slot
+// with no entry means "render its own hardcoded default." `familySlots`/
+// `appSlots` are the raw override layers so the Settings UI can show
+// "inherited" vs "overridden" and reset one.
+export interface SlotPick {
+  iconKey: string;
+  iconSet: string;
+}
 export interface IconSettingsResponse {
-  effective: Record<string, string>;
-  familySet: Record<string, string>;
-  appSet: Record<string, string>;
+  effective: Record<string, SlotPick>;
+  familySlots: Record<string, SlotPick>;
+  appSlots: Record<string, SlotPick>;
 }
 
 export interface FamilySettings {
@@ -1015,13 +1026,13 @@ export const api = {
 
   familySettings: (kioskToken?: string) => req<FamilySettings>('/family/settings', undefined, kioskToken),
 
-  // Icon-overhaul (2026-08): resolved render-set per icon-key, plus both raw
-  // override layers - see IconsService.effective server-side.
+  // Icon-overhaul (2026-08): sparse slot overrides, plus both raw layers -
+  // see IconsService.effective server-side.
   iconSettings: (kioskToken?: string) => req<IconSettingsResponse>('/icons/effective', undefined, kioskToken),
-  setFamilyIconSetting: (iconKey: string, iconSet: string | null) =>
-    req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(iconKey)}`, { method: 'PUT', body: JSON.stringify({ iconSet }) }),
-  setAppIconSetting: (iconKey: string, iconSet: string | null) =>
-    req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(iconKey)}`, { method: 'PUT', body: JSON.stringify({ iconSet }) }),
+  setFamilySlotIcon: (slotId: string, pick: SlotPick | null) =>
+    req<{ ok: boolean }>(`/icons/family/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) }),
+  setAppSlotIcon: (slotId: string, pick: SlotPick | null) =>
+    req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) }),
   updateFamilySettings: (data: {
     name?: string;
     tokenName?: string;

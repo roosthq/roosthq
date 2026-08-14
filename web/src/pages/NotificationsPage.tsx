@@ -5,28 +5,24 @@ import { api, DATA_REFRESH_EVENT, NOTIFICATIONS_CHANGED_EVENT, type Me, type App
 import { formatDateTime } from '../dateFormat';
 import LucideIcon from '../LucideIcon';
 
-// Lucide icon names - rendered via <LucideIcon/>. CHORE_REJECTED and
-// REDEMPTION_REJECTED are deliberately absent (no good "undo/return" icon on
-// the whitelist) and fall back to the raw emoji in RAW_TYPE_ICON below.
+// Catalog keys (Lucide names or 'emoji_<codepoints>' - see icons/catalog.ts),
+// rendered via <LucideIcon slot={`notif.${type}`}/> so each notification
+// type is independently re-pickable (Settings -> Icons).
 const TYPE_ICON: Record<string, string> = {
   CHORE_PENDING: 'hourglass',
   CHORE_APPROVED: 'check-circle',
+  CHORE_REJECTED: 'emoji_21a9_fe0f', // "right arrow curving left" - undo/return
   CHORE_MISSED: 'alert-triangle',
   CHORE_DUE_SOON: 'alarm-clock',
   STREAK_BONUS: 'flame',
   REDEMPTION_REQUESTED: 'gift',
   REDEMPTION_FULFILLED: 'check-circle',
+  REDEMPTION_REJECTED: 'emoji_21a9_fe0f',
   PRIZE_SUGGESTED: 'lightbulb',
   CALENDAR_EVENT_ADDED: 'calendar',
   CALENDAR_EVENT_REMINDER: 'alarm-clock',
   AWARD_GRANTED: 'trophy',
   GAME_PRIZE_WON: 'gift', // was missing entirely - fell back to the generic 🔔 default
-};
-
-// Raw emoji for types that don't get a Lucide icon, plus the generic fallback.
-const RAW_TYPE_ICON: Record<string, string> = {
-  CHORE_REJECTED: '↩️',
-  REDEMPTION_REJECTED: '↩️',
 };
 
 // Push/email notification prefs moved to My Account - this page is the
@@ -111,7 +107,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
               }`}
             >
               <span className="flex text-lg">
-                {TYPE_ICON[n.type] ? <LucideIcon name={TYPE_ICON[n.type]} size={18} /> : (RAW_TYPE_ICON[n.type] ?? '🔔')}
+                {TYPE_ICON[n.type] ? <LucideIcon name={TYPE_ICON[n.type]} slot={`notif.${n.type}`} size={18} /> : '🔔'}
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block break-words text-sm">

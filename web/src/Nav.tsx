@@ -175,20 +175,20 @@ export default function Nav({
   const bottomTabs = (
     <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
       <NavLink to="/" end className={tabCls}>
-        <LucideIcon name="calendar" size={20} />Calendar
+        <LucideIcon name="calendar" slot="nav.calendar" size={20} />Calendar
       </NavLink>
       {choresOn && (
         <NavLink to="/chores" className={tabCls}>
-          <LucideIcon name="check-square" size={20} />{chorePlural}
+          <LucideIcon name="check-square" slot="nav.chores" size={20} />{chorePlural}
         </NavLink>
       )}
       {storeOn && (
         <NavLink to="/store" className={tabCls}>
-          <LucideIcon name="shopping-bag" size={20} />Store
+          <LucideIcon name="shopping-bag" slot="nav.store" size={20} />Store
         </NavLink>
       )}
       <NavLink to="/profile" className={tabCls}>
-        <LucideIcon name="user" size={20} />Profiles
+        <LucideIcon name="user" slot="nav.profiles" size={20} />Profiles
       </NavLink>
     </div>
   );

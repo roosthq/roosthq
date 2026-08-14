@@ -688,7 +688,7 @@ export function AwardForm({
                         className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === gt ? 'ring-2 ring-slate-800' : ''}`}
                       >
                         <input type="radio" className="sr-only" checked={gameType === gt} onChange={() => setGameType(gt)} />
-                        <LucideIcon name={GAME_TYPE_META[gt].icon} size={20} />
+                        <LucideIcon name={GAME_TYPE_META[gt].icon} slot={`game.${gt}`} size={20} />
                         <span className="font-medium">{GAME_TYPE_META[gt].label}</span>
                         <button
                           type="button"

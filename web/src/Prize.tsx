@@ -9,9 +9,9 @@ import { formatDate } from './dateFormat';
 // (instead of Event showing a tag and Item showing nothing) so card heights
 // line up. `icon` is a Lucide icon name (see LucideIcon.tsx) - render via
 // <LucideIcon name={TYPE_TAG[type].icon}/>, not as raw text.
-export const TYPE_TAG: Record<StorePrize['type'], { icon: string; label: string; className: string }> = {
-  ITEM: { icon: 'gift', label: 'Item', className: 'text-slate-500' },
-  EVENT: { icon: 'ticket', label: 'Event', className: 'text-purple-500' },
+export const TYPE_TAG: Record<StorePrize['type'], { icon: string; slot: string; label: string; className: string }> = {
+  ITEM: { icon: 'gift', slot: 'prize.item', label: 'Item', className: 'text-slate-500' },
+  EVENT: { icon: 'ticket', slot: 'prize.event', label: 'Event', className: 'text-purple-500' },
 };
 
 // Downscale + re-encode client-side so an uploaded photo doesn't blow up the
@@ -165,7 +165,7 @@ export function PrizeDetailModal({
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <TokenBadge icon={tokenIcon} amount={prize.tokenCost} label={tokenName} size="lg" />
           <span className={`flex items-center gap-1 text-sm ${TYPE_TAG[prize.type].className}`}>
-            <LucideIcon name={TYPE_TAG[prize.type].icon} size={14} /> {TYPE_TAG[prize.type].label}
+            <LucideIcon name={TYPE_TAG[prize.type].icon} slot={TYPE_TAG[prize.type].slot} size={14} /> {TYPE_TAG[prize.type].label}
           </span>
           {prize.location && <span className="text-sm text-slate-400">📍 {prize.location.name}</span>}
           {prize.archived && <span className="text-sm font-medium text-amber-600">Archived</span>}

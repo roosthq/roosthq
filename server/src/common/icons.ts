@@ -1,55 +1,94 @@
-// Server-side mirror of the icon catalog in web/src/icons/catalog.ts - same
-// hand-kept-in-sync pattern as FEATURE_TREE (features.ts) and SOUND_SLOTS/
-// BUILTIN_SOUND_IDS (also this file's neighbors). This file only needs the
-// flat key/set lists to validate whatever gets written to AppIconSetting/
-// FamilyIconSetting - the actual asset paths and category grouping are a
-// client-rendering concern and live only in the web catalog.
-//
-// AUTO-GENERATED from catalog.ts's key list (196 entries: the curated
-// lucideData.ts picker library plus 2 reward-game-type-only concepts with
-// no real Lucide equivalent) - regenerate together if catalog.ts changes.
+// Server-side mirror of web/src/icons/catalog.ts + web/src/icons/slots.ts.
+// The catalog is ~1900 entries (curated Lucide names + the full non-skin-
+// toned Unicode emoji set) - too big to usefully duplicate as a literal
+// array here, and it doesn't need to be: every valid key has one of exactly
+// two shapes (a kebab-case Lucide name, or 'emoji_<hex>[_<hex>...]'), so a
+// regex captures the real constraint. Worst case for a garbage value here is
+// a 404'd image, not a security issue - this only ever feeds a static asset
+// path, never a query or a file-system path directly.
 import { ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
-export const ICON_SETS = ['NOTO', 'TWEMOJI', 'FLUENT_3D'] as const;
+export const ICON_SETS = ['LUCIDE', 'NOTO', 'TWEMOJI', 'FLUENT_3D'] as const;
 export type IconSetName = (typeof ICON_SETS)[number];
 
 export const DEFAULT_ICON_SET: IconSetName = 'NOTO';
 
-export const ICON_KEYS: string[] = [
-  'trophy', 'medal', 'award', 'ribbon', 'crown', 'star', 'sparkle', 'sparkles',
-  'flame', 'zap', 'dumbbell', 'thumbs-up', 'hand', 'handshake', 'heart', 'heart-handshake',
-  'party-popper', 'gift', 'rocket', 'rainbow', 'target', 'percent', 'check', 'check-check',
-  'check-circle', 'check-square', 'badge-check', 'diamond', 'smile', 'smile-plus', 'laugh', 'angry',
-  'frown', 'meh', 'baby', 'user', 'user-round', 'users', 'graduation-cap', 'ghost',
-  'skull', 'dog', 'cat', 'rabbit', 'bird', 'feather', 'fish', 'bug',
-  'turtle', 'snail', 'squirrel', 'paw-print', 'trees', 'flower', 'flower-2', 'sprout',
-  'leaf', 'sun', 'sunrise', 'sunset', 'cloud', 'cloud-sun', 'cloud-rain', 'cloud-lightning',
-  'snowflake', 'tornado', 'moon', 'mountain', 'mountain-snow', 'waves', 'apple', 'banana',
-  'cherry', 'grape', 'carrot', 'pizza', 'sandwich', 'beef', 'drumstick', 'salad',
-  'egg', 'croissant', 'cake', 'cookie', 'donut', 'ice-cream-cone', 'candy', 'popcorn',
-  'coffee', 'cup-soda', 'milk', 'utensils', 'utensils-crossed', 'volleyball', 'circle-dot', 'bike',
-  'footprints', 'gamepad', 'gamepad-2', 'joystick', 'dice-5', 'puzzle', 'palette', 'paintbrush',
-  'pencil', 'book-open', 'book', 'music', 'music-2', 'guitar', 'piano', 'mic',
-  'mic-2', 'clapperboard', 'drama', 'camera', 'telescope', 'microscope', 'flask-conical', 'car',
-  'bus', 'train', 'plane', 'ship', 'map', 'map-pin', 'map-pinned', 'compass',
-  'luggage', 'tent', 'umbrella', 'globe', 'home', 'house', 'school', 'hospital',
-  'church', 'building', 'building-2', 'landmark', 'warehouse', 'factory', 'broom', 'spray-can',
-  'droplet', 'washing-machine', 'shirt', 'trash-2', 'bed', 'sofa', 'shower-head', 'toilet',
-  'brush', 'shopping-cart', 'shopping-basket', 'shopping-bag', 'receipt', 'notebook-pen', 'clipboard-list', 'calendar',
-  'calendar-days', 'alarm-clock', 'hourglass', 'bell', 'lock', 'key', 'lightbulb', 'wrench',
-  'hammer', 'toolbox', 'package', 'package-2', 'ruler', 'calculator', 'tv', 'watch',
-  'smartphone', 'laptop', 'headphones', 'coins', 'banknote', 'wallet', 'gem', 'ticket',
-  'tickets', 'ferris-wheel', 'alert-triangle', 'help-circle', 'octagon-alert', 'ban', 'recycle', 'circle',
-  'activity', 'fan', 'slot-machine', 'plinko-ball',
-];
+const LUCIDE_KEY_RE = /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/;
+const EMOJI_KEY_RE = /^emoji_[0-9a-f]+(_[0-9a-f]+)*$/;
 
 export function isValidIconKey(key: unknown): key is string {
-  return typeof key === 'string' && ICON_KEYS.includes(key);
+  return typeof key === 'string' && key.length < 80 && (LUCIDE_KEY_RE.test(key) || EMOJI_KEY_RE.test(key));
 }
 
 export function isValidIconSet(set: unknown): set is IconSetName {
   return typeof set === 'string' && (ICON_SETS as readonly string[]).includes(set);
+}
+
+// Named UI positions - see web/src/icons/slots.ts (kept in sync by hand,
+// same convention as FEATURE_TREE/SOUND_SLOTS - this list is short enough
+// that literal duplication is the simplest correct option).
+export const ICON_SLOT_IDS: string[] = [
+  'nav.calendar',
+  'nav.chores',
+  'nav.store',
+  'nav.profiles',
+  'role.owner',
+  'role.familyManager',
+  'role.adult',
+  'role.kid',
+  'badge.level',
+  'badge.streak',
+  'chores.today',
+  'chores.bonusWheel',
+  'chores.packs',
+  'kiosk.giveAward',
+  'kiosk.calendarView',
+  'kiosk.tonight',
+  'kiosk.groceryCount',
+  'kiosk.rules',
+  'kiosk.stats',
+  'household.grocery',
+  'household.countdowns',
+  'household.announcements',
+  'household.dinnerMeal',
+  'household.dinnerRandom',
+  'search.chores',
+  'search.events',
+  'search.notifications',
+  'search.rules',
+  'search.prizes',
+  'search.awards',
+  'prize.item',
+  'prize.event',
+  'store.awardOnly',
+  'store.purchasable',
+  'notif.CHORE_PENDING',
+  'notif.CHORE_APPROVED',
+  'notif.CHORE_REJECTED',
+  'notif.CHORE_MISSED',
+  'notif.CHORE_DUE_SOON',
+  'notif.STREAK_BONUS',
+  'notif.REDEMPTION_REQUESTED',
+  'notif.REDEMPTION_FULFILLED',
+  'notif.REDEMPTION_REJECTED',
+  'notif.PRIZE_SUGGESTED',
+  'notif.CALENDAR_EVENT_ADDED',
+  'notif.CALENDAR_EVENT_REMINDER',
+  'notif.AWARD_GRANTED',
+  'notif.GAME_PRIZE_WON',
+  'game.WHEEL',
+  'game.MYSTERY_BOX',
+  'game.SCRATCH_CARD',
+  'game.SLOT_MACHINE',
+  'game.DICE_ROLL',
+  'game.COIN_FLIP',
+  'game.GIFT_BOX',
+  'game.PLINKO',
+];
+
+export function isValidSlotId(id: unknown): id is string {
+  return typeof id === 'string' && ICON_SLOT_IDS.includes(id);
 }
 
 export async function assertOwnerOrFM(prisma: PrismaService, userId: string) {

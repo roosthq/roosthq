@@ -5,6 +5,7 @@ import {
   choreClient,
   prizeClient,
   ROLE_ICON,
+  ROLE_SLOT,
   familyFeatureEnabled,
   type CalEvent,
   type FamilySettings,
@@ -752,7 +753,7 @@ export default function Display() {
                     }}
                     className="flex w-full items-center gap-1 rounded px-2 py-1.5 text-left hover:bg-slate-50"
                   >
-                    <LucideIcon name="trophy" size={14} /> Give award
+                    <LucideIcon name="trophy" slot="kiosk.giveAward" size={14} /> Give award
                   </button>
                 )}
                 {isAdult && famOn('tokens') && (
@@ -776,7 +777,7 @@ export default function Display() {
                 title="Calendar-focused"
                 className={`flex items-center gap-1 rounded px-2 py-1 ${layout === 'calendar' ? 'bg-slate-800 text-white' : 'hover:bg-slate-100'}`}
               >
-                <LucideIcon name="calendar" size={14} /> Calendar
+                <LucideIcon name="calendar" slot="kiosk.calendarView" size={14} /> Calendar
               </button>
               <button
                 onClick={() => setLayout('person')}
@@ -825,7 +826,7 @@ export default function Display() {
 
       {showAnnouncements && (household?.announcements.length ?? 0) > 0 && (
         <div className="mt-2 flex shrink-0 items-center gap-3 overflow-x-auto rounded-lg px-3 py-1.5 text-sm" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
-          <span className="shrink-0">📣</span>
+          <span className="shrink-0"><LucideIcon name="emoji_1f4e3" slot="household.announcements" size={16} /></span>
           {household!.announcements.map((a) => (
             <span key={a.id} className="shrink-0 whitespace-nowrap">
               {a.text}
@@ -842,7 +843,7 @@ export default function Display() {
               className="card-nested rounded-full px-3 py-1 hover:opacity-80"
               title="See the whole week's dinner plan"
             >
-              <LucideIcon name="utensils-crossed" size={14} className="inline -mt-0.5" /> Tonight:{' '}
+              <LucideIcon name="utensils-crossed" slot="kiosk.tonight" size={14} className="inline -mt-0.5" /> Tonight:{' '}
               <span className="font-semibold">
                 {todayMeal
                   ? todayMeal.isEatingOut
@@ -879,7 +880,7 @@ export default function Display() {
             })}
           {showGrocery && (household?.groceryOpen ?? 0) > 0 && (
             <span className="card-nested inline-flex items-center gap-1 rounded-full px-3 py-1">
-              <LucideIcon name="shopping-cart" size={14} /> {household!.groceryOpen} on the list
+              <LucideIcon name="shopping-cart" slot="kiosk.groceryCount" size={14} /> {household!.groceryOpen} on the list
             </span>
           )}
         </div>
@@ -966,11 +967,11 @@ export default function Display() {
                   <div className="flex flex-wrap gap-2">
                     {famOn('rules') && (
                     <button onClick={() => setKioskRulesOpen(true)} className="flex items-center gap-1.5 rounded border px-3 py-2 text-sm hover:bg-slate-50">
-                      <LucideIcon name="clipboard-list" size={16} /> Rules
+                      <LucideIcon name="clipboard-list" slot="kiosk.rules" size={16} /> Rules
                     </button>
                     )}
-                    <button onClick={() => setKioskStatsOpen(true)} className="rounded border px-3 py-2 text-sm hover:bg-slate-50">
-                      📊 My stats
+                    <button onClick={() => setKioskStatsOpen(true)} className="flex items-center gap-1.5 rounded border px-3 py-2 text-sm hover:bg-slate-50">
+                      <LucideIcon name="emoji_1f4ca" slot="kiosk.stats" size={16} /> My stats
                     </button>
                   </div>
                   {isAdult && kioskChoreClient && kioskPrizeClient && (
@@ -1022,7 +1023,7 @@ export default function Display() {
                       <Avatar name={m.displayName} src={m.avatar} big />
                       <span className="min-w-0 flex-1">
                         <div className="flex items-center gap-1 truncate text-sm font-medium">
-                          <LucideIcon name={ROLE_ICON[m.role]} size={14} />
+                          <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           {m.displayName}
                         </div>
                         {/* Reserve this line's height for every row, PIN or not, so rows stay aligned. */}

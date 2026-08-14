@@ -141,7 +141,7 @@ export default function DinnerWeekModal({
       header={
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3 className="flex items-center gap-2 text-2xl font-semibold">
-            <LucideIcon name="utensils-crossed" size={24} /> Dinner plan
+            <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={24} /> Dinner plan
           </h3>
           <div className="flex items-center gap-2 text-base">
             <button onClick={() => navigate(-1)} className="rounded border px-3 py-2 hover:bg-slate-50">
@@ -188,25 +188,25 @@ export default function DinnerWeekModal({
                     title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
                     className={`shrink-0 rounded px-1 text-sm ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
                   >
-                    <LucideIcon name="utensils-crossed" size={16} />
+                    <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={16} />
                   </button>
                 )}
               </div>
               {meal?.isEatingOut ? (
                 spinningKey === k ? (
                   <div className="mt-1.5 flex min-h-[2.75rem] items-center gap-1.5 px-2 py-2 text-left text-lg leading-snug">
-                    <LucideIcon name="dice-5" size={18} /> <span className="text-slate-400">{spinDisplay || '…'}</span>
+                    <LucideIcon name="dice-5" slot="household.dinnerRandom" size={18} /> <span className="text-slate-400">{spinDisplay || '…'}</span>
                   </div>
                 ) : (
                   <div className="mt-1.5 space-y-1.5">
                     <div className="min-h-[1.75rem] px-2 text-lg leading-snug">
                       {meal.eatOutPlaceName ? (
                         <span className="inline-flex items-center gap-1.5">
-                          <LucideIcon name="utensils-crossed" size={16} /> {meal.eatOutPlaceName}
+                          <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={16} /> {meal.eatOutPlaceName}
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1.5 text-slate-400">
-                          <LucideIcon name="utensils-crossed" size={16} /> Out - TBD
+                          <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={16} /> Out - TBD
                         </span>
                       )}
                     </div>
@@ -225,7 +225,7 @@ export default function DinnerWeekModal({
                           ))}
                         </select>
                         <button onClick={() => spin(k)} title="Spin to pick randomly" className="shrink-0 rounded border px-2 py-1.5 text-sm hover:bg-slate-50">
-                          <LucideIcon name="dice-5" size={14} />
+                          <LucideIcon name="dice-5" slot="household.dinnerRandom" size={14} />
                         </button>
                       </div>
                     )}

@@ -466,7 +466,7 @@ export default function ChoresPanel({
           key: 'TODAY',
           label: (
             <span className="inline-flex items-center gap-1">
-              <LucideIcon name="star" size={14} /> Today
+              <LucideIcon name="star" slot="chores.today" size={14} /> Today
             </span>
           ),
           rows: kidTodayRows,
@@ -508,10 +508,10 @@ export default function ChoresPanel({
               {isAdult && chore.createdBy && <span>· added by {chore.createdBy.displayName}</span>}
               {chore.currentStreak > 0 && (
                 <span className="inline-flex items-center gap-1">
-                  · <LucideIcon name="flame" size={12} /> {chore.currentStreak} in a row
+                  · <LucideIcon name="flame" slot="badge.streak" size={12} /> {chore.currentStreak} in a row
                   {!!chore.streakGoal && chore.useWheelForBonus ? (
                     <>
-                      (<LucideIcon name="ferris-wheel" size={12} /> wheel every {chore.streakGoal})
+                      (<LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={12} /> wheel every {chore.streakGoal})
                     </>
                   ) : !!chore.streakGoal && chore.streakBonusTokens > 0 ? (
                     `(bonus every ${chore.streakGoal})`
@@ -753,7 +753,7 @@ export default function ChoresPanel({
           )}
           {!today && isAdult && (
             <button onClick={() => setPacksOpen(true)} className="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of chores">
-              <LucideIcon name="package" size={14} /> Packs
+              <LucideIcon name="package" slot="chores.packs" size={14} /> Packs
             </button>
           )}
           {isAdult && (
@@ -780,7 +780,7 @@ export default function ChoresPanel({
       {pendingWheels.length > 0 && (
         <div className="mt-3 rounded-lg p-3" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
           <div className="flex flex-wrap items-center gap-2">
-            <LucideIcon name="ferris-wheel" size={24} />
+            <LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={24} />
             <span className="min-w-0 flex-1 text-sm font-semibold">
               {pendingWheels.length === 1
                 ? `You earned a bonus wheel for ${wheelSource(pendingWheels[0])}!`
@@ -1371,7 +1371,7 @@ function ChoreForm({
             {streakEnabled && !famDisabled.includes('bonusWheel') && !famDisabled.includes('tokens') && (
               <label className="mt-2 flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={useWheelForBonus} onChange={(e) => setUseWheelForBonus(e.target.checked)} />
-                <LucideIcon name="ferris-wheel" size={14} /> Spin the bonus wheel instead of awarding flat tokens
+                <LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={14} /> Spin the bonus wheel instead of awarding flat tokens
               </label>
             )}
           </Field>

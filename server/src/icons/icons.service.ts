@@ -1,63 +1,68 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
-import { ICON_KEYS, DEFAULT_ICON_SET, isValidIconKey, isValidIconSet, assertOwnerOrFM, assertInstanceOwner } from '../common/icons';
+import { isValidIconKey, isValidIconSet, isValidSlotId, assertOwnerOrFM, assertInstanceOwner } from '../common/icons';
+
+export interface SlotPick {
+  iconKey: string;
+  iconSet: string;
+}
 
 @Injectable()
 export class IconsService {
   constructor(private prisma: PrismaService) {}
 
-  // Every family member (and the kiosk) needs this to render AppIcon, so it's
-  // one cheap bundled read rather than three round trips: the fully-resolved
-  // map every icon-key renders with right now, plus the two raw override
-  // layers (only the keys each tier has explicitly set) so the Settings UI
-  // can show "inherited" vs "overridden" and offer a reset-to-default.
+  // Sparse: only slots that actually have a family or app override appear
+  // here. A slot with no entry means "render this position's own hardcoded
+  // default" - the client already knows that default, so there's nothing
+  // useful for the server to say about it.
   async effective(familyId: string) {
     const [appRows, familyRows] = await Promise.all([
-      this.prisma.appIconSetting.findMany(),
-      this.prisma.familyIconSetting.findMany({ where: { familyId } }),
+      this.prisma.appSlotIcon.findMany(),
+      this.prisma.familySlotIcon.findMany({ where: { familyId } }),
     ]);
-    const appSet: Record<string, string> = {};
-    for (const r of appRows) appSet[r.iconKey] = r.iconSet;
-    const familySet: Record<string, string> = {};
-    for (const r of familyRows) familySet[r.iconKey] = r.iconSet;
+    const appSlots: Record<string, SlotPick> = {};
+    for (const r of appRows) appSlots[r.slotId] = { iconKey: r.iconKey, iconSet: r.iconSet };
+    const familySlots: Record<string, SlotPick> = {};
+    for (const r of familyRows) familySlots[r.slotId] = { iconKey: r.iconKey, iconSet: r.iconSet };
 
-    const effective: Record<string, string> = {};
-    for (const key of ICON_KEYS) {
-      effective[key] = familySet[key] ?? appSet[key] ?? DEFAULT_ICON_SET;
-    }
-    return { effective, familySet, appSet };
+    const effective: Record<string, SlotPick> = { ...appSlots, ...familySlots };
+    return { effective, familySlots, appSlots };
   }
 
-  async setFamilyOverride(familyId: string, actorId: string, iconKey: string, iconSet: string | null) {
+  async setFamilySlot(familyId: string, actorId: string, slotId: string, pick: SlotPick | null) {
     await assertOwnerOrFM(this.prisma, actorId);
-    if (!isValidIconKey(iconKey)) throw new BadRequestException('Unknown icon');
-    if (iconSet !== null && !isValidIconSet(iconSet)) throw new BadRequestException('Unknown icon set');
+    if (!isValidSlotId(slotId)) throw new BadRequestException('Unknown slot');
 
-    if (iconSet === null) {
-      await this.prisma.familyIconSetting.deleteMany({ where: { familyId, iconKey } });
+    if (pick === null) {
+      await this.prisma.familySlotIcon.deleteMany({ where: { familyId, slotId } });
       return { ok: true };
     }
-    await this.prisma.familyIconSetting.upsert({
-      where: { familyId_iconKey: { familyId, iconKey } },
-      create: { familyId, iconKey, iconSet },
-      update: { iconSet },
+    if (!isValidIconKey(pick.iconKey)) throw new BadRequestException('Unknown icon');
+    if (!isValidIconSet(pick.iconSet)) throw new BadRequestException('Unknown icon set');
+
+    await this.prisma.familySlotIcon.upsert({
+      where: { familyId_slotId: { familyId, slotId } },
+      create: { familyId, slotId, iconKey: pick.iconKey, iconSet: pick.iconSet },
+      update: { iconKey: pick.iconKey, iconSet: pick.iconSet },
     });
     return { ok: true };
   }
 
-  async setAppDefault(actorId: string, iconKey: string, iconSet: string | null) {
+  async setAppSlot(actorId: string, slotId: string, pick: SlotPick | null) {
     await assertInstanceOwner(this.prisma, actorId);
-    if (!isValidIconKey(iconKey)) throw new BadRequestException('Unknown icon');
-    if (iconSet !== null && !isValidIconSet(iconSet)) throw new BadRequestException('Unknown icon set');
+    if (!isValidSlotId(slotId)) throw new BadRequestException('Unknown slot');
 
-    if (iconSet === null) {
-      await this.prisma.appIconSetting.deleteMany({ where: { iconKey } });
+    if (pick === null) {
+      await this.prisma.appSlotIcon.deleteMany({ where: { slotId } });
       return { ok: true };
     }
-    await this.prisma.appIconSetting.upsert({
-      where: { iconKey },
-      create: { iconKey, iconSet },
-      update: { iconSet },
+    if (!isValidIconKey(pick.iconKey)) throw new BadRequestException('Unknown icon');
+    if (!isValidIconSet(pick.iconSet)) throw new BadRequestException('Unknown icon set');
+
+    await this.prisma.appSlotIcon.upsert({
+      where: { slotId },
+      create: { slotId, iconKey: pick.iconKey, iconSet: pick.iconSet },
+      update: { iconKey: pick.iconKey, iconSet: pick.iconSet },
     });
     return { ok: true };
   }

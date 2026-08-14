@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import TokenBadge from '../TokenBadge';
@@ -198,7 +198,7 @@ export default function ProfilePage({
     <div>
       {levelUpTo !== null && (
         <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-          <LucideIcon name="star" size={60} />
+          <LucideIcon name="star" slot="badge.level" size={60} />
           <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
           <p className="max-w-xs text-center text-sm text-slate-300">
             {name} reached level {levelUpTo} - keep it up!
@@ -226,7 +226,7 @@ export default function ProfilePage({
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{m.displayName}</span>
                     <span className="block truncate text-xs text-slate-400">
-                      <LucideIcon name={ROLE_ICON[m.role]} size={12} /> {ROLE_LABEL[m.role] ?? m.role}
+                      <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={12} /> {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
                   {!m.tokensDisabled && familyTokensOn && (
@@ -291,7 +291,7 @@ export default function ProfilePage({
             label="Best active streak"
             value={
               <span className="inline-flex items-center gap-1">
-                <LucideIcon name="flame" size={24} />
+                <LucideIcon name="flame" slot="badge.streak" size={24} />
                 {streak}
               </span>
             }

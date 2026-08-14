@@ -5,13 +5,13 @@ import LucideIcon from '../LucideIcon';
 
 const EMPTY: SearchResult = { chores: [], events: [], notifications: [], rules: [], prizes: [], awards: [] };
 
-const SECTIONS: Array<{ key: keyof SearchResult; icon: string; label: string }> = [
-  { key: 'chores', icon: 'check-square', label: 'Chores' },
-  { key: 'events', icon: 'calendar', label: 'Calendar events' },
-  { key: 'notifications', icon: 'bell', label: 'Your notifications' },
-  { key: 'rules', icon: 'clipboard-list', label: 'Rules' },
-  { key: 'prizes', icon: 'shopping-bag', label: 'Store' },
-  { key: 'awards', icon: 'trophy', label: 'Awards' },
+const SECTIONS: Array<{ key: keyof SearchResult; icon: string; slot: string; label: string }> = [
+  { key: 'chores', icon: 'check-square', slot: 'search.chores', label: 'Chores' },
+  { key: 'events', icon: 'calendar', slot: 'search.events', label: 'Calendar events' },
+  { key: 'notifications', icon: 'bell', slot: 'search.notifications', label: 'Your notifications' },
+  { key: 'rules', icon: 'clipboard-list', slot: 'search.rules', label: 'Rules' },
+  { key: 'prizes', icon: 'shopping-bag', slot: 'search.prizes', label: 'Store' },
+  { key: 'awards', icon: 'trophy', slot: 'search.awards', label: 'Awards' },
 ];
 
 // Searches everything the app itself stores - chores, local calendar events,
@@ -88,7 +88,7 @@ export default function SearchPage() {
           return (
             <section key={s.key} className="panel">
               <h3 className="flex items-center gap-1 text-sm font-semibold tracking-tight text-slate-500">
-                <LucideIcon name={s.icon} size={14} /> {s.label}
+                <LucideIcon name={s.icon} slot={s.slot} size={14} /> {s.label}
               </h3>
               <ul className="mt-2 space-y-1">
                 {hits.map((h) => (

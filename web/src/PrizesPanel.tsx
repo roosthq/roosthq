@@ -118,7 +118,7 @@ export default function PrizesPanel({
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium">{p.name}</span>
                 <span className={`flex items-center gap-1 text-xs ${TYPE_TAG[p.type].className}`}>
-                  <LucideIcon name={TYPE_TAG[p.type].icon} size={12} /> {TYPE_TAG[p.type].label}
+                  <LucideIcon name={TYPE_TAG[p.type].icon} slot={TYPE_TAG[p.type].slot} size={12} /> {TYPE_TAG[p.type].label}
                 </span>
               </span>
               <TokenBadge icon={tokenIcon} amount={p.tokenCost} />

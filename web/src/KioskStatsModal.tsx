@@ -85,7 +85,7 @@ export default function KioskStatsModal({
     <>
       {levelUpTo !== null && (
         <div className="fixed inset-0 z-[95] flex flex-col items-center justify-center gap-3 p-4" style={{ background: 'rgba(0,0,0,0.75)' }}>
-          <LucideIcon name="star" size={60} />
+          <LucideIcon name="star" slot="badge.level" size={60} />
           <h2 className="text-3xl font-extrabold text-white">Level {levelUpTo}!</h2>
           <p className="max-w-xs text-center text-sm text-slate-300">
             {displayName} reached level {levelUpTo} - keep it up!
@@ -116,7 +116,7 @@ export default function KioskStatsModal({
           label="Best active streak"
           value={
             <span className="inline-flex items-center gap-1">
-              <LucideIcon name="flame" size={24} />
+              <LucideIcon name="flame" slot="badge.streak" size={24} />
               {bestStreak}
             </span>
           }
