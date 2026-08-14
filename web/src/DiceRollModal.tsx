@@ -85,7 +85,7 @@ export default function DiceRollModal({
     }
     setTimeout(() => {
       window.clearInterval(rollInterval.current);
-      const n = r.wonKind === 'TOKENS' ? Math.max(1, r.amount ?? 1) : 7;
+      const n = r.wonKind === 'PRIZE' ? 7 : Math.max(1, r.amount ?? 1);
       setFaces([1 + ((n - 1) % 6), 1 + (Math.floor((n - 1) / 6) % 6)]);
       setResult(r);
       setRolling(false);
@@ -117,6 +117,8 @@ export default function DiceRollModal({
               <span className="text-5xl">{result.prize?.icon ?? '🎁'}</span>
               <span>{result.prize?.name}!</span>
             </div>
+          ) : result.wonKind === 'STREAK_FREEZE' ? (
+            <div className="text-5xl font-extrabold text-white">🧊 +{result.amount} streak freeze{result.amount === 1 ? '' : 's'}!</div>
           ) : (
             <div className="text-5xl font-extrabold text-white">
               +{result.amount} {tokenName}!

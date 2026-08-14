@@ -421,7 +421,8 @@ export interface Rule {
 
 export type PoolEntry =
   | { kind: 'TOKENS'; min: number; max: number; weight?: number }
-  | { kind: 'PRIZE'; prizeId: string; weight?: number };
+  | { kind: 'PRIZE'; prizeId: string; weight?: number }
+  | { kind: 'STREAK_FREEZE'; min: number; max: number; weight?: number };
 
 export type GameType = 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE' | 'DICE_ROLL' | 'COIN_FLIP' | 'GIFT_BOX' | 'PLINKO';
 
@@ -437,6 +438,7 @@ export interface AwardCatalogItem {
   icon: string | null;
   description: string | null;
   defaultTokenValue: number;
+  defaultStreakFreezeValue: number;
   grantCount: number;
 }
 
@@ -459,6 +461,7 @@ export interface AwardGrantHistoryItem {
   grantedBy: { id: string; displayName: string };
   note: string | null;
   tokenValue: number;
+  streakFreezeValue: number;
   createdAt: string;
 }
 
@@ -1168,6 +1171,7 @@ export const api = {
       icon?: string;
       description?: string;
       defaultTokenValue?: number;
+      defaultStreakFreezeValue?: number;
       wheelMin?: number;
       wheelMax?: number;
       pool?: PoolEntry[] | null;
@@ -1183,6 +1187,7 @@ export const api = {
       icon: string;
       description: string;
       defaultTokenValue: number;
+      defaultStreakFreezeValue: number;
       wheelMin: number;
       wheelMax: number;
       pool: PoolEntry[] | null;
@@ -1192,8 +1197,13 @@ export const api = {
     kioskToken?: string,
   ) => req<AwardCatalogItem>(`/awards/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deleteAward: (id: string) => req(`/awards/${id}`, { method: 'DELETE' }),
-  grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number; wheelMin?: number; wheelMax?: number }, kioskToken?: string) =>
-    req<{ wheelQueued?: boolean }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  grantAward: (
+    id: string,
+    body: { userId: string; note?: string; tokenValue?: number; streakFreezeValue?: number; wheelMin?: number; wheelMax?: number },
+    kioskToken?: string,
+  ) => req<{ wheelQueued?: boolean }>(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  adjustStreakFreeze: (userId: string, delta: number, reason: string) =>
+    req<{ userId: string; bonusStreakFreezes: number }>('/streak-freeze/adjust', { method: 'POST', body: JSON.stringify({ userId, delta, reason }) }),
   // What removing a grant would claw back, split by source, so the confirm
   // dialog can name the actual numbers instead of guessing.
   awardGrantImpact: (grantId: string) =>
@@ -1271,7 +1281,10 @@ export function prizeClient(kioskToken?: string) {
       req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     commonReasons: () => req<string[]>('/tokens/reasons', undefined, kioskToken),
     awardsCatalog: () => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
-    grantAward: (id: string, body: { userId: string; note?: string; tokenValue?: number; wheelMin?: number; wheelMax?: number }) =>
+    grantAward: (
+      id: string,
+      body: { userId: string; note?: string; tokenValue?: number; streakFreezeValue?: number; wheelMin?: number; wheelMax?: number },
+    ) =>
       req(`/awards/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     listUsers: () => req<Member[]>('/users', undefined, kioskToken),
     setPin: (userId: string, pin: string | null) =>

@@ -341,6 +341,14 @@ model User {
   // doesn't want tokens/rewards for some or all members. See
   // UsersService.setTokensDisabled for who can flip this for whom.
   tokensDisabled      Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
+  // Person-level "wildcard" freeze bank - manually granted, awarded, or won
+  // from a reward game (see StreakFreezeService). Separate from
+  // Chore.streakFreezes (earned automatically per-chore at streak
+  // milestones, and consumed first on a miss): this bank is checked as a
+  // fallback ONLY for a single-assignee chore whose own bank is empty, since
+  // a multi-assignee chore's shared streak has no one obvious person to
+  // charge it to.
+  bonusStreakFreezes  Int     @default(0)
 
   family                Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations             UserLocation[]
@@ -680,13 +688,17 @@ model Award {
   icon              String?  @db.Text // emoji, or an uploaded icon as a data: URI
   description       String?  @db.Text
   defaultTokenValue Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
+  // Flat streak-freeze count granted alongside the award (independent of
+  // defaultTokenValue - an award can give tokens, freezes, both, or neither).
+  // Same "pre-fills, adjustable per grant" deal as defaultTokenValue.
+  defaultStreakFreezeValue Int @default(0)
   wheelMin          Int      @default(1) // bonus-wheel range attached to this award (see wheelMax)
   wheelMax          Int      @default(0) // 0 = no wheel; >0 = granting also spins a wheel worth wheelMin..wheelMax extra tokens
   // #5 "Pool" reward type - a third option alongside the flat defaultTokenValue
   // and the plain wheelMin/wheelMax range above. Null poolJson = not using
   // this; when set, granting queues a RewardGame with this weighted pool
   // instead of (not additive with) the flat value or the plain wheel.
-  poolJson          Json? // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}]
+  poolJson          Json? // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}|{kind:'STREAK_FREEZE',min,max,weight}]
   poolGameType      String? // pinned game type, or null = "surprise me" (default)
   poolSlotCount     Int? // cosmetic box/reel count
   createdById       String
@@ -708,6 +720,7 @@ model AwardGrant {
   grantedById String
   note        String?  @db.Text
   tokenValue  Int      @default(0) // snapshot of what was actually awarded this time - Award.defaultTokenValue can change later without rewriting history
+  streakFreezeValue Int @default(0) // same snapshot deal, for the freeze count actually granted this time
   createdAt   DateTime @default(now())
 
   award     Award @relation(fields: [awardId], references: [id], onDelete: Cascade)

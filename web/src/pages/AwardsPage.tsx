@@ -146,9 +146,17 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
             </div>
             {a.description && <p className="mt-1 text-sm text-slate-500">{a.description}</p>}
-            {(a.defaultTokenValue > 0 || (a.wheelMax ?? 0) > 0 || (a.pool?.length ?? 0) > 0) && (
+            {(a.defaultTokenValue > 0 || a.defaultStreakFreezeValue > 0 || (a.wheelMax ?? 0) > 0 || (a.pool?.length ?? 0) > 0) && (
               <div className="mt-1 flex flex-wrap items-center gap-2">
                 {a.defaultTokenValue > 0 && <TokenBadge icon={tokenIcon} amount={a.defaultTokenValue} />}
+                {a.defaultStreakFreezeValue > 0 && (
+                  <span
+                    className="rounded-full px-2 py-0.5 text-xs font-medium"
+                    style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
+                  >
+                    🧊 {a.defaultStreakFreezeValue}
+                  </span>
+                )}
                 {(a.wheelMax ?? 0) > 0 && (
                   <span
                     className="rounded-full px-2 py-0.5 text-xs font-medium"
@@ -215,6 +223,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
                 </span>
                 <span className="flex shrink-0 items-center gap-3">
                   {g.tokenValue > 0 && <TokenBadge icon={tokenIcon} amount={g.tokenValue} />}
+                  {g.streakFreezeValue > 0 && <span className="text-xs font-medium">🧊 {g.streakFreezeValue}</span>}
                   <button onClick={() => askRemoveGrant(g)} className="text-xs text-red-500 hover:text-red-700">
                     Remove
                   </button>
@@ -339,6 +348,7 @@ export function AwardForm({
   const [uploading, setUploading] = useState(false);
   const [description, setDescription] = useState(award?.description ?? '');
   const [defaultTokenValue, setDefaultTokenValue] = useState(award?.defaultTokenValue ?? 0);
+  const [defaultStreakFreezeValue, setDefaultStreakFreezeValue] = useState(award?.defaultStreakFreezeValue ?? 0);
   // Chance bonus on top of the flat value above - a wheel range and a #5
   // pool are mutually exclusive with EACH OTHER (not with the flat value,
   // which stays independent so existing "tokens + wheel" awards keep working
@@ -368,6 +378,9 @@ export function AwardForm({
   function addTokenRow() {
     setPool((p) => [...p, { kind: 'TOKENS', min: 1, max: 5, weight: 1 }]);
   }
+  function addFreezeRow() {
+    setPool((p) => [...p, { kind: 'STREAK_FREEZE', min: 1, max: 2, weight: 1 }]);
+  }
   function addPrizeRow() {
     setPool((p) => [...p, { kind: 'PRIZE', prizeId: poolablePrizes[0]?.id ?? '', weight: 1 }]);
     setPickerOpenFor(pool.length); // open the picker on the row that's about to exist
@@ -389,9 +402,12 @@ export function AwardForm({
   // Cosmetic range for the preview's wheel/slot-reel animation - same
   // derivation the server uses for the real thing (reward-games.service.ts).
   function previewRange() {
-    const tokenEntries = pool.filter((p): p is { kind: 'TOKENS'; min: number; max: number; weight?: number } => p.kind === 'TOKENS');
-    if (!tokenEntries.length) return { min: 1, max: 10 };
-    return { min: Math.min(...tokenEntries.map((p) => p.min)), max: Math.max(...tokenEntries.map((p) => p.max)) };
+    const rangedEntries = pool.filter(
+      (p): p is { kind: 'TOKENS' | 'STREAK_FREEZE'; min: number; max: number; weight?: number } =>
+        p.kind === 'TOKENS' || p.kind === 'STREAK_FREEZE',
+    );
+    if (!rangedEntries.length) return { min: 1, max: 10 };
+    return { min: Math.min(...rangedEntries.map((p) => p.min)), max: Math.max(...rangedEntries.map((p) => p.max)) };
   }
 
   async function onFile(e: ChangeEvent<HTMLInputElement>) {
@@ -414,6 +430,7 @@ export function AwardForm({
       icon: icon.trim(),
       description: description.trim() || undefined,
       defaultTokenValue: chanceType === 'pool' ? 0 : Math.max(0, Math.floor(Number(defaultTokenValue) || 0)),
+      defaultStreakFreezeValue: chanceType === 'pool' ? 0 : Math.max(0, Math.floor(Number(defaultStreakFreezeValue) || 0)),
       wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
       wheelMax: chanceType === 'wheel' ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
       pool: chanceType === 'pool' ? pool : null,
@@ -487,22 +504,36 @@ export function AwardForm({
 
           {chanceType === 'pool' ? (
             <p className="text-xs text-slate-400">
-              No flat token value for a Pool award - the pool itself decides what they get, and nothing should be
-              banked until they actually play it.
+              No flat token/freeze value for a Pool award - the pool itself decides what they get, and nothing should
+              be banked until they actually play it.
             </p>
           ) : (
-            <label className="block text-sm">
-              <span className="text-slate-500">Default token value</span>
-              <input
-                type="number"
-                min={0}
-                className={`${input} mt-1 w-28`}
-                value={defaultTokenValue}
-                onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
-                onFocus={(e) => e.target.select()}
-              />
-              <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award - adjustable each time.</span>
-            </label>
+            <>
+              <label className="block text-sm">
+                <span className="text-slate-500">Default token value</span>
+                <input
+                  type="number"
+                  min={0}
+                  className={`${input} mt-1 w-28`}
+                  value={defaultTokenValue}
+                  onChange={(e) => setDefaultTokenValue(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
+                />
+                <span className="ml-2 text-xs text-slate-400">Pre-fills the amount when giving this award - adjustable each time.</span>
+              </label>
+              <label className="block text-sm">
+                <span className="text-slate-500">🧊 Default streak freeze value</span>
+                <input
+                  type="number"
+                  min={0}
+                  className={`${input} mt-1 w-28`}
+                  value={defaultStreakFreezeValue}
+                  onChange={(e) => setDefaultStreakFreezeValue(Number(e.target.value))}
+                  onFocus={(e) => e.target.select()}
+                />
+                <span className="ml-2 text-xs text-slate-400">Independent of the token value above - an award can give either, both, or neither.</span>
+              </label>
+            </>
           )}
 
           <div className="rounded border p-3">
@@ -549,7 +580,7 @@ export function AwardForm({
             {chanceType === 'pool' && (
               <div className="mt-3 space-y-3">
                 <div>
-                  <span className="text-xs font-medium text-slate-500">Prize pool - a mix of token ranges and real prizes, each with a relative weight</span>
+                  <span className="text-xs font-medium text-slate-500">Prize pool - a mix of token ranges, streak-freeze ranges, and real prizes, each with a relative weight</span>
                   <ul className="mt-1.5 space-y-2">
                     {pool.map((row, i) => {
                       const selectedPrize = row.kind === 'PRIZE' ? prizes.find((p) => p.id === row.prizeId) : undefined; // full `prizes` here, not poolablePrizes - a pool made before a prize got switched to STORE should still show its name
@@ -557,7 +588,7 @@ export function AwardForm({
                         <li key={i} className="card-nested rounded-lg p-2.5 text-sm">
                           <div className="flex items-center justify-between gap-2">
                             <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                              {row.kind === 'TOKENS' ? '🪙 Token range' : '🎁 Prize'}
+                              {row.kind === 'TOKENS' ? '🪙 Token range' : row.kind === 'STREAK_FREEZE' ? '🧊 Freeze range' : '🎁 Prize'}
                               <span
                                 className="rounded-full px-1.5 py-0.5 font-semibold"
                                 style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
@@ -572,7 +603,7 @@ export function AwardForm({
                           </div>
 
                           <div className="mt-1.5 flex flex-wrap items-center gap-2">
-                            {row.kind === 'TOKENS' ? (
+                            {row.kind === 'TOKENS' || row.kind === 'STREAK_FREEZE' ? (
                               <span className="flex items-center gap-1.5">
                                 <input
                                   type="number"
@@ -591,7 +622,7 @@ export function AwardForm({
                                   onFocus={(e) => e.target.select()}
                                   className="w-16 rounded border px-2 py-1.5 text-sm"
                                 />
-                                <span className="text-xs text-slate-400">tokens</span>
+                                <span className="text-xs text-slate-400">{row.kind === 'TOKENS' ? 'tokens' : 'freezes'}</span>
                               </span>
                             ) : selectedPrize && pickerOpenFor !== i ? (
                               <button
@@ -660,6 +691,9 @@ export function AwardForm({
                   <div className="mt-2 flex gap-2">
                     <button type="button" onClick={addTokenRow} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
                       + Token range
+                    </button>
+                    <button type="button" onClick={addFreezeRow} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                      + 🧊 Freeze range
                     </button>
                     <button type="button" onClick={addPrizeRow} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
                       + Prize
@@ -766,6 +800,7 @@ export function GrantModal({
   const [userId, setUserId] = useState(kids[0]?.id ?? '');
   const [note, setNote] = useState('');
   const [tokenValue, setTokenValue] = useState(hasPool ? 0 : award.defaultTokenValue);
+  const [streakFreezeValue, setStreakFreezeValue] = useState(hasPool ? 0 : award.defaultStreakFreezeValue);
   // This award's wheel, adjustable for THIS handover only - the award's own
   // default range is untouched.
   const [wheelOn, setWheelOn] = useState((award.wheelMax ?? 0) > 0);
@@ -783,6 +818,7 @@ export function GrantModal({
           userId,
           note: note.trim() || undefined,
           tokenValue: hasPool ? 0 : Math.max(0, Math.floor(Number(tokenValue) || 0)),
+          streakFreezeValue: hasPool ? 0 : Math.max(0, Math.floor(Number(streakFreezeValue) || 0)),
           wheelMin: Math.max(1, Math.floor(Number(wheelMin) || 1)),
           wheelMax: wheelOn ? Math.max(1, Math.floor(Number(wheelMax) || 1)) : 0,
         },
@@ -806,6 +842,7 @@ export function GrantModal({
           Give "{award.name}"
           {(award.wheelMax ?? 0) > 0 && <span className="text-sm font-normal text-slate-400">🎡 has a wheel</span>}
           {(award.pool?.length ?? 0) > 0 && <span className="text-sm font-normal text-slate-400">🎮 has a reward game</span>}
+          {award.defaultStreakFreezeValue > 0 && <span className="text-sm font-normal text-slate-400">🧊 has a freeze</span>}
         </h3>
       }
       footer={
@@ -848,6 +885,19 @@ export function GrantModal({
               className={`${input} mt-1`}
               value={tokenValue}
               onChange={(e) => setTokenValue(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
+            />
+          </label>
+        )}
+        {!hasPool && (
+          <label className="block text-sm">
+            <span className="text-slate-500">🧊 Streak freezes</span>
+            <input
+              type="number"
+              min={0}
+              className={`${input} mt-1`}
+              value={streakFreezeValue}
+              onChange={(e) => setStreakFreezeValue(Number(e.target.value))}
               onFocus={(e) => e.target.select()}
             />
           </label>

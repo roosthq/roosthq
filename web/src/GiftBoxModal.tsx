@@ -102,6 +102,8 @@ export default function GiftBoxModal({
         <>
           {result.wonKind === 'PRIZE' ? (
             <div className="text-4xl font-extrabold text-white">{result.prize?.name}!</div>
+          ) : result.wonKind === 'STREAK_FREEZE' ? (
+            <div className="text-5xl font-extrabold text-white">🧊 +{result.amount} streak freeze{result.amount === 1 ? '' : 's'}!</div>
           ) : (
             <div className="text-5xl font-extrabold text-white">
               +{result.amount} {tokenName}!

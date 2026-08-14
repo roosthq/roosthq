@@ -11,6 +11,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { RewardGamesService } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
+import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { paginate } from '../common/pagination';
 import {
   DEFAULT_TIMEZONE,
@@ -260,6 +261,7 @@ export class ChoresService {
     private displayEvents: DisplayEventsService,
     private rewardGames: RewardGamesService,
     private audit: AuditLogService,
+    private streakFreeze: StreakFreezeService,
   ) {}
 
   private async user(userId: string) {
@@ -462,8 +464,14 @@ export class ChoresService {
     await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED', claimedByUserId: null } });
     if (inst.chore.currentStreak !== 0) {
       // A banked streak freeze absorbs the miss: the occurrence still counts
-      // as missed (no reward), but the streak survives.
-      if (inst.chore.streakFreezes > 0 && (await this.featureEnabled(inst.chore.familyId, 'streakFreeze'))) {
+      // as missed (no reward), but the streak survives. Two banks, checked in
+      // order: this chore's own (earned automatically at streak milestones),
+      // then - for a single-assignee chore only - that person's personal
+      // bank (manually granted, awarded, or won; see StreakFreezeService). A
+      // multi-assignee chore has no one obvious person to charge a personal
+      // freeze to, so it skips straight to resetting if its own bank is dry.
+      const freezeOn = await this.featureEnabled(inst.chore.familyId, 'streakFreeze');
+      if (freezeOn && inst.chore.streakFreezes > 0) {
         await this.prisma.chore.update({
           where: { id: inst.choreId },
           data: { streakFreezes: { decrement: 1 } },
@@ -480,6 +488,20 @@ export class ChoresService {
             ),
           ),
         );
+      } else if (freezeOn && inst.chore.assignees.length === 1) {
+        const assigneeId = inst.chore.assignees[0].userId;
+        const { consumed, remaining } = await this.streakFreeze.consumeOne(assigneeId);
+        if (consumed) {
+          await this.notifications.create(
+            inst.chore.familyId,
+            assigneeId,
+            'STREAK_BONUS',
+            `🧊 Streak freeze used on "${inst.chore.title}" - streak safe (${remaining} left in your bank).`,
+            { link: '/chores', refId: inst.id },
+          );
+        } else {
+          await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
+        }
       } else {
         await this.prisma.chore.update({ where: { id: inst.choreId }, data: { currentStreak: 0 } });
       }

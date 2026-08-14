@@ -84,6 +84,8 @@ export default function MysteryBoxModal({
               <span>{result.prize?.icon ?? '🎁'}</span>
               <span className="text-3xl">{result.prize?.name}!</span>
             </div>
+          ) : result.wonKind === 'STREAK_FREEZE' ? (
+            <div className="text-5xl font-extrabold text-white">🧊 +{result.amount} streak freeze{result.amount === 1 ? '' : 's'}!</div>
           ) : (
             <div className="text-5xl font-extrabold text-white">
               +{result.amount} {tokenName}!

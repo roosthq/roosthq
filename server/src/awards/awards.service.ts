@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { RewardGamesService, GAME_TYPES, PoolEntry, GameType } from '../reward-games/reward-games.service';
+import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 import { paginate } from '../common/pagination';
 
@@ -12,6 +13,9 @@ export interface AwardInput {
   icon?: string | null;
   description?: string | null;
   defaultTokenValue?: number;
+  // Flat freeze count granted alongside the award - independent of
+  // defaultTokenValue (an award can give tokens, freezes, both, or neither).
+  defaultStreakFreezeValue?: number;
   wheelMin?: number;
   wheelMax?: number; // 0 = no wheel attached to this award
   // #5 "Pool" reward type - a third option alongside defaultTokenValue and
@@ -27,6 +31,7 @@ export interface GrantInput {
   userId: string;
   note?: string;
   tokenValue?: number;
+  streakFreezeValue?: number;
   // Per-grant override of the award's own wheel range. Omit to use the
   // award's default; send wheelMax 0 to hand this one over without a wheel.
   wheelMin?: number;
@@ -40,6 +45,7 @@ export class AwardsService {
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
     private rewardGames: RewardGamesService,
+    private streakFreeze: StreakFreezeService,
   ) {}
 
   // Whatever a client sends for pool, keep only well-shaped entries - same
@@ -54,6 +60,8 @@ export class AwardsService {
       const weight = typeof p.weight === 'number' && p.weight > 0 ? p.weight : 1;
       if (p.kind === 'TOKENS' && typeof p.min === 'number' && typeof p.max === 'number') {
         out.push({ kind: 'TOKENS', min: Math.max(0, Math.floor(p.min)), max: Math.max(0, Math.floor(p.max)), weight });
+      } else if (p.kind === 'STREAK_FREEZE' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'STREAK_FREEZE', min: Math.max(1, Math.floor(p.min)), max: Math.max(1, Math.floor(p.max)), weight });
       } else if (p.kind === 'PRIZE' && typeof p.prizeId === 'string' && p.prizeId) {
         out.push({ kind: 'PRIZE', prizeId: p.prizeId, weight });
       }
@@ -93,6 +101,7 @@ export class AwardsService {
       icon: a.icon,
       description: a.description,
       defaultTokenValue: a.defaultTokenValue,
+      defaultStreakFreezeValue: a.defaultStreakFreezeValue,
       wheelMin: a.wheelMin,
       wheelMax: a.wheelMax,
       pool: (a.poolJson as PoolEntry[] | null) ?? null,
@@ -113,6 +122,7 @@ export class AwardsService {
         icon: dto.icon || null,
         description: dto.description || null,
         defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue ?? 0)),
+        defaultStreakFreezeValue: Math.max(0, Math.floor(dto.defaultStreakFreezeValue ?? 0)),
         wheelMin: Math.max(1, Math.floor(dto.wheelMin ?? 1)),
         wheelMax: Math.max(0, Math.floor(dto.wheelMax ?? 0)),
         poolJson: (pool ?? Prisma.JsonNull) as unknown as Prisma.InputJsonValue,
@@ -134,6 +144,9 @@ export class AwardsService {
         ...(dto.icon !== undefined && { icon: dto.icon || null }),
         ...(dto.description !== undefined && { description: dto.description || null }),
         ...(dto.defaultTokenValue !== undefined && { defaultTokenValue: Math.max(0, Math.floor(dto.defaultTokenValue)) }),
+        ...(dto.defaultStreakFreezeValue !== undefined && {
+          defaultStreakFreezeValue: Math.max(0, Math.floor(dto.defaultStreakFreezeValue)),
+        }),
         ...(dto.wheelMin !== undefined && { wheelMin: Math.max(1, Math.floor(dto.wheelMin)) }),
         ...(dto.wheelMax !== undefined && { wheelMax: Math.max(0, Math.floor(dto.wheelMax)) }),
         ...(pool !== undefined && { poolJson: (pool ?? Prisma.JsonNull) as unknown as Prisma.InputJsonValue }),
@@ -220,6 +233,7 @@ export class AwardsService {
         grantedBy: g.grantedBy,
         note: g.note,
         tokenValue: g.tokenValue,
+        streakFreezeValue: g.streakFreezeValue,
         createdAt: g.createdAt,
       })),
       hasMore,
@@ -239,8 +253,12 @@ export class AwardsService {
     // the game defeats the entire "find out by playing" point of it.
     const hasPool = !!(award.poolJson as unknown[] | null)?.length;
     const tokenValue = hasPool ? 0 : Math.max(0, Math.floor(dto.tokenValue ?? award.defaultTokenValue));
+    // Same pool rule as tokens: nothing's decided until they actually play
+    // it, so a pool award grants zero flat freezes too, regardless of what
+    // the award's own default (unused while pool is set) says.
+    const streakFreezeValue = hasPool ? 0 : Math.max(0, Math.floor(dto.streakFreezeValue ?? award.defaultStreakFreezeValue));
     const grant = await this.prisma.awardGrant.create({
-      data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue },
+      data: { awardId: award.id, userId: dto.userId, grantedById: actorId, note: dto.note || null, tokenValue, streakFreezeValue },
     });
     // The trophy/badge (AwardGrant) always records the award, same as a
     // chore always completes regardless - this only gates the ledger entry.
@@ -256,6 +274,9 @@ export class AwardsService {
         },
       });
     }
+    // Not gated by tokensDisabled - freezes aren't tokens, and a family that
+    // disabled tokens for someone hasn't necessarily opted them out of this.
+    if (streakFreezeValue > 0) await this.streakFreeze.grant(dto.userId, streakFreezeValue);
     // Bonus wheel / reward game attached to this award: server picks the
     // outcome (client presentations are pure theater landing on it) - but
     // nothing is banked here: it's QUEUED for the recipient to play on their
@@ -383,6 +404,10 @@ export class AwardsService {
         });
       }
     }
+    // Freezes aren't part of the removeTokens checkbox (that UI only ever
+    // promised to leave TOKENS alone) - always clawed back on removal, same
+    // as the badge itself always goes away regardless of that checkbox.
+    if (grant.streakFreezeValue > 0) await this.streakFreeze.take(grant.userId, grant.streakFreezeValue);
     await this.prisma.awardGrant.delete({ where: { id: grantId } });
     // The "you got an award!" / "go spin your wheel" feed entries deep-link to
     // something that no longer exists - take them with it.

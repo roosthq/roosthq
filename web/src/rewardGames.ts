@@ -8,7 +8,7 @@
 import type { PoolEntry } from './api';
 
 export interface SpinResult {
-  wonKind: 'TOKENS' | 'PRIZE';
+  wonKind: 'TOKENS' | 'PRIZE' | 'STREAK_FREEZE';
   amount?: number;
   prize?: { name: string; icon: string | null } | null;
 }
@@ -80,7 +80,7 @@ export function fakePreviewRoll(
         resolve({ wonKind: 'PRIZE', prize: { name: prizeNameById[picked.prizeId] ?? 'Prize', icon: null } });
       } else {
         const amount = picked.min + Math.floor(Math.random() * (Math.max(picked.min, picked.max) - picked.min + 1));
-        resolve({ wonKind: 'TOKENS', amount });
+        resolve({ wonKind: picked.kind === 'STREAK_FREEZE' ? 'STREAK_FREEZE' : 'TOKENS', amount });
       }
     }, 250);
   });

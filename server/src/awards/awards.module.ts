@@ -4,9 +4,10 @@ import { AwardsService } from './awards.service';
 import { PrismaService } from '../prisma.service';
 import { RewardGamesModule } from '../reward-games/reward-games.module';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { StreakFreezeModule } from '../streak-freeze/streak-freeze.module';
 
 @Module({
-  imports: [NotificationsModule, RewardGamesModule],
+  imports: [NotificationsModule, RewardGamesModule, StreakFreezeModule],
   controllers: [AwardsController],
   providers: [AwardsService, PrismaService],
 })

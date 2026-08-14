@@ -93,7 +93,7 @@ export default function WheelModal({
         setResult(r);
         // A prize win has no meaningful wedge - land on a random one, since
         // the reveal text (not the wedge) is what actually shows the prize.
-        target = r.wonKind === 'TOKENS' ? r.amount : segments[Math.floor(Math.random() * segments.length)];
+        target = r.wonKind === 'PRIZE' ? segments[Math.floor(Math.random() * segments.length)] : r.amount;
         setRolled(target);
       } catch {
         setSpinning(false);
@@ -263,6 +263,8 @@ export default function WheelModal({
               <span className="text-5xl">{result.prize?.icon ?? '🎁'}</span>
               <span>{result.prize?.name}!</span>
             </div>
+          ) : result?.wonKind === 'STREAK_FREEZE' ? (
+            <div className="text-5xl font-extrabold text-white">🧊 +{rolled} streak freeze{rolled === 1 ? '' : 's'}!</div>
           ) : (
             <div className="text-5xl font-extrabold text-white">
               +{rolled} {tokenName}!

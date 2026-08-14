@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { NotificationsService } from '../notifications/notifications.service';
+import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 
 // Pending reward games (#5 - renamed/widened from the original single bonus
 // wheel; RewardGame is @@map'd to the pre-existing WheelSpin table, see
@@ -31,7 +32,10 @@ export type GameType = (typeof GAME_TYPES)[number];
 export const REWARD_STYLES = GAME_TYPES;
 export type RewardStyle = GameType;
 
-export type PoolEntry = { kind: 'TOKENS'; min: number; max: number; weight?: number } | { kind: 'PRIZE'; prizeId: string; weight?: number };
+export type PoolEntry =
+  | { kind: 'TOKENS'; min: number; max: number; weight?: number }
+  | { kind: 'PRIZE'; prizeId: string; weight?: number }
+  | { kind: 'STREAK_FREEZE'; min: number; max: number; weight?: number };
 
 @Injectable()
 export class RewardGamesService {
@@ -39,6 +43,7 @@ export class RewardGamesService {
     private prisma: PrismaService,
     private displayEvents: DisplayEventsService,
     private notifications: NotificationsService,
+    private streakFreeze: StreakFreezeService,
   ) {}
 
   // ---- Legacy/simple path: a plain token range, no prize pool. Unchanged
@@ -66,11 +71,17 @@ export class RewardGamesService {
     opts: { reason: string; refId?: string; gameType?: GameType | null; slotCount?: number | null },
   ) {
     // Cosmetic min/max for the reveal animation (wheel wedges, slot reel
-    // cycling) - derived from the pool's own token entries so a mostly-tokens
-    // pool still looks proportionate; a prize-only pool falls back to 1-5.
-    const tokenEntries = pool.filter((p): p is { kind: 'TOKENS'; min: number; max: number; weight?: number } => p.kind === 'TOKENS');
-    const min = tokenEntries.length ? Math.min(...tokenEntries.map((p) => p.min)) : 1;
-    const max = tokenEntries.length ? Math.max(...tokenEntries.map((p) => p.max)) : 5;
+    // cycling) - derived from the pool's own ranged entries (tokens, then
+    // freezes) so a mostly-ranged pool still looks proportionate; a
+    // prize-only pool falls back to 1-5.
+    const rangedEntries = pool.filter(
+      (p): p is { kind: 'TOKENS' | 'STREAK_FREEZE'; min: number; max: number; weight?: number } =>
+        p.kind === 'TOKENS' || p.kind === 'STREAK_FREEZE',
+    );
+    const tokenEntries = rangedEntries.filter((p) => p.kind === 'TOKENS');
+    const preferred = tokenEntries.length ? tokenEntries : rangedEntries;
+    const min = preferred.length ? Math.min(...preferred.map((p) => p.min)) : 1;
+    const max = preferred.length ? Math.max(...preferred.map((p) => p.max)) : 5;
     const chosenStyle = opts.gameType ?? GAME_TYPES[Math.floor(Math.random() * GAME_TYPES.length)];
     const game = await this.prisma.rewardGame.create({
       data: {
@@ -111,6 +122,9 @@ export class RewardGamesService {
       if (game.wonKind === 'PRIZE' && game.wonPrizeId) {
         const prize = await this.prisma.prize.findUnique({ where: { id: game.wonPrizeId } });
         return { wonKind: 'PRIZE' as const, prize: prize ? { name: prize.name, icon: this.prizeIcon(prize) } : null, reason: game.reason };
+      }
+      if (game.wonKind === 'STREAK_FREEZE') {
+        return { wonKind: 'STREAK_FREEZE' as const, amount: game.amount ?? 0, min: game.minTokens, max: game.maxTokens, reason: game.reason };
       }
       return { wonKind: 'TOKENS' as const, amount: game.amount ?? 0, min: game.minTokens, max: game.maxTokens, reason: game.reason };
     }
@@ -178,6 +192,14 @@ export class RewardGamesService {
       }
       this.displayEvents.publish(game.familyId, { type: 'tokens' });
       return { wonKind: 'PRIZE' as const, prize: prize ? { name: prize.name, icon: this.prizeIcon(prize) } : null, reason: game.reason };
+    }
+
+    if (picked.kind === 'STREAK_FREEZE') {
+      const amount = picked.min + Math.floor(Math.random() * (picked.max - picked.min + 1));
+      await this.prisma.rewardGame.update({ where: { id: game.id }, data: { spunAt: new Date(), amount, wonKind: 'STREAK_FREEZE' } });
+      await this.streakFreeze.grant(game.userId, amount);
+      this.displayEvents.publish(game.familyId, { type: 'tokens' });
+      return { wonKind: 'STREAK_FREEZE' as const, amount, min: picked.min, max: picked.max, reason: game.reason };
     }
 
     const amount = picked.min + Math.floor(Math.random() * (picked.max - picked.min + 1));

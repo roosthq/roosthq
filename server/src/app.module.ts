@@ -25,10 +25,12 @@ import { SecurityModule } from './security/security.module';
 import { SearchModule } from './search/search.module';
 import { SoundsModule } from './sounds/sounds.module';
 import { IconsModule } from './icons/icons.module';
+import { StreakFreezeModule } from './streak-freeze/streak-freeze.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
+    StreakFreezeModule,
     SecurityModule,
     DisplayEventsModule,
     AuthModule,

@@ -126,6 +126,8 @@ export default function ProfilePage({
   }, [levelUpTo]);
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
+  const [freezeDelta, setFreezeDelta] = useState(0);
+  const [freezeReason, setFreezeReason] = useState('');
 
   // Purchase history is a plain browsable list - nothing else on this page
   // does math over it, so it gets real pagination. Token history below is
@@ -195,6 +197,14 @@ export default function ProfilePage({
     await api.adjustTokens({ userId: targetId, delta: sign * Math.abs(delta), reason: reason.trim() });
     setDelta(0);
     setReason('');
+    await refresh();
+  }
+
+  async function adjustFreeze(sign: 1 | -1) {
+    if (!freezeDelta || !freezeReason.trim()) return;
+    await api.adjustStreakFreeze(targetId, sign * Math.abs(freezeDelta), freezeReason.trim());
+    setFreezeDelta(0);
+    setFreezeReason('');
     await refresh();
   }
 
@@ -401,6 +411,41 @@ export default function ProfilePage({
             </button>
           </div>
           <p className="mt-1 text-xs text-slate-400">Use for bonuses, penalties, or reconciling physical tokens.</p>
+        </section>
+      )}
+
+      {/* Silent give/take, same shape as Adjust {tokenName} above but for the
+          person-level freeze bank (StreakFreezeService) - separate from
+          whatever a chore's own milestone-earned bank is doing. */}
+      {isAdult && familyFeatureEnabled(family, 'streakFreeze') && (
+        <section className="mt-6 rounded border bg-white p-3">
+          <h3 className="text-sm font-semibold">Adjust streak freezes</h3>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <input
+              type="number"
+              min={0}
+              value={freezeDelta}
+              onChange={(e) => setFreezeDelta(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
+              className="w-24 rounded border px-2 py-1 text-sm"
+              placeholder="amount"
+            />
+            <input
+              value={freezeReason}
+              onChange={(e) => setFreezeReason(e.target.value)}
+              className="flex-1 rounded border px-2 py-1 text-sm"
+              placeholder="Reason (required)"
+            />
+            <button onClick={() => adjustFreeze(1)} className="rounded bg-green-600 px-3 py-1 text-sm text-white hover:bg-green-500">
+              Give
+            </button>
+            <button onClick={() => adjustFreeze(-1)} className="rounded bg-red-600 px-3 py-1 text-sm text-white hover:bg-red-500">
+              Take back
+            </button>
+          </div>
+          <p className="mt-1 text-xs text-slate-400">
+            🧊 A wildcard that protects their next missed chore - independent of any freeze a chore's own streak has already banked.
+          </p>
         </section>
       )}
 
