@@ -5,7 +5,7 @@ import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import LevelBadge from '../LevelBadge';
 import { useDialog } from '../Dialog';
-import { formatDate } from '../dateFormat';
+import { formatDate, formatDateTime } from '../dateFormat';
 import { celebrate } from '../celebrate';
 import LucideIcon from '../LucideIcon';
 import { usePaginatedList } from '../usePaginatedList';
@@ -498,7 +498,9 @@ export default function ProfilePage({
                     {a.amount}
                   </span>
                 )}
-                <span className="text-xs text-slate-400">{formatDate(a.createdAt)}</span>
+                <span className="text-xs text-slate-400" title={formatDateTime(a.createdAt)}>
+                  {formatDate(a.createdAt)}
+                </span>
                 {isFamilyManager && a.kind.startsWith('TOKEN_') && (
                   <button onClick={() => deleteActivityEntry(a)} className="btn-delete rounded px-2 py-0.5 text-xs">
                     Delete
