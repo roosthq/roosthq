@@ -82,7 +82,9 @@ export default function KioskStatsModal({
 
   const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
   const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
-  const bestStreak = Math.max(0, ...chores.filter((c) => c.assignees.some((a) => a.userId === userId)).map((c) => c.currentStreak), 0);
+  const myChores = chores.filter((c) => c.assignees.some((a) => a.userId === userId));
+  const bestStreak = Math.max(0, ...myChores.map((c) => c.currentStreak), 0);
+  const freezesBanked = myChores.reduce((sum, c) => sum + c.streakFreezes, 0);
 
   return (
     <>
@@ -124,6 +126,17 @@ export default function KioskStatsModal({
             </span>
           }
         />
+        {familyFeatureEnabled(family, 'streakFreeze') && freezesBanked > 0 && (
+          <Stat
+            label={`Streak freeze${freezesBanked === 1 ? '' : 's'} banked`}
+            value={
+              <span className="inline-flex items-center gap-1">
+                <LucideIcon name="snowflake" slot="badge.streakFreeze" size={24} />
+                {freezesBanked}
+              </span>
+            }
+          />
+        )}
       </div>
       {family && familyFeatureEnabled(family, 'levels') && (
         <div className="mt-4">

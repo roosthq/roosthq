@@ -100,6 +100,7 @@ export default function ProfilePage({
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [streak, setStreak] = useState(0);
+  const [freezesBanked, setFreezesBanked] = useState(0);
   const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
@@ -152,14 +153,20 @@ export default function ProfilePage({
     else setAwards([]);
     // Longest active streak across this person's chores - the flame lives on
     // task cards already; the profile is where kids come to brag about it.
+    // Freezes banked (per-chore, max 3 each) summed across their chores too -
+    // same "mine" filter, since a freeze belongs to the chore it protects,
+    // not the person, but only their own assigned chores count as "theirs".
     api
       .chores()
-      .then((cs) =>
-        setStreak(
-          Math.max(0, ...cs.filter((c) => c.assignees.some((a) => a.userId === targetId)).map((c) => c.currentStreak)),
-        ),
-      )
-      .catch(() => setStreak(0));
+      .then((cs) => {
+        const mine = cs.filter((c) => c.assignees.some((a) => a.userId === targetId));
+        setStreak(Math.max(0, ...mine.map((c) => c.currentStreak)));
+        setFreezesBanked(mine.reduce((sum, c) => sum + c.streakFreezes, 0));
+      })
+      .catch(() => {
+        setStreak(0);
+        setFreezesBanked(0);
+      });
     api.givenStats(targetId).then(setGiven).catch(() => setGiven(null));
   }, [targetId, isAdult, viewingSelf]);
 
@@ -297,6 +304,17 @@ export default function ProfilePage({
               <span className="inline-flex items-center gap-1">
                 <LucideIcon name="flame" slot="badge.streak" size={24} />
                 {streak}
+              </span>
+            }
+          />
+        )}
+        {familyFeatureEnabled(family, 'streakFreeze') && freezesBanked > 0 && (
+          <Stat
+            label={`Streak freeze${freezesBanked === 1 ? '' : 's'} banked`}
+            value={
+              <span className="inline-flex items-center gap-1">
+                <LucideIcon name="snowflake" slot="badge.streakFreeze" size={24} />
+                {freezesBanked}
               </span>
             }
           />

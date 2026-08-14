@@ -30,6 +30,7 @@ export const ICON_SLOTS: IconSlot[] = [
   // Badges / stats
   { id: 'badge.level', label: 'Level badge', defaultKey: 'star', category: 'Badges' },
   { id: 'badge.streak', label: 'Streak badge', defaultKey: 'flame', category: 'Badges' },
+  { id: 'badge.streakFreeze', label: 'Streak freeze badge', defaultKey: 'snowflake', category: 'Badges' },
 
   // Chores
   { id: 'chores.today', label: 'Chores: "Today" group label', defaultKey: 'star', category: 'Chores' },
