@@ -99,11 +99,42 @@ your server setup uses) - the Pi never needs a Google account or a password.
 
 ## 4. Autostart Chromium in kiosk mode
 
-A `systemd` service is the most portable way to autostart this - but **which
-environment variables it needs depends on whether your desktop session is
-X11 or Wayland**, and current Raspberry Pi OS (Bookworm and Trixie alike)
-defaults to Wayland (Wayfire, or Labwc on the newest releases). Check which
-one you actually have before writing the service - don't assume:
+**If you have a touchscreen, switch to X11 before doing anything else below.**
+Current Raspberry Pi OS (Bookworm and Trixie alike) defaults to Wayland
+(Wayfire, or Labwc on the newest releases), and - confirmed live, not
+theoretical, on a Pi 4 running Labwc with a real USB touch panel - **touch
+scrolling does not work reliably under Wayland here**. Diagnosed with a
+synthetic touch event dispatched straight into Chromium via its own
+DevTools protocol (bypassing the OS entirely): the page itself scrolled
+correctly, proving the app was never the problem - the bug is in the
+Wayland/Ozone touch-input path itself, upstream of anything a web page
+controls. XWayland (Chromium under `--ozone-platform=x11` while the session
+is still Wayland) made it *worse* - `navigator.maxTouchPoints` dropped to 0
+through that layer. Native X11 - the same stack the Pi 2/3 path below has
+always used - is what actually works:
+
+```bash
+sudo raspi-config nonint do_wayland W1   # W1 = X11, W2 = Labwc/Wayland
+sudo reboot
+```
+
+Confirm it took after reboot:
+
+```bash
+loginctl show-session $(loginctl | awk '/tty1/{print $1}') -p Type   # Type=x11
+ps aux | grep -i Xorg   # should show a running Xorg process, not labwc/wayfire
+```
+
+If your setup is a monitor with no touch at all, this bug may not affect
+you - Wayland is still the OS default and gets first-class support for
+everything else. But if touch scrolling isn't working and you're on
+Wayland, this is the fix, not a CSS tweak - don't spend time chasing it in
+the app before trying this.
+
+A `systemd` service is the most portable way to autostart Chromium once the
+session type is settled - but **which environment variables it needs
+depends on whether your desktop session is X11 or Wayland**. Check which one
+you actually have before writing the service - don't assume:
 
 ```bash
 loginctl show-session $(loginctl | awk '/tty1/{print $1}') -p Type
@@ -113,18 +144,8 @@ Prints `Type=wayland` or `Type=x11`. If you're not sure that's the right
 session, `who` shows which sessions are active and `ps aux | grep -i
 'wayfire\|labwc\|Xorg'` shows which compositor is actually running.
 
-**If it says `wayland`** (current default - confirmed live against a fresh
-Raspberry Pi OS Trixie/Labwc install), Chromium needs `WAYLAND_DISPLAY` and
-`XDG_RUNTIME_DIR`, not `DISPLAY`/`XAUTHORITY` - the session genuinely has no
-`DISPLAY` variable set at all, so a service using `DISPLAY=:0` starts
-Chromium against a display server that isn't there. Confirm the socket name
-and your user's UID first:
-
-```bash
-ls /run/user/$(id -u <your-username>)/wayland-*
-```
-
-(usually `wayland-0`). Create `/etc/systemd/system/roost-kiosk.service`:
+**On `x11`** (the touchscreen-recommended path above, or any older release
+that was never switched off it), use `DISPLAY`/`XAUTHORITY`:
 
 ```ini
 [Unit]
@@ -134,12 +155,12 @@ Wants=graphical.target
 
 [Service]
 User=<your-username>
-Environment=XDG_RUNTIME_DIR=/run/user/<uid>
-Environment=WAYLAND_DISPLAY=wayland-0
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/<your-username>/.Xauthority
 ExecStartPre=/bin/sleep 5
 ExecStart=/usr/bin/chromium \
   --kiosk "https://roost.yourdomain.com/?display=1&token=<long-token>" \
-  --ozone-platform=wayland \
+  --ozone-platform=x11 \
   --noerrdialogs \
   --disable-infobars \
   --disable-session-crashed-bubble \
@@ -155,18 +176,25 @@ RestartSec=3
 WantedBy=graphical.target
 ```
 
-`--ozone-platform=wayland` forces native Wayland rendering explicitly rather
-than relying on Chromium's auto-detection picking it correctly - confirmed
-via the running process's own args, GPU-accelerated (`--use-angle=gles`
-against `/dev/dri/card1`), no Xwayland involved.
+**On `wayland`** (fine for a touch-less monitor-only setup - see the warning
+above if you have a touchscreen), Chromium needs `WAYLAND_DISPLAY` and
+`XDG_RUNTIME_DIR` instead - the session genuinely has no `DISPLAY` variable
+set at all, so a service using `DISPLAY=:0` starts Chromium against a
+display server that isn't there. Confirm the socket name and your user's
+UID first:
 
-**If it says `x11`** (older releases, or a desktop you deliberately kept on
-X11), use `DISPLAY`/`XAUTHORITY` instead and drop `--ozone-platform`:
+```bash
+ls /run/user/$(id -u <your-username>)/wayland-*
+```
+
+(usually `wayland-0`), then swap the `[Service]` block above for:
 
 ```ini
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/<your-username>/.Xauthority
+Environment=XDG_RUNTIME_DIR=/run/user/<uid>
+Environment=WAYLAND_DISPLAY=wayland-0
 ```
+
+and `--ozone-platform=wayland` in place of `--ozone-platform=x11`.
 
 Notes on the Chromium flags (apply either way):
 - `--kiosk` - full screen, no address bar/tabs/nothing touchable outside the page.
@@ -316,23 +344,33 @@ Follow the on-screen taps; it prints an `xorg.conf.d` snippet to save.
 
 ## 8. If touch acts like a mouse (ghost cursor, drag selects text instead of scrolling)
 
+**Try step 4's "switch to X11" fix first.** This section describes a real
+device quirk found while chasing this exact symptom on Wayland, and it's
+still worth checking regardless of session type - but switching to X11 is
+what actually fixed touch scrolling end to end on the hardware this was
+diagnosed on; the fix below alone did not (confirmed: still broken on
+Wayland even after applying it and rebooting). Treat this as a secondary
+defensive check, not the primary fix, if you have a touchscreen.
+
 Symptoms together, not separately - a visible mouse pointer on a screen with
 no mouse attached, AND a finger-drag over a scrollable list selecting text
-or doing nothing instead of scrolling it. Both come from the same cause: the
-touch controller is exposing **two** input devices from one physical panel -
-a real touch device, and a second legacy "mouse emulation" device for
-compat with software that doesn't understand touch. If Wayland picks up
-both, some touches get reported as real touch and others as a plain mouse
-click/drag, which is exactly the click-drag-selects-text behavior a desktop
-browser gives you for a mouse.
+or doing nothing instead of scrolling it. Both *can* come from the same
+cause: the touch controller exposing **two** input devices from one
+physical panel - a real touch device, and a second legacy "mouse emulation"
+device for compat with software that doesn't understand touch. If Wayland
+picks up both, some touches get reported as real touch and others as a
+plain mouse click/drag, which is exactly the click-drag-selects-text
+behavior a desktop browser gives you for a mouse.
 
-Confirmed on a Pi 4 running Wayland/Labwc with an ILITEK USB touch
+Confirmed present on a Pi 4 running Wayland/Labwc with an ILITEK USB touch
 controller - the same hardware/OS combo other kiosks here would also run,
-so check for this first rather than assuming it's a one-off. Worked fine on
-older X11-based setups (see the Pi 2/3 note above) since that input path
-doesn't have this problem the same way - if you're moving from one of those
-to a newer Pi running Wayland, this is a likely new failure mode you won't
-have seen before.
+so check for this too rather than assuming it's a one-off. Fixing it did
+not, on its own, fix touch scrolling on that hardware - X11 (step 4) was
+still required on top of it. Worked fine on older X11-based setups (see the
+Pi 2/3 note above) without ever needing this - if you're moving from one of
+those to a newer Pi running Wayland, this is a failure mode you won't have
+seen before, but it's likely not the *only* thing standing between you and
+working touch.
 
 Check what's actually plugged in:
 
