@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { AwardsService, AwardInput, GrantInput } from './awards.service';
+import { parsePageParams } from '../common/pagination';
 
 @UseGuards(AuthGuard)
 @Controller('awards')
@@ -23,8 +24,9 @@ export class AwardsController {
 
   // Adults-only, family-wide grant history.
   @Get('history')
-  history(@CurrentUser() u: SessionPayload) {
-    return this.awards.history(u.familyId, u.userId);
+  history(@CurrentUser() u: SessionPayload, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.awards.history(u.familyId, u.userId, p.skip, p.take);
   }
 
   // What the confirm dialog needs to describe the "also take the tokens back"

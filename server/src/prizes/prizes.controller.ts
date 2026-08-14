@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { PrizesService, PrizeInput, PrizeSuggestionInput } from './prizes.service';
+import { parsePageParams } from '../common/pagination';
 
 @UseGuards(AuthGuard)
 @Controller('prizes')
@@ -20,8 +21,11 @@ export class PrizesController {
     @CurrentUser() u: SessionPayload,
     @Query('userId') userId?: string,
     @Query('prizeId') prizeId?: string,
+    @Query('skip') skip?: string,
+    @Query('take') take?: string,
   ) {
-    return this.prizes.redemptions(u.familyId, u.userId, { userId, prizeId });
+    const p = parsePageParams(skip, take);
+    return this.prizes.redemptions(u.familyId, u.userId, { userId, prizeId, skip: p.skip, take: p.take });
   }
 
   @Post()

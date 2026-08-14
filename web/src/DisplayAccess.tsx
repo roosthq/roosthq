@@ -35,6 +35,18 @@ export default function DisplayAccess() {
     await refresh();
   }
 
+  async function deleteToken(id: string) {
+    await api.deleteDisplayToken(id);
+    await refresh();
+  }
+
+  async function clearRevoked() {
+    await api.deleteAllRevokedDisplayTokens();
+    await refresh();
+  }
+
+  const revokedCount = tokens.filter((t) => t.revokedAt).length;
+
   // Only the hash is ever stored server-side, so a link closed/lost before
   // the Pi's browser got pointed at it can't be shown again - this mints a
   // fresh one on the same display (old one revoked) and reuses the same
@@ -66,6 +78,11 @@ export default function DisplayAccess() {
             + Generate kiosk link
           </button>
         </div>
+        {revokedCount > 0 && (
+          <button onClick={clearRevoked} className="rounded border px-2.5 py-1 text-xs text-slate-500 hover:bg-slate-50" title="Permanently delete every revoked link below">
+            🗑 Clear {revokedCount} revoked
+          </button>
+        )}
       </div>
 
       {freshUrl && (
@@ -103,6 +120,11 @@ export default function DisplayAccess() {
                   Revoke
                 </button>
               </>
+            )}
+            {t.revokedAt && (
+              <button onClick={() => deleteToken(t.id)} className="shrink-0 text-xs text-slate-400 hover:text-red-600" title="Permanently delete this revoked link">
+                🗑 Delete
+              </button>
             )}
           </li>
         ))}

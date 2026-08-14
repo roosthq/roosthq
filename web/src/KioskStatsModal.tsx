@@ -61,7 +61,10 @@ export default function KioskStatsModal({
 
   useEffect(() => {
     api.tokenBalance(userId, kioskToken).then((b) => setBalance(b.balance)).catch(() => undefined);
-    api.tokenLedger(userId, kioskToken).then(setLedger).catch(() => setLedger([]));
+    // take=200: this only ever feeds the earned/spent sums below, never
+    // rendered as a list - a bigger one-shot window beats real pagination
+    // here, since paginating would make those totals visibly incomplete.
+    api.tokenLedger(userId, kioskToken, 0, 200).then((r) => setLedger(r.items)).catch(() => setLedger([]));
     api.earnedAwards(userId, kioskToken).then(setAwards).catch(() => setAwards([]));
     api.familySettings(kioskToken).then(setFamily).catch(() => undefined);
     // #4 - this modal is one of the three spots that count as "actually

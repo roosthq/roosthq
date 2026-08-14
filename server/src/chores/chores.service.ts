@@ -11,6 +11,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { RewardGamesService } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
+import { paginate } from '../common/pagination';
 import {
   DEFAULT_TIMEZONE,
   addDaysToKey,
@@ -1111,40 +1112,46 @@ export class ChoresService {
   // just one), not the main list's per-chore 5-row cap. Adults-only (owner,
   // family manager, or plain adult - never a kid) so this is purely a
   // "check things are actually working right" tool, not something a kid
-  // digs through to find an old missed chore. Capped at 300 like the other
-  // history views in this app (awards/notifications) - plenty for spot
-  // checks; not meant to be a permanent unbounded archive.
-  async history(familyId: string, actorId: string, choreId?: string) {
+  // digs through to find an old missed chore. Real pagination now (see
+  // common/pagination.ts) - this used to hard-cap at 300 with no way past
+  // it, which was a real limitation once a family's had this running long
+  // enough to actually hit it, not just "plenty for spot checks".
+  async history(familyId: string, actorId: string, choreId?: string, skip = 0, take = 50) {
     await this.assertAdult(actorId);
     if (choreId) await this.ownedChore(familyId, choreId);
     const instances = await this.prisma.choreInstance.findMany({
       where: { chore: { familyId }, ...(choreId ? { choreId } : {}) },
       orderBy: { dueDate: 'desc' },
-      take: 300,
+      skip,
+      take: take + 1,
       include: {
         chore: { select: { id: true, title: true } },
         approvedByUser: { select: { id: true, displayName: true } },
       },
     });
+    const { items, hasMore } = paginate(instances, take);
     // claimedByUserId isn't a real relation (it's shared with the SPECIFIC-
     // assignment meaning too), so resolve display names separately rather
     // than adding a schema relation just for this read.
-    const claimerIds = [...new Set(instances.map((i) => i.claimedByUserId).filter((v): v is string => !!v))];
+    const claimerIds = [...new Set(items.map((i) => i.claimedByUserId).filter((v): v is string => !!v))];
     const claimers = claimerIds.length
       ? await this.prisma.user.findMany({ where: { id: { in: claimerIds } }, select: { id: true, displayName: true } })
       : [];
     const nameById = new Map(claimers.map((u) => [u.id, u.displayName]));
-    return instances.map((i) => ({
-      id: i.id,
-      choreId: i.choreId,
-      choreTitle: i.chore.title,
-      status: i.status,
-      dueDate: i.dueDate,
-      completedAt: i.completedAt,
-      claimedByUserId: i.claimedByUserId,
-      claimedByName: i.claimedByUserId ? nameById.get(i.claimedByUserId) ?? 'Removed member' : null,
-      approvedByUser: i.approvedByUser,
-    }));
+    return {
+      items: items.map((i) => ({
+        id: i.id,
+        choreId: i.choreId,
+        choreTitle: i.chore.title,
+        status: i.status,
+        dueDate: i.dueDate,
+        completedAt: i.completedAt,
+        claimedByUserId: i.claimedByUserId,
+        claimedByName: i.claimedByUserId ? nameById.get(i.claimedByUserId) ?? 'Removed member' : null,
+        approvedByUser: i.approvedByUser,
+      })),
+      hasMore,
+    };
   }
 
   async balances(familyId: string) {

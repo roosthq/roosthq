@@ -17,7 +17,9 @@ export default function PendingIndicator({ me }: { me: Me }) {
 
   const refresh = useCallback(() => {
     api.chores().then(setChores).catch(() => setChores([]));
-    api.redemptions(isAdult ? {} : { userId: me.id }).then(setRedemptions).catch(() => setRedemptions([]));
+    // Just the recent-enough window for a "what's waiting" badge, not a
+    // browsable history - no load-more here on purpose.
+    api.redemptions(isAdult ? {} : { userId: me.id }).then((r) => setRedemptions(r.items)).catch(() => setRedemptions([]));
   }, [isAdult, me.id]);
 
   useEffect(() => {

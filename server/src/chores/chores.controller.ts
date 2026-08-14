@@ -13,6 +13,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { ChoresService, CreateChoreDto, UpdateChoreDto } from './chores.service';
+import { parsePageParams } from '../common/pagination';
 
 @UseGuards(AuthGuard)
 @Controller('chores')
@@ -33,8 +34,9 @@ export class ChoresController {
   // unlike the main list's per-chore 5-instance cap. Declared before the
   // :id route so /chores/history doesn't get swallowed as a chore id.
   @Get('history')
-  history(@CurrentUser() u: SessionPayload, @Query('choreId') choreId?: string) {
-    return this.chores.history(u.familyId, u.userId, choreId);
+  history(@CurrentUser() u: SessionPayload, @Query('choreId') choreId?: string, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.chores.history(u.familyId, u.userId, choreId, p.skip, p.take);
   }
 
   @Get(':id')

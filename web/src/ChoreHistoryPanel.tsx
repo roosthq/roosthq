@@ -1,6 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
-import { api, type ChoreHistoryEntry } from './api';
+import { useMemo, useState } from 'react';
+import { api } from './api';
 import { formatDateTime } from './dateFormat';
+import { usePaginatedList } from './usePaginatedList';
+import LoadMoreButton from './LoadMoreButton';
 
 const STATUS_LABEL: Record<string, string> = {
   OPEN: 'Open',
@@ -27,26 +29,16 @@ const STATUS_COLOR: Record<string, string> = {
 // starts collapsed same as the Awards page's history.
 export default function ChoreHistoryPanel() {
   const [open, setOpen] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [rows, setRows] = useState<ChoreHistoryEntry[]>([]);
   const [choreFilter, setChoreFilter] = useState('');
 
-  function toggle() {
-    const next = !open;
-    setOpen(next);
-    if (next && !loaded) {
-      setLoaded(true);
-      api.choreHistory().then(setRows).catch(() => setRows([]));
-    }
-  }
-
-  // Refetch scoped server-side when a specific chore is picked - cheaper
-  // than pulling everything and filtering client-side once there's enough
-  // history that the unscoped 300-row cap could cut a chore's older rows.
-  useEffect(() => {
-    if (!open) return;
-    api.choreHistory(choreFilter || undefined).then(setRows).catch(() => setRows([]));
-  }, [open, choreFilter]);
+  // Gated on `open` inside the fetcher itself (returning an empty page while
+  // closed) rather than skipping the hook call - hooks can't be conditional,
+  // and this still means nothing fetches until the panel's opened once.
+  const page = usePaginatedList(
+    (skip) => (open ? api.choreHistory(choreFilter || undefined, skip) : Promise.resolve({ items: [], hasMore: false })),
+    [open, choreFilter],
+  );
+  const rows = page.items;
 
   const choreOptions = useMemo(() => {
     const seen = new Map<string, string>();
@@ -56,7 +48,7 @@ export default function ChoreHistoryPanel() {
 
   return (
     <section className="panel mt-6">
-      <button onClick={toggle} className="text-sm font-semibold hover:underline">
+      <button onClick={() => setOpen((o) => !o)} className="text-sm font-semibold hover:underline">
         {open ? '▾' : '▸'} Chore history
       </button>
       {open && (
@@ -75,7 +67,10 @@ export default function ChoreHistoryPanel() {
                 </option>
               ))}
             </select>
-            <span className="text-slate-400">{rows.length} occurrence{rows.length === 1 ? '' : 's'}</span>
+            <span className="text-slate-400">
+              {rows.length} occurrence{rows.length === 1 ? '' : 's'}
+              {page.hasMore ? '+' : ''}
+            </span>
           </div>
 
           <div className="mt-2 overflow-x-auto">
@@ -101,7 +96,7 @@ export default function ChoreHistoryPanel() {
                     <td className="px-2 py-1.5 text-slate-500">{r.completedAt ? formatDateTime(r.completedAt) : '-'}</td>
                   </tr>
                 ))}
-                {rows.length === 0 && (
+                {rows.length === 0 && !page.loading && (
                   <tr>
                     <td colSpan={6} className="px-2 py-3 text-center text-slate-400">
                       No history yet.
@@ -111,6 +106,7 @@ export default function ChoreHistoryPanel() {
               </tbody>
             </table>
           </div>
+          <LoadMoreButton hasMore={page.hasMore} loading={page.loadingMore} onClick={page.loadMore} />
         </>
       )}
     </section>

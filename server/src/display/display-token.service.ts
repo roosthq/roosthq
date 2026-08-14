@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 
@@ -38,9 +38,13 @@ export class DisplayTokenService {
   }
 
   async list(familyId: string) {
+    // No real pagination UI here - a family realistically mints a handful of
+    // these ever, not hundreds - but an unbounded query with no cap at all
+    // was still the wrong default; 200 is a defensive ceiling, not a page size.
     const tokens = await this.prisma.displayToken.findMany({
       where: { familyId },
       orderBy: { createdAt: 'desc' },
+      take: 200,
     });
     return tokens.map((t) => ({
       id: t.id,
@@ -74,6 +78,28 @@ export class DisplayTokenService {
       data: { familyId, tokenHash: this.hash(raw), label: existing.label, displayConfigId: existing.displayConfigId },
     });
     return { id: record.id, label: record.label, token: raw };
+  }
+
+  // revoke() only ever soft-disables (kiosks accumulate forever otherwise -
+  // no list view ever shrank on its own). This is the real delete, and
+  // deliberately restricted to already-revoked rows: hard-removing an
+  // ACTIVE token by mistake would brick a kiosk with no warning beyond
+  // "the screen goes blank" the next time it happens to reload. Revoke
+  // first, then delete, is the only path - same two-step safety as
+  // deactivate-then-delete-a-person elsewhere in this app.
+  async delete(familyId: string, userId: string, id: string) {
+    await this.assertOwner(userId);
+    const existing = await this.prisma.displayToken.findFirst({ where: { id, familyId } });
+    if (!existing) throw new NotFoundException('Kiosk link not found');
+    if (!existing.revokedAt) throw new BadRequestException('Revoke this link before deleting it');
+    await this.prisma.displayToken.delete({ where: { id } });
+    return { ok: true };
+  }
+
+  async deleteAllRevoked(familyId: string, userId: string) {
+    await this.assertOwner(userId);
+    const { count } = await this.prisma.displayToken.deleteMany({ where: { familyId, revokedAt: { not: null } } });
+    return { ok: true, count };
   }
 
   // Resolve a raw token to its family + which display config it shows.

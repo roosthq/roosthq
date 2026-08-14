@@ -10,6 +10,8 @@ import { GAME_TYPES, GAME_TYPE_META, fakePreviewRoll } from '../rewardGames';
 import RewardRevealModal from '../RewardRevealModal';
 import { PrizeImage } from '../Prize';
 import LucideIcon from '../LucideIcon';
+import { usePaginatedList } from '../usePaginatedList';
+import LoadMoreButton from '../LoadMoreButton';
 
 // Icons are either a Lucide icon name or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
@@ -54,8 +56,10 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   const { confirm, alert } = useDialog();
   const [awards, setAwards] = useState<AwardCatalogItem[]>([]);
   const [kids, setKids] = useState<Member[]>([]);
-  const [history, setHistory] = useState<AwardGrantHistoryItem[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+  // Gated on historyOpen inside the fetcher (empty page while closed) so
+  // this only ever fetches once the section's actually been opened.
+  const historyPage = usePaginatedList((skip) => (historyOpen ? api.awardHistory(skip) : Promise.resolve({ items: [], hasMore: false })), [historyOpen]);
   const [formOpen, setFormOpen] = useState(false);
   const [packsOpen, setPacksOpen] = useState(false);
   const [editing, setEditing] = useState<AwardCatalogItem | null>(null);
@@ -68,10 +72,9 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
   const [removeBusy, setRemoveBusy] = useState(false);
 
   const refresh = useCallback(async () => {
-    const [a, members, h] = await Promise.all([api.awardsCatalog(), api.listUsers(), api.awardHistory()]);
+    const [a, members] = await Promise.all([api.awardsCatalog(), api.listUsers()]);
     setAwards(a);
     setKids(members.filter((m) => m.role === 'KID'));
-    setHistory(h);
   }, []);
 
   useEffect(() => {
@@ -83,6 +86,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
       return;
     await api.deleteAward(a.id);
     await refresh();
+    if (historyOpen) historyPage.reload();
   }
 
   // Removing a grant is two separate decisions: take the badge back (always),
@@ -102,6 +106,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
       await api.removeAwardGrant(removing.grant.id, removing.removeTokens);
       setRemoving(null);
       await refresh();
+      if (historyOpen) historyPage.reload();
     } catch (e) {
       await alert(e instanceof Error ? e.message : 'Could not remove that award.');
     } finally {
@@ -191,11 +196,12 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
 
       <section className="mt-8">
         <button onClick={() => setHistoryOpen((v) => !v)} className="text-sm font-semibold hover:underline">
-          {historyOpen ? '▾' : '▸'} History ({history.length})
+          {historyOpen ? '▾' : '▸'} History{historyOpen ? ` (${historyPage.items.length}${historyPage.hasMore ? '+' : ''})` : ''}
         </button>
         {historyOpen && (
+          <>
           <ul className="mt-3 space-y-2">
-            {history.map((g) => (
+            {historyPage.items.map((g) => (
               <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-3 text-sm">
                 <span className="flex min-w-0 flex-1 items-center gap-2">
                   <AwardIcon icon={g.award.icon} size={20} />
@@ -215,8 +221,10 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
                 </span>
               </li>
             ))}
-            {history.length === 0 && <li className="text-sm text-slate-400">No awards given yet.</li>}
+            {!historyPage.loading && historyPage.items.length === 0 && <li className="text-sm text-slate-400">No awards given yet.</li>}
           </ul>
+          <LoadMoreButton hasMore={historyPage.hasMore} loading={historyPage.loadingMore} onClick={historyPage.loadMore} />
+          </>
         )}
       </section>
 
@@ -304,6 +312,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
           onGranted={async (kidName) => {
             setGranting(null);
             await refresh();
+            if (historyOpen) historyPage.reload();
             await alert(`Gave "${granting.name}" to ${kidName}.`);
           }}
         />

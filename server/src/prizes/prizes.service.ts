@@ -8,6 +8,7 @@ import { PrismaService } from '../prisma.service';
 import { assertKidPermission } from '../common/kid-permissions';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 import { NotificationsService } from '../notifications/notifications.service';
+import { paginate } from '../common/pagination';
 import { DisplayEventsService } from '../display/display-events.service';
 
 export interface CropRect {
@@ -361,11 +362,12 @@ export class PrizesService {
 
   // Purchase history: a member's own, the whole family, or (adults only) one
   // prize's full buyer history - surfaced in that prize's detail view.
-  async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string } = {}) {
-    if (!(await isFeatureEnabled(this.prisma, familyId, 'store'))) return [];
+  async redemptions(familyId: string, actingUserId: string, opts: { userId?: string; prizeId?: string; skip?: number; take?: number } = {}) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'store'))) return { items: [], hasMore: false };
     if (opts.prizeId) await this.assertAdult(actingUserId);
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const isAdult = !!actor && this.isAdult(actor.role);
+    const take = opts.take ?? 50;
     const redemptions = await this.prisma.redemption.findMany({
       where: {
         prize: { familyId },
@@ -373,14 +375,16 @@ export class PrizesService {
         ...(opts.prizeId ? { prizeId: opts.prizeId } : {}),
       },
       orderBy: { requestedAt: 'desc' },
-      take: 200,
+      skip: opts.skip ?? 0,
+      take: take + 1,
       include: {
         prize: { select: { name: true, tokenCost: true, type: true } },
         user: { select: { id: true, displayName: true } },
         approvedByUser: { select: { id: true, displayName: true } },
       },
     });
+    const { items, hasMore } = paginate(redemptions, take);
     // Who fulfilled/rejected it is adult-only context.
-    return redemptions.map(({ approvedByUser, ...r }) => (isAdult ? { ...r, approvedByUser } : r));
+    return { items: items.map(({ approvedByUser, ...r }) => (isAdult ? { ...r, approvedByUser } : r)), hasMore };
   }
 }

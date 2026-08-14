@@ -189,6 +189,24 @@ export class DisplayController {
     return this.tokens.list(u.familyId);
   }
 
+  // Literal paths ('tokens/revoked', 'tokens/:id/permanent') registered
+  // before 'tokens/:id' - Express/Nest matches route patterns in
+  // declaration order, and 'revoked' would otherwise get captured as :id
+  // by the more general route below it.
+  @UseGuards(AuthGuard)
+  @Delete('tokens/revoked')
+  deleteAllRevokedTokens(@CurrentUser() u: SessionPayload) {
+    return this.tokens.deleteAllRevoked(u.familyId, u.userId);
+  }
+
+  // Real delete, not another revoke - see DisplayTokenService.delete for why
+  // this only works on an already-revoked row.
+  @UseGuards(AuthGuard)
+  @Delete('tokens/:id/permanent')
+  deleteToken(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.tokens.delete(u.familyId, u.userId, id);
+  }
+
   @UseGuards(AuthGuard)
   @Delete('tokens/:id')
   revokeToken(@CurrentUser() u: SessionPayload, @Param('id') id: string) {

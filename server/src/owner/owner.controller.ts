@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Res, UseGuards } from '@nestjs/common';
+import { parsePageParams } from '../common/pagination';
 import { Response } from 'express';
 import { AuthGuard, SESSION_COOKIE } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
@@ -41,8 +42,9 @@ export class OwnerController {
   // Recent instance-owner actions: who deactivated/deleted/created/moved a
   // user, created/deleted/renamed a family, or ghosted as someone.
   @Get('audit-log')
-  auditLog(@CurrentUser() u: SessionPayload) {
-    return this.owner.auditLog(u.userId);
+  auditLog(@CurrentUser() u: SessionPayload, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.owner.auditLog(u.userId, p.skip, p.take);
   }
 
   @Post('users/:id/move')

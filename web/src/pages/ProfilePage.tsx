@@ -9,6 +9,8 @@ import { useDialog } from '../Dialog';
 import { formatDate } from '../dateFormat';
 import { celebrate } from '../celebrate';
 import LucideIcon from '../LucideIcon';
+import { usePaginatedList } from '../usePaginatedList';
+import LoadMoreButton from '../LoadMoreButton';
 
 function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
@@ -96,7 +98,6 @@ export default function ProfilePage({
   const [earnedBy, setEarnedBy] = useState<Record<string, number>>({});
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
-  const [history, setHistory] = useState<Redemption[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [streak, setStreak] = useState(0);
   const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
@@ -125,15 +126,18 @@ export default function ProfilePage({
   const [delta, setDelta] = useState(0);
   const [reason, setReason] = useState('');
 
+  // Purchase history is a plain browsable list - nothing else on this page
+  // does math over it, so it gets real pagination. Token history below is
+  // different: earned/spent/choresDone/the sparkline all derive from that
+  // SAME array, so paginating it would make those totals visibly incomplete
+  // the moment there's a "Load more" to click - it stays a single larger
+  // (take=200) fetch instead, in the main refresh() below.
+  const redemptionsPage = usePaginatedList<Redemption>((skip) => api.redemptions({ userId: targetId, skip }), [targetId]);
+
   const refresh = useCallback(async () => {
-    const [b, l, r] = await Promise.all([
-      api.tokenBalance(targetId),
-      api.tokenLedger(targetId),
-      api.redemptions({ userId: targetId }),
-    ]);
+    const [b, l] = await Promise.all([api.tokenBalance(targetId), api.tokenLedger(targetId, undefined, 0, 200)]);
     setBalance(b.balance);
-    setLedger(l);
-    setHistory(r);
+    setLedger(l.items);
     // Everyone (kids included) can browse all family profiles, same as adults.
     api.listUsers().then(setMembers).catch(() => setMembers([]));
     // balances() (not tokenBalances()) so the roster/leaderboard below can
@@ -408,7 +412,7 @@ export default function ProfilePage({
         <section className="mt-6">
           <h3 className="text-sm font-semibold">Purchase history</h3>
           <ul className="mt-2 space-y-1 text-sm">
-            {history.map((r) => (
+            {redemptionsPage.items.map((r) => (
               <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1">
                 <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
                 <span className="flex shrink-0 items-center gap-2 text-xs text-slate-400">
@@ -418,8 +422,9 @@ export default function ProfilePage({
                 </span>
               </li>
             ))}
-            {history.length === 0 && <li className="text-slate-400">No purchases yet.</li>}
+            {redemptionsPage.items.length === 0 && !redemptionsPage.loading && <li className="text-slate-400">No purchases yet.</li>}
           </ul>
+          <LoadMoreButton hasMore={redemptionsPage.hasMore} loading={redemptionsPage.loadingMore} onClick={redemptionsPage.loadMore} />
         </section>
       )}
     </div>

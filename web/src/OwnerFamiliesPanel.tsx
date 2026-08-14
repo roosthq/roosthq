@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type AuditLogEntry, type FamilyInfo, type Member } from './api';
+import { api, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilyInfo, type Member } from './api';
 import { useDialog } from './Dialog';
 import InviteLinkBox from './InviteLinkBox';
 import { formatDateTime } from './dateFormat';
 import LucideIcon from './LucideIcon';
+import { usePaginatedList } from './usePaginatedList';
+import LoadMoreButton from './LoadMoreButton';
 
 // "user.deactivate" -> "deactivated". Covers every action string OwnerService
 // actually writes; falls back to the raw dotted string for anything new so a
@@ -34,12 +36,14 @@ export default function OwnerFamiliesPanel() {
   const [error, setError] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<{ id: string; name: string } | null>(null);
   const [auditOpen, setAuditOpen] = useState(false);
-  const [auditLog, setAuditLog] = useState<AuditLogEntry[]>([]);
-  const [auditLoaded, setAuditLoaded] = useState(false);
+  const auditPage = usePaginatedList(
+    (skip) => (auditOpen ? api.auditLog(skip) : Promise.resolve({ items: [], hasMore: false })),
+    [auditOpen],
+  );
 
   const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
   const [inviteRole, setInviteRole] = useState<Record<string, 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
-  const [fresh, setFresh] = useState<{ url: string; token: string } | null>(null);
+  const [fresh, setFresh] = useState<{ url: string; id: string } | null>(null);
   // "Create an account here" form, per family - no invite, no Google needed.
   const [addForm, setAddForm] = useState<
     Record<
@@ -124,8 +128,8 @@ export default function OwnerFamiliesPanel() {
     setBusy(true);
     setError(null);
     try {
-      const minted = await api.createInvite(role, undefined, familyId);
-      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
+      const minted = await api.createInvite(role, { familyId });
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -145,15 +149,6 @@ export default function OwnerFamiliesPanel() {
       setError((e as Error).message);
     } finally {
       setBusy(false);
-    }
-  }
-
-  async function toggleAudit() {
-    const opening = !auditOpen;
-    setAuditOpen(opening);
-    if (opening && !auditLoaded) {
-      setAuditLoaded(true);
-      api.auditLog().then(setAuditLog).catch(() => setAuditLog([]));
     }
   }
 
@@ -264,7 +259,7 @@ export default function OwnerFamiliesPanel() {
         {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
       </div>
 
-      {fresh && <InviteLinkBox url={fresh.url} token={fresh.token} />}
+      {fresh && <InviteLinkBox url={fresh.url} id={fresh.id} />}
 
       <ul className="space-y-2">
         {families.map((f) => {
@@ -495,22 +490,25 @@ export default function OwnerFamiliesPanel() {
           create, rename, ghost) - none of it has a UI undo, so this is the
           only record of it. */}
       <div className="card-nested rounded-lg p-3">
-        <button onClick={toggleAudit} className="text-sm font-semibold hover:underline">
+        <button onClick={() => setAuditOpen((o) => !o)} className="text-sm font-semibold hover:underline">
           {auditOpen ? '▾' : '▸'} Activity log
         </button>
         {auditOpen && (
-          <ul className="mt-2 space-y-1.5 text-xs">
-            {auditLog.map((a) => (
-              <li key={a.id} className="flex flex-wrap items-baseline gap-1 border-b pb-1.5 last:border-0 last:pb-0">
-                <span className="font-medium">{a.actorName}</span>
-                <span className="text-slate-500">{AUDIT_ACTION_LABEL[a.action] ?? a.action}</span>
-                {a.targetLabel && <span className="font-medium">{a.targetLabel}</span>}
-                {a.detail && <span className="text-slate-500">({a.detail})</span>}
-                <span className="ml-auto shrink-0 text-slate-400">{formatDateTime(a.createdAt)}</span>
-              </li>
-            ))}
-            {auditLoaded && auditLog.length === 0 && <li className="text-slate-500">Nothing logged yet.</li>}
-          </ul>
+          <>
+            <ul className="mt-2 space-y-1.5 text-xs">
+              {auditPage.items.map((a) => (
+                <li key={a.id} className="flex flex-wrap items-baseline gap-1 border-b pb-1.5 last:border-0 last:pb-0">
+                  <span className="font-medium">{a.actorName}</span>
+                  <span className="text-slate-500">{AUDIT_ACTION_LABEL[a.action] ?? a.action}</span>
+                  {a.targetLabel && <span className="font-medium">{a.targetLabel}</span>}
+                  {a.detail && <span className="text-slate-500">({a.detail})</span>}
+                  <span className="ml-auto shrink-0 text-slate-400">{formatDateTime(a.createdAt)}</span>
+                </li>
+              ))}
+              {!auditPage.loading && auditPage.items.length === 0 && <li className="text-slate-500">Nothing logged yet.</li>}
+            </ul>
+            <LoadMoreButton hasMore={auditPage.hasMore} loading={auditPage.loadingMore} onClick={auditPage.loadMore} />
+          </>
         )}
       </div>
     </div>

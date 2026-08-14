@@ -4,6 +4,7 @@ import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { NotificationsService } from './notifications.service';
 import type { PushSubscriptionInput } from './push.service';
+import { parsePageParams } from '../common/pagination';
 
 @UseGuards(AuthGuard)
 @Controller('notifications')
@@ -29,8 +30,9 @@ export class NotificationsController {
 
   // ?all=1 -> family-wide activity feed (adults only, enforced in the service).
   @Get()
-  list(@CurrentUser() u: SessionPayload, @Query('all') all?: string) {
-    return this.notifications.list(u.familyId, u.userId, { all: all === '1' || all === 'true' });
+  list(@CurrentUser() u: SessionPayload, @Query('all') all?: string, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.notifications.list(u.familyId, u.userId, { all: all === '1' || all === 'true', skip: p.skip, take: p.take });
   }
 
   @Get('unread-count')

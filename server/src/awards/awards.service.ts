@@ -5,6 +5,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { RewardGamesService, GAME_TYPES, PoolEntry, GameType } from '../reward-games/reward-games.service';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
+import { paginate } from '../common/pagination';
 
 export interface AwardInput {
   name: string;
@@ -197,27 +198,32 @@ export class AwardsService {
 
   // Adults-only, family-wide grant history - who gave what to whom, the note,
   // the token value actually given, and when. Newest first.
-  async history(familyId: string, actorId: string) {
+  async history(familyId: string, actorId: string, skip = 0, take = 50) {
     await this.assertAdult(actorId);
     const grants = await this.prisma.awardGrant.findMany({
       where: { award: { familyId } },
       orderBy: { createdAt: 'desc' },
-      take: 200,
+      skip,
+      take: take + 1,
       include: {
         award: { select: { id: true, name: true, icon: true } },
         user: { select: { id: true, displayName: true } },
         grantedBy: { select: { id: true, displayName: true } },
       },
     });
-    return grants.map((g) => ({
-      id: g.id,
-      award: g.award,
-      user: g.user,
-      grantedBy: g.grantedBy,
-      note: g.note,
-      tokenValue: g.tokenValue,
-      createdAt: g.createdAt,
-    }));
+    const { items, hasMore } = paginate(grants, take);
+    return {
+      items: items.map((g) => ({
+        id: g.id,
+        award: g.award,
+        user: g.user,
+        grantedBy: g.grantedBy,
+        note: g.note,
+        tokenValue: g.tokenValue,
+        createdAt: g.createdAt,
+      })),
+      hasMore,
+    };
   }
 
   async grant(familyId: string, actorId: string, awardId: string, dto: GrantInput) {

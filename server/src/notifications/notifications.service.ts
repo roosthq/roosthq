@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma.service';
 import { NotificationType } from '@prisma/client';
 import { PushService, type PushSubscriptionInput } from './push.service';
 import { EmailService } from './email.service';
+import { paginate } from '../common/pagination';
 
 @Injectable()
 export class NotificationsService {
@@ -85,22 +86,28 @@ export class NotificationsService {
   }
 
   // Mine (default), or - adults only - the whole family's activity.
-  async list(familyId: string, actingUserId: string, opts: { all?: boolean } = {}) {
+  async list(familyId: string, actingUserId: string, opts: { all?: boolean; skip?: number; take?: number } = {}) {
+    const skip = opts.skip ?? 0;
+    const take = opts.take ?? 50;
     if (opts.all) {
       const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
       if (!actor || !this.isAdult(actor.role)) throw new ForbiddenException('Adults only');
-      return this.prisma.notification.findMany({
+      const rows = await this.prisma.notification.findMany({
         where: { familyId },
         orderBy: { createdAt: 'desc' },
-        take: 200,
+        skip,
+        take: take + 1,
         include: { user: { select: { id: true, displayName: true } } },
       });
+      return paginate(rows, take);
     }
-    return this.prisma.notification.findMany({
+    const rows = await this.prisma.notification.findMany({
       where: { familyId, userId: actingUserId },
       orderBy: { createdAt: 'desc' },
-      take: 100,
+      skip,
+      take: take + 1,
     });
+    return paginate(rows, take);
   }
 
   async unreadCount(actingUserId: string) {

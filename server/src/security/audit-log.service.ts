@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { paginate } from '../common/pagination';
 
 // Instance-owner action trail. No FK to User on purpose - the record has to
 // survive the actor or target being deleted, which is exactly the kind of
@@ -33,8 +34,9 @@ export class AuditLogService {
       .catch(() => undefined);
   }
 
-  list(limit = 200) {
-    return this.prisma.auditLog.findMany({ orderBy: { createdAt: 'desc' }, take: limit });
+  async list(skip = 0, take = 50) {
+    const rows = await this.prisma.auditLog.findMany({ orderBy: { createdAt: 'desc' }, skip, take: take + 1 });
+    return paginate(rows, take);
   }
 
   // Per-entity change history (e.g. one chore's create/edit/delete trail).

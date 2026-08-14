@@ -10,6 +10,7 @@ import LucideIcon from '../LucideIcon';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
 import { celebrate } from '../celebrate';
+import { usePaginatedList } from '../usePaginatedList';
 
 // Store cards are all the same horizontal-rectangle shape (see the grid
 // above) - the crop tool matches it, so what you select is exactly what the
@@ -59,7 +60,6 @@ export default function StorePage({
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
-  const [prizeHistory, setPrizeHistory] = useState<Redemption[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<StorePrize | null>(null);
@@ -67,14 +67,19 @@ export default function StorePage({
   const [suggesting, setSuggesting] = useState(false);
 
   const refresh = useCallback(async () => {
+    // take=200, no "load more" here on purpose: pending/eventsToFulfill/
+    // eventsDone below are all derived from this SAME array, and pending
+    // requests specifically are a live action queue an adult needs to see
+    // ALL of, not just the newest page - paginating this would risk an
+    // older still-unactioned request silently scrolling out of reach.
     const [p, b, r] = await Promise.all([
       api.prizes(),
       api.tokenBalance(),
-      api.redemptions(isAdult ? {} : { userId: me.id }),
+      api.redemptions({ ...(isAdult ? {} : { userId: me.id }), take: 200 }),
     ]);
     setPrizes(p);
     setBalance(b.balance);
-    setHistory(r);
+    setHistory(r.items);
     if (isAdult) api.listUsers().then(setMembers).catch(() => setMembers([]));
   }, [isAdult, me.id]);
 
@@ -85,14 +90,12 @@ export default function StorePage({
   }, [refresh]);
 
   // Full buyer history for whichever prize is open in the detail modal -
-  // adults/owners only (enforced server-side too).
-  useEffect(() => {
-    if (isAdult && viewing) {
-      api.redemptions({ prizeId: viewing.id }).then(setPrizeHistory).catch(() => setPrizeHistory([]));
-    } else {
-      setPrizeHistory([]);
-    }
-  }, [isAdult, viewing]);
+  // adults/owners only (enforced server-side too). A pure drill-down list,
+  // nothing else depends on completeness - real pagination is safe here.
+  const prizeHistoryPage = usePaginatedList<Redemption>(
+    (skip) => (isAdult && viewing ? api.redemptions({ prizeId: viewing.id, skip }) : Promise.resolve({ items: [], hasMore: false })),
+    [isAdult, viewing],
+  );
 
   // A kid whose store permission is off can browse but not spend; the server
   // enforces it too (assertKidPermission in prizes.service.redeem).
@@ -131,7 +134,7 @@ export default function StorePage({
 
   async function markUsed(redemptionId: string, used: boolean) {
     await api.markRedemptionUsed(redemptionId, used);
-    setPrizeHistory((h) => h.map((r) => (r.id === redemptionId ? { ...r, usedAt: used ? new Date().toISOString() : null } : r)));
+    prizeHistoryPage.setItems((h) => h.map((r) => (r.id === redemptionId ? { ...r, usedAt: used ? new Date().toISOString() : null } : r)));
     await refresh();
   }
 
@@ -413,7 +416,7 @@ export default function StorePage({
           tokenIcon={tokenIcon}
           isAdult={isAdult}
           balance={balance}
-          history={prizeHistory}
+          history={prizeHistoryPage.items}
           memberName={memberName}
           onClose={() => setViewing(null)}
           canRedeem={canRedeem}

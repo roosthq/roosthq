@@ -22,13 +22,40 @@ export class InvitesService {
     return u;
   }
 
+  private emailAddressPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  private inviteEmailBody(actorName: string, familyName: string, url: string): string {
+    return [
+      `${actorName} invited you to join ${familyName} on Roost HQ.`,
+      '',
+      'Open this link to accept, then sign in to join:',
+      url,
+      '',
+      'The link works once and only for you. If you were not expecting this, you can ignore it.',
+    ].join('\n');
+  }
+
   // Create a one-time invite; returns the raw token once (for the link).
   // Adults can invite new kids/adults; owner/family manager can additionally
   // invite a family manager; only the instance owner can invite another owner.
   // targetFamilyId lets the instance owner invite someone into a family other
   // than their own (e.g. a brand-new family they just created) - ignored for
   // anyone else, who can only ever invite into their own family.
-  async create(familyId: string, userId: string, role: Role, label?: string, targetFamilyId?: string) {
+  //
+  // email + baseUrl (both optional): when an email is given, this sends the
+  // invite in the SAME call instead of making "type an email, send it" a
+  // second step after "generate a link" - typing an address and picking a
+  // role is the whole point of an email invite, not an afterthought once a
+  // link already exists. baseUrl is only needed when email is - it's still
+  // the request's own origin (passed in by the controller), never anything
+  // client-supplied, same trust rule as the old standalone emailInvite().
+  // Leaving email blank is the "just generate a link to share myself" path.
+  async create(
+    familyId: string,
+    userId: string,
+    role: Role,
+    opts: { label?: string; targetFamilyId?: string; email?: string; baseUrl?: string } = {},
+  ) {
     const actor = await this.assertAdultOrOwner(userId);
     if (role === 'OWNER' && actor.role !== 'OWNER') {
       throw new ForbiddenException('Only the owner can invite another owner');
@@ -37,17 +64,34 @@ export class InvitesService {
       throw new ForbiddenException('Only the owner or a family manager can invite another family manager');
     }
     let destFamilyId = familyId;
-    if (targetFamilyId && targetFamilyId !== familyId) {
+    if (opts.targetFamilyId && opts.targetFamilyId !== familyId) {
       if (actor.role !== 'OWNER') throw new ForbiddenException('Only the owner can invite into a different family');
-      const family = await this.prisma.family.findUnique({ where: { id: targetFamilyId } });
+      const family = await this.prisma.family.findUnique({ where: { id: opts.targetFamilyId } });
       if (!family) throw new NotFoundException('Family not found');
-      destFamilyId = targetFamilyId;
+      destFamilyId = opts.targetFamilyId;
     }
+
+    const address = opts.email?.trim();
+    if (address) {
+      if (!this.emailAddressPattern.test(address)) throw new BadRequestException('That does not look like an email address');
+      if (!this.email.enabled) {
+        throw new BadRequestException('Email is not set up on this server yet - leave the address blank and copy the link instead.');
+      }
+    }
+
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId: destFamilyId, role, label, tokenHash: this.hash(raw), createdById: userId },
+      data: { familyId: destFamilyId, role, label: opts.label, email: address || null, tokenHash: this.hash(raw), createdById: userId },
     });
-    return { id: inv.id, role: inv.role, label: inv.label, token: raw };
+
+    let sentTo: string | undefined;
+    if (address) {
+      const family = await this.prisma.family.findUnique({ where: { id: destFamilyId }, select: { name: true } });
+      const url = `${(opts.baseUrl ?? '').replace(/\/+$/, '')}/?invite=${raw}`;
+      await this.email.send(address, `${actor.displayName} invited you to Roost HQ`, this.inviteEmailBody(actor.displayName, family?.name ?? 'their family', url));
+      sentTo = address;
+    }
+    return { id: inv.id, role: inv.role, label: inv.label, email: inv.email, token: raw, sentTo };
   }
 
   async list(familyId: string) {
@@ -59,37 +103,37 @@ export class InvitesService {
       id: i.id,
       role: i.role,
       label: i.label,
+      email: i.email,
       createdAt: i.createdAt,
       acceptedAt: i.acceptedAt,
+      expiresAt: i.expiresAt,
     }));
   }
 
-  // Mail an already-minted invite link to whoever it's for. The link is built
-  // from the request's own origin (passed in by the controller), never from a
-  // client-supplied URL, so nothing arbitrary ends up in an outbound email.
-  async emailInvite(familyId: string, userId: string, token: string, to: string, baseUrl: string) {
+  // Resend to whatever address is already on file for this pending invite -
+  // no retyping. Still works for a fresh address too (e.g. resending
+  // somewhere else), same validation as create()'s inline send.
+  async resend(familyId: string, userId: string, id: string, baseUrl: string, toOverride?: string) {
     const actor = await this.assertAdultOrOwner(userId);
-    const address = (to || '').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) throw new BadRequestException('That does not look like an email address');
+    const inv = await this.prisma.familyInvite.findFirst({ where: { id, familyId, acceptedAt: null } });
+    if (!inv) throw new NotFoundException('Invite not found (or already accepted)');
+    const address = (toOverride?.trim() || inv.email || '').trim();
+    if (!this.emailAddressPattern.test(address)) throw new BadRequestException('That does not look like an email address');
     if (!this.email.enabled) {
       throw new BadRequestException('Email is not set up on this server yet - copy the link and send it yourself.');
     }
-    const inv = await this.resolve(token);
-    if (!inv) throw new NotFoundException('That invite has expired or already been used');
-    // Same scoping rule as create(): your own family, unless you're the owner.
-    if (inv.familyId !== familyId && actor.role !== 'OWNER') throw new ForbiddenException('Not your invite');
-    const family = await this.prisma.family.findUnique({ where: { id: inv.familyId }, select: { name: true } });
-    const url = `${baseUrl.replace(/\/+$/, '')}/?invite=${token}`;
-    const body = [
-      `${actor.displayName} invited you to join ${family?.name ?? 'their family'} on Roost HQ.`,
-      '',
-      'Open this link to accept, then sign in to join:',
-      url,
-      '',
-      'The link works once and only for you. If you were not expecting this, you can ignore it.',
-    ].join('\n');
-    await this.email.send(address, `${actor.displayName} invited you to Roost HQ`, body);
-    return { ok: true, sentTo: address };
+    // Only the hash is ever stored - resending the SAME link isn't possible,
+    // so this mints a fresh token (same role/label/email) and revokes the
+    // old one, same pattern regenerate() already uses for "get link" again.
+    await this.prisma.familyInvite.delete({ where: { id } });
+    const raw = randomBytes(24).toString('hex');
+    const created = await this.prisma.familyInvite.create({
+      data: { familyId, role: inv.role, label: inv.label, email: address, tokenHash: this.hash(raw), createdById: userId },
+    });
+    const family = await this.prisma.family.findUnique({ where: { id: familyId }, select: { name: true } });
+    const url = `${baseUrl.replace(/\/+$/, '')}/?invite=${raw}`;
+    await this.email.send(address, `${actor.displayName} invited you to Roost HQ`, this.inviteEmailBody(actor.displayName, family?.name ?? 'their family', url));
+    return { id: created.id, role: created.role, label: created.label, email: created.email, token: raw, sentTo: address };
   }
 
   async revoke(familyId: string, userId: string, id: string) {
@@ -109,9 +153,9 @@ export class InvitesService {
     await this.prisma.familyInvite.delete({ where: { id } });
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId, role: existing.role, label: existing.label, tokenHash: this.hash(raw), createdById: userId },
+      data: { familyId, role: existing.role, label: existing.label, email: existing.email, tokenHash: this.hash(raw), createdById: userId },
     });
-    return { id: inv.id, role: inv.role, label: inv.label, token: raw };
+    return { id: inv.id, role: inv.role, label: inv.label, email: inv.email, token: raw };
   }
 
   // Used by the auth callback: resolve a raw token to a live, unused invite.

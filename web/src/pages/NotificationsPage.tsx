@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { api, DATA_REFRESH_EVENT, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
 import { formatDateTime } from '../dateFormat';
 import LucideIcon from '../LucideIcon';
+import { usePaginatedList } from '../usePaginatedList';
+import LoadMoreButton from '../LoadMoreButton';
 
 // Catalog keys (Lucide names or 'emoji_<codepoints>' - see icons/catalog.ts),
 // rendered via <LucideIcon slot={`notif.${type}`}/> so each notification
@@ -30,21 +32,14 @@ const TYPE_ICON: Record<string, string> = {
 export default function NotificationsPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const [view, setView] = useState<'mine' | 'family'>('mine');
-  const [items, setItems] = useState<AppNotification[]>([]);
   const navigate = useNavigate();
-
-  const refresh = useCallback(async () => {
-    setItems(await api.notifications(view === 'family'));
-  }, [view]);
-
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  const page = usePaginatedList<AppNotification>((skip) => api.notifications(view === 'family', skip), [view]);
+  const items = page.items;
 
   async function open(n: AppNotification) {
     if (!n.readAt) {
       await api.markNotificationRead(n.id);
-      setItems((prev) => prev.map((i) => (i.id === n.id ? { ...i, readAt: new Date().toISOString() } : i)));
+      page.setItems((prev) => prev.map((i) => (i.id === n.id ? { ...i, readAt: new Date().toISOString() } : i)));
       window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
     }
     // A notification always means something changed server-side since it
@@ -57,7 +52,7 @@ export default function NotificationsPage({ me }: { me: Me }) {
 
   async function markAllRead() {
     await api.markAllNotificationsRead();
-    await refresh();
+    await page.reload();
     window.dispatchEvent(new Event(NOTIFICATIONS_CHANGED_EVENT));
   }
 
@@ -121,10 +116,11 @@ export default function NotificationsPage({ me }: { me: Me }) {
             </button>
           </li>
         ))}
-        {items.length === 0 && (
+        {!page.loading && items.length === 0 && (
           <li className="text-sm text-slate-400">{view === 'family' ? 'No activity yet.' : "You're all caught up."}</li>
         )}
       </ul>
+      <LoadMoreButton hasMore={page.hasMore} loading={page.loadingMore} onClick={page.loadMore} />
     </div>
   );
 }

@@ -21,9 +21,9 @@ export class OwnerService {
     return u;
   }
 
-  auditLog(actorId: string) {
+  auditLog(actorId: string, skip = 0, take = 50) {
     // Read access is the same bar as everything else here.
-    return this.assertOwner(actorId).then(() => this.audit.list());
+    return this.assertOwner(actorId).then(() => this.audit.list(skip, take));
   }
 
   async listFamilies(actorId: string) {

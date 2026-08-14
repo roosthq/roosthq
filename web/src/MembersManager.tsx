@@ -30,8 +30,10 @@ export default function MembersManager({ me }: { me: Me }) {
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [inviteRole, setInviteRole] = useState<'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>('KID');
-  // Keep the raw token, not just the URL: emailing the invite needs it.
-  const [fresh, setFresh] = useState<{ url: string; token: string } | null>(null);
+  const [inviteEmail, setInviteEmail] = useState('');
+  const [inviteBusy, setInviteBusy] = useState(false);
+  const [inviteError, setInviteError] = useState<string | null>(null);
+  const [fresh, setFresh] = useState<{ url: string; id: string; sentTo?: string } | null>(null);
   const [addRole, setAddRole] = useState<'ADULT' | 'KID'>('KID');
   const [addName, setAddName] = useState('');
   const [addEmail, setAddEmail] = useState('');
@@ -53,10 +55,36 @@ export default function MembersManager({ me }: { me: Me }) {
     refresh();
   }, []);
 
-  async function createInvite() {
-    const minted = await api.createInvite(inviteRole);
-    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
-    await refresh();
+  // Primary path: type an email, pick a role, send - one action, not
+  // "generate a link, then separately remember to email it."
+  async function sendInviteEmail() {
+    setInviteBusy(true);
+    setInviteError(null);
+    try {
+      const minted = await api.createInvite(inviteRole, { email: inviteEmail.trim() });
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id, sentTo: minted.sentTo });
+      setInviteEmail('');
+      await refresh();
+    } catch (e) {
+      setInviteError(e instanceof Error ? e.message : 'Could not send that invite.');
+    } finally {
+      setInviteBusy(false);
+    }
+  }
+  // Alternative path: no email needed - just mint a link to share yourself
+  // (text, Slack, whatever). Whatever's in the email field is ignored here.
+  async function generateInviteLink() {
+    setInviteBusy(true);
+    setInviteError(null);
+    try {
+      const minted = await api.createInvite(inviteRole);
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
+      await refresh();
+    } catch (e) {
+      setInviteError(e instanceof Error ? e.message : 'Could not create that invite.');
+    } finally {
+      setInviteBusy(false);
+    }
   }
   async function revokeInvite(id: string) {
     await api.revokeInvite(id);
@@ -64,11 +92,15 @@ export default function MembersManager({ me }: { me: Me }) {
   }
   // Only the hash is ever stored server-side, so a link closed/lost after
   // creation can't be shown again - this mints a fresh one (same role/label,
-  // old one revoked) and reuses the exact same reveal-it box createInvite()
-  // does, so copy/email both work on the new link right away.
+  // old one revoked) and reuses the exact same reveal-it box, so copy/email
+  // both work on the new link right away.
   async function regenerateInvite(id: string) {
     const minted = await api.regenerateInvite(id);
-    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, token: minted.token });
+    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
+    await refresh();
+  }
+  async function resendPending(id: string) {
+    await api.resendInvite(id);
     await refresh();
   }
   async function changeRole(m: Member, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
@@ -158,7 +190,7 @@ export default function MembersManager({ me }: { me: Me }) {
     <>
       <div className="panel">
         <h3 className="text-base font-semibold tracking-tight">Add people</h3>
-        <p className="mt-1 text-sm text-slate-500">Invite someone with a link (or have the server email it), or add a local account directly - no invite needed.</p>
+        <p className="mt-1 text-sm text-slate-500">Email someone an invite, generate a link to share yourself, or add a local account directly - no invite needed.</p>
 
       {/* Invite */}
       <div className="mt-3 card-nested rounded-lg p-3">
@@ -174,11 +206,33 @@ export default function MembersManager({ me }: { me: Me }) {
             {isFamilyManager && <option value="FAMILY_MANAGER">Family Manager</option>}
             {isOwner && <option value="OWNER">Owner</option>}
           </select>
-          <button onClick={createInvite} className="rounded bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700">
-            Generate invite link
+        </div>
+        {/* Email is the primary path - type an address, pick a role above,
+            send. Stacked on a phone, same reasoning as InviteLinkBox's own
+            email row. */}
+        <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto]">
+          <input
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            value={inviteEmail}
+            onChange={(e) => setInviteEmail(e.target.value)}
+            placeholder="Their email address"
+            className="w-full min-w-0 rounded border px-2 py-1.5 text-sm"
+          />
+          <button
+            onClick={sendInviteEmail}
+            disabled={inviteBusy || !inviteEmail.trim()}
+            className="w-full rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50 sm:w-auto"
+          >
+            {inviteBusy ? 'Sending…' : '✉️ Send invite'}
           </button>
         </div>
-        {fresh && <InviteLinkBox url={fresh.url} token={fresh.token} />}
+        <button onClick={generateInviteLink} disabled={inviteBusy} className="mt-1.5 text-xs text-slate-500 underline hover:text-slate-800 disabled:opacity-50">
+          Or just generate a link to share yourself
+        </button>
+        {inviteError && <p className="mt-1 text-xs text-red-600">{inviteError}</p>}
+        {fresh && <InviteLinkBox url={fresh.url} id={fresh.id} sentTo={fresh.sentTo} />}
         {invites.filter((i) => !i.acceptedAt).length > 0 && (
           <ul className="mt-2 space-y-1 text-xs">
             {invites
@@ -186,13 +240,19 @@ export default function MembersManager({ me }: { me: Me }) {
               .map((i) => (
                 <li key={i.id} className="flex items-center justify-between gap-2">
                   <span>
-                    Pending invite · {ROLE_LABEL[i.role] ?? i.role} · {formatDate(i.createdAt)}
+                    Pending invite · {ROLE_LABEL[i.role] ?? i.role}
+                    {i.email && <> · {i.email}</>} · {formatDate(i.createdAt)}
                   </span>
                   <span className="flex shrink-0 items-center gap-3">
+                    {i.email && (
+                      <button onClick={() => resendPending(i.id)} className="text-slate-500 hover:text-slate-800" title={`Resend to ${i.email}`}>
+                        ✉️ Resend
+                      </button>
+                    )}
                     <button
                       onClick={() => regenerateInvite(i.id)}
                       className="text-slate-500 hover:text-slate-800"
-                      title="Lost the link, or need to send it again? Mints a fresh one and revokes this one."
+                      title="Lost the link, or want the link without re-emailing? Mints a fresh one and revokes this one."
                     >
                       🔁 Get link
                     </button>

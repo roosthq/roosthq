@@ -55,19 +55,25 @@ export function CopyableLink({ url }: { url: string }) {
   );
 }
 
-export default function InviteLinkBox({ url, token }: { url: string; token: string }) {
+// `id` (not the raw token - only the token's hash is ever stored, so it
+// can't be resent as-is) lets this box also offer "email this link" after
+// the fact - e.g. the link-only path, or sending the same invite to a
+// second address. sentTo pre-fills the success state when this invite was
+// already emailed at creation (the primary flow now sends inline - see
+// MembersManager.tsx), so this box doesn't lie and imply nothing was sent
+// yet.
+export default function InviteLinkBox({ url, id, sentTo: initialSentTo }: { url: string; id: string; sentTo?: string }) {
   const [email, setEmail] = useState('');
   const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState<string | null>(null);
+  const [sent, setSent] = useState<string | null>(initialSentTo ?? null);
   const [error, setError] = useState<string | null>(null);
 
   async function sendEmail() {
     setSending(true);
     setError(null);
-    setSent(null);
     try {
-      const r = await api.emailInvite(token, email.trim());
-      setSent(r.sentTo);
+      const r = await api.resendInvite(id, email.trim());
+      setSent(r.sentTo ?? email.trim());
       setEmail('');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Could not send that email.');
@@ -78,12 +84,11 @@ export default function InviteLinkBox({ url, token }: { url: string; token: stri
 
   return (
     <div className="alert-banner mt-2 p-3 text-xs">
-      <p className="mb-2 font-medium">
-        Send this link to the family member. They open it, sign in, and join. One-time use.
-      </p>
+      <p className="mb-2 font-medium">Share this link, or send it by email. They open it, sign in, and join. One-time use.</p>
       <CopyableLink url={url} />
-      {/* Or have the server mail it. Stacked on a phone: an email field and a
-          button side by side leaves neither one usable at 375px. */}
+      {sent && <p className="mt-2 text-green-700">Invite sent to {sent}.</p>}
+      {/* Stacked on a phone: an email field and a button side by side leaves
+          neither one usable at 375px. */}
       <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-[1fr_auto]">
         <input
           type="email"
@@ -91,7 +96,7 @@ export default function InviteLinkBox({ url, token }: { url: string; token: stri
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email address"
+          placeholder={sent ? 'Send to a different address...' : 'Email address'}
           className="w-full min-w-0 rounded border px-2 py-2 text-xs"
         />
         <button
@@ -99,10 +104,9 @@ export default function InviteLinkBox({ url, token }: { url: string; token: stri
           disabled={sending || !email.trim()}
           className="w-full rounded bg-slate-800 px-3 py-2 font-medium text-white hover:bg-slate-700 disabled:opacity-50 sm:w-auto"
         >
-          {sending ? 'Sending…' : '✉️ Email invite'}
+          {sending ? 'Sending…' : sent ? '✉️ Send again' : '✉️ Email invite'}
         </button>
       </div>
-      {sent && <p className="mt-2 text-green-700">Invite sent to {sent}.</p>}
       {error && <p className="mt-2 text-red-600">{error}</p>}
     </div>
   );

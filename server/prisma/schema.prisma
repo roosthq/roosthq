@@ -255,6 +255,7 @@ model FamilyInvite {
   familyId    String
   role        Role
   label       String?
+  email       String? // recipient this was mailed to (or last resent to) - null for a link-only invite nobody's email was ever attached to
   tokenHash   String    @unique
   createdById String
   createdAt   DateTime  @default(now())

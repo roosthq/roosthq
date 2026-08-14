@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
+import { paginate } from '../common/pagination';
 
 @Injectable()
 export class TokensService {
@@ -43,8 +44,8 @@ export class TokensService {
   // Full transaction history for a member (earning + spending). Who created
   // each entry (an adult's manual adjustment, an approval, an award) is
   // adult-only context - a kid sees the same entries minus that one field.
-  async ledger(familyId: string, actingUserId: string, targetUserId: string) {
-    if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return [];
+  async ledger(familyId: string, actingUserId: string, targetUserId: string, skip = 0, take = 50) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return { items: [], hasMore: false };
     const member = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!member) throw new NotFoundException('Member not found');
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
@@ -52,18 +53,23 @@ export class TokensService {
     const entries = await this.prisma.tokenLedger.findMany({
       where: { userId: targetUserId },
       orderBy: { createdAt: 'desc' },
-      take: 200,
+      skip,
+      take: take + 1,
       include: { createdBy: { select: { displayName: true } } },
     });
-    return entries.map((e) => ({
-      id: e.id,
-      delta: e.delta,
-      reason: e.reason,
-      type: e.type,
-      refId: e.refId,
-      createdAt: e.createdAt,
-      createdByName: isAdult ? e.createdBy.displayName : undefined,
-    }));
+    const { items, hasMore } = paginate(entries, take);
+    return {
+      items: items.map((e) => ({
+        id: e.id,
+        delta: e.delta,
+        reason: e.reason,
+        type: e.type,
+        refId: e.refId,
+        createdAt: e.createdAt,
+        createdByName: isAdult ? e.createdBy.displayName : undefined,
+      })),
+      hasMore,
+    };
   }
 
   // Owner-only: strike a specific history entry entirely (not a reversing

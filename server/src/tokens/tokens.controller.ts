@@ -3,6 +3,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { TokensService } from './tokens.service';
+import { parsePageParams } from '../common/pagination';
 
 @UseGuards(AuthGuard)
 @Controller('tokens')
@@ -20,8 +21,9 @@ export class TokensController {
   }
 
   @Get('ledger')
-  ledger(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string) {
-    return this.tokens.ledger(u.familyId, u.userId, userId ?? u.userId);
+  ledger(@CurrentUser() u: SessionPayload, @Query('userId') userId?: string, @Query('skip') skip?: string, @Query('take') take?: string) {
+    const p = parsePageParams(skip, take);
+    return this.tokens.ledger(u.familyId, u.userId, userId ?? u.userId, p.skip, p.take);
   }
 
   @Delete('ledger/:id')

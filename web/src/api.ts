@@ -480,15 +480,19 @@ export interface InviteInfo {
   id: string;
   role: string;
   label?: string;
+  email?: string | null;
   createdAt: string;
   acceptedAt?: string | null;
+  expiresAt?: string | null;
 }
 
 export interface MintedInvite {
   id: string;
   role: string;
   label?: string;
+  email?: string | null;
   token: string;
+  sentTo?: string;
 }
 
 // Icon-overhaul (2026-08) - see server IconsService.effective. Sparse: a slot
@@ -846,6 +850,9 @@ export const api = {
     req<MintedToken>('/display/tokens', { method: 'POST', body: JSON.stringify({ label, displayConfigId }) }),
   revokeDisplayToken: (id: string) => req(`/display/tokens/${id}`, { method: 'DELETE' }),
   regenerateDisplayToken: (id: string) => req<MintedToken>(`/display/tokens/${id}/regenerate`, { method: 'POST' }),
+  // Real delete, not another revoke - only works on an already-revoked link.
+  deleteDisplayToken: (id: string) => req(`/display/tokens/${id}/permanent`, { method: 'DELETE' }),
+  deleteAllRevokedDisplayTokens: () => req<{ ok: boolean; count: number }>('/display/tokens/revoked', { method: 'DELETE' }),
 
   listDisplays: () => req<DisplayConfig[]>('/displays'),
   createDisplay: (body: {
@@ -984,20 +991,24 @@ export const api = {
     req('/notifications/push/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
-  createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', label?: string, familyId?: string) =>
-    req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, label, familyId }) }),
+  // email is optional: given, the server sends the invite in this same call
+  // (the whole point of "type an email + pick a role" as ONE action);
+  // omitted, this is just "generate a link" to share yourself.
+  createInvite: (role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID', opts: { label?: string; familyId?: string; email?: string } = {}) =>
+    req<MintedInvite>('/invites', { method: 'POST', body: JSON.stringify({ role, ...opts }) }),
   revokeInvite: (id: string) => req(`/invites/${id}`, { method: 'DELETE' }),
   regenerateInvite: (id: string) => req<MintedInvite>(`/invites/${id}/regenerate`, { method: 'POST' }),
-  // Server builds the link from the request origin; we only say who gets it.
-  emailInvite: (token: string, email: string) =>
-    req<{ ok: boolean; sentTo: string }>('/invites/email', { method: 'POST', body: JSON.stringify({ token, email }) }),
+  // Resend a pending invite - reuses the address already on file unless a
+  // different one is given.
+  resendInvite: (id: string, email?: string) =>
+    req<MintedInvite>(`/invites/${id}/resend`, { method: 'POST', body: JSON.stringify({ email }) }),
 
   listFamilies: () => req<FamilyInfo[]>('/owner/families'),
   createFamily: (name: string) => req<FamilyInfo>('/owner/families', { method: 'POST', body: JSON.stringify({ name }) }),
   deleteFamily: (id: string) => req<{ ok: boolean }>(`/owner/families/${id}`, { method: 'DELETE' }),
   renameFamily: (id: string, name: string) =>
     req<{ id: string; name: string }>(`/owner/families/${id}`, { method: 'PATCH', body: JSON.stringify({ name }) }),
-  auditLog: () => req<AuditLogEntry[]>('/owner/audit-log'),
+  auditLog: (skip = 0, take = 50) => req<{ items: AuditLogEntry[]; hasMore: boolean }>(`/owner/audit-log?skip=${skip}&take=${take}`),
   ownerFamilyMembers: (familyId: string) => req<Member[]>(`/owner/families/${familyId}/members`),
   // Instance-owner user controls: lock out (reversible), delete (not), and
   // create an account in any family without an invite.
@@ -1058,8 +1069,11 @@ export const api = {
   tokenBalances: () => req<Array<{ userId: string; balance: number }>>('/tokens/balances'),
   tokenBalance: (userId?: string, kioskToken?: string) =>
     req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
-  tokenLedger: (userId?: string, kioskToken?: string) =>
-    req<LedgerEntry[]>(`/tokens/ledger${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
+  tokenLedger: (userId?: string, kioskToken?: string, skip = 0, take = 50) => {
+    const sp = new URLSearchParams({ skip: String(skip), take: String(take) });
+    if (userId) sp.set('userId', userId);
+    return req<{ items: LedgerEntry[]; hasMore: boolean }>(`/tokens/ledger?${sp}`, undefined, kioskToken);
+  },
   adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
     req<LedgerEntry>('/tokens/adjust', { method: 'POST', body: JSON.stringify(body) }),
   deleteLedgerEntry: (id: string) => req(`/tokens/ledger/${id}`, { method: 'DELETE' }),
@@ -1086,12 +1100,11 @@ export const api = {
     req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
   redeemPrize: (id: string) => req(`/prizes/${id}/redeem`, { method: 'POST' }),
-  redemptions: (opts: { userId?: string; prizeId?: string } = {}) => {
-    const sp = new URLSearchParams();
+  redemptions: (opts: { userId?: string; prizeId?: string; skip?: number; take?: number } = {}) => {
+    const sp = new URLSearchParams({ skip: String(opts.skip ?? 0), take: String(opts.take ?? 50) });
     if (opts.userId) sp.set('userId', opts.userId);
     if (opts.prizeId) sp.set('prizeId', opts.prizeId);
-    const qs = sp.toString();
-    return req<Redemption[]>(`/prizes/redemptions${qs ? `?${qs}` : ''}`);
+    return req<{ items: Redemption[]; hasMore: boolean }>(`/prizes/redemptions?${sp}`);
   },
   fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }),
   rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }),
@@ -1103,7 +1116,11 @@ export const api = {
   balances: () => req<Balance[]>('/chores/balances'),
   // Adults-only full activity log (no per-chore cap, unlike the main list) -
   // omit choreId for everything, or pass it to drill into one chore.
-  choreHistory: (choreId?: string) => req<ChoreHistoryEntry[]>(`/chores/history${choreId ? `?choreId=${choreId}` : ''}`),
+  choreHistory: (choreId?: string, skip = 0, take = 50) => {
+    const sp = new URLSearchParams({ skip: String(skip), take: String(take) });
+    if (choreId) sp.set('choreId', choreId);
+    return req<{ items: ChoreHistoryEntry[]; hasMore: boolean }>(`/chores/history?${sp}`);
+  },
   // Owner/family-manager only - server 403s anyone else.
   choreAudit: (choreId: string) => req<ChoreAuditEntry[]>(`/chores/${choreId}/audit`),
   createChore: (body: Record<string, unknown>) =>
@@ -1125,7 +1142,8 @@ export const api = {
     req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }),
 
   // all=true -> family-wide activity feed (adults only, enforced server-side).
-  notifications: (all = false) => req<AppNotification[]>(`/notifications${all ? '?all=1' : ''}`),
+  notifications: (all = false, skip = 0, take = 50) =>
+    req<{ items: AppNotification[]; hasMore: boolean }>(`/notifications?skip=${skip}&take=${take}${all ? '&all=1' : ''}`),
   unreadNotificationCount: () => req<{ count: number }>('/notifications/unread-count'),
   markNotificationRead: (id: string) => req(`/notifications/${id}/read`, { method: 'POST' }),
   markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
@@ -1143,7 +1161,7 @@ export const api = {
   awardsCatalog: (kioskToken?: string) => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
   earnedAwards: (userId?: string, kioskToken?: string) =>
     req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
-  awardHistory: () => req<AwardGrantHistoryItem[]>('/awards/history'),
+  awardHistory: (skip = 0, take = 50) => req<{ items: AwardGrantHistoryItem[]; hasMore: boolean }>(`/awards/history?skip=${skip}&take=${take}`),
   createAward: (
     body: {
       name: string;
@@ -1239,7 +1257,7 @@ export function prizeClient(kioskToken?: string) {
     tokenBalance: (userId?: string) =>
       req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),
-    redemptions: (userId: string) => req<Redemption[]>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
+    redemptions: (userId: string) => req<{ items: Redemption[]; hasMore: boolean }>(`/prizes/redemptions?userId=${userId}`, undefined, kioskToken),
     suggestPrize: (body: { name: string; description?: string; image?: string; url?: string }) =>
       req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     // Family-wide, not scoped to one person - for the kiosk's adult-only
