@@ -18,6 +18,7 @@ import {
 } from './api';
 import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
+import LucideIcon from './LucideIcon';
 import Calendar from './Calendar';
 import { celebrate, setCelebrationSound } from './celebrate';
 import { setTokensBadgeEnabled } from './TokenBadge';
@@ -790,7 +791,7 @@ export default function Display() {
                   className="card-nested rounded-full px-3 py-1 hover:opacity-80"
                   title="Tap to see the date"
                 >
-                  {c.emoji} {c.title}:{' '}
+                  <LucideIcon name={c.emoji} size={15} className="inline -mt-0.5" /> {c.title}:{' '}
                   <span className="font-semibold">
                     {revealed ? formatDate(new Date(`${c.date}T00:00:00`)) : days === 0 ? 'today!' : `${days}d`}
                   </span>
@@ -940,7 +941,10 @@ export default function Display() {
                       </span>
                       {!m.tokensDisabled && famOn('tokens') && (
                         <span className="flex shrink-0 flex-col items-end gap-0.5 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
-                          <span>{tokenIcon} {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}</span>
+                          <span className="flex items-center gap-1">
+                            <LucideIcon name={tokenIcon} size={14} />
+                            {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
+                          </span>
                           {famOn('levels') && <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} />}
                         </span>
                       )}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, FEATURE_TREE, type FamilySettings, type FeatureNode, type CustomSound } from '../api';
 import Switch from '../Switch';
 import IconPicker from '../IconPicker';
+import LucideIcon from '../LucideIcon';
 import { useDialog } from '../Dialog';
 import { BUILTIN_SOUNDS, SOUND_SLOTS, playBuiltinSound, playCustomSound } from '../sounds';
 
@@ -164,8 +165,8 @@ function TokenFields({ family, onSaved }: { family: FamilySettings; onSaved: (f:
             onFocus={(e) => e.target.select()}
             className={`${input} mt-1 w-24`}
           />
-          <span className="ml-2 text-xs text-slate-400">
-            e.g. 1 {icon} {name || 'Tokens'} = ${valueUsd || 0}
+          <span className="ml-2 inline-flex items-center gap-1 text-xs text-slate-400">
+            e.g. 1 <LucideIcon name={icon} size={12} /> {name || 'Tokens'} = ${valueUsd || 0}
           </span>
         </label>
       </div>

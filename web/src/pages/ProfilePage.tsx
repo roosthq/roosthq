@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type Redemption, type EarnedAward } from '../api';
 import { AwardIcon } from './AwardsPage';
@@ -8,8 +8,9 @@ import LevelBadge from '../LevelBadge';
 import { useDialog } from '../Dialog';
 import { formatDate } from '../dateFormat';
 import { celebrate } from '../celebrate';
+import LucideIcon from '../LucideIcon';
 
-function Stat({ label, value }: { label: string; value: string | number }) {
+function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="panel text-center">
       <div className="text-2xl font-bold" style={{ color: 'var(--accent)' }}>
@@ -17,6 +18,19 @@ function Stat({ label, value }: { label: string; value: string | number }) {
       </div>
       <div className="text-xs text-slate-500">{label}</div>
     </div>
+  );
+}
+
+// A Stat tile's value slot is plain text sized by the tile itself (text-2xl
+// font-bold) - an icon dropped in needs to match that, not TokenBadge's own
+// small pill styling (which reads fine inline next to other content, but
+// looks like a shrunken sticker sitting inside a big stat number).
+function TokenStat({ icon, amount }: { icon: string; amount: number }) {
+  return (
+    <span className="inline-flex items-center gap-1">
+      <LucideIcon name={icon} size={24} />
+      {amount}
+    </span>
   );
 }
 
@@ -216,8 +230,9 @@ export default function ProfilePage({
                     </span>
                   </span>
                   {!m.tokensDisabled && familyTokensOn && (
-                    <span className="ml-1 shrink-0 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
-                      {tokenIcon} {allBalances[m.id] ?? 0}
+                    <span className="ml-1 flex shrink-0 items-center gap-1 whitespace-nowrap text-base font-bold" style={{ color: 'var(--accent)' }}>
+                      <LucideIcon name={tokenIcon} size={18} />
+                      {allBalances[m.id] ?? 0}
                       <span className="ml-1 text-xs font-normal text-slate-400">{tokenName}</span>
                     </span>
                   )}
@@ -262,9 +277,9 @@ export default function ProfilePage({
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
         {!tokensOff && (
           <>
-            <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
-            <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
-            <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
+            <Stat label={`${tokenName} balance`} value={<TokenStat icon={tokenIcon} amount={balance} />} />
+            <Stat label={`${tokenName} earned`} value={<TokenStat icon={tokenIcon} amount={earned} />} />
+            <Stat label={`${tokenName} spent`} value={<TokenStat icon={tokenIcon} amount={spent} />} />
           </>
         )}
         <Stat label={`${chorePlural} approved`} value={choresDone} />
@@ -278,7 +293,7 @@ export default function ProfilePage({
         <section className="mt-6">
           <h3 className="text-sm font-semibold">Given out</h3>
           <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {!tokensOff && <Stat label={`${tokenName} given`} value={`${tokenIcon} ${given.tokensGiven}`} />}
+            {!tokensOff && <Stat label={`${tokenName} given`} value={<TokenStat icon={tokenIcon} amount={given.tokensGiven} />} />}
             <Stat label="Awards given" value={given.awardsGiven} />
             <Stat label="Approvals" value={given.approvals} />
             <Stat label="Sent back" value={given.rejections} />
@@ -296,7 +311,7 @@ export default function ProfilePage({
             {awards.map((a) => (
               <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2" title={a.description ?? undefined}>
                 <div className="flex items-center gap-2">
-                  <AwardIcon icon={a.icon} size="text-xl" />
+                  <AwardIcon icon={a.icon} size={20} />
                   <span className="text-sm font-medium">{a.name}</span>
                   {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
                 </div>
@@ -356,8 +371,9 @@ export default function ProfilePage({
                   {l.createdByName && <span className="text-xs text-slate-400"> · by {l.createdByName}</span>}
                 </span>
                 <span className="flex shrink-0 items-center gap-3">
-                  <span className={l.delta >= 0 ? 'font-medium text-green-600' : 'font-medium text-red-600'}>
-                    {tokenIcon} {l.delta >= 0 ? '+' : ''}
+                  <span className={`flex items-center gap-1 font-medium ${l.delta >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    <LucideIcon name={tokenIcon} size={14} />
+                    {l.delta >= 0 ? '+' : ''}
                     {l.delta}
                   </span>
                   <span className="text-xs text-slate-400">{formatDate(l.createdAt)}</span>

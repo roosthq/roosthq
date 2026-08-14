@@ -4,8 +4,10 @@ import Modal from './Modal';
 import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
 import { celebrate } from './celebrate';
+import LucideIcon from './LucideIcon';
+import type { ReactNode } from 'react';
 
-function Stat({ label, value }: { label: string; value: string | number }) {
+function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="card-nested rounded-lg p-3 text-center">
       <div className="text-2xl font-bold" style={{ color: 'var(--accent)' }}>
@@ -13,6 +15,17 @@ function Stat({ label, value }: { label: string; value: string | number }) {
       </div>
       <div className="text-xs text-slate-500">{label}</div>
     </div>
+  );
+}
+
+// Same reasoning as ProfilePage's own TokenStat - a Stat tile's value is
+// sized by the tile (text-2xl font-bold), not TokenBadge's small pill.
+function TokenStat({ icon, amount }: { icon: string; amount: number }) {
+  return (
+    <span className="inline-flex items-center gap-1">
+      <LucideIcon name={icon} size={24} />
+      {amount}
+    </span>
   );
 }
 
@@ -94,9 +107,9 @@ export default function KioskStatsModal({
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {familyFeatureEnabled(family, 'tokens') && (
           <>
-            <Stat label={`${tokenName} balance`} value={`${tokenIcon} ${balance}`} />
-            <Stat label={`${tokenName} earned`} value={`${tokenIcon} ${earned}`} />
-            <Stat label={`${tokenName} spent`} value={`${tokenIcon} ${spent}`} />
+            <Stat label={`${tokenName} balance`} value={<TokenStat icon={tokenIcon} amount={balance} />} />
+            <Stat label={`${tokenName} earned`} value={<TokenStat icon={tokenIcon} amount={earned} />} />
+            <Stat label={`${tokenName} spent`} value={<TokenStat icon={tokenIcon} amount={spent} />} />
           </>
         )}
         <Stat label="Best active streak" value={`🔥 ${bestStreak}`} />
@@ -113,7 +126,7 @@ export default function KioskStatsModal({
             {awards.map((a) => (
               <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <AwardIcon icon={a.icon} size="text-xl" />
+                  <AwardIcon icon={a.icon} size={20} />
                   <span className="text-base font-medium">{a.name}</span>
                   {a.count > 1 && <span className="text-sm text-slate-400">×{a.count}</span>}
                 </div>

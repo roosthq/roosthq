@@ -16,6 +16,7 @@ import { myLocationIds } from '../displayScope';
 import { formatDate } from '../dateFormat';
 import { useWeekSwipe } from '../useWeekSwipe';
 import IconPicker from '../IconPicker';
+import LucideIcon from '../LucideIcon';
 import DropdownDetails from '../DropdownDetails';
 import RulesPage from './RulesPage';
 
@@ -497,7 +498,7 @@ function CountdownsSection({ isAdult, scope }: { isAdult: boolean; scope: string
           const days = daysUntil(c.date);
           return (
             <li key={c.id} className="card-nested flex min-w-0 items-center gap-3 rounded-lg px-3 py-2">
-              <span className="text-2xl">{c.emoji}</span>
+              <LucideIcon name={c.emoji} size={26} />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium">
                   {c.title}

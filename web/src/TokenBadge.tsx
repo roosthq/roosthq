@@ -1,3 +1,5 @@
+import LucideIcon from './LucideIcon';
+
 // Global "are tokens even a thing here" flag, set once after login/kiosk
 // load (App.tsx/Display.tsx) from familyFeatureEnabled(family, 'tokens') -
 // same global-mutable-flag pattern celebrate.ts already uses for its sound
@@ -41,7 +43,7 @@ export default function TokenBadge({
       : 'inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-semibold text-amber-700';
   return (
     <span className={cls}>
-      <span>{icon}</span>
+      <LucideIcon name={icon} size={size === 'lg' ? 16 : 13} />
       <span>{amount}</span>
       {label && <span className="font-normal">{label}</span>}
     </span>

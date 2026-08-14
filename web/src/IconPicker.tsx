@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { EMOJI_LIBRARY } from './emojiData';
+import { LUCIDE_LIBRARY } from './lucideData';
+import LucideIcon from './LucideIcon';
 
-const RECENT_KEY = 'rhq.recentEmoji';
+const RECENT_KEY = 'rhq.recentIcon';
 const MAX_RECENT = 16;
 const MAX_RESULTS = 64;
 
@@ -14,8 +15,8 @@ function loadRecent(): string[] {
   }
 }
 
-function pushRecent(emoji: string) {
-  const next = [emoji, ...loadRecent().filter((e) => e !== emoji)].slice(0, MAX_RECENT);
+function pushRecent(name: string) {
+  const next = [name, ...loadRecent().filter((n) => n !== name)].slice(0, MAX_RECENT);
   try {
     localStorage.setItem(RECENT_KEY, JSON.stringify(next));
   } catch {
@@ -24,12 +25,15 @@ function pushRecent(emoji: string) {
   }
 }
 
-// One shared searchable emoji picker for every icon field in the app (awards,
-// countdowns, the reward token icon, and anywhere else that takes a short
-// emoji string) - replaces the mix of ad hoc curated grids, plain text
-// inputs, and a <select> that existed before. Search matches name or
-// keyword; a "paste any emoji" fallback stays available since the curated
-// library, however broad, still isn't the full Unicode set.
+// One shared searchable icon picker for every icon field in the app (awards,
+// countdowns, the reward token icon) - stores a Lucide icon name (e.g.
+// "party-popper"), not an emoji character (see roosthq-icon-migration for
+// why: a fresh Pi image has no emoji font by default, and emoji render
+// wildly differently across devices/OS versions - an SVG icon set doesn't
+// have either problem). Search matches name or keyword; a manual text field
+// stays available for the ~1800 real Lucide icons outside this curated
+// couple-hundred (an unrecognized name just renders nothing, not an error -
+// see LucideIcon's own doc comment).
 export default function IconPicker({
   value,
   onChange,
@@ -56,17 +60,17 @@ export default function IconPicker({
     return () => document.removeEventListener('pointerdown', onPointerDown);
   }, []);
 
-  function pick(emoji: string) {
-    onChange(emoji);
-    pushRecent(emoji);
+  function pick(name: string) {
+    onChange(name);
+    pushRecent(name);
     setOpen(false);
     setQuery('');
   }
 
   const q = query.trim().toLowerCase();
   const results = (q
-    ? EMOJI_LIBRARY.filter((e) => e.name.includes(q) || e.keywords.some((k) => k.includes(q)))
-    : EMOJI_LIBRARY
+    ? LUCIDE_LIBRARY.filter((e) => e.name.includes(q) || e.keywords.some((k) => k.includes(q)))
+    : LUCIDE_LIBRARY
   ).slice(0, MAX_RESULTS);
 
   const isImage = value?.startsWith('data:');
@@ -79,7 +83,11 @@ export default function IconPicker({
         title="Pick an icon"
         className={`flex shrink-0 items-center justify-center rounded border hover:bg-slate-50 ${buttonSize}`}
       >
-        {isImage ? <img src={value} alt="" className="h-full w-full rounded object-cover" /> : value || '❓'}
+        {isImage ? (
+          <img src={value} alt="" className="h-full w-full rounded object-cover" />
+        ) : (
+          <LucideIcon name={value || 'help-circle'} />
+        )}
       </button>
       {open && (
         <div className="absolute z-20 mt-1 w-72 rounded-lg border bg-white p-3 shadow-lg">
@@ -94,9 +102,9 @@ export default function IconPicker({
             <>
               <div className="mt-2 text-xs font-medium text-slate-400">Recent</div>
               <div className="mt-1 grid grid-cols-8 gap-0.5">
-                {recent.map((em, i) => (
-                  <button key={i} type="button" onClick={() => pick(em)} className="rounded p-1 text-lg hover:bg-slate-100">
-                    {em}
+                {recent.map((name, i) => (
+                  <button key={i} type="button" onClick={() => pick(name)} title={name} className="rounded p-1.5 hover:bg-slate-100">
+                    <LucideIcon name={name} size={18} />
                   </button>
                 ))}
               </div>
@@ -106,27 +114,32 @@ export default function IconPicker({
             <div className="grid grid-cols-8 gap-0.5">
               {results.map((entry) => (
                 <button
-                  key={entry.emoji}
+                  key={entry.name}
                   type="button"
-                  onClick={() => pick(entry.emoji)}
-                  title={entry.name}
-                  className="rounded p-1 text-lg hover:bg-slate-100"
+                  onClick={() => pick(entry.name)}
+                  title={entry.label}
+                  className="rounded p-1.5 hover:bg-slate-100"
                 >
-                  {entry.emoji}
+                  <LucideIcon name={entry.name} size={18} />
                 </button>
               ))}
             </div>
             {results.length === 0 && (
-              <p className="mt-2 text-center text-xs text-slate-400">No matches - try a different word, or paste any emoji below.</p>
+              <p className="mt-2 text-center text-xs text-slate-400">No matches - try a different word, or type an exact icon name below.</p>
             )}
           </div>
           <input
             value={isImage ? '' : value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="...or paste any emoji"
-            maxLength={8}
+            onChange={(e) => onChange(e.target.value.trim())}
+            placeholder="...or type an exact icon name"
             className="mt-2 w-full rounded border px-2 py-1.5 text-center text-sm"
           />
+          <p className="mt-1 text-center text-[10px] text-slate-400">
+            Browse the full set at{' '}
+            <a href="https://lucide.dev/icons" target="_blank" rel="noreferrer" className="underline">
+              lucide.dev/icons
+            </a>
+          </p>
         </div>
       )}
     </div>

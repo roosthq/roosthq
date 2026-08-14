@@ -9,12 +9,15 @@ import { AWARD_PACKS } from '../awardPacks';
 import { GAME_TYPES, GAME_TYPE_META, fakePreviewRoll } from '../rewardGames';
 import RewardRevealModal from '../RewardRevealModal';
 import { PrizeImage } from '../Prize';
+import LucideIcon from '../LucideIcon';
 
-// Icons are either a short emoji string or an uploaded image (data: URI) -
+// Icons are either a Lucide icon name or an uploaded image (data: URI) -
 // render whichever one it is consistently wherever an award shows up.
-export function AwardIcon({ icon, size = 'text-2xl' }: { icon: string | null; size?: string }) {
+// `size` is a pixel dimension (not a Tailwind className - an SVG icon's
+// size isn't controlled by font-size the way the old emoji <span> was).
+export function AwardIcon({ icon, size = 24 }: { icon: string | null; size?: number }) {
   if (icon?.startsWith('data:')) return <img src={icon} alt="" className="h-7 w-7 rounded object-cover" />;
-  return <span className={size}>{icon || '🏆'}</span>;
+  return <LucideIcon name={icon || 'trophy'} size={size} />;
 }
 
 // Square, fixed-size icons so the catalog and profile grids line up no
@@ -132,7 +135,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
           <li key={a.id} className="rounded border bg-white p-3">
             <div className="flex items-start justify-between gap-2">
               <span className="flex min-w-0 items-center gap-2">
-                <AwardIcon icon={a.icon} size="text-2xl" />
+                <AwardIcon icon={a.icon} size={24} />
                 <span className="min-w-0 break-words font-medium">{a.name}</span>
               </span>
               <span className="shrink-0 text-xs text-slate-400">given {a.grantCount}×</span>
@@ -195,7 +198,7 @@ export default function AwardsPage({ tokenName, tokenIcon }: { tokenName: string
             {history.map((g) => (
               <li key={g.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-3 text-sm">
                 <span className="flex min-w-0 flex-1 items-center gap-2">
-                  <AwardIcon icon={g.award.icon} size="text-xl" />
+                  <AwardIcon icon={g.award.icon} size={20} />
                   <span className="min-w-0">
                     <span className="font-medium">{g.award.name}</span> → <span className="font-medium">{g.user.displayName}</span>
                     {g.note && <span className="ml-1 text-slate-400">"{g.note}"</span>}
