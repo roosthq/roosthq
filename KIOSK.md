@@ -215,15 +215,52 @@ image built for one won't recognize another's hardware. Best case it won't
 boot; worst case it hangs on a blank/rainbow screen.
 
 This isn't actually a loss, though - there is nothing on the card worth
-keeping. All of this kiosk's state lives in the app (the display config +
-its token), not on the Pi. To move to new hardware:
+keeping *as app state*. All of that (the display config + its token) lives in
+the app, not the Pi. But the old Pi's card still holds a few *local* config
+choices you already made and would otherwise have to re-derive by trial and
+error - worth pulling off before wiping it:
 
-1. Flash a fresh card for the new board (steps 1-2 above).
-2. Reuse the **existing** kiosk link (no need to mint a new one, unless you
+**0. Before wiping the old card**, SSH into the old Pi and check:
+
+- **The kiosk link itself, and any custom Chromium flags.** If you never
+  saved the link anywhere else, this is your only remaining copy - the token
+  is shown once, at mint time, and never again:
+  ```bash
+  cat /etc/systemd/system/roost-kiosk.service
+  ```
+  Grab the whole `ExecStart` line. Reuse the URL/token verbatim on the new
+  Pi; just recheck the binary name (`chromium` vs `chromium-browser`) if
+  you're jumping OS releases (see step 2 above).
+- **Screen rotation**, if the display is mounted rotated:
+  ```bash
+  grep display_rotate /boot/firmware/config.txt 2>/dev/null || grep display_rotate /boot/config.txt
+  ```
+- **Touch calibration**, if a third-party (non-official) touchscreen needed
+  the `xinput_calibrator` step:
+  ```bash
+  cat /etc/X11/xorg.conf.d/*calibration*.conf 2>/dev/null
+  ```
+  Nothing there means you're on the official touchscreen (no calibration
+  needed on the new Pi either).
+- **Any manual screen-blanking/autostart tweaks** added outside the systemd
+  service (the doc's own service doesn't need any, but check for drift):
+  ```bash
+  cat ~/.config/autostart/*.desktop 2>/dev/null
+  ```
+
+Not worth pulling forward: WiFi, hostname, locale, timezone - Imager's
+advanced options set those fresh for the new card anyway (step 1 above).
+
+To move to new hardware:
+
+1. Pull the values above off the old Pi first.
+2. Flash a fresh card for the new board (steps 1-2 above).
+3. Reuse the **existing** kiosk link (no need to mint a new one, unless you
    also want a clean audit trail of which physical device holds which token
    - revoke the old one and mint a fresh one if so).
-3. Set up autostart (steps 4-7) on the new Pi.
-4. Physically retire the old board - its SD card can be wiped/reused for
+4. Set up autostart (steps 4-7) on the new Pi, carrying over any
+   rotation/calibration/flag values found in step 0.
+5. Physically retire the old board - its SD card can be wiped/reused for
    anything else.
 
 ## Multiple kiosks
