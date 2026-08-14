@@ -314,6 +314,56 @@ xinput_calibrator
 
 Follow the on-screen taps; it prints an `xorg.conf.d` snippet to save.
 
+## 8. If touch acts like a mouse (ghost cursor, drag selects text instead of scrolling)
+
+Symptoms together, not separately - a visible mouse pointer on a screen with
+no mouse attached, AND a finger-drag over a scrollable list selecting text
+or doing nothing instead of scrolling it. Both come from the same cause: the
+touch controller is exposing **two** input devices from one physical panel -
+a real touch device, and a second legacy "mouse emulation" device for
+compat with software that doesn't understand touch. If Wayland picks up
+both, some touches get reported as real touch and others as a plain mouse
+click/drag, which is exactly the click-drag-selects-text behavior a desktop
+browser gives you for a mouse.
+
+Confirmed on a Pi 4 running Wayland/Labwc with an ILITEK USB touch
+controller - the same hardware/OS combo other kiosks here would also run,
+so check for this first rather than assuming it's a one-off. Worked fine on
+older X11-based setups (see the Pi 2/3 note above) since that input path
+doesn't have this problem the same way - if you're moving from one of those
+to a newer Pi running Wayland, this is a likely new failure mode you won't
+have seen before.
+
+Check what's actually plugged in:
+
+```bash
+sudo libinput list-devices
+```
+
+Look for the SAME touchscreen name appearing twice with different
+`Capabilities:` - one `touch`, one `pointer` (often named `<device> Mouse`
+or similar). If you only see one entry with `Capabilities: touch`, this
+isn't your problem - look elsewhere.
+
+Tell libinput to ignore the phantom one. Get its exact name from the list
+above, then create `/etc/udev/rules.d/99-ignore-touchscreen-mouse.rules`:
+
+```
+ACTION=="add|change", ATTRS{name}=="<exact device name from the list>", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+```
+
+Apply it without a reboot:
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger --subsystem-match=input
+sudo libinput list-devices   # confirm the phantom device is gone from the list
+sudo systemctl restart roost-kiosk   # Chromium re-enumerates input devices clean
+```
+
+Persists across reboots on its own - it's a real udev rule, not a runtime
+workaround that needs redoing after a power cycle.
+
 ## Recovering a stuck or broken kiosk
 
 Two different problems, two different fixes:
