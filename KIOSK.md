@@ -63,6 +63,17 @@ which chromium || which chromium-browser
 
 Use whichever one exists in the steps below.
 
+A fresh minimal image has no color-emoji font - anything a family types that
+includes one (a chore name, an award, a wishlist note) renders as a blank
+box without it. Install it once here:
+
+```bash
+sudo apt install -y fonts-noto-color-emoji
+```
+
+(The app's own icons don't depend on this - they're SVG, not emoji glyphs -
+but user-typed text can still contain one, so it's worth having anyway.)
+
 ## 3. Get the kiosk link
 
 In the app, sign in as the **owner** (or a family manager) on a regular

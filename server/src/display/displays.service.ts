@@ -4,7 +4,7 @@ import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
 import { LocalCalendarsService } from '../local-calendars/local-calendars.service';
 import { ChoresService } from '../chores/chores.service';
-import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, type DateKey } from '../common/timezone';
+import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, weekRangeInZone, type DateKey } from '../common/timezone';
 import { HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
 
 // Same synthetic entry CalendarsService.listShared appends - kept in sync
@@ -92,16 +92,6 @@ export interface ResolvedConfig {
   bedtimeEnd: string | null;
 }
 
-function weekRange(): { start: string; end: string } {
-  const now = new Date();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
-  monday.setHours(0, 0, 0, 0);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 7);
-  return { start: monday.toISOString(), end: sunday.toISOString() };
-}
-
 @Injectable()
 export class DisplaysService {
   constructor(
@@ -115,6 +105,14 @@ export class DisplaysService {
   private async assertAdult(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
+  }
+
+  // Same fallback chain as todaysSummary below - a display's own location's
+  // timezone, or the instance-wide default if it has none.
+  private async resolveTimezone(locationId?: string | null): Promise<string> {
+    if (!locationId) return DEFAULT_TIMEZONE;
+    const loc = await this.prisma.location.findUnique({ where: { id: locationId }, select: { timezone: true } });
+    return loc?.timezone || DEFAULT_TIMEZONE;
   }
 
   private async owned(familyId: string, id: string) {
@@ -366,7 +364,7 @@ export class DisplaysService {
   // an arbitrary caller-supplied id straight through.
   async events(familyId: string, config: ResolvedConfig, start?: string, end?: string, userId?: string) {
     if (!config.calendarIds.length) return [];
-    const range = start && end ? { start, end } : weekRange();
+    const range = start && end ? { start, end } : weekRangeInZone(await this.resolveTimezone(config.locationId));
     const verifiedUserId = userId && (await this.prisma.user.findFirst({ where: { id: userId, familyId } })) ? userId : undefined;
     return this.calendars.events(familyId, config.calendarIds, range.start, range.end, verifiedUserId);
   }
@@ -386,10 +384,7 @@ export class DisplaysService {
     // own location's wall-clock day, not the server process's ambient UTC -
     // otherwise a naive UTC day boundary shows tomorrow's (or yesterday's)
     // events depending on the hour, for any family not in UTC.
-    const tz = config.locationId
-      ? (await this.prisma.location.findUnique({ where: { id: config.locationId }, select: { timezone: true } }))?.timezone ||
-        DEFAULT_TIMEZONE
-      : DEFAULT_TIMEZONE;
+    const tz = await this.resolveTimezone(config.locationId);
     const now = new Date();
     let key = todayKeyInZone(tz);
 

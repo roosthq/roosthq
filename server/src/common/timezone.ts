@@ -94,3 +94,18 @@ export function addMonthsToKey(key: DateKey, months: number): DateKey {
   d.setUTCMonth(d.getUTCMonth() + months);
   return { y: d.getUTCFullYear(), m: d.getUTCMonth() + 1, d: d.getUTCDate() };
 }
+
+// This week's Monday-through-next-Monday range, in `timeZone`'s own wall
+// clock - the default calendar-events window when a caller doesn't supply an
+// explicit one. Same bug class as dueInstant/todayKeyInZone above: a naive
+// `new Date()` + `setHours(0,0,0,0)` computes the server process's own
+// midnight (UTC inside Docker), which lands on the wrong day for roughly the
+// 7-hour window each day where UTC has already flipped but Mountain Time
+// hasn't (worse right at a week boundary - up to 7 hours of "this week"
+// actually meaning last week's Monday, or vice versa).
+export function weekRangeInZone(timeZone: string): { start: string; end: string } {
+  const today = todayKeyInZone(timeZone);
+  const monday = addDaysToKey(today, -((dowOfKey(today) + 6) % 7));
+  const nextMonday = addDaysToKey(monday, 7);
+  return { start: startOfDayInZone(monday, timeZone).toISOString(), end: startOfDayInZone(nextMonday, timeZone).toISOString() };
+}

@@ -10,6 +10,7 @@ import { CalendarsService } from '../calendars/calendars.service';
 import { verifyPin } from '../crypto/pin';
 import { signKiosk } from '../auth/jwt';
 import { LoginThrottleService } from '../security/login-throttle.service';
+import { DEFAULT_TIMEZONE, weekRangeInZone } from '../common/timezone';
 
 const DEFAULT_FEATURES = ['calendar', 'chores', 'tokens', 'prizes'];
 
@@ -17,17 +18,6 @@ export interface DisplaySettingsInput {
   defaultCalendarIds?: string[];
   enabledFeatures?: string[];
   theme?: string;
-}
-
-function weekRange(): { start: string; end: string } {
-  const now = new Date();
-  const day = now.getDay();
-  const monday = new Date(now);
-  monday.setDate(now.getDate() - ((day + 6) % 7));
-  monday.setHours(0, 0, 0, 0);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 7);
-  return { start: monday.toISOString(), end: sunday.toISOString() };
 }
 
 @Injectable()
@@ -46,7 +36,10 @@ export class DisplayService {
     const settings = await this.get(familyId);
     const ids = (settings.defaultCalendarIds as string[]) ?? [];
     if (!ids.length) return [];
-    const range = start && end ? { start, end } : weekRange();
+    // No location context available on this legacy family-default-calendars
+    // path (unlike DisplaysService.events, which knows a specific display's
+    // locationId) - the instance-wide default is the best available zone.
+    const range = start && end ? { start, end } : weekRangeInZone(DEFAULT_TIMEZONE);
     return this.calendars.events(familyId, ids, range.start, range.end);
   }
 
