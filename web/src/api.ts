@@ -1262,7 +1262,9 @@ export function prizeClient(kioskToken?: string) {
       req<StorePrize>('/prizes/suggest', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
     // Family-wide, not scoped to one person - for the kiosk's adult-only
     // "pending approvals" panel. Filter to status REQUESTED client-side.
-    allRedemptions: () => req<Redemption[]>('/prizes/redemptions', undefined, kioskToken),
+    // Server now always paginates this route ({items, hasMore}) - unwrap
+    // here since this call is a live pending-queue, not a browsable list.
+    allRedemptions: () => req<{ items: Redemption[]; hasMore: boolean }>('/prizes/redemptions', undefined, kioskToken).then((r) => r.items),
     fulfillRedemption: (id: string) => req(`/prizes/redemptions/${id}/fulfill`, { method: 'POST' }, kioskToken),
     rejectRedemption: (id: string) => req(`/prizes/redemptions/${id}/reject`, { method: 'POST' }, kioskToken),
     adjustTokens: (body: { userId: string; delta: number; reason: string; type?: 'MANUAL' | 'PHYSICAL' }) =>
