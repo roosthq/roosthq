@@ -291,6 +291,39 @@ export default function ChoresPanel({
   // location of its own, and only to the viewing device's own clock if the
   // family has no location at all set up yet.
   const fallbackTimezone = locations[0]?.timezone;
+
+  // #9 - away/vacation blocks claiming/completing/skipping outright. HOME
+  // somewhere else blocks too, but "somewhere else" means different things
+  // in different contexts: on a KIOSK (locationId prop passed, even if
+  // null for an unscoped one) it's whether they're at THIS KIOSK's own
+  // house - so even a family-wide (no-location) chore is blocked from a
+  // kiosk they're not physically at. In the main app (no locationId prop -
+  // there's no kiosk to be "not at") it falls back to the chore's OWN
+  // location, so a family-wide chore stays doable from anywhere. No
+  // presence set at all (never touched the feature) never blocks - same
+  // "no signal" rule the server itself uses. Grayed out, no tooltip, no
+  // dialog - the presence badge/kiosk banner elsewhere is the explanation.
+  // Declared BEFORE `rows` below - it's read inside that same map(), and a
+  // `const` used before its own declaration line throws (TDZ), even though
+  // the function calling it is hoisted.
+  const myPresence = members.find((m) => m.id === me.id);
+  function presenceBlocksChore(chore: Chore): boolean {
+    if (!myPresence?.presenceStatus) return false;
+    if (myPresence.presenceStatus !== 'HOME') return true;
+    const requiredLocationId = locationId !== undefined ? locationId : chore.location?.id ?? null;
+    return !!(requiredLocationId && myPresence.presenceLocationId && myPresence.presenceLocationId !== requiredLocationId);
+  }
+
+  // Same idea but not tied to any one chore - the wheel isn't scoped to a
+  // household on its own, but on a kiosk it's still "are they at THIS
+  // house" (locationId prop); in the main app there's no location to
+  // compare against, so only away/vacation applies there.
+  const presenceBlocksAnything = (() => {
+    if (!myPresence?.presenceStatus) return false;
+    if (myPresence.presenceStatus !== 'HOME') return true;
+    return !!(locationId && myPresence.presenceLocationId && myPresence.presenceLocationId !== locationId);
+  })();
+
   const rows = scopedChores
     .map((chore) => {
       const tz = chore.location?.timezone || fallbackTimezone;
@@ -339,35 +372,6 @@ export default function ChoresPanel({
     .filter((r) => (!today || r.relevantToday) && (isAdult || r.actionableNow));
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'member';
-
-  // #9 - away/vacation blocks claiming/completing/skipping outright. HOME
-  // somewhere else blocks too, but "somewhere else" means different things
-  // in different contexts: on a KIOSK (locationId prop passed, even if
-  // null for an unscoped one) it's whether they're at THIS KIOSK's own
-  // house - so even a family-wide (no-location) chore is blocked from a
-  // kiosk they're not physically at. In the main app (no locationId prop -
-  // there's no kiosk to be "not at") it falls back to the chore's OWN
-  // location, so a family-wide chore stays doable from anywhere. No
-  // presence set at all (never touched the feature) never blocks - same
-  // "no signal" rule the server itself uses. Grayed out, no tooltip, no
-  // dialog - the presence badge/kiosk banner elsewhere is the explanation.
-  const myPresence = members.find((m) => m.id === me.id);
-  function presenceBlocksChore(chore: Chore): boolean {
-    if (!myPresence?.presenceStatus) return false;
-    if (myPresence.presenceStatus !== 'HOME') return true;
-    const requiredLocationId = locationId !== undefined ? locationId : chore.location?.id ?? null;
-    return !!(requiredLocationId && myPresence.presenceLocationId && myPresence.presenceLocationId !== requiredLocationId);
-  }
-
-  // Same idea but not tied to any one chore - the wheel isn't scoped to a
-  // household on its own, but on a kiosk it's still "are they at THIS
-  // house" (locationId prop); in the main app there's no location to
-  // compare against, so only away/vacation applies there.
-  const presenceBlocksAnything = (() => {
-    if (!myPresence?.presenceStatus) return false;
-    if (myPresence.presenceStatus !== 'HOME') return true;
-    return !!(locationId && myPresence.presenceLocationId && myPresence.presenceLocationId !== locationId);
-  })();
 
   function assignmentLabel(chore: Chore, claimedBy?: string | null) {
     if (chore.assignmentType === 'ANYONE') {
