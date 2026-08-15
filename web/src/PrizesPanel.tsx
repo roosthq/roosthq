@@ -88,9 +88,12 @@ export default function PrizesPanel({
       setTokenIcon(s.tokenIcon);
     }).catch(() => undefined);
     // The unlock payload doesn't carry permission flags, so read them off the
-    // member list to know whether this kid may request/redeem.
+    // member list to know whether this kid may request/redeem - also refetched
+    // on refreshSignal so presenceStatus/presenceLocationId (hence
+    // presenceBlocked above) don't stay stale after a status change.
     client.listUsers().then((us) => setSelf(us.find((u) => u.id === me.id) ?? null)).catch(() => undefined);
-  }, [client, me.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- client/me.id already covered; refreshSignal is the deliberate extra trigger
+  }, [client, me.id, refreshSignal]);
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;

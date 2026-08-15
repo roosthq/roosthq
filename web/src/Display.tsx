@@ -763,7 +763,8 @@ export default function Display() {
                       setAddingEvent(true);
                       e.currentTarget.closest('details')?.removeAttribute('open');
                     }}
-                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50"
+                    disabled={!!kioskPresenceBanner}
+                    className="block w-full rounded px-2 py-1.5 text-left hover:bg-slate-50 disabled:opacity-40 disabled:hover:bg-transparent"
                   >
                     + Add event
                   </button>
