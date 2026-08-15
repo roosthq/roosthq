@@ -13,7 +13,6 @@ import { RewardGamesService } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { PresenceService } from '../presence/presence.service';
-import { SessionPayload } from '../auth/jwt';
 import { paginate } from '../common/pagination';
 import {
   DEFAULT_TIMEZONE,
@@ -745,14 +744,11 @@ export class ChoresService {
     return chore.assignees.some((a) => a.userId === userId);
   }
 
-  // Claim an open ("anyone") chore occurrence. actingSession, when passed by
-  // the controller, is the FULL session (not just userId) - lets
-  // PresenceService tell a ghost/kiosk session apart from that person's own,
-  // so someone away/on vacation can't have a chore claimed on their behalf.
-  async claim(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
+  // Claim an open ("anyone") chore occurrence.
+  async claim(familyId: string, userId: string, instanceId: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'chores');
-    await this.presence.assertActionable(actingSession ?? { userId, familyId });
     const inst = await this.ownedInstance(familyId, instanceId);
+    await this.presence.assertCanActOnChore(userId, inst.chore.locationId);
     if (inst.chore.assignmentType !== 'ANYONE') throw new BadRequestException('This chore is not open to claim');
     if (inst.claimedByUserId && inst.claimedByUserId !== userId) {
       throw new BadRequestException('Already claimed by someone else');
@@ -808,10 +804,10 @@ export class ChoresService {
 
   // Mark done. Only the assignee/claimer can. Can't complete a future occurrence
   // (enforces once-per-period). Adults completing their own chore self-approve.
-  async complete(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
+  async complete(familyId: string, userId: string, instanceId: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'chores');
-    await this.presence.assertActionable(actingSession ?? { userId, familyId });
     const inst = await this.ownedInstance(familyId, instanceId);
+    await this.presence.assertCanActOnChore(userId, inst.chore.locationId);
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
 
     // Auto-claim an ANYONE chore for the person completing it.
@@ -878,9 +874,9 @@ export class ChoresService {
   // alternative to completing, not a shortcut through it), no token, and
   // the streak carries through untouched - a skip isn't a failure the way
   // a miss is, so it neither continues nor breaks it.
-  async skip(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
-    await this.presence.assertActionable(actingSession ?? { userId, familyId });
+  async skip(familyId: string, userId: string, instanceId: string) {
     const inst = await this.ownedInstance(familyId, instanceId);
+    await this.presence.assertCanActOnChore(userId, inst.chore.locationId);
     if (!inst.chore.allowSkip) throw new BadRequestException('Skipping is not allowed for this chore');
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
 

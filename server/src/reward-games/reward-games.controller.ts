@@ -20,6 +20,6 @@ export class RewardGamesController {
 
   @Post(':id/spin')
   spin(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
-    return this.rewardGames.spin(u.familyId, u.userId, id, u);
+    return this.rewardGames.spin(u.familyId, u.userId, id);
   }
 }

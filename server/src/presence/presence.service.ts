@@ -162,19 +162,39 @@ export class PresenceService {
     return eff.locationId === choreLocationId;
   }
 
-  // Ghost/kiosk sessions acting AS an away/vacation person shouldn't be able
-  // to buy prizes, claim/complete chores, or spin a wheel on their behalf -
-  // the point of those actions is that person doing them, and they're not
-  // there. Their own real session (logged in on their own phone/browser) is
-  // never gated by this - only sessions someone else is driving.
-  async assertActionable(u: { userId: string; ghostedBy?: string; viaKiosk?: boolean }) {
-    if (!u.ghostedBy && !u.viaKiosk) return;
+  // Away/vacation blocks buying prizes and spinning wheels outright - not
+  // location-specific like chores below, since neither is tied to a
+  // household. Checked unconditionally on the CURRENT status, regardless of
+  // who's driving the session (own account, ghosted, or kiosk) - the whole
+  // point is that THIS person isn't there right now, which is exactly as
+  // true on their own phone as it is ghosted in from someone else's.
+  async assertActionable(userId: string) {
     const user = await this.prisma.user.findUnique({
-      where: { id: u.userId },
+      where: { id: userId },
       select: { displayName: true, presenceStatus: true },
     });
     if (user && user.presenceStatus !== 'HOME') {
-      throw new ForbiddenException(`${user.displayName} is ${this.label(user.presenceStatus as PresenceStatus)} right now - this can wait until they're back.`);
+      throw new ForbiddenException(`You're ${this.label(user.presenceStatus as PresenceStatus)} right now - this can wait until you're back.`);
+    }
+  }
+
+  // Same idea, but for a chore: also blocks HOME-at-the-wrong-house for a
+  // chore scoped to a specific household (choreLocationId), not just
+  // away/vacation. A never-set presenceLocationId (family/person hasn't
+  // touched this feature) never blocks - same "no signal, no restriction"
+  // rule as the miss-sweep's own history check, just against the CURRENT
+  // value instead of a historical one.
+  async assertCanActOnChore(userId: string, choreLocationId: string | null) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { displayName: true, presenceStatus: true, presenceLocationId: true },
+    });
+    if (!user) return;
+    if (user.presenceStatus !== 'HOME') {
+      throw new ForbiddenException(`You're ${this.label(user.presenceStatus as PresenceStatus)} right now - this chore is excused until you're back.`);
+    }
+    if (choreLocationId && user.presenceLocationId && user.presenceLocationId !== choreLocationId) {
+      throw new ForbiddenException("You're not at that house right now - this chore is excused until you are.");
     }
   }
 }

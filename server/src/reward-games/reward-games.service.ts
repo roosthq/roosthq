@@ -4,7 +4,6 @@ import { DisplayEventsService } from '../display/display-events.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { PresenceService } from '../presence/presence.service';
-import { SessionPayload } from '../auth/jwt';
 
 // Pending reward games (#5 - renamed/widened from the original single bonus
 // wheel; RewardGame is @@map'd to the pre-existing WheelSpin table, see
@@ -115,13 +114,13 @@ export class RewardGamesService {
   // ledger entry or auto-fulfilled Redemption, stamp it played. Only the
   // owner of the game can play it - adults can't play for a kid, that's the
   // whole point.
-  async spin(familyId: string, userId: string, id: string, actingSession?: SessionPayload) {
+  async spin(familyId: string, userId: string, id: string) {
     const game = await this.prisma.rewardGame.findFirst({ where: { id, familyId } });
     if (!game) throw new NotFoundException('Reward game not found');
     if (game.userId !== userId) throw new ForbiddenException('Only the person who earned it can play it');
-    // Ghost/kiosk session playing on behalf of someone away/on vacation -
-    // let the actual person spin their own wheel when they're back.
-    await this.presence.assertActionable(actingSession ?? { userId, familyId });
+    // Away/vacation blocks spinning too - let the actual person spin it when
+    // they're back home.
+    await this.presence.assertActionable(userId);
     if (game.spunAt) {
       // Already played (e.g. a refreshed reveal modal) - return the same
       // shape a fresh roll would, so the client can still render it.
