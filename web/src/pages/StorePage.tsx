@@ -163,7 +163,11 @@ export default function StorePage({
         <div className="flex flex-wrap items-center gap-2">
           {!isAdult && <TokenBadge icon={tokenIcon} amount={balance} label={tokenName} size="lg" />}
           {!isAdult && canRedeem && (
-            <button onClick={() => setSuggesting(true)} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
+            <button
+              onClick={() => setSuggesting(true)}
+              disabled={presenceBlocked}
+              className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
+            >
               + Request a prize
             </button>
           )}

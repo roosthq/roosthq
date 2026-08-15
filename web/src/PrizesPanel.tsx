@@ -98,7 +98,8 @@ export default function PrizesPanel({
         {canRequest && (
           <button
             onClick={() => setSuggesting(true)}
-            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+            disabled={presenceBlocked}
+            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
           >
             + Request a prize
           </button>

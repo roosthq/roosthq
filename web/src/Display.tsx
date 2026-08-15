@@ -838,24 +838,6 @@ export default function Display() {
               </button>
             </div>
           )}
-          {active && (
-            <button
-              onClick={() => {
-                api.presenceMine(active.token).then((p) => {
-                  setMyPresence(p);
-                  setPresenceOpen(true);
-                });
-              }}
-              title="Where are you?"
-              className="flex items-center gap-1.5 rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
-            >
-              <LucideIcon
-                name={active.user.presenceStatus === 'VACATION' ? 'plane' : active.user.presenceStatus === 'AWAY' ? 'moon' : 'house'}
-                slot={active.user.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : active.user.presenceStatus === 'AWAY' ? 'badge.presenceAway' : 'badge.presenceHome'}
-                size={14}
-              />
-            </button>
-          )}
           {config.id && (
             <button
               onClick={toggleTheme}
@@ -940,10 +922,7 @@ export default function Display() {
       )}
 
       {(showMeals || showCountdowns || showGrocery) && (
-        <div
-          className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm"
-          style={kioskPresenceBanner ? { pointerEvents: 'none', opacity: 0.45 } : undefined}
-        >
+        <div className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm">
           {showMeals && (
             <button
               onClick={() => setDinnerWeekOpen(true)}
@@ -1010,14 +989,7 @@ export default function Display() {
           frame, which is exactly what a "smooth" resize should never cost.
           An instant snap has zero animation cost and reads as more
           responsive than a stuttering "smooth" transition, not less. */}
-      {/* #9 - the whole point: an away/vacation/wrong-house profile can see
-          everything (calendar, chores, prizes) but touch none of it - no
-          adding/editing events, claiming/completing/skipping chores, or
-          redeeming/requesting prizes - until they switch back. One style on
-          the shared row beats chasing every button in Calendar/ChoresPanel/
-          PrizesPanel individually, and it's provably complete (nothing
-          inside can receive a click at all). */}
-      <div className="mt-3 flex min-h-0 flex-1 gap-6" style={kioskPresenceBanner ? { pointerEvents: 'none', opacity: 0.45 } : undefined}>
+      <div className="mt-3 flex min-h-0 flex-1 gap-6">
         {showCalendar && (
           <div className={`h-full ${personFocused ? 'w-72 shrink-0' : 'min-w-0 flex-1'}`}>
             <Calendar
@@ -1025,7 +997,7 @@ export default function Display() {
               onRangeChange={onRangeChange}
               touchControls
               onAddEvent={
-                active && addableCalendarOptions.length > 0
+                active && !kioskPresenceBanner && addableCalendarOptions.length > 0
                   ? (dateISO) => {
                       setPrefillDate(dateISO);
                       setAddingEvent(true);
@@ -1033,7 +1005,7 @@ export default function Display() {
                   : undefined
               }
               canEditEvent={(e) => addableCalendarIds.has(e.calendarId)}
-              onEditEvent={active ? (e) => setEditingEvent(e) : undefined}
+              onEditEvent={active && !kioskPresenceBanner ? (e) => setEditingEvent(e) : undefined}
               size={!active ? 'normal' : personFocused ? 'mini' : 'compact'}
               fill
               renderExtra={(e) => {
@@ -1086,6 +1058,22 @@ export default function Display() {
                     )}
                     <button onClick={() => setKioskStatsOpen(true)} className="flex items-center gap-1.5 rounded border px-3 py-2 text-sm hover:bg-slate-50">
                       <LucideIcon name="emoji_1f4ca" slot="kiosk.stats" size={16} /> My stats
+                    </button>
+                    <button
+                      onClick={() => {
+                        api.presenceMine(active.token).then((p) => {
+                          setMyPresence(p);
+                          setPresenceOpen(true);
+                        });
+                      }}
+                      className="flex items-center gap-1.5 rounded border px-3 py-2 text-sm hover:bg-slate-50"
+                    >
+                      <LucideIcon
+                        name={active.user.presenceStatus === 'VACATION' ? 'plane' : active.user.presenceStatus === 'AWAY' ? 'moon' : 'house'}
+                        slot={active.user.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : active.user.presenceStatus === 'AWAY' ? 'badge.presenceAway' : 'badge.presenceHome'}
+                        size={16}
+                      />
+                      Status
                     </button>
                   </div>
                   {isAdult && kioskChoreClient && kioskPrizeClient && (
