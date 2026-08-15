@@ -264,12 +264,17 @@ export class OwnerService {
     return { userId: target.id, familyId: target.familyId, ghostedBy: actorId };
   }
 
-  // Rebuild the real owner's own session from the ghostedBy id stamped into
-  // the current one - re-checked against the DB (role could theoretically
-  // have changed mid-ghost) rather than trusted blindly from the token.
+  // Rebuild the real ghoster's own session from the ghostedBy id stamped
+  // into the current one - re-checked against the DB (role could
+  // theoretically have changed mid-ghost) rather than trusted blindly from
+  // the token. Any adult role, not just OWNER - UsersService.ghostChild()
+  // (a family_manager/adult ghosting their own kid) stamps this same field
+  // and returns through this same endpoint.
   async unghost(ghostedBy: string) {
     const owner = await this.prisma.user.findUnique({ where: { id: ghostedBy } });
-    if (!owner || owner.role !== 'OWNER') throw new ForbiddenException('Not a valid owner session');
+    if (!owner || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(owner.role)) {
+      throw new ForbiddenException('Not a valid ghoster session');
+    }
     return { userId: owner.id, familyId: owner.familyId };
   }
 }

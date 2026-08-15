@@ -1,13 +1,26 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
+import { AuthGuard, SESSION_COOKIE } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
-import { SessionPayload } from '../auth/jwt';
+import { SessionPayload, signSession } from '../auth/jwt';
 import { UsersService } from './users.service';
+
+const PROD = process.env.NODE_ENV === 'production';
+const cookieBase = { httpOnly: true, sameSite: 'lax' as const, secure: PROD };
 
 @UseGuards(AuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(private users: UsersService) {}
+
+  // "Hand me your phone" - any adult ghosts as one of their own kids, so the
+  // kid can complete a chore etc. on hardware that's already unlocked.
+  @Post(':id/ghost')
+  async ghostChild(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Res() res: Response) {
+    const session = await this.users.ghostChild(u.userId, u.familyId, id);
+    res.cookie(SESSION_COOKIE, signSession(session), { ...cookieBase, maxAge: 30 * 24 * 60 * 60 * 1000 });
+    return res.json({ ok: true });
+  }
 
   @Get()
   list(@CurrentUser() u: SessionPayload) {

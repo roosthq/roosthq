@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { hashPin } from '../crypto/pin';
+import { AuditLogService } from '../security/audit-log.service';
 
 type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 function isFamilyManager(role?: string): boolean {
@@ -17,7 +18,33 @@ export const DEFAULT_COLOR_THEME = COLOR_THEMES.includes(process.env.DEFAULT_COL
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private audit: AuditLogService,
+  ) {}
+
+  // Any adult can ghost as a KID in their OWN family - the whole point is
+  // letting a kid hand an adult's already-unlocked phone to themselves and
+  // do something (complete a chore) without needing their own login. Much
+  // narrower than OwnerService.ghost(): same family only, kid targets only,
+  // any adult role rather than the literal instance OWNER. Session-cookie
+  // mechanics (and unghost) are shared with that one - see users.controller.ts.
+  async ghostChild(actorId: string, familyId: string, targetUserId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new ForbiddenException('Adults only');
+    const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    if (target.role !== 'KID') throw new ForbiddenException('Can only ghost as a kid in your own family this way');
+    await this.audit.record({
+      actorId,
+      actorName: actor.displayName,
+      action: 'ghost.start',
+      targetId: target.id,
+      targetLabel: target.displayName,
+      familyId,
+    });
+    return { userId: target.id, familyId: target.familyId, ghostedBy: actorId };
+  }
 
   async list(familyId: string) {
     const users = await this.prisma.user.findMany({

@@ -19,11 +19,13 @@ export default function Nav({
   onToggleTheme: () => void;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
-  // Instance-owner only, and only while not ALREADY ghosting - switching
-  // straight from one ghost target to another isn't supported server-side
-  // (ghost() re-asserts the literal OWNER role on the acting session, which
-  // a ghosted-as-someone-else session no longer has); return first.
-  const canGhost = me.role === 'OWNER' && !me.ghostedBy;
+  // Any adult, but only while not ALREADY ghosting - switching straight from
+  // one ghost target to another isn't supported server-side (both ghost
+  // paths re-assert a real adult role on the ACTING session, which a
+  // ghosted-as-someone-else session no longer has); return first. Which
+  // families/members show up (everyone's, vs. just this family's kids) is
+  // GhostQuickSwitcher's own call based on me.role.
+  const canGhost = isAdult && !me.ghostedBy;
   const cls = ({ isActive }: { isActive: boolean }) =>
     `rounded px-3 py-2 text-sm ${isActive ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}`;
 
@@ -218,7 +220,7 @@ export default function Nav({
             {me.themePref === 'dark' ? '☀︎' : '☾'}
           </button>
           {displayLink}
-          {canGhost && <GhostQuickSwitcher />}
+          {canGhost && <GhostQuickSwitcher me={me} />}
           {nameMenu(false)}
           <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
             Sign out
@@ -249,7 +251,7 @@ export default function Nav({
               {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
             </button>
             {displayLink}
-            {canGhost && <GhostQuickSwitcher />}
+            {canGhost && <GhostQuickSwitcher me={me} />}
           </div>
           <div className="flex items-center justify-between border-t pt-3 text-sm">
             {nameMenu(true)}

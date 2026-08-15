@@ -1056,6 +1056,9 @@ export const api = {
     req<{ ok: boolean }>(`/owner/users/${id}/move`, { method: 'POST', body: JSON.stringify({ familyId, role }) }),
   ghost: (userId: string) => req<{ ok: boolean }>(`/owner/ghost/${userId}`, { method: 'POST' }),
   unghost: () => req<{ ok: boolean }>('/owner/unghost', { method: 'POST' }),
+  // Any adult ghosting one of their OWN family's kids (not instance-owner-only,
+  // not cross-family) - "hand me your phone" for completing a chore etc.
+  ghostChild: (userId: string) => req<{ ok: boolean }>(`/users/${userId}/ghost`, { method: 'POST' }),
 
   // Global "Holidays" calendar rule set - owner-only (see HolidaysService).
   listHolidays: () => req<HolidayRule[]>('/holidays'),
