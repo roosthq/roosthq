@@ -1101,6 +1101,7 @@ export default function Display() {
                       me={active.user}
                       client={kioskPrizeClient}
                       kioskToken={active.token}
+                      locationId={config.locationId}
                       refreshSignal={dataRefreshSignal}
                     />
                   )}
@@ -1335,6 +1336,11 @@ export default function Display() {
             setActive((prev) =>
               prev ? { ...prev, user: { ...prev.user, presenceStatus: next.status, presenceLocationId: next.locationId } } : prev,
             );
+            // ChoresPanel/PrizesPanel read presence off their OWN
+            // members/self fetch (not off `active`), which otherwise
+            // wouldn't refetch until something else happened to bump this -
+            // their claim/complete/redeem buttons would stay stale.
+            setDataRefreshSignal((s) => s + 1);
             setPresenceOpen(false);
           }}
           onClose={() => setPresenceOpen(false)}

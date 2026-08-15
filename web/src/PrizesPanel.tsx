@@ -16,6 +16,7 @@ export default function PrizesPanel({
   client: clientProp,
   refreshSignal,
   kioskToken,
+  locationId,
 }: {
   me: Actor;
   client?: PrizeClient;
@@ -24,6 +25,11 @@ export default function PrizesPanel({
   refreshSignal?: number;
   // Kiosk profile token - needed to file a wishlist request as this person.
   kioskToken?: string;
+  // #9 - this kiosk's own location (even null, for an unscoped one) - lets
+  // redeeming/requesting be blocked for HOME-at-a-different-house too, not
+  // just away/vacation. Omitted entirely on the main app, where there's no
+  // kiosk to be "not at".
+  locationId?: string | null;
 }) {
   const client = clientProp ?? prizeClient();
   const { alert, confirm } = useDialog();
@@ -51,8 +57,15 @@ export default function PrizesPanel({
   // item's own price tag below is unaffected, that's the item's cost, not
   // this person's balance.
   const showBalance = !self?.tokensDisabled;
-  // #9 - away/vacation blocks redeeming outright, quietly (see Prize.tsx).
-  const presenceBlocked = self?.presenceStatus === 'AWAY' || self?.presenceStatus === 'VACATION';
+  // #9 - away/vacation blocks redeeming/requesting outright, quietly (see
+  // Prize.tsx). HOME at a different house than THIS kiosk's own blocks too
+  // (locationId prop) - prizes aren't location-scoped themselves, but the
+  // kiosk they're being bought through is.
+  const presenceBlocked = (() => {
+    if (!self?.presenceStatus) return false;
+    if (self.presenceStatus !== 'HOME') return true;
+    return !!(locationId && self.presenceLocationId && self.presenceLocationId !== locationId);
+  })();
 
   const refresh = useCallback(async () => {
     const [p, b] = await Promise.all([client.prizes(), client.tokenBalance(me.id)]);
