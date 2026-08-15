@@ -4,6 +4,7 @@ import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
+import GhostQuickSwitcher from './GhostQuickSwitcher';
 import PendingIndicator from './PendingIndicator';
 import PendingGamesIndicator from './PendingGamesIndicator';
 import LucideIcon from './LucideIcon';
@@ -18,6 +19,11 @@ export default function Nav({
   onToggleTheme: () => void;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  // Instance-owner only, and only while not ALREADY ghosting - switching
+  // straight from one ghost target to another isn't supported server-side
+  // (ghost() re-asserts the literal OWNER role on the acting session, which
+  // a ghosted-as-someone-else session no longer has); return first.
+  const canGhost = me.role === 'OWNER' && !me.ghostedBy;
   const cls = ({ isActive }: { isActive: boolean }) =>
     `rounded px-3 py-2 text-sm ${isActive ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}`;
 
@@ -212,6 +218,7 @@ export default function Nav({
             {me.themePref === 'dark' ? '☀︎' : '☾'}
           </button>
           {displayLink}
+          {canGhost && <GhostQuickSwitcher />}
           {nameMenu(false)}
           <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
             Sign out
@@ -242,6 +249,7 @@ export default function Nav({
               {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
             </button>
             {displayLink}
+            {canGhost && <GhostQuickSwitcher />}
           </div>
           <div className="flex items-center justify-between border-t pt-3 text-sm">
             {nameMenu(true)}
