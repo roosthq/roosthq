@@ -51,6 +51,8 @@ export default function PrizesPanel({
   // item's own price tag below is unaffected, that's the item's cost, not
   // this person's balance.
   const showBalance = !self?.tokensDisabled;
+  // #9 - away/vacation blocks redeeming outright, quietly (see Prize.tsx).
+  const presenceBlocked = self?.presenceStatus === 'AWAY' || self?.presenceStatus === 'VACATION';
 
   const refresh = useCallback(async () => {
     const [p, b] = await Promise.all([client.prizes(), client.tokenBalance(me.id)]);
@@ -163,6 +165,7 @@ export default function PrizesPanel({
           isAdult={false}
           balance={balance}
           canRedeem={!viewing.suggested && kidPermissionEnabled(self, 'store')}
+          presenceBlocked={presenceBlocked}
           onClose={() => setViewing(null)}
           onRedeem={() => redeem(viewing)}
         />

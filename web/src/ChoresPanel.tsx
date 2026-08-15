@@ -334,11 +334,29 @@ export default function ChoresPanel({
         (active?.status === 'OPEN' && dueNow && (mine || openToClaim)) ||
         (active?.status === 'PENDING' && mine) ||
         (active?.status === 'SKIPPED' && mine);
-      return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday, actionableNow };
+      return { chore, active, claimedBy, checked, mine, dueNow, openToClaim, relevantToday, actionableNow, presenceBlocked: presenceBlocksChore(chore) };
     })
     .filter((r) => (!today || r.relevantToday) && (isAdult || r.actionableNow));
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'member';
+
+  // #9 - away/vacation blocks claiming/completing/skipping outright; HOME at
+  // a different household than a location-scoped chore's own blocks just
+  // that chore. No presence set at all (never touched the feature) never
+  // blocks - same "no signal" rule the server itself uses. Grayed out, no
+  // tooltip, no dialog - the presence badge elsewhere on the page is the
+  // explanation; this is just the button quietly not being pressable.
+  function presenceBlocksChore(chore: Chore): boolean {
+    const p = members.find((m) => m.id === me.id);
+    if (!p?.presenceStatus) return false;
+    if (p.presenceStatus !== 'HOME') return true;
+    return !!(chore.location?.id && p.presenceLocationId && p.presenceLocationId !== chore.location.id);
+  }
+
+  // Same idea but not tied to any one chore - the wheel banner isn't scoped
+  // to a household, so only away/vacation (not a location mismatch) applies.
+  const myOwnPresenceStatus = members.find((m) => m.id === me.id)?.presenceStatus;
+  const presenceBlocksAnything = !!myOwnPresenceStatus && myOwnPresenceStatus !== 'HOME';
 
   function assignmentLabel(chore: Chore, claimedBy?: string | null) {
     if (chore.assignmentType === 'ANYONE') {
@@ -490,7 +508,7 @@ export default function ChoresPanel({
         .filter((g) => g.rows.length > 0)
         .filter((g) => !personFilter || g.key === personFilter);
 
-  function renderRow({ chore, active, claimedBy, checked, mine, dueNow, openToClaim }: Row) {
+  function renderRow({ chore, active, claimedBy, checked, mine, dueNow, openToClaim, presenceBlocked }: Row) {
     const daysOfWeek = resolveDaysOfWeek(chore);
     const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate, daysOfWeek) : null;
     return (
@@ -551,7 +569,8 @@ export default function ChoresPanel({
           {active?.status === 'OPEN' && openToClaim && (
             <button
               onClick={() => act(() => client.claimInstance(active.id))}
-              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+              disabled={presenceBlocked}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-40 disabled:hover:bg-transparent"
             >
               Claim this
             </button>
@@ -562,7 +581,12 @@ export default function ChoresPanel({
           {active?.status === 'OPEN' && dueNow && mine && (
             <button
               onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget, 'choreCompleted')}
-              className={simple ? 'rounded-lg bg-slate-800 px-6 py-3 text-base font-semibold text-white hover:bg-slate-700' : 'rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700'}
+              disabled={presenceBlocked}
+              className={
+                (simple
+                  ? 'rounded-lg bg-slate-800 px-6 py-3 text-base font-semibold text-white hover:bg-slate-700'
+                  : 'rounded-md bg-slate-800 px-3 py-1 text-xs text-white hover:bg-slate-700') + ' disabled:opacity-40 disabled:hover:bg-slate-800'
+              }
             >
               Mark done
             </button>
@@ -572,7 +596,8 @@ export default function ChoresPanel({
               onClick={async () => {
                 if (await confirmSkip()) await act(() => client.skipInstance(active.id));
               }}
-              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50"
+              disabled={presenceBlocked}
+              className="rounded-md border px-3 py-1 text-xs hover:bg-slate-50 disabled:opacity-40 disabled:hover:bg-transparent"
             >
               Skip
             </button>
@@ -788,7 +813,8 @@ export default function ChoresPanel({
             </span>
             <button
               onClick={() => setWheel(pendingWheels[0])}
-              className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+              disabled={presenceBlocksAnything}
+              className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
             >
               Spin now
             </button>
@@ -798,7 +824,11 @@ export default function ChoresPanel({
               {pendingWheels.map((w) => (
                 <li key={w.id} className="flex items-center justify-between gap-2">
                   <span className="min-w-0 flex-1 truncate">{wheelSource(w)}</span>
-                  <button onClick={() => setWheel(w)} className="shrink-0 rounded border px-2 py-0.5 hover:bg-white/40">
+                  <button
+                    onClick={() => setWheel(w)}
+                    disabled={presenceBlocksAnything}
+                    className="shrink-0 rounded border px-2 py-0.5 hover:bg-white/40 disabled:opacity-40 disabled:hover:bg-transparent"
+                  >
                     Spin
                   </button>
                 </li>
@@ -850,7 +880,7 @@ export default function ChoresPanel({
               </tr>
             </thead>
             <tbody>
-              {sortedRows.map(({ chore, active, claimedBy, mine, dueNow, openToClaim }) => (
+              {sortedRows.map(({ chore, active, claimedBy, mine, dueNow, openToClaim, presenceBlocked }) => (
                 <tr key={chore.id} className="border-b last:border-0 hover:bg-slate-50">
                   <td className="px-2 py-2 font-medium">{chore.title}</td>
                   <td className="px-2 py-2 text-slate-500">{chore.location?.name ?? '-'}</td>
@@ -866,14 +896,19 @@ export default function ChoresPanel({
                   <td className="px-2 py-2">
                     <div className="flex items-center gap-2 whitespace-nowrap">
                       {active?.status === 'OPEN' && openToClaim && (
-                        <button onClick={() => act(() => client.claimInstance(active.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-100">
+                        <button
+                          onClick={() => act(() => client.claimInstance(active.id))}
+                          disabled={presenceBlocked}
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
+                        >
                           Claim
                         </button>
                       )}
                       {active?.status === 'OPEN' && dueNow && mine && (
                         <button
                           onClick={(e) => act(() => client.completeInstance(active.id), e.currentTarget, 'choreCompleted')}
-                          className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700"
+                          disabled={presenceBlocked}
+                          className="rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
                         >
                           Mark done
                         </button>
@@ -883,7 +918,8 @@ export default function ChoresPanel({
                           onClick={async () => {
                             if (await confirmSkip()) await act(() => client.skipInstance(active.id));
                           }}
-                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100"
+                          disabled={presenceBlocked}
+                          className="rounded border px-2 py-1 text-xs hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                         >
                           Skip
                         </button>

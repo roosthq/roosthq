@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { api, prizeClient, familyFeatureEnabled, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, kidPermissionEnabled } from '../api';
+import { api, prizeClient, familyFeatureEnabled, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import ImageCropper from '../ImageCropper';
@@ -100,6 +100,14 @@ export default function StorePage({
   // A kid whose store permission is off can browse but not spend; the server
   // enforces it too (assertKidPermission in prizes.service.redeem).
   const canRedeem = kidPermissionEnabled(me, 'store');
+
+  // #9 - away/vacation blocks redeeming outright, quietly (see Prize.tsx) -
+  // own presence, not the (adults-only, empty for a kid) `members` list above.
+  const [myPresence, setMyPresence] = useState<MyPresence | null>(null);
+  useEffect(() => {
+    api.presenceMine().then(setMyPresence).catch(() => setMyPresence(null));
+  }, []);
+  const presenceBlocked = myPresence?.status === 'AWAY' || myPresence?.status === 'VACATION';
 
   async function redeem(p: StorePrize) {
     if (balance < p.tokenCost) return;
@@ -420,6 +428,7 @@ export default function StorePage({
           memberName={memberName}
           onClose={() => setViewing(null)}
           canRedeem={canRedeem}
+          presenceBlocked={presenceBlocked}
           onRedeem={() => redeem(viewing)}
           onEdit={() => {
             setEditing(viewing);

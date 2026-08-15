@@ -183,6 +183,20 @@ export default function Display() {
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
 
+  // #9 - "out and open" banner text for the selected profile, or null when
+  // there's nothing to say (HOME, or no presence signal at all yet).
+  const kioskPresenceBanner = (() => {
+    if (!active) return null;
+    const status = active.user.presenceStatus;
+    const name = active.user.displayName.split(' ')[0];
+    if (status === 'VACATION') return `${name} is on vacation right now`;
+    if (status === 'AWAY') return `${name} is away right now`;
+    if (status === 'HOME' && config?.locationId && active.user.presenceLocationId && active.user.presenceLocationId !== config.locationId) {
+      return `${name} is home, but not at this house right now`;
+    }
+    return null;
+  })();
+
   // Shared with Screensaver.tsx (passed down as a prop) so both show the same
   // reading on the same 15-minute schedule instead of polling independently.
   const weather = useWeather(config?.weatherLocation);
@@ -857,6 +871,23 @@ export default function Display() {
           )}
         </div>
       </header>
+
+      {/* #9 - out and open, not a tucked-away badge: whoever's using this
+          kiosk right now should see at a glance why chores/prizes/wheels are
+          grayed out for the selected profile, without having to ask. Only
+          fires on a real signal (an explicit AWAY/VACATION, or HOME
+          somewhere specific that isn't here) - a never-set presenceLocationId
+          stays quiet, same "no signal" rule as everywhere else in #9. */}
+      {active && kioskPresenceBanner && (
+        <div className="mt-2 flex shrink-0 items-center gap-2 rounded-lg bg-amber-600 px-3 py-2 text-sm font-medium text-white">
+          <LucideIcon
+            name={active.user.presenceStatus === 'VACATION' ? 'plane' : active.user.presenceStatus === 'AWAY' ? 'moon' : 'map-pin'}
+            slot={active.user.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : active.user.presenceStatus === 'AWAY' ? 'badge.presenceAway' : 'badge.presenceHome'}
+            size={16}
+          />
+          {kioskPresenceBanner}
+        </div>
+      )}
 
       {showAnnouncements && (household?.announcements.length ?? 0) > 0 && (
         <div className="mt-2 flex shrink-0 items-center gap-3 overflow-x-auto rounded-lg px-3 py-1.5 text-sm" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>

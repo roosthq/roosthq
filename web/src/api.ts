@@ -208,7 +208,15 @@ export interface MyPresence {
 
 export interface UnlockResult {
   token: string;
-  user: { id: string; displayName: string; role: string; avatar?: string; colorTheme?: string };
+  user: {
+    id: string;
+    displayName: string;
+    role: string;
+    avatar?: string;
+    colorTheme?: string;
+    presenceStatus?: PresenceStatus;
+    presenceLocationId?: string | null;
+  };
 }
 
 // Kiosk-identifiable per-person full page theme ("micro-theme") - swaps the

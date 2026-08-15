@@ -78,6 +78,10 @@ export class DisplayService {
         role: user.role,
         avatar: user.avatar,
         colorTheme: user.colorTheme,
+        // #9 - so the kiosk can show the "away/vacation/at another house"
+        // banner for whoever's selected without a second round-trip.
+        presenceStatus: user.presenceStatus,
+        presenceLocationId: user.presenceLocationId,
       },
     };
   }

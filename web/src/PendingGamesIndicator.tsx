@@ -13,9 +13,12 @@ import LucideIcon from './LucideIcon';
 export default function PendingGamesIndicator({ tokenName }: { tokenName: string }) {
   const [games, setGames] = useState<PendingWheel[]>([]);
   const [playing, setPlaying] = useState<PendingWheel | null>(null);
+  // #9 - away/vacation blocks spinning outright, quietly (see Prize.tsx).
+  const [presenceBlocked, setPresenceBlocked] = useState(false);
 
   const refresh = useCallback(() => {
     api.pendingWheels().then(setGames).catch(() => setGames([]));
+    api.presenceMine().then((p) => setPresenceBlocked(p.status !== 'HOME')).catch(() => setPresenceBlocked(false));
   }, []);
 
   useEffect(() => {
@@ -54,7 +57,8 @@ export default function PendingGamesIndicator({ tokenName }: { tokenName: string
                 <span className="min-w-0 flex-1 truncate">{source(g.reason)}</span>
                 <button
                   onClick={() => setPlaying(g)}
-                  className="shrink-0 rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700"
+                  disabled={presenceBlocked}
+                  className="shrink-0 rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
                 >
                   ▶ Play
                 </button>
