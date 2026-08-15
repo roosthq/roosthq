@@ -16,6 +16,8 @@ import {
   type UnlockResult,
   type Balance,
   type AwardCatalogItem,
+  type MyPresence,
+  type FamilyLocation,
 } from './api';
 import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
@@ -39,6 +41,7 @@ import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
 import DinnerWeekModal from './DinnerWeekModal';
 import KioskStatsModal from './KioskStatsModal';
+import PresenceModal from './PresenceModal';
 import RulesPage from './pages/RulesPage';
 import Modal from './Modal';
 import { parseLocalDate, useWeather } from './useWeather';
@@ -121,6 +124,13 @@ export default function Display() {
   const [revealedCountdowns, setRevealedCountdowns] = useState<Set<string>>(new Set());
   const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
+  // #9 - its own button, not tucked inside My Stats (an extra step that
+  // doesn't make sense when they can't get to My Stats' content anyway once
+  // it's frozen - see the presence-freeze wrapper below). Uses the same
+  // PresenceModal card picker as everywhere else.
+  const [presenceOpen, setPresenceOpen] = useState(false);
+  const [myPresence, setMyPresence] = useState<MyPresence | null>(null);
+  const [kioskLocations, setKioskLocations] = useState<FamilyLocation[]>([]);
   const [tokenValueUsd, setTokenValueUsd] = useState(1);
   const [tokenName, setTokenName] = useState('Tokens');
   const [tokenIcon, setTokenIcon] = useState('coins'); // Lucide name - see App.tsx tokenIcon comment
@@ -183,16 +193,27 @@ export default function Display() {
 
   const isAdult = active ? ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(active.user.role) : false;
 
+  // Needed to name the OTHER house in the banner below ("They're at Dad's").
+  // Fetched with the per-profile kiosk token (the display's own read-only
+  // token can't hit /locations - AuthGuard, not DisplayOrUserGuard), so this
+  // only ever runs once someone's actually selected.
+  useEffect(() => {
+    if (active) api.locations(active.token).then(setKioskLocations).catch(() => setKioskLocations([]));
+  }, [active?.token]);
+
   // #9 - "out and open" banner text for the selected profile, or null when
-  // there's nothing to say (HOME, or no presence signal at all yet).
+  // there's nothing to say (HOME here, or no presence signal at all yet).
   const kioskPresenceBanner = (() => {
     if (!active) return null;
     const status = active.user.presenceStatus;
-    const name = active.user.displayName.split(' ')[0];
-    if (status === 'VACATION') return `${name} is on vacation right now`;
-    if (status === 'AWAY') return `${name} is away right now`;
+    const name = active.user.displayName;
+    if (status === 'VACATION') return `${name} is on vacation and is not at any known family locations right now.`;
+    if (status === 'AWAY') return `${name} is not at this house right now.`;
     if (status === 'HOME' && config?.locationId && active.user.presenceLocationId && active.user.presenceLocationId !== config.locationId) {
-      return `${name} is home, but not at this house right now`;
+      const otherName = kioskLocations.find((l) => l.id === active.user.presenceLocationId)?.name;
+      return otherName
+        ? `${name} is not at this house right now. They're at ${otherName}.`
+        : `${name} is not at this house right now.`;
     }
     return null;
   })();
@@ -817,6 +838,24 @@ export default function Display() {
               </button>
             </div>
           )}
+          {active && (
+            <button
+              onClick={() => {
+                api.presenceMine(active.token).then((p) => {
+                  setMyPresence(p);
+                  setPresenceOpen(true);
+                });
+              }}
+              title="Where are you?"
+              className="flex items-center gap-1.5 rounded border px-2 py-1 text-sm text-slate-500 hover:bg-slate-100"
+            >
+              <LucideIcon
+                name={active.user.presenceStatus === 'VACATION' ? 'plane' : active.user.presenceStatus === 'AWAY' ? 'moon' : 'house'}
+                slot={active.user.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : active.user.presenceStatus === 'AWAY' ? 'badge.presenceAway' : 'badge.presenceHome'}
+                size={14}
+              />
+            </button>
+          )}
           {config.id && (
             <button
               onClick={toggleTheme}
@@ -901,7 +940,10 @@ export default function Display() {
       )}
 
       {(showMeals || showCountdowns || showGrocery) && (
-        <div className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm">
+        <div
+          className="mt-2 flex shrink-0 flex-wrap items-center gap-2 text-sm"
+          style={kioskPresenceBanner ? { pointerEvents: 'none', opacity: 0.45 } : undefined}
+        >
           {showMeals && (
             <button
               onClick={() => setDinnerWeekOpen(true)}
@@ -968,7 +1010,14 @@ export default function Display() {
           frame, which is exactly what a "smooth" resize should never cost.
           An instant snap has zero animation cost and reads as more
           responsive than a stuttering "smooth" transition, not less. */}
-      <div className="mt-3 flex min-h-0 flex-1 gap-6">
+      {/* #9 - the whole point: an away/vacation/wrong-house profile can see
+          everything (calendar, chores, prizes) but touch none of it - no
+          adding/editing events, claiming/completing/skipping chores, or
+          redeeming/requesting prizes - until they switch back. One style on
+          the shared row beats chasing every button in Calendar/ChoresPanel/
+          PrizesPanel individually, and it's provably complete (nothing
+          inside can receive a click at all). */}
+      <div className="mt-3 flex min-h-0 flex-1 gap-6" style={kioskPresenceBanner ? { pointerEvents: 'none', opacity: 0.45 } : undefined}>
         {showCalendar && (
           <div className={`h-full ${personFocused ? 'w-72 shrink-0' : 'min-w-0 flex-1'}`}>
             <Calendar
@@ -1283,6 +1332,24 @@ export default function Display() {
           chores={chores}
           kioskToken={active.token}
           onClose={() => setKioskStatsOpen(false)}
+        />
+      )}
+
+      {presenceOpen && active && myPresence && (
+        <PresenceModal
+          displayName={active.user.displayName}
+          current={myPresence}
+          kioskToken={active.token}
+          onSaved={(next) => {
+            setMyPresence(next);
+            // Reflect it immediately (banner/freeze/button icon) without
+            // requiring a re-select of the profile.
+            setActive((prev) =>
+              prev ? { ...prev, user: { ...prev.user, presenceStatus: next.status, presenceLocationId: next.locationId } } : prev,
+            );
+            setPresenceOpen(false);
+          }}
+          onClose={() => setPresenceOpen(false)}
         />
       )}
 

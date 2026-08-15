@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { api, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry, type MyPresence } from './api';
+import { api, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
 import Modal from './Modal';
 import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
 import { celebrate } from './celebrate';
 import LucideIcon from './LucideIcon';
-import PresenceModal from './PresenceModal';
 import type { ReactNode } from 'react';
 
 function Stat({ label, value }: { label: string; value: ReactNode }) {
@@ -60,14 +59,6 @@ export default function KioskStatsModal({
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
   const [bonusStreakFreezes, setBonusStreakFreezes] = useState(0);
-  // #9 - the kiosk's own "I'm here/I'm back" card, right where a kid already
-  // is instead of forcing them onto a phone/tablet to fix their status.
-  const [presence, setPresence] = useState<MyPresence | null>(null);
-  const [presenceOpen, setPresenceOpen] = useState(false);
-
-  useEffect(() => {
-    api.presenceMine(kioskToken).then(setPresence).catch(() => setPresence(null));
-  }, [userId, kioskToken]);
 
   useEffect(() => {
     api.tokenBalance(userId, kioskToken).then((b) => setBalance(b.balance)).catch(() => undefined);
@@ -126,22 +117,6 @@ export default function KioskStatsModal({
         </button>
       }
     >
-      {presence && (
-        <button
-          onClick={() => setPresenceOpen(true)}
-          className="mb-3 flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm hover:bg-slate-50"
-        >
-          <LucideIcon
-            name={presence.status === 'AWAY' ? 'moon' : presence.status === 'VACATION' ? 'plane' : 'house'}
-            slot={presence.status === 'AWAY' ? 'badge.presenceAway' : presence.status === 'VACATION' ? 'badge.presenceVacation' : 'badge.presenceHome'}
-            size={18}
-          />
-          <span className="flex-1">
-            {presence.status === 'AWAY' ? "You're away" : presence.status === 'VACATION' ? "You're on vacation" : "You're home"}
-          </span>
-          <span className="text-xs text-slate-400">Change ›</span>
-        </button>
-      )}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {familyFeatureEnabled(family, 'tokens') && (
           <>
@@ -196,18 +171,6 @@ export default function KioskStatsModal({
         </div>
       )}
     </Modal>
-    {presenceOpen && presence && (
-      <PresenceModal
-        displayName={displayName}
-        current={presence}
-        kioskToken={kioskToken}
-        onSaved={(next) => {
-          setPresence(next);
-          setPresenceOpen(false);
-        }}
-        onClose={() => setPresenceOpen(false)}
-      />
-    )}
     </>
   );
 }
