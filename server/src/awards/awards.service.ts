@@ -179,22 +179,24 @@ export class AwardsService {
     }
     const grants = await this.prisma.awardGrant.findMany({
       where: { userId: targetUserId, award: { familyId } },
-      include: { award: true },
+      include: { award: true, grantedBy: { select: { displayName: true } } },
       orderBy: { createdAt: 'desc' },
     });
+    type GrantDetail = { id: string; note: string | null; createdAt: Date; grantedByName: string };
     const byAward = new Map<
       string,
-      { id: string; name: string; icon: string | null; description: string | null; count: number; notes: string[] }
+      { id: string; name: string; icon: string | null; description: string | null; count: number; grants: GrantDetail[] }
     >();
     for (const g of grants) {
+      const detail: GrantDetail = { id: g.id, note: g.note, createdAt: g.createdAt, grantedByName: g.grantedBy.displayName };
       const existing = byAward.get(g.awardId);
-      // The adult's note on WHY this one was given ("for cleaning the
-      // garage") - a kid earning the same award type more than once can have
-      // a different reason each time, so this collects every non-empty one,
-      // newest first (grants are already fetched in that order).
+      // Every individual grant, not just the ones with a note - the click-
+      // through detail view (ProfilePage's AwardHistoryModal) shows one row
+      // per time this was given, with or without a note, newest first
+      // (grants are already fetched in that order).
       if (existing) {
         existing.count += 1;
-        if (g.note) existing.notes.push(g.note);
+        existing.grants.push(detail);
       } else {
         byAward.set(g.awardId, {
           id: g.award.id,
@@ -202,7 +204,7 @@ export class AwardsService {
           icon: g.award.icon,
           description: g.award.description,
           count: 1,
-          notes: g.note ? [g.note] : [],
+          grants: [detail],
         });
       }
     }

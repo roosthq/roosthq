@@ -156,23 +156,15 @@ export default function KioskStatsModal({
           <h4 className="flex items-center gap-1 text-sm font-semibold">
             <LucideIcon name="trophy" size={14} /> Awards
           </h4>
+          {/* Fixed-size cards, no inline notes (see ProfilePage's own Awards
+              section) - full history with notes/dates/who-gave-it is a
+              Profile-page-only detail view; this quick-check panel stays light. */}
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
-              <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2">
-                <div className="flex items-center gap-2">
-                  <AwardIcon icon={a.icon} size={20} />
-                  <span className="text-base font-medium">{a.name}</span>
-                  {a.count > 1 && <span className="text-sm text-slate-400">×{a.count}</span>}
-                </div>
-                {a.notes.length > 0 && (
-                  <ul className="mt-1 space-y-0.5 pl-1 text-sm text-slate-500">
-                    {a.notes.map((note, i) => (
-                      <li key={i} className="truncate" title={note}>
-                        "{note}"
-                      </li>
-                    ))}
-                  </ul>
-                )}
+              <li key={a.id} className="card-nested flex w-40 items-center gap-2 rounded-lg px-3 py-2" title={a.description ?? undefined}>
+                <AwardIcon icon={a.icon} size={20} />
+                <span className="min-w-0 flex-1 truncate text-base font-medium">{a.name}</span>
+                {a.count > 1 && <span className="shrink-0 text-sm text-slate-400">×{a.count}</span>}
               </li>
             ))}
           </ul>

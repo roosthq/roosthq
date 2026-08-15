@@ -4,6 +4,7 @@ import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, 
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import LevelBadge from '../LevelBadge';
+import Modal from '../Modal';
 import { useDialog } from '../Dialog';
 import { formatDate, formatDateTime } from '../dateFormat';
 import { celebrate } from '../celebrate';
@@ -98,6 +99,7 @@ export default function ProfilePage({
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
+  const [awardDetail, setAwardDetail] = useState<EarnedAward | null>(null);
   const [streak, setStreak] = useState(0);
   // Chore-earned bank only - the person-level bonus bank (manually granted,
   // awarded, or won) comes from `member.bonusStreakFreezes` instead, added
@@ -376,31 +378,30 @@ export default function ProfilePage({
           <h3 className="flex items-center gap-1 text-sm font-semibold">
             <LucideIcon name="trophy" size={14} /> Awards
           </h3>
-          {/* Notes shown inline, not just a hover title - a kid on a touch
-              screen (kiosk or tablet) has no hover, so "why they got it"
-              needs to actually be visible, not hidden behind a tooltip. */}
+          <p className="mt-0.5 text-xs text-slate-400">Tap one to see every time it's been given.</p>
+          {/* Fixed size regardless of note count - a card that grows with
+              however many notes it has read as chaotic once a few awards
+              had several each. Notes/dates/who-gave-it live in the detail
+              modal (see AwardHistoryModal) instead. */}
           <ul className="mt-2 flex flex-wrap gap-3">
             {awards.map((a) => (
-              <li key={a.id} className="card-nested max-w-xs rounded-lg px-3 py-2" title={a.description ?? undefined}>
-                <div className="flex items-center gap-2">
+              <li key={a.id}>
+                <button
+                  onClick={() => setAwardDetail(a)}
+                  className="card-nested flex w-40 items-center gap-2 rounded-lg px-3 py-2 text-left hover:bg-slate-50"
+                  title={a.description ?? undefined}
+                >
                   <AwardIcon icon={a.icon} size={20} />
-                  <span className="text-sm font-medium">{a.name}</span>
-                  {a.count > 1 && <span className="text-xs text-slate-400">×{a.count}</span>}
-                </div>
-                {a.notes.length > 0 && (
-                  <ul className="mt-1 space-y-0.5 pl-1 text-xs text-slate-500">
-                    {a.notes.map((note, i) => (
-                      <li key={i} className="truncate" title={note}>
-                        "{note}"
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{a.name}</span>
+                  {a.count > 1 && <span className="shrink-0 text-xs text-slate-400">×{a.count}</span>}
+                </button>
               </li>
             ))}
           </ul>
         </section>
       )}
+
+      {awardDetail && <AwardHistoryModal award={awardDetail} onClose={() => setAwardDetail(null)} />}
 
       {isAdult && !tokensOff && (
         <section className="mt-6 rounded border bg-white p-3">
@@ -514,5 +515,43 @@ export default function ProfilePage({
         <LoadMoreButton hasMore={activityPage.hasMore} loading={activityPage.loadingMore} onClick={activityPage.loadMore} />
       </section>
     </div>
+  );
+}
+
+// The badge card's click-through - icon/title/count/description up top (same
+// facts the card itself shows, plus the description it only had room for in
+// a hover title), then one row per time it's actually been given: date, who
+// gave it, and the note if there was one. This is where notes/dates/granter
+// live now - keeps the badge grid above a fixed size no matter how many.
+function AwardHistoryModal({ award, onClose }: { award: EarnedAward; onClose: () => void }) {
+  return (
+    <Modal
+      header={
+        <h3 className="flex items-center gap-2 text-lg font-semibold">
+          <AwardIcon icon={award.icon} size={24} />
+          {award.name}
+          <span className="text-sm font-normal text-slate-400">×{award.count}</span>
+        </h3>
+      }
+      footer={
+        <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+          Close
+        </button>
+      }
+      onBackdropClick={onClose}
+    >
+      {award.description && <p className="text-sm text-slate-500">{award.description}</p>}
+      <ul className="mt-3 space-y-2">
+        {award.grants.map((g) => (
+          <li key={g.id} className="rounded border p-2 text-sm">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
+              <span title={formatDateTime(g.createdAt)}>{formatDate(g.createdAt)}</span>
+              <span>by {g.grantedByName}</span>
+            </div>
+            {g.note && <p className="mt-1">"{g.note}"</p>}
+          </li>
+        ))}
+      </ul>
+    </Modal>
   );
 }

@@ -445,16 +445,22 @@ export interface AwardCatalogItem {
   grantCount: number;
 }
 
+export interface EarnedAwardGrant {
+  id: string;
+  note: string | null;
+  createdAt: string;
+  grantedByName: string;
+}
+
 export interface EarnedAward {
   id: string;
   name: string;
   icon: string | null;
   description: string | null;
   count: number;
-  // The adult's note on why each one was given, newest first, non-empty
-  // only - a kid earning the same award repeatedly can have a different
-  // reason each time.
-  notes: string[];
+  // Every individual time this was given, newest first - a kid earning the
+  // same award repeatedly can have a different note (or none) each time.
+  grants: EarnedAwardGrant[];
 }
 
 export interface AwardGrantHistoryItem {
