@@ -129,15 +129,20 @@ export class PresenceService {
 
   // Status effective AS OF a specific instant - not "right now" - so the
   // chore-miss sweep can ask "were they away on the day this was due" even
-  // if they've since come back (see class comment). No log rows yet for
-  // someone (never touched this feature) just means HOME everywhere they're
-  // assigned - the pre-#9 world, unchanged.
-  private async effectiveAt(userId: string, at: Date): Promise<{ status: PresenceStatus; locationId: string | null }> {
+  // if they've since come back (see class comment). null means no PresenceLog
+  // row covers that instant at all - either this person has never touched
+  // the feature, or the instant in question predates their very first status
+  // change - and the caller (wasPresentForChore) treats that as "no signal,
+  // don't excuse" rather than a real HOME-nowhere value: a location-scoped
+  // chore's own present-at-that-location check would otherwise fail for
+  // EVERY family the moment this feature ships, since nobody has any history
+  // yet for a due date from before they ever opened the picker.
+  private async effectiveAt(userId: string, at: Date): Promise<{ status: PresenceStatus; locationId: string | null } | null> {
     const row = await this.prisma.presenceLog.findFirst({
       where: { userId, startedAt: { lte: at }, OR: [{ endedAt: null }, { endedAt: { gt: at } }] },
       orderBy: { startedAt: 'desc' },
     });
-    if (!row) return { status: 'HOME', locationId: null };
+    if (!row) return null;
     return { status: row.status as PresenceStatus, locationId: row.locationId };
   }
 
@@ -146,9 +151,12 @@ export class PresenceService {
   // due? AWAY/VACATION excuses everything, regardless of location - "away"
   // means not physically able to do ANY chore that day, not just the ones
   // tied to a specific house. HOME only counts for a location-scoped chore
-  // if it's the household they were actually AT.
+  // if it's the household they were actually AT. No history at all for that
+  // instant (see effectiveAt) - never excuse; that's a real miss, unchanged
+  // from before this feature existed.
   async wasPresentForChore(userId: string, choreLocationId: string | null, dueDate: Date): Promise<boolean> {
     const eff = await this.effectiveAt(userId, dueDate);
+    if (!eff) return true;
     if (eff.status !== 'HOME') return false;
     if (!choreLocationId) return true;
     return eff.locationId === choreLocationId;
