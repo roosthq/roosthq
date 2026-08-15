@@ -31,6 +31,9 @@ export const ICON_SLOTS: IconSlot[] = [
   { id: 'badge.level', label: 'Level badge', defaultKey: 'star', category: 'Badges' },
   { id: 'badge.streak', label: 'Streak badge', defaultKey: 'flame', category: 'Badges' },
   { id: 'badge.streakFreeze', label: 'Streak freeze badge', defaultKey: 'snowflake', category: 'Badges' },
+  { id: 'badge.presenceHome', label: 'Presence: Home', defaultKey: 'house', category: 'Badges' },
+  { id: 'badge.presenceAway', label: 'Presence: Away', defaultKey: 'moon', category: 'Badges' },
+  { id: 'badge.presenceVacation', label: 'Presence: Vacation', defaultKey: 'plane', category: 'Badges' },
 
   // Chores
   { id: 'chores.today', label: 'Chores: "Today" group label', defaultKey: 'star', category: 'Chores' },

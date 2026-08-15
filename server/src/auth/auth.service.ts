@@ -417,7 +417,18 @@ export class AuthService {
   members(familyId: string) {
     return this.prisma.user.findMany({
       where: { familyId },
-      select: { id: true, displayName: true, role: true, avatar: true, tokensDisabled: true, simpleMode: true, birthday: true, disabledPermissions: true },
+      select: {
+        id: true,
+        displayName: true,
+        role: true,
+        avatar: true,
+        tokensDisabled: true,
+        simpleMode: true,
+        birthday: true,
+        disabledPermissions: true,
+        presenceStatus: true,
+        presenceLocationId: true,
+      },
     });
   }
 }

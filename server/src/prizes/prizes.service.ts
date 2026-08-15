@@ -10,6 +10,8 @@ import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
 import { NotificationsService } from '../notifications/notifications.service';
 import { paginate } from '../common/pagination';
 import { DisplayEventsService } from '../display/display-events.service';
+import { PresenceService } from '../presence/presence.service';
+import { SessionPayload } from '../auth/jwt';
 
 export interface CropRect {
   x: number;
@@ -50,6 +52,7 @@ export class PrizesService {
     private prisma: PrismaService,
     private notifications: NotificationsService,
     private displayEvents: DisplayEventsService,
+    private presence: PresenceService,
   ) {}
 
   private isAdult(role: string) {
@@ -251,9 +254,12 @@ export class PrizesService {
   // Redeem: check eligibility + balance, deduct tokens (ledger), record the
   // purchase, and - for a non-repeatable prize - archive it so it drops out of
   // the active store once someone's bought it.
-  async redeem(familyId: string, actingUserId: string, prizeId: string) {
+  async redeem(familyId: string, actingUserId: string, prizeId: string, actingSession?: SessionPayload) {
     await assertFeatureEnabled(this.prisma, familyId, 'store');
     await assertKidPermission(this.prisma, actingUserId, 'store');
+    // A ghost/kiosk session shouldn't be able to spend an away/vacation
+    // person's tokens on their behalf - they're not there to actually get it.
+    await this.presence.assertActionable(actingSession ?? { userId: actingUserId, familyId });
     const prize = await this.prisma.prize.findFirst({
       where: { id: prizeId, familyId },
       include: { assignments: true },

@@ -26,11 +26,13 @@ import { SearchModule } from './search/search.module';
 import { SoundsModule } from './sounds/sounds.module';
 import { IconsModule } from './icons/icons.module';
 import { StreakFreezeModule } from './streak-freeze/streak-freeze.module';
+import { PresenceModule } from './presence/presence.module';
 
 @Module({
   imports: [
     ScheduleModule.forRoot(),
     StreakFreezeModule,
+    PresenceModule,
     SecurityModule,
     DisplayEventsModule,
     AuthModule,

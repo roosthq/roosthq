@@ -7,6 +7,13 @@ export interface SessionPayload {
   // owner's own userId, so "return to owner" can rebuild their session
   // without a second round-trip through the DB to remember who they were.
   ghostedBy?: string;
+  // Stamped by AuthGuard (not part of the signed JWT) when this request came
+  // in via the x-kiosk-token header rather than the cookie - i.e. someone
+  // else is driving a kiosk-selected profile, not that person's own signed-in
+  // session. Safe to derive purely from which transport was used: it only
+  // ever narrows what a request can do (see PresenceService.assertActionable),
+  // never widens it.
+  viaKiosk?: boolean;
 }
 
 export function signSession(p: SessionPayload): string {

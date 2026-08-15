@@ -76,7 +76,7 @@ export class ChoresController {
 
   @Post('instances/:instanceId/claim')
   claim(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
-    return this.chores.claim(u.familyId, u.userId, instanceId);
+    return this.chores.claim(u.familyId, u.userId, instanceId, u);
   }
 
   // Kid backs out of their own claim (still OPEN only) - separate from the
@@ -107,12 +107,12 @@ export class ChoresController {
 
   @Post('instances/:instanceId/complete')
   complete(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
-    return this.chores.complete(u.familyId, u.userId, instanceId);
+    return this.chores.complete(u.familyId, u.userId, instanceId, u);
   }
 
   @Post('instances/:instanceId/skip')
   skip(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
-    return this.chores.skip(u.familyId, u.userId, instanceId);
+    return this.chores.skip(u.familyId, u.userId, instanceId, u);
   }
 
   @Post('instances/:instanceId/unskip')

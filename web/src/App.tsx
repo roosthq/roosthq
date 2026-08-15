@@ -1,8 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySettings, type FontSize, type FamilyLocation } from './api';
+import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySettings, type FontSize, type FamilyLocation, type MyPresence } from './api';
 import { myLocationIds } from './displayScope';
 import LocationJoinModal from './LocationJoinModal';
+import PresenceModal from './PresenceModal';
 import { setCelebrationSound } from './celebrate';
 import { setSoundAssignments } from './sounds';
 import { setTokensBadgeEnabled } from './TokenBadge';
@@ -38,6 +39,10 @@ export default function App() {
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [locations, setLocations] = useState<FamilyLocation[] | null>(null);
   const [loading, setLoading] = useState(true);
+  // #9 - nudge a real (non-ghosted) login to confirm where they are, once per
+  // day - stale by calendar date is good enough for a reminder; it doesn't
+  // need family-timezone precision the way a chore due-date does.
+  const [presencePrompt, setPresencePrompt] = useState<MyPresence | null>(null);
 
   async function loadMe() {
     try {
@@ -64,6 +69,17 @@ export default function App() {
         setLocations(await api.locations());
       } catch {
         setLocations([]);
+      }
+      // Only for a real session - ghosting in to fix something for someone
+      // else shouldn't turn into a prompt asking where THAT person is.
+      if (!u.ghostedBy) {
+        try {
+          const p = await api.presenceMine();
+          const stale = !p.updatedAt || new Date(p.updatedAt).toDateString() !== new Date().toDateString();
+          if (stale) setPresencePrompt(p);
+        } catch {
+          /* ignore - not worth blocking login over */
+        }
       }
     } catch {
       setMe(null);
@@ -204,6 +220,14 @@ export default function App() {
         // state. Re-fetching just `locations` here cleared the modal but
         // left all of that stale until a real navigation/reload happened.
         <LocationJoinModal locations={locations!} onJoined={() => window.location.reload()} />
+      )}
+      {!needsLocation && presencePrompt && (
+        <PresenceModal
+          displayName={me.displayName}
+          current={presencePrompt}
+          onSaved={() => setPresencePrompt(null)}
+          onClose={() => setPresencePrompt(null)}
+        />
       )}
       {me.ghostedBy && (
         <div className="no-print flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">

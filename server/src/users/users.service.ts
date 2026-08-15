@@ -63,6 +63,9 @@ export class UsersService {
         birthday: true,
         disabledPermissions: true,
         bonusStreakFreezes: true,
+        presenceStatus: true,
+        presenceLocationId: true,
+        presenceUpdatedAt: true,
       },
     });
     return users.map((u) => ({
@@ -79,6 +82,9 @@ export class UsersService {
       disabledPermissions: Array.isArray(u.disabledPermissions) ? u.disabledPermissions : [],
       tokensDisabled: u.tokensDisabled,
       bonusStreakFreezes: u.bonusStreakFreezes,
+      presenceStatus: u.presenceStatus,
+      presenceLocationId: u.presenceLocationId,
+      presenceUpdatedAt: u.presenceUpdatedAt,
     }));
   }
 

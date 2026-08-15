@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type DisplayConfig, type FamilySettings } from './api';
+import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type DisplayConfig, type FamilySettings, type MyPresence } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
 import DropdownDetails from './DropdownDetails';
@@ -8,6 +8,7 @@ import GhostQuickSwitcher from './GhostQuickSwitcher';
 import PendingIndicator from './PendingIndicator';
 import PendingGamesIndicator from './PendingGamesIndicator';
 import LucideIcon from './LucideIcon';
+import PresenceModal from './PresenceModal';
 
 export default function Nav({
   me,
@@ -51,6 +52,29 @@ export default function Nav({
   // either is on; which tab StorePage lands on is its own call.
   const storeOn = familyFeatureEnabled(family, 'store') || familyFeatureEnabled(family, 'awards');
   const householdOn = familyFeatureEnabled(family, 'household');
+
+  // #9 - presence status. Re-fetched whenever `me.id` changes, which covers
+  // both a real login and a ghost switch (Nav gets a fresh `me` either way).
+  const [presence, setPresence] = useState<MyPresence | null>(null);
+  const [presenceOpen, setPresenceOpen] = useState(false);
+  useEffect(() => {
+    api.presenceMine().then(setPresence).catch(() => setPresence(null));
+  }, [me.id]);
+  const presenceIcon: Record<string, { icon: string; slot: string; label: string }> = {
+    HOME: { icon: 'house', slot: 'badge.presenceHome', label: 'Home' },
+    AWAY: { icon: 'moon', slot: 'badge.presenceAway', label: 'Away' },
+    VACATION: { icon: 'plane', slot: 'badge.presenceVacation', label: 'Vacation' },
+  };
+  const myPresenceButton = presence && (
+    <button
+      onClick={() => setPresenceOpen(true)}
+      title="Set where you are"
+      className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
+    >
+      <LucideIcon name={presenceIcon[presence.status].icon} slot={presenceIcon[presence.status].slot} size={16} />
+      <span className="hidden sm:inline">{presenceIcon[presence.status].label}</span>
+    </button>
+  );
 
   const [unread, setUnread] = useState(0);
   useEffect(() => {
@@ -216,6 +240,7 @@ export default function Nav({
           {bell}
           <PendingIndicator me={me} />
           <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
+          {myPresenceButton}
           <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
             {me.themePref === 'dark' ? '☀︎' : '☾'}
           </button>
@@ -232,6 +257,7 @@ export default function Nav({
           {bell}
           <PendingIndicator me={me} />
           <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
+          {myPresenceButton}
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -260,6 +286,17 @@ export default function Nav({
             </button>
           </div>
         </div>
+      )}
+      {presenceOpen && presence && (
+        <PresenceModal
+          displayName={me.displayName}
+          current={presence}
+          onSaved={(next) => {
+            setPresence(next);
+            setPresenceOpen(false);
+          }}
+          onClose={() => setPresenceOpen(false)}
+        />
       )}
     </nav>
   );

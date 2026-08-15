@@ -12,6 +12,8 @@ import { DisplayEventsService } from '../display/display-events.service';
 import { RewardGamesService } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
+import { PresenceService } from '../presence/presence.service';
+import { SessionPayload } from '../auth/jwt';
 import { paginate } from '../common/pagination';
 import {
   DEFAULT_TIMEZONE,
@@ -262,6 +264,7 @@ export class ChoresService {
     private rewardGames: RewardGamesService,
     private audit: AuditLogService,
     private streakFreeze: StreakFreezeService,
+    private presence: PresenceService,
   ) {}
 
   private async user(userId: string) {
@@ -457,6 +460,41 @@ export class ChoresService {
   // per-instance zone handling - comparing two absolute instants is
   // zone-agnostic by construction.
   private async markMissedAndAdvance(inst: StaleInstance) {
+    // #9 - "away shouldn't cost a streak." A SPECIFIC chore whose EVERY
+    // assignee was away/on vacation/at a different household than this chore
+    // is scoped to, as of the actual due date (not "right now" - this sweep
+    // can run days later, by which point they may be back), gets excused
+    // instead of missed: no reward either way, but unlike a real miss the
+    // streak carries through untouched, same as a deliberate skip(). If even
+    // one assignee genuinely could have done it, this is a real miss - an
+    // ANYONE chore has no fixed assignee to excuse, so it's never eligible.
+    let excused = false;
+    if (inst.chore.assignmentType === 'SPECIFIC' && inst.chore.assignees.length > 0) {
+      const present = await Promise.all(
+        inst.chore.assignees.map((a) => this.presence.wasPresentForChore(a.userId, inst.chore.locationId, inst.dueDate)),
+      );
+      excused = !present.some(Boolean);
+    }
+    if (excused) {
+      await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'SKIPPED', claimedByUserId: null } });
+      const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
+      await Promise.all(
+        recipients.map((uid) =>
+          this.notifications.create(
+            inst.chore.familyId,
+            uid,
+            'CHORE_EXCUSED',
+            `🧳 "${inst.chore.title}" skipped - you were away`,
+            { link: '/chores', refId: inst.id },
+          ),
+        ),
+      );
+      const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
+      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+      if (due) await this.createNextInstance(inst.choreId, due);
+      this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
+      return;
+    }
     // Clear the claim too - for an ANYONE chore, missing it shouldn't leave
     // it stuck looking claimed by someone who didn't do it; the notify-the-
     // claimant logic just below still reads the pre-update `inst` in memory,
@@ -707,9 +745,13 @@ export class ChoresService {
     return chore.assignees.some((a) => a.userId === userId);
   }
 
-  // Claim an open ("anyone") chore occurrence.
-  async claim(familyId: string, userId: string, instanceId: string) {
+  // Claim an open ("anyone") chore occurrence. actingSession, when passed by
+  // the controller, is the FULL session (not just userId) - lets
+  // PresenceService tell a ghost/kiosk session apart from that person's own,
+  // so someone away/on vacation can't have a chore claimed on their behalf.
+  async claim(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
     await assertFeatureEnabled(this.prisma, familyId, 'chores');
+    await this.presence.assertActionable(actingSession ?? { userId, familyId });
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.chore.assignmentType !== 'ANYONE') throw new BadRequestException('This chore is not open to claim');
     if (inst.claimedByUserId && inst.claimedByUserId !== userId) {
@@ -766,8 +808,9 @@ export class ChoresService {
 
   // Mark done. Only the assignee/claimer can. Can't complete a future occurrence
   // (enforces once-per-period). Adults completing their own chore self-approve.
-  async complete(familyId: string, userId: string, instanceId: string) {
+  async complete(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
     await assertFeatureEnabled(this.prisma, familyId, 'chores');
+    await this.presence.assertActionable(actingSession ?? { userId, familyId });
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');
 
@@ -835,7 +878,8 @@ export class ChoresService {
   // alternative to completing, not a shortcut through it), no token, and
   // the streak carries through untouched - a skip isn't a failure the way
   // a miss is, so it neither continues nor breaks it.
-  async skip(familyId: string, userId: string, instanceId: string) {
+  async skip(familyId: string, userId: string, instanceId: string, actingSession?: SessionPayload) {
+    await this.presence.assertActionable(actingSession ?? { userId, familyId });
     const inst = await this.ownedInstance(familyId, instanceId);
     if (!inst.chore.allowSkip) throw new BadRequestException('Skipping is not allowed for this chore');
     if (inst.status !== 'OPEN') throw new BadRequestException('This chore is not open');

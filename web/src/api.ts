@@ -171,6 +171,10 @@ export interface EventInput {
   description?: string;
 }
 
+// #9 - HOME needs presenceLocationId to mean anything once there's more
+// than one household; AWAY/VACATION never carry a location.
+export type PresenceStatus = 'HOME' | 'AWAY' | 'VACATION';
+
 export interface Member {
   id: string;
   displayName: string;
@@ -190,6 +194,16 @@ export interface Member {
   // Person-level freeze bank - manually granted, awarded, or won; see
   // StreakFreezeService. Separate from any chore's own earned bank.
   bonusStreakFreezes?: number;
+  presenceStatus?: PresenceStatus;
+  presenceLocationId?: string | null;
+  presenceUpdatedAt?: string | null;
+}
+
+export interface MyPresence {
+  status: PresenceStatus;
+  locationId: string | null;
+  updatedAt: string | null;
+  locations: Array<{ id: string; name: string }>;
 }
 
 export interface UnlockResult {
@@ -1127,6 +1141,18 @@ export const api = {
   // modal (zero locations yet) and My Account (change anytime) both use this.
   selfJoinLocations: (locationIds: string[]) =>
     req('/locations/self-join', { method: 'POST', body: JSON.stringify({ locationIds }) }),
+
+  // #9 - presence status. Works with a kiosk token too (the kiosk's own
+  // "I'm here/I'm back" card), same auth as everything else in this file.
+  presenceMine: (kioskToken?: string) => req<MyPresence>('/presence/me', undefined, kioskToken),
+  // Read a family member's status (self, or any adult reading a kid's) - for
+  // preloading the picker with THAT person's own households.
+  presenceFor: (userId: string) => req<MyPresence>(`/presence/${userId}`),
+  setPresence: (body: { status: PresenceStatus; locationId?: string | null }, kioskToken?: string) =>
+    req<MyPresence>('/presence', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  // Adult setting a KID's status directly, no ghosting needed.
+  setPresenceFor: (userId: string, body: { status: PresenceStatus; locationId?: string | null }) =>
+    req<MyPresence>(`/presence/${userId}`, { method: 'POST', body: JSON.stringify(body) }),
 
   prizes: () => req<StorePrize[]>('/prizes'),
   createPrize: (body: Record<string, unknown>, kioskToken?: string) =>

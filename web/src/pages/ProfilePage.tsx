@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward, type FamilyLocation, type MyPresence } from '../api';
+import PresenceModal from '../PresenceModal';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
 import LevelBadge from '../LevelBadge';
@@ -108,8 +109,11 @@ export default function ProfilePage({
   const [given, setGiven] = useState<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number } | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [presenceModalOpen, setPresenceModalOpen] = useState(false);
   useEffect(() => {
     api.familySettings().then(setFamily).catch(() => undefined);
+    api.locations().then(setLocations).catch(() => setLocations([]));
   }, []);
 
   // #4 - checked once whenever you're actually looking at your OWN profile
@@ -312,10 +316,40 @@ export default function ProfilePage({
         </div>
       )}
 
-      <h2 className="text-xl font-bold">
+      <h2 className="flex flex-wrap items-center gap-2 text-xl font-bold">
         {name}
-        {age !== null && <span className="ml-2 text-sm font-normal text-slate-400">age {age}</span>}
+        {age !== null && <span className="text-sm font-normal text-slate-400">age {age}</span>}
+        {member && (
+          <button
+            onClick={() => setPresenceModalOpen(true)}
+            disabled={!viewingSelf && !(isAdult && member.role === 'KID')}
+            title={viewingSelf || (isAdult && member.role === 'KID') ? "Change where they are" : undefined}
+            className="flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-normal text-slate-500 enabled:hover:bg-slate-50"
+          >
+            <LucideIcon
+              name={member.presenceStatus === 'AWAY' ? 'moon' : member.presenceStatus === 'VACATION' ? 'plane' : 'house'}
+              slot={member.presenceStatus === 'AWAY' ? 'badge.presenceAway' : member.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : 'badge.presenceHome'}
+              size={12}
+            />
+            {member.presenceStatus === 'AWAY'
+              ? 'Away'
+              : member.presenceStatus === 'VACATION'
+                ? 'Vacation'
+                : locations.find((l) => l.id === member.presenceLocationId)?.name ?? 'Home'}
+          </button>
+        )}
       </h2>
+      {presenceModalOpen && (
+        <PresenceModalGate
+          displayName={name}
+          targetUserId={viewingSelf ? undefined : targetId}
+          onClose={() => setPresenceModalOpen(false)}
+          onSaved={() => {
+            setPresenceModalOpen(false);
+            refresh();
+          }}
+        />
+      )}
 
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
         {!tokensOff && (
@@ -553,5 +587,36 @@ function AwardHistoryModal({ award, onClose }: { award: EarnedAward; onClose: ()
         ))}
       </ul>
     </Modal>
+  );
+}
+
+// Preloads the RIGHT person's current status + households (theirs, not the
+// viewer's) before handing off to PresenceModal - matters for the
+// adult-setting-a-kid's-status case, where the viewer's own household list
+// would otherwise show up in the picker instead of the kid's.
+function PresenceModalGate({
+  displayName,
+  targetUserId,
+  onSaved,
+  onClose,
+}: {
+  displayName: string;
+  targetUserId?: string; // undefined = viewing self
+  onSaved: () => void;
+  onClose: () => void;
+}) {
+  const [current, setCurrent] = useState<MyPresence | null>(null);
+  useEffect(() => {
+    (targetUserId ? api.presenceFor(targetUserId) : api.presenceMine()).then(setCurrent).catch(() => onClose());
+  }, [targetUserId]);
+  if (!current) return null;
+  return (
+    <PresenceModal
+      displayName={displayName}
+      current={current}
+      targetUserId={targetUserId}
+      onSaved={onSaved}
+      onClose={onClose}
+    />
   );
 }

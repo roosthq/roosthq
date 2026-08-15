@@ -15,6 +15,7 @@ const TYPE_ICON: Record<string, string> = {
   CHORE_APPROVED: 'check-circle',
   CHORE_REJECTED: 'emoji_21a9_fe0f', // "right arrow curving left" - undo/return
   CHORE_MISSED: 'alert-triangle',
+  CHORE_EXCUSED: 'moon',
   CHORE_DUE_SOON: 'alarm-clock',
   STREAK_BONUS: 'flame',
   REDEMPTION_REQUESTED: 'gift',

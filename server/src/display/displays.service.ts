@@ -209,7 +209,19 @@ export class DisplaysService {
   async membersFor(familyId: string, locationId?: string | null) {
     const users = await this.prisma.user.findMany({
       where: { familyId, ...(locationId ? { locations: { some: { locationId } } } : {}) },
-      select: { id: true, displayName: true, role: true, avatar: true, pinHash: true, pinDisabled: true, colorTheme: true, tokensDisabled: true, simpleMode: true },
+      select: {
+        id: true,
+        displayName: true,
+        role: true,
+        avatar: true,
+        pinHash: true,
+        pinDisabled: true,
+        colorTheme: true,
+        tokensDisabled: true,
+        simpleMode: true,
+        presenceStatus: true,
+        presenceLocationId: true,
+      },
     });
     return users.map((u) => ({
       id: u.id,
@@ -223,6 +235,11 @@ export class DisplaysService {
       colorTheme: u.colorTheme,
       simpleMode: u.simpleMode,
       tokensDisabled: u.tokensDisabled,
+      // #9 - lets the tile itself show "away"/"on vacation", or gray out if
+      // this display IS location-scoped but the person is HOME at a
+      // DIFFERENT one, without anyone having to tap in first.
+      presenceStatus: u.presenceStatus,
+      presenceLocationId: u.presenceLocationId,
     }));
   }
 

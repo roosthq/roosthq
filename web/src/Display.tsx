@@ -1048,11 +1048,24 @@ export default function Display() {
               <>
                 <span className="shrink-0 text-sm text-slate-500">Tap your photo:</span>
                 <div className="mt-2 min-h-0 flex-1 space-y-1.5 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
-                  {members.map((m) => (
+                  {members.map((m) => {
+                    // #9 - grayed doesn't block the tap (forcing a phone/app
+                    // just to flip a status back would be worse than the
+                    // problem) - it just tells the truth up front, so
+                    // there's no surprise when the actions inside turn out
+                    // to be limited (see PresenceService.assertActionable).
+                    // "Home at a different house" only counts once they've
+                    // actually picked one - a never-touched null stays
+                    // neutral, not flagged, so families that haven't opted
+                    // into this yet see every tile exactly as before.
+                    const away = m.presenceStatus === 'AWAY' || m.presenceStatus === 'VACATION';
+                    const wrongHouse = !away && !!config.locationId && !!m.presenceLocationId && m.presenceLocationId !== config.locationId;
+                    const grayed = away || wrongHouse;
+                    return (
                     <button
                       key={m.id}
                       onClick={() => selectProfile(m)}
-                      className="flex w-full items-center gap-3 rounded-full border bg-white p-2 text-left hover:bg-slate-100"
+                      className={`flex w-full items-center gap-3 rounded-full border bg-white p-2 text-left hover:bg-slate-100 ${grayed ? 'opacity-50' : ''}`}
                     >
                       <Avatar name={m.displayName} src={m.avatar} big />
                       <span className="min-w-0 flex-1">
@@ -1060,9 +1073,18 @@ export default function Display() {
                           <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           {m.displayName}
                         </div>
-                        {/* Reserve this line's height for every row, PIN or not, so rows stay aligned. */}
-                        <div className="h-[14px] text-[10px] text-slate-400">
-                          {(m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
+                        {/* Reserve this line's height for every row so rows stay aligned. */}
+                        <div className="flex h-[14px] items-center gap-1 text-[10px] text-slate-400">
+                          {grayed ? (
+                            <>
+                              <LucideIcon
+                                name={m.presenceStatus === 'VACATION' ? 'plane' : 'moon'}
+                                slot={m.presenceStatus === 'VACATION' ? 'badge.presenceVacation' : 'badge.presenceAway'}
+                                size={10}
+                              />
+                              {m.presenceStatus === 'VACATION' ? 'On vacation' : away ? 'Away' : 'At another house'}
+                            </>
+                          ) : (m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
                         </div>
                       </span>
                       {!m.tokensDisabled && famOn('tokens') && (
@@ -1075,7 +1097,8 @@ export default function Display() {
                         </span>
                       )}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </>
             )}

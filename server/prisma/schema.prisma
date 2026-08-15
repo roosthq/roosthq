@@ -38,11 +38,19 @@ enum LedgerType {
   AWARD // granted alongside an Award (see AwardGrant)
 }
 
+enum PresenceStatus {
+  HOME // physically at presenceLocationId right now - chores/events scoped there are active
+  AWAY // not at any registered household but expected back (sleepover, staying at the other parent's) -
+  // chores are excused (skipped, not missed) rather than forced to lapse their full period first
+  VACATION // fully out - same chore-excuse behavior as AWAY, plus reminders/due-soon nudges are muted
+}
+
 enum NotificationType {
   CHORE_PENDING // kid completed a chore; needs adult approval
   CHORE_APPROVED
   CHORE_REJECTED
   CHORE_MISSED
+  CHORE_EXCUSED // would have been missed, but the assignee was away/on vacation/at a different household - streak untouched
   CHORE_DUE_SOON
   STREAK_BONUS
   REDEMPTION_REQUESTED
@@ -350,7 +358,21 @@ model User {
   // a multi-assignee chore's shared streak has no one obvious person to
   // charge it to.
   bonusStreakFreezes  Int     @default(0)
+  // Current presence (#9 - "away doesn't cost a streak"). HOME needs
+  // presenceLocationId set whenever the family has more than one location -
+  // "home" only means something specific once there's more than one place it
+  // could mean. Denormalized for cheap reads everywhere (header widget,
+  // kiosk tiles, the chore-miss sweep's common case); PresenceLog below is
+  // the append-only history the sweep actually checks against (it has to ask
+  // "where were they AS OF the due date", which by the time the sweep runs
+  // may no longer be the current value here).
+  presenceStatus      PresenceStatus @default(HOME)
+  presenceLocationId  String?
+  presenceUpdatedAt   DateTime?
 
+  presenceLocation      Location?            @relation("UserPresenceLocation", fields: [presenceLocationId], references: [id], onDelete: SetNull)
+  presenceLogs          PresenceLog[]        @relation("PresenceLogUser")
+  presenceLogsSet       PresenceLog[]        @relation("PresenceLogSetBy")
   family                Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
   locations             UserLocation[]
   googleAccounts        GoogleAccount[]
@@ -395,8 +417,34 @@ model Location {
   displayConfigs DisplayConfig[]
   prizes         Prize[]
   localCalendars LocalCalendar[]
+  presentUsers   User[]          @relation("UserPresenceLocation")
+  presenceLogs   PresenceLog[]   @relation("PresenceLogLocation")
 
   @@index([familyId])
+}
+
+// Append-only history of every presence change (see User.presenceStatus) -
+// current value alone can't answer "where were they on Tuesday", and the
+// chore-miss sweep (chores.service.ts markMissedAndAdvance) needs exactly
+// that: it runs whenever it runs, possibly days after the due date it's
+// evaluating, by which point the person may already be back home. endedAt
+// null = still the current row (mirrors AwardGrant/TokenLedger's own
+// append-only conventions elsewhere in this schema).
+model PresenceLog {
+  id         String         @id @default(cuid())
+  userId     String
+  status     PresenceStatus
+  locationId String? // set when status = HOME
+  setById    String // who actually changed it - the person themself, or an adult acting for a kid
+  startedAt  DateTime       @default(now())
+  endedAt    DateTime?
+  createdAt  DateTime       @default(now())
+
+  user     User      @relation("PresenceLogUser", fields: [userId], references: [id], onDelete: Cascade)
+  location Location? @relation("PresenceLogLocation", fields: [locationId], references: [id], onDelete: SetNull)
+  setBy    User      @relation("PresenceLogSetBy", fields: [setById], references: [id])
+
+  @@index([userId, startedAt])
 }
 
 model UserLocation {
