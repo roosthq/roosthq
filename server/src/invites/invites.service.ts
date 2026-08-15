@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 import { EmailService } from '../notifications/email.service';
+import { emailHtml, escapeHtml } from '../notifications/email-template';
 
 type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 
@@ -24,13 +25,6 @@ export class InvitesService {
 
   private emailAddressPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // actorName/familyName are family-controlled display names, not app copy -
-  // escaped before landing in the HTML part so one containing & < > etc.
-  // can't break the layout (or worse) in an HTML-rendering mail client.
-  private escapeHtml(s: string): string {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
   private inviteEmailText(actorName: string, familyName: string, url: string): string {
     return [
       `${actorName} invited you to join ${familyName} on Roost HQ.`,
@@ -42,60 +36,17 @@ export class InvitesService {
     ].join('\n');
   }
 
-  // Table-based layout + inline styles throughout (no <style> block, no
-  // flex/grid) - the only markup that survives Outlook's Word rendering
-  // engine as well as every modern client. Logo is the app's own PWA icon,
-  // referenced from this instance's own public URL (not embedded as a data:
-  // URI) - stays in sync with whatever the icon actually is, no base64 blob
-  // to keep updated in source; the one tradeoff is a mail client that blocks
-  // remote images by default won't show it until the recipient allows it,
-  // same as almost every other transactional email in the wild.
   private inviteEmailHtml(actorName: string, familyName: string, url: string, baseUrl: string): string {
-    const logoUrl = `${baseUrl}/icon-192.png`;
-    const name = this.escapeHtml(actorName);
-    const family = this.escapeHtml(familyName);
-    return `<!doctype html>
-<html>
-  <body style="margin:0;padding:0;background:#eef2ea;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef2ea;padding:32px 16px;">
-      <tr>
-        <td align="center">
-          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;background:#ffffff;border-radius:16px;">
-            <tr>
-              <td style="padding:36px 40px 8px;text-align:center;">
-                <img src="${logoUrl}" width="56" height="56" alt="Roost HQ" style="display:block;margin:0 auto 12px;border-radius:12px;" />
-                <div style="font-size:14px;font-weight:700;color:#4e7a4c;letter-spacing:1px;">ROOST HQ</div>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:8px 40px 0;text-align:center;">
-                <h1 style="margin:0;font-size:22px;font-weight:700;color:#22331e;">You're invited!</h1>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:12px 40px 0;text-align:center;">
-                <p style="margin:0;font-size:15px;line-height:1.6;color:#4b5d47;">
-                  <strong>${name}</strong> invited you to join <strong>${family}</strong> on Roost HQ - a shared calendar, chores, and rewards hub for the family.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:28px 40px 8px;text-align:center;">
-                <a href="${url}" style="display:inline-block;background:#4e7a4c;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:13px 32px;border-radius:10px;">Accept invite</a>
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:16px 40px 36px;text-align:center;">
-                <p style="margin:0;font-size:12px;line-height:1.5;color:#8a9a86;">This link works once, just for you. If you weren't expecting this, you can ignore it.</p>
-              </td>
-            </tr>
-          </table>
-          <p style="margin:16px 0 0;font-size:11px;color:#a3b09e;">Trouble with the button? Copy this link: <a href="${url}" style="color:#8a9a86;">${url}</a></p>
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>`;
+    return emailHtml({
+      webUrl: baseUrl,
+      heading: "You're invited!",
+      bodyHtml: `<p style="margin:0;">
+        <strong>${escapeHtml(actorName)}</strong> invited you to join <strong>${escapeHtml(familyName)}</strong> on Roost HQ - a shared calendar, chores, and rewards hub for the family.
+      </p>`,
+      buttonText: 'Accept invite',
+      buttonUrl: url,
+      footnote: "This link works once, just for you. If you weren't expecting this, you can ignore it.",
+    });
   }
 
   // Create a one-time invite; returns the raw token once (for the link).

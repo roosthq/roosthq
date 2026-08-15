@@ -4,6 +4,8 @@ import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { InvitesService } from '../invites/invites.service';
 import { EmailService } from '../notifications/email.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { emailHtml } from '../notifications/email-template';
 import { encrypt, decrypt } from '../crypto/token-crypto';
 import { hashPassword, verifyPassword } from '../crypto/password';
 import { DEFAULT_COLOR_THEME } from '../users/users.service';
@@ -37,7 +39,20 @@ export class AuthService {
     private google: GoogleService,
     private invites: InvitesService,
     private email: EmailService,
+    private notifications: NotificationsService,
   ) {}
+
+  // "🎉 {name} joined the family!" to everyone already there - all roles,
+  // kids included (NotificationsService.notifyFamily), whenever an invite
+  // lands someone in the family: a brand-new signup (Google or local) or an
+  // existing account switching families via one. The new member themselves
+  // is excluded - they already know.
+  private async notifyFamilyOfNewMember(familyId: string, newUserId: string, displayName: string) {
+    await this.notifications.notifyFamily(familyId, 'MEMBER_JOINED', `🎉 ${displayName} joined the family!`, {
+      link: '/profile',
+      excludeUserId: newUserId,
+    });
+  }
 
   private hashToken(raw: string): string {
     return createHash('sha256').update(raw).digest('hex');
@@ -97,6 +112,7 @@ export class AuthService {
           data: { familyId: invite.familyId, role: invite.role },
         });
         await this.invites.markAccepted(invite.id);
+        await this.notifyFamilyOfNewMember(invite.familyId, existing.userId, existing.user.displayName);
         await this.cleanupIfEmpty(oldFamilyId);
         return { status: 'ok', userId: existing.userId, familyId: invite.familyId, linkedMember: false };
       }
@@ -112,6 +128,7 @@ export class AuthService {
         data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       await this.invites.markAccepted(invite.id);
+      await this.notifyFamilyOfNewMember(invite.familyId, user.id, name);
       return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
     }
 
@@ -183,6 +200,7 @@ export class AuthService {
         data: { familyId: invite.familyId, role: invite.role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
       });
       await this.invites.markAccepted(invite.id);
+      await this.notifyFamilyOfNewMember(invite.familyId, user.id, input.displayName);
       return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
     }
 
@@ -325,7 +343,19 @@ export class AuthService {
         data: { userId: user.id, tokenHash: this.hashToken(raw), expiresAt: new Date(Date.now() + RESET_TOKEN_TTL_MS) },
       });
       const link = `${WEB_URL}/?resetToken=${raw}`;
-      await this.email.send(user.email!, 'Reset your Roost HQ password', `Reset your password: ${link}\n\nThis link expires in 1 hour. If you didn't ask for this, ignore it.`);
+      await this.email.send(
+        user.email!,
+        'Reset your Roost HQ password',
+        `Reset your password: ${link}\n\nThis link expires in 1 hour. If you didn't ask for this, ignore it.`,
+        emailHtml({
+          webUrl: WEB_URL,
+          heading: 'Reset your password',
+          bodyHtml: `<p style="margin:0;">Click below to set a new one.</p>`,
+          buttonText: 'Reset password',
+          buttonUrl: link,
+          footnote: "This link expires in 1 hour. If you didn't ask for this, you can ignore it.",
+        }),
+      );
     }
     return { ok: true };
   }

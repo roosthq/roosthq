@@ -53,6 +53,7 @@ enum NotificationType {
   CALENDAR_EVENT_REMINDER
   AWARD_GRANTED
   GAME_PRIZE_WON // a reward game (#5) rolled a real Prize, not tokens - adult needs to get it ready
+  MEMBER_JOINED // someone new signed up via invite (or an existing account switched families via one) - sent to everyone already there
 }
 
 enum PrizeType {

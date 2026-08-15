@@ -3,7 +3,10 @@ import { PrismaService } from '../prisma.service';
 import { NotificationType } from '@prisma/client';
 import { PushService, type PushSubscriptionInput } from './push.service';
 import { EmailService } from './email.service';
+import { emailHtml, escapeHtml } from './email-template';
 import { paginate } from '../common/pagination';
+
+const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
 
 @Injectable()
 export class NotificationsService {
@@ -41,7 +44,18 @@ export class NotificationsService {
 
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (user?.notifyByEmail && user.email) {
-      await this.email.send(user.email, title, opts.body ?? title);
+      await this.email.send(
+        user.email,
+        title,
+        opts.body ?? title,
+        emailHtml({
+          webUrl: WEB_URL,
+          heading: title,
+          bodyHtml: opts.body ? `<p style="margin:0;">${escapeHtml(opts.body)}</p>` : '',
+          buttonText: opts.link ? 'Open Roost HQ' : undefined,
+          buttonUrl: opts.link ? `${WEB_URL}${opts.link}` : undefined,
+        }),
+      );
     }
   }
 
@@ -83,6 +97,22 @@ export class NotificationsService {
       select: { id: true },
     });
     await Promise.all(adults.map((a) => this.create(familyId, a.id, type, title, opts)));
+  }
+
+  // Same shape as notifyAdults but every role - kids included. Currently
+  // just the "someone new joined" announcement (AuthService), which is
+  // exactly the kind of thing a kid would want to know about too.
+  async notifyFamily(
+    familyId: string,
+    type: NotificationType,
+    title: string,
+    opts: { body?: string; link?: string; refId?: string; excludeUserId?: string } = {},
+  ) {
+    const members = await this.prisma.user.findMany({
+      where: { familyId, ...(opts.excludeUserId ? { id: { not: opts.excludeUserId } } : {}) },
+      select: { id: true },
+    });
+    await Promise.all(members.map((m) => this.create(familyId, m.id, type, title, opts)));
   }
 
   // Mine (default), or - adults only - the whole family's activity.

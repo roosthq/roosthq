@@ -25,6 +25,7 @@ const TYPE_ICON: Record<string, string> = {
   CALENDAR_EVENT_REMINDER: 'alarm-clock',
   AWARD_GRANTED: 'trophy',
   GAME_PRIZE_WON: 'gift', // was missing entirely - fell back to the generic 🔔 default
+  MEMBER_JOINED: 'user-plus',
 };
 
 // Push/email notification prefs moved to My Account - this page is the
