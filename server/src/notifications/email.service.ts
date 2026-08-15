@@ -27,10 +27,14 @@ export class EmailService {
   }
 
   // Best-effort, never throws - email is a convenience fallback, not core.
-  async send(to: string, subject: string, body: string) {
+  // `html` is optional - most callers are plain-text system notices; pass it
+  // for anything worth actually designing (currently just the invite email).
+  // `body` still goes as the plain-text part either way, so a text-only
+  // client (or a screen reader) always gets something readable.
+  async send(to: string, subject: string, body: string, html?: string) {
     if (!this.transporter) return;
     try {
-      await this.transporter.sendMail({ from: this.from, to, subject, text: body });
+      await this.transporter.sendMail({ from: this.from, to, subject, text: body, ...(html && { html }) });
     } catch (err) {
       this.logger.warn(`email send failed: ${(err as Error).message}`);
     }

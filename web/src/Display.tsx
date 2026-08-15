@@ -604,14 +604,29 @@ export default function Display() {
     }
   }
 
+  // Same reasoning as the header's own Exit button below - this screen has
+  // no router and no other way back, so an error or a hang-on-load (a kid's
+  // most likely "I'm stuck" moment, more so than the normal rendered view)
+  // needs its own way out too, same !token gate.
+  const exitLink = !token && (
+    <a href="/" className="mt-2 text-sm text-slate-400 underline hover:text-slate-600">
+      ← Back to the app
+    </a>
+  );
   if (error)
-    return <div className="flex min-h-screen items-center justify-center p-10 text-center text-slate-500">{error}</div>;
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-2 p-10 text-center text-slate-500">
+        {error}
+        {exitLink}
+      </div>
+    );
   if (!config)
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 text-slate-500">
         <Logo size={120} />
         <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-slate-500" />
         <span>Loading display…</span>
+        {exitLink}
       </div>
     );
 
@@ -821,6 +836,25 @@ export default function Display() {
           >
             {isFullscreen ? '⤡' : '⛶'}
           </button>
+          {/* Only when this is a session-authenticated preview (opened from
+              Nav's "Display ↗" link, no ?token= in the URL) - never on the
+              real Pi kiosk, which has no session to go "back" to and should
+              never offer a way out. This screen renders completely outside
+              react-router (see main.tsx) with nothing else to navigate
+              anywhere with, so a mobile browser that opens the link in the
+              SAME tab (rather than a new one) leaves no way back except a
+              real page navigation - this button is exactly that. */}
+          {!token && (
+            <button
+              onClick={() => {
+                window.location.href = '/';
+              }}
+              title="Back to the app"
+              className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            >
+              ← Exit
+            </button>
+          )}
         </div>
       </header>
 
