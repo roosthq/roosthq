@@ -6,6 +6,7 @@ import { formatDateTime } from './dateFormat';
 import LucideIcon from './LucideIcon';
 import { usePaginatedList } from './usePaginatedList';
 import LoadMoreButton from './LoadMoreButton';
+import PasswordInput from './PasswordInput';
 
 // "user.deactivate" -> "deactivated". Covers every action string OwnerService
 // actually writes; falls back to the raw dotted string for anything new so a
@@ -394,12 +395,12 @@ export default function OwnerFamiliesPanel() {
                         placeholder="Username (optional)"
                         className="w-full min-w-0 rounded border px-2 py-1.5"
                       />
-                      <input
-                        type="password"
+                      <PasswordInput
                         value={addFor(f.id).password}
                         onChange={(e) => setAddFor(f.id, { password: e.target.value })}
                         placeholder="Password (optional, 8+)"
-                        className="w-full min-w-0 rounded border px-2 py-1.5 sm:col-span-2"
+                        className="w-full min-w-0 rounded border px-2 py-1.5"
+                        wrapperClassName="sm:col-span-2"
                       />
                       <button
                         disabled={busy || !addFor(f.id).displayName.trim()}

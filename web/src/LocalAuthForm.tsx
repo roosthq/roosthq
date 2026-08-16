@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { api } from './api';
+import PasswordInput from './PasswordInput';
 
 const input = 'w-full rounded-lg border px-3 py-2 text-sm';
 
@@ -49,8 +50,8 @@ export default function LocalAuthForm({
         }}
       >
         <p className="text-sm font-medium">Set a new password</p>
-        <input type="password" className={input} placeholder="New password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <input type="password" className={input} placeholder="Confirm password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+        <PasswordInput className={input} placeholder="New password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <PasswordInput className={input} placeholder="Confirm password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
         {error && <p className="text-xs text-red-500">{error}</p>}
         {notice && <p className="text-xs text-green-600">{notice}</p>}
         <button
@@ -124,9 +125,9 @@ export default function LocalAuthForm({
         <input className={input} placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} />
       ) : (
         <>
-          <input type="password" className={input} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <PasswordInput className={input} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
           {mode === 'register' && (
-            <input type="password" className={input} placeholder="Confirm password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
+            <PasswordInput className={input} placeholder="Confirm password" value={confirm} onChange={(e) => setConfirm(e.target.value)} />
           )}
         </>
       )}

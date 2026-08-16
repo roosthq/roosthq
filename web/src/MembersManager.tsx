@@ -4,6 +4,7 @@ import InviteLinkBox from './InviteLinkBox';
 import { useDialog } from './Dialog';
 import { formatDate } from './dateFormat';
 import LucideIcon from './LucideIcon';
+import PasswordInput from './PasswordInput';
 
 // Adults, family managers, and the owner can invite people and manage PINs;
 // only the owner/family manager can change roles or remove members, and only
@@ -298,8 +299,7 @@ export default function MembersManager({ me }: { me: Me }) {
             placeholder="Username (optional)"
             className="rounded border px-2 py-1 text-xs"
           />
-          <input
-            type="password"
+          <PasswordInput
             value={addPassword}
             onChange={(e) => setAddPassword(e.target.value)}
             placeholder="Password (optional, for login)"

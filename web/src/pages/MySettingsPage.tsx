@@ -6,6 +6,7 @@ import ImageCropper, { cropImageToDataUri, type CropRect } from '../ImageCropper
 import { useDialog } from '../Dialog';
 import CalendarsSettingsSection from '../CalendarsSettingsSection';
 import LocationsSection from '../LocationsSection';
+import PasswordInput from '../PasswordInput';
 import {
   pushSupported,
   currentPushSubscription,
@@ -376,27 +377,24 @@ export default function MySettingsPage({
               confirm against on a Google-only account setting one for the
               first time, so don't show a field (or a message) for that case. */}
           {me.hasPassword && (
-            <input
-              type="password"
+            <PasswordInput
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="Current password"
-              className="rounded border px-3 py-1.5 text-sm"
+              className="w-full rounded border px-3 py-1.5 text-sm"
             />
           )}
-          <input
-            type="password"
+          <PasswordInput
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder="New password"
-            className="rounded border px-3 py-1.5 text-sm"
+            className="w-full rounded border px-3 py-1.5 text-sm"
           />
-          <input
-            type="password"
+          <PasswordInput
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm new password"
-            className="rounded border px-3 py-1.5 text-sm"
+            className="w-full rounded border px-3 py-1.5 text-sm"
           />
         </div>
         {passwordError && <p className="mt-1 text-xs text-red-500">{passwordError}</p>}
