@@ -408,3 +408,146 @@ section is built; check here before picking the next batch of work.
 - A rare, unscheduled tiny "surprise" reward every so often (variable-ratio
   reinforcement), same fairness pattern as item 7, server-triggered instead of
   goal-triggered.
+
+---
+
+## 15. App updates (owner feature) - design plan
+
+**Not built yet.** Design only, per Casey's request (2026-08-15). Lets the instance
+owner see what version is running, check for a newer one, and update - manually or
+automatically - without SSHing into the VM. Two release channels: **Stable** (tagged
+releases) and **Latest** (tip of a branch). The repo it updates FROM is configurable
+via env var (so a self-hoster running their own fork points at that instead), default
+to the real roosthq/roosthq repo. Casey's own repo still needs to go public before this
+has "full access to it like that" - see the repo-visibility note below for what that
+actually gates and what it doesn't.
+
+### Why this is scarier than a normal feature
+
+Updating yourself means: pull new code from a remote, then rebuild and restart the
+whole stack. That's arbitrary code execution by design - it's what "update" IS. Every
+design choice below is trying to keep that power (a) owner-only, (b) not reachable
+from outside the box, and (c) not something a compromised in-app session can quietly
+redirect at a malicious repo. Treat those three as harder requirements than anything
+else in this plan.
+
+### Where the actual git/docker work happens
+
+The `server` container can't just run `git pull && docker compose up --build` on
+itself - it doesn't have the host's repo checkout or `docker.sock`, and giving the
+main app container either of those is a much bigger blast radius than this feature
+needs. Instead: a small dedicated **`updater` service**, new in `docker-compose.prod.yml`
+only (no reason to run it in dev):
+
+- Mounts the host repo directory (bind mount, same path `server`/`web` already build
+  from) and `/var/run/docker.sock`.
+- Tiny HTTP API, **not published** in the compose file - reachable only from `server`
+  over the internal Docker network (`http://updater:PORT`), never from outside.
+- Every request requires a shared-secret bearer token (`UPDATE_SHARED_SECRET` env var,
+  same value given to both `server` and `updater`) - belt-and-suspenders on top of
+  "not published," in case anything else ever lands on that network.
+- Endpoints (rough):
+  - `GET /version` - `git rev-parse HEAD` + `git describe --tags --exact-match`
+    (null if not exactly on a tag) + working-tree-dirty check, read live off the
+    actual checkout (more honest than baking a version string into the image at
+    build time, which can drift if server/web ever get built at slightly different
+    moments).
+  - `GET /check?channel=stable|latest` - see below.
+  - `POST /update` `{channel, ref}` - fetch, checkout, `docker compose up -d --build`,
+    returns a job id; long-running, so async (poll or SSE), not a blocking request.
+  - `GET /update/:jobId` - status + tailed output, so a failed pull/build is
+    debuggable from the UI instead of "it just didn't come back."
+
+`server` gets a new owner-only module (`updates/`) that's a thin authenticated proxy
+in front of `updater` - same `assertInstanceOwner`-style gate `OwnerService`/
+`HolidaysService` already use, nothing new to invent there.
+
+### Channel checks: plain git, not the GitHub API
+
+Recommend `git ls-remote` over the GitHub REST API for "what's the latest available":
+
+- Stable: `git ls-remote --tags --sort=-v:refname <repo>`, take the top semver-looking
+  tag.
+- Latest: `git ls-remote <repo> refs/heads/<branch>` (branch from `UPDATE_BRANCH`,
+  default `main`).
+
+This works identically whether the repo is public or private (uses whatever git
+credentials the VM already has configured per `DEPLOY.md`), needs no token, and has
+no API rate limit to worry about. It's also exactly what a self-hoster's own private
+fork needs too, so there's no special-case for "repo isn't public yet."
+
+### The repo-visibility note, unpacked
+
+Casey's flagged that the repo needs to be public before the app has "full access to
+it like that." Worth separating two different things that could mean:
+
+- **Git operations (fetch/pull/checkout)** - already work today regardless of
+  visibility, using the VM's existing git credentials (SSH key or HTTPS token per
+  `DEPLOY.md`). Nothing about *this feature* strictly requires the repo to be public.
+- **A brand-new self-hoster cloning it for the first time** - THIS is where public
+  matters: someone standing up their own instance from scratch needs to `git clone`
+  without Casey's own credentials. That's a prerequisite for **distribution**, not for
+  the update feature itself, but it's also clearly the actual point (an owner-facing
+  updater feature is much less interesting if nobody outside Casey's own VM can use
+  it) - so treat "make the repo public" as a parallel/prerequisite task, tracked
+  against the existing licensing-relicense plan (`[[roosthq_licensing_plan]]`), not
+  something this feature's design needs to work around.
+
+### Config surface
+
+- **Env vars only** (`.env`, not UI-editable): `UPDATE_REPO_URL` (default
+  `https://github.com/roosthq/roosthq.git`), `UPDATE_BRANCH` (default `main`),
+  `UPDATE_SHARED_SECRET`. Deliberately NOT a UI setting - if the source repo were
+  editable from inside the app, a compromised owner session could repoint it at a
+  malicious fork and then trigger an update, which is full remote code execution.
+  Changing it requires host/SSH access, same trust tier as everything else in
+  `DEPLOY.md`.
+- **DB-backed, owner-editable in the UI**: selected channel (stable/latest),
+  auto-update on/off, auto-update schedule (e.g. daily at a set hour). Small
+  singleton-style settings, same shape as `AppSlotIcon`/`DisplaySettings` already in
+  the schema - a new `InstanceSettings` table (or reuse a generic key-value one if it
+  ever gets built for something else first) rather than a file the updater manages,
+  so it round-trips through the normal API/DB/UI path everything else uses.
+
+### Auto vs. manual
+
+- **Manual** (v1, do this first): owner clicks "Check for updates" → shows current
+  vs. latest for the selected channel → if newer, "Update now" (confirmed - this
+  restarts the stack, brief downtime for the whole family) → progress/log view →
+  done.
+- **Auto** (v2, default OFF): a scheduled check (`@Cron`/`@Interval` in `server`,
+  hitting `updater`'s `/check`). Recommend two independent toggles, not one:
+  1. **Auto-check + notify** - safe default once auto is turned on at all: tells the
+     owner a new version exists, doesn't touch anything.
+  2. **Auto-apply** - actually runs the update unattended. This is the one that can
+     surprise a family with a mid-evening restart or a broken update nobody's
+     watching - gate it behind its own separate confirmation/toggle, off by default
+     even if auto-check is on.
+- Either way, surface it as an owner-facing in-app banner/indicator, not a
+  family-wide `Notification` row - this is instance-level, not per-family, and
+  doesn't fit the existing family-scoped notification model without stretching it.
+
+### Safety net
+
+- Before applying, capture the current commit so there's an explicit "roll back to
+  previous version" one level deep - an update that boots into a broken state with no
+  way back is much worse than not having auto-update at all.
+- Run `prisma db push` as part of the same update job (matches the existing manual
+  deploy flow in `CLAUDE.md`/`DEPLOY.md`) - flag this as the actual risky part of any
+  update in the UI copy; a code update alone is safe to roll back, a schema change
+  that already ran is not.
+- Stretch goal, not v1: post-update health check (does `server` come back up within
+  N seconds) with auto-rollback on failure.
+
+### Rough build order
+
+1. `updater` service (compose + minimal HTTP server + the four endpoints above).
+2. `server`'s owner-only `updates` module proxying to it.
+3. `InstanceSettings` table + API for channel/auto-update prefs.
+4. Web: owner-only "Updates" panel (current version, channel picker, check/update
+   buttons, log view) - same shape as `OwnerFamiliesPanel.tsx`.
+5. Auto-check scheduler + owner-facing "update available" indicator.
+6. Auto-apply toggle, gated separately as above.
+7. `DEPLOY.md`: new env vars, and a note that a fresh self-hoster still needs the
+   repo public (or their own credentials) to clone it at all - separate from whether
+   this feature works, per the note above.
