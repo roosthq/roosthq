@@ -103,12 +103,19 @@ export class PrizesService {
     return true;
   }
 
-  // Adults see everything (incl. real price, archived prizes, all
-  // suggestions); kids see only what visibleTo() allows, no real price.
+  // Owner/family manager see everything (incl. real price, archived prizes,
+  // all suggestions, every household's location-scoped prizes) - they manage
+  // the whole family, not just one house. A plain adult manages same as a
+  // kid sees location-wise (family-wide, or their own house's) but keeps the
+  // adult-only extras (real price, archived, every suggestion) within that
+  // scope - same "isTopManager sees everything, plain adult is location-
+  // scoped" split ChoresService.list() already uses. Kids see only what
+  // visibleTo() allows, no real price.
   async list(familyId: string, actingUserId: string) {
     if (!(await isFeatureEnabled(this.prisma, familyId, 'store'))) return [];
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId }, include: { locations: true } });
     const adult = !!actor && this.isAdult(actor.role);
+    const isTopManager = actor?.role === 'OWNER' || actor?.role === 'FAMILY_MANAGER';
     const myLocationIds = new Set((actor?.locations ?? []).map((l) => l.locationId));
     const prizes = await this.prisma.prize.findMany({
       where: { familyId },
@@ -120,7 +127,11 @@ export class PrizesService {
       },
     });
     return prizes
-      .filter((p) => adult || this.visibleTo(p, actingUserId, myLocationIds))
+      .filter((p) => {
+        if (isTopManager) return true;
+        if (adult) return !p.locationId || myLocationIds.has(p.locationId) || p.assignments.some((a) => a.userId === actingUserId);
+        return this.visibleTo(p, actingUserId, myLocationIds);
+      })
       .map((p) => ({
         id: p.id,
         name: p.name,

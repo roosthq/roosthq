@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api, prizeClient, familyFeatureEnabled, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
@@ -29,6 +29,10 @@ export default function StorePage({
   tokenValueUsd: number;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  // Owner/family manager manage every household, same "sees everything"
+  // tier used server-side (prizes.service.ts) and elsewhere (ChoresService).
+  // A plain adult only sees/assigns within their own location(s).
+  const isTopManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   // Awards folded in as a second, adult-only tab (nav reorg, 2026-08) - same
   // reward-catalog-CRUD-plus-grant-flow mental model as Prizes, just a lower-
   // frequency one, so it doesn't need its own top-level nav slot. Kids never
@@ -61,6 +65,12 @@ export default function StorePage({
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
+  // Only fetched for a plain adult (top managers don't need it - they see
+  // everyone regardless; kids never open this form at all).
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  useEffect(() => {
+    if (isAdult && !isTopManager) api.locations().then(setLocations).catch(() => setLocations([]));
+  }, [isAdult, isTopManager]);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<StorePrize | null>(null);
   const [viewing, setViewing] = useState<StorePrize | null>(null);
@@ -84,6 +94,33 @@ export default function StorePage({
   }, [isAdult, me.id]);
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'Someone';
+
+  // "Who can redeem" picker in the create/edit form - a plain adult should
+  // only be offered kids (or anyone else) who actually live in one of THEIR
+  // own households, not the whole family. Owner/family manager keep the
+  // full roster.
+  const locationIdsByUser = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const l of locations) {
+      for (const u of l.users) {
+        if (!map.has(u.userId)) map.set(u.userId, new Set());
+        map.get(u.userId)!.add(l.id);
+      }
+    }
+    return map;
+  }, [locations]);
+  const myLocationIds = useMemo(() => locationIdsByUser.get(me.id) ?? new Set<string>(), [locationIdsByUser, me.id]);
+  const assignableMembers = useMemo(() => {
+    // No location of their own (hasn't gone through the join modal yet) -
+    // same "nothing sensible to scope by" convention used elsewhere; hand
+    // back the full list rather than an empty, confusing picker.
+    if (isTopManager || myLocationIds.size === 0) return members;
+    return members.filter((m) => {
+      if (m.id === me.id) return true;
+      const theirLocs = locationIdsByUser.get(m.id);
+      return theirLocs ? [...theirLocs].some((id) => myLocationIds.has(id)) : false;
+    });
+  }, [members, isTopManager, myLocationIds, locationIdsByUser, me.id]);
 
   useEffect(() => {
     refresh();
@@ -448,7 +485,7 @@ export default function StorePage({
       {formOpen && (
         <PrizeForm
           prize={editing}
-          members={members}
+          members={assignableMembers}
           tokenValueUsd={tokenValueUsd}
           onClose={() => setFormOpen(false)}
           onSaved={async () => {
