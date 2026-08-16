@@ -486,9 +486,19 @@ export default function ChoresPanel({
   // right now - so the answer to "what do I have to do?" is the top of the
   // page, not a scan of every group. Adults keep the plain by-person layout
   // (they're managing everyone, not hunting their own list).
+  // Same priority as the kiosk's own "today" order (kioskPriority above):
+  // directly assigned to them beats an ANYONE chore they've already claimed,
+  // which beats one still open for anyone to grab. This bucket mixes both
+  // kinds (a kid's "what do I have to do" view), so without this it fell
+  // back to whatever order the chores array happened to arrive in.
   const kidTodayRows =
     !today && !isAdult
-      ? rows.filter((r) => r.dueNow && r.active?.status === 'OPEN' && (r.mine || r.openToClaim))
+      ? rows
+          .filter((r) => r.dueNow && r.active?.status === 'OPEN' && (r.mine || r.openToClaim))
+          .sort((a, b) => {
+            const diff = kioskPriority(a) - kioskPriority(b);
+            return diff !== 0 ? diff : (a.active?.dueDate ?? '').localeCompare(b.active?.dueDate ?? '');
+          })
       : [];
   const kidTodayIds = new Set(kidTodayRows.map((r) => r.chore.id));
 
