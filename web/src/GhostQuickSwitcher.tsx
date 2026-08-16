@@ -8,7 +8,19 @@ import { useDialog } from './Dialog';
 // Settings -> Instance. Any other adult (family_manager/adult): their OWN
 // family's kids only, via the narrower ghostChild() - "hand me your phone"
 // so a kid can complete a chore etc. without their own login.
-export default function GhostQuickSwitcher({ me }: { me: Me }) {
+export default function GhostQuickSwitcher({
+  me,
+  align = 'right',
+}: {
+  me: Me;
+  // Desktop mount sits at the far right of the nav bar (right-0 fits - the
+  // panel opens leftward from an anchor that's already at the screen edge).
+  // The mobile hamburger-menu mount sits mid-row instead - right-0 anchored
+  // the panel's right edge to that small trigger, pushing everything past
+  // its own width off the LEFT edge of a narrow screen entirely (same fix
+  // Nav's own nameMenu already needed for the identical reason).
+  align?: 'left' | 'right';
+}) {
   const isOwner = me.role === 'OWNER';
   const { confirm } = useDialog();
   const [families, setFamilies] = useState<FamilyInfo[]>([]);
@@ -41,7 +53,7 @@ export default function GhostQuickSwitcher({ me }: { me: Me }) {
 
   return (
     <DropdownDetails summary="👻 Ghost">
-      <div className="absolute right-0 z-20 mt-1 max-h-96 w-64 overflow-y-auto rounded border bg-white p-2 shadow">
+      <div className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} z-20 mt-1 max-h-96 w-64 overflow-y-auto rounded border bg-white p-2 shadow`}>
         {isOwner ? (
           <>
             {families.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No other families yet.</p>}

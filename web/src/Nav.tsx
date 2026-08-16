@@ -277,7 +277,7 @@ export default function Nav({
               {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
             </button>
             {displayLink}
-            {canGhost && <GhostQuickSwitcher me={me} />}
+            {canGhost && <GhostQuickSwitcher me={me} align="left" />}
           </div>
           <div className="flex items-center justify-between border-t pt-3 text-sm">
             {nameMenu(true)}
