@@ -76,7 +76,10 @@ export default function AgendaPage() {
   }, [weekStart]);
 
   useEffect(() => {
-    api.sharedCalendars().then(setCalendars).catch(() => setCalendars([]));
+    // Location-scoped (calendars shared within a house the viewer's actually
+    // part of, or shared family-wide) - not the unrestricted family list;
+    // same call CalendarPage's own grid already uses for this.
+    api.myCalendars().then(setCalendars).catch(() => setCalendars([]));
     api.members().then(setMembers).catch(() => setMembers([]));
     choreClient()
       .chores()
