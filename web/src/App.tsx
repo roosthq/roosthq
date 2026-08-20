@@ -76,7 +76,11 @@ export default function App() {
         try {
           const p = await api.presenceMine();
           const stale = !p.updatedAt || new Date(p.updatedAt).toDateString() !== new Date().toDateString();
-          if (stale) setPresencePrompt(p);
+          // Only worth a daily nag if they actually HAVE more than one place
+          // to be - a single-household person's status can't drift on its
+          // own, so the auto-prompt would just be noise. They can still set
+          // it manually any time via the Status button.
+          if (stale && p.locations.length > 1) setPresencePrompt(p);
         } catch {
           /* ignore - not worth blocking login over */
         }
