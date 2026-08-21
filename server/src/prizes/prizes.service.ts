@@ -207,6 +207,7 @@ export class PrizesService {
     await this.notifications.notifyAdults(familyId, 'PRIZE_SUGGESTED', `${requester?.displayName ?? 'A kid'} wants "${dto.name}" added to the store`, {
       link: '/store',
       refId: prize.id,
+      subjectUserId: userId,
     });
     this.displayEvents.publish(familyId, { type: 'prizes' });
     return prize;
@@ -310,6 +311,7 @@ export class PrizesService {
       link: '/store',
       excludeUserId: actingUserId,
       refId: redemption.id,
+      subjectUserId: actingUserId,
     });
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return redemption;

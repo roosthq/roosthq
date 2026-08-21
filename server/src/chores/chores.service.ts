@@ -861,7 +861,7 @@ export class ChoresService {
       inst.chore.familyId,
       'CHORE_PENDING',
       `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" - needs approval`,
-      { link: '/chores', refId: inst.id },
+      { link: '/chores', refId: inst.id, subjectUserId: userId },
     );
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;

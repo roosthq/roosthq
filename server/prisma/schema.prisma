@@ -344,6 +344,21 @@ model User {
   // of their history. See the deactivated-account gate in main.ts.
   active              Boolean @default(true)
   notifyByEmail       Boolean @default(false)
+  // Adult-only: per-recipient overrides for which channel(s) they get each
+  // notification type on, and - for the handful of types that are actually
+  // ABOUT one specific kid (a kid finished a chore, requested a redemption,
+  // suggested a prize, won a reward-game prize) - a separate override per
+  // kid, so "text me about Sam's chores but don't email me about Jamie's"
+  // is one JSON blob, not a table with a row per (adult, kid, type). Shape:
+  // { kid: { [kidUserId]: { [NotificationType]: Channel[] } },
+  //   global: { [NotificationType]: Channel[] } } - Channel = 'inapp'|'push'|'email'.
+  // A (kid,type) or (type) with no entry here falls back to the old default
+  // (in-app + push always, email only if notifyByEmail) - see
+  // NotificationsService.KID_SCOPED_TYPES/GLOBAL_ADULT_TYPES for which types
+  // apply to which bucket, and effectiveChannels for the fallback. Ignored
+  // for kids - this whole feature is an adult's OWN inbox preferences about
+  // what they get notified of, not something a kid configures.
+  notifyPrefs         Json    @default("{}")
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
   // and every token-balance/history UI hides for them - for a family that

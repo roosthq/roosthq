@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@n
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
-import { NotificationsService } from './notifications.service';
+import { NotificationsService, type NotifyPrefs } from './notifications.service';
 import type { PushSubscriptionInput } from './push.service';
 import { parsePageParams } from '../common/pagination';
 
@@ -48,5 +48,18 @@ export class NotificationsController {
   @Post('read-all')
   markAllRead(@CurrentUser() u: SessionPayload) {
     return this.notifications.markAllRead(u.userId);
+  }
+
+  // Adults-only (enforced in the service): which channel(s) they get each
+  // notification type on, and per-kid overrides for the types that are
+  // about one specific kid.
+  @Get('prefs')
+  getPrefs(@CurrentUser() u: SessionPayload) {
+    return this.notifications.getPrefs(u.userId);
+  }
+
+  @Post('prefs')
+  setPrefs(@CurrentUser() u: SessionPayload, @Body() body: { prefs: NotifyPrefs }) {
+    return this.notifications.setPrefs(u.userId, body.prefs ?? {});
   }
 }

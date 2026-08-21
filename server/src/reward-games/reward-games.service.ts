@@ -192,7 +192,7 @@ export class RewardGamesService {
           game.familyId,
           'GAME_PRIZE_WON',
           `🎁 ${winner?.displayName ?? 'Someone'} won "${prize.name}" from a reward game - get it ready for them!`,
-          { link: '/store', excludeUserId: game.userId },
+          { link: '/store', excludeUserId: game.userId, subjectUserId: game.userId },
         );
       }
       this.displayEvents.publish(game.familyId, { type: 'tokens' });

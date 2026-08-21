@@ -7,6 +7,7 @@ import { useDialog } from '../Dialog';
 import CalendarsSettingsSection from '../CalendarsSettingsSection';
 import LocationsSection from '../LocationsSection';
 import PasswordInput from '../PasswordInput';
+import NotificationPrefsSection from '../NotificationPrefsSection';
 import {
   pushSupported,
   currentPushSubscription,
@@ -466,6 +467,7 @@ export default function MySettingsPage({
             Celebration sound when completing tasks
           </label>
         </div>
+        <NotificationPrefsSection me={me} />
       </section>
 
       <section className="panel">

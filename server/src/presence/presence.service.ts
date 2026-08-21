@@ -121,7 +121,7 @@ export class PresenceService {
         familyId,
         'CHORE_EXCUSED',
         `🧳 ${target.displayName} marked themselves ${this.label(status)}`,
-        { link: '/profile', excludeUserId: actorId === targetId ? targetId : undefined },
+        { link: '/profile', excludeUserId: actorId === targetId ? targetId : undefined, subjectUserId: targetId },
       );
     }
     return this.mine(targetId);

@@ -424,6 +424,18 @@ export interface Balance {
   earned?: number; // lifetime positive total - XP for the level badge
 }
 
+export type NotifyChannel = 'inapp' | 'push' | 'email';
+export interface NotifyPrefs {
+  kid?: Record<string, Partial<Record<string, NotifyChannel[]>>>; // kidUserId -> type -> channels
+  global?: Partial<Record<string, NotifyChannel[]>>; // type -> channels
+}
+export interface NotifyPrefsResult {
+  prefs: NotifyPrefs;
+  notifyByEmail: boolean;
+  kidScopedTypes: string[];
+  globalTypes: string[];
+}
+
 export interface AppNotification {
   id: string;
   userId: string;
@@ -1218,6 +1230,10 @@ export const api = {
   unreadNotificationCount: () => req<{ count: number }>('/notifications/unread-count'),
   markNotificationRead: (id: string) => req(`/notifications/${id}/read`, { method: 'POST' }),
   markAllNotificationsRead: () => req('/notifications/read-all', { method: 'POST' }),
+
+  // Adults-only (enforced server-side): per-kid + global channel overrides.
+  notifyPrefs: () => req<NotifyPrefsResult>('/notifications/prefs'),
+  setNotifyPrefs: (prefs: NotifyPrefs) => req<{ prefs: NotifyPrefs }>('/notifications/prefs', { method: 'POST', body: JSON.stringify({ prefs }) }),
 
   // kioskToken lets a kid pull this up on the kiosk itself, not just their
   // own phone/tablet - read-only for them either way (server-scoped to
