@@ -5,7 +5,7 @@
 # Roost HQ
 
 **Your family's home base.** Calendars, chores, and rewards, on one hub that runs on
-your own hardware, under your own roof — a touch-designed kiosk for the kitchen
+your own hardware, under your own roof - a touch-designed kiosk for the kitchen
 wall, and the same hub on every phone, tablet, and laptop in the house.
 
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-4E7A4C.svg)](./LICENSE)
@@ -20,10 +20,10 @@ wall, and the same hub on every phone, tablet, and laptop in the house.
 
 See everyone's schedule at a glance, hand out chores that actually get done, and let
 the kids earn tokens toward real rewards you define. No ads, no tracking, no
-subscription holding your family's schedule hostage — it's free, open source
+subscription holding your family's schedule hostage - it's free, open source
 (AGPL-3.0), and self-hosted: each household runs its own instance, and nobody
 else's data ever touches it. Backed by shared Google Calendars (deduped across
-accounts) or fully local calendars — no Google required.
+accounts) or fully local calendars - no Google required.
 
 **→ [roosthq.org](https://roosthq.org)** for the plain-English pitch. This README
 covers running it as a *developer*; the **[wiki](https://github.com/roosthq/roosthq/wiki)**
@@ -53,8 +53,8 @@ covers the architecture, roadmap, and decisions log behind it.
 | 🎁 **Prizes & Store** | Kid-requested redemptions, adult approval, real price hidden from kids, item or event type, per-location scoping |
 | 🏆 **Awards** | One-off recognitions with a note, optional bonus token wheel or streak-freeze grant |
 | 📋 **Rules** | Shared and per-kid house rules, viewable from the app or the kiosk |
-| 🎡 **Gamification** | Levels/XP, bonus spin wheels, weighted prize pools, chore races — all per-family toggles |
-| 🏠 **Household widgets** | Meal plan, grocery list, countdowns, announcements — family-wide or per-house scoped |
+| 🎡 **Gamification** | Levels/XP, bonus spin wheels, weighted prize pools, chore races - all per-family toggles |
+| 🏠 **Household widgets** | Meal plan, grocery list, countdowns, announcements - family-wide or per-house scoped |
 | 📍 **Presence** | Home/away/vacation status per person, so a kid staying elsewhere doesn't lose a chore streak |
 | 🔔 **Notifications** | In-app, push, and email, with per-adult control over which kid + which type goes to which channel |
 | 👥 **Accounts** | Google OAuth and/or local username+password; kid accounts need no email at all |
@@ -134,9 +134,9 @@ want Google features. There is no shared central app.
 3. Configure the **OAuth consent screen**:
    - User type: **External**, status **Testing** is fine for a household.
    - Add each family Google account under **Test users** (Testing mode caps at 100
-     users and shows an "unverified app" notice — expected for self-hosting).
+     users and shows an "unverified app" notice - expected for self-hosting).
    - Scopes: `openid`, `email`, `profile`, and
-     `https://www.googleapis.com/auth/calendar` (full read/write — the app both
+     `https://www.googleapis.com/auth/calendar` (full read/write - the app both
      displays and creates/edits events).
 4. Create an **OAuth client ID** (type: Web application):
    - Authorized redirect URI (dev): `http://localhost:3000/api/auth/google/callback`
@@ -164,7 +164,7 @@ you add as test users can sign in; local accounts have no such cap.
 full-screen wall display: flashing the OS, autostart, keeping the screen awake,
 rotation, touch-input quirks, recovering a stuck kiosk, and moving to new hardware.
 The short version: **Settings → Touch displays → Display access → Generate kiosk
-link**, then point the Pi's Chromium at the resulting URL — no login needed.
+link**, then point the Pi's Chromium at the resulting URL - no login needed.
 
 ## API
 

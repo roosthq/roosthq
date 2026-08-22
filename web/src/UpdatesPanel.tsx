@@ -132,7 +132,7 @@ export default function UpdatesPanel() {
   if (!status) return <p className="text-sm text-slate-400">{error ?? 'Loading…'}</p>;
 
   const { version, settings } = status;
-  const currentLabel = version ? (settings.updateChannel === 'stable' ? version.tag ?? version.shortSha : version.shortSha) : '—';
+  const currentLabel = version ? (settings.updateChannel === 'stable' ? version.tag ?? version.shortSha : version.shortSha) : '-';
   const latestAvailable = settings.lastKnownLatest;
   const updateAvailable = !!latestAvailable && latestAvailable !== currentLabel;
 
@@ -141,7 +141,7 @@ export default function UpdatesPanel() {
       <div className="flex items-center justify-between">
         <span className="text-slate-500">Current version</span>
         <div className="text-right">
-          <span className="font-mono">{currentLabel ?? '—'}</span>
+          <span className="font-mono">{currentLabel ?? '-'}</span>
           {version?.dirty && <p className="mt-0.5 text-xs text-amber-600">Locally modified - not exactly the checked-in code</p>}
         </div>
       </div>
@@ -149,7 +149,7 @@ export default function UpdatesPanel() {
       <div className="flex items-center justify-between">
         <span className="text-slate-500">Latest available ({settings.updateChannel === 'stable' ? 'stable' : 'main branch'})</span>
         <div className="text-right">
-          <span className={`font-mono ${updateAvailable ? 'text-amber-600' : ''}`}>{latestAvailable ?? '—'}</span>
+          <span className={`font-mono ${updateAvailable ? 'text-amber-600' : ''}`}>{latestAvailable ?? '-'}</span>
           {settings.lastCheckedAt && <p className="mt-0.5 text-xs text-slate-400">Checked {formatDateTime(settings.lastCheckedAt)}</p>}
         </div>
       </div>
