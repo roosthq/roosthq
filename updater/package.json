@@ -1,0 +1,13 @@
+{
+  "name": "roosthq-updater",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dedicated internal-only service that does the actual git/docker work for the owner-facing app-update feature. See PLANNING.md #15 - runs as its own container specifically so the main `server` container never needs the host repo checkout or docker.sock itself.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

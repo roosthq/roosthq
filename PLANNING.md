@@ -411,16 +411,30 @@ section is built; check here before picking the next batch of work.
 
 ---
 
-## 15. App updates (owner feature) - design plan
+## 15. App updates (owner feature)
 
-**Not built yet.** Design only, per Casey's request (2026-08-15). Lets the instance
-owner see what version is running, check for a newer one, and update - manually or
-automatically - without SSHing into the VM. Two release channels: **Stable** (tagged
-releases) and **Latest** (tip of a branch). The repo it updates FROM is configurable
-via env var (so a self-hoster running their own fork points at that instead), default
-to the real roosthq/roosthq repo. Casey's own repo still needs to go public before this
-has "full access to it like that" - see the repo-visibility note below for what that
-actually gates and what it doesn't.
+**Built 2026-08-21**, feature-parity target was nomad-eye's own OTA-update system per
+Casey's request - see `updater/`, `server/src/updates/`, `web/src/UpdatesPanel.tsx`,
+and DEPLOY.md Step 9. Gated on the literal `OWNER` role only (not `FAMILY_MANAGER`),
+per explicit instruction, same tier as `OwnerService`'s own `assertOwner`. Lets the
+instance owner see what version is running, check for a newer one, and update -
+manually or automatically - without SSHing into the VM. Two release channels:
+**Stable** (tagged releases) and **Latest** (tip of a branch). The repo it updates
+FROM is configurable via env var (so a self-hoster running their own fork points at
+that instead), default to the real roosthq/roosthq repo. Casey's own repo still needs
+to go public before this has "full access to it like that" - see the repo-visibility
+note below for what that actually gates and what it doesn't.
+
+Deviations from the original design plan below, and why:
+- No async job-id endpoint (`GET /update/:jobId`) - one global in-progress/last-result
+  status, same as nomad-eye's own updater, is simpler and this is a single-instance
+  service where only one update ever runs at a time anyway.
+- Auto-check runs on an hourly `@Interval` that compares the current hour against the
+  owner-configured `autoCheckHour`, rather than a cron expression rebuilt at runtime
+  (NestJS's `@Cron` wants a fixed expression; the hour itself is a DB-backed setting).
+- `InstanceSettings.lastUpdateResult`/`previousCommit` persist in the DB (nomad-eye
+  deliberately keeps none of this across a restart) - worth the small extra state for
+  the one-level rollback capability the original plan actually asked for.
 
 ### Why this is scarier than a normal feature
 

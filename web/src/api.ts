@@ -106,6 +106,35 @@ export interface HolidayRule {
   nextOccurrence?: string | null;
 }
 
+// Owner-only app-update feature (PLANNING.md #15).
+export interface UpdateVersionInfo {
+  sha: string | null;
+  shortSha: string | null;
+  tag: string | null;
+  dirty: boolean;
+}
+export interface UpdateJobStatus {
+  inProgress: boolean;
+  lastResult: string | null;
+  lastRanAt: string | null;
+}
+export interface UpdateSettings {
+  updateChannel: 'stable' | 'latest';
+  autoCheckEnabled: boolean;
+  autoApplyEnabled: boolean;
+  autoCheckHour: number;
+  lastCheckedAt: string | null;
+  lastKnownLatest: string | null;
+  lastUpdateResult: string | null;
+  lastUpdateAt: string | null;
+  previousCommit: string | null;
+}
+export interface UpdateStatus {
+  version: UpdateVersionInfo | null;
+  job: UpdateJobStatus | null;
+  settings: UpdateSettings;
+}
+
 export type HolidayRuleInput = Omit<HolidayRule, 'id' | 'createdAt'>;
 
 export interface GoogleCalendar {
@@ -1100,6 +1129,14 @@ export const api = {
   updateHoliday: (id: string, body: Partial<HolidayRuleInput>) =>
     req<HolidayRule>(`/holidays/${id}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteHoliday: (id: string) => req<{ ok: boolean }>(`/holidays/${id}`, { method: 'DELETE' }),
+
+  // Owner-only app-update feature (PLANNING.md #15) - see UpdatesPanel.tsx.
+  updateStatus: () => req<UpdateStatus>('/updates/status'),
+  checkForUpdate: () => req<{ channel: 'stable' | 'latest'; latest: string | null; shortLatest: string | null }>('/updates/check', { method: 'POST' }),
+  installUpdate: () => req<{ started: boolean; channel: string; previousCommit: string }>('/updates/install', { method: 'POST' }),
+  rollbackUpdate: () => req<{ started: boolean }>('/updates/rollback', { method: 'POST' }),
+  saveUpdateSettings: (patch: Partial<Pick<UpdateSettings, 'updateChannel' | 'autoCheckEnabled' | 'autoApplyEnabled' | 'autoCheckHour'>>) =>
+    req<UpdateSettings>('/updates/settings', { method: 'POST', body: JSON.stringify(patch) }),
 
   familySettings: (kioskToken?: string) => req<FamilySettings>('/family/settings', undefined, kioskToken),
 

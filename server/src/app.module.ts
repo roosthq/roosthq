@@ -27,6 +27,7 @@ import { SoundsModule } from './sounds/sounds.module';
 import { IconsModule } from './icons/icons.module';
 import { StreakFreezeModule } from './streak-freeze/streak-freeze.module';
 import { PresenceModule } from './presence/presence.module';
+import { UpdatesModule } from './updates/updates.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { PresenceModule } from './presence/presence.module';
     SearchModule,
     SoundsModule,
     IconsModule,
+    UpdatesModule,
   ],
   controllers: [HealthController],
   providers: [PrismaService],

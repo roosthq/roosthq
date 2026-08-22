@@ -13,6 +13,13 @@ services:
   server:
     command: npm run start:prod
     volumes: !reset []
+    # UPDATER_URL's default (bare service name, no override needed in most
+    # setups) relies on this overlay's `updater` service existing on the
+    # same compose network - see UpdatesService for the owner-only proxy
+    # that actually calls it.
+    environment:
+      UPDATER_URL: ${UPDATER_URL:-http://updater:4100}
+      UPDATE_SHARED_SECRET: ${UPDATE_SHARED_SECRET}
 
   # Explicitly re-target `runtime` - compose deep-merges the `build:` mapping
   # across files rather than replacing it wholesale, so leaving `target` out
@@ -86,6 +93,38 @@ services:
           echo "[backup] sleeping 24h"
           sleep 86400
         done
+
+  # Does the actual work for the owner-facing app-update feature (PLANNING.md
+  # #15): git fetch/checkout + `docker compose up -d --build` against the
+  # SAME host checkout `server`/`web` already build from, plus docker.sock
+  # to run those compose commands against the host's real Docker daemon.
+  # Deliberately its own tiny container instead of giving `server` either of
+  # those - `server` handles ordinary family data and is reachable from
+  # every logged-in session; this one only ever talks to `server` itself
+  # (never published, no `ports:`), gated by a shared-secret bearer token on
+  # every request as a second layer on top of "not reachable from outside."
+  # HOST_REPO_PATH must match on both sides of the bind mount (source AND
+  # target) - the docker CLI in here talks to the HOST daemon over
+  # docker.sock, so any relative path in the compose files (build contexts,
+  # `./backups`, ...) only resolves correctly if this container sees the
+  # repo at the exact same absolute path the host does.
+  updater:
+    build: ./updater
+    restart: unless-stopped
+    environment:
+      HOST_REPO_PATH: ${HOST_REPO_PATH:-/opt/roost-hq}
+      UPDATE_REPO_URL: ${UPDATE_REPO_URL:-https://github.com/roosthq/roosthq.git}
+      UPDATE_BRANCH: ${UPDATE_BRANCH:-main}
+      UPDATE_SHARED_SECRET: ${UPDATE_SHARED_SECRET}
+    volumes:
+      - ${HOST_REPO_PATH:-/opt/roost-hq}:${HOST_REPO_PATH:-/opt/roost-hq}
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Read-only: whatever git credentials (SSH key, known_hosts) the VM's
+      # own user already has configured per DEPLOY.md - this container
+      # reuses them rather than needing its own separate credential setup.
+      # HOST_SSH_DIR must be an absolute path (e.g. /home/roosthq/.ssh) -
+      # compose does not expand `~` in a .env value.
+      - ${HOST_SSH_DIR}:/root/.ssh:ro
 
 volumes:
   caddy_data:

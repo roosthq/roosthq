@@ -145,6 +145,26 @@ model Family {
 // FEATURE_TREE) rather than enums, so adding a new slot or catalog icon
 // later never needs a migration.
 
+// Instance-wide (not per-family) settings for the owner-only app-update
+// feature - see PLANNING.md #15. A true singleton: always the one row with
+// id "singleton", created lazily on first read/write (UpdatesService), same
+// pattern AppSlotIcon uses for its own instance-wide config. previousCommit
+// is the safety net - captured right before an install/rollback starts, so
+// "go back one step" always has something concrete to point at.
+model InstanceSettings {
+  id                String    @id @default("singleton")
+  updateChannel     String    @default("stable") // stable | latest
+  autoCheckEnabled  Boolean   @default(false)
+  autoApplyEnabled  Boolean   @default(false) // only meaningful if autoCheckEnabled is also true
+  autoCheckHour     Int       @default(3) // 0-23, server-local time
+  lastCheckedAt     DateTime?
+  lastKnownLatest   String?   // tag or short sha last seen available on the configured channel
+  lastUpdateResult  String?   // 'success' | 'error: ...' | null (never run yet)
+  lastUpdateAt      DateTime?
+  previousCommit    String?   // captured just before the last install/rollback - what "roll back" targets
+  updatedAt         DateTime  @updatedAt
+}
+
 model AppSlotIcon {
   slotId    String   @id
   iconKey   String

@@ -13,6 +13,7 @@ import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
+import UpdatesPanel from '../UpdatesPanel';
 import FeaturesTab from './FeaturesTab';
 import IconsTab from './IconsTab';
 import { useDialog } from '../Dialog';
@@ -118,6 +119,9 @@ export default function SettingsPage({ me }: { me: Me }) {
               help="Instance-wide: the global 'Holidays' calendar every family can add to their own list. Only you can edit it."
             >
               <HolidaysPanel />
+            </Section>
+            <Section title="App updates" help="Check for, install, or roll back a Roost HQ update - owner only.">
+              <UpdatesPanel />
             </Section>
           </>
         )}

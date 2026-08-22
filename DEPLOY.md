@@ -169,6 +169,68 @@ In the app (as owner): **Display access → Generate kiosk link**. You get
 `https://roost.yourdomain.com/?display=1&token=...`. Point the Pi's browser at it - no
 login, works over the internet.
 
+## Step 9 - App updates from inside the app (optional)
+
+Once this is set up, the owner account can check for and install updates from
+**Settings → Instance → App updates** instead of SSHing in every time (the manual
+`git pull` flow under **Day-to-day** below still always works too - this is optional,
+not a replacement).
+
+It's a separate, unpublished `updater` container that does the actual git/docker work
+(see `PLANNING.md` #15 for the full design) - `server` only ever talks to it over the
+internal Docker network, authenticated with a shared secret. Nobody outside the box
+can reach it.
+
+**Set these in `.env`:**
+
+```bash
+echo "UPDATE_SHARED_SECRET=$(openssl rand -hex 32)"
+```
+
+```bash
+# Must match Step 2's clone path exactly:
+HOST_REPO_PATH=/opt/roost-hq
+# Absolute path to this VM user's own .ssh dir (already has whatever key
+# makes plain `git pull` work today - the updater container reuses it
+# rather than needing separate credentials of its own):
+HOST_SSH_DIR=/home/YOUR_USER/.ssh
+```
+
+Find your actual `$HOME` first if unsure: `echo $HOME`.
+
+**Then bring the new service up:**
+
+```bash
+cd /opt/roost-hq
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build updater server
+```
+
+That's it - **Settings → Instance → App updates** now works. Two channels:
+
+| Channel | Source | Notes |
+|---|---|---|
+| Stable releases | Newest GitHub tag | Recommended - tested, versioned. |
+| Main branch | Tip of `main` | Gets fixes sooner, less tested. |
+
+Auto-check (daily, records what it finds) and auto-install (unattended, restarts the
+whole app for the whole family - off by default even if auto-check is on) are both
+under the same panel. There's one level of rollback: installing captures the commit
+you were on first, so "Roll back to previous version" undoes exactly the most recent
+install.
+
+**If you're running your own fork**, point `UPDATE_REPO_URL` (and `UPDATE_BRANCH` if
+not `main`) at it in `.env` - never editable from inside the app itself, on purpose
+(see PLANNING.md #15 for why).
+
+**Creating a release tag** (for the Stable channel to have something to find):
+
+```bash
+git tag v1.2.3
+git push origin v1.2.3
+```
+
+Or use GitHub's UI: Releases → Draft a new release.
+
 ---
 
 ## Day-to-day
