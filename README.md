@@ -4,29 +4,31 @@
 
 # Roost HQ
 
-**The family's home base** — a self-hosted calendar, chores, and rewards hub with a
-touch-designed kiosk mode for a shared wall display, and a mobile- and
-tablet-friendly app for everyone's own device.
+**Your family's home base.** Calendars, chores, and rewards, on one hub that runs on
+your own hardware, under your own roof — a touch-designed kiosk for the kitchen
+wall, and the same hub on every phone, tablet, and laptop in the house.
 
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-4E7A4C.svg)](./LICENSE)
 [![Self-hosted](https://img.shields.io/badge/deploy-self--hosted-4E7A4C.svg)](./DEPLOY.md)
 [![Stack](https://img.shields.io/badge/stack-React%20%C2%B7%20NestJS%20%C2%B7%20MySQL-4E7A4C.svg)](#stack)
 
-[Wiki](https://github.com/roosthq/roosthq/wiki) · [Quick start](#quick-start-development) · [Deploy guide](./DEPLOY.md) · [Kiosk setup](./KIOSK.md) · [Planning doc](./PLANNING.md)
+[roosthq.org](https://roosthq.org) · [Wiki](https://github.com/roosthq/roosthq/wiki) · [Quick start](#quick-start-development) · [Deploy guide](./DEPLOY.md) · [Kiosk setup](./KIOSK.md) · [Planning doc](./PLANNING.md)
 
 </div>
 
 ---
 
-Backed by shared Google Calendars (deduped across accounts) or fully local
-calendars — no Google required. Self-hosted, single-family, open source
-(AGPL-3.0). Each household runs its own instance; nobody else's data ever
-touches it.
+See everyone's schedule at a glance, hand out chores that actually get done, and let
+the kids earn tokens toward real rewards you define. No ads, no tracking, no
+subscription holding your family's schedule hostage — it's free, open source
+(AGPL-3.0), and self-hosted: each household runs its own instance, and nobody
+else's data ever touches it. Backed by shared Google Calendars (deduped across
+accounts) or fully local calendars — no Google required.
 
-📖 **The [wiki](https://github.com/roosthq/roosthq/wiki) is the full user guide** —
-one page per feature area, written for running the thing day to day. This README
-covers running it as a *developer*; [`PLANNING.md`](./PLANNING.md) covers the
-architecture, roadmap, and decisions log behind it.
+**→ [roosthq.org](https://roosthq.org)** for the plain-English pitch. This README
+covers running it as a *developer*; the **[wiki](https://github.com/roosthq/roosthq/wiki)**
+is the full day-to-day user guide, one page per feature area; [`PLANNING.md`](./PLANNING.md)
+covers the architecture, roadmap, and decisions log behind it.
 
 ## Contents
 
