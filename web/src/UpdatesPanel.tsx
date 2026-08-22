@@ -155,14 +155,12 @@ export default function UpdatesPanel() {
       </div>
 
       {installing && (
-        <div className="rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-blue-700">
+        <div className="alert-banner p-3">
           <p className="font-medium">Update in progress - do not close this page.</p>
           <p className="mt-0.5 text-xs opacity-80">Takes a few minutes while the images rebuild. The app will restart and this page will reload on its own.</p>
         </div>
       )}
-      {!installing && updateAvailable && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-amber-700">Update available</div>
-      )}
+      {!installing && updateAvailable && <div className="alert-banner p-3">Update available</div>}
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="flex flex-wrap items-center gap-2">
