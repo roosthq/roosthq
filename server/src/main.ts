@@ -1,3 +1,5 @@
+// Auto-update verification marker (2026-08-22) - trivial, no behavior change.
+// Safe to remove once the auto-install feature has been confirmed working.
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import { json, urlencoded, type NextFunction, type Request, type Response } from 'express';
