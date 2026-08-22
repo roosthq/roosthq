@@ -19,5 +19,13 @@ COPY package.json .
 RUN npm install --omit=dev
 COPY server.js .
 
+# The mounted repo is owned by the VM's own user (uid 1000 per DEPLOY.md
+# Step 2), not root (this container's user) - modern git refuses to touch a
+# repo it doesn't own by default ("dubious ownership") unless told
+# otherwise. `*` trusts every path, not just HOST_REPO_PATH's default,
+# since that's a build-time ARG-free image and the actual path is only
+# known at container start (env var, possibly overridden in .env).
+RUN git config --system --add safe.directory '*'
+
 EXPOSE 4100
 CMD ["node", "server.js"]
