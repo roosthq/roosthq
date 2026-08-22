@@ -58,6 +58,7 @@ architecture, roadmap, and decisions log behind it.
 | 🏘️ **Multi-family + ghosting** | An instance-owner role can manage several families and "ghost" into any account for support |
 | 🖥️ **Kiosk (Pi touch display)** | Profile picker with live badges, PIN unlock, big touch targets, swipe carousels |
 | 📱 **PWA + mobile** | Installable, bottom tab bar on phones, header-level pending-approvals indicator everywhere |
+| 🔍 **Search** | One box across chores, events, notifications, rules, prizes, and awards |
 | 🔄 **App updates** | Owner-only check/install/rollback from inside the app, with an optional daily auto-update |
 
 See the [wiki](https://github.com/roosthq/roosthq/wiki) for how each of these actually works.
