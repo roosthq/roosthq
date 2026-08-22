@@ -4,8 +4,9 @@
 
 # Roost HQ
 
-**The family's home base** — a self-hosted calendar, chores, and rewards hub for a
-Raspberry Pi wall display and everyone's phone.
+**The family's home base** — a self-hosted calendar, chores, and rewards hub with a
+touch-designed kiosk mode for a shared wall display, and a mobile- and
+tablet-friendly app for everyone's own device.
 
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-4E7A4C.svg)](./LICENSE)
 [![Self-hosted](https://img.shields.io/badge/deploy-self--hosted-4E7A4C.svg)](./DEPLOY.md)
