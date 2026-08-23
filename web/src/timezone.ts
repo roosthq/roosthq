@@ -37,3 +37,13 @@ export function addDaysToKey(key: DateKey, days: number): DateKey {
 export function endOfDayInZone(key: DateKey, timeZone: string): Date {
   return zonedTimeToUtc(key.y, key.m, key.d, 23, 59, 59, 999, timeZone);
 }
+
+export function startOfDayInZone(key: DateKey, timeZone: string): Date {
+  return zonedTimeToUtc(key.y, key.m, key.d, 0, 0, 0, 0, timeZone);
+}
+
+// Day of week (0=Sun) for a calendar key - pure calendar math (Date.UTC
+// never has DST), exact regardless of which zone the key came from.
+export function dowOfKey(key: DateKey): number {
+  return new Date(Date.UTC(key.y, key.m - 1, key.d)).getUTCDay();
+}

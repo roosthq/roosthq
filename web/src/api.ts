@@ -422,6 +422,10 @@ export interface Chore {
   recurrenceRule?: string;
   dayOfWeek?: number | null;
   daysOfWeek?: number[] | null;
+  // EACH (default): every picked day is its own separate occurrence. ANY:
+  // the picked days share ONE occurrence per period, completable on any
+  // one of them - see ChoresPanel's day-picker toggle.
+  daysOfWeekMode?: 'EACH' | 'ANY';
   dueTime?: string | null;
   assignmentType: 'SPECIFIC' | 'ANYONE';
   assignees: ChoreAssigneeRef[];

@@ -37,6 +37,11 @@ export interface CreateChoreDto {
   recurrenceRule?: string;
   dayOfWeek?: number;
   daysOfWeek?: number[];
+  // EACH (default): every selected day is its own separate occurrence.
+  // ANY: the selected days share ONE occurrence per period, completable on
+  // any one of them - see anyModeWindow/windowStartKey. Only meaningful
+  // with daysOfWeek.length > 1 and recurrenceRule WEEKLY/BIWEEKLY.
+  daysOfWeekMode?: 'EACH' | 'ANY';
   dueTime?: string | null;
   checklist?: string[];
   dueDate?: string;
@@ -78,6 +83,7 @@ const CHORE_DIFF_FIELDS = [
   ['title', 'title'],
   ['tokenValue', 'tokens'],
   ['recurrenceRule', 'recurrence'],
+  ['daysOfWeekMode', 'days mode'],
   ['dueTime', 'due time'],
   ['locationId', 'location'],
   ['allowLate', 'allow late'],
@@ -170,12 +176,53 @@ function nextDayInSetFrom(fromKey: DateKey, days: number[]): DateKey {
   return addDaysToKey(fromKey, offsetToNextDayInSet(dowOfKey(fromKey), days, false));
 }
 
-function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string): Date | null {
+// For an ANY-mode day-set ("Mon OR Tue OR Wed"): which selected weekday is
+// the LAST day of the window, and which is the FIRST - treating the set as
+// a circle (Sun wraps to Sat) so a set like [Sat, Sun] gets a sane 2-day
+// window instead of being stretched across almost the whole week. Found by
+// locating the single biggest gap between consecutive selected days on that
+// circle - the day right before the gap is "last", the day right after is
+// "first". A one-day set has no gap to speak of; both ends are that day.
+function anyModeWindow(daysOfWeek: number[]): { firstDow: number; lastDow: number } {
+  const sorted = [...new Set(daysOfWeek)].sort((a, b) => a - b);
+  if (sorted.length <= 1) return { firstDow: sorted[0] ?? 0, lastDow: sorted[0] ?? 0 };
+  let bestGap = -1;
+  let firstDow = sorted[0];
+  let lastDow = sorted[sorted.length - 1];
+  for (let i = 0; i < sorted.length; i++) {
+    const cur = sorted[i];
+    const next = sorted[(i + 1) % sorted.length];
+    const gap = (next - cur + 7) % 7;
+    if (gap > bestGap) {
+      bestGap = gap;
+      lastDow = cur;
+      firstDow = next;
+    }
+  }
+  return { firstDow, lastDow };
+}
+
+// The first day of an ANY-mode instance's window, given the day its
+// dueDate (the window's LAST day) actually landed on. EACH mode, or any
+// day-set of 1, has no window to speak of - the instance's only actionable
+// day is its own due date, same as it's always been.
+function windowStartKey(dueKey: DateKey, daysOfWeek: number[], mode: string): DateKey {
+  if (mode !== 'ANY' || daysOfWeek.length <= 1) return dueKey;
+  const { firstDow, lastDow } = anyModeWindow(daysOfWeek);
+  const spanBack = (lastDow - firstDow + 7) % 7;
+  return addDaysToKey(dueKey, -spanBack);
+}
+
+function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string, mode: string = 'EACH'): Date | null {
   const key = dateKeyInZone(from, tz);
   // A real day pattern (2+ days) always advances within/across the week to
   // the next matching day - "Mon-Fri homework" needs Tue after Mon, not a
-  // flat +7.
-  if (daysOfWeek.length > 1) return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
+  // flat +7. ANY mode instead falls straight through to the flat-interval
+  // switch below: `from`'s own key already sits on the window's last day
+  // (anyModeWindow's lastDow), by construction, so a plain +7/+14 lands on
+  // that same weekday again next cycle - exactly the next window's own last
+  // day - without needing to search for a "next matching day" at all.
+  if (daysOfWeek.length > 1 && mode !== 'ANY') return dueInstant(nextDayInSetAfter(key, daysOfWeek), dueTime, tz);
   // A single scheduled day (e.g. "Saturday weekly") re-derives from that
   // actual weekday too, rather than blindly adding 7 to whatever the
   // previous instance's dueDate happened to be. Pure interval math is only
@@ -221,12 +268,12 @@ function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime:
 // collapses that whole backlog into one jump. The iteration cap is pure
 // paranoia against a malformed recurrence rule spinning forever - a real
 // backlog is at most a few hundred cycles even for a neglected daily chore.
-function catchUpDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string): Date | null {
-  let due = nextDue(rule, from, daysOfWeek, dueTime, tz);
+function catchUpDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string, mode: string = 'EACH'): Date | null {
+  let due = nextDue(rule, from, daysOfWeek, dueTime, tz, mode);
   const now = new Date();
   let guard = 0;
   while (due && due <= now && guard++ < 1000) {
-    due = nextDue(rule, due, daysOfWeek, dueTime, tz);
+    due = nextDue(rule, due, daysOfWeek, dueTime, tz, mode);
   }
   return due;
 }
@@ -234,12 +281,21 @@ function catchUpDue(rule: string | null, from: Date, daysOfWeek: number[], dueTi
 // Day-of-week only anchors weekly-style chores (or a one-time "do it on X").
 // Daily/monthly chores start today so they can be done immediately.
 function firstDueDate(
-  dto: { dueDate?: string; daysOfWeek?: number[]; dueTime?: string | null; recurrenceRule?: string },
+  dto: { dueDate?: string; daysOfWeek?: number[]; dueTime?: string | null; recurrenceRule?: string; daysOfWeekMode?: string },
   tz: string,
 ): Date {
   if (dto.dueDate) return dueInstant(dateKeyInZone(new Date(dto.dueDate), tz), dto.dueTime, tz);
   const weekdayApplies = !dto.recurrenceRule || dto.recurrenceRule === 'WEEKLY' || dto.recurrenceRule === 'BIWEEKLY';
   if (dto.daysOfWeek?.length && weekdayApplies) {
+    // ANY mode: the due date is the window's LAST day, not just the next
+    // matching day - the next occurrence of THAT specific weekday on or
+    // after today, so a brand-new chore created mid-window (e.g. today's
+    // Tuesday, window is Mon-Wed) still gets this week's window rather than
+    // skipping straight to next week's.
+    if (dto.daysOfWeekMode === 'ANY' && dto.daysOfWeek.length > 1) {
+      const { lastDow } = anyModeWindow(dto.daysOfWeek);
+      return dueInstant(nextDayInSetFrom(todayKeyInZone(tz), [lastDow]), dto.dueTime, tz);
+    }
     return dueInstant(nextDayInSetFrom(todayKeyInZone(tz), dto.daysOfWeek), dto.dueTime, tz);
   }
   return dueInstant(todayKeyInZone(tz), dto.dueTime, tz);
@@ -395,6 +451,7 @@ export class ChoresService {
         assignmentType,
         dayOfWeek: dto.dayOfWeek ?? null,
         daysOfWeek: dto.daysOfWeek?.length ? dto.daysOfWeek : undefined,
+        daysOfWeekMode: dto.daysOfWeekMode === 'ANY' ? 'ANY' : 'EACH',
         dueTime: dto.dueTime ?? null,
         locationId: dto.locationId,
         tokenValue: dto.tokenValue ?? 0,
@@ -515,7 +572,7 @@ export class ChoresService {
         ),
       );
       const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-      const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+      const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz, inst.chore.daysOfWeekMode);
       if (due) await this.createNextInstance(inst.choreId, due);
       this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
       return;
@@ -579,7 +636,7 @@ export class ChoresService {
       ),
     );
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz, inst.chore.daysOfWeekMode);
     if (due) await this.createNextInstance(inst.choreId, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
   }
@@ -650,6 +707,7 @@ export class ChoresService {
         ...(assignmentType && { assignmentType }),
         ...(dto.dayOfWeek !== undefined && { dayOfWeek: dto.dayOfWeek }),
         ...(dto.daysOfWeek !== undefined && { daysOfWeek: dto.daysOfWeek?.length ? dto.daysOfWeek : Prisma.JsonNull }),
+        ...(dto.daysOfWeekMode !== undefined && { daysOfWeekMode: dto.daysOfWeekMode === 'ANY' ? 'ANY' : 'EACH' }),
         ...(dto.dueTime !== undefined && { dueTime: dto.dueTime }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
         ...(dto.tokenValue !== undefined && { tokenValue: dto.tokenValue }),
@@ -697,7 +755,8 @@ export class ChoresService {
     const daysChanged = dto.daysOfWeek !== undefined && JSON.stringify(dto.daysOfWeek ?? []) !== JSON.stringify(resolveDaysOfWeek(before));
     const ruleChanged = dto.recurrenceRule !== undefined && dto.recurrenceRule !== before.recurrenceRule;
     const dueTimeChanged = dto.dueTime !== undefined && dto.dueTime !== before.dueTime;
-    if (dayChanged || daysChanged || ruleChanged || dueTimeChanged) {
+    const modeChanged = dto.daysOfWeekMode !== undefined && dto.daysOfWeekMode !== before.daysOfWeekMode;
+    if (dayChanged || daysChanged || ruleChanged || dueTimeChanged || modeChanged) {
       const fresh = await this.prisma.chore.findUniqueOrThrow({ where: { id } });
       const openInst = await this.prisma.choreInstance.findFirst({
         where: { choreId: id, status: 'OPEN' },
@@ -706,7 +765,12 @@ export class ChoresService {
       if (openInst) {
         const tz = await this.resolveTimezone(fresh.locationId);
         const newDue = firstDueDate(
-          { daysOfWeek: resolveDaysOfWeek(fresh), dueTime: fresh.dueTime, recurrenceRule: fresh.recurrenceRule ?? undefined },
+          {
+            daysOfWeek: resolveDaysOfWeek(fresh),
+            dueTime: fresh.dueTime,
+            recurrenceRule: fresh.recurrenceRule ?? undefined,
+            daysOfWeekMode: fresh.daysOfWeekMode,
+          },
           tz,
         );
         await this.prisma.choreInstance.update({ where: { id: openInst.id }, data: { dueDate: newDue } });
@@ -844,8 +908,13 @@ export class ChoresService {
     if (!this.canAct(inst.chore, inst, userId)) throw new ForbiddenException('Not your chore');
 
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const endOfToday = endOfDayInZone(todayKeyInZone(tz), tz);
-    if (inst.dueDate > endOfToday) {
+    // ANY mode ("Mon OR Tue OR Wed"): completable any day from the window's
+    // FIRST selected day through its dueDate (the window's LAST day) - not
+    // just on the due date itself. EACH mode/single-day chores are
+    // unaffected: windowStartKey hands back the due date unchanged, so this
+    // reduces to the exact same "not before its own due day" check as before.
+    const windowStart = windowStartKey(dateKeyInZone(inst.dueDate, tz), resolveDaysOfWeek(inst.chore), inst.chore.daysOfWeekMode);
+    if (startOfDayInZone(windowStart, tz) > new Date()) {
       throw new BadRequestException('Not available yet - this occurrence is scheduled for later.');
     }
     // Belt-and-suspenders: the periodic sweep (see sweepMissed) normally flips a
@@ -919,7 +988,7 @@ export class ChoresService {
     });
 
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz, inst.chore.daysOfWeekMode);
     if (due) await this.createNextInstance(inst.choreId, due);
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
@@ -1101,6 +1170,7 @@ export class ChoresService {
       resolveDaysOfWeek(inst.chore),
       inst.chore.dueTime,
       inst.chore.location?.timezone || DEFAULT_TIMEZONE,
+      inst.chore.daysOfWeekMode,
     );
     if (due) await this.createNextInstance(inst.chore.id, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });

@@ -21,7 +21,7 @@ import LucideIcon from './LucideIcon';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
 import { myLocationIds } from './displayScope';
-import { addDaysToKey, endOfDayInZone, todayKeyInZone } from './timezone';
+import { addDaysToKey, dateKeyInZone, endOfDayInZone, startOfDayInZone, todayKeyInZone } from './timezone';
 
 // How many days ahead the 'today' sidebar looks for "coming up" items and
 // anything open to claim early (claiming ahead is allowed server-side;
@@ -59,12 +59,55 @@ function resolveDaysOfWeek(chore: { daysOfWeek?: number[] | null; dayOfWeek?: nu
   return chore.dayOfWeek != null ? [chore.dayOfWeek] : [];
 }
 
+// Client-side mirror of the server's anyModeWindow (chores.service.ts) -
+// which selected weekday is the window's FIRST day vs. its LAST, treating
+// the set as a circle (Sun wraps to Sat) so [Sat, Sun] gets a sane 2-day
+// window instead of stretching across most of the week. Found by locating
+// the single biggest gap between consecutive selected days on that circle.
+function anyModeWindow(daysOfWeek: number[]): { firstDow: number; lastDow: number } {
+  const sorted = [...new Set(daysOfWeek)].sort((a, b) => a - b);
+  if (sorted.length <= 1) return { firstDow: sorted[0] ?? 0, lastDow: sorted[0] ?? 0 };
+  let bestGap = -1;
+  let firstDow = sorted[0];
+  let lastDow = sorted[sorted.length - 1];
+  for (let i = 0; i < sorted.length; i++) {
+    const cur = sorted[i];
+    const next = sorted[(i + 1) % sorted.length];
+    const gap = (next - cur + 7) % 7;
+    if (gap > bestGap) {
+      bestGap = gap;
+      lastDow = cur;
+      firstDow = next;
+    }
+  }
+  return { firstDow, lastDow };
+}
+
+// The instant a chore instance actually becomes actionable - its own due
+// date for EACH mode/single-day chores (unchanged), or the FIRST day of the
+// window for an ANY-mode multi-day one ("Mon OR Tue OR Wed" opens Monday,
+// not just Wednesday). Mirrors the server's windowStartKey exactly so the
+// client's own "is this due yet" checks (dueOpen/dueNow below) agree with
+// what the server will actually allow completing.
+function availableFromInstant(chore: { daysOfWeek?: number[] | null; dayOfWeek?: number | null; daysOfWeekMode?: string }, dueDateStr: string, tz: string): Date {
+  const daysOfWeek = resolveDaysOfWeek(chore);
+  if (chore.daysOfWeekMode !== 'ANY' || daysOfWeek.length <= 1) return new Date(dueDateStr);
+  const { firstDow, lastDow } = anyModeWindow(daysOfWeek);
+  const spanBack = (lastDow - firstDow + 7) % 7;
+  const dueKey = dateKeyInZone(new Date(dueDateStr), tz);
+  return startOfDayInZone(addDaysToKey(dueKey, -spanBack), tz);
+}
+
 // Client-side mirror of the server's nextDue() - purely for display, so a
 // repeating chore that's due today still tells a kid it's coming back rather
 // than looking like a one-off (no "Next: ..." line shows once it's due now).
-function nextOccurrence(rule: string, fromDueDate: string, daysOfWeek: number[]): Date {
+function nextOccurrence(rule: string, fromDueDate: string, daysOfWeek: number[], daysOfWeekMode?: string): Date {
   const d = new Date(fromDueDate);
-  if (daysOfWeek.length > 1) {
+  // ANY mode: fromDueDate already sits on the window's own last selected
+  // day, so the next window (same rule interval later) lands on that same
+  // weekday again - falls through to the flat +7/+14 below, same as the
+  // server's nextDue().
+  if (daysOfWeek.length > 1 && daysOfWeekMode !== 'ANY') {
     const fromDow = d.getDay();
     let best = 7;
     for (const dow of daysOfWeek) {
@@ -342,8 +385,11 @@ export default function ChoresPanel({
 
       const insts = chore.instances;
       const pending = insts.find((i) => i.status === 'PENDING');
+      // "Due open"/"due now" both mean "is this actionable yet" - for an
+      // ANY-mode window that's the window's FIRST day, not its dueDate
+      // (the LAST day) - see availableFromInstant.
       const dueOpen = insts
-        .filter((i) => i.status === 'OPEN' && new Date(i.dueDate) <= endOfToday)
+        .filter((i) => i.status === 'OPEN' && availableFromInstant(chore, i.dueDate, tz) <= endOfToday)
         .sort((a, b) => a.dueDate.localeCompare(b.dueDate))[0];
       const upcoming = insts
         .filter((i) => i.status === 'OPEN')
@@ -352,7 +398,7 @@ export default function ChoresPanel({
       const claimedBy = active?.claimedByUserId;
       const checked = new Set(active?.checks.map((c) => c.checklistId) ?? []);
       const mine = canAct(chore, claimedBy);
-      const dueNow = active ? new Date(active.dueDate) <= endOfToday : false;
+      const dueNow = active ? availableFromInstant(chore, active.dueDate, tz) <= endOfToday : false;
       const dueSoon = active ? new Date(active.dueDate) <= endOfWindow : false; // includes dueNow
       const openToClaim = chore.assignmentType === 'ANYONE' && !claimedBy && active?.status === 'OPEN' && dueSoon;
       const relevantToday =
@@ -542,7 +588,7 @@ export default function ChoresPanel({
 
   function renderRow({ chore, active, claimedBy, checked, mine, dueNow, openToClaim, presenceBlocked }: Row) {
     const daysOfWeek = resolveDaysOfWeek(chore);
-    const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate, daysOfWeek) : null;
+    const next = active && chore.recurrenceRule ? nextOccurrence(chore.recurrenceRule, active.dueDate, daysOfWeek, chore.daysOfWeekMode) : null;
     return (
       <li key={chore.id} className={today ? 'rounded-lg border bg-white p-3 shadow-sm' : 'rounded-xl border bg-white p-4 shadow-sm'}>
         <div className="flex items-start justify-between gap-2">
@@ -551,7 +597,9 @@ export default function ChoresPanel({
             <div className="mt-0.5 flex flex-wrap items-center gap-x-1 text-xs text-slate-400">
               <span>
                 {assignmentLabel(chore, claimedBy)}
-                {daysOfWeek.length ? ` · ${daysOfWeek.map((d) => DOW[d]).join(', ')}` : ''}
+                {daysOfWeek.length
+                  ? ` · ${daysOfWeek.map((d) => DOW[d]).join(daysOfWeek.length > 1 && chore.daysOfWeekMode === 'ANY' ? ' or ' : ', ')}`
+                  : ''}
                 {chore.dueTime ? ` · due ${formatDueTime(chore.dueTime)}` : ''}
               </span>
               {next && <span>· 🔁 {REPEAT_LABEL[chore.recurrenceRule ?? ''] ?? 'Repeats'} · {relativeDayLabel(next)}</span>}
@@ -1139,6 +1187,12 @@ function ChoreForm({
   const [tokenValue, setTokenValue] = useState(chore?.tokenValue ?? 0);
   const [repeat, setRepeat] = useState(chore?.recurrenceRule ?? '');
   const [daysOfWeek, setDaysOfWeek] = useState<Set<number>>(new Set(chore ? resolveDaysOfWeek(chore) : []));
+  // EACH (default): every picked day is its own separate occurrence - "Sat
+  // AND Sun" both come due. ANY: the picked days share ONE occurrence for
+  // the whole period, completable on any one of them - "Mon OR Tue OR Wed",
+  // and doing it on Monday means Tuesday/Wednesday are never separately up
+  // for it that same week. Only shown (below) with 2+ days picked.
+  const [daysOfWeekMode, setDaysOfWeekMode] = useState<'EACH' | 'ANY'>(chore?.daysOfWeekMode === 'ANY' ? 'ANY' : 'EACH');
   const [dueTime, setDueTime] = useState(chore?.dueTime ?? '');
   const [checklist, setChecklist] = useState((chore?.checklist ?? []).map((c) => c.label).join('\n'));
   // New chores default to whichever household was picked last - most families
@@ -1184,6 +1238,7 @@ function ChoreForm({
       tokenValue: Number(tokenValue),
       recurrenceRule: repeat || undefined,
       daysOfWeek: daysOfWeek.size ? [...daysOfWeek].sort() : [],
+      daysOfWeekMode: daysOfWeek.size > 1 ? daysOfWeekMode : 'EACH',
       dueTime: dueTime || null,
       checklist: checklist.split('\n').map((s) => s.trim()).filter(Boolean),
       locationId: locationId || null,
@@ -1391,6 +1446,23 @@ function ChoreForm({
                   </button>
                 ))}
               </div>
+              {daysOfWeek.size > 1 && (
+                <label className="mt-2 flex items-start gap-2 text-sm text-slate-600">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5"
+                    checked={daysOfWeekMode === 'ANY'}
+                    onChange={(e) => setDaysOfWeekMode(e.target.checked ? 'ANY' : 'EACH')}
+                  />
+                  <span>
+                    Any ONE of these days, not all of them
+                    <span className="block text-xs text-slate-400">
+                      One occurrence for the whole period instead of a separate one per day - doing it on any picked
+                      day covers the rest until it comes back around.
+                    </span>
+                  </span>
+                </label>
+              )}
             </Field>
           )}
 

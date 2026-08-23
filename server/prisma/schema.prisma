@@ -640,6 +640,15 @@ model Chore {
   assignmentType     String  @default("SPECIFIC") // SPECIFIC (assigned people) | ANYONE (claimable)
   dayOfWeek          Int? // legacy single-day anchor - superseded by daysOfWeek, kept so old rows still resolve
   daysOfWeek         Json? // int[] (0=Sun..6=Sat) - which weekdays this recurs on, e.g. Mon-Fri homework
+  // EACH (default): every selected day gets its OWN separate occurrence -
+  // "Sat AND Sun" both come due, independently completable/rewarded, same
+  // behavior this always had. ANY: the selected days are ONE shared window
+  // per period ("Mon OR Tue OR Wed") - a single occurrence, completable on
+  // any day in the window, that closes the moment it's done (or missed) so
+  // the other days in that same window are never separately actionable.
+  // Only meaningful with daysOfWeek.length > 1 and a WEEKLY/BIWEEKLY rule -
+  // see chores.service.ts's anyModeWindow/windowStartKey.
+  daysOfWeekMode     String  @default("EACH")
   dueTime            String? // "HH:mm" in the chore's location timezone; null = due end of day
   locationId         String?
   tokenValue         Int     @default(0)
