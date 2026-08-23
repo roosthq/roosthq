@@ -155,6 +155,7 @@ export class UpdatesService {
       action: 'app.update.install',
       detail: `channel: ${channel}, from: ${result.previousCommit.slice(0, 7)}`,
     });
+    this.pollAndRecordResult();
     return result;
   }
 
@@ -174,7 +175,37 @@ export class UpdatesService {
       action: 'app.update.rollback',
       detail: `to: ${settings.previousCommit.slice(0, 7)}`,
     });
+    this.pollAndRecordResult();
     return result;
+  }
+
+  // Nothing else ever persisted the FINAL result of an install/rollback -
+  // only the live browser polling /updates/status ever saw it, and only
+  // for as long as that tab stayed open. An automated overnight install
+  // specifically has nobody watching at all, so "did it actually work"
+  // had no answer the next morning beyond "the commit changed" - confirmed
+  // this gap firsthand chasing tonight's auto-update test. Fire-and-forget:
+  // polls updater's own /status a few times and writes whatever it settles
+  // on back to InstanceSettings once the job's no longer in progress.
+  private pollAndRecordResult(attempt = 0): void {
+    setTimeout(async () => {
+      try {
+        const status = await this.call<JobStatus>('/status');
+        if (status.inProgress) {
+          if (attempt < 40) this.pollAndRecordResult(attempt + 1); // ~10 min ceiling
+          return;
+        }
+        await this.prisma.instanceSettings.update({
+          where: { id: 'singleton' },
+          data: { lastUpdateResult: status.lastResult ?? 'success' },
+        });
+      } catch (e) {
+        // The server container itself may be the thing restarting right
+        // now (mid-rebuild) - normal and transient, just try again.
+        if (attempt < 40) this.pollAndRecordResult(attempt + 1);
+        else this.logger.warn(`pollAndRecordResult: gave up after ${attempt} attempts - ${(e as Error).message}`);
+      }
+    }, attempt === 0 ? 5_000 : 15_000);
   }
 
   async saveSettings(
@@ -270,6 +301,7 @@ export class UpdatesService {
         data: { previousCommit: result.previousCommit, lastUpdateAt: now, lastUpdateResult: null },
       });
       await this.audit.record({ actorId: 'system', actorName: 'Auto-update', action: 'app.update.install', detail: `channel: ${channel} (automatic)` });
+      this.pollAndRecordResult();
       this.logger.log('autoCheckTick: install kicked off successfully');
     } catch (e) {
       // updater rejects a concurrent job, or is briefly unreachable - next
