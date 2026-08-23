@@ -1,5 +1,5 @@
-// Auto-update verification marker, round 6 (2026-08-23) - trivial, no
-// behavior change. Rounds 1-5 all got manually deployed (round 5 by
+// Auto-update verification marker, round 7 (2026-08-23) - trivial, no
+// behavior change. Rounds 1-6 all got manually deployed (round 5 by
 // accident) alongside real fixes before their own overnight test could run.
 // Safe to remove once the auto-install feature has been confirmed working.
 import { NestFactory } from '@nestjs/core';
