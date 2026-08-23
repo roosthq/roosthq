@@ -405,6 +405,13 @@ export default function ChoresPanel({
       // A milestone may have queued a wheel for whoever did the chore - it
       // shows up as the banner below for them to spin themselves.
       refreshWheels();
+      // This panel refreshes itself via the plain `await refresh()` below
+      // regardless - this is for everyone ELSE: ChoreHistoryPanel sitting
+      // open on the same page, a pending-approvals indicator, this same
+      // page open in another tab. Found the hard way: an adult approved a
+      // chore, then immediately checked the (already-open) history panel
+      // and saw nothing, because nothing had ever told it anything changed.
+      window.dispatchEvent(new Event(DATA_REFRESH_EVENT));
     } catch (e) {
       await alert((e as Error).message || 'Something went wrong');
     }

@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { api } from './api';
+import { useEffect, useMemo, useState } from 'react';
+import { api, DATA_REFRESH_EVENT } from './api';
 import { formatDateTime } from './dateFormat';
 import { usePaginatedList } from './usePaginatedList';
 import LoadMoreButton from './LoadMoreButton';
@@ -39,6 +39,21 @@ export default function ChoreHistoryPanel() {
     [open, choreFilter],
   );
   const rows = page.items;
+
+  // This panel has its own independent fetch, gated on `open` - approving/
+  // completing/claiming a chore elsewhere on the same page (ChoresPanel)
+  // updates THAT component's own state immediately, but never told this
+  // one anything changed, so a copy left open from earlier just sat there
+  // showing stale data indefinitely. No-op while closed - it'll fetch fresh
+  // the next time it's opened either way.
+  useEffect(() => {
+    const onDataRefresh = () => {
+      if (open) page.reload();
+    };
+    window.addEventListener(DATA_REFRESH_EVENT, onDataRefresh);
+    return () => window.removeEventListener(DATA_REFRESH_EVENT, onDataRefresh);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- page.reload is stable per (open, choreFilter); open itself is read fresh via closure each call
+  }, [open]);
 
   const choreOptions = useMemo(() => {
     const seen = new Map<string, string>();
