@@ -1,4 +1,6 @@
-// Auto-update verification marker (2026-08-22) - trivial, no behavior change.
+// Auto-update verification marker, round 2 (2026-08-23) - trivial, no
+// behavior change. The 08-22 marker got manually deployed alongside real
+// fixes before its own overnight test could run, so this re-baits it.
 // Safe to remove once the auto-install feature has been confirmed working.
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
