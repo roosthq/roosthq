@@ -1212,7 +1212,15 @@ export class ChoresService {
     if (choreId) await this.ownedChore(familyId, choreId);
     const instances = await this.prisma.choreInstance.findMany({
       where: { chore: { familyId }, ...(choreId ? { choreId } : {}) },
-      orderBy: { dueDate: 'desc' },
+      // completedAt first (most-recently-ACTED-ON first - MySQL sorts NULL
+      // last in a DESC order, so every OPEN/MISSED row with no completedAt
+      // falls after everything that's actually happened), dueDate as the
+      // tiebreaker among those. Sorting by dueDate alone (the original
+      // behavior) put a chore completed/approved TODAY, but originally due
+      // weeks ago, buried far down the list instead of at the top where
+      // "recent activity" is supposed to show it - confirmed as exactly
+      // what made a real approval look like it never happened.
+      orderBy: [{ completedAt: 'desc' }, { dueDate: 'desc' }],
       skip,
       take: take + 1,
       include: {
