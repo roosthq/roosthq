@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   api,
   COLOR_THEMES,
@@ -52,8 +53,18 @@ export default function SettingsPage({ me }: { me: Me }) {
     ...(isFamilyManager ? (['icons'] as TabId[]) : []),
     ...(isOwner ? (['instance'] as TabId[]) : []),
   ];
-  const [tab, setTab] = useState<TabId>(tabs[0]);
+  // ?tab= for direct links (e.g. straight to "Instance -> App updates"
+  // instead of "go to Settings, then click around") - invalid/inaccessible
+  // values (a plain adult following an owner's ?tab=instance link, say)
+  // fall through the existing tabs.includes() guard below same as any other
+  // stale/bad tab value already did.
+  const [params, setParams] = useSearchParams();
+  const [tab, setTab] = useState<TabId>((params.get('tab') as TabId) || tabs[0]);
   const activeTab = tabs.includes(tab) ? tab : tabs[0];
+  function selectTab(t: TabId) {
+    setTab(t);
+    setParams(t === tabs[0] ? {} : { tab: t }, { replace: true });
+  }
 
   return (
     <div className="space-y-6">
@@ -63,7 +74,7 @@ export default function SettingsPage({ me }: { me: Me }) {
         {tabs.map((t) => (
           <button
             key={t}
-            onClick={() => setTab(t)}
+            onClick={() => selectTab(t)}
             className={`rounded px-3 py-1.5 text-sm ${activeTab === t ? 'bg-slate-800 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
           >
             {TAB_LABELS[t]}

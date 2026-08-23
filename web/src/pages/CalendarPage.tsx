@@ -94,8 +94,15 @@ export default function CalendarPage({ me }: { me: Me }) {
   // just rendered as a printable day-by-day list instead of a grid. The old
   // /agenda route redirects here with ?view=agenda so existing links/
   // bookmarks land on the right mode instead of just the default grid.
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const [view, setView] = useState<'grid' | 'agenda'>(params.get('view') === 'agenda' ? 'agenda' : 'grid');
+  // Keeps the URL in sync going forward too, not just on initial load - so
+  // switching views is bookmarkable/shareable/back-button-friendly, same
+  // convention as StorePage's tab switcher.
+  function selectView(next: 'grid' | 'agenda') {
+    setView(next);
+    setParams(next === 'agenda' ? { view: 'agenda' } : {}, { replace: true });
+  }
   const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
   const [visible, setVisible] = useState<Set<string>>(new Set());
@@ -345,13 +352,13 @@ export default function CalendarPage({ me }: { me: Me }) {
 
       <div className="no-print mb-4 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
         <button
-          onClick={() => setView('grid')}
+          onClick={() => selectView('grid')}
           className={`rounded px-4 py-1.5 ${view === 'grid' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
         >
           Grid
         </button>
         <button
-          onClick={() => setView('agenda')}
+          onClick={() => selectView('agenda')}
           className={`rounded px-4 py-1.5 ${view === 'agenda' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
         >
           Agenda

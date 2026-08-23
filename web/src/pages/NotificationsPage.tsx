@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { api, DATA_REFRESH_EVENT, NOTIFICATIONS_CHANGED_EVENT, type Me, type AppNotification } from '../api';
 import { formatDateTime } from '../dateFormat';
 import LucideIcon from '../LucideIcon';
@@ -33,7 +32,12 @@ const TYPE_ICON: Record<string, string> = {
 // feed/list only now.
 export default function NotificationsPage({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
-  const [view, setView] = useState<'mine' | 'family'>('mine');
+  const [params, setParams] = useSearchParams();
+  const [view, setView] = useState<'mine' | 'family'>(isAdult && params.get('view') === 'family' ? 'family' : 'mine');
+  function selectView(next: 'mine' | 'family') {
+    setView(next);
+    setParams(next === 'family' ? { view: 'family' } : {}, { replace: true });
+  }
   const navigate = useNavigate();
   const page = usePaginatedList<AppNotification>((skip) => api.notifications(view === 'family', skip), [view]);
   const items = page.items;
@@ -68,13 +72,13 @@ export default function NotificationsPage({ me }: { me: Me }) {
           {isAdult && (
             <div className="flex rounded border text-sm">
               <button
-                onClick={() => setView('mine')}
+                onClick={() => selectView('mine')}
                 className={`px-3 py-1 rounded-l ${view === 'mine' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
               >
                 Mine
               </button>
               <button
-                onClick={() => setView('family')}
+                onClick={() => selectView('family')}
                 className={`px-3 py-1 rounded-r ${view === 'family' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
               >
                 Everyone
