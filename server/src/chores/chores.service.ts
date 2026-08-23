@@ -205,6 +205,32 @@ function nextDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime:
   }
 }
 
+// Advances past an entire BACKLOG of already-elapsed occurrences in one
+// jump, instead of the single step nextDue() takes on its own. Matters
+// specifically for an allowLate chore: it's deliberately excluded from the
+// periodic overdue sweep (see pollDueDates/markMissedAndAdvance - never
+// auto-MISSED, that's the whole point of allowLate), so nothing else ever
+// advances it while it sits untouched. Completing/skipping/approving a
+// long-neglected occurrence would otherwise spawn the VERY NEXT one via a
+// single nextDue() call - which, after a multi-week gap, is STILL already
+// in the past, making the chore look "due again immediately" to whoever
+// just did it. They'd have to repeat that (once per missed week) before
+// ever reaching a truly current occurrence - confirmed live: exactly this,
+// twice, on a weekly allowLate chore nobody had touched in weeks. Looping
+// nextDue() here until it lands on something that hasn't already elapsed
+// collapses that whole backlog into one jump. The iteration cap is pure
+// paranoia against a malformed recurrence rule spinning forever - a real
+// backlog is at most a few hundred cycles even for a neglected daily chore.
+function catchUpDue(rule: string | null, from: Date, daysOfWeek: number[], dueTime: string | null | undefined, tz: string): Date | null {
+  let due = nextDue(rule, from, daysOfWeek, dueTime, tz);
+  const now = new Date();
+  let guard = 0;
+  while (due && due <= now && guard++ < 1000) {
+    due = nextDue(rule, due, daysOfWeek, dueTime, tz);
+  }
+  return due;
+}
+
 // Day-of-week only anchors weekly-style chores (or a one-time "do it on X").
 // Daily/monthly chores start today so they can be done immediately.
 function firstDueDate(
@@ -489,7 +515,7 @@ export class ChoresService {
         ),
       );
       const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-      const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+      const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
       if (due) await this.createNextInstance(inst.choreId, due);
       this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
       return;
@@ -553,7 +579,7 @@ export class ChoresService {
       ),
     );
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
     if (due) await this.createNextInstance(inst.choreId, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
   }
@@ -893,7 +919,7 @@ export class ChoresService {
     });
 
     const tz = inst.chore.location?.timezone || DEFAULT_TIMEZONE;
-    const due = nextDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
+    const due = catchUpDue(inst.chore.recurrenceRule, inst.dueDate, resolveDaysOfWeek(inst.chore), inst.chore.dueTime, tz);
     if (due) await this.createNextInstance(inst.choreId, due);
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
@@ -1069,7 +1095,7 @@ export class ChoresService {
       });
     }
 
-    const due = nextDue(
+    const due = catchUpDue(
       inst.chore.recurrenceRule,
       inst.dueDate,
       resolveDaysOfWeek(inst.chore),

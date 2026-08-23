@@ -18,18 +18,27 @@ export default function UpdatesPanel() {
   const [notConfigured, setNotConfigured] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const load = useCallback(async () => {
+  // `silent`: used while polling mid-install, where a failed request just
+  // means "server/web container is mid-restart right now" - expected and
+  // transient, not something to alarm an owner with. Surfacing it anyway
+  // was the actual bug behind "still says update in progress, shows a 502,
+  // never seems to finish" - the error WAS transient and DID clear once the
+  // restart completed, but nothing ever cleared the stale error text back
+  // out once a later poll succeeded, so it just sat there looking broken
+  // right up until the final reload wiped it.
+  const load = useCallback(async (silent = false) => {
     try {
       const s = await api.updateStatus();
       setStatus(s);
       setNotConfigured(false);
+      setError(null);
       return s;
     } catch (e) {
       // UpdatesService throws this exact message when UPDATE_SHARED_SECRET
       // isn't set - the feature is simply off for this instance, not an
       // error worth alarming an owner about.
       if ((e as Error).message?.includes('not configured on this instance')) setNotConfigured(true);
-      else setError((e as Error).message);
+      else if (!silent) setError((e as Error).message);
       return null;
     }
   }, []);
@@ -46,7 +55,7 @@ export default function UpdatesPanel() {
         setError('Update timed out - check the VM directly (see DEPLOY.md).');
         return;
       }
-      const s = await load();
+      const s = await load(true);
       if (!s?.job) return; // updater unreachable mid-install (service restarting) - keep polling
       if (s.job.inProgress) return;
       clearInterval(pollRef.current!);
@@ -210,7 +219,7 @@ export default function UpdatesPanel() {
         {settings.autoCheckEnabled && (
           <>
             <div className="flex items-center justify-between gap-4 pl-4">
-              <p className="text-xs text-slate-500">Check around this hour (0-23, server time)</p>
+              <p className="text-xs text-slate-500">Check around this hour (0-23, your local time)</p>
               <input
                 type="number"
                 min={0}

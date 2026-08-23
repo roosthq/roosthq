@@ -1,10 +1,29 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { Interval } from '@nestjs/schedule';
 import { PrismaService } from '../prisma.service';
 import { AuditLogService } from '../security/audit-log.service';
+import { DEFAULT_TIMEZONE, todayKeyInZone, timeInZone } from '../common/timezone';
 
 const UPDATER_URL = process.env.UPDATER_URL ?? 'http://updater:4100';
 const UPDATE_SHARED_SECRET = process.env.UPDATE_SHARED_SECRET;
+
+// autoCheckHour is COMPARED against the container's own ambient clock
+// (always UTC inside Docker - see autoCheckTick below), but an owner enters
+// and sees it as their own wall-clock hour. Converted through the same
+// DEFAULT_TIMEZONE the rest of the app already uses for chore due-times,
+// not a fixed offset - correct across DST too, even though Phoenix (the
+// only zone this has actually been exercised against so far) has none.
+// Found the hard way: an owner set "3" expecting 3am locally and got 3am
+// UTC (8pm the evening before, in Phoenix) instead - store/compare in UTC
+// internally, but never make an owner do that conversion by hand.
+function localHourToUtcHour(localHour: number): number {
+  return timeInZone(todayKeyInZone(DEFAULT_TIMEZONE), localHour, 0, DEFAULT_TIMEZONE).getUTCHours();
+}
+function utcHourToLocalHour(utcHour: number): number {
+  const today = todayKeyInZone(DEFAULT_TIMEZONE);
+  const at = new Date(Date.UTC(today.y, today.m - 1, today.d, utcHour, 0, 0, 0));
+  return Number(new Intl.DateTimeFormat('en-US', { timeZone: DEFAULT_TIMEZONE, hour: '2-digit', hourCycle: 'h23' }).format(at));
+}
 
 interface VersionInfo {
   sha: string | null;
@@ -30,10 +49,20 @@ interface JobStatus {
 // where the actual git/docker work happens and why it isn't done here.
 @Injectable()
 export class UpdatesService {
+  private readonly logger = new Logger(UpdatesService.name);
+
   constructor(
     private prisma: PrismaService,
     private audit: AuditLogService,
   ) {}
+
+  // InstanceSettings.autoCheckHour is stored/compared in UTC; the client
+  // only ever sees/sends the owner's local hour. Single point of truth for
+  // that swap so status()/saveSettings() can't drift out of sync with each
+  // other on which direction they're converting.
+  private toClientSettings<T extends { autoCheckHour: number }>(row: T) {
+    return { ...row, autoCheckHour: utcHourToLocalHour(row.autoCheckHour) };
+  }
 
   private async assertOwner(userId: string) {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
@@ -93,7 +122,7 @@ export class UpdatesService {
       this.call<VersionInfo>('/version').catch(() => null),
       this.call<JobStatus>('/status').catch(() => null),
     ]);
-    return { version, job, settings };
+    return { version, job, settings: this.toClientSettings(settings) };
   }
 
   async check(actorId: string) {
@@ -150,6 +179,9 @@ export class UpdatesService {
 
   async saveSettings(
     actorId: string,
+    // autoCheckHour arrives as the OWNER'S LOCAL hour (0-23) - converted to
+    // UTC below before it's stored, since that's what autoCheckTick's own
+    // clock actually reads.
     patch: { updateChannel?: 'stable' | 'latest'; autoCheckEnabled?: boolean; autoApplyEnabled?: boolean; autoCheckHour?: number },
   ) {
     await this.assertOwner(actorId);
@@ -158,8 +190,12 @@ export class UpdatesService {
     if (patch.updateChannel) data.updateChannel = patch.updateChannel === 'latest' ? 'latest' : 'stable';
     if (patch.autoCheckEnabled !== undefined) data.autoCheckEnabled = !!patch.autoCheckEnabled;
     if (patch.autoApplyEnabled !== undefined) data.autoApplyEnabled = !!patch.autoApplyEnabled;
-    if (patch.autoCheckHour !== undefined) data.autoCheckHour = Math.min(23, Math.max(0, Math.floor(patch.autoCheckHour)));
-    return this.prisma.instanceSettings.update({ where: { id: 'singleton' }, data });
+    if (patch.autoCheckHour !== undefined) {
+      const localHour = Math.min(23, Math.max(0, Math.floor(patch.autoCheckHour)));
+      data.autoCheckHour = localHourToUtcHour(localHour);
+    }
+    const updated = await this.prisma.instanceSettings.update({ where: { id: 'singleton' }, data });
+    return this.toClientSettings(updated);
   }
 
   // Hourly tick, not a cron pinned to a fixed hour - autoCheckHour is owner-
@@ -169,37 +205,64 @@ export class UpdatesService {
   // alone only checks-and-records; autoApplyEnabled additionally installs
   // when something newer is found - a family shouldn't get a surprise
   // mid-evening restart just because "tell me about updates" was turned on.
+  // Logged at every decision point on purpose - this runs unattended, once
+  // an hour, and the ONE time it silently didn't fire (2026-08-22 -> 23),
+  // there was nothing to check afterward: the server container that would
+  // have held the evidence in memory got recreated by a later manual
+  // install before anyone looked, taking its logs with it. Cheap insurance
+  // against that happening twice.
   @Interval(60 * 60 * 1000)
   private async autoCheckTick() {
     if (!UPDATE_SHARED_SECRET) return;
     let settings;
     try {
       settings = await this.settings();
-    } catch {
+    } catch (e) {
+      this.logger.warn(`autoCheckTick: could not read InstanceSettings - ${(e as Error).message}`);
       return;
     }
     if (!settings.autoCheckEnabled) return;
     const now = new Date();
-    if (now.getHours() !== settings.autoCheckHour) return;
-    if (settings.lastCheckedAt && this.isSameDay(settings.lastCheckedAt, now)) return;
+    if (now.getUTCHours() !== settings.autoCheckHour) return;
+    if (settings.lastCheckedAt && this.isSameDay(settings.lastCheckedAt, now)) {
+      this.logger.log('autoCheckTick: hour matched but already checked today - skipping');
+      return;
+    }
+    this.logger.log(`autoCheckTick: hour matched (UTC ${settings.autoCheckHour}), checking channel=${settings.updateChannel}`);
 
     const channel = settings.updateChannel === 'latest' ? 'latest' : 'stable';
     let info: CheckInfo;
     try {
       info = await this.call<CheckInfo>(`/check?channel=${channel}`);
-    } catch {
-      return; // updater unreachable - try again next hour, no need to log every miss
+    } catch (e) {
+      this.logger.warn(`autoCheckTick: /check failed - ${(e as Error).message} - will retry next hour`);
+      return;
     }
     await this.prisma.instanceSettings.update({
       where: { id: 'singleton' },
       data: { lastCheckedAt: now, lastKnownLatest: info.shortLatest },
     });
-    if (!settings.autoApplyEnabled || !info.latest) return;
+    this.logger.log(`autoCheckTick: latest on ${channel} = ${info.shortLatest ?? '(none found)'}`);
+    if (!settings.autoApplyEnabled) {
+      this.logger.log('autoCheckTick: auto-apply is off - recorded only, not installing');
+      return;
+    }
+    if (!info.latest) {
+      this.logger.log('autoCheckTick: nothing found on that channel - nothing to install');
+      return;
+    }
 
-    const version = await this.call<VersionInfo>('/version').catch(() => null);
+    const version = await this.call<VersionInfo>('/version').catch((e) => {
+      this.logger.warn(`autoCheckTick: /version failed - ${(e as Error).message}`);
+      return null;
+    });
     const current = channel === 'stable' ? version?.tag : version?.shortSha;
-    if (current === info.shortLatest) return; // already on it
+    if (current === info.shortLatest) {
+      this.logger.log(`autoCheckTick: already on ${current} - nothing to install`);
+      return;
+    }
 
+    this.logger.log(`autoCheckTick: installing ${info.shortLatest} (currently ${current ?? 'unknown'})`);
     try {
       const result = await this.call<{ started: boolean; previousCommit: string }>('/update', { method: 'POST', body: { channel } });
       await this.prisma.instanceSettings.update({
@@ -207,12 +270,18 @@ export class UpdatesService {
         data: { previousCommit: result.previousCommit, lastUpdateAt: now, lastUpdateResult: null },
       });
       await this.audit.record({ actorId: 'system', actorName: 'Auto-update', action: 'app.update.install', detail: `channel: ${channel} (automatic)` });
-    } catch {
-      /* updater rejects a concurrent job, or is briefly unreachable - next hour's tick tries again */
+      this.logger.log('autoCheckTick: install kicked off successfully');
+    } catch (e) {
+      // updater rejects a concurrent job, or is briefly unreachable - next
+      // hour's tick tries again on its own.
+      this.logger.warn(`autoCheckTick: /update call failed - ${(e as Error).message}`);
     }
   }
 
+  // Explicitly UTC, matching autoCheckTick's own getUTCHours() comparison -
+  // the container's ambient timezone happens to already be UTC, but this
+  // shouldn't depend on that staying true.
   private isSameDay(a: Date, b: Date) {
-    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    return a.getUTCFullYear() === b.getUTCFullYear() && a.getUTCMonth() === b.getUTCMonth() && a.getUTCDate() === b.getUTCDate();
   }
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient } from './api';
+import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient, type Redemption } from './api';
 import TokenBadge from './TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal } from './Prize';
 import LucideIcon from './LucideIcon';
@@ -40,6 +40,12 @@ export default function PrizesPanel({
   const [viewing, setViewing] = useState<StorePrize | null>(null);
   const [suggesting, setSuggesting] = useState(false);
   const [self, setSelf] = useState<Member | null>(null);
+  // Already redeemed (tokens spent), just waiting on an adult to hand it
+  // over - a real, own purchase, not the "wishlist suggestion" myRequests
+  // below. Missing entirely from the kiosk before this: a kid could redeem
+  // something here and then have no way to see it was actually in flight -
+  // it just vanished from view until an adult fulfilled or rejected it.
+  const [pendingRedemptions, setPendingRedemptions] = useState<Redemption[]>([]);
   // Wishlist requests aren't prizes yet: they have no cost and can't be
   // redeemed. The server already hides other people's, so anything suggested
   // here is this person's own - show it in its own "waiting" list instead of
@@ -68,9 +74,10 @@ export default function PrizesPanel({
   })();
 
   const refresh = useCallback(async () => {
-    const [p, b] = await Promise.all([client.prizes(), client.tokenBalance(me.id)]);
+    const [p, b, r] = await Promise.all([client.prizes(), client.tokenBalance(me.id), client.redemptions(me.id)]);
     setPrizes(p);
     setBalance(b.balance);
+    setPendingRedemptions(r.items.filter((x) => x.status === 'REQUESTED'));
   }, [client, me.id]);
 
   useEffect(() => {
@@ -146,6 +153,22 @@ export default function PrizesPanel({
         ))}
         {storePrizes.length === 0 && <li className="text-sm text-slate-400">Nothing in the store yet.</li>}
       </ul>
+
+      {pendingRedemptions.length > 0 && (
+        <div className="mt-4">
+          <h3 className="text-sm font-semibold">Waiting on an adult</h3>
+          <p className="text-xs text-slate-400">Already redeemed - just needs handing over (or refunded if it can't be).</p>
+          <ul className="mt-2 space-y-1.5">
+            {pendingRedemptions.map((r) => (
+              <li key={r.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
+                <span className="min-w-0 flex-1 truncate">{r.prize.name}</span>
+                <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+                <span className="shrink-0 text-xs text-amber-600">Pending</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {myRequests.length > 0 && (
         <div className="mt-4">
