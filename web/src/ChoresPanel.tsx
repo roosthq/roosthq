@@ -925,6 +925,7 @@ export default function ChoresPanel({
             client={client}
             prizeClient={prizeClient()}
             members={members}
+            tokenName={tokenName}
             tokenIcon={tokenIcon}
             onChanged={refresh}
           />

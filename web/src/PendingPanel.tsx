@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import type { Chore, ChoreClient, Member, PrizeClient, Redemption } from './api';
+import type { Chore, ChoreClient, Member, PrizeClient, Redemption, StorePrize } from './api';
 import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
+import { PrizeDetailModal } from './Prize';
 
 // Kiosk-only, adult+ visible: everything currently waiting on a yes/no -
 // chore completions pending approval, and prize redemption requests - in one
@@ -11,6 +12,7 @@ export default function PendingPanel({
   client,
   prizeClient,
   members,
+  tokenName,
   tokenIcon,
   refreshSignal,
   onChanged,
@@ -19,14 +21,19 @@ export default function PendingPanel({
   client: ChoreClient;
   prizeClient: PrizeClient;
   members: Member[];
+  tokenName: string;
   tokenIcon: string;
   refreshSignal?: number;
   onChanged: () => void;
 }) {
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
+  const [prizes, setPrizes] = useState<StorePrize[]>([]);
 
   const refresh = useCallback(() => {
     prizeClient.allRedemptions().then(setRedemptions).catch(() => setRedemptions([]));
+    // Full prize records - a redemption's own copy is thin (name/cost/type
+    // only), not enough to know what to actually go fulfill.
+    prizeClient.prizes().then(setPrizes).catch(() => setPrizes([]));
   }, [prizeClient]);
 
   useEffect(() => {
@@ -60,6 +67,8 @@ export default function PendingPanel({
     setProofImg(r.image);
   }
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
+  const prizeById = (id: string) => prizes.find((p) => p.id === id);
+  const [viewingPrize, setViewingPrize] = useState<StorePrize | null>(null);
 
   async function act(
     fn: () => Promise<unknown>,
@@ -118,7 +127,14 @@ export default function PendingPanel({
         {pendingRedemptions.map((r) => (
           <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
             <span className="min-w-0 flex-1 truncate">
-              <span className="font-medium">{memberName(r.userId)}</span> wants {r.prize.name}
+              <span className="font-medium">{memberName(r.userId)}</span> wants{' '}
+              {prizeById(r.prizeId) ? (
+                <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                  {r.prize.name}
+                </button>
+              ) : (
+                r.prize.name
+              )}
             </span>
             <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
             <button
@@ -133,6 +149,17 @@ export default function PendingPanel({
           </li>
         ))}
       </ul>
+      {viewingPrize && (
+        <PrizeDetailModal
+          prize={viewingPrize}
+          tokenName={tokenName}
+          tokenIcon={tokenIcon}
+          isAdult
+          balance={0}
+          onClose={() => setViewingPrize(null)}
+          onRedeem={() => undefined}
+        />
+      )}
     </section>
   );
 }

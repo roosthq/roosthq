@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, DATA_REFRESH_EVENT, type Chore, type Redemption, type Me } from './api';
+import { api, DATA_REFRESH_EVENT, type Chore, type Redemption, type StorePrize, type Me } from './api';
 import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
 import DropdownDetails from './DropdownDetails';
+import { PrizeDetailModal } from './Prize';
 
 // Everyone's own "what's waiting" - in the header, so it's reachable from
 // any page, not just /chores. An adult gets the same approve/reject actions
@@ -14,12 +15,21 @@ export default function PendingIndicator({ me }: { me: Me }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const [chores, setChores] = useState<Chore[]>([]);
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
+  const [prizes, setPrizes] = useState<StorePrize[]>([]);
+  const [balance, setBalance] = useState(0);
 
   const refresh = useCallback(() => {
     api.chores().then(setChores).catch(() => setChores([]));
     // Just the recent-enough window for a "what's waiting" badge, not a
     // browsable history - no load-more here on purpose.
     api.redemptions(isAdult ? {} : { userId: me.id }).then((r) => setRedemptions(r.items)).catch(() => setRedemptions([]));
+    // Full prize records (url/price/description) - a redemption's own copy
+    // is thin (name/cost/type only), not enough to actually approve or
+    // fulfill anything against. Fetched here too so the header dropdown can
+    // pop the same detail view without sending someone hunting for it on
+    // the Store page.
+    if (isAdult) api.prizes().then(setPrizes).catch(() => setPrizes([]));
+    api.tokenBalance().then((b) => setBalance(b.balance)).catch(() => undefined);
   }, [isAdult, me.id]);
 
   useEffect(() => {
@@ -44,6 +54,25 @@ export default function PendingIndicator({ me }: { me: Me }) {
       );
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
   const total = pendingChores.length + pendingRedemptions.length;
+  const prizeById = (id: string) => prizes.find((p) => p.id === id);
+  const [viewingPrize, setViewingPrize] = useState<StorePrize | null>(null);
+
+  // Proof photo viewer: fetched on demand (list payloads only carry hasProof) -
+  // mirrors PendingPanel's (kiosk) version so an adult can see what a kid
+  // actually did before approving from anywhere, not just the kiosk.
+  const [proofFor, setProofFor] = useState<string | null>(null);
+  const [proofImg, setProofImg] = useState<string | null>(null);
+  async function viewProof(instanceId: string) {
+    if (proofFor === instanceId) {
+      setProofFor(null);
+      setProofImg(null);
+      return;
+    }
+    setProofFor(instanceId);
+    setProofImg(null);
+    const r = await api.proofImage(instanceId).catch(() => ({ image: null }));
+    setProofImg(r.image);
+  }
 
   async function act(fn: () => Promise<unknown>, el?: HTMLElement, slot: string | ((result: unknown) => string) = 'notification') {
     const result = await fn();
@@ -71,6 +100,11 @@ export default function PendingIndicator({ me }: { me: Me }) {
                 {isAdult && instance.claimedByUserId && <span className="text-slate-400"> - needs approval</span>}
                 {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
               </span>
+              {isAdult && instance.hasProof && (
+                <button onClick={() => viewProof(instance.id)} className="shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                  📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
+                </button>
+              )}
               {isAdult ? (
                 <span className="flex shrink-0 items-center gap-1">
                   <button
@@ -86,13 +120,28 @@ export default function PendingIndicator({ me }: { me: Me }) {
               ) : (
                 <span className="shrink-0 text-xs font-medium text-amber-600">⏳</span>
               )}
+              {proofFor === instance.id && (
+                <div className="w-full">
+                  {proofImg ? (
+                    <img src={proofImg} alt="proof" className="mt-1 max-h-64 w-full rounded border object-contain" />
+                  ) : (
+                    <span className="text-xs text-slate-400">Loading photo…</span>
+                  )}
+                </div>
+              )}
             </li>
           ))}
           {pendingRedemptions.map((r) => (
             <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
               <span className="min-w-0 flex-1 truncate">
                 {isAdult && <span className="font-medium">{r.user?.displayName ?? 'Someone'} wants </span>}
-                <span className={isAdult ? '' : 'font-medium'}>{r.prize.name}</span>
+                {isAdult && prizeById(r.prizeId) ? (
+                  <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                    {r.prize.name}
+                  </button>
+                ) : (
+                  <span className={isAdult ? '' : 'font-medium'}>{r.prize.name}</span>
+                )}
                 {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
               </span>
               {isAdult ? (
@@ -115,6 +164,17 @@ export default function PendingIndicator({ me }: { me: Me }) {
           ))}
         </ul>
       </div>
+      {viewingPrize && (
+        <PrizeDetailModal
+          prize={viewingPrize}
+          tokenName="Tokens"
+          tokenIcon="coins"
+          isAdult={isAdult}
+          balance={balance}
+          onClose={() => setViewingPrize(null)}
+          onRedeem={() => undefined}
+        />
+      )}
     </DropdownDetails>
   );
 }

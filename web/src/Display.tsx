@@ -1083,6 +1083,7 @@ export default function Display() {
                       client={kioskChoreClient}
                       prizeClient={kioskPrizeClient}
                       members={members}
+                      tokenName={tokenName}
                       tokenIcon={tokenIcon}
                       refreshSignal={dataRefreshSignal}
                       onChanged={refreshChores}
