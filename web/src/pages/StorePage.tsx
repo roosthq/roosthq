@@ -94,6 +94,14 @@ export default function StorePage({
   }, [isAdult, me.id]);
 
   const memberName = (id: string) => members.find((m) => m.id === id)?.displayName ?? 'Someone';
+  // A redemption's own `prize` field is deliberately thin (name/cost/type
+  // only - see api.ts) - it's not enough to actually fulfill anything
+  // (no url, no price, no description). Once a prize is redeemed it's
+  // gone from the "active" grid, so the adult reviewing the pending/to-
+  // fulfill queues had no way to open it back up and see what to actually
+  // go buy. `prizes` here already includes archived ones, so look the full
+  // record up by id instead of trusting the redemption's own copy.
+  const prizeById = (id: string) => prizes.find((p) => p.id === id);
 
   // "Who can redeem" picker in the create/edit form - a plain adult should
   // only be offered kids (or anyone else) who actually live in one of THEIR
@@ -327,7 +335,13 @@ export default function StorePage({
               <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="min-w-0 flex-1 break-words">
                   {isAdult && <strong className="font-medium">{memberName(r.userId)} · </strong>}
-                  {r.prize.name}
+                  {prizeById(r.prizeId) ? (
+                    <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                      {r.prize.name}
+                    </button>
+                  ) : (
+                    r.prize.name
+                  )}
                 </span>
                 {isAdult && (
                   <button
@@ -404,7 +418,14 @@ export default function StorePage({
               <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
                 <span className="flex min-w-0 flex-1 items-center gap-2">
                   <span className="min-w-0 break-words">
-                    <strong className="font-medium">{memberName(r.userId)}</strong> wants {r.prize.name}
+                    <strong className="font-medium">{memberName(r.userId)}</strong> wants{' '}
+                    {prizeById(r.prizeId) ? (
+                      <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                        {r.prize.name}
+                      </button>
+                    ) : (
+                      r.prize.name
+                    )}
                   </span>
                   <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
                 </span>
