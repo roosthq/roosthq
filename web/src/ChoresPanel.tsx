@@ -1159,6 +1159,20 @@ function Field({ label, help, children }: { label: string; help?: string; childr
   );
 }
 
+// A long form of 15+ fields read as one undifferentiated wall - nothing told
+// you "these four are the basics, these are scheduling, these are bonus
+// stuff" without reading every label. Same fields, same order, just grouped
+// under a heading so the shape of the form is visible at a glance instead
+// of only after scrolling through all of it.
+function FieldGroup({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="border-t pt-4 first:border-t-0 first:pt-0">
+      <h4 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">{title}</h4>
+      <div className="space-y-4">{children}</div>
+    </div>
+  );
+}
+
 function ChoreForm({
   client,
   members,
@@ -1277,13 +1291,14 @@ function ChoreForm({
         </div>
       }
     >
-        <div className="space-y-4">
+        <div>
           {isDuplicate && (
-            <p className="rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-700">
+            <p className="mb-4 rounded-md bg-blue-50 px-3 py-2 text-xs text-blue-700">
               Duplicating "{chore?.title}" - this creates a separate {choreWord.toLowerCase()}, not a copy linked to the
               original. Its own history and streak start fresh.
             </p>
           )}
+          <FieldGroup title="Basics">
           <Field label={`${choreWord} name`}>
             <input className="w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. Take out the trash" value={title} onChange={(e) => setTitle(e.target.value)} />
           </Field>
@@ -1300,9 +1315,16 @@ function ChoreForm({
               </label>
             </div>
             {assignmentType === 'SPECIFIC' && (
-              <div className="mt-2 flex flex-wrap gap-2">
+              // A real grid, not flex-wrap chips - flex-wrap sizes each
+              // item to its own label's width, so names of different
+              // lengths never line up into columns from one row to the
+              // next (Jameson's checkbox landed under nothing in
+              // particular relative to the row above it). A grid gives
+              // every name the same cell width, so the checkboxes
+              // actually line up.
+              <div className="mt-2 grid grid-cols-2 gap-2">
                 {members.map((m) => (
-                  <label key={m.id} className="flex items-center gap-1 text-xs">
+                  <label key={m.id} className="flex items-center gap-2 text-sm">
                     <input
                       type="checkbox"
                       checked={assignees.has(m.id)}
@@ -1313,7 +1335,7 @@ function ChoreForm({
                         setAssignees(n);
                       }}
                     />
-                    {m.displayName}
+                    <span className="break-words">{m.displayName}</span>
                   </label>
                 ))}
               </div>
@@ -1341,7 +1363,9 @@ function ChoreForm({
               ))}
             </select>
           </Field>
+          </FieldGroup>
 
+          <FieldGroup title="Reward &amp; rules">
           <Field label="Reward" help="Tokens for whoever completes it (after approval).">
             <input type="number" min={0} className="w-28 rounded-md border px-3 py-2 text-sm" value={tokenValue} onChange={(e) => setTokenValue(Number(e.target.value))} onFocus={(e) => e.target.select()} />
           </Field>
@@ -1415,7 +1439,9 @@ function ChoreForm({
               />
             </Field>
           )}
+          </FieldGroup>
 
+          <FieldGroup title="Schedule">
           <Field label="Repeat" help={repeatHelp}>
             <select className="w-full rounded-md border px-3 py-2 text-sm" value={repeat} onChange={(e) => setRepeat(e.target.value)}>
               {REPEAT_OPTIONS.map((r) => (
@@ -1475,14 +1501,21 @@ function ChoreForm({
               onChange={(e) => setDueTime(e.target.value)}
             />
           </Field>
+          </FieldGroup>
 
+          <FieldGroup title="Bonuses &amp; checklist">
           <Field label="Streak bonus" help="Optional - extra tokens for keeping a streak of on-time completions going.">
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={streakEnabled} onChange={(e) => setStreakEnabled(e.target.checked)} />
               Award a bonus every so many in a row
             </label>
             {streakEnabled && (
-              <div className="mt-2 flex items-center gap-2 text-sm">
+              // flex-wrap: same fix as the screensaver's "show a clock
+              // after N idle minutes" sentence - without it, each phrase
+              // wraps its OWN text independently next to the two inputs
+              // instead of the whole sentence wrapping together, which
+              // chopped "bonus tokens" off against the edge of the card.
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
                 Every
                 <input
                   type="number"
@@ -1520,6 +1553,7 @@ function ChoreForm({
           <Field label="Checklist" help="Optional - one sub-task per line.">
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />
           </Field>
+          </FieldGroup>
         </div>
     </Modal>
   );
