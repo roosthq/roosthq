@@ -515,6 +515,11 @@ export default function Display() {
   // couple pages either side) - this is a kiosk that runs for weeks, not
   // a cache meant to remember every range ever visited.
   const eventsCache = useRef(new Map<string, CalEvent[]>());
+  // Filled by Calendar.tsx's own onRangeChange call - the real previous/
+  // next page range for whatever view is active, computed the same way
+  // shift() itself would compute it (exact for month view, not just "this
+  // range shifted by its own length").
+  const prefetchRangesRef = useRef<{ start: string; end: string }[]>([]);
   const rangeKey = useCallback(
     (r: { start: string; end: string }) => `${active?.user.id ?? ''}|${r.start}|${r.end}`,
     [active?.user.id],
@@ -551,15 +556,17 @@ export default function Display() {
         if (!cached) setEvents([]);
       });
 
-    // Prefetch both neighboring pages (same span as the current range, shifted
-    // by its own length) - cache-only, never touches `events` state, so a
-    // slow/failed prefetch can't affect what's on screen right now.
-    const spanMs = new Date(range.end).getTime() - new Date(range.start).getTime();
-    for (const dir of [-1, 1] as const) {
-      const neighbor = {
-        start: new Date(new Date(range.start).getTime() + dir * spanMs).toISOString(),
-        end: new Date(new Date(range.end).getTime() + dir * spanMs).toISOString(),
-      };
+    // Prefetch both neighboring pages - cache-only, never touches `events`
+    // state, so a slow/failed prefetch can't affect what's on screen right
+    // now. Ranges come from Calendar.tsx itself (see prefetchRangesRef)
+    // rather than being computed here as "the current range shifted by its
+    // own length": that shortcut is exact for a fixed-length week view but
+    // wrong for month view, whose grid-start alignment depends on which
+    // weekday the adjacent month happens to start on, not a fixed 42-day
+    // offset - it was warming the cache for a range the UI would never
+    // actually request, a guaranteed miss (and a fresh fetch) every time
+    // someone paged month view.
+    for (const neighbor of prefetchRangesRef.current) {
       const neighborKey = rangeKey(neighbor);
       if (eventsCache.current.has(neighborKey)) continue;
       fetchRange(neighbor)
@@ -596,7 +603,10 @@ export default function Display() {
   const addableCalendarOptions = useMemo(() => calendarOptions.filter((c) => c.source !== 'holiday'), [calendarOptions]);
   const addableCalendarIds = useMemo(() => new Set(addableCalendarOptions.map((c) => c.id)), [addableCalendarOptions]);
 
-  const onRangeChange = useCallback((s: string, e: string) => setRange({ start: s, end: e }), []);
+  const onRangeChange = useCallback((s: string, e: string, prefetch?: { start: string; end: string }[]) => {
+    setRange({ start: s, end: e });
+    prefetchRangesRef.current = prefetch ?? [];
+  }, []);
 
   function selectProfile(m: Member) {
     if (m.hasPin || m.role !== 'KID') {

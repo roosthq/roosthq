@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   api,
@@ -263,19 +263,77 @@ export default function CalendarPage({ me }: { me: Me }) {
     refreshShared();
   }, [refreshShared]);
 
+  // Keyed events cache, warmed by prefetching the adjacent page whenever the
+  // range changes (see onRangeChange below) - swiping to a month/week
+  // already visited (or already prefetched one page ahead) paints instantly
+  // from here instead of always paying a fresh network round-trip. A ref,
+  // not state: it's read-through storage, not something that should itself
+  // trigger a render.
+  const eventCache = useRef(new Map<string, CalEvent[]>());
+  function cacheKey(ids: string[], start: string, end: string) {
+    return `${[...ids].sort().join(',')}|${start}|${end}`;
+  }
+
   const refreshEvents = useCallback(() => {
     if (!scopeReady || !range || visible.size === 0) {
       setEvents([]);
       return;
     }
-    api.events([...visible], range.start, range.end).then(setEvents).catch(() => setEvents([]));
+    const ids = [...visible];
+    const key = cacheKey(ids, range.start, range.end);
+    const cached = eventCache.current.get(key);
+    // Paint from cache immediately if we have it - the fetch below still
+    // runs regardless, so a mutation-triggered refresh (add/edit/delete
+    // event) always ends up showing genuinely fresh data, not a stale
+    // cache hit; this just removes the visible gap while that happens.
+    if (cached) setEvents(cached);
+    api
+      .events(ids, range.start, range.end)
+      .then((fresh) => {
+        // Unbounded growth guard - a long session paging through a year of
+        // months would otherwise just keep accumulating entries forever.
+        if (eventCache.current.size > 60) eventCache.current.clear();
+        eventCache.current.set(key, fresh);
+        setEvents(fresh);
+      })
+      .catch(() => {
+        if (!cached) setEvents([]);
+      });
   }, [scopeReady, visible, range]);
 
   useEffect(() => {
     refreshEvents();
   }, [refreshEvents]);
 
-  const onRangeChange = useCallback((start: string, end: string) => setRange({ start, end }), []);
+  // Warms the cache for whichever page(s) Calendar.tsx expects to be
+  // navigated to next (previous/next week/month) - fire-and-forget, and
+  // skipped entirely for a range already cached.
+  const prefetchRanges = useCallback(
+    (ranges: { start: string; end: string }[]) => {
+      if (!scopeReady || visible.size === 0) return;
+      const ids = [...visible];
+      for (const r of ranges) {
+        const key = cacheKey(ids, r.start, r.end);
+        if (eventCache.current.has(key)) continue;
+        api
+          .events(ids, r.start, r.end)
+          .then((fresh) => {
+            if (eventCache.current.size > 60) eventCache.current.clear();
+            eventCache.current.set(key, fresh);
+          })
+          .catch(() => undefined);
+      }
+    },
+    [scopeReady, visible],
+  );
+
+  const onRangeChange = useCallback(
+    (start: string, end: string, prefetch?: { start: string; end: string }[]) => {
+      setRange({ start, end });
+      if (prefetch) prefetchRanges(prefetch);
+    },
+    [prefetchRanges],
+  );
 
   async function openPicker() {
     try {

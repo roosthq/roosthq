@@ -122,7 +122,11 @@ export default function Calendar({
   showPrint = false,
 }: {
   events: CalEvent[];
-  onRangeChange: (startISO: string, endISO: string) => void;
+  // `prefetch` is the previous/next page's range, in case the caller wants
+  // to warm a cache for them ahead of time - swiping used to always cost a
+  // fresh fetch because nothing was ever requested until you actually
+  // landed on a page.
+  onRangeChange: (startISO: string, endISO: string, prefetch?: { start: string; end: string }[]) => void;
   // Renders an "+ Add event" button in the day-detail modal, prefilled with
   // whatever day was clicked - omit to leave the modal without one (the
   // kiosk's read-only "mini" calendar doesn't want it, for instance).
@@ -193,19 +197,30 @@ export default function Calendar({
   const rangeDays = RANGE_DAYS[effectiveView];
   const rows = rangeDays / 7;
 
-  const gridStart = useMemo(() => {
-    if (effectiveView === 'month') {
-      const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+  // Pure functions (no closure over `cursor`/`gridStart` state) so the same
+  // math that computes the CURRENT grid's start can also compute the
+  // adjacent pages' starts, for prefetching - see onRangeChange below.
+  function gridStartFor(c: Date, view: ViewRange): Date {
+    if (view === 'month') {
+      const first = new Date(c.getFullYear(), c.getMonth(), 1);
       const s = new Date(first);
       s.setDate(first.getDate() - first.getDay());
       s.setHours(0, 0, 0, 0);
       return s;
     }
-    const s = new Date(cursor);
-    s.setDate(cursor.getDate() - cursor.getDay());
+    const s = new Date(c);
+    s.setDate(c.getDate() - c.getDay());
     s.setHours(0, 0, 0, 0);
     return s;
-  }, [cursor, effectiveView]);
+  }
+  function shiftedCursor(c: Date, view: ViewRange, days: number, delta: number): Date {
+    if (view === 'month') return new Date(c.getFullYear(), c.getMonth() + delta, 1);
+    const d = new Date(c);
+    d.setDate(c.getDate() + delta * days);
+    return d;
+  }
+
+  const gridStart = useMemo(() => gridStartFor(cursor, effectiveView), [cursor, effectiveView]);
 
   const days = useMemo(
     () =>
@@ -220,8 +235,27 @@ export default function Calendar({
   useEffect(() => {
     const end = new Date(gridStart);
     end.setDate(gridStart.getDate() + rangeDays);
-    onRangeChange(gridStart.toISOString(), end.toISOString());
-  }, [gridStart, rangeDays, onRangeChange]);
+    // Also report the previous/next page's range so the caller can
+    // prefetch and cache them - swiping used to always cost a fresh
+    // network round-trip because nothing was ever fetched until you
+    // actually landed on a page. month view's adjacent range isn't just
+    // this range shifted by rangeDays (months aren't a fixed 42-day grid),
+    // so it's computed the same way the real page would be, via the same
+    // cursor-shifting shift() itself uses.
+    const prevCursor = shiftedCursor(cursor, effectiveView, rangeDays, -1);
+    const nextCursor = shiftedCursor(cursor, effectiveView, rangeDays, 1);
+    const prevStart = gridStartFor(prevCursor, effectiveView);
+    const prevEnd = new Date(prevStart);
+    prevEnd.setDate(prevStart.getDate() + rangeDays);
+    const nextStart = gridStartFor(nextCursor, effectiveView);
+    const nextEnd = new Date(nextStart);
+    nextEnd.setDate(nextStart.getDate() + rangeDays);
+    onRangeChange(gridStart.toISOString(), end.toISOString(), [
+      { start: prevStart.toISOString(), end: prevEnd.toISOString() },
+      { start: nextStart.toISOString(), end: nextEnd.toISOString() },
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- gridStartFor/shiftedCursor are pure functions redeclared each render, not real deps
+  }, [gridStart, rangeDays, cursor, effectiveView, onRangeChange]);
 
   const byDay = useMemo(() => {
     const m = new Map<string, CalEvent[]>();
@@ -352,13 +386,7 @@ export default function Calendar({
   const selectedEvents = selected ? byDay.get(selected) ?? [] : [];
 
   const shift = (delta: number) => {
-    if (effectiveView === 'month') {
-      setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + delta, 1));
-    } else {
-      const d = new Date(cursor);
-      d.setDate(cursor.getDate() + delta * rangeDays);
-      setCursor(d);
-    }
+    setCursor(shiftedCursor(cursor, effectiveView, rangeDays, delta));
   };
   const goToday = () => {
     // Same reasoning as the initial cursor above - month view only cares
