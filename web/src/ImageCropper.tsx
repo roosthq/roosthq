@@ -48,7 +48,14 @@ export default function ImageCropper({
     const img = new Image();
     img.onload = () => {
       setNatural({ w: img.naturalWidth, h: img.naturalHeight });
-      const scale = Math.min(1, DISPLAY_MAX / img.naturalWidth, DISPLAY_MAX / img.naturalHeight);
+      // DISPLAY_MAX (420px) is wider than the actual content area of a
+      // phone-width modal card (~340px after Modal's own padding) - a wide
+      // source image was overflowing straight past the edge of the card
+      // instead of fitting inside it. Cap the WIDTH side by the real
+      // viewport too; height stays DISPLAY_MAX since the modal's own
+      // vertical scroll room is rarely the tighter constraint.
+      const maxW = typeof window !== 'undefined' ? Math.min(DISPLAY_MAX, window.innerWidth - 80) : DISPLAY_MAX;
+      const scale = Math.min(1, maxW / img.naturalWidth, DISPLAY_MAX / img.naturalHeight);
       const dw = img.naturalWidth * scale;
       const dh = img.naturalHeight * scale;
       setDisplay({ w: dw, h: dh });

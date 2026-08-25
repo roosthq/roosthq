@@ -466,7 +466,7 @@ export function AwardForm({
 
           <div>
             <span className="text-sm text-slate-500">Icon</span>
-            <div className="mt-1 flex items-center gap-3 text-sm">
+            <div className="mt-1 flex flex-wrap items-center gap-3 text-sm">
               <label className="flex items-center gap-1">
                 <input type="radio" checked={iconMode === 'emoji'} onChange={() => setIconMode('emoji')} />
                 Emoji

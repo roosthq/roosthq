@@ -794,7 +794,7 @@ export function PrizeForm({
 
           <div>
             <span className="text-sm text-slate-500">Visibility</span>
-            <div className="mt-1 flex gap-3 text-sm">
+            <div className="mt-1 flex flex-wrap gap-3 text-sm">
               <label className="flex items-center gap-1">
                 <input type="radio" checked={visibility === 'STORE'} onChange={() => setVisibility('STORE')} />
                 <LucideIcon name="shopping-bag" slot="store.purchasable" size={14} /> Purchasable in the Store
@@ -813,7 +813,7 @@ export function PrizeForm({
 
           <div>
             <span className="text-sm text-slate-500">Who can redeem?</span>
-            <div className="mt-1 flex gap-3 text-sm">
+            <div className="mt-1 flex flex-wrap gap-3 text-sm">
               <label className="flex items-center gap-1">
                 <input type="radio" checked={scope === 'GLOBAL'} onChange={() => setScope('GLOBAL')} />
                 Open to anyone
@@ -824,9 +824,12 @@ export function PrizeForm({
               </label>
             </div>
             {scope === 'SPECIFIC' && (
-              <div className="mt-2 flex flex-wrap gap-2">
+              // Real grid, not flex-wrap chips - same fix as the chore
+              // form's assignee list, for the same reason (names of
+              // different lengths never lined up into columns).
+              <div className="mt-2 grid grid-cols-2 gap-2">
                 {members.map((m) => (
-                  <label key={m.id} className="flex items-center gap-1 text-xs">
+                  <label key={m.id} className="flex items-center gap-2 text-sm">
                     <input
                       type="checkbox"
                       checked={assignedUserIds.has(m.id)}
@@ -837,7 +840,7 @@ export function PrizeForm({
                         setAssignedUserIds(n);
                       }}
                     />
-                    {m.displayName}
+                    <span className="break-words">{m.displayName}</span>
                   </label>
                 ))}
                 {members.length === 0 && <span className="text-xs text-slate-400">No members yet.</span>}
