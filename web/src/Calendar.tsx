@@ -432,7 +432,12 @@ export default function Calendar({
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
         <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{rangeLabel}</h2>
-        <div className="no-print flex items-center gap-1">
+        {/* flex-wrap here too, not just on the outer row: this whole group
+            (print/1wk/2wk/Month/‹/Today/›) is ONE flex item to the outer
+            row - moving it to its own line doesn't shrink it, so on a
+            phone it was overflowing straight off the right edge (clipped,
+            invisible, no scrollbar) instead of wrapping into two rows. */}
+        <div className="no-print flex flex-wrap items-center gap-1">
           {showPrint && !mini && (
             <button onClick={handlePrint} title="Print this week for the fridge" className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
               🖨️

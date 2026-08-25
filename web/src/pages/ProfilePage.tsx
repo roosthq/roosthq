@@ -269,8 +269,13 @@ export default function ProfilePage({
                 >
                   <Avatar name={m.displayName} src={m.avatar} size="sm" />
                   <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium">{m.displayName}</span>
-                    <span className="block truncate text-xs text-slate-400">
+                    {/* break-words, not truncate - a name sharing this row
+                        with a token balance AND a level badge (both
+                        shrink-0) had real names ("Jameson", "Freddy")
+                        clipped to 3-4 letters at large text sizes, which is
+                        worse than the row just getting a bit taller. */}
+                    <span className="block break-words text-sm font-medium">{m.displayName}</span>
+                    <span className="block break-words text-xs text-slate-400">
                       <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={12} /> {ROLE_LABEL[m.role] ?? m.role}
                     </span>
                   </span>
@@ -308,7 +313,7 @@ export default function ProfilePage({
                 <li key={m.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
                   <span className="w-5 shrink-0 text-center text-sm font-semibold text-slate-400">{i + 1}</span>
                   <Avatar name={m.displayName} src={m.avatar} size="sm" />
-                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{m.displayName}</span>
+                  <span className="min-w-0 flex-1 break-words text-sm font-medium">{m.displayName}</span>
                   <LevelBadge earned={earnedBy[m.id] ?? 0} />
                 </li>
               ))}

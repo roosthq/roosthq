@@ -52,14 +52,21 @@ export default function LocationsSection({ me }: { me: Me }) {
       <p className="mt-1 text-sm text-slate-500">
         Which house(es) you're part of - controls which calendars, kiosk displays, and Household items you see.
       </p>
-      <div className="mt-3 flex flex-wrap gap-2">
+      {/* Full-width, stacked rows on a phone instead of inline pills - a
+          picker with room for maybe two houses side by side was mostly
+          just blank space next to a small pill on a narrow screen; a
+          full-width row is both a bigger, easier tap target and a better
+          use of the space actually available. Reverts to inline pills from
+          sm up, where side-by-side already reads fine and multiple houses
+          shouldn't each eat a whole row. */}
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         {locations.map((l) => {
           const on = picked.has(l.id);
           return (
             <button
               key={l.id}
               onClick={() => toggle(l.id)}
-              className={`rounded-full border px-3 py-1.5 text-sm ${on ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+              className={`w-full rounded-full border px-3 py-1.5 text-left text-sm sm:w-auto sm:text-center ${on ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
             >
               🏠 {l.name}
             </button>

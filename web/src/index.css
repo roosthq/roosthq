@@ -847,9 +847,46 @@ input::placeholder,
 textarea::placeholder {
   color: var(--text-muted);
 }
+/* Real feedback from actual kid users (not a guess): checkboxes were the
+   browser's native, un-scaled size (~13-16px, fixed regardless of the
+   account's font-size setting) - too small to reliably tap. Sized in rem so
+   it tracks that setting like everything else, same target size kiosk-mode
+   already uses for its own checkboxes (see .kiosk-mode input[type=checkbox]
+   below) - non-technical/young users are exactly as likely to be on the
+   phone app as the kiosk. */
 input[type='checkbox'],
 input[type='radio'] {
   accent-color: var(--accent);
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Same feedback, second half: secondary/"ghost" buttons (the ubiquitous
+   `rounded border ... hover:bg-slate-50` pattern, used ad-hoc in dozens of
+   places) had no visible fill at rest - just --border's hairline, which is
+   deliberately subtle for card/input edges (see its definition) but was
+   never tuned to also mean "this is a clickable button". Sitting on a card
+   in the same tonal family, especially in dark mode's lower alpha, the
+   outline all but disappeared - kids reported losing track of which things
+   were buttons at all. A visibly darker/lighter border plus a real shadow
+   (context-independent - reads against any background) fixes that without
+   turning every secondary button into a filled block, which would be a much
+   bigger visual change than this warrants. */
+/* !important + the higher (element+class) specificity here is what lets
+   this beat the plain `.border { border-color: ... !important }` bridge
+   rule above - two !important declarations still resolve by specificity,
+   and button.border/a.border outrank the bare class selector. */
+button.border,
+a.border {
+  border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%) !important;
+  box-shadow: var(--shadow-sm) !important;
+  /* A floor, not a forced height - most of these already clear it with
+     their own padding, this only lifts the ones that don't (icon-only
+     buttons especially), same "min-height, not a rewritten padding" move
+     kiosk-mode already makes below for the identical reason: button
+     content/labels vary too much to force one padding value everywhere
+     without some of them looking wrong. */
+  min-height: 2.25rem !important;
 }
 select option {
   background: var(--bg);
