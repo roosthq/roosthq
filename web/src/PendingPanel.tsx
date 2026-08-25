@@ -93,30 +93,36 @@ export default function PendingPanel({
       </h3>
       <ul className="mt-2 space-y-2">
         {pendingChores.map(({ chore, instance }) => (
-          <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
-            <span className="min-w-0 flex-1 break-words">
+          // flex-col, not a wrapping row: description gets its own full-
+          // width line, actions always get their own line below it - a
+          // long title next to badges/buttons used to force an ugly
+          // mid-sentence wrap once the row ran out of horizontal room.
+          <li key={instance.id} className="rounded border bg-white p-2 text-sm">
+            <div className="break-words">
               <span className="font-medium">{chore.title}</span>
               {instance.claimedByUserId && <span className="text-slate-400"> · {memberName(instance.claimedByUserId)}</span>}
-            </span>
-            {instance.hasProof && (
-              <button onClick={() => viewProof(instance.id)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-                📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
+            </div>
+            <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+              {instance.hasProof && (
+                <button onClick={() => viewProof(instance.id)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                  📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
+                </button>
+              )}
+              <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
+              <button
+                onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget, approveSlot)}
+                className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
+              >
+                Approve
               </button>
-            )}
-            <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
-            <button
-              onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget, approveSlot)}
-              className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
-            >
-              Approve
-            </button>
-            <button onClick={() => act(() => client.rejectInstance(instance.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              Reject
-            </button>
+              <button onClick={() => act(() => client.rejectInstance(instance.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                Reject
+              </button>
+            </div>
             {proofFor === instance.id && (
-              <div className="w-full">
+              <div className="mt-1.5">
                 {proofImg ? (
-                  <img src={proofImg} alt="proof" className="mt-1 max-h-64 rounded border" />
+                  <img src={proofImg} alt="proof" className="max-h-64 w-full rounded border object-contain" />
                 ) : (
                   <span className="text-xs text-slate-400">Loading photo…</span>
                 )}
@@ -125,27 +131,33 @@ export default function PendingPanel({
           </li>
         ))}
         {pendingRedemptions.map((r) => (
-          <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
-            <span className="min-w-0 flex-1 break-words">
+          <li key={r.id} className="rounded border bg-white p-2 text-sm">
+            <div className="break-words">
               <span className="font-medium">{memberName(r.userId)}</span> wants{' '}
               {prizeById(r.prizeId) ? (
-                <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                // Link-style color, not underline - underline on text that
+                // wraps to several lines draws a separate line under EACH
+                // wrapped line, which reads as broken rather than as one
+                // clickable name.
+                <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="font-medium text-blue-600 hover:underline">
                   {r.prize.name}
                 </button>
               ) : (
                 r.prize.name
               )}
-            </span>
-            <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
-            <button
-              onClick={(e) => act(() => prizeClient.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
-              className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
-            >
-              Fulfilled
-            </button>
-            <button onClick={() => act(() => prizeClient.rejectRedemption(r.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-              Reject
-            </button>
+            </div>
+            <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+              <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+              <button
+                onClick={(e) => act(() => prizeClient.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
+                className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
+              >
+                Fulfilled
+              </button>
+              <button onClick={() => act(() => prizeClient.rejectRedemption(r.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                Reject
+              </button>
+            </div>
           </li>
         ))}
       </ul>

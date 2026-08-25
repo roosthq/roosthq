@@ -99,23 +99,28 @@ export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: '
           : 'cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100'
       }
     >
-      <div className="absolute right-0 z-30 mt-2 w-80 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">
+      <div className="absolute right-0 z-30 mt-2 w-96 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">
         <p className="mb-2 font-semibold">Pending ({total})</p>
         <ul className="max-h-96 space-y-2 overflow-y-auto">
           {pendingChores.map(({ chore, instance }) => (
-            <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
-              <span className="min-w-0 flex-1 break-words">
+            // flex-col, not a wrapping row: a long title next to badges/
+            // buttons used to force an ugly mid-sentence wrap once the row
+            // ran out of horizontal room - now the description always gets
+            // its own full-width line, and actions always get their own
+            // line below it, however long the title is.
+            <li key={instance.id} className="rounded border p-2">
+              <div className="break-words">
                 <span className="font-medium">{chore.title}</span>
                 {isAdult && instance.claimedByUserId && <span className="text-slate-400"> - needs approval</span>}
                 {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
-              </span>
-              {isAdult && instance.hasProof && (
-                <button onClick={() => viewProof(instance.id)} className="shrink-0 rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-                  📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
-                </button>
-              )}
+              </div>
               {isAdult ? (
-                <span className="flex shrink-0 items-center gap-1">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                  {instance.hasProof && (
+                    <button onClick={() => viewProof(instance.id)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                      📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
+                    </button>
+                  )}
                   <button
                     onClick={(e) => act(() => api.approveInstance(instance.id), e.currentTarget, approveSlot)}
                     className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
@@ -125,14 +130,14 @@ export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: '
                   <button onClick={() => act(() => api.rejectInstance(instance.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                     Reject
                   </button>
-                </span>
+                </div>
               ) : (
-                <span className="shrink-0 text-xs font-medium text-amber-600">⏳</span>
+                <span className="text-xs font-medium text-amber-600">⏳</span>
               )}
               {proofFor === instance.id && (
-                <div className="w-full">
+                <div className="mt-1.5">
                   {proofImg ? (
-                    <img src={proofImg} alt="proof" className="mt-1 max-h-64 w-full rounded border object-contain" />
+                    <img src={proofImg} alt="proof" className="max-h-64 w-full rounded border object-contain" />
                   ) : (
                     <span className="text-xs text-slate-400">Loading photo…</span>
                   )}
@@ -141,20 +146,25 @@ export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: '
             </li>
           ))}
           {pendingRedemptions.map((r) => (
-            <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
-              <span className="min-w-0 flex-1 break-words">
+            <li key={r.id} className="rounded border p-2">
+              <div className="break-words">
                 {isAdult && <span className="font-medium">{r.user?.displayName ?? 'Someone'} wants </span>}
                 {isAdult && prizeById(r.prizeId) ? (
-                  <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                  // A link-style color, not underline - underline on text
+                  // that wraps to several lines draws a separate line under
+                  // EACH wrapped line, which reads as broken/garbled rather
+                  // than as one clickable name (see Prize.tsx's own "View
+                  // product" link for the same convention).
+                  <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="font-medium text-blue-600 hover:underline">
                     {r.prize.name}
                   </button>
                 ) : (
                   <span className={isAdult ? '' : 'font-medium'}>{r.prize.name}</span>
                 )}
                 {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
-              </span>
+              </div>
               {isAdult ? (
-                <span className="flex shrink-0 items-center gap-1">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                   <TokenBadge icon="coins" amount={r.prize.tokenCost} />
                   <button
                     onClick={(e) => act(() => api.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
@@ -165,9 +175,9 @@ export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: '
                   <button onClick={() => act(() => api.rejectRedemption(r.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                     Reject
                   </button>
-                </span>
+                </div>
               ) : (
-                <span className="shrink-0 text-xs font-medium text-amber-600">⏳</span>
+                <span className="text-xs font-medium text-amber-600">⏳</span>
               )}
             </li>
           ))}

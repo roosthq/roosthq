@@ -411,7 +411,12 @@ export default function Calendar({
         s.swiped = true;
         navigate(dx < 0 ? 1 : -1);
       }
-    } else if (effectiveView === '1week' || effectiveView === '2week') {
+      // verticalWeek (mobile 1wk/2wk) never treats an up/down drag as a
+      // page-turn - each "day" is a full-width card the user needs to
+      // scroll PAST to see the rest of the week, so a vertical drag has to
+      // stay a plain scroll. The grid layout still pages on either axis
+      // (nothing there needs the vertical gesture for scrolling instead).
+    } else if (!verticalWeek && (effectiveView === '1week' || effectiveView === '2week')) {
       if (Math.abs(dy) > SWIPE_THRESHOLD) {
         s.swiped = true;
         navigate(dy < 0 ? 1 : -1);
@@ -470,7 +475,11 @@ export default function Calendar({
           onPointerUp={onGridPointerUp}
           onPointerCancel={() => { swipeRef.current = null; }}
           className={`mt-3 space-y-2 ${animDir === 1 ? 'cal-slide-next' : 'cal-slide-prev'}`}
-          style={{ touchAction: 'none' }}
+          // pan-y, not none: this list is taller than the viewport more
+          // often than not, and a vertical drag here has to stay a normal
+          // page scroll (only horizontal is claimed for prev/next-week
+          // paging - see onGridPointerUp's verticalWeek check above).
+          style={{ touchAction: 'pan-y' }}
         >
           {days.map((d) => {
             const k = keyOf(d);

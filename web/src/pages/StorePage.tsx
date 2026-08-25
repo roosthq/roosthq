@@ -336,7 +336,7 @@ export default function StorePage({
                 <span className="min-w-0 flex-1 break-words">
                   {isAdult && <strong className="font-medium">{memberName(r.userId)} · </strong>}
                   {prizeById(r.prizeId) ? (
-                    <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                    <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="font-medium text-blue-600 hover:underline">
                       {r.prize.name}
                     </button>
                   ) : (
@@ -420,7 +420,7 @@ export default function StorePage({
                   <span className="min-w-0 break-words">
                     <strong className="font-medium">{memberName(r.userId)}</strong> wants{' '}
                     {prizeById(r.prizeId) ? (
-                      <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="underline hover:no-underline">
+                      <button onClick={() => setViewing(prizeById(r.prizeId)!)} className="font-medium text-blue-600 hover:underline">
                         {r.prize.name}
                       </button>
                     ) : (
