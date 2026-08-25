@@ -88,6 +88,10 @@ export function DialogProvider({ children }: { children: ReactNode }) {
         <Modal
           className="z-50"
           maxWidthClass="max-w-sm"
+          // Same resolution as the Cancel button (false for a confirm, just
+          // dismiss for a plain alert) - tapping outside a confirm dialog
+          // should never be equivalent to pressing its confirm button.
+          onBackdropClick={handleCancel}
           header={request.title && <h3 className="text-lg font-semibold">{request.title}</h3>}
           footer={
             <div className="flex justify-end gap-2">
