@@ -17,7 +17,7 @@ import { formatDate } from '../dateFormat';
 import { useWeekSwipe } from '../useWeekSwipe';
 import IconPicker from '../IconPicker';
 import LucideIcon from '../LucideIcon';
-import DropdownDetails from '../DropdownDetails';
+import ResponsiveDropdown from '../ResponsiveDropdown';
 import RulesPage from './RulesPage';
 
 function dateKey(d: Date): string {
@@ -210,12 +210,14 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
         </h3>
         <div className="flex items-center gap-2 text-sm">
           {isAdult && (
-            <DropdownDetails
-              summary="Favorite places ▾"
-              summaryClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
+            <ResponsiveDropdown
+              trigger="Favorite places ▾"
+              triggerClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
+              title="Favorite places"
+              panelClassName="w-72 max-w-[calc(100vw-2rem)]"
             >
               <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
-            </DropdownDetails>
+            </ResponsiveDropdown>
           )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
           <span className="px-1 text-slate-500">
@@ -372,7 +374,7 @@ function EatOutPlacesPanel({
   // still exists in api.ts if this needs to come back, just not wired to
   // any control here right now.
   return (
-    <div className="absolute left-0 z-10 mt-1 w-72 max-w-[calc(100vw-2rem)] rounded border bg-white p-2 shadow">
+    <div>
       <ul className="max-h-56 space-y-1 overflow-auto">
         {places.map((p) => (
           <li key={p.id} className="flex items-start gap-2 rounded px-1.5 py-1.5 text-sm hover:bg-slate-50">

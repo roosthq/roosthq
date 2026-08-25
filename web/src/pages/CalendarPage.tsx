@@ -19,7 +19,7 @@ import { myLocationIds, displaysForLocations } from '../displayScope';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS, type ChoreOccurrence } from '../choreOccurrences';
 import ChoreOccurrenceActions from '../ChoreOccurrenceActions';
 import { familyFeatureEnabled, kidPermissionEnabled } from '../api';
-import DropdownDetails from '../DropdownDetails';
+import ResponsiveDropdown from '../ResponsiveDropdown';
 import AgendaPage from './AgendaPage';
 
 export function Avatar({ name, src, size = 'md' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
@@ -47,34 +47,34 @@ export function CalendarFilterDropdown({
   label?: string;
 }) {
   return (
-    <DropdownDetails
-      summary={`${label} (${visible.size}/${options.length}) ▾`}
-      summaryClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+    <ResponsiveDropdown
+      trigger={`${label} (${visible.size}/${options.length}) ▾`}
+      triggerClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+      title={label}
+      panelClassName="max-h-72 w-64 overflow-auto"
     >
-      <div className="absolute right-0 z-10 mt-1 max-h-72 w-64 overflow-auto rounded border bg-white p-2 shadow">
-        {options.map((c) => (
-          <label key={c.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
-            <input
-              type="checkbox"
-              checked={visible.has(c.id)}
-              onChange={(e) => {
-                const next = new Set(visible);
-                if (e.target.checked) next.add(c.id);
-                else next.delete(c.id);
-                onChange(next);
-              }}
-            />
-            {c.image ? (
-              <img src={c.image} alt="" className="h-4 w-4 shrink-0 rounded-full object-cover" />
-            ) : (
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-            )}
-            <span className="truncate">{c.name}</span>
-          </label>
-        ))}
-        {options.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No calendars available.</p>}
-      </div>
-    </DropdownDetails>
+      {options.map((c) => (
+        <label key={c.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
+          <input
+            type="checkbox"
+            checked={visible.has(c.id)}
+            onChange={(e) => {
+              const next = new Set(visible);
+              if (e.target.checked) next.add(c.id);
+              else next.delete(c.id);
+              onChange(next);
+            }}
+          />
+          {c.image ? (
+            <img src={c.image} alt="" className="h-4 w-4 shrink-0 rounded-full object-cover" />
+          ) : (
+            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
+          )}
+          <span className="break-words">{c.name}</span>
+        </label>
+      ))}
+      {options.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No calendars available.</p>}
+    </ResponsiveDropdown>
   );
 }
 
@@ -401,29 +401,29 @@ export default function CalendarPage({ me }: { me: Me }) {
             )}
             <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
             {choresEnabled && members.length > 0 && (
-              <DropdownDetails
-                summary={`Chores (${selectedPeople.size}/${members.length}) ▾`}
-                summaryClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+              <ResponsiveDropdown
+                trigger={`Chores (${selectedPeople.size}/${members.length}) ▾`}
+                triggerClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+                title="Chores"
+                panelClassName="max-h-72 w-56 overflow-auto"
               >
-                <div className="absolute right-0 z-10 mt-1 max-h-72 w-56 overflow-auto rounded border bg-white p-2 shadow">
-                  {members.map((m) => (
-                    <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1 text-sm hover:bg-slate-50">
-                      <input
-                        type="checkbox"
-                        checked={selectedPeople.has(m.id)}
-                        onChange={(e) => {
-                          const next = new Set(selectedPeople);
-                          if (e.target.checked) next.add(m.id);
-                          else next.delete(m.id);
-                          setSelectedPeople(next);
-                        }}
-                      />
-                      <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: personColor.get(m.id) ?? '#94a3b8' }} />
-                      <span className="truncate">{m.displayName}</span>
-                    </label>
-                  ))}
-                </div>
-              </DropdownDetails>
+                {members.map((m) => (
+                  <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
+                    <input
+                      type="checkbox"
+                      checked={selectedPeople.has(m.id)}
+                      onChange={(e) => {
+                        const next = new Set(selectedPeople);
+                        if (e.target.checked) next.add(m.id);
+                        else next.delete(m.id);
+                        setSelectedPeople(next);
+                      }}
+                    />
+                    <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: personColor.get(m.id) ?? '#94a3b8' }} />
+                    <span className="break-words">{m.displayName}</span>
+                  </label>
+                ))}
+              </ResponsiveDropdown>
             )}
           </div>
         </div>

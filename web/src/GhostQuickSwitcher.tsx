@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api, type FamilyInfo, type Member, type Me } from './api';
-import DropdownDetails from './DropdownDetails';
+import ResponsiveDropdown from './ResponsiveDropdown';
 import { useDialog } from './Dialog';
 
 // Instance-owner: every family, every member - reaches OwnerFamiliesPanel's
@@ -13,12 +13,10 @@ export default function GhostQuickSwitcher({
   align = 'right',
 }: {
   me: Me;
-  // Desktop mount sits at the far right of the nav bar (right-0 fits - the
-  // panel opens leftward from an anchor that's already at the screen edge).
-  // The mobile hamburger-menu mount sits mid-row instead - right-0 anchored
-  // the panel's right edge to that small trigger, pushing everything past
-  // its own width off the LEFT edge of a narrow screen entirely (same fix
-  // Nav's own nameMenu already needed for the identical reason).
+  // Only matters for the desktop popover now (ResponsiveDropdown always
+  // renders a full-width bottom sheet below sm, regardless of this) - the
+  // desktop mount sits at the far right of the nav bar (right-0 fits), the
+  // one inside the mobile hamburger's expanded panel sits mid-row instead.
   align?: 'left' | 'right';
 }) {
   const isOwner = me.role === 'OWNER';
@@ -52,8 +50,8 @@ export default function GhostQuickSwitcher({
   }
 
   return (
-    <DropdownDetails summary="👻 Ghost">
-      <div className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} z-20 mt-1 max-h-96 w-64 overflow-y-auto rounded border bg-white p-2 shadow`}>
+    <ResponsiveDropdown trigger="👻 Ghost" title="Ghost as" align={align} panelClassName="max-h-96 w-64 overflow-y-auto">
+      <>
         {isOwner ? (
           <>
             {families.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No other families yet.</p>}
@@ -88,7 +86,7 @@ export default function GhostQuickSwitcher({
             ))}
           </>
         )}
-      </div>
-    </DropdownDetails>
+      </>
+    </ResponsiveDropdown>
   );
 }

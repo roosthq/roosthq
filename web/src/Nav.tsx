@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { api, pluralize, familyFeatureEnabled, NOTIFICATIONS_CHANGED_EVENT, type Me, type DisplayConfig, type FamilySettings, type MyPresence } from './api';
 import { myLocationIds, displaysForLocations } from './displayScope';
 import Logo from './Logo';
-import DropdownDetails from './DropdownDetails';
+import ResponsiveDropdown from './ResponsiveDropdown';
 import GhostQuickSwitcher from './GhostQuickSwitcher';
 import PendingIndicator from './PendingIndicator';
 import PendingGamesIndicator from './PendingGamesIndicator';
@@ -141,21 +141,19 @@ export default function Nav({
   }
   const displayLink =
     myDisplays.length > 1 ? (
-      <DropdownDetails summary="Display ↗">
-        <div className="absolute right-0 z-10 mt-1 w-48 rounded border bg-white p-1 shadow">
-          {myDisplays.map((d) => (
-            <a
-              key={d.id}
-              href={`/?display=1&config=${d.id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-            >
-              {d.name}
-            </a>
-          ))}
-        </div>
-      </DropdownDetails>
+      <ResponsiveDropdown trigger="Display ↗" title="Display" panelClassName="w-48">
+        {myDisplays.map((d) => (
+          <a
+            key={d.id}
+            href={`/?display=1&config=${d.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+          >
+            {d.name}
+          </a>
+        ))}
+      </ResponsiveDropdown>
     ) : (
       <a
         href={myDisplays.length === 1 ? `/?display=1&config=${myDisplays[0].id}` : '/?display=1'}
@@ -169,34 +167,39 @@ export default function Nav({
 
   // Name -> dropdown: "View Profile" (the basic, browse-anyone page) vs
   // "My Account" (identity/password/avatar/PIN/Google/delete - self only).
-  // Same <details>/<summary> disclosure shell as displayLink above.
   //
-  // Alignment differs by where this gets mounted: the desktop copy sits at
-  // the far right of the nav bar (right-0, panel opens leftward - fits), but
-  // the mobile copy sits at the far LEFT of its row (name on the left,
-  // "Sign out" on the right) - right-0 there anchored the panel's right edge
-  // to that tiny summary, pushing its left edge off the left of the screen
-  // entirely. left-0 for that one instead.
+  // Alignment only matters for the desktop popover (ResponsiveDropdown
+  // always uses a full-width bottom sheet below sm) - the desktop copy sits
+  // at the far right of the nav bar (right-0 fits), the mobile-hamburger
+  // copy sits at the far left of its row instead (left-0).
   function nameMenu(closeMenu: boolean) {
     return (
-      <DropdownDetails summary={`${me.displayName} ▾`}>
-        <div className={`absolute ${closeMenu ? 'left-0' : 'right-0'} z-10 mt-1 w-40 rounded border bg-white p-1 shadow`}>
-          <Link
-            to="/profile"
-            onClick={closeMenu ? () => setMenuOpen(false) : undefined}
-            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-          >
-            View Profile
-          </Link>
-          <Link
-            to="/my-settings"
-            onClick={closeMenu ? () => setMenuOpen(false) : undefined}
-            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-          >
-            My Account
-          </Link>
-        </div>
-      </DropdownDetails>
+      <ResponsiveDropdown trigger={`${me.displayName} ▾`} title="Account" align={closeMenu ? 'left' : 'right'} panelClassName="w-40">
+        {(close) => (
+          <>
+            <Link
+              to="/profile"
+              onClick={() => {
+                close();
+                if (closeMenu) setMenuOpen(false);
+              }}
+              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            >
+              View Profile
+            </Link>
+            <Link
+              to="/my-settings"
+              onClick={() => {
+                close();
+                if (closeMenu) setMenuOpen(false);
+              }}
+              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            >
+              My Account
+            </Link>
+          </>
+        )}
+      </ResponsiveDropdown>
     );
   }
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api, DATA_REFRESH_EVENT, type PendingWheel } from './api';
-import DropdownDetails from './DropdownDetails';
+import ResponsiveDropdown from './ResponsiveDropdown';
 import RewardRevealModal from './RewardRevealModal';
 import LucideIcon from './LucideIcon';
 
@@ -41,36 +41,35 @@ export default function PendingGamesIndicator({ tokenName, size = 'sm' }: { toke
 
   return (
     <>
-      <DropdownDetails
-        summary={
+      <ResponsiveDropdown
+        trigger={
           <span className="inline-flex items-center gap-1">
             <LucideIcon name="gift" size={size === 'lg' ? 22 : 14} /> {games.length}
           </span>
         }
-        summaryClassName={
+        triggerClassName={
           size === 'lg'
             ? 'cursor-pointer list-none rounded-full px-3 py-2 text-base font-medium hover:bg-slate-100'
             : 'cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100'
         }
+        title={`Reward games waiting (${games.length})`}
+        panelClassName="w-72 max-w-[90vw]"
       >
-        <div className="absolute right-0 z-30 mt-2 w-72 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">
-          <p className="mb-2 font-semibold">Reward games waiting ({games.length})</p>
-          <ul className="max-h-96 space-y-2 overflow-y-auto">
-            {games.map((g) => (
-              <li key={g.id} className="flex items-center justify-between gap-2 rounded border p-2">
-                <span className="min-w-0 flex-1 truncate">{source(g.reason)}</span>
-                <button
-                  onClick={() => setPlaying(g)}
-                  disabled={presenceBlocked}
-                  className="shrink-0 rounded bg-slate-800 px-2 py-1 text-xs text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
-                >
-                  ▶ Play
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </DropdownDetails>
+        <ul className="max-h-96 space-y-2 overflow-y-auto">
+          {games.map((g) => (
+            <li key={g.id} className="rounded border p-2">
+              <div className="break-words text-sm">{source(g.reason)}</div>
+              <button
+                onClick={() => setPlaying(g)}
+                disabled={presenceBlocked}
+                className="mt-1.5 rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-slate-800"
+              >
+                ▶ Play
+              </button>
+            </li>
+          ))}
+        </ul>
+      </ResponsiveDropdown>
       {playing && (
         <RewardRevealModal
           wheel={playing}
