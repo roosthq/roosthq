@@ -142,7 +142,7 @@ export default function PrizesPanel({
             >
               <PrizeImage src={p.image} alt={p.name} className="h-10 w-10 shrink-0 rounded" />
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm font-medium">{p.name}</span>
+                <span className="block break-words text-sm font-medium">{p.name}</span>
                 <span className={`flex items-center gap-1 text-xs ${TYPE_TAG[p.type].className}`}>
                   <LucideIcon name={TYPE_TAG[p.type].icon} slot={TYPE_TAG[p.type].slot} size={12} /> {TYPE_TAG[p.type].label}
                 </span>
@@ -161,7 +161,7 @@ export default function PrizesPanel({
           <ul className="mt-2 space-y-1.5">
             {pendingRedemptions.map((r) => (
               <li key={r.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
-                <span className="min-w-0 flex-1 truncate">{r.prize.name}</span>
+                <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
                 <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
                 <span className="shrink-0 text-xs text-amber-600">Pending</span>
               </li>
@@ -178,7 +178,7 @@ export default function PrizesPanel({
             {myRequests.map((p) => (
               <li key={p.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
                 <PrizeImage src={p.image} alt={p.name} className="h-8 w-8 shrink-0 rounded" />
-                <span className="min-w-0 flex-1 truncate">{p.name}</span>
+                <span className="min-w-0 flex-1 break-words">{p.name}</span>
                 <span className="shrink-0 text-xs text-amber-600">Pending</span>
               </li>
             ))}

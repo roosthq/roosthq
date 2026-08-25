@@ -237,7 +237,7 @@ export default function AddEventModal({
                     setEditingMeal(true);
                     setMealDraft(meal?.title ?? '');
                   }}
-                  className="min-w-0 flex-1 truncate text-left disabled:cursor-default"
+                  className="min-w-0 flex-1 break-words text-left disabled:cursor-default"
                 >
                   {meal?.title ?? <span className="text-slate-400">{canEditMeal ? 'No dinner planned - tap to add' : 'No dinner planned'}</span>}
                 </button>

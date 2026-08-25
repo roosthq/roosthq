@@ -1032,7 +1032,7 @@ export default function Display() {
               <>
                 <div className="flex shrink-0 items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
                   <Avatar name={active.user.displayName} src={active.user.avatar} />
-                  <span className="min-w-0 truncate font-medium">{active.user.displayName}</span>
+                  <span className="min-w-0 flex-1 break-words font-medium">{active.user.displayName}</span>
                   <button
                     onClick={() => {
                       setActive(null);
@@ -1140,7 +1140,7 @@ export default function Display() {
                     >
                       <Avatar name={m.displayName} src={m.avatar} big />
                       <span className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1 truncate text-sm font-medium">
+                        <div className="flex items-center gap-1 break-words text-sm font-medium">
                           <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           {m.displayName}
                         </div>

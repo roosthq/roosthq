@@ -120,8 +120,8 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
 
       <ul className="mt-3 space-y-2">
         {shared.map((c) => (
-          <li key={c.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
-            <span className="min-w-0 flex-1 truncate text-sm font-medium">{c.name}</span>
+          <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg px-3 py-2">
+            <span className="min-w-0 flex-1 break-words text-sm font-medium">{c.name}</span>
             <input
               type="color"
               value={c.color ?? '#94a3b8'}
@@ -161,7 +161,7 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
           <ul className="space-y-1">
             {picker.map((c) => (
               <li key={c.googleCalendarId}>
-                <label className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
+                <label className="flex flex-wrap items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
                   <input
                     type="checkbox"
                     checked={picked.has(c.googleCalendarId)}
@@ -175,7 +175,7 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
                     }
                   />
                   <span className="h-3 w-3 shrink-0 rounded-full" style={{ background: c.color ?? '#94a3b8' }} />
-                  <span className="min-w-0 flex-1 truncate">{c.name}</span>
+                  <span className="min-w-0 flex-1 break-words">{c.name}</span>
                   {c.primary && <span className="text-xs text-slate-400">primary</span>}
                 </label>
               </li>

@@ -97,7 +97,7 @@ export default function SearchPage() {
                       onClick={() => go(h)}
                       className="card-nested flex w-full min-w-0 items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm hover:bg-slate-50"
                     >
-                      <span className="min-w-0 flex-1 truncate">{h.label}</span>
+                      <span className="min-w-0 flex-1 break-words">{h.label}</span>
                       {h.sublabel && <span className="shrink-0 text-xs text-slate-400">{h.sublabel}</span>}
                     </button>
                   </li>

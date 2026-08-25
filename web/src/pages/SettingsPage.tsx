@@ -428,7 +428,7 @@ function CalendarColorsSetting() {
     <ul className="space-y-2">
       {editable.map((c) => (
         <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg px-3 py-2">
-          <span className="min-w-0 flex-1 truncate text-sm font-medium">{c.name}</span>
+          <span className="min-w-0 flex-1 break-words text-sm font-medium">{c.name}</span>
           <span className="shrink-0 text-xs text-slate-400">{c.source === 'local' ? 'Local' : 'Google'}</span>
           <input
             type="color"
@@ -550,12 +550,15 @@ function DisplayRow({
 
   return (
     <li className="card-nested rounded-lg p-4">
-      <div className="flex items-center justify-between gap-2">
-        <input
-          defaultValue={d.name}
-          onBlur={(e) => e.target.value !== d.name && onPatch({ name: e.target.value })}
-          className="min-w-0 flex-1 rounded border px-3 py-1.5 text-sm font-medium"
-        />
+      {/* Name input on its own row, not squeezed between two buttons - on a
+          phone the input was left with barely enough room to show 3
+          characters of its own value ("She" of "Shea Kitchen"). */}
+      <input
+        defaultValue={d.name}
+        onBlur={(e) => e.target.value !== d.name && onPatch({ name: e.target.value })}
+        className="w-full rounded border px-3 py-1.5 text-sm font-medium"
+      />
+      <div className="mt-2 flex flex-wrap items-center gap-2">
         <button onClick={onReload} className="shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-50" title="Reload any kiosk currently showing this display">
           {reloaded ? '✓ Sent' : '🔄 Reload kiosk'}
         </button>
@@ -693,7 +696,12 @@ function DisplayRow({
 
         <div className="sm:col-span-2">
           <Field label="Screensaver">
-            <div className="flex items-center gap-2 text-sm">
+            {/* flex-wrap so this reads as one wrapping sentence on a phone -
+                without it, each span still wrapped its OWN text internally
+                while staying its own unwrapped flex item next to the
+                input, which chopped the sentence into three independently
+                broken columns instead of wrapping as a whole. */}
+            <div className="flex flex-wrap items-center gap-2 text-sm">
               <span className="text-slate-500">Show a full-screen clock after</span>
               <input
                 type="number"

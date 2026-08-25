@@ -474,13 +474,13 @@ export default function MySettingsPage({
         <h3 className="text-base font-semibold tracking-tight">Google accounts</h3>
         <ul className="mt-2 space-y-1.5">
           {googleAccounts.map((acct) => (
-            <li key={acct.id} className="flex items-center gap-2 text-sm">
+            <li key={acct.id} className="flex flex-wrap items-center gap-2 text-sm">
               {acct.picture ? (
                 <img src={acct.picture} alt="" className="h-6 w-6 rounded-full object-cover" />
               ) : (
                 <span className="text-base">🔗</span>
               )}
-              <span className="flex-1 truncate">{acct.email ?? 'Connected account'}</span>
+              <span className="min-w-0 flex-1 break-words">{acct.email ?? 'Connected account'}</span>
               {acct.needsReconnect && (
                 <a href={`${loginUrl}?mode=self&reconnect=1`} className="text-xs text-amber-600 hover:underline">
                   Needs reconnect

@@ -509,7 +509,7 @@ export default function Calendar({
                       {dayEvents.map((e) => (
                         <div key={`${e.uid}-${k}`} className="flex items-center gap-2 overflow-hidden">
                           <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
-                          <span className="min-w-0 flex-1 truncate text-sm font-medium">{e.title ?? '(no title)'}</span>
+                          <span className="min-w-0 flex-1 break-words text-sm font-medium">{e.title ?? '(no title)'}</span>
                           {!isAllDay(e) && <span className="shrink-0 text-xs text-slate-400">{timeLabel(e)}</span>}
                         </div>
                       ))}

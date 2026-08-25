@@ -632,7 +632,7 @@ export function AwardForm({
                               >
                                 <PrizeImage src={selectedPrize.image} alt="" crop={selectedPrize.imageCrop} className="h-10 w-10 shrink-0 rounded" />
                                 <span className="min-w-0">
-                                  <span className="block truncate font-medium">{selectedPrize.name}</span>
+                                  <span className="block break-words font-medium">{selectedPrize.name}</span>
                                   <span className="block text-xs text-slate-400">
                                     <TokenBadge icon="coins" amount={selectedPrize.tokenCost} /> · change
                                   </span>

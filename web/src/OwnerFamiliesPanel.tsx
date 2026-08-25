@@ -293,8 +293,8 @@ export default function OwnerFamiliesPanel() {
                   </button>
                 </div>
               ) : (
-                <div className="flex w-full items-center gap-2 px-3 py-2 text-sm">
-                  <button onClick={() => toggleExpand(f.id)} className="min-w-0 flex-1 truncate text-left font-medium hover:underline">
+                <div className="flex w-full flex-wrap items-center gap-2 px-3 py-2 text-sm">
+                  <button onClick={() => toggleExpand(f.id)} className="min-w-0 flex-1 break-words text-left font-medium hover:underline">
                     {f.name}
                   </button>
                   <button
@@ -327,14 +327,14 @@ export default function OwnerFamiliesPanel() {
                       <li key={m.id} className="card-nested rounded-lg p-2 text-sm">
                         <div className="flex min-w-0 items-center gap-2">
                           <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
-                          <span className="min-w-0 flex-1 truncate font-medium">{m.displayName}</span>
+                          <span className="min-w-0 flex-1 break-words font-medium">{m.displayName}</span>
                           {m.active === false && (
                             <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
                               Deactivated
                             </span>
                           )}
                         </div>
-                        <div className="mt-0.5 truncate text-xs text-slate-500">
+                        <div className="mt-0.5 break-words text-xs text-slate-500">
                           {ROLE_LABEL[m.role] ?? m.role}
                           {m.email ? ` · ${m.email}` : m.username ? ` · @${m.username}` : ''}
                         </div>

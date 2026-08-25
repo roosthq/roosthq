@@ -239,12 +239,17 @@ export default function MembersManager({ me }: { me: Me }) {
             {invites
               .filter((i) => !i.acceptedAt)
               .map((i) => (
-                <li key={i.id} className="flex items-center justify-between gap-2">
-                  <span>
+                // Stacked, not one row fighting for width: an email address
+                // plus 3 actions never fit on one line at once - the actions
+                // used to be shrink-0, refusing to give up any width, which
+                // pushed "Revoke" straight off the edge of the card instead
+                // of wrapping.
+                <li key={i.id} className="flex flex-col gap-1">
+                  <span className="break-words">
                     Pending invite · {ROLE_LABEL[i.role] ?? i.role}
                     {i.email && <> · {i.email}</>} · {formatDate(i.createdAt)}
                   </span>
-                  <span className="flex shrink-0 items-center gap-3">
+                  <span className="flex flex-wrap items-center gap-3">
                     {i.email && (
                       <button onClick={() => resendPending(i.id)} className="text-slate-500 hover:text-slate-800" title={`Resend to ${i.email}`}>
                         ✉️ Resend

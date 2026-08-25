@@ -903,7 +903,7 @@ export default function ChoresPanel({
             <ul className="mt-2 space-y-1 text-xs">
               {pendingWheels.map((w) => (
                 <li key={w.id} className="flex items-center justify-between gap-2">
-                  <span className="min-w-0 flex-1 truncate">{wheelSource(w)}</span>
+                  <span className="min-w-0 flex-1 break-words">{wheelSource(w)}</span>
                   <button
                     onClick={() => setWheel(w)}
                     disabled={presenceBlocksAnything}
