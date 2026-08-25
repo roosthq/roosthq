@@ -432,38 +432,46 @@ export default function Calendar({
     <section className={fill ? 'flex h-full flex-col' : 'mt-6'}>
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
         <h2 className={large ? 'text-3xl font-bold' : mini ? 'text-sm font-semibold' : 'text-xl font-semibold'}>{rangeLabel}</h2>
-        {/* flex-wrap here too, not just on the outer row: this whole group
-            (print/1wk/2wk/Month/‹/Today/›) is ONE flex item to the outer
-            row - moving it to its own line doesn't shrink it, so on a
-            phone it was overflowing straight off the right edge (clipped,
-            invisible, no scrollbar) instead of wrapping into two rows. */}
-        <div className="no-print flex flex-wrap items-center gap-1">
-          {showPrint && !mini && (
-            <button onClick={handlePrint} title="Print this week for the fridge" className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
-              🖨️
-            </button>
-          )}
+        {/* Two deliberate rows on a phone, not one row of 7 buttons left to
+            wrap wherever they happen to run out of room - that wrap used to
+            split the ‹/Today/› group itself apart (‹ stranded on the first
+            line, Today/› dropped to a second), which is never an
+            acceptable way for a "previous / today / next" control to break.
+            The view-size picker (1wk/2wk/Month) gets its own full-width
+            row; ‹/Today/› plus print stay one row, one group, always. */}
+        <div className="no-print flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:gap-1">
           {!mini && (
-            <div className="mr-1 flex rounded border text-sm">
+            <div className="flex rounded border text-sm sm:mr-1">
               {(['1week', '2week', 'month'] as const).map((v) => (
                 <button
                   key={v}
                   onClick={() => setView(v)}
-                  className={`first:rounded-l last:rounded-r ${ctrlCls} ${view === v ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                  className={`first:rounded-l last:rounded-r flex-1 sm:flex-initial ${ctrlCls} ${view === v ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
                 >
                   {v === '1week' ? '1wk' : v === '2week' ? '2wk' : 'Month'}
                 </button>
               ))}
             </div>
           )}
-          <button onClick={() => navigate(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
-          {/* Kept even in mini (the kiosk's person-focused side calendar) - a
-              compressed calendar is exactly where jumping back to today
-              matters most, since there's no room to see much else. */}
-          <button onClick={jumpToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
-            Today
-          </button>
-          <button onClick={() => navigate(1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>›</button>
+          <div className="flex items-center gap-1">
+            <button onClick={() => navigate(-1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>‹</button>
+            {/* Kept even in mini (the kiosk's person-focused side calendar) -
+                a compressed calendar is exactly where jumping back to today
+                matters most, since there's no room to see much else. */}
+            <button onClick={jumpToday} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>
+              Today
+            </button>
+            <button onClick={() => navigate(1)} className={`rounded border hover:bg-slate-50 ${ctrlCls}`}>›</button>
+            {showPrint && !mini && (
+              <button
+                onClick={handlePrint}
+                title="Print this week for the fridge"
+                className={`ml-auto rounded border hover:bg-slate-50 sm:ml-1 ${ctrlCls}`}
+              >
+                🖨️
+              </button>
+            )}
+          </div>
         </div>
       </div>
 

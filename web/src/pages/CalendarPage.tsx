@@ -370,63 +370,74 @@ export default function CalendarPage({ me }: { me: Me }) {
       ) : (
         <>
       <section className="no-print">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-lg font-semibold">
             Calendars <span className="text-slate-400">({visible.size}/{filterOptions.length})</span>
           </h2>
-          <div className="flex flex-wrap gap-2">
-            {canManageCalendars && (
-              <>
-                <a href={`${loginUrl}?mode=self`} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-                  <span className="hidden sm:inline">+ Connect another of my Google accounts</span>
-                  <span className="sm:hidden">+ Connect Google account</span>
-                </a>
-                {hasGoogleAccount && (
-                  <button onClick={openPicker} className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700">
-                    Manage calendars
-                  </button>
-                )}
-              </>
-            )}
-            {addableOptions.length > 0 && canAddEvents && (
-              <button
-                onClick={() => {
-                  setPrefillDate(null);
-                  setAddingEvent(true);
-                }}
-                className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
-              >
-                + Add event
+          {addableOptions.length > 0 && canAddEvents && (
+            <button
+              onClick={() => {
+                setPrefillDate(null);
+                setAddingEvent(true);
+              }}
+              className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
+            >
+              + Add event
+            </button>
+          )}
+        </div>
+
+        {/* Filters are a distinct, everyday concern (what shows on THIS
+            view) from account setup below - kept as their own row so they
+            read as one group, not lost in a flat button pile. */}
+        <div className="mt-2 flex flex-wrap gap-2">
+          <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
+          {choresEnabled && members.length > 0 && (
+            <ResponsiveDropdown
+              trigger={`Chores (${selectedPeople.size}/${members.length}) ▾`}
+              triggerClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
+              title="Chores"
+              panelClassName="max-h-72 w-56 overflow-auto"
+            >
+              {members.map((m) => (
+                <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
+                  <input
+                    type="checkbox"
+                    checked={selectedPeople.has(m.id)}
+                    onChange={(e) => {
+                      const next = new Set(selectedPeople);
+                      if (e.target.checked) next.add(m.id);
+                      else next.delete(m.id);
+                      setSelectedPeople(next);
+                    }}
+                  />
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: personColor.get(m.id) ?? '#94a3b8' }} />
+                  <span className="break-words">{m.displayName}</span>
+                </label>
+              ))}
+            </ResponsiveDropdown>
+          )}
+        </div>
+
+        {/* Account setup, not everyday use - demoted to plain bordered
+            buttons (not the same filled bg-slate-800 as "+ Add event")
+            so it doesn't visually compete with the action someone actually
+            takes every day. All three of these used to be styled
+            identically, with no way to tell "the thing I do constantly"
+            apart from "the thing I do once when I first set this up". */}
+        {canManageCalendars && (
+          <div className="mt-3 flex flex-wrap gap-2 border-t pt-3">
+            <a href={`${loginUrl}?mode=self`} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+              <span className="hidden sm:inline">+ Connect another of my Google accounts</span>
+              <span className="sm:hidden">+ Connect Google account</span>
+            </a>
+            {hasGoogleAccount && (
+              <button onClick={openPicker} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+                Manage calendars
               </button>
             )}
-            <CalendarFilterDropdown options={filterOptions} visible={visible} onChange={setVisible} />
-            {choresEnabled && members.length > 0 && (
-              <ResponsiveDropdown
-                trigger={`Chores (${selectedPeople.size}/${members.length}) ▾`}
-                triggerClassName="cursor-pointer list-none rounded border px-3 py-1.5 text-sm hover:bg-slate-50"
-                title="Chores"
-                panelClassName="max-h-72 w-56 overflow-auto"
-              >
-                {members.map((m) => (
-                  <label key={m.id} className="flex items-center gap-2 rounded px-2 py-1.5 text-sm hover:bg-slate-50">
-                    <input
-                      type="checkbox"
-                      checked={selectedPeople.has(m.id)}
-                      onChange={(e) => {
-                        const next = new Set(selectedPeople);
-                        if (e.target.checked) next.add(m.id);
-                        else next.delete(m.id);
-                        setSelectedPeople(next);
-                      }}
-                    />
-                    <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: personColor.get(m.id) ?? '#94a3b8' }} />
-                    <span className="break-words">{m.displayName}</span>
-                  </label>
-                ))}
-              </ResponsiveDropdown>
-            )}
           </div>
-        </div>
+        )}
       </section>
 
       <Calendar
