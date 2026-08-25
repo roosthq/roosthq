@@ -186,12 +186,17 @@ export default function DinnerWeekModal({
                   {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
                 </div>
                 {canEdit && (
+                  // Labeled pill, not a bare icon - same fix as the
+                  // Household widget's identical toggle.
                   <button
                     onClick={() => toggleOut(k)}
-                    title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
-                    className={`shrink-0 rounded px-1 text-sm ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
+                    className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium ${
+                      meal?.isEatingOut
+                        ? 'border-[var(--today)] text-amber-600'
+                        : 'border-slate-300 text-slate-400 hover:bg-slate-50'
+                    }`}
                   >
-                    <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={16} />
+                    {meal?.isEatingOut ? 'Eating out' : 'Eating out?'}
                   </button>
                 )}
               </div>

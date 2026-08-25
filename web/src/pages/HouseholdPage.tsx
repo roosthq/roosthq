@@ -204,21 +204,15 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
   const todayKey = dateKey(new Date());
   return (
     <section className="panel min-w-0">
+      {/* Title and week-nav share a row (they're short, always fit); the
+          favorite-places manager gets its OWN row below instead of fighting
+          them for space - crammed into the same row, its label wrapped
+          mid-word ("Favorite" / "places ▾") on a phone. */}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="flex items-center gap-1.5 text-base font-semibold tracking-tight">
           <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={16} /> Dinner plan
         </h3>
         <div className="flex items-center gap-2 text-sm">
-          {isAdult && (
-            <ResponsiveDropdown
-              trigger="Favorite places ▾"
-              triggerClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
-              title="Favorite places"
-              panelClassName="w-72 max-w-[calc(100vw-2rem)]"
-            >
-              <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
-            </ResponsiveDropdown>
-          )}
           <button onClick={() => navigate(-1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">‹</button>
           <span className="px-1 text-slate-500">
             {weekStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} week
@@ -226,6 +220,18 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           <button onClick={() => navigate(1)} className="rounded border px-2.5 py-1.5 hover:bg-slate-50">›</button>
         </div>
       </div>
+      {isAdult && (
+        <div className="mt-2">
+          <ResponsiveDropdown
+            trigger="Favorite places ▾"
+            triggerClassName="cursor-pointer list-none rounded border px-2.5 py-1.5 text-sm text-slate-500 hover:bg-slate-50"
+            title="Favorite places"
+            panelClassName="w-72 max-w-[calc(100vw-2rem)]"
+          >
+            <EatOutPlacesPanel places={places} scope={scope} onChanged={refreshPlaces} />
+          </ResponsiveDropdown>
+        </div>
+      )}
       {/* Swipeable, same recognizer as the calendar's own day grid - drag
           anywhere in the grid to page weeks, not just the ‹/› buttons.
           Single column below sm: a 2-up grid on a phone left each cell too
@@ -238,18 +244,26 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           const k = dateKey(d);
           const meal = meals[k];
           return (
-            <li key={k} className={`card-nested rounded-lg p-2.5 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
+            <li key={k} className={`card-nested rounded-lg p-3 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
               <div className="flex items-center justify-between gap-1">
                 <div className="text-sm font-medium text-slate-500">
                   {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
+                  {k === todayKey && <span className="ml-1.5 text-xs text-slate-400">· today</span>}
                 </div>
                 {isAdult && (
+                  // A labeled pill, not a bare icon - the icon-only button
+                  // gave no hint what tapping it would do, and at 24px was
+                  // a marginal touch target next to everything else on this
+                  // card getting a real one.
                   <button
                     onClick={() => toggleOut(k)}
-                    title={meal?.isEatingOut ? 'Switch back to a home-cooked dinner' : 'Mark this day eating out instead'}
-                    className={`shrink-0 rounded px-1 text-xs ${meal?.isEatingOut ? 'text-amber-600' : 'text-slate-300 hover:text-slate-500'}`}
+                    className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium ${
+                      meal?.isEatingOut
+                        ? 'border-[var(--today)] text-amber-600'
+                        : 'border-slate-300 text-slate-400 hover:bg-slate-50'
+                    }`}
                   >
-                    <LucideIcon name="utensils-crossed" slot="household.dinnerMeal" size={14} />
+                    {meal?.isEatingOut ? 'Eating out' : 'Eating out?'}
                   </button>
                 )}
               </div>
