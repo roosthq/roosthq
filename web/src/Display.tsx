@@ -1099,24 +1099,34 @@ export default function Display() {
                       onChanged={refreshChores}
                     />
                   )}
-                  {showChores && (
-                    <ChoresPanel
-                      me={active.user}
-                      client={kioskChoreClient}
-                      variant="today"
-                      locationId={config.locationId}
-                      refreshSignal={dataRefreshSignal}
-                    />
-                  )}
-                  {showPrizes && (
-                    <PrizesPanel
-                      me={active.user}
-                      client={kioskPrizeClient}
-                      kioskToken={active.token}
-                      locationId={config.locationId}
-                      refreshSignal={dataRefreshSignal}
-                    />
-                  )}
+                  {/* personFocused gives this aside the whole width the
+                      calendar just gave up (shrunk to a 288px sidebar) -
+                      stacking Chores under Prizes wasted all of it and
+                      meant scrolling through both lists one after another
+                      to see everything. Side by side there when there's
+                      room for it; still stacked in the OTHER layout (the
+                      calendar stays wide, this aside is a fixed 320px
+                      column - too narrow for two of these side by side). */}
+                  <div className={personFocused ? 'grid grid-cols-1 gap-4 lg:grid-cols-2' : 'space-y-4'}>
+                    {showChores && (
+                      <ChoresPanel
+                        me={active.user}
+                        client={kioskChoreClient}
+                        variant="today"
+                        locationId={config.locationId}
+                        refreshSignal={dataRefreshSignal}
+                      />
+                    )}
+                    {showPrizes && (
+                      <PrizesPanel
+                        me={active.user}
+                        client={kioskPrizeClient}
+                        kioskToken={active.token}
+                        locationId={config.locationId}
+                        refreshSignal={dataRefreshSignal}
+                      />
+                    )}
+                  </div>
                   <KioskAccountPanel
                     me={active.user}
                     client={kioskPrizeClient}
