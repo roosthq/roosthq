@@ -25,7 +25,7 @@ export default function Modal({
     // The extra bottom padding on phones keeps the card itself clear of the
     // bar rather than just layering on top of it.
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 pb-[calc(1rem+3.6rem+env(safe-area-inset-bottom))] lg:pb-4 ${className}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 pb-[calc(1rem+3.75rem+env(safe-area-inset-bottom))] lg:pb-4 ${className}`}
       onClick={onBackdropClick}
     >
       <div

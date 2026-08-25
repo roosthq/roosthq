@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 import type { CalEvent } from './api';
 import Modal from './Modal';
+import useNarrowViewport from './useNarrowViewport';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -333,14 +334,7 @@ export default function Calendar({
   // text - month stays the familiar dot-grid overview (a month of full-width
   // cards would be an awful lot of scrolling, and tapping a day already
   // opens the same detail modal either way).
-  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 639.98px)');
-    const onChange = () => setNarrow(mq.matches);
-    onChange();
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
+  const narrow = useNarrowViewport();
   const verticalWeek = narrow && !mini && effectiveView !== 'month';
 
   const todayKey = keyOf(new Date());
