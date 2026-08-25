@@ -94,23 +94,23 @@ export default function PendingPanel({
       <ul className="mt-2 space-y-2">
         {pendingChores.map(({ chore, instance }) => (
           <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
-            <span className="min-w-0 flex-1 truncate">
+            <span className="min-w-0 flex-1 break-words">
               <span className="font-medium">{chore.title}</span>
               {instance.claimedByUserId && <span className="text-slate-400"> · {memberName(instance.claimedByUserId)}</span>}
             </span>
             {instance.hasProof && (
-              <button onClick={() => viewProof(instance.id)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+              <button onClick={() => viewProof(instance.id)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                 📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
               </button>
             )}
             <TokenBadge icon={tokenIcon} amount={chore.tokenValue} />
             <button
               onClick={(e) => act(() => client.approveInstance(instance.id), e.currentTarget, approveSlot)}
-              className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
+              className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
             >
               Approve
             </button>
-            <button onClick={() => act(() => client.rejectInstance(instance.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+            <button onClick={() => act(() => client.rejectInstance(instance.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
               Reject
             </button>
             {proofFor === instance.id && (
@@ -126,7 +126,7 @@ export default function PendingPanel({
         ))}
         {pendingRedemptions.map((r) => (
           <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2 text-sm">
-            <span className="min-w-0 flex-1 truncate">
+            <span className="min-w-0 flex-1 break-words">
               <span className="font-medium">{memberName(r.userId)}</span> wants{' '}
               {prizeById(r.prizeId) ? (
                 <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
@@ -139,11 +139,11 @@ export default function PendingPanel({
             <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
             <button
               onClick={(e) => act(() => prizeClient.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
-              className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
+              className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
             >
               Fulfilled
             </button>
-            <button onClick={() => act(() => prizeClient.rejectRedemption(r.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+            <button onClick={() => act(() => prizeClient.rejectRedemption(r.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
               Reject
             </button>
           </li>

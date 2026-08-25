@@ -10,7 +10,7 @@ import LucideIcon from './LucideIcon';
 // own banner. Same header-level indicator pattern as PendingIndicator, own
 // icon (🎁), reachable from every page - and unlike the hourglass, tapping
 // an entry here plays the game right there instead of just linking away.
-export default function PendingGamesIndicator({ tokenName }: { tokenName: string }) {
+export default function PendingGamesIndicator({ tokenName, size = 'sm' }: { tokenName: string; size?: 'sm' | 'lg' }) {
   const [games, setGames] = useState<PendingWheel[]>([]);
   const [playing, setPlaying] = useState<PendingWheel | null>(null);
   // #9 - away/vacation blocks spinning outright, quietly (see Prize.tsx).
@@ -44,10 +44,14 @@ export default function PendingGamesIndicator({ tokenName }: { tokenName: string
       <DropdownDetails
         summary={
           <span className="inline-flex items-center gap-1">
-            <LucideIcon name="gift" size={14} /> {games.length}
+            <LucideIcon name="gift" size={size === 'lg' ? 22 : 14} /> {games.length}
           </span>
         }
-        summaryClassName="cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100"
+        summaryClassName={
+          size === 'lg'
+            ? 'cursor-pointer list-none rounded-full px-3 py-2 text-base font-medium hover:bg-slate-100'
+            : 'cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100'
+        }
       >
         <div className="absolute right-0 z-30 mt-2 w-72 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">
           <p className="mb-2 font-semibold">Reward games waiting ({games.length})</p>

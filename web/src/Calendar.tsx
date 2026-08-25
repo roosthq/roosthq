@@ -166,7 +166,14 @@ export default function Calendar({
   const [selected, setSelected] = useState<string | null>(null);
   // Mini (kiosk side calendar) always stays a full month - no room for a
   // range picker, and the point of "mini" is the familiar month-grid glance.
-  const [view, setView] = useState<ViewRange>('month');
+  // Everyone else defaults to Month too, EXCEPT a narrow (phone-width) first
+  // load: Month there is the dot-only grid below, but 1week gets the
+  // full-width vertical day list (see `verticalWeek` below) - so a phone
+  // should land on the view that's actually readable, not the one that
+  // isn't.
+  const [view, setView] = useState<ViewRange>(() =>
+    typeof window !== 'undefined' && window.innerWidth < 640 && size !== 'mini' ? '1week' : 'month',
+  );
   const effectiveView = size === 'mini' ? 'month' : view;
 
   const large = size === 'large';
@@ -317,6 +324,25 @@ export default function Calendar({
     return cellLanes;
   }, [events, days, mini]);
 
+  // Below `sm` (phones), the grid's `grid-cols-7` never actually goes away
+  // just because 1wk/2wk shows fewer ROWS - every row is still 7 columns
+  // wide, so each cell is the same ~45px sliver a month view gets, with room
+  // for nothing but a dot. "Try a shorter range" genuinely can't fix that;
+  // only a different LAYOUT can. So on a narrow screen, 1wk/2wk swap the
+  // grid for a single-column list of full-width day cards with real event
+  // text - month stays the familiar dot-grid overview (a month of full-width
+  // cards would be an awful lot of scrolling, and tapping a day already
+  // opens the same detail modal either way).
+  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639.98px)');
+    const onChange = () => setNarrow(mq.matches);
+    onChange();
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  const verticalWeek = narrow && !mini && effectiveView !== 'month';
+
   const todayKey = keyOf(new Date());
   const rangeLabel =
     effectiveView === 'month'
@@ -437,6 +463,56 @@ export default function Calendar({
         </div>
       </div>
 
+      {verticalWeek ? (
+        <ul
+          key={animKey}
+          onPointerDown={onGridPointerDown}
+          onPointerUp={onGridPointerUp}
+          onPointerCancel={() => { swipeRef.current = null; }}
+          className={`mt-3 space-y-2 ${animDir === 1 ? 'cal-slide-next' : 'cal-slide-prev'}`}
+          style={{ touchAction: 'none' }}
+        >
+          {days.map((d) => {
+            const k = keyOf(d);
+            const isToday = k === todayKey;
+            const dayEvents = byDay.get(k) ?? [];
+            return (
+              <li key={k}>
+                <button
+                  onClick={() => {
+                    if (swipeRef.current?.swiped) return;
+                    setSelected(k);
+                  }}
+                  className="card-nested flex w-full flex-col items-stretch gap-1.5 rounded-lg p-2.5 text-left"
+                  style={{ boxShadow: isToday ? 'inset 0 0 0 2px var(--today)' : undefined }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-sm font-semibold ${isToday ? 'today-badge inline-flex h-6 items-center rounded-full px-2' : 'text-slate-500'}`}
+                      style={isToday ? { color: '#1c2e1c' } : undefined}
+                    >
+                      {d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+                    </span>
+                  </div>
+                  {dayEvents.length === 0 ? (
+                    <span className="text-sm text-slate-400">Nothing planned</span>
+                  ) : (
+                    <div className="flex flex-col gap-1">
+                      {dayEvents.map((e) => (
+                        <div key={`${e.uid}-${k}`} className="flex items-center gap-2 overflow-hidden">
+                          <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: e.calendarColor ?? '#94a3b8' }} />
+                          <span className="min-w-0 flex-1 truncate text-sm font-medium">{e.title ?? '(no title)'}</span>
+                          {!isAllDay(e) && <span className="shrink-0 text-xs text-slate-400">{timeLabel(e)}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
       <div
         key={animKey}
         onPointerDown={onGridPointerDown}
@@ -590,6 +666,7 @@ export default function Calendar({
           );
         })}
       </div>
+      )}
 
       {selected && (
         <Modal

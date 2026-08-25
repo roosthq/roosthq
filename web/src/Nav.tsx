@@ -65,16 +65,19 @@ export default function Nav({
     AWAY: { icon: 'moon', slot: 'badge.presenceAway', label: 'Away' },
     VACATION: { icon: 'plane', slot: 'badge.presenceVacation', label: 'Vacation' },
   };
-  const myPresenceButton = presence && (
-    <button
-      onClick={() => setPresenceOpen(true)}
-      title="Set where you are"
-      className="flex items-center gap-1 text-slate-500 hover:text-slate-800"
-    >
-      <LucideIcon name={presenceIcon[presence.status].icon} slot={presenceIcon[presence.status].slot} size={16} />
-      <span className="hidden sm:inline">{presenceIcon[presence.status].label}</span>
-    </button>
-  );
+  function renderPresenceButton(size: number) {
+    if (!presence) return null;
+    return (
+      <button
+        onClick={() => setPresenceOpen(true)}
+        title="Set where you are"
+        className="flex items-center gap-1 rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+      >
+        <LucideIcon name={presenceIcon[presence.status].icon} slot={presenceIcon[presence.status].slot} size={size} />
+        <span className="hidden sm:inline">{presenceIcon[presence.status].label}</span>
+      </button>
+    );
+  }
 
   const [unread, setUnread] = useState(0);
   useEffect(() => {
@@ -98,26 +101,44 @@ export default function Nav({
   // row don't fit - they used to just wrap onto a tall stack of half-legible
   // lines. Collapse into a hamburger menu instead.
   const [menuOpen, setMenuOpen] = useState(false);
-  const searchLink = (
-    <NavLink to="/search" onClick={() => setMenuOpen(false)} className="text-slate-500 hover:text-slate-800" title="Search">
-      🔍
-    </NavLink>
-  );
-  const bell = (
-    <NavLink
-      to="/notifications"
-      onClick={() => setMenuOpen(false)}
-      className="relative text-slate-500 hover:text-slate-800"
-      title="Notifications"
-    >
-      🔔
-      {unread > 0 && (
-        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
-          {unread > 9 ? '9+' : unread}
-        </span>
-      )}
-    </NavLink>
-  );
+  // Fixed-px LucideIcon glyphs, not raw emoji text - an emoji character
+  // scales with the account's font-size setting (Settings -> Accessibility,
+  // 14/16/19/22px root) same as any other text, while its sibling icons
+  // (already LucideIcon elsewhere in this bar) don't - at the larger sizes
+  // that mismatch is exactly what made "increase text size" break the mobile
+  // header (one emoji ballooning past its own tap-target box while its
+  // neighbors stayed put). A function (not a plain element) so the mobile
+  // header row can render it bigger than the desktop bar without a second
+  // near-duplicate copy of the markup.
+  function renderSearchLink(size: number) {
+    return (
+      <NavLink
+        to="/search"
+        onClick={() => setMenuOpen(false)}
+        className="flex items-center justify-center rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+        title="Search"
+      >
+        <LucideIcon name="search" size={size} />
+      </NavLink>
+    );
+  }
+  function renderBell(size: number) {
+    return (
+      <NavLink
+        to="/notifications"
+        onClick={() => setMenuOpen(false)}
+        className="relative flex items-center justify-center rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+        title="Notifications"
+      >
+        <LucideIcon name="bell" size={size} />
+        {unread > 0 && (
+          <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium text-white">
+            {unread > 9 ? '9+' : unread}
+          </span>
+        )}
+      </NavLink>
+    );
+  }
   const displayLink =
     myDisplays.length > 1 ? (
       <DropdownDetails summary="Display ↗">
@@ -202,25 +223,31 @@ export default function Nav({
   // Settings, theme, sign out). index.css pads the body via
   // body:has(.bottom-tabs) so page content never hides behind it - the kiosk
   // renders no Nav, so it gets no padding.
+  // text-xs (rem-based), not the old text-[11px]: a fixed-px size is deaf to
+  // the account's font-size setting while everything around it (and the
+  // icon-vs-label balance) grows, so at "lg"/"xl" these labels used to end up
+  // relatively tinier the more legible the rest of the app got - exactly
+  // backwards. min-h-14 keeps the whole tab a real ≥44px touch target even
+  // though the label text itself only takes up part of that height.
   const tabCls = ({ isActive }: { isActive: boolean }) =>
-    `flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
+    `flex min-h-14 flex-1 flex-col items-center justify-center gap-1 py-1.5 text-xs ${isActive ? 'font-semibold text-slate-800' : 'text-slate-500'}`;
   const bottomTabs = (
     <div className="bottom-tabs fixed inset-x-0 bottom-0 z-40 flex border-t bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
       <NavLink to="/" end className={tabCls}>
-        <LucideIcon name="calendar" slot="nav.calendar" size={20} />Calendar
+        <LucideIcon name="calendar" slot="nav.calendar" size={24} />Calendar
       </NavLink>
       {choresOn && (
         <NavLink to="/chores" className={tabCls}>
-          <LucideIcon name="check-square" slot="nav.chores" size={20} />{chorePlural}
+          <LucideIcon name="check-square" slot="nav.chores" size={24} />{chorePlural}
         </NavLink>
       )}
       {storeOn && (
         <NavLink to="/store" className={tabCls}>
-          <LucideIcon name="shopping-bag" slot="nav.store" size={20} />Store
+          <LucideIcon name="shopping-bag" slot="nav.store" size={24} />Store
         </NavLink>
       )}
       <NavLink to="/profile" className={tabCls}>
-        <LucideIcon name="user" slot="nav.profiles" size={20} />Profiles
+        <LucideIcon name="user" slot="nav.profiles" size={24} />Profiles
       </NavLink>
     </div>
   );
@@ -235,14 +262,14 @@ export default function Nav({
           </Link>
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>
         </div>
-        <div className="hidden items-center gap-3 text-sm lg:flex">
-          {searchLink}
-          {bell}
+        <div className="hidden items-center gap-1 text-sm lg:flex">
+          {renderSearchLink(18)}
+          {renderBell(18)}
           <PendingIndicator me={me} />
           <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
-          {myPresenceButton}
-          <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
-            {me.themePref === 'dark' ? '☀︎' : '☾'}
+          {renderPresenceButton(16)}
+          <button onClick={onToggleTheme} title="Toggle light/dark" className="rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800">
+            <LucideIcon name={me.themePref === 'dark' ? 'sun' : 'moon'} size={16} />
           </button>
           {displayLink}
           {canGhost && <GhostQuickSwitcher me={me} />}
@@ -252,19 +279,24 @@ export default function Nav({
           </button>
         </div>
 
-        <div className="flex items-center gap-3 lg:hidden">
-          {searchLink}
-          {bell}
-          <PendingIndicator me={me} />
-          <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
-          {myPresenceButton}
+        {/* Mobile header row: same controls as the desktop bar, deliberately
+            bigger (24px icons, ~44px+ tap targets) - this is the row the user
+            actually has to read/tap on a phone, so it gets the size bump the
+            plan called for instead of inheriting the desktop bar's compact
+            sizing. */}
+        <div className="flex items-center gap-0.5 lg:hidden">
+          {renderSearchLink(24)}
+          {renderBell(24)}
+          <PendingIndicator me={me} size="lg" />
+          <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} size="lg" />
+          {renderPresenceButton(22)}
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
-            className="rounded p-1 text-2xl leading-none text-slate-600 hover:bg-slate-100"
+            className="rounded p-2 text-slate-600 hover:bg-slate-100"
           >
-            {menuOpen ? '✕' : '☰'}
+            <LucideIcon name={menuOpen ? 'x' : 'menu'} size={26} />
           </button>
         </div>
       </div>
@@ -272,9 +304,14 @@ export default function Nav({
       {menuOpen && (
         <div className="mt-3 space-y-3 border-t pt-3 lg:hidden">
           <div className="flex flex-col gap-1">{links}</div>
-          <div className="flex flex-wrap items-center gap-3 border-t pt-3 text-sm">
-            <button onClick={onToggleTheme} title="Toggle light/dark" className="text-slate-500 hover:text-slate-800">
-              {me.themePref === 'dark' ? '☀︎ Light' : '☾ Dark'}
+          <div className="flex flex-wrap items-center gap-3 border-t pt-3 text-base">
+            <button
+              onClick={onToggleTheme}
+              title="Toggle light/dark"
+              className="flex items-center gap-1.5 rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+            >
+              <LucideIcon name={me.themePref === 'dark' ? 'sun' : 'moon'} size={20} />
+              {me.themePref === 'dark' ? 'Light' : 'Dark'}
             </button>
             {displayLink}
             {canGhost && <GhostQuickSwitcher me={me} align="left" />}

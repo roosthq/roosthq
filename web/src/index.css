@@ -904,7 +904,7 @@ select option {
    unpadded. */
 @media (max-width: 1023.98px) {
   body:has(.bottom-tabs) {
-    padding-bottom: calc(3.6rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom));
   }
 }
 

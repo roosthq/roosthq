@@ -4,6 +4,7 @@ import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
 import DropdownDetails from './DropdownDetails';
 import { PrizeDetailModal } from './Prize';
+import LucideIcon from './LucideIcon';
 
 // Everyone's own "what's waiting" - in the header, so it's reachable from
 // any page, not just /chores. An adult gets the same approve/reject actions
@@ -11,7 +12,7 @@ import { PrizeDetailModal } from './Prize';
 // list (there is nothing for them to click here - the point is just being
 // able to check, without hunting for the right page, whether their chore
 // or prize request actually went through).
-export default function PendingIndicator({ me }: { me: Me }) {
+export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: 'sm' | 'lg' }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   const [chores, setChores] = useState<Chore[]>([]);
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
@@ -87,21 +88,29 @@ export default function PendingIndicator({ me }: { me: Me }) {
 
   return (
     <DropdownDetails
-      summary={`⏳ ${total}`}
-      summaryClassName="cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100"
+      summary={
+        <span className="inline-flex items-center gap-1">
+          <LucideIcon name="hourglass" size={size === 'lg' ? 22 : 14} /> {total}
+        </span>
+      }
+      summaryClassName={
+        size === 'lg'
+          ? 'cursor-pointer list-none rounded-full px-3 py-2 text-base font-medium hover:bg-slate-100'
+          : 'cursor-pointer list-none rounded-full px-2.5 py-1 text-sm font-medium hover:bg-slate-100'
+      }
     >
       <div className="absolute right-0 z-30 mt-2 w-80 max-w-[90vw] rounded-lg border bg-white p-3 text-sm shadow-lg">
         <p className="mb-2 font-semibold">Pending ({total})</p>
         <ul className="max-h-96 space-y-2 overflow-y-auto">
           {pendingChores.map(({ chore, instance }) => (
             <li key={instance.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
-              <span className="min-w-0 flex-1 truncate">
+              <span className="min-w-0 flex-1 break-words">
                 <span className="font-medium">{chore.title}</span>
                 {isAdult && instance.claimedByUserId && <span className="text-slate-400"> - needs approval</span>}
                 {!isAdult && <span className="text-slate-400"> - waiting on an adult</span>}
               </span>
               {isAdult && instance.hasProof && (
-                <button onClick={() => viewProof(instance.id)} className="shrink-0 rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                <button onClick={() => viewProof(instance.id)} className="shrink-0 rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                   📷 {proofFor === instance.id ? 'Hide' : 'Photo'}
                 </button>
               )}
@@ -109,11 +118,11 @@ export default function PendingIndicator({ me }: { me: Me }) {
                 <span className="flex shrink-0 items-center gap-1">
                   <button
                     onClick={(e) => act(() => api.approveInstance(instance.id), e.currentTarget, approveSlot)}
-                    className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
+                    className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
                   >
                     Approve
                   </button>
-                  <button onClick={() => act(() => api.rejectInstance(instance.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                  <button onClick={() => act(() => api.rejectInstance(instance.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                     Reject
                   </button>
                 </span>
@@ -133,7 +142,7 @@ export default function PendingIndicator({ me }: { me: Me }) {
           ))}
           {pendingRedemptions.map((r) => (
             <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded border p-2">
-              <span className="min-w-0 flex-1 truncate">
+              <span className="min-w-0 flex-1 break-words">
                 {isAdult && <span className="font-medium">{r.user?.displayName ?? 'Someone'} wants </span>}
                 {isAdult && prizeById(r.prizeId) ? (
                   <button onClick={() => setViewingPrize(prizeById(r.prizeId)!)} className="underline hover:no-underline">
@@ -149,11 +158,11 @@ export default function PendingIndicator({ me }: { me: Me }) {
                   <TokenBadge icon="coins" amount={r.prize.tokenCost} />
                   <button
                     onClick={(e) => act(() => api.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
-                    className="rounded bg-green-600 px-2 py-1 text-xs text-white hover:bg-green-500"
+                    className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"
                   >
                     Fulfilled
                   </button>
-                  <button onClick={() => act(() => api.rejectRedemption(r.id))} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                  <button onClick={() => act(() => api.rejectRedemption(r.id))} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
                     Reject
                   </button>
                 </span>

@@ -98,7 +98,10 @@ export default function DinnerWeekModal({
     const title = draft.trim();
     if (title) await api.setMeal(date, { title, locationId: locationId ?? null }, kioskToken);
     else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null, kioskToken);
-    setEditing(null);
+    // Only close THIS box - see HouseholdPage's identical save() for why a
+    // bare setEditing(null) here would wipe out whichever box the user has
+    // since tapped into instead.
+    setEditing((cur) => (cur === date ? null : cur));
     refresh();
   }
 
@@ -166,7 +169,7 @@ export default function DinnerWeekModal({
       {/* Swipe left/right pages the week, same threshold-based recognizer as
           the calendar's own day grid - a drag anywhere in this area works,
           not just the ‹/› buttons. */}
-      <ul key={animKey} {...swipeProps} className={`grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
+      <ul key={animKey} {...swipeProps} className={`grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
         {Array.from({ length: 7 }, (_, i) => {
           const d = addDays(weekStart, i);
           const k = dateKey(d);

@@ -152,7 +152,14 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
     const title = draft.trim();
     if (title) await api.setMeal(date, { title, locationId: scope || null });
     else if (meals[date]) await api.deleteMeal(date, meals[date].locationId ?? null);
-    setEditing(null);
+    // Only close THIS box, not whichever one happens to be open by the time
+    // the save round-trips. Tapping straight from one day's input into
+    // another's fires this box's onBlur (async save starts) then the new
+    // box's onClick (setEditing(newKey), same tick) - if this just called
+    // setEditing(null) unconditionally, it would land after that and wipe
+    // out the box the user just opened. Functional form checks the CURRENT
+    // state at resolution time instead of blindly clearing it.
+    setEditing((cur) => (cur === date ? null : cur));
     refresh();
   }
 
@@ -218,8 +225,12 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
         </div>
       </div>
       {/* Swipeable, same recognizer as the calendar's own day grid - drag
-          anywhere in the grid to page weeks, not just the ‹/› buttons. */}
-      <ul key={animKey} {...swipeProps} className={`mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
+          anywhere in the grid to page weeks, not just the ‹/› buttons.
+          Single column below sm: a 2-up grid on a phone left each cell too
+          narrow to actually read (title, "Out - TBD", the place picker AND
+          the dice button all fighting for ~170px) - full width fixes that
+          without needing smaller text or a different interaction. */}
+      <ul key={animKey} {...swipeProps} className={`mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-7 ${animClass}`}>
         {Array.from({ length: 7 }, (_, i) => {
           const d = addDays(weekStart, i);
           const k = dateKey(d);
