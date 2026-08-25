@@ -554,8 +554,12 @@ export function AwardForm({
               </label>
             </div>
 
+            {/* flex-wrap - without it this fractures into independently-
+                wrapping pieces around the two inputs instead of the
+                phrase wrapping as a whole (same bug as the chore form's
+                streak-bonus sentence). */}
             {chanceType === 'wheel' && (
-              <div className="mt-3 flex items-center gap-2 text-sm">
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
                 <input
                   type="number"
                   min={1}
@@ -916,7 +920,7 @@ export function GrantModal({
             They spin it themselves on their phone or the kiosk - the amount is decided when they spin.
           </p>
           {wheelOn && (
-            <div className="mt-2 flex items-center gap-2 text-sm">
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
               <input
                 type="number"
                 min={1}

@@ -62,7 +62,7 @@ export default function LocationJoinModal({ locations, onJoined }: { locations: 
         {locations.map((l) => (
           <li key={l.id}>
             <label className="flex items-center gap-3 rounded-lg border p-3 hover:bg-slate-50">
-              <input type="checkbox" checked={picked.has(l.id)} onChange={() => toggle(l.id)} className="h-4 w-4" />
+              <input type="checkbox" checked={picked.has(l.id)} onChange={() => toggle(l.id)} />
               <span className="font-medium">🏠 {l.name}</span>
             </label>
           </li>
