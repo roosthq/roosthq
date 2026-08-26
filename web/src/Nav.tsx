@@ -142,7 +142,12 @@ export default function Nav({
   // Same pill treatment as GhostQuickSwitcher's trigger below - a plain-text
   // link sitting right next to it with no border/background of its own read
   // as one merged "Display Ghost" phrase instead of two separate controls.
-  const navPillCls = 'rounded border px-2 py-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-800';
+  // list-none/cursor-pointer: this becomes a <summary>'s className
+  // (DropdownDetails) for the two dropdown triggers - its own default
+  // summaryClassName carries both, but passing a custom one here replaces
+  // that default outright rather than merging with it, so without these the
+  // browser's native disclosure triangle marker came back.
+  const navPillCls = 'cursor-pointer list-none rounded border px-2 py-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-800';
   const displayLink =
     myDisplays.length > 1 ? (
       <ResponsiveDropdown trigger="Display ↗" title="Display" panelClassName="w-48" triggerClassName={navPillCls}>
@@ -152,7 +157,7 @@ export default function Nav({
             href={`/?display=1&config=${d.id}`}
             target="_blank"
             rel="noreferrer"
-            className="block rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
+            className="flex items-center rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
           >
             {d.name}
           </a>
@@ -180,8 +185,16 @@ export default function Nav({
   // full-width BottomSheet there, with no hover state to lean on to show
   // it's tappable) - shrinks back to a compact hover-only row for the
   // desktop popover, same split as GhostQuickSwitcher's list items.
+  // flex + items-center (not block) - min-height:2.25rem from the global
+  // button.border/a.border rule (index.css) still applies at sm and up even
+  // though sm:border-0 zeroes the border WIDTH, because the literal
+  // "border" class token is still present in the class list either way -
+  // that global rule matches on the class name, not the computed style. So
+  // the desktop-popover row ends up taller (36px) than its own padding
+  // needs (28px), and without flex centering the text sat at the top of
+  // that extra space instead of centered in it.
   const menuItemCls =
-    'block w-full rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100';
+    'flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100';
 
   function nameMenu(closeMenu: boolean) {
     return (
