@@ -68,4 +68,11 @@ export class PrizesController {
   markUsed(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { used: boolean }) {
     return this.prizes.setRedemptionUsed(u.familyId, u.userId, id, body.used);
   }
+
+  // Adult charges a co-viewer for watching/using this along with whoever
+  // actually redeemed it - see prizes.service.chargeCoViewer.
+  @Post('redemptions/:id/co-view')
+  chargeCoViewer(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { userId: string; tokens?: number }) {
+    return this.prizes.chargeCoViewer(u.familyId, u.userId, id, body.userId, body.tokens);
+  }
 }

@@ -861,6 +861,9 @@ export interface Redemption {
   user?: { id: string; displayName: string };
   // Adults only - the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
+  // Family members separately charged for watching/using this along with
+  // whoever actually redeemed it - see chargeCoViewer below.
+  coViewers?: { id: string; userId: string; displayName: string; tokens: number }[];
 }
 
 export const BASE_URL = BASE;
@@ -1235,6 +1238,11 @@ export const api = {
   search: (q: string, kioskToken?: string) => req<SearchResult>(`/search?q=${encodeURIComponent(q)}`, undefined, kioskToken),
   markRedemptionUsed: (id: string, used: boolean) =>
     req(`/prizes/redemptions/${id}/used`, { method: 'PATCH', body: JSON.stringify({ used }) }),
+  // Adult charges another family member for watching/using this redemption
+  // along with whoever actually paid for it. tokens defaults server-side to
+  // the prize's own tokenCost when omitted.
+  chargeCoViewer: (redemptionId: string, userId: string, tokens?: number) =>
+    req<{ id: string }>(`/prizes/redemptions/${redemptionId}/co-view`, { method: 'POST', body: JSON.stringify({ userId, tokens }) }),
 
   chores: () => req<Chore[]>('/chores'),
   balances: () => req<Balance[]>('/chores/balances'),

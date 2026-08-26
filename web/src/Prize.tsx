@@ -1,4 +1,5 @@
-import type { CropRect, Redemption, StorePrize } from './api';
+import { useState } from 'react';
+import type { CropRect, Member, Redemption, StorePrize } from './api';
 import TokenBadge from './TokenBadge';
 import Modal from './Modal';
 import LucideIcon from './LucideIcon';
@@ -90,6 +91,7 @@ export function PrizeDetailModal({
   isAdult,
   balance,
   history,
+  members,
   memberName,
   onClose,
   onRedeem,
@@ -99,6 +101,7 @@ export function PrizeDetailModal({
   onDelete,
   onToggleArchive,
   onMarkUsed,
+  onChargeCoViewer,
 }: {
   prize: StorePrize;
   tokenName: string;
@@ -107,6 +110,10 @@ export function PrizeDetailModal({
   balance: number;
   // Purchase history for this prize - adults/owners only; omit entirely for kids.
   history?: Redemption[];
+  // Family roster, for the "who watched along?" picker below - adults only,
+  // same gate as history. Omit to leave that action off entirely (e.g. no
+  // onChargeCoViewer wired at this call site).
+  members?: Member[];
   memberName?: (id: string) => string;
   onClose: () => void;
   onRedeem: () => void;
@@ -122,7 +129,22 @@ export function PrizeDetailModal({
   onDelete?: () => void;
   onToggleArchive?: () => void;
   onMarkUsed?: (redemptionId: string, used: boolean) => void;
+  // Charges a family member for watching/using a FULFILLED redemption along
+  // with whoever actually paid for it (see PLANNING.md's fairness note).
+  onChargeCoViewer?: (redemptionId: string, userId: string, tokens: number) => void | Promise<void>;
 }) {
+  // Which redemption row currently has its "charge a co-viewer" picker open -
+  // at most one at a time, reset whenever it's submitted or dismissed.
+  const [chargingRow, setChargingRow] = useState<string | null>(null);
+  const [coViewerId, setCoViewerId] = useState('');
+  const [coViewerTokens, setCoViewerTokens] = useState(prize.tokenCost);
+
+  function openCharger(redemptionId: string) {
+    setChargingRow(redemptionId);
+    setCoViewerId('');
+    setCoViewerTokens(prize.tokenCost);
+  }
+
   return (
     <Modal
       maxWidthClass="max-w-lg"
@@ -207,25 +229,105 @@ export function PrizeDetailModal({
               <p className="mt-1 text-xs text-slate-400">Nobody's bought this yet.</p>
             ) : (
               <ul className="mt-2 space-y-1 text-sm">
-                {history.map((r) => (
-                  <li key={r.id} className="flex items-center justify-between gap-2 border-b py-1">
-                    <span className="min-w-0 flex-1 break-words">
-                      <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
-                      <span className="text-xs text-slate-400">
-                        {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
-                        {r.usedAt ? ` · used ${formatDate(r.usedAt)}` : ''}
-                      </span>
-                    </span>
-                    {onMarkUsed && r.status === 'FULFILLED' && r.prize.type === 'EVENT' && (
-                      <button
-                        onClick={() => onMarkUsed(r.id, !r.usedAt)}
-                        className="shrink-0 rounded border px-2 py-0.5 text-xs hover:bg-slate-50"
-                      >
-                        {r.usedAt ? 'Mark not used' : 'Mark as used'}
-                      </button>
-                    )}
-                  </li>
-                ))}
+                {history.map((r) => {
+                  // Anyone but the redeemer, and never someone whose tokens
+                  // are turned off (charging them would just 400 server-side -
+                  // don't offer a button that's guaranteed to fail).
+                  const candidates = (members ?? []).filter((m) => m.id !== r.userId && !m.tokensDisabled);
+                  const alreadyCharged = coViewerId ? r.coViewers?.find((cv) => cv.userId === coViewerId) : undefined;
+                  return (
+                    <li key={r.id} className="flex flex-col gap-1.5 border-b py-1.5">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span className="min-w-0 flex-1 break-words">
+                          <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
+                          <span className="text-xs text-slate-400">
+                            {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
+                            {r.usedAt ? ` · used ${formatDate(r.usedAt)}` : ''}
+                          </span>
+                        </span>
+                        <div className="flex shrink-0 flex-wrap gap-2">
+                          {onMarkUsed && r.status === 'FULFILLED' && r.prize.type === 'EVENT' && (
+                            <button
+                              onClick={() => onMarkUsed(r.id, !r.usedAt)}
+                              className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+                            >
+                              {r.usedAt ? 'Mark not used' : 'Mark as used'}
+                            </button>
+                          )}
+                          {onChargeCoViewer && r.status === 'FULFILLED' && candidates.length > 0 && (
+                            <button
+                              onClick={() => (chargingRow === r.id ? setChargingRow(null) : openCharger(r.id))}
+                              className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+                            >
+                              {chargingRow === r.id ? 'Cancel' : '+ Charge a co-viewer'}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {!!r.coViewers?.length && (
+                        <ul className="ml-0.5 space-y-0.5 text-xs text-slate-400">
+                          {r.coViewers.map((cv) => (
+                            <li key={cv.id}>
+                              Also charged <strong className="font-medium text-slate-500">{cv.displayName}</strong> {cv.tokens} {tokenName}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {/* Deliberately inline, not a nested modal - a second
+                          modal stacked on top of this one is awkward on a
+                          phone (two headers, two backdrops) for what's just
+                          two fields. Grows the row instead. */}
+                      {chargingRow === r.id && (
+                        <div className="mt-0.5 flex flex-wrap items-end gap-2 rounded-lg border bg-slate-50 p-2.5">
+                          <label className="text-xs">
+                            <span className="mb-0.5 block text-slate-500">Who watched?</span>
+                            <select
+                              value={coViewerId}
+                              onChange={(e) => setCoViewerId(e.target.value)}
+                              className="rounded border px-2 py-1.5 text-sm"
+                            >
+                              <option value="">Choose…</option>
+                              {candidates.map((m) => (
+                                <option key={m.id} value={m.id}>
+                                  {m.displayName}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label className="text-xs">
+                            <span className="mb-0.5 block text-slate-500">{tokenName}</span>
+                            <input
+                              type="number"
+                              min={1}
+                              value={coViewerTokens}
+                              onChange={(e) => setCoViewerTokens(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                              onFocus={(e) => e.target.select()}
+                              className="w-20 rounded border px-2 py-1.5 text-sm"
+                            />
+                          </label>
+                          <button
+                            disabled={!coViewerId}
+                            onClick={async () => {
+                              if (!onChargeCoViewer) return;
+                              await onChargeCoViewer(r.id, coViewerId, coViewerTokens);
+                              setChargingRow(null);
+                            }}
+                            className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40"
+                          >
+                            Charge
+                          </button>
+                          {alreadyCharged && (
+                            <p className="w-full text-xs text-amber-600">
+                              Already charged {alreadyCharged.tokens} {tokenName} for this - charging again adds another entry.
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>

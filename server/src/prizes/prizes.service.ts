@@ -402,7 +402,64 @@ export class PrizesService {
       },
     });
     const { items, hasMore } = paginate(redemptions, take);
-    // Who fulfilled/rejected it is adult-only context.
-    return { items: items.map(({ approvedByUser, ...r }) => (isAdult ? { ...r, approvedByUser } : r)), hasMore };
+    // Co-view charges (see chargeCoViewer) for whichever of these redemptions
+    // have any - fetched in one batch and grouped, not per-row, so a long
+    // history list doesn't fan out into N extra queries.
+    const ids = items.map((r) => r.id);
+    const coViewCharges = ids.length
+      ? await this.prisma.tokenLedger.findMany({
+          where: { type: 'CO_VIEW', refId: { in: ids } },
+          include: { user: { select: { id: true, displayName: true } } },
+          orderBy: { createdAt: 'asc' },
+        })
+      : [];
+    const coViewersByRedemption = new Map<string, { id: string; userId: string; displayName: string; tokens: number }[]>();
+    for (const c of coViewCharges) {
+      const list = coViewersByRedemption.get(c.refId!) ?? [];
+      list.push({ id: c.id, userId: c.userId, displayName: c.user.displayName, tokens: -c.delta });
+      coViewersByRedemption.set(c.refId!, list);
+    }
+    // Who fulfilled/rejected it is adult-only context; co-view charges aren't
+    // sensitive (it's the redeemer's own history either way) so those show
+    // for everyone.
+    return {
+      items: items.map(({ approvedByUser, ...r }) => ({
+        ...(isAdult ? { ...r, approvedByUser } : r),
+        coViewers: coViewersByRedemption.get(r.id) ?? [],
+      })),
+      hasMore,
+    };
+  }
+
+  // Adult charges a family member who watched/used along with whoever
+  // actually redeemed this - see PLANNING.md's fairness note. A debit ledger
+  // entry linked back to the redemption via refId; doesn't touch the
+  // redemption itself or the original purchaser's balance in any way.
+  async chargeCoViewer(familyId: string, actorId: string, redemptionId: string, targetUserId: string, tokens?: number) {
+    await assertFeatureEnabled(this.prisma, familyId, 'tokens');
+    await this.assertAdult(actorId);
+    const r = await this.prisma.redemption.findUnique({ where: { id: redemptionId }, include: { prize: true } });
+    if (!r || r.prize.familyId !== familyId) throw new NotFoundException('Redemption not found');
+    if (r.status !== 'FULFILLED') throw new BadRequestException('Only a fulfilled redemption can be split with a co-viewer');
+    if (targetUserId === r.userId) throw new BadRequestException("Can't charge the person who redeemed it");
+    const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    // Same loud-not-silent convention as tokens.service.adjust() - a co-view
+    // charge is a deliberate adult action against someone's balance.
+    if (target.tokensDisabled) throw new BadRequestException(`${target.displayName} has tokens turned off`);
+    const amount = tokens ?? r.prize.tokenCost;
+    if (!Number.isInteger(amount) || amount <= 0) throw new BadRequestException('Amount must be a positive whole number');
+    const entry = await this.prisma.tokenLedger.create({
+      data: {
+        userId: targetUserId,
+        delta: -amount,
+        reason: `Co-viewed: ${r.prize.name}`,
+        type: 'CO_VIEW',
+        refId: r.id,
+        createdById: actorId,
+      },
+    });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
+    return entry;
   }
 }

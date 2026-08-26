@@ -195,6 +195,22 @@ with no independent credentials (typical for younger kids).
   it alongside their other stats. An award can carry a bonus token wheel spin.
 - **Rules:** shared house rules and per-kid rules, adult-managed, viewable by
   everyone (including from the kiosk).
+- **Co-viewing fairness (2026-08):** a shared-resource prize (screen time,
+  movie night) lets a sibling watch/use it alongside whoever actually paid,
+  for free - the real unfairness is that the sibling's own daily screen-time
+  cap (see §8) never gets touched, not just that nobody paid twice. Solved as
+  an adult action on a `FULFILLED` `Redemption`, not a new `Prize.type`:
+  co-viewing is about who *consumes* a redemption, orthogonal to what the
+  prize *is*. "+ Charge a co-viewer" in the prize's Purchase history (Store
+  page, adults only) lets an adult retroactively debit another member the
+  same `tokenCost` as the prize itself (not a discount - a cheaper co-view
+  rate would let siblings launder screen time around their own cap) via a
+  `CO_VIEW` `TokenLedger` entry (`refId` = the redemption). No real-time
+  session/"who's in the room" tracking - still relies on an adult noticing,
+  same as any other house rule. Deliberately kept off the kiosk's kid-facing
+  `PrizesPanel` (that view is read-and-redeem only by design) and off the
+  pending-redemption indicators - it lives only in the adult Store/Prizes
+  admin view, same place as Edit/Delete/Fulfill.
 
 ---
 

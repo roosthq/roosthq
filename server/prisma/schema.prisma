@@ -36,6 +36,13 @@ enum LedgerType {
   REDEEM // spent on a prize
   STREAK_BONUS // awarded for hitting a consecutive on-time completion goal
   AWARD // granted alongside an Award (see AwardGrant)
+  // Adult charges a sibling who watched/used along with the person who
+  // actually redeemed it (e.g. one kid buys 30 min of YouTube, a sibling
+  // tags along without paying) - refId points at the original Redemption.
+  // Deliberately its own type, not MANUAL: it's structurally tied to a
+  // redemption (so it's reportable/filterable on its own), not a free-text
+  // adult adjustment.
+  CO_VIEW
 }
 
 enum PresenceStatus {
@@ -749,6 +756,11 @@ model TokenLedger {
   createdBy User @relation("LedgerCreatedBy", fields: [createdById], references: [id])
 
   @@index([userId])
+  // Looked up by refId for CO_VIEW entries (all charges against one
+  // redemption) - REDEEM/refund lookups are rare enough not to need this,
+  // but co-view charges are read back every time that redemption's history
+  // row renders.
+  @@index([refId])
 }
 
 // Audit log for User.bonusStreakFreezes (the person-level bank - see

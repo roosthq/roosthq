@@ -191,6 +191,28 @@ export default function StorePage({
     await refresh();
   }
 
+  // Fairness: a sibling who watched/used along with whoever actually
+  // redeemed this pays their own share too, instead of riding along for
+  // free - see PLANNING.md. Confirmed up front since it's a real debit
+  // against someone else's balance, not something to fat-finger.
+  async function chargeCoViewer(redemptionId: string, userId: string, tokens: number) {
+    const name = memberName(userId);
+    if (!(await confirm(`Charge ${name} ${tokens} ${tokenName} for watching/using this along with them?`))) return;
+    try {
+      const entry = await api.chargeCoViewer(redemptionId, userId, tokens);
+      prizeHistoryPage.setItems((h) =>
+        h.map((r) =>
+          r.id === redemptionId
+            ? { ...r, coViewers: [...(r.coViewers ?? []), { id: entry.id, userId, displayName: name, tokens }] }
+            : r,
+        ),
+      );
+      await refresh();
+    } catch (e) {
+      await alert((e as Error).message || `Could not charge ${name}`);
+    }
+  }
+
   const activePrizes = prizes.filter((p) => !p.archived && !p.suggested);
   const archivedPrizes = prizes.filter((p) => p.archived);
   // Adults: every pending wishlist item, family-wide. Kids: only ever their
@@ -487,6 +509,7 @@ export default function StorePage({
           isAdult={isAdult}
           balance={balance}
           history={prizeHistoryPage.items}
+          members={members}
           memberName={memberName}
           onClose={() => setViewing(null)}
           canRedeem={canRedeem}
@@ -500,6 +523,7 @@ export default function StorePage({
           onDelete={() => del(viewing)}
           onToggleArchive={() => toggleArchive(viewing)}
           onMarkUsed={markUsed}
+          onChargeCoViewer={chargeCoViewer}
         />
       )}
 
