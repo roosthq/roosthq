@@ -147,7 +147,7 @@ export default function PendingPanel({
               )}
             </div>
             <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-              <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+              <TokenBadge icon={tokenIcon} amount={r.tokensSpent} />
               <button
                 onClick={(e) => act(() => prizeClient.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
                 className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"

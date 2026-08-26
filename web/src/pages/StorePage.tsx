@@ -449,7 +449,7 @@ export default function StorePage({
                       r.prize.name
                     )}
                   </span>
-                  <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+                  <TokenBadge icon={tokenIcon} amount={r.tokensSpent} />
                 </span>
                 <span className="flex gap-2">
                   <button

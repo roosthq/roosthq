@@ -211,6 +211,26 @@ with no independent credentials (typical for younger kids).
   `PrizesPanel` (that view is read-and-redeem only by design) and off the
   pending-redemption indicators - it lives only in the adult Store/Prizes
   admin view, same place as Edit/Delete/Fulfill.
+  - **Historical spend, not current price:** a redemption's "tokens spent"
+    is read back from its own `REDEEM` ledger entry's `delta` (negative
+    entries only, so a later refund's positive entry doesn't cancel it out),
+    never from `Prize.tokenCost` - that's the prize's *current* price and
+    silently drifts if it's changed since. No new column: the ledger entry
+    created at redeem() time already IS the historical record, same "derive,
+    don't duplicate" rule as balances (§8). A #5 reward-game win has no
+    REDEEM entry at all (never spent anything) and correctly shows 0.
+  - **Grouped purchase history:** the Store page's per-prize history
+    collapses same person + same calendar day + same status (+ same
+    used/not-used, for an EVENT, so "mark as used" toggling the group stays
+    unambiguous) into one row - a repeatable prize bought several times in a
+    day would otherwise flood the list. Shows the purchase count and the
+    summed spend for the group. Grouping is display-only, done client-side
+    in `Prize.tsx` - the server's `redemptions()` still returns raw
+    ungrouped rows, since StorePage's pending/eventsToFulfill queues need to
+    act on each real redemption individually. Existing co-view charges are
+    shown un-collapsed across the whole group (not just the one purchase a
+    charge happens to be linked to) specifically so a second adult sees
+    "already charged Freddy" before charging again themselves.
 
 ---
 

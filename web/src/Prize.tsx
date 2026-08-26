@@ -15,6 +15,31 @@ export const TYPE_TAG: Record<StorePrize['type'], { icon: string; slot: string; 
   EVENT: { icon: 'ticket', slot: 'prize.event', label: 'Event', className: 'text-purple-500' },
 };
 
+// Purchase history display, collapsed to one line per person per day - a
+// repeatable prize (e.g. "30 min of screen time") bought several times in
+// one day would otherwise flood this list with identical-looking rows. Same
+// person + same calendar day (viewer's local time) + same status, and for
+// an EVENT also the same used/not-used state (so "mark as used" toggling
+// the whole group stays unambiguous) collapse into one group; anything else
+// stays its own row.
+function groupHistory(history: Redemption[]): Redemption[][] {
+  const groups = new Map<string, Redemption[]>();
+  const order: string[] = [];
+  for (const r of history) {
+    const d = new Date(r.requestedAt);
+    const dayKey = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const key = [r.userId, dayKey, r.status, r.prize.type === 'EVENT' ? String(!!r.usedAt) : ''].join('|');
+    if (!groups.has(key)) {
+      groups.set(key, []);
+      order.push(key);
+    }
+    groups.get(key)!.push(r);
+  }
+  // `history` arrives sorted newest-first, so within each group the first
+  // item encountered is already that group's most recent - no re-sort needed.
+  return order.map((key) => groups.get(key)!);
+}
+
 // Downscale + re-encode client-side so an uploaded photo doesn't blow up the
 // request body or the database row - this app stores images as data: URIs,
 // no separate file storage.
@@ -229,26 +254,37 @@ export function PrizeDetailModal({
               <p className="mt-1 text-xs text-slate-400">Nobody's bought this yet.</p>
             ) : (
               <ul className="mt-2 space-y-1 text-sm">
-                {history.map((r) => {
+                {groupHistory(history).map((group) => {
+                  const r = group[0]; // most recent in the group - represents it for name/date/status/type
+                  const totalSpent = group.reduce((sum, g) => sum + g.tokensSpent, 0);
+                  const coViewers = group.flatMap((g) => g.coViewers ?? []);
+                  // A new co-view charge attaches to the group's most recent
+                  // purchase - which specific one of the day's purchases it's
+                  // "for" doesn't really mean anything; it's just bookkeeping.
+                  const anchorId = r.id;
                   // Anyone but the redeemer, and never someone whose tokens
                   // are turned off (charging them would just 400 server-side -
                   // don't offer a button that's guaranteed to fail).
                   const candidates = (members ?? []).filter((m) => m.id !== r.userId && !m.tokensDisabled);
-                  const alreadyCharged = coViewerId ? r.coViewers?.find((cv) => cv.userId === coViewerId) : undefined;
+                  const alreadyCharged = coViewerId ? coViewers.find((cv) => cv.userId === coViewerId) : undefined;
                   return (
-                    <li key={r.id} className="flex flex-col gap-1.5 border-b py-1.5">
+                    <li key={anchorId} className="flex flex-col gap-1.5 border-b py-1.5">
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <span className="min-w-0 flex-1 break-words">
                           <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
                           <span className="text-xs text-slate-400">
                             {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
+                            {group.length > 1 && ` · ${group.length}×`}
                             {r.usedAt ? ` · used ${formatDate(r.usedAt)}` : ''}
+                          </span>{' '}
+                          <span className="text-xs font-medium text-slate-500">
+                            {totalSpent} {tokenName}
                           </span>
                         </span>
                         <div className="flex shrink-0 flex-wrap gap-2">
                           {onMarkUsed && r.status === 'FULFILLED' && r.prize.type === 'EVENT' && (
                             <button
-                              onClick={() => onMarkUsed(r.id, !r.usedAt)}
+                              onClick={() => group.forEach((g) => onMarkUsed(g.id, !r.usedAt))}
                               className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
                             >
                               {r.usedAt ? 'Mark not used' : 'Mark as used'}
@@ -256,18 +292,22 @@ export function PrizeDetailModal({
                           )}
                           {onChargeCoViewer && r.status === 'FULFILLED' && candidates.length > 0 && (
                             <button
-                              onClick={() => (chargingRow === r.id ? setChargingRow(null) : openCharger(r.id))}
+                              onClick={() => (chargingRow === anchorId ? setChargingRow(null) : openCharger(anchorId))}
                               className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
                             >
-                              {chargingRow === r.id ? 'Cancel' : '+ Charge a co-viewer'}
+                              {chargingRow === anchorId ? 'Cancel' : '+ Charge a co-viewer'}
                             </button>
                           )}
                         </div>
                       </div>
 
-                      {!!r.coViewers?.length && (
+                      {/* Shown regardless of which adult logged it, and
+                          regardless of which of the group's purchases it's
+                          attached to - the whole point is a second adult
+                          sees this before charging the same person again. */}
+                      {coViewers.length > 0 && (
                         <ul className="ml-0.5 space-y-0.5 text-xs text-slate-400">
-                          {r.coViewers.map((cv) => (
+                          {coViewers.map((cv) => (
                             <li key={cv.id}>
                               Also charged <strong className="font-medium text-slate-500">{cv.displayName}</strong> {cv.tokens} {tokenName}
                             </li>
@@ -279,7 +319,7 @@ export function PrizeDetailModal({
                           modal stacked on top of this one is awkward on a
                           phone (two headers, two backdrops) for what's just
                           two fields. Grows the row instead. */}
-                      {chargingRow === r.id && (
+                      {chargingRow === anchorId && (
                         <div className="mt-0.5 flex flex-wrap items-end gap-2 rounded-lg border bg-slate-50 p-2.5">
                           <label className="text-xs">
                             <span className="mb-0.5 block text-slate-500">Who watched?</span>
@@ -311,7 +351,7 @@ export function PrizeDetailModal({
                             disabled={!coViewerId}
                             onClick={async () => {
                               if (!onChargeCoViewer) return;
-                              await onChargeCoViewer(r.id, coViewerId, coViewerTokens);
+                              await onChargeCoViewer(anchorId, coViewerId, coViewerTokens);
                               setChargingRow(null);
                             }}
                             className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-40"

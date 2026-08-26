@@ -166,7 +166,7 @@ export default function PendingIndicator({ me, size = 'sm' }: { me: Me; size?: '
             </div>
             {isAdult ? (
               <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                <TokenBadge icon="coins" amount={r.prize.tokenCost} />
+                <TokenBadge icon="coins" amount={r.tokensSpent} />
                 <button
                   onClick={(e) => act(() => api.fulfillRedemption(r.id), e.currentTarget, 'redemptionFulfilled')}
                   className="rounded bg-green-600 px-3 py-1.5 text-sm text-white hover:bg-green-500"

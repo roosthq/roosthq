@@ -162,7 +162,7 @@ export default function PrizesPanel({
             {pendingRedemptions.map((r) => (
               <li key={r.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
                 <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
-                <TokenBadge icon={tokenIcon} amount={r.prize.tokenCost} />
+                <TokenBadge icon={tokenIcon} amount={r.tokensSpent} />
                 <span className="shrink-0 text-xs text-amber-600">Pending</span>
               </li>
             ))}

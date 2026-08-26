@@ -402,10 +402,10 @@ export class PrizesService {
       },
     });
     const { items, hasMore } = paginate(redemptions, take);
+    const ids = items.map((r) => r.id);
     // Co-view charges (see chargeCoViewer) for whichever of these redemptions
     // have any - fetched in one batch and grouped, not per-row, so a long
     // history list doesn't fan out into N extra queries.
-    const ids = items.map((r) => r.id);
     const coViewCharges = ids.length
       ? await this.prisma.tokenLedger.findMany({
           where: { type: 'CO_VIEW', refId: { in: ids } },
@@ -419,13 +419,32 @@ export class PrizesService {
       list.push({ id: c.id, userId: c.userId, displayName: c.user.displayName, tokens: -c.delta });
       coViewersByRedemption.set(c.refId!, list);
     }
-    // Who fulfilled/rejected it is adult-only context; co-view charges aren't
-    // sensitive (it's the redeemer's own history either way) so those show
-    // for everyone.
+    // What was actually paid, from the REDEEM ledger entry itself - not
+    // r.prize.tokenCost, which is the prize's CURRENT price and silently
+    // drifts if it's changed since. The ledger entry created in redeem() is
+    // the real historical record; only the negative (spend) entry counts, so
+    // a later refund's positive entry (same refId) doesn't cancel it out
+    // here - a rejected/refunded redemption should still show what it
+    // originally cost. A #5 reward-game win (source: 'GAME') never went
+    // through redeem() at all, so it has no REDEEM entry - correctly falls
+    // back to 0 (nothing was spent; it was won).
+    const redeemCharges = ids.length
+      ? await this.prisma.tokenLedger.findMany({
+          where: { type: 'REDEEM', refId: { in: ids }, delta: { lt: 0 } },
+        })
+      : [];
+    const spentByRedemption = new Map<string, number>();
+    for (const c of redeemCharges) {
+      spentByRedemption.set(c.refId!, (spentByRedemption.get(c.refId!) ?? 0) - c.delta);
+    }
+    // Who fulfilled/rejected it is adult-only context; co-view charges and
+    // spend amounts aren't sensitive (it's the redeemer's own history either
+    // way) so those show for everyone.
     return {
       items: items.map(({ approvedByUser, ...r }) => ({
         ...(isAdult ? { ...r, approvedByUser } : r),
         coViewers: coViewersByRedemption.get(r.id) ?? [],
+        tokensSpent: spentByRedemption.get(r.id) ?? 0,
       })),
       hasMore,
     };

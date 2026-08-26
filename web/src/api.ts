@@ -864,6 +864,11 @@ export interface Redemption {
   // Family members separately charged for watching/using this along with
   // whoever actually redeemed it - see chargeCoViewer below.
   coViewers?: { id: string; userId: string; displayName: string; tokens: number }[];
+  // What was actually paid, from the REDEEM ledger entry - NOT prize.tokenCost
+  // (that's the prize's current price, which drifts if it's changed since
+  // this redemption happened). 0 for a #5 reward-game win (source: 'GAME') -
+  // nothing was spent, it was won.
+  tokensSpent: number;
 }
 
 export const BASE_URL = BASE;
