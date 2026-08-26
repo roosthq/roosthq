@@ -139,16 +139,20 @@ export default function Nav({
       </NavLink>
     );
   }
+  // Same pill treatment as GhostQuickSwitcher's trigger below - a plain-text
+  // link sitting right next to it with no border/background of its own read
+  // as one merged "Display Ghost" phrase instead of two separate controls.
+  const navPillCls = 'rounded border px-2 py-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-800';
   const displayLink =
     myDisplays.length > 1 ? (
-      <ResponsiveDropdown trigger="Display ↗" title="Display" panelClassName="w-48">
+      <ResponsiveDropdown trigger="Display ↗" title="Display" panelClassName="w-48" triggerClassName={navPillCls}>
         {myDisplays.map((d) => (
           <a
             key={d.id}
             href={`/?display=1&config=${d.id}`}
             target="_blank"
             rel="noreferrer"
-            className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
+            className="block rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
           >
             {d.name}
           </a>
@@ -159,7 +163,7 @@ export default function Nav({
         href={myDisplays.length === 1 ? `/?display=1&config=${myDisplays[0].id}` : '/?display=1'}
         target="_blank"
         rel="noreferrer"
-        className="text-slate-500 hover:text-slate-800"
+        className={navPillCls}
       >
         Display ↗
       </a>
@@ -172,33 +176,51 @@ export default function Nav({
   // always uses a full-width bottom sheet below sm) - the desktop copy sits
   // at the far right of the nav bar (right-0 fits), the mobile-hamburger
   // copy sits at the far left of its row instead (left-0).
+  // Bigger and actually bordered on a phone (this renders inside a
+  // full-width BottomSheet there, with no hover state to lean on to show
+  // it's tappable) - shrinks back to a compact hover-only row for the
+  // desktop popover, same split as GhostQuickSwitcher's list items.
+  const menuItemCls =
+    'block w-full rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100';
+
   function nameMenu(closeMenu: boolean) {
     return (
-      <ResponsiveDropdown trigger={`${me.displayName} ▾`} title="Account" align={closeMenu ? 'left' : 'right'} panelClassName="w-40">
-        {(close) => (
-          <>
-            <Link
-              to="/profile"
-              onClick={() => {
-                close();
-                if (closeMenu) setMenuOpen(false);
-              }}
-              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-            >
-              View Profile
-            </Link>
-            <Link
-              to="/my-settings"
-              onClick={() => {
-                close();
-                if (closeMenu) setMenuOpen(false);
-              }}
-              className="block rounded px-2 py-1 text-sm text-slate-600 hover:bg-slate-100"
-            >
-              My Account
-            </Link>
-          </>
-        )}
+      <ResponsiveDropdown
+        trigger={`${me.displayName} ▾`}
+        title="Account"
+        align={closeMenu ? 'left' : 'right'}
+        panelClassName="w-48"
+        triggerClassName={navPillCls}
+      >
+        {(close) => {
+          function go() {
+            close();
+            if (closeMenu) setMenuOpen(false);
+          }
+          return (
+            <>
+              <Link to="/profile" onClick={go} className={menuItemCls}>
+                View Profile
+              </Link>
+              <Link to="/my-settings" onClick={go} className={menuItemCls}>
+                My Account
+              </Link>
+              {/* Sign out lives here, not as its own top-level nav item -
+                  it's an account action, and folding it in means one less
+                  bare-text control competing for attention in the header. */}
+              <div className="my-1 border-t sm:my-0.5" />
+              <button
+                onClick={() => {
+                  go();
+                  onLogout();
+                }}
+                className={menuItemCls}
+              >
+                Sign out
+              </button>
+            </>
+          );
+        }}
       </ResponsiveDropdown>
     );
   }
@@ -265,21 +287,30 @@ export default function Nav({
           </Link>
           <div className="hidden flex-wrap items-center gap-1 lg:flex">{links}</div>
         </div>
+        {/* Three visually distinct groups (icon utilities / secondary
+            links / account) separated by real dividers, not just gap - a
+            row of same-weight plain-text and icon buttons with nothing but
+            whitespace between them read as one run-on control ("Display
+            Ghost Casey Shea ▾" looked like a single mangled label). */}
         <div className="hidden items-center gap-1 text-sm lg:flex">
-          {renderSearchLink(18)}
-          {renderBell(18)}
-          <PendingIndicator me={me} />
-          <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
-          {renderPresenceButton(16)}
-          <button onClick={onToggleTheme} title="Toggle light/dark" className="rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800">
-            <LucideIcon name={me.themePref === 'dark' ? 'sun' : 'moon'} size={16} />
-          </button>
-          {displayLink}
-          {canGhost && <GhostQuickSwitcher me={me} />}
+          <div className="flex items-center gap-1">
+            {renderSearchLink(18)}
+            {renderBell(18)}
+            <PendingIndicator me={me} />
+            <PendingGamesIndicator tokenName={family?.tokenName ?? 'tokens'} />
+            {renderPresenceButton(16)}
+            <button onClick={onToggleTheme} title="Toggle light/dark" className="rounded p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800">
+              <LucideIcon name={me.themePref === 'dark' ? 'sun' : 'moon'} size={16} />
+            </button>
+          </div>
+          <span className="mx-2 h-5 border-l" aria-hidden="true" />
+          <div className="flex items-center gap-1.5">
+            {displayLink}
+            {canGhost && <GhostQuickSwitcher me={me} triggerClassName={navPillCls} />}
+          </div>
+          <span className="mx-2 h-5 border-l" aria-hidden="true" />
+          {/* Sign out lives inside this dropdown now - see nameMenu. */}
           {nameMenu(false)}
-          <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
-            Sign out
-          </button>
         </div>
 
         {/* Mobile header row: same controls as the desktop bar, deliberately
@@ -317,14 +348,9 @@ export default function Nav({
               {me.themePref === 'dark' ? 'Light' : 'Dark'}
             </button>
             {displayLink}
-            {canGhost && <GhostQuickSwitcher me={me} align="left" />}
+            {canGhost && <GhostQuickSwitcher me={me} align="left" triggerClassName={navPillCls} />}
           </div>
-          <div className="flex items-center justify-between border-t pt-3 text-sm">
-            {nameMenu(true)}
-            <button onClick={onLogout} className="text-slate-500 hover:text-slate-800">
-              Sign out
-            </button>
-          </div>
+          <div className="border-t pt-3 text-sm">{nameMenu(true)}</div>
         </div>
       )}
       {presenceOpen && presence && (

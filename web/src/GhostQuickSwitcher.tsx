@@ -11,6 +11,7 @@ import { useDialog } from './Dialog';
 export default function GhostQuickSwitcher({
   me,
   align = 'right',
+  triggerClassName,
 }: {
   me: Me;
   // Only matters for the desktop popover now (ResponsiveDropdown always
@@ -18,6 +19,10 @@ export default function GhostQuickSwitcher({
   // desktop mount sits at the far right of the nav bar (right-0 fits), the
   // one inside the mobile hamburger's expanded panel sits mid-row instead.
   align?: 'left' | 'right';
+  // Nav.tsx passes its own pill styling so this doesn't sit as bare,
+  // boundary-less text next to its neighbors in the header - see Nav.tsx's
+  // "can't tell where one button stops and another starts" fix.
+  triggerClassName?: string;
 }) {
   const isOwner = me.role === 'OWNER';
   const { confirm } = useDialog();
@@ -50,7 +55,13 @@ export default function GhostQuickSwitcher({
   }
 
   return (
-    <ResponsiveDropdown trigger="👻 Ghost" title="Ghost as" align={align} panelClassName="max-h-96 w-64 overflow-y-auto">
+    <ResponsiveDropdown
+      trigger="👻 Ghost"
+      title="Ghost as"
+      align={align}
+      panelClassName="max-h-96 w-64 overflow-y-auto"
+      triggerClassName={triggerClassName}
+    >
       <>
         {isOwner ? (
           <>
@@ -59,10 +70,14 @@ export default function GhostQuickSwitcher({
               <div key={f.id} className="mb-1">
                 <div className="px-2 py-1 text-xs font-semibold text-slate-400">{f.name}</div>
                 {(membersByFamily[f.id] ?? []).map((m) => (
+                  // Bigger and actually bordered on a phone (this renders
+                  // inside a full-width BottomSheet there, with no hover
+                  // state to lean on) - shrinks back to a compact
+                  // hover-only row for the desktop popover.
                   <button
                     key={m.id}
                     onClick={() => ghostAs(m)}
-                    className="block w-full rounded px-2 py-1 text-left text-sm text-slate-600 hover:bg-slate-100"
+                    className="block w-full rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
                   >
                     {m.displayName}
                     <span className="ml-1 text-xs text-slate-400">{m.role}</span>
@@ -79,7 +94,7 @@ export default function GhostQuickSwitcher({
               <button
                 key={m.id}
                 onClick={() => ghostAs(m)}
-                className="block w-full rounded px-2 py-1 text-left text-sm text-slate-600 hover:bg-slate-100"
+                className="block w-full rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
               >
                 {m.displayName}
               </button>
