@@ -77,7 +77,7 @@ export default function GhostQuickSwitcher({
                   <button
                     key={m.id}
                     onClick={() => ghostAs(m)}
-                    className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
+                    className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
                   >
                     {m.displayName}
                     <span className="ml-1 text-xs text-slate-400">{m.role}</span>
@@ -94,7 +94,7 @@ export default function GhostQuickSwitcher({
               <button
                 key={m.id}
                 onClick={() => ghostAs(m)}
-                className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
+                className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
               >
                 {m.displayName}
               </button>

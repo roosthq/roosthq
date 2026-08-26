@@ -157,7 +157,7 @@ export default function Nav({
             href={`/?display=1&config=${d.id}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100"
+            className="flex items-center rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
           >
             {d.name}
           </a>
@@ -194,7 +194,7 @@ export default function Nav({
   // needs (28px), and without flex centering the text sat at the top of
   // that extra space instead of centered in it.
   const menuItemCls =
-    'flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal sm:text-slate-600 sm:hover:bg-slate-100';
+    'flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal';
 
   function nameMenu(closeMenu: boolean) {
     return (
