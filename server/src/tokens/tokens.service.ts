@@ -16,11 +16,6 @@ export class TokensService {
     if (!u || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(u.role)) throw new ForbiddenException('Adults only');
   }
 
-  private async assertOwner(userId: string) {
-    const u = await this.prisma.user.findUnique({ where: { id: userId } });
-    if (!u || (u.role !== 'OWNER' && u.role !== 'FAMILY_MANAGER')) throw new ForbiddenException('Owner or family manager only');
-  }
-
   // Balance for a single user (derived by summing the ledger).
   async balance(familyId: string, userId: string) {
     if (!(await isFeatureEnabled(this.prisma, familyId, 'tokens'))) return { userId, balance: 0 };
@@ -96,6 +91,7 @@ export class TokensService {
       amountUnit?: 'TOKENS' | 'FREEZE';
       createdAt: Date;
       createdByName?: string;
+      createdById?: string;
     };
     const rows: Row[] = [];
 
@@ -144,6 +140,7 @@ export class TokensService {
         amountUnit: 'TOKENS',
         createdAt: e.createdAt,
         createdByName: isAdult ? e.createdBy.displayName : undefined,
+        createdById: isAdult ? e.createdById : undefined,
       });
     }
     for (const g of awardGrants) {
@@ -192,13 +189,31 @@ export class TokensService {
     return { items: window.slice(0, take), hasMore };
   }
 
-  // Owner-only: strike a specific history entry entirely (not a reversing
-  // entry like an award removal - this actually deletes the row, and since
-  // balance is derived by summing the ledger, that alone corrects it).
+  // Strikes a specific history entry entirely (not a reversing entry like
+  // an award removal - this actually deletes the row, and since balance is
+  // derived by summing the ledger, that alone corrects it). Deletable by
+  // whoever created it, OR an adult strictly senior to whoever it's on
+  // (owner -> anyone else; family manager -> adult/kid; plain adult -> kid
+  // only) - same "self, or strictly senior" shape as PIN management and the
+  // tokensDisabled toggle in users.service.ts, not a blanket owner/family-
+  // manager-only lock. Never a kid, even one who somehow created an entry
+  // themselves (e.g. their own REDEEM spend) - deleting that would just
+  // refund tokens for free.
   async deleteLedgerEntry(familyId: string, actorId: string, entryId: string) {
-    await this.assertOwner(actorId);
     const entry = await this.prisma.tokenLedger.findFirst({ where: { id: entryId, user: { familyId } } });
     if (!entry) throw new NotFoundException('Ledger entry not found');
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || actor.role === 'KID') throw new ForbiddenException('Adults only');
+    const target = await this.prisma.user.findFirst({ where: { id: entry.userId, familyId } });
+    if (!target) throw new NotFoundException('Member not found');
+    const createdBySelf = entry.createdById === actorId;
+    const seniorTo =
+      actor.role === 'OWNER'
+        ? target.role !== 'OWNER'
+        : actor.role === 'FAMILY_MANAGER'
+          ? target.role === 'ADULT' || target.role === 'KID'
+          : target.role === 'KID'; // plain ADULT
+    if (!createdBySelf && !seniorTo) throw new ForbiddenException('Not allowed to delete this entry');
     await this.prisma.tokenLedger.delete({ where: { id: entryId } });
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ok: true };

@@ -37,6 +37,20 @@ function TokenStat({ icon, amount }: { icon: string; amount: number }) {
   );
 }
 
+// Mirrors tokens.service.deleteLedgerEntry's own rule exactly (server is the
+// real enforcement - this just decides whether to show the button at all,
+// so an adult doesn't tap Delete only to get a 403). Never a kid; otherwise
+// allowed if they created the entry themselves, or if they're strictly
+// senior to whoever it's on (owner -> anyone else; family manager -> adult/
+// kid; plain adult -> kid only).
+function canDeleteLedgerEntry(myRole: string, targetRole: string, createdById: string | undefined, myId: string): boolean {
+  if (myRole === 'KID') return false;
+  if (createdById === myId) return true;
+  if (myRole === 'OWNER') return targetRole !== 'OWNER';
+  if (myRole === 'FAMILY_MANAGER') return targetRole === 'ADULT' || targetRole === 'KID';
+  return targetRole === 'KID'; // plain ADULT
+}
+
 // Tokens earned per day over the last 30 days as a small inline area chart -
 // makes "am I doing better lately?" visible at a glance without a reports
 // page. Pure SVG, no library.
@@ -90,7 +104,6 @@ export default function ProfilePage({
   const { id } = useParams();
   const targetId = id ?? me.id;
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
-  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
   const viewingSelf = targetId === me.id;
   const { confirm } = useDialog();
 
@@ -223,7 +236,7 @@ export default function ProfilePage({
     await activityPage.reload();
   }
 
-  // Only ever offered on a TOKEN_* row (see the "isFamilyManager &&" gate
+  // Only ever offered on a TOKEN_* row (see the canDeleteLedgerEntry gate
   // below) - the real TokenLedger id is everything after the first ':' in
   // the merged row's own "token:<id>" key.
   async function deleteActivityEntry(a: ActivityEntry) {
@@ -541,7 +554,7 @@ export default function ProfilePage({
                 <span className="text-xs text-slate-400" title={formatDateTime(a.createdAt)}>
                   {formatDate(a.createdAt)}
                 </span>
-                {isFamilyManager && a.kind.startsWith('TOKEN_') && (
+                {a.kind.startsWith('TOKEN_') && canDeleteLedgerEntry(me.role, member?.role ?? 'OWNER', a.createdById, me.id) && (
                   <button onClick={() => deleteActivityEntry(a)} className="btn-delete rounded px-2 py-0.5 text-xs">
                     Delete
                   </button>

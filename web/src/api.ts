@@ -808,6 +808,10 @@ export interface ActivityEntry {
   amountUnit?: 'TOKENS' | 'FREEZE';
   createdAt: string;
   createdByName?: string;
+  // Adults only (same gate as createdByName) - who actually created this,
+  // for the client-side "can I delete this one" check (self-created always
+  // allowed; see tokens.service.deleteLedgerEntry for the full rule).
+  createdById?: string;
 }
 
 // Same shape as ImageCropper's CropRect - duplicated here (rather than

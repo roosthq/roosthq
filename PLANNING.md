@@ -97,6 +97,18 @@ A bottom tab bar replaces the desktop nav below the tablet breakpoint.
 A person can be a full login mapped to a role (Google or local), or a managed profile
 with no independent credentials (typical for younger kids).
 
+- **"Self, or strictly senior" permission shape (2026-08):** several adult-only actions
+  that touch another member's data - deleting a `TokenLedger` entry (a co-view charge,
+  a manual adjustment, ...), managing a PIN, toggling `tokensDisabled` - use the same
+  rule rather than a blanket owner/family-manager-only lock: allowed if the actor
+  created the thing themselves, OR if the actor's role is strictly senior to the
+  target's (owner over everyone else; family manager over adult/kid; plain adult over
+  kid only). Never a kid, even one who technically "created" something (e.g. their own
+  REDEEM spend) - that would just let them undo their own spending. See
+  `tokens.service.deleteLedgerEntry` for the canonical version; `ProfilePage.tsx`'s
+  `canDeleteLedgerEntry` mirrors it client-side just to decide whether to show the
+  button - the server is still the real enforcement.
+
 ---
 
 ## 5. Google Calendar integration
