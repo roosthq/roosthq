@@ -71,10 +71,23 @@ export default function PlinkoModal({
     return new Promise((resolve) => {
       const ball = { x: BOARD_W / 2 + (Math.random() - 0.5) * 6, y: BALL_R, vx: (Math.random() - 0.5) * 1.2, vy: 0 };
       setBallVisible(true);
-      const step = () => {
-        ball.vy += GRAVITY;
-        ball.x += ball.vx;
-        ball.y += ball.vy;
+      let last = performance.now();
+      const step = (now: number) => {
+        // Scaled to "frames at 60fps" (dt of 1 = one 16.67ms tick), not a
+        // flat per-call increment - GRAVITY/vx/vy were tuned assuming
+        // requestAnimationFrame fires ~60 times a second. On a 120/144Hz
+        // display it fires roughly 2-2.4x as often, and since gravity was
+        // being added once per CALL rather than once per real 16.67ms, the
+        // ball fell (and every bounce reflected) at that same multiple of
+        // real speed - not a physics bug, an integration step tied to the
+        // monitor's refresh rate instead of elapsed time. Capped at 3 so a
+        // backgrounded/throttled tab doesn't let the ball tunnel through
+        // pegs on the first frame after it's refocused.
+        const dt = Math.min(3, (now - last) / (1000 / 60));
+        last = now;
+        ball.vy += GRAVITY * dt;
+        ball.x += ball.vx * dt;
+        ball.y += ball.vy * dt;
 
         // Walls
         if (ball.x < BALL_R) {
