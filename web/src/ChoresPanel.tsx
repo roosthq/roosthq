@@ -1510,32 +1510,37 @@ function ChoreForm({
               Award a bonus every so many in a row
             </label>
             {streakEnabled && (
-              // flex-wrap: same fix as the screensaver's "show a clock
-              // after N idle minutes" sentence - without it, each phrase
-              // wraps its OWN text independently next to the two inputs
-              // instead of the whole sentence wrapping together, which
-              // chopped "bonus tokens" off against the edge of the card.
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-                Every
-                <input
-                  type="number"
-                  min={1}
-                  className="w-16 rounded-md border px-2 py-1 text-sm"
-                  value={streakGoal}
-                  onChange={(e) => setStreakGoal(Number(e.target.value))}
-                  onFocus={(e) => e.target.select()}
-                />
-                in a row, award
-                <input
-                  type="number"
-                  min={0}
-                  disabled={useWheelForBonus}
-                  className="w-20 rounded-md border px-2 py-1 text-sm disabled:opacity-40"
-                  value={streakBonusTokens}
-                  onChange={(e) => setStreakBonusTokens(Number(e.target.value))}
-                  onFocus={(e) => e.target.select()}
-                />
-                bonus tokens
+              // Split at the natural comma into two always-separate lines,
+              // rather than one long flex-wrap sentence - flex-wrap alone
+              // still let this wrap mid-clause ("award 0" stranded from
+              // "bonus tokens" on the next line) once the account's text
+              // size pushed it past the modal's width, which read as broken
+              // even though nothing was actually clipped.
+              <div className="mt-2 space-y-1.5 text-sm">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span>Every</span>
+                  <input
+                    type="number"
+                    min={1}
+                    className="w-16 rounded-md border px-2 py-1 text-sm"
+                    value={streakGoal}
+                    onChange={(e) => setStreakGoal(Number(e.target.value))}
+                    onFocus={(e) => e.target.select()}
+                  />
+                  <span>in a row, award</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <input
+                    type="number"
+                    min={0}
+                    disabled={useWheelForBonus}
+                    className="w-20 rounded-md border px-2 py-1 text-sm disabled:opacity-40"
+                    value={streakBonusTokens}
+                    onChange={(e) => setStreakBonusTokens(Number(e.target.value))}
+                    onFocus={(e) => e.target.select()}
+                  />
+                  <span>bonus tokens</span>
+                </div>
               </div>
             )}
             {/* Wheel and flat bonus tokens are mutually exclusive per chore

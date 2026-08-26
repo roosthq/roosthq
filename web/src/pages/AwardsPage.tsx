@@ -720,22 +720,40 @@ export function AwardForm({
 
                 <div>
                   <span className="text-xs font-medium text-slate-500">Game type - preview any of these before picking</span>
-                  <div className="mt-1.5 grid grid-cols-3 gap-1.5 sm:grid-cols-4">
+                  {/* Bigger tiles (2-up on a phone, not 3, so nothing's cramped),
+                      rem-based text so it actually grows with the account's font
+                      size setting (the old text-[11px] didn't), and a filled
+                      accent background + checkmark badge on the selected tile
+                      instead of just a subtle ring - kids couldn't tell which
+                      one was picked at a glance. */}
+                  <div className="mt-1.5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
                     <label
-                      className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === '' ? 'ring-2 ring-slate-800' : ''}`}
+                      className="relative flex flex-col gap-1 rounded-lg border p-3 text-sm cursor-pointer"
+                      style={
+                        gameType === ''
+                          ? { borderColor: 'var(--accent)', background: 'color-mix(in srgb, var(--surface-raised) 78%, var(--accent) 22%)' }
+                          : undefined
+                      }
                     >
                       <input type="radio" className="sr-only" checked={gameType === ''} onChange={() => setGameType('')} />
-                      <LucideIcon name="dice-5" size={20} />
+                      {gameType === '' && <LucideIcon name="check-circle" size={18} className="absolute right-2 top-2" />}
+                      <LucideIcon name="dice-5" size={28} />
                       <span className="font-medium">Surprise me</span>
-                      <span className="text-slate-400">Random each time</span>
+                      <span className="text-xs text-slate-400">Random each time</span>
                     </label>
                     {GAME_TYPES.map((gt) => (
                       <label
                         key={gt}
-                        className={`flex flex-col gap-0.5 rounded-lg border p-1.5 text-[11px] cursor-pointer ${gameType === gt ? 'ring-2 ring-slate-800' : ''}`}
+                        className="relative flex flex-col gap-1 rounded-lg border p-3 text-sm cursor-pointer"
+                        style={
+                          gameType === gt
+                            ? { borderColor: 'var(--accent)', background: 'color-mix(in srgb, var(--surface-raised) 78%, var(--accent) 22%)' }
+                            : undefined
+                        }
                       >
                         <input type="radio" className="sr-only" checked={gameType === gt} onChange={() => setGameType(gt)} />
-                        <LucideIcon name={GAME_TYPE_META[gt].icon} slot={`game.${gt}`} size={20} />
+                        {gameType === gt && <LucideIcon name="check-circle" size={18} className="absolute right-2 top-2" />}
+                        <LucideIcon name={GAME_TYPE_META[gt].icon} slot={`game.${gt}`} size={28} />
                         <span className="font-medium">{GAME_TYPE_META[gt].label}</span>
                         <button
                           type="button"
@@ -743,7 +761,7 @@ export function AwardForm({
                             e.preventDefault();
                             setPreviewStyle(gt);
                           }}
-                          className="mt-0.5 self-start rounded border px-1 py-0.5 text-[10px] hover:bg-slate-50"
+                          className="mt-0.5 self-start rounded border px-2 py-1 text-xs hover:bg-slate-50"
                         >
                           ▶ Preview
                         </button>

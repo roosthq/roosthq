@@ -245,7 +245,7 @@ function MealsSection({ isAdult, scope }: { isAdult: boolean; scope: string }) {
           const meal = meals[k];
           return (
             <li key={k} className={`card-nested rounded-lg p-3 ${k === todayKey ? 'ring-2 ring-[var(--today)]' : ''}`}>
-              <div className="flex items-center justify-between gap-1">
+              <div className="flex flex-wrap items-center justify-between gap-1">
                 <div className="text-sm font-medium text-slate-500">
                   {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
                   {k === todayKey && <span className="ml-1.5 text-xs text-slate-400">· today</span>}

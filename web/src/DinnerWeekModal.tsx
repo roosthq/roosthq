@@ -181,7 +181,7 @@ export default function DinnerWeekModal({
                 k === aroundKey && k !== todayKey ? 'ring-2 ring-[var(--accent)]' : ''
               }`}
             >
-              <div className="flex items-center justify-between gap-1">
+              <div className="flex flex-wrap items-center justify-between gap-1">
                 <div className="text-sm font-medium text-slate-500">
                   {d.toLocaleDateString(undefined, { weekday: 'short' })} {d.getDate()}
                 </div>
