@@ -151,17 +151,22 @@ export default function Nav({
   const displayLink =
     myDisplays.length > 1 ? (
       <ResponsiveDropdown trigger="Display ↗" title="Display" panelClassName="w-48" triggerClassName={navPillCls}>
-        {myDisplays.map((d) => (
-          <a
-            key={d.id}
-            href={`/?display=1&config=${d.id}`}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
-          >
-            {d.name}
-          </a>
-        ))}
+        {/* space-y, not just relying on each item's own margin - directly
+            adjacent bordered rows with nothing between them touch edge to
+            edge on mobile, same fix as nameMenu below. */}
+        <div className="space-y-1.5 sm:space-y-0.5">
+          {myDisplays.map((d) => (
+            <a
+              key={d.id}
+              href={`/?display=1&config=${d.id}`}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center rounded-lg border px-4 py-3 text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
+            >
+              {d.name}
+            </a>
+          ))}
+        </div>
       </ResponsiveDropdown>
     ) : (
       <a
@@ -211,7 +216,11 @@ export default function Nav({
             if (closeMenu) setMenuOpen(false);
           }
           return (
-            <>
+            // space-y, not each item's own margin - the divider before Sign
+            // out was the only thing giving these rows any gap; View Profile
+            // and My Account sat flush against each other with none. This
+            // gives every row (and the divider line) the same even rhythm.
+            <div className="space-y-1.5 sm:space-y-0.5">
               <Link to="/profile" onClick={go} className={menuItemCls}>
                 View Profile
               </Link>
@@ -221,7 +230,7 @@ export default function Nav({
               {/* Sign out lives here, not as its own top-level nav item -
                   it's an account action, and folding it in means one less
                   bare-text control competing for attention in the header. */}
-              <div className="my-1 border-t sm:my-0.5" />
+              <div className="border-t" />
               <button
                 onClick={() => {
                   go();
@@ -231,7 +240,7 @@ export default function Nav({
               >
                 Sign out
               </button>
-            </>
+            </div>
           );
         }}
       </ResponsiveDropdown>

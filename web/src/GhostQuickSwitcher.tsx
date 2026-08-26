@@ -67,22 +67,26 @@ export default function GhostQuickSwitcher({
           <>
             {families.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No other families yet.</p>}
             {families.map((f) => (
-              <div key={f.id} className="mb-1">
+              <div key={f.id} className="mb-2">
                 <div className="px-2 py-1 text-xs font-semibold text-slate-400">{f.name}</div>
-                {(membersByFamily[f.id] ?? []).map((m) => (
-                  // Bigger and actually bordered on a phone (this renders
-                  // inside a full-width BottomSheet there, with no hover
-                  // state to lean on) - shrinks back to a compact
-                  // hover-only row for the desktop popover.
-                  <button
-                    key={m.id}
-                    onClick={() => ghostAs(m)}
-                    className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
-                  >
-                    {m.displayName}
-                    <span className="ml-1 text-xs text-slate-400">{m.role}</span>
-                  </button>
-                ))}
+                {/* space-y - directly adjacent bordered buttons with
+                    nothing between them touch edge to edge on mobile. */}
+                <div className="space-y-1.5 sm:space-y-0.5">
+                  {(membersByFamily[f.id] ?? []).map((m) => (
+                    // Bigger and actually bordered on a phone (this renders
+                    // inside a full-width BottomSheet there, with no hover
+                    // state to lean on) - shrinks back to a compact
+                    // hover-only row for the desktop popover.
+                    <button
+                      key={m.id}
+                      onClick={() => ghostAs(m)}
+                      className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
+                    >
+                      {m.displayName}
+                      <span className="ml-1 text-xs text-slate-400">{m.role}</span>
+                    </button>
+                  ))}
+                </div>
                 {(membersByFamily[f.id] ?? []).length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No members.</p>}
               </div>
             ))}
@@ -90,15 +94,17 @@ export default function GhostQuickSwitcher({
         ) : (
           <>
             {kids.length === 0 && <p className="px-2 py-1 text-xs text-slate-400">No kids in the family yet.</p>}
-            {kids.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => ghostAs(m)}
-                className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
-              >
-                {m.displayName}
-              </button>
-            ))}
+            <div className="space-y-1.5 sm:space-y-0.5">
+              {kids.map((m) => (
+                <button
+                  key={m.id}
+                  onClick={() => ghostAs(m)}
+                  className="flex w-full items-center rounded-lg border px-4 py-3 text-left text-base font-medium hover:bg-slate-50 sm:rounded sm:border-0 sm:px-2 sm:py-1 sm:text-sm sm:font-normal"
+                >
+                  {m.displayName}
+                </button>
+              ))}
+            </div>
           </>
         )}
       </>
