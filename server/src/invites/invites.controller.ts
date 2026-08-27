@@ -37,6 +37,13 @@ export class InvitesController {
     return this.invites.list(u.familyId);
   }
 
+  // Owner-only: any family's invites, for the instance-wide Families panel -
+  // see invites.service.listForFamily.
+  @Get('family/:familyId')
+  listForFamily(@CurrentUser() u: SessionPayload, @Param('familyId') familyId: string) {
+    return this.invites.listForFamily(u.userId, familyId);
+  }
+
   // Resend an existing pending invite - reuses the address already on file
   // unless a different one is given. Mints a fresh token (only the hash is
   // ever stored, so the original link can't be recovered/resent as-is).

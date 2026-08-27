@@ -1099,6 +1099,9 @@ export const api = {
     req('/notifications/push/subscribe', { method: 'DELETE', body: JSON.stringify({ endpoint }) }),
 
   listInvites: () => req<InviteInfo[]>('/invites'),
+  // Owner-only: any family's invites, not just the caller's own - for the
+  // instance-wide Families panel.
+  listInvitesForFamily: (familyId: string) => req<InviteInfo[]>(`/invites/family/${familyId}`),
   // email is optional: given, the server sends the invite in this same call
   // (the whole point of "type an email + pick a role" as ONE action);
   // omitted, this is just "generate a link" to share yourself.

@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilyInfo, type Member } from './api';
+import { api, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilyInfo, type Member, type InviteInfo } from './api';
 import { useDialog } from './Dialog';
 import InviteLinkBox from './InviteLinkBox';
-import { formatDateTime } from './dateFormat';
+import { formatDate, formatDateTime } from './dateFormat';
 import LucideIcon from './LucideIcon';
 import { usePaginatedList } from './usePaginatedList';
 import LoadMoreButton from './LoadMoreButton';
@@ -31,6 +31,7 @@ export default function OwnerFamiliesPanel() {
   const { confirm } = useDialog();
   const [families, setFamilies] = useState<FamilyInfo[]>([]);
   const [membersByFamily, setMembersByFamily] = useState<Record<string, Member[]>>({});
+  const [invitesByFamily, setInvitesByFamily] = useState<Record<string, InviteInfo[]>>({});
   const [expanded, setExpanded] = useState<string | null>(null);
   const [newFamilyName, setNewFamilyName] = useState('');
   const [busy, setBusy] = useState(false);
@@ -70,6 +71,11 @@ export default function OwnerFamiliesPanel() {
     setMembersByFamily((prev) => ({ ...prev, [familyId]: m }));
   }
 
+  async function loadInvites(familyId: string) {
+    const inv = await api.listInvitesForFamily(familyId);
+    setInvitesByFamily((prev) => ({ ...prev, [familyId]: inv }));
+  }
+
   async function toggleExpand(familyId: string) {
     if (expanded === familyId) {
       setExpanded(null);
@@ -77,6 +83,7 @@ export default function OwnerFamiliesPanel() {
     }
     setExpanded(familyId);
     if (!membersByFamily[familyId]) await loadMembers(familyId);
+    if (!invitesByFamily[familyId]) await loadInvites(familyId);
   }
 
   // Every member across every family, for the "move someone here" picker -
@@ -131,6 +138,55 @@ export default function OwnerFamiliesPanel() {
     try {
       const minted = await api.createInvite(role, { familyId });
       setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
+      // The transient box above shows the just-minted link/email result, but
+      // it disappears once you mint another one (or navigate away and back)
+      // with no other record of it - the whole point of this ask was "show
+      // me who I've already invited", so the persistent list needs it too.
+      await loadInvites(familyId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Same three actions as MembersManager's own pending-invite list - resend
+  // reuses whatever address is already on file, "get link" mints a fresh
+  // token without emailing (only the hash is ever stored, so a closed/lost
+  // link can't just be shown again), revoke kills it outright.
+  async function resendPendingInvite(familyId: string, id: string) {
+    setBusy(true);
+    setError(null);
+    try {
+      await api.resendInvite(id);
+      await loadInvites(familyId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function regeneratePendingInvite(familyId: string, id: string) {
+    setBusy(true);
+    setError(null);
+    try {
+      const minted = await api.regenerateInvite(id);
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
+      await loadInvites(familyId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function revokePendingInvite(familyId: string, id: string) {
+    setBusy(true);
+    setError(null);
+    try {
+      await api.revokeInvite(id);
+      await loadInvites(familyId);
     } catch (e) {
       setError((e as Error).message);
     } finally {
@@ -478,6 +534,53 @@ export default function OwnerFamiliesPanel() {
                         Generate invite link
                       </button>
                     </div>
+                    {/* Who's already been invited and is still waiting -
+                        same three actions (resend/get link/revoke) as
+                        MembersManager's own pending list, since without
+                        this there was no way to see a link/email you'd
+                        already sent, or that one existed at all, once the
+                        fresh-mint box above disappeared. */}
+                    {(invitesByFamily[f.id] ?? []).filter((i) => !i.acceptedAt).length > 0 && (
+                      <ul className="mt-3 space-y-1.5 border-t pt-2 text-xs">
+                        {(invitesByFamily[f.id] ?? [])
+                          .filter((i) => !i.acceptedAt)
+                          .map((i) => (
+                            <li key={i.id} className="flex flex-col gap-1">
+                              <span className="break-words">
+                                Pending invite · {ROLE_LABEL[i.role] ?? i.role}
+                                {i.email && <> · {i.email}</>} · {formatDate(i.createdAt)}
+                              </span>
+                              <span className="flex flex-wrap items-center gap-3">
+                                {i.email && (
+                                  <button
+                                    disabled={busy}
+                                    onClick={() => resendPendingInvite(f.id, i.id)}
+                                    className="text-slate-500 hover:text-slate-800 disabled:opacity-50"
+                                    title={`Resend to ${i.email}`}
+                                  >
+                                    ✉️ Resend
+                                  </button>
+                                )}
+                                <button
+                                  disabled={busy}
+                                  onClick={() => regeneratePendingInvite(f.id, i.id)}
+                                  className="text-slate-500 hover:text-slate-800 disabled:opacity-50"
+                                  title="Lost the link, or want the link without re-emailing? Mints a fresh one and revokes this one."
+                                >
+                                  🔁 Get link
+                                </button>
+                                <button
+                                  disabled={busy}
+                                  onClick={() => revokePendingInvite(f.id, i.id)}
+                                  className="text-red-500 hover:text-red-700 disabled:opacity-50"
+                                >
+                                  Revoke
+                                </button>
+                              </span>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
               )}

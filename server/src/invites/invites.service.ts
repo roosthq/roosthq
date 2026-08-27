@@ -131,6 +131,18 @@ export class InvitesService {
     }));
   }
 
+  // Owner-only: any family's invites, not just the caller's own - the
+  // instance-wide Families panel needs to show pending/sent invites for a
+  // family that isn't the owner's own home family (the same cross-family
+  // reach create()/resend()/regenerate()/revoke() already have). list()
+  // above stays scoped to the caller's own family for everyone else
+  // (MembersManager, the only other caller).
+  async listForFamily(actorId: string, familyId: string) {
+    const actor = await this.assertAdultOrOwner(actorId);
+    if (actor.role !== 'OWNER') throw new ForbiddenException('Owner only');
+    return this.list(familyId);
+  }
+
   // Resend to whatever address is already on file for this pending invite -
   // no retyping. Still works for a fresh address too (e.g. resending
   // somewhere else), same validation as create()'s inline send.
