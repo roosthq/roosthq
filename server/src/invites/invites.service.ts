@@ -134,9 +134,20 @@ export class InvitesService {
   // Resend to whatever address is already on file for this pending invite -
   // no retyping. Still works for a fresh address too (e.g. resending
   // somewhere else), same validation as create()'s inline send.
+  //
+  // familyId is the ACTOR's own family, not necessarily the invite's - an
+  // owner can invite into a family other than their own (see create()'s
+  // targetFamilyId), and this used to filter the lookup by the actor's
+  // family regardless, so an owner emailing an invite to a brand-new family
+  // they'd just created got a false "Invite not found" 404 every time (the
+  // invite's real familyId never matched their own). An owner bypasses the
+  // family filter entirely here, same as their create()/moveUser() reach;
+  // anyone else stays scoped to their own family only.
   async resend(familyId: string, userId: string, id: string, baseUrl: string, toOverride?: string) {
     const actor = await this.assertAdultOrOwner(userId);
-    const inv = await this.prisma.familyInvite.findFirst({ where: { id, familyId, acceptedAt: null } });
+    const inv = await this.prisma.familyInvite.findFirst({
+      where: { id, acceptedAt: null, ...(actor.role === 'OWNER' ? {} : { familyId }) },
+    });
     if (!inv) throw new NotFoundException('Invite not found (or already accepted)');
     const address = (toOverride?.trim() || inv.email || '').trim();
     if (!this.emailAddressPattern.test(address)) throw new BadRequestException('That does not look like an email address');
@@ -146,12 +157,13 @@ export class InvitesService {
     // Only the hash is ever stored - resending the SAME link isn't possible,
     // so this mints a fresh token (same role/label/email) and revokes the
     // old one, same pattern regenerate() already uses for "get link" again.
+    // inv.familyId, not the actor's own familyId - see comment above.
     await this.prisma.familyInvite.delete({ where: { id } });
     const raw = randomBytes(24).toString('hex');
     const created = await this.prisma.familyInvite.create({
-      data: { familyId, role: inv.role, label: inv.label, email: address, tokenHash: this.hash(raw), createdById: userId },
+      data: { familyId: inv.familyId, role: inv.role, label: inv.label, email: address, tokenHash: this.hash(raw), createdById: userId },
     });
-    const family = await this.prisma.family.findUnique({ where: { id: familyId }, select: { name: true } });
+    const family = await this.prisma.family.findUnique({ where: { id: inv.familyId }, select: { name: true } });
     const cleanBaseUrl = baseUrl.replace(/\/+$/, '');
     const url = `${cleanBaseUrl}/?invite=${raw}`;
     const familyName = family?.name ?? 'their family';
@@ -164,24 +176,29 @@ export class InvitesService {
     return { id: created.id, role: created.role, label: created.label, email: created.email, token: raw, sentTo: address };
   }
 
+  // Same cross-family reach as resend()/regenerate() above - an owner can
+  // revoke an invite on any family, not just their own.
   async revoke(familyId: string, userId: string, id: string) {
-    await this.assertAdultOrOwner(userId);
-    await this.prisma.familyInvite.deleteMany({ where: { id, familyId } });
+    const actor = await this.assertAdultOrOwner(userId);
+    await this.prisma.familyInvite.deleteMany({ where: { id, ...(actor.role === 'OWNER' ? {} : { familyId }) } });
     return { ok: true };
   }
 
   // Only the hash is ever stored, so a lost/expired-from-view link can't be
   // recovered - this mints a fresh one with the same role/label and revokes
   // the old, same net effect as "show me that link again" without ever
-  // keeping a usable token sitting in the database.
+  // keeping a usable token sitting in the database. Same cross-family reach
+  // as resend() above, and the same reason it needed one.
   async regenerate(familyId: string, userId: string, id: string) {
-    await this.assertAdultOrOwner(userId);
-    const existing = await this.prisma.familyInvite.findFirst({ where: { id, familyId, acceptedAt: null } });
+    const actor = await this.assertAdultOrOwner(userId);
+    const existing = await this.prisma.familyInvite.findFirst({
+      where: { id, acceptedAt: null, ...(actor.role === 'OWNER' ? {} : { familyId }) },
+    });
     if (!existing) throw new NotFoundException('Invite not found (or already accepted)');
     await this.prisma.familyInvite.delete({ where: { id } });
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId, role: existing.role, label: existing.label, email: existing.email, tokenHash: this.hash(raw), createdById: userId },
+      data: { familyId: existing.familyId, role: existing.role, label: existing.label, email: existing.email, tokenHash: this.hash(raw), createdById: userId },
     });
     return { id: inv.id, role: inv.role, label: inv.label, email: inv.email, token: raw };
   }
