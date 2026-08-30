@@ -20,6 +20,22 @@ export class EmailService {
       secure: Number(process.env.SMTP_PORT) === 465,
       auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD } : undefined,
     });
+    // Doesn't block startup (a verified custom-domain "Send as" alias is a
+    // real, valid setup this can't tell apart from a mistake) - just flags
+    // the far more common mistake loudly, since nothing else ever will: the
+    // send itself always reports success regardless (SMTP_HOST's own server
+    // accepts and relays it), and the actual failure - the RECIPIENT's mail
+    // server silently dropping it once its SPF/DKIM check on SMTP_FROM's
+    // domain fails - produces no bounce, no error, nothing to log here.
+    // See DEPLOY.md's SMTP section.
+    const fromMatch = this.from.match(/<([^>]+)@([^>]+)>/) ?? this.from.match(/([^\s]+)@(\S+)/);
+    const userDomain = process.env.SMTP_USER?.split('@')[1];
+    if (fromMatch && userDomain && fromMatch[2].toLowerCase() !== userDomain.toLowerCase()) {
+      this.logger.warn(
+        `SMTP_FROM's domain (${fromMatch[2]}) doesn't match SMTP_USER's (${userDomain}) - emails will likely send ` +
+          `"successfully" and then silently never arrive (SPF/DKIM failure on the recipient's end). See DEPLOY.md.`,
+      );
+    }
   }
 
   get enabled(): boolean {

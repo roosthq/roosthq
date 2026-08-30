@@ -102,6 +102,33 @@ VITE_API_BASE_URL=/api
 CLOUDFLARE_TUNNEL_TOKEN=<from step 5>
 ```
 
+### SMTP (optional - invite emails)
+
+Without these, invites still work as copy-a-link-yourself; adding them lets the server
+email an invite directly. A plain Gmail account works fine as the relay:
+
+```
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=<that gmail address>
+SMTP_PASSWORD=<a Gmail App Password - gmail.com/apppasswords, not your login password>
+SMTP_FROM="Roost HQ <same gmail address as SMTP_USER>"
+```
+
+**`SMTP_FROM`'s address must be the same address as `SMTP_USER`** (or a verified
+"Send as" alias on that account) - not an arbitrary custom domain. Gmail's SMTP relay
+will happily accept and send a message claiming `From: noreply@yourdomain.com` even
+though it's authenticating as `you@gmail.com` (the send itself succeeds, no error
+anywhere), but the *receiving* mail server checks whether `yourdomain.com`'s own SPF/
+DKIM records authorize Gmail's servers to send on its behalf - they don't, by default -
+so the message quietly fails that check and gets dropped or spam-filtered with no
+bounce, no log, nothing. This is exactly why an invite email can report success (in
+the UI, and in `docker compose logs server`) and just never arrive: the app did
+everything right, Gmail accepted and relayed it, and the recipient's own spam filter
+silently ate it afterward. Confirm this instance's actual `SMTP_FROM` matches its
+`SMTP_USER` domain with `docker compose exec server env | grep SMTP_FROM` if invite
+emails ever go missing again.
+
 ## Step 4 - Google OAuth (one-time)
 
 1. [Google Cloud Console](https://console.cloud.google.com/) → new project "Roost HQ".
