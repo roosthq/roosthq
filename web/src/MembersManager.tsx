@@ -34,6 +34,12 @@ export default function MembersManager({ me }: { me: Me }) {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteBusy, setInviteBusy] = useState(false);
   const [inviteError, setInviteError] = useState<string | null>(null);
+  // Which pending invite's Resend/Get link is in flight, and which one just
+  // finished - "Resend" gave no visible feedback at all before this (the
+  // row looks the same either way, no toast, nothing), so there was no way
+  // to tell it had actually done anything.
+  const [inviteActionId, setInviteActionId] = useState<string | null>(null);
+  const [justSentId, setJustSentId] = useState<string | null>(null);
   const [fresh, setFresh] = useState<{ url: string; id: string; sentTo?: string } | null>(null);
   const [addRole, setAddRole] = useState<'ADULT' | 'KID'>('KID');
   const [addName, setAddName] = useState('');
@@ -88,21 +94,52 @@ export default function MembersManager({ me }: { me: Me }) {
     }
   }
   async function revokeInvite(id: string) {
-    await api.revokeInvite(id);
-    await refresh();
+    setInviteError(null);
+    setInviteActionId(id);
+    try {
+      await api.revokeInvite(id);
+      await refresh();
+    } catch (e) {
+      setInviteError(e instanceof Error ? e.message : 'Could not revoke that invite.');
+    } finally {
+      setInviteActionId(null);
+    }
   }
   // Only the hash is ever stored server-side, so a link closed/lost after
   // creation can't be shown again - this mints a fresh one (same role/label,
   // old one revoked) and reuses the exact same reveal-it box, so copy/email
   // both work on the new link right away.
   async function regenerateInvite(id: string) {
-    const minted = await api.regenerateInvite(id);
-    setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
-    await refresh();
+    setInviteError(null);
+    setInviteActionId(id);
+    try {
+      const minted = await api.regenerateInvite(id);
+      setFresh({ url: `${window.location.origin}/?invite=${minted.token}`, id: minted.id });
+      await refresh();
+    } catch (e) {
+      setInviteError(e instanceof Error ? e.message : 'Could not generate a new link.');
+    } finally {
+      setInviteActionId(null);
+    }
   }
+  // Resend swaps the invite for a fresh one server-side (same reason
+  // regenerate() above does - only the hash is ever stored), so the row's
+  // OWN id changes too; track the NEW id from the response, not the one
+  // that was clicked, or the "just sent" flag would point at a row that no
+  // longer exists once refresh() replaces it.
   async function resendPending(id: string) {
-    await api.resendInvite(id);
-    await refresh();
+    setInviteError(null);
+    setInviteActionId(id);
+    setJustSentId(null);
+    try {
+      const r = await api.resendInvite(id);
+      await refresh();
+      setJustSentId(r.id);
+    } catch (e) {
+      setInviteError(e instanceof Error ? e.message : 'Could not resend that invite.');
+    } finally {
+      setInviteActionId(null);
+    }
   }
   async function changeRole(m: Member, role: 'FAMILY_MANAGER' | 'ADULT' | 'KID') {
     await api.setUserRole(m.id, role);
@@ -251,20 +288,34 @@ export default function MembersManager({ me }: { me: Me }) {
                   </span>
                   <span className="flex flex-wrap items-center gap-3">
                     {i.email && (
-                      <button onClick={() => resendPending(i.id)} className="text-slate-500 hover:text-slate-800" title={`Resend to ${i.email}`}>
-                        ✉️ Resend
+                      <button
+                        disabled={inviteActionId === i.id}
+                        onClick={() => resendPending(i.id)}
+                        className="text-slate-500 hover:text-slate-800 disabled:opacity-50"
+                        title={`Resend to ${i.email}`}
+                      >
+                        {inviteActionId === i.id ? 'Sending…' : '✉️ Resend'}
                       </button>
                     )}
                     <button
+                      disabled={inviteActionId === i.id}
                       onClick={() => regenerateInvite(i.id)}
-                      className="text-slate-500 hover:text-slate-800"
+                      className="text-slate-500 hover:text-slate-800 disabled:opacity-50"
                       title="Lost the link, or want the link without re-emailing? Mints a fresh one and revokes this one."
                     >
                       🔁 Get link
                     </button>
-                    <button onClick={() => revokeInvite(i.id)} className="text-red-500 hover:text-red-700">
+                    <button
+                      disabled={inviteActionId === i.id}
+                      onClick={() => revokeInvite(i.id)}
+                      className="text-red-500 hover:text-red-700 disabled:opacity-50"
+                    >
                       Revoke
                     </button>
+                    {/* Resend swaps the row for a new id (see resendPending) -
+                        this is why justSentId is checked against the CURRENT
+                        row, not the one that was clicked. */}
+                    {i.id === justSentId && <span className="text-green-600">✓ Sent</span>}
                   </span>
                 </li>
               ))}

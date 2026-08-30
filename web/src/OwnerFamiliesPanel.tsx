@@ -46,6 +46,11 @@ export default function OwnerFamiliesPanel() {
   const [moveTarget, setMoveTarget] = useState<Record<string, { userId: string; role: 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID' }>>({});
   const [inviteRole, setInviteRole] = useState<Record<string, 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID'>>({});
   const [fresh, setFresh] = useState<{ url: string; id: string } | null>(null);
+  // Resend gave no visible feedback at all - the row looks the same either
+  // way. Invite ids are unique instance-wide, so one flag works across
+  // every family's list, same as busy/error above.
+  const [justSentId, setJustSentId] = useState<string | null>(null);
+  const [resendingId, setResendingId] = useState<string | null>(null);
   // "Create an account here" form, per family - no invite, no Google needed.
   const [addForm, setAddForm] = useState<
     Record<
@@ -154,16 +159,25 @@ export default function OwnerFamiliesPanel() {
   // reuses whatever address is already on file, "get link" mints a fresh
   // token without emailing (only the hash is ever stored, so a closed/lost
   // link can't just be shown again), revoke kills it outright.
+  // Resend swaps the invite for a fresh one server-side (only the hash is
+  // ever stored, same reason regenerate mints a new one too), so the row's
+  // OWN id changes - track the NEW id from the response, not the one that
+  // was clicked, or "just sent" would point at a row that no longer exists
+  // once loadInvites() replaces it.
   async function resendPendingInvite(familyId: string, id: string) {
     setBusy(true);
     setError(null);
+    setJustSentId(null);
+    setResendingId(id);
     try {
-      await api.resendInvite(id);
+      const r = await api.resendInvite(id);
       await loadInvites(familyId);
+      setJustSentId(r.id);
     } catch (e) {
       setError((e as Error).message);
     } finally {
       setBusy(false);
+      setResendingId(null);
     }
   }
 
@@ -558,7 +572,7 @@ export default function OwnerFamiliesPanel() {
                                     className="text-slate-500 hover:text-slate-800 disabled:opacity-50"
                                     title={`Resend to ${i.email}`}
                                   >
-                                    ✉️ Resend
+                                    {resendingId === i.id ? 'Sending…' : '✉️ Resend'}
                                   </button>
                                 )}
                                 <button
@@ -576,6 +590,10 @@ export default function OwnerFamiliesPanel() {
                                 >
                                   Revoke
                                 </button>
+                                {/* Resend swaps the row for a new id (see
+                                    resendPendingInvite) - checked against the
+                                    CURRENT row, not the one that was clicked. */}
+                                {i.id === justSentId && <span className="text-green-600">✓ Sent</span>}
                               </span>
                             </li>
                           ))}
