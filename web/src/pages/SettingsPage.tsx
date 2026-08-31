@@ -94,6 +94,12 @@ export default function SettingsPage({ me }: { me: Me }) {
               <CalendarColorsSetting />
             </Section>
             <Section
+              title="Calendars by location"
+              help="Which locations see each shared Google calendar - leave a calendar with no locations checked to show it to the whole family. Displays (Family Settings > Displays) follow this automatically unless one's been given its own specific calendar list."
+            >
+              <CalendarLocationsSetting />
+            </Section>
+            <Section
               title="Local calendars"
               help="Calendars that live in the app - no Google account needed. Give one a location to scope it to a household. Set a local calendar's color above, alongside every other calendar's."
             >
@@ -457,6 +463,82 @@ function CalendarColorsSetting() {
   );
 }
 
+// Explicit per-location visibility for each shared Google calendar - see
+// PLANNING.md §16. Replaces having to go re-pick calendars on every Display
+// whenever sharing changes; a calendar checked here just shows up wherever
+// it's checked, everywhere that reads calendar visibility (main app,
+// Displays left on "Automatic"). Local calendars already have their own
+// single-location field in LocalCalendarsSetting below and don't appear
+// here - they don't need this, they never had the bug this fixes.
+function CalendarLocationsSetting() {
+  const [calendars, setCalendars] = useState<SharedCalendar[]>([]);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  const [savingId, setSavingId] = useState<string | null>(null);
+
+  const refresh = useCallback(async () => {
+    const [c, l] = await Promise.all([api.sharedCalendars(), api.locations()]);
+    setCalendars(c);
+    setLocations(l);
+  }, []);
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
+
+  async function toggle(calendarId: string, locationId: string, on: boolean) {
+    const cal = calendars.find((c) => c.id === calendarId);
+    if (!cal) return;
+    const current = new Set(cal.locationIds ?? []);
+    if (on) current.add(locationId);
+    else current.delete(locationId);
+    const next = [...current];
+    setSavingId(calendarId);
+    setCalendars((prev) => prev.map((c) => (c.id === calendarId ? { ...c, locationIds: next } : c)));
+    try {
+      await api.setCalendarLocations(calendarId, next);
+    } catch {
+      refresh(); // roll back to the real state if the save failed
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  const google = calendars.filter((c) => c.source === 'google');
+
+  if (locations.length === 0) {
+    return <p className="text-sm text-slate-400">Add a location first (Family Settings &gt; Locations) for this to matter.</p>;
+  }
+
+  return (
+    <ul className="space-y-3">
+      {google.map((c) => {
+        const checked = new Set(c.locationIds ?? []);
+        return (
+          <li key={c.id} className="card-nested rounded-lg p-3">
+            <span className="break-words text-sm font-medium">{c.name}</span>
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {locations.map((l) => {
+                const on = checked.has(l.id);
+                return (
+                  <button
+                    key={l.id}
+                    onClick={() => toggle(c.id, l.id, !on)}
+                    disabled={savingId === c.id}
+                    className={`rounded-full border px-3 py-1 text-xs ${on ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                  >
+                    {l.name}
+                  </button>
+                );
+              })}
+            </div>
+            {checked.size === 0 && <p className="mt-1 text-xs text-slate-400">Shown to the whole family (nothing checked above).</p>}
+          </li>
+        );
+      })}
+      {google.length === 0 && <li className="text-sm text-slate-400">No Google calendars shared yet.</li>}
+    </ul>
+  );
+}
+
 function DisplaysManager() {
   const { confirm } = useDialog();
   const [displays, setDisplays] = useState<DisplayConfig[]>([]);
@@ -474,7 +556,9 @@ function DisplaysManager() {
 
   async function create() {
     if (!newName.trim()) return;
-    await api.createDisplay({ name: newName.trim(), calendarIds: [], enabledFeatures: ['calendar', 'chores'], theme: 'light' });
+    // calendarIds omitted (not []) - a brand-new display starts on
+    // "automatic" (inherit whatever's shared to its location), not blank.
+    await api.createDisplay({ name: newName.trim(), enabledFeatures: ['calendar', 'chores'], theme: 'light' });
     setNewName('');
     await refresh();
   }
@@ -558,7 +642,8 @@ function DisplayRow({
     api.displaysCalendars(d.locationId).then(setCalendars).catch(() => setCalendars([]));
   }, [d.locationId]);
 
-  const cals = new Set(d.calendarIds);
+  const inherited = d.calendarIds === null;
+  const cals = new Set(inherited ? calendars.map((c) => c.id) : d.calendarIds);
   const feats = new Set(d.enabledFeatures);
 
   return (
@@ -597,16 +682,40 @@ function DisplayRow({
         </Field>
 
         <Field label="Calendars shown">
-          <CalendarFilterDropdown
-            options={calendars}
-            visible={cals}
-            onChange={(next) => onPatch({ calendarIds: [...next] })}
-            label="Calendars"
-          />
-          {calendars.length === 0 && (
-            <p className="mt-1 text-xs text-slate-400">
-              {d.locationId ? 'No calendars shared by anyone at this location.' : 'Add calendars first.'}
+          {/* "Automatic" (calendarIds: null) inherits whatever's shared to
+              this display's location (Family Settings > Calendars, §16) -
+              no more separately re-picking calendars here every time
+              sharing changes elsewhere. Switching to "Choose specific"
+              snapshots the current inherited set as the starting point,
+              so turning it on never blanks the display. */}
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={inherited}
+              onChange={(e) =>
+                onPatch({ calendarIds: e.target.checked ? null : [...cals] })
+              }
+            />
+            Automatic (match what's shared to this location)
+          </label>
+          {inherited ? (
+            <p className="mt-1.5 text-xs text-slate-400">
+              {calendars.length ? calendars.map((c) => c.name).join(', ') : 'Nothing shared to this location yet.'}
             </p>
+          ) : (
+            <div className="mt-1.5">
+              <CalendarFilterDropdown
+                options={calendars}
+                visible={cals}
+                onChange={(next) => onPatch({ calendarIds: [...next] })}
+                label="Calendars"
+              />
+              {calendars.length === 0 && (
+                <p className="mt-1 text-xs text-slate-400">
+                  {d.locationId ? 'No calendars shared to this location.' : 'Add calendars first.'}
+                </p>
+              )}
+            </div>
           )}
         </Field>
 

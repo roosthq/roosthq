@@ -1,4 +1,5 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { CalendarsService } from '../calendars/calendars.service';
 import { DisplayEventsService } from './display-events.service';
@@ -6,6 +7,7 @@ import { LocalCalendarsService } from '../local-calendars/local-calendars.servic
 import { ChoresService } from '../chores/chores.service';
 import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, weekRangeInZone, type DateKey } from '../common/timezone';
 import { HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
+import { isVisibleAtLocations } from '../calendars/calendar-visibility';
 
 // Same synthetic entry CalendarsService.listShared appends - kept in sync
 // deliberately (both need the exact same id/name/color so a display's
@@ -62,7 +64,9 @@ function allDayEventCoversKey(e: Record<string, unknown>, key: DateKey): boolean
 export interface DisplayConfigInput {
   name?: string;
   locationId?: string | null;
-  calendarIds?: string[];
+  // undefined (never sent) or null = inherit whatever's shared to this
+  // display's location; an actual array = explicit override. See §16.
+  calendarIds?: string[] | null;
   enabledFeatures?: string[];
   theme?: string;
   colorTheme?: string;
@@ -141,13 +145,16 @@ export class DisplaysService {
   async create(familyId: string, actorId: string, dto: DisplayConfigInput) {
     await this.assertAdult(actorId);
     const locationId = dto.locationId ?? null;
-    const calendarIds = await this.constrainToLocation(familyId, locationId, dto.calendarIds ?? []);
+    // null/undefined (a brand-new display, nobody's touched the calendar
+    // checklist yet) = inherit; only a real array is an explicit override.
+    const calendarIds =
+      dto.calendarIds == null ? null : await this.constrainToLocation(familyId, locationId, dto.calendarIds);
     return this.prisma.displayConfig.create({
       data: {
         familyId,
         name: dto.name?.trim() || 'Display',
         locationId,
-        calendarIds,
+        calendarIds: calendarIds === null ? Prisma.DbNull : calendarIds,
         enabledFeatures: dto.enabledFeatures ?? ['calendar', 'chores'],
         theme: dto.theme ?? 'light',
         colorTheme: dto.colorTheme ?? 'meadow',
@@ -170,27 +177,37 @@ export class DisplaysService {
     // whoever is in scope now - a calendar shared only by someone outside the new
     // location shouldn't silently stay selected.
     const locationId = dto.locationId !== undefined ? dto.locationId : existing.locationId;
-    const calendarIds =
-      dto.calendarIds !== undefined || dto.locationId !== undefined
-        ? await this.constrainToLocation(familyId, locationId, dto.calendarIds ?? (existing.calendarIds as string[]) ?? [])
-        : undefined;
+    // undefined below means "don't touch the column"; null means "switch to
+    // inherit"; an array means "explicit override, re-checked against
+    // whatever's actually allowed at the (possibly just-changed) location".
+    let calendarIds: string[] | null | undefined;
+    if (dto.calendarIds !== undefined) {
+      calendarIds = dto.calendarIds === null ? null : await this.constrainToLocation(familyId, locationId, dto.calendarIds);
+    } else if (dto.locationId !== undefined) {
+      const existingIds = existing.calendarIds as string[] | null;
+      calendarIds = existingIds === null ? null : await this.constrainToLocation(familyId, locationId, existingIds);
+    }
+    // Built imperatively (not the usual conditional-spread-shortcircuit
+    // pattern) - Prisma's generated update-input union stopped narrowing
+    // reliably through that pattern once calendarIds became nullable Json,
+    // spuriously flagging every OTHER field's type too.
+    const data: Prisma.DisplayConfigUncheckedUpdateInput = {};
+    if (dto.name !== undefined) data.name = dto.name;
+    if (dto.locationId !== undefined) data.locationId = dto.locationId;
+    if (calendarIds !== undefined) data.calendarIds = calendarIds === null ? Prisma.DbNull : calendarIds;
+    if (dto.enabledFeatures !== undefined) data.enabledFeatures = dto.enabledFeatures;
+    if (dto.theme !== undefined) data.theme = dto.theme;
+    if (dto.colorTheme !== undefined) data.colorTheme = dto.colorTheme;
+    if (dto.soundEffects !== undefined) data.soundEffects = dto.soundEffects;
+    if (dto.fontSize !== undefined) data.fontSize = dto.fontSize;
+    if (dto.onScreenKeyboard !== undefined) data.onScreenKeyboard = dto.onScreenKeyboard;
+    if (dto.screensaverMinutes !== undefined) data.screensaverMinutes = Math.max(0, dto.screensaverMinutes);
+    if (dto.weatherLocation !== undefined) data.weatherLocation = dto.weatherLocation?.trim() || null;
+    if (dto.bedtimeStart !== undefined) data.bedtimeStart = dto.bedtimeStart?.trim() || null;
+    if (dto.bedtimeEnd !== undefined) data.bedtimeEnd = dto.bedtimeEnd?.trim() || null;
     const updated = await this.prisma.displayConfig.update({
       where: { id },
-      data: {
-        ...(dto.name !== undefined && { name: dto.name }),
-        ...(dto.locationId !== undefined && { locationId: dto.locationId }),
-        ...(calendarIds !== undefined && { calendarIds }),
-        ...(dto.enabledFeatures !== undefined && { enabledFeatures: dto.enabledFeatures }),
-        ...(dto.theme !== undefined && { theme: dto.theme }),
-        ...(dto.colorTheme !== undefined && { colorTheme: dto.colorTheme }),
-        ...(dto.soundEffects !== undefined && { soundEffects: dto.soundEffects }),
-        ...(dto.fontSize !== undefined && { fontSize: dto.fontSize }),
-        ...(dto.onScreenKeyboard !== undefined && { onScreenKeyboard: dto.onScreenKeyboard }),
-        ...(dto.screensaverMinutes !== undefined && { screensaverMinutes: Math.max(0, dto.screensaverMinutes) }),
-        ...(dto.weatherLocation !== undefined && { weatherLocation: dto.weatherLocation?.trim() || null }),
-        ...(dto.bedtimeStart !== undefined && { bedtimeStart: dto.bedtimeStart?.trim() || null }),
-        ...(dto.bedtimeEnd !== undefined && { bedtimeEnd: dto.bedtimeEnd?.trim() || null }),
-      },
+      data,
     });
     this.displayEvents.publish(familyId, { type: 'display', id });
     return updated;
@@ -243,16 +260,22 @@ export class DisplaysService {
     }));
   }
 
-  // Calendars shared by anyone in a location - or every shared family calendar
-  // when there's no location scope.
+  // Calendars explicitly shared to this location (see calendar-visibility.ts
+  // / PLANNING.md §16) - or every shared family calendar when there's no
+  // location scope (an unscoped display is family-wide by design, so no
+  // location filter applies at all). Used both as the picker pool for a
+  // display's optional calendar override AND, when a display has no override
+  // set (calendarIds === null), as the actual list it renders - see
+  // normalize() below.
   async calendarsForLocation(familyId: string, locationId?: string | null) {
-    const google = await this.prisma.calendar.findMany({
-      where: {
-        familyId,
-        ...(locationId ? { shares: { some: { user: { locations: { some: { locationId } } } } } } : {}),
-      },
-      select: { id: true, name: true, color: true },
+    const calendars = await this.prisma.calendar.findMany({
+      where: { familyId },
+      include: { shares: true, locationShares: true },
     });
+    const locSet = locationId ? new Set([locationId]) : null;
+    const google = calendars
+      .filter((c) => !locSet || (c.shares.length > 0 && isVisibleAtLocations(c.locationShares, locSet)))
+      .map((c) => ({ id: c.id, name: c.name, color: c.color }));
     const local = await this.localCalendars.calendarsForLocation(familyId, locationId);
     return [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
   }
@@ -355,7 +378,15 @@ export class DisplaysService {
       bedtimeEnd: string | null;
     },
   ): Promise<ResolvedConfig> {
-    const calendarIds = await this.constrainToLocation(familyId, c.locationId, (c.calendarIds as string[]) ?? []);
+    // null = inherit (no override ever set, or switched back to automatic) -
+    // resolve to whatever's actually shared to this display's location right
+    // now, same live re-check constrainToLocation already gives an explicit
+    // override below.
+    const rawIds = c.calendarIds as string[] | null;
+    const calendarIds =
+      rawIds === null
+        ? (await this.calendarsForLocation(familyId, c.locationId)).map((x) => x.id)
+        : await this.constrainToLocation(familyId, c.locationId, rawIds ?? []);
     return {
       id: c.id,
       name: c.name,

@@ -159,17 +159,17 @@ model Family {
 // is the safety net - captured right before an install/rollback starts, so
 // "go back one step" always has something concrete to point at.
 model InstanceSettings {
-  id                String    @id @default("singleton")
-  updateChannel     String    @default("stable") // stable | latest
-  autoCheckEnabled  Boolean   @default(false)
-  autoApplyEnabled  Boolean   @default(false) // only meaningful if autoCheckEnabled is also true
-  autoCheckHour     Int       @default(3) // 0-23, server-local time
-  lastCheckedAt     DateTime?
-  lastKnownLatest   String?   // tag or short sha last seen available on the configured channel
-  lastUpdateResult  String?   // 'success' | 'error: ...' | null (never run yet)
-  lastUpdateAt      DateTime?
-  previousCommit    String?   // captured just before the last install/rollback - what "roll back" targets
-  updatedAt         DateTime  @updatedAt
+  id               String    @id @default("singleton")
+  updateChannel    String    @default("stable") // stable | latest
+  autoCheckEnabled Boolean   @default(false)
+  autoApplyEnabled Boolean   @default(false) // only meaningful if autoCheckEnabled is also true
+  autoCheckHour    Int       @default(3) // 0-23, server-local time
+  lastCheckedAt    DateTime?
+  lastKnownLatest  String? // tag or short sha last seen available on the configured channel
+  lastUpdateResult String? // 'success' | 'error: ...' | null (never run yet)
+  lastUpdateAt     DateTime?
+  previousCommit   String? // captured just before the last install/rollback - what "roll back" targets
+  updatedAt        DateTime  @updatedAt
 }
 
 model AppSlotIcon {
@@ -262,7 +262,10 @@ model DisplayConfig {
   name               String
   locationId         String? // scopes this kiosk to one location: only people (and
   // calendars they share) assigned to it show up here
-  calendarIds        Json
+  calendarIds        Json? // null = inherit whatever's shared to this display's
+  // location automatically (PLANNING.md §16); an array is an explicit override -
+  // set once someone actually edits the calendar checklist, and from then on
+  // stays a fixed list until they switch back to "automatic".
   enabledFeatures    Json
   theme              String   @default("light")
   colorTheme         String   @default("meadow") // which of the 9 hues (see COLOR_THEMES) this kiosk shows when idle
@@ -336,41 +339,41 @@ model DisplayToken {
 }
 
 model User {
-  id                  String  @id @default(cuid())
+  id                  String         @id @default(cuid())
   familyId            String
   role                Role
   displayName         String
   email               String? // required for adults/owner at signup; kids may have none (parent-managed)
-  passwordHash        String? @db.Text // local (non-Google) login; null if this account only ever uses Google
-  username            String? @unique // local-login id for accounts with no email (mainly kids)
+  passwordHash        String?        @db.Text // local (non-Google) login; null if this account only ever uses Google
+  username            String?        @unique // local-login id for accounts with no email (mainly kids)
   pinHash             String? // optional per-profile PIN
   // Kid-only master switch: true means nobody can give this kid a kiosk PIN
   // at all (UsersService.setPin refuses), and any existing one was cleared
   // the moment this was turned on. Ignored for adults; see DisplayService.unlock.
-  pinDisabled         Boolean @default(false)
-  avatar              String? @db.Text // Google photo URLs can exceed the default varchar(191)
-  themePref           String  @default("light") // per-user app UI theme: light | dark
-  colorTheme          String  @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
-  fontSizePref        String  @default("md") // per-user app text size: sm | md | lg | xl
-  soundEffects        Boolean @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
-  simpleMode          Boolean @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
-  allowanceTokens     Int     @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
-  rejectionsGiven     Int     @default(0) // lifetime count of chore completions this adult sent back (tracked from 2026-08; adult profile stat)
+  pinDisabled         Boolean        @default(false)
+  avatar              String?        @db.Text // Google photo URLs can exceed the default varchar(191)
+  themePref           String         @default("light") // per-user app UI theme: light | dark
+  colorTheme          String         @default("meadow") // per-user full page theme: see COLOR_THEMES in users.service.ts
+  fontSizePref        String         @default("md") // per-user app text size: sm | md | lg | xl
+  soundEffects        Boolean        @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
+  simpleMode          Boolean        @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
+  allowanceTokens     Int            @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
+  rejectionsGiven     Int            @default(0) // lifetime count of chore completions this adult sent back (tracked from 2026-08; adult profile stat)
   birthday            String? // YYYY-MM-DD - age display + automatic birthday countdowns
   // Per-kid ability switches (KID_PERMISSIONS in web/src/api.ts). Stored as
   // the DISABLED list so kids can do everything until an adult turns
   // something off. Ignored for adult roles.
-  disabledPermissions Json    @default("[]")
+  disabledPermissions Json           @default("[]")
   // #4 - which level this person's own last celebration already covered.
   // Starts at 1 (not 0) so a brand-new account - already "level 1" the
   // instant it exists - doesn't immediately fire a hollow "you leveled up
   // to 1!" the first time anything checks.
-  lastCelebratedLevel Int     @default(1)
+  lastCelebratedLevel Int            @default(1)
   // Instance-owner switch: false locks the account out entirely (every API
   // request is refused, existing session cookie or not) without deleting any
   // of their history. See the deactivated-account gate in main.ts.
-  active              Boolean @default(true)
-  notifyByEmail       Boolean @default(false)
+  active              Boolean        @default(true)
+  notifyByEmail       Boolean        @default(false)
   // Adult-only: per-recipient overrides for which channel(s) they get each
   // notification type on, and - for the handful of types that are actually
   // ABOUT one specific kid (a kid finished a chore, requested a redemption,
@@ -385,13 +388,13 @@ model User {
   // apply to which bucket, and effectiveChannels for the fallback. Ignored
   // for kids - this whole feature is an adult's OWN inbox preferences about
   // what they get notified of, not something a kid configures.
-  notifyPrefs         Json    @default("{}")
+  notifyPrefs         Json           @default("{}")
   // When true: chores/awards still work normally (completion, approval,
   // streaks, trophies) but never create a TokenLedger entry for this user,
   // and every token-balance/history UI hides for them - for a family that
   // doesn't want tokens/rewards for some or all members. See
   // UsersService.setTokensDisabled for who can flip this for whom.
-  tokensDisabled      Boolean @default(false) // also email notifications (needs `email` set + SMTP configured)
+  tokensDisabled      Boolean        @default(false) // also email notifications (needs `email` set + SMTP configured)
   // Person-level "wildcard" freeze bank - manually granted, awarded, or won
   // from a reward game (see StreakFreezeService). Separate from
   // Chore.streakFreezes (earned automatically per-chore at streak
@@ -399,7 +402,7 @@ model User {
   // fallback ONLY for a single-assignee chore whose own bank is empty, since
   // a multi-assignee chore's shared streak has no one obvious person to
   // charge it to.
-  bonusStreakFreezes  Int     @default(0)
+  bonusStreakFreezes  Int            @default(0)
   // Current presence (#9 - "away doesn't cost a streak"). HOME needs
   // presenceLocationId set whenever the family has more than one location -
   // "home" only means something specific once there's more than one place it
@@ -412,37 +415,37 @@ model User {
   presenceLocationId  String?
   presenceUpdatedAt   DateTime?
 
-  presenceLocation      Location?            @relation("UserPresenceLocation", fields: [presenceLocationId], references: [id], onDelete: SetNull)
-  presenceLogs          PresenceLog[]        @relation("PresenceLogUser")
-  presenceLogsSet       PresenceLog[]        @relation("PresenceLogSetBy")
-  family                Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  locations             UserLocation[]
-  googleAccounts        GoogleAccount[]
-  calendarShares        CalendarShare[]
-  calendarColors        UserCalendarColor[]
-  choreAssignments      ChoreAssignee[]
-  createdChores         Chore[]              @relation("ChoreCreatedBy")
-  ledgerEntries         TokenLedger[]        @relation("LedgerUser")
-  ledgerCreated         TokenLedger[]        @relation("LedgerCreatedBy")
+  presenceLocation          Location?            @relation("UserPresenceLocation", fields: [presenceLocationId], references: [id], onDelete: SetNull)
+  presenceLogs              PresenceLog[]        @relation("PresenceLogUser")
+  presenceLogsSet           PresenceLog[]        @relation("PresenceLogSetBy")
+  family                    Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  locations                 UserLocation[]
+  googleAccounts            GoogleAccount[]
+  calendarShares            CalendarShare[]
+  calendarColors            UserCalendarColor[]
+  choreAssignments          ChoreAssignee[]
+  createdChores             Chore[]              @relation("ChoreCreatedBy")
+  ledgerEntries             TokenLedger[]        @relation("LedgerUser")
+  ledgerCreated             TokenLedger[]        @relation("LedgerCreatedBy")
   streakFreezeLedger        StreakFreezeLedger[] @relation("StreakFreezeLedgerUser")
   streakFreezeLedgerCreated StreakFreezeLedger[] @relation("StreakFreezeLedgerCreatedBy")
-  prizeAssigns          PrizeAssignment[]
-  redemptions           Redemption[]
-  createdPrizes         Prize[]              @relation("PrizeCreatedBy")
-  suggestedPrizes       Prize[]              @relation("PrizeSuggestedBy")
-  rulesForMe            Rule[]               @relation("RuleTarget")
-  rulesCreated          Rule[]               @relation("RuleCreatedBy")
-  createdAwards         Award[]              @relation("AwardCreatedBy")
-  awardsReceived        AwardGrant[]         @relation("AwardGrantUser")
-  rewardGames           RewardGame[]         @relation("RewardGameUser")
-  awardsGranted         AwardGrant[]         @relation("AwardGrantedBy")
-  approvedChores        ChoreInstance[]      @relation("ChoreInstanceApprovedBy")
-  approvedRedemptions   Redemption[]         @relation("RedemptionApprovedBy")
-  createdLocalCalendars LocalCalendar[]      @relation("LocalCalendarCreatedBy")
-  createdLocalEvents    LocalEvent[]         @relation("LocalEventCreatedBy")
-  passwordResetTokens   PasswordResetToken[]
-  notifications         Notification[]
-  pushSubscriptions     PushSubscription[]
+  prizeAssigns              PrizeAssignment[]
+  redemptions               Redemption[]
+  createdPrizes             Prize[]              @relation("PrizeCreatedBy")
+  suggestedPrizes           Prize[]              @relation("PrizeSuggestedBy")
+  rulesForMe                Rule[]               @relation("RuleTarget")
+  rulesCreated              Rule[]               @relation("RuleCreatedBy")
+  createdAwards             Award[]              @relation("AwardCreatedBy")
+  awardsReceived            AwardGrant[]         @relation("AwardGrantUser")
+  rewardGames               RewardGame[]         @relation("RewardGameUser")
+  awardsGranted             AwardGrant[]         @relation("AwardGrantedBy")
+  approvedChores            ChoreInstance[]      @relation("ChoreInstanceApprovedBy")
+  approvedRedemptions       Redemption[]         @relation("RedemptionApprovedBy")
+  createdLocalCalendars     LocalCalendar[]      @relation("LocalCalendarCreatedBy")
+  createdLocalEvents        LocalEvent[]         @relation("LocalEventCreatedBy")
+  passwordResetTokens       PasswordResetToken[]
+  notifications             Notification[]
+  pushSubscriptions         PushSubscription[]
 
   @@index([familyId])
 }
@@ -453,14 +456,15 @@ model Location {
   name     String
   timezone String @default("UTC") // IANA name, e.g. "America/Denver" - drives due-date math for chores here
 
-  family         Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  family         Family                  @relation(fields: [familyId], references: [id], onDelete: Cascade)
   users          UserLocation[]
   chores         Chore[]
   displayConfigs DisplayConfig[]
   prizes         Prize[]
   localCalendars LocalCalendar[]
-  presentUsers   User[]          @relation("UserPresenceLocation")
-  presenceLogs   PresenceLog[]   @relation("PresenceLogLocation")
+  presentUsers   User[]                  @relation("UserPresenceLocation")
+  presenceLogs   PresenceLog[]           @relation("PresenceLogLocation")
+  calendarShares CalendarLocationShare[]
 
   @@index([familyId])
 }
@@ -525,12 +529,32 @@ model Calendar {
   name             String
   color            String?
 
-  family        Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  googleAccount GoogleAccount   @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
-  shares        CalendarShare[]
+  family         Family                  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  googleAccount  GoogleAccount           @relation(fields: [googleAccountId], references: [id], onDelete: Cascade)
+  shares         CalendarShare[]
+  locationShares CalendarLocationShare[]
 
   @@unique([familyId, googleCalendarId]) // no duplicate calendars per family
   @@index([familyId])
+}
+
+// Explicit "this calendar is visible at this location" - PLANNING.md §16.
+// Replaces the old inference (a calendar was visible wherever the SHARER
+// happened to live, not wherever an adult actually chose). No rows for a
+// calendar = visible to the whole family - same fallback the old inference
+// already used for a sharer with no location, so a single-location family's
+// experience is identical either way. Local calendars already have their
+// own direct `locationId` column and don't need this table.
+model CalendarLocationShare {
+  calendarId String
+  locationId String
+  createdAt  DateTime @default(now())
+
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@id([calendarId, locationId])
+  @@index([locationId])
 }
 
 model CalendarShare {
@@ -817,27 +841,27 @@ model Rule {
 // hand out over and over. Kids only ever see the ones they've actually been
 // given - the catalog itself is adults-only, so a surprise stays a surprise.
 model Award {
-  id                String   @id @default(cuid())
-  familyId          String
-  name              String
-  icon              String?  @db.Text // emoji, or an uploaded icon as a data: URI
-  description       String?  @db.Text
-  defaultTokenValue Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
+  id                       String   @id @default(cuid())
+  familyId                 String
+  name                     String
+  icon                     String?  @db.Text // emoji, or an uploaded icon as a data: URI
+  description              String?  @db.Text
+  defaultTokenValue        Int      @default(0) // pre-fills the grant form; adjustable per grant, doesn't retroactively change past grants
   // Flat streak-freeze count granted alongside the award (independent of
   // defaultTokenValue - an award can give tokens, freezes, both, or neither).
   // Same "pre-fills, adjustable per grant" deal as defaultTokenValue.
-  defaultStreakFreezeValue Int @default(0)
-  wheelMin          Int      @default(1) // bonus-wheel range attached to this award (see wheelMax)
-  wheelMax          Int      @default(0) // 0 = no wheel; >0 = granting also spins a wheel worth wheelMin..wheelMax extra tokens
+  defaultStreakFreezeValue Int      @default(0)
+  wheelMin                 Int      @default(1) // bonus-wheel range attached to this award (see wheelMax)
+  wheelMax                 Int      @default(0) // 0 = no wheel; >0 = granting also spins a wheel worth wheelMin..wheelMax extra tokens
   // #5 "Pool" reward type - a third option alongside the flat defaultTokenValue
   // and the plain wheelMin/wheelMax range above. Null poolJson = not using
   // this; when set, granting queues a RewardGame with this weighted pool
   // instead of (not additive with) the flat value or the plain wheel.
-  poolJson          Json? // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}|{kind:'STREAK_FREEZE',min,max,weight}]
-  poolGameType      String? // pinned game type, or null = "surprise me" (default)
-  poolSlotCount     Int? // cosmetic box/reel count
-  createdById       String
-  createdAt         DateTime @default(now())
+  poolJson                 Json? // [{kind:'TOKENS',min,max,weight}|{kind:'PRIZE',prizeId,weight}|{kind:'STREAK_FREEZE',min,max,weight}]
+  poolGameType             String? // pinned game type, or null = "surprise me" (default)
+  poolSlotCount            Int? // cosmetic box/reel count
+  createdById              String
+  createdAt                DateTime @default(now())
 
   family    Family       @relation(fields: [familyId], references: [id], onDelete: Cascade)
   createdBy User         @relation("AwardCreatedBy", fields: [createdById], references: [id])
@@ -849,14 +873,14 @@ model Award {
 // One instance of an award being given to a kid - repeatable, so the same
 // Award can have many grants for the same user (the count is just how many).
 model AwardGrant {
-  id          String   @id @default(cuid())
-  awardId     String
-  userId      String
-  grantedById String
-  note        String?  @db.Text
-  tokenValue  Int      @default(0) // snapshot of what was actually awarded this time - Award.defaultTokenValue can change later without rewriting history
-  streakFreezeValue Int @default(0) // same snapshot deal, for the freeze count actually granted this time
-  createdAt   DateTime @default(now())
+  id                String   @id @default(cuid())
+  awardId           String
+  userId            String
+  grantedById       String
+  note              String?  @db.Text
+  tokenValue        Int      @default(0) // snapshot of what was actually awarded this time - Award.defaultTokenValue can change later without rewriting history
+  streakFreezeValue Int      @default(0) // same snapshot deal, for the freeze count actually granted this time
+  createdAt         DateTime @default(now())
 
   award     Award @relation(fields: [awardId], references: [id], onDelete: Cascade)
   user      User  @relation("AwardGrantUser", fields: [userId], references: [id], onDelete: Cascade)

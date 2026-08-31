@@ -213,7 +213,14 @@ export default function CalendarPage({ me }: { me: Me }) {
           const disps = await api.listDisplays();
           const candidates = displaysForLocations(disps, locIds);
           const ids = new Set<string>();
-          candidates.forEach((d) => d.calendarIds.forEach((id) => ids.add(id)));
+          // null calendarIds means that display is on "Automatic" (§16) -
+          // resolve it to whatever's actually shared to ITS location, same
+          // as the display itself would show, rather than assuming it's a
+          // real array.
+          const resolved = await Promise.all(
+            candidates.map((d) => (d.calendarIds !== null ? Promise.resolve(d.calendarIds) : api.displaysCalendars(d.locationId).then((cs) => cs.map((c) => c.id)))),
+          );
+          resolved.forEach((calIds) => calIds.forEach((id) => ids.add(id)));
           if (!cancelled) setAllowedIds(candidates.length ? ids : null);
         } else {
           if (!locIds.length) {

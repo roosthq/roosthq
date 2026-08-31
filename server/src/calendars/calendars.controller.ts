@@ -90,6 +90,13 @@ export class CalendarsController {
     return this.calendars.setBaseColor(u.familyId, u.userId, calendarId, body.color);
   }
 
+  // Which locations this Google calendar is explicitly visible at - see
+  // PLANNING.md §16. body.locationIds: [] means "whole family".
+  @Put(':calendarId/locations')
+  setLocationShares(@CurrentUser() u: SessionPayload, @Param('calendarId') calendarId: string, @Body() body: { locationIds: string[] }) {
+    return this.calendars.setLocationShares(u.familyId, u.userId, calendarId, body.locationIds ?? []);
+  }
+
   @Post(':calendarId/events')
   create(
     @CurrentUser() u: SessionPayload,

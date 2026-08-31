@@ -155,6 +155,9 @@ export interface SharedCalendar {
   sharedByMe?: boolean;
   source?: 'google' | 'local' | 'holiday';
   locationId?: string | null;
+  // Google calendars only - which locations it's explicitly shared to.
+  // Empty/absent = whole family. See PLANNING.md §16.
+  locationIds?: string[];
 }
 
 export interface LocalCalendarInput {
@@ -741,7 +744,9 @@ export interface DisplayConfig {
   id: string;
   name: string;
   locationId: string | null;
-  calendarIds: string[];
+  // null = automatically show whatever's shared to this display's location
+  // (see PLANNING.md §16); an array is a fixed, explicit override.
+  calendarIds: string[] | null;
   enabledFeatures: string[];
   theme: string;
   colorTheme: string;
@@ -930,6 +935,13 @@ export const api = {
   // Owner/family-manager only - the calendar's own shared default color.
   setCalendarBaseColor: (calendarId: string, color: string) =>
     req<{ ok: boolean }>(`/calendars/${calendarId}/base-color`, { method: 'PUT', body: JSON.stringify({ color }) }),
+  // Which locations this Google calendar is explicitly visible at - [] means
+  // whole family. See PLANNING.md §16.
+  setCalendarLocations: (calendarId: string, locationIds: string[]) =>
+    req<{ ok: boolean; locationIds: string[] }>(`/calendars/${calendarId}/locations`, {
+      method: 'PUT',
+      body: JSON.stringify({ locationIds }),
+    }),
   events: (calendarIds: string[], start: string, end: string) =>
     req<CalEvent[]>(`/calendars/events?calendarIds=${calendarIds.join(',')}&start=${start}&end=${end}`),
   createCalendarEvent: (
@@ -966,7 +978,7 @@ export const api = {
   createDisplay: (body: {
     name: string;
     locationId?: string | null;
-    calendarIds?: string[];
+    calendarIds?: string[] | null;
     enabledFeatures?: string[];
     theme?: string;
     fontSize?: FontSize;
@@ -979,7 +991,7 @@ export const api = {
     body: Partial<{
       name: string;
       locationId: string | null;
-      calendarIds: string[];
+      calendarIds: string[] | null;
       enabledFeatures: string[];
       theme: string;
       fontSize: FontSize;

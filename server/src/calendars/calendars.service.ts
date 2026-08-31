@@ -8,6 +8,7 @@ import { LocalCalendarsService, LocalEventInput } from '../local-calendars/local
 import { zonedTimeToUtc } from '../common/timezone';
 import { DisplayEventsService } from '../display/display-events.service';
 import { HolidaysService, HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
+import { isVisibleAtLocations } from './calendar-visibility';
 
 export interface ShareSelection {
   googleCalendarId: string;
@@ -143,7 +144,7 @@ export class CalendarsService {
   async listShared(familyId: string, userId: string) {
     const calendars = await this.prisma.calendar.findMany({
       where: { familyId },
-      include: { shares: true },
+      include: { shares: true, locationShares: true },
     });
     const google = calendars.map((c) => ({
       id: c.id,
@@ -153,6 +154,10 @@ export class CalendarsService {
       shareCount: c.shares.length,
       sharedByMe: c.shares.some((s) => s.userId === userId),
       source: 'google' as const,
+      // Empty = whole family - see calendar-visibility.ts. Exposed so the
+      // family-wide "share by location" settings control (§16) can show and
+      // edit this directly instead of it only being an internal filter.
+      locationIds: c.locationShares.map((ls) => ls.locationId),
     }));
     const local = await this.localCalendars.listForFamily(familyId);
     const all = [...google, ...local, HOLIDAYS_CALENDAR_ENTRY];
@@ -160,18 +165,17 @@ export class CalendarsService {
   }
 
   // Same shape as listShared(), but restricted to calendars relevant to the
-  // caller's own location(s) - "relevant" meaning transitively, the same way
-  // DisplaysService.calendarsForLocation already scopes Google calendars:
-  // whoever SHARED it belongs to that location (or shares it family-wide,
-  // no location of their own). A person with NO location yet (before they've
-  // gone through the location-join modal every role gets) sees ONLY the
-  // truly family-wide shares - myLocs is empty, so the filter below already
-  // reduces to exactly that on its own (sharerLocs.length === 0 is the only
-  // branch that can still be true); this used to special-case that as
-  // "nothing sensible to scope by" and hand back the fully unrestricted
-  // list instead, which is exactly the bug - everything showed up before
-  // anyone had picked a location at all. Local calendars use their own real
-  // locationId directly, same rule as everywhere else in the app.
+  // caller's own location(s) - a calendar is relevant if it's explicitly
+  // shared to (one of) that location, or shared to no location at all (whole
+  // family) - see calendar-visibility.ts / PLANNING.md §16. This used to be
+  // INFERRED from whoever shared the calendar and where THEY personally
+  // live, which quietly broke the moment a calendar's sharer didn't live
+  // where the calendar was actually meant to show up. A person with NO
+  // location yet (before they've gone through the location-join modal every
+  // role gets) sees ONLY the truly family-wide shares - myLocs is empty, so
+  // isVisibleAtLocations only ever matches a calendar with zero location
+  // shares. Local calendars use their own real locationId directly, same
+  // rule as everywhere else in the app.
   async listSharedForLocation(familyId: string, userId: string) {
     const myLocs = new Set(
       (await this.prisma.userLocation.findMany({ where: { userId }, select: { locationId: true } })).map((r) => r.locationId),
@@ -179,14 +183,9 @@ export class CalendarsService {
 
     const calendars = await this.prisma.calendar.findMany({
       where: { familyId },
-      include: { shares: { include: { user: { include: { locations: true } } } } },
+      include: { shares: true, locationShares: true },
     });
-    const visible = calendars.filter((c) =>
-      c.shares.some((s) => {
-        const sharerLocs = s.user.locations.map((l) => l.locationId);
-        return sharerLocs.length === 0 || sharerLocs.some((id) => myLocs.has(id));
-      }),
-    );
+    const visible = calendars.filter((c) => c.shares.length > 0 && isVisibleAtLocations(c.locationShares, myLocs));
     const google = visible.map((c) => ({
       id: c.id,
       name: c.name,
@@ -195,6 +194,7 @@ export class CalendarsService {
       shareCount: c.shares.length,
       sharedByMe: c.shares.some((s) => s.userId === userId),
       source: 'google' as const,
+      locationIds: c.locationShares.map((ls) => ls.locationId),
     }));
     const localAll = await this.localCalendars.listForFamily(familyId);
     const local = localAll.filter((c) => !c.locationId || myLocs.has(c.locationId));
@@ -242,6 +242,30 @@ export class CalendarsService {
       return { ok: true };
     }
     throw new NotFoundException('Calendar not found');
+  }
+
+  // Set which locations a Google calendar is explicitly visible at - empty
+  // array = whole family. Same permission as share()/unshare() (whoever can
+  // bring a calendar into the family can also decide where it shows up),
+  // not the owner/family-manager-only bar setBaseColor uses above - this is
+  // an extension of sharing, not a family-wide display default. Local
+  // calendars don't go through here - they already carry their own direct
+  // locationId (see LocalCalendarsService), by design (PLANNING.md §16).
+  async setLocationShares(familyId: string, userId: string, calendarId: string, locationIds: string[]) {
+    await assertKidPermission(this.prisma, userId, 'calendarShare');
+    const calendar = await this.prisma.calendar.findFirst({ where: { id: calendarId, familyId } });
+    if (!calendar) throw new NotFoundException('Calendar not found');
+    const uniqueIds = [...new Set(locationIds)];
+    if (uniqueIds.length) {
+      const validCount = await this.prisma.location.count({ where: { id: { in: uniqueIds }, familyId } });
+      if (validCount !== uniqueIds.length) throw new NotFoundException('Location not found');
+    }
+    await this.prisma.$transaction([
+      this.prisma.calendarLocationShare.deleteMany({ where: { calendarId } }),
+      this.prisma.calendarLocationShare.createMany({ data: uniqueIds.map((locationId) => ({ calendarId, locationId })) }),
+    ]);
+    this.displayEvents.publish(familyId, { type: 'display' });
+    return { ok: true, locationIds: uniqueIds };
   }
 
   // Set (or, with color null, clear) the requesting user's personal color
@@ -443,10 +467,18 @@ export class CalendarsService {
     });
 
     const displays = await this.prisma.displayConfig.findMany({ where: { familyId } });
+    // null calendarIds means that display is on "Automatic" (§16) - a
+    // calendar is on it if it's actually visible at the display's own
+    // location, not "not on this display at all" (which `?? []` used to
+    // silently produce, meaning an Automatic display's kids stopped getting
+    // notified about calendars they can actually see).
+    const calendarLocationShares = await this.prisma.calendarLocationShare.findMany({ where: { calendarId } });
     const locationIds = new Set<string>();
     for (const d of displays) {
-      const ids = (d.calendarIds as string[]) ?? [];
-      if (d.locationId && ids.includes(calendarId)) locationIds.add(d.locationId);
+      if (!d.locationId) continue;
+      const ids = d.calendarIds as string[] | null;
+      const onThisDisplay = ids === null ? isVisibleAtLocations(calendarLocationShares, new Set([d.locationId])) : ids.includes(calendarId);
+      if (onThisDisplay) locationIds.add(d.locationId);
     }
     if (!locationIds.size) return;
     const kids = await this.prisma.user.findMany({

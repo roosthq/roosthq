@@ -254,10 +254,18 @@ export class LocalCalendarsService {
   // calendar, so they don't need this check.
   private async kidsInScope(familyId: string, calendarId: string): Promise<string[]> {
     const displays = await this.prisma.displayConfig.findMany({ where: { familyId } });
+    // A local calendar's own locationId is its ONLY visibility rule (no join
+    // table, unlike Google calendars - see PLANNING.md §16); a display on
+    // "Automatic" (calendarIds: null) shows it whenever that rule already
+    // says yes for the display's own location, not "never" (which `?? []`
+    // used to silently produce).
+    const cal = await this.prisma.localCalendar.findUnique({ where: { id: calendarId }, select: { locationId: true } });
     const locationIds = new Set<string>();
     for (const d of displays) {
-      const ids = (d.calendarIds as string[]) ?? [];
-      if (d.locationId && ids.includes(calendarId)) locationIds.add(d.locationId);
+      if (!d.locationId) continue;
+      const ids = d.calendarIds as string[] | null;
+      const onThisDisplay = ids === null ? !cal?.locationId || cal.locationId === d.locationId : ids.includes(calendarId);
+      if (onThisDisplay) locationIds.add(d.locationId);
     }
     if (!locationIds.size) return [];
     const kids = await this.prisma.user.findMany({
