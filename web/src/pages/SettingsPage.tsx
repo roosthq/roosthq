@@ -342,49 +342,62 @@ function LocalCalendarsSetting() {
 
       <ul className="space-y-2">
         {calendars.map((c) => (
-          <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg p-3">
-            <label
-              title="Upload a photo so this calendar is recognizable at a glance - defaults to just the color swatch if you skip this."
-              className="relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-full border"
-              style={!c.image ? { background: c.color ?? '#94a3b8' } : undefined}
-            >
-              {c.image && <img src={c.image} alt="" className="h-full w-full object-cover" />}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => onPhotoFile(c.id, e.target.files?.[0])}
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-              />
-            </label>
-            {c.image && (
-              <button
-                onClick={() => patch(c.id, { image: null })}
-                className="text-xs text-slate-400 hover:text-slate-600"
-                title="Remove photo, go back to just the color swatch"
+          // Two rows, not one long flex-wrap line: the name input is the one
+          // field that actually needs room to be usable, and it used to share
+          // a row with the photo control, "Remove photo" (a fixed-width text
+          // button that doesn't shrink), the location select, AND Delete -
+          // on a narrow phone that squeezed the name input down to 2-3
+          // visible characters, unreadable and barely editable. Photo +
+          // name own the top row now; everything else (which only needs
+          // occasional access, not constant typing room) wraps on its own
+          // row below.
+          <li key={c.id} className="card-nested space-y-2 rounded-lg p-3">
+            <div className="flex items-center gap-3">
+              <label
+                title="Upload a photo so this calendar is recognizable at a glance - defaults to just the color swatch if you skip this."
+                className="relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-full border"
+                style={!c.image ? { background: c.color ?? '#94a3b8' } : undefined}
               >
-                Remove photo
+                {c.image && <img src={c.image} alt="" className="h-full w-full object-cover" />}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => onPhotoFile(c.id, e.target.files?.[0])}
+                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                />
+              </label>
+              <input
+                defaultValue={c.name}
+                onBlur={(e) => e.target.value.trim() && e.target.value !== c.name && patch(c.id, { name: e.target.value.trim() })}
+                className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {c.image && (
+                <button
+                  onClick={() => patch(c.id, { image: null })}
+                  className="shrink-0 text-xs text-slate-400 hover:text-slate-600"
+                  title="Remove photo, go back to just the color swatch"
+                >
+                  Remove photo
+                </button>
+              )}
+              <select
+                value={c.locationId ?? ''}
+                onChange={(e) => patch(c.id, { locationId: e.target.value || null })}
+                className="min-w-0 flex-1 rounded border px-2 py-1 text-sm sm:flex-none"
+              >
+                <option value="">Whole family</option>
+                {locations.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    {l.name}
+                  </option>
+                ))}
+              </select>
+              <button onClick={() => del(c.id, c.name)} className="btn-delete ml-auto shrink-0 rounded px-2 py-0.5 text-xs">
+                Delete
               </button>
-            )}
-            <input
-              defaultValue={c.name}
-              onBlur={(e) => e.target.value.trim() && e.target.value !== c.name && patch(c.id, { name: e.target.value.trim() })}
-              className="min-w-0 flex-1 rounded border px-2 py-1 text-sm"
-            />
-            <select
-              value={c.locationId ?? ''}
-              onChange={(e) => patch(c.id, { locationId: e.target.value || null })}
-              className="rounded border px-2 py-1 text-sm"
-            >
-              <option value="">Whole family</option>
-              {locations.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.name}
-                </option>
-              ))}
-            </select>
-            <button onClick={() => del(c.id, c.name)} className="btn-delete ml-auto rounded px-2 py-0.5 text-xs">
-              Delete
-            </button>
+            </div>
           </li>
         ))}
         {calendars.length === 0 && <li className="text-sm text-slate-400">No local calendars yet - add one above.</li>}
