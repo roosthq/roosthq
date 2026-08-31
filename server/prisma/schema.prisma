@@ -43,6 +43,13 @@ enum LedgerType {
   // redemption (so it's reportable/filterable on its own), not a free-text
   // adult adjustment.
   CO_VIEW
+  // Family manager changed the token↔dollar scale (PLANNING.md §17) - one
+  // per person per rescale, sized to carry their balance to the new scale.
+  // Never counted toward lifetime "earned" for leveling (it isn't real
+  // earning), and never shown in a kid's own activity feed (it's the
+  // loudest possible tell that a rescale happened) - visible only in the
+  // adult-facing TokenScaleEvent history.
+  REBASE
 }
 
 enum PresenceStatus {
@@ -95,8 +102,14 @@ model Family {
   name               String
   tokenName          String   @default("Tokens") // what the family calls their reward currency
   tokenIcon          String   @default("coins") // Lucide icon name (lucideData.ts) shown alongside the reward currency - NOT a raw emoji; LucideIcon/AppIcon render a name, and a stray "🪙" here (this field's value before the icon migration) silently renders nothing
-  tokenValueUsd      Float    @default(1) // $ value of one token, for auto-suggesting prize costs
+  tokenValueUsd      Float    @default(1) // $ value of one token, for auto-suggesting prize costs - changing this via the rescale flow (PLANNING.md §17) scales every token-denominated number in the family to match
   choreWord          String   @default("Chore") // singular; family can rename e.g. "Quest" to de-emphasize chore-as-chore
+  // Chore-streak milestone bonus wheel's reward range - was a hardcoded
+  // 1..5 literal in chores.service.ts until PLANNING.md §17 made it a real
+  // field so a token rescale has something to multiply. Defaults preserve
+  // that exact previous behavior for any family that never rescales.
+  streakWheelMin     Int      @default(1)
+  streakWheelMax     Int      @default(5)
   // Family-level feature kill-switches (FEATURE_TREE in web/src/api.ts).
   // Stored as the DISABLED list so brand-new features default to ON for
   // every family without a migration backfill.
@@ -112,27 +125,28 @@ model Family {
   surpriseRewardDays Int      @default(30)
   createdAt          DateTime @default(now())
 
-  users           User[]
-  locations       Location[]
-  calendars       Calendar[]
-  localCalendars  LocalCalendar[]
-  chores          Chore[]
-  prizes          Prize[]
-  rules           Rule[]
-  awards          Award[]
-  displaySettings DisplaySettings?
-  displayTokens   DisplayToken[]
-  displayConfigs  DisplayConfig[]
-  invites         FamilyInvite[]
-  mealPlans       MealPlan[]
-  eatOutPlaces    EatOutPlace[]
-  rewardGames     RewardGame[]
-  groceryItems    GroceryItem[]
-  countdowns      Countdown[]
-  announcements   Announcement[]
-  notifications   Notification[]
-  customSounds    CustomSound[]
-  slotIcons       FamilySlotIcon[]
+  users            User[]
+  locations        Location[]
+  calendars        Calendar[]
+  localCalendars   LocalCalendar[]
+  chores           Chore[]
+  prizes           Prize[]
+  rules            Rule[]
+  awards           Award[]
+  displaySettings  DisplaySettings?
+  displayTokens    DisplayToken[]
+  displayConfigs   DisplayConfig[]
+  invites          FamilyInvite[]
+  mealPlans        MealPlan[]
+  eatOutPlaces     EatOutPlace[]
+  rewardGames      RewardGame[]
+  groceryItems     GroceryItem[]
+  countdowns       Countdown[]
+  announcements    Announcement[]
+  notifications    Notification[]
+  customSounds     CustomSound[]
+  slotIcons        FamilySlotIcon[]
+  tokenScaleEvents TokenScaleEvent[]
 }
 
 // ---------- Icons ----------
@@ -437,6 +451,7 @@ model User {
   ledgerCreated             TokenLedger[]        @relation("LedgerCreatedBy")
   streakFreezeLedger        StreakFreezeLedger[] @relation("StreakFreezeLedgerUser")
   streakFreezeLedgerCreated StreakFreezeLedger[] @relation("StreakFreezeLedgerCreatedBy")
+  tokenScaleEventsCreated   TokenScaleEvent[]
   prizeAssigns              PrizeAssignment[]
   redemptions               Redemption[]
   createdPrizes             Prize[]              @relation("PrizeCreatedBy")
@@ -775,14 +790,31 @@ model ChoreItemCheck {
 // Balance is DERIVED from the ledger (sum of deltas) - no mutable balance column.
 
 model TokenLedger {
-  id          String     @id @default(cuid())
-  userId      String
-  delta       Int // positive = award, negative = spend/subtract
-  reason      String
-  type        LedgerType
-  refId       String? // chore instance / prize / redemption id
-  createdById String
-  createdAt   DateTime   @default(now())
+  id                      String     @id @default(cuid())
+  userId                  String
+  delta                   Int // positive = award, negative = spend/subtract
+  reason                  String
+  type                    LedgerType
+  refId                   String? // chore instance / prize / redemption id
+  createdById             String
+  createdAt               DateTime   @default(now())
+  // Family.tokenValueUsd at the moment this row was written - snapshotted
+  // once, never touched again. Internal only, never rendered as a dollar
+  // figure anywhere - it exists purely so a lifetime total can be computed
+  // that doesn't move when the family's token scale changes later (see
+  // PLANNING.md §17), and so an old row can be redisplayed at today's scale
+  // without the STORED delta ever being rewritten. Stamped automatically by
+  // a Prisma middleware (prisma.service.ts) for every ordinary create - the
+  // rescale operation itself is the one place that sets it explicitly,
+  // since it's authoritative about the value taking effect at that instant.
+  tokenValueUsdAtCreation Float      @default(1)
+  // = delta * tokenValueUsdAtCreation, precomputed at write time so level's
+  // lifetime-earned sum (see users.service.ts levelCheck / chores.service.ts
+  // balances) can stay a plain native `_sum`, same shape as every other
+  // ledger aggregate in this codebase, instead of every caller re-deriving
+  // the product in JS. Redundant with the two fields above by construction -
+  // that's fine, it's write-once and never touched again either.
+  dollarEquivalent        Float      @default(0)
 
   user      User @relation("LedgerUser", fields: [userId], references: [id], onDelete: Cascade)
   createdBy User @relation("LedgerCreatedBy", fields: [createdById], references: [id])
@@ -814,6 +846,24 @@ model StreakFreezeLedger {
   createdBy User @relation("StreakFreezeLedgerCreatedBy", fields: [createdById], references: [id])
 
   @@index([userId])
+}
+
+// Audit trail for a token rescale (PLANNING.md §17) - the record Casey
+// asked for so a past scale change can always be reconstructed/converted
+// properly. Adult/manager-facing only; never shown to kids.
+model TokenScaleEvent {
+  id               String   @id @default(cuid())
+  familyId         String
+  actorId          String
+  oldTokenValueUsd Float
+  newTokenValueUsd Float
+  factor           Float // oldTokenValueUsd / newTokenValueUsd
+  createdAt        DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  actor  User   @relation(fields: [actorId], references: [id])
+
+  @@index([familyId])
 }
 
 enum StreakFreezeLedgerType {

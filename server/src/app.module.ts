@@ -28,6 +28,7 @@ import { IconsModule } from './icons/icons.module';
 import { StreakFreezeModule } from './streak-freeze/streak-freeze.module';
 import { PresenceModule } from './presence/presence.module';
 import { UpdatesModule } from './updates/updates.module';
+import { TokenScaleModule } from './token-scale/token-scale.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { UpdatesModule } from './updates/updates.module';
     InvitesModule,
     FamilyModule,
     TokensModule,
+    TokenScaleModule,
     PrizesModule,
     NotificationsModule,
     RulesModule,

@@ -1184,7 +1184,9 @@ export default function Display() {
                             <LucideIcon name={tokenIcon} size={14} />
                             {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
                           </span>
-                          {famOn('levels') && <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} />}
+                          {famOn('levels') && (
+                            <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} tokenValueUsd={tokenValueUsd} />
+                          )}
                         </span>
                       )}
                     </button>

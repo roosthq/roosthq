@@ -609,6 +609,39 @@ export interface FamilySettings {
   surpriseRewardDays: number;
 }
 
+// PLANNING.md §17 - preview of a token rescale, computed read-only by the
+// exact same math commit() actually runs, so it can never drift from what
+// committing would do.
+export interface TokenScalePreviewMember {
+  userId: string;
+  displayName: string;
+  balanceBefore: number;
+  balanceAfter: number;
+  rebaseDelta: number;
+  // Had a real balance that would round down to next-to-nothing - scaling
+  // DOWN hard enough loses all resolution. Doesn't block anything.
+  crushWarning: boolean;
+}
+export interface TokenScalePreview {
+  oldTokenValueUsd: number;
+  newTokenValueUsd: number;
+  factor: number;
+  // false = the ratio doesn't divide evenly either direction (e.g. $0.35/
+  // token) - rounding drift is unavoidable. Doesn't block anything either.
+  cleanRatio: boolean;
+  members: TokenScalePreviewMember[];
+  affected: { chores: number; prizes: number; awards: number; unplayedGames: number };
+}
+
+export interface TokenScaleEvent {
+  id: string;
+  actorName: string;
+  oldTokenValueUsd: number;
+  newTokenValueUsd: number;
+  factor: number;
+  createdAt: string;
+}
+
 export interface CustomSound {
   id: string;
   label: string;
@@ -791,11 +824,18 @@ export interface LedgerEntry {
   id: string;
   delta: number;
   reason: string;
-  type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM' | 'STREAK_BONUS' | 'AWARD';
+  type: 'CHORE' | 'MANUAL' | 'PHYSICAL' | 'REDEEM' | 'STREAK_BONUS' | 'AWARD' | 'CO_VIEW';
   refId?: string | null;
   createdAt: string;
   // Adults only - the server omits this entirely for a kid's session.
   createdByName?: string;
+  // delta * (the family's tokenValueUsd when this row was written) - an
+  // invariant amount that doesn't move if the family's token scale changes
+  // later (PLANNING.md §17). Divide by the family's CURRENT tokenValueUsd to
+  // redisplay this entry as if it happened at today's scale. `REBASE` rows
+  // (the scale-change adjustment itself) never appear here at all - the
+  // server excludes them from every per-person ledger/activity list.
+  dollarEquivalent: number;
 }
 
 // One row of the merged profile timeline (tokens + awards + purchases +
@@ -1184,16 +1224,25 @@ export const api = {
     pick
       ? req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'PUT', body: JSON.stringify(pick) })
       : req<{ ok: boolean }>(`/icons/app/${encodeURIComponent(slotId)}`, { method: 'DELETE' }),
+  // tokenValueUsd deliberately isn't settable here - see Token scale below.
   updateFamilySettings: (data: {
     name?: string;
     tokenName?: string;
     tokenIcon?: string;
-    tokenValueUsd?: number;
     choreWord?: string;
     disabledFeatures?: string[];
     soundAssignments?: Record<string, { type: 'builtin' | 'custom'; id: string }>;
     surpriseRewardDays?: number;
   }) => req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
+
+  // Token rescaling (PLANNING.md §17) - family manager/owner only. preview()
+  // is read-only (same calc as commit(), never writes). tokenValueUsd is the
+  // NEW value being proposed.
+  previewTokenScale: (tokenValueUsd: number) =>
+    req<TokenScalePreview>('/token-scale/preview', { method: 'POST', body: JSON.stringify({ tokenValueUsd }) }),
+  commitTokenScale: (tokenValueUsd: number) =>
+    req<{ ok: boolean }>('/token-scale/commit', { method: 'POST', body: JSON.stringify({ tokenValueUsd }) }),
+  tokenScaleHistory: () => req<TokenScaleEvent[]>('/token-scale/history'),
 
   customSounds: () => req<CustomSound[]>('/sounds/custom'),
   createCustomSound: (body: { label: string; dataUri: string }) =>

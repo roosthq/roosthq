@@ -403,6 +403,12 @@ export class PrizesService {
     });
     const { items, hasMore } = paginate(redemptions, take);
     const ids = items.map((r) => r.id);
+    // Redisplays every historical amount below at TODAY's token scale
+    // instead of whatever raw number was actually stored - see
+    // PLANNING.md §17. A no-op (equals the stored delta exactly) unless the
+    // family has ever rescaled.
+    const family = await this.prisma.family.findUnique({ where: { id: familyId }, select: { tokenValueUsd: true } });
+    const currentTokenValueUsd = family?.tokenValueUsd || 1;
     // Co-view charges (see chargeCoViewer) for whichever of these redemptions
     // have any - fetched in one batch and grouped, not per-row, so a long
     // history list doesn't fan out into N extra queries.
@@ -416,7 +422,7 @@ export class PrizesService {
     const coViewersByRedemption = new Map<string, { id: string; userId: string; displayName: string; tokens: number }[]>();
     for (const c of coViewCharges) {
       const list = coViewersByRedemption.get(c.refId!) ?? [];
-      list.push({ id: c.id, userId: c.userId, displayName: c.user.displayName, tokens: -c.delta });
+      list.push({ id: c.id, userId: c.userId, displayName: c.user.displayName, tokens: Math.round(-c.dollarEquivalent / currentTokenValueUsd) });
       coViewersByRedemption.set(c.refId!, list);
     }
     // What was actually paid, from the REDEEM ledger entry itself - not
@@ -435,7 +441,7 @@ export class PrizesService {
       : [];
     const spentByRedemption = new Map<string, number>();
     for (const c of redeemCharges) {
-      spentByRedemption.set(c.refId!, (spentByRedemption.get(c.refId!) ?? 0) - c.delta);
+      spentByRedemption.set(c.refId!, (spentByRedemption.get(c.refId!) ?? 0) - c.dollarEquivalent);
     }
     // Who fulfilled/rejected it is adult-only context; co-view charges and
     // spend amounts aren't sensitive (it's the redeemer's own history either
@@ -444,7 +450,7 @@ export class PrizesService {
       items: items.map(({ approvedByUser, ...r }) => ({
         ...(isAdult ? { ...r, approvedByUser } : r),
         coViewers: coViewersByRedemption.get(r.id) ?? [],
-        tokensSpent: spentByRedemption.get(r.id) ?? 0,
+        tokensSpent: Math.round((spentByRedemption.get(r.id) ?? 0) / currentTokenValueUsd),
       })),
       hasMore,
     };

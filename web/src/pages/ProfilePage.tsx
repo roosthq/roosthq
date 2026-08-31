@@ -65,7 +65,12 @@ function EarnedSparkline({ ledger, label }: { ledger: LedgerEntry[]; label: stri
     const d = new Date(l.createdAt);
     d.setHours(0, 0, 0, 0);
     const idx = Math.round((d.getTime() - start.getTime()) / 86_400_000);
-    if (idx >= 0 && idx < days) byDay[idx] += l.delta;
+    // dollarEquivalent, not raw delta - if a rescale happened mid-window,
+    // the raw numbers before/after it aren't comparable, which would make
+    // one side of the chart spike for no real reason (see PLANNING.md §17).
+    // The chart is shape-only (bars are normalized by their own max), so
+    // there's no need to also divide back to the current display scale.
+    if (idx >= 0 && idx < days) byDay[idx] += l.dollarEquivalent;
   }
   const max = Math.max(1, ...byDay);
   if (byDay.every((v) => v === 0)) return null;
@@ -214,8 +219,15 @@ export default function ProfilePage({
   // awarded, or won) - two separate numbers, shown as one total since
   // neither means anything to a kid on its own.
   const freezesBanked = choreFreezesBanked + (member?.bonusStreakFreezes ?? 0);
-  const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
-  const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
+  // earnedInvariant feeds LevelBadge's own level math (never moves on a
+  // rescale); earned/spent below are the same totals redisplayed at the
+  // family's CURRENT token scale, same as every other historical amount on
+  // this page (dollarEquivalent, not raw delta) - see PLANNING.md §17. Both
+  // are no-ops (equal the raw sums exactly) unless the family has rescaled.
+  const currentTokenValueUsd = family?.tokenValueUsd || 1;
+  const earnedInvariant = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  const earned = Math.round(earnedInvariant / currentTokenValueUsd);
+  const spent = Math.round(ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0) / currentTokenValueUsd);
   const choresDone = ledger.filter((l) => l.type === 'CHORE').length;
 
   async function adjust(sign: 1 | -1) {
@@ -301,7 +313,7 @@ export default function ProfilePage({
                   )}
                   {!m.tokensDisabled && familyTokensOn && familyFeatureEnabled(family, 'levels') && (
                     <span className="shrink-0 whitespace-nowrap">
-                      <LevelBadge earned={earnedBy[m.id] ?? 0} />
+                      <LevelBadge earned={earnedBy[m.id] ?? 0} tokenValueUsd={family?.tokenValueUsd} />
                     </span>
                   )}
                 </Link>
@@ -327,7 +339,7 @@ export default function ProfilePage({
                   <span className="w-5 shrink-0 text-center text-sm font-semibold text-slate-400">{i + 1}</span>
                   <Avatar name={m.displayName} src={m.avatar} size="sm" />
                   <span className="min-w-0 flex-1 break-words text-sm font-medium">{m.displayName}</span>
-                  <LevelBadge earned={earnedBy[m.id] ?? 0} />
+                  <LevelBadge earned={earnedBy[m.id] ?? 0} tokenValueUsd={family?.tokenValueUsd} />
                 </li>
               ))}
           </ol>
@@ -407,7 +419,7 @@ export default function ProfilePage({
           being squeezed into one stat-tile's worth of width. */}
       {familyFeatureEnabled(family, 'levels') && !tokensOff && (
         <div className="mt-3">
-          <LevelBadge earned={earned} size="lg" />
+          <LevelBadge earned={earnedInvariant} tokenValueUsd={family?.tokenValueUsd} size="lg" />
         </div>
       )}
 

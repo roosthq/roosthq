@@ -195,12 +195,13 @@ with no independent credentials (typical for younger kids).
 - Digital balance per person, always **derived from the ledger** (sum of deltas),
   never stored as a mutable field.
 - Adults can rename the token and pick its icon.
-- **Token rescaling (planned, not built) - see §17.** Family manager will be able to
-  change `tokenValueUsd` and have every token-denominated number in the family scale
-  with it - deliberately, so kids can't infer the $ ratio from patterns. Level stays
-  on an invariant lifetime total (never displayed); the XP number people actually see
-  scales WITH the balance instead, so the two numbers never disagree - no dollar
-  figure is ever computed as something a person looks at, only as an internal ratio.
+- **Token rescaling (built 2026-08-31) - see §17.** Family manager (or owner) can
+  change `tokenValueUsd` (Family Settings > Features > Tokens) and every token-
+  denominated number in the family scales with it - deliberately, so kids can't infer
+  the $ ratio from patterns. Level stays on an invariant lifetime total (never
+  displayed); the XP number people actually see scales WITH the balance instead, so
+  the two numbers never disagree - no dollar figure is ever computed as something a
+  person looks at, only as an internal ratio.
 - Adults can manually award or subtract tokens with a required reason (audit log
   keeps every change: who, when, delta, reason, linked chore/award if any).
 - **Physical tokens are reconciliation, not tracking.** The app cannot know how many
@@ -763,7 +764,7 @@ backfill migration, run as part of the same deploy that ships the schema change:
 
 ---
 
-## 17. Token rescaling (planned, not built, revised 2026-08-31)
+## 17. Token rescaling (built 2026-08-31)
 
 Casey's request: as family manager, be able to change the token↔dollar ratio
 (`Family.tokenValueUsd`, already exists) at will - either direction, any value, not
@@ -962,8 +963,52 @@ affected chores/prizes), a confirm step, and a history list reading from
    balances land on the previewed numbers, confirm old activity-feed entries render
    consistently with new ones. Never touches Casey's real family during any of this.
 
-### Open question remaining
+### Resolved: rounding drift on a non-clean factor
 
-Rounding drift on a non-clean factor (e.g. $1 → $0.35) means each field/balance
-rounds independently - two people with equal balances today could differ by a token
-or two after a rescale. Fine to accept as cosmetic drift, not real accounting?
+Casey's call: warn, don't block. `preview()`/`commit()` share a `cleanRatio` check
+(does the factor, or its reciprocal, divide within float precision of a whole
+number) - if not, the web panel shows a plain warning ("that ratio doesn't divide
+evenly, balances may round a token or two differently between people") but the
+Confirm button still works. Same shape as the per-member `crushWarning` (a balance
+that'd round to 0-1) - informational, never a hard stop.
+
+### What actually shipped, and one deliberate gap
+
+Built essentially as designed above, via a NEW module (`server/src/token-scale/`,
+not folded into `TokensService` - the domain is different enough, and it touches
+Chore/Prize/Award/RewardGame/User directly, none of which `TokensService` otherwise
+reaches into) with `preview`/`commit`/`history`, gated `assertManager` (owner or
+family manager only - stricter than the general "any adult" bar elsewhere, since
+this touches every kid's balance and every price at once). `Family.tokenValueUsd`
+is no longer settable through the general `PUT /family/settings` endpoint at all
+(removed from that DTO both server and client side) - the rescale flow is the only
+path now, so there's no way to accidentally desync the ratio from the numbers that
+are supposed to track it.
+
+`TokenLedger.tokenValueUsdAtCreation` and the derived `dollarEquivalent` (=
+`delta * tokenValueUsdAtCreation`, precomputed at write time so every aggregate stays
+a plain native `_sum`) are stamped automatically by a Prisma **middleware**
+(`prisma.service.ts`, `$use` on `TokenLedger.create`) rather than a service-level
+helper every call site has to remember to use - structurally can't be forgotten by a
+14th call site later, and required zero changes to any of the 13 existing
+`tokenLedger.create()` call sites. The rescale's own `REBASE` entries set both
+fields explicitly instead (mostly because an interactive `$transaction(async (tx) =>
+...)` callback's `tx` client doesn't run the base client's middleware at all - worth
+remembering for anything else written that way later).
+
+Historical redisplay (the "make it look like the scale was always there" idea) is
+live in every place a past amount renders: `ProfilePage`'s activity feed and 30-day
+sparkline, `KioskStatsModal`, and `Prize.tsx`'s purchase history (`tokensSpent`,
+co-viewer charges) - all divide the stored `dollarEquivalent` by the family's
+CURRENT `tokenValueUsd` rather than showing the raw stored `delta`. `REBASE` rows
+are excluded outright from every personal ledger/activity list (`tokens.service.ts`
+`ledger()`/`activity()`), not just display-transformed - visible only in the
+Family-Settings-side history list.
+
+**Deliberate gap, not silently dropped:** `Award.poolJson` / `RewardGame.poolJson`
+(the weighted "Pool" reward type's own embedded `{kind:'TOKENS', min, max, weight}`
+entries) are NOT rescaled by `commit()`. Everything else in "Fields that get
+rescaled" above is. Pool-type awards/games are a less-used sub-feature and the JSON
+surgery to rescale just the TOKENS-kind entries inside an arbitrary weighted array
+felt like real scope for a feature not actually in play yet - revisit if it turns
+out to matter once someone's actually using Pool-type rewards.

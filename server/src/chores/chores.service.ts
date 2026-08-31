@@ -1118,11 +1118,18 @@ export class ChoresService {
           // An adult approving it shouldn't be the one who spins the kid's
           // wheel, and the amount stays unknown until the wheel stops.
           if (wheelActive) {
+            // Was a hardcoded 1, 5 - now a real Family-level field
+            // (defaulting to that exact same 1/5) so a token rescale
+            // (PLANNING.md §17) has something to multiply.
+            const wheelRange = await this.prisma.family.findUnique({
+              where: { id: inst.chore.familyId },
+              select: { streakWheelMin: true, streakWheelMax: true },
+            });
             await this.rewardGames.create(
               inst.chore.familyId,
               recipient,
-              1,
-              5,
+              wheelRange?.streakWheelMin ?? 1,
+              wheelRange?.streakWheelMax ?? 5,
               `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
               inst.id,
             );
@@ -1344,7 +1351,12 @@ export class ChoresService {
   async balances(familyId: string) {
     // `earned` (lifetime positive total) never goes down when tokens are
     // spent - it's the XP behind the level badge, so spending doesn't feel
-    // like losing progress.
+    // like losing progress. Sums dollarEquivalent, not raw delta, and
+    // excludes REBASE - an invariant total that doesn't move when the
+    // family's token scale changes (PLANNING.md §17); LevelBadge divides it
+    // back out for display, never for the level calculation itself. For any
+    // row written before this existed, or a family that's never rescaled,
+    // this is byte-for-byte identical to the old raw-delta sum.
     const [grouped, earnedGrouped] = await Promise.all([
       this.prisma.tokenLedger.groupBy({
         by: ['userId'],
@@ -1353,11 +1365,11 @@ export class ChoresService {
       }),
       this.prisma.tokenLedger.groupBy({
         by: ['userId'],
-        _sum: { delta: true },
-        where: { user: { familyId }, delta: { gt: 0 } },
+        _sum: { dollarEquivalent: true },
+        where: { user: { familyId }, delta: { gt: 0 }, type: { not: 'REBASE' } },
       }),
     ]);
-    const earnedBy = new Map(earnedGrouped.map((g) => [g.userId, g._sum.delta ?? 0]));
+    const earnedBy = new Map(earnedGrouped.map((g) => [g.userId, g._sum.dollarEquivalent ?? 0]));
     return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0, earned: earnedBy.get(g.userId) ?? 0 }));
   }
 

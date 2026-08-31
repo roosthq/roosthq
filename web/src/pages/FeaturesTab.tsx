@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
 import { api, FEATURE_TREE, type FamilySettings, type FeatureNode, type CustomSound } from '../api';
 import Switch from '../Switch';
 import IconPicker from '../IconPicker';
-import LucideIcon from '../LucideIcon';
 import { useDialog } from '../Dialog';
 import { BUILTIN_SOUNDS, SOUND_SLOTS, playBuiltinSound, playCustomSound } from '../sounds';
+import TokenScalePanel from '../TokenScalePanel';
 
 const input = 'w-full rounded border px-3 py-1.5 text-sm';
 
@@ -131,11 +131,10 @@ function SubFeatureRow({
 function TokenFields({ family, onSaved }: { family: FamilySettings; onSaved: (f: FamilySettings) => void }) {
   const [name, setName] = useState(family.tokenName);
   const [icon, setIcon] = useState(family.tokenIcon);
-  const [valueUsd, setValueUsd] = useState(family.tokenValueUsd);
   const [saved, setSaved] = useState(false);
 
   async function save() {
-    const updated = await api.updateFamilySettings({ tokenName: name, tokenIcon: icon, tokenValueUsd: valueUsd });
+    const updated = await api.updateFamilySettings({ tokenName: name, tokenIcon: icon });
     onSaved(updated);
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
@@ -154,28 +153,19 @@ function TokenFields({ family, onSaved }: { family: FamilySettings; onSaved: (f:
             <IconPicker value={icon} onChange={setIcon} />
           </div>
         </label>
-        <label className="block text-sm">
-          <span className="text-slate-500">1 unit = how many dollars?</span>
-          <input
-            type="number"
-            min={0.01}
-            step={0.01}
-            value={valueUsd}
-            onChange={(e) => setValueUsd(Number(e.target.value))}
-            onFocus={(e) => e.target.select()}
-            className={`${input} mt-1 w-24`}
-          />
-          <span className="ml-2 inline-flex items-center gap-1 text-xs text-slate-400">
-            e.g. 1 <LucideIcon name={icon} size={12} /> {name || 'Tokens'} = ${valueUsd || 0}
-          </span>
-        </label>
       </div>
-      <p className="text-xs text-slate-400">The $ value is used to suggest a token cost for prizes based on their real price (rounded down).</p>
       <div className="flex items-center gap-3">
         <button onClick={save} className="rounded bg-slate-800 px-4 py-2 text-sm text-white hover:bg-slate-700">
           Save
         </button>
         {saved && <span className="text-sm text-green-600">Saved</span>}
+      </div>
+      {/* $-per-token isn't a plain field here anymore - changing it rescales
+          every token-denominated number in the family (PLANNING.md §17), so
+          it gets its own guarded flow instead of a value that could be
+          edited by accident alongside the name/icon above. */}
+      <div className="border-t pt-3">
+        <TokenScalePanel family={family} onChanged={() => api.familySettings().then(onSaved)} />
       </div>
     </div>
   );

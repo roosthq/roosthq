@@ -12,9 +12,22 @@ export function levelProgress(earned: number) {
 
 // ⭐ Lv N with an XP bar toward the next level. size 'sm' = inline chip
 // (family strip, kiosk picker); 'lg' = profile stat block.
-export default function LevelBadge({ earned, size = 'sm' }: { earned: number; size?: 'sm' | 'lg' }) {
+//
+// `earned` is the INVARIANT lifetime total (server-computed, doesn't move
+// when the family rescales its token↔dollar ratio - PLANNING.md §17) - it
+// feeds levelProgress()'s math UNCHANGED, so the level integer never moves
+// either. `tokenValueUsd` (default 1, so every call site that doesn't pass
+// it renders exactly as before) is used ONLY to redisplay the XP number/bar
+// at the family's CURRENT scale, so it always reads consistent with the
+// person's actual token balance shown alongside it - never frozen while the
+// balance moves, which would hand a sharp kid the exact rescale factor by
+// just dividing the two numbers.
+export default function LevelBadge({ earned, tokenValueUsd = 1, size = 'sm' }: { earned: number; tokenValueUsd?: number; size?: 'sm' | 'lg' }) {
   const { level, into, needed, next } = levelProgress(earned);
-  const pct = Math.min(100, Math.round((into / needed) * 100));
+  const scale = 1 / (tokenValueUsd || 1);
+  const earnedDisplay = Math.round(earned * scale);
+  const nextDisplay = Math.round(next * scale);
+  const pct = Math.min(100, Math.round(((into * scale) / (needed * scale)) * 100));
   if (size === 'lg') {
     return (
       <div className="panel text-center">
@@ -30,13 +43,13 @@ export default function LevelBadge({ earned, size = 'sm' }: { earned: number; si
           <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
         </div>
         <div className="mt-1 text-[10px] text-slate-400">
-          {earned} XP · {next - earned} to Lv {level + 1}
+          {earnedDisplay} XP · {nextDisplay - earnedDisplay} to Lv {level + 1}
         </div>
       </div>
     );
   }
   return (
-    <span className="inline-block text-center" title={`${earned} XP - ${next - earned} more to level ${level + 1}`}>
+    <span className="inline-block text-center" title={`${earnedDisplay} XP - ${nextDisplay - earnedDisplay} more to level ${level + 1}`}>
       <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">
         <LucideIcon name="star" slot="badge.level" size={12} /> Lv {level}
       </span>

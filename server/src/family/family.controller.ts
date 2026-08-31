@@ -23,7 +23,6 @@ export class FamilyController {
       name?: string;
       tokenName?: string;
       tokenIcon?: string;
-      tokenValueUsd?: number;
       choreWord?: string;
       disabledFeatures?: string[];
       soundAssignments?: Record<string, SoundAssignment>;

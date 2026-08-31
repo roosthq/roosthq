@@ -46,7 +46,6 @@ export class FamilyService {
       name?: string;
       tokenName?: string;
       tokenIcon?: string;
-      tokenValueUsd?: number;
       choreWord?: string;
       disabledFeatures?: string[];
       soundAssignments?: Record<string, SoundAssignment>;
@@ -68,7 +67,11 @@ export class FamilyService {
         ...(data.name !== undefined && { name: data.name }),
         ...(data.tokenName !== undefined && { tokenName: data.tokenName || 'Tokens' }),
         ...(data.tokenIcon !== undefined && { tokenIcon: data.tokenIcon || '🪙' }),
-        ...(data.tokenValueUsd !== undefined && { tokenValueUsd: data.tokenValueUsd > 0 ? data.tokenValueUsd : 1 }),
+        // tokenValueUsd is deliberately NOT settable here - it only ever
+        // changes through TokenScaleService's rescale flow (PLANNING.md
+        // §17), which also rescales every token-denominated number in the
+        // family to match. A plain patch here would silently desync prices
+        // and balances from the new ratio.
         ...(data.choreWord !== undefined && { choreWord: data.choreWord.trim() || 'Chore' }),
         ...(data.disabledFeatures !== undefined && {
           disabledFeatures: sanitizeDisabledFeatures(data.disabledFeatures),

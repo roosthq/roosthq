@@ -45,8 +45,11 @@ export class TokensService {
     if (!member) throw new NotFoundException('Member not found');
     const actor = await this.prisma.user.findUnique({ where: { id: actingUserId } });
     const isAdult = !!actor && ['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role);
+    // REBASE (the scale-change adjustment itself) never shows in a personal
+    // ledger/activity list - see PLANNING.md §17. It's visible only in the
+    // adult-facing TokenScaleEvent history in Family Settings.
     const entries = await this.prisma.tokenLedger.findMany({
-      where: { userId: targetUserId },
+      where: { userId: targetUserId, type: { not: 'REBASE' } },
       orderBy: { createdAt: 'desc' },
       skip,
       take: take + 1,
@@ -62,6 +65,7 @@ export class TokensService {
         refId: e.refId,
         createdAt: e.createdAt,
         createdByName: isAdult ? e.createdBy.displayName : undefined,
+        dollarEquivalent: e.dollarEquivalent,
       })),
       hasMore,
     };
@@ -95,9 +99,12 @@ export class TokensService {
     };
     const rows: Row[] = [];
 
-    const [tokenEntries, awardGrants, redemptions, freezeEntries, freezeNotifs] = await Promise.all([
+    const [family, tokenEntries, awardGrants, redemptions, freezeEntries, freezeNotifs] = await Promise.all([
+      this.prisma.family.findUnique({ where: { id: familyId }, select: { tokenValueUsd: true } }),
+      // REBASE (the scale-change adjustment itself) never shows here - see
+      // ledger() above and PLANNING.md §17.
       this.prisma.tokenLedger.findMany({
-        where: { userId: targetUserId },
+        where: { userId: targetUserId, type: { not: 'REBASE' } },
         orderBy: { createdAt: 'desc' },
         take: depth,
         include: { createdBy: { select: { displayName: true } } },
@@ -131,12 +138,16 @@ export class TokensService {
       }),
     ]);
 
+    const currentTokenValueUsd = family?.tokenValueUsd || 1;
     for (const e of tokenEntries) {
       rows.push({
         id: `token:${e.id}`,
         kind: `TOKEN_${e.type}`,
         label: e.reason,
-        amount: e.delta,
+        // Redisplayed at TODAY's scale, not necessarily the raw number this
+        // row was actually written with - see PLANNING.md §17. A no-op
+        // (equals e.delta exactly) unless the family has ever rescaled.
+        amount: Math.round(e.dollarEquivalent / currentTokenValueUsd),
         amountUnit: 'TOKENS',
         createdAt: e.createdAt,
         createdByName: isAdult ? e.createdBy.displayName : undefined,

@@ -184,10 +184,20 @@ export class UsersService {
   // bumping) lastCelebratedLevel in the SAME request is what makes this
   // idempotent - a refresh, or two surfaces checking at once, never fires
   // it twice for the same level.
+  //
+  // Sums dollarEquivalent, not raw delta - an invariant lifetime total that
+  // doesn't move when the family's token scale changes later (PLANNING.md
+  // §17). REBASE entries are excluded outright (a rescale isn't earning).
+  // For any row written before this existed, or for a family that's never
+  // rescaled, dollarEquivalent === delta, so this is byte-for-byte identical
+  // to the old raw-delta sum today.
   async levelCheck(userId: string) {
     const user = await this.prisma.user.findUniqueOrThrow({ where: { id: userId } });
-    const agg = await this.prisma.tokenLedger.aggregate({ where: { userId, delta: { gt: 0 } }, _sum: { delta: true } });
-    const earned = agg._sum.delta ?? 0;
+    const agg = await this.prisma.tokenLedger.aggregate({
+      where: { userId, delta: { gt: 0 }, type: { not: 'REBASE' } },
+      _sum: { dollarEquivalent: true },
+    });
+    const earned = agg._sum.dollarEquivalent ?? 0;
     const newLevel = Math.floor(Math.sqrt(Math.max(0, earned) / 5)) + 1;
     if (newLevel > user.lastCelebratedLevel) {
       await this.prisma.user.update({ where: { id: userId }, data: { lastCelebratedLevel: newLevel } });

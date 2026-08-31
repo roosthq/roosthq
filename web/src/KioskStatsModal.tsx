@@ -88,8 +88,13 @@ export default function KioskStatsModal({
       .catch(() => undefined);
   }, [userId, kioskToken]);
 
-  const earned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.delta, 0);
-  const spent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.delta), 0);
+  // earnedInvariant feeds LevelBadge's own level math (never moves on a
+  // rescale); earned/spent below are the same totals redisplayed at the
+  // family's CURRENT token scale, same as ProfilePage - see PLANNING.md §17.
+  const currentTokenValueUsd = family?.tokenValueUsd || 1;
+  const earnedInvariant = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  const earned = Math.round(earnedInvariant / currentTokenValueUsd);
+  const spent = Math.round(ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0) / currentTokenValueUsd);
   const myChores = chores.filter((c) => c.assignees.some((a) => a.userId === userId));
   const bestStreak = Math.max(0, ...myChores.map((c) => c.currentStreak), 0);
   const freezesBanked = myChores.reduce((sum, c) => sum + c.streakFreezes, 0) + bonusStreakFreezes;
@@ -148,7 +153,7 @@ export default function KioskStatsModal({
       </div>
       {family && familyFeatureEnabled(family, 'levels') && (
         <div className="mt-4">
-          <LevelBadge earned={earned} size="lg" />
+          <LevelBadge earned={earnedInvariant} tokenValueUsd={family?.tokenValueUsd} size="lg" />
         </div>
       )}
       {awards.length > 0 && (
