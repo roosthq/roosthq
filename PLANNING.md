@@ -130,6 +130,10 @@ with no independent credentials (typical for younger kids).
   does not maintain its own separate event store for those (beyond caching and
   sharing/visibility metadata). Local calendars are the app's own native data, same
   boundary as chores and tokens.
+- **Location-based visibility is getting reworked (planned, not built) - see §16.**
+  Today which locations see a shared Google calendar is *inferred* from where the
+  sharer lives, not chosen directly; §16 replaces that with an explicit per-location
+  share.
 
 ---
 
@@ -139,6 +143,11 @@ with no independent credentials (typical for younger kids).
 - **Owner/manager controls, editable on the fly:** default calendar(s) shown, which
   features appear, theme, per-house `DisplayConfig` (different houses can show
   different things off one kiosk link scheme).
+  - **Planned rework, not built - see §16:** a display's calendar list is currently
+    its own hand-maintained checklist, disconnected from the main app's own
+    (currently inferred, soon-to-be-explicit) location sharing. §16 makes a display
+    inherit whatever's shared to its location by default, checklist becomes an
+    optional override instead of the only source of truth.
 - **Real-time updates:** the display holds an open SSE connection. When an owner
   changes a display setting from their phone, the server pushes the change and the
   display re-renders without a reload.
@@ -446,6 +455,11 @@ section is built; check here before picking the next batch of work.
     rule, gated behind `Family.disabledFeatures`, with a manager-configured prize
     pool mixing real `Prize` rows and virtual-only chance items.
 
+11. **Calendar sharing by location rework.** Replace the current sharer-location
+    inference (and the disconnected per-Display calendar checklist) with an explicit
+    "share this calendar with location X" control. Fully written up, not built - see
+    §16 for the design, migration plan, and open questions before starting.
+
 **Other suggestions, independent of the above, for when there's room:**
 - Recipe linking for the meal plan (ties into item 1).
 - In-app data export for a family (today, backups are operator-only `mysqldump` on
@@ -613,3 +627,104 @@ it like that." Worth separating two different things that could mean:
 7. `DEPLOY.md`: new env vars, and a note that a fresh self-hoster still needs the
    repo public (or their own credentials) to clone it at all - separate from whether
    this feature works, per the note above.
+
+---
+
+## 16. Calendar sharing by location (planned rework, 2026-08-30)
+
+**Not built yet.** Casey's own call after living with the current design: "I think I
+made a mistake originally building shared calendars per location having to go through
+the displays and what is shared on those displays instead of just allowing for users
+to define which calendars are shared with people on a location basis." Agreed - this
+is a real design mistake, not a bug to patch. Written up here before touching code per
+Casey's request.
+
+### What's actually wrong
+
+There isn't one calendar-visibility system today - there are **two**, and neither one
+is "pick calendars for a location" directly:
+
+1. **Main app (`calendars.service.ts`'s `listSharedForLocation`).** A Google calendar
+   is visible at location X only as a side effect of who shared it: the rule is "the
+   sharer belongs to X (or the sharer has no location at all)". Nobody ever chooses
+   "show this at House B" - it falls out of who happened to click Share and where
+   they personally live. Move the sharer to a different location, or have them share
+   from a location they don't actually live at, and visibility silently follows them
+   instead of the calendar.
+2. **Kiosk (`DisplayConfig`).** Completely separate: each display has its own manual
+   calendar checklist, set once by whoever configured that Pi, unrelated to #1. A
+   calendar shared correctly in #1 doesn't automatically show up on the kiosk, and
+   vice versa - two places to keep in sync by hand, forever.
+
+**Local calendars already got this right** - they carry a real `locationId` column
+(`SharedCalendar.locationId` via `LocalCalendarsService`), no inference involved. Only
+Google-calendar sharing needs to change to match; local calendars are the template, not
+the problem.
+
+### The fix: one explicit join, both systems read from it
+
+New table, `CalendarLocationShare` (`calendarId`, `locationId`, unique pair) - a direct,
+adult-settable "this calendar is visible at this location," full stop. No inference
+from who shared it or where they live.
+
+- **Who can set it:** any adult who already has share rights on that calendar (same
+  people who can currently toggle it into the family via "Manage calendars") picks
+  which of the family's locations see it. A calendar with zero locations checked means
+  "whole family" (matches today's "sharer has no location" fallback-to-everyone case,
+  so a single-location family's experience doesn't change at all).
+- **`listSharedForLocation` rewrite:** drop the sharer-location inference entirely;
+  visibility becomes a direct `CalendarLocationShare` lookup (plus local calendars'
+  existing `locationId`, unchanged). Simpler code, not just a different bug.
+- **`DisplayConfig` calendar list:** stops being its own hand-maintained checklist.
+  A display **inherits** whatever's shared to its own `locationId` by default. Keep
+  the existing checklist field only as an optional per-display override (hide one of
+  the inherited calendars on this specific kiosk without unsharing it family-wide) -
+  additive, not a second source of truth to reconcile.
+- **UI:** extend `CalendarsSettingsSection.tsx` (or a new panel next to it) with a
+  per-location checkbox row per calendar, next to the existing per-user color picker.
+  Google and local calendars render the same control; local calendars just write
+  straight to their own `locationId` instead of the join table underneath.
+
+### Migration - the part that can actually break someone's kiosk
+
+Ship this wrong and every family's Display goes blank on deploy day. Needs a one-time
+backfill migration, run as part of the same deploy that ships the schema change:
+
+1. For every existing Google calendar share, insert a `CalendarLocationShare` row
+   reproducing today's inferred visibility (sharer's location(s), or every location if
+   the sharer has none) - so nobody's *main app* view changes the moment this ships.
+2. For every `DisplayConfig`'s existing manual calendar checklist, if a calendar in
+   that list ISN'T already covered by step 1's backfill for that display's location,
+   add it as a per-display override (see above) rather than dropping it silently - a
+   kiosk showing a calendar today keeps showing it tomorrow even if the general
+   location-sharing rule wouldn't have granted it on its own.
+3. Verify against a real family in Test Family (never the real family - see
+   `[[roosthq_test_family]]`) before this ever reaches Casey's own production deploy:
+   confirm every display still shows exactly what it showed before, for at least one
+   multi-location family.
+
+### Open questions (resolve before or during build, not after)
+
+- Does a location's own **kids** get any say in what's shared to them, or is this
+  adult-only the same as calendar sharing already is today? (Leaning: adult-only,
+  matches every other calendar-management control.)
+- Should local calendars actually get folded into the same `CalendarLocationShare`
+  table for one truly uniform model (calendar → many locations), instead of keeping
+  their own single `locationId` column forever? Would let a local calendar be shared
+  to more than one location, which it can't do today. Not required for this fix to
+  work - can be a follow-up if it turns out to matter in practice.
+- Holidays (`HOLIDAYS_CALENDAR_ENTRY`, synthetic, no real row) needs an explicit
+  carve-out in the rewritten `listSharedForLocation` - it has no calendar id to hang a
+  `CalendarLocationShare` row off of and should just stay visible everywhere, as today.
+
+### Rough build order
+
+1. `CalendarLocationShare` Prisma model + migration + the backfill script (step 1-2
+   above) as part of the SAME migration, not a follow-up - never ship the empty table
+   alone.
+2. Rewrite `listSharedForLocation` to read the join table; delete the sharer-location
+   inference code it replaces.
+3. `DisplayConfig` calendar resolution: inherit-by-location + optional override, per
+   above.
+4. Web: per-location sharing checkboxes in `CalendarsSettingsSection.tsx`.
+5. Verify live in Test Family (§ above) before touching production.
