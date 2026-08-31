@@ -221,6 +221,11 @@ with no independent credentials (typical for younger kids).
   it alongside their other stats. An award can carry a bonus token wheel spin.
 - **Rules:** shared house rules and per-kid rules, adult-managed, viewable by
   everyone (including from the kiosk).
+- **Mini-games (planned, not built) - see §18.** A third reward mechanism alongside
+  this section's Prizes/Awards: skill-based win/lose touch games (not the chance-
+  reveal games below), winning draws from a linked prize pool, losing can pay a
+  flat or per-step partial-credit consolation. A playable Lock Pick prototype
+  exists already, disconnected from the real app.
 - **Co-viewing fairness (2026-08):** a shared-resource prize (screen time,
   movie night) lets a sibling watch/use it alongside whoever actually paid,
   for free - the real unfairness is that the sibling's own daily screen-time
@@ -1012,3 +1017,204 @@ rescaled" above is. Pool-type awards/games are a less-used sub-feature and the J
 surgery to rescale just the TOKENS-kind entries inside an arbitrary weighted array
 felt like real scope for a feature not actually in play yet - revisit if it turns
 out to matter once someone's actually using Pool-type rewards.
+
+### Follow-up, same day: bonus wheel also gets a game-type pin
+
+Casey's request after living with the built feature for an afternoon: the chore-
+streak wheel's help text still read "A random 1-5 extra tokens" verbatim, stale the
+moment the range became editable - fixed to a generic line that points at the live
+control instead of hardcoding numbers that can drift. Also added: `Family
+.streakWheelGameType` (nullable, `null` = "surprise me"/random - the original
+behavior, unchanged default), same convention as `Award.poolGameType`, wired into
+`chores.service.ts`'s `finalizeApproval` so an adult can pin the streak bonus to a
+specific reveal game (Wheel, Slot Machine, Scratch Card, ...) instead of it always
+being a random pick. Simple `<select>` in the same Features > Tokens > Bonus wheel
+row as the min/max fields - not the full visual card-grid picker Award's own
+`poolGameType` gets on AwardsPage (that one shows an icon tile per game with its own
+per-tile preview button) - a plain dropdown was judged enough for a single family-
+wide setting; upgrade to the richer picker later if it turns out to matter.
+
+---
+
+## 18. Mini-games (planned, not built, 2026-08-31)
+
+Casey's request: a THIRD reward mechanism, separate from Awards and Prizes -
+skill-based win/lose mini-games (not the existing chance-reveal games like the
+bonus wheel), timed, touch/drag, in the visual spirit of Among Us's tasks (real
+little challenges, not just a spinner). Winning draws from a linked prize pool
+(the exact same weighted `PoolEntry` mechanism Awards already use - tokens, a real
+Prize, or a streak freeze); losing can optionally still pay a flat consolation.
+Explicitly wants partial credit: if a game has multiple discrete correct answers/
+sub-steps (picking each of several locks, connecting each of several wires), award
+tokens per correct one even on an overall loss, as an optional setting. New Store
+tab alongside Prizes/Awards. Specifically named one game to start: **lock pick,
+progressively harder locks**. Wants to actually play a prototype before any of this
+gets built for real, plus my own ideas for the rest of the feature.
+
+**A playable first draft exists right now** - not wired to anything real, pure
+front-end prototype, published as its own artifact: **Lockpick Protocol**. Tune lock
+count, time limit, misses allowed, partial-credit tokens per lock, and the flat
+lose-consolation value live, then play it - on desktop or a touch device. It's
+deliberately disconnected from any real balance so it's safe to hand to a kid to
+playtest too, not just Casey. Everything below assumes whatever comes out of
+actually playing this (and whichever future prototypes follow it) over "reasonable
+constants floating in a document."
+
+### The core loop, generalized from lock-pick to any mini-game
+
+Every mini-game in this feature - lock-pick or otherwise - shares the same shape,
+which is what makes them one feature instead of N unrelated ones:
+
+1. A **skill challenge** with a real win/lose outcome the PLAYER determines through
+   performance (unlike a reveal game, where the server rolls the outcome and the
+   client just animates it) - usually against a clock.
+2. Made of **discrete steps** (locks, wires, tiles, targets) wherever the mechanic
+   naturally has them - this is what partial credit hangs off of. Not every game
+   type will have clean discrete steps (see the caveat under "other game ideas"
+   below); that's fine, partial credit is opt-in per game, not universal.
+3. **On win:** draw one entry from a linked `PoolEntry[]` pool - literally reuse
+   Award's existing pool shape and draw logic (tokens range, a real `Prize`, or a
+   streak freeze), not a new parallel mechanism.
+4. **On loss:** an optional flat "lose token value" (0 = none), PLUS, if partial
+   credit is on for this game, `partialCreditPerStep × stepsCompleted` regardless of
+   the overall win/lose outcome - stacks with the lose value, not instead of it.
+5. **Preview mode:** anyone with access can play a no-stakes run (no grant consumed,
+   no ledger entry, no real pool draw - a fake draw like the prototype's) before an
+   adult ever queues a real one for a kid. This is the mechanism Casey's "let me try
+   it out to confirm" request turns into permanently, not just a one-time favor for
+   this planning conversation.
+
+### Data model - genuinely separate from Award, per Casey's own instruction
+
+```
+model MiniGame {            // the catalog entry - "a game an adult can hand out"
+  id, familyId, name, icon, description
+  gameType            String   // 'LOCK_PICK' | future ones - own enum, NOT GAME_TYPES
+                                // (those are reveal-presentation styles for chance
+                                // games; these are actual skill mechanics)
+  configJson          Json     // per-gameType tunables (lock-pick: step count range,
+                                // time limit, difficulty ramp - whatever the
+                                // prototype settles on)
+  poolJson            Json     // PoolEntry[] - drawn on WIN, identical shape to
+                                // Award.poolJson
+  loseTokenValue       Int     @default(0)   // 0 = no consolation
+  partialCreditEnabled Boolean @default(false)
+  partialCreditPerStep Int     @default(0)   // only meaningful if enabled
+  createdById, createdAt
+}
+
+model MiniGameGrant {       // one instance handed to one kid - mirrors AwardGrant
+  id, miniGameId, userId, grantedById, createdAt
+  status          'PENDING' | 'PLAYED'
+  won             Boolean?
+  stepsCompleted  Int?
+  totalSteps      Int?
+  timeTakenSeconds Int?
+  tokensAwarded   Int?        // final total actually paid - pool draw + partial
+                               // credit on a win, or loseTokenValue + partial
+                               // credit on a loss
+  prizeWonId      String?     // set only if the pool draw was a PRIZE entry
+  playedAt        DateTime?
+)
+```
+
+Ledger writes for a played grant go through the `TokensService.createLedgerEntry()`
+helper already centralized for §17 - this feature doesn't need its own token-writing
+path, just a new `LedgerType` value (`MINI_GAME`) so it's reportable/filterable like
+every other source.
+
+### Partial credit - the specific ask, generalized
+
+"If a prize has multiple correct answers, let me pay tokens for each correct answer
+even if they don't get the whole thing right" - built as `partialCreditPerStep ×
+stepsCompleted`, paid regardless of win/lose (a win already implies all steps
+completed, so this naturally folds into the pool-draw total on a win and only
+distinctly matters on a loss). Deliberately per-`MiniGame` (not global) - some games
+genuinely don't have discrete steps to credit (see below).
+
+### Starting game list
+
+1. **Lock pick** (Casey's own pick, prototyped above) - N locks in sequence, each
+   with a narrower "sweet-spot" arc and a faster sweep than the last; tap when the
+   needle crosses the glowing zone. Clean discrete steps (one per lock) - partial
+   credit fits naturally.
+
+**My own additions, picked for the same "Among Us task" register and a spread of
+input styles (not everything should be a timing-tap, or touch gets monotonous):**
+
+2. **Wire connect** - drag colored leads from left posts to matching right posts
+   before time runs out. The most direct touch/drag fit of any of these, and the
+   most recognizably "Among Us" of the set. Discrete steps = wires; partial credit
+   fits well.
+3. **Pattern relay** - Simon-Says style: watch a sequence of panel lights, repeat it
+   by tapping in order; sequence grows by one each round. Discrete steps = rounds
+   survived; partial credit fits well (tokens per round reached, not just pass/fail
+   on the whole sequence).
+4. **Sort rush** - drag scrambled numbered/lettered tiles into order against the
+   clock. Discrete steps = tiles placed correctly; partial credit fits well.
+5. **Signal trace** - drag a finger along a wiggly path without straying outside
+   its edges, timed. Continuous, not discrete - no clean "steps" to give partial
+   credit for (could approximate via % of the path completed before straying off,
+   but that's a distance metric standing in for step-counting, not the real thing -
+   flag this as an explicit exception if built, not silently forced into the same
+   shape as the others).
+6. **Dial calibration** - rotate a dial to land inside a moving target zone, hold it
+   there for a beat. Same caveat as Signal Trace: naturally continuous/single-
+   outcome, partial credit doesn't map cleanly - fine as a game, just not one that
+   should pretend to support the partial-credit setting.
+
+### Preview/test mode
+
+Every `MiniGame` in the catalog gets a **Preview** button, available to any adult
+(not gated to whoever created it) and - per Casey's explicit ask - safe to hand
+directly to a kid to playtest too, since it touches nothing real: no `MiniGameGrant`
+row, no ledger entry, no real pool draw (a client-side fake draw, same pattern
+`fakePreviewRoll` already uses for Award's own pool-builder preview in
+`rewardGames.ts`). This is exactly what today's **Lockpick Protocol** artifact is, in
+miniature and disconnected from the app entirely - the real in-app version is the
+same idea wired to the family's actual catalog instead of the demo pool.
+
+### Store UI
+
+New third tab, **Store: Prizes | Awards | Mini-games** - a catalog list (adult-
+managed: create/edit a `MiniGame`, reusing Award's existing `PoolEntry` builder
+component for the pool instead of rebuilding it), each entry with **Preview** and
+**Give to...** actions (the latter creates a `MiniGameGrant`, same shape as handing
+out an Award). Kids see a "Games waiting for you" queue, same visual language the
+pending-award/pending-reward-game queues already use elsewhere in the app.
+
+### Open questions for Casey
+
+1. **Play surface.** Given the touch/drag + Among-Us-task register, is the kiosk the
+   PRIMARY intended surface (worth designing kiosk-first: large touch targets,
+   `.kiosk-mode` CSS bridge) with the phone/web app as a secondary fallback, or the
+   reverse? Changes which constraints (screen size, input precision) get designed
+   for first.
+2. **Difficulty vs. age.** These are real motor-skill/reflex challenges - an older
+   kid will simply be better at Lock Pick than a 6-year-old. Worth a per-grant
+   difficulty override (easy/medium/hard, adjusting `configJson`'s params) so one
+   catalog entry serves everyone instead of duplicating "Lock Pick (easy)" /
+   "Lock Pick (hard)" as separate catalog entries? Leaning yes.
+3. **Which of the 6 games above (if any beyond Lock Pick) to actually build**, and
+   in what order - once Lock Pick's prototype is confirmed to feel right, the
+   fastest next step is probably one discrete-step game (Wire Connect, most Among-
+   Us-recognizable) and one continuous one (Dial Calibration, to pressure-test the
+   partial-credit exception) rather than building all 6 blind.
+
+### Rough build order (once direction is confirmed - nothing below is started)
+
+1. Confirm Lock Pick's feel from the live prototype; iterate its constants (or
+   mechanic entirely) there first - it costs nothing to change a static artifact,
+   unlike shipped schema/UI.
+2. `MiniGame` / `MiniGameGrant` models + `MINI_GAME` `LedgerType` value.
+3. Server: catalog CRUD, grant/preview/play endpoints - `play` scores whatever the
+   client reports (steps completed, won, time taken) same trust level the existing
+   reveal-games' spin() already operates at (client cosmetics, server-authoritative
+   payout math), draws from `poolJson` on a win via the same draw helper
+   `reward-games.service.ts` already has.
+4. Web: wire the real Lock Pick game (ported from the prototype) into the actual
+   Store > Mini-games tab, both real-play and preview modes off the same component.
+5. Store UI: catalog list, pool builder (reused from Award), give/preview actions,
+   kid-facing pending queue.
+6. Second game (per open question 3) once Lock Pick is confirmed working end to end
+   for a real family - don't build the other 5 in parallel on a guess.
