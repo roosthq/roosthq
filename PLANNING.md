@@ -224,8 +224,8 @@ with no independent credentials (typical for younger kids).
 - **Mini-games (planned, not built) - see §18.** A third reward mechanism alongside
   this section's Prizes/Awards: skill-based win/lose touch games (not the chance-
   reveal games below), winning draws from a linked prize pool, losing can pay a
-  flat or per-step partial-credit consolation. A playable Lock Pick prototype
-  exists already, disconnected from the real app.
+  flat or per-step partial-credit consolation. Ten playable prototypes (Task Deck)
+  exist already, disconnected from the real app.
 - **Co-viewing fairness (2026-08):** a shared-resource prize (screen time,
   movie night) lets a sibling watch/use it alongside whoever actually paid,
   for free - the real unfairness is that the sibling's own daily screen-time
@@ -1051,12 +1051,12 @@ tab alongside Prizes/Awards. Specifically named one game to start: **lock pick,
 progressively harder locks**. Wants to actually play a prototype before any of this
 gets built for real, plus my own ideas for the rest of the feature.
 
-**A playable first draft exists right now** - not wired to anything real, pure
-front-end prototype, published as its own artifact: **Lockpick Protocol**. Tune lock
-count, time limit, misses allowed, partial-credit tokens per lock, and the flat
-lose-consolation value live, then play it - on desktop or a touch device. It's
-deliberately disconnected from any real balance so it's safe to hand to a kid to
-playtest too, not just Casey. Everything below assumes whatever comes out of
+**Ten playable prototypes exist right now**, not just one - see "Ten playable
+prototypes exist now" below for the full set and the artifact link. Tune each
+game's difficulty, time limit, and partial-credit settings live, then play it - on
+desktop or a touch device. All ten are deliberately disconnected from any real
+balance, so they're safe to hand to a kid to playtest too, not just Casey.
+Everything below assumes whatever comes out of
 actually playing this (and whichever future prototypes follow it) over "reasonable
 constants floating in a document."
 
@@ -1170,7 +1170,7 @@ Every `MiniGame` in the catalog gets a **Preview** button, available to any adul
 directly to a kid to playtest too, since it touches nothing real: no `MiniGameGrant`
 row, no ledger entry, no real pool draw (a client-side fake draw, same pattern
 `fakePreviewRoll` already uses for Award's own pool-builder preview in
-`rewardGames.ts`). This is exactly what today's **Lockpick Protocol** artifact is, in
+`rewardGames.ts`). This is exactly what today's **Task Deck** artifact is, in
 miniature and disconnected from the app entirely - the real in-app version is the
 same idea wired to the family's actual catalog instead of the demo pool.
 
@@ -1183,38 +1183,87 @@ component for the pool instead of rebuilding it), each entry with **Preview** an
 out an Award). Kids see a "Games waiting for you" queue, same visual language the
 pending-award/pending-reward-game queues already use elsewhere in the app.
 
-### Open questions for Casey
+### Decided, 2026-08-31
 
-1. **Play surface.** Given the touch/drag + Among-Us-task register, is the kiosk the
-   PRIMARY intended surface (worth designing kiosk-first: large touch targets,
-   `.kiosk-mode` CSS bridge) with the phone/web app as a secondary fallback, or the
-   reverse? Changes which constraints (screen size, input precision) get designed
-   for first.
-2. **Difficulty vs. age.** These are real motor-skill/reflex challenges - an older
-   kid will simply be better at Lock Pick than a 6-year-old. Worth a per-grant
-   difficulty override (easy/medium/hard, adjusting `configJson`'s params) so one
-   catalog entry serves everyone instead of duplicating "Lock Pick (easy)" /
-   "Lock Pick (hard)" as separate catalog entries? Leaning yes.
-3. **Which of the 6 games above (if any beyond Lock Pick) to actually build**, and
-   in what order - once Lock Pick's prototype is confirmed to feel right, the
-   fastest next step is probably one discrete-step game (Wire Connect, most Among-
-   Us-recognizable) and one continuous one (Dial Calibration, to pressure-test the
-   partial-credit exception) rather than building all 6 blind.
+1. **Play surface: phone first, kiosk second.** Design constraints (touch target
+   size, layout width) get pinned to a phone screen first; the kiosk's larger
+   `.kiosk-mode` targets are the easier direction to scale UP to afterward, not the
+   other way around.
+2. **Difficulty scales per grant, not per catalog entry.** One `MiniGame` ("Lock
+   Pick") serves every kid; an adult picks easy/medium/hard (or the raw underlying
+   knobs) at grant time, adjusting `configJson`'s params for that one play. No
+   "Lock Pick (easy)" / "Lock Pick (hard)" duplicate catalog rows.
+3. **Wire Connect (named "Wire Splice" in the prototypes) is the confirmed second
+   real game**, after Lock Pick, once Lock Pick is confirmed working end to end for
+   a real family.
+
+### Ten playable prototypes exist now, not just one
+
+Casey's follow-up: make Lock Pick look more like an actual lock (done - reskinned
+from a spinning dial to a pin-and-tumbler keyway), add a second, distinct
+combination-safe game ("cracking the safe" specifically), add sound effects to
+every game, and build at least ten testable prototypes total rather than one.
+
+All ten live in a single artifact, **Task Deck** - a small arcade shell (menu,
+shared config sliders, shared win/lose/payout panel, a tiny procedural Web Audio
+SFX engine - no audio files, synthesized clicks/chimes/buzzes so the artifact stays
+self-contained) wrapping ten independent games. Nothing here is wired to a real
+catalog or balance - purely for Casey (and, safely, any kid) to playtest feel,
+difficulty, and controls before any of this becomes real schema/UI:
+
+1. **Pin & Tumbler** - Lock Pick, reskinned: an actual pin-and-tumbler keyway,
+   pins rising and falling, tap when a pin's window crosses the shear line. This
+   is what "Lock Pick" in every earlier mention of this feature refers to.
+2. **Safe Cracker** - the requested second lock game: a rotary combination dial
+   with momentum/drift, spin and release, tap SET when the marker sits on the
+   glowing notch. Multiple digits, each with a narrower tolerance than the last.
+3. **Wire Splice** - the confirmed next real game (decision 3 above): drag colored
+   leads to matching posts before time runs out.
+4. **Signal Relay** - Simon-Says pattern memory; sequence grows one step per round
+   survived.
+5. **Cargo Sort** - drag scrambled numbered crates into ascending order against the
+   clock.
+6. **Fuse Trace** - drag a live wire through a channel without straying outside
+   it, one pass, continuous (no partial credit, by design - see the original
+   caveat above).
+7. **Reactor Calibration** - hold a needle inside a drifting target zone for a
+   beat; continuous, no partial credit, same caveat.
+8. **Bug Zapper** - tap rush: zap a quota of blips before they scurry off.
+9. **Circuit Match** - memory pairs; flip tiles, find every match before time's up.
+10. **Code Breaker** - Mastermind-style: guess a hidden digit code, hot/cold
+    feedback narrows it down: exercises the partial-credit ask most literally
+    ("tokens for each correct answer even without cracking the whole code").
+
+Each card in the menu is tagged **Partial credit** or **All or nothing** so which
+games do and don't support the partial-credit setting is visible before playing,
+not just documented here.
+
+**Verification note:** the sandboxed tool used to build this can't reliably play-
+test anything that depends on `requestAnimationFrame` running in real time (its
+preview pane throttles animation in the background, confirmed with a bare rAF loop
+that also never fired - an environment limitation, not a code issue) - so the
+timing-sensitive games (most of them) are verified by careful code review and, for
+the trickiest bit of math (Safe Cracker's rotation hit-test, which had a real sign
+error caught and fixed during that review), a standalone logic check outside the
+browser entirely. They have NOT been played start-to-finish by anything other than
+static analysis. Casey's own morning playtest is the real test.
 
 ### Rough build order (once direction is confirmed - nothing below is started)
 
-1. Confirm Lock Pick's feel from the live prototype; iterate its constants (or
-   mechanic entirely) there first - it costs nothing to change a static artifact,
-   unlike shipped schema/UI.
-2. `MiniGame` / `MiniGameGrant` models + `MINI_GAME` `LedgerType` value.
+1. Casey plays all ten prototypes; reports back which feel right, which need
+   tuning, which to drop. Cheap to iterate on a static artifact - expensive once
+   any of this is real schema/UI.
+2. `MiniGame` / `MiniGameGrant` models + `MINI_GAME` `LedgerType` value, including
+   the per-grant difficulty override (decision 2 above).
 3. Server: catalog CRUD, grant/preview/play endpoints - `play` scores whatever the
-   client reports (steps completed, won, time taken) same trust level the existing
-   reveal-games' spin() already operates at (client cosmetics, server-authoritative
-   payout math), draws from `poolJson` on a win via the same draw helper
-   `reward-games.service.ts` already has.
-4. Web: wire the real Lock Pick game (ported from the prototype) into the actual
-   Store > Mini-games tab, both real-play and preview modes off the same component.
+   client reports (steps completed, won, time taken), same trust level the
+   existing reveal-games' spin() already operates at (client cosmetics, server-
+   authoritative payout math), draws from `poolJson` on a win via the same draw
+   helper `reward-games.service.ts` already has.
+4. Web: port Pin & Tumbler (Lock Pick) for real first, into the actual Store >
+   Mini-games tab, both real-play and preview modes off the same component -
+   phone-first per decision 1.
 5. Store UI: catalog list, pool builder (reused from Award), give/preview actions,
    kid-facing pending queue.
-6. Second game (per open question 3) once Lock Pick is confirmed working end to end
-   for a real family - don't build the other 5 in parallel on a guess.
+6. Wire Splice (decision 3) once Lock Pick is confirmed working end to end for a
+   real family - don't port the other eight in parallel on a guess.
