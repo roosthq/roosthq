@@ -735,7 +735,12 @@ export default function ChoresPanel({
           )}
 
           {isAdult && !today && (
-            <span className="ml-auto flex items-center gap-3 text-xs text-slate-400">
+            // flex-wrap - Unassign/Enable again/Edit/Duplicate/Delete
+            // together are wider than a phone screen; without wrapping
+            // this whole group just overflows past the card's right edge
+            // (clipping "Delete" off-screen) instead of dropping to a
+            // second line the way the OUTER row already does.
+            <span className="ml-auto flex flex-wrap items-center gap-3 text-xs text-slate-400">
               {active && claimedBy && (
                 <button onClick={() => act(() => client.assignInstance(active.id, null))} className="hover:text-slate-700">
                   Unassign
@@ -814,7 +819,11 @@ export default function ChoresPanel({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${chorePlural.toLowerCase()}…`}
-              className="min-w-0 flex-1 rounded-md border px-2 py-1.5 text-sm sm:w-44 sm:flex-none"
+              // basis-full on mobile - sharing the wrap row with the
+              // location/person selects squeezed this down to ~6 visible
+              // characters ("Search ta...") instead of dropping to its own
+              // line the way flex-wrap should have let it.
+              className="min-w-0 flex-1 basis-full rounded-md border px-2 py-1.5 text-sm sm:w-44 sm:basis-auto sm:flex-none"
             />
           )}
           {showLocationDropdown && (
