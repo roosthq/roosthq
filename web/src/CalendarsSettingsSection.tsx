@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { api, loginUrl, type GoogleCalendar, type SharedCalendar } from './api';
+import { api, loginUrl, type FamilyLocation, type GoogleCalendar, type SharedCalendar } from './api';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
 
@@ -13,21 +13,47 @@ import Modal from './Modal';
 export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean }) {
   const { alert } = useDialog();
   const [shared, setShared] = useState<SharedCalendar[]>([]);
+  const [locations, setLocations] = useState<FamilyLocation[]>([]);
   const [needsReconnect, setNeedsReconnect] = useState(false);
   const [picker, setPicker] = useState<GoogleCalendar[] | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [savingLocId, setSavingLocId] = useState<string | null>(null);
 
   const refresh = useCallback(() => {
     // Scoped to my own location(s) - a person at one house shouldn't have to
     // wade through every calendar shared by every other house in the family
     // just to color their own.
     api.myCalendars().then(setShared).catch(() => setShared([]));
+    api.locations().then(setLocations).catch(() => setLocations([]));
   }, []);
   useEffect(() => {
     refresh();
     api.googleAccountStatus().then((s) => setNeedsReconnect(s.needsReconnect)).catch(() => undefined);
   }, [refresh]);
+
+  // Where a calendar I share shows up - not gated to family managers (see
+  // PLANNING.md §16): whoever actually shares a calendar gets to say where
+  // it's visible, full stop. Only shown for calendars I share myself -
+  // setLocationShares enforces the same rule server-side, so this just
+  // avoids offering a control that would 403.
+  async function toggleLocation(calendarId: string, locationId: string, on: boolean) {
+    const cal = shared.find((c) => c.id === calendarId);
+    if (!cal) return;
+    const current = new Set(cal.locationIds ?? []);
+    if (on) current.add(locationId);
+    else current.delete(locationId);
+    const next = [...current];
+    setSavingLocId(calendarId);
+    setShared((prev) => prev.map((c) => (c.id === calendarId ? { ...c, locationIds: next } : c)));
+    try {
+      await api.setCalendarLocations(calendarId, next);
+    } catch {
+      refresh();
+    } finally {
+      setSavingLocId(null);
+    }
+  }
 
   async function setColor(calendarId: string, color: string) {
     setSavingId(calendarId);
@@ -120,24 +146,50 @@ export default function CalendarsSettingsSection({ isAdult }: { isAdult: boolean
 
       <ul className="mt-3 space-y-2">
         {shared.map((c) => (
-          <li key={c.id} className="card-nested flex flex-wrap items-center gap-3 rounded-lg px-3 py-2">
-            <span className="min-w-0 flex-1 break-words text-sm font-medium">{c.name}</span>
-            <input
-              type="color"
-              value={c.color ?? '#94a3b8'}
-              onChange={(e) => setColor(c.id, e.target.value)}
-              disabled={savingId === c.id}
-              title="Pick a color"
-              className="h-8 w-10 shrink-0 cursor-pointer rounded border p-0.5"
-            />
-            <button
-              onClick={() => resetColor(c.id)}
-              disabled={savingId === c.id}
-              className="shrink-0 text-xs text-slate-400 hover:text-slate-600"
-              title="Reset to this calendar's own color"
-            >
-              Reset
-            </button>
+          <li key={c.id} className="card-nested rounded-lg px-3 py-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="min-w-0 flex-1 break-words text-sm font-medium">{c.name}</span>
+              <input
+                type="color"
+                value={c.color ?? '#94a3b8'}
+                onChange={(e) => setColor(c.id, e.target.value)}
+                disabled={savingId === c.id}
+                title="Pick a color"
+                className="h-8 w-10 shrink-0 cursor-pointer rounded border p-0.5"
+              />
+              <button
+                onClick={() => resetColor(c.id)}
+                disabled={savingId === c.id}
+                className="shrink-0 text-xs text-slate-400 hover:text-slate-600"
+                title="Reset to this calendar's own color"
+              >
+                Reset
+              </button>
+            </div>
+            {/* Only for a calendar I share myself - anyone who shares a
+                calendar gets to say where it's visible, not just family
+                managers (PLANNING.md §16). setLocationShares enforces the
+                same rule server-side; this just doesn't offer a control
+                that would 403 for a calendar I don't own. */}
+            {c.sharedByMe && c.source === 'google' && locations.length > 0 && (
+              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                <span className="text-xs text-slate-400">Visible at:</span>
+                {locations.map((l) => {
+                  const on = (c.locationIds ?? []).includes(l.id);
+                  return (
+                    <button
+                      key={l.id}
+                      onClick={() => toggleLocation(c.id, l.id, !on)}
+                      disabled={savingLocId === c.id}
+                      className={`rounded-full border px-2.5 py-0.5 text-xs ${on ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                    >
+                      {l.name}
+                    </button>
+                  );
+                })}
+                {!(c.locationIds ?? []).length && <span className="text-xs text-slate-400">whole family</span>}
+              </div>
+            )}
           </li>
         ))}
         {shared.length === 0 && <li className="text-sm text-slate-400">No calendars yet.</li>}

@@ -102,6 +102,13 @@ export class CalendarsService {
     await assertKidPermission(this.prisma, userId, 'calendarShare');
     const results = [];
     for (const sel of selections) {
+      // Checked BEFORE the upsert below, so this only ever fires on a
+      // genuinely first-ever share of this calendar into the family - a
+      // second person sharing the same one, or a re-share, never clobbers
+      // whatever location scope is already there.
+      const isNew = !(await this.prisma.calendar.findUnique({
+        where: { familyId_googleCalendarId: { familyId, googleCalendarId: sel.googleCalendarId } },
+      }));
       const calendar = await this.prisma.calendar.upsert({
         where: { familyId_googleCalendarId: { familyId, googleCalendarId: sel.googleCalendarId } },
         update: { name: sel.name, color: sel.color },
@@ -118,6 +125,21 @@ export class CalendarsService {
         update: {},
         create: { calendarId: calendar.id, userId },
       });
+      // Default a brand-new share to wherever the sharer themself lives -
+      // matches the old inferred system's common case, instead of landing
+      // on "whole family" (visible everywhere) until someone remembers to
+      // scope it in the new explicit control. Only when unambiguous (they
+      // live at exactly one location); split-household or no-location
+      // sharers get the safe "whole family" default, same as always,
+      // still editable afterward either way.
+      if (isNew) {
+        const myLocs = await this.prisma.userLocation.findMany({ where: { userId }, select: { locationId: true } });
+        if (myLocs.length === 1) {
+          await this.prisma.calendarLocationShare
+            .create({ data: { calendarId: calendar.id, locationId: myLocs[0].locationId } })
+            .catch(() => undefined);
+        }
+      }
       results.push(calendar);
     }
     return results;
@@ -245,16 +267,21 @@ export class CalendarsService {
   }
 
   // Set which locations a Google calendar is explicitly visible at - empty
-  // array = whole family. Same permission as share()/unshare() (whoever can
-  // bring a calendar into the family can also decide where it shows up),
-  // not the owner/family-manager-only bar setBaseColor uses above - this is
-  // an extension of sharing, not a family-wide display default. Local
-  // calendars don't go through here - they already carry their own direct
-  // locationId (see LocalCalendarsService), by design (PLANNING.md §16).
+  // array = whole family. NOT open to any adult - only someone who actually
+  // shares this specific calendar (owns it, in the sense that matters here),
+  // or a family manager/owner overriding on anyone's behalf. Local calendars
+  // don't go through here - they already carry their own direct locationId
+  // (see LocalCalendarsService), by design (PLANNING.md §16).
   async setLocationShares(familyId: string, userId: string, calendarId: string, locationIds: string[]) {
     await assertKidPermission(this.prisma, userId, 'calendarShare');
-    const calendar = await this.prisma.calendar.findFirst({ where: { id: calendarId, familyId } });
+    const calendar = await this.prisma.calendar.findFirst({ where: { id: calendarId, familyId }, include: { shares: true } });
     if (!calendar) throw new NotFoundException('Calendar not found');
+    const actor = await this.prisma.user.findUnique({ where: { id: userId } });
+    const isManager = actor?.role === 'OWNER' || actor?.role === 'FAMILY_MANAGER';
+    const ownsIt = calendar.shares.some((s) => s.userId === userId);
+    if (!isManager && !ownsIt) {
+      throw new ForbiddenException("Only someone who shares this calendar, or a family manager, can set where it's visible");
+    }
     const uniqueIds = [...new Set(locationIds)];
     if (uniqueIds.length) {
       const validCount = await this.prisma.location.count({ where: { id: { in: uniqueIds }, familyId } });
