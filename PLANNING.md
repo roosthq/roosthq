@@ -197,9 +197,10 @@ with no independent credentials (typical for younger kids).
 - Adults can rename the token and pick its icon.
 - **Token rescaling (planned, not built) - see §17.** Family manager will be able to
   change `tokenValueUsd` and have every token-denominated number in the family scale
-  with it - deliberately, so kids can't infer the $ ratio from patterns. Level/XP is
-  made scale-invariant first (dollar-equivalent, not raw token count) so this can
-  never move anyone's level.
+  with it - deliberately, so kids can't infer the $ ratio from patterns. Level stays
+  on an invariant lifetime total (never displayed); the XP number people actually see
+  scales WITH the balance instead, so the two numbers never disagree - no dollar
+  figure is ever computed as something a person looks at, only as an internal ratio.
 - Adults can manually award or subtract tokens with a required reason (audit log
   keeps every change: who, when, delta, reason, linked chore/award if any).
 - **Physical tokens are reconciliation, not tracking.** The app cannot know how many
@@ -762,152 +763,207 @@ backfill migration, run as part of the same deploy that ships the schema change:
 
 ---
 
-## 17. Token rescaling (planned, not built, 2026-08-31)
+## 17. Token rescaling (planned, not built, revised 2026-08-31)
 
 Casey's request: as family manager, be able to change the token↔dollar ratio
 (`Family.tokenValueUsd`, already exists) at will - either direction, any value, not
 just round numbers - and have every token-denominated number in the family scale with
 it automatically, so the kids can't reverse-engineer "1 token = $1" from patterns and
-start negotiating prize prices around it. Also wants every rescale tracked/auditable,
-and explicitly does NOT want it to move anyone's level/XP. A secondary win called out:
-bigger numbers make late-penalty percentages actually round to something other than 0.
+start negotiating prize prices around it. Every rescale tracked/auditable. Must NOT
+move anyone's level/XP - and levels/XP must stay levels/XP, no dollar figures ever
+displayed, full stop. Secondary win: bigger numbers make late-penalty percentages
+actually round to something other than 0.
 
-**Take: worth building, but the real work isn't the rescale itself - it's making
-level/XP genuinely immune to it first.** Level is currently `floor(sqrt(earned/5))+1`
-where `earned` is a live SQL sum of every positive `TokenLedger.delta` a person has
-ever received (`users.service.ts` `levelCheck`, mirrored in `web/src/api.ts`
-`levelFor`). That sum has no concept of "scale" at all - it just adds up raw token
-counts forever. Rescale the numbers without touching this, and level either jumps
-instantly (scaling up a balance necessarily records a big positive ledger entry
-somewhere) or drifts wrong going forward (every future chore/award now pays out in
-bigger raw numbers than before, so the SAME real-world pace of earning would look like
-faster leveling after a rescale than before one). "Don't change XP" isn't a nice-to-
-have here, it's the load-bearing constraint the whole design has to satisfy, and it's
-the part actually worth planning carefully - multiplying a pile of `Int` columns by a
-factor is the easy 20%.
+**Decided in this revision, after discussion:**
+1. Chore-streak bonus wheel's hardcoded `1, 5` range becomes a real, configurable
+   field - see "Fields that get rescaled" below. No longer an open question.
+2. A redemption already paid for but still pending when a rescale happens is
+   grandfathered at what was actually paid - confirmed, unchanged from the first
+   draft.
+3. **Testing happens in Test Family only, never Casey's real family, for this
+   feature specifically** - Casey's own instruction, called out here so it survives
+   into whichever session actually builds this.
+4. Level/XP design replaced entirely (below) - no dollar figure anywhere, ever,
+   including internally-named fields. XP display now ALSO tracks the current scale
+   (previous draft only fixed the level integer, which left XP as a giveaway - see
+   why below), and the "make it look like the scale was always there" idea Casey
+   floated turns out achievable for FREE as a side effect of the same mechanism,
+   without physically rewriting the ledger.
 
-### The fix: level runs on dollar-equivalent, not raw tokens
+### Level/XP: why "just don't touch it" almost wasn't enough
 
-Every `TokenLedger` row already represents a real award/spend of `delta` tokens.
-Snapshot the family's `tokenValueUsd` **at the moment that row is created** into a new
-column, and derive a dollar-equivalent for that one entry from it. Level then sums
-dollar-equivalents, not raw deltas:
+Level is `floor(sqrt(earned/5))+1`. The first draft of this plan fixed `earned` (for
+the level calculation) so it wouldn't move on a rescale. But `earned` is ALSO
+displayed literally, as text - `LevelBadge.tsx` prints `"{earned} XP · {toNext} to Lv
+{next}"` right on the same profile page as the person's actual token balance. If
+`earned` stays frozen while balance jumps 100x on a rescale, that MISMATCH is a bigger
+tell than the original problem: a kid who remembers "45 XP, 45 tokens" yesterday and
+sees "45 XP, 4,500 tokens" today doesn't just suspect something changed - they can
+divide the two numbers and get exactly 100, the exact rescale factor, handed to them.
+Freezing XP while balance scales would have been worse than not fixing XP at all.
 
-- New column `TokenLedger.dollarEquivalent Float` = `delta * tokenValueUsd (at
-  creation)`, written once, at insert, alongside `delta` - never touched again.
-- `levelCheck()` (and `balances()`'s `earned` field, which is what actually feeds
-  `LevelBadge` everywhere) sum `dollarEquivalent` instead of `delta`, both excluding
-  the new `REBASE` ledger type below.
-- Because `tokenValueUsd` defaults to `1` and (for Casey's real family, today) has
-  never been anything else, `dollarEquivalent` is numerically identical to `delta` for
-  every row that exists right now. **This means shipping the column and the formula
-  change, by itself, before any rescale ever happens, changes nobody's level. Zero
-  risk at deploy time** - the whole feature only starts doing anything different the
-  first time an adult actually moves the slider.
-- After a rescale, a chore that used to pay 1 token (at $1/token, $1 real value) and
-  now pays 100 tokens (at $0.01/token, still $1 real value) contributes the SAME
-  dollar-equivalent either way - level keeps pacing on real reward, not on whatever
-  the current cosmetic number happens to be. This is the actual guarantee "shouldn't
-  change the XP" needs, not just "don't touch it at the instant of the rescale."
+**The actual design: one invariant number that's never shown, one scaled number that
+always is.**
 
-Every current `prisma.tokenLedger.create(...)` call site (13, across
-`chores.service.ts`, `tokens.service.ts`, `prizes.service.ts`,
-`reward-games.service.ts`, `awards.service.ts`, `household.service.ts`) needs to start
-setting `dollarEquivalent`. Rather than touching 13 call sites by hand (and risking a
-14th one someday forgetting it), centralize ledger writes behind one
-`TokensService.createLedgerEntry(data)` helper that looks up the family's current
-`tokenValueUsd` and computes it, and point every existing call site at that helper
-instead. Worth doing regardless of this feature - it's the kind of thing that's
-currently correct only because nobody's forgotten yet.
+- `TokenLedger.scaleAtCreation Float @default(1)` - snapshots the family's CURRENT
+  scale factor (see below) at the moment each row is written. Never touched again.
+  Not named/framed around dollars anywhere - it's purely "what scale was in effect
+  when this happened," same category of fact as a timestamp.
+- Family-level scale factor is just `1 / tokenValueUsd`, relative to `1` (today's
+  value, and the value every family has always had until someone changes it) - no new
+  `Family` column needed, it's derived from the field that already exists.
+- **Invariant reference** (used ONLY to compute the level integer, never displayed):
+  `earnedInvariant = sum(delta / scaleAtCreation)` over positive, non-`REBASE` rows.
+  Since every row that exists today has `scaleAtCreation = 1`, this is numerically
+  identical to today's plain `sum(delta)` right now, for everyone - shipping this,
+  by itself, changes no one's level. `REBASE` rows are excluded from this sum
+  entirely regardless of the math working out - belt and suspenders, not relying on
+  the arithmetic happening to cancel to zero.
+- **Displayed XP** (what actually renders as text/bar, tracks the CURRENT scale so it
+  always reads consistently next to the current balance): take the same invariant
+  total and level-boundary numbers, then multiply by the CURRENT scale factor before
+  rendering. `levelProgress()` in `LevelBadge.tsx` changes shape: it still returns one
+  `level` integer (computed from the invariant sum, never scaled), but `into` /
+  `needed` / `next` / the displayed XP number are the invariant versions multiplied by
+  the current scale factor. Server passes both pieces (or just the invariant sum plus
+  `tokenValueUsd`, which the client mostly already has in scope) down to wherever
+  `LevelBadge` renders.
+
+Net effect: level never moves on a rescale (the actual promise). The XP number DOES
+move, in lockstep with the balance, every time - so the two numbers never disagree,
+and there's nothing to divide out.
+
+### Worked examples
+
+Baseline for all of these: someone has `earnedInvariant = 60` (lifetime, never
+changes). Level thresholds are fixed: Lv1 at 0, Lv2 at 5, Lv3 at 20, Lv4 at 45, Lv5 at
+80 - 60 sits between Lv4 (45) and Lv5 (80), so **level is 4, always, in every scenario
+below.**
+
+| Scenario | scale factor | Displayed XP text | Balance (illustrative) |
+|---|---|---|---|
+| Today, never rescaled ($1/token) | 1× | `Lv 4 · 60 XP · 20 to Lv 5` | 60 tokens |
+| Rescale to $0.01/token ("100 tokens = $1") | 100× | `Lv 4 · 6,000 XP · 2,000 to Lv 5` | 6,000 tokens |
+| Rescale to $0.001/token ("1,000 tokens = $1") | 1,000× | `Lv 4 · 60,000 XP · 20,000 to Lv 5` | 60,000 tokens |
+| Rescale to an odd $0.35/token | ≈2.857× | `Lv 4 · 171 XP · 57 to Lv 5` (rounded) | ≈171 tokens |
+| Rescale DOWN to $100/token (numbers shrink) | 0.01× | `Lv 4 · 1 XP · 0 to Lv 5` (rounds to near-nothing) | ≈1 token |
+
+That last row is a real guardrail to build, not just a footnote: scaling DOWN hard
+enough crushes small balances/XP to 0-1 and loses all resolution. The rescale
+preview (below) should warn if any member's balance or the displayed XP would round
+to 0 or 1, rather than silently letting it happen.
+
+### "Make it look like the scale was always there" - yes, but not by rewriting the ledger
+
+Casey's instinct is right that OLD numbers looking inconsistent with NEW ones is a
+real leak - maybe the biggest one. A kid's own activity feed (`ProfilePage`) shows
+past ledger entries with their raw amounts; if last month's recurring chore paid "+2"
+and this month the same chore pays "+200," that comparison alone reveals a change
+happened, no math required. Purchase history (`Prize.tsx`'s grouped history,
+`tokensSpent`) has the identical problem for past prize purchases.
+
+**Recommendation: don't rewrite the ledger - transform how history is DISPLAYED
+instead.** Physically rewriting every past `TokenLedger.delta` (and cascading into
+`AwardGrant.tokenValue`, `RewardGame.amount`, everywhere `tokensSpent` is derived
+from) on every rescale would need to touch every historical row, forever, on every
+future rescale, and permanently deletes the actual historical truth. It also buys
+nothing extra: the level-invariance goal is already fully solved by
+`earnedInvariant` above, with or without rewriting anything. The display-transform
+version gets the EXACT SAME visual result - old numbers always look consistent with
+new ones, everywhere anyone looks, including kids' own history - for free, using the
+`scaleAtCreation` column that already has to exist for the XP fix:
+
+`displayDelta = storedDelta * (currentScaleFactor / scaleAtCreation)`
+
+Applied everywhere a historical ledger amount renders (`ProfilePage` activity list,
+`Prize.tsx` purchase history's `tokensSpent`, anywhere else a raw `delta` is shown).
+If the scale never changed, this is a no-op (ratio = 1, displays exactly what's
+stored today). After a rescale, an old "+2" entry displays as "+200" automatically,
+matching whatever the SAME chore pays today - because it's recomputed at render time
+from the ratio, not because anything was overwritten. The stored `delta` underneath
+never changes, so this is fully reversible, cheap, and the ledger stays the honest,
+append-only record it's supposed to be - Casey (or a future audit) can always see
+what ACTUALLY happened by going around the display transform.
+
+**`REBASE` entries are adult-only, never shown in a kid's own activity feed at all** -
+not display-transformed, just excluded outright. A raw "+4,455 tokens: token value
+changed" line would itself be the loudest possible tell. Visible only in the
+Family-Settings-side `TokenScaleEvent` audit log Casey already asked for.
+
+### Fields that get rescaled (bulk-multiplied by `factor` at rescale time)
+
+Current-state config, not history - editing these in place is no different from
+editing any other setting:
+- `Chore.tokenValue`, `Chore.firstFinisherBonus`, `Chore.streakBonusTokens`
+- `Prize.tokenCost`
+- `Award.defaultTokenValue`, `Award.wheelMin`, `Award.wheelMax`
+- `RewardGame.minTokens`, `RewardGame.maxTokens` (the roll RANGE for a not-yet-played
+  pool game only - an already-rolled `amount` is history)
+- `User.allowanceTokens`
+- **New:** the chore-streak bonus wheel's range, hardcoded `1, 5` today in
+  `chores.service.ts`'s `finalizeApproval`
+  (`this.rewardGames.create(familyId, recipient, 1, 5, ...)`). Becomes a real
+  `Family`-level field (e.g. `streakWheelMin`/`streakWheelMax`, defaulting to today's
+  `1`/`5` so nothing changes for a family that never rescales), read instead of the
+  literal, and included in the bulk-multiply.
+
+**Not touched, ever:** `Chore.latePenaltyPercent` (a percentage, not an amount - it's
+the thing that gets MORE useful once `tokenValue` is bigger, not something that
+itself needs scaling); `Award.defaultStreakFreezeValue` / `Chore.streakFreezes`
+(freeze counts, not currency); any already-created `TokenLedger` / `AwardGrant` /
+rolled-`RewardGame` row (history - see the display-transform section above for how
+these still LOOK right without being edited).
 
 ### The rescale operation itself
 
 An adult picks a new `tokenValueUsd`. `factor = oldValue / newValue` (e.g. $1 → $0.01
-is factor 100 - numbers get 100x bigger). One transaction:
+is factor 100). One transaction:
 
 1. Every user's current balance gets ONE new `TokenLedger` row, `type: REBASE`,
-   `delta = round(currentBalance * (factor - 1))` (skipped if that's 0), reason text
-   spelling out the conversion (e.g. "Token value changed: $1.00 → $0.01 per token").
-   This is the only place history-adjacent gets touched, and it's additive (a new
-   row explaining itself), never an edit to an existing row - same append-only rule
-   the ledger already lives by everywhere else.
-2. Every CURRENT-STATE token-denominated field gets bulk-multiplied by `factor`
-   (`Math.round`), in place - these aren't history, they're config, same as editing
-   any other setting:
-   - `Chore.tokenValue`, `Chore.firstFinisherBonus`, `Chore.streakBonusTokens`
-   - `Prize.tokenCost`
-   - `Award.defaultTokenValue`, `Award.wheelMin`, `Award.wheelMax`
-   - `RewardGame.minTokens`, `RewardGame.maxTokens` (the roll RANGE for a not-yet-
-     played pool game - an already-rolled `amount` is history, untouched, same as
-     `AwardGrant.tokenValue`'s existing "snapshot, doesn't retroactively change past
-     grants" rule)
-   - `User.allowanceTokens`
-   - **NOT** touched: `Chore.latePenaltyPercent` (a percentage, not a token amount -
-     it's the thing that gets MORE useful once `tokenValue` is bigger, not something
-     that itself needs scaling), `Award.defaultStreakFreezeValue` /
-     `Chore.streakFreezes` (freeze counts, not currency), any already-created
-     `TokenLedger`/`AwardGrant`/rolled-`RewardGame` row (history, append-only, never
-     edited - same rule as everywhere else in this app).
+   `delta = round(currentBalance * (factor - 1))` (skipped if 0), `scaleAtCreation`
+   set to the NEW factor, reason text spelling out the conversion for the audit log.
+2. Every field in "Fields that get rescaled" above gets bulk-multiplied by `factor`
+   (`Math.round`).
 3. `Family.tokenValueUsd` updates to the new value.
-4. A new `TokenScaleEvent` row records the conversion: familyId, actorId,
-   oldTokenValueUsd, newTokenValueUsd, factor, createdAt - the audit trail Casey
-   explicitly asked for, and the thing a future "wait, what did I set it to last
-   month" question gets answered from.
-
-**Deliberate edge case, decided here rather than left implicit:** a redemption that's
-already been paid for (tokens deducted) but still sits PENDING/REQUESTED when a
-rescale happens is grandfathered at what was actually paid - it does not get
-topped up to match the prize's newly-scaled cost. They already paid a real, final
-price at request time; a rescale is not a retroactive price change on a sale already
-made.
-
-**Known gap this surfaces, not fixed by this plan:** the chore-streak bonus wheel's
-reward range is hardcoded `1, 5` directly in `chores.service.ts`'s
-`finalizeApproval` (`this.rewardGames.create(familyId, recipient, 1, 5, ...)`), not
-read from any configurable field - unlike `Award.wheelMin/wheelMax`, there's nothing
-for this rescale to multiply. After a big scale-up, that wheel's payout would become
-comparatively trivial. Either make it configurable (probably a `Family`-level field,
-since it's not per-chore right now) so it has something to scale, or explicitly
-accept it stays flat - flagging so it isn't discovered by surprise later.
+4. A new `TokenScaleEvent` row records: familyId, actorId, oldTokenValueUsd,
+   newTokenValueUsd, factor, createdAt.
 
 ### UI
 
-New panel, Family Settings - probably its own section rather than folded into
-Features, since this is a bigger/rarer action than a toggle: current `tokenValueUsd`,
-an input for the new value, a **preview before committing** (computed by running the
-same math read-only: "Casey's balance: 340 → 34,000", "Take out the Trash: 2 tokens →
-200 tokens", for every affected row or at least a representative sample + counts), a
-confirm step (this touches every kid's balance and every price in the family - not
-something a stray click should do unconfirmed), and a history list reading straight
-from `TokenScaleEvent` underneath.
+New panel, Family Settings - its own section, not folded into Features (bigger/rarer
+action than a toggle): current `tokenValueUsd`, an input for the new value, a
+**preview before committing** (same math, read-only: per-member balance/XP before →
+after, flagging anyone who'd round to 0-1 per the guardrail above, plus a sample of
+affected chores/prizes), a confirm step, and a history list reading from
+`TokenScaleEvent`.
 
 ### Rough build order
 
-1. `TokenLedger.dollarEquivalent` column + `TokensService.createLedgerEntry()` helper
-   + migrate all 13 existing call sites onto it. Ship and verify level is unchanged
-   for everyone BEFORE anything else - this step alone should be a no-op.
-2. Switch `levelCheck()` and `balances()`'s `earned` to sum `dollarEquivalent`,
-   excluding `REBASE`. Re-verify levels still match step 1's baseline.
-3. `TokenScaleEvent` model + `REBASE` `LedgerType` value.
-4. The rescale transaction itself (service method: preview mode + commit mode, same
-   underlying calc so the preview can't drift from what commit actually does).
-5. Web: the new Family Settings panel, preview UI, confirmation, history list.
-6. Decide the chore-streak wheel gap above before or alongside this, not after.
-7. Verify live in Test Family first (multiple members, some with real chore/prize
-   history) - confirm every level stays put across a rescale, confirm balances and
-   prize costs land on the exact previewed numbers, before this ever touches Casey's
-   real family.
+1. `TokenLedger.scaleAtCreation` column + a centralized `TokensService
+   .createLedgerEntry()` helper (replacing the 13 existing raw
+   `prisma.tokenLedger.create(...)` call sites across `chores.service.ts`,
+   `tokens.service.ts`, `prizes.service.ts`, `reward-games.service.ts`,
+   `awards.service.ts`, `household.service.ts`) that stamps it automatically. Ship and
+   verify level AND displayed XP are byte-for-byte unchanged for everyone before
+   anything else - this step alone should be a total no-op.
+2. Switch `levelCheck()` / `balances()`'s `earned` to the invariant sum (excluding
+   `REBASE`); update `LevelBadge.tsx`/`levelProgress()` to take the invariant sum +
+   current scale factor and return a scaled display alongside the untouched level
+   integer. Re-verify against step 1's baseline.
+3. Display-transform for historical amounts in `ProfilePage`'s activity feed and
+   `Prize.tsx`'s purchase history (`tokensSpent`).
+4. `TokenScaleEvent` model, `REBASE` `LedgerType`, `Family.streakWheelMin/Max` +
+   wiring `finalizeApproval` to read them instead of the literal `1, 5`.
+5. The rescale transaction itself (preview mode + commit mode, same underlying calc
+   so preview can't drift from commit), including the round-to-0/1 guardrail.
+6. Web: the new Family Settings panel, preview UI, confirmation, history list.
+7. **Verify live in Test Family only** (multiple members, real chore/prize history) -
+   confirm every level stays exactly put across a rescale, confirm displayed XP and
+   balances land on the previewed numbers, confirm old activity-feed entries render
+   consistently with new ones. Never touches Casey's real family during any of this.
 
-### Open questions for Casey
+### Open question remaining
 
-1. Rounding drift is unavoidable for a non-clean factor (e.g. $1 → $0.35 is a
-   repeating-decimal factor) - each field/balance rounds independently, so two people
-   with equal balances today could differ by a token or two after a rescale. Fine to
-   accept, given this is cosmetic/gamification, not real accounting?
-2. The chore-streak wheel's hardcoded 1-5 range (above) - make it configurable now, or
-   leave it flat and revisit later?
-3. Should kids ever see a hint that a rescale happened at all (e.g. "your balance
-   changed because Mom/Dad adjusted the token scale," with no numbers attached), or
-   should it be completely silent from their side, letting the bigger balance just
-   show up next time they look? Silent seems more consistent with the goal of not
-   teaching them the ratio, but worth confirming.
+Rounding drift on a non-clean factor (e.g. $1 → $0.35) means each field/balance
+rounds independently - two people with equal balances today could differ by a token
+or two after a rescale. Fine to accept as cosmetic drift, not real accounting?
