@@ -611,6 +611,9 @@ export interface FamilySettings {
   // everything else in Token scale (PLANNING.md §17).
   streakWheelMin: number;
   streakWheelMax: number;
+  // Which reveal game plays for it - one of GAME_TYPES (rewardGames.ts), or
+  // null = "surprise me" (random each time).
+  streakWheelGameType: string | null;
 }
 
 // PLANNING.md §17 - preview of a token rescale, computed read-only by the
@@ -692,7 +695,12 @@ export const FEATURE_TREE: FeatureNode[] = [
     children: [
       { id: 'photoProof', label: 'Photo proof', help: 'Chores can require a photo before a kid can mark them done.' },
       { id: 'streakFreeze', label: 'Streak freezes', help: 'Each streak milestone banks a freeze (max 3) that absorbs one missed day.' },
-      { id: 'bonusWheel', label: 'Bonus wheel', help: 'A random 1-5 extra tokens on every streak milestone.', requires: 'tokens' },
+      {
+        id: 'bonusWheel',
+        label: 'Bonus wheel',
+        help: 'Extra tokens on every streak milestone - set the range and which game plays below.',
+        requires: 'tokens',
+      },
     ],
   },
   {
@@ -1239,6 +1247,7 @@ export const api = {
     surpriseRewardDays?: number;
     streakWheelMin?: number;
     streakWheelMax?: number;
+    streakWheelGameType?: string | null;
   }) => req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   // Token rescaling (PLANNING.md §17) - family manager/owner only. preview()

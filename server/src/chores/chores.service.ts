@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
-import { RewardGamesService } from '../reward-games/reward-games.service';
+import { RewardGamesService, type GameType } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { PresenceService } from '../presence/presence.service';
@@ -1118,12 +1118,14 @@ export class ChoresService {
           // An adult approving it shouldn't be the one who spins the kid's
           // wheel, and the amount stays unknown until the wheel stops.
           if (wheelActive) {
-            // Was a hardcoded 1, 5 - now a real Family-level field
-            // (defaulting to that exact same 1/5) so a token rescale
-            // (PLANNING.md §17) has something to multiply.
+            // Was a hardcoded 1, 5 (and always a random reveal game) - now
+            // real Family-level fields (defaulting to that exact same 1/5 +
+            // random) so a token rescale (PLANNING.md §17) has something to
+            // multiply, and an adult can pin a specific game instead of
+            // leaving it a surprise every time.
             const wheelRange = await this.prisma.family.findUnique({
               where: { id: inst.chore.familyId },
-              select: { streakWheelMin: true, streakWheelMax: true },
+              select: { streakWheelMin: true, streakWheelMax: true, streakWheelGameType: true },
             });
             await this.rewardGames.create(
               inst.chore.familyId,
@@ -1132,6 +1134,7 @@ export class ChoresService {
               wheelRange?.streakWheelMax ?? 5,
               `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
               inst.id,
+              (wheelRange?.streakWheelGameType as GameType | null) ?? undefined,
             );
             await this.notifications.create(
               inst.chore.familyId,

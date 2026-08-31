@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { sanitizeDisabledFeatures, sanitizeSoundAssignments, SoundAssignment } from '../common/features';
+import { GAME_TYPES } from '../reward-games/reward-games.service';
 
 @Injectable()
 export class FamilyService {
@@ -19,6 +20,7 @@ export class FamilyService {
     surpriseRewardDays: number;
     streakWheelMin: number;
     streakWheelMax: number;
+    streakWheelGameType: string | null;
   }) {
     return {
       id: f.id,
@@ -35,6 +37,7 @@ export class FamilyService {
       surpriseRewardDays: f.surpriseRewardDays,
       streakWheelMin: f.streakWheelMin,
       streakWheelMax: f.streakWheelMax,
+      streakWheelGameType: f.streakWheelGameType,
     };
   }
 
@@ -56,6 +59,11 @@ export class FamilyService {
       surpriseRewardDays?: number;
       streakWheelMin?: number;
       streakWheelMax?: number;
+      // 'RANDOM' (or omitted with no prior value) means "surprise me" -
+      // stored as null, same convention as Award.poolGameType. Sent as a
+      // string, not undefined, so the field can be explicitly cleared back
+      // to random after having been pinned.
+      streakWheelGameType?: string | null;
     },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
@@ -103,6 +111,11 @@ export class FamilyService {
         ...(data.surpriseRewardDays !== undefined && { surpriseRewardDays: Math.max(1, Math.floor(data.surpriseRewardDays)) }),
         ...(streakWheelMin !== undefined && { streakWheelMin }),
         ...(streakWheelMax !== undefined && { streakWheelMax }),
+        ...(data.streakWheelGameType !== undefined && {
+          streakWheelGameType: data.streakWheelGameType && (GAME_TYPES as readonly string[]).includes(data.streakWheelGameType)
+            ? data.streakWheelGameType
+            : null,
+        }),
       },
     });
     return this.shape(f);

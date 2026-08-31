@@ -5,6 +5,7 @@ import IconPicker from '../IconPicker';
 import { useDialog } from '../Dialog';
 import { BUILTIN_SOUNDS, SOUND_SLOTS, playBuiltinSound, playCustomSound } from '../sounds';
 import TokenScalePanel from '../TokenScalePanel';
+import { GAME_TYPES, GAME_TYPE_META } from '../rewardGames';
 
 const input = 'w-full rounded border px-3 py-1.5 text-sm';
 
@@ -219,12 +220,18 @@ function SurpriseRewardField({ family, onSaved }: { family: FamilySettings; onSa
 function BonusWheelRangeField({ family, onSaved }: { family: FamilySettings; onSaved: (f: FamilySettings) => void }) {
   const [min, setMin] = useState(family.streakWheelMin);
   const [max, setMax] = useState(family.streakWheelMax);
+  const [gameType, setGameType] = useState(family.streakWheelGameType ?? '');
   const [saved, setSaved] = useState(false);
 
   async function save() {
-    const updated = await api.updateFamilySettings({ streakWheelMin: Math.max(0, Math.floor(min)), streakWheelMax: Math.max(0, Math.floor(max)) });
+    const updated = await api.updateFamilySettings({
+      streakWheelMin: Math.max(0, Math.floor(min)),
+      streakWheelMax: Math.max(0, Math.floor(max)),
+      streakWheelGameType: gameType || null,
+    });
     setMin(updated.streakWheelMin);
     setMax(updated.streakWheelMax);
+    setGameType(updated.streakWheelGameType ?? '');
     onSaved(updated);
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
@@ -240,6 +247,17 @@ function BonusWheelRangeField({ family, onSaved }: { family: FamilySettings; onS
           <input type="number" min={0} value={max} onChange={(e) => setMax(Number(e.target.value))} onFocus={(e) => e.target.select()} className={`${input} w-16`} />
           <span className="text-slate-500">extra tokens</span>
         </span>
+      </label>
+      <label className="block text-sm">
+        <span className="text-slate-500">Game</span>
+        <select value={gameType} onChange={(e) => setGameType(e.target.value)} className={`${input} mt-1 w-44`}>
+          <option value="">🎲 Surprise me (random)</option>
+          {GAME_TYPES.map((gt) => (
+            <option key={gt} value={gt}>
+              {GAME_TYPE_META[gt].label}
+            </option>
+          ))}
+        </select>
       </label>
       <button onClick={save} className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">
         Save

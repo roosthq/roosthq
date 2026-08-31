@@ -29,6 +29,7 @@ export class FamilyController {
       surpriseRewardDays?: number;
       streakWheelMin?: number;
       streakWheelMax?: number;
+      streakWheelGameType?: string | null;
     },
   ) {
     return this.family.update(u.userId, u.familyId, body);
