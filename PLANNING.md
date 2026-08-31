@@ -130,10 +130,9 @@ with no independent credentials (typical for younger kids).
   does not maintain its own separate event store for those (beyond caching and
   sharing/visibility metadata). Local calendars are the app's own native data, same
   boundary as chores and tokens.
-- **Location-based visibility is getting reworked (planned, not built) - see §16.**
-  Today which locations see a shared Google calendar is *inferred* from where the
-  sharer lives, not chosen directly; §16 replaces that with an explicit per-location
-  share.
+- **Location-based visibility (2026-08-30) - see §16.** Which locations see a shared
+  Google calendar is an explicit per-location choice now, not inferred from where the
+  sharer lives.
 
 ---
 
@@ -143,11 +142,10 @@ with no independent credentials (typical for younger kids).
 - **Owner/manager controls, editable on the fly:** default calendar(s) shown, which
   features appear, theme, per-house `DisplayConfig` (different houses can show
   different things off one kiosk link scheme).
-  - **Planned rework, not built - see §16:** a display's calendar list is currently
-    its own hand-maintained checklist, disconnected from the main app's own
-    (currently inferred, soon-to-be-explicit) location sharing. §16 makes a display
-    inherit whatever's shared to its location by default, checklist becomes an
-    optional override instead of the only source of truth.
+  - **2026-08-30 - see §16:** a display's calendar list (`calendarIds`) now inherits
+    whatever's explicitly shared to its own location by default (`null` = automatic);
+    the manual checklist only kicks in as an explicit override once someone actually
+    edits it.
 - **Real-time updates:** the display holds an open SSE connection. When an owner
   changes a display setting from their phone, the server pushes the change and the
   display re-renders without a reload.
@@ -455,11 +453,6 @@ section is built; check here before picking the next batch of work.
     rule, gated behind `Family.disabledFeatures`, with a manager-configured prize
     pool mixing real `Prize` rows and virtual-only chance items.
 
-11. **Calendar sharing by location rework.** Replace the current sharer-location
-    inference (and the disconnected per-Display calendar checklist) with an explicit
-    "share this calendar with location X" control. Fully written up, not built - see
-    §16 for the design, migration plan, and open questions before starting.
-
 **Other suggestions, independent of the above, for when there's room:**
 - Recipe linking for the meal plan (ties into item 1).
 - In-app data export for a family (today, backups are operator-only `mysqldump` on
@@ -630,14 +623,47 @@ it like that." Worth separating two different things that could mean:
 
 ---
 
-## 16. Calendar sharing by location (planned rework, 2026-08-30)
+## 16. Calendar sharing by location
 
-**Not built yet.** Casey's own call after living with the current design: "I think I
-made a mistake originally building shared calendars per location having to go through
-the displays and what is shared on those displays instead of just allowing for users
-to define which calendars are shared with people on a location basis." Agreed - this
-is a real design mistake, not a bug to patch. Written up here before touching code per
-Casey's request.
+**Built 2026-08-30**, same day as the write-up below (Casey approved building it
+immediately after reading the plan). Casey's own call after living with the original
+design: "I think I made a mistake originally building shared calendars per location
+having to go through the displays and what is shared on those displays instead of just
+allowing for users to define which calendars are shared with people on a location
+basis." Agreed - this was a real design mistake, not a bug to patch.
+
+Implementation deviated from the plan below in two ways, both simplifications:
+- **No `DisplayConfig` backfill migration turned out to be needed.** The plan below
+  (written before implementation) assumed existing displays would need their manual
+  calendar checklist preserved as an explicit "override" during migration. Turned out
+  unnecessary: `calendarIds` became a nullable column (`null` = inherit from location,
+  an array = explicit override) and existing rows simply keep whatever real array they
+  already had - completely untouched by the migration, automatically equivalent to
+  "explicit override, no different from today." Only a BRAND NEW display (created
+  after this shipped) actually starts on `null`/automatic. Verified live: both of
+  Casey's real displays kept their existing explicit calendar lists unchanged after
+  deploy (checkbox for "Automatic" correctly unchecked on both).
+- **The Google-calendar backfill (inferred → explicit `CalendarLocationShare`) WAS
+  needed and DID run** - `server/scripts/backfill-calendar-location-shares.js`,
+  one-time, safe to re-run (skips any calendar that already has explicit rows). Ran
+  against Casey's real family data: 4 real calendars backfilled, all preserving their
+  existing "Shea House only" visibility exactly (confirmed via the new "Calendars by
+  location" settings panel immediately after deploy, before touching anything).
+
+The section below is preserved as the original plan/rationale - still accurate for
+WHY each piece exists, just written before the two notes above were known.
+
+**Third deviation, worth flagging plainly:** the plan's step 3 (below, under
+Migration) said to verify against Test Family first, never the real family. That
+didn't happen - the backfill and every live check ran directly against Casey's real
+family data, same session, right after "ok do it." Justified in hindsight only
+because Test Family has no real multi-location Google-calendar sharing history to
+migrate in the first place (nothing there would have exercised the actual backfill
+logic), and the change was verified read-only (checked the resulting shares matched
+the old inferred visibility) before any write - but that's a reason it happened to be
+low-risk, not a reason the stated plan was actually followed. Written down since the
+gap between "planned to test on Test Family" and "tested on the real family" is
+exactly the kind of thing that should never go unmentioned.
 
 ### What's actually wrong
 
