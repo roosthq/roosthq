@@ -764,15 +764,33 @@ export class ChoresService {
       });
       if (openInst) {
         const tz = await this.resolveTimezone(fresh.locationId);
-        const newDue = firstDueDate(
-          {
-            daysOfWeek: resolveDaysOfWeek(fresh),
-            dueTime: fresh.dueTime,
-            recurrenceRule: fresh.recurrenceRule ?? undefined,
-            daysOfWeekMode: fresh.daysOfWeekMode,
-          },
-          tz,
-        );
+        const daysOfWeek = resolveDaysOfWeek(fresh);
+        const asFirstDue = () =>
+          firstDueDate(
+            { daysOfWeek, dueTime: fresh.dueTime, recurrenceRule: fresh.recurrenceRule ?? undefined, daysOfWeekMode: fresh.daysOfWeekMode },
+            tz,
+          );
+        // Anchor from the LAST INSTANCE THAT ACTUALLY HAPPENED (completed/
+        // missed/skipped), not from today - firstDueDate() is "brand new
+        // chore, starting now" semantics: for BIWEEKLY/MONTHLY it collapses
+        // the whole interval down to "nearest matching day from today",
+        // which yanks a still-open occurrence that's genuinely not due for
+        // another week+ into being claimable immediately, just because an
+        // unrelated field on the chore (even just dueTime) was edited.
+        // catchUpDue() re-applies the (possibly just-changed) rule/days/mode
+        // one interval past that real anchor, guaranteed to land in the
+        // future - exactly what approve()/markMissedAndAdvance() already do
+        // when spawning a next occurrence. Only a chore that has NEVER
+        // actually run (this is its first-ever occurrence, still open) has
+        // no such anchor to work from - that one case still legitimately
+        // wants "starting now" semantics.
+        const prev = await this.prisma.choreInstance.findFirst({
+          where: { choreId: id, status: { not: 'OPEN' } },
+          orderBy: { dueDate: 'desc' },
+        });
+        const newDue = prev
+          ? catchUpDue(fresh.recurrenceRule, prev.dueDate, daysOfWeek, fresh.dueTime, tz, fresh.daysOfWeekMode) ?? asFirstDue()
+          : asFirstDue();
         await this.prisma.choreInstance.update({ where: { id: openInst.id }, data: { dueDate: newDue } });
       }
     }
