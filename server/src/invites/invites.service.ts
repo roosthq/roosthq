@@ -3,6 +3,7 @@ import { createHash, randomBytes } from 'crypto';
 import { PrismaService } from '../prisma.service';
 import { EmailService } from '../notifications/email.service';
 import { emailHtml, escapeHtml } from '../notifications/email-template';
+import { encrypt, decrypt } from '../crypto/token-crypto';
 
 type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 
@@ -95,7 +96,15 @@ export class InvitesService {
 
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId: destFamilyId, role, label: opts.label, email: address || null, tokenHash: this.hash(raw), createdById: userId },
+      data: {
+        familyId: destFamilyId,
+        role,
+        label: opts.label,
+        email: address || null,
+        tokenHash: this.hash(raw),
+        tokenEncrypted: encrypt(raw),
+        createdById: userId,
+      },
     });
 
     let sentTo: string | undefined;
@@ -147,6 +156,22 @@ export class InvitesService {
   // no retyping. Still works for a fresh address too (e.g. resending
   // somewhere else), same validation as create()'s inline send.
   //
+  // Re-sends the SAME link (decrypts tokenEncrypted, doesn't rotate) - it
+  // used to mint a fresh token and delete the old row every time, which
+  // meant a resend silently broke the ORIGINAL email: someone who found the
+  // first one late (spam folder) and clicked it after a resend got "invite
+  // not found (or already accepted)" - true of the token they were holding,
+  // but confusing and wrong-feeling since nothing about THEM had actually
+  // changed. A resend is "say it again," not "start over" - regenerate()
+  // below is the actual "give me a genuinely new link" action, and still
+  // rotates, on purpose.
+  //
+  // A pre-existing invite from before tokenEncrypted existed (tokenEncrypted
+  // null) has no raw token left to recover - the very first send was the
+  // only time that link ever existed - so THAT one still has to rotate, same
+  // as always. Every invite created (or resent) after this ships carries an
+  // encrypted copy and never needs to again.
+  //
   // familyId is the ACTOR's own family, not necessarily the invite's - an
   // owner can invite into a family other than their own (see create()'s
   // targetFamilyId), and this used to filter the lookup by the actor's
@@ -166,15 +191,34 @@ export class InvitesService {
     if (!this.email.enabled) {
       throw new BadRequestException('Email is not set up on this server yet - copy the link and send it yourself.');
     }
-    // Only the hash is ever stored - resending the SAME link isn't possible,
-    // so this mints a fresh token (same role/label/email) and revokes the
-    // old one, same pattern regenerate() already uses for "get link" again.
-    // inv.familyId, not the actor's own familyId - see comment above.
-    await this.prisma.familyInvite.delete({ where: { id } });
-    const raw = randomBytes(24).toString('hex');
-    const created = await this.prisma.familyInvite.create({
-      data: { familyId: inv.familyId, role: inv.role, label: inv.label, email: address, tokenHash: this.hash(raw), createdById: userId },
-    });
+
+    let result: { id: string; role: Role; label: string | null; email: string | null };
+    let raw: string;
+    if (inv.tokenEncrypted) {
+      // Same row, same token - just keep the on-file address current if a
+      // different one was typed in for this resend.
+      const updated = await this.prisma.familyInvite.update({ where: { id }, data: { email: address } });
+      raw = decrypt(inv.tokenEncrypted);
+      result = { id: updated.id, role: updated.role, label: updated.label, email: updated.email };
+    } else {
+      // Legacy row, no recoverable token - one last rotation; every invite
+      // from here on carries tokenEncrypted and never needs this branch.
+      await this.prisma.familyInvite.delete({ where: { id } });
+      raw = randomBytes(24).toString('hex');
+      const created = await this.prisma.familyInvite.create({
+        data: {
+          familyId: inv.familyId,
+          role: inv.role,
+          label: inv.label,
+          email: address,
+          tokenHash: this.hash(raw),
+          tokenEncrypted: encrypt(raw),
+          createdById: userId,
+        },
+      });
+      result = { id: created.id, role: created.role, label: created.label, email: created.email };
+    }
+
     const family = await this.prisma.family.findUnique({ where: { id: inv.familyId }, select: { name: true } });
     const cleanBaseUrl = baseUrl.replace(/\/+$/, '');
     const url = `${cleanBaseUrl}/?invite=${raw}`;
@@ -185,7 +229,7 @@ export class InvitesService {
       this.inviteEmailText(actor.displayName, familyName, url),
       this.inviteEmailHtml(actor.displayName, familyName, url, cleanBaseUrl),
     );
-    return { id: created.id, role: created.role, label: created.label, email: created.email, token: raw, sentTo: address };
+    return { ...result, token: raw, sentTo: address };
   }
 
   // Same cross-family reach as resend()/regenerate() above - an owner can
@@ -196,11 +240,12 @@ export class InvitesService {
     return { ok: true };
   }
 
-  // Only the hash is ever stored, so a lost/expired-from-view link can't be
-  // recovered - this mints a fresh one with the same role/label and revokes
-  // the old, same net effect as "show me that link again" without ever
-  // keeping a usable token sitting in the database. Same cross-family reach
-  // as resend() above, and the same reason it needed one.
+  // Deliberately different from resend() above: this is "kill the old link,
+  // give me a genuinely new one" (e.g. the old one leaked, or someone wants
+  // to be sure a stale copy stops working) - mints a fresh token and revokes
+  // the old one on purpose, every time, regardless of whether the old row
+  // had a recoverable tokenEncrypted or not. Same cross-family reach as
+  // resend() above, and the same reason it needed one.
   async regenerate(familyId: string, userId: string, id: string) {
     const actor = await this.assertAdultOrOwner(userId);
     const existing = await this.prisma.familyInvite.findFirst({
@@ -210,7 +255,15 @@ export class InvitesService {
     await this.prisma.familyInvite.delete({ where: { id } });
     const raw = randomBytes(24).toString('hex');
     const inv = await this.prisma.familyInvite.create({
-      data: { familyId: existing.familyId, role: existing.role, label: existing.label, email: existing.email, tokenHash: this.hash(raw), createdById: userId },
+      data: {
+        familyId: existing.familyId,
+        role: existing.role,
+        label: existing.label,
+        email: existing.email,
+        tokenHash: this.hash(raw),
+        tokenEncrypted: encrypt(raw),
+        createdById: userId,
+      },
     });
     return { id: inv.id, role: inv.role, label: inv.label, email: inv.email, token: raw };
   }

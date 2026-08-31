@@ -156,14 +156,13 @@ export default function OwnerFamiliesPanel() {
   }
 
   // Same three actions as MembersManager's own pending-invite list - resend
-  // reuses whatever address is already on file, "get link" mints a fresh
-  // token without emailing (only the hash is ever stored, so a closed/lost
-  // link can't just be shown again), revoke kills it outright.
-  // Resend swaps the invite for a fresh one server-side (only the hash is
-  // ever stored, same reason regenerate mints a new one too), so the row's
-  // OWN id changes - track the NEW id from the response, not the one that
-  // was clicked, or "just sent" would point at a row that no longer exists
-  // once loadInvites() replaces it.
+  // re-sends the SAME link (server decrypts and reuses the original token),
+  // "get link" deliberately mints a genuinely fresh one and revokes the old
+  // (for a lost/closed link, or wanting the old one to stop working on
+  // purpose), revoke kills it outright. Resend's row id normally stays put
+  // now, but track the id from the response anyway - a pre-existing invite
+  // from before resend could reuse tokens still has to rotate once, the
+  // first time it's resent.
   async function resendPendingInvite(familyId: string, id: string) {
     setBusy(true);
     setError(null);
@@ -590,9 +589,9 @@ export default function OwnerFamiliesPanel() {
                                 >
                                   Revoke
                                 </button>
-                                {/* Resend swaps the row for a new id (see
-                                    resendPendingInvite) - checked against the
-                                    CURRENT row, not the one that was clicked. */}
+                                {/* justSentId comes from resendPendingInvite's
+                                    response, not the id that was clicked - see
+                                    that function's own comment. */}
                                 {i.id === justSentId && <span className="text-green-600">✓ Sent</span>}
                               </span>
                             </li>

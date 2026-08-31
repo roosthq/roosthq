@@ -122,11 +122,12 @@ export default function MembersManager({ me }: { me: Me }) {
       setInviteActionId(null);
     }
   }
-  // Resend swaps the invite for a fresh one server-side (same reason
-  // regenerate() above does - only the hash is ever stored), so the row's
-  // OWN id changes too; track the NEW id from the response, not the one
-  // that was clicked, or the "just sent" flag would point at a row that no
-  // longer exists once refresh() replaces it.
+  // Resend now re-sends the SAME link (server decrypts and reuses the
+  // original token - see invites.service.ts) instead of rotating it, so the
+  // row's id normally stays put. It can still occasionally come back with a
+  // NEW id (a pre-existing invite from before that capability existed still
+  // has to rotate, once, the first time it's resent) - track the id from the
+  // response either way rather than assuming it never changes.
   async function resendPending(id: string) {
     setInviteError(null);
     setInviteActionId(id);
@@ -312,9 +313,11 @@ export default function MembersManager({ me }: { me: Me }) {
                     >
                       Revoke
                     </button>
-                    {/* Resend swaps the row for a new id (see resendPending) -
-                        this is why justSentId is checked against the CURRENT
-                        row, not the one that was clicked. */}
+                    {/* justSentId comes from resendPending's response, not
+                        the id that was clicked - normally the same row now
+                        (resend reuses its link), but a legacy pre-encrypted
+                        invite still rotates once, so this stays correct
+                        either way. */}
                     {i.id === justSentId && <span className="text-green-600">✓ Sent</span>}
                   </span>
                 </li>

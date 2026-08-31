@@ -290,16 +290,24 @@ model DisplayConfig {
 // One-time invite used to join an existing family with a chosen role. Stored hashed;
 // the raw token goes in the invite link the owner shares.
 model FamilyInvite {
-  id          String    @id @default(cuid())
-  familyId    String
-  role        Role
-  label       String?
-  email       String? // recipient this was mailed to (or last resent to) - null for a link-only invite nobody's email was ever attached to
-  tokenHash   String    @unique
-  createdById String
-  createdAt   DateTime  @default(now())
-  expiresAt   DateTime?
-  acceptedAt  DateTime?
+  id             String    @id @default(cuid())
+  familyId       String
+  role           Role
+  label          String?
+  email          String? // recipient this was mailed to (or last resent to) - null for a link-only invite nobody's email was ever attached to
+  tokenHash      String    @unique
+  // Encrypted (not one-way-hashed) copy of the same raw token, same at-rest
+  // scheme as GoogleAccount.tokensEncrypted (see crypto/token-crypto.ts) -
+  // lets resend() re-send the SAME working link instead of rotating it.
+  // tokenHash above stays the only thing resolve() ever checks against, so
+  // this being null (every invite created before this field existed) just
+  // means THAT invite can't be resent without rotating - see resend()'s own
+  // comment. Never used to skip the hash check anywhere.
+  tokenEncrypted String?   @db.Text
+  createdById    String
+  createdAt      DateTime  @default(now())
+  expiresAt      DateTime?
+  acceptedAt     DateTime?
 
   family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
