@@ -607,6 +607,10 @@ export interface FamilySettings {
   // #8 - roughly how often (days) an eligible kid gets a surprise reward
   // game, on average. Only matters while the surpriseReward sub-feature is on.
   surpriseRewardDays: number;
+  // Chore-streak milestone bonus wheel's reward range - rescales along with
+  // everything else in Token scale (PLANNING.md §17).
+  streakWheelMin: number;
+  streakWheelMax: number;
 }
 
 // PLANNING.md §17 - preview of a token rescale, computed read-only by the
@@ -1233,6 +1237,8 @@ export const api = {
     disabledFeatures?: string[];
     soundAssignments?: Record<string, { type: 'builtin' | 'custom'; id: string }>;
     surpriseRewardDays?: number;
+    streakWheelMin?: number;
+    streakWheelMax?: number;
   }) => req<FamilySettings>('/family/settings', { method: 'PUT', body: JSON.stringify(data) }),
 
   // Token rescaling (PLANNING.md §17) - family manager/owner only. preview()

@@ -17,6 +17,8 @@ export class FamilyService {
     disabledFeatures: unknown;
     soundAssignments: unknown;
     surpriseRewardDays: number;
+    streakWheelMin: number;
+    streakWheelMax: number;
   }) {
     return {
       id: f.id,
@@ -31,6 +33,8 @@ export class FamilyService {
           ? (f.soundAssignments as Record<string, SoundAssignment>)
           : {},
       surpriseRewardDays: f.surpriseRewardDays,
+      streakWheelMin: f.streakWheelMin,
+      streakWheelMax: f.streakWheelMax,
     };
   }
 
@@ -50,6 +54,8 @@ export class FamilyService {
       disabledFeatures?: string[];
       soundAssignments?: Record<string, SoundAssignment>;
       surpriseRewardDays?: number;
+      streakWheelMin?: number;
+      streakWheelMax?: number;
     },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
@@ -60,6 +66,23 @@ export class FamilyService {
     if (data.soundAssignments !== undefined) {
       const owned = await this.prisma.customSound.findMany({ where: { familyId }, select: { id: true } });
       sanitizedSounds = sanitizeSoundAssignments(data.soundAssignments, owned.map((c) => c.id));
+    }
+    // Chore-streak bonus wheel's reward range - direct edit is fine here
+    // (unlike tokenValueUsd above): changing it doesn't need to cascade
+    // anywhere else, it's just this one range. Clamped to a sane min<=max
+    // pair using whichever side wasn't touched by this request as the other
+    // bound, so sending just one of the two can't leave them crossed.
+    let streakWheelMin: number | undefined;
+    let streakWheelMax: number | undefined;
+    if (data.streakWheelMin !== undefined || data.streakWheelMax !== undefined) {
+      const existing = await this.prisma.family.findUniqueOrThrow({
+        where: { id: familyId },
+        select: { streakWheelMin: true, streakWheelMax: true },
+      });
+      const min = Math.max(0, Math.floor(data.streakWheelMin ?? existing.streakWheelMin));
+      const max = Math.max(min, Math.floor(data.streakWheelMax ?? existing.streakWheelMax));
+      streakWheelMin = min;
+      streakWheelMax = max;
     }
     const f = await this.prisma.family.update({
       where: { id: familyId },
@@ -78,6 +101,8 @@ export class FamilyService {
         }),
         ...(sanitizedSounds !== undefined && { soundAssignments: sanitizedSounds as unknown as Prisma.InputJsonValue }),
         ...(data.surpriseRewardDays !== undefined && { surpriseRewardDays: Math.max(1, Math.floor(data.surpriseRewardDays)) }),
+        ...(streakWheelMin !== undefined && { streakWheelMin }),
+        ...(streakWheelMax !== undefined && { streakWheelMax }),
       },
     });
     return this.shape(f);

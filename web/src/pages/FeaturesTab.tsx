@@ -122,6 +122,7 @@ function SubFeatureRow({
         <Switch size="sm" checked={isOn} disabled={!!blockedBy} onChange={(v) => onToggle(node.id, v)} label={node.label} />
       </div>
       {node.id === 'surpriseReward' && isOn && <SurpriseRewardField family={family} onSaved={onFamilyChanged} />}
+      {node.id === 'bonusWheel' && isOn && <BonusWheelRangeField family={family} onSaved={onFamilyChanged} />}
     </div>
   );
 }
@@ -200,6 +201,44 @@ function SurpriseRewardField({ family, onSaved }: { family: FamilySettings; onSa
             className={`${input} w-20`}
           />
           <span className="text-slate-500">days, per kid</span>
+        </span>
+      </label>
+      <button onClick={save} className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">
+        Save
+      </button>
+      {saved && <span className="text-sm text-green-600">Saved</span>}
+    </div>
+  );
+}
+
+// The chore-streak milestone wheel's reward range - was a hardcoded 1-5
+// literal until PLANNING.md §17 made it a real field so a token rescale has
+// something to multiply. Editable directly here too (unlike tokenValueUsd,
+// this doesn't cascade into anything else - it's just this one range), same
+// min/max shape an Award's own wheelMin/wheelMax already uses on AwardsPage.
+function BonusWheelRangeField({ family, onSaved }: { family: FamilySettings; onSaved: (f: FamilySettings) => void }) {
+  const [min, setMin] = useState(family.streakWheelMin);
+  const [max, setMax] = useState(family.streakWheelMax);
+  const [saved, setSaved] = useState(false);
+
+  async function save() {
+    const updated = await api.updateFamilySettings({ streakWheelMin: Math.max(0, Math.floor(min)), streakWheelMax: Math.max(0, Math.floor(max)) });
+    setMin(updated.streakWheelMin);
+    setMax(updated.streakWheelMax);
+    onSaved(updated);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 1500);
+  }
+
+  return (
+    <div className="mt-2 flex flex-wrap items-end gap-3 pl-1">
+      <label className="block text-sm">
+        <span className="text-slate-500">Worth</span>
+        <span className="mt-1 flex items-center gap-2">
+          <input type="number" min={0} value={min} onChange={(e) => setMin(Number(e.target.value))} onFocus={(e) => e.target.select()} className={`${input} w-16`} />
+          <span className="text-slate-500">to</span>
+          <input type="number" min={0} value={max} onChange={(e) => setMax(Number(e.target.value))} onFocus={(e) => e.target.select()} className={`${input} w-16`} />
+          <span className="text-slate-500">extra tokens</span>
         </span>
       </label>
       <button onClick={save} className="rounded bg-slate-800 px-3 py-2 text-sm text-white hover:bg-slate-700">
