@@ -288,7 +288,7 @@ export default function StorePage({
 
       {tab === 'games' && miniGamesOn ? (
         <div className="mt-4">
-          <MiniGamesTab isAdult={isAdult} members={members} />
+          <MiniGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} />
         </div>
       ) : tab === 'awards' && isAdult && awardsOn ? (
         <div className="mt-4">

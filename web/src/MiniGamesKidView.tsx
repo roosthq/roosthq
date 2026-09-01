@@ -1,11 +1,29 @@
 import { useEffect, useState } from 'react';
 import { api, type MiniGamePlaySession, type PublishedMiniGameItem, type PoolEntry } from './api';
 import MiniGamePlayer from './MiniGamePlayer';
+import TokenBadge from './TokenBadge';
 
-function prizeSummary(pool: PoolEntry[]): string {
-  return pool
-    .map((p) => (p.kind === 'TOKENS' ? `${p.min}-${p.max} tokens` : p.kind === 'STREAK_FREEZE' ? `${p.min}-${p.max} freeze` : 'a prize'))
-    .join(' · ');
+// Small chip row summarizing a pool's possibilities - same rounded-full tag
+// look Award's own catalog cards use for "wheel"/"reward game" badges, so a
+// prize pool reads the same visual language wherever it shows up.
+export function PoolBadges({ pool, tokenIcon }: { pool: PoolEntry[]; tokenIcon: string }) {
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      {pool.map((p, i) =>
+        p.kind === 'TOKENS' ? (
+          <TokenBadge key={i} icon={tokenIcon} amount={`${p.min}-${p.max}`} />
+        ) : p.kind === 'STREAK_FREEZE' ? (
+          <span key={i} className="rounded-full px-2.5 py-0.5 text-xs font-semibold" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
+            🧊 {p.min}-{p.max}
+          </span>
+        ) : (
+          <span key={i} className="rounded-full px-2.5 py-0.5 text-xs font-semibold" style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}>
+            🎁 prize
+          </span>
+        ),
+      )}
+    </div>
+  );
 }
 
 // The kid-facing half of mini-games - pending queue (grants + bought-not-
@@ -13,7 +31,7 @@ function prizeSummary(pool: PoolEntry[]): string {
 // (MiniGamesTab) and the kiosk's Prizes section (Display.tsx) - same
 // component, `kioskToken` is the only thing that changes which session it
 // acts on.
-export default function MiniGamesKidView({ kioskToken }: { kioskToken?: string }) {
+export default function MiniGamesKidView({ kioskToken, tokenIcon }: { kioskToken?: string; tokenIcon: string }) {
   const [pending, setPending] = useState<(MiniGamePlaySession & { kind: 'grant' | 'purchase' })[]>([]);
   const [shop, setShop] = useState<PublishedMiniGameItem[]>([]);
   const [playing, setPlaying] = useState<{ session: MiniGamePlaySession; kind: 'grant' | 'purchase' } | null>(null);
@@ -53,48 +71,51 @@ export default function MiniGamesKidView({ kioskToken }: { kioskToken?: string }
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div>
-        <h4 className="mb-2 text-sm font-semibold">Games waiting for you</h4>
-        {pending.length === 0 ? (
-          <p className="text-sm text-slate-400">Nothing right now.</p>
-        ) : (
-          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+    <div className="flex flex-col gap-6">
+      {pending.length > 0 && (
+        <div>
+          <h4 className="mb-2 text-sm font-semibold text-slate-500">Games waiting for you</h4>
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {pending.map((s) => (
-              <li key={s.kind + s.id} className="panel flex items-center gap-3 p-3">
+              <li key={s.kind + s.id} className="flex items-center gap-3 rounded border bg-white p-3">
                 <div className="text-2xl">{s.game.icon || '🎮'}</div>
-                <div className="flex-1">
-                  <div className="text-sm font-semibold">{s.game.name}</div>
-                  <div className="text-xs text-slate-500">{s.status === 'IN_PROGRESS' ? 'In progress' : 'Ready to play'}</div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-sm font-semibold">{s.game.name}</div>
+                  <div className="text-xs text-slate-400">{s.status === 'IN_PROGRESS' ? 'In progress' : 'Ready to play'}</div>
                 </div>
-                <button onClick={() => setPlaying({ session: s, kind: s.kind })} className="rounded bg-amber-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-amber-600">
+                <button
+                  onClick={() => setPlaying({ session: s, kind: s.kind })}
+                  className="shrink-0 rounded bg-amber-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-amber-600"
+                >
                   {s.status === 'IN_PROGRESS' ? 'Resume' : 'Play'}
                 </button>
               </li>
             ))}
           </ul>
-        )}
-      </div>
+        </div>
+      )}
 
       <div>
-        <h4 className="mb-2 text-sm font-semibold">Shop - buy a play</h4>
+        <h4 className="mb-2 text-sm font-semibold text-slate-500">Shop - buy a play</h4>
         {shop.length === 0 ? (
           <p className="text-sm text-slate-400">Nothing published yet.</p>
         ) : (
-          <ul className="flex flex-col gap-3">
+          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {shop.map((g) => (
-              <li key={g.id} className="panel p-3">
+              <li key={g.id} className="rounded border bg-white p-3">
                 <div className="mb-2 flex items-center gap-2">
                   <span className="text-xl">{g.miniGame.icon || '🎮'}</span>
-                  <span className="font-semibold">{g.miniGame.name}</span>
+                  <span className="min-w-0 truncate font-semibold">{g.miniGame.name}</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-2">
                   {g.tiers.map((t) => (
-                    <div key={t.id} className="flex flex-col gap-1 rounded border p-2 text-xs">
-                      <div className="font-semibold">{t.label}</div>
-                      <div className="text-slate-500">{prizeSummary(t.poolJson)}</div>
-                      <button onClick={() => buy(t.id)} className="mt-1 rounded bg-slate-800 px-2 py-1 text-white">
-                        Buy for {t.priceTokens}
+                    <div key={t.id} className="flex items-center justify-between gap-2 rounded border p-2">
+                      <div className="min-w-0">
+                        <div className="truncate text-sm font-medium">{t.label}</div>
+                        <PoolBadges pool={t.poolJson} tokenIcon={tokenIcon} />
+                      </div>
+                      <button onClick={() => buy(t.id)} className="shrink-0 rounded bg-slate-800 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-700">
+                        Buy · {t.priceTokens}
                       </button>
                     </div>
                   ))}

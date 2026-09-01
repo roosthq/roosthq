@@ -1131,7 +1131,7 @@ export default function Display() {
                     {showMiniGames && (
                       <div className="panel p-3">
                         <h3 className="mb-2 text-sm font-semibold text-slate-500">Games</h3>
-                        <MiniGamesKidView kioskToken={active.token} />
+                        <MiniGamesKidView kioskToken={active.token} tokenIcon={tokenIcon} />
                       </div>
                     )}
                   </div>
