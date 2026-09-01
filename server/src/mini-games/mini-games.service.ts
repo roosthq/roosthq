@@ -239,7 +239,7 @@ export class MiniGamesService {
       orderBy: { createdAt: 'desc' },
       include: { miniGame: { select: { name: true, icon: true, gameType: true } } },
     });
-    return grants.map((g) => this.presentPlaySession(g, g.miniGame));
+    return grants.map((g) => this.presentPlaySession(g, g.miniGame, g.configJson));
   }
 
   async startGrant(familyId: string, userId: string, id: string) {
@@ -396,7 +396,7 @@ export class MiniGamesService {
       orderBy: { createdAt: 'desc' },
       include: { tier: { include: { publishedGame: { include: { miniGame: { select: { name: true, icon: true, gameType: true } } } } } } },
     });
-    return purchases.map((p) => this.presentPlaySession(p, p.tier.publishedGame.miniGame));
+    return purchases.map((p) => this.presentPlaySession(p, p.tier.publishedGame.miniGame, p.tier.configJson));
   }
 
   async startPurchase(familyId: string, userId: string, id: string) {
@@ -416,17 +416,17 @@ export class MiniGamesService {
     return kind === 'grant' ? this.prisma.miniGameGrant : this.prisma.miniGamePurchase;
   }
 
+  // `config` is passed explicitly, not read off `row` - a MiniGameGrant
+  // carries its own configJson directly, but a MiniGamePurchase doesn't
+  // (its settings live on the TIER it bought, not the purchase row itself),
+  // so a `'configJson' in row` check silently resolved to undefined for
+  // every purchase and crashed the game component that assumed it existed.
   private presentPlaySession(
-    row: { id: string; status: string; drawnResultJson: unknown; configJson?: unknown },
+    row: { id: string; status: string; drawnResultJson: unknown },
     game: { name: string; icon: string | null; gameType: string },
+    config: unknown,
   ) {
-    return {
-      id: row.id,
-      status: row.status,
-      game,
-      drawnResult: row.drawnResultJson,
-      config: 'configJson' in row ? row.configJson : undefined,
-    };
+    return { id: row.id, status: row.status, game, drawnResult: row.drawnResultJson, config };
   }
 
   // Any row still IN_PROGRESS when the owning kid's queue is fetched again
