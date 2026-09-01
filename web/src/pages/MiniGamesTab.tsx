@@ -286,6 +286,9 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
                         Published
                       </label>
                     </div>
+                    <p className="text-xs text-slate-400">
+                      Limit: {g.purchaseLimitCount}× per {g.purchaseLimitPeriod === 'WEEK' ? 'week' : g.purchaseLimitPeriod === 'MONTH' ? 'month' : 'day'}, per kid
+                    </p>
                     <div className="flex flex-col gap-2">
                       {g.tiers.map((t) => (
                         <div key={t.id} className="flex items-center justify-between gap-2 rounded border p-2">
@@ -598,18 +601,56 @@ function GrantModal({
   );
 }
 
+// One published game's purchase rate limit - per user, same cap for
+// everyone in the family (decided 2026-09-01). Lives on the published game
+// itself, not per-tier - buying any tier counts against the same cap.
+function PurchaseLimitField({
+  count,
+  period,
+  onChangeCount,
+  onChangePeriod,
+}: {
+  count: number;
+  period: string;
+  onChangeCount: (n: number) => void;
+  onChangePeriod: (p: string) => void;
+}) {
+  return (
+    <Field label="Purchase limit" help="How many times any one kid can buy a play of this game, before it's locked until the next period. Same cap for everyone.">
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          min={1}
+          value={count}
+          onChange={(e) => onChangeCount(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+          onFocus={(e) => e.target.select()}
+          className="w-20 rounded border px-2 py-1.5 text-sm"
+        />
+        <span className="text-sm text-slate-500">times per</span>
+        <select value={period} onChange={(e) => onChangePeriod(e.target.value)} className="rounded border px-2 py-1.5 text-sm">
+          <option value="DAY">day</option>
+          <option value="WEEK">week</option>
+          <option value="MONTH">month</option>
+        </select>
+      </div>
+    </Field>
+  );
+}
+
 function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCatalogItem; prizes: StorePrize[]; onClose: () => void; onPublished: () => void }) {
   const [tiers, setTiers] = useState<MiniGameTierInput[]>([
     { label: 'Easy', priceTokens: 10, config: { ...game.configJson, difficulty: 0 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
     { label: 'Normal', priceTokens: 20, config: { ...game.configJson, difficulty: 1 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
     { label: 'Hard', priceTokens: 30, config: { ...game.configJson, difficulty: 2 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
   ]);
+  const [limitCount, setLimitCount] = useState(1);
+  const [limitPeriod, setLimitPeriod] = useState('DAY');
   const [saving, setSaving] = useState(false);
 
   async function submit() {
     setSaving(true);
     try {
-      await api.publishMiniGame(game.id, tiers);
+      await api.publishMiniGame(game.id, tiers, limitCount, limitPeriod);
       onPublished();
     } finally {
       setSaving(false);
@@ -633,6 +674,7 @@ function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCa
     >
       <div className="flex flex-col gap-4">
         <p className="text-xs text-slate-400">Started with Easy/Normal/Hard - edit, remove, or add as many tiers as you want. Each has its own price, settings, pool, and consolation.</p>
+        <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
         <TierEditor tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
     </Modal>
@@ -643,12 +685,14 @@ function EditTiersModal({ published, prizes, onClose, onSaved }: { published: Pu
   const [tiers, setTiers] = useState<MiniGameTierInput[]>(
     published.tiers.map((t) => ({ label: t.label, priceTokens: t.priceTokens, config: t.configJson, pool: t.poolJson, loseTokenValue: t.loseTokenValue, partialCreditEnabled: t.partialCreditEnabled, partialCreditPerStep: t.partialCreditPerStep })),
   );
+  const [limitCount, setLimitCount] = useState(published.purchaseLimitCount);
+  const [limitPeriod, setLimitPeriod] = useState<string>(published.purchaseLimitPeriod);
   const [saving, setSaving] = useState(false);
 
   async function submit() {
     setSaving(true);
     try {
-      await api.updateMiniGameTiers(published.id, tiers);
+      await api.updateMiniGameTiers(published.id, tiers, limitCount, limitPeriod);
       onSaved();
     } finally {
       setSaving(false);
@@ -671,6 +715,7 @@ function EditTiersModal({ published, prizes, onClose, onSaved }: { published: Pu
       }
     >
       <div className="flex flex-col gap-4">
+        <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
         <TierEditor tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
     </Modal>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward, type FamilyLocation, type MyPresence } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, DATA_REFRESH_EVENT, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward, type FamilyLocation, type MyPresence } from '../api';
 import PresenceModal from '../PresenceModal';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
@@ -201,6 +201,14 @@ export default function ProfilePage({
 
   useEffect(() => {
     refresh();
+  }, [refresh]);
+
+  // Same reasoning as StorePage's own listener - a mini-game purchase/win
+  // updates this person's balance from a component tree this page has no
+  // handle on.
+  useEffect(() => {
+    window.addEventListener(DATA_REFRESH_EVENT, refresh);
+    return () => window.removeEventListener(DATA_REFRESH_EVENT, refresh);
   }, [refresh]);
 
   const member = members.find((m) => m.id === targetId);

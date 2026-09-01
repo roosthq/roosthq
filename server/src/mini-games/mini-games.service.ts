@@ -5,6 +5,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { assertFeatureEnabled, isFeatureEnabled } from '../common/features';
+import { DEFAULT_TIMEZONE, startOfDayInZone, todayKeyInZone, weekRangeInZone } from '../common/timezone';
 import type { PoolEntry } from '../reward-games/reward-games.service';
 
 // A mini-game's own settings (step count, time limit, difficulty, misses
@@ -47,6 +48,8 @@ export interface PublishTierInput {
 export interface PublishInput {
   miniGameId: string;
   tiers: PublishTierInput[];
+  purchaseLimitCount?: number;
+  purchaseLimitPeriod?: string; // DAY | WEEK | MONTH
 }
 
 export interface PlayReport {
@@ -154,6 +157,22 @@ export class MiniGamesService {
     if (picked.kind === 'PRIZE') return { kind: 'PRIZE', prizeId: picked.prizeId };
     const amount = picked.min + Math.floor(Math.random() * (picked.max - picked.min + 1));
     return picked.kind === 'STREAK_FREEZE' ? { kind: 'STREAK_FREEZE', amount } : { kind: 'TOKENS', amount };
+  }
+
+  private sanitizePeriod(input: unknown): string {
+    return input === 'WEEK' || input === 'MONTH' ? input : 'DAY';
+  }
+
+  // Calendar-boundary start of the current DAY/WEEK/MONTH, family-timezone-
+  // aware (no per-location timezone here - mini-games aren't scoped to a
+  // house, so DEFAULT_TIMEZONE is the same fallback everything else uses
+  // when there's no more specific zone to reach for). Week starts Monday,
+  // same convention as weekRangeInZone's own callers.
+  private purchaseLimitPeriodStart(period: string): Date {
+    const key = todayKeyInZone(DEFAULT_TIMEZONE);
+    if (period === 'WEEK') return new Date(weekRangeInZone(DEFAULT_TIMEZONE).start);
+    if (period === 'MONTH') return startOfDayInZone({ y: key.y, m: key.m, d: 1 }, DEFAULT_TIMEZONE);
+    return startOfDayInZone(key, DEFAULT_TIMEZONE);
   }
 
   // ---------------- Catalog (adult-only) ----------------
@@ -323,7 +342,21 @@ export class MiniGamesService {
         tiers: { orderBy: { sort: 'asc' } },
       },
     });
-    return published;
+    // Kid shop context only (activeOnly) - `actorId` here IS the browsing
+    // kid's own userId (see controller), so "how many of MY purchases of
+    // this game count against the limit" is answerable. The adult's own
+    // Published-games list has no such "my remaining plays" concept, so it
+    // skips this and just gets the raw limit setting to edit.
+    if (!activeOnly) return published;
+    return Promise.all(
+      published.map(async (p) => {
+        const since = this.purchaseLimitPeriodStart(p.purchaseLimitPeriod);
+        const used = await this.prisma.miniGamePurchase.count({
+          where: { userId: actorId, createdAt: { gte: since }, tier: { publishedGameId: p.id } },
+        });
+        return { ...p, purchasesUsed: used, purchasesRemaining: Math.max(0, p.purchaseLimitCount - used) };
+      }),
+    );
   }
 
   async publish(familyId: string, actorId: string, dto: PublishInput) {
@@ -336,6 +369,8 @@ export class MiniGamesService {
         familyId,
         miniGameId: dto.miniGameId,
         createdById: actorId,
+        purchaseLimitCount: Math.max(1, Math.floor(dto.purchaseLimitCount ?? 1)),
+        purchaseLimitPeriod: this.sanitizePeriod(dto.purchaseLimitPeriod),
         tiers: {
           create: dto.tiers.map((t, i) => ({
             label: t.label?.trim() || `Tier ${i + 1}`,
@@ -360,7 +395,13 @@ export class MiniGamesService {
     return this.prisma.publishedMiniGame.update({ where: { id }, data: { active } });
   }
 
-  async updateTiers(familyId: string, actorId: string, id: string, tiers: PublishTierInput[]) {
+  async updateTiers(
+    familyId: string,
+    actorId: string,
+    id: string,
+    tiers: PublishTierInput[],
+    limit?: { purchaseLimitCount?: number; purchaseLimitPeriod?: string },
+  ) {
     await assertFeatureEnabled(this.prisma, familyId, 'miniGames');
     await this.assertAdult(actorId);
     const p = await this.prisma.publishedMiniGame.findFirst({ where: { id, familyId } });
@@ -374,6 +415,8 @@ export class MiniGamesService {
     return this.prisma.publishedMiniGame.update({
       where: { id },
       data: {
+        ...(limit?.purchaseLimitCount !== undefined && { purchaseLimitCount: Math.max(1, Math.floor(limit.purchaseLimitCount)) }),
+        ...(limit?.purchaseLimitPeriod !== undefined && { purchaseLimitPeriod: this.sanitizePeriod(limit.purchaseLimitPeriod) }),
         tiers: {
           create: tiers.map((t, i) => ({
             label: t.label?.trim() || `Tier ${i + 1}`,
@@ -411,6 +454,16 @@ export class MiniGamesService {
     const buyer = await this.prisma.user.findFirst({ where: { id: userId, familyId } });
     if (!buyer) throw new NotFoundException('Family member not found');
     if (buyer.tokensDisabled) throw new ForbiddenException('Tokens are disabled for this account');
+    // Rate limit - per user, same cap for everyone, counts any tier under
+    // this published game (not just the one being bought right now).
+    const since = this.purchaseLimitPeriodStart(tier.publishedGame.purchaseLimitPeriod);
+    const usedSoFar = await this.prisma.miniGamePurchase.count({
+      where: { userId, createdAt: { gte: since }, tier: { publishedGameId: tier.publishedGameId } },
+    });
+    if (usedSoFar >= tier.publishedGame.purchaseLimitCount) {
+      const periodLabel = tier.publishedGame.purchaseLimitPeriod === 'WEEK' ? 'week' : tier.publishedGame.purchaseLimitPeriod === 'MONTH' ? 'month' : 'day';
+      throw new BadRequestException(`Already played "${tier.publishedGame.miniGame.name}" the max ${tier.publishedGame.purchaseLimitCount} time${tier.publishedGame.purchaseLimitCount === 1 ? '' : 's'} this ${periodLabel}`);
+    }
     const price = tier.priceTokens;
     if (price > 0) {
       const agg = await this.prisma.tokenLedger.aggregate({ where: { userId }, _sum: { delta: true } });

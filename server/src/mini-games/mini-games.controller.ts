@@ -81,8 +81,15 @@ export class MiniGamesController {
   }
 
   @Patch('published/:id/tiers')
-  updateTiers(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { tiers: PublishTierInput[] }) {
-    return this.miniGames.updateTiers(u.familyId, u.userId, id, body.tiers);
+  updateTiers(
+    @CurrentUser() u: SessionPayload,
+    @Param('id') id: string,
+    @Body() body: { tiers: PublishTierInput[]; purchaseLimitCount?: number; purchaseLimitPeriod?: string },
+  ) {
+    return this.miniGames.updateTiers(u.familyId, u.userId, id, body.tiers, {
+      purchaseLimitCount: body.purchaseLimitCount,
+      purchaseLimitPeriod: body.purchaseLimitPeriod,
+    });
   }
 
   @Delete('published/:id')

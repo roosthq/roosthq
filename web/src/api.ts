@@ -562,8 +562,14 @@ export interface PublishedMiniGameItem {
   id: string;
   active: boolean;
   createdAt: string;
+  purchaseLimitCount: number;
+  purchaseLimitPeriod: 'DAY' | 'WEEK' | 'MONTH';
   miniGame: { name: string; icon: string | null; description: string | null; gameType: string };
   tiers: PublishedMiniGameTierItem[];
+  // Kid-shop context only (api.miniGameShop) - how many of THIS viewer's own
+  // purchases of this game count against the limit right now.
+  purchasesUsed?: number;
+  purchasesRemaining?: number;
 }
 
 export interface MiniGameInput {
@@ -1573,12 +1579,18 @@ export const api = {
 
   // Publishing (adult-only)
   publishedMiniGames: (kioskToken?: string) => req<PublishedMiniGameItem[]>('/mini-games/published', undefined, kioskToken),
-  publishMiniGame: (miniGameId: string, tiers: MiniGameTierInput[]) =>
-    req<PublishedMiniGameItem>('/mini-games/published', { method: 'POST', body: JSON.stringify({ miniGameId, tiers }) }),
+  publishMiniGame: (miniGameId: string, tiers: MiniGameTierInput[], purchaseLimitCount?: number, purchaseLimitPeriod?: string) =>
+    req<PublishedMiniGameItem>('/mini-games/published', {
+      method: 'POST',
+      body: JSON.stringify({ miniGameId, tiers, purchaseLimitCount, purchaseLimitPeriod }),
+    }),
   setMiniGamePublishedActive: (id: string, active: boolean) =>
     req(`/mini-games/published/${id}/active`, { method: 'PATCH', body: JSON.stringify({ active }) }),
-  updateMiniGameTiers: (id: string, tiers: MiniGameTierInput[]) =>
-    req<PublishedMiniGameItem>(`/mini-games/published/${id}/tiers`, { method: 'PATCH', body: JSON.stringify({ tiers }) }),
+  updateMiniGameTiers: (id: string, tiers: MiniGameTierInput[], purchaseLimitCount?: number, purchaseLimitPeriod?: string) =>
+    req<PublishedMiniGameItem>(`/mini-games/published/${id}/tiers`, {
+      method: 'PATCH',
+      body: JSON.stringify({ tiers, purchaseLimitCount, purchaseLimitPeriod }),
+    }),
   deletePublishedMiniGame: (id: string) => req(`/mini-games/published/${id}`, { method: 'DELETE' }),
 };
 

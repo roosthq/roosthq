@@ -1051,6 +1051,13 @@ model PublishedMiniGame {
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())
 
+  // Purchase rate limit - enforced per user, same limit for everyone in the
+  // family (decided 2026-09-01: "3 purchases a day" reads as a per-person
+  // cap, not a shared family-wide pool). Counts purchases of ANY tier under
+  // this published game within the current DAY/WEEK/MONTH window.
+  purchaseLimitCount  Int    @default(1)
+  purchaseLimitPeriod String @default("DAY") // DAY | WEEK | MONTH
+
   family    Family                  @relation(fields: [familyId], references: [id], onDelete: Cascade)
   miniGame  MiniGame                @relation(fields: [miniGameId], references: [id], onDelete: Cascade)
   createdBy User                    @relation("PublishedMiniGameCreatedBy", fields: [createdById], references: [id])

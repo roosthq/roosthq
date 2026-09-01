@@ -1,14 +1,7 @@
 import { useState } from 'react';
-import { api, type MiniGamePlaySession } from './api';
-import MiniGamePinTumbler, { MiniGamePinTumblerPreview, type MiniGamePlayReport } from './MiniGamePinTumbler';
-
-// Which idle-preview component (if any) a game type has been ported with -
-// same dispatch shape as the `playing` phase below, so a future port (Wire
-// Splice is next per PLANNING.md §18) adds one line in both places.
-function previewFor(gameType: string) {
-  if (gameType === 'PIN_TUMBLER') return MiniGamePinTumblerPreview;
-  return null;
-}
+import { api, DATA_REFRESH_EVENT, type MiniGamePlaySession } from './api';
+import MiniGamePinTumbler, { type MiniGamePlayReport } from './MiniGamePinTumbler';
+import { previewFor } from './miniGamePreviews';
 
 // Plays out ONE session (a MiniGameGrant or a MiniGamePurchase - identical
 // shape past this point, PLANNING.md §18): shows the pre-drawn "you're
@@ -45,6 +38,11 @@ export default function MiniGamePlayer({
     const res = await api.playMiniGame(kind, session.id, report, kioskToken);
     setResult(res);
     setPhase('result');
+    // Win/loss just wrote a token ledger entry (or none) server-side - the
+    // balance shown in StorePage/ProfilePage lives in THEIR own state, not
+    // reachable from here directly, so dispatch the same "something
+    // changed, re-poll" event ChoresPanel already uses for the same reason.
+    window.dispatchEvent(new Event(DATA_REFRESH_EVENT));
   }
 
   function prizeLine() {

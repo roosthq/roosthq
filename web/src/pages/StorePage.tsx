@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { api, prizeClient, familyFeatureEnabled, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
+import { api, prizeClient, familyFeatureEnabled, DATA_REFRESH_EVENT, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
 import ImageCropper from '../ImageCropper';
@@ -137,6 +137,16 @@ export default function StorePage({
 
   useEffect(() => {
     refresh();
+  }, [refresh]);
+
+  // The Games tab spends/awards tokens from a totally separate component
+  // tree (MiniGamesKidView, nested under MiniGamesTab) with no reference to
+  // this page's own `balance` state - same "something changed elsewhere,
+  // re-poll" event ChoresPanel already dispatches after a chore completion
+  // for the identical reason.
+  useEffect(() => {
+    window.addEventListener(DATA_REFRESH_EVENT, refresh);
+    return () => window.removeEventListener(DATA_REFRESH_EVENT, refresh);
   }, [refresh]);
 
   // Full buyer history for whichever prize is open in the detail modal -
