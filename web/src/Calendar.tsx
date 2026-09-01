@@ -725,17 +725,16 @@ export default function Calendar({
                   day: 'numeric',
                 })}
               </h3>
-              <div className="flex items-center gap-3">
-                {onAddEvent && (
-                  // Deliberately doesn't close this modal - the day stays
-                  // highlighted and its detail view stays open underneath,
-                  // so the new event shows up in it the moment it's saved.
-                  <button onClick={() => onAddEvent(selected)} className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700">
-                    + Add event
-                  </button>
-                )}
-                <button onClick={() => setSelected(null)} className="text-slate-400 hover:text-slate-700">✕</button>
-              </div>
+              {onAddEvent && (
+                // Deliberately doesn't close this modal - the day stays
+                // highlighted and its detail view stays open underneath,
+                // so the new event shows up in it the moment it's saved.
+                // The close X itself is Modal's own now (onBackdropClick
+                // above), not hand-rolled here.
+                <button onClick={() => onAddEvent(selected)} className="rounded bg-slate-800 px-2 py-1 text-sm text-white hover:bg-slate-700">
+                  + Add event
+                </button>
+              )}
             </div>
           }
         >

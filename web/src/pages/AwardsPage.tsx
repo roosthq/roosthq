@@ -414,6 +414,7 @@ export function AwardForm({
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
     <Modal
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">{award ? 'Edit award' : 'Add award'}</h3>}
       footer={
         <div className="flex justify-end gap-2">
@@ -707,6 +708,7 @@ export function GrantModal({
   return (
     <Modal
       maxWidthClass="max-w-sm"
+      onClose={onClose}
       header={
         <h3 className="flex items-center gap-2 text-lg font-semibold">
           <AwardIcon icon={award.icon} />

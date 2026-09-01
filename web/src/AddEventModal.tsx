@@ -189,6 +189,9 @@ export default function AddEventModal({
   return (
     <>
     <Modal
+      // X-only, not backdrop-dismiss too - this is a form, and a stray tap
+      // outside shouldn't silently drop whatever was being typed.
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">{existing ? 'Edit event' : 'Add event'}</h3>}
       footer={
         <div className="flex items-center justify-between gap-2">

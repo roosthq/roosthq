@@ -618,6 +618,7 @@ export function SuggestPrizeModal({
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
     <Modal
+      onClose={onClose}
       header={
         <>
           <h3 className="text-lg font-semibold">Request a prize</h3>
@@ -742,6 +743,7 @@ export function PrizeForm({
   return (
     <>
     <Modal
+      onClose={onClose}
       header={
         <>
           <h3 className="text-lg font-semibold">{prize ? (prize.suggested ? 'Review request' : 'Edit prize') : 'Add prize'}</h3>

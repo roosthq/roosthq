@@ -559,6 +559,7 @@ export default function CalendarPage({ me }: { me: Me }) {
 
       {picker && (
         <Modal
+          onClose={() => setPicker(null)}
           header={
             <>
               <h3 className="text-lg font-semibold">Add or remove calendars</h3>

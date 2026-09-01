@@ -151,6 +151,7 @@ function RuleForm({
   const input = 'w-full rounded border px-3 py-2 text-sm';
   return (
     <Modal
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">{rule ? 'Edit rule' : 'Add rule'}</h3>}
       footer={
         <div className="flex justify-end gap-2">

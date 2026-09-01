@@ -365,6 +365,7 @@ function PreviewModal({ game, onClose }: { game: MiniGameCatalogItem; onClose: (
   return (
     <Modal
       maxWidthClass="max-w-lg"
+      onBackdropClick={onClose}
       header={
         <h3 className="text-lg font-semibold">
           Preview - {game.icon || meta.icon} {game.name}
@@ -454,6 +455,7 @@ function MiniGameFormModal({
   return (
     <Modal
       maxWidthClass="max-w-lg"
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">{game ? 'Edit mini-game' : 'New mini-game'}</h3>}
       footer={
         <div className="flex justify-end gap-2">
@@ -549,6 +551,7 @@ function GrantModal({
   return (
     <Modal
       maxWidthClass="max-w-lg"
+      onClose={onClose}
       header={
         <h3 className="text-lg font-semibold">
           Give "{game.name}" to...
@@ -660,6 +663,7 @@ function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCa
   return (
     <Modal
       maxWidthClass="max-w-2xl"
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">Publish "{game.name}"</h3>}
       footer={
         <div className="flex justify-end gap-2">
@@ -702,6 +706,7 @@ function EditTiersModal({ published, prizes, onClose, onSaved }: { published: Pu
   return (
     <Modal
       maxWidthClass="max-w-2xl"
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">Edit tiers - {published.miniGame.name}</h3>}
       footer={
         <div className="flex justify-end gap-2">

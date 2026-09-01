@@ -1284,6 +1284,7 @@ function ChoreForm({
 
   return (
     <Modal
+      onClose={onClose}
       header={<h3 className="text-lg font-bold">{choreId ? `Edit ${choreWord}` : `New ${choreWord}`}</h3>}
       footer={
         <div className="flex justify-end gap-2">

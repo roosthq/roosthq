@@ -71,6 +71,7 @@ export default function TokenAdjustModal({
 
   return (
     <Modal
+      onClose={onClose}
       header={<h3 className="text-lg font-semibold">Adjust {tokenName}</h3>}
       footer={
         <div className="flex justify-end gap-2">

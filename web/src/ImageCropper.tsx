@@ -138,6 +138,7 @@ export default function ImageCropper({
 
   return (
     <Modal
+      onClose={onCancel}
       header={<h3 className="text-lg font-semibold">{title ?? 'Crop image'}</h3>}
       footer={
         <div className="flex justify-end gap-2">
