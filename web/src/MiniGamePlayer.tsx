@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { api, type MiniGamePlaySession } from './api';
-import MiniGamePinTumbler, { type MiniGamePlayReport } from './MiniGamePinTumbler';
+import MiniGamePinTumbler, { MiniGamePinTumblerPreview, type MiniGamePlayReport } from './MiniGamePinTumbler';
+
+// Which idle-preview component (if any) a game type has been ported with -
+// same dispatch shape as the `playing` phase below, so a future port (Wire
+// Splice is next per PLANNING.md §18) adds one line in both places.
+function previewFor(gameType: string) {
+  if (gameType === 'PIN_TUMBLER') return MiniGamePinTumblerPreview;
+  return null;
+}
 
 // Plays out ONE session (a MiniGameGrant or a MiniGamePurchase - identical
 // shape past this point, PLANNING.md §18): shows the pre-drawn "you're
@@ -47,9 +55,16 @@ export default function MiniGamePlayer({
   }
 
   if (phase === 'preview') {
+    const Preview = previewFor(session.game.gameType);
     return (
       <div className="panel flex flex-col items-center gap-3 p-5 text-center">
-        <div className="text-3xl">{session.game.icon || '🎮'}</div>
+        {Preview ? (
+          <div className="w-full max-w-sm overflow-hidden rounded-xl">
+            <Preview />
+          </div>
+        ) : (
+          <div className="text-3xl">{session.game.icon || '🎮'}</div>
+        )}
         <h3 className="text-lg font-semibold">{session.game.name}</h3>
         <p className="text-sm text-slate-500">
           Playing for <span className="font-semibold text-slate-800">{prizeLine()}</span> if you win.

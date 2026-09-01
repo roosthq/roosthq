@@ -25,6 +25,95 @@ export interface MiniGamePlayReport {
   timeTakenSeconds: number;
 }
 
+// Idle preview - autonomous, no scoring, no input, one pin oscillating
+// forever. Shown on the pre-Start screen (MiniGamePlayer) so it's obvious
+// what this game actually looks like in motion before committing to Start -
+// ported verbatim from the Task Deck prototype's own `preview()`, which this
+// dropped when the platform got built for real. Every other game type falls
+// back to a static icon until it gets its own port.
+export function MiniGamePinTumblerPreview() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx2d = canvas.getContext('2d');
+    if (!ctx2d) return;
+    const ctx = ctx2d;
+
+    let phase = Math.random() * Math.PI * 2;
+    const speed = 1.1;
+    const winH = 0.22;
+    const shear = 0.42;
+
+    const draw = () => {
+      const w = canvas.width,
+        h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = '#0c0e14';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#181c26';
+      ctx.fillRect(w / 2 - 90, 20, 180, h - 40);
+      ctx.strokeStyle = '#2a3040';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(w / 2 - 90, 20, 180, h - 40);
+      const shearY = 20 + (h - 40) * shear;
+      ctx.strokeStyle = '#e8a94a';
+      ctx.setLineDash([8, 6]);
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(w / 2 - 90, shearY);
+      ctx.lineTo(w / 2 + 90, shearY);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const osc = (Math.sin(phase) + 1) / 2;
+      const travel = h - 60;
+      const pinY = 30 + travel * (1 - osc);
+      const winTop = shearY - (winH * travel) / 2;
+      const winBot = shearY + (winH * travel) / 2;
+      ctx.fillStyle = 'rgba(79, 224, 201, 0.15)';
+      ctx.fillRect(w / 2 - 90, winTop, 180, winBot - winTop);
+      ctx.strokeStyle = '#4fe0c9';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(w / 2 - 90, winTop, 180, winBot - winTop);
+      ctx.fillStyle = '#c7cad6';
+      ctx.fillRect(w / 2 - 22, pinY, 44, h - pinY - 10);
+      ctx.fillStyle = '#8f93a3';
+      ctx.beginPath();
+      ctx.moveTo(w / 2 - 22, pinY);
+      ctx.lineTo(w / 2, pinY - 18);
+      ctx.lineTo(w / 2 + 22, pinY);
+      ctx.fill();
+      ctx.fillStyle = '#5a5e6e';
+      ctx.fillRect(w / 2 - 22, pinY, 44, 8);
+    };
+
+    let raf = 0;
+    let last: number | null = null;
+    function tick(ts: number) {
+      if (last == null) last = ts;
+      const dt = Math.min(0.05, (ts - last) / 1000);
+      last = ts;
+      phase += speed * dt;
+      draw();
+      raf = requestAnimationFrame(tick);
+    }
+
+    draw();
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={600}
+      height={420}
+      style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '0.75rem' }}
+    />
+  );
+}
+
 export default function MiniGamePinTumbler({
   config,
   onFinish,
