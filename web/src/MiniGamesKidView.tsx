@@ -81,6 +81,7 @@ export default function MiniGamesKidView({ kioskToken, tokenIcon }: { kioskToken
                 <div className="text-2xl">{s.game.icon || '🎮'}</div>
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-sm font-semibold">{s.game.name}</div>
+                  {s.game.description && <div className="truncate text-xs text-slate-500">{s.game.description}</div>}
                   <div className="text-xs text-slate-400">{s.status === 'IN_PROGRESS' ? 'In progress' : 'Ready to play'}</div>
                 </div>
                 <button
@@ -103,9 +104,12 @@ export default function MiniGamesKidView({ kioskToken, tokenIcon }: { kioskToken
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {shop.map((g) => (
               <li key={g.id} className="rounded border bg-white p-3">
-                <div className="mb-2 flex items-center gap-2">
+                <div className="mb-2 flex items-start gap-2">
                   <span className="text-xl">{g.miniGame.icon || '🎮'}</span>
-                  <span className="min-w-0 truncate font-semibold">{g.miniGame.name}</span>
+                  <div className="min-w-0">
+                    <div className="truncate font-semibold">{g.miniGame.name}</div>
+                    {g.miniGame.description && <p className="text-xs text-slate-500">{g.miniGame.description}</p>}
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   {g.tiers.map((t) => (

@@ -61,6 +61,29 @@ type DrawnResult =
   | { kind: 'PRIZE'; prizeId: string }
   | { kind: 'STREAK_FREEZE'; amount: number };
 
+// The full ten-game roster from the Task Deck prototypes (PLANNING.md §18),
+// icon + name + description exactly as the deck presented them - seeded into
+// a family's catalog the first time it's fetched empty, so "all of them in
+// the catalog by default" holds without an adult having to hand-recreate
+// each one via the New-game form first. `gameType` matches the client's own
+// GAME_TYPES list (web/src/pages/MiniGamesTab.tsx) value-for-value.
+const DEFAULT_CATALOG: { gameType: string; name: string; icon: string; description: string; config: MiniGameConfig }[] = [
+  { gameType: 'PIN_TUMBLER', name: 'Pin & Tumbler', icon: '🗝️', description: 'Push each pin to its shear line as it rises. More pins, tighter windows, each round.', config: { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 } },
+  { gameType: 'SAFE_CRACKER', name: 'Safe Cracker', icon: '🔐', description: 'Drag the dial until you hear the click, then tap SET. The dial stops exactly where you let go - no drift.', config: {} },
+  { gameType: 'WIRE_SPLICE', name: 'Wire Splice', icon: '🔌', description: 'Drag each colored lead to its matching post before the timer runs out.', config: {} },
+  { gameType: 'SIGNAL_RELAY', name: 'Signal Relay', icon: '📡', description: 'Watch the panel light up, then repeat the sequence. Grows by one every round survived.', config: {} },
+  { gameType: 'CARGO_SORT', name: 'Cargo Sort', icon: '📦', description: 'Drag the scrambled crates into ascending order before the loading clock runs out.', config: {} },
+  { gameType: 'FUSE_TRACE', name: 'Fuse Trace', icon: '⚡', description: 'Drag the live wire from spark to socket without touching the rails. Multiple stages, each with its own random layout.', config: {} },
+  { gameType: 'REACTOR_CALIBRATION', name: 'Reactor Calibration', icon: '☢️', description: 'Nudge the needle into the drifting safe zone and hold it there. Drift outside it too long and the core overloads - instant loss.', config: {} },
+  { gameType: 'BUG_ZAPPER', name: 'Bug Zapper', icon: '🪲', description: 'Tap the blips before they scurry off. Reach the zap quota before time runs out.', config: {} },
+  { gameType: 'CIRCUIT_MATCH', name: 'Circuit Match', icon: '🧩', description: 'Flip tiles to find matching circuit symbols. Each pair found is a step toward the win.', config: {} },
+  { gameType: 'CODE_BREAKER', name: 'Code Breaker', icon: '💻', description: 'Guess the hidden digit code. Hot/cold feedback narrows it down each try - partial credit per digit placed.', config: {} },
+];
+// Same default pool every seeded entry starts with (10-25 tokens, editable
+// immediately) - an adult customizes or replaces it per game, same as any
+// hand-created catalog entry.
+const DEFAULT_SEED_POOL: PoolEntry[] = [{ kind: 'TOKENS', min: 10, max: 25, weight: 1 }];
+
 @Injectable()
 export class MiniGamesService {
   constructor(
@@ -138,7 +161,29 @@ export class MiniGamesService {
   async catalog(familyId: string, actorId: string) {
     if (!(await isFeatureEnabled(this.prisma, familyId, 'miniGames'))) return [];
     await this.assertAdult(actorId);
+    const existing = await this.prisma.miniGame.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
+    if (existing.length > 0) return existing;
+    // Empty catalog, feature on - seed the full ten-game roster once. A
+    // family that's deleted its way down to zero stays empty (no re-seed);
+    // this only fires the very first time, same as any other "starter
+    // content" default.
+    await this.seedDefaultCatalog(familyId, actorId);
     return this.prisma.miniGame.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
+  }
+
+  private async seedDefaultCatalog(familyId: string, actorId: string) {
+    await this.prisma.miniGame.createMany({
+      data: DEFAULT_CATALOG.map((g) => ({
+        familyId,
+        name: g.name,
+        icon: g.icon,
+        description: g.description,
+        gameType: g.gameType,
+        configJson: g.config as Prisma.InputJsonValue,
+        poolJson: DEFAULT_SEED_POOL as unknown as Prisma.InputJsonValue,
+        createdById: actorId,
+      })),
+    });
   }
 
   async create(familyId: string, actorId: string, dto: MiniGameInput) {
@@ -237,7 +282,7 @@ export class MiniGamesService {
     const grants = await this.prisma.miniGameGrant.findMany({
       where: { userId, miniGame: { familyId }, status: { in: ['PENDING', 'IN_PROGRESS'] } },
       orderBy: { createdAt: 'desc' },
-      include: { miniGame: { select: { name: true, icon: true, gameType: true } } },
+      include: { miniGame: { select: { name: true, icon: true, description: true, gameType: true } } },
     });
     return grants.map((g) => this.presentPlaySession(g, g.miniGame, g.configJson));
   }
@@ -394,7 +439,7 @@ export class MiniGamesService {
     const purchases = await this.prisma.miniGamePurchase.findMany({
       where: { userId, tier: { publishedGame: { familyId } }, status: { in: ['PENDING', 'IN_PROGRESS'] } },
       orderBy: { createdAt: 'desc' },
-      include: { tier: { include: { publishedGame: { include: { miniGame: { select: { name: true, icon: true, gameType: true } } } } } } },
+      include: { tier: { include: { publishedGame: { include: { miniGame: { select: { name: true, icon: true, description: true, gameType: true } } } } } } },
     });
     return purchases.map((p) => this.presentPlaySession(p, p.tier.publishedGame.miniGame, p.tier.configJson));
   }
@@ -423,7 +468,7 @@ export class MiniGamesService {
   // every purchase and crashed the game component that assumed it existed.
   private presentPlaySession(
     row: { id: string; status: string; drawnResultJson: unknown },
-    game: { name: string; icon: string | null; gameType: string },
+    game: { name: string; icon: string | null; description: string | null; gameType: string },
     config: unknown,
   ) {
     return { id: row.id, status: row.status, game, drawnResult: row.drawnResultJson, config };

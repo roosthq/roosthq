@@ -534,7 +534,7 @@ export interface MiniGameCatalogItem {
 export interface MiniGamePlaySession {
   id: string;
   status: 'PENDING' | 'IN_PROGRESS';
-  game: { name: string; icon: string | null; gameType: string };
+  game: { name: string; icon: string | null; description: string | null; gameType: string };
   drawnResult: { kind: 'TOKENS'; amount: number } | { kind: 'PRIZE'; prizeId: string } | { kind: 'STREAK_FREEZE'; amount: number };
   config: MiniGameConfig;
 }

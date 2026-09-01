@@ -267,9 +267,12 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {published.map((g) => (
                   <li key={g.id} className="flex flex-col gap-3 rounded border bg-white p-3">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-start gap-2">
                       <span className="text-2xl leading-none">{g.miniGame.icon || '🎮'}</span>
-                      <span className="min-w-0 flex-1 truncate font-medium">{g.miniGame.name}</span>
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate font-medium leading-tight">{g.miniGame.name}</div>
+                        {g.miniGame.description && <p className="text-xs text-slate-500">{g.miniGame.description}</p>}
+                      </div>
                       <label className="flex shrink-0 items-center gap-1.5 text-xs text-slate-500">
                         <input
                           type="checkbox"

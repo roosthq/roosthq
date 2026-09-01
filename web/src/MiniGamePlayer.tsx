@@ -66,6 +66,7 @@ export default function MiniGamePlayer({
           <div className="text-3xl">{session.game.icon || '🎮'}</div>
         )}
         <h3 className="text-lg font-semibold">{session.game.name}</h3>
+        {session.game.description && <p className="text-sm text-slate-500">{session.game.description}</p>}
         <p className="text-sm text-slate-500">
           Playing for <span className="font-semibold text-slate-800">{prizeLine()}</span> if you win.
         </p>
