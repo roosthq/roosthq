@@ -1105,6 +1105,21 @@ model MiniGame {            // the catalog entry - "a game an adult can hand out
 
 model MiniGameGrant {       // one instance handed to one kid - mirrors AwardGrant
   id, miniGameId, userId, grantedById, createdAt
+  // Snapshots, prefilled from MiniGame.configJson/poolJson/loseTokenValue/
+  // partialCredit* at the moment the "Give to..." form opens, but genuinely
+  // EDITABLE right there before submitting - per Casey's 2026-09-01
+  // instruction ("define a prize pool for each of them, and modify it and
+  // the game settings before each awarding"). This is deliberately MORE
+  // flexible than AwardGrant, which can't touch Award.poolJson at all once
+  // an award uses the pool path (awards.service.ts grant() reads
+  // award.poolJson directly, no per-grant override exists today) - so
+  // "similar to awards" describes the give-it-to-a-kid shape, not a literal
+  // rule for rule copy of Award's current pool rigidity.
+  configJson           Json
+  poolJson             Json
+  loseTokenValue       Int
+  partialCreditEnabled Boolean
+  partialCreditPerStep Int
   status          'PENDING' | 'IN_PROGRESS' | 'PLAYED' | 'FORFEITED'
   drawnResultJson Json        // the pool draw, ROLLED AT GRANT CREATION - see below
   startedAt       DateTime?
@@ -1124,6 +1139,84 @@ Ledger writes for a played grant go through the `TokensService.createLedgerEntry
 helper already centralized for §17 - this feature doesn't need its own token-writing
 path, just a new `LedgerType` value (`MINI_GAME`) so it's reportable/filterable like
 every other source.
+
+### Publishing - kids buying their own play, a second distribution path (Casey's instruction, 2026-09-01)
+
+Separate from `MiniGameGrant` (an adult hands a specific kid a specific, already-
+configured play) - a second way a mini-game reaches a kid: an adult **publishes**
+one `MiniGame` with one or more **tiers**, and any kid can spend their own tokens to
+buy a play of whichever tier they pick. Same underlying game, same core loop (draw
+on win, optional consolation on loss, optional partial credit), different entry
+point and who's paying.
+
+```
+model PublishedMiniGame {
+  id, familyId, miniGameId, createdById, createdAt
+  active   Boolean  @default(true)   // the on/off publish toggle - kids only ever
+                                       // see this in their shop while true; existing
+                                       // in-flight purchases are unaffected either way
+  tiers    PublishedMiniGameTier[]
+}
+
+// One buyable difficulty/price point. Deliberately NOT tied to the game's own
+// built-in Easy/Normal/Hard config slider (decided 2026-09-01: "custom
+// tiers") - `configJson` here is the SAME free-form per-gameType settings
+// shape as MiniGame/MiniGameGrant's own configJson, so a tier can set any
+// combination of the game's knobs, not just pick 0/1/2. `label` is plain
+// text the adult types ("Easy", "Nightmare", whatever) - purely display,
+// carries no behavior.
+model PublishedMiniGameTier {
+  id                   String
+  publishedGameId      String
+  label                String
+  priceTokens          Int
+  configJson           Json
+  poolJson             Json
+  // Per-tier, not shared across the published game (decided 2026-09-01) -
+  // Hard can pay a bigger (or smaller) consolation than Easy, fully
+  // independent, same as price and pool already are per tier.
+  loseTokenValue       Int     @default(0)
+  partialCreditEnabled Boolean @default(false)
+  partialCreditPerStep Int     @default(0)
+  sort                 Int     @default(0)   // display order in the kid's shop
+}
+
+// One kid's paid play of one tier - same PENDING/IN_PROGRESS/PLAYED/FORFEITED
+// lifecycle as MiniGameGrant (see "Prize pre-determination & abandonment"
+// below - it applies here unchanged), plus the purchase-specific fields.
+model MiniGamePurchase {
+  id          String
+  tierId      String
+  userId      String
+  createdAt   DateTime @default(now())
+  pricePaid   Int      // snapshot of the tier's priceTokens at purchase time -
+                        // priceTokens can change later without rewriting history
+  // Decided 2026-09-01: charged AT PURCHASE, not at Start. The token debit
+  // and the prize draw both happen the instant the kid buys it - same
+  // moment "we determine what prize they will win... and show them" refers
+  // to. No refund for backing out before Start; they already paid for the
+  // draw, not for finishing the game. This is the one place a mini-game
+  // costs the PLAYER something up front, unlike a grant (free to receive,
+  // free to back out of pre-Start).
+  status           'PENDING' | 'IN_PROGRESS' | 'PLAYED' | 'FORFEITED'
+  drawnResultJson  Json
+  startedAt        DateTime?
+  won              Boolean?
+  stepsCompleted   Int?
+  totalSteps       Int?
+  timeTakenSeconds Int?
+  tokensAwarded    Int?     // win payout, or consolation+partial-credit on a
+                             // normal loss, or 0 on FORFEITED - independent of
+                             // pricePaid, which is never refunded either way
+  prizeWonId       String?
+  playedAt         DateTime?
+}
+```
+
+Purchasing debits `pricePaid` through the same `TokensService.createLedgerEntry()`
+path as everything else, tagged `MINI_GAME_PURCHASE` (distinct from the `MINI_GAME`
+type a played grant's payout uses, so a ledger/report can tell "spent buying a play"
+apart from "won playing one" instead of them netting into one opaque line).
 
 ### Prize pre-determination & abandonment (Casey's own instruction, 2026-08-31)
 
@@ -1159,6 +1252,13 @@ What changes is when the actual **draw** for one grant happens:
 `FORFEITED` is its own status, distinct from `PLAYED` + `won: false`, so reporting
 can tell "played it and lost" apart from "started it and walked away" if that
 distinction ever matters later.
+
+**All four of the above apply identically to `MiniGamePurchase`** - "the moment an
+adult hits Give to..." reads as "the moment a kid hits Buy," everything else (drawn
+immediately, stable until played, Start commits, abandoning after Start forfeits
+with no consolation) carries over unchanged. The one real difference is `pricePaid`
+already left the kid's balance at purchase, before any of this - see "Publishing"
+above.
 
 ### Partial credit - the specific ask, generalized
 
@@ -1213,14 +1313,30 @@ same idea wired to the family's actual catalog instead of the demo pool.
 
 ### Store UI
 
-New third tab, **Store: Prizes | Awards | Mini-games** - a catalog list (adult-
-managed: create/edit a `MiniGame`, reusing Award's existing `PoolEntry` builder
-component for the pool instead of rebuilding it), each entry with **Preview** and
-**Give to...** actions (the latter creates a `MiniGameGrant`, same shape as handing
-out an Award). Kids see a "Games waiting for you" queue, same visual language the
-pending-award/pending-reward-game queues already use elsewhere in the app.
+New third tab, **Store: Prizes | Awards | Games** - visible to everyone (unlike
+Awards, which is adult-only today), because kids need it too, just a different view
+of it than adults get:
 
-### Decided, 2026-08-31
+- **Kid view:** two sections. "Games waiting for you" - pending `MiniGameGrant`s,
+  same visual language the pending-award/pending-reward-game queues already use
+  elsewhere. Below it, the **shop** - one card per `active` `PublishedMiniGame`,
+  each showing its game and its tiers as buyable options (label, price, and - per
+  the pool's own setup-time transparency rule - what's in that tier's pool); buying
+  one is a `MiniGamePurchase`. A kid's own pending/in-progress purchases (bought but
+  not yet played, or mid-play) show alongside the awaited-grants queue - same
+  "press Start when ready" treatment either way, since by that point a grant and a
+  purchase are the same thing to play.
+- **Adult view (any `assertAdult` role - ADULT and up, not just OWNER/FAMILY_MANAGER):**
+  catalog management - create/edit a `MiniGame` (reusing Award's existing
+  `PoolEntry` builder component for pools instead of rebuilding it), each entry with
+  **Preview**, **Give to...** (creates a `MiniGameGrant`, editable pool/config
+  per Casey's 2026-09-01 instruction - see "Publishing" above), and **Publish...**
+  (creates/edits a `PublishedMiniGame` and its tiers, including the `active`
+  toggle). Below the catalog, a **"Published games"** panel that renders literally
+  the same shop view the kid sees - Casey's explicit ask, "so they can see what the
+  kid sees and what's been published" - not a paraphrase of it in a table.
+
+### Decided, 2026-08-31 / 2026-09-01
 
 1. **Play surface: phone first, kiosk second.** Design constraints (touch target
    size, layout width) get pinned to a phone screen first; the kiosk's larger
@@ -1229,10 +1345,26 @@ pending-award/pending-reward-game queues already use elsewhere in the app.
 2. **Difficulty scales per grant, not per catalog entry.** One `MiniGame` ("Lock
    Pick") serves every kid; an adult picks easy/medium/hard (or the raw underlying
    knobs) at grant time, adjusting `configJson`'s params for that one play. No
-   "Lock Pick (easy)" / "Lock Pick (hard)" duplicate catalog rows.
+   "Lock Pick (easy)" / "Lock Pick (hard)" duplicate catalog rows. (Published tiers
+   are the one place a difficulty-like split IS modeled as separate rows - see
+   "Publishing" above - because each tier needs its own price too, which a grant
+   never has.)
 3. **Wire Connect (named "Wire Splice" in the prototypes) is the confirmed second
    real game**, after Lock Pick, once Lock Pick is confirmed working end to end for
    a real family.
+4. **Kiosk: awarded games are playable, no difficulty choice** (grants arrive
+   pre-configured, same as mobile) **- published games are also playable and DO let
+   the kid pick a tier**, same as mobile. Both live under the kiosk's existing
+   Prizes section, in their own sub-section, gated by a new `enabledFeatures` key
+   (`'miniGames'`, alongside the existing `'prizes'`) so each `DisplayConfig` can
+   show/hide it independently - same mechanism `showPrizes` already uses in
+   `Display.tsx`, same checklist UI in `SettingsPage.tsx`'s per-display feature list.
+5. **Tokens deducted at purchase, not at Start** - see `MiniGamePurchase` above.
+6. **Consolation/partial-credit are per published TIER, not shared across a
+   published game's tiers** - independent settings alongside price and pool.
+7. **Published tiers are free-form, not locked to the game's own Easy/Normal/Hard
+   slider** - an adult publishing a game defines however many tiers they want, each
+   with its own label (plain text, display-only) and its own full `configJson`.
 
 ### Ten playable prototypes exist now, not just one
 
@@ -1285,25 +1417,27 @@ error caught and fixed during that review), a standalone logic check outside the
 browser entirely. They have NOT been played start-to-finish by anything other than
 static analysis. Casey's own morning playtest is the real test.
 
-### Rough build order (once direction is confirmed - nothing below is started)
+### Build order - status as of 2026-09-01 (Casey: "the games are good to go, build it")
 
-1. Casey plays all ten prototypes; reports back which feel right, which need
-   tuning, which to drop. Cheap to iterate on a static artifact - expensive once
-   any of this is real schema/UI.
-2. `MiniGame` / `MiniGameGrant` models + `MINI_GAME` `LedgerType` value, including
-   the per-grant difficulty override (decision 2 above).
-3. Server: catalog CRUD, grant/start/play/preview endpoints - grant creation rolls
-   and stores `drawnResultJson` immediately (see "Prize pre-determination &
-   abandonment" above), `start` stamps `IN_PROGRESS`/`startedAt` and is also where
-   any stale `IN_PROGRESS` grant for that user gets auto-resolved `FORFEITED` first,
-   `play` scores whatever the client reports (steps completed, won, time taken) at
-   the same trust level the existing reveal-games' spin() already operates at
-   (client cosmetics, server-authoritative payout math), paying out the pre-drawn
-   result on a win via the same draw helper `reward-games.service.ts` already has.
-4. Web: port Pin & Tumbler (Lock Pick) for real first, into the actual Store >
-   Mini-games tab, both real-play and preview modes off the same component -
-   phone-first per decision 1.
-5. Store UI: catalog list, pool builder (reused from Award), give/preview actions,
-   kid-facing pending queue.
+Ten prototypes played and approved (all the live-playtest fixes from that pass -
+Wire Splice physics, Reactor Calibration's heat bar, Safe Cracker's snap-to-number,
+per-game difficulty, idle previews, etc. - already landed in the **Task Deck**
+artifact itself, not repeated here). Building the real platform now:
+
+1. Schema: `MiniGame`, `MiniGameGrant` (with its own config/pool snapshot),
+   `PublishedMiniGame`, `PublishedMiniGameTier`, `MiniGamePurchase`, plus
+   `MINI_GAME` and `MINI_GAME_PURCHASE` `LedgerType` values.
+2. Server: catalog CRUD; grant create/start/play (editable pool+config at grant
+   time, pre-drawn result, `FORFEITED`-on-abandon - "Prize pre-determination &
+   abandonment" above); publish CRUD (tiers, `active` toggle); purchase
+   create/start/play (charges `pricePaid` immediately, same pre-draw/abandon rules).
+   All at the same client-cosmetics/server-authoritative trust level the existing
+   reveal-games' spin() already operates at.
+3. Web: port Pin & Tumbler (Lock Pick) for real first, into the actual Store >
+   Games tab, real-play and preview off the same component - phone-first.
+4. Store UI: catalog management, pool builder (reused from Award), give/publish
+   actions, kid shop + pending queue, adult's "published games" mirror view.
+5. Kiosk: `enabledFeatures: 'miniGames'` toggle, Prizes-section sub-panel for both
+   awarded and published games, same phone-first component scaled up.
 6. Wire Splice (decision 3) once Lock Pick is confirmed working end to end for a
    real family - don't port the other eight in parallel on a guess.

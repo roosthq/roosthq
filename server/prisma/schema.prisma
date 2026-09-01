@@ -50,6 +50,12 @@ enum LedgerType {
   // loudest possible tell that a rescale happened) - visible only in the
   // adult-facing TokenScaleEvent history.
   REBASE
+  MINI_GAME // payout from playing a mini-game (grant or purchase) - win draw, or
+  // consolation/partial-credit on a loss. Never a FORFEITED abandon (that pays 0
+  // and isn't worth its own ledger row).
+  MINI_GAME_PURCHASE // tokens spent BUYING a play of a published mini-game -
+  // deliberately its own type, not REDEEM, so a report can tell "spent buying a
+  // shot at a prize" apart from "redeemed a prize outright."
 }
 
 enum PresenceStatus {
@@ -74,6 +80,7 @@ enum NotificationType {
   CALENDAR_EVENT_ADDED
   CALENDAR_EVENT_REMINDER
   AWARD_GRANTED
+  MINI_GAME_GRANTED // an adult handed a kid a mini-game to go play (PLANNING.md §18)
   GAME_PRIZE_WON // a reward game (#5) rolled a real Prize, not tokens - adult needs to get it ready
   MEMBER_JOINED // someone new signed up via invite (or an existing account switched families via one) - sent to everyone already there
 }
@@ -151,6 +158,8 @@ model Family {
   customSounds     CustomSound[]
   slotIcons        FamilySlotIcon[]
   tokenScaleEvents TokenScaleEvent[]
+  miniGames        MiniGame[]
+  publishedMiniGames PublishedMiniGame[]
 }
 
 // ---------- Icons ----------
@@ -473,6 +482,11 @@ model User {
   passwordResetTokens       PasswordResetToken[]
   notifications             Notification[]
   pushSubscriptions         PushSubscription[]
+  createdMiniGames          MiniGame[]           @relation("MiniGameCreatedBy")
+  miniGamesReceived         MiniGameGrant[]       @relation("MiniGameGrantUser")
+  miniGamesGranted          MiniGameGrant[]       @relation("MiniGameGrantedBy")
+  createdPublishedMiniGames PublishedMiniGame[]   @relation("PublishedMiniGameCreatedBy")
+  miniGamePurchases         MiniGamePurchase[]    @relation("MiniGamePurchaseUser")
 
   @@index([familyId])
 }
@@ -949,6 +963,155 @@ model AwardGrant {
   grantedBy User  @relation("AwardGrantedBy", fields: [grantedById], references: [id])
 
   @@index([awardId])
+  @@index([userId])
+}
+
+// ---------- Mini-games (PLANNING.md §18) ----------
+// A third reward mechanism, deliberately separate from Award/Prize: a
+// skill-based win/lose challenge (not a chance reveal like RewardGame) that
+// reaches a kid one of two ways - handed to them directly (MiniGameGrant,
+// mirrors AwardGrant) or bought with their own tokens from a published
+// listing (MiniGamePurchase, via PublishedMiniGame/PublishedMiniGameTier).
+// Both play paths share the same PENDING/IN_PROGRESS/PLAYED/FORFEITED
+// lifecycle - see mini-games.service.ts.
+
+model MiniGame {
+  id                   String   @id @default(cuid())
+  familyId             String
+  name                 String
+  icon                 String?  @db.Text
+  description          String?  @db.Text
+  gameType             String // 'PIN_TUMBLER' | future ones - own catalog, NOT
+  // reward-games.service.ts's GAME_TYPES (those are chance-reveal
+  // presentation styles; these are actual skill mechanics).
+  configJson           Json // default per-gameType tunables - prefills the
+  // grant/publish forms; never itself played against directly.
+  poolJson             Json // default PoolEntry[] (same shape as Award.poolJson) -
+  // prefills the grant/publish forms.
+  loseTokenValue       Int      @default(0)
+  partialCreditEnabled Boolean  @default(false)
+  partialCreditPerStep Int      @default(0)
+  createdById          String
+  createdAt            DateTime @default(now())
+
+  family     Family              @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  createdBy  User                @relation("MiniGameCreatedBy", fields: [createdById], references: [id])
+  grants     MiniGameGrant[]
+  publishes  PublishedMiniGame[]
+
+  @@index([familyId])
+}
+
+// One instance handed directly to one kid - mirrors AwardGrant, but (per
+// Casey's 2026-09-01 instruction) the pool AND the game settings are
+// snapshotted onto the grant itself, prefilled from MiniGame's own defaults
+// but genuinely editable right there before submitting - more flexible than
+// AwardGrant, which can't touch Award.poolJson at all once an award uses the
+// pool path.
+model MiniGameGrant {
+  id                   String   @id @default(cuid())
+  miniGameId           String
+  userId               String
+  grantedById          String
+  configJson           Json
+  poolJson             Json
+  loseTokenValue       Int
+  partialCreditEnabled Boolean
+  partialCreditPerStep Int
+  status               String    @default("PENDING") // PENDING | IN_PROGRESS | PLAYED | FORFEITED
+  drawnResultJson      Json // the pool draw, rolled at grant creation - see
+  // "Prize pre-determination & abandonment" in PLANNING.md §18
+  startedAt            DateTime?
+  won                  Boolean?
+  stepsCompleted       Int?
+  totalSteps           Int?
+  timeTakenSeconds     Int?
+  tokensAwarded        Int? // final total actually paid - never both a win draw
+  // AND loseTokenValue/partial-credit; 0 on FORFEITED
+  prizeWonId           String? // set only if drawnResultJson was a PRIZE entry AND won
+  playedAt             DateTime?
+  createdAt            DateTime  @default(now())
+
+  miniGame  MiniGame @relation(fields: [miniGameId], references: [id], onDelete: Cascade)
+  user      User     @relation("MiniGameGrantUser", fields: [userId], references: [id], onDelete: Cascade)
+  grantedBy User     @relation("MiniGameGrantedBy", fields: [grantedById], references: [id])
+
+  @@index([miniGameId])
+  @@index([userId])
+}
+
+// One published listing - a kid can buy any of its tiers with their own
+// tokens. `active` is the on/off publish toggle; existing in-flight
+// purchases are unaffected either way.
+model PublishedMiniGame {
+  id          String   @id @default(cuid())
+  familyId    String
+  miniGameId  String
+  createdById String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  family    Family                  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  miniGame  MiniGame                @relation(fields: [miniGameId], references: [id], onDelete: Cascade)
+  createdBy User                    @relation("PublishedMiniGameCreatedBy", fields: [createdById], references: [id])
+  tiers     PublishedMiniGameTier[]
+
+  @@index([familyId])
+  @@index([miniGameId])
+}
+
+// One buyable difficulty/price point. Deliberately NOT tied to the game's
+// own built-in difficulty slider (decided 2026-09-01: "custom tiers") -
+// configJson here is free-form, same shape as MiniGame/MiniGameGrant's own,
+// so a tier can set any combination of the game's knobs. `label` is plain
+// text the adult types - display only, no behavior. Consolation/partial
+// credit are per-tier, not shared across a published game's tiers.
+model PublishedMiniGameTier {
+  id                   String   @id @default(cuid())
+  publishedGameId      String
+  label                String
+  priceTokens          Int
+  configJson           Json
+  poolJson             Json
+  loseTokenValue       Int      @default(0)
+  partialCreditEnabled Boolean  @default(false)
+  partialCreditPerStep Int      @default(0)
+  sort                 Int      @default(0)
+  createdAt            DateTime @default(now())
+
+  publishedGame PublishedMiniGame  @relation(fields: [publishedGameId], references: [id], onDelete: Cascade)
+  purchases     MiniGamePurchase[]
+
+  @@index([publishedGameId])
+}
+
+// One kid's paid play of one tier - same PENDING/IN_PROGRESS/PLAYED/FORFEITED
+// lifecycle as MiniGameGrant. Charged at PURCHASE, not at Start (decided
+// 2026-09-01) - pricePaid leaves the kid's balance and drawnResultJson is
+// rolled the instant this row is created; no refund either way.
+model MiniGamePurchase {
+  id               String    @id @default(cuid())
+  tierId           String
+  userId           String
+  pricePaid        Int // snapshot - tier.priceTokens can change later without
+  // rewriting history
+  status           String    @default("PENDING") // PENDING | IN_PROGRESS | PLAYED | FORFEITED
+  drawnResultJson  Json
+  startedAt        DateTime?
+  won              Boolean?
+  stepsCompleted   Int?
+  totalSteps       Int?
+  timeTakenSeconds Int?
+  tokensAwarded    Int? // win payout, or consolation+partial-credit on a normal
+  // loss, or 0 on FORFEITED - independent of pricePaid, never refunded
+  prizeWonId       String?
+  playedAt         DateTime?
+  createdAt        DateTime  @default(now())
+
+  tier PublishedMiniGameTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
+  user User                  @relation("MiniGamePurchaseUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tierId])
   @@index([userId])
 }
 

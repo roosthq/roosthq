@@ -608,6 +608,7 @@ const FEATURES: Array<{ id: string; label: string }> = [
   { id: 'calendar', label: 'Calendar' },
   { id: 'chores', label: 'Chores' },
   { id: 'prizes', label: 'Prizes' },
+  { id: 'miniGames', label: 'Mini-games' },
   { id: 'meals', label: 'Meal plan' },
   { id: 'grocery', label: 'Grocery list' },
   { id: 'countdowns', label: 'Countdowns' },

@@ -28,6 +28,7 @@ import { setTokensBadgeEnabled } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
+import MiniGamesKidView from './MiniGamesKidView';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -682,6 +683,7 @@ export default function Display() {
   const showCalendar = config.enabledFeatures.includes('calendar');
   const showChores = config.enabledFeatures.includes('chores') && famOn('chores');
   const showPrizes = config.enabledFeatures.includes('prizes') && famOn('store');
+  const showMiniGames = config.enabledFeatures.includes('miniGames') && famOn('miniGames');
   const showMeals = config.enabledFeatures.includes('meals') && famOn('meals');
   const showGrocery = config.enabledFeatures.includes('grocery') && famOn('grocery');
   const showCountdowns = config.enabledFeatures.includes('countdowns') && famOn('countdowns');
@@ -1125,6 +1127,12 @@ export default function Display() {
                         locationId={config.locationId}
                         refreshSignal={dataRefreshSignal}
                       />
+                    )}
+                    {showMiniGames && (
+                      <div className="panel p-3">
+                        <h3 className="mb-2 text-sm font-semibold text-slate-500">Games</h3>
+                        <MiniGamesKidView kioskToken={active.token} />
+                      </div>
                     )}
                   </div>
                   <KioskAccountPanel

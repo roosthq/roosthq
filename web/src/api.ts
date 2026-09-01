@@ -507,6 +507,87 @@ export type PoolEntry =
 
 export type GameType = 'WHEEL' | 'MYSTERY_BOX' | 'SCRATCH_CARD' | 'SLOT_MACHINE' | 'DICE_ROLL' | 'COIN_FLIP' | 'GIFT_BOX' | 'PLINKO';
 
+// ---------- Mini-games (PLANNING.md §18) ----------
+
+// Per-gameType settings (step count, time limit, difficulty, misses allowed,
+// ...) - deliberately untyped here, same free-form-Json spirit as PoolEntry
+// is typed but the settings around it aren't. Each game component owns its
+// own shape for this.
+export type MiniGameConfig = Record<string, unknown>;
+
+export interface MiniGameCatalogItem {
+  id: string;
+  name: string;
+  icon: string | null;
+  description: string | null;
+  gameType: string;
+  configJson: MiniGameConfig;
+  poolJson: PoolEntry[];
+  loseTokenValue: number;
+  partialCreditEnabled: boolean;
+  partialCreditPerStep: number;
+  createdAt: string;
+}
+
+// One PENDING/IN_PROGRESS play session - a grant or a purchase, same shape
+// either way once it reaches this point (see PLANNING.md §18).
+export interface MiniGamePlaySession {
+  id: string;
+  status: 'PENDING' | 'IN_PROGRESS';
+  game: { name: string; icon: string | null; gameType: string };
+  drawnResult: { kind: 'TOKENS'; amount: number } | { kind: 'PRIZE'; prizeId: string } | { kind: 'STREAK_FREEZE'; amount: number };
+  config: MiniGameConfig;
+}
+
+export interface MiniGamePlayResult {
+  won: boolean;
+  tokensAwarded: number;
+  prizeWonId: string | null;
+  drawnResult: MiniGamePlaySession['drawnResult'];
+}
+
+export interface PublishedMiniGameTierItem {
+  id: string;
+  label: string;
+  priceTokens: number;
+  configJson: MiniGameConfig;
+  poolJson: PoolEntry[];
+  loseTokenValue: number;
+  partialCreditEnabled: boolean;
+  partialCreditPerStep: number;
+  sort: number;
+}
+
+export interface PublishedMiniGameItem {
+  id: string;
+  active: boolean;
+  createdAt: string;
+  miniGame: { name: string; icon: string | null; description: string | null; gameType: string };
+  tiers: PublishedMiniGameTierItem[];
+}
+
+export interface MiniGameInput {
+  name: string;
+  icon?: string | null;
+  description?: string | null;
+  gameType: string;
+  config: MiniGameConfig;
+  pool: PoolEntry[];
+  loseTokenValue?: number;
+  partialCreditEnabled?: boolean;
+  partialCreditPerStep?: number;
+}
+
+export interface MiniGameTierInput {
+  label: string;
+  priceTokens: number;
+  config: MiniGameConfig;
+  pool: PoolEntry[];
+  loseTokenValue?: number;
+  partialCreditEnabled?: boolean;
+  partialCreditPerStep?: number;
+}
+
 export interface AwardCatalogItem {
   id: string;
   wheelMin?: number;
@@ -721,6 +802,12 @@ export const FEATURE_TREE: FeatureNode[] = [
     id: 'awards',
     label: 'Awards',
     help: 'The award catalog and give-it flow - independent of Tokens, an award can be a pure badge with no token value.',
+  },
+  {
+    id: 'miniGames',
+    label: 'Games',
+    help: 'Skill-based mini-games - hand one to a kid directly, or publish it for kids to buy a play with their own tokens.',
+    requires: 'tokens',
   },
   {
     id: 'household',
@@ -1440,6 +1527,59 @@ export const api = {
     req<{ award: number; wheel: number; total: number }>(`/awards/grants/${grantId}/impact`),
   removeAwardGrant: (grantId: string, removeTokens = true) =>
     req(`/awards/grants/${grantId}?removeTokens=${removeTokens ? '1' : '0'}`, { method: 'DELETE' }),
+
+  // ---------- Mini-games ----------
+  miniGamesCatalog: (kioskToken?: string) => req<MiniGameCatalogItem[]>('/mini-games', undefined, kioskToken),
+  createMiniGame: (body: MiniGameInput, kioskToken?: string) =>
+    req<MiniGameCatalogItem>('/mini-games', { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+  updateMiniGame: (id: string, body: Partial<MiniGameInput>, kioskToken?: string) =>
+    req<MiniGameCatalogItem>(`/mini-games/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
+  deleteMiniGame: (id: string) => req(`/mini-games/${id}`, { method: 'DELETE' }),
+  grantMiniGame: (
+    id: string,
+    body: {
+      userId: string;
+      config?: MiniGameConfig;
+      pool?: PoolEntry[];
+      loseTokenValue?: number;
+      partialCreditEnabled?: boolean;
+      partialCreditPerStep?: number;
+    },
+    kioskToken?: string,
+  ) => req(`/mini-games/${id}/grant`, { method: 'POST', body: JSON.stringify(body) }, kioskToken),
+
+  // Kid-facing queues + shop
+  pendingMiniGameGrants: (kioskToken?: string) => req<MiniGamePlaySession[]>('/mini-games/pending', undefined, kioskToken),
+  pendingMiniGamePurchases: (kioskToken?: string) => req<MiniGamePlaySession[]>('/mini-games/purchases/pending', undefined, kioskToken),
+  miniGameShop: (kioskToken?: string) => req<PublishedMiniGameItem[]>('/mini-games/shop', undefined, kioskToken),
+  purchaseMiniGameTier: (tierId: string, kioskToken?: string) =>
+    req(`/mini-games/tiers/${tierId}/purchase`, { method: 'POST' }, kioskToken),
+
+  // Play sessions - `kind` picks the grant vs. purchase route, identical
+  // shape either way past this point (PLANNING.md §18).
+  startMiniGamePlay: (kind: 'grant' | 'purchase', id: string, kioskToken?: string) =>
+    req(`/mini-games/${kind === 'grant' ? 'grants' : 'purchases'}/${id}/start`, { method: 'POST' }, kioskToken),
+  playMiniGame: (
+    kind: 'grant' | 'purchase',
+    id: string,
+    report: { won: boolean; stepsCompleted: number; totalSteps: number; timeTakenSeconds: number },
+    kioskToken?: string,
+  ) =>
+    req<MiniGamePlayResult>(
+      `/mini-games/${kind === 'grant' ? 'grants' : 'purchases'}/${id}/play`,
+      { method: 'POST', body: JSON.stringify(report) },
+      kioskToken,
+    ),
+
+  // Publishing (adult-only)
+  publishedMiniGames: (kioskToken?: string) => req<PublishedMiniGameItem[]>('/mini-games/published', undefined, kioskToken),
+  publishMiniGame: (miniGameId: string, tiers: MiniGameTierInput[]) =>
+    req<PublishedMiniGameItem>('/mini-games/published', { method: 'POST', body: JSON.stringify({ miniGameId, tiers }) }),
+  setMiniGamePublishedActive: (id: string, active: boolean) =>
+    req(`/mini-games/published/${id}/active`, { method: 'PATCH', body: JSON.stringify({ active }) }),
+  updateMiniGameTiers: (id: string, tiers: MiniGameTierInput[]) =>
+    req<PublishedMiniGameItem>(`/mini-games/published/${id}/tiers`, { method: 'PATCH', body: JSON.stringify({ tiers }) }),
+  deletePublishedMiniGame: (id: string) => req(`/mini-games/published/${id}`, { method: 'DELETE' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

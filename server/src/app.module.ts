@@ -29,6 +29,7 @@ import { StreakFreezeModule } from './streak-freeze/streak-freeze.module';
 import { PresenceModule } from './presence/presence.module';
 import { UpdatesModule } from './updates/updates.module';
 import { TokenScaleModule } from './token-scale/token-scale.module';
+import { MiniGamesModule } from './mini-games/mini-games.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { TokenScaleModule } from './token-scale/token-scale.module';
     NotificationsModule,
     RulesModule,
     AwardsModule,
+    MiniGamesModule,
     LocalCalendarsModule,
     OwnerModule,
     HolidaysModule,

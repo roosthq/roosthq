@@ -9,6 +9,7 @@ import Modal from '../Modal';
 import LucideIcon from '../LucideIcon';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
+import MiniGamesTab from './MiniGamesTab';
 import { celebrate } from '../celebrate';
 import { usePaginatedList } from '../usePaginatedList';
 
@@ -38,10 +39,13 @@ export default function StorePage({
   // frequency one, so it doesn't need its own top-level nav slot. Kids never
   // see the tab bar at all; they only ever had Prizes.
   const [params, setParams] = useSearchParams();
-  const [tab, setTab] = useState<'prizes' | 'awards'>(isAdult && params.get('tab') === 'awards' ? 'awards' : 'prizes');
-  function selectTab(next: 'prizes' | 'awards') {
+  const initialTab = params.get('tab');
+  const [tab, setTab] = useState<'prizes' | 'awards' | 'games'>(
+    (isAdult && initialTab === 'awards' ? 'awards' : initialTab === 'games' ? 'games' : 'prizes') as 'prizes' | 'awards' | 'games',
+  );
+  function selectTab(next: 'prizes' | 'awards' | 'games') {
     setTab(next);
-    setParams(next === 'awards' ? { tab: 'awards' } : {}, { replace: true });
+    setParams(next === 'prizes' ? {} : { tab: next }, { replace: true });
   }
   const { alert, confirm } = useDialog();
   // Store (prizes) and Awards are independent top-level features that happen
@@ -54,13 +58,14 @@ export default function StorePage({
   }, []);
   const storeOn = familyFeatureEnabled(family, 'store');
   const awardsOn = familyFeatureEnabled(family, 'awards');
+  const miniGamesOn = familyFeatureEnabled(family, 'miniGames');
   useEffect(() => {
-    if (family && isAdult) {
-      if (tab === 'prizes' && !storeOn && awardsOn) selectTab('awards');
-      else if (tab === 'awards' && !awardsOn && storeOn) selectTab('prizes');
-    }
+    if (!family) return;
+    if (tab === 'prizes' && !storeOn) selectTab(isAdult && awardsOn ? 'awards' : miniGamesOn ? 'games' : 'prizes');
+    else if (tab === 'awards' && (!isAdult || !awardsOn)) selectTab(storeOn ? 'prizes' : miniGamesOn ? 'games' : 'awards');
+    else if (tab === 'games' && !miniGamesOn) selectTab(storeOn ? 'prizes' : isAdult && awardsOn ? 'awards' : 'games');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [family, storeOn, awardsOn]);
+  }, [family, storeOn, awardsOn, miniGamesOn]);
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -252,24 +257,40 @@ export default function StorePage({
         </div>
       </div>
 
-      {isAdult && storeOn && awardsOn && (
+      {(storeOn ? 1 : 0) + (isAdult && awardsOn ? 1 : 0) + (miniGamesOn ? 1 : 0) > 1 && (
         <div className="mt-3 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
-          <button
-            onClick={() => selectTab('prizes')}
-            className={`rounded px-4 py-1.5 ${tab === 'prizes' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
-          >
-            Prizes
-          </button>
-          <button
-            onClick={() => selectTab('awards')}
-            className={`rounded px-4 py-1.5 ${tab === 'awards' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
-          >
-            Awards
-          </button>
+          {storeOn && (
+            <button
+              onClick={() => selectTab('prizes')}
+              className={`rounded px-4 py-1.5 ${tab === 'prizes' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              Prizes
+            </button>
+          )}
+          {isAdult && awardsOn && (
+            <button
+              onClick={() => selectTab('awards')}
+              className={`rounded px-4 py-1.5 ${tab === 'awards' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              Awards
+            </button>
+          )}
+          {miniGamesOn && (
+            <button
+              onClick={() => selectTab('games')}
+              className={`rounded px-4 py-1.5 ${tab === 'games' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              Games
+            </button>
+          )}
         </div>
       )}
 
-      {tab === 'awards' && isAdult && awardsOn ? (
+      {tab === 'games' && miniGamesOn ? (
+        <div className="mt-4">
+          <MiniGamesTab isAdult={isAdult} members={members} />
+        </div>
+      ) : tab === 'awards' && isAdult && awardsOn ? (
         <div className="mt-4">
           <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} />
         </div>
