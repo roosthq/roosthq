@@ -161,29 +161,44 @@ export class MiniGamesService {
   async catalog(familyId: string, actorId: string) {
     if (!(await isFeatureEnabled(this.prisma, familyId, 'miniGames'))) return [];
     await this.assertAdult(actorId);
-    const existing = await this.prisma.miniGame.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
-    if (existing.length > 0) return existing;
-    // Empty catalog, feature on - seed the full ten-game roster once. A
-    // family that's deleted its way down to zero stays empty (no re-seed);
-    // this only fires the very first time, same as any other "starter
-    // content" default.
-    await this.seedDefaultCatalog(familyId, actorId);
+    await this.ensureDefaultCatalog(familyId, actorId);
     return this.prisma.miniGame.findMany({ where: { familyId }, orderBy: { createdAt: 'asc' } });
   }
 
-  private async seedDefaultCatalog(familyId: string, actorId: string) {
-    await this.prisma.miniGame.createMany({
-      data: DEFAULT_CATALOG.map((g) => ({
-        familyId,
-        name: g.name,
-        icon: g.icon,
-        description: g.description,
-        gameType: g.gameType,
-        configJson: g.config as Prisma.InputJsonValue,
-        poolJson: DEFAULT_SEED_POOL as unknown as Prisma.InputJsonValue,
-        createdById: actorId,
-      })),
-    });
+  // "All ten in the catalog by default" - checked and repaired on every
+  // fetch, not a one-time seed: creates whichever of the ten default
+  // gameTypes this family doesn't have yet (so a family that already had
+  // one entry, e.g. a hand-made Pin & Tumbler from before this existed,
+  // still gets the other nine), and backfills icon/description onto an
+  // existing entry that's missing one - the deck's own copy is the source
+  // of truth for that text, not something an adult should have to retype.
+  // Never touches name/pool/config on an existing row - those are the
+  // adult's own to customize once a game exists.
+  private async ensureDefaultCatalog(familyId: string, actorId: string) {
+    const existing = await this.prisma.miniGame.findMany({ where: { familyId } });
+    const byType = new Map(existing.map((g) => [g.gameType, g]));
+    for (const def of DEFAULT_CATALOG) {
+      const cur = byType.get(def.gameType);
+      if (!cur) {
+        await this.prisma.miniGame.create({
+          data: {
+            familyId,
+            name: def.name,
+            icon: def.icon,
+            description: def.description,
+            gameType: def.gameType,
+            configJson: def.config as Prisma.InputJsonValue,
+            poolJson: DEFAULT_SEED_POOL as unknown as Prisma.InputJsonValue,
+            createdById: actorId,
+          },
+        });
+      } else if (!cur.icon || !cur.description) {
+        await this.prisma.miniGame.update({
+          where: { id: cur.id },
+          data: { icon: cur.icon || def.icon, description: cur.description || def.description },
+        });
+      }
+    }
   }
 
   async create(familyId: string, actorId: string, dto: MiniGameInput) {
