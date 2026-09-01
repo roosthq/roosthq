@@ -10,11 +10,30 @@ import {
   type StorePrize,
 } from '../api';
 import MiniGamesKidView from '../MiniGamesKidView';
+import MiniGamePinTumbler from '../MiniGamePinTumbler';
 import Modal from '../Modal';
 
-const GAME_TYPES: { value: string; label: string }[] = [
-  { value: 'PIN_TUMBLER', label: 'Pin & Tumbler (Lock Pick)' },
+// The full ten-game roster from the Task Deck prototypes (PLANNING.md §18)
+// - listed here the same way, icon + name, so picking a game type isn't a
+// blank slate. `ported` is honest about which ones actually have a real
+// playable component wired up yet (see MiniGamePlayer) - the rest still
+// create/grant/publish fine, they just show a placeholder instead of the
+// real game until they're ported.
+const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean }[] = [
+  { value: 'PIN_TUMBLER', label: 'Pin & Tumbler', icon: '🗝️', ported: true },
+  { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: false },
+  { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: false },
+  { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: false },
+  { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: false },
+  { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: false },
+  { value: 'REACTOR_CALIBRATION', label: 'Reactor Calibration', icon: '☢️', ported: false },
+  { value: 'BUG_ZAPPER', label: 'Bug Zapper', icon: '🪲', ported: false },
+  { value: 'CIRCUIT_MATCH', label: 'Circuit Match', icon: '🧩', ported: false },
+  { value: 'CODE_BREAKER', label: 'Code Breaker', icon: '💻', ported: false },
 ];
+function gameTypeMeta(value: string) {
+  return GAME_TYPES.find((g) => g.value === value) ?? GAME_TYPES[0];
+}
 
 function prizeSummary(pool: PoolEntry[]): string {
   return pool
@@ -174,6 +193,7 @@ export default function MiniGamesTab({ isAdult, members }: { isAdult: boolean; m
   const [granting, setGranting] = useState<MiniGameCatalogItem | null>(null);
   const [publishing, setPublishing] = useState<MiniGameCatalogItem | null>(null);
   const [editingTiers, setEditingTiers] = useState<PublishedMiniGameItem | null>(null);
+  const [previewing, setPreviewing] = useState<MiniGameCatalogItem | null>(null);
 
   async function refreshAdult() {
     const [c, p, pr] = await Promise.all([api.miniGamesCatalog(), api.publishedMiniGames(), api.prizes()]);
@@ -189,7 +209,13 @@ export default function MiniGamesTab({ isAdult, members }: { isAdult: boolean; m
 
   return (
     <div className="flex flex-col gap-6">
-      <MiniGamesKidView />
+      {/* "Games waiting for you" and the buyable Shop are kid-only concepts -
+          an adult can't receive a grant (Give-to only targets kids) or
+          meaningfully "wait" for one, and showing the real buyable shop here
+          just duplicated "Published games" below with none of its admin
+          controls. Adults get Catalog + Published games only; kids get this
+          view instead, from StorePage passing isAdult=false. */}
+      {!isAdult && <MiniGamesKidView />}
 
       {isAdult && (
         <>
@@ -207,6 +233,9 @@ export default function MiniGamesTab({ isAdult, members }: { isAdult: boolean; m
                   <span className="font-semibold">{g.name}</span>
                   <span className="text-xs text-slate-400">{prizeSummary(g.poolJson)}</span>
                   <div className="ml-auto flex gap-2">
+                    <button onClick={() => setPreviewing(g)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
+                      Preview
+                    </button>
                     <button onClick={() => setEditing(g)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
                       Edit
                     </button>
@@ -308,7 +337,59 @@ export default function MiniGamesTab({ isAdult, members }: { isAdult: boolean; m
       {editingTiers && (
         <EditTiersModal published={editingTiers} prizes={prizes} onClose={() => setEditingTiers(null)} onSaved={() => { setEditingTiers(null); refreshAdult(); }} />
       )}
+      {previewing && <PreviewModal game={previewing} onClose={() => setPreviewing(null)} />}
     </div>
+  );
+}
+
+// No-stakes preview - no grant/purchase row, no ledger entry, no real pool
+// draw, just the actual game component fed the catalog's own settings.
+// Only PIN_TUMBLER has a real component wired up yet (MiniGamePlayer's own
+// fallback message covers the rest consistently).
+function PreviewModal({ game, onClose }: { game: MiniGameCatalogItem; onClose: () => void }) {
+  const [key, setKey] = useState(0); // bump to remount = "play again"
+  const [result, setResult] = useState<{ won: boolean } | null>(null);
+  const meta = gameTypeMeta(game.gameType);
+
+  return (
+    <Modal
+      header={
+        <h3 className="text-lg font-semibold">
+          Preview - {game.icon || meta.icon} {game.name}
+        </h3>
+      }
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Close
+          </button>
+        </div>
+      }
+    >
+      <p className="mb-2 text-xs text-slate-500">No tokens, no prize, no grant used - just trying the settings out.</p>
+      {!meta.ported ? (
+        <p className="rounded border p-4 text-center text-sm text-slate-500">
+          {meta.label} hasn't been ported into the real app yet - it's playable in the Task Deck prototype for now.
+        </p>
+      ) : result ? (
+        <div className="flex flex-col items-center gap-2 p-4 text-center">
+          <div className="text-xl font-bold" style={{ color: result.won ? '#16a34a' : '#dc2626' }}>
+            {result.won ? 'Would have won!' : 'Would have lost.'}
+          </div>
+          <button
+            onClick={() => {
+              setResult(null);
+              setKey((k) => k + 1);
+            }}
+            className="mt-1 rounded bg-slate-800 px-3 py-1.5 text-sm font-semibold text-white"
+          >
+            Play again
+          </button>
+        </div>
+      ) : (
+        <MiniGamePinTumbler key={key} config={game.configJson} onFinish={(r) => setResult({ won: r.won })} />
+      )}
+    </Modal>
   );
 }
 
@@ -323,8 +404,9 @@ function MiniGameFormModal({
   onClose: () => void;
   onSaved: () => void;
 }) {
-  const [name, setName] = useState(game?.name ?? '');
-  const [icon, setIcon] = useState(game?.icon ?? '🔐');
+  const [gameType, setGameType] = useState(game?.gameType ?? 'PIN_TUMBLER');
+  const [name, setName] = useState(game?.name ?? gameTypeMeta(gameType).label);
+  const [icon, setIcon] = useState(game?.icon ?? gameTypeMeta(gameType).icon);
   const [description, setDescription] = useState(game?.description ?? '');
   const [config, setConfig] = useState<MiniGameConfig>(game?.configJson ?? { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 });
   const [pool, setPool] = useState<PoolEntry[]>(game?.poolJson ?? [{ kind: 'TOKENS', min: 10, max: 25, weight: 1 }]);
@@ -333,10 +415,22 @@ function MiniGameFormModal({
   const [partialCreditPerStep, setPartialCreditPerStep] = useState(game?.partialCreditPerStep ?? 0);
   const [saving, setSaving] = useState(false);
 
+  // Picking a type on a brand-new (unsaved) game fills in its default
+  // icon/name - not a blank slate - but never overwrites what's already
+  // been typed for an existing one, or once the adult has touched the name.
+  function pickGameType(next: string) {
+    setGameType(next);
+    if (!game) {
+      const meta = gameTypeMeta(next);
+      setName(meta.label);
+      setIcon(meta.icon);
+    }
+  }
+
   async function submit() {
     setSaving(true);
     try {
-      const body = { name, icon, description, gameType: 'PIN_TUMBLER', config, pool, loseTokenValue, partialCreditEnabled, partialCreditPerStep };
+      const body = { name, icon, description, gameType, config, pool, loseTokenValue, partialCreditEnabled, partialCreditPerStep };
       if (game) await api.updateMiniGame(game.id, body);
       else await api.createMiniGame(body);
       onSaved();
@@ -367,13 +461,19 @@ function MiniGameFormModal({
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="rounded border px-2 py-1 text-sm" />
         <label className="flex flex-col gap-1 text-sm">
           Game
-          <select className="rounded border px-2 py-1" disabled value="PIN_TUMBLER" onChange={() => undefined}>
+          <select value={gameType} onChange={(e) => pickGameType(e.target.value)} className="rounded border px-2 py-1">
             {GAME_TYPES.map((g) => (
               <option key={g.value} value={g.value}>
-                {g.label}
+                {g.icon} {g.label}
+                {g.ported ? '' : ' (not ported yet)'}
               </option>
             ))}
           </select>
+          {!gameTypeMeta(gameType).ported && (
+            <span className="text-xs text-amber-600">
+              This one's still only a prototype - it'll create/grant/publish fine, but kids see a placeholder instead of the real game until it's ported in.
+            </span>
+          )}
         </label>
         <div>
           <div className="mb-1 text-sm font-semibold">Default settings</div>
