@@ -39,6 +39,15 @@ export class ChoresController {
     return this.chores.history(u.familyId, u.userId, choreId, p.skip, p.take);
   }
 
+  // Owner/family-manager-only picker source for deleted chores, so their
+  // audit trail (still recorded, see chores.service.ts) is reachable even
+  // though they no longer show up in the normal list. Declared before the
+  // :id route so /chores/deleted doesn't get swallowed as a chore id.
+  @Get('deleted')
+  deletedChores(@CurrentUser() u: SessionPayload) {
+    return this.chores.deletedChores(u.familyId, u.userId);
+  }
+
   @Get(':id')
   get(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.chores.getChore(u.familyId, id);

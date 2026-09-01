@@ -353,6 +353,14 @@ export interface ChoreAuditEntry {
   createdAt: string;
 }
 
+// A chore that's since been deleted - just enough to pick it in
+// ChoreAuditPanel's dropdown and pull its (still-recorded) audit trail by id.
+export interface DeletedChore {
+  id: string;
+  title: string;
+  deletedAt: string;
+}
+
 export interface PendingWheel {
   id: string;
   minTokens: number;
@@ -1343,6 +1351,7 @@ export const api = {
   },
   // Owner/family-manager only - server 403s anyone else.
   choreAudit: (choreId: string) => req<ChoreAuditEntry[]>(`/chores/${choreId}/audit`),
+  deletedChores: () => req<DeletedChore[]>('/chores/deleted'),
   createChore: (body: Record<string, unknown>) =>
     req<Chore>('/chores', { method: 'POST', body: JSON.stringify(body) }),
   checkItem: (instanceId: string, checklistId: string, checked: boolean) =>

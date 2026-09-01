@@ -47,4 +47,11 @@ export class AuditLogService {
   listForTarget(targetId: string, familyId: string, limit = 200) {
     return this.prisma.auditLog.findMany({ where: { targetId, familyId }, orderBy: { createdAt: 'desc' }, take: limit });
   }
+
+  // All rows for one action, scoped to a family - e.g. every "chore.delete"
+  // entry, so a caller can build a "deleted chores" picker even though the
+  // chores themselves are long gone and have no row left to list from.
+  listByAction(familyId: string, action: string, limit = 200) {
+    return this.prisma.auditLog.findMany({ where: { familyId, action }, orderBy: { createdAt: 'desc' }, take: limit });
+  }
 }

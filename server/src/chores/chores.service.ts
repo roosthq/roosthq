@@ -846,6 +846,30 @@ export class ChoresService {
     return this.audit.listForTarget(choreId, familyId);
   }
 
+  // Deleted chores worth still being able to pull history for - the chore
+  // row and its own history are gone, but "chore.delete" audit rows aren't
+  // (AuditLog has no FK to Chore, on purpose - it has to survive exactly
+  // this). One entry per deleted chore, most recently deleted first; ids
+  // are cuids and never reused, so a "chore.delete" row for an id always
+  // means that id is gone for good, no need to re-check against the live
+  // table. Same owner/family-manager gate as auditTrail() itself, since
+  // this is the picker auditTrail() needs to reach a deleted chore's id.
+  async deletedChores(familyId: string, userId: string) {
+    const actor = await this.user(userId);
+    if (actor?.role !== 'OWNER' && actor?.role !== 'FAMILY_MANAGER') {
+      throw new ForbiddenException('Owners and family managers only');
+    }
+    const deletes = await this.audit.listByAction(familyId, 'chore.delete');
+    const seen = new Set<string>();
+    const out: { id: string; title: string; deletedAt: Date }[] = [];
+    for (const d of deletes) {
+      if (!d.targetId || seen.has(d.targetId)) continue;
+      seen.add(d.targetId);
+      out.push({ id: d.targetId, title: d.targetLabel ?? 'Untitled chore', deletedAt: d.createdAt });
+    }
+    return out;
+  }
+
   // Whether a user may act on (complete/check) an instance.
   private canAct(chore: { assignmentType: string; assignees: { userId: string }[] }, inst: { claimedByUserId: string | null }, userId: string) {
     if (chore.assignmentType === 'ANYONE') return inst.claimedByUserId === userId;

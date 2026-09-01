@@ -1105,15 +1105,17 @@ model MiniGame {            // the catalog entry - "a game an adult can hand out
 
 model MiniGameGrant {       // one instance handed to one kid - mirrors AwardGrant
   id, miniGameId, userId, grantedById, createdAt
-  status          'PENDING' | 'PLAYED'
+  status          'PENDING' | 'IN_PROGRESS' | 'PLAYED' | 'FORFEITED'
+  drawnResultJson Json        // the pool draw, ROLLED AT GRANT CREATION - see below
+  startedAt       DateTime?
   won             Boolean?
   stepsCompleted  Int?
   totalSteps      Int?
   timeTakenSeconds Int?
-  tokensAwarded   Int?        // final total actually paid - pool draw + partial
-                               // credit on a win, or loseTokenValue + partial
-                               // credit on a loss
-  prizeWonId      String?     // set only if the pool draw was a PRIZE entry
+  tokensAwarded   Int?        // final total actually paid - the pre-drawn result on
+                               // a win, loseTokenValue + partial credit on a normal
+                               // loss, or 0 on a FORFEITED abandon - never both
+  prizeWonId      String?     // set only if drawnResultJson was a PRIZE entry AND won
   playedAt        DateTime?
 )
 ```
@@ -1122,6 +1124,41 @@ Ledger writes for a played grant go through the `TokensService.createLedgerEntry
 helper already centralized for §17 - this feature doesn't need its own token-writing
 path, just a new `LedgerType` value (`MINI_GAME`) so it's reportable/filterable like
 every other source.
+
+### Prize pre-determination & abandonment (Casey's own instruction, 2026-08-31)
+
+The pool-possibilities view during **setup** (adult building/editing a `MiniGame`'s
+pool) stays exactly as-is - showing every possible outcome there is fine and useful.
+What changes is when the actual **draw** for one grant happens:
+
+1. **Drawn at grant creation, not at play time.** The moment an adult hits "Give
+   to...", the server rolls `drawnResultJson` from the pool immediately and stores
+   it on the `MiniGameGrant` row - same draw helper as everywhere else, just called
+   a step earlier than you'd assume. A kid opening a `PENDING` grant always sees
+   "you're playing for ___" reflecting that stored roll, never a fresh one.
+2. **Stable until played.** Because the draw already happened and is just being
+   *read* back, opening a `PENDING` grant, backing out before pressing Start, and
+   reopening it later shows the identical prize every time - there's nothing left
+   to reroll. Backing out pre-Start is always safe and free.
+3. **Starting is a commitment.** Pressing Start flips the grant `PENDING` ->
+   `IN_PROGRESS` and stamps `startedAt` server-side, before the actual mini-game
+   mounts client-side.
+4. **Abandoning after Start auto-fails, no consolation.** If a grant is ever found
+   still `IN_PROGRESS` when the kid-facing queue or that grant is fetched again -
+   which only happens if the page that started it went away without finishing
+   (closed, refreshed, crashed, force-quit) - the server resolves it right there as
+   `FORFEITED`: `won = false`, `tokensAwarded = 0`, no `loseTokenValue`, no partial
+   credit, regardless of what the `MiniGame`'s own settings would normally pay on a
+   clean loss. The pre-drawn prize is discarded, not paid out. This is deliberately
+   harsher than a normal loss - it's the penalty for walking away mid-attempt, not
+   for playing and losing. A legitimately in-progress session never re-fetches its
+   own grant (the client already holds that state locally while playing), so this
+   check never fires against a still-active, still-visible game - only a truly
+   abandoned one.
+
+`FORFEITED` is its own status, distinct from `PLAYED` + `won: false`, so reporting
+can tell "played it and lost" apart from "started it and walked away" if that
+distinction ever matters later.
 
 ### Partial credit - the specific ask, generalized
 
@@ -1255,11 +1292,14 @@ static analysis. Casey's own morning playtest is the real test.
    any of this is real schema/UI.
 2. `MiniGame` / `MiniGameGrant` models + `MINI_GAME` `LedgerType` value, including
    the per-grant difficulty override (decision 2 above).
-3. Server: catalog CRUD, grant/preview/play endpoints - `play` scores whatever the
-   client reports (steps completed, won, time taken), same trust level the
-   existing reveal-games' spin() already operates at (client cosmetics, server-
-   authoritative payout math), draws from `poolJson` on a win via the same draw
-   helper `reward-games.service.ts` already has.
+3. Server: catalog CRUD, grant/start/play/preview endpoints - grant creation rolls
+   and stores `drawnResultJson` immediately (see "Prize pre-determination &
+   abandonment" above), `start` stamps `IN_PROGRESS`/`startedAt` and is also where
+   any stale `IN_PROGRESS` grant for that user gets auto-resolved `FORFEITED` first,
+   `play` scores whatever the client reports (steps completed, won, time taken) at
+   the same trust level the existing reveal-games' spin() already operates at
+   (client cosmetics, server-authoritative payout math), paying out the pre-drawn
+   result on a win via the same draw helper `reward-games.service.ts` already has.
 4. Web: port Pin & Tumbler (Lock Pick) for real first, into the actual Store >
    Mini-games tab, both real-play and preview modes off the same component -
    phone-first per decision 1.

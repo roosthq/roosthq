@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, type Chore, type ChoreAuditEntry } from './api';
+import { api, type Chore, type ChoreAuditEntry, type DeletedChore } from './api';
 import { formatDateTime } from './dateFormat';
 
 const ACTION_LABEL: Record<string, string> = {
@@ -19,9 +19,15 @@ const ACTION_COLOR: Record<string, string> = {
 // visible to any adult and tracks occurrence activity (completed/approved),
 // not a record of who touched the chore's own settings. Per-chore only (no
 // "all chores" merged view) since the server route is /chores/:id/audit.
+//
+// The picker also lists deleted chores (own optgroup, tagged) - their
+// history is still recorded server-side (AuditLog has no FK to Chore, on
+// purpose), but they drop out of api.chores() the instant they're deleted,
+// which used to mean there was no way left to ever select one here.
 export default function ChoreAuditPanel() {
   const [open, setOpen] = useState(false);
   const [chores, setChores] = useState<Chore[]>([]);
+  const [deletedChores, setDeletedChores] = useState<DeletedChore[]>([]);
   const [choreId, setChoreId] = useState('');
   const [rows, setRows] = useState<ChoreAuditEntry[]>([]);
   const [loading, setLoading] = useState(false);
@@ -31,6 +37,7 @@ export default function ChoreAuditPanel() {
     setOpen(next);
     if (next && chores.length === 0) {
       api.chores().then(setChores).catch(() => setChores([]));
+      api.deletedChores().then(setDeletedChores).catch(() => setDeletedChores([]));
     }
   }
 
@@ -59,11 +66,22 @@ export default function ChoreAuditPanel() {
             <span className="text-slate-500">Chore</span>
             <select value={choreId} onChange={(e) => setChoreId(e.target.value)} className="rounded border px-2 py-1">
               <option value="">Pick a chore...</option>
-              {chores.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.title}
-                </option>
-              ))}
+              <optgroup label="Active">
+                {chores.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.title}
+                  </option>
+                ))}
+              </optgroup>
+              {deletedChores.length > 0 && (
+                <optgroup label="Deleted">
+                  {deletedChores.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.title} (deleted {formatDateTime(c.deletedAt)})
+                    </option>
+                  ))}
+                </optgroup>
+              )}
             </select>
           </div>
 
