@@ -584,6 +584,19 @@ export interface MiniGameInput {
   partialCreditPerStep?: number;
 }
 
+export interface MiniGamePurchaseRecord {
+  id: string;
+  userId: string;
+  userDisplayName: string;
+  tierLabel: string;
+  status: 'PENDING' | 'IN_PROGRESS' | 'PLAYED' | 'FORFEITED';
+  won: boolean | null;
+  pricePaid: number;
+  tokensAwarded: number | null;
+  createdAt: string;
+  playedAt: string | null;
+}
+
 export interface MiniGameTierInput {
   label: string;
   priceTokens: number;
@@ -1592,6 +1605,10 @@ export const api = {
       body: JSON.stringify({ tiers, purchaseLimitCount, purchaseLimitPeriod }),
     }),
   deletePublishedMiniGame: (id: string) => req(`/mini-games/published/${id}`, { method: 'DELETE' }),
+  // Recent plays + clearing one out of the purchase-limit count - see
+  // MiniGamesService.recentPurchases/deletePurchaseRecord.
+  recentMiniGamePurchases: (publishedGameId: string) => req<MiniGamePurchaseRecord[]>(`/mini-games/published/${publishedGameId}/purchases`),
+  deleteMiniGamePurchase: (id: string) => req(`/mini-games/purchases/${id}`, { method: 'DELETE' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

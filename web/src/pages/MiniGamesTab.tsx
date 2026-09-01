@@ -8,12 +8,14 @@ import {
   type MiniGameTierInput,
   type MiniGameConfig,
   type StorePrize,
+  type MiniGamePurchaseRecord,
 } from '../api';
 import MiniGamesKidView, { PoolBadges } from '../MiniGamesKidView';
 import MiniGamePinTumbler from '../MiniGamePinTumbler';
 import PoolEditor from '../PoolEditor';
 import TokenBadge from '../TokenBadge';
 import Modal from '../Modal';
+import { formatDateTime } from '../dateFormat';
 
 // Shared input look, same as AwardsPage's own form - so a mini-game form
 // reads like the rest of the app instead of its own thing.
@@ -173,6 +175,7 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
   const [publishing, setPublishing] = useState<MiniGameCatalogItem | null>(null);
   const [editingTiers, setEditingTiers] = useState<PublishedMiniGameItem | null>(null);
   const [previewing, setPreviewing] = useState<MiniGameCatalogItem | null>(null);
+  const [viewingPurchases, setViewingPurchases] = useState<PublishedMiniGameItem | null>(null);
 
   async function refreshAdult() {
     const [c, p, pr] = await Promise.all([api.miniGamesCatalog(), api.publishedMiniGames(), api.prizes()]);
@@ -304,6 +307,9 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
                       <button onClick={() => setEditingTiers(g)} className="rounded border px-2.5 py-1 hover:bg-slate-50">
                         Edit tiers
                       </button>
+                      <button onClick={() => setViewingPurchases(g)} className="rounded border px-2.5 py-1 hover:bg-slate-50">
+                        Recent plays
+                      </button>
                       <button
                         onClick={async () => {
                           await api.deletePublishedMiniGame(g.id);
@@ -349,6 +355,7 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
         <EditTiersModal published={editingTiers} prizes={prizes} onClose={() => setEditingTiers(null)} onSaved={() => { setEditingTiers(null); refreshAdult(); }} />
       )}
       {previewing && <PreviewModal game={previewing} onClose={() => setPreviewing(null)} />}
+      {viewingPurchases && <RecentPurchasesModal published={viewingPurchases} onClose={() => setViewingPurchases(null)} />}
     </div>
   );
 }
@@ -723,6 +730,81 @@ function EditTiersModal({ published, prizes, onClose, onSaved }: { published: Pu
         <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
         <TierEditor tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
+    </Modal>
+  );
+}
+
+// The purchase limit counts these rows by their own createdAt - deleting a
+// token adjustment (giving back the tokens spent, or clawing back what was
+// won) does NOT free up the count on its own, since it doesn't touch this
+// row. This is where an adult actually clears one out so a kid can buy in
+// again before the period resets.
+function RecentPurchasesModal({ published, onClose }: { published: PublishedMiniGameItem; onClose: () => void }) {
+  const [rows, setRows] = useState<MiniGamePurchaseRecord[] | null>(null);
+  const [clearing, setClearing] = useState<string | null>(null);
+
+  async function refresh() {
+    setRows(await api.recentMiniGamePurchases(published.id));
+  }
+  useEffect(() => {
+    refresh().catch(() => setRows([]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [published.id]);
+
+  async function clear(id: string) {
+    setClearing(id);
+    try {
+      await api.deleteMiniGamePurchase(id);
+      await refresh();
+    } finally {
+      setClearing(null);
+    }
+  }
+
+  return (
+    <Modal
+      maxWidthClass="max-w-lg"
+      onClose={onClose}
+      header={<h3 className="text-lg font-semibold">Recent plays - {published.miniGame.name}</h3>}
+      footer={
+        <div className="flex justify-end">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Close
+          </button>
+        </div>
+      }
+    >
+      <p className="mb-3 text-xs text-slate-400">
+        Clearing a play removes it from that kid's purchase-limit count for this game, so they can buy in again before the period resets. It does not touch tokens - adjust those separately if needed.
+      </p>
+      {rows === null ? (
+        <p className="text-sm text-slate-400">Loading…</p>
+      ) : rows.length === 0 ? (
+        <p className="text-sm text-slate-400">No plays yet.</p>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {rows.map((r) => (
+            <li key={r.id} className="flex items-center justify-between gap-2 rounded border p-2 text-sm">
+              <div className="min-w-0">
+                <div className="font-medium">
+                  {r.userDisplayName} · {r.tierLabel}
+                </div>
+                <div className="text-xs text-slate-400">
+                  {formatDateTime(r.createdAt)} · {r.status === 'PLAYED' ? (r.won ? 'Won' : 'Lost') : r.status === 'FORFEITED' ? 'Forfeited' : r.status === 'IN_PROGRESS' ? 'In progress' : 'Not started'}
+                  {r.status === 'PLAYED' && r.tokensAwarded ? ` · +${r.tokensAwarded}` : ''}
+                </div>
+              </div>
+              <button
+                onClick={() => clear(r.id)}
+                disabled={clearing !== null}
+                className="shrink-0 rounded px-2.5 py-1 text-xs text-red-500 hover:bg-red-50 disabled:opacity-50"
+              >
+                {clearing === r.id ? 'Clearing…' : 'Clear'}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </Modal>
   );
 }

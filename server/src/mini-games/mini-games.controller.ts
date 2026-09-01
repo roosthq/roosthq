@@ -97,6 +97,19 @@ export class MiniGamesController {
     return this.miniGames.removePublished(u.familyId, u.userId, id);
   }
 
+  // Recent plays for this published game, and clearing one out of the
+  // purchase-limit count - see MiniGamesService.recentPurchases/
+  // deletePurchaseRecord for why a token adjustment alone doesn't do that.
+  @Get('published/:id/purchases')
+  recentPurchases(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.miniGames.recentPurchases(u.familyId, u.userId, id);
+  }
+
+  @Delete('purchases/:id')
+  deletePurchaseRecord(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.miniGames.deletePurchaseRecord(u.familyId, u.userId, id);
+  }
+
   // ---- Catalog entry by id, update/delete/grant - after every static route above ----
   @Patch(':id')
   update(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: Partial<MiniGameInput>) {

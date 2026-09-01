@@ -442,6 +442,45 @@ export class MiniGamesService {
     return { ok: true };
   }
 
+  // Recent purchases of ANY tier under this published game, newest first -
+  // what an adult needs to see to find a specific play and clear it (the
+  // purchase limit counts these rows by createdAt, not the token ledger;
+  // deleting a token adjustment doesn't free up the count on its own).
+  async recentPurchases(familyId: string, actorId: string, publishedGameId: string) {
+    await this.assertAdult(actorId);
+    const p = await this.prisma.publishedMiniGame.findFirst({ where: { id: publishedGameId, familyId } });
+    if (!p) throw new NotFoundException('Published game not found');
+    const purchases = await this.prisma.miniGamePurchase.findMany({
+      where: { tier: { publishedGameId } },
+      orderBy: { createdAt: 'desc' },
+      take: 20,
+      include: { tier: true, user: { select: { displayName: true } } },
+    });
+    return purchases.map((x) => ({
+      id: x.id,
+      userId: x.userId,
+      userDisplayName: x.user.displayName,
+      tierLabel: x.tier.label,
+      status: x.status,
+      won: x.won,
+      pricePaid: x.pricePaid,
+      tokensAwarded: x.tokensAwarded,
+      createdAt: x.createdAt,
+      playedAt: x.playedAt,
+    }));
+  }
+
+  // Deletes one purchase record outright - frees it from that kid's
+  // purchase-limit count immediately (a token adjustment alone doesn't,
+  // since the limit is keyed off this row's own createdAt, not the ledger).
+  async deletePurchaseRecord(familyId: string, actorId: string, id: string) {
+    await this.assertAdult(actorId);
+    const row = await this.prisma.miniGamePurchase.findFirst({ where: { id, tier: { publishedGame: { familyId } } } });
+    if (!row) throw new NotFoundException('Purchase not found');
+    await this.prisma.miniGamePurchase.delete({ where: { id } });
+    return { ok: true };
+  }
+
   // ---------------- Shop (kid buys a play) ----------------
 
   async purchase(familyId: string, userId: string, tierId: string) {
