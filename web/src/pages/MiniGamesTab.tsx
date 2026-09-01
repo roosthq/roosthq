@@ -199,7 +199,10 @@ export default function MiniGamesTab({ isAdult, members }: { isAdult: boolean; m
     const [c, p, pr] = await Promise.all([api.miniGamesCatalog(), api.publishedMiniGames(), api.prizes()]);
     setCatalog(c);
     setPublished(p);
-    setPrizes(pr.filter((x) => !x.archived));
+    // Only AWARD_ONLY prizes are poolable - same rule Award's own pool
+    // builder uses (visibility: 'STORE' prizes are kids' regular purchase
+    // list; only the hidden, surprise-only ones belong in a weighted pool).
+    setPrizes(pr.filter((x) => !x.archived && x.visibility === 'AWARD_ONLY'));
   }
 
   useEffect(() => {
