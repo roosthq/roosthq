@@ -11,6 +11,7 @@ import {
 } from '../api';
 import MiniGamesKidView, { PoolBadges } from '../MiniGamesKidView';
 import MiniGamePinTumbler from '../MiniGamePinTumbler';
+import PoolEditor from '../PoolEditor';
 import TokenBadge from '../TokenBadge';
 import Modal from '../Modal';
 
@@ -50,83 +51,6 @@ const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean 
 ];
 function gameTypeMeta(value: string) {
   return GAME_TYPES.find((g) => g.value === value) ?? GAME_TYPES[0];
-}
-
-// Compact pool editor - same PoolEntry shape/interaction as AwardsPage's
-// pool builder, written standalone rather than extracted from that file
-// (bigger, higher-risk refactor of an already-shipped feature for a small
-// win). Each row is its own card so it stacks cleanly on a phone instead of
-// wrapping a dozen inline controls onto one cramped line.
-function PoolEditor({ pool, onChange, prizes }: { pool: PoolEntry[]; onChange: (p: PoolEntry[]) => void; prizes: StorePrize[] }) {
-  function update(i: number, patch: Partial<PoolEntry>) {
-    onChange(pool.map((r, idx) => (idx === i ? ({ ...r, ...patch } as PoolEntry) : r)));
-  }
-  function remove(i: number) {
-    onChange(pool.filter((_, idx) => idx !== i));
-  }
-  return (
-    <div className="flex flex-col gap-2">
-      {pool.map((row, i) => (
-        <div key={i} className="rounded border bg-white p-3">
-          <div className="mb-2 flex items-center gap-2">
-            <select
-              value={row.kind}
-              onChange={(e) => {
-                const kind = e.target.value as PoolEntry['kind'];
-                if (kind === 'PRIZE') update(i, { kind, prizeId: prizes[0]?.id ?? '' } as Partial<PoolEntry>);
-                else update(i, { kind, min: 1, max: 5 } as Partial<PoolEntry>);
-              }}
-              className={`${input} w-auto flex-1`}
-            >
-              <option value="TOKENS">Tokens</option>
-              <option value="STREAK_FREEZE">Streak freeze</option>
-              <option value="PRIZE">Prize</option>
-            </select>
-            <button onClick={() => remove(i)} className="shrink-0 text-slate-400 hover:text-red-500" title="Remove">
-              ✕
-            </button>
-          </div>
-          {row.kind === 'PRIZE' ? (
-            <select value={row.prizeId} onChange={(e) => update(i, { prizeId: e.target.value } as Partial<PoolEntry>)} className={input}>
-              {prizes.length === 0 && <option value="">No award-only prizes yet</option>}
-              {prizes.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <div className="grid grid-cols-2 gap-2">
-              <Field label="Min">
-                <input type="number" min={0} value={row.min} onChange={(e) => update(i, { min: Number(e.target.value) } as Partial<PoolEntry>)} className={input} />
-              </Field>
-              <Field label="Max">
-                <input type="number" min={0} value={row.max} onChange={(e) => update(i, { max: Number(e.target.value) } as Partial<PoolEntry>)} className={input} />
-              </Field>
-            </div>
-          )}
-          <div className="mt-2 w-24">
-            <Field label="Weight" help="Odds vs. the other rows">
-              <input type="number" min={1} value={row.weight ?? 1} onChange={(e) => update(i, { weight: Number(e.target.value) } as Partial<PoolEntry>)} className={input} />
-            </Field>
-          </div>
-        </div>
-      ))}
-      <div className="flex flex-wrap gap-2">
-        <button onClick={() => onChange([...pool, { kind: 'TOKENS', min: 5, max: 15, weight: 1 }])} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-          + Tokens
-        </button>
-        <button onClick={() => onChange([...pool, { kind: 'STREAK_FREEZE', min: 1, max: 1, weight: 1 }])} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-          + Freeze
-        </button>
-        {prizes.length > 0 && (
-          <button onClick={() => onChange([...pool, { kind: 'PRIZE', prizeId: prizes[0].id, weight: 1 }])} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
-            + Prize
-          </button>
-        )}
-      </div>
-    </div>
-  );
 }
 
 // PIN_TUMBLER's own knobs - the only gameType wired to a real playable
@@ -254,10 +178,11 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
     const [c, p, pr] = await Promise.all([api.miniGamesCatalog(), api.publishedMiniGames(), api.prizes()]);
     setCatalog(c);
     setPublished(p);
-    // Only AWARD_ONLY prizes are poolable - same rule Award's own pool
-    // builder uses (visibility: 'STORE' prizes are kids' regular purchase
-    // list; only the hidden, surprise-only ones belong in a weighted pool).
-    setPrizes(pr.filter((x) => !x.archived && x.visibility === 'AWARD_ONLY'));
+    // The FULL non-archived list, not pre-filtered to AWARD_ONLY - PoolEditor
+    // (shared with AwardsPage) does that filtering itself for its own picker,
+    // but still needs the full list to show the name of an already-selected
+    // prize even if its visibility later changed to STORE.
+    setPrizes(pr.filter((x) => !x.archived));
   }
 
   useEffect(() => {
