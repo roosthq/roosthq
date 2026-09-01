@@ -65,7 +65,18 @@ function GameDetailModal({
   }
 
   return (
-    <Modal maxWidthClass="max-w-md" header={<h3 className="text-lg font-semibold">{game.miniGame.icon || '🎮'} {game.miniGame.name}</h3>} footer={null}>
+    <Modal
+      maxWidthClass="max-w-md"
+      onBackdropClick={onClose}
+      header={<h3 className="text-lg font-semibold">{game.miniGame.icon || '🎮'} {game.miniGame.name}</h3>}
+      footer={
+        <div className="flex justify-end">
+          <button onClick={onClose} className="rounded border px-3 py-1.5 text-sm">
+            Close
+          </button>
+        </div>
+      }
+    >
       <div className="flex flex-col gap-3">
         {Preview ? (
           <div className="w-full overflow-hidden rounded-xl">
