@@ -43,7 +43,7 @@ const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean 
   { value: 'PIN_TUMBLER', label: 'Pin & Tumbler', icon: '🗝️', ported: true },
   { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: false },
   { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: true },
-  { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: false },
+  { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: true },
   { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: false },
   { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: false },
   { value: 'REACTOR_CALIBRATION', label: 'Reactor Calibration', icon: '☢️', ported: false },
@@ -54,6 +54,16 @@ const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean 
 function gameTypeMeta(value: string) {
   return GAME_TYPES.find((g) => g.value === value) ?? GAME_TYPES[0];
 }
+
+// Default config per gameType, for a brand-new catalog entry - the same
+// defaults each game's own ConfigEditor branch falls back to when a field
+// is missing, just spelled out up front so a fresh "New game" doesn't start
+// with leftover fields from whatever type was picked before it.
+const DEFAULT_CONFIG: Record<string, MiniGameConfig> = {
+  PIN_TUMBLER: { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 },
+  WIRE_SPLICE: { steps: 5, timeLimit: 20, difficulty: 1 },
+  SIGNAL_RELAY: { steps: 6, timeLimit: 40, colors: 4, difficulty: 1 },
+};
 
 // Shared "Difficulty" select - every ported game so far uses the same
 // Easy/Normal/Hard scale, just applied to different knobs underneath.
@@ -83,6 +93,23 @@ function ConfigEditor({ gameType, config, onChange }: { gameType: string; config
         </Field>
         <Field label="Time limit (s)">
           <input type="number" min={10} max={45} value={c.timeLimit ?? 20} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'SIGNAL_RELAY') {
+    const c = config as { steps?: number; timeLimit?: number; colors?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Rounds to win">
+          <input type="number" min={4} max={10} value={c.steps ?? 6} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={20} max={60} value={c.timeLimit ?? 40} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Colors">
+          <input type="number" min={3} max={6} value={c.colors ?? 4} onChange={(e) => onChange({ ...c, colors: Number(e.target.value) })} className={input} />
         </Field>
         <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
       </div>
@@ -125,7 +152,7 @@ function ConsolationFields({
       <Field label="Consolation on loss" help="Flat tokens paid even on a loss">
         <input type="number" min={0} value={loseTokenValue} onChange={(e) => onLoseTokenValue(Number(e.target.value))} className={input} />
       </Field>
-      <Field label="Partial credit per pin">
+      <Field label="Partial credit per step">
         <div className="flex items-center gap-2">
           <input type="checkbox" checked={partialCreditEnabled} onChange={(e) => onPartialCreditEnabled(e.target.checked)} className="h-4 w-4" />
           <input
@@ -468,7 +495,7 @@ function MiniGameFormModal({
       const meta = gameTypeMeta(next);
       setName(meta.label);
       setIcon(meta.icon);
-      setConfig(next === 'WIRE_SPLICE' ? { steps: 5, timeLimit: 20, difficulty: 1 } : { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 });
+      setConfig(DEFAULT_CONFIG[next] ?? DEFAULT_CONFIG.PIN_TUMBLER);
     }
   }
 
