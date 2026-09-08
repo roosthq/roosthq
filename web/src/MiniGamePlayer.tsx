@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { api, DATA_REFRESH_EVENT, type MiniGamePlaySession } from './api';
-import MiniGamePinTumbler, { type MiniGamePlayReport } from './MiniGamePinTumbler';
-import { previewFor } from './miniGamePreviews';
+import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { playFor, previewFor } from './miniGamePreviews';
 
 // Plays out ONE session (a MiniGameGrant or a MiniGamePurchase - identical
 // shape past this point, PLANNING.md §18): shows the pre-drawn "you're
@@ -81,11 +81,8 @@ export default function MiniGamePlayer({
   }
 
   if (phase === 'playing') {
-    // Only PIN_TUMBLER is wired to a real component so far (PLANNING.md §18
-    // build order - Lock Pick first, the other nine port later).
-    if (session.game.gameType === 'PIN_TUMBLER') {
-      return <MiniGamePinTumbler config={session.config} onFinish={handleFinish} />;
-    }
+    const Play = playFor(session.game.gameType);
+    if (Play) return <Play config={session.config} onFinish={handleFinish} />;
     return <p className="p-4 text-center text-sm text-slate-500">This game type isn't playable yet.</p>;
   }
 

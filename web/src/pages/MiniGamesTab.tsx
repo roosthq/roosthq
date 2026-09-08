@@ -11,7 +11,7 @@ import {
   type MiniGamePurchaseRecord,
 } from '../api';
 import MiniGamesKidView, { PoolBadges } from '../MiniGamesKidView';
-import MiniGamePinTumbler from '../MiniGamePinTumbler';
+import { playFor } from '../miniGamePreviews';
 import PoolEditor from '../PoolEditor';
 import TokenBadge from '../TokenBadge';
 import Modal from '../Modal';
@@ -42,7 +42,7 @@ function Field({ label, help, children }: { label: string; help?: string; childr
 const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean }[] = [
   { value: 'PIN_TUMBLER', label: 'Pin & Tumbler', icon: '🗝️', ported: true },
   { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: false },
-  { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: false },
+  { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: true },
   { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: false },
   { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: false },
   { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: false },
@@ -55,10 +55,39 @@ function gameTypeMeta(value: string) {
   return GAME_TYPES.find((g) => g.value === value) ?? GAME_TYPES[0];
 }
 
-// PIN_TUMBLER's own knobs - the only gameType wired to a real playable
-// component so far. Generalizes to a per-gameType schema once more games
-// port over (PLANNING.md §18 build order).
-function ConfigEditor({ config, onChange }: { config: MiniGameConfig; onChange: (c: MiniGameConfig) => void }) {
+// Shared "Difficulty" select - every ported game so far uses the same
+// Easy/Normal/Hard scale, just applied to different knobs underneath.
+function DifficultyField({ value, onChange }: { value: number; onChange: (n: number) => void }) {
+  return (
+    <Field label="Difficulty">
+      <select value={value} onChange={(e) => onChange(Number(e.target.value))} className={input}>
+        <option value={0}>Easy</option>
+        <option value={1}>Normal</option>
+        <option value={2}>Hard</option>
+      </select>
+    </Field>
+  );
+}
+
+// One field set per ported gameType - dispatches the same way gameTypeMeta/
+// previewFor/the playing-phase switch all do (PLANNING.md §18). A type with
+// no real component yet falls back to Pin & Tumbler's shape so the form
+// still has *something* sensible to show before it's ported.
+function ConfigEditor({ gameType, config, onChange }: { gameType: string; config: MiniGameConfig; onChange: (c: MiniGameConfig) => void }) {
+  if (gameType === 'WIRE_SPLICE') {
+    const c = config as { steps?: number; timeLimit?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Wires">
+          <input type="number" min={3} max={7} value={c.steps ?? 5} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={10} max={45} value={c.timeLimit ?? 20} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
   const c = config as { steps?: number; timeLimit?: number; misses?: number; difficulty?: number };
   return (
     <div className="grid grid-cols-2 gap-3">
@@ -71,13 +100,7 @@ function ConfigEditor({ config, onChange }: { config: MiniGameConfig; onChange: 
       <Field label="Misses allowed">
         <input type="number" min={0} max={5} value={c.misses ?? 3} onChange={(e) => onChange({ ...c, misses: Number(e.target.value) })} className={input} />
       </Field>
-      <Field label="Difficulty">
-        <select value={c.difficulty ?? 1} onChange={(e) => onChange({ ...c, difficulty: Number(e.target.value) })} className={input}>
-          <option value={0}>Easy</option>
-          <option value={1}>Normal</option>
-          <option value={2}>Hard</option>
-        </select>
-      </Field>
+      <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
     </div>
   );
 }
@@ -119,7 +142,7 @@ function ConsolationFields({
   );
 }
 
-function TierEditor({ tiers, onChange, prizes }: { tiers: MiniGameTierInput[]; onChange: (t: MiniGameTierInput[]) => void; prizes: StorePrize[] }) {
+function TierEditor({ gameType, tiers, onChange, prizes }: { gameType: string; tiers: MiniGameTierInput[]; onChange: (t: MiniGameTierInput[]) => void; prizes: StorePrize[] }) {
   function update(i: number, patch: Partial<MiniGameTierInput>) {
     onChange(tiers.map((t, idx) => (idx === i ? { ...t, ...patch } : t)));
   }
@@ -143,7 +166,7 @@ function TierEditor({ tiers, onChange, prizes }: { tiers: MiniGameTierInput[]; o
             </button>
           </div>
           <div className="flex flex-col gap-3">
-            <ConfigEditor config={t.config} onChange={(config) => update(i, { config })} />
+            <ConfigEditor gameType={gameType} config={t.config} onChange={(config) => update(i, { config })} />
             <PoolEditor pool={t.pool} onChange={(pool) => update(i, { pool })} prizes={prizes} />
             <ConsolationFields
               loseTokenValue={t.loseTokenValue ?? 0}
@@ -362,12 +385,13 @@ export default function MiniGamesTab({ isAdult, members, tokenIcon }: { isAdult:
 
 // No-stakes preview - no grant/purchase row, no ledger entry, no real pool
 // draw, just the actual game component fed the catalog's own settings.
-// Only PIN_TUMBLER has a real component wired up yet (MiniGamePlayer's own
-// fallback message covers the rest consistently).
+// Dispatches through the same playFor() registry as the real pre-Start
+// screen - a gameType with no entry there falls back to the placeholder.
 function PreviewModal({ game, onClose }: { game: MiniGameCatalogItem; onClose: () => void }) {
   const [key, setKey] = useState(0); // bump to remount = "play again"
   const [result, setResult] = useState<{ won: boolean } | null>(null);
   const meta = gameTypeMeta(game.gameType);
+  const Play = playFor(game.gameType);
 
   return (
     <Modal
@@ -387,7 +411,7 @@ function PreviewModal({ game, onClose }: { game: MiniGameCatalogItem; onClose: (
       }
     >
       <p className="mb-3 text-xs text-slate-400">No tokens, no prize, no grant used - just trying the settings out.</p>
-      {!meta.ported ? (
+      {!Play ? (
         <p className="rounded border p-6 text-center text-sm text-slate-500">
           {meta.label} hasn't been ported into the real app yet - it's playable in the Task Deck prototype for now.
         </p>
@@ -407,7 +431,7 @@ function PreviewModal({ game, onClose }: { game: MiniGameCatalogItem; onClose: (
           </button>
         </div>
       ) : (
-        <MiniGamePinTumbler key={key} config={game.configJson} onFinish={(r) => setResult({ won: r.won })} />
+        <Play key={key} config={game.configJson} onFinish={(r) => setResult({ won: r.won })} />
       )}
     </Modal>
   );
@@ -436,14 +460,15 @@ function MiniGameFormModal({
   const [saving, setSaving] = useState(false);
 
   // Picking a type on a brand-new (unsaved) game fills in its default
-  // icon/name - not a blank slate - but never overwrites what's already
-  // been typed for an existing one.
+  // icon/name/config - not a blank slate - but never overwrites what's
+  // already been typed for an existing one.
   function pickGameType(next: string) {
     setGameType(next);
     if (!game) {
       const meta = gameTypeMeta(next);
       setName(meta.label);
       setIcon(meta.icon);
+      setConfig(next === 'WIRE_SPLICE' ? { steps: 5, timeLimit: 20, difficulty: 1 } : { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 });
     }
   }
 
@@ -504,7 +529,7 @@ function MiniGameFormModal({
         </Field>
         <div>
           <h4 className="mb-2 text-sm font-semibold">Default settings</h4>
-          <ConfigEditor config={config} onChange={setConfig} />
+          <ConfigEditor gameType={gameType} config={config} onChange={setConfig} />
         </div>
         <div>
           <h4 className="mb-2 text-sm font-semibold">Default prize pool</h4>
@@ -592,7 +617,7 @@ function GrantModal({
         <p className="text-xs text-slate-400">Prefilled from the catalog defaults - edit freely, only this one play uses it.</p>
         <div>
           <h4 className="mb-2 text-sm font-semibold">Settings</h4>
-          <ConfigEditor config={config} onChange={setConfig} />
+          <ConfigEditor gameType={game.gameType} config={config} onChange={setConfig} />
         </div>
         <div>
           <h4 className="mb-2 text-sm font-semibold">Prize pool</h4>
@@ -686,7 +711,7 @@ function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCa
       <div className="flex flex-col gap-4">
         <p className="text-xs text-slate-400">Started with Easy/Normal/Hard - edit, remove, or add as many tiers as you want. Each has its own price, settings, pool, and consolation.</p>
         <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
-        <TierEditor tiers={tiers} onChange={setTiers} prizes={prizes} />
+        <TierEditor gameType={game.gameType} tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
     </Modal>
   );
@@ -728,7 +753,7 @@ function EditTiersModal({ published, prizes, onClose, onSaved }: { published: Pu
     >
       <div className="flex flex-col gap-4">
         <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
-        <TierEditor tiers={tiers} onChange={setTiers} prizes={prizes} />
+        <TierEditor gameType={published.miniGame.gameType} tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
     </Modal>
   );
