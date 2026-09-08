@@ -41,15 +41,15 @@ function Field({ label, help, children }: { label: string; help?: string; childr
 // real game until they're ported.
 const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean }[] = [
   { value: 'PIN_TUMBLER', label: 'Pin & Tumbler', icon: '🗝️', ported: true },
-  { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: false },
+  { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: true },
   { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: true },
   { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: true },
   { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: true },
-  { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: false },
-  { value: 'REACTOR_CALIBRATION', label: 'Reactor Calibration', icon: '☢️', ported: false },
-  { value: 'BUG_ZAPPER', label: 'Bug Zapper', icon: '🪲', ported: false },
-  { value: 'CIRCUIT_MATCH', label: 'Circuit Match', icon: '🧩', ported: false },
-  { value: 'CODE_BREAKER', label: 'Code Breaker', icon: '💻', ported: false },
+  { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: true },
+  { value: 'REACTOR_CALIBRATION', label: 'Reactor Calibration', icon: '☢️', ported: true },
+  { value: 'BUG_ZAPPER', label: 'Bug Zapper', icon: '🪲', ported: true },
+  { value: 'CIRCUIT_MATCH', label: 'Circuit Match', icon: '🧩', ported: true },
+  { value: 'CODE_BREAKER', label: 'Code Breaker', icon: '💻', ported: true },
 ];
 function gameTypeMeta(value: string) {
   return GAME_TYPES.find((g) => g.value === value) ?? GAME_TYPES[0];
@@ -61,9 +61,15 @@ function gameTypeMeta(value: string) {
 // with leftover fields from whatever type was picked before it.
 const DEFAULT_CONFIG: Record<string, MiniGameConfig> = {
   PIN_TUMBLER: { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 },
+  SAFE_CRACKER: { steps: 3, timeLimit: 35, misses: 3, difficulty: 1 },
   WIRE_SPLICE: { steps: 5, timeLimit: 20, difficulty: 1 },
   SIGNAL_RELAY: { steps: 6, timeLimit: 40, colors: 4, difficulty: 1 },
   CARGO_SORT: { steps: 6, timeLimit: 25, difficulty: 1 },
+  FUSE_TRACE: { steps: 3, timeLimit: 25, difficulty: 1 },
+  REACTOR_CALIBRATION: { timeLimit: 25, holdGoal: 2, difficulty: 1 },
+  BUG_ZAPPER: { steps: 12, timeLimit: 18, difficulty: 1 },
+  CIRCUIT_MATCH: { steps: 5, timeLimit: 35, difficulty: 1 },
+  CODE_BREAKER: { steps: 4, timeLimit: 50, guesses: 7, difficulty: 1 },
 };
 
 // Shared "Difficulty" select - every ported game so far uses the same
@@ -133,6 +139,114 @@ function ConfigEditor({ gameType, config, onChange }: { gameType: string; config
           <input type="number" min={3} max={6} value={c.colors ?? 4} onChange={(e) => onChange({ ...c, colors: Number(e.target.value) })} className={input} />
         </Field>
         <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'SAFE_CRACKER') {
+    const c = config as { steps?: number; timeLimit?: number; misses?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Digits">
+          <input type="number" min={2} max={5} value={c.steps ?? 3} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={15} max={60} value={c.timeLimit ?? 35} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Bad sets allowed">
+          <input type="number" min={0} max={5} value={c.misses ?? 3} onChange={(e) => onChange({ ...c, misses: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Difficulty" help="Easy shows the target number + a lit zone">
+          <select value={c.difficulty ?? 1} onChange={(e) => onChange({ ...c, difficulty: Number(e.target.value) })} className={input}>
+            <option value={0}>Easy (show hints)</option>
+            <option value={1}>Normal (blind)</option>
+            <option value={2}>Hard (blind)</option>
+          </select>
+        </Field>
+      </div>
+    );
+  }
+  if (gameType === 'FUSE_TRACE') {
+    const c = config as { steps?: number; timeLimit?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Stages">
+          <input type="number" min={1} max={6} value={c.steps ?? 3} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={10} max={60} value={c.timeLimit ?? 25} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'REACTOR_CALIBRATION') {
+    const c = config as { timeLimit?: number; holdGoal?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Time limit (s)">
+          <input type="number" min={15} max={45} value={c.timeLimit ?? 25} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Hold duration (s)">
+          <input type="number" min={1} max={4} step={0.5} value={c.holdGoal ?? 2} onChange={(e) => onChange({ ...c, holdGoal: Number(e.target.value) })} className={input} />
+        </Field>
+        <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'BUG_ZAPPER') {
+    const c = config as { steps?: number; timeLimit?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Zaps needed">
+          <input type="number" min={6} max={20} value={c.steps ?? 12} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={10} max={30} value={c.timeLimit ?? 18} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'CIRCUIT_MATCH') {
+    const c = config as { steps?: number; timeLimit?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Pairs">
+          <input type="number" min={3} max={8} value={c.steps ?? 5} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={15} max={60} value={c.timeLimit ?? 35} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Difficulty" help="Easy peeks every tile first">
+          <select value={c.difficulty ?? 1} onChange={(e) => onChange({ ...c, difficulty: Number(e.target.value) })} className={input}>
+            <option value={0}>Easy (peek first)</option>
+            <option value={1}>Normal</option>
+            <option value={2}>Hard</option>
+          </select>
+        </Field>
+      </div>
+    );
+  }
+  if (gameType === 'CODE_BREAKER') {
+    const c = config as { steps?: number; timeLimit?: number; guesses?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Code length">
+          <input type="number" min={3} max={5} value={c.steps ?? 4} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={30} max={90} value={c.timeLimit ?? 50} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Max guesses">
+          <input type="number" min={4} max={10} value={c.guesses ?? 7} onChange={(e) => onChange({ ...c, guesses: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Difficulty" help="Digit range each wheel can land on">
+          <select value={c.difficulty ?? 1} onChange={(e) => onChange({ ...c, difficulty: Number(e.target.value) })} className={input}>
+            <option value={0}>Easy (0-3)</option>
+            <option value={1}>Normal (0-5)</option>
+            <option value={2}>Hard (0-7)</option>
+          </select>
+        </Field>
       </div>
     );
   }
