@@ -21,7 +21,11 @@ export const SOUND_SLOTS: { id: string; label: string; help: string }[] = [
 ];
 
 let audioCtx: AudioContext | null = null;
-function ctx(): AudioContext {
+// Exported so gameSfx.ts (mini-games' own interaction cues - click/hit/
+// miss/notch/etc.) shares this SAME lazily-created context instead of
+// making a second one - some browsers cap how many unclosed AudioContexts
+// can exist on one page at once.
+export function ctx(): AudioContext {
   audioCtx ??= new AudioContext();
   if (audioCtx.state === 'suspended') void audioCtx.resume();
   return audioCtx;

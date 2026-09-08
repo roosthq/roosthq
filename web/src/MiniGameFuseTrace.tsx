@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Fuse Trace" from the Task Deck prototype (PLANNING.md §18)
 // - drag the live wire from spark to socket without touching the rails;
@@ -149,6 +150,7 @@ export default function MiniGameFuseTrace({
         tracing = true;
         progress = near.tt;
         trail = [p];
+        gameSfx.click();
       }
     }
     let failTimer = 0;
@@ -156,11 +158,13 @@ export default function MiniGameFuseTrace({
       if (done || failing) return;
       failing = true;
       tracing = false;
+      gameSfx.miss();
       draw();
       failTimer = window.setTimeout(() => finish(false), 280);
     }
     function clearedStage() {
       tracing = false;
+      gameSfx.hit();
       stageIdx++;
       if (stageIdx >= N) {
         finish(true);

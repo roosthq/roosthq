@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Code Breaker" (Mastermind-lite) from the Task Deck
 // prototype (PLANNING.md §18) - guess the hidden digit code; green = right
@@ -82,10 +83,12 @@ export default function MiniGameCodeBreaker({
       up.addEventListener('click', () => {
         guess[i] = (guess[i] + 1) % RANGE;
         val.textContent = String(guess[i]);
+        gameSfx.click();
       });
       down.addEventListener('click', () => {
         guess[i] = (guess[i] + RANGE - 1) % RANGE;
         val.textContent = String(guess[i]);
+        gameSfx.click();
       });
       col.appendChild(up);
       col.appendChild(val);
@@ -134,9 +137,11 @@ export default function MiniGameCodeBreaker({
       row.appendChild(dots);
       history.prepend(row);
       if (exact === N) {
+        gameSfx.hit();
         finish(true);
         return;
       }
+      gameSfx.click();
       triesLeft--;
       submitBtn.textContent = `Submit guess (${triesLeft} left)`;
       if (triesLeft <= 0) finish(false);

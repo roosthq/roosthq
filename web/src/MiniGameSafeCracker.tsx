@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Safe Cracker" (rotary combo dial) from the Task Deck
 // prototype (PLANNING.md §18) - drag the dial until you hear the click,
@@ -205,6 +206,16 @@ export default function MiniGameSafeCracker({
       return diff < tol;
     }
     const SENS = 0.045;
+    // Sound is deliberately down to ONE cue during the actual drag - no
+    // click on grab, no tick per pixel - only notch() the instant the dial
+    // crosses INTO the combo zone (wasIn tracks the edge so it fires once,
+    // not every frame it's still inside).
+    let wasIn = false;
+    function checkNotch() {
+      const nowIn = within();
+      if (nowIn && !wasIn) gameSfx.notch();
+      wasIn = nowIn;
+    }
     function onDown(e: PointerEvent) {
       dragging = true;
       lastX = e.clientX;
@@ -216,6 +227,7 @@ export default function MiniGameSafeCracker({
       rawAngle += dx * SENS;
       angle = Math.round(rawAngle / STEP) * STEP;
       lastX = e.clientX;
+      checkNotch();
       draw();
       e.preventDefault();
     }
@@ -225,6 +237,7 @@ export default function MiniGameSafeCracker({
     function onSet() {
       if (done) return;
       if (within()) {
+        gameSfx.hit();
         idx++;
         if (idx >= N) {
           finish(true);
@@ -232,7 +245,9 @@ export default function MiniGameSafeCracker({
         }
         targetNum = Math.floor(Math.random() * 40);
         tol = tolFor(idx);
+        wasIn = false;
       } else {
+        gameSfx.miss();
         missed++;
         if (missed > missesAllowed) {
           finish(false);

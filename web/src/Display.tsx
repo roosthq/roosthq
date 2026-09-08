@@ -24,6 +24,7 @@ import LevelBadge from './LevelBadge';
 import LucideIcon from './LucideIcon';
 import Calendar from './Calendar';
 import { celebrate, setCelebrationSound } from './celebrate';
+import KioskTestPanel from './KioskTestPanel';
 import { setTokensBadgeEnabled } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
@@ -125,6 +126,7 @@ export default function Display() {
   const [revealedCountdowns, setRevealedCountdowns] = useState<Set<string>>(new Set());
   const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
+  const [testPanelOpen, setTestPanelOpen] = useState(false);
   // #9 - its own button, not tucked inside My Stats (an extra step that
   // doesn't make sense when they can't get to My Stats' content anyway once
   // it's frozen - see the presence-freeze wrapper below). Uses the same
@@ -851,6 +853,15 @@ export default function Display() {
               </button>
             </div>
           )}
+          {active?.user.role === 'OWNER' && (
+            <button
+              onClick={() => setTestPanelOpen(true)}
+              title="Kiosk test panel - preview games, test sounds"
+              className="kiosk-compact-btn rounded border px-2 py-1 text-sm text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            >
+              🔧
+            </button>
+          )}
           {config.id && (
             <button
               onClick={toggleTheme}
@@ -1355,6 +1366,8 @@ export default function Display() {
           onClose={() => setKioskStatsOpen(false)}
         />
       )}
+
+      {testPanelOpen && <KioskTestPanel config={config} onClose={() => setTestPanelOpen(false)} />}
 
       {presenceOpen && active && myPresence && (
         <PresenceModal

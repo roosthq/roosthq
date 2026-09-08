@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Bug Zapper" from the Task Deck prototype (PLANNING.md §18)
 // - tap each bug before it scurries off; reach the zap quota before time
@@ -71,6 +72,7 @@ export default function MiniGameBugZapper({
       bug.addEventListener('pointerdown', (e) => {
         e.stopPropagation();
         clearTimeout(escape);
+        gameSfx.zap();
         bug.textContent = '⚡';
         bug.style.filter = 'drop-shadow(0 0 10px #f2c14e)';
         bug.style.transform = 'translate(-50%,-50%) scale(1.35)';

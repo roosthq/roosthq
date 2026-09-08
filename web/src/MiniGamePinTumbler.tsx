@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
+import { gameSfx } from './gameSfx';
 
 // Real port of the "Pin & Tumbler" prototype from the Task Deck artifact
 // (PLANNING.md §18) - Lock Pick, reskinned as an actual pin-and-tumbler
@@ -7,10 +8,8 @@ import type { MiniGameConfig } from './api';
 // faster rise than the last; tap the stage the instant a pin's window
 // crosses the fixed shear line.
 //
-// Deliberately no sound yet - the prototype's synthesized SFX engine hasn't
-// been ported into the real app's own sound system (celebrate.ts/
-// soundAssignments) yet; flagging that gap rather than silently shipping
-// without it.
+// Sound: gameSfx (own module, ported from the prototype's SFX engine) -
+// hit/miss on each pick, same as the deck's own mount().
 export interface MiniGamePinTumblerConfig extends MiniGameConfig {
   steps?: number; // pin count, 3-7, default 5
   timeLimit?: number; // seconds, default 25
@@ -245,6 +244,7 @@ export default function MiniGamePinTumbler({
     function onPick() {
       if (done) return;
       if (within()) {
+        gameSfx.hit();
         idx++;
         if (idx >= N) {
           finish(true);
@@ -252,6 +252,7 @@ export default function MiniGamePinTumbler({
         }
         pin = mk(idx);
       } else {
+        gameSfx.miss();
         missed++;
         if (missed > missesAllowed) {
           finish(false);

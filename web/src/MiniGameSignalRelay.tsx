@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Signal Relay" (Simon-Says) from the Task Deck prototype
 // (PLANNING.md §18) - watch the panel light up, then repeat the sequence;
@@ -15,6 +16,7 @@ export interface MiniGameSignalRelayConfig extends MiniGameConfig {
 }
 
 const COLORS = ['#ef5468', '#f2c14e', '#5ec8f2', '#7dd87d', '#c77dff', '#f28c5e'];
+const FREQ = [329.6, 392.0, 261.6, 220.0, 293.7, 246.9];
 
 export default function MiniGameSignalRelay({
   config,
@@ -92,6 +94,7 @@ export default function MiniGameSignalRelay({
         await new Promise((r) => setTimeout(r, PACE.gap));
         if (cancelled) return;
         lightUp(seq[i]);
+        gameSfx.note(FREQ[seq[i]], 0.3);
       }
       await new Promise((r) => setTimeout(r, 400));
       if (cancelled) return;
@@ -108,10 +111,12 @@ export default function MiniGameSignalRelay({
       pad.addEventListener('pointerdown', () => {
         if (!accepting || done) return;
         lightUp(i, 180);
+        gameSfx.note(FREQ[i], 0.3);
         if (seq[userIdx] === i) {
           userIdx++;
           if (userIdx === seq.length) {
             accepting = false;
+            gameSfx.hit();
             if (seq.length >= N) {
               finish(true, seq.length);
               return;
@@ -120,6 +125,7 @@ export default function MiniGameSignalRelay({
           }
         } else {
           accepting = false;
+          gameSfx.miss();
           finish(false, seq.length - 1);
         }
       });

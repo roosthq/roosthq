@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Wire Splice" from the Task Deck prototype (PLANNING.md §18)
 // - drag each colored lead on the left to its matching post on the right
@@ -228,6 +229,7 @@ export default function MiniGameWireSplice({
         pointerX = leftPosts[i].x;
         pointerY = leftPosts[i].y;
         if (!ropes[i]) ropes[i] = makeRope(leftPosts[i].x, leftPosts[i].y, pointerX, pointerY);
+        gameSfx.click();
         e.preventDefault();
       };
     }
@@ -254,10 +256,12 @@ export default function MiniGameWireSplice({
         }
       }
       if (best && best.color === idx && !connected[idx]) {
+        gameSfx.hit();
         connected[idx] = true;
         best.el.style.background = COLORS[idx];
         if (connected.every(Boolean)) finish(true);
       } else {
+        if (best) gameSfx.miss();
         ropes[idx] = null;
         if (ropePaths[idx]) {
           svg.removeChild(ropePaths[idx]!);

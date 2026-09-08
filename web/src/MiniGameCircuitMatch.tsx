@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Circuit Match" from the Task Deck prototype (PLANNING.md
 // §18) - flip two tiles at a time, match the symbol to keep it, find every
@@ -75,6 +76,7 @@ export default function MiniGameCircuitMatch({
         tile.dataset.state = 'open';
         tile.textContent = sym;
         tile.style.background = '#2c3140';
+        gameSfx.click();
         open.push(tile);
         if (open.length === 2) {
           lock = true;
@@ -84,11 +86,13 @@ export default function MiniGameCircuitMatch({
               t.style.background = 'rgba(79,224,201,0.18)';
               t.style.borderColor = '#4fe0c9';
             });
+            gameSfx.hit();
             solved++;
             open = [];
             lock = false;
             if (solved >= N) finish(true);
           } else {
+            gameSfx.miss();
             setTimeout(() => {
               open.forEach((t) => {
                 t.dataset.state = 'closed';

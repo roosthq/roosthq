@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { MiniGameConfig } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
+import { gameSfx } from './gameSfx';
 
 // Real port of "Reactor Calibration" from the Task Deck prototype
 // (PLANNING.md §18) - tap-and-hold the left/right half of the stage to
@@ -174,15 +175,20 @@ export default function MiniGameReactorCalibration({
         held = Math.max(0, held - dt * 1.5);
         outTime += dt;
         if (outTime > GRACE) heat = Math.min(1, heat + dt * HEAT_RATE);
-        if (heat > 0.7 && !warned) warned = true;
+        if (heat > 0.7 && !warned) {
+          warned = true;
+          gameSfx.warn();
+        }
         if (heat < 0.5) warned = false;
       }
       draw();
       if (heat >= 1) {
+        gameSfx.miss();
         finish(false);
         return;
       }
       if (held >= holdGoal) {
+        gameSfx.hit();
         finish(true);
         return;
       }
