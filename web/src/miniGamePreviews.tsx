@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import MiniGamePinTumbler, { MiniGamePinTumblerPreview, type MiniGamePlayReport } from './MiniGamePinTumbler';
 import MiniGameWireSplice, { MiniGameWireSplicePreview } from './MiniGameWireSplice';
 import MiniGameSignalRelay, { MiniGameSignalRelayPreview } from './MiniGameSignalRelay';
+import MiniGameCargoSort, { MiniGameCargoSortPreview } from './MiniGameCargoSort';
 import type { MiniGameConfig } from './api';
 
 // One shared registry for "which real component does this gameType have" -
@@ -13,11 +14,13 @@ const PLAY: Record<string, (props: { config: MiniGameConfig; onFinish: (report: 
   PIN_TUMBLER: MiniGamePinTumbler,
   WIRE_SPLICE: MiniGameWireSplice,
   SIGNAL_RELAY: MiniGameSignalRelay,
+  CARGO_SORT: MiniGameCargoSort,
 };
 const PREVIEW: Record<string, () => ReactElement> = {
   PIN_TUMBLER: MiniGamePinTumblerPreview,
   WIRE_SPLICE: MiniGameWireSplicePreview,
   SIGNAL_RELAY: MiniGameSignalRelayPreview,
+  CARGO_SORT: MiniGameCargoSortPreview,
 };
 
 export function playFor(gameType: string) {

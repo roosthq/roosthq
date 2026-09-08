@@ -44,7 +44,7 @@ const GAME_TYPES: { value: string; label: string; icon: string; ported: boolean 
   { value: 'SAFE_CRACKER', label: 'Safe Cracker', icon: '🔐', ported: false },
   { value: 'WIRE_SPLICE', label: 'Wire Splice', icon: '🔌', ported: true },
   { value: 'SIGNAL_RELAY', label: 'Signal Relay', icon: '📡', ported: true },
-  { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: false },
+  { value: 'CARGO_SORT', label: 'Cargo Sort', icon: '📦', ported: true },
   { value: 'FUSE_TRACE', label: 'Fuse Trace', icon: '⚡', ported: false },
   { value: 'REACTOR_CALIBRATION', label: 'Reactor Calibration', icon: '☢️', ported: false },
   { value: 'BUG_ZAPPER', label: 'Bug Zapper', icon: '🪲', ported: false },
@@ -63,6 +63,7 @@ const DEFAULT_CONFIG: Record<string, MiniGameConfig> = {
   PIN_TUMBLER: { steps: 5, timeLimit: 25, misses: 3, difficulty: 1 },
   WIRE_SPLICE: { steps: 5, timeLimit: 20, difficulty: 1 },
   SIGNAL_RELAY: { steps: 6, timeLimit: 40, colors: 4, difficulty: 1 },
+  CARGO_SORT: { steps: 6, timeLimit: 25, difficulty: 1 },
 };
 
 // Shared "Difficulty" select - every ported game so far uses the same
@@ -95,6 +96,26 @@ function ConfigEditor({ gameType, config, onChange }: { gameType: string; config
           <input type="number" min={10} max={45} value={c.timeLimit ?? 20} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
         </Field>
         <DifficultyField value={c.difficulty ?? 1} onChange={(difficulty) => onChange({ ...c, difficulty })} />
+      </div>
+    );
+  }
+  if (gameType === 'CARGO_SORT') {
+    const c = config as { steps?: number; timeLimit?: number; difficulty?: number };
+    return (
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Crates">
+          <input type="number" min={4} max={8} value={c.steps ?? 6} onChange={(e) => onChange({ ...c, steps: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Time limit (s)">
+          <input type="number" min={10} max={45} value={c.timeLimit ?? 25} onChange={(e) => onChange({ ...c, timeLimit: Number(e.target.value) })} className={input} />
+        </Field>
+        <Field label="Difficulty" help="Hard hides numbers until touched">
+          <select value={c.difficulty ?? 1} onChange={(e) => onChange({ ...c, difficulty: Number(e.target.value) })} className={input}>
+            <option value={0}>Easy</option>
+            <option value={1}>Normal</option>
+            <option value={2}>Hard</option>
+          </select>
+        </Field>
       </div>
     );
   }
