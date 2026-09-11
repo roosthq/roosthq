@@ -497,6 +497,7 @@ model User {
   eduGrades                 UserSubjectGrade[]    @relation("EduGradeUser")
   eduGradesSet              UserSubjectGrade[]    @relation("EduGradeSetBy")
   eduSessions               EduSession[]          @relation("EduSessionUser")
+  eduProgress               EduQuestionProgress[] @relation("EduProgressUser")
   learningGamesSettingsUpdated LearningGamesSettings[]
 
   @@index([familyId])
@@ -1160,8 +1161,14 @@ model LearningGamesSettings {
 }
 
 // Per-kid, per-subject grade level - adult-set, defaulted once from
-// User.birthday at first creation, never auto-advanced after that (a kid
-// moving up a grade mid-year is an adult's call, not a birthday trigger).
+// User.birthday at first creation, never auto-advanced BY BIRTHDAY after
+// that (a kid moving up a grade mid-year off the calendar is an adult's
+// call, not a birthday trigger). A second, separate auto-promotion path
+// DOES exist (Casey's own instruction, 2026-09): mastering every question
+// in the current grade's bank bumps this automatically - see
+// LearningService.maybePromote. That one's earned, not calendar-driven,
+// so it's a deliberate exception to "never auto-advance", not a
+// contradiction of it.
 model UserSubjectGrade {
   userId    String
   subject   String // MATH | READING | SCIENCE | SPELLING
@@ -1193,17 +1200,54 @@ model EduQuestion {
   // LearningService.checkAnswer
   tags        Json    @default("[]") // topic tags for later weak-spot
   // targeting - not used by the first build's least-recently-asked selection
+  // Optional illustration for a word problem - {kind, ...params}, rendered
+  // client-side by QuestionVisual.tsx (hand-drawn SVG icons, not emoji or
+  // the site's icon-substitution system - Casey's own "real graphics, not
+  // everything as plain text" feedback). null for a plain arithmetic prompt
+  // that doesn't need one.
+  visualJson  Json?
   active      Boolean @default(true)
 
+  progress EduQuestionProgress[]
+
   @@index([subject, grade])
+}
+
+// Per-kid, per-question latest outcome - Casey's own instruction: track
+// what's been answered right/wrong so wrong ones can be resurfaced later,
+// AND so "answered every question in this grade correctly" can be detected
+// to auto-promote a grade (see LearningService.finishSession). One row per
+// (user, question); `correct` is the LATEST attempt's result, not a
+// history - a question missed once then gotten right later flips back to
+// true and stops being resurfaced as a "still wrong" priority pick.
+// subject/grade are denormalized off the question so the "every question
+// in this grade mastered?" count is one indexed query, not a join.
+model EduQuestionProgress {
+  userId     String
+  questionId String
+  subject    String
+  grade      Int
+  correct    Boolean
+  attempts   Int      @default(1)
+  updatedAt  DateTime @updatedAt
+
+  user     User        @relation("EduProgressUser", fields: [userId], references: [id], onDelete: Cascade)
+  question EduQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, questionId])
+  @@index([userId, subject, grade])
 }
 
 // One kid's play-through of one subject session: 5 questions, an arcade
 // break, 5 more questions, then a result screen. `status` tracks which phase
 // it's in - a session left BLOCK_A/BREAK/BLOCK_B when its tab goes away
-// stays there; unlike MiniGameGrant there's no forfeit sweep, since nothing
-// was pre-drawn or charged up front to claw back - it just sits unfinished
-// and a fresh "start" call makes a new one.
+// just sits unfinished and a fresh "start" call makes a new one; unlike
+// MiniGameGrant there's no forfeit sweep needed because there's nothing TO
+// claw back - see `tokensAwarded` below, real payout only happens at DONE
+// now (Casey's own instruction, 2026-09: "tokens don't get earned at all
+// until finished" - an abandoned session was already earning per question
+// before this, silently, which is the opposite of what a "game" should feel
+// like).
 model EduSession {
   id              String    @id @default(cuid())
   userId          String
@@ -1214,6 +1258,10 @@ model EduSession {
   roundsJson      Json      @default("[]") // [{questionId, given, correct}],
   // both blocks appended in play order - the arcade break isn't a "round",
   // it has no answer to record
+  // Running tally shown to the kid live as they play ("5 so far") - NOT
+  // written to TokenLedger until DONE, where the real payout happens in one
+  // shot. Finishing the session is what makes it real; quitting early earns
+  // nothing, on purpose.
   tokensAwarded   Int       @default(0)
   allCorrect      Boolean   @default(false)
   bonusPoolJson   Json? // only set + rolled if allCorrect - same PoolEntry[]

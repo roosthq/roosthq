@@ -622,11 +622,20 @@ export interface LearningGamesSettings {
   bonusPool: PoolEntry[];
 }
 
+// Optional word-problem illustration - rendered by QuestionVisual.tsx as
+// hand-drawn SVG icons (apple/star/cookie/balloon), not emoji or the site's
+// icon-substitution system. 'count' = one group of N icons; 'combine' = two
+// groups with a + between them (Sam has A apples, gets B more...).
+export type EduQuestionVisual =
+  | { kind: 'count'; item: 'apple' | 'star' | 'cookie' | 'balloon'; n: number }
+  | { kind: 'combine'; item: 'apple' | 'star' | 'cookie' | 'balloon'; a: number; b: number };
+
 export interface EduQuestionForPlay {
   id: string;
   type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
   prompt: string;
   choices: string[] | null; // answer is never sent to the client
+  visual: EduQuestionVisual | null;
 }
 
 export interface EduSessionStart {
@@ -645,6 +654,10 @@ export interface EduAnswerResult {
   allCorrect?: boolean;
   bonusTokens?: number;
   bonusPrizeId?: string | null;
+  // Set only on the DONE answer, only if mastering every active question in
+  // this grade's bank just bumped the kid up a grade (LearningService.
+  // maybePromote) - the new grade number, for a "leveled up!" banner.
+  promotedTo?: number | null;
 }
 
 export interface EduAdvanceResult {

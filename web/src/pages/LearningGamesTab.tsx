@@ -14,6 +14,7 @@ import RocketRacer from '../RocketRacer';
 import { celebrate } from '../celebrate';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
+import QuestionVisual from '../QuestionVisual';
 
 // Learning games (PLANNING.md §19) - grade-level quiz per subject, a
 // subject-specific arcade break in the middle, tokens per correct answer,
@@ -185,7 +186,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   const [given, setGiven] = useState('');
   const [feedback, setFeedback] = useState<{ correct: boolean; correctAnswer: string } | null>(null);
   const [sessionTokens, setSessionTokens] = useState(0);
-  const [summary, setSummary] = useState<{ allCorrect: boolean; bonusTokens: number } | null>(null);
+  const [summary, setSummary] = useState<{ allCorrect: boolean; bonusTokens: number; promotedTo: number | null } | null>(null);
   // Set when a subject has no question bank yet for this kid's grade
   // (Reading/Science/Spelling as of PLANNING.md §19's first build - only
   // Math has content). Without this, starting one of them failed silently:
@@ -217,7 +218,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     setSessionTokens((t) => t + result.tokensAwarded);
     setPhase('FEEDBACK');
     if (result.phase === 'DONE') {
-      setSummary({ allCorrect: !!result.allCorrect, bonusTokens: result.bonusTokens ?? 0 });
+      setSummary({ allCorrect: !!result.allCorrect, bonusTokens: result.bonusTokens ?? 0, promotedTo: result.promotedTo ?? null });
     }
   }
 
@@ -257,7 +258,10 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   if (phase === 'PICK_SUBJECT' || phase === 'STARTING') {
     return (
       <div className="mt-4">
-        <p className="text-sm text-slate-500">Pick a subject to play - 5 questions, a quick break, 5 more, tokens for every one you get right.</p>
+        <p className="text-sm text-slate-500">
+          Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish -
+          quitting early earns nothing, so see it through!
+        </p>
         {startError && <p className="mt-2 text-sm text-red-500">{startError}</p>}
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {EDU_SUBJECTS.map((s) => (
@@ -295,6 +299,11 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
             Got every question right - <TokenBadge icon={tokenIcon} amount={`+${summary.bonusTokens}`} label="bonus" />
           </p>
         )}
+        {summary.promotedTo !== null && (
+          <p className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
+            🎉 Leveled up to {GRADE_LABELS[summary.promotedTo]} grade!
+          </p>
+        )}
         <button
           onClick={(e) => {
             celebrate(e.currentTarget, 'choreCompleted');
@@ -318,8 +327,9 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
           <span>
             Question {index + 1} of {questions.length}
           </span>
-          <TokenBadge icon={tokenIcon} amount={sessionTokens} />
+          <TokenBadge icon={tokenIcon} amount={sessionTokens} label="so far" />
         </div>
+        <QuestionVisual visual={q.visual} />
         <p className="text-lg font-semibold">{q.prompt}</p>
 
         {phase === 'QUESTION' && (

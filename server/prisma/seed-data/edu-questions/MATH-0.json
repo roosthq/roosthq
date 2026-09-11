@@ -1,11 +1,25 @@
 [
   { "type": "MULTIPLE_CHOICE", "prompt": "Which number comes right after 7?", "choicesJson": ["6", "8", "9", "5"], "answer": "8", "tags": ["counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "How many stars: ⭐⭐⭐⭐?", "choicesJson": ["3", "4", "5", "6"], "answer": "4", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "How many stars are there?", "visualJson": { "kind": "count", "item": "star", "n": 4 }, "choicesJson": ["3", "4", "5", "6"], "answer": "4", "tags": ["counting"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "Which number is bigger, 5 or 9?", "choicesJson": ["5", "9"], "answer": "9", "tags": ["comparing"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "What shape has 3 sides?", "choicesJson": ["Circle", "Square", "Triangle", "Rectangle"], "answer": "Triangle", "tags": ["shapes"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "What shape is round with no corners?", "choicesJson": ["Square", "Triangle", "Circle", "Star"], "answer": "Circle", "tags": ["shapes"] },
   { "type": "TEXT_INPUT", "prompt": "2 + 1 = ?", "answer": "3", "tags": ["addition"] },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Sam has 3 apples. His friend gives him 2 more. How many apples does Sam have now?",
+    "visualJson": { "kind": "combine", "item": "apple", "a": 3, "b": 2 },
+    "answer": "5",
+    "tags": ["addition", "word-problem"]
+  },
   { "type": "TEXT_INPUT", "prompt": "3 + 2 = ?", "answer": "5", "tags": ["addition"] },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 2 cookies on a plate. Mom adds 3 more. How many cookies are on the plate now?",
+    "visualJson": { "kind": "combine", "item": "cookie", "a": 2, "b": 3 },
+    "answer": "5",
+    "tags": ["addition", "word-problem"]
+  },
   { "type": "TEXT_INPUT", "prompt": "4 - 1 = ?", "answer": "3", "tags": ["subtraction"] },
   { "type": "TEXT_INPUT", "prompt": "5 - 3 = ?", "answer": "2", "tags": ["subtraction"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "Which group has MORE apples: 2 apples or 6 apples?", "choicesJson": ["2 apples", "6 apples"], "answer": "6 apples", "tags": ["comparing"] },

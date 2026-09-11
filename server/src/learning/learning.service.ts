@@ -185,35 +185,75 @@ export class LearningService {
     return this.defaultGrade(u?.birthday ?? null);
   }
 
-  // Least-recently-asked, not fully random - otherwise a 20-question bank
-  // repeats the same handful constantly. Looks at this user's last 5
-  // sessions for this subject to build an exclude set; falls back to the
-  // full bank once it's actually exhausted rather than erroring.
+  // Priority-ordered, not fully random - Casey's own instruction: resurface
+  // questions this kid has gotten wrong before (and hasn't since fixed)
+  // ahead of everything else, so a session actually works toward "answered
+  // everything right eventually" instead of just cycling. Priority:
+  // 1. still-wrong (EduQuestionProgress.correct === false)
+  // 2. never attempted at all
+  // 3. already-mastered, oldest-mastered first (fallback once the other
+  //    two buckets are empty - e.g. this kid has genuinely gotten
+  //    everything right and is just waiting to be promoted a grade)
   private async pickQuestions(subject: string, grade: number, userId: string, excludeIds: string[], count: number) {
-    const recentSessions = await this.prisma.eduSession.findMany({
-      where: { userId, subject },
-      orderBy: { startedAt: 'desc' },
-      take: 5,
-      select: { roundsJson: true },
-    });
-    const recentlyAsked = new Set<string>(excludeIds);
-    for (const s of recentSessions) {
-      for (const r of (s.roundsJson as unknown as EduRound[]) ?? []) {
-        if (r?.questionId) recentlyAsked.add(r.questionId);
-      }
-    }
     const all = await this.prisma.eduQuestion.findMany({ where: { subject, grade, active: true } });
     if (!all.length) throw new BadRequestException(`No ${subject} questions yet for grade ${grade}`);
-    const fresh = all.filter((q) => !recentlyAsked.has(q.id));
-    const pool = fresh.length >= count ? fresh : all;
-    const shuffled = [...pool].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, count);
+    const excluded = new Set(excludeIds);
+    const progress = await this.prisma.eduQuestionProgress.findMany({ where: { userId, subject, grade } });
+    const progressById = new Map(progress.map((p) => [p.questionId, p]));
+
+    const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
+    const stillWrong = shuffle(all.filter((q) => !excluded.has(q.id) && progressById.get(q.id)?.correct === false));
+    const neverTried = shuffle(all.filter((q) => !excluded.has(q.id) && !progressById.has(q.id)));
+    const mastered = all
+      .filter((q) => !excluded.has(q.id) && progressById.get(q.id)?.correct === true)
+      .sort((a, b) => (progressById.get(a.id)?.updatedAt.getTime() ?? 0) - (progressById.get(b.id)?.updatedAt.getTime() ?? 0));
+
+    const picked: typeof all = [];
+    for (const bucket of [stillWrong, neverTried, mastered]) {
+      for (const q of bucket) {
+        if (picked.length >= count) break;
+        picked.push(q);
+      }
+      if (picked.length >= count) break;
+    }
+    // Bank smaller than `count` even across every bucket (tiny seed data) -
+    // top up with whatever's left, excluded ids included, rather than
+    // shortchanging the block.
+    if (picked.length < count) {
+      for (const q of all) {
+        if (picked.length >= count) break;
+        if (!picked.some((p) => p.id === q.id)) picked.push(q);
+      }
+    }
+    return picked.slice(0, count);
   }
 
   // Answer is deliberately withheld from what's sent to the client - a kid
   // reading the network tab shouldn't be able to see it before answering.
-  private presentQuestion(q: { id: string; type: string; prompt: string; choicesJson: unknown }) {
-    return { id: q.id, type: q.type, prompt: q.prompt, choices: q.choicesJson ?? null };
+  private presentQuestion(q: { id: string; type: string; prompt: string; choicesJson: unknown; visualJson: unknown }) {
+    return { id: q.id, type: q.type, prompt: q.prompt, choices: q.choicesJson ?? null, visual: q.visualJson ?? null };
+  }
+
+  // Casey's own instruction, 2026-09: answering every active question in
+  // the current grade's bank correctly auto-promotes to the next grade -
+  // an earned bump, distinct from (and layered on top of) the birthday-
+  // seeded default (see UserSubjectGrade's own comment on why that's not a
+  // contradiction). Checked against `grade` as SNAPSHOT ON THE SESSION, not
+  // whatever UserSubjectGrade says right now - same "don't retroactively
+  // change what a session already asked" rule the grade snapshot exists for.
+  private async maybePromote(userId: string, subject: string, grade: number): Promise<number | null> {
+    if (grade >= 6) return null;
+    const totalActive = await this.prisma.eduQuestion.count({ where: { subject, grade, active: true } });
+    if (totalActive === 0) return null;
+    const masteredCount = await this.prisma.eduQuestionProgress.count({ where: { userId, subject, grade, correct: true } });
+    if (masteredCount < totalActive) return null;
+    const newGrade = grade + 1;
+    await this.prisma.userSubjectGrade.upsert({
+      where: { userId_subject: { userId, subject } },
+      create: { userId, subject, grade: newGrade, setById: userId },
+      update: { grade: newGrade, setById: userId },
+    });
+    return newGrade;
   }
 
   private async owned(userId: string, id: string) {
@@ -248,21 +288,35 @@ export class LearningService {
     const rounds = ((session.roundsJson as unknown as EduRound[]) ?? []).slice();
     rounds.push({ block: session.status as 'BLOCK_A' | 'BLOCK_B', questionId, given, correct });
 
+    // Durable per-question outcome - powers next time's question selection
+    // (resurface if still wrong) and grade auto-promotion (mastered every
+    // active question this grade). Recorded on every answer regardless of
+    // whether the session itself ever gets finished.
+    await this.prisma.eduQuestionProgress.upsert({
+      where: { userId_questionId: { userId, questionId } },
+      create: { userId, questionId, subject: session.subject, grade: session.grade, correct },
+      update: { correct, attempts: { increment: 1 } },
+    });
+
     const settings = await this.ensureSettings(familyId, userId);
     const buyer = await this.prisma.user.findUnique({ where: { id: userId }, select: { tokensDisabled: true } });
-    let tokensAwarded = 0;
-    if (correct && !buyer?.tokensDisabled) {
-      tokensAwarded = settings.tokensPerCorrect;
-      await this.prisma.tokenLedger.create({
-        data: { userId, delta: tokensAwarded, reason: `Learning games: ${session.subject} - correct answer`, type: 'EDU_GAME', refId: session.id, createdById: userId },
-      });
-    }
+    // This question's own share, for the live "N so far" counter - NOT
+    // written to the ledger here. Real payout happens once, at DONE, below
+    // (Casey's own instruction: finishing is what makes it real).
+    const tokensAwarded = correct && !buyer?.tokensDisabled ? settings.tokensPerCorrect : 0;
 
     const blockCount = rounds.filter((r) => r.block === session.status).length;
 
-    // Block B just completed - finalize the session (all-correct bonus roll).
+    // Block B just completed - finalize the session: roll the all-correct
+    // bonus, write the ONE real ledger entry for everything earned this
+    // session, check for grade auto-promotion.
     if (blockCount >= BLOCK_SIZE && session.status === 'BLOCK_B') {
       const allCorrect = rounds.every((r) => r.correct);
+      const correctCount = rounds.filter((r) => r.correct).length;
+      // session.tokensAwarded is the running tally from every PRIOR answer
+      // this session (kept live for the UI); + this answer's own share =
+      // the full session total, paid out in one shot right here.
+      const totalQuestionTokens = session.tokensAwarded + tokensAwarded;
       let bonusTokens = 0;
       let bonusPrizeId: string | null = null;
       const bonusPool = settings.bonusPoolJson as unknown as PoolEntry[];
@@ -273,17 +327,28 @@ export class LearningService {
           await this.prisma.redemption.create({ data: { prizeId: result.prizeId, userId, status: 'FULFILLED', source: 'GAME' } });
         } else if (!buyer?.tokensDisabled) {
           bonusTokens = result.amount;
-          await this.prisma.tokenLedger.create({
-            data: { userId, delta: bonusTokens, reason: `Learning games: ${session.subject} - perfect session bonus`, type: 'EDU_GAME', refId: session.id, createdById: userId },
-          });
         }
       }
+      const ledgerTotal = totalQuestionTokens + bonusTokens;
+      if (ledgerTotal > 0) {
+        await this.prisma.tokenLedger.create({
+          data: {
+            userId,
+            delta: ledgerTotal,
+            reason: `Learning games: ${session.subject} - session complete (${correctCount}/${rounds.length} correct)${bonusTokens > 0 ? ', perfect bonus' : ''}`,
+            type: 'EDU_GAME',
+            refId: session.id,
+            createdById: userId,
+          },
+        });
+      }
+      const promotedTo = await this.maybePromote(userId, session.subject, session.grade);
       await this.prisma.eduSession.update({
         where: { id: session.id },
         data: {
           status: 'DONE',
           roundsJson: rounds as unknown as Prisma.InputJsonValue,
-          tokensAwarded: { increment: tokensAwarded + bonusTokens },
+          tokensAwarded: totalQuestionTokens + bonusTokens,
           allCorrect,
           bonusPoolJson: bonusPool as unknown as Prisma.InputJsonValue,
           bonusWonPrizeId: bonusPrizeId,
@@ -291,7 +356,12 @@ export class LearningService {
         },
       });
       this.displayEvents.publish(familyId, { type: 'tokens' });
-      return { correct, correctAnswer: question.answer, tokensAwarded, phase: 'DONE', allCorrect, bonusTokens, bonusPrizeId };
+      // tokensAwarded here is THIS question's own delta, same contract as
+      // every other answer() call - the client accumulates it locally into
+      // its own running total, which by now already equals
+      // totalQuestionTokens without the server needing to re-send it.
+      // bonusTokens is separate and additive, shown as its own line.
+      return { correct, correctAnswer: question.answer, tokensAwarded, phase: 'DONE', allCorrect, bonusTokens, bonusPrizeId, promotedTo };
     }
 
     // Block A just completed - hand off to the arcade break; block B's

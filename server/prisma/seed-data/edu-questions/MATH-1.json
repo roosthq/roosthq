@@ -1,5 +1,12 @@
 [
   { "type": "TEXT_INPUT", "prompt": "8 + 5 = ?", "answer": "13", "tags": ["addition"] },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Jamie has 6 balloons. She buys 5 more at the fair. How many balloons does she have now?",
+    "visualJson": { "kind": "combine", "item": "balloon", "a": 6, "b": 5 },
+    "answer": "11",
+    "tags": ["addition", "word-problem"]
+  },
   { "type": "TEXT_INPUT", "prompt": "12 - 7 = ?", "answer": "5", "tags": ["subtraction"] },
   { "type": "TEXT_INPUT", "prompt": "9 + 9 = ?", "answer": "18", "tags": ["addition"] },
   { "type": "TEXT_INPUT", "prompt": "15 - 6 = ?", "answer": "9", "tags": ["subtraction"] },

@@ -1,5 +1,12 @@
 [
   { "type": "TEXT_INPUT", "prompt": "47 + 28 = ?", "answer": "75", "tags": ["addition"] },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A baker has 7 cookies on one tray and 5 on another. How many cookies does the baker have in all?",
+    "visualJson": { "kind": "combine", "item": "cookie", "a": 7, "b": 5 },
+    "answer": "12",
+    "tags": ["addition", "word-problem"]
+  },
   { "type": "TEXT_INPUT", "prompt": "63 - 27 = ?", "answer": "36", "tags": ["subtraction"] },
   { "type": "TEXT_INPUT", "prompt": "You have a quarter, a dime, and a nickel. How many cents total?", "answer": "40", "tags": ["money"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "How many nickels make a quarter?", "choicesJson": ["3", "4", "5", "6"], "answer": "5", "tags": ["money"] },
