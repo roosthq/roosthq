@@ -1,14 +1,26 @@
 import { useEffect, useState } from 'react';
-import { api, EDU_SUBJECTS, type EduSubject, type EduGradeRow, type EduQuestionForPlay, type EduSessionStart, type Member } from '../api';
+import {
+  api,
+  EDU_SUBJECTS,
+  type EduSubject,
+  type EduGradeRow,
+  type EduQuestionForPlay,
+  type EduSessionStart,
+  type Member,
+  type PoolEntry,
+  type StorePrize,
+} from '../api';
 import RocketRacer from '../RocketRacer';
 import { celebrate } from '../celebrate';
 import TokenBadge from '../TokenBadge';
+import PoolEditor from '../PoolEditor';
 
 // Learning games (PLANNING.md §19) - grade-level quiz per subject, a
 // subject-specific arcade break in the middle, tokens per correct answer,
 // bonus draw on a perfect session. Separate feature from the skill-mechanic
-// mini-games in MiniGamesTab.tsx - no pool/config editor here, the grade
-// level IS the only per-kid setting.
+// mini-games in MiniGamesTab.tsx - grade level is per-kid, but the payout
+// (tokens/correct-answer + the all-correct bonus pool) is one family-wide
+// setting (PayoutSettings below), same PoolEditor as Award/MiniGame.
 
 const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> = {
   MATH: { label: 'Math', icon: '🔢' },
@@ -19,7 +31,84 @@ const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> = {
 const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
 
 export default function LearningGamesTab({ isAdult, members, tokenIcon }: { isAdult: boolean; members: Member[]; tokenIcon: string }) {
-  return isAdult ? <GradeSettings members={members} /> : <PlaySession tokenIcon={tokenIcon} />;
+  return isAdult ? (
+    <div className="mt-4 flex flex-col gap-6">
+      <PayoutSettings />
+      <GradeSettings members={members} />
+    </div>
+  ) : (
+    <PlaySession tokenIcon={tokenIcon} />
+  );
+}
+
+// ---------------- Adult: tokens per correct + all-correct bonus pool ----------------
+
+function PayoutSettings() {
+  const [tokensPerCorrect, setTokensPerCorrect] = useState<number | null>(null);
+  const [bonusPool, setBonusPool] = useState<PoolEntry[]>([]);
+  const [prizes, setPrizes] = useState<StorePrize[]>([]);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    api.learningSettings().then((s) => {
+      setTokensPerCorrect(s.tokensPerCorrect);
+      setBonusPool(s.bonusPool);
+    });
+    // Full non-archived list, not pre-filtered to AWARD_ONLY - PoolEditor
+    // does that filtering itself (same reason MiniGamesTab fetches it this
+    // way - see that file's own comment).
+    api.prizes().then(setPrizes).catch(() => setPrizes([]));
+  }, []);
+
+  async function save() {
+    if (tokensPerCorrect === null || bonusPool.length === 0) return;
+    setSaving(true);
+    setSaved(false);
+    try {
+      await api.updateLearningSettings(tokensPerCorrect, bonusPool);
+      setSaved(true);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (tokensPerCorrect === null) return <p className="text-sm text-slate-400">Loading…</p>;
+
+  return (
+    <div className="rounded-lg border bg-white p-3">
+      <h3 className="font-semibold">Payout</h3>
+      <p className="text-xs text-slate-400">Family-wide, not per subject - the same tokens-per-question and bonus pool for every subject.</p>
+
+      <label className="mt-3 block text-sm">
+        <span className="text-slate-500">Tokens per correct answer</span>
+        <input
+          type="number"
+          min={0}
+          className="mt-1 w-24 rounded border px-2 py-1.5 text-sm"
+          value={tokensPerCorrect}
+          onChange={(e) => setTokensPerCorrect(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
+          onFocus={(e) => e.target.select()}
+        />
+      </label>
+
+      <div className="mt-3">
+        <span className="text-sm text-slate-500">All-correct bonus (rolled once, only on a perfect session)</span>
+        <div className="mt-1.5">
+          <PoolEditor pool={bonusPool} onChange={setBonusPool} prizes={prizes} />
+        </div>
+      </div>
+
+      <button
+        onClick={save}
+        disabled={saving || bonusPool.length === 0}
+        className="mt-3 rounded bg-slate-800 px-3 py-1.5 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
+      >
+        {saving ? 'Saving…' : 'Save payout'}
+      </button>
+      {saved && !saving && <span className="ml-2 text-xs text-green-600">Saved</span>}
+    </div>
+  );
 }
 
 // ---------------- Adult: per-kid, per-subject grade level ----------------
@@ -43,11 +132,11 @@ function GradeSettings({ members }: { members: Member[] }) {
     }
   }
 
-  if (rows === null) return <p className="mt-4 text-sm text-slate-400">Loading…</p>;
-  if (rows.length === 0) return <p className="mt-4 text-sm text-slate-400">No kids on the family yet.</p>;
+  if (rows === null) return <p className="text-sm text-slate-400">Loading…</p>;
+  if (rows.length === 0) return <p className="text-sm text-slate-400">No kids on the family yet.</p>;
 
   return (
-    <div className="mt-4">
+    <div>
       <p className="text-xs text-slate-400">
         Grade level per kid, per subject - drives which questions they get. Defaults from birthday until you set one; a kid moving up a
         grade mid-year is your call, not automatic.

@@ -20,6 +20,17 @@ export class LearningController {
     return this.learning.setGrade(u.familyId, u.userId, body.userId, body.subject, body.grade);
   }
 
+  // ---- Payout settings (adult-only) ----
+  @Get('settings')
+  getSettings(@CurrentUser() u: SessionPayload) {
+    return this.learning.getSettings(u.familyId, u.userId);
+  }
+
+  @Patch('settings')
+  updateSettings(@CurrentUser() u: SessionPayload, @Body() body: { tokensPerCorrect: number; bonusPool: unknown }) {
+    return this.learning.updateSettings(u.familyId, u.userId, body.tokensPerCorrect, body.bonusPool);
+  }
+
   // ---- Sessions (the current kiosk/app profile plays as themselves) ----
   @Post('sessions')
   startSession(@CurrentUser() u: SessionPayload, @Body() body: { subject: string }) {

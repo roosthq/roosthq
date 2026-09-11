@@ -166,6 +166,7 @@ model Family {
   tokenScaleEvents TokenScaleEvent[]
   miniGames        MiniGame[]
   publishedMiniGames PublishedMiniGame[]
+  learningGamesSettings LearningGamesSettings?
 }
 
 // ---------- Icons ----------
@@ -496,6 +497,7 @@ model User {
   eduGrades                 UserSubjectGrade[]    @relation("EduGradeUser")
   eduGradesSet              UserSubjectGrade[]    @relation("EduGradeSetBy")
   eduSessions               EduSession[]          @relation("EduSessionUser")
+  learningGamesSettingsUpdated LearningGamesSettings[]
 
   @@index([familyId])
 }
@@ -1137,6 +1139,25 @@ model MiniGamePurchase {
 // knowledge quiz (right/wrong is checked server-side against EduQuestion.answer,
 // never trusted from the client the way MiniGameGrant/Purchase trust
 // PlayReport.won) with a subject-specific arcade game as a pacing break.
+
+// One row per family - the payout knobs an adult controls (Casey's
+// 2026-09 feedback: needed real settings for tokens-per-question and the
+// all-correct bonus, not hardcoded constants). Family-wide, not per-subject
+// - one shared economy for now; same additive-field philosophy as the rest
+// of this schema means going per-subject later is a column, not a rewrite.
+model LearningGamesSettings {
+  familyId         String   @id
+  tokensPerCorrect Int      @default(1)
+  bonusPoolJson    Json // PoolEntry[] - same shape as Award.poolJson/
+  // MiniGame.poolJson, rolled via the exact same weighted-draw code
+  // (LearningService.draw) - a real Prize is a valid bonus row, not just
+  // a token range.
+  updatedById      String
+  updatedAt        DateTime @updatedAt
+
+  family    Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  updatedBy User   @relation(fields: [updatedById], references: [id])
+}
 
 // Per-kid, per-subject grade level - adult-set, defaulted once from
 // User.birthday at first creation, never auto-advanced after that (a kid

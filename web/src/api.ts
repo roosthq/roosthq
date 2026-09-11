@@ -617,6 +617,11 @@ export interface EduGradeRow {
   subjects: Record<EduSubject, number>;
 }
 
+export interface LearningGamesSettings {
+  tokensPerCorrect: number;
+  bonusPool: PoolEntry[];
+}
+
 export interface EduQuestionForPlay {
   id: string;
   type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
@@ -1660,6 +1665,9 @@ export const api = {
   learningGrades: () => req<EduGradeRow[]>('/learning/grades'),
   setLearningGrade: (userId: string, subject: EduSubject, grade: number) =>
     req<{ grade: number }>('/learning/grades', { method: 'PATCH', body: JSON.stringify({ userId, subject, grade }) }),
+  learningSettings: () => req<LearningGamesSettings>('/learning/settings'),
+  updateLearningSettings: (tokensPerCorrect: number, bonusPool: PoolEntry[]) =>
+    req<LearningGamesSettings>('/learning/settings', { method: 'PATCH', body: JSON.stringify({ tokensPerCorrect, bonusPool }) }),
   startLearningSession: (subject: EduSubject, kioskToken?: string) =>
     req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject }) }, kioskToken),
   answerLearningQuestion: (sessionId: string, questionId: string, given: string, kioskToken?: string) =>

@@ -13,13 +13,15 @@ import type { PoolEntry } from '../reward-games/reward-games.service';
 // the answer was actually right).
 export const SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING'];
 const BLOCK_SIZE = 5;
-const TOKENS_PER_CORRECT = 1;
 
-// v1 default all-correct bonus pool - not yet adult-customizable per
-// subject/session the way MiniGame's pool editor is. Flagging the gap
-// rather than silently hardcoding it forever: PLANNING.md §19 build order
-// item for later is to expose this in the grade-settings UI.
-const BONUS_POOL: PoolEntry[] = [{ kind: 'TOKENS', min: 5, max: 15, weight: 1 }];
+// Fallback only for a family whose LearningGamesSettings row doesn't exist
+// yet (ensureSettings creates one on first read/write using these) - not a
+// live constant read at answer time anymore. Casey's 2026-09 feedback: these
+// were hardcoded with no adult control at all; now family-wide settings,
+// same additive-field philosophy as everything else here means going
+// per-subject later is a column, not a rewrite.
+const DEFAULT_TOKENS_PER_CORRECT = 1;
+const DEFAULT_BONUS_POOL: PoolEntry[] = [{ kind: 'TOKENS', min: 5, max: 15, weight: 1 }];
 
 type DrawnResult = { kind: 'TOKENS'; amount: number } | { kind: 'PRIZE'; prizeId: string };
 
@@ -45,6 +47,28 @@ export class LearningService {
   private sanitizeSubject(s: unknown): string {
     if (typeof s === 'string' && SUBJECTS.includes(s)) return s;
     throw new BadRequestException('Unknown subject');
+  }
+
+  // Same never-trust-the-client-blindly shape as MiniGamesService's own
+  // sanitizePool (deliberately duplicated there too, for the same reason:
+  // the two features have no other coupling worth a shared import over).
+  private sanitizePool(input: unknown): PoolEntry[] {
+    if (!Array.isArray(input) || input.length === 0) throw new BadRequestException('A prize pool is required');
+    const out: PoolEntry[] = [];
+    for (const raw of input) {
+      if (!raw || typeof raw !== 'object') continue;
+      const p = raw as Record<string, unknown>;
+      const weight = typeof p.weight === 'number' && p.weight > 0 ? p.weight : 1;
+      if (p.kind === 'TOKENS' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'TOKENS', min: Math.max(0, Math.floor(p.min)), max: Math.max(0, Math.floor(p.max)), weight });
+      } else if (p.kind === 'STREAK_FREEZE' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'STREAK_FREEZE', min: Math.max(1, Math.floor(p.min)), max: Math.max(1, Math.floor(p.max)), weight });
+      } else if (p.kind === 'PRIZE' && typeof p.prizeId === 'string' && p.prizeId) {
+        out.push({ kind: 'PRIZE', prizeId: p.prizeId, weight });
+      }
+    }
+    if (!out.length) throw new BadRequestException('A prize pool is required');
+    return out;
   }
 
   // Rough default when no adult-set grade exists yet: age 5 ~= kindergarten
@@ -113,6 +137,43 @@ export class LearningService {
       create: { userId: targetUserId, subject: subj, grade: g, setById: actorId },
       update: { grade: g, setById: actorId },
     });
+  }
+
+  // ---------------- Payout settings (adult-only) ----------------
+
+  // Created lazily on first read/write with the DEFAULT_* constants, same
+  // "checked and repaired on every fetch" spirit as MiniGamesService's
+  // ensureDefaultCatalog - a family that never touches this gets the exact
+  // previous hardcoded behavior, not a crash.
+  private async ensureSettings(familyId: string, actorId: string) {
+    const existing = await this.prisma.learningGamesSettings.findUnique({ where: { familyId } });
+    if (existing) return existing;
+    return this.prisma.learningGamesSettings.create({
+      data: {
+        familyId,
+        tokensPerCorrect: DEFAULT_TOKENS_PER_CORRECT,
+        bonusPoolJson: DEFAULT_BONUS_POOL as unknown as Prisma.InputJsonValue,
+        updatedById: actorId,
+      },
+    });
+  }
+
+  async getSettings(familyId: string, actorId: string) {
+    await this.assertAdult(actorId);
+    const s = await this.ensureSettings(familyId, actorId);
+    return { tokensPerCorrect: s.tokensPerCorrect, bonusPool: s.bonusPoolJson as unknown as PoolEntry[] };
+  }
+
+  async updateSettings(familyId: string, actorId: string, tokensPerCorrect: number, bonusPool: unknown) {
+    await this.assertAdult(actorId);
+    await this.ensureSettings(familyId, actorId);
+    const pool = this.sanitizePool(bonusPool);
+    const tpc = Math.max(0, Math.floor(tokensPerCorrect));
+    await this.prisma.learningGamesSettings.update({
+      where: { familyId },
+      data: { tokensPerCorrect: tpc, bonusPoolJson: pool as unknown as Prisma.InputJsonValue, updatedById: actorId },
+    });
+    return { tokensPerCorrect: tpc, bonusPool: pool };
   }
 
   // ---------------- Sessions (kid-facing) ----------------
@@ -187,10 +248,11 @@ export class LearningService {
     const rounds = ((session.roundsJson as unknown as EduRound[]) ?? []).slice();
     rounds.push({ block: session.status as 'BLOCK_A' | 'BLOCK_B', questionId, given, correct });
 
+    const settings = await this.ensureSettings(familyId, userId);
     const buyer = await this.prisma.user.findUnique({ where: { id: userId }, select: { tokensDisabled: true } });
     let tokensAwarded = 0;
     if (correct && !buyer?.tokensDisabled) {
-      tokensAwarded = TOKENS_PER_CORRECT;
+      tokensAwarded = settings.tokensPerCorrect;
       await this.prisma.tokenLedger.create({
         data: { userId, delta: tokensAwarded, reason: `Learning games: ${session.subject} - correct answer`, type: 'EDU_GAME', refId: session.id, createdById: userId },
       });
@@ -203,8 +265,9 @@ export class LearningService {
       const allCorrect = rounds.every((r) => r.correct);
       let bonusTokens = 0;
       let bonusPrizeId: string | null = null;
+      const bonusPool = settings.bonusPoolJson as unknown as PoolEntry[];
       if (allCorrect) {
-        const result = this.draw(BONUS_POOL);
+        const result = this.draw(bonusPool);
         if (result.kind === 'PRIZE') {
           bonusPrizeId = result.prizeId;
           await this.prisma.redemption.create({ data: { prizeId: result.prizeId, userId, status: 'FULFILLED', source: 'GAME' } });
@@ -222,7 +285,7 @@ export class LearningService {
           roundsJson: rounds as unknown as Prisma.InputJsonValue,
           tokensAwarded: { increment: tokensAwarded + bonusTokens },
           allCorrect,
-          bonusPoolJson: BONUS_POOL as unknown as Prisma.InputJsonValue,
+          bonusPoolJson: bonusPool as unknown as Prisma.InputJsonValue,
           bonusWonPrizeId: bonusPrizeId,
           finishedAt: new Date(),
         },
