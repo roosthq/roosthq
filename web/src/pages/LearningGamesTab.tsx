@@ -312,7 +312,12 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     // block B fresh.
     if (session) {
       const picked = pickBreakGame(session.subject, session.grade, lastBreakGameRef.current);
+      // eslint-disable-next-line no-console
+      console.log('[DEBUG] picked break game:', picked?.name, 'grade:', session.grade, 'subject:', session.subject);
       setCurrentBreakGame(picked);
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('[DEBUG] next() reached BREAK transition with session=null');
     }
     setPhase('BREAK');
   }
@@ -359,7 +364,10 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     );
   }
 
-  if (phase === 'BREAK' && session && currentBreakGame) {
+  if (phase === 'BREAK') {
+    // eslint-disable-next-line no-console
+    console.log('[DEBUG] BREAK render: session=', session, 'currentBreakGame=', currentBreakGame?.name);
+    if (!session || !currentBreakGame) return <div className="mt-4 text-sm text-red-500">[DEBUG] missing session or currentBreakGame</div>;
     const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
