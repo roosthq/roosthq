@@ -1,23 +1,4 @@
-import { Component, useEffect, useRef, useState, type ReactElement, type ReactNode } from 'react';
-
-// TEMP diagnostic: pinpoints which component actually throws during the
-// BREAK transition (the "grade destructure of null" crash) instead of
-// letting it take down the whole app with an unreadable minified trace.
-// Remove once that bug is found and fixed.
-class BreakGameErrorBoundary extends Component<{ children: ReactNode }, { error: string | null }> {
-  state = { error: null as string | null };
-  static getDerivedStateFromError(error: unknown) {
-    return { error: error instanceof Error ? error.message : String(error) };
-  }
-  componentDidCatch(error: unknown, info: { componentStack?: string }) {
-    // eslint-disable-next-line no-console
-    console.log('[DEBUG] BreakGame crashed:', error, 'componentStack:', info.componentStack);
-  }
-  render() {
-    if (this.state.error) return <div className="mt-4 text-sm text-red-500">[DEBUG] break game crashed: {this.state.error}</div>;
-    return this.props.children;
-  }
-}
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 import {
   api,
   EDU_SUBJECTS,
@@ -285,8 +266,6 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   // the button click just... did nothing, no error, no explanation. Caught
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
-  // eslint-disable-next-line no-console
-  console.log('[DEBUG] PlaySession render tick, phase=', phase, 'session=', session, 'currentBreakGame=', currentBreakGame?.name);
 
   async function start(subject: EduSubject) {
     setPhase('STARTING');
@@ -333,12 +312,13 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     // block B fresh.
     if (session) {
       const picked = pickBreakGame(session.subject, session.grade, lastBreakGameRef.current);
-      // eslint-disable-next-line no-console
-      console.log('[DEBUG] picked break game:', picked?.name, 'grade:', session.grade, 'subject:', session.subject);
-      setCurrentBreakGame(picked);
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('[DEBUG] next() reached BREAK transition with session=null');
+      // setState treats a bare function argument as a functional updater
+      // (calls it with prevState instead of storing it) - picked IS a
+      // function (the component itself), so it must go in wrapped, or
+      // React invokes e.g. SpeedMatch(prevState) during the next render's
+      // useState call. That's the "Cannot destructure property 'grade' of
+      // null" crash: SpeedMatch(null) trying to destructure its props.
+      setCurrentBreakGame(() => picked);
     }
     setPhase('BREAK');
   }
@@ -385,16 +365,11 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     );
   }
 
-  if (phase === 'BREAK') {
-    // eslint-disable-next-line no-console
-    console.log('[DEBUG] BREAK render: session=', session, 'currentBreakGame=', currentBreakGame?.name);
-    if (!session || !currentBreakGame) return <div className="mt-4 text-sm text-red-500">[DEBUG] missing session or currentBreakGame</div>;
+  if (phase === 'BREAK' && session && currentBreakGame) {
     const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
-        <BreakGameErrorBoundary>
-          <BreakGame grade={session.grade} onDone={afterBreak} />
-        </BreakGameErrorBoundary>
+        <BreakGame grade={session.grade} onDone={afterBreak} />
       </div>
     );
   }

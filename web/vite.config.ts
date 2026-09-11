@@ -22,10 +22,4 @@ export default defineConfig({
     port: 5173,
     allowedHosts: true,
   },
-  // TEMP: unminified prod build to get a readable crash stack. Revert once
-  // the break-game "grade destructure of null" bug is found.
-  build: {
-    minify: false,
-    sourcemap: true,
-  },
 });
