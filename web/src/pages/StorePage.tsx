@@ -10,6 +10,7 @@ import LucideIcon from '../LucideIcon';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
 import MiniGamesTab from './MiniGamesTab';
+import LearningGamesTab from './LearningGamesTab';
 import { celebrate } from '../celebrate';
 import { usePaginatedList } from '../usePaginatedList';
 
@@ -40,10 +41,16 @@ export default function StorePage({
   // see the tab bar at all; they only ever had Prizes.
   const [params, setParams] = useSearchParams();
   const initialTab = params.get('tab');
-  const [tab, setTab] = useState<'prizes' | 'awards' | 'games'>(
-    (isAdult && initialTab === 'awards' ? 'awards' : initialTab === 'games' ? 'games' : 'prizes') as 'prizes' | 'awards' | 'games',
+  const [tab, setTab] = useState<'prizes' | 'awards' | 'games' | 'learning'>(
+    (isAdult && initialTab === 'awards'
+      ? 'awards'
+      : initialTab === 'games'
+        ? 'games'
+        : initialTab === 'learning'
+          ? 'learning'
+          : 'prizes') as 'prizes' | 'awards' | 'games' | 'learning',
   );
-  function selectTab(next: 'prizes' | 'awards' | 'games') {
+  function selectTab(next: 'prizes' | 'awards' | 'games' | 'learning') {
     setTab(next);
     setParams(next === 'prizes' ? {} : { tab: next }, { replace: true });
   }
@@ -59,13 +66,19 @@ export default function StorePage({
   const storeOn = familyFeatureEnabled(family, 'store');
   const awardsOn = familyFeatureEnabled(family, 'awards');
   const miniGamesOn = familyFeatureEnabled(family, 'miniGames');
+  const learningGamesOn = familyFeatureEnabled(family, 'learningGames');
+  // Fallback order when the current tab's feature is off: prizes -> awards
+  // (adult-only) -> games -> learning -> whatever tab we started on (nothing
+  // else was on either, so just leave it - the "off" message renders instead).
+  const firstAvailableTab = () => (storeOn ? 'prizes' : isAdult && awardsOn ? 'awards' : miniGamesOn ? 'games' : learningGamesOn ? 'learning' : tab);
   useEffect(() => {
     if (!family) return;
-    if (tab === 'prizes' && !storeOn) selectTab(isAdult && awardsOn ? 'awards' : miniGamesOn ? 'games' : 'prizes');
-    else if (tab === 'awards' && (!isAdult || !awardsOn)) selectTab(storeOn ? 'prizes' : miniGamesOn ? 'games' : 'awards');
-    else if (tab === 'games' && !miniGamesOn) selectTab(storeOn ? 'prizes' : isAdult && awardsOn ? 'awards' : 'games');
+    if (tab === 'prizes' && !storeOn) selectTab(firstAvailableTab());
+    else if (tab === 'awards' && (!isAdult || !awardsOn)) selectTab(firstAvailableTab());
+    else if (tab === 'games' && !miniGamesOn) selectTab(firstAvailableTab());
+    else if (tab === 'learning' && !learningGamesOn) selectTab(firstAvailableTab());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [family, storeOn, awardsOn, miniGamesOn]);
+  }, [family, storeOn, awardsOn, miniGamesOn, learningGamesOn]);
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [balance, setBalance] = useState(0);
   const [history, setHistory] = useState<Redemption[]>([]);
@@ -267,7 +280,7 @@ export default function StorePage({
         </div>
       </div>
 
-      {(storeOn ? 1 : 0) + (isAdult && awardsOn ? 1 : 0) + (miniGamesOn ? 1 : 0) > 1 && (
+      {(storeOn ? 1 : 0) + (isAdult && awardsOn ? 1 : 0) + (miniGamesOn ? 1 : 0) + (learningGamesOn ? 1 : 0) > 1 && (
         <div className="mt-3 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
           {storeOn && (
             <button
@@ -293,6 +306,14 @@ export default function StorePage({
               Games
             </button>
           )}
+          {learningGamesOn && (
+            <button
+              onClick={() => selectTab('learning')}
+              className={`rounded px-4 py-1.5 ${tab === 'learning' ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+            >
+              Learning
+            </button>
+          )}
         </div>
       )}
 
@@ -300,6 +321,8 @@ export default function StorePage({
         <div className="mt-4">
           <MiniGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} />
         </div>
+      ) : tab === 'learning' && learningGamesOn ? (
+        <LearningGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} />
       ) : tab === 'awards' && isAdult && awardsOn ? (
         <div className="mt-4">
           <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} />

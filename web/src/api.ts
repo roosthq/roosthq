@@ -607,6 +607,46 @@ export interface MiniGameTierInput {
   partialCreditPerStep?: number;
 }
 
+// ---------- Learning games (PLANNING.md §19) ----------
+export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING'] as const;
+export type EduSubject = (typeof EDU_SUBJECTS)[number];
+
+export interface EduGradeRow {
+  userId: string;
+  displayName: string;
+  subjects: Record<EduSubject, number>;
+}
+
+export interface EduQuestionForPlay {
+  id: string;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  choices: string[] | null; // answer is never sent to the client
+}
+
+export interface EduSessionStart {
+  sessionId: string;
+  subject: EduSubject;
+  grade: number;
+  phase: 'BLOCK_A';
+  questions: EduQuestionForPlay[];
+}
+
+export interface EduAnswerResult {
+  correct: boolean;
+  correctAnswer: string;
+  tokensAwarded: number;
+  phase: 'BLOCK_A' | 'BLOCK_B' | 'BREAK' | 'DONE';
+  allCorrect?: boolean;
+  bonusTokens?: number;
+  bonusPrizeId?: string | null;
+}
+
+export interface EduAdvanceResult {
+  phase: 'BLOCK_B';
+  questions: EduQuestionForPlay[];
+}
+
 export interface AwardCatalogItem {
   id: string;
   wheelMin?: number;
@@ -1615,6 +1655,17 @@ export const api = {
   // MiniGamesService.recentPurchases/deletePurchaseRecord.
   recentMiniGamePurchases: (publishedGameId: string) => req<MiniGamePurchaseRecord[]>(`/mini-games/published/${publishedGameId}/purchases`),
   deleteMiniGamePurchase: (id: string) => req(`/mini-games/purchases/${id}`, { method: 'DELETE' }),
+
+  // ---------- Learning games ----------
+  learningGrades: () => req<EduGradeRow[]>('/learning/grades'),
+  setLearningGrade: (userId: string, subject: EduSubject, grade: number) =>
+    req<{ grade: number }>('/learning/grades', { method: 'PATCH', body: JSON.stringify({ userId, subject, grade }) }),
+  startLearningSession: (subject: EduSubject, kioskToken?: string) =>
+    req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject }) }, kioskToken),
+  answerLearningQuestion: (sessionId: string, questionId: string, given: string, kioskToken?: string) =>
+    req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
+  advanceLearningSession: (sessionId: string, kioskToken?: string) =>
+    req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)
