@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which body part do you use to see?", "choicesJson": ["Eyes", "Ears", "Nose", "Tongue"], "answer": "Eyes", "tags": ["senses"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which body part do you use to hear?", "choicesJson": ["Eyes", "Ears", "Nose", "Hands"], "answer": "Ears", "tags": ["senses"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a living thing?", "choicesJson": ["A rock", "A tree", "A chair", "A car"], "answer": "A tree", "tags": ["living-nonliving"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is NOT a living thing?", "choicesJson": ["A dog", "A flower", "A bird", "A book"], "answer": "A book", "tags": ["living-nonliving"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do plants need to grow?", "choicesJson": ["Water and sunlight", "Only darkness", "Only ice", "Nothing at all"], "answer": "Water and sunlight", "tags": ["plants"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "When is it dark outside?", "choicesJson": ["Night", "Noon", "Morning", "Afternoon"], "answer": "Night", "tags": ["day-night"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which season is usually the coldest?", "choicesJson": ["Summer", "Winter", "Spring", "Fall"], "answer": "Winter", "tags": ["weather", "seasons"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What falls from the sky when it rains?", "choicesJson": ["Water", "Sand", "Rocks", "Leaves"], "answer": "Water", "tags": ["weather"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal lives in water?", "choicesJson": ["Fish", "Dog", "Bird", "Cat"], "answer": "Fish", "tags": ["animals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal can fly?", "choicesJson": ["Bird", "Fish", "Turtle", "Cow"], "answer": "Bird", "tags": ["animals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do you use your nose for?", "choicesJson": ["Smelling", "Seeing", "Hearing", "Tasting"], "answer": "Smelling", "tags": ["senses"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is very hot and lights up the sky in the daytime?", "choicesJson": ["The sun", "The moon", "A star at night", "A cloud"], "answer": "The sun", "tags": ["sky"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these do people need to stay alive?", "choicesJson": ["Water and food", "Toys", "Video games", "Candy only"], "answer": "Water and food", "tags": ["basic-needs"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do bees help flowers do?", "choicesJson": ["Pollinate (make new flowers)", "Turn blue", "Freeze", "Disappear"], "answer": "Pollinate (make new flowers)", "tags": ["plants", "animals"] }
+]

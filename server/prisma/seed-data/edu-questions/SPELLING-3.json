@@ -1,0 +1,16 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "Add the prefix 're' to 'do' - spell the new word meaning 'do again'.", "answer": "redo", "tags": ["prefixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'un' to 'happy' - spell the new word meaning 'not happy'.", "answer": "unhappy", "tags": ["prefixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ful' to 'help' - spell the new word meaning 'full of help'.", "answer": "helpful", "tags": ["suffixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'less' to 'care' - spell the new word meaning 'without care'.", "answer": "careless", "tags": ["suffixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the homophone that means 'a group of eight' and rhymes with 'gate'.", "answer": "eight", "tags": ["homophones"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to write down' that sounds like 'right'.", "answer": "write", "tags": ["homophones"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["beautiful", "beutiful", "beautyful", "beatiful"], "answer": "beautiful", "tags": ["tricky-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["because", "becuase", "becausse", "becaus"], "answer": "because", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the day between Monday and Wednesday.", "answer": "Tuesday", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a group of people related to you (parents, siblings, etc).", "answer": "family", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["different", "diffrent", "differant", "difernt"], "answer": "different", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'er' to 'teach' - spell the word for someone who teaches.", "answer": "teacher", "tags": ["suffixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for something that happens 'again and again' - starts with 're' + 'peat'.", "answer": "repeat", "tags": ["prefixes"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the opposite of 'possible' using the prefix 'im'.", "answer": "impossible", "tags": ["prefixes"] }
+]

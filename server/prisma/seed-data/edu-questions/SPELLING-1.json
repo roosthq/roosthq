@@ -1,0 +1,16 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a young dog.", "answer": "puppy", "tags": ["blends"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the sound a frog makes when it jumps into water.", "answer": "splash", "tags": ["blends"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a slippery reptile with no legs.", "answer": "snake", "tags": ["blends"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["train", "trane", "trayn", "trian"], "answer": "train", "tags": ["digraphs"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["chip", "chipp", "shipp", "chyp"], "answer": "chip", "tags": ["digraphs"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a big gray animal with a long trunk.", "answer": "elephant", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the contraction for 'do not'.", "answer": "don't", "tags": ["contractions"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the contraction for 'is not'.", "answer": "isn't", "tags": ["contractions"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the contraction for 'I am'.", "answer": "I'm", "tags": ["contractions"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["think", "thnk", "thinck", "fink"], "answer": "think", "tags": ["digraphs"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a place where you borrow books.", "answer": "library", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the day after today.", "answer": "tomorrow", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["shell", "shel", "chell", "shele"], "answer": "shell", "tags": ["digraphs"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the shape with three sides.", "answer": "triangle", "tags": ["sight-words"] }
+]

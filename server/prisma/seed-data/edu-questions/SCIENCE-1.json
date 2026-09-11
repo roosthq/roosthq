@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which group do dogs, cats, and cows belong to?", "choicesJson": ["Mammals", "Fish", "Insects", "Birds"], "answer": "Mammals", "tags": ["animal-groups"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which group do robins, eagles, and owls belong to?", "choicesJson": ["Birds", "Mammals", "Reptiles", "Fish"], "answer": "Birds", "tags": ["animal-groups"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do plants need from the sun to grow?", "choicesJson": ["Light", "Darkness", "Cold", "Noise"], "answer": "Light", "tags": ["plants"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which season comes right after winter?", "choicesJson": ["Spring", "Summer", "Fall", "Winter again"], "answer": "Spring", "tags": ["seasons"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which season comes right after summer?", "choicesJson": ["Fall", "Winter", "Spring", "Summer again"], "answer": "Fall", "tags": ["seasons"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an animal that only eats plants?", "choicesJson": ["Herbivore", "Carnivore", "Robot", "Predator"], "answer": "Herbivore", "tags": ["animals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an animal that only eats meat?", "choicesJson": ["Carnivore", "Herbivore", "Omnivore", "Plantivore"], "answer": "Carnivore", "tags": ["animals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a reptile?", "choicesJson": ["Snake", "Dog", "Eagle", "Fish"], "answer": "Snake", "tags": ["animal-groups"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do caterpillars turn into?", "choicesJson": ["Butterflies", "Birds", "Frogs", "Fish"], "answer": "Butterflies", "tags": ["life-cycles"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do baby frogs (tadpoles) grow up to become?", "choicesJson": ["Frogs", "Fish", "Birds", "Turtles"], "answer": "Frogs", "tags": ["life-cycles"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do plants use their roots for?", "choicesJson": ["Taking in water from the soil", "Making sounds", "Catching bugs", "Flying"], "answer": "Taking in water from the soil", "tags": ["plants"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is something people can recycle?", "choicesJson": ["A paper box", "A rock", "A cloud", "The sun"], "answer": "A paper box", "tags": ["environment"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is the main source of light and heat for Earth?", "choicesJson": ["The sun", "The moon", "A lamp", "A fire"], "answer": "The sun", "tags": ["earth-space"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which material would float best on water?", "choicesJson": ["A wooden stick", "A metal rock", "A brick", "A big rock"], "answer": "A wooden stick", "tags": ["materials"] }
+]

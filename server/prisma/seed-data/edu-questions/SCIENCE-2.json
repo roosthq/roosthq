@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a solid?", "choicesJson": ["Ice", "Water", "Steam", "Air"], "answer": "Ice", "tags": ["matter"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a liquid?", "choicesJson": ["Water", "Ice", "Rock", "Wood"], "answer": "Water", "tags": ["matter"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a gas?", "choicesJson": ["Steam", "Ice", "Milk", "Sand"], "answer": "Steam", "tags": ["matter"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What happens to ice when it gets warm?", "choicesJson": ["It melts into water", "It turns into rock", "It disappears forever", "It gets colder"], "answer": "It melts into water", "tags": ["matter"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A desert habitat is usually...", "choicesJson": ["Hot and dry", "Cold and wet", "Underwater", "Covered in snow"], "answer": "Hot and dry", "tags": ["habitats"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal is well suited to living in the ocean?", "choicesJson": ["A whale", "A camel", "A kangaroo", "An eagle"], "answer": "A whale", "tags": ["habitats"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A simple machine that helps you lift things with less effort, like a seesaw, is called a...", "choicesJson": ["lever", "wheel", "screw", "pulley"], "answer": "lever", "tags": ["simple-machines"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A simple machine that helps a flag go up a pole is called a...", "choicesJson": ["pulley", "lever", "wedge", "screw"], "answer": "pulley", "tags": ["simple-machines"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is the first stage in a butterfly's life cycle?", "choicesJson": ["Egg", "Butterfly", "Caterpillar", "Cocoon"], "answer": "Egg", "tags": ["life-cycles"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the place where an animal naturally lives?", "choicesJson": ["Habitat", "Vehicle", "Recipe", "Alphabet"], "answer": "Habitat", "tags": ["habitats"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes a rainforest?", "choicesJson": ["Warm and very rainy, lots of plants", "Cold and dry, no plants", "All ice and snow", "Underwater and dark"], "answer": "Warm and very rainy, lots of plants", "tags": ["habitats"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when water goes from the ground up into the sky and forms clouds?", "choicesJson": ["Evaporation", "Freezing", "Melting", "Sinking"], "answer": "Evaporation", "tags": ["water-cycle"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What falls from clouds when water droplets get too heavy?", "choicesJson": ["Rain", "Sand", "Rocks", "Leaves"], "answer": "Rain", "tags": ["water-cycle"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is magnetic (a magnet sticks to it)?", "choicesJson": ["A steel paperclip", "A wooden pencil", "A plastic cup", "A cotton shirt"], "answer": "A steel paperclip", "tags": ["materials"] }
+]

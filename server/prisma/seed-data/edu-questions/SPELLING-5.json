@@ -1,0 +1,16 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "The Greek root 'tele' means 'far'. Spell the word for a device that lets you see far-away images (tele + vision).", "answer": "television", "tags": ["greek-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "The Latin root 'aud' means 'hear'. Spell the word for a device that makes sound louder (aud + io).", "answer": "audio", "tags": ["latin-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'bio' means 'life'. Spell the word for the study of living things (bio + logy).", "answer": "biology", "tags": ["greek-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word you use instead of 'their' when you mean 'over there'.", "answer": "there", "tags": ["commonly-confused"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to accept' that's often confused with 'except'.", "answer": "accept", "tags": ["commonly-confused"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to have an effect on' (often confused with 'effect') - starts with 'a'.", "answer": "affect", "tags": ["commonly-confused"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["definitely", "definately", "definitly", "defenitely"], "answer": "definitely", "tags": ["tricky-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["government", "goverment", "governmant", "governement"], "answer": "government", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'graph' means 'write/draw'. Spell the word for a drawing that shows data (bar ___).", "answer": "graph", "tags": ["greek-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'phon' means 'sound'. Spell the word for a device you talk into to call someone (tele + phone).", "answer": "telephone", "tags": ["greek-roots"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["embarrass", "embarass", "embarras", "emberrass"], "answer": "embarrass", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to lead somewhere' (often confused with the metal 'lead').", "answer": "lead", "tags": ["commonly-confused"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'therm' means 'heat'. Spell the tool that measures temperature (therm + ometer).", "answer": "thermometer", "tags": ["greek-roots"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["recommend", "recomend", "reccomend", "reccommend"], "answer": "recommend", "tags": ["tricky-words"] }
+]

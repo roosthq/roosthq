@@ -1,0 +1,16 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a small furry pet that says 'meow'.", "answer": "cat", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a pet that barks.", "answer": "dog", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the big yellow light in the sky during the day.", "answer": "sun", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the color of grass.", "answer": "green", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for something round you bounce and throw.", "answer": "ball", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a place with lots of trees.", "answer": "tree", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["hat", "hatt", "haet", "hatte"], "answer": "hat", "tags": ["cvc"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["pigg", "pig", "pigge", "pyg"], "answer": "pig", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the opposite of 'yes'.", "answer": "no", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the number word for 1.", "answer": "one", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the number word for 2.", "answer": "two", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["red", "redd", "rede", "raid"], "answer": "red", "tags": ["cvc"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a baby's mother.", "answer": "mom", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the season with lots of snow.", "answer": "winter", "tags": ["sight-words"] }
+]

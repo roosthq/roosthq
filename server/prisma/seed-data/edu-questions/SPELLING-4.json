@@ -1,0 +1,16 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'k' meaning to be aware of your surroundings (rhymes with 'now').", "answer": "know", "tags": ["silent-letters"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'w' meaning to write with a pencil or make a picture.", "answer": "write", "tags": ["silent-letters"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'gh' meaning very high up (as in an airplane does this).", "answer": "flight", "tags": ["silent-letters"] },
+  { "type": "TEXT_INPUT", "prompt": "Combine 'note' + 'book' into one compound word.", "answer": "notebook", "tags": ["compound-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Combine 'foot' + 'ball' into one compound word.", "answer": "football", "tags": ["compound-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Combine 'rain' + 'bow' into one compound word.", "answer": "rainbow", "tags": ["compound-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["necessary", "neccessary", "necesary", "neccesary"], "answer": "necessary", "tags": ["tricky-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["separate", "seperate", "seprate", "separete"], "answer": "separate", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a building where you learn - has a silent 'h' near the end (school also works, but this one starts with 'sch' too) - spell 'school'.", "answer": "school", "tags": ["tricky-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for something you feel when you're not scared - opposite of 'brave' is not it, spell 'courage'.", "answer": "courage", "tags": ["tricky-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["knowledge", "nowledge", "knowlege", "knollege"], "answer": "knowledge", "tags": ["silent-letters"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'b' meaning to jump around, like on a trampoline.", "answer": "bounce", "tags": ["silent-letters"] },
+  { "type": "TEXT_INPUT", "prompt": "Combine 'sun' + 'flower' into one compound word.", "answer": "sunflower", "tags": ["compound-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Combine 'water' + 'fall' into one compound word.", "answer": "waterfall", "tags": ["compound-words"] }
+]

@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'cat'?", "choicesJson": ["dog", "hat", "sun", "big"], "answer": "hat", "tags": ["rhyming"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'ball'?", "choicesJson": ["tall", "run", "fish", "cup"], "answer": "tall", "tags": ["rhyming"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which letter makes the first sound in 'sun'?", "choicesJson": ["S", "T", "M", "R"], "answer": "S", "tags": ["phonics"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which letter makes the first sound in 'ball'?", "choicesJson": ["D", "B", "P", "K"], "answer": "B", "tags": ["phonics"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'big'?", "choicesJson": ["small", "happy", "fast", "red"], "answer": "small", "tags": ["vocabulary"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'up'?", "choicesJson": ["down", "left", "hot", "big"], "answer": "down", "tags": ["vocabulary"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'The dog ran to the ball.' What did the dog run to?", "choicesJson": ["A cat", "A ball", "A tree", "A house"], "answer": "A ball", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Sam has a red cup.' What color is Sam's cup?", "choicesJson": ["Blue", "Green", "Red", "Yellow"], "answer": "Red", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is a sight word you'd see a lot in easy books?", "choicesJson": ["the", "elephant", "beautiful", "mountain"], "answer": "the", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a complete sentence?", "choicesJson": ["Running fast", "The dog barks.", "Big red", "Under the"], "answer": "The dog barks.", "tags": ["sentences"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word starts with the same sound as 'mom'?", "choicesJson": ["dad", "milk", "cat", "sun"], "answer": "milk", "tags": ["phonics"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'The sun is hot.' What is hot?", "choicesJson": ["The moon", "The sun", "The rain", "The snow"], "answer": "The sun", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'dog'?", "choicesJson": ["log", "cat", "fish", "run"], "answer": "log", "tags": ["rhyming"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is a story about make-believe animals talking? That's called a...", "choicesJson": ["fable", "recipe", "map", "list"], "answer": "fable", "tags": ["genre"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Jen has a pet fish. Its name is Fin.' What is the fish's name?", "choicesJson": ["Jen", "Pet", "Fin", "Fish"], "answer": "Fin", "tags": ["comprehension"] }
+]

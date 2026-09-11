@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Max packed his bag and walked to school. He was excited for art class.' Why was Max excited?", "choicesJson": ["For lunch", "For art class", "For recess", "For a nap"], "answer": "For art class", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'It rained all day, so Mia stayed inside and read books.' Why did Mia stay inside?", "choicesJson": ["She was tired", "It rained", "She was sick", "It was night"], "answer": "It rained", "tags": ["comprehension", "cause-effect"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'happy'?", "choicesJson": ["glad", "sad", "angry", "tired"], "answer": "glad", "tags": ["synonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'loud'?", "choicesJson": ["quiet", "big", "fast", "bright"], "answer": "quiet", "tags": ["antonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'First Ana brushed her teeth. Then she put on her shoes. Last she grabbed her backpack.' What did Ana do first?", "choicesJson": ["Grabbed her backpack", "Put on her shoes", "Brushed her teeth", "Ate breakfast"], "answer": "Brushed her teeth", "tags": ["sequencing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A story with talking animals that teaches a lesson is called a...", "choicesJson": ["fable", "biography", "recipe", "diary"], "answer": "fable", "tags": ["genre"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'plate'?", "choicesJson": ["late", "cup", "nose", "green"], "answer": "late", "tags": ["rhyming"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'The kite got stuck in the tall tree.' Where did the kite get stuck?", "choicesJson": ["In a tree", "In the water", "On the ground", "In a car"], "answer": "In a tree", "tags": ["comprehension"] },
+  { "type": "TEXT_INPUT", "prompt": "What is the plural (more than one) of the word 'cat'?", "answer": "cats", "tags": ["grammar"] },
+  { "type": "TEXT_INPUT", "prompt": "What is the plural (more than one) of the word 'box'?", "answer": "boxes", "tags": ["grammar"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence asks a question?", "choicesJson": ["The dog is big.", "Run fast!", "Where is my hat?", "I like cake."], "answer": "Where is my hat?", "tags": ["sentences"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Tom was sad because his ice cream melted.' How did Tom feel?", "choicesJson": ["Happy", "Sad", "Excited", "Sleepy"], "answer": "Sad", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'small'?", "choicesJson": ["tiny", "huge", "fast", "loud"], "answer": "tiny", "tags": ["synonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A book that tells a true story about someone's real life is called a...", "choicesJson": ["biography", "fable", "poem", "riddle"], "answer": "biography", "tags": ["genre"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'The puppy chased its tail until it got dizzy.' Why did the puppy get dizzy?", "choicesJson": ["It ate too much", "It chased its tail", "It ran outside", "It was sleepy"], "answer": "It chased its tail", "tags": ["cause-effect"] }
+]

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import {
   api,
   EDU_SUBJECTS,
@@ -11,10 +11,23 @@ import {
   type StorePrize,
 } from '../api';
 import RocketRacer from '../RocketRacer';
+import StoryBuilder from '../StoryBuilder';
+import HabitatBuilder from '../HabitatBuilder';
+import BalloonLetters from '../BalloonLetters';
 import { celebrate } from '../celebrate';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
+
+// Each subject's own arcade break (PLANNING.md §19) - not one game reused
+// everywhere. Math keeps Rocket Racer (already built); Reading/Science/
+// Spelling get their own real mechanic + art, not a reskin of Math's.
+const BREAK_GAME: Record<EduSubject, (p: { onDone: () => void }) => ReactElement> = {
+  MATH: RocketRacer,
+  READING: StoryBuilder,
+  SCIENCE: HabitatBuilder,
+  SPELLING: BalloonLetters,
+};
 
 // Learning games (PLANNING.md §19) - grade-level quiz per subject, a
 // subject-specific arcade break in the middle, tokens per correct answer,
@@ -281,10 +294,11 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     );
   }
 
-  if (phase === 'BREAK') {
+  if (phase === 'BREAK' && session) {
+    const BreakGame = BREAK_GAME[session.subject];
     return (
       <div className="mt-4">
-        <RocketRacer onDone={afterBreak} />
+        <BreakGame onDone={afterBreak} />
       </div>
     );
   }

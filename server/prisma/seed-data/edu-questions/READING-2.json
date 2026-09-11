@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Lily wanted a puppy, but her apartment didn't allow pets. She got a fish instead.' Why did Lily get a fish?", "choicesJson": ["She liked fish more", "Her apartment didn't allow pets", "The puppy was too expensive", "Her friend had a fish"], "answer": "Her apartment didn't allow pets", "tags": ["comprehension", "cause-effect"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Even though it was freezing outside, Jack wore shorts to the park.' What can you tell about Jack?", "choicesJson": ["He felt cold easily", "He didn't mind the cold", "He stayed inside", "He wore a coat"], "answer": "He didn't mind the cold", "tags": ["inference"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'quick'?", "choicesJson": ["fast", "slow", "quiet", "heavy"], "answer": "fast", "tags": ["synonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'begin'?", "choicesJson": ["end", "start", "open", "grow"], "answer": "end", "tags": ["antonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In a story, the place and time it happens is called the...", "choicesJson": ["setting", "character", "plot", "title"], "answer": "setting", "tags": ["story-elements"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In a story, a person or animal the story is about is called a...", "choicesJson": ["setting", "character", "author", "chapter"], "answer": "character", "tags": ["story-elements"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'Marco practiced piano every day for a month. At the recital, he played perfectly.' Why did Marco play well?", "choicesJson": ["He got lucky", "He practiced every day", "The piano was easy", "His teacher played for him"], "answer": "He practiced every day", "tags": ["cause-effect"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence shows a fact, not an opinion?", "choicesJson": ["Pizza is the best food.", "Dogs are cuter than cats.", "Water freezes at 32 degrees.", "Summer is too hot."], "answer": "Water freezes at 32 degrees.", "tags": ["fact-opinion"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence shows an opinion, not a fact?", "choicesJson": ["The sky is blue.", "Chocolate ice cream is the best flavor.", "A week has seven days.", "Fish live in water."], "answer": "Chocolate ice cream is the best flavor.", "tags": ["fact-opinion"] },
+  { "type": "TEXT_INPUT", "prompt": "What is the past tense of the word 'jump'?", "answer": "jumped", "tags": ["grammar"] },
+  { "type": "TEXT_INPUT", "prompt": "What is the past tense of the word 'run'?", "answer": "ran", "tags": ["grammar"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'The bakery smelled like fresh bread every morning.' What sense is being described?", "choicesJson": ["Smell", "Taste", "Touch", "Sound"], "answer": "Smell", "tags": ["comprehension"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'huge'?", "choicesJson": ["enormous", "tiny", "narrow", "quiet"], "answer": "enormous", "tags": ["synonyms"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A poem where two lines in a row rhyme is using...", "choicesJson": ["rhyme", "a setting", "a biography", "an index"], "answer": "rhyme", "tags": ["poetry"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "'After the game, the team was tired but happy - they had won!' How did the team feel?", "choicesJson": ["Sad and tired", "Tired but happy", "Angry", "Bored"], "answer": "Tired but happy", "tags": ["comprehension"] }
+]

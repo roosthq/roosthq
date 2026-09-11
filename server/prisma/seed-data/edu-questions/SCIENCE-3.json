@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "A push or pull on an object is called a...", "choicesJson": ["force", "habitat", "cycle", "molecule"], "answer": "force", "tags": ["force-motion"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "The force that pulls objects down toward the Earth is called...", "choicesJson": ["gravity", "friction", "magnetism", "energy"], "answer": "gravity", "tags": ["force-motion"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "The force that slows things down when two surfaces rub together is called...", "choicesJson": ["friction", "gravity", "light", "sound"], "answer": "friction", "tags": ["force-motion"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A group of living things and their environment working together is called an...", "choicesJson": ["ecosystem", "alphabet", "equation", "instrument"], "answer": "ecosystem", "tags": ["ecosystems"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In a food chain, what do we call an animal that hunts other animals for food?", "choicesJson": ["predator", "prey", "producer", "decomposer"], "answer": "predator", "tags": ["ecosystems"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In a food chain, what do we call an animal that gets hunted for food?", "choicesJson": ["prey", "predator", "producer", "consumer"], "answer": "prey", "tags": ["ecosystems"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a producer in a food chain (makes its own food)?", "choicesJson": ["A tree", "A wolf", "A lion", "A hawk"], "answer": "A tree", "tags": ["ecosystems"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Rocks made from cooled, hardened lava or magma are called...", "choicesJson": ["igneous rocks", "sedimentary rocks", "metamorphic rocks", "plastic rocks"], "answer": "igneous rocks", "tags": ["rocks-minerals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Rocks formed from layers of sand and mud pressed together over time are called...", "choicesJson": ["sedimentary rocks", "igneous rocks", "gas rocks", "liquid rocks"], "answer": "sedimentary rocks", "tags": ["rocks-minerals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is the process where water changes from a gas back into liquid droplets to form clouds?", "choicesJson": ["condensation", "evaporation", "combustion", "erosion"], "answer": "condensation", "tags": ["water-cycle"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when wind or water slowly wears away rock and soil over time?", "choicesJson": ["erosion", "evaporation", "photosynthesis", "gravity"], "answer": "erosion", "tags": ["earth-science"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine is a ramp that helps move heavy things up or down?", "choicesJson": ["inclined plane", "lever", "wheel and axle", "screw"], "answer": "inclined plane", "tags": ["simple-machines"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Plants use sunlight to make their own food in a process called...", "choicesJson": ["photosynthesis", "respiration", "digestion", "pollination"], "answer": "photosynthesis", "tags": ["plants"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which state of matter has a definite shape and doesn't flow?", "choicesJson": ["Solid", "Liquid", "Gas", "Plasma only"], "answer": "Solid", "tags": ["matter"] }
+]

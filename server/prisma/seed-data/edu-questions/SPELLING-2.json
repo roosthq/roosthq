@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly (long 'a' sound)?", "choicesJson": ["rain", "rane", "rayn", "raen"], "answer": "rain", "tags": ["long-vowels"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly (long 'e' sound)?", "choicesJson": ["team", "teem", "teme", "tem"], "answer": "team", "tags": ["long-vowels"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly (long 'o' sound)?", "choicesJson": ["boat", "bote", "boet", "bout"], "answer": "boat", "tags": ["long-vowels"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the contraction for 'they are'.", "answer": "they're", "tags": ["contractions"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the contraction for 'you are'.", "answer": "you're", "tags": ["contractions"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word that sounds like 'their' but means 'over there' (as in 'put it ___').", "answer": "there", "tags": ["homophones"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for 'belonging to them' (as in '___ house').", "answer": "their", "tags": ["homophones"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a young cat.", "answer": "kitten", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the meal you eat in the morning.", "answer": "breakfast", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["beach", "beech", "beash", "beache"], "answer": "beach", "tags": ["long-vowels"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a person who teaches at school.", "answer": "teacher", "tags": ["sight-words"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["cloud", "clowd", "cloude", "clud"], "answer": "cloud", "tags": ["long-vowels"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for the room where you cook food.", "answer": "kitchen", "tags": ["sight-words"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word for a place you go to see wild animals up close.", "answer": "zoo", "tags": ["sight-words"] }
+]

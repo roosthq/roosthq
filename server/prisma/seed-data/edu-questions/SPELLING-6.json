@@ -1,0 +1,16 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["conscience", "consience", "conscence", "concience"], "answer": "conscience", "tags": ["advanced-vocab"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["rhythm", "rythm", "rhythem", "rhithm"], "answer": "rhythm", "tags": ["advanced-vocab"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["occurrence", "occurance", "occurrance", "ocurrence"], "answer": "occurrence", "tags": ["advanced-vocab"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'chron' means 'time'. Spell the word for a list of events in time order (chron + ology).", "answer": "chronology", "tags": ["greek-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'photo' means 'light'. Spell the process plants use to turn light into food (photo + synthesis).", "answer": "photosynthesis", "tags": ["greek-roots"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'advice or suggestion' (a noun) - often confused with the verb 'advise'.", "answer": "advice", "tags": ["commonly-confused"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to give advice' (a verb) - often confused with the noun 'advice'.", "answer": "advise", "tags": ["commonly-confused"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["maintenance", "maintainance", "maintenence", "maintenace"], "answer": "maintenance", "tags": ["advanced-vocab"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["privilege", "priviledge", "priviledge", "privelege"], "answer": "privilege", "tags": ["advanced-vocab"] },
+  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'not the same' or a mathematical symbol showing amounts aren't equal - starts with 'un' + 'equal'.", "answer": "unequal", "tags": ["prefixes"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["existence", "existance", "existense", "existanse"], "answer": "existence", "tags": ["advanced-vocab"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'geo' means 'earth'. Spell the subject that studies Earth's land and features (geo + graphy).", "answer": "geography", "tags": ["greek-roots"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["accommodate", "accomodate", "acommodate", "accommadate"], "answer": "accommodate", "tags": ["advanced-vocab"] },
+  { "type": "TEXT_INPUT", "prompt": "The root 'auto' means 'self'. Spell the word for a written life-story of yourself (auto + biography).", "answer": "autobiography", "tags": ["greek-roots"] }
+]
