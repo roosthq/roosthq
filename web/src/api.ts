@@ -665,6 +665,45 @@ export interface EduAdvanceResult {
   questions: EduQuestionForPlay[];
 }
 
+export interface EduWrongQuestion {
+  id: string;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  choices: string[] | null;
+  correctAnswer: string;
+  attempts: number;
+}
+
+export interface EduSubjectProgress {
+  grade: number;
+  bankSize: number;
+  masteredCount: number;
+  wrongCount: number;
+  untriedCount: number;
+  accuracyPct: number | null; // null = never attempted anything at this grade
+  wrongQuestions: EduWrongQuestion[];
+}
+
+export interface EduRecentSession {
+  id: string;
+  subject: EduSubject;
+  grade: number;
+  status: 'BLOCK_A' | 'BREAK' | 'BLOCK_B' | 'DONE';
+  correctCount: number;
+  totalCount: number;
+  tokensAwarded: number;
+  allCorrect: boolean;
+  startedAt: string;
+  finishedAt: string | null;
+}
+
+export interface EduProgress {
+  userId: string;
+  displayName: string;
+  subjects: Record<EduSubject, EduSubjectProgress>;
+  recentSessions: EduRecentSession[];
+}
+
 export interface AwardCatalogItem {
   id: string;
   wheelMin?: number;
@@ -1687,6 +1726,7 @@ export const api = {
     req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
   advanceLearningSession: (sessionId: string, kioskToken?: string) =>
     req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
+  learningProgress: (userId: string) => req<EduProgress>(`/learning/progress/${userId}`),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

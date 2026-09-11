@@ -1,17 +1,1403 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Lily wanted a puppy, but her apartment didn't allow pets. She got a fish instead.' Why did Lily get a fish?", "choicesJson": ["She liked fish more", "Her apartment didn't allow pets", "The puppy was too expensive", "Her friend had a fish"], "answer": "Her apartment didn't allow pets", "tags": ["comprehension", "cause-effect"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Even though it was freezing outside, Jack wore shorts to the park.' What can you tell about Jack?", "choicesJson": ["He felt cold easily", "He didn't mind the cold", "He stayed inside", "He wore a coat"], "answer": "He didn't mind the cold", "tags": ["inference"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'quick'?", "choicesJson": ["fast", "slow", "quiet", "heavy"], "answer": "fast", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'begin'?", "choicesJson": ["end", "start", "open", "grow"], "answer": "end", "tags": ["antonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a story, the place and time it happens is called the...", "choicesJson": ["setting", "character", "plot", "title"], "answer": "setting", "tags": ["story-elements"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a story, a person or animal the story is about is called a...", "choicesJson": ["setting", "character", "author", "chapter"], "answer": "character", "tags": ["story-elements"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Marco practiced piano every day for a month. At the recital, he played perfectly.' Why did Marco play well?", "choicesJson": ["He got lucky", "He practiced every day", "The piano was easy", "His teacher played for him"], "answer": "He practiced every day", "tags": ["cause-effect"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence shows a fact, not an opinion?", "choicesJson": ["Pizza is the best food.", "Dogs are cuter than cats.", "Water freezes at 32 degrees.", "Summer is too hot."], "answer": "Water freezes at 32 degrees.", "tags": ["fact-opinion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence shows an opinion, not a fact?", "choicesJson": ["The sky is blue.", "Chocolate ice cream is the best flavor.", "A week has seven days.", "Fish live in water."], "answer": "Chocolate ice cream is the best flavor.", "tags": ["fact-opinion"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the past tense of the word 'jump'?", "answer": "jumped", "tags": ["grammar"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the past tense of the word 'run'?", "answer": "ran", "tags": ["grammar"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The bakery smelled like fresh bread every morning.' What sense is being described?", "choicesJson": ["Smell", "Taste", "Touch", "Sound"], "answer": "Smell", "tags": ["comprehension"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'huge'?", "choicesJson": ["enormous", "tiny", "narrow", "quiet"], "answer": "enormous", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A poem where two lines in a row rhyme is using...", "choicesJson": ["rhyme", "a setting", "a biography", "an index"], "answer": "rhyme", "tags": ["poetry"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'After the game, the team was tired but happy - they had won!' How did the team feel?", "choicesJson": ["Sad and tired", "Tired but happy", "Angry", "Bored"], "answer": "Tired but happy", "tags": ["comprehension"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Lily wanted a puppy, but her apartment didn't allow pets. She got a fish instead.' Why did Lily get a fish?",
+    "choicesJson": [
+      "She liked fish more",
+      "Her apartment didn't allow pets",
+      "The puppy was too expensive",
+      "Her friend had a fish"
+    ],
+    "answer": "Her apartment didn't allow pets",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Even though it was freezing outside, Jack wore shorts to the park.' What can you tell about Jack?",
+    "choicesJson": [
+      "He felt cold easily",
+      "He didn't mind the cold",
+      "He stayed inside",
+      "He wore a coat"
+    ],
+    "answer": "He didn't mind the cold",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'quick'?",
+    "choicesJson": [
+      "fast",
+      "slow",
+      "quiet",
+      "heavy"
+    ],
+    "answer": "fast",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'begin'?",
+    "choicesJson": [
+      "end",
+      "start",
+      "open",
+      "grow"
+    ],
+    "answer": "end",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a story, the place and time it happens is called the...",
+    "choicesJson": [
+      "setting",
+      "character",
+      "plot",
+      "title"
+    ],
+    "answer": "setting",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a story, a person or animal the story is about is called a...",
+    "choicesJson": [
+      "setting",
+      "character",
+      "author",
+      "chapter"
+    ],
+    "answer": "character",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Marco practiced piano every day for a month. At the recital, he played perfectly.' Why did Marco play well?",
+    "choicesJson": [
+      "He got lucky",
+      "He practiced every day",
+      "The piano was easy",
+      "His teacher played for him"
+    ],
+    "answer": "He practiced every day",
+    "tags": [
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence shows a fact, not an opinion?",
+    "choicesJson": [
+      "Pizza is the best food.",
+      "Dogs are cuter than cats.",
+      "Water freezes at 32 degrees.",
+      "Summer is too hot."
+    ],
+    "answer": "Water freezes at 32 degrees.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence shows an opinion, not a fact?",
+    "choicesJson": [
+      "The sky is blue.",
+      "Chocolate ice cream is the best flavor.",
+      "A week has seven days.",
+      "Fish live in water."
+    ],
+    "answer": "Chocolate ice cream is the best flavor.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'jump'?",
+    "answer": "jumped",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'run'?",
+    "answer": "ran",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The bakery smelled like fresh bread every morning.' What sense is being described?",
+    "choicesJson": [
+      "Smell",
+      "Taste",
+      "Touch",
+      "Sound"
+    ],
+    "answer": "Smell",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'huge'?",
+    "choicesJson": [
+      "enormous",
+      "tiny",
+      "narrow",
+      "quiet"
+    ],
+    "answer": "enormous",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A poem where two lines in a row rhyme is using...",
+    "choicesJson": [
+      "rhyme",
+      "a setting",
+      "a biography",
+      "an index"
+    ],
+    "answer": "rhyme",
+    "tags": [
+      "poetry"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'After the game, the team was tired but happy - they had won!' How did the team feel?",
+    "choicesJson": [
+      "Sad and tired",
+      "Tired but happy",
+      "Angry",
+      "Bored"
+    ],
+    "answer": "Tired but happy",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Nina's bike had a flat tire, so she walked it to school instead of riding.' Why did Nina walk her bike?",
+    "choicesJson": [
+      "It had a flat tire",
+      "She liked walking",
+      "It was too far to ride",
+      "Her helmet was missing"
+    ],
+    "answer": "It had a flat tire",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The museum closes early on Sundays, so the Garcia family arrived right when it opened.' Why did the family arrive early?",
+    "choicesJson": [
+      "The museum closes early on Sundays",
+      "They got lost",
+      "They forgot tickets",
+      "It was raining"
+    ],
+    "answer": "The museum closes early on Sundays",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Because the thunder scared the dog, it hid under the bed the whole storm.' Why did the dog hide?",
+    "choicesJson": [
+      "The thunder scared it",
+      "It wanted to nap",
+      "It was hungry",
+      "It was chasing a toy"
+    ],
+    "answer": "The thunder scared it",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ravi's model airplane took three weekends to build, piece by piece.' How long did the model airplane take to build?",
+    "choicesJson": [
+      "Three weekends",
+      "One day",
+      "A whole year",
+      "One weekend"
+    ],
+    "answer": "Three weekends",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The librarian sorted the returned books before shelving them by subject.' What did the librarian do before shelving the books?",
+    "choicesJson": [
+      "Sorted them",
+      "Read them all",
+      "Sold them",
+      "Donated them"
+    ],
+    "answer": "Sorted them",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Since the well ran dry, the village had to carry water from the river.' Why did the village carry water from the river?",
+    "choicesJson": [
+      "The well ran dry",
+      "The river was closer",
+      "They liked the walk",
+      "The river had better water"
+    ],
+    "answer": "The well ran dry",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Priya's science project on volcanoes won first place at the fair.' What was Priya's science project about?",
+    "choicesJson": [
+      "Volcanoes",
+      "Planets",
+      "Plants",
+      "Weather"
+    ],
+    "answer": "Volcanoes",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The bakery's ovens broke down, so they could not bake fresh bread that morning.' Why couldn't the bakery bake bread?",
+    "choicesJson": [
+      "The ovens broke down",
+      "They ran out of flour",
+      "It was a holiday",
+      "No one wanted bread"
+    ],
+    "answer": "The ovens broke down",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every winter, the geese fly south to warmer places before the snow falls.' When do the geese fly south?",
+    "choicesJson": [
+      "Every winter, before the snow falls",
+      "Every summer",
+      "Only once",
+      "After the snow melts"
+    ],
+    "answer": "Every winter, before the snow falls",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Marcus practiced his multiplication facts until he could say them without thinking.' Why did Marcus practice?",
+    "choicesJson": [
+      "So he could say the facts without thinking",
+      "Because his teacher was there",
+      "Because he liked homework",
+      "Because it was a game"
+    ],
+    "answer": "So he could say the facts without thinking",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The campers zipped their tents shut because mosquitoes were everywhere at dusk.' Why did the campers zip their tents shut?",
+    "choicesJson": [
+      "Mosquitoes were everywhere",
+      "It started to rain",
+      "It got too hot",
+      "Bears were nearby"
+    ],
+    "answer": "Mosquitoes were everywhere",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Because the road was flooded, the school bus took a longer route home.' Why did the bus take a longer route?",
+    "choicesJson": [
+      "The road was flooded",
+      "The driver got lost",
+      "It was a holiday",
+      "The bus broke down"
+    ],
+    "answer": "The road was flooded",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ben's shoes were caked in mud and his hair was dripping wet when he walked in.' What can you infer happened to Ben?",
+    "choicesJson": [
+      "He had been outside in wet, muddy conditions",
+      "He just woke up",
+      "He was baking in the kitchen",
+      "He had been reading all day"
+    ],
+    "answer": "He had been outside in wet, muddy conditions",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The cake sat untouched on the counter, and crumbs covered the dog's face.' What can you infer?",
+    "choicesJson": [
+      "The dog ate some of the cake",
+      "The cat baked the cake",
+      "No one likes cake",
+      "The cake was thrown away"
+    ],
+    "answer": "The dog ate some of the cake",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Coach blew the whistle twice and pointed at the clock, and the players sprinted to the locker room.' What can you infer?",
+    "choicesJson": [
+      "Practice had ended",
+      "The game just started",
+      "The players were in trouble",
+      "It began to rain"
+    ],
+    "answer": "Practice had ended",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every seat in the theater was filled, and people stood clapping after the final scene.' What can you infer about the play?",
+    "choicesJson": [
+      "The audience enjoyed the play",
+      "The play was too long",
+      "The theater was empty",
+      "The actors forgot their lines"
+    ],
+    "answer": "The audience enjoyed the play",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Grandpa checked the mailbox three times before lunch, even though mail doesn't come until 2pm.' What can you infer about Grandpa?",
+    "choicesJson": [
+      "He was eagerly waiting for something",
+      "He forgot where the mailbox was",
+      "He didn't like mail",
+      "He was cleaning the mailbox"
+    ],
+    "answer": "He was eagerly waiting for something",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Leaves crunched under their boots, and steam rose from their hot cocoa mugs.' What season is it most likely?",
+    "choicesJson": [
+      "Fall or winter",
+      "Summer",
+      "Spring",
+      "It could be any season"
+    ],
+    "answer": "Fall or winter",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage about how ants work together to carry food many times their own size?",
+    "choicesJson": [
+      "Ants accomplish a lot by working together",
+      "Ants are dangerous",
+      "Food is heavy",
+      "Ants live underground"
+    ],
+    "answer": "Ants accomplish a lot by working together",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a story where a boy is nervous to try the diving board but feels proud once he jumps?",
+    "choicesJson": [
+      "Trying something scary can lead to pride",
+      "Diving boards are dangerous",
+      "Swimming pools are fun",
+      "The boy dislikes water"
+    ],
+    "answer": "Trying something scary can lead to pride",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that bears sleep through winter to save energy when food is scarce?",
+    "choicesJson": [
+      "Bears hibernate to survive when food is scarce",
+      "Bears are lazy animals",
+      "Winter is bears' favorite season",
+      "Bears eat all winter"
+    ],
+    "answer": "Bears hibernate to survive when food is scarce",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a story about a class that raises money for new library books through a bake sale?",
+    "choicesJson": [
+      "Working together can raise money for a good cause",
+      "Bake sales are always successful",
+      "The library was closed",
+      "Cookies are the best snack"
+    ],
+    "answer": "Working together can raise money for a good cause",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'gigantic'?",
+    "choicesJson": [
+      "huge",
+      "tiny",
+      "narrow",
+      "plain"
+    ],
+    "answer": "huge",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'assist'?",
+    "choicesJson": [
+      "help",
+      "ignore",
+      "block",
+      "confuse"
+    ],
+    "answer": "help",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'glimpse'?",
+    "choicesJson": [
+      "peek",
+      "stare",
+      "sleep",
+      "shout"
+    ],
+    "answer": "peek",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'chilly'?",
+    "choicesJson": [
+      "cold",
+      "warm",
+      "hot",
+      "dry"
+    ],
+    "answer": "cold",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'mend'?",
+    "choicesJson": [
+      "fix",
+      "break",
+      "lose",
+      "hide"
+    ],
+    "answer": "fix",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'yell'?",
+    "choicesJson": [
+      "shout",
+      "whisper",
+      "sing",
+      "sit"
+    ],
+    "answer": "shout",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'brave'?",
+    "choicesJson": [
+      "courageous",
+      "fearful",
+      "shy",
+      "weak"
+    ],
+    "answer": "courageous",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'tidy'?",
+    "choicesJson": [
+      "neat",
+      "messy",
+      "loud",
+      "slow"
+    ],
+    "answer": "neat",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'ancient'?",
+    "choicesJson": [
+      "modern",
+      "old",
+      "wise",
+      "rare"
+    ],
+    "answer": "modern",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'shallow'?",
+    "choicesJson": [
+      "deep",
+      "wide",
+      "narrow",
+      "flat"
+    ],
+    "answer": "deep",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'cautious'?",
+    "choicesJson": [
+      "reckless",
+      "careful",
+      "slow",
+      "quiet"
+    ],
+    "answer": "reckless",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'generous'?",
+    "choicesJson": [
+      "stingy",
+      "kind",
+      "wealthy",
+      "friendly"
+    ],
+    "answer": "stingy",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'arrive'?",
+    "choicesJson": [
+      "depart",
+      "stay",
+      "wait",
+      "visit"
+    ],
+    "answer": "depart",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'fragile'?",
+    "choicesJson": [
+      "sturdy",
+      "weak",
+      "small",
+      "clear"
+    ],
+    "answer": "sturdy",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'polite'?",
+    "choicesJson": [
+      "rude",
+      "kind",
+      "quiet",
+      "calm"
+    ],
+    "answer": "rude",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'victory'?",
+    "choicesJson": [
+      "defeat",
+      "success",
+      "loss",
+      "game"
+    ],
+    "answer": "defeat",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The trail was so treacherous that the guide warned everyone to hold the rope.' What does 'treacherous' most likely mean?",
+    "choicesJson": [
+      "dangerous",
+      "easy",
+      "short",
+      "flat"
+    ],
+    "answer": "dangerous",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'After the marathon, her legs felt like lead, too heavy to move.' What does this description suggest about how her legs felt?",
+    "choicesJson": [
+      "Extremely tired and heavy",
+      "Very light and energetic",
+      "Cold and numb",
+      "Itchy"
+    ],
+    "answer": "Extremely tired and heavy",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The puzzle was so intricate that it had thousands of tiny pieces.' What does 'intricate' most likely mean?",
+    "choicesJson": [
+      "detailed and complex",
+      "boring",
+      "short",
+      "colorless"
+    ],
+    "answer": "detailed and complex",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The crowd grew silent as the storm clouds loomed over the stadium.' What does 'loomed' suggest?",
+    "choicesJson": [
+      "appeared threateningly close",
+      "disappeared quickly",
+      "became sunny",
+      "turned into rain"
+    ],
+    "answer": "appeared threateningly close",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'His stomach growled loudly; he was famished after skipping breakfast.' What does 'famished' most likely mean?",
+    "choicesJson": [
+      "extremely hungry",
+      "extremely tired",
+      "extremely happy",
+      "extremely cold"
+    ],
+    "answer": "extremely hungry",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence states a fact rather than an opinion?",
+    "choicesJson": [
+      "A triangle has three sides.",
+      "Triangles are boring shapes.",
+      "Circles are prettier than triangles.",
+      "Shapes are hard to draw."
+    ],
+    "answer": "A triangle has three sides.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence expresses an opinion rather than a fact?",
+    "choicesJson": [
+      "Soccer is the most exciting sport.",
+      "A soccer team has eleven players.",
+      "Soccer games last 90 minutes.",
+      "Soccer balls are round."
+    ],
+    "answer": "Soccer is the most exciting sport.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence could be proven true with evidence?",
+    "choicesJson": [
+      "The Amazon River is in South America.",
+      "The Amazon River is the prettiest river.",
+      "Rivers are more fun than lakes.",
+      "Everyone should visit a river."
+    ],
+    "answer": "The Amazon River is in South America.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The turning point where the story's problem starts to be solved is called the...",
+    "choicesJson": [
+      "falling action",
+      "exposition",
+      "climax build-up",
+      "glossary"
+    ],
+    "answer": "falling action",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story told using 'I' and 'me' is written from which point of view?",
+    "choicesJson": [
+      "first person",
+      "third person",
+      "second person",
+      "no point of view"
+    ],
+    "answer": "first person",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story told using 'he', 'she', and character names (not 'I') is in...",
+    "choicesJson": [
+      "third person",
+      "first person",
+      "second person",
+      "no narrator"
+    ],
+    "answer": "third person",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The background information given at the start of a story that introduces characters and setting is the...",
+    "choicesJson": [
+      "exposition",
+      "climax",
+      "resolution",
+      "index"
+    ],
+    "answer": "exposition",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Words printed in **bold** in a textbook usually signal that the word is...",
+    "choicesJson": [
+      "important to know",
+      "a mistake",
+      "the author's name",
+      "a page number"
+    ],
+    "answer": "important to know",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A caption under a photo in a book is there to...",
+    "choicesJson": [
+      "explain what the photo shows",
+      "give the price of the book",
+      "tell a joke",
+      "list the author's other books"
+    ],
+    "answer": "explain what the photo shows",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A heading at the top of a section tells the reader...",
+    "choicesJson": [
+      "what that section is about",
+      "who wrote the book",
+      "how many pages are left",
+      "the price of the book"
+    ],
+    "answer": "what that section is about",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'catch'?",
+    "answer": "caught",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'bring'?",
+    "answer": "brought",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'wolf'?",
+    "answer": "wolves",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'tooth'?",
+    "answer": "teeth",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'foot' (the body part)?",
+    "answer": "feet",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'think'?",
+    "answer": "thought",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 're-' to 'do' to make a word meaning 'do again'. What is the word?",
+    "answer": "redo",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ful' to 'help' to make a word meaning 'giving help'. What is the word?",
+    "answer": "helpful",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'un-' to 'happy' to make a word meaning 'not happy'. What is the word?",
+    "answer": "unhappy",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'grand' + 'mother' = ?",
+    "answer": "grandmother",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'water' + 'fall' = ?",
+    "answer": "waterfall",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about a boy who trains his dog with treats and patience until it learns to sit and stay?",
+    "choicesJson": [
+      "Patient training with treats teaches the dog new tricks",
+      "The dog never learned anything",
+      "The boy gave up training his dog",
+      "The dog was scared of treats"
+    ],
+    "answer": "Patient training with treats teaches the dog new tricks",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how spiders spin webs from silk to catch insects for food?",
+    "choicesJson": [
+      "Spiders use silk webs to catch food",
+      "Spiders are afraid of insects",
+      "Webs are made of leaves",
+      "Spiders never eat"
+    ],
+    "answer": "Spiders use silk webs to catch food",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The power company shut off electricity on Elm Street to fix a broken line.' Why was electricity shut off?",
+    "choicesJson": [
+      "To fix a broken line",
+      "It was too hot",
+      "Everyone was asleep",
+      "The company was closing"
+    ],
+    "answer": "To fix a broken line",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Because the ferry was full, the last few cars had to wait for the next trip.' Why did the last cars wait?",
+    "choicesJson": [
+      "The ferry was full",
+      "The ferry broke down",
+      "It was too windy",
+      "The driver was late"
+    ],
+    "answer": "The ferry was full",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The twins entered the pie-eating contest and both finished in under two minutes.' What contest did the twins enter?",
+    "choicesJson": [
+      "A pie-eating contest",
+      "A running race",
+      "A spelling bee",
+      "A swimming meet"
+    ],
+    "answer": "A pie-eating contest",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Since the trail flooded after the storm, park rangers closed it for the weekend.' Why did rangers close the trail?",
+    "choicesJson": [
+      "It flooded after the storm",
+      "Too many hikers came",
+      "It was getting dark",
+      "Animals were nearby"
+    ],
+    "answer": "It flooded after the storm",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The choir practiced the song forty times before the concert, until every note was perfect.' Why did the choir practice so much?",
+    "choicesJson": [
+      "To get every note perfect for the concert",
+      "Because they had nothing else to do",
+      "Because the teacher was late",
+      "Because the song was very short"
+    ],
+    "answer": "To get every note perfect for the concert",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The orchard's apples ripened early because of the warm spring.' Why did the apples ripen early?",
+    "choicesJson": [
+      "The warm spring",
+      "A cold winter",
+      "Too much rain",
+      "New apple trees"
+    ],
+    "answer": "The warm spring",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every light in the house was off, and a note on the fridge said 'Back by 6.'' What can you infer?",
+    "choicesJson": [
+      "No one is home right now",
+      "Someone is asleep upstairs",
+      "The power went out",
+      "It is early morning"
+    ],
+    "answer": "No one is home right now",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The trophy case in the school hallway was completely empty except for dust.' What can you infer about the school's teams?",
+    "choicesJson": [
+      "They haven't won any trophies recently",
+      "They won every trophy possible",
+      "The case is brand new",
+      "The janitor cleaned it that day"
+    ],
+    "answer": "They haven't won any trophies recently",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ty's hands were stained purple and his lips were sticky after the afternoon.' What can you infer Ty was doing?",
+    "choicesJson": [
+      "Eating berries or a purple snack",
+      "Painting a fence",
+      "Reading a book",
+      "Playing basketball"
+    ],
+    "answer": "Eating berries or a purple snack",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The tent flapped wildly and sand stung their eyes as they packed up quickly.' What can you infer about the weather?",
+    "choicesJson": [
+      "It was very windy",
+      "It was calm and sunny",
+      "It was snowing",
+      "It was foggy"
+    ],
+    "answer": "It was very windy",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The tadpole hatched, grew back legs, then grew front legs, and finally lost its tail to become a frog.' What happened right before it became a frog?",
+    "choicesJson": [
+      "It hatched",
+      "It grew back legs",
+      "It lost its tail",
+      "It grew front legs"
+    ],
+    "answer": "It lost its tail",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'First the team stretched, then ran two laps, then scrimmaged, and finally cooled down.' What did the team do right after running two laps?",
+    "choicesJson": [
+      "Stretched",
+      "Scrimmaged",
+      "Cooled down",
+      "Went home"
+    ],
+    "answer": "Scrimmaged",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Mia sketched the outline, added color, then outlined it in black marker.' What did Mia do last?",
+    "choicesJson": [
+      "Sketched the outline",
+      "Added color",
+      "Outlined it in black marker",
+      "Erased it"
+    ],
+    "answer": "Outlined it in black marker",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The dough rose overnight, was shaped into loaves, then baked in the morning.' What happened first?",
+    "choicesJson": [
+      "It was baked",
+      "It was shaped into loaves",
+      "It rose overnight",
+      "It was eaten"
+    ],
+    "answer": "It rose overnight",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A book that gives real facts about sharks, with photos and diagrams, is called...",
+    "choicesJson": [
+      "nonfiction",
+      "a fable",
+      "a fairy tale",
+      "a poem"
+    ],
+    "answer": "nonfiction",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A traditional story with magic, like a fairy godmother or a talking wolf, is a...",
+    "choicesJson": [
+      "fairy tale",
+      "biography",
+      "recipe",
+      "manual"
+    ],
+    "answer": "fairy tale",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A short funny poem with a bouncy rhythm, often about silly things, may be a...",
+    "choicesJson": [
+      "limerick",
+      "biography",
+      "index",
+      "glossary"
+    ],
+    "answer": "limerick",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'delighted'?",
+    "choicesJson": [
+      "thrilled",
+      "annoyed",
+      "bored",
+      "worried"
+    ],
+    "answer": "thrilled",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'exhausted'?",
+    "choicesJson": [
+      "worn out",
+      "energetic",
+      "calm",
+      "hungry"
+    ],
+    "answer": "worn out",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'permit'?",
+    "choicesJson": [
+      "forbid",
+      "allow",
+      "offer",
+      "suggest"
+    ],
+    "answer": "forbid",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'humble'?",
+    "choicesJson": [
+      "boastful",
+      "kind",
+      "quiet",
+      "shy"
+    ],
+    "answer": "boastful",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'buy'?",
+    "answer": "bought",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'know'?",
+    "answer": "knew",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'shelf'?",
+    "answer": "shelves",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-less' to 'care' to make a word meaning 'without care'. What is the word?",
+    "answer": "careless",
+    "tags": [
+      "grammar"
+    ]
+  }
 ]

@@ -375,6 +375,79 @@ export class LearningService {
     return { correct, correctAnswer: question.answer, tokensAwarded, phase: newStatus };
   }
 
+  // ---------------- Progress (adult-only) ----------------
+
+  // Per-subject mastery snapshot + the actual list of questions this kid is
+  // currently getting wrong (Casey's own request - "see each kid's
+  // progress, wrong questions, answer stats" without having to eyeball a
+  // live session). `correct` on EduQuestionProgress is the LATEST attempt
+  // only (see that model's own comment), so "wrong" here means "wrong
+  // right now", not "ever missed once" - a question gotten right since
+  // drops off this list on its own.
+  async getProgress(familyId: string, actorId: string, targetUserId: string) {
+    await this.assertAdult(actorId);
+    const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
+    if (!target) throw new NotFoundException('Family member not found');
+
+    const grades = await this.prisma.userSubjectGrade.findMany({ where: { userId: targetUserId } });
+    const gradeBySubject = new Map(grades.map((g) => [g.subject, g.grade]));
+
+    const subjects: Record<string, unknown> = {};
+    for (const subject of SUBJECTS) {
+      const grade = gradeBySubject.get(subject) ?? this.defaultGrade(target.birthday);
+      const bankSize = await this.prisma.eduQuestion.count({ where: { subject, grade, active: true } });
+      const progress = await this.prisma.eduQuestionProgress.findMany({ where: { userId: targetUserId, subject, grade } });
+      const wrong = progress.filter((p) => !p.correct);
+      const mastered = progress.filter((p) => p.correct);
+      const wrongQuestions = wrong.length
+        ? await this.prisma.eduQuestion.findMany({
+            where: { id: { in: wrong.map((w) => w.questionId) } },
+            select: { id: true, type: true, prompt: true, choicesJson: true, answer: true },
+          })
+        : [];
+      const wrongById = new Map(wrong.map((w) => [w.questionId, w]));
+      subjects[subject] = {
+        grade,
+        bankSize,
+        masteredCount: mastered.length,
+        wrongCount: wrong.length,
+        untriedCount: Math.max(0, bankSize - progress.length),
+        accuracyPct: progress.length ? Math.round((mastered.length / progress.length) * 100) : null,
+        wrongQuestions: wrongQuestions.map((q) => ({
+          id: q.id,
+          type: q.type,
+          prompt: q.prompt,
+          choices: q.choicesJson ?? null,
+          correctAnswer: q.answer,
+          attempts: wrongById.get(q.id)?.attempts ?? 1,
+        })),
+      };
+    }
+
+    const sessions = await this.prisma.eduSession.findMany({
+      where: { userId: targetUserId },
+      orderBy: { startedAt: 'desc' },
+      take: 15,
+    });
+    const recentSessions = sessions.map((s) => {
+      const rounds = (s.roundsJson as unknown as EduRound[]) ?? [];
+      return {
+        id: s.id,
+        subject: s.subject,
+        grade: s.grade,
+        status: s.status,
+        correctCount: rounds.filter((r) => r.correct).length,
+        totalCount: rounds.length,
+        tokensAwarded: s.tokensAwarded,
+        allCorrect: s.allCorrect,
+        startedAt: s.startedAt,
+        finishedAt: s.finishedAt,
+      };
+    });
+
+    return { userId: target.id, displayName: target.displayName, subjects, recentSessions };
+  }
+
   async advance(familyId: string, userId: string, sessionId: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const session = await this.owned(userId, sessionId);

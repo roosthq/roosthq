@@ -1,16 +1,1418 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Though the twins looked identical, their personalities couldn't have been more different - one loved quiet reading, the other loved loud adventures.' What is being compared?", "choicesJson": ["Their appearance and personalities", "Their ages", "Their names", "Their parents"], "answer": "Their appearance and personalities", "tags": ["compare-contrast"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the theme of a story where a lazy grasshopper starves in winter while a hardworking ant survives on stored food?", "choicesJson": ["Hard work and preparation pay off", "Grasshoppers are dangerous", "Winter is fun", "Ants are the best insect"], "answer": "Hard work and preparation pay off", "tags": ["theme"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is an example of a metaphor?", "choicesJson": ["Time is a thief.", "She ran like the wind.", "The dog barked loudly.", "It was a sunny day."], "answer": "Time is a thief.", "tags": ["figurative-language"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'reluctant'?", "choicesJson": ["hesitant", "eager", "confident", "joyful"], "answer": "hesitant", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'generous'?", "choicesJson": ["selfish", "kind", "wealthy", "friendly"], "answer": "selfish", "tags": ["antonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "An author who writes to persuade you to agree with an opinion is using...", "choicesJson": ["persuasive writing", "a recipe", "a diary entry", "a glossary"], "answer": "persuasive writing", "tags": ["authors-purpose"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A text organized by 'first this happened, then this, then this' uses which text structure?", "choicesJson": ["sequence", "compare-contrast", "cause-effect", "problem-solution"], "answer": "sequence", "tags": ["text-structure"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The word 'drenched' in 'She got drenched in the storm' most likely means...", "choicesJson": ["completely soaked", "very dry", "slightly cold", "extremely hot"], "answer": "completely soaked", "tags": ["context-clues"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the plural of the word 'goose'?", "answer": "geese", "tags": ["grammar"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine these into a compound word: 'butter' + 'fly' = ?", "answer": "butterfly", "tags": ["vocabulary"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Maria's science fair project failed twice, but she adjusted her hypothesis and tried again.' What best summarizes this?", "choicesJson": ["Maria gave up after failing.", "Maria learned from failure and kept trying.", "Maria never had a hypothesis.", "Maria's project succeeded the first time."], "answer": "Maria learned from failure and kept trying.", "tags": ["summarizing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence contains an example of personification?", "choicesJson": ["The wind whispered through the trees.", "The car is red.", "He walked to school.", "It is Tuesday."], "answer": "The wind whispered through the trees.", "tags": ["figurative-language"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "An author explaining the steps to bake a cake is writing to...", "choicesJson": ["inform", "entertain", "persuade", "confuse"], "answer": "inform", "tags": ["authors-purpose"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'ancient'?", "choicesJson": ["age-old", "modern", "recent", "new"], "answer": "age-old", "tags": ["synonyms"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Though the twins looked identical, their personalities couldn't have been more different - one loved quiet reading, the other loved loud adventures.' What is being compared?",
+    "choicesJson": [
+      "Their appearance and personalities",
+      "Their ages",
+      "Their names",
+      "Their parents"
+    ],
+    "answer": "Their appearance and personalities",
+    "tags": [
+      "compare-contrast"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a lazy grasshopper starves in winter while a hardworking ant survives on stored food?",
+    "choicesJson": [
+      "Hard work and preparation pay off",
+      "Grasshoppers are dangerous",
+      "Winter is fun",
+      "Ants are the best insect"
+    ],
+    "answer": "Hard work and preparation pay off",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is an example of a metaphor?",
+    "choicesJson": [
+      "Time is a thief.",
+      "She ran like the wind.",
+      "The dog barked loudly.",
+      "It was a sunny day."
+    ],
+    "answer": "Time is a thief.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'reluctant'?",
+    "choicesJson": [
+      "hesitant",
+      "eager",
+      "confident",
+      "joyful"
+    ],
+    "answer": "hesitant",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'generous'?",
+    "choicesJson": [
+      "selfish",
+      "kind",
+      "wealthy",
+      "friendly"
+    ],
+    "answer": "selfish",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An author who writes to persuade you to agree with an opinion is using...",
+    "choicesJson": [
+      "persuasive writing",
+      "a recipe",
+      "a diary entry",
+      "a glossary"
+    ],
+    "answer": "persuasive writing",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A text organized by 'first this happened, then this, then this' uses which text structure?",
+    "choicesJson": [
+      "sequence",
+      "compare-contrast",
+      "cause-effect",
+      "problem-solution"
+    ],
+    "answer": "sequence",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The word 'drenched' in 'She got drenched in the storm' most likely means...",
+    "choicesJson": [
+      "completely soaked",
+      "very dry",
+      "slightly cold",
+      "extremely hot"
+    ],
+    "answer": "completely soaked",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'goose'?",
+    "answer": "geese",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'butter' + 'fly' = ?",
+    "answer": "butterfly",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Maria's science fair project failed twice, but she adjusted her hypothesis and tried again.' What best summarizes this?",
+    "choicesJson": [
+      "Maria gave up after failing.",
+      "Maria learned from failure and kept trying.",
+      "Maria never had a hypothesis.",
+      "Maria's project succeeded the first time."
+    ],
+    "answer": "Maria learned from failure and kept trying.",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains an example of personification?",
+    "choicesJson": [
+      "The wind whispered through the trees.",
+      "The car is red.",
+      "He walked to school.",
+      "It is Tuesday."
+    ],
+    "answer": "The wind whispered through the trees.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An author explaining the steps to bake a cake is writing to...",
+    "choicesJson": [
+      "inform",
+      "entertain",
+      "persuade",
+      "confuse"
+    ],
+    "answer": "inform",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'ancient'?",
+    "choicesJson": [
+      "age-old",
+      "modern",
+      "recent",
+      "new"
+    ],
+    "answer": "age-old",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a stubborn crow refuses help from other animals during a drought, then almost dies of thirst before accepting a rabbit's water?",
+    "choicesJson": [
+      "Accepting help from others is not a weakness",
+      "Crows are smarter than rabbits",
+      "Droughts are dangerous for animals",
+      "Water should always be shared"
+    ],
+    "answer": "Accepting help from others is not a weakness",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a fable where a tortoise beats a hare in a race because the hare stopped to nap, confident he'd win easily?",
+    "choicesJson": [
+      "Slow and steady effort can beat overconfidence",
+      "Tortoises are faster than hares",
+      "Napping is always a bad idea",
+      "Races are unfair to slow animals"
+    ],
+    "answer": "Slow and steady effort can beat overconfidence",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a girl lies about breaking a vase, then feels so guilty she confesses and feels relieved?",
+    "choicesJson": [
+      "Honesty brings relief, even when it's hard",
+      "Lying always works out fine",
+      "Vases are more important than trust",
+      "Guilt never goes away"
+    ],
+    "answer": "Honesty brings relief, even when it's hard",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where villagers who once feared a lonely dragon learn it only wanted a friend?",
+    "choicesJson": [
+      "Fear often comes from misunderstanding others",
+      "Dragons are always dangerous",
+      "Villagers should avoid strangers",
+      "Loneliness is not a real feeling"
+    ],
+    "answer": "Fear often comes from misunderstanding others",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a team loses the championship but celebrates how much they improved all season?",
+    "choicesJson": [
+      "Growth and effort matter more than winning",
+      "Losing a championship ruins a season",
+      "Teams should quit if they don't win",
+      "Championships are the only goal that matters"
+    ],
+    "answer": "Growth and effort matter more than winning",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Jordan gave up her seat on the crowded bus for an elderly stranger without a second thought.' What does this reveal about Jordan?",
+    "choicesJson": [
+      "She is considerate and kind toward others",
+      "She dislikes sitting down",
+      "She is often late for the bus",
+      "She was asked to move by the driver"
+    ],
+    "answer": "She is considerate and kind toward others",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Despite losing every game that season, Coach Reyes still cheered loudly for every player at practice.' What does this reveal about Coach Reyes?",
+    "choicesJson": [
+      "He stays positive and encouraging even during hard times",
+      "He does not care about winning at all",
+      "He is planning to quit coaching",
+      "He blames the players for losing"
+    ],
+    "answer": "He stays positive and encouraging even during hard times",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Mateo double-checked the locks three times and packed an umbrella even though the sky was clear.' What does this reveal about Mateo?",
+    "choicesJson": [
+      "He tends to be cautious and prepared",
+      "He is careless about safety",
+      "He enjoys rainstorms",
+      "He forgets things often"
+    ],
+    "answer": "He tends to be cautious and prepared",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'When her little brother broke her science project, Wren took a breath and calmly helped him find the pieces.' What does this reveal about Wren?",
+    "choicesJson": [
+      "She is patient, even when frustrated",
+      "She does not care about her project",
+      "She is quick to anger",
+      "She blames her parents"
+    ],
+    "answer": "She is patient, even when frustrated",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The gym was decorated with streamers and a banner that read 'Congratulations, Class of 2030,' and everyone wore caps and gowns.' What event is most likely happening?",
+    "choicesJson": [
+      "A graduation ceremony",
+      "A birthday party",
+      "A sports tryout",
+      "A fire drill"
+    ],
+    "answer": "A graduation ceremony",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Wires and empty paint cans littered the floor, and a ladder leaned against a half-finished mural on the wall.' What can you infer is happening in this room?",
+    "choicesJson": [
+      "Someone is in the middle of painting a mural",
+      "The room is being demolished",
+      "A party just ended",
+      "The room was recently cleaned"
+    ],
+    "answer": "Someone is in the middle of painting a mural",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The scoreboard read 0-0 in the final minute, and both benches stood tense, gripping the railing.' What can you infer about the game?",
+    "choicesJson": [
+      "It is a close, tense game near its end",
+      "The game just started",
+      "One team is winning easily",
+      "The game was canceled"
+    ],
+    "answer": "It is a close, tense game near its end",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every recipe card in the box was stained and worn soft at the edges, some with notes scribbled in the margins.' What can you infer about these recipes?",
+    "choicesJson": [
+      "They have been used and passed down for a long time",
+      "They were just printed",
+      "No one has ever cooked from them",
+      "They belong to a professional chef only"
+    ],
+    "answer": "They have been used and passed down for a long time",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that the printing press allowed books to be made faster and cheaper, spreading literacy across Europe?",
+    "choicesJson": [
+      "The printing press made books more available and boosted literacy",
+      "The printing press was rarely used",
+      "Books became more expensive after printing was invented",
+      "Literacy decreased after the printing press"
+    ],
+    "answer": "The printing press made books more available and boosted literacy",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage about how wetlands filter pollutants from water before it reaches rivers and lakes?",
+    "choicesJson": [
+      "Wetlands help keep water clean by filtering pollutants",
+      "Wetlands pollute nearby rivers",
+      "Rivers do not need clean water",
+      "Wetlands have no effect on water quality"
+    ],
+    "answer": "Wetlands help keep water clean by filtering pollutants",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage describing how astronauts must exercise for hours daily in space to prevent muscle loss?",
+    "choicesJson": [
+      "Exercise in space helps astronauts avoid losing muscle",
+      "Astronauts never need to exercise",
+      "Muscle loss only happens on Earth",
+      "Space travel makes muscles stronger automatically"
+    ],
+    "answer": "Exercise in space helps astronauts avoid losing muscle",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a metaphor?",
+    "choicesJson": [
+      "Her determination was a fire that never went out.",
+      "She was very determined.",
+      "Her determination helped her finish.",
+      "She showed determination every day."
+    ],
+    "answer": "Her determination was a fire that never went out.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a simile?",
+    "choicesJson": [
+      "The crowd roared like a thunderstorm.",
+      "The crowd was loud.",
+      "The crowd cheered for a long time.",
+      "The crowd filled the stadium."
+    ],
+    "answer": "The crowd roared like a thunderstorm.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'to figure something out'?",
+    "choicesJson": [
+      "put two and two together",
+      "run out of time",
+      "catch a cold",
+      "break the ice"
+    ],
+    "answer": "put two and two together",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses personification?",
+    "choicesJson": [
+      "The old clock groaned as it struck midnight.",
+      "The clock was old.",
+      "The clock struck midnight.",
+      "It was midnight on the clock."
+    ],
+    "answer": "The old clock groaned as it struck midnight.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses hyperbole?",
+    "choicesJson": [
+      "This backpack weighs a thousand pounds.",
+      "This backpack is heavy.",
+      "I don't like carrying this backpack.",
+      "The backpack has many books."
+    ],
+    "answer": "This backpack weighs a thousand pounds.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence states a fact rather than an opinion?",
+    "choicesJson": [
+      "Saturn has rings made of ice and rock.",
+      "Saturn is the most beautiful planet.",
+      "Space travel is too scary to try.",
+      "Everyone should study Saturn."
+    ],
+    "answer": "Saturn has rings made of ice and rock.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence expresses an opinion rather than a fact?",
+    "choicesJson": [
+      "Documentaries are more valuable than cartoons.",
+      "Documentaries often include interviews.",
+      "Cartoons are animated.",
+      "Some documentaries are an hour long."
+    ],
+    "answer": "Documentaries are more valuable than cartoons.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence could be checked using a reliable source?",
+    "choicesJson": [
+      "The Nile River flows through Egypt.",
+      "The Nile is the most beautiful river.",
+      "Rivers are more interesting than lakes.",
+      "Everyone should visit the Nile."
+    ],
+    "answer": "The Nile River flows through Egypt.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The politician's speech was deliberately ambiguous, so no one could pin down exactly what she meant.' What does 'ambiguous' most likely mean?",
+    "choicesJson": [
+      "unclear or open to more than one meaning",
+      "perfectly clear",
+      "extremely long",
+      "translated poorly"
+    ],
+    "answer": "unclear or open to more than one meaning",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The volunteers were tireless, working from dawn until well past dark without complaint.' What does 'tireless' most likely mean?",
+    "choicesJson": [
+      "not easily worn out; full of energy",
+      "easily exhausted",
+      "paid very well",
+      "poorly organized"
+    ],
+    "answer": "not easily worn out; full of energy",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'His candid response surprised the reporters, who expected a vague, rehearsed answer instead.' What does 'candid' most likely mean?",
+    "choicesJson": [
+      "honest and direct",
+      "dishonest",
+      "confusing",
+      "rehearsed"
+    ],
+    "answer": "honest and direct",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The novel's plot was so convoluted that readers had to take notes just to follow it.' What does 'convoluted' most likely mean?",
+    "choicesJson": [
+      "complicated and hard to follow",
+      "simple and clear",
+      "short and quick",
+      "boring"
+    ],
+    "answer": "complicated and hard to follow",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage explaining the causes of the American Revolution and their effects on the colonies uses which structure?",
+    "choicesJson": [
+      "cause-effect",
+      "sequence",
+      "compare-contrast",
+      "description"
+    ],
+    "answer": "cause-effect",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that lists the characteristics of desert and rainforest biomes side by side uses which structure?",
+    "choicesJson": [
+      "compare-contrast",
+      "sequence",
+      "cause-effect",
+      "problem-solution"
+    ],
+    "answer": "compare-contrast",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage describing the exact steps water takes through the water cycle, in order, uses which structure?",
+    "choicesJson": [
+      "sequence",
+      "compare-contrast",
+      "description",
+      "problem-solution"
+    ],
+    "answer": "sequence",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that presents overfishing as an issue and then explains marine protected areas as a fix uses which structure?",
+    "choicesJson": [
+      "problem-solution",
+      "sequence",
+      "description",
+      "compare-contrast"
+    ],
+    "answer": "problem-solution",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A news article reporting the results of a city election, with no personal opinions included, is written mainly to...",
+    "choicesJson": [
+      "inform",
+      "persuade",
+      "entertain",
+      "instruct"
+    ],
+    "answer": "inform",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A speech urging citizens to vote in the upcoming election is written mainly to...",
+    "choicesJson": [
+      "persuade",
+      "inform only",
+      "entertain",
+      "describe a memory"
+    ],
+    "answer": "persuade",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An adventure novel about a crew searching for buried treasure is written mainly to...",
+    "choicesJson": [
+      "entertain",
+      "instruct",
+      "advertise",
+      "report news"
+    ],
+    "answer": "entertain",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how coral bleaching happens when rising ocean temperatures stress and kill the algae corals depend on?",
+    "choicesJson": [
+      "Warmer oceans stress corals and cause bleaching by killing their algae",
+      "Corals prefer warmer water",
+      "Algae has nothing to do with coral health",
+      "Coral bleaching only happens in aquariums"
+    ],
+    "answer": "Warmer oceans stress corals and cause bleaching by killing their algae",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how the Wright brothers tested many glider designs before achieving powered flight in 1903?",
+    "choicesJson": [
+      "Years of testing gliders led to the Wright brothers' first powered flight",
+      "The Wright brothers succeeded on their very first try",
+      "Gliders have engines like airplanes",
+      "The Wright brothers gave up before 1903"
+    ],
+    "answer": "Years of testing gliders led to the Wright brothers' first powered flight",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Unlike her brother, who loved loud crowds and parties, Elena preferred quiet evenings with a book.' What is being contrasted?",
+    "choicesJson": [
+      "Elena's and her brother's social preferences",
+      "Elena's and her brother's ages",
+      "Their favorite books",
+      "Their school grades"
+    ],
+    "answer": "Elena's and her brother's social preferences",
+    "tags": [
+      "compare-contrast"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Both cities have busy downtowns, but one sits by the ocean while the other is surrounded by mountains.' What is being compared?",
+    "choicesJson": [
+      "The locations and geography of two cities",
+      "The populations of two cities",
+      "The names of two cities",
+      "The age of two cities"
+    ],
+    "answer": "The locations and geography of two cities",
+    "tags": [
+      "compare-contrast"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'diminish'?",
+    "choicesJson": [
+      "decrease",
+      "increase",
+      "remain",
+      "expand"
+    ],
+    "answer": "decrease",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'ponder'?",
+    "choicesJson": [
+      "consider",
+      "ignore",
+      "rush",
+      "forget"
+    ],
+    "answer": "consider",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'astute'?",
+    "choicesJson": [
+      "perceptive",
+      "clueless",
+      "careless",
+      "forgetful"
+    ],
+    "answer": "perceptive",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'meager'?",
+    "choicesJson": [
+      "scant",
+      "abundant",
+      "generous",
+      "plentiful"
+    ],
+    "answer": "scant",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'candid'?",
+    "choicesJson": [
+      "deceptive",
+      "honest",
+      "open",
+      "direct"
+    ],
+    "answer": "deceptive",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'tedious'?",
+    "choicesJson": [
+      "exciting",
+      "boring",
+      "dull",
+      "slow"
+    ],
+    "answer": "exciting",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'ample'?",
+    "choicesJson": [
+      "insufficient",
+      "plenty",
+      "enough",
+      "abundant"
+    ],
+    "answer": "insufficient",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ous' to 'danger' to make an adjective. What is the word?",
+    "answer": "dangerous",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'mis-' to 'understand' to make a word meaning 'to understand incorrectly'. What is the word?",
+    "answer": "misunderstand",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'crisis'?",
+    "answer": "crises",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'over' + 'board' = ?",
+    "answer": "overboard",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a boy cheats on a test, gets a good grade, but feels so hollow that he confesses to his teacher the next day?",
+    "choicesJson": [
+      "True success feels empty without honesty",
+      "Cheating is a good shortcut to grades",
+      "Teachers never notice cheating",
+      "Tests are not important"
+    ],
+    "answer": "True success feels empty without honesty",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a young inventor fails nine times before her tenth design finally works?",
+    "choicesJson": [
+      "Persistence through failure leads to success",
+      "Inventing is easy for talented people",
+      "Failing means you should stop trying",
+      "The tenth try is always the lucky one"
+    ],
+    "answer": "Persistence through failure leads to success",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where two rival chefs realize their dishes taste better when they cook together?",
+    "choicesJson": [
+      "Collaboration can create something better than competition",
+      "Rivals should never work together",
+      "Cooking alone is always best",
+      "Competition always improves food"
+    ],
+    "answer": "Collaboration can create something better than competition",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Even after winning the tournament, Priya spent extra time helping the last-place player fix her serve.' What does this reveal about Priya?",
+    "choicesJson": [
+      "She is humble and generous with her success",
+      "She is overly competitive",
+      "She dislikes the sport",
+      "She was forced to help by a coach"
+    ],
+    "answer": "She is humble and generous with her success",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Omar reread the instructions four times and lined up every tool before starting the repair.' What does this reveal about Omar?",
+    "choicesJson": [
+      "He is careful and methodical",
+      "He is impulsive and careless",
+      "He dislikes fixing things",
+      "He never finishes projects"
+    ],
+    "answer": "He is careful and methodical",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Though frightened of the dark basement, Lucia grabbed a flashlight and went down to find her cat.' What does this reveal about Lucia?",
+    "choicesJson": [
+      "She can act bravely despite her fear",
+      "She is not afraid of anything",
+      "She does not care about her cat",
+      "She refuses to go into basements"
+    ],
+    "answer": "She can act bravely despite her fear",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The suitcase sat packed by the door for a week, and a stack of maps covered the kitchen table.' What can you infer?",
+    "choicesJson": [
+      "Someone is planning a trip",
+      "Someone just returned from vacation",
+      "The family is moving away permanently",
+      "The kitchen is being remodeled"
+    ],
+    "answer": "Someone is planning a trip",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The trophy case had a fresh coat of dust wiped away in one corner, right where a new plaque now sat.' What can you infer?",
+    "choicesJson": [
+      "A new trophy or award was just added",
+      "The case has always been empty",
+      "The school removed all its trophies",
+      "No one cares about the trophy case"
+    ],
+    "answer": "A new trophy or award was just added",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every light in the science lab flicked on at 5 a.m., long before the first bell.' What can you infer about whoever is there?",
+    "choicesJson": [
+      "They arrived very early, likely dedicated to their work",
+      "They forgot to turn off the lights the night before",
+      "The school day starts at 5 a.m.",
+      "No one is actually in the lab"
+    ],
+    "answer": "They arrived very early, likely dedicated to their work",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that bats use echolocation, bouncing sound waves off objects, to navigate in total darkness?",
+    "choicesJson": [
+      "Bats use echolocation to find their way in the dark",
+      "Bats cannot see or hear at all",
+      "Bats only fly during the day",
+      "Echolocation is used only by dolphins"
+    ],
+    "answer": "Bats use echolocation to find their way in the dark",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage describing how ancient Romans built aqueducts to carry fresh water into cities?",
+    "choicesJson": [
+      "Roman aqueducts brought fresh water to cities",
+      "Romans had no access to clean water",
+      "Aqueducts were used only for bathing",
+      "Rome never needed water systems"
+    ],
+    "answer": "Roman aqueducts brought fresh water to cities",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these sentences uses 'like' or 'as' to compare two things?",
+    "choicesJson": [
+      "The ice on the pond was as smooth as glass.",
+      "The ice on the pond was smooth.",
+      "The pond froze last night.",
+      "Skaters glided across the pond."
+    ],
+    "answer": "The ice on the pond was as smooth as glass.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence describes something by directly calling it something else?",
+    "choicesJson": [
+      "Time is a river that never stops flowing.",
+      "Time passes quickly sometimes.",
+      "A river flows through the valley.",
+      "We measured time carefully."
+    ],
+    "answer": "Time is a river that never stops flowing.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'an easy task'?",
+    "choicesJson": [
+      "a piece of cake",
+      "a drop in the ocean",
+      "the tip of the iceberg",
+      "back to square one"
+    ],
+    "answer": "a piece of cake",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence can be verified as true using a reference source?",
+    "choicesJson": [
+      "Mount Kilimanjaro is the tallest mountain in Africa.",
+      "Mount Kilimanjaro is too difficult to climb.",
+      "Mountains are the most impressive landform.",
+      "Everyone should climb a mountain once."
+    ],
+    "answer": "Mount Kilimanjaro is the tallest mountain in Africa.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence reflects a personal belief rather than something provable?",
+    "choicesJson": [
+      "Graphic novels are a lazier way to read than regular novels.",
+      "Graphic novels combine images and text.",
+      "Some graphic novels are based on true stories.",
+      "Graphic novels are sold in bookstores."
+    ],
+    "answer": "Graphic novels are a lazier way to read than regular novels.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The mayor's speech was laced with jargon that left most of the audience baffled.' What does 'baffled' most likely mean?",
+    "choicesJson": [
+      "confused",
+      "delighted",
+      "bored",
+      "convinced"
+    ],
+    "answer": "confused",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The old sailor's tales were often embellished, growing more dramatic with every telling.' What does 'embellished' most likely mean?",
+    "choicesJson": [
+      "exaggerated with extra details",
+      "shortened",
+      "kept exactly the same",
+      "forgotten"
+    ],
+    "answer": "exaggerated with extra details",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The committee's decision was unanimous; not a single member disagreed.' What does 'unanimous' most likely mean?",
+    "choicesJson": [
+      "everyone in full agreement",
+      "split evenly",
+      "kept secret",
+      "postponed"
+    ],
+    "answer": "everyone in full agreement",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that first explains traffic congestion as a problem, then proposes bike lanes as a fix, uses which structure?",
+    "choicesJson": [
+      "problem-solution",
+      "sequence",
+      "description",
+      "compare-contrast"
+    ],
+    "answer": "problem-solution",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage describing the order of events leading up to and during a hurricane uses which structure?",
+    "choicesJson": [
+      "sequence",
+      "compare-contrast",
+      "problem-solution",
+      "description"
+    ],
+    "answer": "sequence",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A cookbook explaining exact steps and measurements for baking bread is written mainly to...",
+    "choicesJson": [
+      "instruct",
+      "persuade",
+      "entertain",
+      "express feelings"
+    ],
+    "answer": "instruct",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An opinion column arguing that school days should start later is written mainly to...",
+    "choicesJson": [
+      "persuade",
+      "inform only",
+      "entertain",
+      "instruct"
+    ],
+    "answer": "persuade",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how glaciers carve valleys and shape mountains as they slowly move over centuries?",
+    "choicesJson": [
+      "Glaciers slowly reshape land as they move over long periods",
+      "Glaciers form instantly overnight",
+      "Mountains create glaciers",
+      "Glaciers have no effect on landscapes"
+    ],
+    "answer": "Glaciers slowly reshape land as they move over long periods",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about a nonprofit that rescues and retrains retired police dogs for adoption into families?",
+    "choicesJson": [
+      "The nonprofit helps retired police dogs find new homes",
+      "Police dogs are never adopted",
+      "The nonprofit trains new police dogs from puppies",
+      "Retired police dogs are dangerous"
+    ],
+    "answer": "The nonprofit helps retired police dogs find new homes",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'While a lake stays still and calm, a river constantly flows in one direction.' What is being compared?",
+    "choicesJson": [
+      "The movement of lakes versus rivers",
+      "The size of lakes versus rivers",
+      "The temperature of the water",
+      "The animals that live in each"
+    ],
+    "answer": "The movement of lakes versus rivers",
+    "tags": [
+      "compare-contrast"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'scrutinize'?",
+    "choicesJson": [
+      "examine",
+      "ignore",
+      "skim",
+      "overlook"
+    ],
+    "answer": "examine",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'compassion'?",
+    "choicesJson": [
+      "sympathy",
+      "cruelty",
+      "indifference",
+      "anger"
+    ],
+    "answer": "sympathy",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'frugal'?",
+    "choicesJson": [
+      "wasteful",
+      "thrifty",
+      "careful",
+      "economical"
+    ],
+    "answer": "wasteful",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'hostile'?",
+    "choicesJson": [
+      "friendly",
+      "aggressive",
+      "unfriendly",
+      "cold"
+    ],
+    "answer": "friendly",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ify' to 'simple' (drop the 'e') to make a verb meaning 'to make simple'. What is the word?",
+    "answer": "simplify",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'phenomenon'?",
+    "answer": "phenomena",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'under' + 'ground' = ?",
+    "answer": "underground",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a village that once fought over a shared well learns to take turns and share it fairly?",
+    "choicesJson": [
+      "Cooperation solves conflicts better than competition",
+      "Wells should belong to one family",
+      "Fighting over resources is always necessary",
+      "Sharing water is impossible"
+    ],
+    "answer": "Cooperation solves conflicts better than competition",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Sasha triple-checked her math homework and erased three answers before turning it in.' What does this reveal about Sasha?",
+    "choicesJson": [
+      "She is careful and wants to be accurate",
+      "She rushes through her work",
+      "She dislikes math",
+      "She never checks her work"
+    ],
+    "answer": "She is careful and wants to be accurate",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The gym bag by the door had cleats poking out, still crusted with dried mud from the last game.' What can you infer?",
+    "choicesJson": [
+      "Someone recently played a game on a muddy field",
+      "The gym bag was never used",
+      "It just rained inside the house",
+      "The cleats are brand new"
+    ],
+    "answer": "Someone recently played a game on a muddy field",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that sleep helps the brain organize and store memories from the day?",
+    "choicesJson": [
+      "Sleep plays an important role in memory",
+      "Sleep has no effect on the brain",
+      "Memories form only while awake",
+      "People who sleep less remember more"
+    ],
+    "answer": "Sleep plays an important role in memory",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence gives a human quality to something that is not human?",
+    "choicesJson": [
+      "The old floorboards complained under every footstep.",
+      "The old floorboards creaked loudly.",
+      "The floorboards were old and worn.",
+      "Someone walked across the floorboards."
+    ],
+    "answer": "The old floorboards complained under every footstep.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that describes a rainforest's plants, animals, and climate without focusing on order or cause uses which structure?",
+    "choicesJson": [
+      "description",
+      "sequence",
+      "cause-effect",
+      "problem-solution"
+    ],
+    "answer": "description",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An acceptance speech thanking teammates and coaches after a championship win is written mainly to...",
+    "choicesJson": [
+      "express gratitude",
+      "persuade voters",
+      "instruct readers",
+      "advertise a product"
+    ],
+    "answer": "express gratitude",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how the invention of refrigeration let people store food longer and reduced food waste?",
+    "choicesJson": [
+      "Refrigeration helped people store food longer and cut down waste",
+      "Refrigeration made food spoil faster",
+      "People never stored food before refrigeration",
+      "Food waste increased because of refrigeration"
+    ],
+    "answer": "Refrigeration helped people store food longer and cut down waste",
+    "tags": [
+      "summarizing"
+    ]
+  }
 ]

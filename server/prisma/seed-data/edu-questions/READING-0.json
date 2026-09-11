@@ -1145,21 +1145,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
-    "choicesJson": [
-      "the",
-      "elephant",
-      "beautiful",
-      "mountain"
-    ],
-    "answer": "the",
-    "tags": [
-      "sight-words"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which of these words will you see again and again in early reader books?",
     "choicesJson": [
       "and",
       "dinosaur",
@@ -1173,7 +1159,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which word shows up most often on the page of a beginning reader book?",
     "choicesJson": [
       "is",
       "giraffe",
@@ -1187,7 +1173,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which of these is a common sight word?",
     "choicesJson": [
       "was",
       "hospital",
@@ -1201,7 +1187,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which word would you find many times on an easy-reader page?",
     "choicesJson": [
       "they",
       "adventure",
@@ -1215,7 +1201,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which of these words is used very often in simple books?",
     "choicesJson": [
       "have",
       "mysterious",
@@ -1229,7 +1215,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which word is repeated often in books for beginning readers?",
     "choicesJson": [
       "said",
       "telephone",
@@ -1243,7 +1229,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "prompt": "Which of these words appears frequently in easy books?",
     "choicesJson": [
       "you",
       "hamburger",
@@ -1257,7 +1243,21 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which of these words do you already know by sight in easy books?",
+    "choicesJson": [
+      "of",
+      "dinosaur",
+      "umbrella",
+      "adventure"
+    ],
+    "answer": "of",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group of words is a complete sentence?",
     "choicesJson": [
       "The cat sleeps.",
       "Under the table",
@@ -1271,7 +1271,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which one of these tells a complete idea?",
     "choicesJson": [
       "She likes cake.",
       "Likes cake fast",
@@ -1285,7 +1285,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which choice below is a full sentence, not just a phrase?",
     "choicesJson": [
       "Birds can fly.",
       "Can fly birds",
@@ -1299,7 +1299,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which of these makes complete sense as a sentence?",
     "choicesJson": [
       "We go home.",
       "Go home we",
@@ -1313,7 +1313,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which one is written as a whole sentence?",
     "choicesJson": [
       "The pot is hot.",
       "Hot the pot",
@@ -1327,7 +1327,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a complete sentence?",
+    "prompt": "Which choice is a complete sentence rather than a fragment?",
     "choicesJson": [
       "I see a star.",
       "A star I",

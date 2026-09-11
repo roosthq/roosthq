@@ -31,6 +31,12 @@ export class LearningController {
     return this.learning.updateSettings(u.familyId, u.userId, body.tokensPerCorrect, body.bonusPool);
   }
 
+  // ---- Progress (adult-only) ----
+  @Get('progress/:userId')
+  getProgress(@CurrentUser() u: SessionPayload, @Param('userId') userId: string) {
+    return this.learning.getProgress(u.familyId, u.userId, userId);
+  }
+
   // ---- Sessions (the current kiosk/app profile plays as themselves) ----
   @Post('sessions')
   startSession(@CurrentUser() u: SessionPayload, @Body() body: { subject: string }) {

@@ -1,16 +1,1462 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The old bridge creaked and swayed with every gust of wind, but the villagers still crossed it daily.' What can you infer about the bridge?", "choicesJson": ["It was brand new", "It was unsafe but still used", "It was made of stone", "Nobody used it"], "answer": "It was unsafe but still used", "tags": ["inference"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the main idea of a story about a girl who overcomes her fear of swimming by practicing every weekend?", "choicesJson": ["Swimming pools are fun", "Practice helps you overcome fears", "Weekends are for relaxing", "Water is dangerous"], "answer": "Practice helps you overcome fears", "tags": ["main-idea"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'enormous'?", "choicesJson": ["gigantic", "tiny", "narrow", "plain"], "answer": "gigantic", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'ancient'?", "choicesJson": ["modern", "old", "historic", "wise"], "answer": "modern", "tags": ["antonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The word 'canine' in the sentence 'The vet treats canine patients' most likely means...", "choicesJson": ["dog-related", "cat-related", "bird-related", "fish-related"], "answer": "dog-related", "tags": ["context-clues"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "The struggle a main character faces in a story is called the...", "choicesJson": ["conflict", "setting", "index", "glossary"], "answer": "conflict", "tags": ["story-elements"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A story told from the 'I' point of view is written in...", "choicesJson": ["first person", "third person", "second person", "no person"], "answer": "first person", "tags": ["point-of-view"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is an example of a simile?", "choicesJson": ["She was as brave as a lion.", "The sun set slowly.", "He ran to the store.", "Birds fly south in winter."], "answer": "She was as brave as a lion.", "tags": ["figurative-language"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence states a fact rather than an opinion?", "choicesJson": ["Mount Everest is the tallest mountain on Earth.", "Mountains are boring to climb.", "Snow is annoying.", "Everyone should like hiking."], "answer": "Mount Everest is the tallest mountain on Earth.", "tags": ["fact-opinion"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine these into a compound word: 'sun' + 'flower' = ?", "answer": "sunflower", "tags": ["vocabulary"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the plural of the word 'child'?", "answer": "children", "tags": ["grammar"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Even though Ravi studied all week, he still felt nervous walking into the exam room.' What is the best summary?", "choicesJson": ["Ravi didn't study at all.", "Ravi was nervous despite studying hard.", "Ravi skipped the exam.", "Ravi loved exams."], "answer": "Ravi was nervous despite studying hard.", "tags": ["summarizing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A book's table of contents is most useful for...", "choicesJson": ["finding what chapter covers a topic", "looking up a single word's meaning", "checking the author's birthday", "reading the last page first"], "answer": "finding what chapter covers a topic", "tags": ["text-features"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'furious'?", "choicesJson": ["enraged", "calm", "joyful", "tired"], "answer": "enraged", "tags": ["synonyms"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The old bridge creaked and swayed with every gust of wind, but the villagers still crossed it daily.' What can you infer about the bridge?",
+    "choicesJson": [
+      "It was brand new",
+      "It was unsafe but still used",
+      "It was made of stone",
+      "Nobody used it"
+    ],
+    "answer": "It was unsafe but still used",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a story about a girl who overcomes her fear of swimming by practicing every weekend?",
+    "choicesJson": [
+      "Swimming pools are fun",
+      "Practice helps you overcome fears",
+      "Weekends are for relaxing",
+      "Water is dangerous"
+    ],
+    "answer": "Practice helps you overcome fears",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'enormous'?",
+    "choicesJson": [
+      "gigantic",
+      "tiny",
+      "narrow",
+      "plain"
+    ],
+    "answer": "gigantic",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'ancient'?",
+    "choicesJson": [
+      "modern",
+      "old",
+      "historic",
+      "wise"
+    ],
+    "answer": "modern",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The word 'canine' in the sentence 'The vet treats canine patients' most likely means...",
+    "choicesJson": [
+      "dog-related",
+      "cat-related",
+      "bird-related",
+      "fish-related"
+    ],
+    "answer": "dog-related",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The struggle a main character faces in a story is called the...",
+    "choicesJson": [
+      "conflict",
+      "setting",
+      "index",
+      "glossary"
+    ],
+    "answer": "conflict",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story told from the 'I' point of view is written in...",
+    "choicesJson": [
+      "first person",
+      "third person",
+      "second person",
+      "no person"
+    ],
+    "answer": "first person",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is an example of a simile?",
+    "choicesJson": [
+      "She was as brave as a lion.",
+      "The sun set slowly.",
+      "He ran to the store.",
+      "Birds fly south in winter."
+    ],
+    "answer": "She was as brave as a lion.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence states a fact rather than an opinion?",
+    "choicesJson": [
+      "Mount Everest is the tallest mountain on Earth.",
+      "Mountains are boring to climb.",
+      "Snow is annoying.",
+      "Everyone should like hiking."
+    ],
+    "answer": "Mount Everest is the tallest mountain on Earth.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'sun' + 'flower' = ?",
+    "answer": "sunflower",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'child'?",
+    "answer": "children",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Even though Ravi studied all week, he still felt nervous walking into the exam room.' What is the best summary?",
+    "choicesJson": [
+      "Ravi didn't study at all.",
+      "Ravi was nervous despite studying hard.",
+      "Ravi skipped the exam.",
+      "Ravi loved exams."
+    ],
+    "answer": "Ravi was nervous despite studying hard.",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A book's table of contents is most useful for...",
+    "choicesJson": [
+      "finding what chapter covers a topic",
+      "looking up a single word's meaning",
+      "checking the author's birthday",
+      "reading the last page first"
+    ],
+    "answer": "finding what chapter covers a topic",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'furious'?",
+    "choicesJson": [
+      "enraged",
+      "calm",
+      "joyful",
+      "tired"
+    ],
+    "answer": "enraged",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The coach pulled her star player aside and spoke quietly, and afterward the player nodded and jogged back onto the field.' What can you infer happened?",
+    "choicesJson": [
+      "The coach gave the player some instruction or feedback",
+      "The player was being removed from the game",
+      "The coach was angry at the whole team",
+      "The game had ended"
+    ],
+    "answer": "The coach gave the player some instruction or feedback",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every dish in the sink was clean, but the counter was covered in flour and a half-eaten cookie sat on a plate.' What can you infer?",
+    "choicesJson": [
+      "Someone had been baking recently",
+      "No one had used the kitchen in weeks",
+      "The kitchen was just remodeled",
+      "A guest brought the cookie from outside"
+    ],
+    "answer": "Someone had been baking recently",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Dana checked her watch, then the door, then her watch again, tapping her foot the whole time.' What can you infer about Dana?",
+    "choicesJson": [
+      "She was impatiently waiting for someone",
+      "She had nowhere to be",
+      "She had just arrived home",
+      "She was very relaxed"
+    ],
+    "answer": "She was impatiently waiting for someone",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The garden that once had rows of bright vegetables was now full of weeds and cracked, dry soil.' What can you infer about the garden?",
+    "choicesJson": [
+      "It had not been cared for in a while",
+      "It was recently planted",
+      "It gets too much water",
+      "It is a brand new garden"
+    ],
+    "answer": "It had not been cared for in a while",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'As soon as the fire alarm rang, students left their backpacks behind and filed calmly out the door, just like every drill before.' What can you infer?",
+    "choicesJson": [
+      "The students were used to fire drills and knew the routine",
+      "This was the first fire drill they had ever done",
+      "There was a real fire in the building",
+      "The students ignored the alarm"
+    ],
+    "answer": "The students were used to fire drills and knew the routine",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Grandma's photo album fell open to a page with a folded, yellowed letter tucked into the spine.' What can you infer about the letter?",
+    "choicesJson": [
+      "It is old and has been kept for a long time",
+      "It was written yesterday",
+      "It belongs to a stranger",
+      "It is a grocery list"
+    ],
+    "answer": "It is old and has been kept for a long time",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that octopuses can change both their skin color and texture to hide from predators?",
+    "choicesJson": [
+      "Octopuses use camouflage to avoid predators",
+      "Octopuses are always purple",
+      "Predators cannot see color",
+      "Octopuses live only in caves"
+    ],
+    "answer": "Octopuses use camouflage to avoid predators",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a story where a boy loses his first chess match but studies strategy books until he wins his next tournament?",
+    "choicesJson": [
+      "Learning from losses can lead to improvement",
+      "Chess is too hard to learn",
+      "Losing means you should quit",
+      "Tournaments are unfair"
+    ],
+    "answer": "Learning from losses can lead to improvement",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage describing how recycling paper, glass, and plastic reduces landfill waste?",
+    "choicesJson": [
+      "Recycling helps reduce landfill waste",
+      "Landfills are the best way to handle trash",
+      "Glass cannot be recycled",
+      "Plastic is good for the environment"
+    ],
+    "answer": "Recycling helps reduce landfill waste",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage about how a lifeguard's daily practice drills prepare her to react quickly in real emergencies?",
+    "choicesJson": [
+      "Regular practice prepares people to respond well in emergencies",
+      "Lifeguards rarely need to practice",
+      "Swimming pools are dangerous",
+      "Emergencies never really happen"
+    ],
+    "answer": "Regular practice prepares people to respond well in emergencies",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that honeybees communicate the location of flowers through a special dance?",
+    "choicesJson": [
+      "Bees use a dance to share information about flowers",
+      "Bees cannot communicate with each other",
+      "Flowers move toward bees",
+      "All insects dance for food"
+    ],
+    "answer": "Bees use a dance to share information about flowers",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a simile?",
+    "choicesJson": [
+      "The classroom was as quiet as a library.",
+      "The classroom was quiet.",
+      "Nobody spoke in the classroom.",
+      "The classroom had desks."
+    ],
+    "answer": "The classroom was as quiet as a library.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a metaphor?",
+    "choicesJson": [
+      "Her smile was sunshine on a cloudy day.",
+      "Her smile was wide.",
+      "She smiled at her friend.",
+      "Her smile lasted a moment."
+    ],
+    "answer": "Her smile was sunshine on a cloudy day.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses personification?",
+    "choicesJson": [
+      "The old car groaned as it climbed the hill.",
+      "The old car was slow.",
+      "The car needed new tires.",
+      "The car was parked outside."
+    ],
+    "answer": "The old car groaned as it climbed the hill.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses hyperbole?",
+    "choicesJson": [
+      "I've told you a million times to clean your room.",
+      "I've told you twice to clean your room.",
+      "Please clean your room.",
+      "Your room is messy."
+    ],
+    "answer": "I've told you a million times to clean your room.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains onomatopoeia (a word that imitates a sound)?",
+    "choicesJson": [
+      "The bacon sizzled in the pan.",
+      "The bacon cooked in the pan.",
+      "The bacon was ready to eat.",
+      "The bacon smelled good."
+    ],
+    "answer": "The bacon sizzled in the pan.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'to give up'?",
+    "choicesJson": [
+      "throw in the towel",
+      "run a marathon",
+      "read a book",
+      "eat breakfast"
+    ],
+    "answer": "throw in the towel",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence can be verified with evidence, rather than being just a belief?",
+    "choicesJson": [
+      "The Great Wall of China is over 13,000 miles long.",
+      "The Great Wall of China is the most amazing wall ever built.",
+      "Walls are boring to look at.",
+      "Everyone should visit the Great Wall."
+    ],
+    "answer": "The Great Wall of China is over 13,000 miles long.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence expresses an opinion rather than a fact?",
+    "choicesJson": [
+      "Rainy days are the most miserable kind of weather.",
+      "Rain is a form of precipitation.",
+      "Rain falls from clouds.",
+      "Some regions get more rain than others."
+    ],
+    "answer": "Rainy days are the most miserable kind of weather.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence could be checked and proven true?",
+    "choicesJson": [
+      "A hexagon has six sides.",
+      "Hexagons are the coolest shape.",
+      "Shapes with more sides are better.",
+      "Everyone loves hexagons."
+    ],
+    "answer": "A hexagon has six sides.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is clearly an opinion because it can't be proven?",
+    "choicesJson": [
+      "Basketball is more exciting than baseball.",
+      "A basketball game has four quarters.",
+      "Basketball was invented in 1891.",
+      "Basketball hoops are ten feet high."
+    ],
+    "answer": "Basketball is more exciting than baseball.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The detective's theory was pure conjecture; she had no real evidence to support it.' What does 'conjecture' most likely mean?",
+    "choicesJson": [
+      "a guess",
+      "a fact",
+      "a law",
+      "a photograph"
+    ],
+    "answer": "a guess",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The old house was dilapidated, with broken windows and a sagging roof.' What does 'dilapidated' most likely mean?",
+    "choicesJson": [
+      "falling apart and in poor condition",
+      "freshly painted",
+      "brand new",
+      "extremely large"
+    ],
+    "answer": "falling apart and in poor condition",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'His argument was so persuasive that even his skeptical brother agreed with him.' What does 'skeptical' most likely mean?",
+    "choicesJson": [
+      "doubtful",
+      "excited",
+      "confused",
+      "sleepy"
+    ],
+    "answer": "doubtful",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The chef garnished the plate with a small sprig of parsley for decoration.' What does 'garnished' most likely mean?",
+    "choicesJson": [
+      "decorated with a small addition",
+      "completely covered",
+      "burned slightly",
+      "seasoned heavily"
+    ],
+    "answer": "decorated with a small addition",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The hikers were relieved to find the spring, an abundant source of fresh water in the desert.' What does 'abundant' most likely mean?",
+    "choicesJson": [
+      "plentiful",
+      "scarce",
+      "polluted",
+      "frozen"
+    ],
+    "answer": "plentiful",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A diagram with labeled arrows pointing to parts of a plant helps a reader mainly by...",
+    "choicesJson": [
+      "showing what each part looks like and is called",
+      "telling a made-up story about plants",
+      "giving the price of seeds",
+      "listing the author's favorite plants"
+    ],
+    "answer": "showing what each part looks like and is called",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you want to quickly find which page discusses volcanoes in a nonfiction book, you should check the...",
+    "choicesJson": [
+      "index",
+      "dedication page",
+      "front cover",
+      "back cover blurb"
+    ],
+    "answer": "index",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A sidebar with a 'Did You Know?' fact box is included to...",
+    "choicesJson": [
+      "add an interesting extra fact related to the topic",
+      "replace the main text",
+      "confuse the reader",
+      "list the glossary words"
+    ],
+    "answer": "add an interesting extra fact related to the topic",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bold, larger text at the top of a page dividing a chapter into parts is called a...",
+    "choicesJson": [
+      "subheading",
+      "footnote",
+      "index entry",
+      "citation"
+    ],
+    "answer": "subheading",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An article that explains step-by-step how photosynthesis works is written mainly to...",
+    "choicesJson": [
+      "inform",
+      "entertain",
+      "persuade",
+      "confuse"
+    ],
+    "answer": "inform",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A silly story about a talking sandwich going on an adventure is written mainly to...",
+    "choicesJson": [
+      "entertain",
+      "inform",
+      "instruct",
+      "advertise"
+    ],
+    "answer": "entertain",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An advertisement claiming a cereal will make you 'the fastest kid on the block' is written to...",
+    "choicesJson": [
+      "persuade you to buy the cereal",
+      "inform you about nutrition facts only",
+      "entertain with a funny story",
+      "instruct you on cooking"
+    ],
+    "answer": "persuade you to buy the cereal",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A set of directions explaining how to assemble a bookshelf is written mainly to...",
+    "choicesJson": [
+      "instruct",
+      "entertain",
+      "persuade",
+      "describe a feeling"
+    ],
+    "answer": "instruct",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The struggle between a character and nature, such as surviving a storm, is called a conflict of...",
+    "choicesJson": [
+      "character vs. nature",
+      "character vs. character",
+      "character vs. self",
+      "character vs. society"
+    ],
+    "answer": "character vs. nature",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When a character argues with their own fears or doubts, that is a conflict of...",
+    "choicesJson": [
+      "character vs. self",
+      "character vs. nature",
+      "character vs. society",
+      "character vs. technology"
+    ],
+    "answer": "character vs. self",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story narrated by someone who knows the thoughts of every character is told from...",
+    "choicesJson": [
+      "omniscient point of view",
+      "limited point of view",
+      "first person point of view",
+      "no point of view"
+    ],
+    "answer": "omniscient point of view",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The lesson or message an author wants readers to take away from a story is called the...",
+    "choicesJson": [
+      "theme",
+      "setting",
+      "climax",
+      "glossary"
+    ],
+    "answer": "theme",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how earthworms improve soil by tunneling through it and breaking down dead leaves?",
+    "choicesJson": [
+      "Earthworms help soil by tunneling and breaking down leaves",
+      "Earthworms are harmful to gardens",
+      "Soil does not need worms",
+      "Leaves are bad for soil"
+    ],
+    "answer": "Earthworms help soil by tunneling and breaking down leaves",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about a town that comes together to rebuild a playground after a fire destroyed it?",
+    "choicesJson": [
+      "The town worked together to rebuild after the fire",
+      "The playground was never rebuilt",
+      "The fire was started on purpose",
+      "No one cared about the playground"
+    ],
+    "answer": "The town worked together to rebuild after the fire",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage explaining that the water cycle moves water between oceans, clouds, and rain?",
+    "choicesJson": [
+      "Water continuously moves between oceans, clouds, and rain",
+      "Water disappears forever after it rains",
+      "Oceans do not connect to rain",
+      "Clouds are made of dust only"
+    ],
+    "answer": "Water continuously moves between oceans, clouds, and rain",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'reluctant'?",
+    "choicesJson": [
+      "hesitant",
+      "eager",
+      "confident",
+      "joyful"
+    ],
+    "answer": "hesitant",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'vivid'?",
+    "choicesJson": [
+      "vibrant",
+      "dull",
+      "plain",
+      "faded"
+    ],
+    "answer": "vibrant",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'assemble'?",
+    "choicesJson": [
+      "gather",
+      "scatter",
+      "hide",
+      "destroy"
+    ],
+    "answer": "gather",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'peculiar'?",
+    "choicesJson": [
+      "odd",
+      "ordinary",
+      "common",
+      "plain"
+    ],
+    "answer": "odd",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'essential'?",
+    "choicesJson": [
+      "necessary",
+      "optional",
+      "useless",
+      "rare"
+    ],
+    "answer": "necessary",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'timid'?",
+    "choicesJson": [
+      "bold",
+      "shy",
+      "quiet",
+      "gentle"
+    ],
+    "answer": "bold",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'reveal'?",
+    "choicesJson": [
+      "conceal",
+      "show",
+      "announce",
+      "display"
+    ],
+    "answer": "conceal",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'genuine'?",
+    "choicesJson": [
+      "fake",
+      "real",
+      "true",
+      "honest"
+    ],
+    "answer": "fake",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'vague'?",
+    "choicesJson": [
+      "precise",
+      "unclear",
+      "broad",
+      "general"
+    ],
+    "answer": "precise",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'cactus'?",
+    "answer": "cacti",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the past tense of the word 'bring'?",
+    "answer": "brought",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'dis-' to 'agree' to make a word meaning 'to not agree'. What is the word?",
+    "answer": "disagree",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-tion' to 'act' to make a noun. What is the word?",
+    "answer": "action",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'light' + 'house' = ?",
+    "answer": "lighthouse",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The moment the substitute teacher walked in, the class that was usually so loud went completely silent.' What can you infer about the substitute?",
+    "choicesJson": [
+      "The students weren't sure what to expect and were being cautious",
+      "The students knew the substitute well",
+      "The substitute was a student's parent",
+      "No one noticed the substitute arrive"
+    ],
+    "answer": "The students weren't sure what to expect and were being cautious",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Every trophy on the shelf had the same name engraved on it, and the shelf needed a second row added last year.' What can you infer?",
+    "choicesJson": [
+      "That person has won many awards",
+      "The trophies were bought, not earned",
+      "The shelf is about to break",
+      "No one in the family likes sports"
+    ],
+    "answer": "That person has won many awards",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The puppy's leash was chewed through, and muddy paw prints led from the yard to the open gate.' What can you infer happened?",
+    "choicesJson": [
+      "The puppy chewed through its leash and escaped through the gate",
+      "The puppy was taken for a walk",
+      "Someone cleaned the yard",
+      "The gate was always open"
+    ],
+    "answer": "The puppy chewed through its leash and escaped through the gate",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Halfway through the marathon, Wes slowed to a walk, wincing with each step.' What can you infer about Wes?",
+    "choicesJson": [
+      "He may be dealing with pain or an injury",
+      "He decided to quit running forever",
+      "He was bored with the race",
+      "He was near the finish line already"
+    ],
+    "answer": "He may be dealing with pain or an injury",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage describing how coral reefs provide shelter and food for thousands of ocean species?",
+    "choicesJson": [
+      "Coral reefs support a huge variety of ocean life",
+      "Coral reefs are made of plastic",
+      "Fish avoid coral reefs",
+      "Reefs only exist in cold water"
+    ],
+    "answer": "Coral reefs support a huge variety of ocean life",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a story where a shy student joins the debate club and slowly gains confidence speaking in front of others?",
+    "choicesJson": [
+      "Stepping outside your comfort zone can build confidence",
+      "Debate club is only for confident people",
+      "Shy people should avoid clubs",
+      "Public speaking is impossible to learn"
+    ],
+    "answer": "Stepping outside your comfort zone can build confidence",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that a balanced diet with fruits, vegetables, and grains keeps the body healthy?",
+    "choicesJson": [
+      "Eating a variety of healthy foods supports good health",
+      "Only vegetables are good for you",
+      "Grains are unhealthy",
+      "Diet has no effect on health"
+    ],
+    "answer": "Eating a variety of healthy foods supports good health",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these sentences compares two things using 'like' or 'as'?",
+    "choicesJson": [
+      "The night sky sparkled like scattered diamonds.",
+      "The night sky was dark.",
+      "Stars appeared in the sky.",
+      "The sky turned black."
+    ],
+    "answer": "The night sky sparkled like scattered diamonds.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence describes one thing by calling it something else, without using 'like' or 'as'?",
+    "choicesJson": [
+      "Homework is a mountain I have to climb every night.",
+      "Homework takes a long time.",
+      "I have a lot of homework tonight.",
+      "My homework is due tomorrow."
+    ],
+    "answer": "Homework is a mountain I have to climb every night.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'to reveal a secret by accident'?",
+    "choicesJson": [
+      "let the cat out of the bag",
+      "climb a tree",
+      "read a map",
+      "catch a ball"
+    ],
+    "answer": "let the cat out of the bag",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence gives a non-human thing human actions or feelings?",
+    "choicesJson": [
+      "The wind howled angrily against the windows.",
+      "The wind was strong last night.",
+      "It was very windy outside.",
+      "The wind blew the leaves."
+    ],
+    "answer": "The wind howled angrily against the windows.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The twins were so identical that even their own parents sometimes mixed them up.' What does 'identical' most likely mean?",
+    "choicesJson": [
+      "exactly alike",
+      "completely different",
+      "very tall",
+      "extremely loud"
+    ],
+    "answer": "exactly alike",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The stray cat was wary of strangers, darting away whenever someone got close.' What does 'wary' most likely mean?",
+    "choicesJson": [
+      "cautious or distrustful",
+      "friendly and trusting",
+      "sleepy",
+      "hungry"
+    ],
+    "answer": "cautious or distrustful",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Rather than admit defeat, the debater remained obstinate, refusing to change her position.' What does 'obstinate' most likely mean?",
+    "choicesJson": [
+      "stubborn",
+      "agreeable",
+      "confused",
+      "cheerful"
+    ],
+    "answer": "stubborn",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence states a fact instead of an opinion?",
+    "choicesJson": [
+      "The human heart has four chambers.",
+      "The heart is the most important organ.",
+      "Doctors are the best kind of scientist.",
+      "Everyone should study the heart."
+    ],
+    "answer": "The human heart has four chambers.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is an opinion rather than a fact?",
+    "choicesJson": [
+      "Comic books are a better way to learn history than textbooks.",
+      "Textbooks often include dates and names.",
+      "Some comic books are based on real events.",
+      "Books can be printed or digital."
+    ],
+    "answer": "Comic books are a better way to learn history than textbooks.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how ancient Egyptians used the Nile River's floods to fertilize their farmland each year?",
+    "choicesJson": [
+      "The Nile's yearly floods helped Egyptian farmers grow crops",
+      "The Nile River dried up long ago",
+      "Egyptians avoided the Nile River",
+      "Floods destroyed all Egyptian farmland"
+    ],
+    "answer": "The Nile's yearly floods helped Egyptian farmers grow crops",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about a student who overcomes stage fright by practicing her speech in front of her family first?",
+    "choicesJson": [
+      "Practicing in front of others helped her overcome stage fright",
+      "She never gave the speech",
+      "Her family refused to listen to her practice",
+      "Stage fright cannot be overcome"
+    ],
+    "answer": "Practicing in front of others helped her overcome stage fright",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A brochure describing a theme park's rides in exciting language, meant to make you want to visit, is written mainly to...",
+    "choicesJson": [
+      "persuade",
+      "inform only",
+      "instruct",
+      "entertain with a story"
+    ],
+    "answer": "persuade",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A diary entry describing what someone did and felt during their day is written mainly to...",
+    "choicesJson": [
+      "express personal thoughts and feelings",
+      "persuade a reader to act",
+      "give step-by-step instructions",
+      "advertise a product"
+    ],
+    "answer": "express personal thoughts and feelings",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story where two neighbors compete over whose garden is better is mainly a conflict of...",
+    "choicesJson": [
+      "character vs. character",
+      "character vs. nature",
+      "character vs. self",
+      "character vs. technology"
+    ],
+    "answer": "character vs. character",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story where a fisherman struggles against a fair society that won't let him fish in certain waters is a conflict of...",
+    "choicesJson": [
+      "character vs. society",
+      "character vs. self",
+      "character vs. nature",
+      "character vs. character"
+    ],
+    "answer": "character vs. society",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The moment of highest tension in a story, right before the problem starts to resolve, is called the...",
+    "choicesJson": [
+      "climax",
+      "exposition",
+      "resolution",
+      "introduction"
+    ],
+    "answer": "climax",
+    "tags": [
+      "story-elements"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'diligent'?",
+    "choicesJson": [
+      "hardworking",
+      "lazy",
+      "careless",
+      "slow"
+    ],
+    "answer": "hardworking",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'frigid'?",
+    "choicesJson": [
+      "freezing",
+      "boiling",
+      "mild",
+      "warm"
+    ],
+    "answer": "freezing",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'astonish'?",
+    "choicesJson": [
+      "amaze",
+      "bore",
+      "calm",
+      "annoy"
+    ],
+    "answer": "amaze",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'permanent'?",
+    "choicesJson": [
+      "temporary",
+      "lasting",
+      "fixed",
+      "stable"
+    ],
+    "answer": "temporary",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'cautious'?",
+    "choicesJson": [
+      "careless",
+      "careful",
+      "alert",
+      "wary"
+    ],
+    "answer": "careless",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'scarce'?",
+    "choicesJson": [
+      "abundant",
+      "rare",
+      "limited",
+      "few"
+    ],
+    "answer": "abundant",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A map key (legend) in a geography book helps a reader...",
+    "choicesJson": [
+      "understand what the symbols on the map mean",
+      "find the author's name",
+      "see the publication date",
+      "learn the page count"
+    ],
+    "answer": "understand what the symbols on the map mean",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A timeline in a history book is most useful for...",
+    "choicesJson": [
+      "seeing the order that events happened in",
+      "looking up word definitions",
+      "finding the author's opinion",
+      "counting the number of chapters"
+    ],
+    "answer": "seeing the order that events happened in",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'octopus'?",
+    "answer": "octopuses",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-able' to 'wash' to make a word meaning 'able to be washed'. What is the word?",
+    "answer": "washable",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'pre-' to 'view' to make a word meaning 'to view beforehand'. What is the word?",
+    "answer": "preview",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'fire' + 'fighter' = ?",
+    "answer": "firefighter",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story narrated using 'I' where the narrator only knows their own thoughts is told from...",
+    "choicesJson": [
+      "first person point of view",
+      "third person omniscient",
+      "third person limited",
+      "second person"
+    ],
+    "answer": "first person point of view",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story where the narrator follows one character closely but cannot read that character's mind is...",
+    "choicesJson": [
+      "third person limited",
+      "first person",
+      "omniscient",
+      "second person"
+    ],
+    "answer": "third person limited",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Because the bridge was under repair, drivers had to take a detour through downtown.' Why did drivers take a detour?",
+    "choicesJson": [
+      "The bridge was under repair",
+      "Downtown was closed",
+      "It was rush hour",
+      "The detour was faster normally"
+    ],
+    "answer": "The bridge was under repair",
+    "tags": [
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The greenhouse stayed warm all winter because its glass walls trapped the sun's heat.' Why did the greenhouse stay warm?",
+    "choicesJson": [
+      "Its glass walls trapped the sun's heat",
+      "It had a heater running",
+      "It was built underground",
+      "It was painted black"
+    ],
+    "answer": "Its glass walls trapped the sun's heat",
+    "tags": [
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Since the concert sold out in an hour, the band added a second show.' Why did the band add a second show?",
+    "choicesJson": [
+      "The first show sold out quickly",
+      "The venue was too small always",
+      "Fans complained about the music",
+      "Tickets were too expensive"
+    ],
+    "answer": "The first show sold out quickly",
+    "tags": [
+      "cause-effect"
+    ]
+  }
 ]
