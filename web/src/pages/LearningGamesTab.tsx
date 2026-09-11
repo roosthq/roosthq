@@ -106,9 +106,16 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   const [feedback, setFeedback] = useState<{ correct: boolean; correctAnswer: string } | null>(null);
   const [sessionTokens, setSessionTokens] = useState(0);
   const [summary, setSummary] = useState<{ allCorrect: boolean; bonusTokens: number } | null>(null);
+  // Set when a subject has no question bank yet for this kid's grade
+  // (Reading/Science/Spelling as of PLANNING.md §19's first build - only
+  // Math has content). Without this, starting one of them failed silently:
+  // the button click just... did nothing, no error, no explanation. Caught
+  // live in a browser check, not by tsc.
+  const [startError, setStartError] = useState<string | null>(null);
 
   async function start(subject: EduSubject) {
     setPhase('STARTING');
+    setStartError(null);
     try {
       const s = await api.startLearningSession(subject);
       setSession(s);
@@ -117,6 +124,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
       setSessionTokens(0);
       setPhase('QUESTION');
     } catch {
+      setStartError(`${SUBJECT_META[subject].label} isn't ready to play yet - ask an adult, or try Math.`);
       setPhase('PICK_SUBJECT');
     }
   }
@@ -170,6 +178,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     return (
       <div className="mt-4">
         <p className="text-sm text-slate-500">Pick a subject to play - 5 questions, a quick break, 5 more, tokens for every one you get right.</p>
+        {startError && <p className="mt-2 text-sm text-red-500">{startError}</p>}
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {EDU_SUBJECTS.map((s) => (
             <li key={s}>
