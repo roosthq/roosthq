@@ -1,0 +1,20 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "8 + 5 = ?", "answer": "13", "tags": ["addition"] },
+  { "type": "TEXT_INPUT", "prompt": "12 - 7 = ?", "answer": "5", "tags": ["subtraction"] },
+  { "type": "TEXT_INPUT", "prompt": "9 + 9 = ?", "answer": "18", "tags": ["addition"] },
+  { "type": "TEXT_INPUT", "prompt": "15 - 6 = ?", "answer": "9", "tags": ["subtraction"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In the number 34, how many tens are there?", "choicesJson": ["3", "4", "34", "7"], "answer": "3", "tags": ["place-value"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In the number 52, how many ones are there?", "choicesJson": ["5", "2", "50", "7"], "answer": "2", "tags": ["place-value"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the short hand on 3 and long hand on 12. What time is it?", "choicesJson": ["3:00", "12:00", "3:30", "9:00"], "answer": "3:00", "tags": ["time"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the short hand between 7 and 8, long hand on 6. What time is it?", "choicesJson": ["7:00", "7:30", "8:30", "6:30"], "answer": "7:30", "tags": ["time"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is greater: 47 or 74?", "choicesJson": ["47", "74"], "answer": "74", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape has 4 equal sides and 4 corners?", "choicesJson": ["Rectangle", "Square", "Triangle", "Circle"], "answer": "Square", "tags": ["shapes"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What 3D shape looks like a shoebox?", "choicesJson": ["Sphere", "Cylinder", "Rectangular prism", "Cone"], "answer": "Rectangular prism", "tags": ["shapes"] },
+  { "type": "TEXT_INPUT", "prompt": "20 - 20 = ?", "answer": "0", "tags": ["subtraction"] },
+  { "type": "TEXT_INPUT", "prompt": "6 + 7 = ?", "answer": "13", "tags": ["addition"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Count by 10s: 10, 20, 30, __?", "choicesJson": ["35", "40", "31", "45"], "answer": "40", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Count by 2s: 2, 4, 6, __?", "choicesJson": ["7", "8", "9", "10"], "answer": "8", "tags": ["counting"] },
+  { "type": "TEXT_INPUT", "prompt": "What number is 1 more than 99?", "answer": "100", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is longer: a pencil or a school bus?", "choicesJson": ["A pencil", "A school bus"], "answer": "A school bus", "tags": ["measurement"] },
+  { "type": "TEXT_INPUT", "prompt": "14 + 3 = ?", "answer": "17", "tags": ["addition"] }
+]

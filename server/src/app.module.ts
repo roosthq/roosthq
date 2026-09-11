@@ -30,6 +30,7 @@ import { PresenceModule } from './presence/presence.module';
 import { UpdatesModule } from './updates/updates.module';
 import { TokenScaleModule } from './token-scale/token-scale.module';
 import { MiniGamesModule } from './mini-games/mini-games.module';
+import { LearningModule } from './learning/learning.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { MiniGamesModule } from './mini-games/mini-games.module';
     RulesModule,
     AwardsModule,
     MiniGamesModule,
+    LearningModule,
     LocalCalendarsModule,
     OwnerModule,
     HolidaysModule,

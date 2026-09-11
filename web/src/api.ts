@@ -829,6 +829,12 @@ export const FEATURE_TREE: FeatureNode[] = [
     requires: 'tokens',
   },
   {
+    id: 'learningGames',
+    label: 'Learning games',
+    help: 'Grade-level quiz sessions (math, reading, science, spelling) with a subject-specific arcade break - tokens per correct answer, bonus for a perfect session.',
+    requires: 'tokens',
+  },
+  {
     id: 'household',
     label: 'Household',
     help: 'The whole Household page - off hides the page, its nav link, and the kiosk\'s "Tonight" banner entirely.',

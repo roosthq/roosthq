@@ -1441,3 +1441,199 @@ artifact itself, not repeated here). Building the real platform now:
    awarded and published games, same phone-first component scaled up.
 6. Wire Splice (decision 3) once Lock Pick is confirmed working end to end for a
    real family - don't port the other eight in parallel on a guess.
+
+## 19. Educational games (planned, not built, 2026-09-10)
+
+Separate feature from §18's mini-games. Those are pure skill mechanics (drag,
+timing, pattern-match) with a pre-drawn pool payout - no "right answer" exists.
+This is a knowledge quiz (real right/wrong answers, per-kid grade level per
+subject) with a skill-mechanic break in the middle for pacing, reusing §18's
+engines as the break. Two different payout models sharing one token ledger.
+
+Casey, 2026-09-10: full scope (all subjects, all grades K-6) up front, not a
+1-subject pilot - explicitly chose this over the recommended pilot-first path.
+Flagging the real cost once, not repeating it: content volume (thousands of
+questions across subject x grade) is the actual bottleneck, not the game code
+or schema. Build order below front-loads Math end-to-end specifically so that
+cost is visible after one subject, before the other three are generated the
+same way.
+
+### Subjects, locked for the first build
+
+`MATH`, `READING`, `SCIENCE`, `SPELLING`. Grades `0`-`6` (0 = kindergarten).
+More subjects (social studies, vocabulary, logic/pattern puzzles) are additive
+later - same schema, new `subject` string values, not a rework.
+
+### Data model - new, separate from `MiniGame`/`Award`
+
+```prisma
+// Per-kid, per-subject grade level. Adult-set (Settings/Profiles), defaulted
+// once from User.birthday -> typical grade on first creation, then never
+// auto-changed again - a kid moving up a grade mid-year is an adult decision,
+// not a birthday-triggered one.
+model UserSubjectGrade {
+  userId  String
+  subject String // MATH | READING | SCIENCE | SPELLING
+  grade   Int    // 0-6
+  setById String
+  updatedAt DateTime @updatedAt
+
+  user   User @relation("EduGradeUser", fields: [userId], references: [id], onDelete: Cascade)
+  setBy  User @relation("EduGradeSetBy", fields: [setById], references: [id])
+
+  @@id([userId, subject])
+}
+
+// The question bank. Seeded from JSON, not hand-entered through UI at this
+// volume - see "Content generation" below.
+model EduQuestion {
+  id          String  @id @default(cuid())
+  subject     String
+  grade       Int
+  type        String  // MULTIPLE_CHOICE | TEXT_INPUT
+  prompt      String  @db.Text
+  choicesJson Json?   // MULTIPLE_CHOICE only - string[]
+  answer      String  @db.Text
+  tags        Json    @default("[]") // topic tags - "addition", "long-vowels" etc,
+  // for later weak-spot targeting; not used by the first build's random pick
+  active      Boolean @default(true)
+
+  @@index([subject, grade])
+}
+
+// One kid's play-through of one subject/grade session.
+model EduSession {
+  id            String   @id @default(cuid())
+  userId        String
+  subject       String
+  grade         Int      // snapshot of UserSubjectGrade at session start - a
+  // grade change mid-session doesn't retroactively change what's already asked
+  roundsJson    Json     // [{questionId, given, correct}] in play order, both
+  // question blocks concatenated - the arcade break isn't a "round", it has
+  // no answer to record
+  tokensAwarded Int      @default(0)
+  allCorrect    Boolean  @default(false)
+  bonusPoolJson Json?    // only set + rolled if allCorrect - same PoolEntry[]
+  // shape as Award.poolJson, reusing the existing pool-draw code, not a new
+  // random-prize implementation
+  bonusWonPrizeId String?
+  startedAt     DateTime @default(now())
+  finishedAt    DateTime?
+
+  user User @relation("EduSessionUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+```
+
+New `LedgerType` value `EDU_GAME` for the per-question token entries (same
+pattern as §18 adding `MINI_GAME`/`MINI_GAME_PURCHASE`) - one ledger row per
+correct answer as it's answered, not one lump row at session end, so a kid
+who quits partway still keeps what they've already earned.
+
+### Question selection - least-recently-asked, not fully random
+
+Fully random repeats the same 10 questions in a 50-question bank constantly.
+Per (userId, subject, grade), pick the block's N questions weighted toward
+ones with no `EduSession.roundsJson` entry for this user yet, or the oldest
+one if the bank's exhausted. Cheap: read this user's last ~5 sessions'
+`roundsJson`, exclude those question ids from the draw pool first.
+
+### Session flow
+
+```
+Block A: 5 questions (grade+subject-matched, least-recently-asked)
+   -> each correct answer: instant EDU_GAME ledger entry, tokens visible live
+   -> Arcade break: 20-30s, one subject-specific game (below), no stakes,
+      no tokens - pure pacing/reward-for-finishing-block-A
+Block B: 5 more questions, same rules
+   -> Result screen: total tokens this session +, if every question in both
+      blocks was correct, one pool-draw bonus (bonusPoolJson) - reuses §18's
+      existing draw code, not a new implementation
+```
+
+### Example games per subject - new mechanics, not §18 reskins (Casey's instruction,
+2026-09-10: "new games directly related to the subject", not reskinned mini-games)
+
+Researched real edtech game mechanics (Sheppard Software, Prodigy, SpellingCity,
+NOVA Elements, comprehension-app design patterns) for what's proven to work per
+subject, then designed original games around those patterns - not clones, and
+none of these are ports of §18's mini-game engines. Real net-new build cost per
+game as a result; §18's engines aren't reusable here beyond generic canvas/
+drag-drop plumbing.
+
+**Math**
+- *Rocket Racer*: answer problems to fuel a rocket racing a ghost pace-car down
+  a track - correct = speed burst, wrong = stall. Grade 0-2: tap correct count
+  of stars to fuel. Grade 3-6: op scales add -> subtract -> multiply -> divide
+  -> fractions. (Pattern: answer-driven arcade racing - Grand Prix
+  Multiplication, Demolition Division.)
+- *Number Muncher Grid*: critter roams a number grid, eats numbers matching a
+  live rule ("multiples of 3", "answer is even") while dodging a patrolling
+  obstacle. Grid-chase, not a tap-target game. (Pattern: Math Man/Pac-Man-style
+  arcade math.)
+
+**Spelling**
+- *Word Fishing Pond*: letters float by as fish, tap in order to spell the
+  target word. Word read aloud for grade 0-2 (pre/early readers), written
+  prompt for 3-6. (Pattern: fishing-themed letter-catch, SpellingCity.)
+- *Balloon Letters*: word's blanks shown, correct-letter balloons rise among
+  decoys, pop in order. Grade 0-2: no timer, wrong pop just costs the balloon.
+  Grade 3-6: timed. (Pattern: balloon-pop spelling mode.)
+
+**Reading**
+- *Mystery Case Files*: passage framed as a clue on a detective board; each
+  correct comprehension answer flips a board tile, revealing a picture/
+  solution at block's end. Narrative wrapper, not a bare quiz. (Pattern:
+  "flow state" + mystery framing found across comprehension apps.)
+- *Story Builder* (grade 0-2): drag picture cards onto a comic-strip timeline
+  in story order; app narrates once correct. (Pattern: drag-and-drop
+  sequencing for early readers.)
+
+**Science**
+- *Habitat Builder*: drag animals/plants onto a scene (desert/ocean/forest),
+  building a diorama - wrong placement bounces back with a hint, right
+  placement stays and the scene fills in. Construction, not bin-sorting.
+  (Pattern: drag-build discovery apps.)
+- *Circuit Workshop* (grade 4-6): drag battery/wire/bulb onto a breadboard
+  canvas; bulb only lights if the circuit's actually closed correctly. Real
+  mini-simulation, not term-matching. (Pattern: Monster Physics-style
+  build-and-test.)
+- *Molecule Builder* (grade 5-6): snap atom icons together to match the shown
+  molecule (H2O, CO2). (Pattern: NOVA Elements molecule-building.)
+
+### Content generation - the actual bottleneck, not the code
+
+Thousands of questions across 4 subjects x 7 grades won't get hand-typed
+through an admin UI at any reasonable pace. First build's content is
+Claude-authored, curriculum-aligned JSON seed files (one file per
+subject+grade), checked into the repo under something like
+`server/prisma/seed-data/edu-questions/`, loaded by a seed script into
+`EduQuestion` - not written by hand one row at a time, and not fetched from
+any third-party content API (keeps this self-hosted like everything else).
+Target ~50-100 questions per subject+grade for the first pass; expandable
+later without a schema change.
+
+### Build order
+
+1. Schema: `UserSubjectGrade`, `EduQuestion`, `EduSession`, `EDU_GAME`
+   `LedgerType` value.
+2. Content: generate Math K-6 question sets first (seed files + loader
+   script) - prove the pipeline on one subject before generating the other
+   three the same way.
+3. Server: grade-level get/set (adult only, per kid per subject); session
+   start (draws block A, least-recently-asked) / answer (ledger entry per
+   correct, live) / arcade-break-done / block B / finish (all-correct bonus
+   draw, reusing §18's pool-draw code).
+4. Web: question-round component (multiple-choice + text-input types, kiosk
+   touch-sized); *Rocket Racer* first as the arcade break - new canvas engine,
+   simplest of the new games (single-lane race, no physics), fastest proof
+   the question-round <-> arcade-break handoff works end to end.
+5. Grade-level settings UI: per-kid, per-subject picker in Settings/Profiles -
+   same pattern as existing `disabledPermissions`/`KID_PERMISSIONS` per-kid
+   toggles.
+6. Kiosk + Store: new "Learning games" entry point, phone-first component
+   scaled up, same dual-surface pattern §18 already established.
+7. Reading/Science/Spelling content + remaining example games, once Math is
+   confirmed working end to end for a real kid - same "don't port the rest in
+   parallel on a guess" discipline as §18 decision 6.

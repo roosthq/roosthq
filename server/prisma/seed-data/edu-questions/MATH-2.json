@@ -1,0 +1,19 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "47 + 28 = ?", "answer": "75", "tags": ["addition"] },
+  { "type": "TEXT_INPUT", "prompt": "63 - 27 = ?", "answer": "36", "tags": ["subtraction"] },
+  { "type": "TEXT_INPUT", "prompt": "You have a quarter, a dime, and a nickel. How many cents total?", "answer": "40", "tags": ["money"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "How many nickels make a quarter?", "choicesJson": ["3", "4", "5", "6"], "answer": "5", "tags": ["money"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Skip count by 5s: 5, 10, 15, __?", "choicesJson": ["18", "20", "25", "16"], "answer": "20", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "3 rows of 4 stars is the same as adding 4 three times. How many stars total?", "choicesJson": ["7", "10", "12", "16"], "answer": "12", "tags": ["multiplication-intro"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the long hand on the 2. How many minutes past the hour is that?", "choicesJson": ["2", "10", "20", "5"], "answer": "10", "tags": ["time"] },
+  { "type": "TEXT_INPUT", "prompt": "How many centimeters are in a length measured as 'about 2 paperclips long, each 3 cm'? (2 x 3)", "answer": "6", "tags": ["measurement"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is closer to 50: 47 or 42?", "choicesJson": ["47", "42"], "answer": "47", "tags": ["rounding"] },
+  { "type": "TEXT_INPUT", "prompt": "100 - 45 = ?", "answer": "55", "tags": ["subtraction"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is even?", "choicesJson": ["7", "12", "9", "15"], "answer": "12", "tags": ["even-odd"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is odd?", "choicesJson": ["8", "10", "13", "6"], "answer": "13", "tags": ["even-odd"] },
+  { "type": "TEXT_INPUT", "prompt": "36 + 19 = ?", "answer": "55", "tags": ["addition"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "A rectangle has how many corners?", "choicesJson": ["2", "3", "4", "5"], "answer": "4", "tags": ["shapes"] },
+  { "type": "TEXT_INPUT", "prompt": "If a book costs 35 cents and you pay with 2 quarters (50 cents), how much change do you get?", "answer": "15", "tags": ["money"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is heavier: a feather or a brick?", "choicesJson": ["A feather", "A brick"], "answer": "A brick", "tags": ["measurement"] },
+  { "type": "TEXT_INPUT", "prompt": "8 x 2 (think: 8 + 8) = ?", "answer": "16", "tags": ["multiplication-intro"] }
+]

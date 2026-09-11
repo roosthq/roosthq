@@ -1,0 +1,19 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "24 x 3 = ?", "answer": "72", "tags": ["multiplication"] },
+  { "type": "TEXT_INPUT", "prompt": "144 / 12 = ?", "answer": "12", "tags": ["division"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction is equivalent to 1/2?", "choicesJson": ["2/3", "2/4", "3/5", "1/4"], "answer": "2/4", "tags": ["fractions"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is bigger: 3/4 or 1/2?", "choicesJson": ["3/4", "1/2", "They are equal"], "answer": "3/4", "tags": ["fractions"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What is 0.5 written as a fraction?", "choicesJson": ["1/2", "1/5", "5/10ths written wrong", "1/4"], "answer": "1/2", "tags": ["decimals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which decimal is bigger: 0.3 or 0.29?", "choicesJson": ["0.3", "0.29", "They are equal"], "answer": "0.3", "tags": ["decimals"] },
+  { "type": "TEXT_INPUT", "prompt": "What are the factors of 12? How many factors does 12 have total (1,2,3,4,6,12)?", "answer": "6", "tags": ["factors"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is a factor of 20?", "choicesJson": ["6", "5", "7", "9"], "answer": "5", "tags": ["factors"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a right angle?", "choicesJson": ["45 degrees", "90 degrees", "180 degrees", "30 degrees"], "answer": "90 degrees", "tags": ["angles"] },
+  { "type": "TEXT_INPUT", "prompt": "132 x 4 = ?", "answer": "528", "tags": ["multiplication"] },
+  { "type": "TEXT_INPUT", "prompt": "312 / 6 = ?", "answer": "52", "tags": ["division"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which angle looks bigger than a right angle?", "choicesJson": ["Acute angle", "Obtuse angle", "Zero angle"], "answer": "Obtuse angle", "tags": ["angles"] },
+  { "type": "TEXT_INPUT", "prompt": "3/8 + 2/8 = ? (as a fraction, just the top number over 8)", "answer": "5/8", "tags": ["fractions"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Round 3.67 to the nearest whole number.", "choicesJson": ["3", "4", "3.7", "4.7"], "answer": "4", "tags": ["rounding"] },
+  { "type": "TEXT_INPUT", "prompt": "What is the least common multiple of 4 and 6?", "answer": "12", "tags": ["multiples"] },
+  { "type": "TEXT_INPUT", "prompt": "215 x 3 = ?", "answer": "645", "tags": ["multiplication"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which decimal equals 3/10?", "choicesJson": ["0.3", "0.03", "3.10", "0.31"], "answer": "0.3", "tags": ["decimals"] }
+]

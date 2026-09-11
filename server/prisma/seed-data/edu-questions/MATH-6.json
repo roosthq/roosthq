@@ -1,0 +1,19 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "A ratio of 2:3 - if there are 6 red balls, how many blue balls at the same ratio (6/2 x 3)?", "answer": "9", "tags": ["ratios"] },
+  { "type": "TEXT_INPUT", "prompt": "What is 25% of 80?", "answer": "20", "tags": ["percentages"] },
+  { "type": "TEXT_INPUT", "prompt": "What is 50% of 60?", "answer": "30", "tags": ["percentages"] },
+  { "type": "TEXT_INPUT", "prompt": "What is -5 + 8?", "answer": "3", "tags": ["integers"] },
+  { "type": "TEXT_INPUT", "prompt": "What is -3 - 4?", "answer": "-7", "tags": ["integers"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is smaller: -8 or -2?", "choicesJson": ["-8", "-2", "They are equal"], "answer": "-8", "tags": ["integers"] },
+  { "type": "TEXT_INPUT", "prompt": "What is 3 squared (3 x 3)?", "answer": "9", "tags": ["exponents"] },
+  { "type": "TEXT_INPUT", "prompt": "What is 2 to the power of 4 (2x2x2x2)?", "answer": "16", "tags": ["exponents"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Simplify the expression: 3x + 2x", "choicesJson": ["5x", "6x", "5x2", "3x2"], "answer": "5x", "tags": ["algebra"] },
+  { "type": "TEXT_INPUT", "prompt": "If x = 4, what is x + 7?", "answer": "11", "tags": ["algebra"] },
+  { "type": "TEXT_INPUT", "prompt": "If x = 5, what is 3x?", "answer": "15", "tags": ["algebra"] },
+  { "type": "TEXT_INPUT", "prompt": "Find the mean (average) of 4, 6, 8: (4+6+8)/3 = ?", "answer": "6", "tags": ["statistics"] },
+  { "type": "TEXT_INPUT", "prompt": "Find the median of 3, 9, 5, 1, 7 (put in order, pick the middle one).", "answer": "5", "tags": ["statistics"] },
+  { "type": "TEXT_INPUT", "prompt": "A recipe needs a 2:1 ratio of flour to sugar. If you use 4 cups of flour, how many cups of sugar?", "answer": "2", "tags": ["ratios"] },
+  { "type": "TEXT_INPUT", "prompt": "What is 10% of 250?", "answer": "25", "tags": ["percentages"] },
+  { "type": "TEXT_INPUT", "prompt": "What is -6 x 2?", "answer": "-12", "tags": ["integers"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'a number y increased by 5'?", "choicesJson": ["y - 5", "y + 5", "5y", "y/5"], "answer": "y + 5", "tags": ["algebra"] }
+]

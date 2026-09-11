@@ -1,0 +1,18 @@
+[
+  { "type": "TEXT_INPUT", "prompt": "1/2 + 1/4 = ? (as a fraction, e.g. 3/4)", "answer": "3/4", "tags": ["fractions"] },
+  { "type": "TEXT_INPUT", "prompt": "2/3 - 1/3 = ? (as a fraction, e.g. 1/3)", "answer": "1/3", "tags": ["fractions"] },
+  { "type": "TEXT_INPUT", "prompt": "1/2 x 1/3 = ? (as a fraction, e.g. 1/6)", "answer": "1/6", "tags": ["fractions"] },
+  { "type": "TEXT_INPUT", "prompt": "3.25 + 1.5 = ?", "answer": "4.75", "tags": ["decimals"] },
+  { "type": "TEXT_INPUT", "prompt": "7.8 - 2.3 = ?", "answer": "5.5", "tags": ["decimals"] },
+  { "type": "TEXT_INPUT", "prompt": "A box is 4 units long, 3 units wide, and 2 units tall. What is its volume (length x width x height)?", "answer": "24", "tags": ["volume"] },
+  { "type": "TEXT_INPUT", "prompt": "Following order of operations: 2 + 3 x 4 = ?", "answer": "14", "tags": ["order-of-operations"] },
+  { "type": "TEXT_INPUT", "prompt": "Following order of operations: (2 + 3) x 4 = ?", "answer": "20", "tags": ["order-of-operations"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "On a coordinate plane, which point is at (0,0)?", "choicesJson": ["The origin", "The top-right corner", "Anywhere on the x-axis", "There's no such point"], "answer": "The origin", "tags": ["coordinate-plane"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "On a coordinate plane, the point (3,0) is how far along the x-axis?", "choicesJson": ["0", "3", "It's on the y-axis"], "answer": "3", "tags": ["coordinate-plane"] },
+  { "type": "TEXT_INPUT", "prompt": "0.6 x 10 = ?", "answer": "6", "tags": ["decimals"] },
+  { "type": "TEXT_INPUT", "prompt": "12.4 / 4 = ?", "answer": "3.1", "tags": ["decimals"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction is in simplest form?", "choicesJson": ["2/4", "3/5", "4/8", "5/10"], "answer": "3/5", "tags": ["fractions"] },
+  { "type": "TEXT_INPUT", "prompt": "A cube has sides of 3 units. What is its volume (side x side x side)?", "answer": "27", "tags": ["volume"] },
+  { "type": "TEXT_INPUT", "prompt": "4/5 + 3/5 = ? (as a fraction, e.g. 7/5)", "answer": "7/5", "tags": ["fractions"] },
+  { "type": "TEXT_INPUT", "prompt": "10 - 2 x 3 = ?", "answer": "4", "tags": ["order-of-operations"] }
+]

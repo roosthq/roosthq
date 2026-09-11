@@ -56,6 +56,12 @@ enum LedgerType {
   MINI_GAME_PURCHASE // tokens spent BUYING a play of a published mini-game -
   // deliberately its own type, not REDEEM, so a report can tell "spent buying a
   // shot at a prize" apart from "redeemed a prize outright."
+  EDU_GAME // one row per correctly-answered question in a learning-games
+  // session (PLANNING.md §19), plus one more row for the all-correct bonus
+  // draw if any. Deliberately NOT reusing MINI_GAME - that type means "payout
+  // from a pre-drawn, chance-based skill game"; this is "paid because the
+  // answer was actually right", a different kind of thing even though both
+  // land in the same ledger.
 }
 
 enum PresenceStatus {
@@ -487,6 +493,9 @@ model User {
   miniGamesGranted          MiniGameGrant[]       @relation("MiniGameGrantedBy")
   createdPublishedMiniGames PublishedMiniGame[]   @relation("PublishedMiniGameCreatedBy")
   miniGamePurchases         MiniGamePurchase[]    @relation("MiniGamePurchaseUser")
+  eduGrades                 UserSubjectGrade[]    @relation("EduGradeUser")
+  eduGradesSet              UserSubjectGrade[]    @relation("EduGradeSetBy")
+  eduSessions               EduSession[]          @relation("EduSessionUser")
 
   @@index([familyId])
 }
@@ -1119,6 +1128,82 @@ model MiniGamePurchase {
   user User                  @relation("MiniGamePurchaseUser", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([tierId])
+  @@index([userId])
+}
+
+// ---------- Learning games (PLANNING.md §19) ----------
+// Separate feature from the mini-games above: those are pure skill mechanics
+// with a pre-drawn chance payout (no "right answer" exists); this is a real
+// knowledge quiz (right/wrong is checked server-side against EduQuestion.answer,
+// never trusted from the client the way MiniGameGrant/Purchase trust
+// PlayReport.won) with a subject-specific arcade game as a pacing break.
+
+// Per-kid, per-subject grade level - adult-set, defaulted once from
+// User.birthday at first creation, never auto-advanced after that (a kid
+// moving up a grade mid-year is an adult's call, not a birthday trigger).
+model UserSubjectGrade {
+  userId    String
+  subject   String // MATH | READING | SCIENCE | SPELLING
+  grade     Int // 0 (kindergarten) - 6
+  setById   String
+  updatedAt DateTime @updatedAt
+
+  user  User @relation("EduGradeUser", fields: [userId], references: [id], onDelete: Cascade)
+  setBy User @relation("EduGradeSetBy", fields: [setById], references: [id])
+
+  @@id([userId, subject])
+  @@index([setById])
+}
+
+// The question bank. Not family-scoped - this is shared curriculum content,
+// same for every family on the instance, like the mini-game DEFAULT_CATALOG
+// is a shared starting point but per-family; this has no per-family copy at
+// all. Seeded from server/prisma/seed-data/edu-questions/*.json (see
+// seed-edu-questions.js) - "a ton of questions per grade" doesn't get
+// hand-typed through an admin UI at this volume.
+model EduQuestion {
+  id          String  @id @default(cuid())
+  subject     String
+  grade       Int // 0-6
+  type        String // MULTIPLE_CHOICE | TEXT_INPUT
+  prompt      String  @db.Text
+  choicesJson Json? // MULTIPLE_CHOICE only - string[]
+  answer      String  @db.Text // exact match, trimmed + case-insensitive - see
+  // LearningService.checkAnswer
+  tags        Json    @default("[]") // topic tags for later weak-spot
+  // targeting - not used by the first build's least-recently-asked selection
+  active      Boolean @default(true)
+
+  @@index([subject, grade])
+}
+
+// One kid's play-through of one subject session: 5 questions, an arcade
+// break, 5 more questions, then a result screen. `status` tracks which phase
+// it's in - a session left BLOCK_A/BREAK/BLOCK_B when its tab goes away
+// stays there; unlike MiniGameGrant there's no forfeit sweep, since nothing
+// was pre-drawn or charged up front to claw back - it just sits unfinished
+// and a fresh "start" call makes a new one.
+model EduSession {
+  id              String    @id @default(cuid())
+  userId          String
+  subject         String
+  grade           Int // snapshot of UserSubjectGrade at session start - a
+  // grade change mid-session doesn't change what's already been asked
+  status          String    @default("BLOCK_A") // BLOCK_A | BREAK | BLOCK_B | DONE
+  roundsJson      Json      @default("[]") // [{questionId, given, correct}],
+  // both blocks appended in play order - the arcade break isn't a "round",
+  // it has no answer to record
+  tokensAwarded   Int       @default(0)
+  allCorrect      Boolean   @default(false)
+  bonusPoolJson   Json? // only set + rolled if allCorrect - same PoolEntry[]
+  // shape as Award.poolJson/MiniGame.poolJson, reusing the existing
+  // weighted-draw logic rather than a new random-prize implementation
+  bonusWonPrizeId String?
+  startedAt       DateTime  @default(now())
+  finishedAt      DateTime?
+
+  user User @relation("EduSessionUser", fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
 }
 

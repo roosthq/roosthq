@@ -1,0 +1,20 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number comes right after 7?", "choicesJson": ["6", "8", "9", "5"], "answer": "8", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "How many stars: ⭐⭐⭐⭐?", "choicesJson": ["3", "4", "5", "6"], "answer": "4", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is bigger, 5 or 9?", "choicesJson": ["5", "9"], "answer": "9", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What shape has 3 sides?", "choicesJson": ["Circle", "Square", "Triangle", "Rectangle"], "answer": "Triangle", "tags": ["shapes"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What shape is round with no corners?", "choicesJson": ["Square", "Triangle", "Circle", "Star"], "answer": "Circle", "tags": ["shapes"] },
+  { "type": "TEXT_INPUT", "prompt": "2 + 1 = ?", "answer": "3", "tags": ["addition"] },
+  { "type": "TEXT_INPUT", "prompt": "3 + 2 = ?", "answer": "5", "tags": ["addition"] },
+  { "type": "TEXT_INPUT", "prompt": "4 - 1 = ?", "answer": "3", "tags": ["subtraction"] },
+  { "type": "TEXT_INPUT", "prompt": "5 - 3 = ?", "answer": "2", "tags": ["subtraction"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which group has MORE apples: 2 apples or 6 apples?", "choicesJson": ["2 apples", "6 apples"], "answer": "6 apples", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which group has FEWER dots: 8 dots or 3 dots?", "choicesJson": ["8 dots", "3 dots"], "answer": "3 dots", "tags": ["comparing"] },
+  { "type": "TEXT_INPUT", "prompt": "What number comes before 10?", "answer": "9", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Count by 1s: 1, 2, 3, __?", "choicesJson": ["4", "5", "3", "6"], "answer": "4", "tags": ["counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a 3D shape you can roll like a ball?", "choicesJson": ["Cube", "Sphere", "Cone", "Cylinder"], "answer": "Sphere", "tags": ["shapes"] },
+  { "type": "TEXT_INPUT", "prompt": "How many sides does a square have?", "answer": "4", "tags": ["shapes"] },
+  { "type": "TEXT_INPUT", "prompt": "1 + 1 = ?", "answer": "2", "tags": ["addition"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is the smallest: 4, 1, 7?", "choicesJson": ["4", "1", "7"], "answer": "1", "tags": ["comparing"] },
+  { "type": "TEXT_INPUT", "prompt": "How many fingers on one hand?", "answer": "5", "tags": ["counting"] }
+]

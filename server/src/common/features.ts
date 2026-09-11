@@ -25,6 +25,7 @@ export const FEATURE_TREE: FeatureNode[] = [
   { id: 'store', requires: 'tokens' },
   { id: 'awards' },
   { id: 'miniGames', requires: 'tokens' },
+  { id: 'learningGames', requires: 'tokens' },
   {
     id: 'household',
     children: [{ id: 'meals' }, { id: 'grocery' }, { id: 'countdowns' }, { id: 'announcements' }, { id: 'rules' }],
