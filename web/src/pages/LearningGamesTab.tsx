@@ -4,7 +4,6 @@ import {
   EDU_SUBJECTS,
   type EduSubject,
   type EduGradeRow,
-  type EduProgress,
   type EduQuestionForPlay,
   type EduSessionStart,
   type Member,
@@ -15,6 +14,8 @@ import { celebrate } from '../celebrate';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
+import Modal from '../Modal';
+import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader } from '../LearningProgress';
 
 import TenFrameFill from '../breakGames/math/TenFrameFill';
 import NumberPopLadder from '../breakGames/math/NumberPopLadder';
@@ -92,15 +93,17 @@ function pickBreakGame(subject: EduSubject, grade: number, lastComponent: unknow
 // (tokens/correct-answer + the all-correct bonus pool) is one family-wide
 // setting (PayoutSettings below), same PoolEditor as Award/MiniGame.
 
-const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> = {
-  MATH: { label: 'Math', icon: '🔢' },
-  READING: { label: 'Reading', icon: '📖' },
-  SCIENCE: { label: 'Science', icon: '🔬' },
-  SPELLING: { label: 'Spelling', icon: '🔤' },
-};
-const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
-
-export default function LearningGamesTab({ isAdult, members, tokenIcon }: { isAdult: boolean; members: Member[]; tokenIcon: string }) {
+export default function LearningGamesTab({
+  isAdult,
+  members,
+  tokenIcon,
+  myUserId,
+}: {
+  isAdult: boolean;
+  members: Member[];
+  tokenIcon: string;
+  myUserId: string;
+}) {
   return isAdult ? (
     <div className="mt-4 flex flex-col gap-6">
       <PayoutSettings />
@@ -109,7 +112,7 @@ export default function LearningGamesTab({ isAdult, members, tokenIcon }: { isAd
       <BreakGamePreview />
     </div>
   ) : (
-    <PlaySession tokenIcon={tokenIcon} />
+    <PlaySession tokenIcon={tokenIcon} myUserId={myUserId} />
   );
 }
 
@@ -254,23 +257,6 @@ function GradeSettings({ members }: { members: Member[] }) {
 function KidProgress({ members }: { members: Member[] }) {
   const kids = members.filter((m) => m.role === 'KID');
   const [openId, setOpenId] = useState<string | null>(null);
-  const [progress, setProgress] = useState<EduProgress | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  async function toggle(userId: string) {
-    if (openId === userId) {
-      setOpenId(null);
-      return;
-    }
-    setOpenId(userId);
-    setProgress(null);
-    setLoading(true);
-    try {
-      setProgress(await api.learningProgress(userId));
-    } finally {
-      setLoading(false);
-    }
-  }
 
   if (kids.length === 0) return null;
 
@@ -282,7 +268,7 @@ function KidProgress({ members }: { members: Member[] }) {
         {kids.map((k) => (
           <div key={k.id} className="rounded border">
             <button
-              onClick={() => toggle(k.id)}
+              onClick={() => setOpenId(openId === k.id ? null : k.id)}
               className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium hover:bg-slate-50"
             >
               <span>{k.displayName}</span>
@@ -290,81 +276,12 @@ function KidProgress({ members }: { members: Member[] }) {
             </button>
             {openId === k.id && (
               <div className="border-t p-3">
-                {loading && <p className="text-sm text-slate-400">Loading…</p>}
-                {!loading && progress && <KidProgressDetail progress={progress} />}
+                <LearningProgressLoader userId={k.id} />
               </div>
             )}
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function KidProgressDetail({ progress }: { progress: EduProgress }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {EDU_SUBJECTS.map((s) => {
-          const sp = progress.subjects[s];
-          return (
-            <div key={s} className="rounded border p-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium">
-                  {SUBJECT_META[s].icon} {SUBJECT_META[s].label}
-                </span>
-                <span className="text-xs text-slate-400">{GRADE_LABELS[sp.grade]} grade</span>
-              </div>
-              <div className="mt-1.5 flex flex-wrap gap-3 text-xs text-slate-500">
-                <span>✅ {sp.masteredCount} mastered</span>
-                <span>❌ {sp.wrongCount} wrong</span>
-                <span>⭕ {sp.untriedCount} untried</span>
-                <span className="text-slate-400">of {sp.bankSize}</span>
-              </div>
-              {sp.accuracyPct !== null && (
-                <p className="mt-1 text-xs text-slate-400">{sp.accuracyPct}% correct on questions attempted so far</p>
-              )}
-              {sp.wrongQuestions.length > 0 && (
-                <details className="mt-2">
-                  <summary className="cursor-pointer text-xs font-medium text-red-500">
-                    {sp.wrongQuestions.length} question{sp.wrongQuestions.length === 1 ? '' : 's'} currently wrong
-                  </summary>
-                  <ul className="mt-1.5 flex flex-col gap-1.5">
-                    {sp.wrongQuestions.map((q) => (
-                      <li key={q.id} className="rounded bg-red-50 px-2 py-1.5 text-xs text-slate-600">
-                        <p>{q.prompt}</p>
-                        <p className="mt-0.5 text-slate-400">
-                          Correct answer: <span className="font-medium text-slate-600">{q.correctAnswer}</span>
-                          {q.attempts > 1 ? ` - answered ${q.attempts} times` : ''}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {progress.recentSessions.length > 0 && (
-        <div>
-          <p className="text-sm font-medium text-slate-500">Recent sessions</p>
-          <div className="mt-1.5 flex flex-col gap-1">
-            {progress.recentSessions.map((s) => (
-              <div key={s.id} className="flex flex-wrap items-center justify-between gap-2 rounded border px-2.5 py-1.5 text-xs text-slate-600">
-                <span>
-                  {SUBJECT_META[s.subject].icon} {SUBJECT_META[s.subject].label} - {GRADE_LABELS[s.grade]} grade
-                </span>
-                <span>
-                  {s.status === 'DONE' ? `${s.correctCount}/${s.totalCount}${s.allCorrect ? ' 🌟' : ''}` : `in progress (${s.status})`}
-                </span>
-                <span className="text-slate-400">{new Date(s.startedAt).toLocaleDateString()}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -449,7 +366,25 @@ function BreakGamePreview() {
 
 type Phase = 'PICK_SUBJECT' | 'STARTING' | 'QUESTION' | 'FEEDBACK' | 'BREAK' | 'DONE';
 
-function PlaySession({ tokenIcon }: { tokenIcon: string }) {
+// Reused as-is by the kiosk (Display.tsx): kioskToken swaps every API call
+// from the cookie session to the kiosk-token one, initialSubject skips
+// straight past the picker screen (the kiosk's own "which subject" tap
+// already happened, in its own panel next to Games - see that file), and
+// onExit gives the DONE screen a real "close" action when embedded in a
+// modal instead of only the modal's own backdrop/X.
+export function PlaySession({
+  tokenIcon,
+  myUserId,
+  kioskToken,
+  initialSubject,
+  onExit,
+}: {
+  tokenIcon: string;
+  myUserId?: string;
+  kioskToken?: string;
+  initialSubject?: EduSubject;
+  onExit?: () => void;
+}) {
   const [phase, setPhase] = useState<Phase>('PICK_SUBJECT');
   const [session, setSession] = useState<EduSessionStart | null>(null);
   // Picked once at the moment the break starts (not re-picked on every
@@ -470,12 +405,13 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   // the button click just... did nothing, no error, no explanation. Caught
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
+  const [showProgress, setShowProgress] = useState(false);
 
   async function start(subject: EduSubject) {
     setPhase('STARTING');
     setStartError(null);
     try {
-      const s = await api.startLearningSession(subject);
+      const s = await api.startLearningSession(subject, kioskToken);
       setSession(s);
       setQuestions(s.questions);
       setIndex(0);
@@ -487,10 +423,17 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     }
   }
 
+  // Kiosk entry: the subject was already picked in the Learning panel
+  // before this component even mounted - go straight in, no picker screen.
+  useEffect(() => {
+    if (initialSubject) start(initialSubject);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function submit() {
     if (!session || !given.trim()) return;
     const q = questions[index];
-    const result = await api.answerLearningQuestion(session.sessionId, q.id, given.trim());
+    const result = await api.answerLearningQuestion(session.sessionId, q.id, given.trim(), kioskToken);
     setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
     setSessionTokens((t) => t + result.tokensAwarded);
     setPhase('FEEDBACK');
@@ -530,7 +473,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   async function afterBreak() {
     if (!session) return;
     lastBreakGameRef.current = currentBreakGame;
-    const nextBlock = await api.advanceLearningSession(session.sessionId);
+    const nextBlock = await api.advanceLearningSession(session.sessionId, kioskToken);
     setQuestions(nextBlock.questions);
     setIndex(0);
     setPhase('QUESTION');
@@ -540,16 +483,30 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     setSession(null);
     setQuestions([]);
     setSummary(null);
-    setPhase('PICK_SUBJECT');
+    // Kiosk entry has no picker screen to fall back to - go straight into
+    // another round of the same subject instead of stranding it on a
+    // PICK_SUBJECT screen it never showed in the first place.
+    if (initialSubject) start(initialSubject);
+    else setPhase('PICK_SUBJECT');
   }
 
   if (phase === 'PICK_SUBJECT' || phase === 'STARTING') {
     return (
       <div className="mt-4">
-        <p className="text-sm text-slate-500">
-          Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish -
-          quitting early earns nothing, so see it through!
-        </p>
+        <div className="flex items-start justify-between gap-3">
+          <p className="text-sm text-slate-500">
+            Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish -
+            quitting early earns nothing, so see it through!
+          </p>
+          {myUserId && (
+            <button
+              onClick={() => setShowProgress(true)}
+              className="shrink-0 whitespace-nowrap rounded border px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-50"
+            >
+              📊 My Progress
+            </button>
+          )}
+        </div>
         {startError && <p className="mt-2 text-sm text-red-500">{startError}</p>}
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {EDU_SUBJECTS.map((s) => (
@@ -565,6 +522,15 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
             </li>
           ))}
         </ul>
+        {showProgress && myUserId && (
+          <Modal
+            maxWidthClass="max-w-2xl"
+            onBackdropClick={() => setShowProgress(false)}
+            header={<h3 className="text-lg font-semibold">My progress</h3>}
+          >
+            <LearningProgressLoader userId={myUserId} kioskToken={kioskToken} />
+          </Modal>
+        )}
       </div>
     );
   }
@@ -593,15 +559,22 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
             🎉 Leveled up to {GRADE_LABELS[summary.promotedTo]} grade!
           </p>
         )}
-        <button
-          onClick={(e) => {
-            celebrate(e.currentTarget, 'choreCompleted');
-            playAgain();
-          }}
-          className="mt-2 rounded-lg bg-slate-800 px-5 py-2 font-semibold text-white hover:bg-slate-700"
-        >
-          Play again
-        </button>
+        <div className="mt-2 flex gap-2">
+          <button
+            onClick={(e) => {
+              celebrate(e.currentTarget, 'choreCompleted');
+              playAgain();
+            }}
+            className="rounded-lg bg-slate-800 px-5 py-2 font-semibold text-white hover:bg-slate-700"
+          >
+            Play again
+          </button>
+          {onExit && (
+            <button onClick={onExit} className="rounded-lg border px-5 py-2 font-semibold text-slate-600 hover:bg-slate-50">
+              Done
+            </button>
+          )}
+        </div>
       </div>
     );
   }

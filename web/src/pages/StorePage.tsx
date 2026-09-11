@@ -322,7 +322,7 @@ export default function StorePage({
           <MiniGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} />
         </div>
       ) : tab === 'learning' && learningGamesOn ? (
-        <LearningGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} />
+        <LearningGamesTab isAdult={isAdult} members={members} tokenIcon={tokenIcon} myUserId={me.id} />
       ) : tab === 'awards' && isAdult && awardsOn ? (
         <div className="mt-4">
           <AwardsPage tokenName={tokenName} tokenIcon={tokenIcon} />

@@ -609,6 +609,7 @@ const FEATURES: Array<{ id: string; label: string }> = [
   { id: 'chores', label: 'Chores' },
   { id: 'prizes', label: 'Prizes' },
   { id: 'miniGames', label: 'Mini-games' },
+  { id: 'learningGames', label: 'Learning' },
   { id: 'meals', label: 'Meal plan' },
   { id: 'grocery', label: 'Grocery list' },
   { id: 'countdowns', label: 'Countdowns' },

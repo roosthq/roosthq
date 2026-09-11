@@ -1726,7 +1726,7 @@ export const api = {
     req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
   advanceLearningSession: (sessionId: string, kioskToken?: string) =>
     req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
-  learningProgress: (userId: string) => req<EduProgress>(`/learning/progress/${userId}`),
+  learningProgress: (userId: string, kioskToken?: string) => req<EduProgress>(`/learning/progress/${userId}`, {}, kioskToken),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

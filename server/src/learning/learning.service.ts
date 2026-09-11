@@ -380,12 +380,13 @@ export class LearningService {
   // Per-subject mastery snapshot + the actual list of questions this kid is
   // currently getting wrong (Casey's own request - "see each kid's
   // progress, wrong questions, answer stats" without having to eyeball a
-  // live session). `correct` on EduQuestionProgress is the LATEST attempt
+  // live session, AND a kid should be able to see their own on the app or
+  // the kiosk). `correct` on EduQuestionProgress is the LATEST attempt
   // only (see that model's own comment), so "wrong" here means "wrong
   // right now", not "ever missed once" - a question gotten right since
   // drops off this list on its own.
   async getProgress(familyId: string, actorId: string, targetUserId: string) {
-    await this.assertAdult(actorId);
+    if (actorId !== targetUserId) await this.assertAdult(actorId);
     const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });
     if (!target) throw new NotFoundException('Family member not found');
 

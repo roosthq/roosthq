@@ -18,6 +18,8 @@ import {
   type AwardCatalogItem,
   type MyPresence,
   type FamilyLocation,
+  EDU_SUBJECTS,
+  type EduSubject,
 } from './api';
 import { formatDate } from './dateFormat';
 import LevelBadge from './LevelBadge';
@@ -30,6 +32,8 @@ import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import MiniGamesKidView from './MiniGamesKidView';
+import { PlaySession } from './pages/LearningGamesTab';
+import { SUBJECT_META, LearningProgressLoader } from './LearningProgress';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -126,6 +130,8 @@ export default function Display() {
   const [revealedCountdowns, setRevealedCountdowns] = useState<Set<string>>(new Set());
   const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
+  const [learningSubject, setLearningSubject] = useState<EduSubject | null>(null);
+  const [learningProgressOpen, setLearningProgressOpen] = useState(false);
   const [testPanelOpen, setTestPanelOpen] = useState(false);
   // #9 - its own button, not tucked inside My Stats (an extra step that
   // doesn't make sense when they can't get to My Stats' content anyway once
@@ -686,6 +692,7 @@ export default function Display() {
   const showChores = config.enabledFeatures.includes('chores') && famOn('chores');
   const showPrizes = config.enabledFeatures.includes('prizes') && famOn('store');
   const showMiniGames = config.enabledFeatures.includes('miniGames') && famOn('miniGames');
+  const showLearningGames = config.enabledFeatures.includes('learningGames') && famOn('learningGames');
   const showMeals = config.enabledFeatures.includes('meals') && famOn('meals');
   const showGrocery = config.enabledFeatures.includes('grocery') && famOn('grocery');
   const showCountdowns = config.enabledFeatures.includes('countdowns') && famOn('countdowns');
@@ -1145,6 +1152,28 @@ export default function Display() {
                         <MiniGamesKidView kioskToken={active.token} tokenIcon={tokenIcon} />
                       </div>
                     )}
+                    {showLearningGames && (
+                      <div className="panel p-3">
+                        <div className="mb-2 flex items-center justify-between">
+                          <h3 className="text-sm font-semibold text-slate-500">Learning</h3>
+                          <button onClick={() => setLearningProgressOpen(true)} className="text-xs font-semibold text-slate-400 hover:text-slate-600">
+                            📊 My Progress
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {EDU_SUBJECTS.map((s) => (
+                            <button
+                              key={s}
+                              onClick={() => setLearningSubject(s)}
+                              className="flex flex-col items-center gap-1 rounded-lg border bg-white p-3 hover:shadow-sm"
+                            >
+                              <span className="text-2xl">{SUBJECT_META[s].icon}</span>
+                              <span className="text-xs font-semibold">{SUBJECT_META[s].label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <KioskAccountPanel
                     me={active.user}
@@ -1365,6 +1394,40 @@ export default function Display() {
           kioskToken={active.token}
           onClose={() => setKioskStatsOpen(false)}
         />
+      )}
+
+      {/* Same "pop up a modal for the session" pattern as MiniGamesKidView's
+          own play modal - the subject was already picked in the Learning
+          panel above; this is the actual quiz + break + block B + results,
+          driven entirely by the kiosk token instead of a cookie session. */}
+      {learningSubject && active && (
+        <Modal
+          maxWidthClass="max-w-lg"
+          onBackdropClick={() => setLearningSubject(null)}
+          header={
+            <h3 className="text-lg font-semibold">
+              {SUBJECT_META[learningSubject].icon} {SUBJECT_META[learningSubject].label}
+            </h3>
+          }
+        >
+          <PlaySession
+            key={learningSubject}
+            tokenIcon={tokenIcon}
+            kioskToken={active.token}
+            initialSubject={learningSubject}
+            onExit={() => setLearningSubject(null)}
+          />
+        </Modal>
+      )}
+
+      {learningProgressOpen && active && (
+        <Modal
+          maxWidthClass="max-w-2xl"
+          onBackdropClick={() => setLearningProgressOpen(false)}
+          header={<h3 className="text-lg font-semibold">{active.user.displayName}'s learning progress</h3>}
+        >
+          <LearningProgressLoader userId={active.user.id} kioskToken={active.token} />
+        </Modal>
       )}
 
       {testPanelOpen && <KioskTestPanel config={config} onClose={() => setTestPanelOpen(false)} />}
