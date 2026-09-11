@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from 'react';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 import {
   api,
   EDU_SUBJECTS,
@@ -10,24 +10,78 @@ import {
   type PoolEntry,
   type StorePrize,
 } from '../api';
-import RocketRacer from '../RocketRacer';
-import StoryBuilder from '../StoryBuilder';
-import HabitatBuilder from '../HabitatBuilder';
-import BalloonLetters from '../BalloonLetters';
 import { celebrate } from '../celebrate';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
 
-// Each subject's own arcade break (PLANNING.md §19) - not one game reused
-// everywhere. Math keeps Rocket Racer (already built); Reading/Science/
-// Spelling get their own real mechanic + art, not a reskin of Math's.
-const BREAK_GAME: Record<EduSubject, (p: { onDone: () => void }) => ReactElement> = {
-  MATH: RocketRacer,
-  READING: StoryBuilder,
-  SCIENCE: HabitatBuilder,
-  SPELLING: BalloonLetters,
+import TenFrameFill from '../breakGames/math/TenFrameFill';
+import NumberPopLadder from '../breakGames/math/NumberPopLadder';
+import BalanceBuilder from '../breakGames/math/BalanceBuilder';
+import SpeedMatch from '../breakGames/math/SpeedMatch';
+import PathToFlag from '../breakGames/math/PathToFlag';
+import StoryOrderSwap from '../breakGames/reading/StoryOrderSwap';
+import RhymeMatch from '../breakGames/reading/RhymeMatch';
+import WordMeaningBubbles from '../breakGames/reading/WordMeaningBubbles';
+import SentenceBuilder from '../breakGames/reading/SentenceBuilder';
+import DetectiveClues from '../breakGames/reading/DetectiveClues';
+import HabitatSort from '../breakGames/science/HabitatSort';
+import LifeCycleRing from '../breakGames/science/LifeCycleRing';
+import StateMatch from '../breakGames/science/StateMatch';
+import CircuitPath from '../breakGames/science/CircuitPath';
+import WeatherReport from '../breakGames/science/WeatherReport';
+import LetterLadder from '../breakGames/spelling/LetterLadder';
+import ScrambleSwap from '../breakGames/spelling/ScrambleSwap';
+import MissingLetter from '../breakGames/spelling/MissingLetter';
+import WordGridSnap from '../breakGames/spelling/WordGridSnap';
+import RhymePop from '../breakGames/spelling/RhymePop';
+
+// Each subject's own pool of 5 arcade breaks (PLANNING.md §19 "Recess
+// Concepts" - Casey's own review after the first pass, real research
+// grounding each one). A grade-gated one only appears in the pool once the
+// kid's actual grade clears it - no more picking a concept that can't work
+// for this kid. Picked at random each break, never the same one twice in a
+// row within one session (pickBreakGame below).
+interface BreakGameEntry {
+  Component: (p: { grade: number; onDone: () => void }) => ReactElement;
+  minGrade: number;
+}
+const BREAK_GAMES: Record<EduSubject, BreakGameEntry[]> = {
+  MATH: [
+    { Component: TenFrameFill, minGrade: 0 },
+    { Component: NumberPopLadder, minGrade: 0 },
+    { Component: BalanceBuilder, minGrade: 1 },
+    { Component: SpeedMatch, minGrade: 0 },
+    { Component: PathToFlag, minGrade: 0 },
+  ],
+  READING: [
+    { Component: StoryOrderSwap, minGrade: 0 },
+    { Component: RhymeMatch, minGrade: 0 },
+    { Component: WordMeaningBubbles, minGrade: 2 },
+    { Component: SentenceBuilder, minGrade: 1 },
+    { Component: DetectiveClues, minGrade: 0 },
+  ],
+  SCIENCE: [
+    { Component: HabitatSort, minGrade: 0 },
+    { Component: LifeCycleRing, minGrade: 2 },
+    { Component: StateMatch, minGrade: 0 },
+    { Component: CircuitPath, minGrade: 3 },
+    { Component: WeatherReport, minGrade: 0 },
+  ],
+  SPELLING: [
+    { Component: LetterLadder, minGrade: 0 },
+    { Component: ScrambleSwap, minGrade: 0 },
+    { Component: MissingLetter, minGrade: 0 },
+    { Component: WordGridSnap, minGrade: 0 },
+    { Component: RhymePop, minGrade: 0 },
+  ],
 };
+
+function pickBreakGame(subject: EduSubject, grade: number, lastComponent: unknown) {
+  const eligible = BREAK_GAMES[subject].filter((g) => grade >= g.minGrade);
+  const pool = eligible.length > 1 ? eligible.filter((g) => g.Component !== lastComponent) : eligible;
+  return pool[Math.floor(Math.random() * pool.length)].Component;
+}
 
 // Learning games (PLANNING.md §19) - grade-level quiz per subject, a
 // subject-specific arcade break in the middle, tokens per correct answer,
@@ -194,6 +248,12 @@ type Phase = 'PICK_SUBJECT' | 'STARTING' | 'QUESTION' | 'FEEDBACK' | 'BREAK' | '
 function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   const [phase, setPhase] = useState<Phase>('PICK_SUBJECT');
   const [session, setSession] = useState<EduSessionStart | null>(null);
+  // Picked once at the moment the break starts (not re-picked on every
+  // re-render) - a plain lookup in the render body would re-randomize the
+  // game out from under the kid mid-break. lastBreakGameRef avoids handing
+  // back the exact same concept twice in a row for one subject.
+  const [currentBreakGame, setCurrentBreakGame] = useState<BreakGameEntry['Component'] | null>(null);
+  const lastBreakGameRef = useRef<BreakGameEntry['Component'] | null>(null);
   const [questions, setQuestions] = useState<EduQuestionForPlay[]>([]);
   const [index, setIndex] = useState(0);
   const [given, setGiven] = useState('');
@@ -250,11 +310,16 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     // Block just finished - if there's no summary yet, block A ended and
     // the break is next; advance() (called from the break's onDone) fetches
     // block B fresh.
+    if (session) {
+      const picked = pickBreakGame(session.subject, session.grade, lastBreakGameRef.current);
+      setCurrentBreakGame(picked);
+    }
     setPhase('BREAK');
   }
 
   async function afterBreak() {
     if (!session) return;
+    lastBreakGameRef.current = currentBreakGame;
     const nextBlock = await api.advanceLearningSession(session.sessionId);
     setQuestions(nextBlock.questions);
     setIndex(0);
@@ -294,11 +359,11 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     );
   }
 
-  if (phase === 'BREAK' && session) {
-    const BreakGame = BREAK_GAME[session.subject];
+  if (phase === 'BREAK' && session && currentBreakGame) {
+    const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
-        <BreakGame onDone={afterBreak} />
+        <BreakGame grade={session.grade} onDone={afterBreak} />
       </div>
     );
   }
