@@ -52,42 +52,33 @@ function GradeSettings({ members }: { members: Member[] }) {
         Grade level per kid, per subject - drives which questions they get. Defaults from birthday until you set one; a kid moving up a
         grade mid-year is your call, not automatic.
       </p>
-      <div className="mt-3 overflow-x-auto">
-        <table className="w-full min-w-[560px] border-collapse text-sm">
-          <thead>
-            <tr className="text-left text-slate-500">
-              <th className="p-2 font-medium">Kid</th>
+      <div className="mt-3 flex flex-col gap-3">
+        {rows.map((r) => (
+          <div key={r.userId} className="rounded-lg border bg-white p-3">
+            <p className="font-medium">{members.find((m) => m.id === r.userId)?.displayName ?? r.displayName}</p>
+            <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {EDU_SUBJECTS.map((s) => (
-                <th key={s} className="p-2 font-medium">
-                  {SUBJECT_META[s].icon} {SUBJECT_META[s].label}
-                </th>
+                <div key={s} className="flex items-center justify-between gap-2 rounded border px-2.5 py-1.5">
+                  <span className="text-sm text-slate-500">
+                    {SUBJECT_META[s].icon} {SUBJECT_META[s].label}
+                  </span>
+                  <select
+                    className="rounded border px-2 py-1 text-sm disabled:opacity-50"
+                    value={r.subjects[s]}
+                    disabled={saving === `${r.userId}-${s}`}
+                    onChange={(e) => setGrade(r.userId, s, Number(e.target.value))}
+                  >
+                    {GRADE_LABELS.map((label, grade) => (
+                      <option key={grade} value={grade}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.userId} className="border-t">
-                <td className="p-2 font-medium">{members.find((m) => m.id === r.userId)?.displayName ?? r.displayName}</td>
-                {EDU_SUBJECTS.map((s) => (
-                  <td key={s} className="p-2">
-                    <select
-                      className="rounded border px-2 py-1 text-sm disabled:opacity-50"
-                      value={r.subjects[s]}
-                      disabled={saving === `${r.userId}-${s}`}
-                      onChange={(e) => setGrade(r.userId, s, Number(e.target.value))}
-                    >
-                      {GRADE_LABELS.map((label, grade) => (
-                        <option key={grade} value={grade}>
-                          {label}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
