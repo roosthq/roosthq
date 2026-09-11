@@ -1,17 +1,1622 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'cat'?", "choicesJson": ["dog", "hat", "sun", "big"], "answer": "hat", "tags": ["rhyming"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'ball'?", "choicesJson": ["tall", "run", "fish", "cup"], "answer": "tall", "tags": ["rhyming"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which letter makes the first sound in 'sun'?", "choicesJson": ["S", "T", "M", "R"], "answer": "S", "tags": ["phonics"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which letter makes the first sound in 'ball'?", "choicesJson": ["D", "B", "P", "K"], "answer": "B", "tags": ["phonics"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'big'?", "choicesJson": ["small", "happy", "fast", "red"], "answer": "small", "tags": ["vocabulary"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'up'?", "choicesJson": ["down", "left", "hot", "big"], "answer": "down", "tags": ["vocabulary"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The dog ran to the ball.' What did the dog run to?", "choicesJson": ["A cat", "A ball", "A tree", "A house"], "answer": "A ball", "tags": ["comprehension"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Sam has a red cup.' What color is Sam's cup?", "choicesJson": ["Blue", "Green", "Red", "Yellow"], "answer": "Red", "tags": ["comprehension"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is a sight word you'd see a lot in easy books?", "choicesJson": ["the", "elephant", "beautiful", "mountain"], "answer": "the", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a complete sentence?", "choicesJson": ["Running fast", "The dog barks.", "Big red", "Under the"], "answer": "The dog barks.", "tags": ["sentences"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word starts with the same sound as 'mom'?", "choicesJson": ["dad", "milk", "cat", "sun"], "answer": "milk", "tags": ["phonics"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The sun is hot.' What is hot?", "choicesJson": ["The moon", "The sun", "The rain", "The snow"], "answer": "The sun", "tags": ["comprehension"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word rhymes with 'dog'?", "choicesJson": ["log", "cat", "fish", "run"], "answer": "log", "tags": ["rhyming"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is a story about make-believe animals talking? That's called a...", "choicesJson": ["fable", "recipe", "map", "list"], "answer": "fable", "tags": ["genre"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'Jen has a pet fish. Its name is Fin.' What is the fish's name?", "choicesJson": ["Jen", "Pet", "Fin", "Fish"], "answer": "Fin", "tags": ["comprehension"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'cat'?",
+    "choicesJson": [
+      "dog",
+      "hat",
+      "sun",
+      "big"
+    ],
+    "answer": "hat",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'ball'?",
+    "choicesJson": [
+      "tall",
+      "run",
+      "fish",
+      "cup"
+    ],
+    "answer": "tall",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'sun'?",
+    "choicesJson": [
+      "S",
+      "T",
+      "M",
+      "R"
+    ],
+    "answer": "S",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'ball'?",
+    "choicesJson": [
+      "D",
+      "B",
+      "P",
+      "K"
+    ],
+    "answer": "B",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'big'?",
+    "choicesJson": [
+      "small",
+      "happy",
+      "fast",
+      "red"
+    ],
+    "answer": "small",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'up'?",
+    "choicesJson": [
+      "down",
+      "left",
+      "hot",
+      "big"
+    ],
+    "answer": "down",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The dog ran to the ball.' What did the dog run to?",
+    "choicesJson": [
+      "A cat",
+      "A ball",
+      "A tree",
+      "A house"
+    ],
+    "answer": "A ball",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Sam has a red cup.' What color is Sam's cup?",
+    "choicesJson": [
+      "Blue",
+      "Green",
+      "Red",
+      "Yellow"
+    ],
+    "answer": "Red",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "the",
+      "elephant",
+      "beautiful",
+      "mountain"
+    ],
+    "answer": "the",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "Running fast",
+      "The dog barks.",
+      "Big red",
+      "Under the"
+    ],
+    "answer": "The dog barks.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'mom'?",
+    "choicesJson": [
+      "dad",
+      "milk",
+      "cat",
+      "sun"
+    ],
+    "answer": "milk",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The sun is hot.' What is hot?",
+    "choicesJson": [
+      "The moon",
+      "The sun",
+      "The rain",
+      "The snow"
+    ],
+    "answer": "The sun",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'dog'?",
+    "choicesJson": [
+      "log",
+      "cat",
+      "fish",
+      "run"
+    ],
+    "answer": "log",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is a story about make-believe animals talking? That's called a...",
+    "choicesJson": [
+      "fable",
+      "recipe",
+      "map",
+      "list"
+    ],
+    "answer": "fable",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Jen has a pet fish. Its name is Fin.' What is the fish's name?",
+    "choicesJson": [
+      "Jen",
+      "Pet",
+      "Fin",
+      "Fish"
+    ],
+    "answer": "Fin",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'man'?",
+    "choicesJson": [
+      "pan",
+      "dog",
+      "cup",
+      "sit"
+    ],
+    "answer": "pan",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'bed'?",
+    "choicesJson": [
+      "red",
+      "run",
+      "cup",
+      "hot"
+    ],
+    "answer": "red",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'cup'?",
+    "choicesJson": [
+      "pup",
+      "hat",
+      "sun",
+      "tree"
+    ],
+    "answer": "pup",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'hen'?",
+    "choicesJson": [
+      "ten",
+      "dog",
+      "cup",
+      "hot"
+    ],
+    "answer": "ten",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'pot'?",
+    "choicesJson": [
+      "hot",
+      "sun",
+      "big",
+      "run"
+    ],
+    "answer": "hot",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'top'?",
+    "choicesJson": [
+      "hop",
+      "cat",
+      "sun",
+      "bed"
+    ],
+    "answer": "hop",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'big'?",
+    "choicesJson": [
+      "pig",
+      "sun",
+      "cup",
+      "hat"
+    ],
+    "answer": "pig",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'wet'?",
+    "choicesJson": [
+      "pet",
+      "dog",
+      "sun",
+      "top"
+    ],
+    "answer": "pet",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'run'?",
+    "choicesJson": [
+      "sun",
+      "cat",
+      "big",
+      "red"
+    ],
+    "answer": "sun",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'sit'?",
+    "choicesJson": [
+      "hit",
+      "dog",
+      "cup",
+      "red"
+    ],
+    "answer": "hit",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'box'?",
+    "choicesJson": [
+      "fox",
+      "sun",
+      "hat",
+      "big"
+    ],
+    "answer": "fox",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'fan'?",
+    "choicesJson": [
+      "can",
+      "dog",
+      "top",
+      "wet"
+    ],
+    "answer": "can",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'kite'?",
+    "choicesJson": [
+      "bite",
+      "cup",
+      "sun",
+      "dog"
+    ],
+    "answer": "bite",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'tree'?",
+    "choicesJson": [
+      "bee",
+      "hat",
+      "sun",
+      "big"
+    ],
+    "answer": "bee",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'red'?",
+    "choicesJson": [
+      "bed",
+      "run",
+      "cup",
+      "hot"
+    ],
+    "answer": "bed",
+    "tags": [
+      "rhyming"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'fish'?",
+    "choicesJson": [
+      "F",
+      "B",
+      "T",
+      "M"
+    ],
+    "answer": "F",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'log'?",
+    "choicesJson": [
+      "L",
+      "D",
+      "P",
+      "K"
+    ],
+    "answer": "L",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'van'?",
+    "choicesJson": [
+      "V",
+      "G",
+      "R",
+      "N"
+    ],
+    "answer": "V",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'kite'?",
+    "choicesJson": [
+      "K",
+      "W",
+      "Y",
+      "Q"
+    ],
+    "answer": "K",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'zoo'?",
+    "choicesJson": [
+      "Z",
+      "S",
+      "J",
+      "H"
+    ],
+    "answer": "Z",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'yarn'?",
+    "choicesJson": [
+      "Y",
+      "W",
+      "V",
+      "L"
+    ],
+    "answer": "Y",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'queen'?",
+    "choicesJson": [
+      "Q",
+      "K",
+      "G",
+      "D"
+    ],
+    "answer": "Q",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'jump'?",
+    "choicesJson": [
+      "J",
+      "G",
+      "D",
+      "W"
+    ],
+    "answer": "J",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'wagon'?",
+    "choicesJson": [
+      "W",
+      "N",
+      "V",
+      "Y"
+    ],
+    "answer": "W",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'nest'?",
+    "choicesJson": [
+      "N",
+      "M",
+      "H",
+      "R"
+    ],
+    "answer": "N",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'hat'?",
+    "choicesJson": [
+      "H",
+      "F",
+      "T",
+      "B"
+    ],
+    "answer": "H",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter makes the first sound in 'robot'?",
+    "choicesJson": [
+      "R",
+      "L",
+      "W",
+      "D"
+    ],
+    "answer": "R",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'dog'?",
+    "choicesJson": [
+      "duck",
+      "cat",
+      "fish",
+      "run"
+    ],
+    "answer": "duck",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'top'?",
+    "choicesJson": [
+      "tiger",
+      "ball",
+      "fish",
+      "sun"
+    ],
+    "answer": "tiger",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'pig'?",
+    "choicesJson": [
+      "pen",
+      "cat",
+      "dog",
+      "run"
+    ],
+    "answer": "pen",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'ball'?",
+    "choicesJson": [
+      "bear",
+      "fish",
+      "run",
+      "tree"
+    ],
+    "answer": "bear",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'sun'?",
+    "choicesJson": [
+      "seal",
+      "dog",
+      "hat",
+      "pig"
+    ],
+    "answer": "seal",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the same sound as 'cat'?",
+    "choicesJson": [
+      "cup",
+      "dog",
+      "fish",
+      "hen"
+    ],
+    "answer": "cup",
+    "tags": [
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'B'?",
+    "choicesJson": [
+      "b",
+      "d",
+      "p",
+      "q"
+    ],
+    "answer": "b",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'D'?",
+    "choicesJson": [
+      "d",
+      "b",
+      "p",
+      "g"
+    ],
+    "answer": "d",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'P'?",
+    "choicesJson": [
+      "p",
+      "q",
+      "b",
+      "d"
+    ],
+    "answer": "p",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'G'?",
+    "choicesJson": [
+      "g",
+      "q",
+      "p",
+      "y"
+    ],
+    "answer": "g",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'M'?",
+    "choicesJson": [
+      "m",
+      "w",
+      "n",
+      "u"
+    ],
+    "answer": "m",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'N'?",
+    "choicesJson": [
+      "n",
+      "m",
+      "u",
+      "w"
+    ],
+    "answer": "n",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'Q'?",
+    "choicesJson": [
+      "q",
+      "p",
+      "g",
+      "d"
+    ],
+    "answer": "q",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the lowercase letter for 'Y'?",
+    "choicesJson": [
+      "y",
+      "v",
+      "w",
+      "g"
+    ],
+    "answer": "y",
+    "tags": [
+      "letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'cat'?",
+    "answer": "1",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'sun'?",
+    "answer": "1",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'dog'?",
+    "answer": "1",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'apple'?",
+    "answer": "2",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'baby'?",
+    "answer": "2",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'monkey'?",
+    "answer": "2",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'banana'?",
+    "answer": "3",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'elephant'?",
+    "answer": "3",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'butterfly'?",
+    "answer": "3",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out: how many word parts (syllables) are in 'umbrella'?",
+    "answer": "3",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'hot'?",
+    "choicesJson": [
+      "cold",
+      "fast",
+      "happy",
+      "loud"
+    ],
+    "answer": "cold",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'fast'?",
+    "choicesJson": [
+      "slow",
+      "big",
+      "red",
+      "wet"
+    ],
+    "answer": "slow",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'happy'?",
+    "choicesJson": [
+      "sad",
+      "fast",
+      "tall",
+      "quiet"
+    ],
+    "answer": "sad",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'day'?",
+    "choicesJson": [
+      "night",
+      "hot",
+      "big",
+      "wet"
+    ],
+    "answer": "night",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'wet'?",
+    "choicesJson": [
+      "dry",
+      "big",
+      "fast",
+      "loud"
+    ],
+    "answer": "dry",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'open'?",
+    "choicesJson": [
+      "closed",
+      "happy",
+      "fast",
+      "tall"
+    ],
+    "answer": "closed",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'in'?",
+    "choicesJson": [
+      "out",
+      "big",
+      "wet",
+      "fast"
+    ],
+    "answer": "out",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'old'?",
+    "choicesJson": [
+      "new",
+      "tall",
+      "loud",
+      "wet"
+    ],
+    "answer": "new",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'full'?",
+    "choicesJson": [
+      "empty",
+      "fast",
+      "hot",
+      "tall"
+    ],
+    "answer": "empty",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'light'?",
+    "choicesJson": [
+      "dark",
+      "fast",
+      "wet",
+      "happy"
+    ],
+    "answer": "dark",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'near'?",
+    "choicesJson": [
+      "far",
+      "tall",
+      "hot",
+      "fast"
+    ],
+    "answer": "far",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'loud'?",
+    "choicesJson": [
+      "quiet",
+      "fast",
+      "big",
+      "wet"
+    ],
+    "answer": "quiet",
+    "tags": [
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'happy'?",
+    "choicesJson": [
+      "glad",
+      "sad",
+      "mad",
+      "cold"
+    ],
+    "answer": "glad",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'big'?",
+    "choicesJson": [
+      "large",
+      "small",
+      "short",
+      "thin"
+    ],
+    "answer": "large",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'fast'?",
+    "choicesJson": [
+      "quick",
+      "slow",
+      "tired",
+      "short"
+    ],
+    "answer": "quick",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'little'?",
+    "choicesJson": [
+      "small",
+      "huge",
+      "tall",
+      "loud"
+    ],
+    "answer": "small",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'sad'?",
+    "choicesJson": [
+      "unhappy",
+      "glad",
+      "fast",
+      "big"
+    ],
+    "answer": "unhappy",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'begin'?",
+    "choicesJson": [
+      "start",
+      "stop",
+      "end",
+      "sleep"
+    ],
+    "answer": "start",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'look'?",
+    "choicesJson": [
+      "see",
+      "hide",
+      "run",
+      "sleep"
+    ],
+    "answer": "see",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'jump'?",
+    "choicesJson": [
+      "hop",
+      "sit",
+      "sleep",
+      "eat"
+    ],
+    "answer": "hop",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "the",
+      "elephant",
+      "beautiful",
+      "mountain"
+    ],
+    "answer": "the",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "and",
+      "dinosaur",
+      "umbrella",
+      "chocolate"
+    ],
+    "answer": "and",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "is",
+      "giraffe",
+      "butterfly",
+      "bicycle"
+    ],
+    "answer": "is",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "was",
+      "hospital",
+      "dangerous",
+      "curious"
+    ],
+    "answer": "was",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "they",
+      "adventure",
+      "building",
+      "surprise"
+    ],
+    "answer": "they",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "have",
+      "mysterious",
+      "furniture",
+      "excellent"
+    ],
+    "answer": "have",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "said",
+      "telephone",
+      "expensive",
+      "kangaroo"
+    ],
+    "answer": "said",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a sight word you'd see a lot in easy books?",
+    "choicesJson": [
+      "you",
+      "hamburger",
+      "penguin",
+      "calendar"
+    ],
+    "answer": "you",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "The cat sleeps.",
+      "Under the table",
+      "Big red",
+      "Fast run"
+    ],
+    "answer": "The cat sleeps.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "She likes cake.",
+      "Likes cake fast",
+      "Yellow ball",
+      "Running fast"
+    ],
+    "answer": "She likes cake.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "Birds can fly.",
+      "Can fly birds",
+      "Big blue",
+      "Under the"
+    ],
+    "answer": "Birds can fly.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "We go home.",
+      "Go home we",
+      "Small dog",
+      "Very very"
+    ],
+    "answer": "We go home.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "The pot is hot.",
+      "Hot the pot",
+      "Green and",
+      "Jumping high"
+    ],
+    "answer": "The pot is hot.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a complete sentence?",
+    "choicesJson": [
+      "I see a star.",
+      "A star I",
+      "Loud noise",
+      "Down the"
+    ],
+    "answer": "I see a star.",
+    "tags": [
+      "sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ben has a big red truck.' What color is Ben's truck?",
+    "choicesJson": [
+      "Blue",
+      "Green",
+      "Red",
+      "Yellow"
+    ],
+    "answer": "Red",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The bird sat on the small nest.' Where did the bird sit?",
+    "choicesJson": [
+      "On a nest",
+      "On a car",
+      "On a hat",
+      "On a boat"
+    ],
+    "answer": "On a nest",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Mom baked six cupcakes.' What did Mom bake?",
+    "choicesJson": [
+      "Cupcakes",
+      "Bread",
+      "Soup",
+      "Pie"
+    ],
+    "answer": "Cupcakes",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The frog jumped into the pond.' Where did the frog jump?",
+    "choicesJson": [
+      "Into the pond",
+      "Onto a rock",
+      "Into a box",
+      "Onto a bed"
+    ],
+    "answer": "Into the pond",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Tim's ball rolled under the bed.' Where did the ball roll?",
+    "choicesJson": [
+      "Under the bed",
+      "Into the yard",
+      "Down the stairs",
+      "Into the sink"
+    ],
+    "answer": "Under the bed",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The three pigs built houses.' Who built houses?",
+    "choicesJson": [
+      "The three pigs",
+      "A wolf",
+      "A farmer",
+      "A duck"
+    ],
+    "answer": "The three pigs",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Sara wore a yellow coat in the rain.' What did Sara wear?",
+    "choicesJson": [
+      "A yellow coat",
+      "A red hat",
+      "Blue boots",
+      "A green scarf"
+    ],
+    "answer": "A yellow coat",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The little duck swam across the lake.' What swam across the lake?",
+    "choicesJson": [
+      "The little duck",
+      "A big fish",
+      "A small boat",
+      "A tall bird"
+    ],
+    "answer": "The little duck",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Dad drove the car to the store.' Where did Dad drive?",
+    "choicesJson": [
+      "To the store",
+      "To the park",
+      "To school",
+      "To the beach"
+    ],
+    "answer": "To the store",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The cow ate green grass in the field.' What did the cow eat?",
+    "choicesJson": [
+      "Green grass",
+      "Red apples",
+      "Yellow corn",
+      "Brown bread"
+    ],
+    "answer": "Green grass",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Nina drew a picture of the sun.' What did Nina draw?",
+    "choicesJson": [
+      "A picture of the sun",
+      "A picture of a car",
+      "A picture of a house",
+      "A picture of a dog"
+    ],
+    "answer": "A picture of the sun",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The baby bear was fast asleep in the cave.' Where was the baby bear?",
+    "choicesJson": [
+      "In the cave",
+      "In a tree",
+      "In the river",
+      "On a rock"
+    ],
+    "answer": "In the cave",
+    "tags": [
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A make-believe story with talking animals that teaches a lesson is called a...",
+    "choicesJson": [
+      "fable",
+      "recipe",
+      "map",
+      "list"
+    ],
+    "answer": "fable",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A piece of writing with rhyming lines is called a...",
+    "choicesJson": [
+      "poem",
+      "recipe",
+      "map",
+      "index"
+    ],
+    "answer": "poem",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A page that shows where places are is called a...",
+    "choicesJson": [
+      "map",
+      "poem",
+      "fable",
+      "diary"
+    ],
+    "answer": "map",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steps that show how to cook food are called a...",
+    "choicesJson": [
+      "recipe",
+      "poem",
+      "map",
+      "fable"
+    ],
+    "answer": "recipe",
+    "tags": [
+      "genre"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ann woke up. Then she ate breakfast. Then she went to school.' What did Ann do first?",
+    "choicesJson": [
+      "Ate breakfast",
+      "Woke up",
+      "Went to school",
+      "Took a nap"
+    ],
+    "answer": "Woke up",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Sam put on his socks. Then he put on his shoes.' What did Sam do last?",
+    "choicesJson": [
+      "Put on his socks",
+      "Put on his shoes",
+      "Took a nap",
+      "Ate lunch"
+    ],
+    "answer": "Put on his shoes",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The seed was planted. Then it grew into a plant. Then it grew a flower.' What happened first?",
+    "choicesJson": [
+      "It grew a flower",
+      "The seed was planted",
+      "It grew into a plant",
+      "It was picked"
+    ],
+    "answer": "The seed was planted",
+    "tags": [
+      "sequencing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'First Kim washed her hands. Then she ate her snack.' What did Kim do first?",
+    "choicesJson": [
+      "Ate her snack",
+      "Washed her hands",
+      "Went outside",
+      "Took a nap"
+    ],
+    "answer": "Washed her hands",
+    "tags": [
+      "sequencing"
+    ]
+  }
 ]

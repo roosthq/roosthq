@@ -45,35 +45,36 @@ import RhymePop from '../breakGames/spelling/RhymePop';
 interface BreakGameEntry {
   Component: (p: { grade: number; onDone: () => void }) => ReactElement;
   minGrade: number;
+  label: string;
 }
 const BREAK_GAMES: Record<EduSubject, BreakGameEntry[]> = {
   MATH: [
-    { Component: TenFrameFill, minGrade: 0 },
-    { Component: NumberPopLadder, minGrade: 0 },
-    { Component: BalanceBuilder, minGrade: 1 },
-    { Component: SpeedMatch, minGrade: 0 },
-    { Component: PathToFlag, minGrade: 0 },
+    { Component: TenFrameFill, minGrade: 0, label: 'Ten Frame Fill' },
+    { Component: NumberPopLadder, minGrade: 0, label: 'Number Pop Ladder' },
+    { Component: BalanceBuilder, minGrade: 1, label: 'Balance Builder' },
+    { Component: SpeedMatch, minGrade: 0, label: 'Speed Match' },
+    { Component: PathToFlag, minGrade: 0, label: 'Path to Flag' },
   ],
   READING: [
-    { Component: StoryOrderSwap, minGrade: 0 },
-    { Component: RhymeMatch, minGrade: 0 },
-    { Component: WordMeaningBubbles, minGrade: 2 },
-    { Component: SentenceBuilder, minGrade: 1 },
-    { Component: DetectiveClues, minGrade: 0 },
+    { Component: StoryOrderSwap, minGrade: 0, label: 'Story Order Swap' },
+    { Component: RhymeMatch, minGrade: 0, label: 'Rhyme Match' },
+    { Component: WordMeaningBubbles, minGrade: 2, label: 'Word Meaning Bubbles' },
+    { Component: SentenceBuilder, minGrade: 1, label: 'Sentence Builder' },
+    { Component: DetectiveClues, minGrade: 0, label: 'Detective Clues' },
   ],
   SCIENCE: [
-    { Component: HabitatSort, minGrade: 0 },
-    { Component: LifeCycleRing, minGrade: 2 },
-    { Component: StateMatch, minGrade: 0 },
-    { Component: CircuitPath, minGrade: 3 },
-    { Component: WeatherReport, minGrade: 0 },
+    { Component: HabitatSort, minGrade: 0, label: 'Habitat Sort' },
+    { Component: LifeCycleRing, minGrade: 2, label: 'Life Cycle Ring' },
+    { Component: StateMatch, minGrade: 0, label: 'State Match' },
+    { Component: CircuitPath, minGrade: 3, label: 'Circuit Path' },
+    { Component: WeatherReport, minGrade: 0, label: 'Weather Report' },
   ],
   SPELLING: [
-    { Component: LetterLadder, minGrade: 0 },
-    { Component: ScrambleSwap, minGrade: 0 },
-    { Component: MissingLetter, minGrade: 0 },
-    { Component: WordGridSnap, minGrade: 0 },
-    { Component: RhymePop, minGrade: 0 },
+    { Component: LetterLadder, minGrade: 0, label: 'Letter Ladder' },
+    { Component: ScrambleSwap, minGrade: 0, label: 'Scramble Swap' },
+    { Component: MissingLetter, minGrade: 0, label: 'Missing Letter' },
+    { Component: WordGridSnap, minGrade: 0, label: 'Word Grid Snap' },
+    { Component: RhymePop, minGrade: 0, label: 'Rhyme Pop' },
   ],
 };
 
@@ -103,6 +104,7 @@ export default function LearningGamesTab({ isAdult, members, tokenIcon }: { isAd
     <div className="mt-4 flex flex-col gap-6">
       <PayoutSettings />
       <GradeSettings members={members} />
+      <BreakGamePreview />
     </div>
   ) : (
     <PlaySession tokenIcon={tokenIcon} />
@@ -232,6 +234,82 @@ function GradeSettings({ members }: { members: Member[] }) {
                     ))}
                   </select>
                 </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ---------------- Adult: preview/test every recess break game ----------------
+// Casey's own request - reviewing 20 games by playing blind through real kid
+// sessions doesn't scale. Lets an adult jump straight to any one of them, at
+// any grade (overriding that game's real minGrade gate - this is a review
+// tool, not the real picker), so both interaction modes are reachable:
+// dragOrTap.ts switches to drag at grade 2+, tap-to-tap below that.
+
+function BreakGamePreview() {
+  const [grade, setGrade] = useState(2);
+  const [playing, setPlaying] = useState<{ subject: EduSubject; index: number } | null>(null);
+
+  if (playing) {
+    const entry = BREAK_GAMES[playing.subject][playing.index];
+    const Game = entry.Component;
+    return (
+      <div className="rounded-lg border bg-white p-3">
+        <div className="mb-3 flex items-center justify-between">
+          <p className="font-semibold">
+            {entry.label} <span className="text-xs font-normal text-slate-400">- previewing as {GRADE_LABELS[grade]} grade</span>
+          </p>
+          <button onClick={() => setPlaying(null)} className="rounded px-2 py-1 text-sm text-slate-500 hover:bg-slate-100">
+            ✕ Close
+          </button>
+        </div>
+        <Game grade={grade} onDone={() => setPlaying(null)} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-lg border bg-white p-3">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-semibold">Break game preview</h3>
+        <label className="flex items-center gap-2 text-sm text-slate-500">
+          Preview as
+          <select
+            className="rounded border px-2 py-1 text-sm"
+            value={grade}
+            onChange={(e) => setGrade(Number(e.target.value))}
+          >
+            {GRADE_LABELS.map((label, g) => (
+              <option key={g} value={g}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <p className="mt-1 text-xs text-slate-400">
+        Play any recess break exactly as a kid would see it - grade 2 and up drags, below that is tap-to-tap.
+      </p>
+      <div className="mt-3 flex flex-col gap-3">
+        {EDU_SUBJECTS.map((s) => (
+          <div key={s}>
+            <p className="text-sm font-medium text-slate-500">
+              {SUBJECT_META[s].icon} {SUBJECT_META[s].label}
+            </p>
+            <div className="mt-1.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
+              {BREAK_GAMES[s].map((g, i) => (
+                <button
+                  key={g.label}
+                  onClick={() => setPlaying({ subject: s, index: i })}
+                  className="flex items-center justify-between rounded border px-2.5 py-1.5 text-sm hover:bg-slate-50"
+                >
+                  <span>{g.label}</span>
+                  <span className="text-xs text-slate-400">Grade {GRADE_LABELS[g.minGrade]}+ &nbsp;▶ Play</span>
+                </button>
               ))}
             </div>
           </div>
