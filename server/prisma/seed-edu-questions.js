@@ -52,6 +52,7 @@ async function main() {
         choicesJson: r.choicesJson ?? null,
         answer: r.answer,
         tags: r.tags ?? [],
+        visualJson: r.visualJson ?? null,
       })),
     });
     totalInserted += rows.length;
