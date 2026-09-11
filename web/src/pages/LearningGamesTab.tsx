@@ -285,6 +285,8 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
   // the button click just... did nothing, no error, no explanation. Caught
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
+  // eslint-disable-next-line no-console
+  console.log('[DEBUG] PlaySession render tick, phase=', phase, 'session=', session, 'currentBreakGame=', currentBreakGame?.name);
 
   async function start(subject: EduSubject) {
     setPhase('STARTING');
