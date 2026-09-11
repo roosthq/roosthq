@@ -1,4 +1,23 @@
-import { useEffect, useRef, useState, type ReactElement } from 'react';
+import { Component, useEffect, useRef, useState, type ReactElement, type ReactNode } from 'react';
+
+// TEMP diagnostic: pinpoints which component actually throws during the
+// BREAK transition (the "grade destructure of null" crash) instead of
+// letting it take down the whole app with an unreadable minified trace.
+// Remove once that bug is found and fixed.
+class BreakGameErrorBoundary extends Component<{ children: ReactNode }, { error: string | null }> {
+  state = { error: null as string | null };
+  static getDerivedStateFromError(error: unknown) {
+    return { error: error instanceof Error ? error.message : String(error) };
+  }
+  componentDidCatch(error: unknown, info: { componentStack?: string }) {
+    // eslint-disable-next-line no-console
+    console.log('[DEBUG] BreakGame crashed:', error, 'componentStack:', info.componentStack);
+  }
+  render() {
+    if (this.state.error) return <div className="mt-4 text-sm text-red-500">[DEBUG] break game crashed: {this.state.error}</div>;
+    return this.props.children;
+  }
+}
 import {
   api,
   EDU_SUBJECTS,
@@ -371,7 +390,9 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
-        <BreakGame grade={session.grade} onDone={afterBreak} />
+        <BreakGameErrorBoundary>
+          <BreakGame grade={session.grade} onDone={afterBreak} />
+        </BreakGameErrorBoundary>
       </div>
     );
   }
