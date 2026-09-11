@@ -1414,5 +1414,61 @@
     "tags": [
       "summarizing"
     ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a boy learns to enjoy hiking only after he stops rushing to the summit and starts noticing the scenery?",
+    "choicesJson": [
+      "Slowing down can help you appreciate an experience",
+      "Reaching the summit is the only goal that matters",
+      "Hiking is not enjoyable",
+      "Rushing always leads to success"
+    ],
+    "answer": "Slowing down can help you appreciate an experience",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The workshop floor was covered in sawdust, and a half-finished birdhouse sat clamped to the table.' What can you infer?",
+    "choicesJson": [
+      "Someone is in the middle of a woodworking project",
+      "The workshop is abandoned",
+      "The birdhouse is finished",
+      "No tools were used recently"
+    ],
+    "answer": "Someone is in the middle of a woodworking project",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'meticulous'?",
+    "choicesJson": [
+      "thorough",
+      "careless",
+      "hasty",
+      "messy"
+    ],
+    "answer": "thorough",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'reveal'?",
+    "choicesJson": [
+      "conceal",
+      "display",
+      "announce",
+      "expose"
+    ],
+    "answer": "conceal",
+    "tags": [
+      "antonyms"
+    ]
   }
 ]

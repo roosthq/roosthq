@@ -1,16 +1,1488 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The editorial claimed every student should get a laptop, citing only one school's success and ignoring the cost to others.' What's a weakness in this argument?", "choicesJson": ["It uses one example and ignores costs", "It has too many facts", "It is too short", "It doesn't mention laptops"], "answer": "It uses one example and ignores costs", "tags": ["analyzing-arguments"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "An author writing a scary story to give readers chills has a purpose to...", "choicesJson": ["entertain", "inform", "instruct", "advertise"], "answer": "entertain", "tags": ["authors-purpose"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word has a more negative connotation for 'not talking much'?", "choicesJson": ["cold", "reserved", "quiet", "calm"], "answer": "cold", "tags": ["connotation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the same as 'meticulous'?", "choicesJson": ["careful", "careless", "lazy", "quick"], "answer": "careful", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means the opposite of 'abundant'?", "choicesJson": ["scarce", "plentiful", "large", "common"], "answer": "scarce", "tags": ["antonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A text that describes a problem and then a solution uses which structure?", "choicesJson": ["problem-solution", "sequence", "description", "cause-effect"], "answer": "problem-solution", "tags": ["text-structure"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "'The word 'ambiguous' in 'His answer was ambiguous' most likely means...", "choicesJson": ["unclear", "very clear", "loud", "written down"], "answer": "unclear", "tags": ["context-clues"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which best summarizes a passage about how bees pollinate flowers while collecting nectar, helping plants reproduce?", "choicesJson": ["Bees help plants reproduce while gathering nectar.", "Bees are dangerous insects.", "Flowers don't need bees.", "Nectar is bad for bees."], "answer": "Bees help plants reproduce while gathering nectar.", "tags": ["summarizing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which sentence uses hyperbole (extreme exaggeration)?", "choicesJson": ["I could eat a hundred pancakes right now.", "I ate two pancakes.", "Pancakes are round.", "I like pancakes."], "answer": "I could eat a hundred pancakes right now.", "tags": ["figurative-language"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the plural of the word 'mouse' (the animal)?", "answer": "mice", "tags": ["grammar"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "An index at the back of a book helps a reader...", "choicesJson": ["find where a topic appears by page number", "know the author's age", "learn the ending of the story", "see the cover art"], "answer": "find where a topic appears by page number", "tags": ["text-features"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word means almost the same as 'candid'?", "choicesJson": ["honest", "secretive", "confused", "quiet"], "answer": "honest", "tags": ["synonyms"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A story told by someone outside the action, using 'he' and 'she', is in...", "choicesJson": ["third person", "first person", "second person", "no narrator"], "answer": "third person", "tags": ["point-of-view"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the main purpose of a persuasive essay about recycling?", "choicesJson": ["To convince readers to recycle", "To tell a made-up story", "To give a recipe", "To describe a vacation"], "answer": "To convince readers to recycle", "tags": ["authors-purpose"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The editorial claimed every student should get a laptop, citing only one school's success and ignoring the cost to others.' What's a weakness in this argument?",
+    "choicesJson": [
+      "It uses one example and ignores costs",
+      "It has too many facts",
+      "It is too short",
+      "It doesn't mention laptops"
+    ],
+    "answer": "It uses one example and ignores costs",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An author writing a scary story to give readers chills has a purpose to...",
+    "choicesJson": [
+      "entertain",
+      "inform",
+      "instruct",
+      "advertise"
+    ],
+    "answer": "entertain",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more negative connotation for 'not talking much'?",
+    "choicesJson": [
+      "cold",
+      "reserved",
+      "quiet",
+      "calm"
+    ],
+    "answer": "cold",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'meticulous'?",
+    "choicesJson": [
+      "careful",
+      "careless",
+      "lazy",
+      "quick"
+    ],
+    "answer": "careful",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'abundant'?",
+    "choicesJson": [
+      "scarce",
+      "plentiful",
+      "large",
+      "common"
+    ],
+    "answer": "scarce",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A text that describes a problem and then a solution uses which structure?",
+    "choicesJson": [
+      "problem-solution",
+      "sequence",
+      "description",
+      "cause-effect"
+    ],
+    "answer": "problem-solution",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The word 'ambiguous' in 'His answer was ambiguous' most likely means...",
+    "choicesJson": [
+      "unclear",
+      "very clear",
+      "loud",
+      "written down"
+    ],
+    "answer": "unclear",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how bees pollinate flowers while collecting nectar, helping plants reproduce?",
+    "choicesJson": [
+      "Bees help plants reproduce while gathering nectar.",
+      "Bees are dangerous insects.",
+      "Flowers don't need bees.",
+      "Nectar is bad for bees."
+    ],
+    "answer": "Bees help plants reproduce while gathering nectar.",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses hyperbole (extreme exaggeration)?",
+    "choicesJson": [
+      "I could eat a hundred pancakes right now.",
+      "I ate two pancakes.",
+      "Pancakes are round.",
+      "I like pancakes."
+    ],
+    "answer": "I could eat a hundred pancakes right now.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'mouse' (the animal)?",
+    "answer": "mice",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An index at the back of a book helps a reader...",
+    "choicesJson": [
+      "find where a topic appears by page number",
+      "know the author's age",
+      "learn the ending of the story",
+      "see the cover art"
+    ],
+    "answer": "find where a topic appears by page number",
+    "tags": [
+      "text-features"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means almost the same as 'candid'?",
+    "choicesJson": [
+      "honest",
+      "secretive",
+      "confused",
+      "quiet"
+    ],
+    "answer": "honest",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story told by someone outside the action, using 'he' and 'she', is in...",
+    "choicesJson": [
+      "third person",
+      "first person",
+      "second person",
+      "no narrator"
+    ],
+    "answer": "third person",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main purpose of a persuasive essay about recycling?",
+    "choicesJson": [
+      "To convince readers to recycle",
+      "To tell a made-up story",
+      "To give a recipe",
+      "To describe a vacation"
+    ],
+    "answer": "To convince readers to recycle",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The ad claimed the vitamin cured colds because one customer said she felt better after taking it.' What's the weakness in this argument?",
+    "choicesJson": [
+      "It relies on a single, unverified personal story",
+      "It uses too much scientific data",
+      "It is written too formally",
+      "It includes too many statistics"
+    ],
+    "answer": "It relies on a single, unverified personal story",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The columnist argued that all homework should be banned because he disliked homework as a kid.' What's a flaw in this reasoning?",
+    "choicesJson": [
+      "A personal dislike isn't strong evidence for everyone",
+      "The columnist used too many facts",
+      "The argument is too short to matter",
+      "The topic is not important"
+    ],
+    "answer": "A personal dislike isn't strong evidence for everyone",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The brochure said the new park would 'obviously' make the whole town happier, with no data given.' What's missing from this argument?",
+    "choicesJson": [
+      "Evidence or data to support the claim",
+      "A clear topic",
+      "Any opinion at all",
+      "A title"
+    ],
+    "answer": "Evidence or data to support the claim",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'A speaker claimed a new phone was the best ever made because it was the newest model released.' What logical flaw does this argument have?",
+    "choicesJson": [
+      "Being newest doesn't automatically mean it's best",
+      "The speaker used facts instead of opinions",
+      "The claim was too specific",
+      "The claim included evidence"
+    ],
+    "answer": "Being newest doesn't automatically mean it's best",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An investigative article uncovering how a company polluted a river, backed by documents and interviews, is written mainly to...",
+    "choicesJson": [
+      "inform the public of wrongdoing",
+      "entertain with fiction",
+      "advertise the company",
+      "give cooking instructions"
+    ],
+    "answer": "inform the public of wrongdoing",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A eulogy honoring a community leader's accomplishments and kindness is written mainly to...",
+    "choicesJson": [
+      "honor and reflect on someone's life",
+      "persuade voters",
+      "give technical instructions",
+      "report daily weather"
+    ],
+    "answer": "honor and reflect on someone's life",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A satirical article exaggerating a minor rule to make readers laugh while pointing out its absurdity has a purpose to...",
+    "choicesJson": [
+      "entertain while critiquing something",
+      "give literal instructions",
+      "report unbiased news",
+      "advertise a service"
+    ],
+    "answer": "entertain while critiquing something",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more positive connotation for someone who speaks their mind?",
+    "choicesJson": [
+      "outspoken",
+      "obnoxious",
+      "loudmouthed",
+      "abrasive"
+    ],
+    "answer": "outspoken",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more negative connotation for someone who is careful with money?",
+    "choicesJson": [
+      "stingy",
+      "frugal",
+      "thrifty",
+      "economical"
+    ],
+    "answer": "stingy",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more positive connotation for 'unusual'?",
+    "choicesJson": [
+      "unique",
+      "weird",
+      "strange",
+      "odd"
+    ],
+    "answer": "unique",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more negative connotation for someone who is confident?",
+    "choicesJson": [
+      "arrogant",
+      "assured",
+      "self-assured",
+      "poised"
+    ],
+    "answer": "arrogant",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a novel where a community rebuilds a burned library one donated book at a time, gaining hope along the way?",
+    "choicesJson": [
+      "Communities can rebuild and find hope through collective effort",
+      "Libraries are unimportant",
+      "Fires always destroy hope permanently",
+      "Rebuilding is impossible without money"
+    ],
+    "answer": "Communities can rebuild and find hope through collective effort",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where an explorer risks failure repeatedly to map uncharted caves, eventually discovering a new species?",
+    "choicesJson": [
+      "Curiosity and persistence can lead to discovery",
+      "Exploration is too risky to attempt",
+      "Caves are always empty",
+      "Scientists should avoid risk entirely"
+    ],
+    "answer": "Curiosity and persistence can lead to discovery",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a family learns to forgive an estranged relative after understanding the hardships that caused their absence?",
+    "choicesJson": [
+      "Understanding someone's struggles can lead to forgiveness",
+      "Family members should never be forgiven",
+      "Hardship excuses any behavior",
+      "Forgiveness is always easy"
+    ],
+    "answer": "Understanding someone's struggles can lead to forgiveness",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Even after the judges announced another winner, Talia was the first to congratulate them, clapping the loudest.' What does this reveal about Talia?",
+    "choicesJson": [
+      "She has good sportsmanship despite disappointment",
+      "She secretly resents the winner",
+      "She does not care about the competition",
+      "She believes the judges made a mistake"
+    ],
+    "answer": "She has good sportsmanship despite disappointment",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Malik reread his angry email three times, then deleted it and wrote a calmer version instead.' What does this reveal about Malik?",
+    "choicesJson": [
+      "He is thoughtful and works to control his reactions",
+      "He is impulsive and reacts without thinking",
+      "He never gets frustrated",
+      "He avoids conflict entirely"
+    ],
+    "answer": "He is thoughtful and works to control his reactions",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains an extended metaphor about life as a journey?",
+    "choicesJson": [
+      "Life is a road with unexpected turns, and we must keep driving forward.",
+      "Life is sometimes hard.",
+      "We travel through life.",
+      "Roads can be bumpy."
+    ],
+    "answer": "Life is a road with unexpected turns, and we must keep driving forward.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is an example of verbal irony (saying the opposite of what is meant)?",
+    "choicesJson": [
+      "'What a beautiful day,' she said, soaked from the storm.",
+      "It was a beautiful sunny day.",
+      "She loved the storm.",
+      "The weather was terrible."
+    ],
+    "answer": "'What a beautiful day,' she said, soaked from the storm.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'to keep something secret'?",
+    "choicesJson": [
+      "keep it under wraps",
+      "spill the beans",
+      "break the ice",
+      "hit the nail on the head"
+    ],
+    "answer": "keep it under wraps",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains alliteration (repeated beginning sounds)?",
+    "choicesJson": [
+      "The slippery snake slithered silently through the grass.",
+      "The snake moved through the grass.",
+      "The grass was tall and green.",
+      "A snake lives in the grass."
+    ],
+    "answer": "The slippery snake slithered silently through the grass.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The professor's lecture was so esoteric that only a handful of specialists understood it.' What does 'esoteric' most likely mean?",
+    "choicesJson": [
+      "understood by only a small, specialized group",
+      "understood by everyone easily",
+      "extremely short",
+      "translated into many languages"
+    ],
+    "answer": "understood by only a small, specialized group",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Her tenacity during recovery amazed the doctors, who expected her to give up weeks earlier.' What does 'tenacity' most likely mean?",
+    "choicesJson": [
+      "persistence and determination",
+      "weakness",
+      "carelessness",
+      "confusion"
+    ],
+    "answer": "persistence and determination",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The committee's verdict was final and irrevocable; no appeal would change it.' What does 'irrevocable' most likely mean?",
+    "choicesJson": [
+      "unable to be changed or reversed",
+      "easily changed",
+      "temporary",
+      "questionable"
+    ],
+    "answer": "unable to be changed or reversed",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage explaining that deforestation causes soil erosion, which then causes flooding downstream, uses which structure?",
+    "choicesJson": [
+      "cause-effect",
+      "compare-contrast",
+      "description",
+      "sequence"
+    ],
+    "answer": "cause-effect",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage weighing the advantages and disadvantages of solar versus wind energy uses which structure?",
+    "choicesJson": [
+      "compare-contrast",
+      "cause-effect",
+      "sequence",
+      "problem-solution"
+    ],
+    "answer": "compare-contrast",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that identifies traffic accidents near a school as an issue and proposes a crossing guard as a fix uses which structure?",
+    "choicesJson": [
+      "problem-solution",
+      "description",
+      "sequence",
+      "compare-contrast"
+    ],
+    "answer": "problem-solution",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage explaining that vaccines train the immune system to recognize and fight specific diseases?",
+    "choicesJson": [
+      "Vaccines prepare the immune system to fight specific diseases",
+      "Vaccines cause the diseases they prevent",
+      "The immune system ignores vaccines",
+      "Vaccines work the same for every disease"
+    ],
+    "answer": "Vaccines prepare the immune system to fight specific diseases",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how urban gardens provide fresh produce and green space in cities lacking farmland?",
+    "choicesJson": [
+      "Urban gardens bring fresh food and green space to cities",
+      "Urban gardens replace all farmland entirely",
+      "Cities cannot support any plant life",
+      "Urban gardens are illegal in most cities"
+    ],
+    "answer": "Urban gardens bring fresh food and green space to cities",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A narrator who addresses the reader directly as 'you' throughout the story is using...",
+    "choicesJson": [
+      "second person point of view",
+      "first person point of view",
+      "third person limited",
+      "third person omniscient"
+    ],
+    "answer": "second person point of view",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When a narrator shifts between knowing several characters' private thoughts, that narration is...",
+    "choicesJson": [
+      "omniscient",
+      "limited third person",
+      "first person",
+      "second person"
+    ],
+    "answer": "omniscient",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A blog post about a health product written by someone who is paid to promote it should be read with...",
+    "choicesJson": [
+      "awareness of possible bias from being paid",
+      "complete trust, since it's detailed",
+      "less attention than a scientific study",
+      "the same trust as a peer-reviewed study"
+    ],
+    "answer": "awareness of possible bias from being paid",
+    "tags": [
+      "critical-reading"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When two news sources report different numbers for the same event, a careful reader should...",
+    "choicesJson": [
+      "check other reliable sources to compare",
+      "believe whichever source is more exciting",
+      "ignore the story completely",
+      "assume both numbers are wrong"
+    ],
+    "answer": "check other reliable sources to compare",
+    "tags": [
+      "critical-reading"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'diligent'?",
+    "choicesJson": [
+      "industrious",
+      "lazy",
+      "careless",
+      "idle"
+    ],
+    "answer": "industrious",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'ambivalent'?",
+    "choicesJson": [
+      "undecided",
+      "certain",
+      "confident",
+      "determined"
+    ],
+    "answer": "undecided",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'gregarious'?",
+    "choicesJson": [
+      "sociable",
+      "shy",
+      "withdrawn",
+      "quiet"
+    ],
+    "answer": "sociable",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'arduous'?",
+    "choicesJson": [
+      "strenuous",
+      "easy",
+      "simple",
+      "effortless"
+    ],
+    "answer": "strenuous",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'ambiguous'?",
+    "choicesJson": [
+      "clear",
+      "vague",
+      "unclear",
+      "confusing"
+    ],
+    "answer": "clear",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'frivolous'?",
+    "choicesJson": [
+      "serious",
+      "silly",
+      "trivial",
+      "careless"
+    ],
+    "answer": "serious",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'candid'?",
+    "choicesJson": [
+      "secretive",
+      "honest",
+      "open",
+      "direct"
+    ],
+    "answer": "secretive",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence blends a fact with a hidden opinion, making it seem more objective than it is?",
+    "choicesJson": [
+      "The clearly superior new policy reduced costs by 10 percent.",
+      "The new policy reduced costs by 10 percent.",
+      "Costs decreased after the policy began.",
+      "The policy was implemented last year."
+    ],
+    "answer": "The clearly superior new policy reduced costs by 10 percent.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is a verifiable fact?",
+    "choicesJson": [
+      "The novel was published in 1937.",
+      "The novel is the greatest ever written.",
+      "Everyone should read this novel.",
+      "The novel is too long to enjoy."
+    ],
+    "answer": "The novel was published in 1937.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ance' to 'perform' to make a noun. What is the word?",
+    "answer": "performance",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'inter-' to 'national' to make a word meaning 'between nations'. What is the word?",
+    "answer": "international",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'criterion'?",
+    "answer": "criteria",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'break' + 'through' = ?",
+    "answer": "breakthrough",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The editorial insisted the new stadium would fix the city's economy, without mentioning its cost to taxpayers.' What's a weakness here?",
+    "choicesJson": [
+      "It ignores the costs involved in the plan",
+      "It uses too much data",
+      "It is written too briefly",
+      "It avoids giving any opinion"
+    ],
+    "answer": "It ignores the costs involved in the plan",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'A commercial claimed 9 out of 10 dentists recommend a toothpaste, without saying how many dentists were asked.' What's the flaw?",
+    "choicesJson": [
+      "The sample size and method aren't disclosed",
+      "The claim uses too many numbers",
+      "Dentists are not a trustworthy source",
+      "The toothpaste was not named"
+    ],
+    "answer": "The sample size and method aren't disclosed",
+    "tags": [
+      "analyzing-arguments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A memoir describing an author's childhood memories of her grandmother's kitchen is written mainly to...",
+    "choicesJson": [
+      "share a personal reflection",
+      "persuade readers to cook",
+      "give a recipe only",
+      "report scientific findings"
+    ],
+    "answer": "share a personal reflection",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A public health flyer urging people to wash their hands to prevent illness is written mainly to...",
+    "choicesJson": [
+      "persuade and inform for public benefit",
+      "entertain with a story",
+      "advertise a product",
+      "express a personal opinion only"
+    ],
+    "answer": "persuade and inform for public benefit",
+    "tags": [
+      "authors-purpose"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more negative connotation for someone who plans carefully?",
+    "choicesJson": [
+      "calculating",
+      "strategic",
+      "prepared",
+      "organized"
+    ],
+    "answer": "calculating",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a more positive connotation for a strong smell?",
+    "choicesJson": [
+      "fragrant",
+      "stinky",
+      "reeking",
+      "foul"
+    ],
+    "answer": "fragrant",
+    "tags": [
+      "connotation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where a scientist's failed experiments over ten years finally lead to a life-saving medicine?",
+    "choicesJson": [
+      "Long-term persistence can lead to meaningful breakthroughs",
+      "Science rarely produces useful results",
+      "Failure means an idea should be abandoned",
+      "Medicine is discovered by luck alone"
+    ],
+    "answer": "Long-term persistence can lead to meaningful breakthroughs",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where two feuding neighbors realize their shared love of gardening and become friends?",
+    "choicesJson": [
+      "Common interests can bridge old conflicts",
+      "Neighbors should avoid each other",
+      "Gardening always causes arguments",
+      "Friendship requires giving up your interests"
+    ],
+    "answer": "Common interests can bridge old conflicts",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'After winning the scholarship, Devon quietly donated half his prize money to a classmate who needed tuition help.' What does this reveal about Devon?",
+    "choicesJson": [
+      "He is generous and doesn't seek attention for it",
+      "He wanted public recognition",
+      "He didn't need the scholarship",
+      "He regretted winning"
+    ],
+    "answer": "He is generous and doesn't seek attention for it",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Ines apologized to the referee even though she believed the call was unfair.' What does this reveal about Ines?",
+    "choicesJson": [
+      "She values respect and self-control over being right",
+      "She agreed the call was fair",
+      "She dislikes the sport",
+      "She never disagrees with anyone"
+    ],
+    "answer": "She values respect and self-control over being right",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a metaphor comparing memory to a photograph?",
+    "choicesJson": [
+      "Her memory of that summer was a photograph, frozen and unchanging.",
+      "She remembered that summer fondly.",
+      "She took many photographs that summer.",
+      "That summer felt long ago."
+    ],
+    "answer": "Her memory of that summer was a photograph, frozen and unchanging.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is an example of situational irony?",
+    "choicesJson": [
+      "The fire station burned to the ground.",
+      "The fire station was painted red.",
+      "Firefighters trained at the station.",
+      "The station had new trucks."
+    ],
+    "answer": "The fire station burned to the ground.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which phrase is an idiom meaning 'to face a difficult situation directly'?",
+    "choicesJson": [
+      "face the music",
+      "beat around the bush",
+      "let sleeping dogs lie",
+      "jump on the bandwagon"
+    ],
+    "answer": "face the music",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The negotiations reached an impasse, with neither side willing to compromise further.' What does 'impasse' most likely mean?",
+    "choicesJson": [
+      "a point where no progress can be made",
+      "a quick agreement",
+      "a friendly discussion",
+      "a written contract"
+    ],
+    "answer": "a point where no progress can be made",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'His speech was riddled with platitudes that offered no real insight.' What does 'platitudes' most likely mean?",
+    "choicesJson": [
+      "overused, unoriginal remarks",
+      "brilliant new ideas",
+      "statistical data",
+      "personal stories"
+    ],
+    "answer": "overused, unoriginal remarks",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The scientist remained impartial, refusing to favor either team's hypothesis before the data came in.' What does 'impartial' most likely mean?",
+    "choicesJson": [
+      "not favoring one side; neutral",
+      "strongly biased",
+      "confused",
+      "excited"
+    ],
+    "answer": "not favoring one side; neutral",
+    "tags": [
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage that explains how overfishing causes fish populations to collapse, which then affects fishing communities, uses which structure?",
+    "choicesJson": [
+      "cause-effect",
+      "compare-contrast",
+      "description",
+      "sequence"
+    ],
+    "answer": "cause-effect",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage contrasting how monarchies and democracies choose their leaders uses which structure?",
+    "choicesJson": [
+      "compare-contrast",
+      "cause-effect",
+      "sequence",
+      "problem-solution"
+    ],
+    "answer": "compare-contrast",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how microplastics from clothing and packaging are now found throughout the ocean food chain?",
+    "choicesJson": [
+      "Microplastics have spread through the ocean food chain",
+      "Microplastics are found only in packaging",
+      "Ocean life is unaffected by plastic",
+      "Clothing has no connection to ocean pollution"
+    ],
+    "answer": "Microplastics have spread through the ocean food chain",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how ancient trade routes like the Silk Road spread goods, ideas, and diseases across continents?",
+    "choicesJson": [
+      "Trade routes spread goods, ideas, and diseases across regions",
+      "The Silk Road only carried silk",
+      "Ancient trade routes had no lasting effects",
+      "Ideas never traveled along trade routes"
+    ],
+    "answer": "Trade routes spread goods, ideas, and diseases across regions",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A memoir written entirely from the author's own perspective, using 'I' throughout, is in...",
+    "choicesJson": [
+      "first person point of view",
+      "second person point of view",
+      "third person omniscient",
+      "third person limited"
+    ],
+    "answer": "first person point of view",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A novel that follows only one character closely, revealing only that character's thoughts, uses...",
+    "choicesJson": [
+      "third person limited",
+      "omniscient",
+      "first person",
+      "second person"
+    ],
+    "answer": "third person limited",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A website ending in a well-known news organization's domain is generally considered more reliable than an anonymous blog because...",
+    "choicesJson": [
+      "it has editorial standards and accountability",
+      "it is always shorter",
+      "it never contains ads",
+      "it agrees with the reader's opinion"
+    ],
+    "answer": "it has editorial standards and accountability",
+    "tags": [
+      "critical-reading"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When an argument relies only on emotional appeals and no factual evidence, a critical reader should...",
+    "choicesJson": [
+      "look for supporting evidence before accepting the claim",
+      "accept the claim immediately",
+      "assume it must be false",
+      "ignore the topic entirely"
+    ],
+    "answer": "look for supporting evidence before accepting the claim",
+    "tags": [
+      "critical-reading"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'conspicuous'?",
+    "choicesJson": [
+      "noticeable",
+      "hidden",
+      "subtle",
+      "unnoticed"
+    ],
+    "answer": "noticeable",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'placate'?",
+    "choicesJson": [
+      "appease",
+      "provoke",
+      "anger",
+      "upset"
+    ],
+    "answer": "appease",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'lethargic'?",
+    "choicesJson": [
+      "energetic",
+      "tired",
+      "sluggish",
+      "weary"
+    ],
+    "answer": "energetic",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'formidable'?",
+    "choicesJson": [
+      "weak",
+      "powerful",
+      "intimidating",
+      "strong"
+    ],
+    "answer": "weak",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is an objective, checkable fact?",
+    "choicesJson": [
+      "The bridge is 1.7 miles long.",
+      "The bridge is the ugliest in the state.",
+      "No one should drive over that bridge.",
+      "The bridge looks better at night."
+    ],
+    "answer": "The bridge is 1.7 miles long.",
+    "tags": [
+      "fact-opinion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ology' meaning 'study of' to 'bio' to make a word meaning 'the study of life'. What is the word?",
+    "answer": "biology",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the plural of the word 'hypothesis'?",
+    "answer": "hypotheses",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Combine these into a compound word: 'break' + 'down' = ?",
+    "answer": "breakdown",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The town council approved the budget unanimously after months of public debate.' What can you infer about the final vote?",
+    "choicesJson": [
+      "Everyone on the council agreed after considering public input",
+      "The council ignored public opinion",
+      "The budget was rejected",
+      "No debate occurred beforehand"
+    ],
+    "answer": "Everyone on the council agreed after considering public input",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that whistleblowers risk their careers to expose corporate wrongdoing for the public good?",
+    "choicesJson": [
+      "Whistleblowers take personal risks to serve the public interest",
+      "Whistleblowers are never taken seriously",
+      "Corporations never do anything wrong",
+      "Exposing wrongdoing has no consequences"
+    ],
+    "answer": "Whistleblowers take personal risks to serve the public interest",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses a rhetorical question for persuasive effect?",
+    "choicesJson": [
+      "Isn't it time we finally fixed our crumbling roads?",
+      "Our roads need repair.",
+      "The city will repair the roads next year.",
+      "Roads are made of asphalt."
+    ],
+    "answer": "Isn't it time we finally fixed our crumbling roads?",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A report citing peer-reviewed studies and multiple expert interviews is generally more credible than one relying on...",
+    "choicesJson": [
+      "a single anonymous online comment",
+      "several published studies",
+      "expert interviews",
+      "verified data"
+    ],
+    "answer": "a single anonymous online comment",
+    "tags": [
+      "critical-reading"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'benevolent'?",
+    "choicesJson": [
+      "kindhearted",
+      "cruel",
+      "selfish",
+      "indifferent"
+    ],
+    "answer": "kindhearted",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'meticulous'?",
+    "choicesJson": [
+      "careless",
+      "precise",
+      "thorough",
+      "exact"
+    ],
+    "answer": "careless",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theme of a story where an athlete who once refused to lose gracefully learns to congratulate opponents after a hard defeat?",
+    "choicesJson": [
+      "Growth sometimes means changing how you handle losing",
+      "Winning is the only thing that matters",
+      "Opponents should never be congratulated",
+      "Losing gracefully is a sign of weakness"
+    ],
+    "answer": "Growth sometimes means changing how you handle losing",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which best summarizes a passage about how citizen scientists help researchers track bird migration by logging sightings in an app?",
+    "choicesJson": [
+      "Everyday volunteers help scientists study bird migration",
+      "Only professional scientists can study birds",
+      "Bird migration cannot be tracked",
+      "The app replaces the need for real research"
+    ],
+    "answer": "Everyday volunteers help scientists study bird migration",
+    "tags": [
+      "summarizing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The nonprofit's annual report showed donations rose every year for a decade, even during tough economic times.' What can you infer?",
+    "choicesJson": [
+      "The organization has earned strong, consistent public support",
+      "Donations only came from wealthy donors",
+      "The nonprofit stopped needing donations",
+      "Economic downturns increased giving everywhere"
+    ],
+    "answer": "The organization has earned strong, consistent public support",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'ubiquitous'?",
+    "choicesJson": [
+      "omnipresent",
+      "rare",
+      "hidden",
+      "occasional"
+    ],
+    "answer": "omnipresent",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'gregarious'?",
+    "choicesJson": [
+      "reclusive",
+      "sociable",
+      "outgoing",
+      "friendly"
+    ],
+    "answer": "reclusive",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A passage describing the features of three different smartphone models one after another, without direct comparison, uses which structure?",
+    "choicesJson": [
+      "description",
+      "compare-contrast",
+      "cause-effect",
+      "problem-solution"
+    ],
+    "answer": "description",
+    "tags": [
+      "text-structure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Though she disagreed with the ruling, the judge's clerk filed the paperwork exactly as required.' What does this reveal about the clerk?",
+    "choicesJson": [
+      "She is professional and respects procedure despite personal views",
+      "She secretly changed the paperwork",
+      "She refused to do her job",
+      "She agreed completely with the ruling"
+    ],
+    "answer": "She is professional and respects procedure despite personal views",
+    "tags": [
+      "characterization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that misinformation spreads faster online partly because outrage gets shared more than calm correction?",
+    "choicesJson": [
+      "Emotional content, including misinformation, spreads faster online",
+      "Misinformation is impossible to spread online",
+      "Online platforms always correct false claims quickly",
+      "Calm content spreads faster than outrage"
+    ],
+    "answer": "Emotional content, including misinformation, spreads faster online",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence contains a metaphor comparing grief to weather?",
+    "choicesJson": [
+      "Grief settled over the house like a fog that wouldn't lift.",
+      "The family felt sad for a while.",
+      "It was foggy outside the house.",
+      "Weather affects people's moods."
+    ],
+    "answer": "Grief settled over the house like a fog that wouldn't lift.",
+    "tags": [
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main idea of a passage explaining that quarantine measures during outbreaks slow disease spread by limiting contact between people?",
+    "choicesJson": [
+      "Limiting contact between people helps slow disease spread",
+      "Quarantines have no effect on disease",
+      "Diseases spread faster with less contact",
+      "Outbreaks end on their own regardless of measures"
+    ],
+    "answer": "Limiting contact between people helps slow disease spread",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix '-ity' to 'curious' (adjust the spelling) to make a noun meaning 'the quality of being curious'. What is the word?",
+    "answer": "curiosity",
+    "tags": [
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the same as 'candor'?",
+    "choicesJson": [
+      "honesty",
+      "deception",
+      "secrecy",
+      "confusion"
+    ],
+    "answer": "honesty",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of 'transparent' when describing an organization's honesty?",
+    "choicesJson": [
+      "secretive",
+      "open",
+      "clear",
+      "honest"
+    ],
+    "answer": "secretive",
+    "tags": [
+      "antonyms"
+    ]
+  }
 ]

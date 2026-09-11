@@ -48,7 +48,7 @@
   { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["pot", "pott", "pote", "potte"], "answer": "pot", "tags": ["cvc"] },
   { "type": "TEXT_INPUT", "prompt": "Spell the word for a car you pay to ride in, another word for taxi.", "answer": "cab", "tags": ["cvc"] },
   { "type": "TEXT_INPUT", "prompt": "Spell the word for a short sleep during the day.", "answer": "nap", "tags": ["cvc"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["jet", "jett", "jete", "jett"], "answer": "jet", "tags": ["cvc"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["jet", "jett", "jete", "jeat"], "answer": "jet", "tags": ["cvc"] },
   { "type": "TEXT_INPUT", "prompt": "Spell the word for the body part you walk on.", "answer": "leg", "tags": ["cvc"] },
   { "type": "TEXT_INPUT", "prompt": "Spell the word for the body part with your hand at the end.", "answer": "arm", "tags": ["cvc"] },
   { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["ant", "annt", "annte", "antt"], "answer": "ant", "tags": ["cvc"] },
