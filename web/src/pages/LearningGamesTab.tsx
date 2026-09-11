@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api, EDU_SUBJECTS, type EduSubject, type EduGradeRow, type EduQuestionForPlay, type EduSessionStart, type Member } from '../api';
 import RocketRacer from '../RocketRacer';
 import { celebrate } from '../celebrate';
+import TokenBadge from '../TokenBadge';
 
 // Learning games (PLANNING.md §19) - grade-level quiz per subject, a
 // subject-specific arcade break in the middle, tokens per correct answer,
@@ -199,12 +200,11 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
     return (
       <div className="mt-4 flex flex-col items-center gap-3 rounded-xl border bg-white p-8 text-center">
         <div className="text-2xl font-bold">{summary.allCorrect ? '🌟 Perfect session!' : 'Session complete!'}</div>
-        <div className="flex items-center gap-2 text-lg">
-          <span>{tokenIcon}</span>
-          <span className="font-semibold">{sessionTokens} earned</span>
-        </div>
+        <TokenBadge icon={tokenIcon} amount={sessionTokens} label="earned" size="lg" />
         {summary.allCorrect && summary.bonusTokens > 0 && (
-          <p className="text-sm text-amber-600">Got every question right - +{summary.bonusTokens} bonus {tokenIcon}!</p>
+          <p className="text-sm text-amber-600 flex items-center gap-1">
+            Got every question right - <TokenBadge icon={tokenIcon} amount={`+${summary.bonusTokens}`} label="bonus" />
+          </p>
         )}
         <button
           onClick={(e) => {
@@ -229,9 +229,7 @@ function PlaySession({ tokenIcon }: { tokenIcon: string }) {
           <span>
             Question {index + 1} of {questions.length}
           </span>
-          <span>
-            {tokenIcon} {sessionTokens}
-          </span>
+          <TokenBadge icon={tokenIcon} amount={sessionTokens} />
         </div>
         <p className="text-lg font-semibold">{q.prompt}</p>
 
