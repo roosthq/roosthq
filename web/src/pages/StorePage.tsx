@@ -59,6 +59,18 @@ export default function StorePage({
     setTab(next);
     setParams(next === 'prizes' ? {} : { tab: next }, { replace: true });
   }
+  // `tab` above only reads the URL once, at mount - fine as long as the
+  // in-page switcher (selectTab, which sets both together) is the only way
+  // to change it. Kid View's bottom nav breaks that assumption: it's a
+  // plain Link between /store?tab=prizes, ?tab=games, ?tab=learning on the
+  // SAME route, so the component never remounts and that initial read never
+  // re-runs - the URL changes but the page keeps showing the old tab. Keep
+  // `tab` synced to whatever the URL actually says, from any navigation.
+  useEffect(() => {
+    const urlTab = params.get('tab');
+    setTab(isAdult && urlTab === 'awards' ? 'awards' : urlTab === 'games' ? 'games' : urlTab === 'learning' ? 'learning' : 'prizes');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.get('tab')]);
   const { alert, confirm } = useDialog();
   // Store (prizes) and Awards are independent top-level features that happen
   // to share this one page/route (nav reorg, 2026-08 predates the feature-

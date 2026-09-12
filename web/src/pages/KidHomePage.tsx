@@ -20,10 +20,9 @@ export default function KidHomePage({
 }) {
   return (
     <div className="flex flex-col gap-5">
-      <div>
-        <h2 className="mb-2 text-lg font-bold text-slate-700">Today</h2>
-        <ChoresPanel me={me} variant="today" />
-      </div>
+      {/* ChoresPanel's own "today" variant already renders a "Today"
+          heading - no need for a second one here. */}
+      <ChoresPanel me={me} variant="today" />
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {storeOn && <ShortcutCard to="/store?tab=prizes" icon="🎁" label="Store" hint="Spend your tokens" />}
