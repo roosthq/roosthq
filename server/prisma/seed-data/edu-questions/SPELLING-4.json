@@ -1,112 +1,972 @@
 [
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'k' meaning to be aware of your surroundings (rhymes with 'now').", "answer": "know", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'w' meaning to write with a pencil or make a picture.", "answer": "write", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'gh' meaning very high up (as in an airplane does this).", "answer": "flight", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'note' + 'book' into one compound word.", "answer": "notebook", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'foot' + 'ball' into one compound word.", "answer": "football", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'rain' + 'bow' into one compound word.", "answer": "rainbow", "tags": ["compound-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["necessary", "neccessary", "necesary", "neccesary"], "answer": "necessary", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["separate", "seperate", "seprate", "separete"], "answer": "separate", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a building where you learn - has a silent 'h' near the end (school also works, but this one starts with 'sch' too) - spell 'school'.", "answer": "school", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for something you feel when you're not scared - opposite of 'brave' is not it, spell 'courage'.", "answer": "courage", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["knowledge", "nowledge", "knowlege", "knollege"], "answer": "knowledge", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'b' meaning to jump around, like on a trampoline.", "answer": "bounce", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'sun' + 'flower' into one compound word.", "answer": "sunflower", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'water' + 'fall' into one compound word.", "answer": "waterfall", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'w' meaning to cover something by folding paper or cloth around it.", "answer": "wrap", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'w' for the joint that connects your hand to your arm.", "answer": "wrist", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'w' for a long, sharp, bladed weapon.", "answer": "sword", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'gh' meaning the ability to see, or something you see.", "answer": "sight", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'gh' meaning fitting very closely, not loose.", "answer": "tight", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'gh' meaning to find out how heavy something is.", "answer": "weigh", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'b' for the tool you use to untangle your hair.", "answer": "comb", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'b' for a baby sheep.", "answer": "lamb", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'b' meaning to go up something using your hands and feet.", "answer": "climb", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'h' meaning truthful.", "answer": "honest", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'h' for a unit of time equal to 60 minutes.", "answer": "hour", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'h' for a spooky spirit that haunts places.", "answer": "ghost", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 't' meaning to pay attention with your ears.", "answer": "listen", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 't' for a large stone fortress where royalty lived.", "answer": "castle", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'g' for a small mythical creature that lives underground.", "answer": "gnome", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word with a silent 'g' for a board with writing or symbols that gives information.", "answer": "sign", "tags": ["silent-letters"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'bed' + 'room' into one compound word.", "answer": "bedroom", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'bird' + 'house' into one compound word.", "answer": "birdhouse", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'cup' + 'cake' into one compound word.", "answer": "cupcake", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'day' + 'light' into one compound word.", "answer": "daylight", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'eye' + 'ball' into one compound word.", "answer": "eyeball", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'fire' + 'place' into one compound word.", "answer": "fireplace", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'grand' + 'son' into one compound word.", "answer": "grandson", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'hair' + 'cut' into one compound word.", "answer": "haircut", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'light' + 'house' into one compound word.", "answer": "lighthouse", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'mail' + 'box' into one compound word.", "answer": "mailbox", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'pop' + 'corn' into one compound word.", "answer": "popcorn", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'sea' + 'shell' into one compound word.", "answer": "seashell", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'star' + 'fish' into one compound word.", "answer": "starfish", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'wrist' + 'watch' into one compound word.", "answer": "wristwatch", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'space' + 'ship' into one compound word.", "answer": "spaceship", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'home' + 'work' into one compound word.", "answer": "homework", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'right away, without delay'.", "answer": "immediately", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["business", "buisness", "bussiness", "busness"], "answer": "business", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for how tall something or someone is.", "answer": "height", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["weight", "wieght", "weigt", "weightt"], "answer": "weight", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the ordinal number word for 8th.", "answer": "eighth", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["sincerely", "sincerly", "sinserely", "sincereley"], "answer": "sincerely", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'clumsy or uncomfortable'.", "answer": "awkward", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["ridiculous", "rediculous", "ridiculus", "ridickulous"], "answer": "ridiculous", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'feeling sad because something didn't happen as hoped'.", "answer": "disappointed", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["neighborhood", "nieghborhood", "naighborhood", "neighborhoood"], "answer": "neighborhood", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'strange and hard to explain'.", "answer": "mysterious", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["guarantee", "garantee", "guarentee", "gaurantee"], "answer": "guarantee", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'worth a lot of money or importance'.", "answer": "valuable", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["particular", "particuler", "perticular", "particulare"], "answer": "particular", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'holding your attention'.", "answer": "interesting", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["vegetable", "vegtable", "vegetible", "vegetabel"], "answer": "vegetable", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to get or accept something given to you'.", "answer": "receive", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["achieve", "acheive", "achiev", "acheve"], "answer": "achieve", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'feeling thankful'.", "answer": "grateful", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["curious", "curius", "curiuos", "curioius"], "answer": "curious", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'tasting very good'.", "answer": "delicious", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["nervous", "nervus", "nervious", "nervuos"], "answer": "nervous", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'likely to cause harm'.", "answer": "dangerous", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["enormous", "enormus", "enourmous", "enormious"], "answer": "enormous", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'over' to 'cook' - spell the word meaning 'to cook too much'.", "answer": "overcook", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'under' to 'line' - spell the word meaning 'to draw a line beneath text'.", "answer": "underline", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'inter' to 'act' - spell the word meaning 'to act together with someone'.", "answer": "interact", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'sub' to 'marine' - spell the word for a ship that travels underwater.", "answer": "submarine", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'super' to 'star' - spell the word for a very famous, successful performer.", "answer": "superstar", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'trans' to 'port' - spell the word meaning 'to carry something from one place to another'.", "answer": "transport", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'anti' to 'freeze' - spell the word for a liquid that keeps engines from freezing.", "answer": "antifreeze", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'semi' to 'circle' - spell the word for half of a circle.", "answer": "semicircle", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'mid' to 'night' - spell the word for the middle of the night, 12:00 a.m.", "answer": "midnight", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'co' to 'operate' - spell the word meaning 'to work together with others'.", "answer": "cooperate", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'de' to 'code' - spell the word meaning 'to figure out a hidden message'.", "answer": "decode", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'en' to 'able' - spell the word meaning 'to make something possible'.", "answer": "enable", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'over' to 'load' - spell the word meaning 'to load with too much'.", "answer": "overload", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'under' to 'ground' - spell the word meaning 'below the surface of the earth'.", "answer": "underground", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'tion' to 'educate' - spell the word for the process of teaching and learning.", "answer": "education", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'official approval to do something' - built from 'permit' plus a suffix.", "answer": "permission", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ive' to 'create' - spell the word meaning 'good at inventing new ideas'.", "answer": "creative", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ic' to 'history' - spell the word meaning 'famous or important in history'.", "answer": "historic", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'al' to 'nature' - spell the word meaning 'existing in nature, not man-made'.", "answer": "natural", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ist' to 'art' - spell the word for a person who creates art.", "answer": "artist", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ian' to 'music' - spell the word for a person who plays or writes music.", "answer": "musician", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ify' to 'simple' - spell the word meaning 'to make something easier'.", "answer": "simplify", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ize' to 'memory' - spell the word meaning 'to learn something by heart'.", "answer": "memorize", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ive' to 'act' - spell the word meaning 'full of energy and motion'.", "answer": "active", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ous' to 'fame' - spell the word meaning 'known by many people'.", "answer": "famous", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'al' to 'nation' - spell the word meaning 'relating to a whole country'.", "answer": "national", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'tion' to 'celebrate' - spell the word for a party or event honoring something special.", "answer": "celebration", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'tion' to 'invent' - spell the word for something newly created.", "answer": "invention", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the person in charge of a school (sounds like 'principle').", "answer": "principal", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a basic rule or belief (sounds like 'principal').", "answer": "principle", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'not moving' (sounds like 'stationery').", "answer": "stationary", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for paper and envelopes used for writing letters (sounds like 'stationary').", "answer": "stationery", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'given permission' (sounds like 'aloud').", "answer": "allowed", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'out loud, so it can be heard' (sounds like 'allowed').", "answer": "aloud", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'having a rough, scratchy voice' (sounds like 'horse').", "answer": "hoarse", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the large animal people ride (sounds like 'hoarse').", "answer": "horse", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the narrow part of your body above your hips (sounds like 'waste').", "answer": "waist", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to use something carelessly' or 'garbage' (sounds like 'waist').", "answer": "waste", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a dry, sandy place that gets little rain (sounds like 'dessert' but means something different).", "answer": "desert", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the sweet treat you eat after a meal (sounds like 'desert' but means something different).", "answer": "dessert", "tags": ["homophones"] }
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'k' meaning to be aware of your surroundings (rhymes with 'now').",
+  "answer": "know",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'w' meaning to put words down using a pen or pencil.",
+  "answer": "write",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'gh' meaning very high up (as in an airplane does this).",
+  "answer": "flight",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'note' + 'book' into one compound word.",
+  "answer": "notebook",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'foot' + 'ball' into one compound word.",
+  "answer": "football",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'rain' + 'bow' into one compound word.",
+  "answer": "rainbow",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "necessary",
+   "neccessary",
+   "necesary",
+   "neccesary"
+  ],
+  "answer": "necessary",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "separate",
+   "seperate",
+   "seprate",
+   "separete"
+  ],
+  "answer": "separate",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the building where kids go to learn - starts with a silent 'c' sound spelled 'sch'.",
+  "answer": "school",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the bravery it takes to do something scary or hard.",
+  "answer": "courage",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "knowledge",
+   "nowledge",
+   "knowlege",
+   "knollege"
+  ],
+  "answer": "knowledge",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'b' meaning to jump around, like on a trampoline.",
+  "answer": "bounce",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'sun' + 'flower' into one compound word.",
+  "answer": "sunflower",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'water' + 'fall' into one compound word.",
+  "answer": "waterfall",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'w' meaning to cover something by folding paper or cloth around it.",
+  "answer": "wrap",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'w' for the joint that connects your hand to your arm.",
+  "answer": "wrist",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'w' for a long, sharp, bladed weapon.",
+  "answer": "sword",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'gh' meaning the ability to see, or something you see.",
+  "answer": "sight",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'gh' meaning fitting very closely, not loose.",
+  "answer": "tight",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'gh' meaning to find out how heavy something is.",
+  "answer": "weigh",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'b' for the tool you use to untangle your hair.",
+  "answer": "comb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'b' for a baby sheep.",
+  "answer": "lamb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'b' meaning to go up something using your hands and feet.",
+  "answer": "climb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'h' meaning truthful.",
+  "answer": "honest",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'h' for a unit of time equal to 60 minutes.",
+  "answer": "hour",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'h' for a spooky spirit that haunts places.",
+  "answer": "ghost",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 't' meaning to pay attention with your ears.",
+  "answer": "listen",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 't' for a large stone fortress where royalty lived.",
+  "answer": "castle",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'g' for a small mythical creature that lives underground.",
+  "answer": "gnome",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word with a silent 'g' for a board with writing or symbols that gives information.",
+  "answer": "sign",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'bed' + 'room' into one compound word.",
+  "answer": "bedroom",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'bird' + 'house' into one compound word.",
+  "answer": "birdhouse",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'cup' + 'cake' into one compound word.",
+  "answer": "cupcake",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'day' + 'light' into one compound word.",
+  "answer": "daylight",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'eye' + 'ball' into one compound word.",
+  "answer": "eyeball",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'fire' + 'place' into one compound word.",
+  "answer": "fireplace",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'grand' + 'son' into one compound word.",
+  "answer": "grandson",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'hair' + 'cut' into one compound word.",
+  "answer": "haircut",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'light' + 'house' into one compound word.",
+  "answer": "lighthouse",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'mail' + 'box' into one compound word.",
+  "answer": "mailbox",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'pop' + 'corn' into one compound word.",
+  "answer": "popcorn",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'sea' + 'shell' into one compound word.",
+  "answer": "seashell",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'star' + 'fish' into one compound word.",
+  "answer": "starfish",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'wrist' + 'watch' into one compound word.",
+  "answer": "wristwatch",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'space' + 'ship' into one compound word.",
+  "answer": "spaceship",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'home' + 'work' into one compound word.",
+  "answer": "homework",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'right away, without delay'.",
+  "answer": "immediately",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "business",
+   "buisness",
+   "bussiness",
+   "busness"
+  ],
+  "answer": "business",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for how tall something or someone is.",
+  "answer": "height",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "weight",
+   "wieght",
+   "weigt",
+   "weightt"
+  ],
+  "answer": "weight",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the ordinal number word for 8th.",
+  "answer": "eighth",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "sincerely",
+   "sincerly",
+   "sinserely",
+   "sincereley"
+  ],
+  "answer": "sincerely",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'clumsy or uncomfortable'.",
+  "answer": "awkward",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "ridiculous",
+   "rediculous",
+   "ridiculus",
+   "ridickulous"
+  ],
+  "answer": "ridiculous",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'feeling sad because something didn't happen as hoped'.",
+  "answer": "disappointed",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "neighborhood",
+   "nieghborhood",
+   "naighborhood",
+   "neighborhoood"
+  ],
+  "answer": "neighborhood",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'strange and hard to explain'.",
+  "answer": "mysterious",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "guarantee",
+   "garantee",
+   "guarentee",
+   "gaurantee"
+  ],
+  "answer": "guarantee",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'worth a lot of money or importance'.",
+  "answer": "valuable",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "particular",
+   "particuler",
+   "perticular",
+   "particulare"
+  ],
+  "answer": "particular",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'holding your attention'.",
+  "answer": "interesting",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "vegetable",
+   "vegtable",
+   "vegetible",
+   "vegetabel"
+  ],
+  "answer": "vegetable",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to get or accept something given to you'.",
+  "answer": "receive",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "achieve",
+   "acheive",
+   "achiev",
+   "acheve"
+  ],
+  "answer": "achieve",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'feeling thankful'.",
+  "answer": "grateful",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "curious",
+   "curius",
+   "curiuos",
+   "curioius"
+  ],
+  "answer": "curious",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'tasting very good'.",
+  "answer": "delicious",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "nervous",
+   "nervus",
+   "nervious",
+   "nervuos"
+  ],
+  "answer": "nervous",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'likely to cause harm'.",
+  "answer": "dangerous",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "enormous",
+   "enormus",
+   "enourmous",
+   "enormious"
+  ],
+  "answer": "enormous",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'over' to 'cook' - spell the word meaning 'to cook too much'.",
+  "answer": "overcook",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'under' to 'line' - spell the word meaning 'to draw a line beneath text'.",
+  "answer": "underline",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'inter' to 'act' - spell the word meaning 'to act together with someone'.",
+  "answer": "interact",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'sub' to 'marine' - spell the word for a ship that travels underwater.",
+  "answer": "submarine",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'super' to 'star' - spell the word for a very famous, successful performer.",
+  "answer": "superstar",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'trans' to 'port' - spell the word meaning 'to carry something from one place to another'.",
+  "answer": "transport",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'anti' to 'freeze' - spell the word for a liquid that keeps engines from freezing.",
+  "answer": "antifreeze",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'semi' to 'circle' - spell the word for half of a circle.",
+  "answer": "semicircle",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'mid' to 'night' - spell the word for the middle of the night, 12:00 a.m.",
+  "answer": "midnight",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'co' to 'operate' - spell the word meaning 'to work together with others'.",
+  "answer": "cooperate",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'de' to 'code' - spell the word meaning 'to figure out a hidden message'.",
+  "answer": "decode",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'en' to 'able' - spell the word meaning 'to make something possible'.",
+  "answer": "enable",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'over' to 'load' - spell the word meaning 'to load with too much'.",
+  "answer": "overload",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'under' to 'ground' - spell the word meaning 'below the surface of the earth'.",
+  "answer": "underground",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'tion' to 'educate' - spell the word for the process of teaching and learning.",
+  "answer": "education",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'official approval to do something' - built from 'permit' plus a suffix.",
+  "answer": "permission",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ive' to 'create' - spell the word meaning 'good at inventing new ideas'.",
+  "answer": "creative",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ic' to 'history' - spell the word meaning 'famous or important in history'.",
+  "answer": "historic",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'al' to 'nature' - spell the word meaning 'existing in nature, not man-made'.",
+  "answer": "natural",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ist' to 'art' - spell the word for a person who creates art.",
+  "answer": "artist",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ian' to 'music' - spell the word for a person who plays or writes music.",
+  "answer": "musician",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ify' to 'simple' - spell the word meaning 'to make something easier'.",
+  "answer": "simplify",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ize' to 'memory' - spell the word meaning 'to learn something by heart'.",
+  "answer": "memorize",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ive' to 'act' - spell the word meaning 'full of energy and motion'.",
+  "answer": "active",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ous' to 'fame' - spell the word meaning 'known by many people'.",
+  "answer": "famous",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'al' to 'nation' - spell the word meaning 'relating to a whole country'.",
+  "answer": "national",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'tion' to 'celebrate' - spell the word for a party or event honoring something special.",
+  "answer": "celebration",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'tion' to 'invent' - spell the word for something newly created.",
+  "answer": "invention",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the person in charge of a school (sounds like 'principle').",
+  "answer": "principal",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a basic rule or belief (sounds like 'principal').",
+  "answer": "principle",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'not moving' (sounds like 'stationery').",
+  "answer": "stationary",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for paper and envelopes used for writing letters (sounds like 'stationary').",
+  "answer": "stationery",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'given permission' (sounds like 'aloud').",
+  "answer": "allowed",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'out loud, so it can be heard' (sounds like 'allowed').",
+  "answer": "aloud",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'having a rough, scratchy voice' (sounds like 'horse').",
+  "answer": "hoarse",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the large animal people ride (sounds like 'hoarse').",
+  "answer": "horse",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the narrow part of your body above your hips (sounds like 'waste').",
+  "answer": "waist",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to use something carelessly' or 'garbage' (sounds like 'waist').",
+  "answer": "waste",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a dry, sandy place that gets little rain (sounds like 'dessert' but means something different).",
+  "answer": "desert",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the sweet treat you eat after a meal (sounds like 'desert' but means something different).",
+  "answer": "dessert",
+  "tags": [
+   "homophones"
+  ]
+ }
 ]

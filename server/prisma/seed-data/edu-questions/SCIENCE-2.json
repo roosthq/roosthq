@@ -1,112 +1,1549 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a solid?", "choicesJson": ["Ice", "Water", "Steam", "Air"], "answer": "Ice", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a liquid?", "choicesJson": ["Water", "Ice", "Rock", "Wood"], "answer": "Water", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a gas?", "choicesJson": ["Steam", "Ice", "Milk", "Sand"], "answer": "Steam", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What happens to ice when it gets warm?", "choicesJson": ["It melts into water", "It turns into rock", "It disappears forever", "It gets colder"], "answer": "It melts into water", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A desert habitat is usually...", "choicesJson": ["Hot and dry", "Cold and wet", "Underwater", "Covered in snow"], "answer": "Hot and dry", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal is well suited to living in the ocean?", "choicesJson": ["A whale", "A camel", "A kangaroo", "An eagle"], "answer": "A whale", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A simple machine that helps you lift things with less effort, like a seesaw, is called a...", "choicesJson": ["lever", "wheel", "screw", "pulley"], "answer": "lever", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A simple machine that helps a flag go up a pole is called a...", "choicesJson": ["pulley", "lever", "wedge", "screw"], "answer": "pulley", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the first stage in a butterfly's life cycle?", "choicesJson": ["Egg", "Butterfly", "Caterpillar", "Cocoon"], "answer": "Egg", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the place where an animal naturally lives?", "choicesJson": ["Habitat", "Vehicle", "Recipe", "Alphabet"], "answer": "Habitat", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes a rainforest?", "choicesJson": ["Warm and very rainy, lots of plants", "Cold and dry, no plants", "All ice and snow", "Underwater and dark"], "answer": "Warm and very rainy, lots of plants", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when water goes from the ground up into the sky and forms clouds?", "choicesJson": ["Evaporation", "Freezing", "Melting", "Sinking"], "answer": "Evaporation", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What falls from clouds when water droplets get too heavy?", "choicesJson": ["Rain", "Sand", "Rocks", "Leaves"], "answer": "Rain", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is magnetic (a magnet sticks to it)?", "choicesJson": ["A steel paperclip", "A wooden pencil", "A plastic cup", "A cotton shirt"], "answer": "A steel paperclip", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes a gas?", "choicesJson": ["It has no definite shape and spreads out to fill its container", "It has a fixed shape that never changes", "It is always cold", "It cannot be seen or touched ever"], "answer": "It has no definite shape and spreads out to fill its container", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes a liquid?", "choicesJson": ["It takes the shape of its container but keeps the same amount", "It always keeps one fixed shape", "It spreads out to fill any space like a gas", "It cannot be poured"], "answer": "It takes the shape of its container but keeps the same amount", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes a solid?", "choicesJson": ["It has a definite shape and size", "It flows and spreads out easily", "It has no shape at all", "It is always a liquid underneath"], "answer": "It has a definite shape and size", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when a liquid turns into a solid, like water turning to ice?", "choicesJson": ["Freezing", "Evaporation", "Boiling", "Melting"], "answer": "Freezing", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when a liquid is heated until it bubbles and quickly turns to gas?", "choicesJson": ["Boiling", "Freezing", "Melting", "Condensing"], "answer": "Boiling", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when a solid turns into a liquid, like ice turning to water?", "choicesJson": ["Melting", "Freezing", "Boiling", "Evaporating"], "answer": "Melting", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a solid at room temperature?", "choicesJson": ["A wooden block", "Water", "Air", "Steam"], "answer": "A wooden block", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a gas that is part of the air you breathe?", "choicesJson": ["Oxygen", "Ice", "Sand", "Iron"], "answer": "Oxygen", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these changes shape easily and flows to fit whatever container it's in?", "choicesJson": ["A liquid", "A solid", "A brick", "A book"], "answer": "A liquid", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these keeps the same shape no matter what container it is placed in?", "choicesJson": ["A solid", "A liquid", "A gas", "Steam"], "answer": "A solid", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is NOT one of the three main states of matter?", "choicesJson": ["A rainbow", "Solid", "Liquid", "Gas"], "answer": "A rainbow", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these takes up space and has mass, which means it counts as matter?", "choicesJson": ["A rock, water, and air", "Only rocks", "Only water", "Nothing does"], "answer": "A rock, water, and air", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which state of matter is milk?", "choicesJson": ["Liquid", "Solid", "Gas", "Plasma"], "answer": "Liquid", "tags": ["matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which habitat is covered in ice and snow all year, found at the far north and south of the world?", "choicesJson": ["Polar regions", "Rainforest", "Grassland", "Wetland"], "answer": "Polar regions", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which habitat has lots of grasses and few trees, home to animals like zebras and lions?", "choicesJson": ["Grassland", "Rainforest", "Polar region", "Ocean"], "answer": "Grassland", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which habitat is found high up where the air is thin and cold?", "choicesJson": ["Mountains", "Ocean", "Desert", "Wetland"], "answer": "Mountains", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which type of habitat has fresh water, like rivers, lakes, and ponds, instead of salty water?", "choicesJson": ["Freshwater habitat", "Ocean habitat", "Desert habitat", "Polar habitat"], "answer": "Freshwater habitat", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these animals has webbed feet to help it swim in its wetland habitat?", "choicesJson": ["A duck", "A camel", "A lion", "A rabbit"], "answer": "A duck", "tags": ["habitats", "animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these helps a polar bear survive in its cold Arctic habitat?", "choicesJson": ["Thick white fur and body fat", "Long thin legs and no fur", "Bright colored feathers", "A very short flat tail"], "answer": "Thick white fur and body fat", "tags": ["habitats", "animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these helps a cactus survive in its dry desert habitat?", "choicesJson": ["It stores water in its thick stem", "It grows very large leaves", "It needs daily rain to survive", "It only grows underwater"], "answer": "It stores water in its thick stem", "tags": ["habitats", "plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In which habitat would you most likely find coral reefs, colorful fish, and sea turtles?", "choicesJson": ["Ocean", "Desert", "Grassland", "Mountains"], "answer": "Ocean", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is camouflage?", "choicesJson": ["When an animal's coloring helps it blend into its habitat", "When an animal changes its habitat every day", "When an animal only eats at night", "When an animal grows extra legs"], "answer": "When an animal's coloring helps it blend into its habitat", "tags": ["habitats", "animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these animals uses white fur to blend into snowy habitats?", "choicesJson": ["An Arctic fox", "A flamingo", "A zebra", "A parrot"], "answer": "An Arctic fox", "tags": ["habitats", "animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why do animals need to be adapted to their habitat?", "choicesJson": ["To help them find food, stay safe, and survive there", "To make them look interesting", "To help them win races", "To help them talk to people"], "answer": "To help them find food, stay safe, and survive there", "tags": ["habitats", "animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which habitat would a camel be best suited to live in?", "choicesJson": ["Desert", "Polar region", "Rainforest", "Ocean"], "answer": "Desert", "tags": ["habitats"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a butterfly's life cycle, which stage comes right after the egg?", "choicesJson": ["Caterpillar (larva)", "Chrysalis", "Adult butterfly", "Cocoon moth"], "answer": "Caterpillar (larva)", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the resting stage between caterpillar and adult butterfly called?", "choicesJson": ["Chrysalis (pupa)", "Larva", "Egg", "Nymph"], "answer": "Chrysalis (pupa)", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal begins life as a tadpole and later grows legs and lungs?", "choicesJson": ["A frog", "A fish", "A bird", "A turtle"], "answer": "A frog", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A plant's life cycle goes seed, then sprout, then what comes next?", "choicesJson": ["An adult plant that can flower and make seeds", "A caterpillar", "A tadpole", "A chrysalis"], "answer": "An adult plant that can flower and make seeds", "tags": ["life-cycles", "plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which insect goes through egg, larva, pupa, and adult stages, just like a butterfly?", "choicesJson": ["A ladybug", "A spider", "A worm", "A snail"], "answer": "A ladybug", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the young stage of an insect that looks very different from the adult, like a caterpillar?", "choicesJson": ["Larva", "Pupa", "Nymph", "Cub"], "answer": "Larva", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these life cycle stages usually comes last for most animals?", "choicesJson": ["Adult", "Egg", "Larva", "Pupa"], "answer": "Adult", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A chicken hatches directly from an egg into a chick that already...", "choicesJson": ["looks similar to a small adult chicken", "looks like a caterpillar", "looks like a tadpole", "looks like a fish"], "answer": "looks similar to a small adult chicken", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why do many animals go through a life cycle with different stages?", "choicesJson": ["To grow, change, and become able to reproduce", "To confuse other animals", "To stay exactly the same forever", "To avoid ever needing food"], "answer": "To grow, change, and become able to reproduce", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is true about all living things?", "choicesJson": ["They are born or hatch, grow, and eventually die", "They never change from birth to death", "They all lay eggs", "They all live for exactly one year"], "answer": "They are born or hatch, grow, and eventually die", "tags": ["life-cycles"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when water vapor in the air cools and turns back into tiny liquid droplets, forming clouds?", "choicesJson": ["Condensation", "Evaporation", "Precipitation", "Collection"], "answer": "Condensation", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when rain, snow, or hail falls from clouds down to Earth?", "choicesJson": ["Precipitation", "Evaporation", "Condensation", "Erosion"], "answer": "Precipitation", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is it called when water flows over land and collects in rivers, lakes, and oceans?", "choicesJson": ["Collection", "Freezing", "Evaporation", "Melting"], "answer": "Collection", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In the water cycle, after condensation forms clouds, what usually falls from the clouds next?", "choicesJson": ["Precipitation", "Evaporation", "Collection", "Sunlight"], "answer": "Precipitation", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Where does most of the water that evaporates into the air come from?", "choicesJson": ["Oceans, lakes, and rivers", "Deserts", "Mountaintops", "Clouds themselves"], "answer": "Oceans, lakes, and rivers", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What mainly causes water to evaporate from the ocean into the air?", "choicesJson": ["Heat from the sun", "Wind alone", "Cold air", "Ocean waves"], "answer": "Heat from the sun", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What are clouds mostly made of?", "choicesJson": ["Tiny water droplets", "Cotton", "Smoke", "Dust only"], "answer": "Tiny water droplets", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is NOT a part of the water cycle?", "choicesJson": ["Photosynthesis", "Evaporation", "Condensation", "Precipitation"], "answer": "Photosynthesis", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Does the total amount of water on Earth change much over time, or does it just keep recycling?", "choicesJson": ["It stays about the same and keeps recycling", "It keeps getting smaller every year", "It doubles every year", "It disappears into space regularly"], "answer": "It stays about the same and keeps recycling", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the never-ending journey of water moving between the sky, land, and oceans?", "choicesJson": ["The water cycle", "The food chain", "The rock cycle", "The life cycle"], "answer": "The water cycle", "tags": ["water-cycle"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials would a magnet most likely stick to?", "choicesJson": ["An iron nail", "A plastic spoon", "A rubber band", "A wooden ruler"], "answer": "An iron nail", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials would a magnet NOT stick to?", "choicesJson": ["A plastic spoon", "A steel paperclip", "An iron nail", "A tin can"], "answer": "A plastic spoon", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials feels rough when you touch it?", "choicesJson": ["Sandpaper", "Glass", "Silk", "Ice"], "answer": "Sandpaper", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials feels smooth when you touch it?", "choicesJson": ["Glass", "Sandpaper", "Tree bark", "A pinecone"], "answer": "Glass", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is flexible and can bend easily without breaking?", "choicesJson": ["A rubber band", "A steel rod", "A glass cup", "A brick"], "answer": "A rubber band", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is rigid and does not bend easily?", "choicesJson": ["A steel rod", "A rubber band", "A piece of cloth", "A balloon"], "answer": "A steel rod", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a natural material that comes straight from nature, not made by people?", "choicesJson": ["Wool from sheep", "Plastic", "Glass", "Steel"], "answer": "Wool from sheep", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a man-made material, created by people in factories?", "choicesJson": ["Plastic", "Wood", "Cotton", "Wool"], "answer": "Plastic", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials would be good for making a waterproof rain jacket?", "choicesJson": ["Plastic", "Cotton", "Paper", "Wool"], "answer": "Plastic", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is transparent, meaning you can see clearly through it?", "choicesJson": ["Glass", "Wood", "Brick", "Cardboard"], "answer": "Glass", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is opaque, meaning light cannot pass through it?", "choicesJson": ["Wood", "Glass", "Clear plastic wrap", "A soap bubble"], "answer": "Wood", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple tool could you use to test whether a material is magnetic?", "choicesJson": ["A magnet", "A ruler", "A thermometer", "A magnifying glass"], "answer": "A magnet", "tags": ["materials"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which part of a plant absorbs water and nutrients from the soil?", "choicesJson": ["Roots", "Leaves", "Petals", "Bark"], "answer": "Roots", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which part of a plant uses sunlight to help make food for the plant?", "choicesJson": ["Leaves", "Roots", "Seeds", "Bark"], "answer": "Leaves", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which part of a flowering plant helps attract insects like bees for pollination?", "choicesJson": ["Its colorful petals", "Its roots", "Its bark", "Its thorns"], "answer": "Its colorful petals", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Besides growing from a seed, some plants can grow into a new plant from a cutting taken from a parent plant. What is this called?", "choicesJson": ["A cutting", "A chrysalis", "A larva", "An egg"], "answer": "A cutting", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What does a plant mainly use sunlight for?", "choicesJson": ["To help make its own food", "To help it sleep", "To make it heavier", "To change its color permanently"], "answer": "To help make its own food", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which plant part do people often eat as a vegetable, like celery?", "choicesJson": ["The stem", "The root", "The flower", "The bark"], "answer": "The stem", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which plant part do people often eat as a vegetable, like a carrot?", "choicesJson": ["The root", "The stem", "The petal", "The bark"], "answer": "The root", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is true about most plants?", "choicesJson": ["They cannot move from place to place like animals can", "They can run to find water", "They can fly to find sunlight", "They swim to find soil"], "answer": "They cannot move from place to place like animals can", "tags": ["plants"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is a defense some animals use to scare away predators, like a skunk?", "choicesJson": ["A strong smell", "A bright smile", "A loud song", "A soft fur coat"], "answer": "A strong smell", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these animals uses sharp quills to defend itself from predators?", "choicesJson": ["A porcupine", "A rabbit", "A duck", "A frog"], "answer": "A porcupine", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these animals can change the color of its skin to hide from predators?", "choicesJson": ["A chameleon", "A cow", "A penguin", "A shark"], "answer": "A chameleon", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes hibernation?", "choicesJson": ["When an animal's body slows down and it sleeps through winter to save energy", "When an animal travels far away every summer", "When an animal changes color with the seasons", "When an animal grows a longer tail"], "answer": "When an animal's body slows down and it sleeps through winter to save energy", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these best describes migration?", "choicesJson": ["When animals travel to a new place, often as seasons change", "When animals sleep all winter", "When animals change color to hide", "When animals grow a new skin"], "answer": "When animals travel to a new place, often as seasons change", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal is famous for migrating thousands of miles between its summer and winter homes?", "choicesJson": ["A monarch butterfly", "A snail", "A pig", "A worm"], "answer": "A monarch butterfly", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which body part helps a bird fly through the air?", "choicesJson": ["Wings", "Fins", "Gills", "Antennae"], "answer": "Wings", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which body part helps a fish swim through the water?", "choicesJson": ["Fins", "Wings", "Legs", "Antennae"], "answer": "Fins", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which animal uses its very long neck to reach leaves high up in trees?", "choicesJson": ["A giraffe", "A pig", "A duck", "A frog"], "answer": "A giraffe", "tags": ["animals"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which season is a good time to plant a garden, since warmer weather and rain help seeds grow?", "choicesJson": ["Spring", "Winter", "Late fall", "Deep summer drought"], "answer": "Spring", "tags": ["seasons"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What weather instrument shows which direction the wind is blowing?", "choicesJson": ["A weather vane", "A thermometer", "A magnet", "A microscope"], "answer": "A weather vane", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the day-to-day changes in temperature, wind, and rain in a place?", "choicesJson": ["Weather", "Climate", "Erosion", "Ecosystem"], "answer": "Weather", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the usual weather pattern of a place over many years, like 'hot and dry all year'?", "choicesJson": ["Climate", "Weather", "Season", "Forecast"], "answer": "Climate", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these would you most likely notice during a thunderstorm?", "choicesJson": ["Dark clouds, thunder, and lightning", "A clear blue sky", "A gentle warm breeze only", "A cloudless sunny afternoon"], "answer": "Dark clouds, thunder, and lightning", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which season has the shortest days and the longest nights?", "choicesJson": ["Winter", "Summer", "Spring", "Fall"], "answer": "Winter", "tags": ["seasons"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is usually a sign that a storm might be coming soon?", "choicesJson": ["Heavy, dark clouds gathering", "A bright clear sky", "No wind at all", "A rainbow with no clouds"], "answer": "Heavy, dark clouds gathering", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which best explains the difference between climate and weather?", "choicesJson": ["Climate is the usual pattern over a long time; weather changes day to day", "They mean exactly the same thing", "Weather lasts for years; climate lasts for one day", "Climate only happens in winter"], "answer": "Climate is the usual pattern over a long time; weather changes day to day", "tags": ["weather"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine is a wheel with a rope wrapped around it, used to lift a bucket from a well?", "choicesJson": ["Pulley", "Lever", "Wedge", "Screw"], "answer": "Pulley", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine has two round wheels connected by a rod that turn together, like on a wagon?", "choicesJson": ["Wheel and axle", "Lever", "Wedge", "Inclined plane"], "answer": "Wheel and axle", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine is a sloped surface that helps move things up or down, like a ramp?", "choicesJson": ["Inclined plane", "Pulley", "Wedge", "Screw"], "answer": "Inclined plane", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine has a sharp edge that can split things apart, like an axe head?", "choicesJson": ["Wedge", "Lever", "Pulley", "Wheel and axle"], "answer": "Wedge", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine is a spiral-shaped ramp wrapped around a pole, like the threads on a jar lid?", "choicesJson": ["Screw", "Pulley", "Lever", "Wedge"], "answer": "Screw", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine helps you pry open a paint can lid?", "choicesJson": ["Lever", "Pulley", "Screw", "Wheel and axle"], "answer": "Lever", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A doorknob mainly works using which simple machine?", "choicesJson": ["Wheel and axle", "Pulley", "Wedge", "Inclined plane"], "answer": "Wheel and axle", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A pair of scissors uses which two simple machines working together?", "choicesJson": ["Levers and wedges", "Pulleys and screws", "Wheels and axles", "Inclined planes only"], "answer": "Levers and wedges", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine would help you push a heavy box up into a truck instead of lifting it straight up?", "choicesJson": ["Inclined plane", "Screw", "Pulley", "Wedge"], "answer": "Inclined plane", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which simple machine is shaped like a triangle and is often used as a doorstop?", "choicesJson": ["Wedge", "Screw", "Pulley", "Wheel and axle"], "answer": "Wedge", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do all simple machines help people do?", "choicesJson": ["Make work easier by changing the force needed or its direction", "Make objects disappear", "Make objects heavier", "Make noise"], "answer": "Make work easier by changing the force needed or its direction", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an example of a lever used to pry something open?", "choicesJson": ["A crowbar", "A jar lid", "A ramp", "A rope and wheel"], "answer": "A crowbar", "tags": ["simple-machines"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these produces its own light?", "choicesJson": ["A lightbulb", "A mirror", "A window", "A shadow"], "answer": "A lightbulb", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these makes a sound when you hit it?", "choicesJson": ["A drum", "A rock sitting still", "A cloud", "A shadow"], "answer": "A drum", "tags": ["sound"] }
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a solid?",
+  "choicesJson": [
+   "Ice",
+   "Water",
+   "Steam",
+   "Air"
+  ],
+  "answer": "Ice",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a liquid?",
+  "choicesJson": [
+   "Water",
+   "Ice",
+   "Rock",
+   "Wood"
+  ],
+  "answer": "Water",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a gas?",
+  "choicesJson": [
+   "Steam",
+   "Ice",
+   "Milk",
+   "Sand"
+  ],
+  "answer": "Steam",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens to ice when it gets warm?",
+  "choicesJson": [
+   "It melts into water",
+   "It turns into rock",
+   "It disappears forever",
+   "It gets colder"
+  ],
+  "answer": "It melts into water",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A desert habitat is usually...",
+  "choicesJson": [
+   "Hot and dry",
+   "Cold and wet",
+   "Underwater",
+   "Covered in snow"
+  ],
+  "answer": "Hot and dry",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is well suited to living in the ocean?",
+  "choicesJson": [
+   "A whale",
+   "A camel",
+   "A kangaroo",
+   "An eagle"
+  ],
+  "answer": "A whale",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A simple machine that helps you lift things with less effort, like a seesaw, is called a...",
+  "choicesJson": [
+   "lever",
+   "wheel",
+   "screw",
+   "pulley"
+  ],
+  "answer": "lever",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A simple machine that helps a flag go up a pole is called a...",
+  "choicesJson": [
+   "pulley",
+   "lever",
+   "wedge",
+   "screw"
+  ],
+  "answer": "pulley",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the first stage in a butterfly's life cycle?",
+  "choicesJson": [
+   "Egg",
+   "Butterfly",
+   "Caterpillar",
+   "Cocoon"
+  ],
+  "answer": "Egg",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the place where an animal naturally lives?",
+  "choicesJson": [
+   "Habitat",
+   "Vehicle",
+   "Recipe",
+   "Alphabet"
+  ],
+  "answer": "Habitat",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes a rainforest?",
+  "choicesJson": [
+   "Warm and very rainy, lots of plants",
+   "Cold and dry, no plants",
+   "All ice and snow",
+   "Underwater and dark"
+  ],
+  "answer": "Warm and very rainy, lots of plants",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is it called when water goes from the ground up into the sky and forms clouds?",
+  "choicesJson": [
+   "Evaporation",
+   "Freezing",
+   "Melting",
+   "Sinking"
+  ],
+  "answer": "Evaporation",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What falls from clouds when water droplets get too heavy?",
+  "choicesJson": [
+   "Rain",
+   "Sand",
+   "Rocks",
+   "Leaves"
+  ],
+  "answer": "Rain",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials is magnetic (a magnet sticks to it)?",
+  "choicesJson": [
+   "A steel paperclip",
+   "A wooden pencil",
+   "A plastic cup",
+   "A cotton shirt"
+  ],
+  "answer": "A steel paperclip",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes a gas?",
+  "choicesJson": [
+   "It has no definite shape and spreads out to fill its container",
+   "It has a fixed shape that never changes",
+   "It is always cold",
+   "It cannot be seen or touched ever"
+  ],
+  "answer": "It has no definite shape and spreads out to fill its container",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes a liquid?",
+  "choicesJson": [
+   "It takes the shape of its container but keeps the same amount",
+   "It always keeps one fixed shape",
+   "It spreads out to fill any space like a gas",
+   "It cannot be poured"
+  ],
+  "answer": "It takes the shape of its container but keeps the same amount",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes a solid?",
+  "choicesJson": [
+   "It has a definite shape and size",
+   "It flows and spreads out easily",
+   "It has no shape at all",
+   "It is always a liquid underneath"
+  ],
+  "answer": "It has a definite shape and size",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call it when a liquid turns into a solid, like water turning to ice?",
+  "choicesJson": [
+   "Freezing",
+   "Evaporation",
+   "Boiling",
+   "Melting"
+  ],
+  "answer": "Freezing",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call it when a liquid is heated until it bubbles and quickly turns to gas?",
+  "choicesJson": [
+   "Boiling",
+   "Freezing",
+   "Melting",
+   "Condensing"
+  ],
+  "answer": "Boiling",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call it when a solid turns into a liquid, like ice turning to water?",
+  "choicesJson": [
+   "Melting",
+   "Freezing",
+   "Boiling",
+   "Evaporating"
+  ],
+  "answer": "Melting",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a solid at room temperature?",
+  "choicesJson": [
+   "A wooden block",
+   "Water",
+   "Air",
+   "Steam"
+  ],
+  "answer": "A wooden block",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a gas that is part of the air you breathe?",
+  "choicesJson": [
+   "Oxygen",
+   "Ice",
+   "Sand",
+   "Iron"
+  ],
+  "answer": "Oxygen",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these changes shape easily and flows to fit whatever container it's in?",
+  "choicesJson": [
+   "A liquid",
+   "A solid",
+   "A brick",
+   "A book"
+  ],
+  "answer": "A liquid",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these keeps the same shape no matter what container it is placed in?",
+  "choicesJson": [
+   "A solid",
+   "A liquid",
+   "A gas",
+   "Steam"
+  ],
+  "answer": "A solid",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is NOT one of the three main states of matter?",
+  "choicesJson": [
+   "A rainbow",
+   "Solid",
+   "Liquid",
+   "Gas"
+  ],
+  "answer": "A rainbow",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these takes up space and has mass, which means it counts as matter?",
+  "choicesJson": [
+   "A rock, water, and air",
+   "Only rocks",
+   "Only water",
+   "Nothing does"
+  ],
+  "answer": "A rock, water, and air",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which state of matter is milk?",
+  "choicesJson": [
+   "Liquid",
+   "Solid",
+   "Gas",
+   "Plasma"
+  ],
+  "answer": "Liquid",
+  "tags": [
+   "matter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is covered in ice and snow all year, found at the far north and south of the world?",
+  "choicesJson": [
+   "Polar regions",
+   "Rainforest",
+   "Grassland",
+   "Wetland"
+  ],
+  "answer": "Polar regions",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat has lots of grasses and few trees, home to animals like zebras and lions?",
+  "choicesJson": [
+   "Grassland",
+   "Rainforest",
+   "Polar region",
+   "Ocean"
+  ],
+  "answer": "Grassland",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is found high up where the air is thin and cold?",
+  "choicesJson": [
+   "Mountains",
+   "Ocean",
+   "Desert",
+   "Wetland"
+  ],
+  "answer": "Mountains",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which type of habitat has fresh water, like rivers, lakes, and ponds, instead of salty water?",
+  "choicesJson": [
+   "Freshwater habitat",
+   "Ocean habitat",
+   "Desert habitat",
+   "Polar habitat"
+  ],
+  "answer": "Freshwater habitat",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals has webbed feet to help it swim in its wetland habitat?",
+  "choicesJson": [
+   "A duck",
+   "A camel",
+   "A lion",
+   "A rabbit"
+  ],
+  "answer": "A duck",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these helps a polar bear survive in its cold Arctic habitat?",
+  "choicesJson": [
+   "Thick white fur and body fat",
+   "Long thin legs and no fur",
+   "Bright colored feathers",
+   "A very short flat tail"
+  ],
+  "answer": "Thick white fur and body fat",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these helps a cactus survive in its dry desert habitat?",
+  "choicesJson": [
+   "It stores water in its thick stem",
+   "It grows very large leaves",
+   "It needs daily rain to survive",
+   "It only grows underwater"
+  ],
+  "answer": "It stores water in its thick stem",
+  "tags": [
+   "habitats",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which habitat would you most likely find coral reefs, colorful fish, and sea turtles?",
+  "choicesJson": [
+   "Ocean",
+   "Desert",
+   "Grassland",
+   "Mountains"
+  ],
+  "answer": "Ocean",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is camouflage?",
+  "choicesJson": [
+   "When an animal's coloring helps it blend into its habitat",
+   "When an animal changes its habitat every day",
+   "When an animal only eats at night",
+   "When an animal grows extra legs"
+  ],
+  "answer": "When an animal's coloring helps it blend into its habitat",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals uses white fur to blend into snowy habitats?",
+  "choicesJson": [
+   "An Arctic fox",
+   "A flamingo",
+   "A zebra",
+   "A parrot"
+  ],
+  "answer": "An Arctic fox",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do animals need to be adapted to their habitat?",
+  "choicesJson": [
+   "To help them find food, stay safe, and survive there",
+   "To make them look interesting",
+   "To help them win races",
+   "To help them talk to people"
+  ],
+  "answer": "To help them find food, stay safe, and survive there",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat would a camel be best suited to live in?",
+  "choicesJson": [
+   "Desert",
+   "Polar region",
+   "Rainforest",
+   "Ocean"
+  ],
+  "answer": "Desert",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a butterfly's life cycle, which stage comes right after the egg?",
+  "choicesJson": [
+   "Caterpillar (larva)",
+   "Chrysalis",
+   "Adult butterfly",
+   "Cocoon moth"
+  ],
+  "answer": "Caterpillar (larva)",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the resting stage between caterpillar and adult butterfly called?",
+  "choicesJson": [
+   "Chrysalis (pupa)",
+   "Larva",
+   "Egg",
+   "Nymph"
+  ],
+  "answer": "Chrysalis (pupa)",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal begins life as a tadpole and later grows legs and lungs?",
+  "choicesJson": [
+   "A frog",
+   "A fish",
+   "A bird",
+   "A turtle"
+  ],
+  "answer": "A frog",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A plant's life cycle goes seed, then sprout, then what comes next?",
+  "choicesJson": [
+   "An adult plant that can flower and make seeds",
+   "A caterpillar",
+   "A tadpole",
+   "A chrysalis"
+  ],
+  "answer": "An adult plant that can flower and make seeds",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which insect goes through egg, larva, pupa, and adult stages, just like a butterfly?",
+  "choicesJson": [
+   "A ladybug",
+   "A spider",
+   "A worm",
+   "A snail"
+  ],
+  "answer": "A ladybug",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the young stage of an insect that looks very different from the adult, like a caterpillar?",
+  "choicesJson": [
+   "Larva",
+   "Pupa",
+   "Nymph",
+   "Cub"
+  ],
+  "answer": "Larva",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these life cycle stages usually comes last for most animals?",
+  "choicesJson": [
+   "Adult",
+   "Egg",
+   "Larva",
+   "Pupa"
+  ],
+  "answer": "Adult",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A chicken hatches directly from an egg into a chick that already...",
+  "choicesJson": [
+   "looks similar to a small adult chicken",
+   "looks like a caterpillar",
+   "looks like a tadpole",
+   "looks like a fish"
+  ],
+  "answer": "looks similar to a small adult chicken",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do many animals go through a life cycle with different stages?",
+  "choicesJson": [
+   "To grow, change, and become able to reproduce",
+   "To confuse other animals",
+   "To stay exactly the same forever",
+   "To avoid ever needing food"
+  ],
+  "answer": "To grow, change, and become able to reproduce",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is true about all living things?",
+  "choicesJson": [
+   "They are born or hatch, grow, and eventually die",
+   "They never change from birth to death",
+   "They all lay eggs",
+   "They all live for exactly one year"
+  ],
+  "answer": "They are born or hatch, grow, and eventually die",
+  "tags": [
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is it called when water vapor in the air cools and turns back into tiny liquid droplets, forming clouds?",
+  "choicesJson": [
+   "Condensation",
+   "Evaporation",
+   "Precipitation",
+   "Collection"
+  ],
+  "answer": "Condensation",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is it called when rain, snow, or hail falls from clouds down to Earth?",
+  "choicesJson": [
+   "Precipitation",
+   "Evaporation",
+   "Condensation",
+   "Erosion"
+  ],
+  "answer": "Precipitation",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is it called when water flows over land and collects in rivers, lakes, and oceans?",
+  "choicesJson": [
+   "Collection",
+   "Freezing",
+   "Evaporation",
+   "Melting"
+  ],
+  "answer": "Collection",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the water cycle, after condensation forms clouds, what usually falls from the clouds next?",
+  "choicesJson": [
+   "Precipitation",
+   "Evaporation",
+   "Collection",
+   "Sunlight"
+  ],
+  "answer": "Precipitation",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does most of the water that evaporates into the air come from?",
+  "choicesJson": [
+   "Oceans, lakes, and rivers",
+   "Deserts",
+   "Mountaintops",
+   "Clouds themselves"
+  ],
+  "answer": "Oceans, lakes, and rivers",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What mainly causes water to evaporate from the ocean into the air?",
+  "choicesJson": [
+   "Heat from the sun",
+   "Wind alone",
+   "Cold air",
+   "Ocean waves"
+  ],
+  "answer": "Heat from the sun",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are clouds mostly made of?",
+  "choicesJson": [
+   "Tiny water droplets",
+   "Cotton",
+   "Smoke",
+   "Dust only"
+  ],
+  "answer": "Tiny water droplets",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is NOT a part of the water cycle?",
+  "choicesJson": [
+   "Photosynthesis",
+   "Evaporation",
+   "Condensation",
+   "Precipitation"
+  ],
+  "answer": "Photosynthesis",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Does the total amount of water on Earth change much over time, or does it just keep recycling?",
+  "choicesJson": [
+   "It stays about the same and keeps recycling",
+   "It keeps getting smaller every year",
+   "It doubles every year",
+   "It disappears into space regularly"
+  ],
+  "answer": "It stays about the same and keeps recycling",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the never-ending journey of water moving between the sky, land, and oceans?",
+  "choicesJson": [
+   "The water cycle",
+   "The food chain",
+   "The rock cycle",
+   "The life cycle"
+  ],
+  "answer": "The water cycle",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials would a magnet most likely stick to?",
+  "choicesJson": [
+   "An iron nail",
+   "A plastic spoon",
+   "A rubber band",
+   "A wooden ruler"
+  ],
+  "answer": "An iron nail",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials would a magnet NOT stick to?",
+  "choicesJson": [
+   "A plastic spoon",
+   "A steel paperclip",
+   "An iron nail",
+   "A tin can"
+  ],
+  "answer": "A plastic spoon",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials feels rough when you touch it?",
+  "choicesJson": [
+   "Sandpaper",
+   "Glass",
+   "Silk",
+   "Ice"
+  ],
+  "answer": "Sandpaper",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials feels smooth when you touch it?",
+  "choicesJson": [
+   "Glass",
+   "Sandpaper",
+   "Tree bark",
+   "A pinecone"
+  ],
+  "answer": "Glass",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials is flexible and can bend easily without breaking?",
+  "choicesJson": [
+   "A rubber band",
+   "A steel rod",
+   "A glass cup",
+   "A brick"
+  ],
+  "answer": "A rubber band",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials is rigid and does not bend easily?",
+  "choicesJson": [
+   "A steel rod",
+   "A rubber band",
+   "A piece of cloth",
+   "A balloon"
+  ],
+  "answer": "A steel rod",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a natural material that comes straight from nature, not made by people?",
+  "choicesJson": [
+   "Wool from sheep",
+   "Plastic",
+   "Glass",
+   "Steel"
+  ],
+  "answer": "Wool from sheep",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a man-made material, created by people in factories?",
+  "choicesJson": [
+   "Plastic",
+   "Wood",
+   "Cotton",
+   "Wool"
+  ],
+  "answer": "Plastic",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials would be good for making a waterproof rain jacket?",
+  "choicesJson": [
+   "Plastic",
+   "Cotton",
+   "Paper",
+   "Wool"
+  ],
+  "answer": "Plastic",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials is transparent, meaning you can see clearly through it?",
+  "choicesJson": [
+   "Glass",
+   "Wood",
+   "Brick",
+   "Cardboard"
+  ],
+  "answer": "Glass",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these materials is opaque, meaning light cannot pass through it?",
+  "choicesJson": [
+   "Wood",
+   "Glass",
+   "Clear plastic wrap",
+   "A soap bubble"
+  ],
+  "answer": "Wood",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple tool could you use to test whether a material is magnetic?",
+  "choicesJson": [
+   "A magnet",
+   "A ruler",
+   "A thermometer",
+   "A magnifying glass"
+  ],
+  "answer": "A magnet",
+  "tags": [
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a plant absorbs water and nutrients from the soil?",
+  "choicesJson": [
+   "Roots",
+   "Leaves",
+   "Petals",
+   "Bark"
+  ],
+  "answer": "Roots",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a plant uses sunlight to help make food for the plant?",
+  "choicesJson": [
+   "Leaves",
+   "Roots",
+   "Seeds",
+   "Bark"
+  ],
+  "answer": "Leaves",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a flowering plant helps attract insects like bees for pollination?",
+  "choicesJson": [
+   "Its colorful petals",
+   "Its roots",
+   "Its bark",
+   "Its thorns"
+  ],
+  "answer": "Its colorful petals",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Besides growing from a seed, some plants can grow into a new plant from a piece cut off a parent plant. What is this method called?",
+  "choicesJson": [
+   "A cutting",
+   "A chrysalis",
+   "A larva",
+   "An egg"
+  ],
+  "answer": "A cutting",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a plant mainly use sunlight for?",
+  "choicesJson": [
+   "To help make its own food",
+   "To help it sleep",
+   "To make it heavier",
+   "To change its color permanently"
+  ],
+  "answer": "To help make its own food",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which plant part do people often eat as a vegetable, like celery?",
+  "choicesJson": [
+   "The stem",
+   "The root",
+   "The flower",
+   "The bark"
+  ],
+  "answer": "The stem",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which plant part do people often eat as a vegetable, like a carrot?",
+  "choicesJson": [
+   "The root",
+   "The stem",
+   "The petal",
+   "The bark"
+  ],
+  "answer": "The root",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is true about most plants?",
+  "choicesJson": [
+   "They cannot move from place to place like animals can",
+   "They can run to find water",
+   "They can fly to find sunlight",
+   "They swim to find soil"
+  ],
+  "answer": "They cannot move from place to place like animals can",
+  "tags": [
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a defense some animals use to scare away predators, like a skunk?",
+  "choicesJson": [
+   "A strong smell",
+   "A bright smile",
+   "A loud song",
+   "A soft fur coat"
+  ],
+  "answer": "A strong smell",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals uses sharp quills to defend itself from predators?",
+  "choicesJson": [
+   "A porcupine",
+   "A rabbit",
+   "A duck",
+   "A frog"
+  ],
+  "answer": "A porcupine",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals can change the color of its skin to hide from predators?",
+  "choicesJson": [
+   "A chameleon",
+   "A cow",
+   "A penguin",
+   "A shark"
+  ],
+  "answer": "A chameleon",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes hibernation?",
+  "choicesJson": [
+   "When an animal's body slows down and it sleeps through winter to save energy",
+   "When an animal travels far away every summer",
+   "When an animal changes color with the seasons",
+   "When an animal grows a longer tail"
+  ],
+  "answer": "When an animal's body slows down and it sleeps through winter to save energy",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these best describes migration?",
+  "choicesJson": [
+   "When animals travel to a new place, often as seasons change",
+   "When animals sleep all winter",
+   "When animals change color to hide",
+   "When animals grow a new skin"
+  ],
+  "answer": "When animals travel to a new place, often as seasons change",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is famous for migrating thousands of miles between its summer and winter homes?",
+  "choicesJson": [
+   "A monarch butterfly",
+   "A snail",
+   "A pig",
+   "A worm"
+  ],
+  "answer": "A monarch butterfly",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which body part helps a bird fly through the air?",
+  "choicesJson": [
+   "Wings",
+   "Fins",
+   "Gills",
+   "Antennae"
+  ],
+  "answer": "Wings",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which body part helps a fish swim through the water?",
+  "choicesJson": [
+   "Fins",
+   "Wings",
+   "Legs",
+   "Antennae"
+  ],
+  "answer": "Fins",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal uses its very long neck to reach leaves high up in trees?",
+  "choicesJson": [
+   "A giraffe",
+   "A pig",
+   "A duck",
+   "A frog"
+  ],
+  "answer": "A giraffe",
+  "tags": [
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which season is a good time to plant a garden, since warmer weather and rain help seeds grow?",
+  "choicesJson": [
+   "Spring",
+   "Winter",
+   "Late fall",
+   "Deep summer drought"
+  ],
+  "answer": "Spring",
+  "tags": [
+   "seasons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What weather instrument shows which direction the wind is blowing?",
+  "choicesJson": [
+   "A weather vane",
+   "A thermometer",
+   "A magnet",
+   "A microscope"
+  ],
+  "answer": "A weather vane",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the day-to-day changes in temperature, wind, and rain in a place?",
+  "choicesJson": [
+   "Weather",
+   "Climate",
+   "Erosion",
+   "Ecosystem"
+  ],
+  "answer": "Weather",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the usual weather pattern of a place over many years, like 'hot and dry all year'?",
+  "choicesJson": [
+   "Climate",
+   "Weather",
+   "Season",
+   "Forecast"
+  ],
+  "answer": "Climate",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these would you most likely notice during a thunderstorm?",
+  "choicesJson": [
+   "Dark clouds, thunder, and lightning",
+   "A clear blue sky",
+   "A gentle warm breeze only",
+   "A cloudless sunny afternoon"
+  ],
+  "answer": "Dark clouds, thunder, and lightning",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which season has the shortest days and the longest nights?",
+  "choicesJson": [
+   "Winter",
+   "Summer",
+   "Spring",
+   "Fall"
+  ],
+  "answer": "Winter",
+  "tags": [
+   "seasons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is usually a sign that a storm might be coming soon?",
+  "choicesJson": [
+   "Heavy, dark clouds gathering",
+   "A bright clear sky",
+   "No wind at all",
+   "A rainbow with no clouds"
+  ],
+  "answer": "Heavy, dark clouds gathering",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which best explains the difference between climate and weather?",
+  "choicesJson": [
+   "Climate is the usual pattern over a long time; weather changes day to day",
+   "They mean exactly the same thing",
+   "Weather lasts for years; climate lasts for one day",
+   "Climate only happens in winter"
+  ],
+  "answer": "Climate is the usual pattern over a long time; weather changes day to day",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine is a wheel with a rope wrapped around it, used to lift a bucket from a well?",
+  "choicesJson": [
+   "Pulley",
+   "Lever",
+   "Wedge",
+   "Screw"
+  ],
+  "answer": "Pulley",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine has two round wheels connected by a rod that turn together, like on a wagon?",
+  "choicesJson": [
+   "Wheel and axle",
+   "Lever",
+   "Wedge",
+   "Inclined plane"
+  ],
+  "answer": "Wheel and axle",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine is a sloped surface that helps move things up or down, like a ramp?",
+  "choicesJson": [
+   "Inclined plane",
+   "Pulley",
+   "Wedge",
+   "Screw"
+  ],
+  "answer": "Inclined plane",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine has a sharp edge that can split things apart, like an axe head?",
+  "choicesJson": [
+   "Wedge",
+   "Lever",
+   "Pulley",
+   "Wheel and axle"
+  ],
+  "answer": "Wedge",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine is a spiral-shaped ramp wrapped around a pole, like the threads on a jar lid?",
+  "choicesJson": [
+   "Screw",
+   "Pulley",
+   "Lever",
+   "Wedge"
+  ],
+  "answer": "Screw",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine helps you pry open a paint can lid?",
+  "choicesJson": [
+   "Lever",
+   "Pulley",
+   "Screw",
+   "Wheel and axle"
+  ],
+  "answer": "Lever",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A doorknob mainly works using which simple machine?",
+  "choicesJson": [
+   "Wheel and axle",
+   "Pulley",
+   "Wedge",
+   "Inclined plane"
+  ],
+  "answer": "Wheel and axle",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pair of scissors uses which two simple machines working together?",
+  "choicesJson": [
+   "Levers and wedges",
+   "Pulleys and screws",
+   "Wheels and axles",
+   "Inclined planes only"
+  ],
+  "answer": "Levers and wedges",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine would help you push a heavy box up into a truck instead of lifting it straight up?",
+  "choicesJson": [
+   "Inclined plane",
+   "Screw",
+   "Pulley",
+   "Wedge"
+  ],
+  "answer": "Inclined plane",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which simple machine is shaped like a triangle and is often used as a doorstop?",
+  "choicesJson": [
+   "Wedge",
+   "Screw",
+   "Pulley",
+   "Wheel and axle"
+  ],
+  "answer": "Wedge",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do all simple machines help people do?",
+  "choicesJson": [
+   "Make work easier by changing the force needed or its direction",
+   "Make objects disappear",
+   "Make objects heavier",
+   "Make noise"
+  ],
+  "answer": "Make work easier by changing the force needed or its direction",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is an example of a lever used to pry something open?",
+  "choicesJson": [
+   "A crowbar",
+   "A jar lid",
+   "A ramp",
+   "A rope and wheel"
+  ],
+  "answer": "A crowbar",
+  "tags": [
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these produces its own light?",
+  "choicesJson": [
+   "A lightbulb",
+   "A mirror",
+   "A window",
+   "A shadow"
+  ],
+  "answer": "A lightbulb",
+  "tags": [
+   "light"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these makes a sound when you hit it?",
+  "choicesJson": [
+   "A drum",
+   "A rock sitting still",
+   "A cloud",
+   "A shadow"
+  ],
+  "answer": "A drum",
+  "tags": [
+   "sound"
+  ]
+ }
 ]

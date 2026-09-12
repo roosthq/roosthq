@@ -1,112 +1,947 @@
 [
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 2:3 - if there are 6 red balls, how many blue balls at the same ratio (6/2 x 3)?", "answer": "9", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 25% of 80?", "answer": "20", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 50% of 60?", "answer": "30", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -5 + 8?", "answer": "3", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -3 - 4?", "answer": "-7", "tags": ["integers"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is smaller: -8 or -2?", "choicesJson": ["-8", "-2", "They are equal"], "answer": "-8", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 3 squared (3 x 3)?", "answer": "9", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 2 to the power of 4 (2x2x2x2)?", "answer": "16", "tags": ["exponents"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Simplify the expression: 3x + 2x", "choicesJson": ["5x", "6x", "5x2", "3x2"], "answer": "5x", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 4, what is x + 7?", "answer": "11", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 5, what is 3x?", "answer": "15", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mean (average) of 4, 6, 8: (4+6+8)/3 = ?", "answer": "6", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the median of 3, 9, 5, 1, 7 (put in order, pick the middle one).", "answer": "5", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "A recipe needs a 2:1 ratio of flour to sugar. If you use 4 cups of flour, how many cups of sugar?", "answer": "2", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 10% of 250?", "answer": "25", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -6 x 2?", "answer": "-12", "tags": ["integers"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'a number y increased by 5'?", "choicesJson": ["y - 5", "y + 5", "5y", "y/5"], "answer": "y + 5", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 3:4 - if there are 12 red apples, how many green apples at the same ratio (12/3 x 4)?", "answer": "16", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 5:2 - if there are 10 dogs, how many cats at the same ratio (10/5 x 2)?", "answer": "4", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A recipe needs a 3:2 ratio of water to rice. If you use 6 cups of water, how many cups of rice?", "answer": "4", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "In a class, the ratio of boys to girls is 2:3. If there are 8 boys, how many girls?", "answer": "12", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 4:5 - if there are 20 blue marbles, how many red marbles at the same ratio (20/4 x 5)?", "answer": "25", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "Simplify the ratio 6:9 to lowest terms.", "answer": "2:3", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "Simplify the ratio 10:15 to lowest terms.", "answer": "2:3", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A map scale is 1:100. If a distance on the map is 3 cm, how many cm does that represent in real life?", "answer": "300", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 1:4 - if there are 3 cups of concentrate, how many cups of water at the same ratio (3 x 4)?", "answer": "12", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "Simplify the ratio 8:12 to lowest terms.", "answer": "2:3", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "In a fruit bowl, the ratio of apples to oranges is 3:1. If there are 9 apples, how many oranges?", "answer": "3", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "A ratio of 7:3 - if there are 21 red beads, how many white beads at the same ratio (21/7 x 3)?", "answer": "9", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "Simplify the ratio 9:6 to lowest terms.", "answer": "3:2", "tags": ["ratios"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 20% of 50?", "answer": "10", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 75% of 40?", "answer": "30", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 30% of 90?", "answer": "27", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 100% of 45?", "answer": "45", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 5% of 200?", "answer": "10", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What percent is 15 out of 50?", "answer": "30", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What percent is 8 out of 40?", "answer": "20", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "A shirt costs $40. It is on sale for 25% off. How much is the discount in dollars?", "answer": "10", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "A backpack costs $60. It is on sale for 10% off. What is the sale price?", "answer": "54", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 40% of 35?", "answer": "14", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 60% of 50?", "answer": "30", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 12% of 100?", "answer": "12", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What percent is 25 out of 100?", "answer": "25", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "A video game costs $50. Sales tax adds 8%, which is how many dollars?", "answer": "4", "tags": ["percentages"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -7 + 3?", "answer": "-4", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -2 + 9?", "answer": "7", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -10 + 4?", "answer": "-6", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 6 - 9?", "answer": "-3", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -4 - 5?", "answer": "-9", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -8 + (-3)?", "answer": "-11", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 4 x (-5)?", "answer": "-20", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -9 x (-3)?", "answer": "27", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -12 / 4?", "answer": "-3", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 15 / (-3)?", "answer": "-5", "tags": ["integers"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is greater: -3 or 4?", "choicesJson": ["-3", "4"], "answer": "4", "tags": ["integers"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is smaller: -15 or -20?", "choicesJson": ["-15", "-20"], "answer": "-20", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the absolute value of -9?", "answer": "9", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is the absolute value of 7?", "answer": "7", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -20 + 15?", "answer": "-5", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -1 - 1?", "answer": "-2", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -5 x 5?", "answer": "-25", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is -100 / 10?", "answer": "-10", "tags": ["integers"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is colder: -10 degrees or -3 degrees?", "choicesJson": ["-10 degrees", "-3 degrees"], "answer": "-10 degrees", "tags": ["integers"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 4 squared (4 x 4)?", "answer": "16", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 5 squared (5 x 5)?", "answer": "25", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 10 squared (10 x 10)?", "answer": "100", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 2 to the power of 5 (2x2x2x2x2)?", "answer": "32", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 3 to the power of 3 (3x3x3)?", "answer": "27", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 6 squared (6 x 6)?", "answer": "36", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 2 to the power of 6 (2x2x2x2x2x2)?", "answer": "64", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 1 to the power of 10?", "answer": "1", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 10 to the power of 3 (10x10x10)?", "answer": "1000", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 7 squared (7 x 7)?", "answer": "49", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 8 squared (8 x 8)?", "answer": "64", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 2 to the power of 3 (2x2x2)?", "answer": "8", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 5 to the power of 3 (5x5x5)?", "answer": "125", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "What is 9 squared (9 x 9)?", "answer": "81", "tags": ["exponents"] },
-  { "type": "TEXT_INPUT", "prompt": "Simplify the expression: 7x - 2x", "answer": "5x", "tags": ["algebra"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Simplify the expression: 4x + 3x + 2", "choicesJson": ["7x + 2", "9x", "6x + 2", "7x2"], "answer": "7x + 2", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 6, what is x - 2?", "answer": "4", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 3, what is 5x + 1?", "answer": "16", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 8, what is x / 2?", "answer": "4", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If y = 10, what is y - 4?", "answer": "6", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: x + 5 = 12", "answer": "7", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: x - 3 = 9", "answer": "12", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: 2x = 14", "answer": "7", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: x / 3 = 4", "answer": "12", "tags": ["algebra"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'a number n decreased by 6'?", "choicesJson": ["n - 6", "6 - n", "n + 6", "6n"], "answer": "n - 6", "tags": ["algebra"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'three times a number m'?", "choicesJson": ["m + 3", "3m", "m - 3", "m/3"], "answer": "3m", "tags": ["algebra"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'a number p divided by 4'?", "choicesJson": ["p/4", "4/p", "4p", "p - 4"], "answer": "p/4", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "If x = 12, what is x - 7?", "answer": "5", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: 3x + 1 = 10", "answer": "3", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Solve for x: x + 9 = 20", "answer": "11", "tags": ["algebra"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which expression means 'a number k increased by 10'?", "choicesJson": ["k + 10", "10 - k", "10k", "k/10"], "answer": "k + 10", "tags": ["algebra"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mean of 2, 4, 6, 8: (2+4+6+8)/4 = ?", "answer": "5", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mean of 10, 20, 30: (10+20+30)/3 = ?", "answer": "20", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the median of 4, 8, 2, 10, 6 (put in order, pick the middle one).", "answer": "6", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the median of 1, 3, 5, 7 (average the two middle numbers).", "answer": "4", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mode of 2, 3, 3, 5, 7 (the number that appears most).", "answer": "3", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the range of 3, 8, 1, 9, 4 (largest minus smallest).", "answer": "8", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mode of 6, 6, 7, 8, 9 (the number that appears most).", "answer": "6", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the range of 10, 25, 15, 30, 5 (largest minus smallest).", "answer": "25", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the mean of 5, 10, 15, 20: (5+10+15+20)/4 = ?", "answer": "12.5", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "Find the median of 2, 9, 4, 7, 5 (put in order, pick the middle one).", "answer": "5", "tags": ["statistics"] },
-  { "type": "TEXT_INPUT", "prompt": "A basketball team scored 24, 18, and 30 points in three games. What was the mean number of points per game?", "answer": "24", "tags": ["statistics", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A recipe calls for a 2:5 ratio of butter to flour. If you use 4 cups of butter, how many cups of flour?", "answer": "10", "tags": ["ratios", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A store marks down an $80 jacket by 15%. How much money is saved?", "answer": "12", "tags": ["percentages", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "The temperature was -6 degrees in the morning and rose by 10 degrees by noon. What was the temperature at noon?", "answer": "4", "tags": ["integers", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Apples cost $3 each. If you buy x apples and x = 5, how much do you spend (3 times x)?", "answer": "15", "tags": ["algebra", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A submarine is at -120 feet and dives another 45 feet. What is its new depth (as a negative number)?", "answer": "-165", "tags": ["integers", "word-problem"] }
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 2:3 - if there are 6 red balls, how many blue balls at the same ratio (6/2 x 3)?",
+  "answer": "9",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 25% of 80?",
+  "answer": "20",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 50% of 60?",
+  "answer": "30",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -5 + 8?",
+  "answer": "3",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -3 - 4?",
+  "answer": "-7",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is smaller: -8 or -2?",
+  "choicesJson": [
+   "-8",
+   "-2",
+   "They are equal"
+  ],
+  "answer": "-8",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 3 squared (3 x 3)?",
+  "answer": "9",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 2 to the power of 4 (2x2x2x2)?",
+  "answer": "16",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Simplify the expression: 3x + 2x",
+  "choicesJson": [
+   "5x",
+   "6x",
+   "5x2",
+   "3x2"
+  ],
+  "answer": "5x",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 4, what is x + 7?",
+  "answer": "11",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 5, what is 3x?",
+  "answer": "15",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mean (average) of 4, 6, 8: (4+6+8)/3 = ?",
+  "answer": "6",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the median of 3, 9, 5, 1, 7 (put in order, pick the middle one).",
+  "answer": "5",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A recipe needs a 2:1 ratio of flour to sugar. If you use 4 cups of flour, how many cups of sugar?",
+  "answer": "2",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 10% of 250?",
+  "answer": "25",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -6 x 2?",
+  "answer": "-12",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which expression means 'a number y increased by 5'?",
+  "choicesJson": [
+   "y - 5",
+   "y + 5",
+   "5y",
+   "y/5"
+  ],
+  "answer": "y + 5",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 3:4 - if there are 12 red apples, how many green apples at the same ratio (12/3 x 4)?",
+  "answer": "16",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 5:2 - if there are 10 dogs, how many cats at the same ratio (10/5 x 2)?",
+  "answer": "4",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A recipe needs a 3:2 ratio of water to rice. If you use 6 cups of water, how many cups of rice?",
+  "answer": "4",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a class, the ratio of boys to girls is 2:3. If there are 8 boys, how many girls?",
+  "answer": "12",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 4:5 - if there are 20 blue marbles, how many red marbles at the same ratio (20/4 x 5)?",
+  "answer": "25",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Simplify the ratio 6:9 to lowest terms.",
+  "answer": "2:3",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Simplify the ratio 10:15 to lowest terms.",
+  "answer": "2:3",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A map scale is 1:100. If a distance on the map is 3 cm, how many cm does that represent in real life?",
+  "answer": "300",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 1:4 - if there are 3 cups of concentrate, how many cups of water at the same ratio (3 x 4)?",
+  "answer": "12",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Simplify the ratio 8:12 to lowest terms.",
+  "answer": "2:3",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a fruit bowl, the ratio of apples to oranges is 3:1. If there are 9 apples, how many oranges?",
+  "answer": "3",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ratio of 7:3 - if there are 21 red beads, how many white beads at the same ratio (21/7 x 3)?",
+  "answer": "9",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Simplify the ratio 9:6 to lowest terms.",
+  "answer": "3:2",
+  "tags": [
+   "ratios"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 20% of 50?",
+  "answer": "10",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 75% of 40?",
+  "answer": "30",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 30% of 90?",
+  "answer": "27",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 40% of 60?",
+  "answer": "24",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 5% of 200?",
+  "answer": "10",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What percent is 15 out of 50?",
+  "answer": "30",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What percent is 8 out of 40?",
+  "answer": "20",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A shirt costs $40. It is on sale for 25% off. How much is the discount in dollars?",
+  "answer": "10",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A backpack costs $60. It is on sale for 10% off. What is the sale price?",
+  "answer": "54",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 40% of 35?",
+  "answer": "14",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 60% of 50?",
+  "answer": "30",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 12% of 50?",
+  "answer": "6",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What percent is 25 out of 200?",
+  "answer": "12.5",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A video game costs $50. Sales tax adds 8%, which is how many dollars?",
+  "answer": "4",
+  "tags": [
+   "percentages"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -7 + 3?",
+  "answer": "-4",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -2 + 9?",
+  "answer": "7",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -10 + 4?",
+  "answer": "-6",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 6 - 9?",
+  "answer": "-3",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -4 - 5?",
+  "answer": "-9",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -8 + (-3)?",
+  "answer": "-11",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 4 x (-5)?",
+  "answer": "-20",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -9 x (-3)?",
+  "answer": "27",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -12 / 4?",
+  "answer": "-3",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 15 / (-3)?",
+  "answer": "-5",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is greater: -3 or 4?",
+  "choicesJson": [
+   "-3",
+   "4"
+  ],
+  "answer": "4",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is smaller: -15 or -20?",
+  "choicesJson": [
+   "-15",
+   "-20"
+  ],
+  "answer": "-20",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the absolute value of -9?",
+  "answer": "9",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the absolute value of 7?",
+  "answer": "7",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -20 + 15?",
+  "answer": "-5",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -1 - 1?",
+  "answer": "-2",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -5 x 5?",
+  "answer": "-25",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is -84 / 7?",
+  "answer": "-12",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is colder: -10 degrees or -3 degrees?",
+  "choicesJson": [
+   "-10 degrees",
+   "-3 degrees"
+  ],
+  "answer": "-10 degrees",
+  "tags": [
+   "integers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 4 squared (4 x 4)?",
+  "answer": "16",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 5 squared (5 x 5)?",
+  "answer": "25",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 10 squared (10 x 10)?",
+  "answer": "100",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 2 to the power of 5 (2x2x2x2x2)?",
+  "answer": "32",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 3 to the power of 3 (3x3x3)?",
+  "answer": "27",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 6 squared (6 x 6)?",
+  "answer": "36",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 2 to the power of 6 (2x2x2x2x2x2)?",
+  "answer": "64",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 1 to the power of 10?",
+  "answer": "1",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 10 to the power of 3 (10x10x10)?",
+  "answer": "1000",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 7 squared (7 x 7)?",
+  "answer": "49",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 8 squared (8 x 8)?",
+  "answer": "64",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 2 to the power of 3 (2x2x2)?",
+  "answer": "8",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 5 to the power of 3 (5x5x5)?",
+  "answer": "125",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 9 squared (9 x 9)?",
+  "answer": "81",
+  "tags": [
+   "exponents"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Simplify the expression: 7x - 2x",
+  "answer": "5x",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Simplify the expression: 4x + 3x + 2",
+  "choicesJson": [
+   "7x + 2",
+   "9x",
+   "6x + 2",
+   "7x2"
+  ],
+  "answer": "7x + 2",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 6, what is x - 2?",
+  "answer": "4",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 3, what is 5x + 1?",
+  "answer": "16",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 8, what is x / 2?",
+  "answer": "4",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If y = 10, what is y - 4?",
+  "answer": "6",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: x + 5 = 12",
+  "answer": "7",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: x - 3 = 9",
+  "answer": "12",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: 2x = 14",
+  "answer": "7",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: x / 3 = 4",
+  "answer": "12",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which expression means 'a number n decreased by 6'?",
+  "choicesJson": [
+   "n - 6",
+   "6 - n",
+   "n + 6",
+   "6n"
+  ],
+  "answer": "n - 6",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which expression means 'three times a number m'?",
+  "choicesJson": [
+   "m + 3",
+   "3m",
+   "m - 3",
+   "m/3"
+  ],
+  "answer": "3m",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which expression means 'a number p divided by 4'?",
+  "choicesJson": [
+   "p/4",
+   "4/p",
+   "4p",
+   "p - 4"
+  ],
+  "answer": "p/4",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "If x = 12, what is x - 7?",
+  "answer": "5",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: 3x + 1 = 10",
+  "answer": "3",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Solve for x: x + 9 = 20",
+  "answer": "11",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which expression means 'a number k increased by 10'?",
+  "choicesJson": [
+   "k + 10",
+   "10 - k",
+   "10k",
+   "k/10"
+  ],
+  "answer": "k + 10",
+  "tags": [
+   "algebra"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mean of 2, 4, 6, 8: (2+4+6+8)/4 = ?",
+  "answer": "5",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mean of 9, 16, 26: (9+16+26)/3 = ?",
+  "answer": "17",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the median of 4, 8, 2, 10, 6 (put in order, pick the middle one).",
+  "answer": "6",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the median of 1, 3, 5, 7 (average the two middle numbers).",
+  "answer": "4",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mode of 2, 3, 3, 5, 7 (the number that appears most).",
+  "answer": "3",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the range of 3, 8, 1, 9, 4 (largest minus smallest).",
+  "answer": "8",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mode of 6, 6, 7, 8, 9 (the number that appears most).",
+  "answer": "6",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the range of 8, 19, 14, 33, 6 (largest minus smallest).",
+  "answer": "27",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the mean of 5, 10, 15, 20: (5+10+15+20)/4 = ?",
+  "answer": "12.5",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Find the median of 2, 9, 4, 7, 5 (put in order, pick the middle one).",
+  "answer": "5",
+  "tags": [
+   "statistics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A basketball team scored 22, 18, and 32 points in three games. What was the mean number of points per game?",
+  "answer": "24",
+  "tags": [
+   "statistics",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A recipe calls for a 2:5 ratio of butter to flour. If you use 4 cups of butter, how many cups of flour?",
+  "answer": "10",
+  "tags": [
+   "ratios",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A store marks down an $80 jacket by 15%. How much money is saved?",
+  "answer": "12",
+  "tags": [
+   "percentages",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The temperature was -6 degrees in the morning and rose by 10 degrees by noon. What was the temperature at noon?",
+  "answer": "4",
+  "tags": [
+   "integers",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Apples cost $3 each. If you buy x apples and x = 5, how much do you spend (3 times x)?",
+  "answer": "15",
+  "tags": [
+   "algebra",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A submarine is at -120 feet and dives another 45 feet. What is its new depth (as a negative number)?",
+  "answer": "-165",
+  "tags": [
+   "integers",
+   "word-problem"
+  ]
+ }
 ]

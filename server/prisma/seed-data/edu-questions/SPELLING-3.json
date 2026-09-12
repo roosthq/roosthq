@@ -1,112 +1,990 @@
 [
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 're' to 'do' - spell the new word meaning 'do again'.", "answer": "redo", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'un' to 'happy' - spell the new word meaning 'not happy'.", "answer": "unhappy", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ful' to 'help' - spell the new word meaning 'full of help'.", "answer": "helpful", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'less' to 'care' - spell the new word meaning 'without care'.", "answer": "careless", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the homophone that means 'a group of eight' and rhymes with 'gate'.", "answer": "eight", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to write down' that sounds like 'right'.", "answer": "write", "tags": ["homophones"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["beautiful", "beutiful", "beautyful", "beatiful"], "answer": "beautiful", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["because", "becuase", "becausse", "becaus"], "answer": "because", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the day between Monday and Wednesday.", "answer": "Tuesday", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a group of people related to you (parents, siblings, etc).", "answer": "family", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["different", "diffrent", "differant", "difernt"], "answer": "different", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'er' to 'teach' - spell the word for someone who teaches.", "answer": "teacher", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for something that happens 'again and again' - starts with 're' + 'peat'.", "answer": "repeat", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the opposite of 'possible' using the prefix 'im'.", "answer": "impossible", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'un' to 'kind' - spell the new word meaning 'not kind'.", "answer": "unkind", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'un' to 'fair' - spell the new word meaning 'not fair'.", "answer": "unfair", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'un' to 'lock' - spell the new word meaning 'to open something locked'.", "answer": "unlock", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 're' to 'play' - spell the new word meaning 'to play again'.", "answer": "replay", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 're' to 'fill' - spell the new word meaning 'to fill again'.", "answer": "refill", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 're' to 'build' - spell the new word meaning 'to build again'.", "answer": "rebuild", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'dis' to 'agree' - spell the new word meaning 'to not agree'.", "answer": "disagree", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'dis' to 'like' - spell the new word meaning 'to not like'.", "answer": "dislike", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'dis' to 'appear' - spell the new word meaning 'to vanish from sight'.", "answer": "disappear", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'pre' to 'view' - spell the new word meaning 'to look at before it happens'.", "answer": "preview", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'pre' to 'heat' - spell the new word meaning 'to heat something before you use it'.", "answer": "preheat", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'mis' to 'spell' - spell the new word meaning 'to spell incorrectly'.", "answer": "misspell", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'mis' to 'place' - spell the new word meaning 'to put something in the wrong spot'.", "answer": "misplace", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'im' to 'mature' - spell the new word meaning 'not mature'.", "answer": "immature", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'in' to 'visible' - spell the new word meaning 'not able to be seen'.", "answer": "invisible", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the prefix 'non' to 'fiction' - spell the new word for writing about real things, not made-up stories.", "answer": "nonfiction", "tags": ["prefixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ful' to 'hope' - spell the new word meaning 'full of hope'.", "answer": "hopeful", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ful' to 'thank' - spell the new word meaning 'feeling grateful'.", "answer": "thankful", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'less' to 'hope' - spell the new word meaning 'without hope'.", "answer": "hopeless", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'less' to 'harm' - spell the new word meaning 'not able to cause harm'.", "answer": "harmless", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ly' to 'quick' - spell the new word meaning 'in a fast way'.", "answer": "quickly", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ly' to 'slow' - spell the new word meaning 'in an unhurried way'.", "answer": "slowly", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ness' to 'kind' - spell the new word meaning 'the quality of being kind'.", "answer": "kindness", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ness' to 'dark' - spell the new word meaning 'the quality of having no light'.", "answer": "darkness", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ment' to 'enjoy' - spell the new word meaning 'pleasure or fun'.", "answer": "enjoyment", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ment' to 'excite' - spell the new word meaning 'a feeling of eagerness'.", "answer": "excitement", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'able' to 'wash' - spell the new word meaning 'able to be washed'.", "answer": "washable", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'able' to 'comfort' - spell the new word meaning 'giving a feeling of ease'.", "answer": "comfortable", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'or' to 'act' - spell the word for a person who performs in movies or plays.", "answer": "actor", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'er' to 'paint' - spell the word for a person who paints.", "answer": "painter", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ment' to 'move' - spell the new word meaning 'the act of moving'.", "answer": "movement", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Add the suffix 'ment' to 'arrange' - spell the new word meaning 'a plan or agreement'.", "answer": "arrangement", "tags": ["suffixes"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'in the direction of' (as in 'go ___ school').", "answer": "to", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'also' or 'excessively' (as in 'me ___').", "answer": "too", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'belonging to it' (no apostrophe).", "answer": "its", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the contraction meaning 'it is'.", "answer": "it's", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'belonging to you'.", "answer": "your", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the contraction meaning 'you are'.", "answer": "you're", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'belonging to whom' (as in '___ book is this?').", "answer": "whose", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the contraction meaning 'who is'.", "answer": "who's", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'calm, with no war or conflict'.", "answer": "peace", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'a part of something'.", "answer": "piece", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'simple, not fancy'.", "answer": "plain", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for an aircraft that flies through the sky.", "answer": "plane", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the condition of the sky, like sun, rain, or snow.", "answer": "weather", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word used to ask about a choice between options (as in 'I don't know ___ to go').", "answer": "whether", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the past tense of 'throw'.", "answer": "threw", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'from one side to the other'.", "answer": "through", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to take something that isn't yours'.", "answer": "steal", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the strong metal used to build bridges and buildings.", "answer": "steel", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the part of a car or bike that makes it stop.", "answer": "brake", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to split something into pieces'.", "answer": "break", "tags": ["homophones"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the day of the week that comes between Tuesday and Thursday.", "answer": "Wednesday", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["February", "Febuary", "Feburary", "Februrary"], "answer": "February", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to keep something in your memory'.", "answer": "remember", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["especially", "expecially", "especialy", "especally"], "answer": "especially", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'most likely'.", "answer": "probably", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["several", "severel", "sevral", "severall"], "answer": "several", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for something unexpected that happens.", "answer": "surprise", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["people", "peaple", "poeple", "peple"], "answer": "people", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'up to the time that'.", "answer": "until", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["complete", "compleat", "complet", "kompleet"], "answer": "complete", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'all the things'.", "answer": "everything", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["something", "somthing", "sumthing", "somethign"], "answer": "something", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'one more' or 'a different one'.", "answer": "another", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["important", "importent", "importint", "impotant"], "answer": "important", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word meaning 'to think something is true'.", "answer": "believe", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["thought", "thout", "thawt", "thoght"], "answer": "thought", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the past tense of 'catch'.", "answer": "caught", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["brought", "brawt", "brougt", "broght"], "answer": "brought", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the sound you make when something is funny.", "answer": "laugh", "tags": ["tricky-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["straight", "straite", "straght", "stright"], "answer": "straight", "tags": ["tricky-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'sun' + 'light' into one compound word.", "answer": "sunlight", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'moon' + 'light' into one compound word.", "answer": "moonlight", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'back' + 'yard' into one compound word.", "answer": "backyard", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'door' + 'bell' into one compound word.", "answer": "doorbell", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'tooth' + 'brush' into one compound word.", "answer": "toothbrush", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'key' + 'board' into one compound word.", "answer": "keyboard", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'snow' + 'man' into one compound word.", "answer": "snowman", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'rain' + 'coat' into one compound word.", "answer": "raincoat", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'butter' + 'fly' into one compound word.", "answer": "butterfly", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'grand' + 'father' into one compound word.", "answer": "grandfather", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'grand' + 'mother' into one compound word.", "answer": "grandmother", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'home' + 'sick' into one compound word.", "answer": "homesick", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'out' + 'side' into one compound word.", "answer": "outside", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Combine 'up' + 'stairs' into one compound word.", "answer": "upstairs", "tags": ["compound-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the person who lives next door to you.", "answer": "neighbor", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["calendar", "calender", "calandar", "calendear"], "answer": "calendar", "tags": ["sight-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a special day like a birthday or a national celebration.", "answer": "holiday", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["favorite", "favorate", "favroite", "favorit"], "answer": "favorite", "tags": ["sight-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the part of the day between noon and evening.", "answer": "afternoon", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["birthday", "birthdai", "berthday", "birthdaye"], "answer": "birthday", "tags": ["sight-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for the part of the day right after sunrise.", "answer": "morning", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["vacation", "vacetion", "vaccation", "vacashun"], "answer": "vacation", "tags": ["sight-words"] },
-  { "type": "TEXT_INPUT", "prompt": "Spell the word for a drawing, painting, or photograph.", "answer": "picture", "tags": ["sight-words"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word is spelled correctly?", "choicesJson": ["address", "adress", "addres", "addresss"], "answer": "address", "tags": ["sight-words"] }
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 're' to 'do' - spell the new word meaning 'do again'.",
+  "answer": "redo",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'un' to 'happy' - spell the new word meaning 'not happy'.",
+  "answer": "unhappy",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ful' to 'help' - spell the new word meaning 'full of help'.",
+  "answer": "helpful",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'less' to 'care' - spell the new word meaning 'without care'.",
+  "answer": "careless",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the number word that comes right after seven, and rhymes with 'gate'.",
+  "answer": "eight",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to put words on paper' that sounds like 'right'.",
+  "answer": "write",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "beautiful",
+   "beutiful",
+   "beautyful",
+   "beatiful"
+  ],
+  "answer": "beautiful",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "because",
+   "becuase",
+   "becausse",
+   "becaus"
+  ],
+  "answer": "because",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the day between Monday and Wednesday.",
+  "answer": "Tuesday",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a group of people related to you (parents, siblings, etc).",
+  "answer": "family",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "different",
+   "diffrent",
+   "differant",
+   "difernt"
+  ],
+  "answer": "different",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'er' to 'teach' - spell the word for someone who teaches.",
+  "answer": "teacher",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for something that happens 'again and again' - starts with 're' + 'peat'.",
+  "answer": "repeat",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the opposite of 'possible' using the prefix 'im'.",
+  "answer": "impossible",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'un' to 'kind' - spell the new word meaning 'not kind'.",
+  "answer": "unkind",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'un' to 'fair' - spell the new word meaning 'not fair'.",
+  "answer": "unfair",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'un' to 'lock' - spell the new word meaning 'to open something locked'.",
+  "answer": "unlock",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 're' to 'play' - spell the new word meaning 'to play again'.",
+  "answer": "replay",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 're' to 'fill' - spell the new word meaning 'to fill again'.",
+  "answer": "refill",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 're' to 'build' - spell the new word meaning 'to build again'.",
+  "answer": "rebuild",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'dis' to 'agree' - spell the new word meaning 'to not agree'.",
+  "answer": "disagree",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'dis' to 'like' - spell the new word meaning 'to not like'.",
+  "answer": "dislike",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'dis' to 'appear' - spell the new word meaning 'to vanish from sight'.",
+  "answer": "disappear",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'pre' to 'view' - spell the new word meaning 'to look at before it happens'.",
+  "answer": "preview",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'pre' to 'heat' - spell the new word meaning 'to heat something before you use it'.",
+  "answer": "preheat",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'mis' to 'spell' - spell the new word meaning 'to spell incorrectly'.",
+  "answer": "misspell",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'mis' to 'place' - spell the new word meaning 'to put something in the wrong spot'.",
+  "answer": "misplace",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'im' to 'mature' - spell the new word meaning 'not mature'.",
+  "answer": "immature",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'in' to 'visible' - spell the new word meaning 'not able to be seen'.",
+  "answer": "invisible",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'non' to 'fiction' - spell the new word for writing about real things, not made-up stories.",
+  "answer": "nonfiction",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ful' to 'hope' - spell the new word meaning 'full of hope'.",
+  "answer": "hopeful",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ful' to 'thank' - spell the new word meaning 'feeling grateful'.",
+  "answer": "thankful",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'less' to 'hope' - spell the new word meaning 'without hope'.",
+  "answer": "hopeless",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'less' to 'harm' - spell the new word meaning 'not able to cause harm'.",
+  "answer": "harmless",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ly' to 'quick' - spell the new word meaning 'in a fast way'.",
+  "answer": "quickly",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ly' to 'slow' - spell the new word meaning 'in an unhurried way'.",
+  "answer": "slowly",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ness' to 'kind' - spell the new word meaning 'the quality of being kind'.",
+  "answer": "kindness",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ness' to 'dark' - spell the new word meaning 'the quality of having no light'.",
+  "answer": "darkness",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ment' to 'enjoy' - spell the new word meaning 'pleasure or fun'.",
+  "answer": "enjoyment",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ment' to 'excite' - spell the new word meaning 'a feeling of eagerness'.",
+  "answer": "excitement",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'able' to 'wash' - spell the new word meaning 'able to be washed'.",
+  "answer": "washable",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'able' to 'comfort' - spell the new word meaning 'giving a feeling of ease'.",
+  "answer": "comfortable",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'or' to 'act' - spell the word for a person who performs in movies or plays.",
+  "answer": "actor",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'er' to 'paint' - spell the word for a person who paints.",
+  "answer": "painter",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ment' to 'move' - spell the new word meaning 'the act of moving'.",
+  "answer": "movement",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix 'ment' to 'arrange' - spell the new word meaning 'a plan or agreement'.",
+  "answer": "arrangement",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'in the direction of' (as in 'go ___ school').",
+  "answer": "to",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'also' or 'excessively' (as in 'me ___').",
+  "answer": "too",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'belonging to it' (no apostrophe).",
+  "answer": "its",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the contraction meaning 'it is'.",
+  "answer": "it's",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'belonging to you'.",
+  "answer": "your",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the contraction meaning 'you are'.",
+  "answer": "you're",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'belonging to whom' (as in '___ book is this?').",
+  "answer": "whose",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the contraction meaning 'who is'.",
+  "answer": "who's",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'calm, with no war or conflict'.",
+  "answer": "peace",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'a part of something'.",
+  "answer": "piece",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'simple, not fancy'.",
+  "answer": "plain",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for an aircraft that flies through the sky.",
+  "answer": "plane",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the condition of the sky, like sun, rain, or snow.",
+  "answer": "weather",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word used to ask about a choice between options (as in 'I don't know ___ to go').",
+  "answer": "whether",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the past tense of 'throw'.",
+  "answer": "threw",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'from one side to the other'.",
+  "answer": "through",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to take something that isn't yours'.",
+  "answer": "steal",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the strong metal used to build bridges and buildings.",
+  "answer": "steel",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the part of a car or bike that makes it stop.",
+  "answer": "brake",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to split something into pieces'.",
+  "answer": "break",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the day of the week that comes between Tuesday and Thursday.",
+  "answer": "Wednesday",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "February",
+   "Febuary",
+   "Feburary",
+   "Februrary"
+  ],
+  "answer": "February",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to keep something in your memory'.",
+  "answer": "remember",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "especially",
+   "expecially",
+   "especialy",
+   "especally"
+  ],
+  "answer": "especially",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'most likely'.",
+  "answer": "probably",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "several",
+   "severel",
+   "sevral",
+   "severall"
+  ],
+  "answer": "several",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for something unexpected that happens.",
+  "answer": "surprise",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "people",
+   "peaple",
+   "poeple",
+   "peple"
+  ],
+  "answer": "people",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'up to the time that'.",
+  "answer": "until",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "complete",
+   "compleat",
+   "complet",
+   "kompleet"
+  ],
+  "answer": "complete",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'all the things'.",
+  "answer": "everything",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "something",
+   "somthing",
+   "sumthing",
+   "somethign"
+  ],
+  "answer": "something",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'one more' or 'a different one'.",
+  "answer": "another",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "important",
+   "importent",
+   "importint",
+   "impotant"
+  ],
+  "answer": "important",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to think something is true'.",
+  "answer": "believe",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "thought",
+   "thout",
+   "thawt",
+   "thoght"
+  ],
+  "answer": "thought",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the past tense of 'catch'.",
+  "answer": "caught",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "brought",
+   "brawt",
+   "brougt",
+   "broght"
+  ],
+  "answer": "brought",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the sound you make when something is funny.",
+  "answer": "laugh",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "straight",
+   "straite",
+   "straght",
+   "stright"
+  ],
+  "answer": "straight",
+  "tags": [
+   "tricky-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'sun' + 'light' into one compound word.",
+  "answer": "sunlight",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'moon' + 'light' into one compound word.",
+  "answer": "moonlight",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'back' + 'yard' into one compound word.",
+  "answer": "backyard",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'door' + 'bell' into one compound word.",
+  "answer": "doorbell",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'tooth' + 'brush' into one compound word.",
+  "answer": "toothbrush",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'key' + 'board' into one compound word.",
+  "answer": "keyboard",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'snow' + 'man' into one compound word.",
+  "answer": "snowman",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'rain' + 'coat' into one compound word.",
+  "answer": "raincoat",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'butter' + 'fly' into one compound word.",
+  "answer": "butterfly",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'grand' + 'father' into one compound word.",
+  "answer": "grandfather",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'grand' + 'mother' into one compound word.",
+  "answer": "grandmother",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'home' + 'sick' into one compound word.",
+  "answer": "homesick",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'out' + 'side' into one compound word.",
+  "answer": "outside",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Combine 'up' + 'stairs' into one compound word.",
+  "answer": "upstairs",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the person who lives next door to you.",
+  "answer": "neighbor",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "calendar",
+   "calender",
+   "calandar",
+   "calendear"
+  ],
+  "answer": "calendar",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a special day like a birthday or a national celebration.",
+  "answer": "holiday",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "favorite",
+   "favorate",
+   "favroite",
+   "favorit"
+  ],
+  "answer": "favorite",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the part of the day between noon and evening.",
+  "answer": "afternoon",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "birthday",
+   "birthdai",
+   "berthday",
+   "birthdaye"
+  ],
+  "answer": "birthday",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the part of the day right after sunrise.",
+  "answer": "morning",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "vacation",
+   "vacetion",
+   "vaccation",
+   "vacashun"
+  ],
+  "answer": "vacation",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a drawing, painting, or photograph.",
+  "answer": "picture",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "address",
+   "adress",
+   "addres",
+   "addresss"
+  ],
+  "answer": "address",
+  "tags": [
+   "sight-words"
+  ]
+ }
 ]

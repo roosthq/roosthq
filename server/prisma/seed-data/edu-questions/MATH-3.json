@@ -1,112 +1,1059 @@
 [
-  { "type": "TEXT_INPUT", "prompt": "7 x 6 = ?", "answer": "42", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "9 x 8 = ?", "answer": "72", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "56 / 7 = ?", "answer": "8", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "45 / 5 = ?", "answer": "9", "tags": ["division"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction shows half of a pizza?", "choicesJson": ["1/4", "1/2", "1/3", "2/2"], "answer": "1/2", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A pizza cut into 4 equal slices - one slice is what fraction?", "choicesJson": ["1/2", "1/3", "1/4", "1/8"], "answer": "1/4", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction is bigger: 1/3 or 1/4?", "choicesJson": ["1/3", "1/4", "They are equal"], "answer": "1/3", "tags": ["fractions"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 5 units long and 3 units wide. What is its area (length x width)?", "answer": "15", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A square has sides of 4 units. What is its perimeter (add all 4 sides)?", "answer": "16", "tags": ["perimeter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 47 to the nearest ten.", "choicesJson": ["40", "50", "45", "47"], "answer": "50", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 82 to the nearest ten.", "choicesJson": ["80", "90", "85", "82"], "answer": "80", "tags": ["rounding"] },
-  { "type": "TEXT_INPUT", "prompt": "6 x 6 = ?", "answer": "36", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "There are 24 cupcakes shared equally among 6 kids. How many does each kid get?", "answer": "4", "tags": ["division"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 5?", "choicesJson": ["23", "35", "42", "51"], "answer": "35", "tags": ["multiples"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 9 = ?", "answer": "27", "tags": ["multiplication"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A box has 3 rows of 8 apples. How many apples total?", "choicesJson": ["11", "24", "27", "21"], "answer": "24", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "81 / 9 = ?", "answer": "9", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "4 x 7 = ?", "answer": "28", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "6 x 8 = ?", "answer": "48", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 9 = ?", "answer": "45", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "7 x 8 = ?", "answer": "56", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "9 x 9 = ?", "answer": "81", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "6 x 9 = ?", "answer": "54", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "4 x 11 = ?", "answer": "44", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 12 = ?", "answer": "36", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 12 = ?", "answer": "60", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "7 x 7 = ?", "answer": "49", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "8 x 8 = ?", "answer": "64", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "4 x 9 = ?", "answer": "36", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "11 x 6 = ?", "answer": "66", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "8 x 12 = ?", "answer": "96", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "7 x 9 = ?", "answer": "63", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 7 = ?", "answer": "35", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "9 x 11 = ?", "answer": "99", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "12 x 12 = ?", "answer": "144", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 8 = ?", "answer": "24", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 11 = ?", "answer": "55", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "6 x 12 = ?", "answer": "72", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "2 x 9 = ?", "answer": "18", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 7 = ?", "answer": "21", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 11 = ?", "answer": "33", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "2 x 12 = ?", "answer": "24", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 6 = ?", "answer": "30", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "10 x 11 = ?", "answer": "110", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "11 x 11 = ?", "answer": "121", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "10 x 12 = ?", "answer": "120", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "2 x 11 = ?", "answer": "22", "tags": ["multiplication"] },
-  { "type": "TEXT_INPUT", "prompt": "63 / 9 = ?", "answer": "7", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "48 / 6 = ?", "answer": "8", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "36 / 4 = ?", "answer": "9", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "72 / 8 = ?", "answer": "9", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "90 / 9 = ?", "answer": "10", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "84 / 7 = ?", "answer": "12", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "96 / 12 = ?", "answer": "8", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "64 / 8 = ?", "answer": "8", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "42 / 6 = ?", "answer": "7", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "108 / 9 = ?", "answer": "12", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "77 / 11 = ?", "answer": "7", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "132 / 11 = ?", "answer": "12", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "121 / 11 = ?", "answer": "11", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "99 / 9 = ?", "answer": "11", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "54 / 9 = ?", "answer": "6", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "66 / 6 = ?", "answer": "11", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "88 / 8 = ?", "answer": "11", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "110 / 10 = ?", "answer": "11", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "24 / 8 = ?", "answer": "3", "tags": ["division"] },
-  { "type": "TEXT_INPUT", "prompt": "49 / 7 = ?", "answer": "7", "tags": ["division"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction shows one third of a pie?", "choicesJson": ["1/2", "1/3", "1/4", "1/5"], "answer": "1/3", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A cake cut into 6 equal slices - one slice is what fraction?", "choicesJson": ["1/6", "1/5", "1/4", "1/3"], "answer": "1/6", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction is bigger: 2/5 or 1/5?", "choicesJson": ["2/5", "1/5", "They are equal"], "answer": "2/5", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction is smaller: 3/8 or 5/8?", "choicesJson": ["3/8", "5/8", "They are equal"], "answer": "3/8", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction equals one whole?", "choicesJson": ["4/4", "3/4", "2/4", "1/4"], "answer": "4/4", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A pizza cut into 8 equal slices - 3 slices is what fraction of the pizza?", "choicesJson": ["3/8", "3/5", "8/3", "5/8"], "answer": "3/8", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction shows two out of four equal parts shaded?", "choicesJson": ["2/4", "4/2", "1/4", "2/2"], "answer": "2/4", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is bigger: 1/2 or 3/8?", "choicesJson": ["1/2", "3/8", "They are equal"], "answer": "1/2", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which fraction represents half of 8 equal parts (4 parts)?", "choicesJson": ["4/8", "3/8", "5/8", "2/8"], "answer": "4/8", "tags": ["fractions"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is smaller, 1/4 or 1/2?", "choicesJson": ["1/4", "1/2"], "answer": "1/4", "tags": ["fractions"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 6 units long and 4 units wide. What is its area (length x width)?", "answer": "24", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 8 units long and 2 units wide. What is its area?", "answer": "16", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A square has sides of 5 units. What is its area (side x side)?", "answer": "25", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A square has sides of 7 units. What is its area?", "answer": "49", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A garden bed is 10 feet long and 3 feet wide. What is its area in square feet?", "answer": "30", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 9 units long and 5 units wide. What is its area?", "answer": "45", "tags": ["area"] },
-  { "type": "TEXT_INPUT", "prompt": "A square has sides of 6 units. What is its perimeter?", "answer": "24", "tags": ["perimeter"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 7 units long and 3 units wide. What is its perimeter?", "answer": "20", "tags": ["perimeter"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 8 units long and 4 units wide. What is its perimeter?", "answer": "24", "tags": ["perimeter"] },
-  { "type": "TEXT_INPUT", "prompt": "A square has sides of 9 units. What is its perimeter?", "answer": "36", "tags": ["perimeter"] },
-  { "type": "TEXT_INPUT", "prompt": "A triangle has sides of 4, 5, and 6 units. What is its perimeter?", "answer": "15", "tags": ["perimeter"] },
-  { "type": "TEXT_INPUT", "prompt": "A rectangle is 12 units long and 7 units wide. What is its perimeter?", "answer": "38", "tags": ["perimeter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 15 to the nearest ten.", "choicesJson": ["10", "20", "15", "5"], "answer": "20", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 63 to the nearest ten.", "choicesJson": ["60", "70", "65", "63"], "answer": "60", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 91 to the nearest ten.", "choicesJson": ["90", "100", "95", "91"], "answer": "90", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 250 to the nearest hundred.", "choicesJson": ["200", "300", "250", "240"], "answer": "300", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 149 to the nearest hundred.", "choicesJson": ["100", "200", "150", "149"], "answer": "100", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 725 to the nearest hundred.", "choicesJson": ["700", "800", "750", "725"], "answer": "700", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 4?", "choicesJson": ["10", "18", "20", "23"], "answer": "20", "tags": ["multiples"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 3?", "choicesJson": ["10", "15", "22", "29"], "answer": "15", "tags": ["multiples"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 6?", "choicesJson": ["14", "18", "22", "26"], "answer": "18", "tags": ["multiples"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 7?", "choicesJson": ["21", "22", "23", "24"], "answer": "21", "tags": ["multiples"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is a multiple of 9?", "choicesJson": ["27", "29", "31", "33"], "answer": "27", "tags": ["multiples"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is NOT a multiple of 5?", "choicesJson": ["20", "35", "42", "50"], "answer": "42", "tags": ["multiples"] },
-  { "type": "TEXT_INPUT", "prompt": "A classroom has 7 rows of 6 desks. How many desks are there in total?", "answer": "42", "tags": ["multiplication", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A parking garage has 9 floors with 8 cars parked on each floor. How many cars are parked in all?", "answer": "72", "tags": ["multiplication", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Each van holds 11 passengers. How many passengers can 6 vans hold?", "answer": "66", "tags": ["multiplication", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "There are 96 crayons to share equally among 8 students. How many crayons does each student get?", "answer": "12", "tags": ["division", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A farmer has 84 apples to pack into boxes of 7. How many boxes does he need?", "answer": "12", "tags": ["division", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A school orders 108 pencils to split evenly among 9 classrooms. How many pencils does each classroom get?", "answer": "12", "tags": ["division", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Liam ate 2 slices of a pizza cut into 8 equal slices. What fraction of the pizza did he eat (as a fraction)?", "answer": "2/8", "tags": ["fractions", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A chocolate bar has 6 equal pieces. If you eat 2 pieces, what fraction of the bar did you eat (as a fraction)?", "answer": "2/6", "tags": ["fractions", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Out of 10 equal parts of a garden, 7 parts have flowers planted. What fraction of the garden has flowers (as a fraction)?", "answer": "7/10", "tags": ["fractions", "word-problem"] }
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "7 x 6 = ?",
+  "answer": "42",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "9 x 8 = ?",
+  "answer": "72",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "56 / 7 = ?",
+  "answer": "8",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "45 / 5 = ?",
+  "answer": "9",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction shows half of a pizza?",
+  "choicesJson": [
+   "1/4",
+   "1/2",
+   "1/3",
+   "2/2"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pizza cut into 4 equal slices - one slice is what fraction?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "1/4",
+   "1/8"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is bigger: 1/3 or 1/4?",
+  "choicesJson": [
+   "1/3",
+   "1/4",
+   "They are equal"
+  ],
+  "answer": "1/3",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 5 units long and 3 units wide. What is its area (length x width)?",
+  "answer": "15",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square has sides of 4 units. What is its perimeter (add all 4 sides)?",
+  "answer": "16",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 47 to the nearest ten.",
+  "choicesJson": [
+   "40",
+   "50",
+   "45",
+   "47"
+  ],
+  "answer": "50",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 82 to the nearest ten.",
+  "choicesJson": [
+   "80",
+   "90",
+   "85",
+   "82"
+  ],
+  "answer": "80",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "6 x 6 = ?",
+  "answer": "36",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "There are 24 cupcakes shared equally among 6 kids. How many does each kid get?",
+  "answer": "4",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 5?",
+  "choicesJson": [
+   "23",
+   "35",
+   "42",
+   "51"
+  ],
+  "answer": "35",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "3 x 9 = ?",
+  "answer": "27",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A box has 3 rows of 8 apples. How many apples total?",
+  "choicesJson": [
+   "11",
+   "24",
+   "27",
+   "21"
+  ],
+  "answer": "24",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "81 / 9 = ?",
+  "answer": "9",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "4 x 7 = ?",
+  "answer": "28",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "6 x 8 = ?",
+  "answer": "48",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "5 x 9 = ?",
+  "answer": "45",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "7 x 8 = ?",
+  "answer": "56",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "9 x 9 = ?",
+  "answer": "81",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "6 x 9 = ?",
+  "answer": "54",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "4 x 11 = ?",
+  "answer": "44",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "3 x 12 = ?",
+  "answer": "36",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "5 x 12 = ?",
+  "answer": "60",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "7 x 7 = ?",
+  "answer": "49",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "8 x 8 = ?",
+  "answer": "64",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "4 x 9 = ?",
+  "answer": "36",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "11 x 6 = ?",
+  "answer": "66",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "8 x 12 = ?",
+  "answer": "96",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "7 x 9 = ?",
+  "answer": "63",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "5 x 7 = ?",
+  "answer": "35",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "9 x 11 = ?",
+  "answer": "99",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "12 x 12 = ?",
+  "answer": "144",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "3 x 8 = ?",
+  "answer": "24",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "5 x 11 = ?",
+  "answer": "55",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "6 x 12 = ?",
+  "answer": "72",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "2 x 9 = ?",
+  "answer": "18",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "3 x 7 = ?",
+  "answer": "21",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "3 x 11 = ?",
+  "answer": "33",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "2 x 12 = ?",
+  "answer": "24",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "5 x 6 = ?",
+  "answer": "30",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "10 x 11 = ?",
+  "answer": "110",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "11 x 11 = ?",
+  "answer": "121",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "10 x 12 = ?",
+  "answer": "120",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "2 x 11 = ?",
+  "answer": "22",
+  "tags": [
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "63 / 9 = ?",
+  "answer": "7",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "48 / 6 = ?",
+  "answer": "8",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "36 / 4 = ?",
+  "answer": "9",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "72 / 8 = ?",
+  "answer": "9",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "90 / 9 = ?",
+  "answer": "10",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "84 / 7 = ?",
+  "answer": "12",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "96 / 12 = ?",
+  "answer": "8",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "64 / 8 = ?",
+  "answer": "8",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "42 / 6 = ?",
+  "answer": "7",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "108 / 9 = ?",
+  "answer": "12",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "77 / 11 = ?",
+  "answer": "7",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "132 / 11 = ?",
+  "answer": "12",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "143 / 11 = ?",
+  "answer": "13",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "99 / 9 = ?",
+  "answer": "11",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "54 / 9 = ?",
+  "answer": "6",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "66 / 6 = ?",
+  "answer": "11",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "88 / 8 = ?",
+  "answer": "11",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "110 / 10 = ?",
+  "answer": "11",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "24 / 8 = ?",
+  "answer": "3",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "49 / 7 = ?",
+  "answer": "7",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction shows one third of a pie?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "1/4",
+   "1/5"
+  ],
+  "answer": "1/3",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A cake cut into 6 equal slices - one slice is what fraction?",
+  "choicesJson": [
+   "1/6",
+   "1/5",
+   "1/4",
+   "1/3"
+  ],
+  "answer": "1/6",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is bigger: 2/5 or 1/5?",
+  "choicesJson": [
+   "2/5",
+   "1/5",
+   "They are equal"
+  ],
+  "answer": "2/5",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is smaller: 3/8 or 5/8?",
+  "choicesJson": [
+   "3/8",
+   "5/8",
+   "They are equal"
+  ],
+  "answer": "3/8",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction equals one whole?",
+  "choicesJson": [
+   "4/4",
+   "3/4",
+   "2/4",
+   "1/4"
+  ],
+  "answer": "4/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pizza cut into 8 equal slices - 3 slices is what fraction of the pizza?",
+  "choicesJson": [
+   "3/8",
+   "3/5",
+   "8/3",
+   "5/8"
+  ],
+  "answer": "3/8",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction shows two out of four equal parts shaded?",
+  "choicesJson": [
+   "2/4",
+   "4/2",
+   "1/4",
+   "2/2"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is bigger: 1/2 or 3/8?",
+  "choicesJson": [
+   "1/2",
+   "3/8",
+   "They are equal"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction represents half of 8 equal parts (4 parts)?",
+  "choicesJson": [
+   "4/8",
+   "3/8",
+   "5/8",
+   "2/8"
+  ],
+  "answer": "4/8",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is smaller, 1/4 or 1/2?",
+  "choicesJson": [
+   "1/4",
+   "1/2"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 6 units long and 4 units wide. What is its area (length x width)?",
+  "answer": "24",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 8 units long and 2 units wide. What is its area?",
+  "answer": "16",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square has sides of 5 units. What is its area (side x side)?",
+  "answer": "25",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square has sides of 7 units. What is its area?",
+  "answer": "49",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A garden bed is 10 feet long and 3 feet wide. What is its area in square feet?",
+  "answer": "30",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 9 units long and 5 units wide. What is its area?",
+  "answer": "45",
+  "tags": [
+   "area"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square has sides of 6 units. What is its perimeter?",
+  "answer": "24",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 7 units long and 3 units wide. What is its perimeter?",
+  "answer": "20",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 8 units long and 4 units wide. What is its perimeter?",
+  "answer": "24",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square has sides of 9 units. What is its perimeter?",
+  "answer": "36",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A triangle has sides of 4, 5, and 6 units. What is its perimeter?",
+  "answer": "15",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is 12 units long and 7 units wide. What is its perimeter?",
+  "answer": "38",
+  "tags": [
+   "perimeter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 15 to the nearest ten.",
+  "choicesJson": [
+   "10",
+   "20",
+   "15",
+   "5"
+  ],
+  "answer": "20",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 63 to the nearest ten.",
+  "choicesJson": [
+   "60",
+   "70",
+   "65",
+   "63"
+  ],
+  "answer": "60",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 91 to the nearest ten.",
+  "choicesJson": [
+   "90",
+   "100",
+   "95",
+   "91"
+  ],
+  "answer": "90",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 250 to the nearest hundred.",
+  "choicesJson": [
+   "200",
+   "300",
+   "250",
+   "240"
+  ],
+  "answer": "300",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 149 to the nearest hundred.",
+  "choicesJson": [
+   "100",
+   "200",
+   "150",
+   "149"
+  ],
+  "answer": "100",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round 725 to the nearest hundred.",
+  "choicesJson": [
+   "700",
+   "800",
+   "750",
+   "725"
+  ],
+  "answer": "700",
+  "tags": [
+   "rounding"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 4?",
+  "choicesJson": [
+   "10",
+   "18",
+   "20",
+   "23"
+  ],
+  "answer": "20",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 3?",
+  "choicesJson": [
+   "10",
+   "15",
+   "22",
+   "29"
+  ],
+  "answer": "15",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 6?",
+  "choicesJson": [
+   "14",
+   "18",
+   "22",
+   "26"
+  ],
+  "answer": "18",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 7?",
+  "choicesJson": [
+   "21",
+   "22",
+   "23",
+   "24"
+  ],
+  "answer": "21",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is a multiple of 9?",
+  "choicesJson": [
+   "27",
+   "29",
+   "31",
+   "33"
+  ],
+  "answer": "27",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is NOT a multiple of 5?",
+  "choicesJson": [
+   "20",
+   "35",
+   "42",
+   "50"
+  ],
+  "answer": "42",
+  "tags": [
+   "multiples"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A classroom has 7 rows of 6 desks. How many desks are there in total?",
+  "answer": "42",
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A parking garage has 9 floors with 8 cars parked on each floor. How many cars are parked in all?",
+  "answer": "72",
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each van holds 11 passengers. How many passengers can 6 vans hold?",
+  "answer": "66",
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "There are 96 crayons to share equally among 8 students. How many crayons does each student get?",
+  "answer": "12",
+  "tags": [
+   "division",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A farmer has 84 apples to pack into boxes of 7. How many boxes does he need?",
+  "answer": "12",
+  "tags": [
+   "division",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A school orders 108 pencils to split evenly among 9 classrooms. How many pencils does each classroom get?",
+  "answer": "12",
+  "tags": [
+   "division",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Liam ate 2 slices of a pizza cut into 8 equal slices. What fraction of the pizza did he eat (as a fraction)?",
+  "answer": "2/8",
+  "tags": [
+   "fractions",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A chocolate bar has 6 equal pieces. If you eat 2 pieces, what fraction of the bar did you eat (as a fraction)?",
+  "answer": "2/6",
+  "tags": [
+   "fractions",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Out of 10 equal parts of a garden, 7 parts have flowers planted. What fraction of the garden has flowers (as a fraction)?",
+  "answer": "7/10",
+  "tags": [
+   "fractions",
+   "word-problem"
+  ]
+ }
 ]
