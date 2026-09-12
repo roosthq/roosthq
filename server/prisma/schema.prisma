@@ -399,6 +399,12 @@ model User {
   fontSizePref        String         @default("md") // per-user app text size: sm | md | lg | xl
   soundEffects        Boolean        @default(true) // per-user celebration chime on complete/approve (kiosk uses its display setting instead)
   simpleMode          Boolean        @default(false) // "My Day" pre-reader view: giant icon tiles instead of dense task lists
+  kidView             Boolean        @default(false) // whole-app simplified shell for this kid (KidApp.tsx) - big bottom nav
+  // (Home/Chores/Store/Play/Learn) instead of the full adult Nav, swapped in
+  // by App.tsx whenever this is on. Adult-set per kid (MembersManager),
+  // default off - Casey's own instruction 2026-09-12 after kid feedback that
+  // the main app reads as too complicated. Independent of simpleMode - a
+  // kid can have either, both, or neither.
   allowanceTokens     Int            @default(0) // weekly automatic token grant (0 = none); paid by the allowance cron when the family feature is on
   rejectionsGiven     Int            @default(0) // lifetime count of chore completions this adult sent back (tracked from 2026-08; adult profile stat)
   birthday            String? // YYYY-MM-DD - age display + automatic birthday countdowns

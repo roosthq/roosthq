@@ -390,6 +390,7 @@ export class AuthService {
         fontSizePref: true,
         soundEffects: true,
         simpleMode: true,
+        kidView: true,
         birthday: true,
         disabledPermissions: true,
         notifyByEmail: true,

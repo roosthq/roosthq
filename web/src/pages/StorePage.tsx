@@ -24,11 +24,16 @@ export default function StorePage({
   tokenName,
   tokenIcon,
   tokenValueUsd,
+  hideTabSwitcher = false,
 }: {
   me: Me;
   tokenName: string;
   tokenIcon: string;
   tokenValueUsd: number;
+  // Kid View picks the tab via its own bottom nav (Store/Play/Learn are
+  // separate destinations there) - this page's own Prizes/Games/Learning
+  // switcher would just be a second, redundant way to do the same thing.
+  hideTabSwitcher?: boolean;
 }) {
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
   // Owner/family manager manage every household, same "sees everything"
@@ -280,7 +285,7 @@ export default function StorePage({
         </div>
       </div>
 
-      {(storeOn ? 1 : 0) + (isAdult && awardsOn ? 1 : 0) + (miniGamesOn ? 1 : 0) + (learningGamesOn ? 1 : 0) > 1 && (
+      {!hideTabSwitcher && (storeOn ? 1 : 0) + (isAdult && awardsOn ? 1 : 0) + (miniGamesOn ? 1 : 0) + (learningGamesOn ? 1 : 0) > 1 && (
         <div className="mt-3 flex rounded border p-0.5 text-sm" style={{ width: 'fit-content' }}>
           {storeOn && (
             <button

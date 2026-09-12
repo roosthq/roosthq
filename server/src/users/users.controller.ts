@@ -118,7 +118,7 @@ export class UsersController {
   setMemberPrefs(
     @CurrentUser() u: SessionPayload,
     @Param('id') id: string,
-    @Body() body: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
+    @Body() body: { simpleMode?: boolean; kidView?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
   ) {
     return this.users.setMemberPrefs(u.userId, u.familyId, id, body);
   }

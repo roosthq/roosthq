@@ -52,6 +52,7 @@ export interface Me {
   fontSizePref?: FontSize;
   soundEffects?: boolean;
   simpleMode?: boolean;
+  kidView?: boolean;
   birthday?: string | null;
   disabledPermissions?: string[];
   notifyByEmail?: boolean;
@@ -217,6 +218,7 @@ export interface Member {
   email?: string;
   tokensDisabled?: boolean;
   simpleMode?: boolean;
+  kidView?: boolean;
   allowanceTokens?: number;
   birthday?: string | null; // YYYY-MM-DD
   disabledPermissions?: string[];
@@ -1320,8 +1322,10 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ soundEffects }),
     }),
-  setMemberPrefs: (userId: string, prefs: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] }) =>
-    req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
+  setMemberPrefs: (
+    userId: string,
+    prefs: { simpleMode?: boolean; kidView?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
+  ) => req<{ ok: boolean }>(`/users/${userId}/prefs`, { method: 'PUT', body: JSON.stringify(prefs) }),
   givenStats: (userId: string, kioskToken?: string) =>
     req<{ tokensGiven: number; awardsGiven: number; approvals: number; rejections: number }>(
       `/users/${userId}/given-stats`,

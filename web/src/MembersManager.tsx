@@ -178,6 +178,10 @@ export default function MembersManager({ me }: { me: Me }) {
     await api.setMemberPrefs(m.id, { simpleMode: !m.simpleMode });
     await refresh();
   }
+  async function toggleKidView(m: Member) {
+    await api.setMemberPrefs(m.id, { kidView: !m.kidView });
+    await refresh();
+  }
   async function setAllowance(m: Member, v: number) {
     await api.setMemberPrefs(m.id, { allowanceTokens: v });
     await refresh();
@@ -503,6 +507,15 @@ export default function MembersManager({ me }: { me: Me }) {
                     <input type="checkbox" checked={!!m.simpleMode} onChange={() => toggleSimple(m)} />
                     My Day view
                   </label>
+                  {m.role === 'KID' && (
+                    <label
+                      className="flex items-center gap-1.5 text-xs text-slate-500"
+                      title="Swaps the whole app for a simplified kid-friendly version: a big bottom nav (Home/Chores/Store/Play/Learn) instead of the full menu. Off by default."
+                    >
+                      <input type="checkbox" checked={!!m.kidView} onChange={() => toggleKidView(m)} />
+                      Kid view
+                    </label>
+                  )}
                 </div>
               </div>
 

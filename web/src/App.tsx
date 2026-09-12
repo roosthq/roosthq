@@ -8,6 +8,7 @@ import { setCelebrationSound } from './celebrate';
 import { setSoundAssignments } from './sounds';
 import { setTokensBadgeEnabled } from './TokenBadge';
 import Nav from './Nav';
+import KidApp from './KidApp';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
 import CalendarPage from './pages/CalendarPage';
@@ -196,6 +197,28 @@ export default function App() {
   const choreWord = family?.choreWord ?? 'Chore';
   const chorePlural = pluralize(choreWord);
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+
+  // Kid View - a whole different, simplified shell (KidApp.tsx), swapped in
+  // per-kid via User.kidView (MembersManager's own toggle, default off).
+  // Casey's own instruction 2026-09-12: the full app reads as too
+  // complicated to a kid, so this short-circuits before any of the adult
+  // Nav/routing below ever renders.
+  if (me.role === 'KID' && me.kidView) {
+    return (
+      <KidApp
+        me={me}
+        family={family}
+        tokenName={tokenName}
+        tokenIcon={tokenIcon}
+        tokenValueUsd={tokenValueUsd}
+        onChangeColorTheme={changeColorTheme}
+        onChangeFontSize={changeFontSize}
+        onUpdateProfile={updateProfile}
+        onLoggedOut={logout}
+      />
+    );
+  }
+
   const choresOn = familyFeatureEnabled(family, 'chores');
   // Store and Awards are independent features that share the /store route
   // (see StorePage.tsx) - the route itself only needs blocking if BOTH are

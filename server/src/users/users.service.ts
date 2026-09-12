@@ -59,6 +59,7 @@ export class UsersService {
         colorTheme: true,
         tokensDisabled: true,
         simpleMode: true,
+        kidView: true,
         allowanceTokens: true,
         birthday: true,
         disabledPermissions: true,
@@ -77,6 +78,7 @@ export class UsersService {
       pinDisabled: u.pinDisabled,
       colorTheme: u.colorTheme,
       simpleMode: u.simpleMode,
+      kidView: u.kidView,
       allowanceTokens: u.allowanceTokens,
       birthday: u.birthday,
       disabledPermissions: Array.isArray(u.disabledPermissions) ? u.disabledPermissions : [],
@@ -211,7 +213,7 @@ export class UsersService {
     actorId: string,
     familyId: string,
     targetId: string,
-    prefs: { simpleMode?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
+    prefs: { simpleMode?: boolean; kidView?: boolean; allowanceTokens?: number; birthday?: string | null; disabledPermissions?: string[] },
   ) {
     const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
     if (!actor || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) throw new ForbiddenException('Adults only');
@@ -221,6 +223,7 @@ export class UsersService {
       where: { id: targetId },
       data: {
         ...(prefs.simpleMode !== undefined && { simpleMode: !!prefs.simpleMode }),
+        ...(prefs.kidView !== undefined && { kidView: !!prefs.kidView }),
         ...(prefs.allowanceTokens !== undefined && { allowanceTokens: Math.max(0, Math.round(prefs.allowanceTokens)) }),
         ...(prefs.birthday !== undefined && {
           birthday: prefs.birthday && /^\d{4}-\d{2}-\d{2}$/.test(prefs.birthday) ? prefs.birthday : null,
