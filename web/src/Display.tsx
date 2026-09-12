@@ -33,7 +33,7 @@ import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import MiniGamesKidView from './MiniGamesKidView';
 import { PlaySession } from './pages/LearningGamesTab';
-import { SUBJECT_META, LearningProgressLoader } from './LearningProgress';
+import { SUBJECT_META, LearningProgressLoader, KidsLearningQuickStats } from './LearningProgress';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -1152,7 +1152,17 @@ export default function Display() {
                         <MiniGamesKidView kioskToken={active.token} tokenIcon={tokenIcon} />
                       </div>
                     )}
-                    {showLearningGames && (
+                    {/* Casey's own instruction: an adult standing at the
+                        kiosk doesn't get the kid-facing "pick a subject and
+                        play" panel - that's swapped for a quick glance at
+                        every kid's own numbers instead. */}
+                    {showLearningGames && isAdult && (
+                      <div className="panel p-3">
+                        <h3 className="mb-2 text-sm font-semibold text-slate-500">Learning</h3>
+                        <KidsLearningQuickStats members={members} kioskToken={active.token} />
+                      </div>
+                    )}
+                    {showLearningGames && !isAdult && (
                       <div className="panel p-3">
                         <div className="mb-2 flex items-center justify-between">
                           <h3 className="text-sm font-semibold text-slate-500">Learning</h3>
@@ -1400,10 +1410,14 @@ export default function Display() {
           own play modal - the subject was already picked in the Learning
           panel above; this is the actual quiz + break + block B + results,
           driven entirely by the kiosk token instead of a cookie session. */}
+      {/* No onBackdropClick/onClose here on purpose - Casey's own
+          instruction: an active session can only be quit through
+          PlaySession's own X, which confirms first. A stray tap outside
+          the card (easy on a touchscreen) must not silently lose a set
+          that isn't saved until it's finished. */}
       {learningSubject && active && (
         <Modal
           maxWidthClass="max-w-lg"
-          onBackdropClick={() => setLearningSubject(null)}
           header={
             <h3 className="text-lg font-semibold">
               {SUBJECT_META[learningSubject].icon} {SUBJECT_META[learningSubject].label}

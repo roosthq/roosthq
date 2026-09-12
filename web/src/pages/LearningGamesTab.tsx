@@ -406,6 +406,53 @@ export function PlaySession({
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
+  // Casey's own instruction: once a session is actually in play, the only
+  // way out is the X, and the X asks first - no accidental backdrop-tap or
+  // stray click losing progress on a set that isn't saved until DONE (see
+  // answer()'s own comment on why). Same component, same rule, on the app
+  // and the kiosk - only the kiosk happens to embed this in a Modal at all.
+  const [confirmQuit, setConfirmQuit] = useState(false);
+
+  function quit() {
+    setConfirmQuit(false);
+    if (onExit) onExit();
+    else {
+      setSession(null);
+      setQuestions([]);
+      setSummary(null);
+      setPhase('PICK_SUBJECT');
+    }
+  }
+
+  const quitButton = (
+    <button
+      onClick={() => setConfirmQuit(true)}
+      aria-label="Quit session"
+      className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+    >
+      ✕
+    </button>
+  );
+
+  const confirmQuitModal = confirmQuit && (
+    <Modal
+      maxWidthClass="max-w-sm"
+      onBackdropClick={() => setConfirmQuit(false)}
+      header={<h3 className="text-lg font-semibold">Quit this session?</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={() => setConfirmQuit(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
+            Keep playing
+          </button>
+          <button onClick={quit} className="rounded bg-red-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-700">
+            Quit
+          </button>
+        </div>
+      }
+    >
+      <p className="text-sm text-slate-500">You'll lose your progress on this set of questions - it isn't saved until you finish.</p>
+    </Modal>
+  );
 
   async function start(subject: EduSubject) {
     setPhase('STARTING');
@@ -498,14 +545,22 @@ export function PlaySession({
             Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish -
             quitting early earns nothing, so see it through!
           </p>
-          {myUserId && (
-            <button
-              onClick={() => setShowProgress(true)}
-              className="shrink-0 whitespace-nowrap rounded border px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-50"
-            >
-              📊 My Progress
-            </button>
-          )}
+          <div className="flex shrink-0 items-center gap-2">
+            {myUserId && (
+              <button
+                onClick={() => setShowProgress(true)}
+                className="whitespace-nowrap rounded border px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-50"
+              >
+                📊 My Progress
+              </button>
+            )}
+            {/* Plain close, no confirm - nothing's in progress yet to lose. */}
+            {onExit && (
+              <button onClick={onExit} aria-label="Close" className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+                ✕
+              </button>
+            )}
+          </div>
         </div>
         {startError && <p className="mt-2 text-sm text-red-500">{startError}</p>}
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -539,7 +594,9 @@ export function PlaySession({
     const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
+        <div className="mb-1 flex justify-end">{quitButton}</div>
         <BreakGame grade={session.grade} onDone={afterBreak} />
+        {confirmQuitModal}
       </div>
     );
   }
@@ -585,11 +642,14 @@ export function PlaySession({
   return (
     <div className="mt-4 flex flex-col items-center gap-4">
       <div className="w-full max-w-md rounded-xl border bg-white p-6">
-        <div className="mb-3 flex items-center justify-between text-xs text-slate-400">
+        <div className="mb-3 flex items-center justify-between gap-2 text-xs text-slate-400">
           <span>
             Question {index + 1} of {questions.length}
           </span>
-          <TokenBadge icon={tokenIcon} amount={sessionTokens} label="so far" />
+          <div className="flex items-center gap-2">
+            <TokenBadge icon={tokenIcon} amount={sessionTokens} label="so far" />
+            {quitButton}
+          </div>
         </div>
         <QuestionVisual visual={q.visual} />
         <p className="text-lg font-semibold">{q.prompt}</p>
@@ -639,6 +699,7 @@ export function PlaySession({
           </div>
         )}
       </div>
+      {confirmQuitModal}
     </div>
   );
 }
