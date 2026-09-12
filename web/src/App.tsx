@@ -205,17 +205,34 @@ export default function App() {
   // Nav/routing below ever renders.
   if (me.role === 'KID' && me.kidView) {
     return (
-      <KidApp
-        me={me}
-        family={family}
-        tokenName={tokenName}
-        tokenIcon={tokenIcon}
-        tokenValueUsd={tokenValueUsd}
-        onChangeColorTheme={changeColorTheme}
-        onChangeFontSize={changeFontSize}
-        onUpdateProfile={updateProfile}
-        onLoggedOut={logout}
-      />
+      <>
+        {/* KidApp renders its own complete shell with no adult chrome at
+            all - the ghost-return banner has to be hoisted out here, or an
+            adult who ghosts into a kid-view kid (Casey does this routinely
+            to check on/set up a kid's account) has no way back to their
+            own account from the UI. */}
+        {me.ghostedBy && (
+          <div className="no-print flex items-center justify-center gap-3 bg-purple-700 px-4 py-2 text-sm text-white">
+            <span>
+              👻 Ghosting as <strong>{me.displayName}</strong>
+            </span>
+            <button onClick={returnToOwner} className="rounded border border-white/40 px-2 py-0.5 hover:bg-white/10">
+              Return to {me.ghostedBy.displayName}
+            </button>
+          </div>
+        )}
+        <KidApp
+          me={me}
+          family={family}
+          tokenName={tokenName}
+          tokenIcon={tokenIcon}
+          tokenValueUsd={tokenValueUsd}
+          onChangeColorTheme={changeColorTheme}
+          onChangeFontSize={changeFontSize}
+          onUpdateProfile={updateProfile}
+          onLoggedOut={logout}
+        />
+      </>
     );
   }
 
