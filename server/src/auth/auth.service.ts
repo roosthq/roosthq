@@ -20,6 +20,16 @@ function emailRequired(role: string): boolean {
   return role !== 'KID';
 }
 
+// Casey's own instruction 2026-09-13: tokens are a kid reward economy by
+// default - an adult isn't doing chores to earn an allowance the way a kid
+// is, so a new adult/owner/family-manager account starts with tokens OFF;
+// a kid still starts earning them. An adult can still turn it back on for
+// themselves via MembersManager (the "Earns tokens" checkbox) - this only
+// changes the starting point.
+function defaultTokensDisabled(role: string): boolean {
+  return role !== 'KID';
+}
+
 export type CallbackResult =
   | { status: 'ok'; userId: string; familyId: string; linkedMember: boolean }
   | { status: 'need_invite' };
@@ -122,7 +132,15 @@ export class AuthService {
     // New account joining via an invite link.
     if (invite) {
       const user = await this.prisma.user.create({
-        data: { familyId: invite.familyId, role: invite.role, displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
+        data: {
+          familyId: invite.familyId,
+          role: invite.role,
+          displayName: name,
+          email,
+          avatar,
+          colorTheme: DEFAULT_COLOR_THEME,
+          tokensDisabled: defaultTokensDisabled(invite.role),
+        },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
@@ -143,7 +161,15 @@ export class AuthService {
     // Owner adding a member in-browser (kept as a convenience; added as ADULT).
     if (ctx.familyId && ctx.mode === 'member') {
       const user = await this.prisma.user.create({
-        data: { familyId: ctx.familyId, role: 'ADULT', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
+        data: {
+          familyId: ctx.familyId,
+          role: 'ADULT',
+          displayName: name,
+          email,
+          avatar,
+          colorTheme: DEFAULT_COLOR_THEME,
+          tokensDisabled: true,
+        },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
@@ -159,7 +185,7 @@ export class AuthService {
         data: { name: `${name}'s Family`, disabledFeatures: defaultDisabledFeatures() },
       });
       const user = await this.prisma.user.create({
-        data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME },
+        data: { familyId: family.id, role: 'OWNER', displayName: name, email, avatar, colorTheme: DEFAULT_COLOR_THEME, tokensDisabled: true },
       });
       await this.prisma.googleAccount.create({
         data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
@@ -197,7 +223,16 @@ export class AuthService {
 
     if (invite) {
       const user = await this.prisma.user.create({
-        data: { familyId: invite.familyId, role: invite.role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+        data: {
+          familyId: invite.familyId,
+          role: invite.role,
+          displayName: input.displayName,
+          email,
+          username,
+          passwordHash,
+          colorTheme: DEFAULT_COLOR_THEME,
+          tokensDisabled: defaultTokensDisabled(invite.role),
+        },
       });
       await this.invites.markAccepted(invite.id);
       await this.notifyFamilyOfNewMember(invite.familyId, user.id, input.displayName);
@@ -210,7 +245,16 @@ export class AuthService {
         data: { name: `${input.displayName}'s Family`, disabledFeatures: defaultDisabledFeatures() },
       });
       const user = await this.prisma.user.create({
-        data: { familyId: family.id, role: 'OWNER', displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+        data: {
+          familyId: family.id,
+          role: 'OWNER',
+          displayName: input.displayName,
+          email,
+          username,
+          passwordHash,
+          colorTheme: DEFAULT_COLOR_THEME,
+          tokensDisabled: true,
+        },
       });
       return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
     }
@@ -241,7 +285,16 @@ export class AuthService {
     if (input.password && input.password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
     const passwordHash = input.password ? hashPassword(input.password) : undefined;
     return this.prisma.user.create({
-      data: { familyId, role, displayName: input.displayName, email, username, passwordHash, colorTheme: DEFAULT_COLOR_THEME },
+      data: {
+        familyId,
+        role,
+        displayName: input.displayName,
+        email,
+        username,
+        passwordHash,
+        colorTheme: DEFAULT_COLOR_THEME,
+        tokensDisabled: defaultTokensDisabled(role),
+      },
       select: { id: true, familyId: true, role: true, displayName: true, email: true, username: true, colorTheme: true },
     });
   }

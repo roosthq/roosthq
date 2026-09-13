@@ -199,6 +199,9 @@ export class OwnerService {
         email,
         username,
         passwordHash,
+        // Adults don't earn chore-reward tokens by default - kids do. See
+        // auth.service.ts's own defaultTokensDisabled for the same rule.
+        tokensDisabled: input.role !== 'KID',
       },
       select: { id: true, displayName: true, role: true, email: true, username: true, active: true },
     });
