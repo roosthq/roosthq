@@ -25,12 +25,19 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
 // tile's own border on the kiosk - Casey's own instruction: "should always
 // fit in the box no matter how high" - and formatTokenAmount adds the comma.
 function TokenStat({ icon, amount }: { icon: string; amount: number }) {
-  const digits = String(Math.round(amount)).length;
-  const sizeClass = digits <= 4 ? 'text-2xl' : digits <= 6 ? 'text-xl' : digits <= 8 ? 'text-lg' : 'text-base';
+  // Size off the FORMATTED string's length, not raw digit count - a 4-digit
+  // balance renders as "1,234" (5 chars, comma included) once
+  // formatTokenAmount adds its thousands separator, and sizing off the bare
+  // digit count let that comma push the text-2xl case past the tile's own
+  // width - clipped by the tile's overflow-hidden instead of the old
+  // "spills past the border" bug, but still wrong either way.
+  const formatted = formatTokenAmount(amount);
+  const len = formatted.length;
+  const sizeClass = len <= 3 ? 'text-2xl' : len <= 6 ? 'text-xl' : len <= 9 ? 'text-lg' : 'text-base';
   return (
     <span className={`inline-flex items-center gap-1 ${sizeClass}`}>
-      <LucideIcon name={icon} size={digits > 6 ? 18 : 24} />
-      {formatTokenAmount(amount)}
+      <LucideIcon name={icon} size={len > 6 ? 18 : 24} />
+      {formatted}
     </span>
   );
 }
