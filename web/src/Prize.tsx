@@ -35,7 +35,7 @@ export function formatPassQuantity(
 export const TYPE_TAG: Record<StorePrize['type'], { icon: string; slot: string; label: string; className: string }> = {
   ITEM: { icon: 'gift', slot: 'prize.item', label: 'Item', className: 'text-slate-500' },
   EVENT: { icon: 'ticket', slot: 'prize.event', label: 'Event', className: 'text-purple-500' },
-  PASS: { icon: 'zap', slot: 'prize.pass', label: 'Pass', className: 'text-amber-500' },
+  PASS: { icon: 'zap', slot: 'prize.pass', label: 'Pass', className: 'text-slate-500' },
 };
 
 // The kid-friendly "quick" card for a PASS prize - no modal for the common
@@ -139,13 +139,13 @@ export function PassCard({
         <TokenBadge icon={tokenIcon} amount={totalCost} />
       </div>
 
-      <p className="text-center text-xs font-medium text-amber-600">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
+      <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
 
       <button
         onClick={() => onBuy(clampedQty)}
         disabled={disabled}
         title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
-        className="rounded-lg bg-amber-500 py-2 text-sm font-semibold text-white hover:bg-amber-400 disabled:opacity-40"
+        className="rounded-lg bg-slate-800 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
       >
         {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
       </button>

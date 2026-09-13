@@ -444,7 +444,7 @@ export function PlaySession({
           <button onClick={() => setConfirmQuit(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
             Keep playing
           </button>
-          <button onClick={quit} className="rounded bg-red-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-red-700">
+          <button onClick={quit} className="btn-delete rounded px-3 py-1.5 text-sm">
             Quit
           </button>
         </div>

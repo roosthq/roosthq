@@ -173,7 +173,7 @@ export default function PrizesPanel({
       {passes.length > 0 && (
         <div className="mt-4">
           <h3 className="flex items-center gap-1.5 text-sm font-semibold">
-            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={13} className="text-amber-500" /> Quick Passes
+            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={13} className={TYPE_TAG.PASS.className} /> Quick Passes
           </h3>
           <ul className="mt-2 space-y-2">
             {passes.map((p) => (

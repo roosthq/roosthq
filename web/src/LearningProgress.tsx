@@ -43,7 +43,7 @@ export function LearningProgressDetail({ progress }: { progress: EduProgress }) 
                   </summary>
                   <ul className="mt-1.5 flex flex-col gap-1.5">
                     {sp.wrongQuestions.map((q) => (
-                      <li key={q.id} className="rounded bg-red-50 px-2 py-1.5 text-xs text-slate-600">
+                      <li key={q.id} className="bg-slate-100 rounded px-2 py-1.5 text-xs text-slate-600">
                         <p>{q.prompt}</p>
                         <p className="mt-0.5 text-slate-400">
                           Correct answer: <span className="font-medium text-slate-600">{q.correctAnswer}</span>

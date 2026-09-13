@@ -79,8 +79,9 @@ export default function KidNav({ me, tokenIcon, tabs }: { me: Me; tokenIcon: str
             <Link
               key={t.to}
               to={t.to}
-              className="flex flex-1 flex-col items-center gap-0.5 py-2.5 text-xs font-semibold"
-              style={isActive ? { background: 'var(--accent)', color: 'white' } : { color: 'var(--text-muted, #64748b)' }}
+              className={`flex flex-1 flex-col items-center gap-0.5 py-2.5 text-xs font-semibold ${
+                isActive ? 'bg-slate-800 text-white' : 'text-slate-600'
+              }`}
             >
               <span className="text-2xl leading-none">{t.icon}</span>
               {t.label}

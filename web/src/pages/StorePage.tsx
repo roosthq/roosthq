@@ -450,7 +450,7 @@ export default function StorePage({
       {activePasses.length > 0 && (
         <section className="mt-8">
           <h3 className="text-md flex items-center gap-1.5 font-semibold">
-            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={16} className="text-amber-500" /> Quick Passes
+            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={16} className={TYPE_TAG.PASS.className} /> Quick Passes
           </h3>
           <ul className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {activePasses.map((p) => (
@@ -1137,7 +1137,7 @@ export function PrizeForm({
           </div>
 
           {type === 'PASS' && (
-            <div className="flex flex-col gap-3 rounded-lg border bg-amber-50 p-3">
+            <div className="card-nested flex flex-col gap-3 rounded-lg p-3">
               <p className="text-xs text-slate-500">
                 Token cost above is <strong>per unit</strong> - a kid picks how many units when they redeem it.
               </p>
