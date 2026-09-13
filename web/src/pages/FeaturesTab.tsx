@@ -311,9 +311,15 @@ function SoundsPanel({ family, onFamilyChanged }: { family: FamilySettings; onFa
     api.customSounds().then(setCustom).catch(() => undefined);
   }, []);
 
+  // Unassigned must show whatever playSlotSound would ACTUALLY play for
+  // this slot (sounds.ts) - was hardcoded to 'chime' for every slot, which
+  // silently lied for eduCorrect/eduWrong/etc (their real fallback is
+  // coin/bloop/successBell/fanfare, per-slot defaultId) until a family
+  // picked something here for the first time.
   function valueFor(slotId: string): string {
     const a = family.soundAssignments[slotId];
-    return a ? `${a.type}:${a.id}` : 'builtin:chime';
+    if (a) return `${a.type}:${a.id}`;
+    return `builtin:${SOUND_SLOTS.find((s) => s.id === slotId)?.defaultId ?? 'chime'}`;
   }
 
   async function setSlot(slotId: string, value: string) {

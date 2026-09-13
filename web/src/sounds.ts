@@ -10,7 +10,12 @@ export interface SoundAssignment {
   id: string;
 }
 
-export const SOUND_SLOTS: { id: string; label: string; help: string }[] = [
+// `defaultId` is what an UNassigned slot falls back to (see playSlotSound) -
+// every slot before the 4 Learning ones below left this unset and got the
+// blanket 'chime' fallback; these four get their own so right/wrong/
+// complete/bonus don't all sound identical for a family that's never
+// touched this settings page.
+export const SOUND_SLOTS: { id: string; label: string; help: string; defaultId?: string }[] = [
   { id: 'choreCompleted', label: 'Chore completed', help: 'A kid marks a chore done' },
   { id: 'choreApproved', label: 'Chore approved', help: 'An adult approves it' },
   { id: 'streakMilestone', label: 'Streak milestone', help: 'A streak goal is hit on approval' },
@@ -18,6 +23,10 @@ export const SOUND_SLOTS: { id: string; label: string; help: string }[] = [
   { id: 'rewardGameWin', label: 'Reward game win', help: 'A wheel/box/card/slot reveals a prize' },
   { id: 'levelUp', label: 'Level up', help: 'Someone reaches a new level' },
   { id: 'notification', label: 'Notification (generic)', help: 'Anything else that dings' },
+  { id: 'eduCorrect', label: 'Learning: correct answer', help: 'Right answer in a Learning games session', defaultId: 'coin' },
+  { id: 'eduWrong', label: 'Learning: wrong answer', help: 'Wrong answer in a Learning games session', defaultId: 'bloop' },
+  { id: 'eduSessionComplete', label: 'Learning: session complete', help: 'Finishing a full Learning session', defaultId: 'successBell' },
+  { id: 'eduSessionBonus', label: 'Learning: perfect + bonus', help: 'A perfect session that also rolls the all-correct bonus', defaultId: 'fanfare' },
 ];
 
 let audioCtx: AudioContext | null = null;
@@ -165,7 +174,7 @@ export function setSoundAssignments(a: Record<string, SoundAssignment> | undefin
 // original default chime when nothing's been assigned yet.
 export function playSlotSound(slot: string) {
   const a = assignments[slot];
-  if (!a) return playBuiltinSound('chime');
+  if (!a) return playBuiltinSound(SOUND_SLOTS.find((s) => s.id === slot)?.defaultId ?? 'chime');
   if (a.type === 'custom') {
     const dataUri = customSounds[a.id];
     if (dataUri) return playCustomSound(dataUri);

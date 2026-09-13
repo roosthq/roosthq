@@ -12,7 +12,7 @@ import {
   type StorePrize,
 } from '../api';
 import { celebrate } from '../celebrate';
-import { gameSfx } from '../gameSfx';
+import { playSlotSound } from '../sounds';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
@@ -513,7 +513,9 @@ export function PlaySession({
     // Right/wrong cue plays the instant the answer lands, same beat as the
     // ✅/❌ feedback text below - not deferred to Next, so it actually reads
     // as feedback ON the answer instead of on whatever comes after it.
-    (result.correct ? gameSfx.hit : gameSfx.miss)();
+    // Family-assignable (Settings > Features > Sounds), not a fixed cue -
+    // unlike mini-games' own click/hit/miss.
+    playSlotSound(result.correct ? 'eduCorrect' : 'eduWrong');
     setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
     setSessionTokens((t) => t + result.tokensAwarded);
     setPhase('FEEDBACK');
@@ -528,8 +530,9 @@ export function PlaySession({
     if (summary) {
       // Bigger cue for a perfect session with a bonus actually won - that's
       // the rarer, more celebration-worthy outcome; a plain finish (or a
-      // perfect session that just didn't roll a bonus) gets the normal win.
-      (summary.allCorrect && summary.bonusTokens > 0 ? gameSfx.bigWin : gameSfx.win)();
+      // perfect session that just didn't roll a bonus) gets the normal
+      // complete sound. Both assignable, same as eduCorrect/eduWrong above.
+      playSlotSound(summary.allCorrect && summary.bonusTokens > 0 ? 'eduSessionBonus' : 'eduSessionComplete');
       setPhase('DONE');
       refreshSubjectProgress(); // grade/mastery may have just changed
       return;
