@@ -994,7 +994,13 @@ export function PrizeForm({
             {uploading && <p className="mt-1 text-xs text-slate-400">Processing image…</p>}
             {image && (
               <div className="mt-2 flex items-center gap-3">
-                <PrizeImage src={image} alt="" crop={imageCrop} className="h-20 w-36 rounded" />
+                {/* aspect-[16/9], not a fixed h-20/w-36 box - PRIZE_CROP_ASPECT
+                    IS 16/9, and this preview has to be that exact ratio or
+                    the crop (chosen against a true 16/9 box in ImageCropper)
+                    renders stretched. w-36 was 144x80 = 1.8, just off 16/9's
+                    1.778 - close enough to look "fine" on some crops, visibly
+                    squished on others (the actual bug report). */}
+                <PrizeImage src={image} alt="" crop={imageCrop} className="aspect-[16/9] w-36 shrink-0 rounded" />
                 <div>
                   <button type="button" onClick={() => setCropping(true)} className="rounded border px-2 py-1 text-xs hover:bg-slate-50">
                     {imageCrop ? 'Adjust crop' : 'Crop for the store card'}

@@ -106,7 +106,11 @@ export default function PoolEditor({
                     onClick={() => setPickerOpenFor(i)}
                     className="flex items-center gap-2 rounded-lg border px-2 py-1.5 text-left hover:bg-slate-50"
                   >
-                    <PrizeImage src={selectedPrize.image} alt="" crop={selectedPrize.imageCrop} className="h-10 w-10 shrink-0 rounded" />
+                    {/* No crop prop - the saved rect is picked against a
+                        16:9 box; forced into this 40px square it'd squish
+                        (same bug as Prize.tsx's PassCard). Uncropped
+                        object-contain never distorts. */}
+                    <PrizeImage src={selectedPrize.image} alt="" className="h-10 w-10 shrink-0 rounded" />
                     <span className="min-w-0">
                       <span className="block break-words font-medium">{selectedPrize.name}</span>
                       <span className="block text-xs text-slate-400">
@@ -145,7 +149,8 @@ export default function PoolEditor({
                       }}
                       className={`flex items-center gap-1.5 rounded-lg border p-1.5 text-left hover:bg-slate-50 ${row.prizeId === p.id ? 'ring-2 ring-slate-800' : ''}`}
                     >
-                      <PrizeImage src={p.image} alt="" crop={p.imageCrop} className="h-8 w-8 shrink-0 rounded" />
+                      {/* Same fix as above - no crop on a tiny square. */}
+                      <PrizeImage src={p.image} alt="" className="h-8 w-8 shrink-0 rounded" />
                       <span className="min-w-0">
                         <span className="block truncate text-xs font-medium">{p.name}</span>
                         <span className="block text-[10px] text-slate-400">🪙 {p.tokenCost}</span>
