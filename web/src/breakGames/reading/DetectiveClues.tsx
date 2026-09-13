@@ -62,12 +62,17 @@ export default function DetectiveClues({ grade, onDone }: { grade: number; onDon
               <button
                 key={c}
                 onClick={() => pick(c)}
+                // bg-emerald-50 was a pale tint that washed out on a dark
+                // card - bg-slate-100 (bridged) carries the highlight
+                // instead. border-slate-200/300 aren't bridged, so those
+                // fall back to the var.
+                style={feedback === 'right' && c === rounds[idx].answer ? undefined : { borderColor: 'var(--border)' }}
                 className={`flex h-20 w-24 flex-col items-center justify-center gap-1 rounded-xl border-2 text-xs font-medium ${
                   feedback === 'right' && c === rounds[idx].answer
-                    ? 'border-emerald-400 bg-emerald-50'
+                    ? 'border-emerald-400 bg-slate-100'
                     : feedback === 'wrong' && c !== rounds[idx].answer
-                      ? 'border-slate-200 text-slate-400'
-                      : 'border-slate-300 bg-white hover:bg-slate-50'
+                      ? 'text-slate-400'
+                      : 'bg-white hover:bg-slate-50'
                 }`}
               >
                 <span className="text-2xl">{c.split(' ')[0]}</span>

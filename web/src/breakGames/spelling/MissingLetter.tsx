@@ -60,7 +60,13 @@ export default function MissingLetter({ grade, onDone }: { grade: number; onDone
         <>
           <div className="flex items-center gap-1 text-3xl font-bold text-slate-700">
             <span>{rounds[idx].before}</span>
-            <span className={`flex h-11 w-11 items-center justify-center rounded border-2 ${filledRight ? 'border-emerald-400 bg-emerald-50 text-emerald-700' : 'border-dashed border-slate-300 text-slate-300'}`}>
+            {/* bg-emerald-50 washed out on a dark card - bg-slate-100 (bridged)
+                instead. border-slate-300 isn't bridged either (only bare
+                `border` is), so the empty slot falls back to the var. */}
+            <span
+              style={filledRight ? undefined : { borderColor: 'var(--border)' }}
+              className={`flex h-11 w-11 items-center justify-center rounded border-2 ${filledRight ? 'border-emerald-400 bg-slate-100 text-emerald-700' : 'border-dashed text-slate-300'}`}
+            >
               {filledRight ? rounds[idx].answer : '_'}
             </span>
             <span>{rounds[idx].after}</span>
@@ -70,8 +76,11 @@ export default function MissingLetter({ grade, onDone }: { grade: number; onDone
               <button
                 key={c}
                 onClick={() => pick(c)}
+                // border-slate-300 isn't bridged (only bare `border` is) - falls
+                // back to the var so the dimmed "wrong" state still adapts.
+                style={wrong ? { borderColor: 'var(--border)' } : undefined}
                 className={`flex h-14 w-14 items-center justify-center rounded-lg border-2 text-xl font-bold ${
-                  wrong ? 'border-slate-300 text-slate-400' : 'border-rose-300 bg-white text-rose-600 hover:bg-rose-50'
+                  wrong ? 'text-slate-400' : 'border-rose-300 bg-white text-rose-600 hover:bg-slate-50'
                 }`}
               >
                 {c}

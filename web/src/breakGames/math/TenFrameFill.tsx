@@ -34,7 +34,9 @@ export default function TenFrameFill({ grade, onDone }: { grade: number; onDone:
               const globalIndex = frameIdx * DOTS_PER_FRAME + i;
               if (globalIndex >= target && globalIndex >= filled) {
                 // Beyond the target - render a dim placeholder, not tappable.
-                return <div key={i} className="h-9 w-9 rounded-full border-2 border-dashed border-slate-200" />;
+                // border-slate-200 isn't in the utility bridge (only bare
+                // `border` is), so it stayed light-gray in dark mode - var instead.
+                return <div key={i} className="h-9 w-9 rounded-full border-2 border-dashed" style={{ borderColor: 'var(--border)' }} />;
               }
               const isFilled = globalIndex < filled;
               return (
@@ -42,7 +44,8 @@ export default function TenFrameFill({ grade, onDone }: { grade: number; onDone:
                   key={i}
                   onClick={() => tapDot(globalIndex)}
                   disabled={isFilled}
-                  className={`h-9 w-9 rounded-full border-2 ${isFilled ? 'border-amber-400 bg-amber-400' : 'border-slate-300 bg-white hover:bg-slate-100'}`}
+                  style={isFilled ? undefined : { borderColor: 'var(--border)' }}
+                  className={`h-9 w-9 rounded-full border-2 ${isFilled ? 'border-amber-400 bg-amber-400' : 'bg-white hover:bg-slate-100'}`}
                 />
               );
             })}

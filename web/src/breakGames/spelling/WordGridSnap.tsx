@@ -53,7 +53,7 @@ export default function WordGridSnap({ grade, onDone }: { grade: number; onDone:
                 ? 'invisible'
                 : wrongId === c.id
                   ? 'animate-pulse border-red-300 text-slate-700'
-                  : 'border-rose-300 bg-white text-rose-600 hover:bg-rose-50'
+                  : 'border-rose-300 bg-white text-rose-600 hover:bg-slate-50'
             }`}
           >
             {c.letter}

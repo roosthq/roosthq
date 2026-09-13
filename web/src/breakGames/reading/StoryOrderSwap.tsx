@@ -90,9 +90,13 @@ export default function StoryOrderSwap({ grade, onDone }: { grade: number; onDon
             <div
               key={step}
               {...props}
-              style={{ touchAction: 'none' }}
+              // border-slate-200 isn't bridged (only bare `border` gets the
+              // theme color) - it stayed light-gray on a dark card. amber/
+              // emerald stay Tailwind classes since those are solid accent
+              // highlights, not pale fills, and read fine in both themes.
+              style={{ touchAction: 'none', ...(props['data-selected'] || props['data-hover'] ? {} : { borderColor: 'var(--border)' }) }}
               className={`flex w-24 flex-col items-center gap-1 rounded-lg border-2 bg-white p-3 ${
-                props['data-selected'] ? 'border-amber-400' : props['data-hover'] ? 'border-emerald-400' : 'border-slate-200'
+                props['data-selected'] ? 'border-amber-400' : props['data-hover'] ? 'border-emerald-400' : ''
               } ${isDragging ? 'opacity-30' : ''}`}
             >
               <Icon size={40} />

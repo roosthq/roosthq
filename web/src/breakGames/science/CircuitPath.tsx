@@ -24,21 +24,26 @@ export default function CircuitPath({ onDone }: { grade: number; onDone: () => v
       <div className="flex items-center gap-1">
         <svg width="34" height="34" viewBox="0 0 34 34">
           <rect x="4" y="10" width="26" height="14" rx="2" fill="#3a3448" />
-          <rect x="0" y="14" width="4" height="6" fill="#64748b" />
+          {/* Terminal nub is structural chrome (gray metal), not a battery
+              brand color - was a fixed hex, invisible on a dark card. */}
+          <rect x="0" y="14" width="4" height="6" style={{ fill: 'var(--text-2)' }} />
         </svg>
         {Array.from({ length: SEGMENTS }, (_, i) => {
           const on = i < connected;
           return (
             <button key={i} onClick={() => tapSegment(i)} className="flex h-8 w-12 items-center justify-center">
               <svg width="48" height="14" viewBox="0 0 48 14">
-                <rect width="48" height="14" rx="3" fill={on ? '#f2c14e' : 'none'} stroke={on ? '#e0a92c' : '#cbd5e1'} strokeWidth="2" strokeDasharray={on ? '0' : '4 3'} />
+                {/* Lit wire keeps its solid gold stroke (reads fine either
+                    theme); the disconnected-wire gray was chrome, not a
+                    game-piece color - now tracks the theme border var. */}
+                <rect width="48" height="14" rx="3" fill={on ? '#f2c14e' : 'none'} style={{ stroke: on ? '#e0a92c' : 'var(--border)' }} strokeWidth="2" strokeDasharray={on ? '0' : '4 3'} />
               </svg>
             </button>
           );
         })}
         <svg width="34" height="34" viewBox="0 0 34 34">
-          <circle cx="17" cy="14" r="11" fill={done ? '#fde68a' : 'none'} stroke={done ? '#f2c14e' : '#94a3b8'} strokeWidth="2" />
-          <path d="M12 24l2 6h6l2-6" fill="none" stroke="#94a3b8" strokeWidth="2" />
+          <circle cx="17" cy="14" r="11" fill={done ? '#fde68a' : 'none'} style={{ stroke: done ? '#f2c14e' : 'var(--text-2)' }} strokeWidth="2" />
+          <path d="M12 24l2 6h6l2-6" fill="none" style={{ stroke: 'var(--text-2)' }} strokeWidth="2" />
         </svg>
       </div>
     </div>

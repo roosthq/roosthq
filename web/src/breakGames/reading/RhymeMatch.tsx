@@ -71,12 +71,18 @@ export default function RhymeMatch({ grade, onDone }: { grade: number; onDone: (
               key={t.id}
               onClick={() => tap(t.id)}
               disabled={matched.has(t.id)}
+              // bg-emerald-50/bg-amber-50 were pale tints tuned for a white
+              // card - washed out on dark/accented backgrounds. Swapped for
+              // bg-slate-100 (bridged); the border color still carries the
+              // matched/open cue. border-slate-300 isn't bridged either, so
+              // the closed tile gets its border from the var instead.
+              style={matched.has(t.id) || isOpen ? undefined : { borderColor: 'var(--border)' }}
               className={`flex h-16 w-24 items-center justify-center rounded-lg border-2 text-sm font-semibold ${
                 matched.has(t.id)
-                  ? 'border-emerald-400 bg-emerald-50 text-emerald-700'
+                  ? 'border-emerald-400 bg-slate-100 text-emerald-700'
                   : isOpen
-                    ? 'border-amber-400 bg-amber-50 text-slate-700'
-                    : 'border-slate-300 bg-slate-700 text-slate-700'
+                    ? 'border-amber-400 bg-slate-100 text-slate-700'
+                    : 'bg-slate-700 text-slate-700'
               }`}
             >
               {isOpen ? t.word : ''}

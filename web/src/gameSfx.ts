@@ -77,4 +77,13 @@ export const gameSfx = {
     sweep(3000, 200, 0.09, 'sawtooth', 0.22);
     tone(4200, 0.02, 'square', 0.15, 0.01);
   },
+  // Learning games' own completion cue, one notch bigger than win() - the
+  // same 4-note rise plus a fast sparkling flourish on top, for the one
+  // moment that's actually rarer than a normal win (every question right
+  // in the session, which is what unlocks the bonus draw in the first
+  // place - not just "got some tokens").
+  bigWin: () => {
+    [523, 659, 784, 1046].forEach((f, i) => tone(f, 0.22, 'triangle', 0.15, i * 0.09));
+    [1568, 1976, 2349, 2637, 3136].forEach((f, i) => tone(f, 0.09, 'triangle', 0.09, 0.36 + i * 0.045));
+  },
 };

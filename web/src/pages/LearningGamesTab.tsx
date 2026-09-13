@@ -11,6 +11,7 @@ import {
   type StorePrize,
 } from '../api';
 import { celebrate } from '../celebrate';
+import { gameSfx } from '../gameSfx';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
@@ -481,6 +482,10 @@ export function PlaySession({
     if (!session || !given.trim()) return;
     const q = questions[index];
     const result = await api.answerLearningQuestion(session.sessionId, q.id, given.trim(), kioskToken);
+    // Right/wrong cue plays the instant the answer lands, same beat as the
+    // ✅/❌ feedback text below - not deferred to Next, so it actually reads
+    // as feedback ON the answer instead of on whatever comes after it.
+    (result.correct ? gameSfx.hit : gameSfx.miss)();
     setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
     setSessionTokens((t) => t + result.tokensAwarded);
     setPhase('FEEDBACK');
@@ -493,6 +498,10 @@ export function PlaySession({
     setGiven('');
     setFeedback(null);
     if (summary) {
+      // Bigger cue for a perfect session with a bonus actually won - that's
+      // the rarer, more celebration-worthy outcome; a plain finish (or a
+      // perfect session that just didn't roll a bonus) gets the normal win.
+      (summary.allCorrect && summary.bonusTokens > 0 ? gameSfx.bigWin : gameSfx.win)();
       setPhase('DONE');
       return;
     }
@@ -612,7 +621,7 @@ export function PlaySession({
           </p>
         )}
         {summary.promotedTo !== null && (
-          <p className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
+          <p className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-emerald-700">
             🎉 Leveled up to {GRADE_LABELS[summary.promotedTo]} grade!
           </p>
         )}

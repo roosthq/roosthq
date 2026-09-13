@@ -62,12 +62,17 @@ export default function RhymePop({ grade, onDone }: { grade: number; onDone: () 
               <button
                 key={c}
                 onClick={() => pick(c)}
+                // bg-emerald-50 was a pale tint that washed out on a dark
+                // card - bg-slate-100 (bridged) keeps the highlight without
+                // it. border-slate-200/300 aren't bridged (only bare
+                // `border` is), so those fall back to the var instead.
+                style={feedback === 'right' && c === rounds[idx].answer ? undefined : { borderColor: 'var(--border)' }}
                 className={`rounded-full border-2 px-5 py-2.5 text-sm font-semibold ${
                   feedback === 'right' && c === rounds[idx].answer
-                    ? 'border-emerald-400 bg-emerald-50 text-emerald-700'
+                    ? 'border-emerald-400 bg-slate-100 text-emerald-700'
                     : feedback === 'wrong' && c !== rounds[idx].answer
-                      ? 'border-slate-200 text-slate-400'
-                      : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                      ? 'text-slate-400'
+                      : 'bg-white text-slate-700 hover:bg-slate-50'
                 }`}
               >
                 {c}

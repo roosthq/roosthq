@@ -108,12 +108,17 @@ export default function WeatherReport({ grade, onDone }: { grade: number; onDone
                 <button
                   key={c}
                   onClick={() => pick(c)}
+                  // bg-emerald-50 was a pale tint tuned for white - swapped
+                  // for bg-slate-100 (bridged). border-slate-200/300 aren't
+                  // bridged either, so the non-highlighted states pull
+                  // their border from the var instead.
+                  style={feedback === 'right' && c === rounds[idx].answer ? undefined : { borderColor: 'var(--border)' }}
                   className={`flex h-20 w-20 flex-col items-center justify-center gap-1 rounded-xl border-2 text-[11px] font-medium ${
                     feedback === 'right' && c === rounds[idx].answer
-                      ? 'border-emerald-400 bg-emerald-50'
+                      ? 'border-emerald-400 bg-slate-100'
                       : feedback === 'wrong' && c !== rounds[idx].answer
-                        ? 'border-slate-200 opacity-50'
-                        : 'border-slate-300 bg-white hover:bg-slate-50'
+                        ? 'opacity-50'
+                        : 'bg-white hover:bg-slate-50'
                   }`}
                 >
                   <Icon size={34} />

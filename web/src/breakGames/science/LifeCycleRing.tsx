@@ -75,7 +75,9 @@ export default function LifeCycleRing({ onDone }: { grade: number; onDone: () =>
     <div className="flex flex-col items-center gap-4 rounded-xl border bg-white p-6">
       <p className="text-sm font-semibold text-slate-600">{done ? '🦋 Full life cycle!' : 'Quick break! Tap the stages in order, starting at the egg'}</p>
       <svg viewBox="0 0 200 200" width="240" height="240">
-        <circle cx={center} cy={center} r={R} fill="none" stroke="#e2e8f0" strokeWidth="2" />
+        {/* Track ring is structural chrome, not a stage color - was a fixed
+            light-gray hex, invisible on a dark card. */}
+        <circle cx={center} cy={center} r={R} fill="none" style={{ stroke: 'var(--border)' }} strokeWidth="2" />
         {ANGLES.map((deg, i) => {
           const rad = (deg * Math.PI) / 180;
           const cx = center + R * Math.cos(rad);
@@ -89,21 +91,25 @@ export default function LifeCycleRing({ onDone }: { grade: number; onDone: () =>
               <foreignObject x="0" y="0" width="48" height="48">
                 <button
                   onClick={() => tap(stage)}
-                  style={{ width: 48, height: 48 }}
+                  // bg-emerald-50 was a pale tint tuned for white, washed
+                  // out on dark/accented cards - swapped for bg-slate-100
+                  // (bridged). border-slate-200 isn't bridged either, so
+                  // the not-yet-reached state pulls its border from the var.
+                  style={{ width: 48, height: 48, borderColor: isDone || isNext ? undefined : 'var(--border)' }}
                   className={`flex items-center justify-center rounded-full border-2 bg-white ${
-                    isDone ? 'border-emerald-400 bg-emerald-50' : isNext ? 'border-amber-400' : 'border-slate-200'
+                    isDone ? 'border-emerald-400 bg-slate-100' : isNext ? 'border-amber-400' : ''
                   } ${wrong === stage ? 'animate-pulse border-red-300' : ''}`}
                 >
                   <Icon size={34} />
                 </button>
               </foreignObject>
-              <text x="24" y="60" textAnchor="middle" fontSize="10" fontFamily="system-ui" fill="#64748b">
+              <text x="24" y="60" textAnchor="middle" fontSize="10" fontFamily="system-ui" style={{ fill: 'var(--text-2)' }}>
                 {LABELS[stage]}
               </text>
             </g>
           );
         })}
-        <text x={center} y={center + 4} textAnchor="middle" fontSize="10" fontFamily="system-ui" fill="#94a3b8">
+        <text x={center} y={center + 4} textAnchor="middle" fontSize="10" fontFamily="system-ui" style={{ fill: 'var(--text-2)' }}>
           start &rarr;
         </text>
       </svg>

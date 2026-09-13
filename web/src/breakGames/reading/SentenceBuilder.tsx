@@ -69,9 +69,10 @@ export default function SentenceBuilder({ grade, onDone }: { grade: number; onDo
               <button
                 key={c}
                 onClick={() => pick(c)}
-                className={`rounded-lg border-2 px-4 py-2 text-sm font-medium ${
-                  filled === 'wrong' ? 'border-slate-300' : 'border-slate-300 hover:bg-slate-50'
-                }`}
+                // border-slate-300 isn't bridged (only bare `border` is) -
+                // stayed light-gray on a dark card. Var fixes it either way.
+                style={{ borderColor: 'var(--border)' }}
+                className={`rounded-lg border-2 px-4 py-2 text-sm font-medium ${filled === 'wrong' ? '' : 'hover:bg-slate-50'}`}
               >
                 {c}
               </button>

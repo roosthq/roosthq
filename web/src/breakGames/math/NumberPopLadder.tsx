@@ -50,8 +50,11 @@ export default function NumberPopLadder({ grade, onDone }: { grade: number; onDo
               key={seqIndex}
               onClick={() => tap(seqIndex)}
               disabled={popped}
+              // border-slate-300 isn't bridged (only bare `border` is) - var
+              // instead so the resting ring doesn't stay light-gray in dark mode.
+              style={popped || wrong === seqIndex ? undefined : { borderColor: 'var(--border)' }}
               className={`flex h-14 w-14 items-center justify-center rounded-full border-2 text-lg font-bold ${
-                popped ? 'border-amber-400 bg-amber-400 text-white' : wrong === seqIndex ? 'animate-pulse border-red-300 text-slate-700' : 'border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                popped ? 'border-amber-400 bg-amber-400 text-white' : wrong === seqIndex ? 'animate-pulse border-red-300 text-slate-700' : 'bg-white text-slate-700 hover:bg-slate-50'
               }`}
             >
               {popped ? '✓' : sequence[seqIndex]}

@@ -39,6 +39,19 @@ export default function BalanceBuilder({ grade, onDone }: { grade: number; onDon
 
   const sum = useMemo(() => round.tiles.filter((t) => used.has(t.id)).reduce((s, t) => s + t.value, 0), [round.tiles, used]);
 
+  // A tile that overshoots was always bounced (no fail state), but nothing
+  // stopped a kid stacking tiles that UNDERSHOOT into a dead end - e.g. a
+  // decoy plus one real part leaves nothing left that reaches the target
+  // exactly, and the old code had no way to take a placed tile back off the
+  // scale. Placed tiles now stay tappable - tap one on the scale to send it
+  // back to the tray instead of being stuck.
+  function removeTile(tileId: string) {
+    if (done) return;
+    const next = new Set(used);
+    next.delete(tileId);
+    setUsed(next);
+  }
+
   const { itemProps, targetProps, dragging } = useDragOrTapAsymmetric({
     mode,
     onCommit: (tileId) => {
@@ -70,21 +83,58 @@ export default function BalanceBuilder({ grade, onDone }: { grade: number; onDon
       </p>
 
       <svg viewBox="0 0 240 110" width="100%" style={{ maxWidth: 320 }}>
-        <rect x="115" y="70" width="10" height="30" fill="#94a3b8" />
+        {/* Structural pieces (pivot/beam) tracked to the theme via CSS vars,
+            not hardcoded slate hex - was a fixed light-gray, low contrast on
+            a dark card. Target/sum boxes stay a solid branded blue - a
+            SOLID fill with white text holds contrast in both themes, unlike
+            a pale tint would. */}
+        <rect x="115" y="70" width="10" height="30" style={{ fill: 'var(--text-2)' }} />
         <g transform={`rotate(${tilt} 120 70)`}>
-          <line x1="20" y1="70" x2="220" y2="70" stroke="#64748b" strokeWidth="4" />
+          <line x1="20" y1="70" x2="220" y2="70" style={{ stroke: 'var(--text-2)' }} strokeWidth="4" />
           <rect x="20" y="70" width="46" height="20" rx="4" fill="#2e6f95" />
           <text x="43" y="84" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="white">
             {round.target}
           </text>
           <g {...scaleProps} style={{ cursor: 'pointer' }}>
-            <rect x="154" y="70" width="66" height="20" rx="4" fill={scaleProps['data-hover'] ? '#c7e6f5' : 'none'} stroke="#2e6f95" strokeWidth="2" />
+            <rect
+              x="154"
+              y="70"
+              width="66"
+              height="20"
+              rx="4"
+              style={{ fill: scaleProps['data-hover'] ? 'var(--accent)' : 'none', fillOpacity: scaleProps['data-hover'] ? 0.18 : 1, stroke: '#2e6f95' }}
+              strokeWidth="2"
+            />
             <text x="187" y="84" textAnchor="middle" fontFamily="system-ui" fontSize="12" fill="#2e6f95">
               {sum}
             </text>
           </g>
         </g>
       </svg>
+
+      {/* Placed tiles - tappable to send back to the tray. Old version hid
+          them entirely once placed (`return null`), so a tile that pushed
+          the total into a dead end (no remaining tile reaches the target
+          exactly, none can be added without overshooting either) had no
+          way back - stuck with no fail state and no fix. */}
+      {used.size > 0 && (
+        <div className="flex flex-wrap justify-center gap-2">
+          {round.tiles
+            .filter((t) => used.has(t.id))
+            .map((t) => (
+              <button
+                key={t.id}
+                onClick={() => removeTile(t.id)}
+                disabled={done}
+                title="Tap to take this off the scale"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border-2 font-semibold text-slate-700 disabled:opacity-70"
+                style={{ borderColor: 'var(--accent)', background: 'var(--tag-bg)' }}
+              >
+                {t.value}
+              </button>
+            ))}
+        </div>
+      )}
 
       <div className="flex flex-wrap justify-center gap-3">
         {round.tiles.map((t) => {
@@ -95,21 +145,24 @@ export default function BalanceBuilder({ grade, onDone }: { grade: number; onDon
             <button
               key={t.id}
               {...props}
-              style={{ touchAction: 'none' }}
-              className={`flex h-12 w-12 items-center justify-center rounded-lg border-2 font-semibold text-slate-700 ${
-                props['data-selected'] ? 'border-amber-400 bg-amber-50' : 'border-slate-300 bg-white'
-              } ${isDragging ? 'opacity-30' : ''} ${rejected === t.id ? 'animate-pulse border-red-300' : ''}`}
+              style={{ touchAction: 'none', borderColor: props['data-selected'] ? 'var(--accent)' : 'var(--border)' }}
+              className={`flex h-12 w-12 items-center justify-center rounded-lg border-2 bg-white font-semibold text-slate-700 ${
+                props['data-selected'] ? 'bg-slate-100' : ''
+              } ${isDragging ? 'opacity-30' : ''} ${rejected === t.id ? 'animate-pulse border-red-400' : ''}`}
             >
               {t.value}
             </button>
           );
         })}
       </div>
+      {used.size > 0 && !done && (
+        <p className="text-xs text-slate-400">Tap a tile on the scale to take it back if you get stuck.</p>
+      )}
 
       {mode === 'drag' && dragging && (
         <div
-          style={{ position: 'fixed', left: dragging.x, top: dragging.y, transform: 'translate(-50%,-50%) scale(1.15)', pointerEvents: 'none', zIndex: 50 }}
-          className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-amber-400 bg-amber-50 font-semibold text-slate-700"
+          style={{ position: 'fixed', left: dragging.x, top: dragging.y, transform: 'translate(-50%,-50%) scale(1.15)', pointerEvents: 'none', zIndex: 50, borderColor: 'var(--accent)' }}
+          className="flex h-12 w-12 items-center justify-center rounded-lg border-2 bg-slate-100 font-semibold text-slate-700"
         >
           {round.tiles.find((t) => t.id === dragging.id)?.value}
         </div>

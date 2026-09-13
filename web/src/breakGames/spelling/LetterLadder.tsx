@@ -42,8 +42,12 @@ export default function LetterLadder({ grade, onDone }: { grade: number; onDone:
         {word.split('').map((_l, i) => (
           <div
             key={i}
+            // bg-emerald-50 washed out on a dark card - bg-slate-100
+            // (bridged) instead. border-slate-300 isn't bridged either
+            // (only bare `border` is), so the empty slot falls back to the var.
+            style={filled[i] ? undefined : { borderColor: 'var(--border)' }}
             className={`flex h-11 w-11 items-center justify-center rounded border-2 text-lg font-bold ${
-              filled[i] ? 'border-emerald-400 bg-emerald-50 text-emerald-700' : 'border-dashed border-slate-300 text-slate-300'
+              filled[i] ? 'border-emerald-400 bg-slate-100 text-emerald-700' : 'border-dashed text-slate-300'
             }`}
           >
             {filled[i] ?? '_'}
@@ -61,7 +65,7 @@ export default function LetterLadder({ grade, onDone }: { grade: number; onDone:
                 ? 'invisible'
                 : wrongId === l.id
                   ? 'animate-pulse border-red-300 text-slate-700'
-                  : 'border-rose-300 bg-white text-rose-600 hover:bg-rose-50'
+                  : 'border-rose-300 bg-white text-rose-600 hover:bg-slate-50'
             }`}
           >
             {l.letter}
