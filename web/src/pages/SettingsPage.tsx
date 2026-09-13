@@ -14,6 +14,7 @@ import MembersManager from '../MembersManager';
 import DisplayAccess from '../DisplayAccess';
 import OwnerFamiliesPanel from '../OwnerFamiliesPanel';
 import HolidaysPanel from '../HolidaysPanel';
+import LearningQuestionsPanel from '../LearningQuestionsPanel';
 import UpdatesPanel from '../UpdatesPanel';
 import FeaturesTab from './FeaturesTab';
 import IconsTab from './IconsTab';
@@ -139,6 +140,12 @@ export default function SettingsPage({ me }: { me: Me }) {
             </Section>
             <Section title="App updates" help="Check for, install, or roll back a Roost HQ update - owner only.">
               <UpdatesPanel />
+            </Section>
+            <Section
+              title="Learning question bank"
+              help="Instance-wide: the shared question bank behind Learning games, every family plays from it. Add your own or edit what's there."
+            >
+              <LearningQuestionsPanel />
             </Section>
           </>
         )}

@@ -683,6 +683,11 @@ export interface EduSubjectProgress {
   wrongCount: number;
   untriedCount: number;
   accuracyPct: number | null; // null = never attempted anything at this grade
+  // Mastered every active question at this grade with nothing at the next
+  // grade to promote into yet - startSession refuses a new session in this
+  // state; the client greys out Play and shows a "mastered for now" badge
+  // instead of letting a kid tap into what would just get rejected.
+  locked: boolean;
   wrongQuestions: EduWrongQuestion[];
 }
 
@@ -704,6 +709,42 @@ export interface EduProgress {
   displayName: string;
   subjects: Record<EduSubject, EduSubjectProgress>;
   recentSessions: EduRecentSession[];
+}
+
+// ---- Question bank admin (owner-only - LearningQuestionsPanel) ----
+
+export interface EduQuestionRow {
+  id: string;
+  subject: EduSubject;
+  grade: number;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  active: boolean;
+  isCustom: boolean; // true = an owner added/edited it; false = original seed content
+  answeredByCount: number; // >0 blocks a real delete - deactivate instead
+}
+
+export interface EduQuestionDetail {
+  id: string;
+  subject: EduSubject;
+  grade: number;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  choices: string[] | null;
+  answer: string;
+  active: boolean;
+  isCustom: boolean;
+  answeredByCount: number;
+}
+
+export interface EduQuestionInput {
+  subject: EduSubject;
+  grade: number;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  choices?: string[];
+  answer: string;
+  active?: boolean;
 }
 
 export interface AwardCatalogItem {
@@ -1762,6 +1803,27 @@ export const api = {
   advanceLearningSession: (sessionId: string, kioskToken?: string) =>
     req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
   learningProgress: (userId: string, kioskToken?: string) => req<EduProgress>(`/learning/progress/${userId}`, {}, kioskToken),
+  // ---- Question bank admin (owner-only) ----
+  listEduQuestions: (
+    filters: { subject?: EduSubject; grade?: number; type?: string; search?: string; activeOnly?: boolean },
+    skip: number,
+    take = 30,
+  ) => {
+    const params = new URLSearchParams();
+    if (filters.subject) params.set('subject', filters.subject);
+    if (filters.grade != null) params.set('grade', String(filters.grade));
+    if (filters.type) params.set('type', filters.type);
+    if (filters.search) params.set('search', filters.search);
+    if (filters.activeOnly) params.set('activeOnly', 'true');
+    params.set('skip', String(skip));
+    params.set('take', String(take));
+    return req<{ items: EduQuestionRow[]; hasMore: boolean }>(`/learning/questions?${params}`);
+  },
+  getEduQuestion: (id: string) => req<EduQuestionDetail>(`/learning/questions/${id}`),
+  createEduQuestion: (dto: EduQuestionInput) => req<EduQuestionDetail>('/learning/questions', { method: 'POST', body: JSON.stringify(dto) }),
+  updateEduQuestion: (id: string, dto: Partial<EduQuestionInput>) =>
+    req<EduQuestionDetail>(`/learning/questions/${id}`, { method: 'PATCH', body: JSON.stringify(dto) }),
+  deleteEduQuestion: (id: string) => req<{ ok: true }>(`/learning/questions/${id}`, { method: 'DELETE' }),
 };
 
 // Chore/member operations bound to an auth context: the browser cookie (default)

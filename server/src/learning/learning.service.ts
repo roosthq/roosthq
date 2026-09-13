@@ -4,7 +4,26 @@ import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { assertFeatureEnabled } from '../common/features';
 import { DEFAULT_TIMEZONE, todayKeyInZone } from '../common/timezone';
+import { paginate, parsePageParams } from '../common/pagination';
 import type { PoolEntry } from '../reward-games/reward-games.service';
+
+// Broad-strokes emoji detector (pictographs, emoticons, symbols, flags, the
+// variation-selector/ZWJ that stitch compound emoji together) - not a
+// formally complete Unicode-emoji test, but every ordinary emoji a keyboard
+// picker would insert lands in one of these ranges. Only ever applied to a
+// TEXT_INPUT answer (Casey's own rule: emoji are fine in a prompt or a
+// multiple-choice option, never in something a kid has to type back).
+const EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F1E6}-\u{1F1FF}⭐❤️‍]/u;
+
+export interface EduQuestionInput {
+  subject: string;
+  grade: number;
+  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  prompt: string;
+  choices?: string[]; // MULTIPLE_CHOICE only
+  answer: string;
+  active?: boolean;
+}
 
 // Educational games (PLANNING.md §19) - a real knowledge quiz, right/wrong
 // checked server-side against EduQuestion.answer, never trusted from the
@@ -42,6 +61,17 @@ export class LearningService {
     const u = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!u || !this.isAdult(u.role)) throw new ForbiddenException('Adults only');
     return u;
+  }
+
+  // EduQuestion has no familyId - it's the ONE shared curriculum every
+  // family on the instance plays from (see the model's own comment).
+  // Editing it changes what every family sees, so this is gated tighter
+  // than the rest of Learning's "any adult" admin surface - same
+  // instance-level Role.OWNER-only gate HolidaysService.assertOwner uses
+  // for its own shared, cross-family resource.
+  private async assertOwner(userId: string) {
+    const u = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!u || u.role !== 'OWNER') throw new ForbiddenException('Owner only');
   }
 
   private sanitizeSubject(s: unknown): string {
@@ -241,13 +271,20 @@ export class LearningService {
   // contradiction). Checked against `grade` as SNAPSHOT ON THE SESSION, not
   // whatever UserSubjectGrade says right now - same "don't retroactively
   // change what a session already asked" rule the grade snapshot exists for.
+  //
+  // No hardcoded grade ceiling here (used to stop dead at grade >= 6) -
+  // the real ceiling is just "does the next grade actually have any
+  // questions yet", so this keeps working unchanged whenever an owner adds
+  // higher-grade content, without a code change. Mastered-but-nothing-to-
+  // promote-into is exactly the "maxed out for now" lock (see startSession).
   private async maybePromote(userId: string, subject: string, grade: number): Promise<number | null> {
-    if (grade >= 6) return null;
     const totalActive = await this.prisma.eduQuestion.count({ where: { subject, grade, active: true } });
     if (totalActive === 0) return null;
     const masteredCount = await this.prisma.eduQuestionProgress.count({ where: { userId, subject, grade, correct: true } });
     if (masteredCount < totalActive) return null;
     const newGrade = grade + 1;
+    const nextGradeHasContent = await this.prisma.eduQuestion.count({ where: { subject, grade: newGrade, active: true } });
+    if (nextGradeHasContent === 0) return null;
     await this.prisma.userSubjectGrade.upsert({
       where: { userId_subject: { userId, subject } },
       create: { userId, subject, grade: newGrade, setById: userId },
@@ -265,10 +302,35 @@ export class LearningService {
   async startSession(familyId: string, userId: string, subject: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const subj = this.sanitizeSubject(subject);
-    const grade = await this.myGrade(userId, familyId, subj);
+    let grade = await this.myGrade(userId, familyId, subj);
+    // Catch-up: normally a maxed-out grade only gets re-checked for
+    // promotion at the END of a session (maybePromote, called from
+    // answer()) - but a kid who's ALREADY maxed out can't start a new
+    // session at all once locked below, so nothing would ever re-run that
+    // check again even after an owner adds the next grade's questions.
+    // Run it here too, before deciding whether to lock.
+    const bumped = await this.maybePromote(userId, subj, grade);
+    if (bumped !== null) grade = bumped;
+    const isLocked = await this.isMaxedOut(subj, grade, userId);
+    if (isLocked) {
+      throw new BadRequestException(`You've mastered every ${subj.toLowerCase()} question so far - more is coming once a higher grade is added!`);
+    }
     const questions = await this.pickQuestions(subj, grade, userId, [], BLOCK_SIZE);
     const session = await this.prisma.eduSession.create({ data: { userId, subject: subj, grade, status: 'BLOCK_A' } });
     return { sessionId: session.id, subject: subj, grade, phase: 'BLOCK_A', questions: questions.map((q) => this.presentQuestion(q)) };
+  }
+
+  // Every active question at this grade mastered, AND nothing at the next
+  // grade to promote into - the actual "nothing left to play" state.
+  // Shared by startSession (refuses a new session) and getProgress (tells
+  // the client to show a locked badge instead of a Play button).
+  private async isMaxedOut(subject: string, grade: number, userId: string): Promise<boolean> {
+    const totalActive = await this.prisma.eduQuestion.count({ where: { subject, grade, active: true } });
+    if (totalActive === 0) return false; // no content at all reads as "not ready yet", not "locked"
+    const masteredCount = await this.prisma.eduQuestionProgress.count({ where: { userId, subject, grade, correct: true } });
+    if (masteredCount < totalActive) return false;
+    const nextGradeHasContent = await this.prisma.eduQuestion.count({ where: { subject, grade: grade + 1, active: true } });
+    return nextGradeHasContent === 0;
   }
 
   private normalize(s: string): string {
@@ -414,6 +476,11 @@ export class LearningService {
         wrongCount: wrong.length,
         untriedCount: Math.max(0, bankSize - progress.length),
         accuracyPct: progress.length ? Math.round((mastered.length / progress.length) * 100) : null,
+        // Every active question at this grade mastered, with nothing at
+        // the next grade to promote into yet - the client uses this to
+        // grey out Play and show a "mastered for now" badge instead of
+        // letting them tap into what startSession would just reject.
+        locked: await this.isMaxedOut(subject, grade, targetUserId),
         wrongQuestions: wrongQuestions.map((q) => ({
           id: q.id,
           type: q.type,
@@ -458,5 +525,157 @@ export class LearningService {
     const questions = await this.pickQuestions(session.subject, session.grade, userId, usedIds, BLOCK_SIZE);
     await this.prisma.eduSession.update({ where: { id: session.id }, data: { status: 'BLOCK_B' } });
     return { phase: 'BLOCK_B', questions: questions.map((q) => this.presentQuestion(q)) };
+  }
+
+  // ---------------- Question bank (owner-only - see assertOwner) ----------------
+
+  private normalizeAnswer(s: string): string {
+    return (s ?? '').trim().toLowerCase();
+  }
+
+  // Never trust the client's own idea of what's valid - same posture as
+  // sanitizePool above. Mutates nothing; throws or returns a clean,
+  // trimmed dto ready to write.
+  private validateQuestionInput(input: EduQuestionInput): EduQuestionInput {
+    const subject = this.sanitizeSubject(input.subject);
+    if (!Number.isFinite(Number(input.grade))) throw new BadRequestException('Grade is required');
+    const grade = Math.max(0, Math.min(6, Math.floor(Number(input.grade))));
+    if (input.type !== 'MULTIPLE_CHOICE' && input.type !== 'TEXT_INPUT') throw new BadRequestException('Unknown question type');
+    const prompt = (input.prompt ?? '').trim();
+    if (!prompt) throw new BadRequestException('Prompt is required');
+    const answer = (input.answer ?? '').trim();
+    if (!answer) throw new BadRequestException('An answer is required');
+
+    if (input.type === 'TEXT_INPUT') {
+      if (EMOJI_RE.test(answer)) throw new BadRequestException('A written answer can’t contain emoji - a kid has to type it back exactly.');
+      return { subject, grade, type: input.type, prompt, answer, active: input.active };
+    }
+
+    // MULTIPLE_CHOICE
+    const choices = (input.choices ?? []).map((c) => (c ?? '').trim()).filter(Boolean);
+    const deduped = [...new Set(choices.map((c) => this.normalizeAnswer(c)))];
+    if (choices.length < 2) throw new BadRequestException('Give at least 2 choices');
+    if (deduped.length !== choices.length) throw new BadRequestException('Choices must all be different');
+    if (!choices.some((c) => this.normalizeAnswer(c) === this.normalizeAnswer(answer))) {
+      throw new BadRequestException('The correct answer has to be one of the choices');
+    }
+    return { subject, grade, type: input.type, prompt, choices, answer, active: input.active };
+  }
+
+  async listQuestions(
+    actorId: string,
+    filters: { subject?: string; grade?: number; type?: string; search?: string; activeOnly?: boolean },
+    skip: number,
+    take: number,
+  ) {
+    await this.assertOwner(actorId);
+    const where: Prisma.EduQuestionWhereInput = {};
+    if (filters.subject) where.subject = this.sanitizeSubject(filters.subject);
+    if (filters.grade != null) where.grade = filters.grade;
+    if (filters.type) where.type = filters.type;
+    if (filters.activeOnly) where.active = true;
+    // No `mode: 'insensitive'` - that's Postgres-only in Prisma, and this
+    // app runs MySQL, whose default utf8mb4 collation is already
+    // case-insensitive for a plain `contains`.
+    if (filters.search?.trim()) where.prompt = { contains: filters.search.trim() };
+    const rows = await this.prisma.eduQuestion.findMany({
+      where,
+      orderBy: [{ subject: 'asc' }, { grade: 'asc' }, { id: 'asc' }],
+      skip,
+      take: take + 1,
+      include: { _count: { select: { progress: true } } },
+    });
+    const { items, hasMore } = paginate(rows, take);
+    return {
+      items: items.map((q) => ({
+        id: q.id,
+        subject: q.subject,
+        grade: q.grade,
+        type: q.type,
+        prompt: q.prompt,
+        active: q.active,
+        isCustom: q.createdById != null,
+        answeredByCount: q._count.progress,
+      })),
+      hasMore,
+    };
+  }
+
+  async getQuestion(actorId: string, id: string) {
+    await this.assertOwner(actorId);
+    const q = await this.prisma.eduQuestion.findUnique({ where: { id }, include: { _count: { select: { progress: true } } } });
+    if (!q) throw new NotFoundException('Question not found');
+    return {
+      id: q.id,
+      subject: q.subject,
+      grade: q.grade,
+      type: q.type,
+      prompt: q.prompt,
+      choices: (q.choicesJson as string[] | null) ?? null,
+      answer: q.answer,
+      active: q.active,
+      isCustom: q.createdById != null,
+      answeredByCount: q._count.progress,
+    };
+  }
+
+  async createQuestion(actorId: string, input: EduQuestionInput) {
+    await this.assertOwner(actorId);
+    const dto = this.validateQuestionInput(input);
+    return this.prisma.eduQuestion.create({
+      data: {
+        subject: dto.subject,
+        grade: dto.grade,
+        type: dto.type,
+        prompt: dto.prompt,
+        choicesJson: dto.type === 'MULTIPLE_CHOICE' ? (dto.choices as unknown as Prisma.InputJsonValue) : undefined,
+        answer: dto.answer,
+        active: dto.active ?? true,
+        createdById: actorId,
+      },
+    });
+  }
+
+  async updateQuestion(actorId: string, id: string, input: Partial<EduQuestionInput>) {
+    await this.assertOwner(actorId);
+    const existing = await this.prisma.eduQuestion.findUnique({ where: { id } });
+    if (!existing) throw new NotFoundException('Question not found');
+    const merged: EduQuestionInput = {
+      subject: input.subject ?? existing.subject,
+      grade: input.grade ?? existing.grade,
+      type: (input.type ?? existing.type) as EduQuestionInput['type'],
+      prompt: input.prompt ?? existing.prompt,
+      choices: input.choices ?? ((existing.choicesJson as string[] | null) ?? undefined),
+      answer: input.answer ?? existing.answer,
+      active: input.active ?? existing.active,
+    };
+    const dto = this.validateQuestionInput(merged);
+    return this.prisma.eduQuestion.update({
+      where: { id },
+      data: {
+        subject: dto.subject,
+        grade: dto.grade,
+        type: dto.type,
+        prompt: dto.prompt,
+        choicesJson: dto.type === 'MULTIPLE_CHOICE' ? (dto.choices as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
+        answer: dto.answer,
+        active: dto.active ?? existing.active,
+      },
+    });
+  }
+
+  // A question with real answer history stays forever (deactivate instead -
+  // a kid's EduQuestionProgress row is part of THEIR record, not something
+  // an owner editing the shared bank should be able to silently erase).
+  // Only a question nobody's ever answered can actually be deleted.
+  async deleteQuestion(actorId: string, id: string) {
+    await this.assertOwner(actorId);
+    const existing = await this.prisma.eduQuestion.findUnique({ where: { id }, include: { _count: { select: { progress: true } } } });
+    if (!existing) throw new NotFoundException('Question not found');
+    if (existing._count.progress > 0) {
+      throw new BadRequestException(`${existing._count.progress} kid${existing._count.progress === 1 ? '' : 's'} already answered this - deactivate it instead of deleting.`);
+    }
+    await this.prisma.eduQuestion.delete({ where: { id } });
+    return { ok: true };
   }
 }

@@ -1217,6 +1217,12 @@ model EduQuestion {
   // that doesn't need one.
   visualJson  Json?
   active      Boolean @default(true)
+  // null = original seeded content (seed-edu-questions.js). Set = an owner
+  // added/edited it through the admin question bank (LearningQuestionsPanel) -
+  // no relation enforced, same "who did this" plain-string convention as
+  // Prize.createdById; just lets the admin UI show "yours" vs "seeded"
+  // without a schema-level distinction that would complicate seeding.
+  createdById String?
 
   progress EduQuestionProgress[]
 

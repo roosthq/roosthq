@@ -13,12 +13,18 @@ export const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> =
 };
 export const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
 
-export function LearningProgressDetail({ progress }: { progress: EduProgress }) {
+// `hideCounts` is the kid's-own-view mode (Casey's own instruction: show
+// grade + a progress bar toward the next one, never the raw question
+// counts) - the adult-review call sites (LearningGamesTab's per-kid
+// accordion, and Display.tsx when the active kiosk profile isn't a KID)
+// leave it off and get the full numeric breakdown unchanged.
+export function LearningProgressDetail({ progress, hideCounts = false }: { progress: EduProgress; hideCounts?: boolean }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {EDU_SUBJECTS.map((s) => {
           const sp = progress.subjects[s];
+          const pct = sp.bankSize > 0 ? Math.min(100, Math.round((sp.masteredCount / sp.bankSize) * 100)) : 0;
           return (
             <div key={s} className="rounded border p-2.5">
               <div className="flex items-center justify-between">
@@ -27,19 +33,35 @@ export function LearningProgressDetail({ progress }: { progress: EduProgress }) 
                 </span>
                 <span className="text-xs text-slate-400">{GRADE_LABELS[sp.grade]} grade</span>
               </div>
-              <div className="mt-1.5 flex flex-wrap gap-3 text-xs text-slate-500">
-                <span>✅ {sp.masteredCount} mastered</span>
-                <span>❌ {sp.wrongCount} wrong</span>
-                <span>⭕ {sp.untriedCount} untried</span>
-                <span className="text-slate-400">of {sp.bankSize}</span>
-              </div>
-              {sp.accuracyPct !== null && (
-                <p className="mt-1 text-xs text-slate-400">{sp.accuracyPct}% correct on questions attempted so far</p>
+              {hideCounts ? (
+                sp.locked ? (
+                  <p className="mt-1.5 text-xs font-medium text-emerald-700">🎉 Mastered every question so far - more coming soon!</p>
+                ) : (
+                  <div className="mt-1.5">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                      <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
+                    </div>
+                    <p className="mt-1 text-xs text-slate-400">Working toward {GRADE_LABELS[Math.min(6, sp.grade + 1)]} grade</p>
+                  </div>
+                )
+              ) : (
+                <>
+                  <div className="mt-1.5 flex flex-wrap gap-3 text-xs text-slate-500">
+                    <span>✅ {sp.masteredCount} mastered</span>
+                    <span>❌ {sp.wrongCount} wrong</span>
+                    <span>⭕ {sp.untriedCount} untried</span>
+                    <span className="text-slate-400">of {sp.bankSize}</span>
+                  </div>
+                  {sp.accuracyPct !== null && (
+                    <p className="mt-1 text-xs text-slate-400">{sp.accuracyPct}% correct on questions attempted so far</p>
+                  )}
+                  {sp.locked && <p className="mt-1 text-xs font-medium text-emerald-700">🎉 Maxed out - waiting on a higher grade's questions.</p>}
+                </>
               )}
               {sp.wrongQuestions.length > 0 && (
                 <details className="mt-2">
                   <summary className="cursor-pointer text-xs font-medium text-red-500">
-                    {sp.wrongQuestions.length} question{sp.wrongQuestions.length === 1 ? '' : 's'} currently wrong
+                    {hideCounts ? 'Questions to review' : `${sp.wrongQuestions.length} question${sp.wrongQuestions.length === 1 ? '' : 's'} currently wrong`}
                   </summary>
                   <ul className="mt-1.5 flex flex-col gap-1.5">
                     {sp.wrongQuestions.map((q) => (
@@ -47,7 +69,7 @@ export function LearningProgressDetail({ progress }: { progress: EduProgress }) 
                         <p>{q.prompt}</p>
                         <p className="mt-0.5 text-slate-400">
                           Correct answer: <span className="font-medium text-slate-600">{q.correctAnswer}</span>
-                          {q.attempts > 1 ? ` - answered ${q.attempts} times` : ''}
+                          {!hideCounts && q.attempts > 1 ? ` - answered ${q.attempts} times` : ''}
                         </p>
                       </li>
                     ))}
@@ -86,7 +108,7 @@ export function LearningProgressDetail({ progress }: { progress: EduProgress }) 
 // same button on the kiosk. `userId`/`kioskToken` swap the auth context;
 // the server allows a self-lookup (actorId === targetUserId) without
 // needing to be an adult - see LearningService.getProgress.
-export function LearningProgressLoader({ userId, kioskToken }: { userId: string; kioskToken?: string }) {
+export function LearningProgressLoader({ userId, kioskToken, hideCounts = false }: { userId: string; kioskToken?: string; hideCounts?: boolean }) {
   const [progress, setProgress] = useState<EduProgress | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -108,7 +130,7 @@ export function LearningProgressLoader({ userId, kioskToken }: { userId: string;
 
   if (loading) return <p className="text-sm text-slate-400">Loading…</p>;
   if (!progress) return <p className="text-sm text-slate-400">Couldn't load progress.</p>;
-  return <LearningProgressDetail progress={progress} />;
+  return <LearningProgressDetail progress={progress} hideCounts={hideCounts} />;
 }
 
 // Kiosk, adult profile: Casey's own instruction - an adult standing at the

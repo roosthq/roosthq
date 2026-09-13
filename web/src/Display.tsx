@@ -1440,7 +1440,7 @@ export default function Display() {
           onBackdropClick={() => setLearningProgressOpen(false)}
           header={<h3 className="text-lg font-semibold">{active.user.displayName}'s learning progress</h3>}
         >
-          <LearningProgressLoader userId={active.user.id} kioskToken={active.token} />
+          <LearningProgressLoader userId={active.user.id} kioskToken={active.token} hideCounts={active.user.role === 'KID'} />
         </Modal>
       )}
 

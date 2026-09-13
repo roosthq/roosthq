@@ -6,6 +6,7 @@ import {
   type EduGradeRow,
   type EduQuestionForPlay,
   type EduSessionStart,
+  type EduProgress,
   type Member,
   type PoolEntry,
   type StorePrize,
@@ -407,12 +408,33 @@ export function PlaySession({
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
   const [showProgress, setShowProgress] = useState(false);
+  // Grade + progress-per-subject for the subject picker itself (Casey's
+  // own instruction: show the grade level and a progress bar toward the
+  // next one right on the picker, not just buried in "My Progress") -
+  // fetched once up front rather than only on-demand behind that button.
+  const [subjectProgress, setSubjectProgress] = useState<EduProgress | null>(null);
+  useEffect(() => {
+    if (!myUserId) return;
+    let alive = true;
+    api
+      .learningProgress(myUserId, kioskToken)
+      .then((p) => alive && setSubjectProgress(p))
+      .catch(() => undefined);
+    return () => {
+      alive = false;
+    };
+  }, [myUserId, kioskToken]);
   // Casey's own instruction: once a session is actually in play, the only
   // way out is the X, and the X asks first - no accidental backdrop-tap or
   // stray click losing progress on a set that isn't saved until DONE (see
   // answer()'s own comment on why). Same component, same rule, on the app
   // and the kiosk - only the kiosk happens to embed this in a Modal at all.
   const [confirmQuit, setConfirmQuit] = useState(false);
+
+  function refreshSubjectProgress() {
+    if (!myUserId) return;
+    api.learningProgress(myUserId, kioskToken).then(setSubjectProgress).catch(() => undefined);
+  }
 
   function quit() {
     setConfirmQuit(false);
@@ -465,8 +487,14 @@ export function PlaySession({
       setIndex(0);
       setSessionTokens(0);
       setPhase('QUESTION');
-    } catch {
-      setStartError(`${SUBJECT_META[subject].label} isn't ready to play yet - ask an adult, or try Math.`);
+    } catch (e) {
+      // The picker already disables a locked subject's button using
+      // subjectProgress, but that fetch can still be mid-flight (or stale)
+      // when a tap lands - surface the server's real reason (e.g. "you've
+      // mastered every..." from the lock, not just "isn't ready yet") when
+      // it has one, same as every other catch(e) { alert(e.message) } call
+      // site in this app.
+      setStartError(e instanceof Error && e.message ? e.message : `${SUBJECT_META[subject].label} isn't ready to play yet - ask an adult, or try Math.`);
       setPhase('PICK_SUBJECT');
     }
   }
@@ -503,6 +531,7 @@ export function PlaySession({
       // perfect session that just didn't roll a bonus) gets the normal win.
       (summary.allCorrect && summary.bonusTokens > 0 ? gameSfx.bigWin : gameSfx.win)();
       setPhase('DONE');
+      refreshSubjectProgress(); // grade/mastery may have just changed
       return;
     }
     if (index + 1 < questions.length) {
@@ -573,18 +602,41 @@ export function PlaySession({
         </div>
         {startError && <p className="mt-2 text-sm text-red-500">{startError}</p>}
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {EDU_SUBJECTS.map((s) => (
-            <li key={s}>
-              <button
-                onClick={() => start(s)}
-                disabled={phase === 'STARTING'}
-                className="flex w-full flex-col items-center gap-2 rounded-xl border bg-white p-5 text-center hover:shadow-sm disabled:opacity-50"
-              >
-                <span className="text-4xl">{SUBJECT_META[s].icon}</span>
-                <span className="font-semibold">{SUBJECT_META[s].label}</span>
-              </button>
-            </li>
-          ))}
+          {EDU_SUBJECTS.map((s) => {
+            const sp = subjectProgress?.subjects[s];
+            const pct = sp && sp.bankSize > 0 ? Math.min(100, Math.round((sp.masteredCount / sp.bankSize) * 100)) : 0;
+            const locked = !!sp?.locked;
+            return (
+              <li key={s}>
+                <button
+                  onClick={() => start(s)}
+                  disabled={phase === 'STARTING' || locked}
+                  className="flex w-full flex-col items-center gap-2 rounded-xl border bg-white p-5 text-center hover:shadow-sm disabled:opacity-50"
+                >
+                  <span className="text-4xl">{SUBJECT_META[s].icon}</span>
+                  <span className="font-semibold">{SUBJECT_META[s].label}</span>
+                  {/* Grade + progress toward the next one, no raw question
+                      counts (Casey's own instruction) - and once every
+                      question at the top grade is mastered with nothing
+                      higher to promote into, the subject locks instead of
+                      just quietly recycling the same mastered questions
+                      forever. */}
+                  {sp && (
+                    <>
+                      <span className="text-xs text-slate-400">{GRADE_LABELS[sp.grade]} grade</span>
+                      {locked ? (
+                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-emerald-700">Mastered for now!</span>
+                      ) : (
+                        <span className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+                          <span className="block h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
+                        </span>
+                      )}
+                    </>
+                  )}
+                </button>
+              </li>
+            );
+          })}
         </ul>
         {showProgress && myUserId && (
           <Modal
@@ -592,7 +644,7 @@ export function PlaySession({
             onBackdropClick={() => setShowProgress(false)}
             header={<h3 className="text-lg font-semibold">My progress</h3>}
           >
-            <LearningProgressLoader userId={myUserId} kioskToken={kioskToken} />
+            <LearningProgressLoader userId={myUserId} kioskToken={kioskToken} hideCounts />
           </Modal>
         )}
       </div>

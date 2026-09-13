@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
-import { LearningService } from './learning.service';
+import { parsePageParams } from '../common/pagination';
+import { LearningService, type EduQuestionInput } from './learning.service';
 
 @UseGuards(AuthGuard)
 @Controller('learning')
@@ -51,5 +52,46 @@ export class LearningController {
   @Post('sessions/:id/advance')
   advance(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.learning.advance(u.familyId, u.userId, id);
+  }
+
+  // ---- Question bank (owner-only - see LearningService.assertOwner) ----
+  @Get('questions')
+  listQuestions(
+    @CurrentUser() u: SessionPayload,
+    @Query('subject') subject?: string,
+    @Query('grade') grade?: string,
+    @Query('type') type?: string,
+    @Query('search') search?: string,
+    @Query('activeOnly') activeOnly?: string,
+    @Query('skip') skip?: string,
+    @Query('take') take?: string,
+  ) {
+    const page = parsePageParams(skip, take);
+    return this.learning.listQuestions(
+      u.userId,
+      { subject, grade: grade != null && grade !== '' ? Number(grade) : undefined, type, search, activeOnly: activeOnly === 'true' },
+      page.skip,
+      page.take,
+    );
+  }
+
+  @Get('questions/:id')
+  getQuestion(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.learning.getQuestion(u.userId, id);
+  }
+
+  @Post('questions')
+  createQuestion(@CurrentUser() u: SessionPayload, @Body() body: EduQuestionInput) {
+    return this.learning.createQuestion(u.userId, body);
+  }
+
+  @Patch('questions/:id')
+  updateQuestion(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: Partial<EduQuestionInput>) {
+    return this.learning.updateQuestion(u.userId, id, body);
+  }
+
+  @Delete('questions/:id')
+  deleteQuestion(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.learning.deleteQuestion(u.userId, id);
   }
 }
