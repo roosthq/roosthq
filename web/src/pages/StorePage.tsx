@@ -106,6 +106,16 @@ export default function StorePage({
   useEffect(() => {
     if (isAdult && !isTopManager) api.locations().then(setLocations).catch(() => setLocations([]));
   }, [isAdult, isTopManager]);
+  // Separate, unconditional fetch (everyone - kids included, the endpoint
+  // has no role gate) for the location filter below - Casey's own
+  // instruction: filter every prize section by location once a family
+  // actually has more than one, distinct from `locations` above (which is
+  // scoped to just the "who can redeem" picker in the adult form).
+  const [allLocations, setAllLocations] = useState<FamilyLocation[]>([]);
+  useEffect(() => {
+    api.locations().then(setAllLocations).catch(() => setAllLocations([]));
+  }, []);
+  const [locationFilter, setLocationFilter] = useState('');
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<StorePrize | null>(null);
   const [viewing, setViewing] = useState<StorePrize | null>(null);
@@ -279,9 +289,21 @@ export default function StorePage({
   // stepper card instead of the browse-then-detail-modal flow the rest of
   // the store uses - Casey's own instruction: "should be quick and kid
   // friendly", and a separate section so it doesn't get lost in the grid.
-  const activePrizes = prizes.filter((p) => !p.archived && !p.suggested && p.type !== 'PASS');
-  const activePasses = prizes.filter((p) => !p.archived && !p.suggested && p.type === 'PASS');
-  const archivedPrizes = prizes.filter((p) => p.archived);
+  // AWARD_ONLY gets its own adult-only "Prize Pool" section too - Casey's
+  // own instruction: mixed into the regular grid (with just a small "award
+  // only" tag) was easy to miss/confuse for a real store item. Kids never
+  // see these at all regardless (server's visibleTo() hides them outright),
+  // so there's nothing to split for the kid-facing view.
+  // A family-wide prize (no location set) always shows regardless of the
+  // filter - same "global + this location" convention used everywhere
+  // else a location scopes something in this app (chores, calendars).
+  const matchesLocationFilter = (p: StorePrize) => !locationFilter || !p.location || p.location.id === locationFilter;
+  const activePrizes = prizes.filter(
+    (p) => !p.archived && !p.suggested && p.type !== 'PASS' && p.visibility !== 'AWARD_ONLY' && matchesLocationFilter(p),
+  );
+  const activePasses = prizes.filter((p) => !p.archived && !p.suggested && p.type === 'PASS' && matchesLocationFilter(p));
+  const poolPrizes = prizes.filter((p) => !p.archived && !p.suggested && p.visibility === 'AWARD_ONLY' && matchesLocationFilter(p));
+  const archivedPrizes = prizes.filter((p) => p.archived && matchesLocationFilter(p));
   // Adults: every pending wishlist item, family-wide. Kids: only ever their
   // own (the server hides everyone else's suggestions from them).
   const suggestions = prizes.filter((p) => p.suggested);
@@ -372,6 +394,23 @@ export default function StorePage({
         </p>
       ) : (
         <>
+      {allLocations.length > 1 && (
+        <div className="mt-3 flex items-center gap-2 text-sm">
+          <span className="text-slate-500">📍</span>
+          <select
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+            className="rounded border px-2 py-1.5 text-sm"
+          >
+            <option value="">All locations</option>
+            {allLocations.map((l) => (
+              <option key={l.id} value={l.id}>
+                {l.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {activePrizes.map((p) => (
           <li key={p.id}>
@@ -393,15 +432,6 @@ export default function StorePage({
                   <span className={`flex items-center gap-1 ${TYPE_TAG[p.type].className}`}>
                     <LucideIcon name={TYPE_TAG[p.type].icon} slot={TYPE_TAG[p.type].slot} size={12} /> {TYPE_TAG[p.type].label}
                   </span>
-                  {p.visibility === 'AWARD_ONLY' && (
-                    <span
-                      className="rounded-full px-2 py-0.5 font-medium"
-                      style={{ background: 'var(--tag-bg)', color: 'var(--tag-text)' }}
-                      title="Hidden from the Store - kids never see this, only reachable via a reward game"
-                    >
-                      <LucideIcon name="gamepad-2" slot="store.awardOnly" size={12} className="inline -mt-0.5" /> award only
-                    </span>
-                  )}
                   {p.location && <span className="text-slate-400">📍 {p.location.name}</span>}
                 </div>
                 {p.description ? (
@@ -435,6 +465,50 @@ export default function StorePage({
                   onBuy={(qty) => redeemPass(p, qty)}
                   onManage={() => setViewing(p)}
                 />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {isAdult && poolPrizes.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md flex items-center gap-1.5 font-semibold">
+            <LucideIcon name="gamepad-2" slot="store.awardOnly" size={16} /> Prize Pool
+          </h3>
+          <p className="text-xs text-slate-400">
+            Hidden from the Store - kids never see or know about these, only reachable by a reward game's pool roll. Kept separate so a
+            real surprise doesn't sit mixed in with what's actually for sale.
+          </p>
+          <ul className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {poolPrizes.map((p) => (
+              <li key={p.id}>
+                <button
+                  onClick={() => setViewing(p)}
+                  className="flex w-full flex-col overflow-hidden rounded border bg-white text-left hover:shadow-sm"
+                >
+                  <PrizeImage src={p.image} alt={p.name} crop={p.imageCrop} className="aspect-[16/9] w-full" />
+                  <div className="flex flex-1 flex-col p-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="min-w-0 flex-1 truncate font-medium leading-tight" title={p.name}>
+                        {p.name}
+                      </span>
+                      <TokenBadge icon={tokenIcon} amount={p.tokenCost} />
+                    </div>
+                    <div className="mt-1 flex items-center gap-2 text-xs">
+                      <span className={`flex items-center gap-1 ${TYPE_TAG[p.type].className}`}>
+                        <LucideIcon name={TYPE_TAG[p.type].icon} slot={TYPE_TAG[p.type].slot} size={12} /> {TYPE_TAG[p.type].label}
+                      </span>
+                      {p.location && <span className="text-slate-400">📍 {p.location.name}</span>}
+                    </div>
+                    {p.description ? (
+                      <p className="mt-1 truncate text-sm text-slate-500">{p.description}</p>
+                    ) : (
+                      <p className="mt-1 truncate text-sm italic text-slate-300">No description</p>
+                    )}
+                    {p.createdByName && <p className="mt-1 text-xs text-slate-400">Added by {p.createdByName}</p>}
+                  </div>
+                </button>
               </li>
             ))}
           </ul>
