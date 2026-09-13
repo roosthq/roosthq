@@ -175,14 +175,17 @@ export default function PrizesPanel({
           <h3 className="flex items-center gap-1.5 text-sm font-semibold">
             <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={13} className={TYPE_TAG.PASS.className} /> Quick Passes
           </h3>
-          {/* Grid, not the stacked list every other section uses here - two
-              half-width cards side by side instead of one full-width card
-              per row. PassCard itself is untouched (still used full-size on
-              StorePage's wide grid) - it just naturally shrinks to whatever
-              width this grid cell gives it. */}
-          <ul className="mt-2 grid grid-cols-2 gap-2">
+          {/* flex-wrap, not a rigid grid-cols-2 - this panel isn't a fixed
+              width (narrower in the kiosk's Calendar-focused layout, wider
+              in Person-focused), and a fixed 2-column grid forced two
+              squished half-cards into whatever room there was, calendar-view
+              narrow included. Each card gets a min-width instead: two float
+              side by side when there's room, one full-width card per row
+              when there isn't. PassCard itself is untouched (still used
+              full-size on StorePage's wide grid). */}
+          <ul className="mt-2 flex flex-wrap gap-2">
             {passes.map((p) => (
-              <li key={p.id}>
+              <li key={p.id} className="min-w-[140px] flex-1 basis-[45%]">
                 <PassCard
                   prize={p}
                   tokenIcon={tokenIcon}
