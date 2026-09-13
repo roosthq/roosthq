@@ -1111,7 +1111,7 @@ export interface StorePrize {
   url?: string | null;
   realPrice?: string | number | null;
   tokenCost: number;
-  type: 'ITEM' | 'EVENT';
+  type: 'ITEM' | 'EVENT' | 'PASS';
   scope: 'GLOBAL' | 'SPECIFIC';
   // 'STORE' (default, purchasable/visible to kids) or 'AWARD_ONLY' (hidden -
   // never shows in the kid-facing Store list, only reachable via a #5
@@ -1125,6 +1125,25 @@ export interface StorePrize {
   suggested: boolean;
   suggestedById?: string | null;
   suggestedByName?: string | null;
+  // true (default) = normal request->approve queue; false = redeem()
+  // resolves straight to FULFILLED, no adult action. Not PASS-exclusive but
+  // that's the type it's really for.
+  requiresApproval: boolean;
+  // PASS type only - what one unit of quantity means, so the buy card/
+  // confirm step can say "a 30 minute pass" or "3 cookies" instead of a
+  // bare "x1". See schema.prisma's Prize model for the full contract.
+  passUnitKind?: 'TIME' | 'COUNT' | null;
+  passUnitMinutes?: number | null;
+  passUnitLabel?: string | null;
+  passUnitLabelPlural?: string | null;
+  passDailyLimit?: number | null;
+  passWeeklyLimit?: number | null;
+  passMonthlyLimit?: number | null;
+  // Kid-view only (undefined for an adult, or a PASS with no limit set) -
+  // the tightest of whichever day/week/month limit currently applies, so
+  // the buy stepper can cap itself instead of letting a request that's
+  // guaranteed to be rejected go through.
+  remainingNow?: number | null;
 }
 
 export interface Redemption {
@@ -1137,7 +1156,18 @@ export interface Redemption {
   source?: 'PURCHASE' | 'GAME';
   requestedAt: string;
   usedAt?: string | null;
-  prize: { name: string; tokenCost: number; type: string };
+  // PASS type only (always 1 for ITEM/EVENT) - how many units this one
+  // redemption bought.
+  quantity: number;
+  prize: {
+    name: string;
+    tokenCost: number;
+    type: string;
+    passUnitKind?: 'TIME' | 'COUNT' | null;
+    passUnitMinutes?: number | null;
+    passUnitLabel?: string | null;
+    passUnitLabelPlural?: string | null;
+  };
   user?: { id: string; displayName: string };
   // Adults only - the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
@@ -1535,7 +1565,8 @@ export const api = {
   updatePrize: (id: string, body: Record<string, unknown>, kioskToken?: string) =>
     req<StorePrize>(`/prizes/${id}`, { method: 'PATCH', body: JSON.stringify(body) }, kioskToken),
   deletePrize: (id: string) => req(`/prizes/${id}`, { method: 'DELETE' }),
-  redeemPrize: (id: string) => req(`/prizes/${id}/redeem`, { method: 'POST' }),
+  redeemPrize: (id: string, quantity?: number) =>
+    req<Redemption>(`/prizes/${id}/redeem`, { method: 'POST', body: JSON.stringify({ quantity }) }),
   redemptions: (opts: { userId?: string; prizeId?: string; skip?: number; take?: number } = {}) => {
     const sp = new URLSearchParams({ skip: String(opts.skip ?? 0), take: String(opts.take ?? 50) });
     if (opts.userId) sp.set('userId', opts.userId);
@@ -1784,7 +1815,8 @@ export type ChoreClient = ReturnType<typeof choreClient>;
 export function prizeClient(kioskToken?: string) {
   return {
     prizes: () => req<StorePrize[]>('/prizes', undefined, kioskToken),
-    redeemPrize: (id: string) => req<Redemption>(`/prizes/${id}/redeem`, { method: 'POST' }, kioskToken),
+    redeemPrize: (id: string, quantity?: number) =>
+      req<Redemption>(`/prizes/${id}/redeem`, { method: 'POST', body: JSON.stringify({ quantity }) }, kioskToken),
     tokenBalance: (userId?: string) =>
       req<{ userId: string; balance: number }>(`/tokens/balance${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
     familySettings: () => req<FamilySettings>('/family/settings', undefined, kioskToken),

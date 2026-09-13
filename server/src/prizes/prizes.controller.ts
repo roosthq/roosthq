@@ -50,8 +50,8 @@ export class PrizesController {
   }
 
   @Post(':id/redeem')
-  redeem(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
-    return this.prizes.redeem(u.familyId, u.userId, id);
+  redeem(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body?: { quantity?: number }) {
+    return this.prizes.redeem(u.familyId, u.userId, id, body?.quantity);
   }
 
   @Post('redemptions/:id/fulfill')

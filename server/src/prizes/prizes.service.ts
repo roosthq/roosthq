@@ -11,6 +11,7 @@ import { NotificationsService } from '../notifications/notifications.service';
 import { paginate } from '../common/pagination';
 import { DisplayEventsService } from '../display/display-events.service';
 import { PresenceService } from '../presence/presence.service';
+import { DEFAULT_TIMEZONE, todayKeyInZone, dowOfKey, addDaysToKey, addMonthsToKey, startOfDayInZone } from '../common/timezone';
 
 export interface CropRect {
   x: number;
@@ -27,7 +28,7 @@ export interface PrizeInput {
   url?: string;
   realPrice?: number;
   tokenCost: number;
-  type?: 'ITEM' | 'EVENT';
+  type?: 'ITEM' | 'EVENT' | 'PASS';
   scope?: 'GLOBAL' | 'SPECIFIC';
   assignedUserIds?: string[];
   locationId?: string | null;
@@ -36,6 +37,18 @@ export interface PrizeInput {
   suggested?: boolean;
   // 'STORE' (default) or 'AWARD_ONLY' - see schema.prisma's Prize.visibility.
   visibility?: 'STORE' | 'AWARD_ONLY';
+  // Not PASS-exclusive (see schema.prisma's own comment) but that's the type
+  // it's really for - false skips the pending queue entirely, straight to
+  // FULFILLED at redeem() time.
+  requiresApproval?: boolean;
+  // PASS type only - see schema.prisma for the full contract.
+  passUnitKind?: 'TIME' | 'COUNT' | null;
+  passUnitMinutes?: number | null;
+  passUnitLabel?: string | null;
+  passUnitLabelPlural?: string | null;
+  passDailyLimit?: number | null;
+  passWeeklyLimit?: number | null;
+  passMonthlyLimit?: number | null;
 }
 
 export interface PrizeSuggestionInput {
@@ -73,6 +86,62 @@ export class PrizesService {
   private async balance(userId: string) {
     const a = await this.prisma.tokenLedger.aggregate({ where: { userId }, _sum: { delta: true } });
     return a._sum.delta ?? 0;
+  }
+
+  // Start-of-window instants for "how many has this kid already redeemed of
+  // this PASS today/this week/this month" - day is a calendar day, week is
+  // Monday-start (matches weekRangeInZone's own convention elsewhere in the
+  // app), month is calendar month, all in DEFAULT_TIMEZONE (no per-family
+  // timezone field exists yet - same convention learning.service.ts uses).
+  private passWindowStarts(): { day: Date; week: Date; month: Date } {
+    const today = todayKeyInZone(DEFAULT_TIMEZONE);
+    const monday = addDaysToKey(today, -((dowOfKey(today) + 6) % 7));
+    const firstOfMonth = { y: today.y, m: today.m, d: 1 };
+    return {
+      day: startOfDayInZone(today, DEFAULT_TIMEZONE),
+      week: startOfDayInZone(monday, DEFAULT_TIMEZONE),
+      month: startOfDayInZone(firstOfMonth, DEFAULT_TIMEZONE),
+    };
+  }
+
+  // Sum of quantity this user has redeemed of this prize since each window
+  // started - REJECTED doesn't count (the request never actually happened),
+  // everything else (requested/approved/fulfilled) does, same as the token
+  // balance already being spent while a request sits pending.
+  private async passUsage(prizeId: string, userId: string): Promise<{ day: number; week: number; month: number }> {
+    const starts = this.passWindowStarts();
+    const rows = await this.prisma.redemption.findMany({
+      where: { prizeId, userId, requestedAt: { gte: starts.month }, status: { not: 'REJECTED' } },
+      select: { requestedAt: true, quantity: true },
+    });
+    let day = 0;
+    let week = 0;
+    let month = 0;
+    for (const r of rows) {
+      month += r.quantity;
+      if (r.requestedAt >= starts.week) week += r.quantity;
+      if (r.requestedAt >= starts.day) day += r.quantity;
+    }
+    return { day, week, month };
+  }
+
+  // How many more of this PASS this kid can redeem RIGHT NOW, the tightest
+  // of whichever of day/week/month limits are actually set - null means no
+  // limit applies at all (unlimited). Used both to cap the kid-facing
+  // quantity stepper (list()) and to enforce the real limit server-side
+  // (redeem()), so the two can never disagree.
+  private async remainingPassQuantity(
+    prize: { id: string; passDailyLimit: number | null; passWeeklyLimit: number | null; passMonthlyLimit: number | null },
+    userId: string,
+  ): Promise<number | null> {
+    if (prize.passDailyLimit == null && prize.passWeeklyLimit == null && prize.passMonthlyLimit == null) return null;
+    const usage = await this.passUsage(prize.id, userId);
+    const remaining = [
+      prize.passDailyLimit != null ? prize.passDailyLimit - usage.day : Infinity,
+      prize.passWeeklyLimit != null ? prize.passWeeklyLimit - usage.week : Infinity,
+      prize.passMonthlyLimit != null ? prize.passMonthlyLimit - usage.month : Infinity,
+    ];
+    return Math.max(0, Math.min(...remaining));
   }
 
   // Non-adult visibility: global + assigned scope, not archived, not an
@@ -126,38 +195,88 @@ export class PrizesService {
         suggestedBy: { select: { id: true, displayName: true } },
       },
     });
-    return prizes
-      .filter((p) => {
-        if (isTopManager) return true;
-        if (adult) return !p.locationId || myLocationIds.has(p.locationId) || p.assignments.some((a) => a.userId === actingUserId);
-        return this.visibleTo(p, actingUserId, myLocationIds);
-      })
-      .map((p) => ({
-        id: p.id,
-        name: p.name,
-        description: p.description,
-        image: p.image,
-        imageCrop: p.imageCrop as CropRect | null,
-        url: adult ? p.url : undefined,
-        realPrice: adult ? p.realPrice : undefined, // hidden from kids
-        tokenCost: p.tokenCost,
-        type: p.type,
-        scope: p.scope,
-        visibility: p.visibility,
-        assignedUserIds: p.assignments.map((a) => a.userId),
-        location: p.location ? { id: p.location.id, name: p.location.name } : null,
-        repeatable: p.repeatable,
-        archived: p.archived,
-        createdByName: p.creator?.displayName ?? null,
-        suggested: p.suggested,
-        suggestedById: p.suggestedById,
-        suggestedByName: p.suggestedBy?.displayName ?? null,
-      }));
+    const visible = prizes.filter((p) => {
+      if (isTopManager) return true;
+      if (adult) return !p.locationId || myLocationIds.has(p.locationId) || p.assignments.some((a) => a.userId === actingUserId);
+      return this.visibleTo(p, actingUserId, myLocationIds);
+    });
+    // Only kids need "how many can I still buy right now" (adults are
+    // managing the prize, not spending against their own limit) - and only
+    // for PASS prizes that actually have a limit set, so this stays a
+    // no-op query-wise for every other prize in the list.
+    const remainingByPrizeId = new Map<string, number | null>();
+    if (!adult) {
+      for (const p of visible) {
+        if (p.type === 'PASS' && (p.passDailyLimit != null || p.passWeeklyLimit != null || p.passMonthlyLimit != null)) {
+          remainingByPrizeId.set(p.id, await this.remainingPassQuantity(p, actingUserId));
+        }
+      }
+    }
+    return visible.map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      image: p.image,
+      imageCrop: p.imageCrop as CropRect | null,
+      url: adult ? p.url : undefined,
+      realPrice: adult ? p.realPrice : undefined, // hidden from kids
+      tokenCost: p.tokenCost,
+      type: p.type,
+      scope: p.scope,
+      visibility: p.visibility,
+      assignedUserIds: p.assignments.map((a) => a.userId),
+      location: p.location ? { id: p.location.id, name: p.location.name } : null,
+      repeatable: p.repeatable,
+      archived: p.archived,
+      createdByName: p.creator?.displayName ?? null,
+      suggested: p.suggested,
+      suggestedById: p.suggestedById,
+      suggestedByName: p.suggestedBy?.displayName ?? null,
+      requiresApproval: p.requiresApproval,
+      passUnitKind: p.passUnitKind,
+      passUnitMinutes: p.passUnitMinutes,
+      passUnitLabel: p.passUnitLabel,
+      passUnitLabelPlural: p.passUnitLabelPlural,
+      passDailyLimit: p.passDailyLimit,
+      passWeeklyLimit: p.passWeeklyLimit,
+      passMonthlyLimit: p.passMonthlyLimit,
+      remainingNow: remainingByPrizeId.get(p.id),
+    }));
+  }
+
+  // PASS is inherently repeatable (a one-off "pass" makes no sense with a
+  // quantity/limit model) and the pass* fields are meaningless noise on any
+  // other type - keep them null there rather than carrying stale values
+  // around if a prize's type ever changes.
+  private normalizePassFields(type: 'ITEM' | 'EVENT' | 'PASS', dto: Partial<PrizeInput>) {
+    if (type !== 'PASS') {
+      return {
+        repeatable: dto.repeatable ?? true,
+        passUnitKind: null,
+        passUnitMinutes: null,
+        passUnitLabel: null,
+        passUnitLabelPlural: null,
+        passDailyLimit: null,
+        passWeeklyLimit: null,
+        passMonthlyLimit: null,
+      };
+    }
+    return {
+      repeatable: true,
+      passUnitKind: dto.passUnitKind ?? null,
+      passUnitMinutes: dto.passUnitKind === 'TIME' ? (dto.passUnitMinutes ?? null) : null,
+      passUnitLabel: dto.passUnitKind === 'COUNT' ? (dto.passUnitLabel?.trim() || null) : null,
+      passUnitLabelPlural: dto.passUnitKind === 'COUNT' ? (dto.passUnitLabelPlural?.trim() || null) : null,
+      passDailyLimit: dto.passDailyLimit ?? null,
+      passWeeklyLimit: dto.passWeeklyLimit ?? null,
+      passMonthlyLimit: dto.passMonthlyLimit ?? null,
+    };
   }
 
   async create(familyId: string, actorId: string, dto: PrizeInput) {
     await assertFeatureEnabled(this.prisma, familyId, 'store');
     await this.assertAdult(actorId);
+    const type = dto.type ?? 'ITEM';
     const prize = await this.prisma.prize.create({
       data: {
         familyId,
@@ -169,11 +288,12 @@ export class PrizesService {
         url: dto.url,
         realPrice: dto.realPrice ?? null,
         tokenCost: dto.tokenCost ?? 0,
-        type: dto.type ?? 'ITEM',
+        type,
         scope: dto.scope ?? 'GLOBAL',
         visibility: dto.visibility ?? 'STORE',
         locationId: dto.locationId ?? null,
-        repeatable: dto.repeatable ?? true,
+        requiresApproval: dto.requiresApproval ?? true,
+        ...this.normalizePassFields(type, dto),
         createdById: actorId,
         assignments:
           dto.scope === 'SPECIFIC' && dto.assignedUserIds?.length
@@ -215,7 +335,13 @@ export class PrizesService {
 
   async update(familyId: string, actorId: string, id: string, dto: Partial<PrizeInput>) {
     await this.assertAdult(actorId);
-    await this.owned(familyId, id);
+    const existing = await this.owned(familyId, id);
+    const resultingType = dto.type ?? (existing.type as 'ITEM' | 'EVENT' | 'PASS');
+    // Only re-derive the pass/repeatable fields when the caller actually
+    // touched something that'd change them - a plain field edit (e.g. just
+    // the description) shouldn't silently reset an untouched prize's limits
+    // back to null every time it's saved.
+    const touchesPassFields = dto.type !== undefined || dto.repeatable !== undefined || Object.keys(dto).some((k) => k.startsWith('pass'));
     await this.prisma.prize.update({
       where: { id },
       data: {
@@ -231,9 +357,10 @@ export class PrizesService {
         ...(dto.scope !== undefined && { scope: dto.scope }),
         ...(dto.visibility !== undefined && { visibility: dto.visibility }),
         ...(dto.locationId !== undefined && { locationId: dto.locationId }),
-        ...(dto.repeatable !== undefined && { repeatable: dto.repeatable }),
         ...(dto.archived !== undefined && { archived: dto.archived }),
         ...(dto.suggested !== undefined && { suggested: dto.suggested }),
+        ...(dto.requiresApproval !== undefined && { requiresApproval: dto.requiresApproval }),
+        ...(touchesPassFields ? this.normalizePassFields(resultingType, dto) : {}),
       },
     });
     if (dto.assignedUserIds) {
@@ -262,10 +389,34 @@ export class PrizesService {
     return { ok: true };
   }
 
-  // Redeem: check eligibility + balance, deduct tokens (ledger), record the
-  // purchase, and - for a non-repeatable prize - archive it so it drops out of
-  // the active store once someone's bought it.
-  async redeem(familyId: string, actingUserId: string, prizeId: string) {
+  // Renders a PASS's quantity as a human phrase - "a 30 minute pass" (TIME,
+  // qty 1), "a 1 hour pass" (TIME, qty 2 @ 30 min/unit), "3 cookies" (COUNT).
+  // Same formatting the client shows before purchase - kept here too so
+  // ledger reasons/notifications read the same way, not just the UI.
+  static formatPassQuantity(
+    prize: { passUnitKind: string | null; passUnitMinutes: number | null; passUnitLabel: string | null; passUnitLabelPlural: string | null },
+    quantity: number,
+  ): string {
+    if (prize.passUnitKind === 'TIME' && prize.passUnitMinutes) {
+      const totalMin = prize.passUnitMinutes * quantity;
+      const hrs = Math.floor(totalMin / 60);
+      const mins = totalMin % 60;
+      const phrase = hrs === 0 ? `${mins} minute` : mins === 0 ? `${hrs} hour${hrs > 1 ? 's' : ''}` : `${hrs} hr ${mins} min`;
+      return `a ${phrase} pass`;
+    }
+    if (prize.passUnitKind === 'COUNT' && prize.passUnitLabel) {
+      const noun = quantity === 1 ? prize.passUnitLabel : prize.passUnitLabelPlural || `${prize.passUnitLabel}s`;
+      return `${quantity} ${noun}`;
+    }
+    return `x${quantity}`;
+  }
+
+  // Redeem: check eligibility + balance + (PASS) day/week/month limits,
+  // deduct tokens (ledger), record the purchase, and - for a non-repeatable
+  // prize - archive it so it drops out of the active store once bought.
+  // `quantity` is PASS-only; forced to 1 for every other type regardless of
+  // what's passed, so a stray/hostile value there can't do anything.
+  async redeem(familyId: string, actingUserId: string, prizeId: string, requestedQuantity = 1) {
     await assertFeatureEnabled(this.prisma, familyId, 'store');
     await assertKidPermission(this.prisma, actingUserId, 'store');
     // Away/vacation blocks buying prizes outright - checked on their
@@ -289,16 +440,31 @@ export class PrizesService {
       throw new BadRequestException('This prize is no longer available');
     }
 
+    const quantity = prize.type === 'PASS' ? Math.max(1, Math.floor(requestedQuantity) || 1) : 1;
+    if (prize.type === 'PASS') {
+      const remaining = await this.remainingPassQuantity(prize, actingUserId);
+      if (remaining != null && quantity > remaining) {
+        throw new BadRequestException(remaining === 0 ? "You've hit the limit for this today" : `Only ${remaining} left of this for now`);
+      }
+    }
+
+    const totalCost = prize.tokenCost * quantity;
     const bal = await this.balance(actingUserId);
-    if (bal < prize.tokenCost) throw new BadRequestException('Not enough tokens');
+    if (bal < totalCost) throw new BadRequestException('Not enough tokens');
+
+    // A PASS that doesn't require approval resolves itself right here -
+    // there's no adult action left to take, so it never enters the pending
+    // queue at all (see setRedemptionStatus/StorePage's own "Grant" button).
+    const autoApprove = !prize.requiresApproval;
     const redemption = await this.prisma.redemption.create({
-      data: { prizeId, userId: actingUserId, status: 'REQUESTED' },
+      data: { prizeId, userId: actingUserId, quantity, status: autoApprove ? 'FULFILLED' : 'REQUESTED' },
     });
+    const label = prize.type === 'PASS' ? ` (${PrizesService.formatPassQuantity(prize, quantity)})` : '';
     await this.prisma.tokenLedger.create({
       data: {
         userId: actingUserId,
-        delta: -prize.tokenCost,
-        reason: `Redeemed: ${prize.name}`,
+        delta: -totalCost,
+        reason: `Redeemed: ${prize.name}${label}`,
         type: 'REDEEM',
         refId: redemption.id,
         createdById: actingUserId,
@@ -307,12 +473,23 @@ export class PrizesService {
     if (!prize.repeatable) {
       await this.prisma.prize.update({ where: { id: prizeId }, data: { archived: true } });
     }
-    await this.notifications.notifyAdults(familyId, 'REDEMPTION_REQUESTED', `${actor.displayName} wants "${prize.name}"`, {
-      link: '/store',
-      excludeUserId: actingUserId,
-      refId: redemption.id,
-      subjectUserId: actingUserId,
-    });
+    if (autoApprove) {
+      // Adults still get told (visibility, not a to-do) - the kid doesn't
+      // need a notification about something they just did themselves.
+      await this.notifications.notifyAdults(
+        familyId,
+        'REDEMPTION_FULFILLED',
+        `${actor.displayName} used ${PrizesService.formatPassQuantity(prize, quantity)} of "${prize.name}"`,
+        { link: '/store', excludeUserId: actingUserId, refId: redemption.id, subjectUserId: actingUserId },
+      );
+    } else {
+      await this.notifications.notifyAdults(familyId, 'REDEMPTION_REQUESTED', `${actor.displayName} wants "${prize.name}"${label}`, {
+        link: '/store',
+        excludeUserId: actingUserId,
+        refId: redemption.id,
+        subjectUserId: actingUserId,
+      });
+    }
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return redemption;
   }
@@ -334,7 +511,10 @@ export class PrizesService {
       await this.prisma.tokenLedger.create({
         data: {
           userId: r.userId,
-          delta: r.prize.tokenCost,
+          // r.quantity - PASS redemptions can be >1; refunding just
+          // tokenCost would shortchange anything bought more than one at a
+          // time (ITEM/EVENT are always quantity 1, so unaffected).
+          delta: r.prize.tokenCost * r.quantity,
           reason: `Refund: ${r.prize.name}`,
           type: 'REDEEM',
           refId: r.id,
@@ -350,11 +530,20 @@ export class PrizesService {
       where: { id: redemptionId },
       data: { status, approvedBy: actorId },
     });
+    // "Fulfilled" is the right word for a physical handoff (ITEM) or an
+    // outing (EVENT) - wrong for a PASS, which isn't a thing to go get
+    // ready, it's a permission being granted. Same distinction the
+    // pending-queue button makes (StorePage's "Grant" vs "Fulfilled").
+    const isPass = r.prize.type === 'PASS';
     await this.notifications.create(
       familyId,
       r.userId,
       status === 'FULFILLED' ? 'REDEMPTION_FULFILLED' : 'REDEMPTION_REJECTED',
-      status === 'FULFILLED' ? `"${r.prize.name}" is ready!` : `"${r.prize.name}" was declined - tokens refunded`,
+      status === 'FULFILLED'
+        ? isPass
+          ? `"${r.prize.name}" granted!`
+          : `"${r.prize.name}" is ready!`
+        : `"${r.prize.name}" was declined - tokens refunded`,
       { link: '/store', refId: r.id },
     );
     // The "wants this" ask has been answered - drop it from the adults' feed
@@ -396,7 +585,17 @@ export class PrizesService {
       skip: opts.skip ?? 0,
       take: take + 1,
       include: {
-        prize: { select: { name: true, tokenCost: true, type: true } },
+        prize: {
+          select: {
+            name: true,
+            tokenCost: true,
+            type: true,
+            passUnitKind: true,
+            passUnitMinutes: true,
+            passUnitLabel: true,
+            passUnitLabelPlural: true,
+          },
+        },
         user: { select: { id: true, displayName: true } },
         approvedByUser: { select: { id: true, displayName: true } },
       },
@@ -472,7 +671,7 @@ export class PrizesService {
     // Same loud-not-silent convention as tokens.service.adjust() - a co-view
     // charge is a deliberate adult action against someone's balance.
     if (target.tokensDisabled) throw new BadRequestException(`${target.displayName} has tokens turned off`);
-    const amount = tokens ?? r.prize.tokenCost;
+    const amount = tokens ?? r.prize.tokenCost * r.quantity;
     if (!Number.isInteger(amount) || amount <= 0) throw new BadRequestException('Amount must be a positive whole number');
     const entry = await this.prisma.tokenLedger.create({
       data: {

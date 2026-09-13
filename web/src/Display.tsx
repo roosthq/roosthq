@@ -27,7 +27,7 @@ import LucideIcon from './LucideIcon';
 import Calendar from './Calendar';
 import { celebrate, setCelebrationSound } from './celebrate';
 import KioskTestPanel from './KioskTestPanel';
-import { setTokensBadgeEnabled } from './TokenBadge';
+import { setTokensBadgeEnabled, formatTokenAmount } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
@@ -1240,7 +1240,7 @@ export default function Display() {
                         <span className="flex shrink-0 flex-col items-end gap-0.5 text-sm font-semibold" style={{ color: 'var(--accent)' }}>
                           <span className="flex items-center gap-1">
                             <LucideIcon name={tokenIcon} size={14} />
-                            {pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0}
+                            {formatTokenAmount(pickerBalances.find((b) => b.userId === m.id)?.balance ?? 0)}
                           </span>
                           {famOn('levels') && (
                             <LevelBadge earned={pickerBalances.find((b) => b.userId === m.id)?.earned ?? 0} tokenValueUsd={tokenValueUsd} />

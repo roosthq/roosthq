@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'rea
 import { useSearchParams } from 'react-router-dom';
 import { api, prizeClient, familyFeatureEnabled, DATA_REFRESH_EVENT, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
-import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile } from '../Prize';
+import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile, formatPassQuantity, PassCard } from '../Prize';
 import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
@@ -211,6 +211,23 @@ export default function StorePage({
     }
   }
 
+  // PASS's own quick-buy path - no detail modal, straight from PassCard's
+  // stepper. quantity/total already validated client-side (the stepper is
+  // capped by remainingNow/balance) but redeem() re-checks both for real.
+  async function redeemPass(p: StorePrize, quantity: number) {
+    const total = p.tokenCost * quantity;
+    if (balance < total) return;
+    const phrase = formatPassQuantity(p, quantity);
+    if (!(await confirm(`Spend ${total} ${tokenName} on ${phrase} of "${p.name}"?`, { confirmLabel: p.requiresApproval ? 'Ask for it' : 'Get it' })))
+      return;
+    try {
+      await api.redeemPrize(p.id, quantity);
+      await refresh();
+    } catch (e) {
+      await alert(e instanceof Error ? e.message : 'Could not redeem that.');
+    }
+  }
+
   async function del(p: StorePrize) {
     if (!(await confirm(`Delete "${p.name}"?`, { danger: true, confirmLabel: 'Delete' }))) return;
     await api.deletePrize(p.id);
@@ -258,7 +275,12 @@ export default function StorePage({
     }
   }
 
-  const activePrizes = prizes.filter((p) => !p.archived && !p.suggested);
+  // PASS gets its own "Quick Passes" section (see below) with a compact
+  // stepper card instead of the browse-then-detail-modal flow the rest of
+  // the store uses - Casey's own instruction: "should be quick and kid
+  // friendly", and a separate section so it doesn't get lost in the grid.
+  const activePrizes = prizes.filter((p) => !p.archived && !p.suggested && p.type !== 'PASS');
+  const activePasses = prizes.filter((p) => !p.archived && !p.suggested && p.type === 'PASS');
   const archivedPrizes = prizes.filter((p) => p.archived);
   // Adults: every pending wishlist item, family-wide. Kids: only ever their
   // own (the server hides everyone else's suggestions from them).
@@ -395,6 +417,30 @@ export default function StorePage({
         {activePrizes.length === 0 && <li className="text-sm text-slate-400">No prizes yet.</li>}
       </ul>
 
+      {activePasses.length > 0 && (
+        <section className="mt-8">
+          <h3 className="text-md flex items-center gap-1.5 font-semibold">
+            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={16} className="text-amber-500" /> Quick Passes
+          </h3>
+          <ul className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {activePasses.map((p) => (
+              <li key={p.id}>
+                <PassCard
+                  prize={p}
+                  tokenIcon={tokenIcon}
+                  isAdult={isAdult}
+                  balance={balance}
+                  canRedeem={canRedeem}
+                  presenceBlocked={presenceBlocked}
+                  onBuy={(qty) => redeemPass(p, qty)}
+                  onManage={() => setViewing(p)}
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {isAdult && eventsDone.length > 0 && (
         <section className="mt-8">
           <h3 className="text-md font-semibold">Events done</h3>
@@ -519,6 +565,7 @@ export default function StorePage({
                     ) : (
                       r.prize.name
                     )}
+                    {r.prize.type === 'PASS' && r.quantity > 1 && ` (${formatPassQuantity(prizeById(r.prizeId) ?? r.prize, r.quantity)})`}
                   </span>
                   <TokenBadge icon={tokenIcon} amount={r.tokensSpent} />
                 </span>
@@ -531,7 +578,9 @@ export default function StorePage({
                     }}
                     className="rounded bg-green-600 px-3 py-1 text-xs text-white hover:bg-green-500"
                   >
-                    Fulfilled
+                    {/* "Fulfilled" reads wrong for a PASS - it's not a
+                        physical handoff, it's a permission being granted. */}
+                    {r.prize.type === 'PASS' ? 'Grant' : 'Fulfilled'}
                   </button>
                   <button
                     onClick={async () => {
@@ -723,13 +772,23 @@ export function PrizeForm({
   // Once true, real-price changes stop overwriting tokenCost - the adult took
   // the wheel. Starts true when editing an existing prize (don't clobber it).
   const [tokenCostTouched, setTokenCostTouched] = useState(!!prize);
-  const [type, setType] = useState<'ITEM' | 'EVENT'>(prize?.type ?? 'ITEM');
+  const [type, setType] = useState<'ITEM' | 'EVENT' | 'PASS'>(prize?.type ?? 'ITEM');
   const [repeatable, setRepeatable] = useState(prize?.repeatable ?? true);
   const [scope, setScope] = useState<'GLOBAL' | 'SPECIFIC'>(prize?.scope ?? 'GLOBAL');
   const [visibility, setVisibility] = useState<'STORE' | 'AWARD_ONLY'>(prize?.visibility ?? 'STORE');
   const [assignedUserIds, setAssignedUserIds] = useState<Set<string>>(new Set(prize?.assignedUserIds ?? []));
   const [locationId, setLocationId] = useState(prize?.location?.id ?? '');
   const [locations, setLocations] = useState<FamilyLocation[]>([]);
+  // PASS-only. "Not a physical handoff, so it never says Fulfilled" is the
+  // whole reason this type exists - see prizes.service.ts's own comment.
+  const [requiresApproval, setRequiresApproval] = useState(prize?.requiresApproval ?? true);
+  const [passUnitKind, setPassUnitKind] = useState<'TIME' | 'COUNT'>(prize?.passUnitKind ?? 'TIME');
+  const [passUnitMinutes, setPassUnitMinutes] = useState(prize?.passUnitMinutes ?? 30);
+  const [passUnitLabel, setPassUnitLabel] = useState(prize?.passUnitLabel ?? '');
+  const [passUnitLabelPlural, setPassUnitLabelPlural] = useState(prize?.passUnitLabelPlural ?? '');
+  const [passDailyLimit, setPassDailyLimit] = useState(prize?.passDailyLimit != null ? String(prize.passDailyLimit) : '');
+  const [passWeeklyLimit, setPassWeeklyLimit] = useState(prize?.passWeeklyLimit != null ? String(prize.passWeeklyLimit) : '');
+  const [passMonthlyLimit, setPassMonthlyLimit] = useState(prize?.passMonthlyLimit != null ? String(prize.passMonthlyLimit) : '');
 
   useEffect(() => {
     api.locations(kioskToken).then(setLocations).catch(() => undefined);
@@ -758,6 +817,16 @@ export function PrizeForm({
 
   async function submit() {
     if (!name) return;
+    if (type === 'PASS') {
+      if (passUnitKind === 'TIME' && (!passUnitMinutes || passUnitMinutes < 1)) {
+        await alert('Set how many minutes one unit is worth.');
+        return;
+      }
+      if (passUnitKind === 'COUNT' && !passUnitLabel.trim()) {
+        await alert("Name what's being counted (e.g. \"cookie\").");
+        return;
+      }
+    }
     const body = {
       name,
       description: description || undefined,
@@ -772,6 +841,18 @@ export function PrizeForm({
       visibility,
       assignedUserIds: scope === 'SPECIFIC' ? [...assignedUserIds] : [],
       locationId: locationId || null,
+      requiresApproval,
+      ...(type === 'PASS'
+        ? {
+            passUnitKind,
+            passUnitMinutes: passUnitKind === 'TIME' ? Math.max(1, Math.floor(Number(passUnitMinutes) || 1)) : null,
+            passUnitLabel: passUnitKind === 'COUNT' ? passUnitLabel.trim() : null,
+            passUnitLabelPlural: passUnitKind === 'COUNT' ? passUnitLabelPlural.trim() || null : null,
+            passDailyLimit: passDailyLimit ? Math.max(1, Math.floor(Number(passDailyLimit))) : null,
+            passWeeklyLimit: passWeeklyLimit ? Math.max(1, Math.floor(Number(passWeeklyLimit))) : null,
+            passMonthlyLimit: passMonthlyLimit ? Math.max(1, Math.floor(Number(passMonthlyLimit))) : null,
+          }
+        : {}),
       ...(prize?.suggested ? { suggested: false } : {}),
     };
     if (prize) await api.updatePrize(prize.id, body, kioskToken);
@@ -879,14 +960,28 @@ export function PrizeForm({
             <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) - edit to override.</p>
           )}
 
+          {type !== 'PASS' && (
+            <>
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable(e.target.checked)} />
+                Can be purchased again after being bought
+              </label>
+              <p className="text-xs text-slate-400">
+                {repeatable
+                  ? 'Stays in the store - anyone eligible can buy it any number of times.'
+                  : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
+              </p>
+            </>
+          )}
+
           <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable(e.target.checked)} />
-            Can be purchased again after being bought
+            <input type="checkbox" checked={requiresApproval} onChange={(e) => setRequiresApproval(e.target.checked)} />
+            Needs an adult to approve it
           </label>
           <p className="text-xs text-slate-400">
-            {repeatable
-              ? 'Stays in the store - anyone eligible can buy it any number of times.'
-              : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
+            {requiresApproval
+              ? 'Goes into the pending queue - an adult grants/fulfills it before it counts.'
+              : "Happens instantly on redeem - no adult action, never enters the pending queue."}
           </p>
 
           <div>
@@ -948,9 +1043,10 @@ export function PrizeForm({
           <div className="flex gap-3">
             <label className="flex-1 text-sm">
               <span className="text-slate-500">Type</span>
-              <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT')}>
+              <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT' | 'PASS')}>
                 <option value="ITEM">Item</option>
                 <option value="EVENT">Event (e.g. movie trip)</option>
+                <option value="PASS">Pass (tech time, a late bedtime, a chore skip...)</option>
               </select>
             </label>
             <label className="flex-1 text-sm">
@@ -965,6 +1061,92 @@ export function PrizeForm({
               </select>
             </label>
           </div>
+
+          {type === 'PASS' && (
+            <div className="flex flex-col gap-3 rounded-lg border bg-amber-50 p-3">
+              <p className="text-xs text-slate-500">
+                Token cost above is <strong>per unit</strong> - a kid picks how many units when they redeem it.
+              </p>
+              <div>
+                <span className="text-sm text-slate-500">What's one unit?</span>
+                <div className="mt-1 flex flex-wrap gap-3 text-sm">
+                  <label className="flex items-center gap-1">
+                    <input type="radio" checked={passUnitKind === 'TIME'} onChange={() => setPassUnitKind('TIME')} />
+                    Time
+                  </label>
+                  <label className="flex items-center gap-1">
+                    <input type="radio" checked={passUnitKind === 'COUNT'} onChange={() => setPassUnitKind('COUNT')} />
+                    Count (a cookie, a turn, a chore skip…)
+                  </label>
+                </div>
+              </div>
+
+              {passUnitKind === 'TIME' ? (
+                <label className="text-sm">
+                  <span className="text-slate-500">Minutes per unit</span>
+                  <input
+                    className={`${input} max-w-[10rem]`}
+                    type="number"
+                    min={1}
+                    value={passUnitMinutes}
+                    onChange={(e) => setPassUnitMinutes(Math.max(1, Math.floor(Number(e.target.value) || 1)))}
+                    onFocus={(e) => e.target.select()}
+                  />
+                  <span className="mt-1 block text-xs text-slate-400">
+                    1 unit = {formatPassQuantity({ passUnitKind: 'TIME', passUnitMinutes }, 1)}, 2 units ={' '}
+                    {formatPassQuantity({ passUnitKind: 'TIME', passUnitMinutes }, 2)}
+                  </span>
+                </label>
+              ) : (
+                <div className="flex gap-3">
+                  <label className="flex-1 text-sm">
+                    <span className="text-slate-500">Singular (e.g. "cookie")</span>
+                    <input className={input} value={passUnitLabel} onChange={(e) => setPassUnitLabel(e.target.value)} />
+                  </label>
+                  <label className="flex-1 text-sm">
+                    <span className="text-slate-500">Plural (optional)</span>
+                    <input
+                      className={input}
+                      value={passUnitLabelPlural}
+                      onChange={(e) => setPassUnitLabelPlural(e.target.value)}
+                      placeholder={passUnitLabel ? `${passUnitLabel}s` : 'cookies'}
+                    />
+                  </label>
+                </div>
+              )}
+
+              <div>
+                <span className="text-sm text-slate-500">Limits (optional - max units per kid)</span>
+                <div className="mt-1 grid grid-cols-3 gap-2">
+                  {(
+                    [
+                      ['Per day', passDailyLimit, setPassDailyLimit],
+                      ['Per week', passWeeklyLimit, setPassWeeklyLimit],
+                      ['Per month', passMonthlyLimit, setPassMonthlyLimit],
+                    ] as const
+                  ).map(([label, value, setter]) => (
+                    <label key={label} className="text-sm">
+                      <span className="block text-xs text-slate-400">{label}</span>
+                      <input
+                        className={input}
+                        type="number"
+                        min={1}
+                        value={value}
+                        onChange={(e) => setter(e.target.value)}
+                        onFocus={(e) => e.target.select()}
+                        placeholder="No limit"
+                      />
+                      {value && (
+                        <span className="mt-0.5 block text-xs text-slate-400">
+                          = {formatPassQuantity({ passUnitKind, passUnitMinutes, passUnitLabel, passUnitLabelPlural }, Number(value))}
+                        </span>
+                      )}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
     </Modal>
     {cropping && image && (

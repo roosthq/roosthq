@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, DATA_REFRESH_EVENT, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward, type FamilyLocation, type MyPresence } from '../api';
+import { api, familyFeatureEnabled, levelFor, ROLE_ICON, ROLE_SLOT, ROLE_LABEL, DATA_REFRESH_EVENT, type Chore, type FamilySettings, type Me, type Member, type LedgerEntry, type ActivityEntry, type EarnedAward, type FamilyLocation, type MyPresence } from '../api';
 import PresenceModal from '../PresenceModal';
 import { AwardIcon } from './AwardsPage';
 import { Avatar } from './CalendarPage';
@@ -12,10 +12,11 @@ import { celebrate } from '../celebrate';
 import LucideIcon from '../LucideIcon';
 import { usePaginatedList } from '../usePaginatedList';
 import LoadMoreButton from '../LoadMoreButton';
+import { formatTokenAmount } from '../TokenBadge';
 
 function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="panel text-center">
+    <div className="panel overflow-hidden text-center">
       <div className="text-2xl font-bold" style={{ color: 'var(--accent)' }}>
         {value}
       </div>
@@ -27,12 +28,17 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
 // A Stat tile's value slot is plain text sized by the tile itself (text-2xl
 // font-bold) - an icon dropped in needs to match that, not TokenBadge's own
 // small pill styling (which reads fine inline next to other content, but
-// looks like a shrunken sticker sitting inside a big stat number).
+// looks like a shrunken sticker sitting inside a big stat number). Font
+// size shrinks with digit count so a big balance can't push past the
+// tile's own border - Casey's own instruction: "should always fit in the
+// box no matter how high" - and formatTokenAmount adds the comma.
 function TokenStat({ icon, amount }: { icon: string; amount: number }) {
+  const digits = String(Math.round(amount)).length;
+  const sizeClass = digits <= 4 ? 'text-2xl' : digits <= 6 ? 'text-xl' : digits <= 8 ? 'text-lg' : 'text-base';
   return (
-    <span className="inline-flex items-center gap-1">
-      <LucideIcon name={icon} size={24} />
-      {amount}
+    <span className={`inline-flex items-center gap-1 ${sizeClass}`}>
+      <LucideIcon name={icon} size={digits > 6 ? 18 : 24} />
+      {formatTokenAmount(amount)}
     </span>
   );
 }
@@ -120,6 +126,13 @@ export default function ProfilePage({
   const [awards, setAwards] = useState<EarnedAward[]>([]);
   const [awardDetail, setAwardDetail] = useState<EarnedAward | null>(null);
   const [streak, setStreak] = useState(0);
+  // Every family chore, family-wide (not scoped to targetId) - fetched once
+  // below to compute the viewed person's own streak, but kept around here
+  // too so the leaderboard can show everyone's best streak from the exact
+  // same fetch instead of a chore fetch per kid.
+  const [allChores, setAllChores] = useState<Chore[]>([]);
+  const bestStreakFor = (userId: string) =>
+    Math.max(0, ...allChores.filter((c) => c.assignees.some((a) => a.userId === userId)).map((c) => c.currentStreak));
   // Chore-earned bank only - the person-level bonus bank (manually granted,
   // awarded, or won) comes from `member.bonusStreakFreezes` instead, added
   // in below where the two are combined for display.
@@ -188,11 +201,13 @@ export default function ProfilePage({
     api
       .chores()
       .then((cs) => {
+        setAllChores(cs);
         const mine = cs.filter((c) => c.assignees.some((a) => a.userId === targetId));
         setStreak(Math.max(0, ...mine.map((c) => c.currentStreak)));
         setChoreFreezesBanked(mine.reduce((sum, c) => sum + c.streakFreezes, 0));
       })
       .catch(() => {
+        setAllChores([]);
         setStreak(0);
         setChoreFreezesBanked(0);
       });
@@ -346,7 +361,22 @@ export default function ProfilePage({
                 <li key={m.id} className="card-nested flex items-center gap-3 rounded-lg px-3 py-2">
                   <span className="w-5 shrink-0 text-center text-sm font-semibold text-slate-400">{i + 1}</span>
                   <Avatar name={m.displayName} src={m.avatar} size="sm" />
-                  <span className="min-w-0 flex-1 break-words text-sm font-medium">{m.displayName}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block break-words text-sm font-medium">{m.displayName}</span>
+                    {/* Small stats, wraps rather than overflows on a narrow
+                        phone - Casey's own instruction: "if it will fit". */}
+                    <span className="mt-0.5 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-xs text-slate-400">
+                      {familyTokensOn && (
+                        <span className="inline-flex items-center gap-0.5">
+                          <LucideIcon name={tokenIcon} size={11} /> {formatTokenAmount(allBalances[m.id] ?? 0)}
+                        </span>
+                      )}
+                      {familyTokensOn && <span>earned {formatTokenAmount(earnedBy[m.id] ?? 0)}</span>}
+                      <span className="inline-flex items-center gap-0.5">
+                        <LucideIcon name="flame" slot="badge.streak" size={11} /> {bestStreakFor(m.id)}
+                      </span>
+                    </span>
+                  </span>
                   <LevelBadge earned={earnedBy[m.id] ?? 0} tokenValueUsd={family?.tokenValueUsd} />
                 </li>
               ))}

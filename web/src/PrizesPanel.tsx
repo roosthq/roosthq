@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient, type Redemption } from './api';
 import TokenBadge from './TokenBadge';
-import { TYPE_TAG, PrizeImage, PrizeDetailModal } from './Prize';
+import { TYPE_TAG, PrizeImage, PrizeDetailModal, PassCard, formatPassQuantity } from './Prize';
 import LucideIcon from './LucideIcon';
 import { useDialog } from './Dialog';
 import { SuggestPrizeModal } from './pages/StorePage';
@@ -50,7 +50,9 @@ export default function PrizesPanel({
   // redeemed. The server already hides other people's, so anything suggested
   // here is this person's own - show it in its own "waiting" list instead of
   // mixed into the store at 0 tokens with a Redeem button.
-  const storePrizes = prizes.filter((p) => !p.suggested);
+  // PASS gets its own quick-buy section, same split/reasoning as StorePage.
+  const storePrizes = prizes.filter((p) => !p.suggested && p.type !== 'PASS');
+  const passes = prizes.filter((p) => !p.suggested && p.type === 'PASS');
   const myRequests = prizes.filter((p) => p.suggested);
   // kidPermissionEnabled defaults to true for anyone who isn't a KID (there's
   // nothing to gate for an adult) - fine for redeeming, but "request" only
@@ -114,6 +116,20 @@ export default function PrizesPanel({
     }
   }
 
+  async function redeemPass(p: StorePrize, quantity: number) {
+    const total = p.tokenCost * quantity;
+    if (balance < total) return;
+    const phrase = formatPassQuantity(p, quantity);
+    if (!(await confirm(`Spend ${total} ${tokenName} on ${phrase} of "${p.name}"?`, { confirmLabel: p.requiresApproval ? 'Ask for it' : 'Get it' })))
+      return;
+    try {
+      await client.redeemPrize(p.id, quantity);
+      await refresh();
+    } catch (e) {
+      await alert(e instanceof Error ? e.message : 'Could not redeem that.');
+    }
+  }
+
   return (
     <section className="mt-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -154,6 +170,30 @@ export default function PrizesPanel({
         {storePrizes.length === 0 && <li className="text-sm text-slate-400">Nothing in the store yet.</li>}
       </ul>
 
+      {passes.length > 0 && (
+        <div className="mt-4">
+          <h3 className="flex items-center gap-1.5 text-sm font-semibold">
+            <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={13} className="text-amber-500" /> Quick Passes
+          </h3>
+          <ul className="mt-2 space-y-2">
+            {passes.map((p) => (
+              <li key={p.id}>
+                <PassCard
+                  prize={p}
+                  tokenIcon={tokenIcon}
+                  isAdult={false}
+                  balance={balance}
+                  canRedeem={kidPermissionEnabled(self, 'store')}
+                  presenceBlocked={presenceBlocked}
+                  onBuy={(qty) => redeemPass(p, qty)}
+                  onManage={() => setViewing(p)}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {pendingRedemptions.length > 0 && (
         <div className="mt-4">
           <h3 className="text-sm font-semibold">Waiting on an adult</h3>
@@ -161,7 +201,10 @@ export default function PrizesPanel({
           <ul className="mt-2 space-y-1.5">
             {pendingRedemptions.map((r) => (
               <li key={r.id} className="flex items-center gap-2 rounded-lg border bg-white p-2 text-sm">
-                <span className="min-w-0 flex-1 break-words">{r.prize.name}</span>
+                <span className="min-w-0 flex-1 break-words">
+                  {r.prize.name}
+                  {r.prize.type === 'PASS' && r.quantity > 1 && ` (${formatPassQuantity(r.prize, r.quantity)})`}
+                </span>
                 <TokenBadge icon={tokenIcon} amount={r.tokensSpent} />
                 <span className="shrink-0 text-xs text-amber-600">Pending</span>
               </li>

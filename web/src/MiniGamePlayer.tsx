@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { api, DATA_REFRESH_EVENT, type MiniGamePlaySession } from './api';
 import type { MiniGamePlayReport } from './MiniGamePinTumbler';
 import { playFor, previewFor } from './miniGamePreviews';
+import { formatTokenAmount } from './TokenBadge';
 
 // Plays out ONE session (a MiniGameGrant or a MiniGamePurchase - identical
 // shape past this point, PLANNING.md §18): shows the pre-drawn "you're
@@ -92,7 +93,7 @@ export default function MiniGamePlayer({
       <div className="text-2xl font-bold" style={{ color: result.won ? '#16a34a' : '#dc2626' }}>
         {result.won ? 'You won!' : 'No luck this time'}
       </div>
-      {result.tokensAwarded > 0 && <p className="text-sm text-slate-600">+{result.tokensAwarded} tokens</p>}
+      {result.tokensAwarded > 0 && <p className="text-sm text-slate-600">+{formatTokenAmount(result.tokensAwarded)} tokens</p>}
       {result.prizeWonId && <p className="text-sm text-slate-600">A prize is waiting for you - ask an adult!</p>}
       {!result.won && result.tokensAwarded === 0 && <p className="text-sm text-slate-500">Nothing this time.</p>}
       <button onClick={onDone} className="mt-2 rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white">

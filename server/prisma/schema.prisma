@@ -94,6 +94,10 @@ enum NotificationType {
 enum PrizeType {
   ITEM
   EVENT
+  PASS // arbitrary token-for-privilege grant (tech time, a late bedtime, a
+  // chore skip) - see Prize's own passUnitKind/passUnitMinutes/
+  // passUnitLabel/passDailyLimit etc below. Not a physical handoff, so it
+  // never says "Fulfilled" the way ITEM/EVENT do - see prizes.service.ts.
 }
 
 enum PrizeScope {
@@ -1315,6 +1319,34 @@ model Prize {
   createdById   String? // who added it - shown to everyone, not just adults
   suggested     Boolean    @default(false) // kid-submitted wishlist item, awaiting adult approval
   suggestedById String?
+  // Casey's own instruction 2026-09 - "Fulfilled" reads wrong for something
+  // that's not a physical handoff (tech time, a late bedtime). true (default,
+  // matches every prior prize's actual behavior) = normal request->approve
+  // queue; false = redeem() resolves it straight to FULFILLED, no adult
+  // action, no entry in the pending queue at all. Not PASS-exclusive - any
+  // prize type can flip this - but PASS is the one it's really for.
+  requiresApproval Boolean @default(true)
+  // PASS type only (null otherwise) - what one unit of quantity actually
+  // means, so the store card/confirm step can say "You're purchasing a 30
+  // minute pass" instead of a bare "x1". 'TIME': passUnitMinutes is how many
+  // minutes ONE unit is worth (total = passUnitMinutes * quantity, formatted
+  // as minutes/hours). 'COUNT': passUnitLabel/passUnitLabelPlural name
+  // whatever's being counted (a cookie, a turn, a chore skip) - total is
+  // "N {label}". Covers anything that isn't time-based; no other kind has
+  // earned its own category yet.
+  passUnitKind        String? // 'TIME' | 'COUNT'
+  passUnitMinutes     Int? // TIME kind only
+  passUnitLabel       String? // COUNT kind only - singular
+  passUnitLabelPlural String? // COUNT kind only - defaults to passUnitLabel + 's' if blank
+  // Independent optional caps on total QUANTITY (not raw minutes) this one
+  // kid can redeem of THIS prize per window - any subset may be set, all
+  // enforced together in redeem(). Day = calendar day, week = Sunday-start
+  // calendar week, month = calendar month, all in the family's timezone -
+  // same boundary helpers learning.service.ts already uses. Rejected
+  // requests don't count against any of these.
+  passDailyLimit   Int?
+  passWeeklyLimit  Int?
+  passMonthlyLimit Int?
 
   family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location    Location?         @relation(fields: [locationId], references: [id], onDelete: SetNull)
@@ -1352,6 +1384,12 @@ model Redemption {
   approvedBy  String?
   usedAt      DateTime? // EVENT prizes only: when the event actually happened,
   // separate from FULFILLED (which just means the adult approved the redemption)
+  // PASS type only (always 1 for ITEM/EVENT) - how many units this one
+  // redemption bought. One row per redemption regardless of quantity; cost
+  // is prize.tokenCost * quantity, charged as a single ledger entry in
+  // redeem() - see that comment for why counting toward passDaily/Weekly/
+  // MonthlyLimit sums this field rather than counting rows.
+  quantity Int @default(1)
 
   prize          Prize @relation(fields: [prizeId], references: [id], onDelete: Cascade)
   user           User  @relation(fields: [userId], references: [id], onDelete: Cascade)

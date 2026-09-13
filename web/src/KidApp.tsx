@@ -68,8 +68,18 @@ export default function KidApp({
               )
             }
           />
+          {/* :id variant too - ProfilePage's own comment: "Everyone (kids
+              included) can browse all family profiles, same as adults."
+              Missing here meant tapping anyone else on the Profiles list
+              silently bounced back to Home via the catch-all below - the
+              list rendered fine (that's the bare /profile route), but
+              nothing existed to route the click itself to. */}
           <Route
             path="/profile"
+            element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
+          />
+          <Route
+            path="/profile/:id"
             element={<ProfilePage me={me} tokenName={tokenName} tokenIcon={tokenIcon} chorePlural={chorePlural} />}
           />
           <Route

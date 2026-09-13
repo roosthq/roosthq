@@ -5,11 +5,12 @@ import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
 import { celebrate } from './celebrate';
 import LucideIcon from './LucideIcon';
+import { formatTokenAmount } from './TokenBadge';
 import type { ReactNode } from 'react';
 
 function Stat({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div className="card-nested rounded-lg p-3 text-center">
+    <div className="card-nested overflow-hidden rounded-lg p-3 text-center">
       <div className="text-2xl font-bold" style={{ color: 'var(--accent)' }}>
         {value}
       </div>
@@ -19,12 +20,17 @@ function Stat({ label, value }: { label: string; value: ReactNode }) {
 }
 
 // Same reasoning as ProfilePage's own TokenStat - a Stat tile's value is
-// sized by the tile (text-2xl font-bold), not TokenBadge's small pill.
+// sized by the tile (text-2xl font-bold), not TokenBadge's small pill. Font
+// size shrinks with digit count so a big balance can't push past the
+// tile's own border on the kiosk - Casey's own instruction: "should always
+// fit in the box no matter how high" - and formatTokenAmount adds the comma.
 function TokenStat({ icon, amount }: { icon: string; amount: number }) {
+  const digits = String(Math.round(amount)).length;
+  const sizeClass = digits <= 4 ? 'text-2xl' : digits <= 6 ? 'text-xl' : digits <= 8 ? 'text-lg' : 'text-base';
   return (
-    <span className="inline-flex items-center gap-1">
-      <LucideIcon name={icon} size={24} />
-      {amount}
+    <span className={`inline-flex items-center gap-1 ${sizeClass}`}>
+      <LucideIcon name={icon} size={digits > 6 ? 18 : 24} />
+      {formatTokenAmount(amount)}
     </span>
   );
 }

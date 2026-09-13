@@ -14,7 +14,7 @@ import MiniGamesKidView, { PoolBadges } from '../MiniGamesKidView';
 import { playFor } from '../miniGamePreviews';
 import { GAME_TYPES, DEFAULT_CONFIG, gameTypeMeta } from '../miniGameCatalog';
 import PoolEditor from '../PoolEditor';
-import TokenBadge from '../TokenBadge';
+import TokenBadge, { formatTokenAmount } from '../TokenBadge';
 import Modal from '../Modal';
 import { formatDateTime } from '../dateFormat';
 
@@ -940,7 +940,7 @@ function RecentPurchasesModal({ published, onClose }: { published: PublishedMini
                 </div>
                 <div className="text-xs text-slate-400">
                   {formatDateTime(r.createdAt)} · {r.status === 'PLAYED' ? (r.won ? 'Won' : 'Lost') : r.status === 'FORFEITED' ? 'Forfeited' : r.status === 'IN_PROGRESS' ? 'In progress' : 'Not started'}
-                  {r.status === 'PLAYED' && r.tokensAwarded ? ` · +${r.tokensAwarded}` : ''}
+                  {r.status === 'PLAYED' && r.tokensAwarded ? ` · +${formatTokenAmount(r.tokensAwarded)}` : ''}
                 </div>
               </div>
               <button

@@ -1,5 +1,6 @@
 import { levelFor } from './api';
 import LucideIcon from './LucideIcon';
+import { formatTokenAmount } from './TokenBadge';
 
 // Level thresholds: level L spans earned = 5(L-1)² .. 5L². Returns everything
 // a progress UI needs.
@@ -43,13 +44,16 @@ export default function LevelBadge({ earned, tokenValueUsd = 1, size = 'sm' }: {
           <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
         </div>
         <div className="mt-1 text-[10px] text-slate-400">
-          {earnedDisplay} XP · {nextDisplay - earnedDisplay} to Lv {level + 1}
+          {formatTokenAmount(earnedDisplay)} XP · {formatTokenAmount(nextDisplay - earnedDisplay)} to Lv {level + 1}
         </div>
       </div>
     );
   }
   return (
-    <span className="inline-block text-center" title={`${earnedDisplay} XP - ${nextDisplay - earnedDisplay} more to level ${level + 1}`}>
+    <span
+      className="inline-block text-center"
+      title={`${formatTokenAmount(earnedDisplay)} XP - ${formatTokenAmount(nextDisplay - earnedDisplay)} more to level ${level + 1}`}
+    >
       <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold">
         <LucideIcon name="star" slot="badge.level" size={12} /> Lv {level}
       </span>

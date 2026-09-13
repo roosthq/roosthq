@@ -6,6 +6,28 @@ import LucideIcon from './LucideIcon';
 import { cropBackgroundStyle } from './ImageCropper';
 import { formatDate } from './dateFormat';
 
+// Mirrors PrizesService.formatPassQuantity server-side exactly - "a 30
+// minute pass" (TIME, qty 1), "a 1 hour pass" (TIME, qty 2 @ 30 min/unit),
+// "3 cookies" (COUNT). Used both for the buy card's live preview and here,
+// in purchase history, so the same purchase reads the same way everywhere.
+export function formatPassQuantity(
+  prize: { passUnitKind?: 'TIME' | 'COUNT' | null; passUnitMinutes?: number | null; passUnitLabel?: string | null; passUnitLabelPlural?: string | null },
+  quantity: number,
+): string {
+  if (prize.passUnitKind === 'TIME' && prize.passUnitMinutes) {
+    const totalMin = prize.passUnitMinutes * quantity;
+    const hrs = Math.floor(totalMin / 60);
+    const mins = totalMin % 60;
+    const phrase = hrs === 0 ? `${mins} minute` : mins === 0 ? `${hrs} hour${hrs > 1 ? 's' : ''}` : `${hrs} hr ${mins} min`;
+    return `a ${phrase} pass`;
+  }
+  if (prize.passUnitKind === 'COUNT' && prize.passUnitLabel) {
+    const noun = quantity === 1 ? prize.passUnitLabel : prize.passUnitLabelPlural || `${prize.passUnitLabel}s`;
+    return `${quantity} ${noun}`;
+  }
+  return `×${quantity}`;
+}
+
 // Every prize gets one of these - keeps the type row present on every card
 // (instead of Event showing a tag and Item showing nothing) so card heights
 // line up. `icon` is a Lucide icon name (see LucideIcon.tsx) - render via
@@ -13,7 +35,123 @@ import { formatDate } from './dateFormat';
 export const TYPE_TAG: Record<StorePrize['type'], { icon: string; slot: string; label: string; className: string }> = {
   ITEM: { icon: 'gift', slot: 'prize.item', label: 'Item', className: 'text-slate-500' },
   EVENT: { icon: 'ticket', slot: 'prize.event', label: 'Event', className: 'text-purple-500' },
+  PASS: { icon: 'zap', slot: 'prize.pass', label: 'Pass', className: 'text-amber-500' },
 };
+
+// The kid-friendly "quick" card for a PASS prize - no modal for the common
+// path (Casey's own instruction: "should be quick and kid friendly"), just
+// a quantity stepper and one buy button right on the card. An adult gets a
+// plain manage card instead (tap opens the same PrizeDetailModal every
+// other prize type uses - editing a PASS isn't a "quick" action).
+export function PassCard({
+  prize,
+  tokenIcon,
+  isAdult,
+  balance,
+  canRedeem = true,
+  presenceBlocked = false,
+  onBuy,
+  onManage,
+}: {
+  prize: StorePrize;
+  tokenIcon: string;
+  isAdult: boolean;
+  balance: number;
+  canRedeem?: boolean;
+  presenceBlocked?: boolean;
+  onBuy: (quantity: number) => void;
+  onManage: () => void;
+}) {
+  const [qty, setQty] = useState(1);
+
+  if (isAdult) {
+    return (
+      <button onClick={onManage} className="flex w-full items-center gap-3 rounded border bg-white p-3 text-left hover:shadow-sm">
+        <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="h-12 w-12 shrink-0 rounded" />
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-medium leading-tight" title={prize.name}>
+            {prize.name}
+          </p>
+          <p className="mt-0.5 text-xs text-slate-400">
+            {formatPassQuantity(prize, 1)} · <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
+            {!prize.requiresApproval && ' · auto-grants'}
+            {(prize.passDailyLimit || prize.passWeeklyLimit || prize.passMonthlyLimit) &&
+              ` · max ${[
+                prize.passDailyLimit && `${prize.passDailyLimit}/day`,
+                prize.passWeeklyLimit && `${prize.passWeeklyLimit}/wk`,
+                prize.passMonthlyLimit && `${prize.passMonthlyLimit}/mo`,
+              ]
+                .filter(Boolean)
+                .join(', ')}`}
+          </p>
+        </div>
+      </button>
+    );
+  }
+
+  // Capped by whatever's tighter: the balance, the day/week/month limit
+  // (remainingNow, computed server-side in PrizesService.list so it can
+  // never disagree with what redeem() actually enforces), or a flat 20 as
+  // a sane absolute ceiling on the stepper regardless of either.
+  const balanceMax = prize.tokenCost > 0 ? Math.floor(balance / prize.tokenCost) : 20;
+  const limitMax = prize.remainingNow ?? Infinity;
+  const maxQty = Math.max(0, Math.min(balanceMax, limitMax, 20));
+  const clampedQty = Math.min(Math.max(1, qty), Math.max(1, maxQty));
+  const totalCost = prize.tokenCost * clampedQty;
+  const limitReached = maxQty === 0 && limitMax === 0;
+  const cantAfford = maxQty === 0 && !limitReached;
+  const disabled = maxQty === 0 || !canRedeem || presenceBlocked;
+
+  return (
+    <div className="flex flex-col gap-2 rounded-xl border bg-white p-3">
+      <div className="flex items-center gap-2">
+        <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="h-11 w-11 shrink-0 rounded" />
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-medium leading-tight" title={prize.name}>
+            {prize.name}
+          </p>
+          <p className="text-xs text-slate-400">
+            <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setQty((q) => Math.max(1, q - 1))}
+            disabled={clampedQty <= 1}
+            aria-label="Fewer"
+            className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+          >
+            −
+          </button>
+          <span className="w-6 text-center text-lg font-semibold">{clampedQty}</span>
+          <button
+            onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
+            disabled={clampedQty >= maxQty}
+            aria-label="More"
+            className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+          >
+            +
+          </button>
+        </div>
+        <TokenBadge icon={tokenIcon} amount={totalCost} />
+      </div>
+
+      <p className="text-center text-xs font-medium text-amber-600">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
+
+      <button
+        onClick={() => onBuy(clampedQty)}
+        disabled={disabled}
+        title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
+        className="rounded-lg bg-amber-500 py-2 text-sm font-semibold text-white hover:bg-amber-400 disabled:opacity-40"
+      >
+        {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
+      </button>
+    </div>
+  );
+}
 
 // Purchase history display, collapsed to one line per person per day - a
 // repeatable prize (e.g. "30 min of screen time") bought several times in
@@ -250,6 +388,7 @@ export function PrizeDetailModal({
                 {groupHistory(history).map((group) => {
                   const r = group[0]; // most recent in the group - represents it for name/date/status/type
                   const totalSpent = group.reduce((sum, g) => sum + g.tokensSpent, 0);
+                  const totalQty = group.reduce((sum, g) => sum + (g.quantity || 1), 0);
                   const coViewers = group.flatMap((g) => g.coViewers ?? []);
                   // A new co-view charge attaches to the group's most recent
                   // purchase - which specific one of the day's purchases it's
@@ -267,7 +406,7 @@ export function PrizeDetailModal({
                           <strong className="font-medium">{r.user?.displayName ?? memberName?.(r.userId) ?? 'Someone'}</strong>{' '}
                           <span className="text-xs text-slate-400">
                             {formatDate(r.requestedAt)} · {r.status.toLowerCase()}
-                            {group.length > 1 && ` · ${group.length}×`}
+                            {r.prize.type === 'PASS' ? ` · ${formatPassQuantity(prize, totalQty)}` : group.length > 1 ? ` · ${group.length}×` : ''}
                             {r.usedAt ? ` · used ${formatDate(r.usedAt)}` : ''}
                           </span>{' '}
                           <span className="text-xs font-medium text-slate-500">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Modal from './Modal';
 import type { Member, PrizeClient } from './api';
+import { formatTokenAmount } from './TokenBadge';
 
 // Generic starting points shown alongside whatever this family has actually
 // typed before (fetched via client.commonReasons()) - a mix of give/take so
@@ -83,7 +84,7 @@ export default function TokenAdjustModal({
             disabled={saving || !userId || !reason.trim() || amount <= 0}
             className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
           >
-            {saving ? 'Saving…' : sign === 'give' ? `Give ${amount}` : `Take ${amount}`}
+            {saving ? 'Saving…' : sign === 'give' ? `Give ${formatTokenAmount(amount)}` : `Take ${formatTokenAmount(amount)}`}
           </button>
         </div>
       }

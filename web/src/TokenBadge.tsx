@@ -22,6 +22,15 @@ export function tokensBadgeEnabled(): boolean {
   return tokensVisible;
 }
 
+// Comma-by-thousands - Casey's own instruction: "everywhere we display
+// tokens... should be formatted with a comma by thousands". Only ever
+// applied to an actual number; a caller that already built its own string
+// (a "+15" bonus prefix, a "5-15" range) is left exactly as it wrote it -
+// see TokenBadge's amount prop below.
+export function formatTokenAmount(n: number): string {
+  return Math.round(n).toLocaleString('en-US');
+}
+
 // Single canonical look for a token amount, wherever it shows up - chore cost
 // tags, balances, prize costs, ledger entries. Two sizes: 'sm' for an inline
 // tag next to other content, 'lg' for a standalone "you have N" display.
@@ -44,7 +53,7 @@ export default function TokenBadge({
   return (
     <span className={cls}>
       <LucideIcon name={icon} size={size === 'lg' ? 16 : 13} />
-      <span>{amount}</span>
+      <span>{typeof amount === 'number' ? formatTokenAmount(amount) : amount}</span>
       {label && <span className="font-normal">{label}</span>}
     </span>
   );
