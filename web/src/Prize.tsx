@@ -66,14 +66,13 @@ export function PassCard({
 
   if (isAdult) {
     return (
-      <button onClick={onManage} className="flex w-full items-center gap-3 rounded border bg-white p-3 text-left hover:shadow-sm">
-        {/* No crop prop - the saved crop rect is chosen against the main
-            grid's wide 16:9 box (see StorePage), and cropBackgroundStyle
-            stretches that rect to fill WHATEVER box it's given. Forced into
-            this tiny square thumbnail it stretched/squished the picture.
-            Uncropped object-contain never distorts, whatever the box shape. */}
-        <PrizeImage src={prize.image} alt={prize.name} className="h-14 w-14 shrink-0 rounded" />
-        <div className="min-w-0 flex-1">
+      <button onClick={onManage} className="flex w-full flex-col overflow-hidden rounded-xl border bg-white text-left hover:shadow-sm">
+        {/* Same aspect-[16/9] box the main grid cards use (see StorePage) -
+            the crop rect is chosen against THAT box, so matching it here is
+            what makes the crop display correctly instead of squished. This
+            is also just... big enough to actually see the picture. */}
+        <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="aspect-[16/9] w-full" />
+        <div className="p-3">
           <p className="truncate font-medium leading-tight" title={prize.name}>
             {prize.name}
           </p>
@@ -108,11 +107,15 @@ export function PassCard({
   const disabled = maxQty === 0 || !canRedeem || presenceBlocked;
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border bg-white p-3">
-      <div className="flex items-center gap-2">
-        {/* Uncropped (see adult branch above) - same distortion, same fix. */}
-        <PrizeImage src={prize.image} alt={prize.name} className="h-14 w-14 shrink-0 rounded" />
-        <div className="min-w-0 flex-1">
+    <div className="flex flex-col overflow-hidden rounded-xl border bg-white">
+      {/* Same aspect-[16/9] box the main grid cards use (see StorePage) -
+          the crop rect is chosen against THAT box, so matching it here is
+          what makes the crop display correctly instead of squished. This
+          is also just... big enough to actually see the picture. */}
+      <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="aspect-[16/9] w-full" />
+
+      <div className="flex flex-col gap-2 p-3">
+        <div>
           <p className="truncate font-medium leading-tight" title={prize.name}>
             {prize.name}
           </p>
@@ -120,41 +123,41 @@ export function PassCard({
             <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
           </p>
         </div>
-      </div>
 
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setQty((q) => Math.max(1, q - 1))}
-            disabled={clampedQty <= 1}
-            aria-label="Fewer"
-            className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
-          >
-            −
-          </button>
-          <span className="w-6 text-center text-lg font-semibold">{clampedQty}</span>
-          <button
-            onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
-            disabled={clampedQty >= maxQty}
-            aria-label="More"
-            className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
-          >
-            +
-          </button>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+              disabled={clampedQty <= 1}
+              aria-label="Fewer"
+              className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+            >
+              −
+            </button>
+            <span className="w-6 text-center text-lg font-semibold">{clampedQty}</span>
+            <button
+              onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
+              disabled={clampedQty >= maxQty}
+              aria-label="More"
+              className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+            >
+              +
+            </button>
+          </div>
+          <TokenBadge icon={tokenIcon} amount={totalCost} />
         </div>
-        <TokenBadge icon={tokenIcon} amount={totalCost} />
+
+        <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
+
+        <button
+          onClick={() => onBuy(clampedQty)}
+          disabled={disabled}
+          title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
+          className="rounded-lg bg-slate-800 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
+        >
+          {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
+        </button>
       </div>
-
-      <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
-
-      <button
-        onClick={() => onBuy(clampedQty)}
-        disabled={disabled}
-        title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
-        className="rounded-lg bg-slate-800 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
-      >
-        {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
-      </button>
     </div>
   );
 }
