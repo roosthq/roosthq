@@ -175,7 +175,12 @@ export default function PrizesPanel({
           <h3 className="flex items-center gap-1.5 text-sm font-semibold">
             <LucideIcon name={TYPE_TAG.PASS.icon} slot={TYPE_TAG.PASS.slot} size={13} className={TYPE_TAG.PASS.className} /> Quick Passes
           </h3>
-          <ul className="mt-2 space-y-2">
+          {/* Grid, not the stacked list every other section uses here - two
+              half-width cards side by side instead of one full-width card
+              per row. PassCard itself is untouched (still used full-size on
+              StorePage's wide grid) - it just naturally shrinks to whatever
+              width this grid cell gives it. */}
+          <ul className="mt-2 grid grid-cols-2 gap-2">
             {passes.map((p) => (
               <li key={p.id}>
                 <PassCard
@@ -187,6 +192,7 @@ export default function PrizesPanel({
                   presenceBlocked={presenceBlocked}
                   onBuy={(qty) => redeemPass(p, qty)}
                   onManage={() => setViewing(p)}
+                  compact
                 />
               </li>
             ))}

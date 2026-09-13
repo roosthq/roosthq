@@ -52,6 +52,7 @@ export function PassCard({
   presenceBlocked = false,
   onBuy,
   onManage,
+  compact = false,
 }: {
   prize: StorePrize;
   tokenIcon: string;
@@ -61,8 +62,15 @@ export function PassCard({
   presenceBlocked?: boolean;
   onBuy: (quantity: number) => void;
   onManage: () => void;
+  // Kiosk's Quick Passes are half-width, two to a row (see PrizesPanel) -
+  // the full-size padding/button/text scale that's right on StorePage's
+  // wide grid reads oversized there. Tightens padding/type/controls; the
+  // aspect-[16/9] image itself is untouched, it already scales with width.
+  compact?: boolean;
 }) {
   const [qty, setQty] = useState(1);
+  const pad = compact ? 'p-1.5' : 'p-3';
+  const stepBtn = compact ? 'h-6 w-6 text-sm' : 'h-8 w-8 text-lg';
 
   if (isAdult) {
     return (
@@ -72,22 +80,24 @@ export function PassCard({
             what makes the crop display correctly instead of squished. This
             is also just... big enough to actually see the picture. */}
         <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="aspect-[16/9] w-full" />
-        <div className="p-3">
-          <p className="truncate font-medium leading-tight" title={prize.name}>
+        <div className={pad}>
+          <p className={`truncate font-medium leading-tight ${compact ? 'text-xs' : ''}`} title={prize.name}>
             {prize.name}
           </p>
-          <p className="mt-0.5 text-xs text-slate-400">
-            {formatPassQuantity(prize, 1)} · <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
-            {!prize.requiresApproval && ' · auto-grants'}
-            {(prize.passDailyLimit || prize.passWeeklyLimit || prize.passMonthlyLimit) &&
-              ` · max ${[
-                prize.passDailyLimit && `${prize.passDailyLimit}/day`,
-                prize.passWeeklyLimit && `${prize.passWeeklyLimit}/wk`,
-                prize.passMonthlyLimit && `${prize.passMonthlyLimit}/mo`,
-              ]
-                .filter(Boolean)
-                .join(', ')}`}
-          </p>
+          {!compact && (
+            <p className="mt-0.5 text-xs text-slate-400">
+              {formatPassQuantity(prize, 1)} · <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
+              {!prize.requiresApproval && ' · auto-grants'}
+              {(prize.passDailyLimit || prize.passWeeklyLimit || prize.passMonthlyLimit) &&
+                ` · max ${[
+                  prize.passDailyLimit && `${prize.passDailyLimit}/day`,
+                  prize.passWeeklyLimit && `${prize.passWeeklyLimit}/wk`,
+                  prize.passMonthlyLimit && `${prize.passMonthlyLimit}/mo`,
+                ]
+                  .filter(Boolean)
+                  .join(', ')}`}
+            </p>
+          )}
         </div>
       </button>
     );
@@ -114,32 +124,34 @@ export function PassCard({
           is also just... big enough to actually see the picture. */}
       <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="aspect-[16/9] w-full" />
 
-      <div className="flex flex-col gap-2 p-3">
+      <div className={`flex flex-col ${compact ? 'gap-1' : 'gap-2'} ${pad}`}>
         <div>
-          <p className="truncate font-medium leading-tight" title={prize.name}>
+          <p className={`truncate font-medium leading-tight ${compact ? 'text-xs' : ''}`} title={prize.name}>
             {prize.name}
           </p>
-          <p className="text-xs text-slate-400">
-            <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
-          </p>
+          {!compact && (
+            <p className="text-xs text-slate-400">
+              <TokenBadge icon={tokenIcon} amount={prize.tokenCost} /> per unit
+            </p>
+          )}
         </div>
 
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <button
               onClick={() => setQty((q) => Math.max(1, q - 1))}
               disabled={clampedQty <= 1}
               aria-label="Fewer"
-              className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+              className={`flex items-center justify-center rounded-full border font-semibold disabled:opacity-30 ${stepBtn}`}
             >
               −
             </button>
-            <span className="w-6 text-center text-lg font-semibold">{clampedQty}</span>
+            <span className={`text-center font-semibold ${compact ? 'w-4 text-sm' : 'w-6 text-lg'}`}>{clampedQty}</span>
             <button
               onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
               disabled={clampedQty >= maxQty}
               aria-label="More"
-              className="flex h-8 w-8 items-center justify-center rounded-full border text-lg font-semibold disabled:opacity-30"
+              className={`flex items-center justify-center rounded-full border font-semibold disabled:opacity-30 ${stepBtn}`}
             >
               +
             </button>
@@ -147,13 +159,15 @@ export function PassCard({
           <TokenBadge icon={tokenIcon} amount={totalCost} />
         </div>
 
-        <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
+        {!compact && (
+          <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
+        )}
 
         <button
           onClick={() => onBuy(clampedQty)}
           disabled={disabled}
           title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
-          className="rounded-lg bg-slate-800 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-40"
+          className={`rounded-lg bg-slate-800 font-semibold text-white hover:bg-slate-700 disabled:opacity-40 ${compact ? 'py-1 text-xs' : 'py-2 text-sm'}`}
         >
           {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
         </button>
