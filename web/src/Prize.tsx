@@ -159,9 +159,9 @@ export function PassCard({
           <TokenBadge icon={tokenIcon} amount={totalCost} />
         </div>
 
-        {!compact && (
-          <p className="text-center text-xs font-medium text-slate-500">You're purchasing {formatPassQuantity(prize, clampedQty)}</p>
-        )}
+        <p className={`text-center font-medium text-slate-500 ${compact ? 'text-[10px] leading-tight' : 'text-xs'}`}>
+          You're purchasing {formatPassQuantity(prize, clampedQty)}
+        </p>
 
         <button
           onClick={() => onBuy(clampedQty)}
