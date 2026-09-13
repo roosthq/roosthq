@@ -5,10 +5,19 @@
 //
 // Idempotent by REPLACEMENT, not upsert-by-content: each run deletes every
 // row for that (subject, grade) and reinserts the file's current contents.
-// Fine before real EduSession history exists against these ids (true for
-// this first seed); once kids have real sessions referencing specific
-// question ids, switch this to upsert-by-content-hash so a re-seed doesn't
-// orphan `roundsJson` question-id references mid-flight.
+//
+// 2026-09-13 incident: this ran again to seed a brand-new subject (LOGIC)
+// and, exactly as this comment used to warn, silently deleted+recreated
+// EVERY (subject, grade) file present in the directory - not just the new
+// one - cascade-deleting every kid's EduQuestionProgress instance-wide
+// (mastery/wrong-question tracking; UserSubjectGrade and TokenLedger were
+// untouched, but progress-toward-next-grade reset to zero for everyone).
+// Guarded now: a (subject, grade) with any real progress against it is
+// SKIPPED, never touched, regardless of what's in its JSON file - only
+// genuinely fresh ones (a new subject, or a grade nobody's played yet)
+// get replaced. Content EDITS to an already-played grade need the admin
+// question bank (owner-only, Settings > Instance) instead, which edits
+// rows in place and never touches their ids.
 //
 // Run from server/: node prisma/seed-edu-questions.js
 // (needs `npx prisma generate` run first if the client was regenerated since
@@ -39,6 +48,12 @@ async function main() {
     const rows = JSON.parse(fs.readFileSync(path.join(DIR, file), 'utf8'));
     if (!Array.isArray(rows) || !rows.length) {
       console.warn(`Skipping ${file} - empty or not an array`);
+      continue;
+    }
+
+    const playedCount = await prisma.eduQuestionProgress.count({ where: { subject, grade } });
+    if (playedCount > 0) {
+      console.warn(`Skipping ${subject} grade ${grade} - ${playedCount} real answer(s) on record, re-seeding would erase that history. Use the admin question bank to edit it instead.`);
       continue;
     }
 
