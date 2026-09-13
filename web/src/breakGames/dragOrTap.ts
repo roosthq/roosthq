@@ -34,6 +34,20 @@ export function useDragOrTapAsymmetric({ mode, onCommit }: AsymmetricOptions) {
   const targetRefs = useRef<Record<string, Element | null>>({});
   const draggingRef = useRef(dragging);
   draggingRef.current = dragging;
+  // The window listeners below are attached ONCE (effect deps are just
+  // [mode], on purpose - re-attaching on every render would mean a drag in
+  // flight loses its listeners mid-gesture). That means onUp/onMove close
+  // over whatever `onCommit` was on the render that mounted them, FOREVER -
+  // stale as soon as the caller's own state changes. Concretely: Balance
+  // Builder's onCommit reads `sum`/`used` to decide whether a tile fits;
+  // with the stale closure, every drop after the first ran against the
+  // ORIGINAL empty-scale sum/used, so it looked like each tile REPLACED
+  // the last one instead of stacking - "only one number can ever be
+  // added," never solvable past a single tile. A ref sidesteps this
+  // without re-subscribing: always call the LATEST onCommit, never the
+  // one from whenever the listener happened to be attached.
+  const onCommitRef = useRef(onCommit);
+  onCommitRef.current = onCommit;
 
   function hitTest(x: number, y: number): string | null {
     for (const [targetId, el] of Object.entries(targetRefs.current)) {
@@ -55,7 +69,7 @@ export function useDragOrTapAsymmetric({ mode, onCommit }: AsymmetricOptions) {
       const d = draggingRef.current;
       if (!d) return;
       const target = hitTest(e.clientX, e.clientY);
-      if (target) onCommit(d.id, target);
+      if (target) onCommitRef.current(d.id, target);
       setDragging(null);
       setOverTarget(null);
     }
@@ -125,6 +139,13 @@ export function useDragOrTapSwap({ mode, onSwap }: SwapOptions) {
   const tileRefs = useRef<Record<string, Element | null>>({});
   const draggingRef = useRef(dragging);
   draggingRef.current = dragging;
+  // Same stale-closure fix as useDragOrTapAsymmetric's onCommitRef above -
+  // the window listeners below only ever attach once per mode, so calling
+  // `onSwap` directly would run whatever version was current on THAT
+  // render, forever, regardless of how the caller's own state has moved
+  // on since.
+  const onSwapRef = useRef(onSwap);
+  onSwapRef.current = onSwap;
 
   function hitTest(x: number, y: number): string | null {
     for (const [tileId, el] of Object.entries(tileRefs.current)) {
@@ -148,7 +169,7 @@ export function useDragOrTapSwap({ mode, onSwap }: SwapOptions) {
       const d = draggingRef.current;
       if (!d) return;
       const hit = hitTest(e.clientX, e.clientY);
-      if (hit && hit !== d.id) onSwap(d.id, hit);
+      if (hit && hit !== d.id) onSwapRef.current(d.id, hit);
       setDragging(null);
       setOverTile(null);
     }
