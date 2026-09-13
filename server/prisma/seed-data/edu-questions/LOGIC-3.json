@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 2, 4, 7, 11, __?", "choicesJson": ["15", "16", "17", "18"], "answer": "16", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Tom is taller than Ben. Ben is taller than Sam. Who is the shortest?", "choicesJson": ["Tom", "Ben", "Sam"], "answer": "Sam", "tags": ["reasoning", "ordering"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 3, 6, 9, 10, 12", "choicesJson": ["3", "6", "9", "10", "12"], "answer": "10", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 81, 27, 9, 3, __?", "choicesJson": ["0", "1", "2", "4"], "answer": "1", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Author is to Book as Painter is to __?", "choicesJson": ["Painting", "Brush", "Museum", "Canvas"], "answer": "Painting", "tags": ["analogy"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All squares are rectangles. This shape is a square. Is it a rectangle?", "choicesJson": ["Yes", "No"], "answer": "Yes", "tags": ["syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Anna has more apples than Ben. Ben has more apples than Cara. Who has the most apples?", "choicesJson": ["Anna", "Ben", "Cara"], "answer": "Anna", "tags": ["reasoning", "ordering"] },
+  { "type": "TEXT_INPUT", "prompt": "What comes next: 2, 6, 18, 54, __?", "answer": "162", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word doesn't belong: Whisper, Shout, Talk, Jump", "choicesJson": ["Whisper", "Shout", "Talk", "Jump"], "answer": "Jump", "tags": ["classification"] },
+  { "type": "TEXT_INPUT", "prompt": "If X + 3 = 8, what is X?", "answer": "5", "tags": ["reasoning"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Doctor is to Hospital as Teacher is to __?", "choicesJson": ["School", "Book", "Pencil", "Bus"], "answer": "School", "tags": ["analogy"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 1, 2, 3, 5, 8, __?", "choicesJson": ["11", "12", "13", "14"], "answer": "13", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Three friends stand in a line. Mia is in front of Sam. Sam is in front of Leo. Who is last?", "choicesJson": ["Mia", "Sam", "Leo"], "answer": "Leo", "tags": ["reasoning", "ordering"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape completes: ◼ ◻ ◼ ◻ ◼ ◻ __?", "choicesJson": ["◼", "◻"], "answer": "◼", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 4, 9, 16, 20, 25", "choicesJson": ["4", "9", "16", "20", "25"], "answer": "20", "tags": ["classification"] }
+]

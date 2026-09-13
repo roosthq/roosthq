@@ -54,6 +54,11 @@ export class LearningController {
     return this.learning.advance(u.familyId, u.userId, id);
   }
 
+  @Post('sessions/:id/abandon')
+  abandon(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    return this.learning.abandonSession(u.familyId, u.userId, id);
+  }
+
   // ---- Question bank (owner-only - see LearningService.assertOwner) ----
   @Get('questions')
   listQuestions(

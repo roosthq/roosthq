@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Apple, Banana, Carrot, Grape", "choicesJson": ["Apple", "Banana", "Carrot", "Grape"], "answer": "Carrot", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next in the pattern: 🔵 🔴 🔵 🔴 __?", "choicesJson": ["🔵", "🔴", "🟡", "🟢"], "answer": "🔵", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is bigger: a mouse or an elephant?", "choicesJson": ["A mouse", "An elephant"], "answer": "An elephant", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: Square, Circle, Square, Circle, __?", "choicesJson": ["Square", "Circle", "Triangle"], "answer": "Square", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is NOT an animal: Dog, Cat, Car, Fish", "choicesJson": ["Dog", "Cat", "Car", "Fish"], "answer": "Car", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is NOT a fruit: Apple, Orange, Potato, Grape", "choicesJson": ["Apple", "Orange", "Potato", "Grape"], "answer": "Potato", "tags": ["classification"] },
+  { "type": "TEXT_INPUT", "prompt": "What comes next: 1, 2, 3, __?", "answer": "4", "tags": ["pattern", "counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Red, Blue, Green, Happy", "choicesJson": ["Red", "Blue", "Green", "Happy"], "answer": "Happy", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 🍎 🍌 🍎 🍌 __?", "choicesJson": ["🍎", "🍌", "🍇", "🍊"], "answer": "🍎", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is smaller: a cat or a lion?", "choicesJson": ["A cat", "A lion"], "answer": "A cat", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Sock, Shoe, Hat, Spoon", "choicesJson": ["Sock", "Shoe", "Hat", "Spoon"], "answer": "Spoon", "tags": ["classification"] },
+  { "type": "TEXT_INPUT", "prompt": "What comes next: A, B, C, __?", "answer": "D", "tags": ["pattern", "letters"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which is heavier: a feather or a rock?", "choicesJson": ["A feather", "A rock"], "answer": "A rock", "tags": ["comparing"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 🔺 🔻 🔺 🔻 __?", "choicesJson": ["🔺", "🔻"], "answer": "🔺", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is different: Bee, Bee, Bee, Butterfly", "choicesJson": ["First bee", "Second bee", "Third bee", "Butterfly"], "answer": "Butterfly", "tags": ["classification"] }
+]

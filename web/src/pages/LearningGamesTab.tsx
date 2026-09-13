@@ -80,6 +80,17 @@ const BREAK_GAMES: Record<EduSubject, BreakGameEntry[]> = {
     { Component: WordGridSnap, minGrade: 0, label: 'Word Grid Snap' },
     { Component: RhymePop, minGrade: 0, label: 'Rhyme Pop' },
   ],
+  // No dedicated Logic break games (yet) - borrows the 5 already-existing
+  // concepts that are themselves genuinely deduction/sequencing/ordering
+  // puzzles under a different subject's skin, instead of building 5 new
+  // ones from scratch for launch. Same components, same minGrade gates.
+  LOGIC: [
+    { Component: DetectiveClues, minGrade: 0, label: 'Detective Clues' },
+    { Component: StoryOrderSwap, minGrade: 0, label: 'Story Order Swap' },
+    { Component: PathToFlag, minGrade: 0, label: 'Path to Flag' },
+    { Component: NumberPopLadder, minGrade: 0, label: 'Number Pop Ladder' },
+    { Component: CircuitPath, minGrade: 3, label: 'Circuit Path' },
+  ],
 };
 
 function pickBreakGame(subject: EduSubject, grade: number, lastComponent: unknown) {
@@ -438,6 +449,14 @@ export function PlaySession({
 
   function quit() {
     setConfirmQuit(false);
+    // Actually close the row server-side, not just the client's own state -
+    // this used to only ever reset local state, leaving the EduSession
+    // stuck at BLOCK_A/BREAK/BLOCK_B forever (no different from the tab
+    // just going away), piling up as permanently "in progress" in Recent
+    // sessions. Fire-and-forget - nothing here should block getting back
+    // to the picker, and there's nothing to roll back either way (tokens
+    // only ever get written at DONE).
+    if (session) api.abandonLearningSession(session.sessionId, kioskToken).catch(() => undefined);
     if (onExit) onExit();
     else {
       setSession(null);

@@ -10,6 +10,7 @@ export const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> =
   READING: { label: 'Reading', icon: '📖' },
   SCIENCE: { label: 'Science', icon: '🔬' },
   SPELLING: { label: 'Spelling', icon: '🔤' },
+  LOGIC: { label: 'Logic', icon: '🧩' },
 };
 export const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
 
@@ -91,7 +92,11 @@ export function LearningProgressDetail({ progress, hideCounts = false }: { progr
                   {SUBJECT_META[s.subject].icon} {SUBJECT_META[s.subject].label} - {GRADE_LABELS[s.grade]} grade
                 </span>
                 <span>
-                  {s.status === 'DONE' ? `${s.correctCount}/${s.totalCount}${s.allCorrect ? ' 🌟' : ''}` : `in progress (${s.status})`}
+                  {s.status === 'DONE'
+                    ? `${s.correctCount}/${s.totalCount}${s.allCorrect ? ' 🌟' : ''}`
+                    : s.status === 'ABANDONED'
+                      ? 'quit early'
+                      : `in progress (${s.status})`}
                 </span>
                 <span className="text-slate-400">{new Date(s.startedAt).toLocaleDateString()}</span>
               </div>

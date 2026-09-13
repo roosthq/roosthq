@@ -610,7 +610,7 @@ export interface MiniGameTierInput {
 }
 
 // ---------- Learning games (PLANNING.md §19) ----------
-export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING'] as const;
+export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC'] as const;
 export type EduSubject = (typeof EDU_SUBJECTS)[number];
 
 export interface EduGradeRow {
@@ -695,7 +695,7 @@ export interface EduRecentSession {
   id: string;
   subject: EduSubject;
   grade: number;
-  status: 'BLOCK_A' | 'BREAK' | 'BLOCK_B' | 'DONE';
+  status: 'BLOCK_A' | 'BREAK' | 'BLOCK_B' | 'DONE' | 'ABANDONED';
   correctCount: number;
   totalCount: number;
   tokensAwarded: number;
@@ -1802,6 +1802,8 @@ export const api = {
     req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
   advanceLearningSession: (sessionId: string, kioskToken?: string) =>
     req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
+  abandonLearningSession: (sessionId: string, kioskToken?: string) =>
+    req<{ ok: true }>(`/learning/sessions/${sessionId}/abandon`, { method: 'POST' }, kioskToken),
   learningProgress: (userId: string, kioskToken?: string) => req<EduProgress>(`/learning/progress/${userId}`, {}, kioskToken),
   // ---- Question bank admin (owner-only) ----
   listEduQuestions: (

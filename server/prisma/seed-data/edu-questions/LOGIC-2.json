@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 4, 7, 10, __?", "choicesJson": ["11", "12", "13", "14"], "answer": "13", "tags": ["pattern"] },
+  { "type": "TEXT_INPUT", "prompt": "All squares have 4 sides. This shape is a square. How many sides does it have?", "answer": "4", "tags": ["reasoning", "syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Big is to Small as Fast is to __?", "choicesJson": ["Slow", "Quick", "Tall", "Loud"], "answer": "Slow", "tags": ["analogy", "opposites"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 2, 4, 6, 7, 8", "choicesJson": ["2", "4", "6", "7", "8"], "answer": "7", "tags": ["classification", "pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 100, 90, 80, __?", "choicesJson": ["75", "70", "65", "60"], "answer": "70", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "If it is raining, Mia brings an umbrella. It is raining. What does Mia bring?", "choicesJson": ["An umbrella", "A raincoat only", "Nothing", "A fan"], "answer": "An umbrella", "tags": ["reasoning", "conditional"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word doesn't belong: Happy, Sad, Angry, Chair", "choicesJson": ["Happy", "Sad", "Angry", "Chair"], "answer": "Chair", "tags": ["classification"] },
+  { "type": "TEXT_INPUT", "prompt": "What comes next: 5, 10, 15, 20, __?", "answer": "25", "tags": ["pattern", "skip-counting"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Puppy is to Dog as Kitten is to __?", "choicesJson": ["Cat", "Bird", "Cow", "Fish"], "answer": "Cat", "tags": ["analogy"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape completes the pattern: ▲ ● ▲ ● ▲ __?", "choicesJson": ["▲", "●"], "answer": "●", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All fish live in water. A trout is a fish. Where does a trout live?", "choicesJson": ["In water", "In trees", "In the sky", "Underground"], "answer": "In water", "tags": ["reasoning", "syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 2, 4, 8, 16, __?", "choicesJson": ["18", "20", "24", "32"], "answer": "32", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Circle, Square, Triangle, Red", "choicesJson": ["Circle", "Square", "Triangle", "Red"], "answer": "Red", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Finger is to Hand as Toe is to __?", "choicesJson": ["Foot", "Arm", "Leg", "Head"], "answer": "Foot", "tags": ["analogy"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: Monday, Wednesday, Friday, __?", "choicesJson": ["Saturday", "Sunday", "Tuesday", "Thursday"], "answer": "Sunday", "tags": ["pattern"] }
+]

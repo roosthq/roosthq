@@ -30,7 +30,7 @@ export interface EduQuestionInput {
 // client the way MiniGameGrant/Purchase trust PlayReport.won (those pay out
 // on a pre-drawn chance result independent of skill; this pays out because
 // the answer was actually right).
-export const SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING'];
+export const SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC'];
 const BLOCK_SIZE = 5;
 
 // Fallback only for a family whose LearningGamesSettings row doesn't exist
@@ -525,6 +525,21 @@ export class LearningService {
     const questions = await this.pickQuestions(session.subject, session.grade, userId, usedIds, BLOCK_SIZE);
     await this.prisma.eduSession.update({ where: { id: session.id }, data: { status: 'BLOCK_B' } });
     return { phase: 'BLOCK_B', questions: questions.map((q) => this.presentQuestion(q)) };
+  }
+
+  // The Quit button (confirmQuitModal in PlaySession) only ever reset
+  // CLIENT state - the server-side row sat at BLOCK_A/BREAK/BLOCK_B
+  // forever, no different from a tab just going away, and piled up in
+  // "recent sessions" reading as permanently "in progress" (Casey's own
+  // report - a pile of stray old ones from before this existed). No tokens
+  // were ever at risk either way (those only get written at DONE), so
+  // this is just closing the record cleanly instead of leaving it hanging.
+  async abandonSession(familyId: string, userId: string, sessionId: string) {
+    await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
+    const session = await this.owned(userId, sessionId);
+    if (session.status === 'DONE' || session.status === 'ABANDONED') return { ok: true };
+    await this.prisma.eduSession.update({ where: { id: session.id }, data: { status: 'ABANDONED', finishedAt: new Date() } });
+    return { ok: true };
   }
 
   // ---------------- Question bank (owner-only - see assertOwner) ----------------

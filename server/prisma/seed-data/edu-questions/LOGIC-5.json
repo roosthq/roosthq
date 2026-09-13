@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 3, 7, 15, 31, __?", "choicesJson": ["61", "62", "63", "64"], "answer": "63", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Every triangle has 3 sides. This shape has 4 sides. Is it a triangle?", "choicesJson": ["Yes", "No"], "answer": "No", "tags": ["syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Sam is taller than Al. Al is taller than Ben. Cara is taller than Sam. Who is the tallest?", "choicesJson": ["Sam", "Al", "Ben", "Cara"], "answer": "Cara", "tags": ["reasoning", "ordering"] },
+  { "type": "TEXT_INPUT", "prompt": "If 3 apples cost 90 tokens, how many tokens does 1 apple cost?", "answer": "30", "tags": ["reasoning", "ratio"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 2, 6, 24, 120, __?", "choicesJson": ["600", "700", "720", "740"], "answer": "720", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All squares are rectangles, but not all rectangles are squares. This shape is a rectangle. Must it be a square?", "choicesJson": ["Yes", "No"], "answer": "No", "tags": ["syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "If today is Wednesday, what day was it 3 days ago?", "choicesJson": ["Sunday", "Monday", "Tuesday", "Saturday"], "answer": "Sunday", "tags": ["reasoning"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 8, 27, 64, 100, 125", "choicesJson": ["8", "27", "64", "100", "125"], "answer": "100", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Ocean is to Wave as Desert is to __?", "choicesJson": ["Dune", "Cactus", "Sand", "Oasis"], "answer": "Dune", "tags": ["analogy"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All roses are flowers. Some flowers fade quickly. Can we conclude all roses fade quickly?", "choicesJson": ["Yes", "No", "Not enough information"], "answer": "Not enough information", "tags": ["reasoning", "syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 2, 5, 10, 17, 26, __?", "choicesJson": ["35", "36", "37", "38"], "answer": "37", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "In a race, Mia beat Jax. Jax beat Kim. Kim beat Leo. Who finished last?", "choicesJson": ["Mia", "Jax", "Kim", "Leo"], "answer": "Leo", "tags": ["reasoning", "ordering"] },
+  { "type": "TEXT_INPUT", "prompt": "A pattern repeats every 4 numbers: 3, 6, 9, 12, 3, 6, 9, 12... What is the 10th number?", "answer": "6", "tags": ["pattern", "reasoning"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which doesn't belong: Eagle, Sparrow, Penguin, Robin", "choicesJson": ["Eagle", "Sparrow", "Penguin", "Robin"], "answer": "Penguin", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Farmer is to Field as Fisherman is to __?", "choicesJson": ["Sea", "Boat", "Net", "Fish"], "answer": "Sea", "tags": ["analogy"] }
+]

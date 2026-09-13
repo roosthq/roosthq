@@ -1,0 +1,17 @@
+[
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 5, 11, 23, 47, __?", "choicesJson": ["93", "94", "95", "96"], "answer": "95", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All mammals are warm-blooded. A whale is a mammal. Is a whale warm-blooded?", "choicesJson": ["Yes", "No"], "answer": "Yes", "tags": ["syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Four kids ran a race. Alex finished before Beth. Beth finished before Cara. Cara finished before Dee. Who won the race?", "choicesJson": ["Alex", "Beth", "Cara", "Dee"], "answer": "Alex", "tags": ["reasoning", "ordering"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 2, 3, 5, 8, 13, __?", "choicesJson": ["18", "19", "20", "21"], "answer": "21", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Kitten is to Cat as Cub is to __?", "choicesJson": ["Bear", "Dog", "Bird", "Fish"], "answer": "Bear", "tags": ["analogy"] },
+  { "type": "TEXT_INPUT", "prompt": "If 2 pencils cost 10 tokens, how many tokens do 5 pencils cost?", "answer": "25", "tags": ["reasoning", "ratio"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 12, 15, 18, 21, 22", "choicesJson": ["12", "15", "18", "21", "22"], "answer": "22", "tags": ["classification"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "All squares have equal sides. This rectangle does NOT have equal sides. Is it a square?", "choicesJson": ["Yes", "No"], "answer": "No", "tags": ["syllogism"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 4, 9, 16, 25, __?", "choicesJson": ["30", "32", "36", "40"], "answer": "36", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "If it snows, school closes. School is open today. Did it snow?", "choicesJson": ["Yes, it snowed", "No, it did not snow", "Can't tell"], "answer": "No, it did not snow", "tags": ["reasoning", "conditional"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Which word doesn't belong: Triangle, Square, Pentagon, Circle", "choicesJson": ["Triangle", "Square", "Pentagon", "Circle"], "answer": "Circle", "tags": ["classification"] },
+  { "type": "TEXT_INPUT", "prompt": "A train travels 60 miles in 1 hour. How far does it travel in 3 hours at the same speed?", "answer": "180", "tags": ["reasoning", "ratio"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 128, 64, 32, 16, __?", "choicesJson": ["8", "10", "12", "14"], "answer": "8", "tags": ["pattern"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Five students are in line. Jo is directly behind Kim. Kim is directly behind Lee. Who is in front, Jo or Lee?", "choicesJson": ["Jo", "Lee"], "answer": "Lee", "tags": ["reasoning", "ordering"] },
+  { "type": "MULTIPLE_CHOICE", "prompt": "Chef is to Kitchen as Pilot is to __?", "choicesJson": ["Airplane", "Runway", "Sky", "Airport"], "answer": "Airplane", "tags": ["analogy"] }
+]
