@@ -67,7 +67,12 @@ export function PassCard({
   if (isAdult) {
     return (
       <button onClick={onManage} className="flex w-full items-center gap-3 rounded border bg-white p-3 text-left hover:shadow-sm">
-        <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="h-12 w-12 shrink-0 rounded" />
+        {/* No crop prop - the saved crop rect is chosen against the main
+            grid's wide 16:9 box (see StorePage), and cropBackgroundStyle
+            stretches that rect to fill WHATEVER box it's given. Forced into
+            this tiny square thumbnail it stretched/squished the picture.
+            Uncropped object-contain never distorts, whatever the box shape. */}
+        <PrizeImage src={prize.image} alt={prize.name} className="h-14 w-14 shrink-0 rounded" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium leading-tight" title={prize.name}>
             {prize.name}
@@ -105,7 +110,8 @@ export function PassCard({
   return (
     <div className="flex flex-col gap-2 rounded-xl border bg-white p-3">
       <div className="flex items-center gap-2">
-        <PrizeImage src={prize.image} alt={prize.name} crop={prize.imageCrop} className="h-11 w-11 shrink-0 rounded" />
+        {/* Uncropped (see adult branch above) - same distortion, same fix. */}
+        <PrizeImage src={prize.image} alt={prize.name} className="h-14 w-14 shrink-0 rounded" />
         <div className="min-w-0 flex-1">
           <p className="truncate font-medium leading-tight" title={prize.name}>
             {prize.name}
