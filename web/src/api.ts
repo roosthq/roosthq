@@ -979,7 +979,7 @@ export const FEATURE_TREE: FeatureNode[] = [
   {
     id: 'learningGames',
     label: 'Learning games',
-    help: 'Grade-level quiz sessions (math, reading, science, spelling) with a subject-specific arcade break - tokens per correct answer, bonus for a perfect session.',
+    help: 'Grade-level quiz sessions (math, reading, science, spelling, logic, social studies) with a subject-specific arcade break - tokens per correct answer, bonus for a perfect session.',
     requires: 'tokens',
   },
   {

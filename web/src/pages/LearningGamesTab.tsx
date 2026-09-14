@@ -634,8 +634,8 @@ export function PlaySession({
       <div className="mt-4">
         <div className="flex items-start justify-between gap-3">
           <p className="text-sm text-slate-500">
-            Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish -
-            quitting early earns nothing, so see it through!
+            Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish. Need to
+            stop partway? No problem - the same questions will be waiting for you next time.
           </p>
           <div className="flex shrink-0 items-center gap-2">
             {myUserId && (
