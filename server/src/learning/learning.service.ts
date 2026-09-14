@@ -302,6 +302,23 @@ export class LearningService {
   async startSession(familyId: string, userId: string, subject: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const subj = this.sanitizeSubject(subject);
+
+    // Resume whatever's already in flight for this subject instead of
+    // dealing a fresh hand - see presentedJson's own comment for why this
+    // exists (closing the quit-and-reroll-for-an-easy-question exploit).
+    const inFlight = await this.prisma.eduSession.findFirst({
+      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] } },
+      orderBy: { startedAt: 'desc' },
+    });
+    if (inFlight) {
+      const resumed = await this.resumeSession(inFlight);
+      if (resumed.phase === 'BREAK' || resumed.questions.length > 0) return resumed;
+      // Nothing left to actually resume into (a malformed or pre-migration
+      // row with no presentedJson) - close it out rather than hand back a
+      // broken empty-questions payload, then fall through to a fresh start.
+      await this.prisma.eduSession.update({ where: { id: inFlight.id }, data: { status: 'ABANDONED', finishedAt: new Date() } });
+    }
+
     let grade = await this.myGrade(userId, familyId, subj);
     // Catch-up: normally a maxed-out grade only gets re-checked for
     // promotion at the END of a session (maybePromote, called from
@@ -316,8 +333,44 @@ export class LearningService {
       throw new BadRequestException(`You've mastered every ${subj.toLowerCase()} question so far - more is coming once a higher grade is added!`);
     }
     const questions = await this.pickQuestions(subj, grade, userId, [], BLOCK_SIZE);
-    const session = await this.prisma.eduSession.create({ data: { userId, subject: subj, grade, status: 'BLOCK_A' } });
-    return { sessionId: session.id, subject: subj, grade, phase: 'BLOCK_A', questions: questions.map((q) => this.presentQuestion(q)) };
+    const session = await this.prisma.eduSession.create({
+      data: { userId, subject: subj, grade, status: 'BLOCK_A', presentedJson: { blockA: questions.map((q) => q.id) } as unknown as Prisma.InputJsonValue },
+    });
+    return { sessionId: session.id, subject: subj, grade, phase: 'BLOCK_A', questions: questions.map((q) => this.presentQuestion(q)), tokensAwarded: 0 };
+  }
+
+  // Rebuilds exactly what a resumed session should hand the client: the
+  // SAME block that was already drawn (presentedJson), minus whatever's
+  // already been answered this block (roundsJson) - so re-opening lands on
+  // the exact next unanswered question, not a re-roll and not a restart of
+  // the whole block from question 1.
+  private async resumeSession(session: {
+    id: string;
+    subject: string;
+    grade: number;
+    status: string;
+    roundsJson: unknown;
+    presentedJson: unknown;
+    tokensAwarded: number;
+  }) {
+    const presented = (session.presentedJson as { blockA?: string[]; blockB?: string[] }) ?? {};
+    const rounds = (session.roundsJson as unknown as EduRound[]) ?? [];
+    const answeredIds = new Set(rounds.filter((r) => r.block === session.status).map((r) => r.questionId));
+    const ids = session.status === 'BLOCK_A' ? (presented.blockA ?? []) : session.status === 'BLOCK_B' ? (presented.blockB ?? []) : [];
+    const remainingIds = ids.filter((id) => !answeredIds.has(id));
+    const rows = remainingIds.length ? await this.prisma.eduQuestion.findMany({ where: { id: { in: remainingIds } } }) : [];
+    const byId = new Map(rows.map((q) => [q.id, q]));
+    // findMany doesn't preserve `id: { in: [...] }` order - put it back in
+    // the order the block was actually presented in.
+    const ordered = remainingIds.map((id) => byId.get(id)).filter((q): q is (typeof rows)[number] => !!q);
+    return {
+      sessionId: session.id,
+      subject: session.subject,
+      grade: session.grade,
+      phase: session.status as 'BLOCK_A' | 'BREAK' | 'BLOCK_B',
+      questions: ordered.map((q) => this.presentQuestion(q)),
+      tokensAwarded: session.tokensAwarded,
+    };
   }
 
   // Every active question at this grade mastered, AND nothing at the next
@@ -519,21 +572,37 @@ export class LearningService {
   async advance(familyId: string, userId: string, sessionId: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const session = await this.owned(userId, sessionId);
+    // Already on block B (a resume after the break, not a fresh advance) -
+    // hand back the SAME block instead of drawing a second one on top.
+    if (session.status === 'BLOCK_B') {
+      const resumed = await this.resumeSession(session);
+      return { phase: 'BLOCK_B', questions: resumed.questions };
+    }
     if (session.status !== 'BREAK') throw new BadRequestException('Not on a break right now');
     const rounds = (session.roundsJson as unknown as EduRound[]) ?? [];
     const usedIds = rounds.map((r) => r.questionId);
     const questions = await this.pickQuestions(session.subject, session.grade, userId, usedIds, BLOCK_SIZE);
-    await this.prisma.eduSession.update({ where: { id: session.id }, data: { status: 'BLOCK_B' } });
+    const presented = (session.presentedJson as { blockA?: string[] }) ?? {};
+    await this.prisma.eduSession.update({
+      where: { id: session.id },
+      data: {
+        status: 'BLOCK_B',
+        presentedJson: { ...presented, blockB: questions.map((q) => q.id) } as unknown as Prisma.InputJsonValue,
+      },
+    });
     return { phase: 'BLOCK_B', questions: questions.map((q) => this.presentQuestion(q)) };
   }
 
-  // The Quit button (confirmQuitModal in PlaySession) only ever reset
-  // CLIENT state - the server-side row sat at BLOCK_A/BREAK/BLOCK_B
-  // forever, no different from a tab just going away, and piled up in
-  // "recent sessions" reading as permanently "in progress" (Casey's own
-  // report - a pile of stray old ones from before this existed). No tokens
-  // were ever at risk either way (those only get written at DONE), so
-  // this is just closing the record cleanly instead of leaving it hanging.
+  // No longer called by the Quit button (confirmQuitModal in PlaySession) -
+  // it used to, but that made quitting-and-restarting throw away the
+  // in-flight block entirely, and a kid found the exploit hiding in that:
+  // quit, restart, get a fresh random draw, repeat until the questions
+  // shown happen to be ones already known. Quit now leaves the row alone
+  // on purpose (see startSession's resume logic) so the SAME block is
+  // waiting next time, not a new one. Kept as a real "close this out"
+  // capability for whatever legitimately needs one later (an admin tool,
+  // a genuine restart-with-new-questions action, etc) - just nothing
+  // reachable from the kid-facing UI calls it right now.
   async abandonSession(familyId: string, userId: string, sessionId: string) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const session = await this.owned(userId, sessionId);

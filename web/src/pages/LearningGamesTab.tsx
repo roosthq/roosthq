@@ -449,14 +449,12 @@ export function PlaySession({
 
   function quit() {
     setConfirmQuit(false);
-    // Actually close the row server-side, not just the client's own state -
-    // this used to only ever reset local state, leaving the EduSession
-    // stuck at BLOCK_A/BREAK/BLOCK_B forever (no different from the tab
-    // just going away), piling up as permanently "in progress" in Recent
-    // sessions. Fire-and-forget - nothing here should block getting back
-    // to the picker, and there's nothing to roll back either way (tokens
-    // only ever get written at DONE).
-    if (session) api.abandonLearningSession(session.sessionId, kioskToken).catch(() => undefined);
+    // No abandon call anymore - the whole point now is that the session
+    // stays exactly as it is server-side, so tapping this subject again
+    // resumes the SAME block instead of dealing a fresh one (see
+    // startSession/presentedJson). Abandoning here would silently defeat
+    // that: quit, restart, get a new roll, right back to the exploit this
+    // was built to close.
     if (onExit) onExit();
     else {
       setSession(null);
@@ -480,19 +478,21 @@ export function PlaySession({
     <Modal
       maxWidthClass="max-w-sm"
       onBackdropClick={() => setConfirmQuit(false)}
-      header={<h3 className="text-lg font-semibold">Quit this session?</h3>}
+      header={<h3 className="text-lg font-semibold">Stop for now?</h3>}
       footer={
         <div className="flex justify-end gap-2">
           <button onClick={() => setConfirmQuit(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-slate-50">
             Keep playing
           </button>
           <button onClick={quit} className="btn-delete rounded px-3 py-1.5 text-sm">
-            Quit
+            Stop
           </button>
         </div>
       }
     >
-      <p className="text-sm text-slate-500">You'll lose your progress on this set of questions - it isn't saved until you finish.</p>
+      <p className="text-sm text-slate-500">
+        You won't earn tokens until you finish, but these same questions will be waiting for you next time - they don't reset.
+      </p>
     </Modal>
   );
 
@@ -500,12 +500,27 @@ export function PlaySession({
     setPhase('STARTING');
     setStartError(null);
     try {
+      // startSession resumes whatever's already in flight for this
+      // subject rather than always dealing a fresh hand - a kid had
+      // figured out that quitting and re-opening re-rolled brand new
+      // questions, and kept doing it until landing on ones they already
+      // knew. `phase` reflects wherever they actually left off.
       const s = await api.startLearningSession(subject, kioskToken);
       setSession(s);
-      setQuestions(s.questions);
-      setIndex(0);
-      setSessionTokens(0);
-      setPhase('QUESTION');
+      setSessionTokens(s.tokensAwarded);
+      if (s.phase === 'BREAK') {
+        // Resumed mid-break (no questions to show) - same as a normal
+        // block-A finish: pick a break game, land on the BREAK screen.
+        setQuestions([]);
+        setIndex(0);
+        const picked = pickBreakGame(s.subject, s.grade, lastBreakGameRef.current);
+        setCurrentBreakGame(() => picked);
+        setPhase('BREAK');
+      } else {
+        setQuestions(s.questions);
+        setIndex(0);
+        setPhase('QUESTION');
+      }
     } catch (e) {
       // The picker already disables a locked subject's button using
       // subjectProgress, but that fetch can still be mid-flight (or stale)

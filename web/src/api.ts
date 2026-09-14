@@ -644,8 +644,16 @@ export interface EduSessionStart {
   sessionId: string;
   subject: EduSubject;
   grade: number;
-  phase: 'BLOCK_A';
+  // Usually BLOCK_A (a fresh session), but startSession resumes whatever
+  // was already in flight for this subject instead of dealing a new hand -
+  // BREAK or BLOCK_B here means "pick back up where you left off," not
+  // "here's a brand new set." BREAK carries no questions (the arcade break
+  // has none); the client picks a break game same as a normal block-A finish.
+  phase: 'BLOCK_A' | 'BREAK' | 'BLOCK_B';
   questions: EduQuestionForPlay[];
+  // Running total from before this resume, if any - so the "N so far"
+  // display picks up where it left off instead of visibly resetting to 0.
+  tokensAwarded: number;
 }
 
 export interface EduAnswerResult {

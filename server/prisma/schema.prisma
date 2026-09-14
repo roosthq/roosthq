@@ -1270,10 +1270,18 @@ model EduSession {
   subject         String
   grade           Int // snapshot of UserSubjectGrade at session start - a
   // grade change mid-session doesn't change what's already been asked
-  status          String    @default("BLOCK_A") // BLOCK_A | BREAK | BLOCK_B | DONE
+  status          String    @default("BLOCK_A") // BLOCK_A | BREAK | BLOCK_B | DONE | ABANDONED
   roundsJson      Json      @default("[]") // [{questionId, given, correct}],
   // both blocks appended in play order - the arcade break isn't a "round",
   // it has no answer to record
+  // The exact question ids drawn for each block, in draw order - set once,
+  // the moment each block is drawn (startSession for A, advance() for B).
+  // Exists so quitting and re-opening the SAME subject resumes into the
+  // SAME already-drawn block instead of rolling a fresh random one - a kid
+  // had figured out that quit-then-restart re-rolls new questions, and
+  // kept doing it until landing on ones they already knew, dodging
+  // whatever they actually needed to review. {blockA?: string[], blockB?: string[]}
+  presentedJson   Json      @default("{}")
   // Running tally shown to the kid live as they play ("5 so far") - NOT
   // written to TokenLedger until DONE, where the real payout happens in one
   // shot. Finishing the session is what makes it real; quitting early earns
