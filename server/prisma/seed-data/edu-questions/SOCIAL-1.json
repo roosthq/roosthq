@@ -1,0 +1,1590 @@
+[
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Memorial Day?",
+    "choicesJson": [
+      "August",
+      "May",
+      "April",
+      "March"
+    ],
+    "answer": "May",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they prepare food for people to eat?",
+    "choicesJson": [
+      "Farmer",
+      "Cook",
+      "Veterinarian",
+      "Nurse"
+    ],
+    "answer": "Cook",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a picture that shows where places are?",
+    "choicesJson": [
+      "A recipe",
+      "A map",
+      "A story",
+      "A song"
+    ],
+    "answer": "A map",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is a new video game a need or a want?",
+    "choicesJson": [
+      "A need",
+      "Neither",
+      "A want",
+      "Impossible to say"
+    ],
+    "answer": "A want",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper takes care of sick or hurt animals?",
+    "choicesJson": [
+      "Sanitation worker",
+      "Teacher",
+      "Veterinarian",
+      "Firefighter"
+    ],
+    "answer": "Veterinarian",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What should you do at a red traffic light?",
+    "choicesJson": [
+      "Honk and go",
+      "Go faster",
+      "Turn around",
+      "Stop"
+    ],
+    "answer": "Stop",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do we stand in line and wait our turn?",
+    "choicesJson": [
+      "So no one can talk",
+      "So we get tired",
+      "So the line never moves",
+      "So everyone gets a fair turn"
+    ],
+    "answer": "So everyone gets a fair turn",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, people wrote letters by hand and waited days to send them. Today, we often send messages using ____?",
+    "choicesJson": [
+      "Smoke signals only",
+      "Horses only",
+      "Nothing at all",
+      "Computers or phones"
+    ],
+    "answer": "Computers or phones",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper builds houses, roads, and buildings?",
+    "choicesJson": [
+      "Grocer",
+      "Construction worker",
+      "Dentist",
+      "Bus driver"
+    ],
+    "answer": "Construction worker",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What should you do before crossing the street?",
+    "choicesJson": [
+      "Look both ways",
+      "Run across quickly",
+      "Skip in circles",
+      "Close your eyes"
+    ],
+    "answer": "Look both ways",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are taxes?",
+    "choicesJson": [
+      "money people pay to the government that helps pay for schools and roads",
+      "people who buy and use goods or services",
+      "things that are nice to have but people don't need to survive",
+      "people who make goods or provide services"
+    ],
+    "answer": "money people pay to the government that helps pay for schools and roads",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who helps students learn?",
+    "choicesJson": [
+      "Teacher",
+      "Doctor",
+      "Farmer",
+      "Firefighter"
+    ],
+    "answer": "Teacher",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a bird flies above your head, where is it?",
+    "choicesJson": [
+      "Below you",
+      "Above you",
+      "Under the ground",
+      "Behind a mountain"
+    ],
+    "answer": "Above you",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a nurse do?",
+    "choicesJson": [
+      "helps sick or hurt people get better",
+      "helps take care of sick or hurt people",
+      "collects and hauls away trash",
+      "runs a store that sells food"
+    ],
+    "answer": "helps take care of sick or hurt people",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is usually the leader of a city or town?",
+    "choicesJson": [
+      "Principal",
+      "Governor",
+      "President",
+      "Mayor"
+    ],
+    "answer": "Mayor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who drives a bus to take people where they need to go?",
+    "choicesJson": [
+      "Teacher",
+      "Cook",
+      "Bus driver",
+      "Construction worker"
+    ],
+    "answer": "Bus driver",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are goods?",
+    "choicesJson": [
+      "work that one person does for another person",
+      "people who make goods or provide services",
+      "when there is not enough of something for everyone who wants it",
+      "things people make or grow that can be bought or sold"
+    ],
+    "answer": "things people make or grow that can be bought or sold",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper collects and hauls away trash?",
+    "choicesJson": [
+      "Nurse",
+      "Sanitation worker",
+      "Bus driver",
+      "Cook"
+    ],
+    "answer": "Sanitation worker",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, people used candles or lanterns for light. Today, we usually use ____?",
+    "choicesJson": [
+      "Nothing",
+      "Electric lights",
+      "Torches only",
+      "Fireflies"
+    ],
+    "answer": "Electric lights",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you walk toward the sunrise in the morning, you are walking which way?",
+    "choicesJson": [
+      "East",
+      "Up",
+      "Down",
+      "West"
+    ],
+    "answer": "East",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is between North and West on a compass rose?",
+    "choicesJson": [
+      "Northwest",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Northwest",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is it called when someone follows the rules and helps others?",
+    "choicesJson": [
+      "Being loud",
+      "Being responsible",
+      "Being sleepy",
+      "Being invisible"
+    ],
+    "answer": "Being responsible",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who runs a store that sells food?",
+    "choicesJson": [
+      "Farmer",
+      "Construction worker",
+      "Grocer",
+      "Teacher"
+    ],
+    "answer": "Grocer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a police officer do?",
+    "choicesJson": [
+      "keeps people safe and makes sure people follow laws",
+      "helps sick or hurt people get better",
+      "helps students learn",
+      "delivers letters and packages"
+    ],
+    "answer": "keeps people safe and makes sure people follow laws",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which leader would you ask about a problem with your state?",
+    "choicesJson": [
+      "A ship captain",
+      "The governor",
+      "The mayor of another state",
+      "A foreign king"
+    ],
+    "answer": "The governor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a person who is allowed to vote and has rights and duties in a country?",
+    "choicesJson": [
+      "A stranger",
+      "A visitor",
+      "A citizen",
+      "A tourist"
+    ],
+    "answer": "A citizen",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Presidents Day celebrate or honor?",
+    "choicesJson": [
+      "honors soldiers who died serving the country",
+      "honors U.S. presidents",
+      "honors workers",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "honors U.S. presidents",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Thanksgiving celebrate or honor?",
+    "choicesJson": [
+      "honors people who served in the military",
+      "honors civil rights leader Martin Luther King Jr.",
+      "honors workers",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "a day for giving thanks, remembered with the Pilgrims and Wampanoag",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a bus driver do?",
+    "choicesJson": [
+      "helps take care of sick or hurt people",
+      "drives a bus to take people where they need to go",
+      "prepares food for people to eat",
+      "builds houses, roads, and buildings"
+    ],
+    "answer": "drives a bus to take people where they need to go",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you are facing East and turn to face the opposite direction, which way are you facing?",
+    "choicesJson": [
+      "North",
+      "South",
+      "East",
+      "West"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they help sick or hurt people get better?",
+    "choicesJson": [
+      "Librarian",
+      "Mail carrier",
+      "Grocer",
+      "Doctor"
+    ],
+    "answer": "Doctor",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they deliver letters and packages?",
+    "choicesJson": [
+      "Mail carrier",
+      "Doctor",
+      "Teacher",
+      "Grocer"
+    ],
+    "answer": "Mail carrier",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper prepares food for people to eat?",
+    "choicesJson": [
+      "Cook",
+      "Police officer",
+      "Mail carrier",
+      "Farmer"
+    ],
+    "answer": "Cook",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a mail carrier do?",
+    "choicesJson": [
+      "delivers letters and packages",
+      "runs a store that sells food",
+      "prepares food for people to eat",
+      "takes care of sick or hurt animals"
+    ],
+    "answer": "delivers letters and packages",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they help students learn?",
+    "choicesJson": [
+      "Sanitation worker",
+      "Mail carrier",
+      "Cook",
+      "Teacher"
+    ],
+    "answer": "Teacher",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is up if you are looking at the sky?",
+    "choicesJson": [
+      "Down",
+      "Backwards",
+      "Up",
+      "Sideways"
+    ],
+    "answer": "Up",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper helps take care of sick or hurt people?",
+    "choicesJson": [
+      "Nurse",
+      "Grocer",
+      "Farmer",
+      "Police officer"
+    ],
+    "answer": "Nurse",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a rule?",
+    "choicesJson": [
+      "A type of animal",
+      "A guide for how to act that helps keep people safe",
+      "A color",
+      "A kind of food"
+    ],
+    "answer": "A guide for how to act that helps keep people safe",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they build houses, roads, and buildings?",
+    "choicesJson": [
+      "Doctor",
+      "Firefighter",
+      "Construction worker",
+      "Dentist"
+    ],
+    "answer": "Construction worker",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do governments collect taxes?",
+    "choicesJson": [
+      "To make people upset",
+      "To help pay for things like schools and roads",
+      "To buy toys for the mayor",
+      "For no reason"
+    ],
+    "answer": "To help pay for things like schools and roads",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many stripes are on the American flag?",
+    "choicesJson": [
+      "10",
+      "50",
+      "13",
+      "7"
+    ],
+    "answer": "13",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper helps sick or hurt people get better?",
+    "choicesJson": [
+      "Grocer",
+      "Teacher",
+      "Farmer",
+      "Doctor"
+    ],
+    "answer": "Doctor",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they put out fires and helps in emergencies?",
+    "choicesJson": [
+      "Farmer",
+      "Firefighter",
+      "Mail carrier",
+      "Police officer"
+    ],
+    "answer": "Firefighter",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they run a store that sells food?",
+    "choicesJson": [
+      "Cook",
+      "Librarian",
+      "Grocer",
+      "Firefighter"
+    ],
+    "answer": "Grocer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What should you do at a green traffic light?",
+    "choicesJson": [
+      "Stop",
+      "Go",
+      "Turn off your car",
+      "Close your eyes"
+    ],
+    "answer": "Go",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Something happening right now is happening in the ____?",
+    "choicesJson": [
+      "Present",
+      "Past",
+      "Future",
+      "Ocean"
+    ],
+    "answer": "Present",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A thing that happened a long time ago, before you were born, is from the ____?",
+    "choicesJson": [
+      "Present",
+      "Future",
+      "Sky",
+      "Past"
+    ],
+    "answer": "Past",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do we clean up our toys when we finish playing?",
+    "choicesJson": [
+      "To make more noise",
+      "To keep things neat and safe",
+      "To make others trip",
+      "To lose the toys"
+    ],
+    "answer": "To keep things neat and safe",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a construction worker do?",
+    "choicesJson": [
+      "takes care of sick or hurt animals",
+      "builds houses, roads, and buildings",
+      "prepares food for people to eat",
+      "delivers letters and packages"
+    ],
+    "answer": "builds houses, roads, and buildings",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is voting important in the United States?",
+    "choicesJson": [
+      "It lets citizens help choose their leaders",
+      "It has no real purpose",
+      "It picks the school lunch menu only",
+      "It decides the weather"
+    ],
+    "answer": "It lets citizens help choose their leaders",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper puts out fires and helps in emergencies?",
+    "choicesJson": [
+      "Veterinarian",
+      "Firefighter",
+      "Cook",
+      "Grocer"
+    ],
+    "answer": "Firefighter",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What should you say if you bump into someone by accident?",
+    "choicesJson": [
+      "Say sorry",
+      "Walk away angrily",
+      "Say something mean",
+      "Say nothing at all"
+    ],
+    "answer": "Say sorry",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who delivers letters and packages?",
+    "choicesJson": [
+      "Dentist",
+      "Firefighter",
+      "Mail carrier",
+      "Bus driver"
+    ],
+    "answer": "Mail carrier",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper helps people find and check out books?",
+    "choicesJson": [
+      "Teacher",
+      "Construction worker",
+      "Sanitation worker",
+      "Librarian"
+    ],
+    "answer": "Librarian",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a job that leads just one city, not a whole state or country?",
+    "choicesJson": [
+      "Judge",
+      "Governor",
+      "Mayor",
+      "President"
+    ],
+    "answer": "Mayor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they keep people safe and makes sure people follow laws?",
+    "choicesJson": [
+      "Veterinarian",
+      "Firefighter",
+      "Police officer",
+      "Farmer"
+    ],
+    "answer": "Police officer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a safe way to cross the street?",
+    "choicesJson": [
+      "Jump into the street suddenly",
+      "Cross with your eyes closed",
+      "Use a crosswalk and look both ways",
+      "Run without looking"
+    ],
+    "answer": "Use a crosswalk and look both ways",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the four main (cardinal) directions on a compass?",
+    "choicesJson": [
+      "Up, Down, Left, and Right",
+      "Hot, Cold, Wet, and Dry",
+      "Red, Blue, Green, and Yellow",
+      "North, South, East, and West"
+    ],
+    "answer": "North, South, East, and West",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they collect and hauls away trash?",
+    "choicesJson": [
+      "Cook",
+      "Sanitation worker",
+      "Farmer",
+      "Bus driver"
+    ],
+    "answer": "Sanitation worker",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many stars are on the American flag?",
+    "choicesJson": [
+      "100",
+      "50",
+      "7",
+      "13"
+    ],
+    "answer": "50",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, people traveled mostly by horse or wagon. Today, many people travel by ____?",
+    "choicesJson": [
+      "Boat only",
+      "Horse only",
+      "Car or airplane",
+      "Walking only"
+    ],
+    "answer": "Car or airplane",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a grocer do?",
+    "choicesJson": [
+      "runs a store that sells food",
+      "prepares food for people to eat",
+      "drives a bus to take people where they need to go",
+      "helps people find and check out books"
+    ],
+    "answer": "runs a store that sells food",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who puts out fires and helps in emergencies?",
+    "choicesJson": [
+      "Firefighter",
+      "Cook",
+      "Sanitation worker",
+      "Farmer"
+    ],
+    "answer": "Firefighter",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are producers?",
+    "choicesJson": [
+      "people who buy and use goods or services",
+      "things people must have to live, like food, water, and shelter",
+      "things people make or grow that can be bought or sold",
+      "people who make goods or provide services"
+    ],
+    "answer": "people who make goods or provide services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bird is a national symbol of the United States, often shown near the flag?",
+    "choicesJson": [
+      "A parrot",
+      "A penguin",
+      "The bald eagle",
+      "A flamingo"
+    ],
+    "answer": "The bald eagle",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they grow crops or raises animals for food?",
+    "choicesJson": [
+      "Farmer",
+      "Grocer",
+      "Sanitation worker",
+      "Firefighter"
+    ],
+    "answer": "Farmer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What should you do if you see a friend get hurt?",
+    "choicesJson": [
+      "Walk away",
+      "Ignore them",
+      "Laugh",
+      "Tell a trusted adult"
+    ],
+    "answer": "Tell a trusted adult",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of the entire United States?",
+    "choicesJson": [
+      "Judge",
+      "Governor",
+      "President",
+      "Mayor"
+    ],
+    "answer": "President",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who builds houses, roads, and buildings?",
+    "choicesJson": [
+      "Librarian",
+      "Construction worker",
+      "Nurse",
+      "Doctor"
+    ],
+    "answer": "Construction worker",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Thanksgiving?",
+    "choicesJson": [
+      "February",
+      "August",
+      "December",
+      "November"
+    ],
+    "answer": "November",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a doctor do?",
+    "choicesJson": [
+      "helps sick or hurt people get better",
+      "builds houses, roads, and buildings",
+      "drives a bus to take people where they need to go",
+      "puts out fires and helps in emergencies"
+    ],
+    "answer": "helps sick or hurt people get better",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a firefighter do?",
+    "choicesJson": [
+      "drives a bus to take people where they need to go",
+      "takes care of sick or hurt animals",
+      "puts out fires and helps in emergencies",
+      "helps students learn"
+    ],
+    "answer": "puts out fires and helps in emergencies",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Saving money means you ____ it instead of spending it right away.",
+    "choicesJson": [
+      "Burn",
+      "Throw away",
+      "Bury forever",
+      "Keep"
+    ],
+    "answer": "Keep",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Labor Day celebrate or honor?",
+    "choicesJson": [
+      "honors soldiers who died serving the country",
+      "honors civil rights leader Martin Luther King Jr.",
+      "honors workers",
+      "honors U.S. presidents"
+    ],
+    "answer": "honors workers",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are scarcity?",
+    "choicesJson": [
+      "when there is not enough of something for everyone who wants it",
+      "things people must have to live, like food, water, and shelter",
+      "things people make or grow that can be bought or sold",
+      "things that are nice to have but people don't need to survive"
+    ],
+    "answer": "when there is not enough of something for everyone who wants it",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do the 50 stars on the American flag stand for?",
+    "choicesJson": [
+      "The 5 oceans",
+      "The 13 colonies",
+      "The 50 states",
+      "The 7 continents"
+    ],
+    "answer": "The 50 states",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they take care of sick or hurt animals?",
+    "choicesJson": [
+      "Construction worker",
+      "Librarian",
+      "Nurse",
+      "Veterinarian"
+    ],
+    "answer": "Veterinarian",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the national bird of the United States, shown on many U.S. symbols?",
+    "choicesJson": [
+      "Ostrich",
+      "Bald eagle",
+      "Peacock",
+      "Robin"
+    ],
+    "answer": "Bald eagle",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, farmers plowed fields using animals. Today, many farmers use ____?",
+    "choicesJson": [
+      "Only their hands",
+      "Tractors and machines",
+      "Only shovels",
+      "Nothing at all"
+    ],
+    "answer": "Tractors and machines",
+    "tags": [
+      "history",
+      "past-present"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are consumers?",
+    "choicesJson": [
+      "people who make goods or provide services",
+      "people who buy and use goods or services",
+      "things people make or grow that can be bought or sold",
+      "work that one person does for another person"
+    ],
+    "answer": "people who buy and use goods or services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does the sun rise in the morning?",
+    "choicesJson": [
+      "In the West",
+      "In the South",
+      "In the East",
+      "In the North"
+    ],
+    "answer": "In the East",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is it important to listen to your teacher at school?",
+    "choicesJson": [
+      "To fall asleep",
+      "To be alone",
+      "To learn and stay safe",
+      "To ignore lessons"
+    ],
+    "answer": "To learn and stay safe",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What job does a person have if they take care of people's teeth?",
+    "choicesJson": [
+      "Bus driver",
+      "Dentist",
+      "Construction worker",
+      "Cook"
+    ],
+    "answer": "Dentist",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do the 13 stripes on the American flag stand for?",
+    "choicesJson": [
+      "The original 13 colonies",
+      "The president's family",
+      "The 7 continents",
+      "The 50 states"
+    ],
+    "answer": "The original 13 colonies",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do firefighters, police officers, and doctors help our community?",
+    "choicesJson": [
+      "They make loud noises for fun",
+      "They avoid people",
+      "They collect stamps",
+      "They help keep people safe and healthy"
+    ],
+    "answer": "They help keep people safe and healthy",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a map, what usually shows which way is north?",
+    "choicesJson": [
+      "A recipe card",
+      "A calendar",
+      "A price tag",
+      "A compass rose"
+    ],
+    "answer": "A compass rose",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who takes care of people's teeth?",
+    "choicesJson": [
+      "Firefighter",
+      "Dentist",
+      "Farmer",
+      "Doctor"
+    ],
+    "answer": "Dentist",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Independence Day celebrate or honor?",
+    "choicesJson": [
+      "honors civil rights leader Martin Luther King Jr.",
+      "celebrates America's freedom from Britain",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country"
+    ],
+    "answer": "celebrates America's freedom from Britain",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of a whole state?",
+    "choicesJson": [
+      "Governor",
+      "President",
+      "Mayor",
+      "Senator"
+    ],
+    "answer": "Governor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a librarian do?",
+    "choicesJson": [
+      "drives a bus to take people where they need to go",
+      "helps people find and check out books",
+      "takes care of sick or hurt animals",
+      "grows crops or raises animals for food"
+    ],
+    "answer": "helps people find and check out books",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who grows crops or raises animals for food?",
+    "choicesJson": [
+      "Veterinarian",
+      "Farmer",
+      "Doctor",
+      "Bus driver"
+    ],
+    "answer": "Farmer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is closer to your house: your kitchen or another country?",
+    "choicesJson": [
+      "Another country",
+      "The moon",
+      "The ocean floor",
+      "Your kitchen"
+    ],
+    "answer": "Your kitchen",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who keeps people safe and makes sure people follow laws?",
+    "choicesJson": [
+      "Firefighter",
+      "Police officer",
+      "Doctor",
+      "Cook"
+    ],
+    "answer": "Police officer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Presidents Day?",
+    "choicesJson": [
+      "July",
+      "February",
+      "October",
+      "April"
+    ],
+    "answer": "February",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is another name for the American flag?",
+    "choicesJson": [
+      "The Stars and Stripes",
+      "The Rainbow Banner",
+      "The Golden Cloth",
+      "The Silver Sheet"
+    ],
+    "answer": "The Stars and Stripes",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper runs a store that sells food?",
+    "choicesJson": [
+      "Mail carrier",
+      "Grocer",
+      "Veterinarian",
+      "Bus driver"
+    ],
+    "answer": "Grocer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who prepares food for people to eat?",
+    "choicesJson": [
+      "Cook",
+      "Firefighter",
+      "Grocer",
+      "Sanitation worker"
+    ],
+    "answer": "Cook",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means something is very close by?",
+    "choicesJson": [
+      "Huge",
+      "Loud",
+      "Far",
+      "Near"
+    ],
+    "answer": "Near",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the United States, citizens vote to choose people like the ____?",
+    "choicesJson": [
+      "Duke",
+      "King",
+      "Emperor",
+      "President"
+    ],
+    "answer": "President",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you are facing North and turn to face the opposite direction, which way are you facing?",
+    "choicesJson": [
+      "South",
+      "North",
+      "West",
+      "East"
+    ],
+    "answer": "South",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do communities have rules?",
+    "choicesJson": [
+      "To make everyone the same age",
+      "To make the sky blue",
+      "To help keep everyone safe",
+      "To stop people from being friends"
+    ],
+    "answer": "To help keep everyone safe",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are needs?",
+    "choicesJson": [
+      "people who buy and use goods or services",
+      "things people must have to live, like food, water, and shelter",
+      "things that are nice to have but people don't need to survive",
+      "when there is not enough of something for everyone who wants it"
+    ],
+    "answer": "things people must have to live, like food, water, and shelter",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who helps take care of sick or hurt people?",
+    "choicesJson": [
+      "Grocer",
+      "Veterinarian",
+      "Nurse",
+      "Construction worker"
+    ],
+    "answer": "Nurse",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper keeps people safe and makes sure people follow laws?",
+    "choicesJson": [
+      "Sanitation worker",
+      "Grocer",
+      "Librarian",
+      "Police officer"
+    ],
+    "answer": "Police officer",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a veterinarian do?",
+    "choicesJson": [
+      "takes care of sick or hurt animals",
+      "collects and hauls away trash",
+      "builds houses, roads, and buildings",
+      "drives a bus to take people where they need to go"
+    ],
+    "answer": "takes care of sick or hurt animals",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a cook do?",
+    "choicesJson": [
+      "prepares food for people to eat",
+      "builds houses, roads, and buildings",
+      "puts out fires and helps in emergencies",
+      "helps sick or hurt people get better"
+    ],
+    "answer": "prepares food for people to eat",
+    "tags": [
+      "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What colors are on the American flag?",
+    "choicesJson": [
+      "Orange and purple",
+      "Black and gold",
+      "Green, yellow, and pink",
+      "Red, white, and blue"
+    ],
+    "answer": "Red, white, and blue",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do schools have rules like raising your hand?",
+    "choicesJson": [
+      "So the classroom stays calm and fair for everyone",
+      "So teachers can nap",
+      "So students stay quiet forever",
+      "So no one learns"
+    ],
+    "answer": "So the classroom stays calm and fair for everyone",
+    "tags": [
+      "civics",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A family buys bread from the store to eat. Are they producers or consumers in that moment?",
+    "choicesJson": [
+      "Consumers",
+      "Neither",
+      "Producers",
+      "A government"
+    ],
+    "answer": "Consumers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are wants?",
+    "choicesJson": [
+      "things that are nice to have but people don't need to survive",
+      "people who make goods or provide services",
+      "when there is not enough of something for everyone who wants it",
+      "things people make or grow that can be bought or sold"
+    ],
+    "answer": "things that are nice to have but people don't need to survive",
+    "tags": [
+      "economics"
+    ]
+  }
+]

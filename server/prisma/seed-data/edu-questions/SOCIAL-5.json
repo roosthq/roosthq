@@ -1,0 +1,1605 @@
+[
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many oceans are there on Earth? (Answer with a number)",
+    "answer": "5",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Carson City is the capital of which state?",
+    "choicesJson": [
+      "Texas",
+      "Virginia",
+      "Louisiana",
+      "Nevada"
+    ],
+    "answer": "Nevada",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Connecticut?",
+    "choicesJson": [
+      "Hartford",
+      "Tallahassee",
+      "Richmond",
+      "Augusta"
+    ],
+    "answer": "Hartford",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Mississippi?",
+    "choicesJson": [
+      "Jackson",
+      "Austin",
+      "Phoenix",
+      "Augusta"
+    ],
+    "answer": "Jackson",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"work that one person does for another person\"?",
+    "choicesJson": [
+      "Taxes",
+      "Services",
+      "Scarcity",
+      "Producers"
+    ],
+    "answer": "Services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Kentucky?",
+    "choicesJson": [
+      "Lansing",
+      "Indianapolis",
+      "Dover",
+      "Frankfort"
+    ],
+    "answer": "Frankfort",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Oregon located in?",
+    "choicesJson": [
+      "West",
+      "Southwest",
+      "Midwest",
+      "Southeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Michigan located in?",
+    "choicesJson": [
+      "West",
+      "Midwest",
+      "Southeast",
+      "Southwest"
+    ],
+    "answer": "Midwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Oklahoma located in?",
+    "choicesJson": [
+      "Southeast",
+      "Northeast",
+      "West",
+      "Southwest"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean surrounds Antarctica?",
+    "choicesJson": [
+      "Indian",
+      "Southern",
+      "Arctic",
+      "Atlantic"
+    ],
+    "answer": "Southern",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Alaska?",
+    "choicesJson": [
+      "Juneau",
+      "Pierre",
+      "Olympia",
+      "Denver"
+    ],
+    "answer": "Juneau",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Tennessee?",
+    "choicesJson": [
+      "Madison",
+      "Nashville",
+      "Montgomery",
+      "Frankfort"
+    ],
+    "answer": "Nashville",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The Liberty Bell located?",
+    "choicesJson": [
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "South Dakota",
+      "New York"
+    ],
+    "answer": "Philadelphia, Pennsylvania",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of New Mexico?",
+    "choicesJson": [
+      "Columbus",
+      "Oklahoma City",
+      "Santa Fe",
+      "Denver"
+    ],
+    "answer": "Santa Fe",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Mississippi?",
+    "choicesJson": [
+      "Juneau",
+      "Topeka",
+      "Jackson",
+      "Carson City"
+    ],
+    "answer": "Jackson",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many continents are there on Earth?",
+    "choicesJson": [
+      "9",
+      "7",
+      "6",
+      "5"
+    ],
+    "answer": "7",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Madison is the capital of which state?",
+    "choicesJson": [
+      "Kansas",
+      "Louisiana",
+      "New Mexico",
+      "Wisconsin"
+    ],
+    "answer": "Wisconsin",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Rhode Island?",
+    "choicesJson": [
+      "Honolulu",
+      "Concord",
+      "Providence",
+      "Montpelier"
+    ],
+    "answer": "Providence",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Montana?",
+    "choicesJson": [
+      "Denver",
+      "Helena",
+      "Saint Paul",
+      "Hartford"
+    ],
+    "answer": "Helena",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Wyoming?",
+    "choicesJson": [
+      "Little Rock",
+      "Jefferson City",
+      "Columbia",
+      "Cheyenne"
+    ],
+    "answer": "Cheyenne",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the 7 continents?",
+    "choicesJson": [
+      "Texas",
+      "Antarctica",
+      "Russia",
+      "Mexico"
+    ],
+    "answer": "Antarctica",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Harrisburg is the capital of which state?",
+    "choicesJson": [
+      "Georgia",
+      "Texas",
+      "Pennsylvania",
+      "Iowa"
+    ],
+    "answer": "Pennsylvania",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Oklahoma?",
+    "choicesJson": [
+      "Atlanta",
+      "Bismarck",
+      "Oklahoma City",
+      "Baton Rouge"
+    ],
+    "answer": "Oklahoma City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the Bill of Rights?",
+    "choicesJson": [
+      "The first 10 amendments to the Constitution",
+      "A map of the colonies",
+      "A list of state capitals",
+      "A holiday schedule"
+    ],
+    "answer": "The first 10 amendments to the Constitution",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sacramento is the capital of which state?",
+    "choicesJson": [
+      "Vermont",
+      "California",
+      "Utah",
+      "Idaho"
+    ],
+    "answer": "California",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a responsibility of a U.S. citizen?",
+    "choicesJson": [
+      "Obeying laws",
+      "Refusing to help neighbors",
+      "Ignoring laws",
+      "Avoiding school"
+    ],
+    "answer": "Obeying laws",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which document sets up the structure and basic laws of the U.S. government?",
+    "choicesJson": [
+      "The Declaration of Independence",
+      "The Bill of Rights",
+      "The Gettysburg Address",
+      "The Constitution"
+    ],
+    "answer": "The Constitution",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Richmond is the capital of which state?",
+    "choicesJson": [
+      "New York",
+      "Virginia",
+      "Texas",
+      "Pennsylvania"
+    ],
+    "answer": "Virginia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of New Jersey?",
+    "choicesJson": [
+      "Tallahassee",
+      "Trenton",
+      "Richmond",
+      "Olympia"
+    ],
+    "answer": "Trenton",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is New Mexico located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southwest",
+      "Southeast",
+      "West"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the Earth's 5 oceans?",
+    "choicesJson": [
+      "Indian",
+      "Caribbean Sea",
+      "Mediterranean Sea",
+      "Gulf of Mexico"
+    ],
+    "answer": "Indian",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Hawaii?",
+    "choicesJson": [
+      "Providence",
+      "Honolulu",
+      "Pierre",
+      "Cheyenne"
+    ],
+    "answer": "Honolulu",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"when there is not enough of something for everyone who wants it\"?",
+    "choicesJson": [
+      "Needs",
+      "Scarcity",
+      "Taxes",
+      "Wants"
+    ],
+    "answer": "Scarcity",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Michigan?",
+    "choicesJson": [
+      "Phoenix",
+      "Lansing",
+      "Denver",
+      "Little Rock"
+    ],
+    "answer": "Lansing",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Oklahoma?",
+    "choicesJson": [
+      "Oklahoma City",
+      "Olympia",
+      "Charleston",
+      "Bismarck"
+    ],
+    "answer": "Oklahoma City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Christopher Columbus sailed across which ocean to reach the Americas?",
+    "choicesJson": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "history",
+      "explorers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of South Dakota?",
+    "choicesJson": [
+      "Pierre",
+      "Richmond",
+      "Trenton",
+      "Montpelier"
+    ],
+    "answer": "Pierre",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Florida?",
+    "choicesJson": [
+      "Austin",
+      "Juneau",
+      "Tallahassee",
+      "Pierre"
+    ],
+    "answer": "Tallahassee",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Arkansas located in?",
+    "choicesJson": [
+      "Midwest",
+      "Northeast",
+      "Southwest",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Delaware located in?",
+    "choicesJson": [
+      "Midwest",
+      "Northeast",
+      "Southwest",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Missouri is ____.",
+    "answer": "Jefferson City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is it called when people pick their leaders by choosing who they want?",
+    "choicesJson": [
+      "Sleeping",
+      "Painting",
+      "Voting",
+      "Cooking"
+    ],
+    "answer": "Voting",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is one responsibility citizens have when they turn 18 in the United States?",
+    "choicesJson": [
+      "The ability to skip school forever",
+      "The requirement to move away",
+      "The requirement to change their name",
+      "The ability to vote"
+    ],
+    "answer": "The ability to vote",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hartford is the capital of which state?",
+    "choicesJson": [
+      "Connecticut",
+      "Oklahoma",
+      "North Dakota",
+      "Tennessee"
+    ],
+    "answer": "Connecticut",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is New Hampshire located in?",
+    "choicesJson": [
+      "Southwest",
+      "Northeast",
+      "West",
+      "Southeast"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a right protected for people in the United States?",
+    "choicesJson": [
+      "Freedom to ignore others' rights",
+      "Freedom to skip taxes",
+      "Freedom of speech",
+      "Freedom to break laws"
+    ],
+    "answer": "Freedom of speech",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Maine is ____.",
+    "answer": "Augusta",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous bell in Philadelphia is a symbol of American independence?",
+    "choicesJson": [
+      "The U.S. Capitol",
+      "The Liberty Bell",
+      "Mount Rushmore",
+      "The White House"
+    ],
+    "answer": "The Liberty Bell",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these states is part of the Northeast region?",
+    "choicesJson": [
+      "New Jersey",
+      "Montana",
+      "Utah",
+      "California"
+    ],
+    "answer": "New Jersey",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A farmer grows corn to sell at the market. The farmer is an example of a ____?",
+    "choicesJson": [
+      "Producer",
+      "Government",
+      "Consumer",
+      "Tourist"
+    ],
+    "answer": "Producer",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Thailand located on?",
+    "choicesJson": [
+      "Australia",
+      "South America",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Florida is ____.",
+    "answer": "Tallahassee",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Montpelier is the capital of which state?",
+    "choicesJson": [
+      "Vermont",
+      "Pennsylvania",
+      "Louisiana",
+      "Indiana"
+    ],
+    "answer": "Vermont",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Maine located in?",
+    "choicesJson": [
+      "Southeast",
+      "Northeast",
+      "West",
+      "Midwest"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes Congress?",
+    "choicesJson": [
+      "Local",
+      "Legislative",
+      "Executive",
+      "Judicial"
+    ],
+    "answer": "Legislative",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Denver is the capital of which state?",
+    "choicesJson": [
+      "Maine",
+      "New York",
+      "Colorado",
+      "North Dakota"
+    ],
+    "answer": "Colorado",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Kentucky?",
+    "choicesJson": [
+      "Frankfort",
+      "Lansing",
+      "Honolulu",
+      "Austin"
+    ],
+    "answer": "Frankfort",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of South Carolina?",
+    "choicesJson": [
+      "Hartford",
+      "Denver",
+      "Columbia",
+      "Saint Paul"
+    ],
+    "answer": "Columbia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these states is part of the West region?",
+    "choicesJson": [
+      "Maine",
+      "Michigan",
+      "Montana",
+      "Mississippi"
+    ],
+    "answer": "Montana",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Argentina located on?",
+    "choicesJson": [
+      "North America",
+      "Asia",
+      "South America",
+      "Australia"
+    ],
+    "answer": "South America",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Nevada located in?",
+    "choicesJson": [
+      "West",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Louisiana?",
+    "choicesJson": [
+      "Olympia",
+      "Topeka",
+      "Nashville",
+      "Baton Rouge"
+    ],
+    "answer": "Baton Rouge",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Pennsylvania located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southwest",
+      "Southeast",
+      "West"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is between the United States and Europe?",
+    "choicesJson": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Kansas is ____.",
+    "answer": "Topeka",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Wisconsin?",
+    "choicesJson": [
+      "Madison",
+      "Bismarck",
+      "Santa Fe",
+      "Albany"
+    ],
+    "answer": "Madison",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In what year did the Pilgrims share the harvest meal remembered at the first Thanksgiving?",
+    "choicesJson": [
+      "1865",
+      "1492",
+      "1621",
+      "1776"
+    ],
+    "answer": "1621",
+    "tags": [
+      "history",
+      "colonies"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these states is part of the Southwest region?",
+    "choicesJson": [
+      "New Mexico",
+      "Pennsylvania",
+      "Alaska",
+      "Hawaii"
+    ],
+    "answer": "New Mexico",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Montana is ____.",
+    "answer": "Helena",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"people who buy and use goods or services\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Scarcity",
+      "Wants"
+    ],
+    "answer": "Consumers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Indiana?",
+    "choicesJson": [
+      "Indianapolis",
+      "Boise",
+      "Frankfort",
+      "Raleigh"
+    ],
+    "answer": "Indianapolis",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Minnesota?",
+    "choicesJson": [
+      "Madison",
+      "Oklahoma City",
+      "Saint Paul",
+      "Sacramento"
+    ],
+    "answer": "Saint Paul",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Nebraska?",
+    "choicesJson": [
+      "Concord",
+      "Sacramento",
+      "Annapolis",
+      "Lincoln"
+    ],
+    "answer": "Lincoln",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Massachusetts?",
+    "choicesJson": [
+      "Boston",
+      "Austin",
+      "Phoenix",
+      "Dover"
+    ],
+    "answer": "Boston",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Arizona located in?",
+    "choicesJson": [
+      "West",
+      "Southwest",
+      "Southeast",
+      "Northeast"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Rhode Island?",
+    "choicesJson": [
+      "Jefferson City",
+      "Salem",
+      "Saint Paul",
+      "Providence"
+    ],
+    "answer": "Providence",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Santa Fe is the capital of which state?",
+    "choicesJson": [
+      "New Mexico",
+      "Virginia",
+      "Wyoming",
+      "Montana"
+    ],
+    "answer": "New Mexico",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Idaho located in?",
+    "choicesJson": [
+      "Midwest",
+      "Southeast",
+      "West",
+      "Southwest"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is California located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southwest",
+      "West",
+      "Southeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is voting important in the United States?",
+    "choicesJson": [
+      "It lets citizens help choose their leaders",
+      "It has no real purpose",
+      "It picks the school lunch menu only",
+      "It decides the weather"
+    ],
+    "answer": "It lets citizens help choose their leaders",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Mississippi located in?",
+    "choicesJson": [
+      "Midwest",
+      "West",
+      "Northeast",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which imaginary line runs east-west around the middle of the Earth, halfway between the North and South Poles?",
+    "choicesJson": [
+      "The equator",
+      "The prime meridian",
+      "The Arctic Circle",
+      "The horizon"
+    ],
+    "answer": "The equator",
+    "tags": [
+      "geography",
+      "latlong"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Kansas located in?",
+    "choicesJson": [
+      "Midwest",
+      "West",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Midwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these states is part of the Midwest region?",
+    "choicesJson": [
+      "Wyoming",
+      "Missouri",
+      "North Carolina",
+      "Utah"
+    ],
+    "answer": "Missouri",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Hawaii located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southeast",
+      "Midwest",
+      "West"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Virginia located in?",
+    "choicesJson": [
+      "Midwest",
+      "Southwest",
+      "West",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Japan located on?",
+    "choicesJson": [
+      "South America",
+      "Australia",
+      "Asia",
+      "Europe"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why might the price of umbrellas go up during a big rainstorm?",
+    "choicesJson": [
+      "Stores must lower prices during rain",
+      "Rain makes umbrellas heavier",
+      "Umbrellas become illegal",
+      "More people want (demand) them than are available"
+    ],
+    "answer": "More people want (demand) them than are available",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Washington located in?",
+    "choicesJson": [
+      "Midwest",
+      "West",
+      "Northeast",
+      "Southeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which president is remembered as the 'Father of His Country' and the first U.S. president?",
+    "choicesJson": [
+      "George Washington",
+      "Andrew Jackson",
+      "Thomas Jefferson",
+      "Franklin D. Roosevelt"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is New York located in?",
+    "choicesJson": [
+      "Southwest",
+      "Midwest",
+      "Northeast",
+      "West"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Canada located on?",
+    "choicesJson": [
+      "Europe",
+      "Australia",
+      "Asia",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which level of government handles things for the whole country, like national defense?",
+    "choicesJson": [
+      "Family government",
+      "Local government",
+      "Federal (national) government",
+      "School government"
+    ],
+    "answer": "Federal (national) government",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who decides what laws mean in the United States government?",
+    "choicesJson": [
+      "The President",
+      "Congress",
+      "The Supreme Court",
+      "The Mayor"
+    ],
+    "answer": "The Supreme Court",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Utah located in?",
+    "choicesJson": [
+      "Midwest",
+      "Northeast",
+      "Southwest",
+      "West"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which war did the American colonies fight to become an independent country?",
+    "choicesJson": [
+      "The Cold War",
+      "The Civil War",
+      "The Revolutionary War",
+      "World War I"
+    ],
+    "answer": "The Revolutionary War",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is Mount Rushmore located?",
+    "choicesJson": [
+      "South Dakota",
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "New York"
+    ],
+    "answer": "South Dakota",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous statue in New York represents freedom and welcomed immigrants arriving by ship?",
+    "choicesJson": [
+      "Mount Rushmore",
+      "The White House",
+      "The Liberty Bell",
+      "The Statue of Liberty"
+    ],
+    "answer": "The Statue of Liberty",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"things people make or grow that can be bought or sold\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Producers",
+      "Services"
+    ],
+    "answer": "Goods",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is North Carolina located in?",
+    "choicesJson": [
+      "Southwest",
+      "Northeast",
+      "Southeast",
+      "West"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"money people pay to the government that helps pay for schools and roads\"?",
+    "choicesJson": [
+      "Taxes",
+      "Consumers",
+      "Producers",
+      "Goods"
+    ],
+    "answer": "Taxes",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes the President?",
+    "choicesJson": [
+      "Executive",
+      "Local",
+      "Legislative",
+      "Judicial"
+    ],
+    "answer": "Executive",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The U.S. Capitol located?",
+    "choicesJson": [
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "South Dakota",
+      "New York"
+    ],
+    "answer": "Washington, D.C.",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The 13 original colonies were located along which coast of North America?",
+    "choicesJson": [
+      "The West Coast",
+      "The Arctic coast",
+      "The East Coast (Atlantic coast)",
+      "The Gulf Coast"
+    ],
+    "answer": "The East Coast (Atlantic coast)",
+    "tags": [
+      "history",
+      "colonies"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Germany located on?",
+    "choicesJson": [
+      "South America",
+      "Europe",
+      "Asia",
+      "North America"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The United States is located on which continent?",
+    "choicesJson": [
+      "Asia",
+      "North America",
+      "South America",
+      "Europe"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes the Supreme Court?",
+    "choicesJson": [
+      "Local",
+      "Judicial",
+      "Executive",
+      "Legislative"
+    ],
+    "answer": "Judicial",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is France located on?",
+    "choicesJson": [
+      "South America",
+      "Africa",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Ohio located in?",
+    "choicesJson": [
+      "Midwest",
+      "West",
+      "Northeast",
+      "Southeast"
+    ],
+    "answer": "Midwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What ocean is along the East Coast of the original 13 colonies?",
+    "choicesJson": [
+      "Atlantic",
+      "Arctic",
+      "Pacific",
+      "Indian"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "history",
+      "colonies"
+    ]
+  }
+]

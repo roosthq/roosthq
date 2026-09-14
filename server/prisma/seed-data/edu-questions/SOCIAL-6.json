@@ -1,0 +1,1558 @@
+[
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Nigeria located on?",
+    "choicesJson": [
+      "Europe",
+      "Australia",
+      "North America",
+      "Africa"
+    ],
+    "answer": "Africa",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Montana is ____.",
+    "answer": "Helena",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hartford is the capital of which state?",
+    "choicesJson": [
+      "Connecticut",
+      "Oklahoma",
+      "North Dakota",
+      "Tennessee"
+    ],
+    "answer": "Connecticut",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Oklahoma City is the capital of which state?",
+    "choicesJson": [
+      "Iowa",
+      "Oklahoma",
+      "Arkansas",
+      "Minnesota"
+    ],
+    "answer": "Oklahoma",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Utah is ____.",
+    "answer": "Salt Lake City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean surrounds Antarctica?",
+    "choicesJson": [
+      "Indian",
+      "Southern",
+      "Arctic",
+      "Atlantic"
+    ],
+    "answer": "Southern",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Rhode Island?",
+    "choicesJson": [
+      "Honolulu",
+      "Concord",
+      "Providence",
+      "Montpelier"
+    ],
+    "answer": "Providence",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Colorado is ____.",
+    "answer": "Denver",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Nevada is ____.",
+    "answer": "Carson City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is the largest ocean on Earth?",
+    "choicesJson": [
+      "Indian",
+      "Arctic",
+      "Pacific",
+      "Atlantic"
+    ],
+    "answer": "Pacific",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of West Virginia is ____.",
+    "answer": "Charleston",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Richmond is the capital of which state?",
+    "choicesJson": [
+      "New York",
+      "Virginia",
+      "Texas",
+      "Pennsylvania"
+    ],
+    "answer": "Virginia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of the U.S. government carries out (enforces) laws?",
+    "choicesJson": [
+      "Executive",
+      "Judicial",
+      "Legislative",
+      "Local"
+    ],
+    "answer": "Executive",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ancient civilization is called the 'cradle of civilization' and lay between the Tigris and Euphrates rivers?",
+    "choicesJson": [
+      "Ancient Egypt",
+      "Mesopotamia",
+      "Ancient Rome",
+      "Ancient Greece"
+    ],
+    "answer": "Mesopotamia",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Utah?",
+    "choicesJson": [
+      "Salt Lake City",
+      "Jefferson City",
+      "Boise",
+      "Albany"
+    ],
+    "answer": "Salt Lake City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Ohio?",
+    "choicesJson": [
+      "Trenton",
+      "Des Moines",
+      "Columbus",
+      "Baton Rouge"
+    ],
+    "answer": "Columbus",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In what year was the Declaration of Independence signed?",
+    "choicesJson": [
+      "1492",
+      "1776",
+      "1620",
+      "1865"
+    ],
+    "answer": "1776",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Columbia is the capital of which state?",
+    "choicesJson": [
+      "Georgia",
+      "South Carolina",
+      "Rhode Island",
+      "Kansas"
+    ],
+    "answer": "South Carolina",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Alabama is ____.",
+    "answer": "Montgomery",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is Ancient Egypt best known for?",
+    "choicesJson": [
+      "is called the 'cradle of civilization' and lay between the Tigris and Euphrates rivers",
+      "built the pyramids and grew up along the Nile River",
+      "is known as the birthplace of democracy",
+      "built the Colosseum and ruled a huge empire"
+    ],
+    "answer": "built the pyramids and grew up along the Nile River",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why might the price of umbrellas go up during a big rainstorm?",
+    "choicesJson": [
+      "Stores must lower prices during rain",
+      "Rain makes umbrellas heavier",
+      "Umbrellas become illegal",
+      "More people want (demand) them than are available"
+    ],
+    "answer": "More people want (demand) them than are available",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Minnesota?",
+    "choicesJson": [
+      "Madison",
+      "Oklahoma City",
+      "Saint Paul",
+      "Sacramento"
+    ],
+    "answer": "Saint Paul",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who enforces (carries out) the laws in the United States government?",
+    "choicesJson": [
+      "The President",
+      "The Mayor",
+      "The Supreme Court",
+      "Congress"
+    ],
+    "answer": "The President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Delaware?",
+    "choicesJson": [
+      "Helena",
+      "Nashville",
+      "Dover",
+      "Juneau"
+    ],
+    "answer": "Dover",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the 7 continents?",
+    "choicesJson": [
+      "Texas",
+      "Asia",
+      "Egypt",
+      "Mexico"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Virginia?",
+    "choicesJson": [
+      "Cheyenne",
+      "Tallahassee",
+      "Richmond",
+      "Honolulu"
+    ],
+    "answer": "Richmond",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Lincoln is the capital of which state?",
+    "choicesJson": [
+      "New Jersey",
+      "North Dakota",
+      "Nebraska",
+      "Florida"
+    ],
+    "answer": "Nebraska",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which document sets up the structure and basic laws of the U.S. government?",
+    "choicesJson": [
+      "The Declaration of Independence",
+      "The Bill of Rights",
+      "The Gettysburg Address",
+      "The Constitution"
+    ],
+    "answer": "The Constitution",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which war did the American colonies fight to become an independent country?",
+    "choicesJson": [
+      "The Cold War",
+      "The Civil War",
+      "The Revolutionary War",
+      "World War I"
+    ],
+    "answer": "The Revolutionary War",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Colorado?",
+    "choicesJson": [
+      "Denver",
+      "Olympia",
+      "Columbus",
+      "Des Moines"
+    ],
+    "answer": "Denver",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Connecticut is ____.",
+    "answer": "Hartford",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Arizona?",
+    "choicesJson": [
+      "Phoenix",
+      "Olympia",
+      "Frankfort",
+      "Tallahassee"
+    ],
+    "answer": "Phoenix",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Louisiana?",
+    "choicesJson": [
+      "Olympia",
+      "Topeka",
+      "Nashville",
+      "Baton Rouge"
+    ],
+    "answer": "Baton Rouge",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Nashville is the capital of which state?",
+    "choicesJson": [
+      "Missouri",
+      "Indiana",
+      "Tennessee",
+      "Wyoming"
+    ],
+    "answer": "Tennessee",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of South Dakota?",
+    "choicesJson": [
+      "Pierre",
+      "Richmond",
+      "Trenton",
+      "Montpelier"
+    ],
+    "answer": "Pierre",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Alabama?",
+    "choicesJson": [
+      "Honolulu",
+      "Cheyenne",
+      "Montgomery",
+      "Pierre"
+    ],
+    "answer": "Montgomery",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Maryland?",
+    "choicesJson": [
+      "Jefferson City",
+      "Annapolis",
+      "Sacramento",
+      "Hartford"
+    ],
+    "answer": "Annapolis",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Ohio is ____.",
+    "answer": "Columbus",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Massachusetts?",
+    "choicesJson": [
+      "Augusta",
+      "Little Rock",
+      "Cheyenne",
+      "Boston"
+    ],
+    "answer": "Boston",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Georgia?",
+    "choicesJson": [
+      "Juneau",
+      "Saint Paul",
+      "Helena",
+      "Atlanta"
+    ],
+    "answer": "Atlanta",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Santa Fe is the capital of which state?",
+    "choicesJson": [
+      "New Mexico",
+      "Virginia",
+      "Wyoming",
+      "Montana"
+    ],
+    "answer": "New Mexico",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Italy located on?",
+    "choicesJson": [
+      "North America",
+      "Europe",
+      "Africa",
+      "Asia"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Hawaii?",
+    "choicesJson": [
+      "Providence",
+      "Honolulu",
+      "Pierre",
+      "Cheyenne"
+    ],
+    "answer": "Honolulu",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Little Rock is the capital of which state?",
+    "choicesJson": [
+      "Pennsylvania",
+      "North Carolina",
+      "Arkansas",
+      "Iowa"
+    ],
+    "answer": "Arkansas",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Australia located on?",
+    "choicesJson": [
+      "North America",
+      "Australia",
+      "Europe",
+      "South America"
+    ],
+    "answer": "Australia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of South Carolina is ____.",
+    "answer": "Columbia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Kansas?",
+    "choicesJson": [
+      "Topeka",
+      "Charleston",
+      "Boise",
+      "Lincoln"
+    ],
+    "answer": "Topeka",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ancient civilization built the Colosseum and ruled a huge empire?",
+    "choicesJson": [
+      "Ancient Rome",
+      "Ancient Egypt",
+      "Ancient Greece",
+      "Mesopotamia"
+    ],
+    "answer": "Ancient Rome",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Arkansas?",
+    "choicesJson": [
+      "Lansing",
+      "Little Rock",
+      "Juneau",
+      "Atlanta"
+    ],
+    "answer": "Little Rock",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Connecticut?",
+    "choicesJson": [
+      "Hartford",
+      "Tallahassee",
+      "Richmond",
+      "Augusta"
+    ],
+    "answer": "Hartford",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Frankfort is the capital of which state?",
+    "choicesJson": [
+      "Tennessee",
+      "Idaho",
+      "Kentucky",
+      "Florida"
+    ],
+    "answer": "Kentucky",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Nebraska is ____.",
+    "answer": "Lincoln",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of New Jersey is ____.",
+    "answer": "Trenton",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Florida?",
+    "choicesJson": [
+      "Austin",
+      "Juneau",
+      "Tallahassee",
+      "Pierre"
+    ],
+    "answer": "Tallahassee",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Kansas is ____.",
+    "answer": "Topeka",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is China located on?",
+    "choicesJson": [
+      "Asia",
+      "North America",
+      "Europe",
+      "South America"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Mexico located on?",
+    "choicesJson": [
+      "Asia",
+      "Europe",
+      "Africa",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who makes the laws in the United States government?",
+    "choicesJson": [
+      "The Governor",
+      "The President",
+      "The Supreme Court",
+      "Congress"
+    ],
+    "answer": "Congress",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes the Supreme Court?",
+    "choicesJson": [
+      "Local",
+      "Judicial",
+      "Executive",
+      "Legislative"
+    ],
+    "answer": "Judicial",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many continents are there on Earth?",
+    "choicesJson": [
+      "9",
+      "7",
+      "6",
+      "5"
+    ],
+    "answer": "7",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The colonies fought the Revolutionary War to gain independence from which country?",
+    "choicesJson": [
+      "Spain",
+      "Mexico",
+      "Britain",
+      "France"
+    ],
+    "answer": "Britain",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which document declared that the 13 colonies were free from Britain?",
+    "choicesJson": [
+      "The Bill of Rights",
+      "The Declaration of Independence",
+      "The Constitution",
+      "The Gettysburg Address"
+    ],
+    "answer": "The Declaration of Independence",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Thailand located on?",
+    "choicesJson": [
+      "Australia",
+      "South America",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is between the United States and Europe?",
+    "choicesJson": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is India located on?",
+    "choicesJson": [
+      "Asia",
+      "Africa",
+      "Australia",
+      "Europe"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes Congress?",
+    "choicesJson": [
+      "Local",
+      "Legislative",
+      "Executive",
+      "Judicial"
+    ],
+    "answer": "Legislative",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is part of the Judicial branch of the U.S. government?",
+    "choicesJson": [
+      "the Governor",
+      "the President",
+      "Congress",
+      "the Supreme Court"
+    ],
+    "answer": "the Supreme Court",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the Earth's 5 oceans?",
+    "choicesJson": [
+      "Pacific",
+      "Gulf of Mexico",
+      "Mediterranean Sea",
+      "the Great Lakes"
+    ],
+    "answer": "Pacific",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which imaginary line runs east-west around the middle of the Earth, halfway between the North and South Poles?",
+    "choicesJson": [
+      "The equator",
+      "The prime meridian",
+      "The Arctic Circle",
+      "The horizon"
+    ],
+    "answer": "The equator",
+    "tags": [
+      "geography",
+      "latlong"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main job of the executive branch?",
+    "choicesJson": [
+      "Manages the state's schools",
+      "interprets laws (decides what laws mean)",
+      "makes laws",
+      "carries out (enforces) laws"
+    ],
+    "answer": "carries out (enforces) laws",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is Ancient Rome best known for?",
+    "choicesJson": [
+      "built the pyramids and grew up along the Nile River",
+      "is called the 'cradle of civilization' and lay between the Tigris and Euphrates rivers",
+      "is known as the birthplace of democracy",
+      "built the Colosseum and ruled a huge empire"
+    ],
+    "answer": "built the Colosseum and ruled a huge empire",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ancient civilization is known as the birthplace of democracy?",
+    "choicesJson": [
+      "Ancient Greece",
+      "Ancient Rome",
+      "Ancient Egypt",
+      "Mesopotamia"
+    ],
+    "answer": "Ancient Greece",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A farmer grows corn to sell at the market. The farmer is an example of a ____?",
+    "choicesJson": [
+      "Producer",
+      "Government",
+      "Consumer",
+      "Tourist"
+    ],
+    "answer": "Producer",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many oceans are there on Earth? (Answer with a number)",
+    "answer": "5",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Kenya located on?",
+    "choicesJson": [
+      "Europe",
+      "South America",
+      "Africa",
+      "North America"
+    ],
+    "answer": "Africa",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main job of the legislative branch?",
+    "choicesJson": [
+      "interprets laws (decides what laws mean)",
+      "makes laws",
+      "Manages the state's schools",
+      "carries out (enforces) laws"
+    ],
+    "answer": "makes laws",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On what date is Independence Day celebrated, marking the signing of the Declaration of Independence?",
+    "choicesJson": [
+      "July 14",
+      "June 4",
+      "August 4",
+      "July 4"
+    ],
+    "answer": "July 4",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who was the 16th president of the United States, who led during the Civil War?",
+    "choicesJson": [
+      "Franklin D. Roosevelt",
+      "Abraham Lincoln",
+      "Andrew Jackson",
+      "Theodore Roosevelt"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many branches does the U.S. federal government have?",
+    "choicesJson": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "3",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do citizens have both rights and responsibilities?",
+    "choicesJson": [
+      "So the government can ignore them",
+      "So no rules ever apply",
+      "So freedoms are protected while people act fairly toward each other",
+      "So only adults can talk"
+    ],
+    "answer": "So freedoms are protected while people act fairly toward each other",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a responsibility of a U.S. citizen?",
+    "choicesJson": [
+      "Obeying laws",
+      "Refusing to help neighbors",
+      "Ignoring laws",
+      "Avoiding school"
+    ],
+    "answer": "Obeying laws",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The United States is located on which continent?",
+    "choicesJson": [
+      "Asia",
+      "North America",
+      "South America",
+      "Europe"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Canada located on?",
+    "choicesJson": [
+      "Europe",
+      "Australia",
+      "Asia",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is it called when a business makes something people can hold, like a chair or a toy?",
+    "choicesJson": [
+      "A service",
+      "A tax",
+      "A good",
+      "A law"
+    ],
+    "answer": "A good",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A family buys corn at the market to eat. The family is an example of a ____?",
+    "choicesJson": [
+      "Producer",
+      "Tourist",
+      "Consumer",
+      "Government"
+    ],
+    "answer": "Consumer",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a right protected for people in the United States?",
+    "choicesJson": [
+      "Freedom to ignore others' rights",
+      "Freedom to skip taxes",
+      "Freedom of speech",
+      "Freedom to break laws"
+    ],
+    "answer": "Freedom of speech",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who was the 1st president of the United States?",
+    "choicesJson": [
+      "George Washington",
+      "Thomas Jefferson",
+      "John Adams",
+      "Andrew Jackson"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a government led by a single king or queen who inherits power, what is that type of government called?",
+    "choicesJson": [
+      "A monarchy",
+      "A cooperative",
+      "A democracy",
+      "A committee"
+    ],
+    "answer": "A monarchy",
+    "tags": [
+      "civics",
+      "government-types"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many oceans are there on Earth?",
+    "choicesJson": [
+      "5",
+      "7",
+      "6",
+      "4"
+    ],
+    "answer": "5",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is also a single country?",
+    "choicesJson": [
+      "Africa",
+      "Asia",
+      "Europe",
+      "Australia"
+    ],
+    "answer": "Australia",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is the coldest and located at the North Pole?",
+    "choicesJson": [
+      "Southern",
+      "Arctic",
+      "Indian",
+      "Pacific"
+    ],
+    "answer": "Arctic",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a democracy, who has the power to choose the government's leaders?",
+    "choicesJson": [
+      "Only the army",
+      "The citizens (the people)",
+      "No one",
+      "Only one king"
+    ],
+    "answer": "The citizens (the people)",
+    "tags": [
+      "civics",
+      "government-types"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ancient Egyptians built huge stone structures as tombs for their rulers. What are these structures called?",
+    "choicesJson": [
+      "Pyramids",
+      "Castles",
+      "Ziggurats",
+      "Colosseums"
+    ],
+    "answer": "Pyramids",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the Bill of Rights?",
+    "choicesJson": [
+      "The first 10 amendments to the Constitution",
+      "A map of the colonies",
+      "A list of state capitals",
+      "A holiday schedule"
+    ],
+    "answer": "The first 10 amendments to the Constitution",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is Mesopotamia best known for?",
+    "choicesJson": [
+      "built the Colosseum and ruled a huge empire",
+      "is known as the birthplace of democracy",
+      "built the pyramids and grew up along the Nile River",
+      "is called the 'cradle of civilization' and lay between the Tigris and Euphrates rivers"
+    ],
+    "answer": "is called the 'cradle of civilization' and lay between the Tigris and Euphrates rivers",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When there is not enough of something for everyone who wants it, this is called ____?",
+    "choicesJson": [
+      "Scarcity",
+      "Taxation",
+      "Surplus",
+      "Charity"
+    ],
+    "answer": "Scarcity",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is France located on?",
+    "choicesJson": [
+      "South America",
+      "Africa",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which president gave the famous Gettysburg Address?",
+    "choicesJson": [
+      "Franklin D. Roosevelt",
+      "Thomas Jefferson",
+      "Abraham Lincoln",
+      "Andrew Jackson"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The idea that people want more than what is available is best described by which word?",
+    "choicesJson": [
+      "Scarcity",
+      "Charity",
+      "Currency",
+      "Democracy"
+    ],
+    "answer": "Scarcity",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Germany located on?",
+    "choicesJson": [
+      "South America",
+      "Europe",
+      "Asia",
+      "North America"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is part of the Legislative branch of the U.S. government?",
+    "choicesJson": [
+      "the President",
+      "Congress",
+      "the Governor",
+      "the Supreme Court"
+    ],
+    "answer": "Congress",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ancient civilization built the pyramids and grew up along the Nile River?",
+    "choicesJson": [
+      "Ancient Rome",
+      "Mesopotamia",
+      "Ancient Egypt",
+      "Ancient Greece"
+    ],
+    "answer": "Ancient Egypt",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The United States government is an example of which type of government, where citizens vote for representatives?",
+    "choicesJson": [
+      "A democracy",
+      "No government at all",
+      "A monarchy ruled by a king",
+      "A dictatorship"
+    ],
+    "answer": "A democracy",
+    "tags": [
+      "civics",
+      "government-types"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ancient civilization is known for starting the idea of democracy, where citizens vote?",
+    "choicesJson": [
+      "Ancient Rome",
+      "Ancient Greece",
+      "Mesopotamia",
+      "Ancient Egypt"
+    ],
+    "answer": "Ancient Greece",
+    "tags": [
+      "history",
+      "ancient"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Japan located on?",
+    "choicesJson": [
+      "South America",
+      "Australia",
+      "Asia",
+      "Europe"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is part of the Executive branch of the U.S. government?",
+    "choicesJson": [
+      "the President",
+      "the Supreme Court",
+      "Congress",
+      "the Governor"
+    ],
+    "answer": "the President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of the U.S. government interprets laws (decides what laws mean)?",
+    "choicesJson": [
+      "Local",
+      "Executive",
+      "Judicial",
+      "Legislative"
+    ],
+    "answer": "Judicial",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes the President?",
+    "choicesJson": [
+      "Executive",
+      "Local",
+      "Legislative",
+      "Judicial"
+    ],
+    "answer": "Executive",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Serving on a jury to help decide a court case is an example of a citizen's ____?",
+    "choicesJson": [
+      "Punishment",
+      "Responsibility",
+      "Hobby",
+      "Vacation"
+    ],
+    "answer": "Responsibility",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do map lines of latitude and longitude help people do?",
+    "choicesJson": [
+      "Find the exact location of a place",
+      "Choose leaders",
+      "Predict the weather",
+      "Grow crops faster"
+    ],
+    "answer": "Find the exact location of a place",
+    "tags": [
+      "geography",
+      "latlong"
+    ]
+  }
+]

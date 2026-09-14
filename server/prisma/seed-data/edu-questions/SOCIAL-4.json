@@ -1,0 +1,1592 @@
+[
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is France located on?",
+    "choicesJson": [
+      "South America",
+      "Africa",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a mountain?",
+    "choicesJson": [
+      "low land between mountains or hills",
+      "very tall, high land that rises above the land around it",
+      "land surrounded by water on three sides",
+      "large area of flat land"
+    ],
+    "answer": "very tall, high land that rises above the land around it",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Labor Day?",
+    "choicesJson": [
+      "May",
+      "March",
+      "September",
+      "February"
+    ],
+    "answer": "September",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Illinois?",
+    "choicesJson": [
+      "Baton Rouge",
+      "Indianapolis",
+      "Springfield",
+      "Columbia"
+    ],
+    "answer": "Springfield",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Alabama?",
+    "choicesJson": [
+      "Honolulu",
+      "Cheyenne",
+      "Montgomery",
+      "Pierre"
+    ],
+    "answer": "Montgomery",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the 7 continents?",
+    "choicesJson": [
+      "Japan",
+      "Africa",
+      "Russia",
+      "Brazil"
+    ],
+    "answer": "Africa",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Missouri?",
+    "choicesJson": [
+      "Raleigh",
+      "Cheyenne",
+      "Atlanta",
+      "Jefferson City"
+    ],
+    "answer": "Jefferson City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Boston is the capital of which state?",
+    "choicesJson": [
+      "Illinois",
+      "Tennessee",
+      "Kentucky",
+      "Massachusetts"
+    ],
+    "answer": "Massachusetts",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a peninsula?",
+    "choicesJson": [
+      "low land between mountains or hills",
+      "high, flat area of land",
+      "very tall, high land that rises above the land around it",
+      "land surrounded by water on three sides"
+    ],
+    "answer": "land surrounded by water on three sides",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of New Jersey is ____.",
+    "answer": "Trenton",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of West Virginia?",
+    "choicesJson": [
+      "Charleston",
+      "Cheyenne",
+      "Raleigh",
+      "Sacramento"
+    ],
+    "answer": "Charleston",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Springfield is the capital of which state?",
+    "choicesJson": [
+      "Illinois",
+      "Kansas",
+      "Maine",
+      "South Carolina"
+    ],
+    "answer": "Illinois",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday a day for giving thanks, remembered with the Pilgrims and Wampanoag?",
+    "choicesJson": [
+      "Presidents Day",
+      "Veterans Day",
+      "Memorial Day",
+      "Thanksgiving"
+    ],
+    "answer": "Thanksgiving",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Charleston is the capital of which state?",
+    "choicesJson": [
+      "West Virginia",
+      "Massachusetts",
+      "Vermont",
+      "Kansas"
+    ],
+    "answer": "West Virginia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do citizens have both rights and responsibilities?",
+    "choicesJson": [
+      "So the government can ignore them",
+      "So no rules ever apply",
+      "So freedoms are protected while people act fairly toward each other",
+      "So only adults can talk"
+    ],
+    "answer": "So freedoms are protected while people act fairly toward each other",
+    "tags": [
+      "civics",
+      "rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are services?",
+    "choicesJson": [
+      "things people must have to live, like food, water, and shelter",
+      "work that one person does for another person",
+      "things that are nice to have but people don't need to survive",
+      "people who make goods or provide services"
+    ],
+    "answer": "work that one person does for another person",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of West Virginia is ____.",
+    "answer": "Charleston",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Missouri?",
+    "choicesJson": [
+      "Montpelier",
+      "Jefferson City",
+      "Austin",
+      "Salt Lake City"
+    ],
+    "answer": "Jefferson City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Indiana is ____.",
+    "answer": "Indianapolis",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"people who buy and use goods or services\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Scarcity",
+      "Wants"
+    ],
+    "answer": "Consumers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Christopher Columbus sailed across which ocean to reach the Americas?",
+    "choicesJson": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "history",
+      "explorers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Maryland?",
+    "choicesJson": [
+      "Annapolis",
+      "Trenton",
+      "Baton Rouge",
+      "Jefferson City"
+    ],
+    "answer": "Annapolis",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of New York?",
+    "choicesJson": [
+      "Des Moines",
+      "Lincoln",
+      "Albany",
+      "Trenton"
+    ],
+    "answer": "Albany",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of New Jersey?",
+    "choicesJson": [
+      "Tallahassee",
+      "Trenton",
+      "Richmond",
+      "Olympia"
+    ],
+    "answer": "Trenton",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is also a single country?",
+    "choicesJson": [
+      "Africa",
+      "Asia",
+      "Europe",
+      "Australia"
+    ],
+    "answer": "Australia",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of South Dakota?",
+    "choicesJson": [
+      "Pierre",
+      "Richmond",
+      "Trenton",
+      "Montpelier"
+    ],
+    "answer": "Pierre",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Vermont located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southeast",
+      "Midwest",
+      "West"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Oklahoma is ____.",
+    "answer": "Oklahoma City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the Earth's 5 oceans?",
+    "choicesJson": [
+      "Pacific",
+      "Gulf of Mexico",
+      "Mediterranean Sea",
+      "the Great Lakes"
+    ],
+    "answer": "Pacific",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are consumers?",
+    "choicesJson": [
+      "people who make goods or provide services",
+      "people who buy and use goods or services",
+      "things people make or grow that can be bought or sold",
+      "work that one person does for another person"
+    ],
+    "answer": "people who buy and use goods or services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a huge body of salt water?",
+    "choicesJson": [
+      "Ocean",
+      "Lake",
+      "River",
+      "Gulf"
+    ],
+    "answer": "Ocean",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Minnesota?",
+    "choicesJson": [
+      "Madison",
+      "Oklahoma City",
+      "Saint Paul",
+      "Sacramento"
+    ],
+    "answer": "Saint Paul",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Memorial Day celebrate or honor?",
+    "choicesJson": [
+      "celebrates America's freedom from Britain",
+      "honors U.S. presidents",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country"
+    ],
+    "answer": "honors soldiers who died serving the country",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Louisiana located in?",
+    "choicesJson": [
+      "West",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Washington is ____.",
+    "answer": "Olympia",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Nashville is the capital of which state?",
+    "choicesJson": [
+      "Missouri",
+      "Indiana",
+      "Tennessee",
+      "Wyoming"
+    ],
+    "answer": "Tennessee",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Maine?",
+    "choicesJson": [
+      "Jefferson City",
+      "Nashville",
+      "Augusta",
+      "Cheyenne"
+    ],
+    "answer": "Augusta",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Indianapolis is the capital of which state?",
+    "choicesJson": [
+      "Indiana",
+      "New Mexico",
+      "West Virginia",
+      "Vermont"
+    ],
+    "answer": "Indiana",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a lake?",
+    "choicesJson": [
+      "a body of water surrounded by land",
+      "a huge body of salt water",
+      "a long body of flowing water",
+      "a large area of ocean partly surrounded by land"
+    ],
+    "answer": "a body of water surrounded by land",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who makes the laws in the United States government?",
+    "choicesJson": [
+      "The Governor",
+      "The President",
+      "The Supreme Court",
+      "Congress"
+    ],
+    "answer": "Congress",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why might the price of umbrellas go up during a big rainstorm?",
+    "choicesJson": [
+      "Stores must lower prices during rain",
+      "Rain makes umbrellas heavier",
+      "Umbrellas become illegal",
+      "More people want (demand) them than are available"
+    ],
+    "answer": "More people want (demand) them than are available",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Mississippi located in?",
+    "choicesJson": [
+      "Midwest",
+      "West",
+      "Northeast",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: large area of flat land?",
+    "choicesJson": [
+      "Mountain",
+      "Plateau",
+      "Island",
+      "Plain"
+    ],
+    "answer": "Plain",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Arizona?",
+    "choicesJson": [
+      "Phoenix",
+      "Olympia",
+      "Frankfort",
+      "Tallahassee"
+    ],
+    "answer": "Phoenix",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Veterans Day celebrate or honor?",
+    "choicesJson": [
+      "honors U.S. presidents",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "honors people who served in the military",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Salt Lake City is the capital of which state?",
+    "choicesJson": [
+      "Vermont",
+      "Utah",
+      "South Dakota",
+      "Georgia"
+    ],
+    "answer": "Utah",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: land completely surrounded by water?",
+    "choicesJson": [
+      "Island",
+      "Valley",
+      "Peninsula",
+      "Plain"
+    ],
+    "answer": "Island",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of New Mexico?",
+    "choicesJson": [
+      "Columbus",
+      "Oklahoma City",
+      "Santa Fe",
+      "Denver"
+    ],
+    "answer": "Santa Fe",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The White House located?",
+    "choicesJson": [
+      "South Dakota",
+      "Washington, D.C.",
+      "New York",
+      "Philadelphia, Pennsylvania"
+    ],
+    "answer": "Washington, D.C.",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Lincoln is the capital of which state?",
+    "choicesJson": [
+      "New Jersey",
+      "North Dakota",
+      "Nebraska",
+      "Florida"
+    ],
+    "answer": "Nebraska",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Juneau is the capital of which state?",
+    "choicesJson": [
+      "Alaska",
+      "Connecticut",
+      "Wyoming",
+      "Rhode Island"
+    ],
+    "answer": "Alaska",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the city where the national government of the United States is based?",
+    "choicesJson": [
+      "Los Angeles",
+      "Any state capital",
+      "The national capital, Washington, D.C.",
+      "New York City"
+    ],
+    "answer": "The national capital, Washington, D.C.",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Georgia located in?",
+    "choicesJson": [
+      "Southeast",
+      "West",
+      "Midwest",
+      "Northeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sacramento is the capital of which state?",
+    "choicesJson": [
+      "Vermont",
+      "California",
+      "Utah",
+      "Idaho"
+    ],
+    "answer": "California",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jackson is the capital of which state?",
+    "choicesJson": [
+      "Mississippi",
+      "North Dakota",
+      "Illinois",
+      "Ohio"
+    ],
+    "answer": "Mississippi",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Michigan?",
+    "choicesJson": [
+      "Phoenix",
+      "Lansing",
+      "Denver",
+      "Little Rock"
+    ],
+    "answer": "Lansing",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jefferson City is the capital of which state?",
+    "choicesJson": [
+      "Missouri",
+      "Oklahoma",
+      "Michigan",
+      "Oregon"
+    ],
+    "answer": "Missouri",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is New Jersey located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southeast",
+      "Southwest",
+      "West"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Saving money means you ____ it instead of spending it right away.",
+    "choicesJson": [
+      "Burn",
+      "Throw away",
+      "Bury forever",
+      "Keep"
+    ],
+    "answer": "Keep",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which level of government handles things for the whole country, like national defense?",
+    "choicesJson": [
+      "Family government",
+      "Local government",
+      "Federal (national) government",
+      "School government"
+    ],
+    "answer": "Federal (national) government",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Little Rock is the capital of which state?",
+    "choicesJson": [
+      "Pennsylvania",
+      "North Carolina",
+      "Arkansas",
+      "Iowa"
+    ],
+    "answer": "Arkansas",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is a warm coat in winter a need or a want?",
+    "choicesJson": [
+      "A want",
+      "Neither",
+      "Both the same thing",
+      "A need"
+    ],
+    "answer": "A need",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is part of the Executive branch of the U.S. government?",
+    "choicesJson": [
+      "the President",
+      "the Supreme Court",
+      "Congress",
+      "the Governor"
+    ],
+    "answer": "the President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Wisconsin?",
+    "choicesJson": [
+      "Madison",
+      "Bismarck",
+      "Santa Fe",
+      "Albany"
+    ],
+    "answer": "Madison",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Albany is the capital of which state?",
+    "choicesJson": [
+      "Nebraska",
+      "Massachusetts",
+      "New York",
+      "New Mexico"
+    ],
+    "answer": "New York",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of North Dakota?",
+    "choicesJson": [
+      "Juneau",
+      "Little Rock",
+      "Bismarck",
+      "Salt Lake City"
+    ],
+    "answer": "Bismarck",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Independence Day celebrate or honor?",
+    "choicesJson": [
+      "honors civil rights leader Martin Luther King Jr.",
+      "celebrates America's freedom from Britain",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country"
+    ],
+    "answer": "celebrates America's freedom from Britain",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which building in Washington, D.C. is the home and workplace of the President?",
+    "choicesJson": [
+      "Mount Rushmore",
+      "The White House",
+      "The U.S. Capitol",
+      "The Statue of Liberty"
+    ],
+    "answer": "The White House",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Pennsylvania?",
+    "choicesJson": [
+      "Harrisburg",
+      "Bismarck",
+      "Tallahassee",
+      "Springfield"
+    ],
+    "answer": "Harrisburg",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a gulf?",
+    "choicesJson": [
+      "a long body of flowing water",
+      "a large area of ocean partly surrounded by land",
+      "a body of water surrounded by land",
+      "a huge body of salt water"
+    ],
+    "answer": "a large area of ocean partly surrounded by land",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which level of government is run by a state's governor?",
+    "choicesJson": [
+      "Federal government",
+      "School government",
+      "City government",
+      "State government"
+    ],
+    "answer": "State government",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Pennsylvania is ____.",
+    "answer": "Harrisburg",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of New Jersey?",
+    "choicesJson": [
+      "Phoenix",
+      "Helena",
+      "Trenton",
+      "Tallahassee"
+    ],
+    "answer": "Trenton",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous bell in Philadelphia is a symbol of American independence?",
+    "choicesJson": [
+      "The U.S. Capitol",
+      "The Liberty Bell",
+      "Mount Rushmore",
+      "The White House"
+    ],
+    "answer": "The Liberty Bell",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is South Carolina located in?",
+    "choicesJson": [
+      "West",
+      "Midwest",
+      "Southwest",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Minnesota located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southwest",
+      "Southeast",
+      "Midwest"
+    ],
+    "answer": "Midwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Oklahoma located in?",
+    "choicesJson": [
+      "Southeast",
+      "Northeast",
+      "West",
+      "Southwest"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a body of water surrounded by land?",
+    "choicesJson": [
+      "Gulf",
+      "Ocean",
+      "River",
+      "Lake"
+    ],
+    "answer": "Lake",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is California located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southwest",
+      "West",
+      "Southeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Thailand located on?",
+    "choicesJson": [
+      "Australia",
+      "South America",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The capital of Missouri is ____.",
+    "answer": "Jefferson City",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these cities is the capital of Rhode Island?",
+    "choicesJson": [
+      "Jefferson City",
+      "Salem",
+      "Saint Paul",
+      "Providence"
+    ],
+    "answer": "Providence",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Virginia located in?",
+    "choicesJson": [
+      "Midwest",
+      "Southwest",
+      "West",
+      "Southeast"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is it called when someone does work for you, like cutting your hair?",
+    "choicesJson": [
+      "A law",
+      "A good",
+      "A tax",
+      "A service"
+    ],
+    "answer": "A service",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the capital of Rhode Island?",
+    "choicesJson": [
+      "Honolulu",
+      "Concord",
+      "Providence",
+      "Montpelier"
+    ],
+    "answer": "Providence",
+    "tags": [
+      "geography",
+      "capitals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main job of the judicial branch?",
+    "choicesJson": [
+      "interprets laws (decides what laws mean)",
+      "carries out (enforces) laws",
+      "Manages the state's schools",
+      "makes laws"
+    ],
+    "answer": "interprets laws (decides what laws mean)",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: very tall, high land that rises above the land around it?",
+    "choicesJson": [
+      "Island",
+      "Mountain",
+      "Peninsula",
+      "Plateau"
+    ],
+    "answer": "Mountain",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which branch of government includes Congress?",
+    "choicesJson": [
+      "Local",
+      "Legislative",
+      "Executive",
+      "Judicial"
+    ],
+    "answer": "Legislative",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Massachusetts located in?",
+    "choicesJson": [
+      "Northeast",
+      "Southeast",
+      "Midwest",
+      "West"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is North Carolina located in?",
+    "choicesJson": [
+      "Southwest",
+      "Northeast",
+      "Southeast",
+      "West"
+    ],
+    "answer": "Southeast",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a long body of flowing water?",
+    "choicesJson": [
+      "Ocean",
+      "River",
+      "Lake",
+      "Gulf"
+    ],
+    "answer": "River",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these states is part of the Northeast region?",
+    "choicesJson": [
+      "New Jersey",
+      "Montana",
+      "Utah",
+      "California"
+    ],
+    "answer": "New Jersey",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Idaho located in?",
+    "choicesJson": [
+      "Midwest",
+      "Southeast",
+      "West",
+      "Southwest"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which region of the United States is Colorado located in?",
+    "choicesJson": [
+      "Southeast",
+      "West",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "regions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is between South and West on a compass rose?",
+    "choicesJson": [
+      "Northwest",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors workers?",
+    "choicesJson": [
+      "Martin Luther King Jr. Day",
+      "Labor Day",
+      "Independence Day",
+      "Thanksgiving"
+    ],
+    "answer": "Labor Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Presidents Day celebrate or honor?",
+    "choicesJson": [
+      "honors soldiers who died serving the country",
+      "honors U.S. presidents",
+      "honors workers",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "honors U.S. presidents",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The Liberty Bell located?",
+    "choicesJson": [
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "South Dakota",
+      "New York"
+    ],
+    "answer": "Philadelphia, Pennsylvania",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is opposite of East?",
+    "choicesJson": [
+      "North",
+      "South",
+      "West",
+      "Down"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is a new video game a need or a want?",
+    "choicesJson": [
+      "A need",
+      "Neither",
+      "A want",
+      "Impossible to say"
+    ],
+    "answer": "A want",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is NOT one of the Earth's 5 oceans?",
+    "choicesJson": [
+      "Southern",
+      "Mediterranean Sea",
+      "Pacific",
+      "Arctic"
+    ],
+    "answer": "Mediterranean Sea",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"things people make or grow that can be bought or sold\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Producers",
+      "Services"
+    ],
+    "answer": "Goods",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The idea that people want more than what is available is best described by which word?",
+    "choicesJson": [
+      "Scarcity",
+      "Charity",
+      "Currency",
+      "Democracy"
+    ],
+    "answer": "Scarcity",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is India located on?",
+    "choicesJson": [
+      "Asia",
+      "Africa",
+      "Australia",
+      "Europe"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "world"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which level of government is usually run by a mayor?",
+    "choicesJson": [
+      "State government",
+      "World government",
+      "Federal government",
+      "Local (city) government"
+    ],
+    "answer": "Local (city) government",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A family buys corn at the market to eat. The family is an example of a ____?",
+    "choicesJson": [
+      "Producer",
+      "Tourist",
+      "Consumer",
+      "Government"
+    ],
+    "answer": "Consumer",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a large area of ocean partly surrounded by land?",
+    "choicesJson": [
+      "Ocean",
+      "Gulf",
+      "Lake",
+      "River"
+    ],
+    "answer": "Gulf",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a river?",
+    "choicesJson": [
+      "a large area of ocean partly surrounded by land",
+      "a long body of flowing water",
+      "a body of water surrounded by land",
+      "a huge body of salt water"
+    ],
+    "answer": "a long body of flowing water",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the United States, citizens vote to choose people like the ____?",
+    "choicesJson": [
+      "Duke",
+      "King",
+      "Emperor",
+      "President"
+    ],
+    "answer": "President",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who decides what laws mean in the United States government?",
+    "choicesJson": [
+      "The President",
+      "Congress",
+      "The Supreme Court",
+      "The Mayor"
+    ],
+    "answer": "The Supreme Court",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  }
+]

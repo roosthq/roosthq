@@ -610,7 +610,7 @@ export interface MiniGameTierInput {
 }
 
 // ---------- Learning games (PLANNING.md §19) ----------
-export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC'] as const;
+export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC', 'SOCIAL'] as const;
 export type EduSubject = (typeof EDU_SUBJECTS)[number];
 
 export interface EduGradeRow {

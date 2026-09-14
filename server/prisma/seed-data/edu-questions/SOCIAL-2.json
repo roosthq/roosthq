@@ -1,0 +1,1611 @@
+[
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which leader would you ask about a problem with your state?",
+    "choicesJson": [
+      "A ship captain",
+      "The governor",
+      "The mayor of another state",
+      "A foreign king"
+    ],
+    "answer": "The governor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are wants?",
+    "choicesJson": [
+      "things that are nice to have but people don't need to survive",
+      "people who make goods or provide services",
+      "when there is not enough of something for everyone who wants it",
+      "things people make or grow that can be bought or sold"
+    ],
+    "answer": "things that are nice to have but people don't need to survive",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many continents are there on Earth?",
+    "choicesJson": [
+      "9",
+      "7",
+      "6",
+      "5"
+    ],
+    "answer": "7",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors workers?",
+    "choicesJson": [
+      "Martin Luther King Jr. Day",
+      "Labor Day",
+      "Independence Day",
+      "Thanksgiving"
+    ],
+    "answer": "Labor Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors people who served in the military?",
+    "choicesJson": [
+      "Thanksgiving",
+      "Martin Luther King Jr. Day",
+      "Memorial Day",
+      "Veterans Day"
+    ],
+    "answer": "Veterans Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is between North and East on a compass rose?",
+    "choicesJson": [
+      "Northeast",
+      "Southeast",
+      "Northwest",
+      "Southwest"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Labor Day?",
+    "choicesJson": [
+      "May",
+      "March",
+      "September",
+      "February"
+    ],
+    "answer": "September",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a need, not a want?",
+    "choicesJson": [
+      "A video game",
+      "Candy",
+      "Water",
+      "A toy"
+    ],
+    "answer": "Water",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is very cold and covered in ice, near the South Pole?",
+    "choicesJson": [
+      "Europe",
+      "Antarctica",
+      "Asia",
+      "Africa"
+    ],
+    "answer": "Antarctica",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are scarcity?",
+    "choicesJson": [
+      "when there is not enough of something for everyone who wants it",
+      "things people must have to live, like food, water, and shelter",
+      "things people make or grow that can be bought or sold",
+      "things that are nice to have but people don't need to survive"
+    ],
+    "answer": "when there is not enough of something for everyone who wants it",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The Statue of Liberty located?",
+    "choicesJson": [
+      "South Dakota",
+      "New York",
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C."
+    ],
+    "answer": "New York",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Independence Day celebrate or honor?",
+    "choicesJson": [
+      "honors civil rights leader Martin Luther King Jr.",
+      "celebrates America's freedom from Britain",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country"
+    ],
+    "answer": "celebrates America's freedom from Britain",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a flag?",
+    "choicesJson": [
+      "A piece of cloth with colors and symbols that stands for a country or group",
+      "A kind of food",
+      "A musical instrument",
+      "A type of weather"
+    ],
+    "answer": "A piece of cloth with colors and symbols that stands for a country or group",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: large area of flat land?",
+    "choicesJson": [
+      "Mountain",
+      "Plateau",
+      "Island",
+      "Plain"
+    ],
+    "answer": "Plain",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the Earth's 5 oceans?",
+    "choicesJson": [
+      "Indian",
+      "Caribbean Sea",
+      "Mediterranean Sea",
+      "Gulf of Mexico"
+    ],
+    "answer": "Indian",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"when there is not enough of something for everyone who wants it\"?",
+    "choicesJson": [
+      "Needs",
+      "Scarcity",
+      "Taxes",
+      "Wants"
+    ],
+    "answer": "Scarcity",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the United States, citizens vote to choose people like the ____?",
+    "choicesJson": [
+      "Duke",
+      "King",
+      "Emperor",
+      "President"
+    ],
+    "answer": "President",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Martin Luther King Jr. Day celebrate or honor?",
+    "choicesJson": [
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag",
+      "honors civil rights leader Martin Luther King Jr.",
+      "honors workers",
+      "honors U.S. presidents"
+    ],
+    "answer": "honors civil rights leader Martin Luther King Jr.",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors soldiers who died serving the country?",
+    "choicesJson": [
+      "Veterans Day",
+      "Martin Luther King Jr. Day",
+      "Memorial Day",
+      "Independence Day"
+    ],
+    "answer": "Memorial Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Veterans Day?",
+    "choicesJson": [
+      "November",
+      "December",
+      "March",
+      "June"
+    ],
+    "answer": "November",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is the largest ocean on Earth?",
+    "choicesJson": [
+      "Indian",
+      "Arctic",
+      "Pacific",
+      "Atlantic"
+    ],
+    "answer": "Pacific",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the national bird of the United States, shown on many U.S. symbols?",
+    "choicesJson": [
+      "Ostrich",
+      "Bald eagle",
+      "Peacock",
+      "Robin"
+    ],
+    "answer": "Bald eagle",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: low land between mountains or hills?",
+    "choicesJson": [
+      "Valley",
+      "Mountain",
+      "Plain",
+      "Peninsula"
+    ],
+    "answer": "Valley",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is between South and West on a compass rose?",
+    "choicesJson": [
+      "Northwest",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Southwest",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Memorial Day?",
+    "choicesJson": [
+      "August",
+      "May",
+      "April",
+      "March"
+    ],
+    "answer": "May",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is one of the 7 continents?",
+    "choicesJson": [
+      "Russia",
+      "South America",
+      "Japan",
+      "Brazil"
+    ],
+    "answer": "South America",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a body of water surrounded by land?",
+    "choicesJson": [
+      "Gulf",
+      "Ocean",
+      "River",
+      "Lake"
+    ],
+    "answer": "Lake",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The U.S. Capitol located?",
+    "choicesJson": [
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "South Dakota",
+      "New York"
+    ],
+    "answer": "Washington, D.C.",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a plain?",
+    "choicesJson": [
+      "high, flat area of land",
+      "land surrounded by water on three sides",
+      "large area of flat land",
+      "land completely surrounded by water"
+    ],
+    "answer": "large area of flat land",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which leader works and lives in the White House?",
+    "choicesJson": [
+      "A senator",
+      "The governor",
+      "The President",
+      "The mayor"
+    ],
+    "answer": "The President",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a huge body of salt water?",
+    "choicesJson": [
+      "Ocean",
+      "Lake",
+      "River",
+      "Gulf"
+    ],
+    "answer": "Ocean",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous mountain carving in South Dakota shows the faces of four U.S. presidents?",
+    "choicesJson": [
+      "The Washington Monument",
+      "The Liberty Bell",
+      "The Statue of Liberty",
+      "Mount Rushmore"
+    ],
+    "answer": "Mount Rushmore",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is between the United States and Europe?",
+    "choicesJson": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "answer": "Atlantic",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is usually the leader of a city or town?",
+    "choicesJson": [
+      "Principal",
+      "Governor",
+      "President",
+      "Mayor"
+    ],
+    "answer": "Mayor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which day of the week is Thanksgiving always celebrated on?",
+    "choicesJson": [
+      "Thursday",
+      "Saturday",
+      "Monday",
+      "Sunday"
+    ],
+    "answer": "Thursday",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The Liberty Bell located?",
+    "choicesJson": [
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "South Dakota",
+      "New York"
+    ],
+    "answer": "Philadelphia, Pennsylvania",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is opposite of North?",
+    "choicesJson": [
+      "West",
+      "South",
+      "Up",
+      "East"
+    ],
+    "answer": "South",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you are facing East and turn to face the opposite direction, which way are you facing?",
+    "choicesJson": [
+      "North",
+      "South",
+      "East",
+      "West"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a gulf?",
+    "choicesJson": [
+      "a long body of flowing water",
+      "a large area of ocean partly surrounded by land",
+      "a body of water surrounded by land",
+      "a huge body of salt water"
+    ],
+    "answer": "a large area of ocean partly surrounded by land",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are goods?",
+    "choicesJson": [
+      "work that one person does for another person",
+      "people who make goods or provide services",
+      "when there is not enough of something for everyone who wants it",
+      "things people make or grow that can be bought or sold"
+    ],
+    "answer": "things people make or grow that can be bought or sold",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is a warm coat in winter a need or a want?",
+    "choicesJson": [
+      "A want",
+      "Neither",
+      "Both the same thing",
+      "A need"
+    ],
+    "answer": "A need",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a valley?",
+    "choicesJson": [
+      "land surrounded by water on three sides",
+      "land completely surrounded by water",
+      "low land between mountains or hills",
+      "high, flat area of land"
+    ],
+    "answer": "low land between mountains or hills",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which tall stone monument in Washington, D.C. honors George Washington?",
+    "choicesJson": [
+      "The Statue of Liberty",
+      "Mount Rushmore",
+      "The Liberty Bell",
+      "The Washington Monument"
+    ],
+    "answer": "The Washington Monument",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What part of a map shows the directions north, south, east, and west?",
+    "choicesJson": [
+      "Scale",
+      "Legend",
+      "Compass rose",
+      "Title"
+    ],
+    "answer": "Compass rose",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: high, flat area of land?",
+    "choicesJson": [
+      "Mountain",
+      "Plain",
+      "Island",
+      "Plateau"
+    ],
+    "answer": "Plateau",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which building in Washington, D.C. is the home and workplace of the President?",
+    "choicesJson": [
+      "Mount Rushmore",
+      "The White House",
+      "The U.S. Capitol",
+      "The Statue of Liberty"
+    ],
+    "answer": "The White House",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Labor Day celebrate or honor?",
+    "choicesJson": [
+      "honors soldiers who died serving the country",
+      "honors civil rights leader Martin Luther King Jr.",
+      "honors workers",
+      "honors U.S. presidents"
+    ],
+    "answer": "honors workers",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a lake?",
+    "choicesJson": [
+      "a body of water surrounded by land",
+      "a huge body of salt water",
+      "a long body of flowing water",
+      "a large area of ocean partly surrounded by land"
+    ],
+    "answer": "a body of water surrounded by land",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The United States is located on which continent?",
+    "choicesJson": [
+      "Asia",
+      "North America",
+      "South America",
+      "Europe"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday a day for giving thanks, remembered with the Pilgrims and Wampanoag?",
+    "choicesJson": [
+      "Presidents Day",
+      "Veterans Day",
+      "Memorial Day",
+      "Thanksgiving"
+    ],
+    "answer": "Thanksgiving",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a want, not a need?",
+    "choicesJson": [
+      "Food",
+      "A home",
+      "A toy",
+      "Water"
+    ],
+    "answer": "A toy",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday celebrates America's freedom from Britain?",
+    "choicesJson": [
+      "Memorial Day",
+      "Martin Luther King Jr. Day",
+      "Veterans Day",
+      "Independence Day"
+    ],
+    "answer": "Independence Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What part of a map helps you measure real distance between places?",
+    "choicesJson": [
+      "Legend",
+      "Compass rose",
+      "Scale",
+      "Title"
+    ],
+    "answer": "Scale",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is Mount Rushmore located?",
+    "choicesJson": [
+      "South Dakota",
+      "Philadelphia, Pennsylvania",
+      "Washington, D.C.",
+      "New York"
+    ],
+    "answer": "South Dakota",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"people who buy and use goods or services\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Scarcity",
+      "Wants"
+    ],
+    "answer": "Consumers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many oceans are there on Earth?",
+    "choicesJson": [
+      "5",
+      "7",
+      "6",
+      "4"
+    ],
+    "answer": "5",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is between North and West on a compass rose?",
+    "choicesJson": [
+      "Northwest",
+      "Southeast",
+      "Southwest",
+      "Northeast"
+    ],
+    "answer": "Northwest",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are needs?",
+    "choicesJson": [
+      "people who buy and use goods or services",
+      "things people must have to live, like food, water, and shelter",
+      "things that are nice to have but people don't need to survive",
+      "when there is not enough of something for everyone who wants it"
+    ],
+    "answer": "things people must have to live, like food, water, and shelter",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape are the stars on the American flag?",
+    "choicesJson": [
+      "Star shaped",
+      "Square",
+      "Triangle",
+      "Round like circles"
+    ],
+    "answer": "Star shaped",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous bell in Philadelphia is a symbol of American independence?",
+    "choicesJson": [
+      "The U.S. Capitol",
+      "The Liberty Bell",
+      "Mount Rushmore",
+      "The White House"
+    ],
+    "answer": "The Liberty Bell",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If you are facing North and turn to face the opposite direction, which way are you facing?",
+    "choicesJson": [
+      "South",
+      "North",
+      "West",
+      "East"
+    ],
+    "answer": "South",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ocean is the coldest and located at the North Pole?",
+    "choicesJson": [
+      "Southern",
+      "Arctic",
+      "Indian",
+      "Pacific"
+    ],
+    "answer": "Arctic",
+    "tags": [
+      "geography",
+      "oceans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do the 50 stars on the American flag stand for?",
+    "choicesJson": [
+      "The 5 oceans",
+      "The 13 colonies",
+      "The 50 states",
+      "The 7 continents"
+    ],
+    "answer": "The 50 states",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is another name for the American flag?",
+    "choicesJson": [
+      "The Stars and Stripes",
+      "The Rainbow Banner",
+      "The Golden Cloth",
+      "The Silver Sheet"
+    ],
+    "answer": "The Stars and Stripes",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: land surrounded by water on three sides?",
+    "choicesJson": [
+      "Valley",
+      "Plateau",
+      "Island",
+      "Peninsula"
+    ],
+    "answer": "Peninsula",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Thanksgiving?",
+    "choicesJson": [
+      "February",
+      "August",
+      "December",
+      "November"
+    ],
+    "answer": "November",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Thanksgiving celebrate or honor?",
+    "choicesJson": [
+      "honors people who served in the military",
+      "honors civil rights leader Martin Luther King Jr.",
+      "honors workers",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "a day for giving thanks, remembered with the Pilgrims and Wampanoag",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a ocean?",
+    "choicesJson": [
+      "a long body of flowing water",
+      "a body of water surrounded by land",
+      "a large area of ocean partly surrounded by land",
+      "a huge body of salt water"
+    ],
+    "answer": "a huge body of salt water",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors civil rights leader Martin Luther King Jr.?",
+    "choicesJson": [
+      "Thanksgiving",
+      "Labor Day",
+      "Veterans Day",
+      "Martin Luther King Jr. Day"
+    ],
+    "answer": "Martin Luther King Jr. Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Presidents Day?",
+    "choicesJson": [
+      "July",
+      "February",
+      "October",
+      "April"
+    ],
+    "answer": "February",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is voting important in the United States?",
+    "choicesJson": [
+      "It lets citizens help choose their leaders",
+      "It has no real purpose",
+      "It picks the school lunch menu only",
+      "It decides the weather"
+    ],
+    "answer": "It lets citizens help choose their leaders",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a mountain?",
+    "choicesJson": [
+      "low land between mountains or hills",
+      "very tall, high land that rises above the land around it",
+      "land surrounded by water on three sides",
+      "large area of flat land"
+    ],
+    "answer": "very tall, high land that rises above the land around it",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the four main (cardinal) directions on a compass?",
+    "choicesJson": [
+      "Up, Down, Left, and Right",
+      "Hot, Cold, Wet, and Dry",
+      "Red, Blue, Green, and Yellow",
+      "North, South, East, and West"
+    ],
+    "answer": "North, South, East, and West",
+    "tags": [
+      "geography",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Saving money means you ____ it instead of spending it right away.",
+    "choicesJson": [
+      "Burn",
+      "Throw away",
+      "Bury forever",
+      "Keep"
+    ],
+    "answer": "Keep",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Presidents Day celebrate or honor?",
+    "choicesJson": [
+      "honors soldiers who died serving the country",
+      "honors U.S. presidents",
+      "honors workers",
+      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
+    ],
+    "answer": "honors U.S. presidents",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is described as: land completely surrounded by water?",
+    "choicesJson": [
+      "Island",
+      "Valley",
+      "Peninsula",
+      "Plain"
+    ],
+    "answer": "Island",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a plateau?",
+    "choicesJson": [
+      "land surrounded by water on three sides",
+      "land completely surrounded by water",
+      "high, flat area of land",
+      "low land between mountains or hills"
+    ],
+    "answer": "high, flat area of land",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"things that are nice to have but people don't need to survive\"?",
+    "choicesJson": [
+      "Scarcity",
+      "Consumers",
+      "Wants",
+      "Needs"
+    ],
+    "answer": "Wants",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A family buys bread from the store to eat. Are they producers or consumers in that moment?",
+    "choicesJson": [
+      "Consumers",
+      "Neither",
+      "Producers",
+      "A government"
+    ],
+    "answer": "Consumers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is a new video game a need or a want?",
+    "choicesJson": [
+      "A need",
+      "Neither",
+      "A want",
+      "Impossible to say"
+    ],
+    "answer": "A want",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of a whole state?",
+    "choicesJson": [
+      "Governor",
+      "President",
+      "Mayor",
+      "Senator"
+    ],
+    "answer": "Governor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bird is a national symbol of the United States, often shown near the flag?",
+    "choicesJson": [
+      "A parrot",
+      "A penguin",
+      "The bald eagle",
+      "A flamingo"
+    ],
+    "answer": "The bald eagle",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are consumers?",
+    "choicesJson": [
+      "people who make goods or provide services",
+      "people who buy and use goods or services",
+      "things people make or grow that can be bought or sold",
+      "work that one person does for another person"
+    ],
+    "answer": "people who buy and use goods or services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are services?",
+    "choicesJson": [
+      "things people must have to live, like food, water, and shelter",
+      "work that one person does for another person",
+      "things that are nice to have but people don't need to survive",
+      "people who make goods or provide services"
+    ],
+    "answer": "work that one person does for another person",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"work that one person does for another person\"?",
+    "choicesJson": [
+      "Taxes",
+      "Services",
+      "Scarcity",
+      "Producers"
+    ],
+    "answer": "Services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are producers?",
+    "choicesJson": [
+      "people who buy and use goods or services",
+      "things people must have to live, like food, water, and shelter",
+      "things people make or grow that can be bought or sold",
+      "people who make goods or provide services"
+    ],
+    "answer": "people who make goods or provide services",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is it called when people pick their leaders by choosing who they want?",
+    "choicesJson": [
+      "Sleeping",
+      "Painting",
+      "Voting",
+      "Cooking"
+    ],
+    "answer": "Voting",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many stripes are on the American flag?",
+    "choicesJson": [
+      "10",
+      "50",
+      "13",
+      "7"
+    ],
+    "answer": "13",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do the 13 stripes on the American flag stand for?",
+    "choicesJson": [
+      "The original 13 colonies",
+      "The president's family",
+      "The 7 continents",
+      "The 50 states"
+    ],
+    "answer": "The original 13 colonies",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a person who is allowed to vote and has rights and duties in a country?",
+    "choicesJson": [
+      "A stranger",
+      "A visitor",
+      "A citizen",
+      "A tourist"
+    ],
+    "answer": "A citizen",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of the entire United States?",
+    "choicesJson": [
+      "Judge",
+      "Governor",
+      "President",
+      "Mayor"
+    ],
+    "answer": "President",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which building in Washington, D.C. is where Congress meets to make laws?",
+    "choicesJson": [
+      "The Washington Monument",
+      "The White House",
+      "The U.S. Capitol",
+      "The Liberty Bell"
+    ],
+    "answer": "The U.S. Capitol",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Independence Day?",
+    "choicesJson": [
+      "February",
+      "July",
+      "April",
+      "June"
+    ],
+    "answer": "July",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is opposite of East?",
+    "choicesJson": [
+      "North",
+      "South",
+      "West",
+      "Down"
+    ],
+    "answer": "West",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a large area of ocean partly surrounded by land?",
+    "choicesJson": [
+      "Ocean",
+      "Gulf",
+      "Lake",
+      "River"
+    ],
+    "answer": "Gulf",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday honors U.S. presidents?",
+    "choicesJson": [
+      "Labor Day",
+      "Veterans Day",
+      "Presidents Day",
+      "Thanksgiving"
+    ],
+    "answer": "Presidents Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is The White House located?",
+    "choicesJson": [
+      "South Dakota",
+      "Washington, D.C.",
+      "New York",
+      "Philadelphia, Pennsylvania"
+    ],
+    "answer": "Washington, D.C.",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which date is Independence Day celebrated?",
+    "choicesJson": [
+      "June 4",
+      "July 4",
+      "September 4",
+      "July 14"
+    ],
+    "answer": "July 4",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which month do we celebrate Martin Luther King Jr. Day?",
+    "choicesJson": [
+      "July",
+      "December",
+      "February",
+      "January"
+    ],
+    "answer": "January",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a island?",
+    "choicesJson": [
+      "land completely surrounded by water",
+      "land surrounded by water on three sides",
+      "high, flat area of land",
+      "low land between mountains or hills"
+    ],
+    "answer": "land completely surrounded by water",
+    "tags": [
+      "geography",
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What part of a map explains what the symbols and colors mean?",
+    "choicesJson": [
+      "Legend (map key)",
+      "Scale",
+      "Compass rose",
+      "Border"
+    ],
+    "answer": "Legend (map key)",
+    "tags": [
+      "geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a job that leads just one city, not a whole state or country?",
+    "choicesJson": [
+      "Judge",
+      "Governor",
+      "Mayor",
+      "President"
+    ],
+    "answer": "Mayor",
+    "tags": [
+      "civics",
+      "leaders"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"people who make goods or provide services\"?",
+    "choicesJson": [
+      "Taxes",
+      "Consumers",
+      "Producers",
+      "Wants"
+    ],
+    "answer": "Producers",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many stars are on the American flag?",
+    "choicesJson": [
+      "100",
+      "50",
+      "7",
+      "13"
+    ],
+    "answer": "50",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous statue in New York represents freedom and welcomed immigrants arriving by ship?",
+    "choicesJson": [
+      "Mount Rushmore",
+      "The White House",
+      "The Liberty Bell",
+      "The Statue of Liberty"
+    ],
+    "answer": "The Statue of Liberty",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which economics word means: \"things people make or grow that can be bought or sold\"?",
+    "choicesJson": [
+      "Goods",
+      "Consumers",
+      "Producers",
+      "Services"
+    ],
+    "answer": "Goods",
+    "tags": [
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does Memorial Day celebrate or honor?",
+    "choicesJson": [
+      "celebrates America's freedom from Britain",
+      "honors U.S. presidents",
+      "honors people who served in the military",
+      "honors soldiers who died serving the country"
+    ],
+    "answer": "honors soldiers who died serving the country",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body of water is described as: a long body of flowing water?",
+    "choicesJson": [
+      "Ocean",
+      "River",
+      "Lake",
+      "Gulf"
+    ],
+    "answer": "River",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a river?",
+    "choicesJson": [
+      "a large area of ocean partly surrounded by land",
+      "a long body of flowing water",
+      "a body of water surrounded by land",
+      "a huge body of salt water"
+    ],
+    "answer": "a long body of flowing water",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What colors are on the American flag?",
+    "choicesJson": [
+      "Orange and purple",
+      "Black and gold",
+      "Green, yellow, and pink",
+      "Red, white, and blue"
+    ],
+    "answer": "Red, white, and blue",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  }
+]

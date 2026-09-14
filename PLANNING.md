@@ -1442,7 +1442,7 @@ artifact itself, not repeated here). Building the real platform now:
 6. Wire Splice (decision 3) once Lock Pick is confirmed working end to end for a
    real family - don't port the other eight in parallel on a guess.
 
-## 19. Educational games (planned, not built, 2026-09-10)
+## 19. Educational games (built - shipped 2026-09-10, extended since; see decision log at the end of this section)
 
 Separate feature from §18's mini-games. Those are pure skill mechanics (drag,
 timing, pattern-match) with a pre-drawn pool payout - no "right answer" exists.
@@ -1464,6 +1464,14 @@ same way.
 More subjects (social studies, vocabulary, logic/pattern puzzles) are additive
 later - same schema, new `subject` string values, not a rework.
 
+**Update, 2026-09-14: this prediction held.** `LOGIC` and `SOCIAL` were both
+added later exactly this way - one line in each `SUBJECTS`/`EDU_SUBJECTS`
+array, a `SUBJECT_META` icon/label entry, seed-data JSON files, done. No
+schema change either time. Current live subject list: `MATH`, `READING`,
+`SCIENCE`, `SPELLING`, `LOGIC`, `SOCIAL`. Remaining candidates from the
+original list above: vocabulary (deferred - more Logic content requested
+first), grammar/writing, money/financial literacy.
+
 ### Data model - new, separate from `MiniGame`/`Award`
 
 ```prisma
@@ -1473,7 +1481,7 @@ later - same schema, new `subject` string values, not a rework.
 // not a birthday-triggered one.
 model UserSubjectGrade {
   userId  String
-  subject String // MATH | READING | SCIENCE | SPELLING
+  subject String // MATH | READING | SCIENCE | SPELLING | LOGIC | SOCIAL
   grade   Int    // 0-6
   setById String
   updatedAt DateTime @updatedAt
@@ -1637,3 +1645,66 @@ later without a schema change.
 7. Reading/Science/Spelling content + remaining example games, once Math is
    confirmed working end to end for a real kid - same "don't port the rest in
    parallel on a guess" discipline as §18 decision 6.
+
+### Decision log - what actually shipped after the plan above
+
+The plan above is the original design; it undersells what's live now. Real
+history, newest last:
+
+- **Sound cues are a real, reassignable family setting**, not a fixed
+  built-in cue. 4 new `SOUND_SLOTS` entries (`eduCorrect`, `eduWrong`,
+  `eduSessionComplete`, `eduSessionBonus`) live in `web/src/sounds.ts`
+  alongside every other family sound slot, editable from Settings > Features
+  the same way chore/token sounds are - not a Learning-specific system.
+- **Owner-only question bank admin UI** - `web/src/LearningQuestionsPanel.tsx`,
+  mounted in Settings > Instance. Full CRUD over `EduQuestion` (filter by
+  subject/grade/type/search, tap to edit, MC or text-input editor with
+  live emoji-stripping). Gated to `Role.OWNER` specifically, same pattern as
+  `HolidaysService.assertOwner`. `EduQuestion` is a **global** bank, not
+  per-family - an edit changes it for every family on the instance. This was
+  a deliberate call (not the per-family-copy alternative) because the
+  content is curriculum facts, not family-specific data.
+- **`LOGIC` subject added** (2026-09-13-ish) - Detective Clues/Story Order
+  Swap/Path to Flag/Number Pop Ladder/Circuit Path borrowed as-is from other
+  subjects for its break games (no dedicated Logic games built), since those
+  5 concepts are themselves deduction/sequencing/ordering puzzles under a
+  different subject's skin. Started at 15 questions/grade, expanded to
+  110/grade (770 total) after Casey asked for "over 100 at least" - number
+  patterns, classification odd-one-out, ordering/comparison chains,
+  syllogisms, generated procedurally (verified-by-construction: the answer
+  is computed directly from the generated data, not guessed) rather than
+  hand-typed one at a time.
+- **Incident, 2026-09-13: re-running the seed script to add LOGIC content
+  deleted and recreated every subject's question rows, cascade-deleting all
+  `EduQuestionProgress` instance-wide** (every kid's mastery history, wiped).
+  Told the family directly rather than silently restoring from a backup that
+  would also roll back same-day chore/token activity. Fixed for good: the
+  seed script now counts real answers on record per subject+grade first and
+  skips re-seeding (with a warning) if any exist - `server/prisma/seed-edu-questions.js`.
+  This is why the seed script is now the *only* safe way to add a new
+  subject's content and why it's called out explicitly here: **never re-run
+  it for an existing subject/grade that's actually been played.**
+- **Session-resume fix, 2026-09-14.** A kid found they could quit an
+  in-progress session and restart to get a fresh random draw of questions -
+  effectively re-rolling until they hit ones they already knew. Fixed by
+  making sessions genuinely resumable: `EduSession.presentedJson` records
+  the exact question ids drawn per block, in order; quitting no longer ends
+  the session at all, it just stops touching it; starting the same subject
+  while a session is already in-flight resumes that exact block/question
+  instead of drawing new ones. The confirm-quit modal copy changed to match
+  ("these same questions will be waiting for you next time - they don't
+  reset").
+- **`SOCIAL` subject added, 2026-09-14** - Social Studies, grades 0-6,
+  110 questions/grade (770 total), hand-verified US civics/geography/history
+  facts (states & capitals, continents & oceans, national symbols, 3
+  branches of government, US history milestones, basic world geography/
+  ancient civilizations for grade 6) rather than procedurally generated -
+  unlike Logic's number patterns, facts can't be verified by construction,
+  so accuracy required real sourcing, not generation. Got **3 dedicated new
+  break games** instead of borrowing wholesale like Logic did:
+  `web/src/breakGames/social/MapClues.tsx` (civics/symbols riddles, forked
+  from Detective Clues), `TimelineOrder.tsx` (4-stage US history sequencing,
+  forked from Story Order Swap), and `CapitalMatch.tsx` (state/capital
+  drag-match, a genuinely new concept on the same asymmetric engine as
+  Habitat Sort). Path to Flag and Number Pop Ladder round the 5-game pool
+  out, same borrow-for-pacing tradeoff Logic made for its remaining slots.

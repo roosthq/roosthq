@@ -39,6 +39,9 @@ import ScrambleSwap from '../breakGames/spelling/ScrambleSwap';
 import MissingLetter from '../breakGames/spelling/MissingLetter';
 import WordGridSnap from '../breakGames/spelling/WordGridSnap';
 import RhymePop from '../breakGames/spelling/RhymePop';
+import MapClues from '../breakGames/social/MapClues';
+import CapitalMatch from '../breakGames/social/CapitalMatch';
+import TimelineOrder from '../breakGames/social/TimelineOrder';
 
 // Each subject's own pool of 5 arcade breaks (PLANNING.md §19 "Recess
 // Concepts" - Casey's own review after the first pass, real research
@@ -90,6 +93,20 @@ const BREAK_GAMES: Record<EduSubject, BreakGameEntry[]> = {
     { Component: PathToFlag, minGrade: 0, label: 'Path to Flag' },
     { Component: NumberPopLadder, minGrade: 0, label: 'Number Pop Ladder' },
     { Component: CircuitPath, minGrade: 3, label: 'Circuit Path' },
+  ],
+  // Unlike Logic, Social Studies gets its own dedicated builds: Map Clues
+  // (civics/symbols riddles) and Timeline Order (US-history sequencing) are
+  // forks of Detective Clues / Story Order Swap with on-theme content
+  // swapped in, and Capital Match is a genuinely new concept (state/capital
+  // drag-match) on the same asymmetric engine as Habitat Sort. Path to Flag
+  // and Number Pop Ladder round the pool out to 5, same borrow-for-pacing
+  // tradeoff Logic already made.
+  SOCIAL: [
+    { Component: MapClues, minGrade: 0, label: 'Map Clues' },
+    { Component: CapitalMatch, minGrade: 0, label: 'Capital Match' },
+    { Component: TimelineOrder, minGrade: 0, label: 'Timeline Order' },
+    { Component: PathToFlag, minGrade: 0, label: 'Path to Flag' },
+    { Component: NumberPopLadder, minGrade: 0, label: 'Number Pop Ladder' },
   ],
 };
 

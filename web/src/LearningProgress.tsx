@@ -11,6 +11,7 @@ export const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> =
   SCIENCE: { label: 'Science', icon: '🔬' },
   SPELLING: { label: 'Spelling', icon: '🔤' },
   LOGIC: { label: 'Logic', icon: '🧩' },
+  SOCIAL: { label: 'Social Studies', icon: '🌍' },
 };
 export const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
 

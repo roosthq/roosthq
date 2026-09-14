@@ -1181,7 +1181,7 @@ model LearningGamesSettings {
 // contradiction of it.
 model UserSubjectGrade {
   userId    String
-  subject   String // MATH | READING | SCIENCE | SPELLING
+  subject   String // MATH | READING | SCIENCE | SPELLING | LOGIC | SOCIAL
   grade     Int // 0 (kindergarten) - 6
   setById   String
   updatedAt DateTime @updatedAt

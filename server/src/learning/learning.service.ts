@@ -30,7 +30,7 @@ export interface EduQuestionInput {
 // client the way MiniGameGrant/Purchase trust PlayReport.won (those pay out
 // on a pre-drawn chance result independent of skill; this pays out because
 // the answer was actually right).
-export const SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC'];
+export const SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC', 'SOCIAL'];
 const BLOCK_SIZE = 5;
 
 // Fallback only for a family whose LearningGamesSettings row doesn't exist
