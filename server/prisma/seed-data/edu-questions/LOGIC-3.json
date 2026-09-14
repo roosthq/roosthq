@@ -1,17 +1,1502 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 2, 4, 7, 11, __?", "choicesJson": ["15", "16", "17", "18"], "answer": "16", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Tom is taller than Ben. Ben is taller than Sam. Who is the shortest?", "choicesJson": ["Tom", "Ben", "Sam"], "answer": "Sam", "tags": ["reasoning", "ordering"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 3, 6, 9, 10, 12", "choicesJson": ["3", "6", "9", "10", "12"], "answer": "10", "tags": ["classification"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 81, 27, 9, 3, __?", "choicesJson": ["0", "1", "2", "4"], "answer": "1", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Author is to Book as Painter is to __?", "choicesJson": ["Painting", "Brush", "Museum", "Canvas"], "answer": "Painting", "tags": ["analogy"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "All squares are rectangles. This shape is a square. Is it a rectangle?", "choicesJson": ["Yes", "No"], "answer": "Yes", "tags": ["syllogism"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Anna has more apples than Ben. Ben has more apples than Cara. Who has the most apples?", "choicesJson": ["Anna", "Ben", "Cara"], "answer": "Anna", "tags": ["reasoning", "ordering"] },
-  { "type": "TEXT_INPUT", "prompt": "What comes next: 2, 6, 18, 54, __?", "answer": "162", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which word doesn't belong: Whisper, Shout, Talk, Jump", "choicesJson": ["Whisper", "Shout", "Talk", "Jump"], "answer": "Jump", "tags": ["classification"] },
-  { "type": "TEXT_INPUT", "prompt": "If X + 3 = 8, what is X?", "answer": "5", "tags": ["reasoning"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Doctor is to Hospital as Teacher is to __?", "choicesJson": ["School", "Book", "Pencil", "Bus"], "answer": "School", "tags": ["analogy"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 1, 1, 2, 3, 5, 8, __?", "choicesJson": ["11", "12", "13", "14"], "answer": "13", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Three friends stand in a line. Mia is in front of Sam. Sam is in front of Leo. Who is last?", "choicesJson": ["Mia", "Sam", "Leo"], "answer": "Leo", "tags": ["reasoning", "ordering"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape completes: ◼ ◻ ◼ ◻ ◼ ◻ __?", "choicesJson": ["◼", "◻"], "answer": "◼", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number doesn't belong: 4, 9, 16, 20, 25", "choicesJson": ["4", "9", "16", "20", "25"], "answer": "20", "tags": ["classification"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 2, 4, 7, 11, __?",
+    "choicesJson": [
+      "15",
+      "16",
+      "17",
+      "18"
+    ],
+    "answer": "16",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Tom is taller than Ben. Ben is taller than Sam. Who is the shortest?",
+    "choicesJson": [
+      "Tom",
+      "Ben",
+      "Sam"
+    ],
+    "answer": "Sam",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 3, 6, 9, 10, 12",
+    "choicesJson": [
+      "3",
+      "6",
+      "9",
+      "10",
+      "12"
+    ],
+    "answer": "10",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 81, 27, 9, 3, __?",
+    "choicesJson": [
+      "0",
+      "1",
+      "2",
+      "4"
+    ],
+    "answer": "1",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Author is to Book as Painter is to __?",
+    "choicesJson": [
+      "Painting",
+      "Brush",
+      "Museum",
+      "Canvas"
+    ],
+    "answer": "Painting",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All squares are rectangles. This shape is a square. Is it a rectangle?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Anna has more apples than Ben. Ben has more apples than Cara. Who has the most apples?",
+    "choicesJson": [
+      "Anna",
+      "Ben",
+      "Cara"
+    ],
+    "answer": "Anna",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What comes next: 2, 6, 18, 54, __?",
+    "answer": "162",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word doesn't belong: Whisper, Shout, Talk, Jump",
+    "choicesJson": [
+      "Whisper",
+      "Shout",
+      "Talk",
+      "Jump"
+    ],
+    "answer": "Jump",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "If X + 3 = 8, what is X?",
+    "answer": "5",
+    "tags": [
+      "reasoning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Doctor is to Hospital as Teacher is to __?",
+    "choicesJson": [
+      "School",
+      "Book",
+      "Pencil",
+      "Bus"
+    ],
+    "answer": "School",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 1, 2, 3, 5, 8, __?",
+    "choicesJson": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "answer": "13",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three friends stand in a line. Mia is in front of Sam. Sam is in front of Leo. Who is last?",
+    "choicesJson": [
+      "Mia",
+      "Sam",
+      "Leo"
+    ],
+    "answer": "Leo",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape completes: ◼ ◻ ◼ ◻ ◼ ◻ __?",
+    "choicesJson": [
+      "◼",
+      "◻"
+    ],
+    "answer": "◼",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 4, 9, 16, 20, 25",
+    "choicesJson": [
+      "4",
+      "9",
+      "16",
+      "20",
+      "25"
+    ],
+    "answer": "20",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 2, 5, 11, 23, __?",
+    "choicesJson": [
+      "35",
+      "40",
+      "45",
+      "47"
+    ],
+    "answer": "47",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All even numbers are divisible by 2. 14 is even. Is 14 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hammer is to Nail as Needle is to __?",
+    "choicesJson": [
+      "Thread",
+      "Cloth",
+      "Scissors",
+      "Button"
+    ],
+    "answer": "Thread",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 6, 12, 18, 25, 30",
+    "choicesJson": [
+      "6",
+      "12",
+      "18",
+      "25",
+      "30"
+    ],
+    "answer": "25",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 200, 100, 50, __?",
+    "choicesJson": [
+      "30",
+      "25",
+      "20",
+      "10"
+    ],
+    "answer": "25",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Five kids are in a line. Kim is 2nd. Rio is right after Kim. What position is Rio?",
+    "choicesJson": [
+      "1st",
+      "2nd",
+      "3rd",
+      "4th"
+    ],
+    "answer": "3rd",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word doesn't belong: Guitar, Piano, Drum, Chair",
+    "choicesJson": [
+      "Guitar",
+      "Piano",
+      "Drum",
+      "Chair"
+    ],
+    "answer": "Chair",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What comes next: 3, 9, 27, 81, __?",
+    "answer": "243",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Author is to Novel as Songwriter is to __?",
+    "choicesJson": [
+      "Song",
+      "Guitar",
+      "Radio",
+      "Concert"
+    ],
+    "answer": "Song",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 2, 4, 8, 16, __?",
+    "choicesJson": [
+      "24",
+      "30",
+      "32",
+      "36"
+    ],
+    "answer": "32",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Four friends: Nina scored higher than Omar. Omar scored higher than Pia. Pia scored higher than Quinn. Who scored the lowest?",
+    "choicesJson": [
+      "Nina",
+      "Omar",
+      "Pia",
+      "Quinn"
+    ],
+    "answer": "Quinn",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 9, 16, 24, 25, 36",
+    "choicesJson": [
+      "9",
+      "16",
+      "24",
+      "25",
+      "36"
+    ],
+    "answer": "24",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a number is divisible by 10, it is also divisible by 5. 40 is divisible by 10. Is it divisible by 5?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Petal is to Flower as Leaf is to __?",
+    "choicesJson": [
+      "Tree",
+      "Root",
+      "Branch",
+      "Seed"
+    ],
+    "answer": "Tree",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 100, 91, 82, 73, __?",
+    "choicesJson": [
+      "64",
+      "65",
+      "66",
+      "67"
+    ],
+    "answer": "64",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 12 is a multiple of 2. Is 12 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 82, 36, 64, 49",
+    "choicesJson": [
+      "82",
+      "36",
+      "64",
+      "49"
+    ],
+    "answer": "82",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 14, 16, 18, 20, 22, __?",
+    "choicesJson": [
+      "24",
+      "21",
+      "19",
+      "27"
+    ],
+    "answer": "24",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 9, 26, 4, 16",
+    "choicesJson": [
+      "9",
+      "26",
+      "4",
+      "16"
+    ],
+    "answer": "26",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 11, 14, 17, 20, 23, __?",
+    "choicesJson": [
+      "24",
+      "29",
+      "21",
+      "26"
+    ],
+    "answer": "26",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 25, 36, 49, 64, 81, __?",
+    "choicesJson": [
+      "81",
+      "73",
+      "88",
+      "71"
+    ],
+    "answer": "81",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sana is faster than Ben. Ben is faster than Gia. Who is the fastest?",
+    "choicesJson": [
+      "Gia",
+      "Ben",
+      "Sana"
+    ],
+    "answer": "Sana",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Plate, Wrist, Knife, Spoon",
+    "choicesJson": [
+      "Plate",
+      "Wrist",
+      "Knife",
+      "Spoon"
+    ],
+    "answer": "Wrist",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 10 is a multiple of 2. Is 10 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jax is taller than Dev. Dev is taller than Pia. Pia is taller than Sana. Who is the tallest?",
+    "choicesJson": [
+      "Sana",
+      "Pia",
+      "Dev",
+      "Jax"
+    ],
+    "answer": "Jax",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 4, 9, 16, 25, __?",
+    "choicesJson": [
+      "25",
+      "30",
+      "31",
+      "28"
+    ],
+    "answer": "25",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 28 is a multiple of 4. Is 28 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Opal is scored higher than Sana. Sana is scored higher than Mia. Who is the highest scorer?",
+    "choicesJson": [
+      "Opal",
+      "Sana",
+      "Mia"
+    ],
+    "answer": "Opal",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Monday, Sunday, Saturday, Scared",
+    "choicesJson": [
+      "Monday",
+      "Sunday",
+      "Saturday",
+      "Scared"
+    ],
+    "answer": "Scared",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 3, 9, 27, 81, __?",
+    "choicesJson": [
+      "208",
+      "231",
+      "243",
+      "209"
+    ],
+    "answer": "243",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 4 is a multiple of 2. Is 4 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 4, 9, 16, 25, 36, __?",
+    "choicesJson": [
+      "29",
+      "36",
+      "30",
+      "42"
+    ],
+    "answer": "36",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 5 are divisible by 5. 15 is a multiple of 5. Is 15 divisible by 5?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 6, 18, 54, 162, 486, __?",
+    "choicesJson": [
+      "1395",
+      "1596",
+      "1458",
+      "1466"
+    ],
+    "answer": "1458",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 3, 6, 12, 24, 48, __?",
+    "choicesJson": [
+      "97",
+      "104",
+      "89",
+      "96"
+    ],
+    "answer": "96",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 5, 15, 45, 135, 405, __?",
+    "choicesJson": [
+      "1265",
+      "1358",
+      "1215",
+      "1068"
+    ],
+    "answer": "1215",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is older than Opal. Opal is older than Noah. Who is the youngest?",
+    "choicesJson": [
+      "Ela",
+      "Opal",
+      "Noah"
+    ],
+    "answer": "Noah",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 5 are divisible by 5. 20 is a multiple of 5. Is 20 divisible by 5?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Crayon, Soccer, Swimming, Baseball",
+    "choicesJson": [
+      "Crayon",
+      "Soccer",
+      "Swimming",
+      "Baseball"
+    ],
+    "answer": "Crayon",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 25, 65, 49, 36",
+    "choicesJson": [
+      "25",
+      "65",
+      "49",
+      "36"
+    ],
+    "answer": "65",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 40, 48, 90, 16",
+    "choicesJson": [
+      "40",
+      "48",
+      "90",
+      "16"
+    ],
+    "answer": "90",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dev is taller than Ava. Ava is taller than Ela. Ela is taller than Ivy. Who is the tallest?",
+    "choicesJson": [
+      "Dev",
+      "Ivy",
+      "Ava",
+      "Ela"
+    ],
+    "answer": "Dev",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 16, 25, 36, 49, 64, __?",
+    "choicesJson": [
+      "62",
+      "64",
+      "71",
+      "52"
+    ],
+    "answer": "64",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 12 is a multiple of 4. Is 12 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 10, 19, 28, 37, __?",
+    "choicesJson": [
+      "40",
+      "54",
+      "46",
+      "43"
+    ],
+    "answer": "46",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 3 are divisible by 3. 15 is a multiple of 3. Is 15 divisible by 3?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Sheep, Pig, Goat, Violin",
+    "choicesJson": [
+      "Sheep",
+      "Pig",
+      "Goat",
+      "Violin"
+    ],
+    "answer": "Violin",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 7 are divisible by 7. 49 is a multiple of 7. Is 49 divisible by 7?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sana is older than Leo. Leo is older than Quin. Who is the oldest?",
+    "choicesJson": [
+      "Leo",
+      "Quin",
+      "Sana"
+    ],
+    "answer": "Sana",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 7, 36, 5, 29",
+    "choicesJson": [
+      "7",
+      "36",
+      "5",
+      "29"
+    ],
+    "answer": "36",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 4, 8, 16, 32, 64, __?",
+    "choicesJson": [
+      "128",
+      "109",
+      "108",
+      "134"
+    ],
+    "answer": "128",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 3, 4, 5, 1",
+    "choicesJson": [
+      "3",
+      "4",
+      "5",
+      "1"
+    ],
+    "answer": "4",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jax is older than Kya. Kya is older than Opal. Who is the oldest?",
+    "choicesJson": [
+      "Jax",
+      "Kya",
+      "Opal"
+    ],
+    "answer": "Jax",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Bee, Moth, Scarf, Ant",
+    "choicesJson": [
+      "Bee",
+      "Moth",
+      "Scarf",
+      "Ant"
+    ],
+    "answer": "Scarf",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kya is scored higher than Dev. Dev is scored higher than Theo. Who is the highest scorer?",
+    "choicesJson": [
+      "Theo",
+      "Dev",
+      "Kya"
+    ],
+    "answer": "Kya",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Opal is taller than Gia. Gia is taller than Dev. Dev is taller than Ivy. Who is the tallest?",
+    "choicesJson": [
+      "Dev",
+      "Ivy",
+      "Gia",
+      "Opal"
+    ],
+    "answer": "Opal",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Noah is older than Pia. Pia is older than Opal. Who is the youngest?",
+    "choicesJson": [
+      "Pia",
+      "Noah",
+      "Opal"
+    ],
+    "answer": "Opal",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 20, 21, 18, 22",
+    "choicesJson": [
+      "20",
+      "21",
+      "18",
+      "22"
+    ],
+    "answer": "21",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is scored higher than Opal. Opal is scored higher than Mia. Mia is scored higher than Theo. Who is the highest scorer?",
+    "choicesJson": [
+      "Theo",
+      "Ela",
+      "Mia",
+      "Opal"
+    ],
+    "answer": "Ela",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 14, 42, 35, 69",
+    "choicesJson": [
+      "14",
+      "42",
+      "35",
+      "69"
+    ],
+    "answer": "69",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Drill, Hammer, Shirt, Screwdriver",
+    "choicesJson": [
+      "Drill",
+      "Hammer",
+      "Shirt",
+      "Screwdriver"
+    ],
+    "answer": "Shirt",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 5, 7, 8, 3",
+    "choicesJson": [
+      "5",
+      "7",
+      "8",
+      "3"
+    ],
+    "answer": "8",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 3, 7, 5, 6",
+    "choicesJson": [
+      "3",
+      "7",
+      "5",
+      "6"
+    ],
+    "answer": "6",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 7, 8, 9, 10, 11, __?",
+    "choicesJson": [
+      "13",
+      "16",
+      "12",
+      "15"
+    ],
+    "answer": "12",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 20, 21, 17, 19",
+    "choicesJson": [
+      "20",
+      "21",
+      "17",
+      "19"
+    ],
+    "answer": "20",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is scored higher than Sana. Sana is scored higher than Ava. Who is the highest scorer?",
+    "choicesJson": [
+      "Ava",
+      "Sana",
+      "Ela"
+    ],
+    "answer": "Ela",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ava is taller than Finn. Finn is taller than Kya. Kya is taller than Leo. Who is the tallest?",
+    "choicesJson": [
+      "Finn",
+      "Ava",
+      "Kya",
+      "Leo"
+    ],
+    "answer": "Ava",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Saw, Glove, Drill, Hammer",
+    "choicesJson": [
+      "Saw",
+      "Glove",
+      "Drill",
+      "Hammer"
+    ],
+    "answer": "Glove",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 16 is a multiple of 2. Is 16 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 17, 20, 19, 21",
+    "choicesJson": [
+      "17",
+      "20",
+      "19",
+      "21"
+    ],
+    "answer": "20",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 10, 9, 13, 11",
+    "choicesJson": [
+      "10",
+      "9",
+      "13",
+      "11"
+    ],
+    "answer": "10",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 10, 11, 13, 9",
+    "choicesJson": [
+      "10",
+      "11",
+      "13",
+      "9"
+    ],
+    "answer": "10",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 3, 9, 27, 81, 243, __?",
+    "choicesJson": [
+      "807",
+      "729",
+      "785",
+      "716"
+    ],
+    "answer": "729",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Orange, Shirt, Pink, Purple",
+    "choicesJson": [
+      "Orange",
+      "Shirt",
+      "Pink",
+      "Purple"
+    ],
+    "answer": "Shirt",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Noah is scored higher than Hugo. Hugo is scored higher than Pia. Pia is scored higher than Finn. Who is the lowest scorer?",
+    "choicesJson": [
+      "Pia",
+      "Hugo",
+      "Finn",
+      "Noah"
+    ],
+    "answer": "Finn",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 36, 49, 64, 81, 100, __?",
+    "choicesJson": [
+      "112",
+      "110",
+      "100",
+      "102"
+    ],
+    "answer": "100",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jax is older than Ava. Ava is older than Mia. Who is the oldest?",
+    "choicesJson": [
+      "Mia",
+      "Jax",
+      "Ava"
+    ],
+    "answer": "Jax",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is older than Noah. Noah is older than Mia. Who is the youngest?",
+    "choicesJson": [
+      "Ela",
+      "Noah",
+      "Mia"
+    ],
+    "answer": "Mia",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Owl, Robin, Sofa, Eagle",
+    "choicesJson": [
+      "Owl",
+      "Robin",
+      "Sofa",
+      "Eagle"
+    ],
+    "answer": "Sofa",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Ant, Bed, Shelf, Chair",
+    "choicesJson": [
+      "Ant",
+      "Bed",
+      "Shelf",
+      "Chair"
+    ],
+    "answer": "Ant",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Milk, Sunshine, Juice, Lemonade",
+    "choicesJson": [
+      "Milk",
+      "Sunshine",
+      "Juice",
+      "Lemonade"
+    ],
+    "answer": "Sunshine",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 6 are divisible by 6. 30 is a multiple of 6. Is 30 divisible by 6?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 22, 18, 19, 20",
+    "choicesJson": [
+      "22",
+      "18",
+      "19",
+      "20"
+    ],
+    "answer": "19",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Circle, Sofa, Dresser, Bed",
+    "choicesJson": [
+      "Circle",
+      "Sofa",
+      "Dresser",
+      "Bed"
+    ],
+    "answer": "Circle",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 5 are divisible by 5. 35 is a multiple of 5. Is 35 divisible by 5?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Bed, Chair, Shoe, Shelf",
+    "choicesJson": [
+      "Bed",
+      "Chair",
+      "Shoe",
+      "Shelf"
+    ],
+    "answer": "Shoe",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 32, 30, 29, 28",
+    "choicesJson": [
+      "32",
+      "30",
+      "29",
+      "28"
+    ],
+    "answer": "29",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dev is taller than Ivy. Ivy is taller than Kya. Kya is taller than Ben. Who is the tallest?",
+    "choicesJson": [
+      "Ben",
+      "Ivy",
+      "Dev",
+      "Kya"
+    ],
+    "answer": "Dev",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 9, 2, 7, 31",
+    "choicesJson": [
+      "9",
+      "2",
+      "7",
+      "31"
+    ],
+    "answer": "9",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 19, 20, 17, 21",
+    "choicesJson": [
+      "19",
+      "20",
+      "17",
+      "21"
+    ],
+    "answer": "20",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 8 is a multiple of 2. Is 8 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number doesn't belong: 19, 15, 18, 17",
+    "choicesJson": [
+      "19",
+      "15",
+      "18",
+      "17"
+    ],
+    "answer": "18",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Opal is older than Leo. Leo is older than Gia. Gia is older than Jax. Who is the youngest?",
+    "choicesJson": [
+      "Gia",
+      "Opal",
+      "Leo",
+      "Jax"
+    ],
+    "answer": "Jax",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: June, August, Cup, July",
+    "choicesJson": [
+      "June",
+      "August",
+      "Cup",
+      "July"
+    ],
+    "answer": "Cup",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 8 is a multiple of 4. Is 8 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  }
 ]

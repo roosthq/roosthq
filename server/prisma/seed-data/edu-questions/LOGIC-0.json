@@ -1,17 +1,1488 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Apple, Banana, Carrot, Grape", "choicesJson": ["Apple", "Banana", "Carrot", "Grape"], "answer": "Carrot", "tags": ["classification"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next in the pattern: 🔵 🔴 🔵 🔴 __?", "choicesJson": ["🔵", "🔴", "🟡", "🟢"], "answer": "🔵", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is bigger: a mouse or an elephant?", "choicesJson": ["A mouse", "An elephant"], "answer": "An elephant", "tags": ["comparing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: Square, Circle, Square, Circle, __?", "choicesJson": ["Square", "Circle", "Triangle"], "answer": "Square", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is NOT an animal: Dog, Cat, Car, Fish", "choicesJson": ["Dog", "Cat", "Car", "Fish"], "answer": "Car", "tags": ["classification"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is NOT a fruit: Apple, Orange, Potato, Grape", "choicesJson": ["Apple", "Orange", "Potato", "Grape"], "answer": "Potato", "tags": ["classification"] },
-  { "type": "TEXT_INPUT", "prompt": "What comes next: 1, 2, 3, __?", "answer": "4", "tags": ["pattern", "counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Red, Blue, Green, Happy", "choicesJson": ["Red", "Blue", "Green", "Happy"], "answer": "Happy", "tags": ["classification"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 🍎 🍌 🍎 🍌 __?", "choicesJson": ["🍎", "🍌", "🍇", "🍊"], "answer": "🍎", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is smaller: a cat or a lion?", "choicesJson": ["A cat", "A lion"], "answer": "A cat", "tags": ["comparing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one doesn't belong: Sock, Shoe, Hat, Spoon", "choicesJson": ["Sock", "Shoe", "Hat", "Spoon"], "answer": "Spoon", "tags": ["classification"] },
-  { "type": "TEXT_INPUT", "prompt": "What comes next: A, B, C, __?", "answer": "D", "tags": ["pattern", "letters"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is heavier: a feather or a rock?", "choicesJson": ["A feather", "A rock"], "answer": "A rock", "tags": ["comparing"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What comes next: 🔺 🔻 🔺 🔻 __?", "choicesJson": ["🔺", "🔻"], "answer": "🔺", "tags": ["pattern"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which one is different: Bee, Bee, Bee, Butterfly", "choicesJson": ["First bee", "Second bee", "Third bee", "Butterfly"], "answer": "Butterfly", "tags": ["classification"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Apple, Banana, Carrot, Grape",
+    "choicesJson": [
+      "Apple",
+      "Banana",
+      "Carrot",
+      "Grape"
+    ],
+    "answer": "Carrot",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next in the pattern: 🔵 🔴 🔵 🔴 __?",
+    "choicesJson": [
+      "🔵",
+      "🔴",
+      "🟡",
+      "🟢"
+    ],
+    "answer": "🔵",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is bigger: a mouse or an elephant?",
+    "choicesJson": [
+      "A mouse",
+      "An elephant"
+    ],
+    "answer": "An elephant",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: Square, Circle, Square, Circle, __?",
+    "choicesJson": [
+      "Square",
+      "Circle",
+      "Triangle"
+    ],
+    "answer": "Square",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT an animal: Dog, Cat, Car, Fish",
+    "choicesJson": [
+      "Dog",
+      "Cat",
+      "Car",
+      "Fish"
+    ],
+    "answer": "Car",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT a fruit: Apple, Orange, Potato, Grape",
+    "choicesJson": [
+      "Apple",
+      "Orange",
+      "Potato",
+      "Grape"
+    ],
+    "answer": "Potato",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What comes next: 1, 2, 3, __?",
+    "answer": "4",
+    "tags": [
+      "pattern",
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Red, Blue, Green, Happy",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green",
+      "Happy"
+    ],
+    "answer": "Happy",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 🍎 🍌 🍎 🍌 __?",
+    "choicesJson": [
+      "🍎",
+      "🍌",
+      "🍇",
+      "🍊"
+    ],
+    "answer": "🍎",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is smaller: a cat or a lion?",
+    "choicesJson": [
+      "A cat",
+      "A lion"
+    ],
+    "answer": "A cat",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Sock, Shoe, Hat, Spoon",
+    "choicesJson": [
+      "Sock",
+      "Shoe",
+      "Hat",
+      "Spoon"
+    ],
+    "answer": "Spoon",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What comes next: A, B, C, __?",
+    "answer": "D",
+    "tags": [
+      "pattern",
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is heavier: a feather or a rock?",
+    "choicesJson": [
+      "A feather",
+      "A rock"
+    ],
+    "answer": "A rock",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 🔺 🔻 🔺 🔻 __?",
+    "choicesJson": [
+      "🔺",
+      "🔻"
+    ],
+    "answer": "🔺",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different: Bee, Bee, Bee, Butterfly",
+    "choicesJson": [
+      "First bee",
+      "Second bee",
+      "Third bee",
+      "Butterfly"
+    ],
+    "answer": "Butterfly",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Cow, Pig, Chicken, Chair",
+    "choicesJson": [
+      "Cow",
+      "Pig",
+      "Chicken",
+      "Chair"
+    ],
+    "answer": "Chair",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 🟩 🟦 🟩 🟦 __?",
+    "choicesJson": [
+      "🟩",
+      "🟦",
+      "🟥"
+    ],
+    "answer": "🟩",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is longer: a pencil or a snake?",
+    "choicesJson": [
+      "A pencil",
+      "A snake"
+    ],
+    "answer": "A snake",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: Big, Small, Big, Small, __?",
+    "choicesJson": [
+      "Big",
+      "Small",
+      "Medium"
+    ],
+    "answer": "Big",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT a vehicle: Car, Bike, Truck, Banana",
+    "choicesJson": [
+      "Car",
+      "Bike",
+      "Truck",
+      "Banana"
+    ],
+    "answer": "Banana",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What comes next: 5, 6, 7, __?",
+    "answer": "8",
+    "tags": [
+      "pattern",
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is colder: ice or fire?",
+    "choicesJson": [
+      "Ice",
+      "Fire"
+    ],
+    "answer": "Ice",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Cup, Plate, Fork, Dog",
+    "choicesJson": [
+      "Cup",
+      "Plate",
+      "Fork",
+      "Dog"
+    ],
+    "answer": "Dog",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: ⭐ 🌙 ⭐ 🌙 __?",
+    "choicesJson": [
+      "⭐",
+      "🌙",
+      "☀️"
+    ],
+    "answer": "⭐",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is taller: a house or a person?",
+    "choicesJson": [
+      "A house",
+      "A person"
+    ],
+    "answer": "A house",
+    "tags": [
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Blue, Green, Yellow, Loud",
+    "choicesJson": [
+      "Blue",
+      "Green",
+      "Yellow",
+      "Loud"
+    ],
+    "answer": "Loud",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: A, A, B, B, __?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is NOT a pet: Dog, Cat, Fish, Lion",
+    "choicesJson": [
+      "Dog",
+      "Cat",
+      "Fish",
+      "Lion"
+    ],
+    "answer": "Lion",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 🔴 🔴 🔵 🔴 🔴 🔵 __?",
+    "choicesJson": [
+      "🔴",
+      "🔵"
+    ],
+    "answer": "🔴",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different: Apple, Apple, Apple, Shoe",
+    "choicesJson": [
+      "First apple",
+      "Second apple",
+      "Third apple",
+      "Shoe"
+    ],
+    "answer": "Shoe",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 2, 3, 4, 5, 6, __?",
+    "choicesJson": [
+      "4",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "7",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Crow, Pear, Grape, Apple",
+    "choicesJson": [
+      "Crow",
+      "Pear",
+      "Grape",
+      "Apple"
+    ],
+    "answer": "Crow",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 5, 8, 11, 14, 17, __?",
+    "choicesJson": [
+      "20",
+      "17",
+      "22",
+      "19"
+    ],
+    "answer": "20",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Wind, Bowl, Rain, Sunshine",
+    "choicesJson": [
+      "Wind",
+      "Bowl",
+      "Rain",
+      "Sunshine"
+    ],
+    "answer": "Bowl",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Hammer, Saw, Wrench, Tea",
+    "choicesJson": [
+      "Hammer",
+      "Saw",
+      "Wrench",
+      "Tea"
+    ],
+    "answer": "Tea",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jax is taller than Hugo. Hugo is taller than Ava. Who is the tallest?",
+    "choicesJson": [
+      "Ava",
+      "Hugo",
+      "Jax"
+    ],
+    "answer": "Jax",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Basketball, Tennis, Desk, Baseball",
+    "choicesJson": [
+      "Basketball",
+      "Tennis",
+      "Desk",
+      "Baseball"
+    ],
+    "answer": "Desk",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Saw, Wrench, Proud, Screwdriver",
+    "choicesJson": [
+      "Saw",
+      "Wrench",
+      "Proud",
+      "Screwdriver"
+    ],
+    "answer": "Proud",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 8 is a multiple of 4. Is 8 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is scored higher than Kya. Kya is scored higher than Gia. Who is the lowest scorer?",
+    "choicesJson": [
+      "Ela",
+      "Gia",
+      "Kya"
+    ],
+    "answer": "Gia",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Basketball, Dresser, Soccer, Swimming",
+    "choicesJson": [
+      "Basketball",
+      "Dresser",
+      "Soccer",
+      "Swimming"
+    ],
+    "answer": "Dresser",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 3 are divisible by 3. 12 is a multiple of 3. Is 12 divisible by 3?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: January, Horse, March, July",
+    "choicesJson": [
+      "January",
+      "Horse",
+      "March",
+      "July"
+    ],
+    "answer": "Horse",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Screwdriver, Sunshine, Saw, Wrench",
+    "choicesJson": [
+      "Screwdriver",
+      "Sunshine",
+      "Saw",
+      "Wrench"
+    ],
+    "answer": "Sunshine",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Pencil, Crayon, Fly, Notebook",
+    "choicesJson": [
+      "Pencil",
+      "Crayon",
+      "Fly",
+      "Notebook"
+    ],
+    "answer": "Fly",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Moth, Bee, Beetle, June",
+    "choicesJson": [
+      "Moth",
+      "Bee",
+      "Beetle",
+      "June"
+    ],
+    "answer": "June",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Saw, Trumpet, Guitar, Violin",
+    "choicesJson": [
+      "Saw",
+      "Trumpet",
+      "Guitar",
+      "Violin"
+    ],
+    "answer": "Saw",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Elephant, Lion, Shelf, Horse",
+    "choicesJson": [
+      "Elephant",
+      "Lion",
+      "Shelf",
+      "Horse"
+    ],
+    "answer": "Shelf",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Ruler, Rectangle, Oval, Square",
+    "choicesJson": [
+      "Ruler",
+      "Rectangle",
+      "Oval",
+      "Square"
+    ],
+    "answer": "Ruler",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Rain, Proud, Fog, Snow",
+    "choicesJson": [
+      "Rain",
+      "Proud",
+      "Fog",
+      "Snow"
+    ],
+    "answer": "Proud",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 6 is a multiple of 2. Is 6 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Quin is taller than Hugo. Hugo is taller than Theo. Who is the tallest?",
+    "choicesJson": [
+      "Quin",
+      "Theo",
+      "Hugo"
+    ],
+    "answer": "Quin",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 3 are divisible by 3. 15 is a multiple of 3. Is 15 divisible by 3?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 12 is a multiple of 4. Is 12 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 3 are divisible by 3. 6 is a multiple of 3. Is 6 divisible by 3?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Sofa, Wind, Dresser, Chair",
+    "choicesJson": [
+      "Sofa",
+      "Wind",
+      "Dresser",
+      "Chair"
+    ],
+    "answer": "Wind",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Tuesday, Saturday, Thursday, Jacket",
+    "choicesJson": [
+      "Tuesday",
+      "Saturday",
+      "Thursday",
+      "Jacket"
+    ],
+    "answer": "Jacket",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Spoon, Cup, Wrench, Plate",
+    "choicesJson": [
+      "Spoon",
+      "Cup",
+      "Wrench",
+      "Plate"
+    ],
+    "answer": "Wrench",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 2, 5, 8, 11, 14, __?",
+    "choicesJson": [
+      "22",
+      "17",
+      "19",
+      "12"
+    ],
+    "answer": "17",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Car, April, July, January",
+    "choicesJson": [
+      "Car",
+      "April",
+      "July",
+      "January"
+    ],
+    "answer": "Car",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Leo is older than Noah. Noah is older than Mia. Who is the oldest?",
+    "choicesJson": [
+      "Mia",
+      "Noah",
+      "Leo"
+    ],
+    "answer": "Leo",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hugo is older than Theo. Theo is older than Dev. Who is the youngest?",
+    "choicesJson": [
+      "Theo",
+      "Hugo",
+      "Dev"
+    ],
+    "answer": "Dev",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 5, 7, 9, 11, 13, __?",
+    "choicesJson": [
+      "15",
+      "13",
+      "17",
+      "14"
+    ],
+    "answer": "15",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Cherry, Guitar, Trumpet, Violin",
+    "choicesJson": [
+      "Cherry",
+      "Guitar",
+      "Trumpet",
+      "Violin"
+    ],
+    "answer": "Cherry",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Baseball, Hockey, Wrist, Tennis",
+    "choicesJson": [
+      "Baseball",
+      "Hockey",
+      "Wrist",
+      "Tennis"
+    ],
+    "answer": "Wrist",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Desk, Wrist, Bed, Dresser",
+    "choicesJson": [
+      "Desk",
+      "Wrist",
+      "Bed",
+      "Dresser"
+    ],
+    "answer": "Wrist",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Elbow, Chair, Knee, Foot",
+    "choicesJson": [
+      "Elbow",
+      "Chair",
+      "Knee",
+      "Foot"
+    ],
+    "answer": "Chair",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 2, 4, 6, 8, 10, __?",
+    "choicesJson": [
+      "8",
+      "11",
+      "14",
+      "12"
+    ],
+    "answer": "12",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sana is older than Cara. Cara is older than Finn. Who is the oldest?",
+    "choicesJson": [
+      "Finn",
+      "Sana",
+      "Cara"
+    ],
+    "answer": "Sana",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 8 is a multiple of 2. Is 8 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Owl, Guitar, Trumpet, Flute",
+    "choicesJson": [
+      "Owl",
+      "Guitar",
+      "Trumpet",
+      "Flute"
+    ],
+    "answer": "Owl",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Tired, Bored, Scared, Plate",
+    "choicesJson": [
+      "Tired",
+      "Bored",
+      "Scared",
+      "Plate"
+    ],
+    "answer": "Plate",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Proud, Scared, July, Bored",
+    "choicesJson": [
+      "Proud",
+      "Scared",
+      "July",
+      "Bored"
+    ],
+    "answer": "July",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 3, 5, 7, 9, 11, __?",
+    "choicesJson": [
+      "12",
+      "11",
+      "13",
+      "10"
+    ],
+    "answer": "13",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Plum, Scared, Bored, Excited",
+    "choicesJson": [
+      "Plum",
+      "Scared",
+      "Bored",
+      "Excited"
+    ],
+    "answer": "Plum",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 3, 5, 7, 9, __?",
+    "choicesJson": [
+      "12",
+      "11",
+      "7",
+      "14"
+    ],
+    "answer": "11",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ivy is taller than Sana. Sana is taller than Leo. Who is the tallest?",
+    "choicesJson": [
+      "Sana",
+      "Ivy",
+      "Leo"
+    ],
+    "answer": "Ivy",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ivy is taller than Jax. Jax is taller than Ava. Who is the shortest?",
+    "choicesJson": [
+      "Ava",
+      "Ivy",
+      "Jax"
+    ],
+    "answer": "Ava",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Circle, Rectangle, Cup, Diamond",
+    "choicesJson": [
+      "Circle",
+      "Rectangle",
+      "Cup",
+      "Diamond"
+    ],
+    "answer": "Cup",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hugo is faster than Ela. Ela is faster than Dev. Who is the fastest?",
+    "choicesJson": [
+      "Ela",
+      "Hugo",
+      "Dev"
+    ],
+    "answer": "Hugo",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Leo is older than Quin. Quin is older than Rey. Who is the youngest?",
+    "choicesJson": [
+      "Quin",
+      "Leo",
+      "Rey"
+    ],
+    "answer": "Rey",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Green, Soccer, Hockey, Swimming",
+    "choicesJson": [
+      "Green",
+      "Soccer",
+      "Hockey",
+      "Swimming"
+    ],
+    "answer": "Green",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Tired, Triangle, Happy, Sad",
+    "choicesJson": [
+      "Tired",
+      "Triangle",
+      "Happy",
+      "Sad"
+    ],
+    "answer": "Triangle",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Plate, Juice, Tea, Water",
+    "choicesJson": [
+      "Plate",
+      "Juice",
+      "Tea",
+      "Water"
+    ],
+    "answer": "Plate",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 3, 4, 5, 6, 7, __?",
+    "choicesJson": [
+      "10",
+      "9",
+      "7",
+      "8"
+    ],
+    "answer": "8",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 4, 5, 6, 7, 8, __?",
+    "choicesJson": [
+      "12",
+      "11",
+      "9",
+      "7"
+    ],
+    "answer": "9",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 4 are divisible by 4. 20 is a multiple of 4. Is 20 divisible by 4?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Leo is taller than Jax. Jax is taller than Kya. Who is the tallest?",
+    "choicesJson": [
+      "Leo",
+      "Kya",
+      "Jax"
+    ],
+    "answer": "Leo",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Angry, Soccer, Swimming, Hockey",
+    "choicesJson": [
+      "Angry",
+      "Soccer",
+      "Swimming",
+      "Hockey"
+    ],
+    "answer": "Angry",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Screwdriver, Circle, Saw, Hammer",
+    "choicesJson": [
+      "Screwdriver",
+      "Circle",
+      "Saw",
+      "Hammer"
+    ],
+    "answer": "Circle",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Noah is taller than Sana. Sana is taller than Kya. Who is the shortest?",
+    "choicesJson": [
+      "Noah",
+      "Sana",
+      "Kya"
+    ],
+    "answer": "Kya",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: January, March, August, Moth",
+    "choicesJson": [
+      "January",
+      "March",
+      "August",
+      "Moth"
+    ],
+    "answer": "Moth",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pia is older than Dev. Dev is older than Leo. Who is the oldest?",
+    "choicesJson": [
+      "Leo",
+      "Dev",
+      "Pia"
+    ],
+    "answer": "Pia",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 3, 6, 9, 12, 15, __?",
+    "choicesJson": [
+      "15",
+      "17",
+      "13",
+      "18"
+    ],
+    "answer": "18",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Screwdriver, Saw, Drill, Ruler",
+    "choicesJson": [
+      "Screwdriver",
+      "Saw",
+      "Drill",
+      "Ruler"
+    ],
+    "answer": "Ruler",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Cara is taller than Rey. Rey is taller than Quin. Who is the shortest?",
+    "choicesJson": [
+      "Rey",
+      "Quin",
+      "Cara"
+    ],
+    "answer": "Quin",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "All multiples of 2 are divisible by 2. 4 is a multiple of 2. Is 4 divisible by 2?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "syllogism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hugo is scored higher than Opal. Opal is scored higher than Sana. Who is the highest scorer?",
+    "choicesJson": [
+      "Sana",
+      "Hugo",
+      "Opal"
+    ],
+    "answer": "Hugo",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Flute, Car, Trumpet, Violin",
+    "choicesJson": [
+      "Flute",
+      "Car",
+      "Trumpet",
+      "Violin"
+    ],
+    "answer": "Car",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Wednesday, Diamond, Circle, Triangle",
+    "choicesJson": [
+      "Wednesday",
+      "Diamond",
+      "Circle",
+      "Triangle"
+    ],
+    "answer": "Wednesday",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Bed, Desk, Storm, Sofa",
+    "choicesJson": [
+      "Bed",
+      "Desk",
+      "Storm",
+      "Sofa"
+    ],
+    "answer": "Storm",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mia is older than Ivy. Ivy is older than Jax. Who is the oldest?",
+    "choicesJson": [
+      "Jax",
+      "Ivy",
+      "Mia"
+    ],
+    "answer": "Mia",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Jacket, Train, Shirt, Glove",
+    "choicesJson": [
+      "Jacket",
+      "Train",
+      "Shirt",
+      "Glove"
+    ],
+    "answer": "Train",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mia is older than Quin. Quin is older than Noah. Who is the youngest?",
+    "choicesJson": [
+      "Mia",
+      "Noah",
+      "Quin"
+    ],
+    "answer": "Noah",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ela is scored higher than Theo. Theo is scored higher than Opal. Who is the lowest scorer?",
+    "choicesJson": [
+      "Ela",
+      "Opal",
+      "Theo"
+    ],
+    "answer": "Opal",
+    "tags": [
+      "reasoning",
+      "ordering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Scooter, Car, Dog, Van",
+    "choicesJson": [
+      "Scooter",
+      "Car",
+      "Dog",
+      "Van"
+    ],
+    "answer": "Dog",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Wrench, Hammer, Drill, Ruler",
+    "choicesJson": [
+      "Wrench",
+      "Hammer",
+      "Drill",
+      "Ruler"
+    ],
+    "answer": "Ruler",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 5, 6, 7, 8, 9, __?",
+    "choicesJson": [
+      "12",
+      "6",
+      "10",
+      "8"
+    ],
+    "answer": "10",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Fog, Guitar, Wind, Rain",
+    "choicesJson": [
+      "Fog",
+      "Guitar",
+      "Wind",
+      "Rain"
+    ],
+    "answer": "Guitar",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one doesn't belong: Juice, Tea, Chair, Lemonade",
+    "choicesJson": [
+      "Juice",
+      "Tea",
+      "Chair",
+      "Lemonade"
+    ],
+    "answer": "Chair",
+    "tags": [
+      "classification"
+    ]
+  }
 ]
