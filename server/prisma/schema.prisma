@@ -768,6 +768,12 @@ model Chore {
   streakGoal         Int? // award a bonus every N in a row; null/0 = disabled
   streakBonusTokens  Int     @default(0)
   useWheelForBonus   Boolean @default(false) // this chore's streak milestone spins the bonus wheel INSTEAD of streakBonusTokens - never both. Only meaningful with the family's bonusWheel feature also on.
+  // Opt this ONE chore out of the 🎁 adult-discretion bonus (ChoreBonusSettings)
+  // entirely - never shows up on the "Ready for a bonus?" panel or the
+  // row/detail buttons for this chore, no matter what. Independent of the
+  // family-wide toggle: that one turns the whole feature on/off, this one
+  // excludes a specific chore from it even while it's on.
+  bonusExcluded      Boolean @default(false)
 
   family    Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location  Location?        @relation(fields: [locationId], references: [id])
@@ -819,6 +825,11 @@ model ChoreInstance {
   // APPROVED instance; unrelated to the chore's own reward, which is
   // untouched either way.
   bonusGrantedAt  DateTime?
+  // Set when an adult explicitly dismisses this instance off the "Ready
+  // for a bonus?" panel (ChoresService.dismissBonus) - "no thanks, not
+  // this one," distinct from bonusGrantedAt ("gave one"). Either one
+  // suppresses the row; only one of the two should ever be set.
+  bonusDismissedAt DateTime?
 
   chore          Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks         ChoreItemCheck[]

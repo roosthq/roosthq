@@ -54,6 +54,12 @@ export interface CreateChoreDto {
   streakGoal?: number | null;
   streakBonusTokens?: number;
   useWheelForBonus?: boolean;
+  // Opt OUT of the 🎁 bonus feature for this one chore - the family-wide
+  // toggle (ChoreBonusSettings.enabled) still has to be on too; this just
+  // lets an adult permanently exclude a specific chore they never want to
+  // see it offered on (Casey's own ask - "some chores I might not want to
+  // offer a bonus ever to").
+  bonusExcluded?: boolean;
 }
 
 export type UpdateChoreDto = Partial<CreateChoreDto>;
@@ -465,6 +471,7 @@ export class ChoresService {
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
         useWheelForBonus: !!dto.useWheelForBonus,
+        bonusExcluded: !!dto.bonusExcluded,
         createdById,
         assignees:
           assignmentType === 'SPECIFIC' && dto.assigneeUserIds?.length
@@ -721,6 +728,7 @@ export class ChoresService {
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
         ...(dto.useWheelForBonus !== undefined && { useWheelForBonus: !!dto.useWheelForBonus }),
+        ...(dto.bonusExcluded !== undefined && { bonusExcluded: !!dto.bonusExcluded }),
     };
     await this.prisma.chore.update({ where: { id }, data: updateData });
 
@@ -1297,6 +1305,11 @@ export class ChoresService {
     const inst = await this.ownedInstance(familyId, instanceId);
     if (inst.status !== 'APPROVED') throw new BadRequestException('Approve it first, then add a bonus');
     if (inst.bonusGrantedAt) throw new BadRequestException('Already gave a bonus for this one');
+    if (inst.bonusDismissedAt) throw new BadRequestException('This one was dismissed - not eligible for a bonus anymore');
+    // Never trust the client to have hidden the button - re-check the
+    // per-chore exclude here too, same as every other never-trust-the-
+    // client gate in this service.
+    if (inst.chore.bonusExcluded) throw new BadRequestException('This chore is excluded from bonuses');
     const recipientId = inst.claimedByUserId;
     if (!recipientId) throw new NotFoundException('No one to give the bonus to');
     const recipient = await this.prisma.user.findUnique({ where: { id: recipientId } });
@@ -1340,6 +1353,19 @@ export class ChoresService {
     await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { bonusGrantedAt: new Date() } });
     this.displayEvents.publish(familyId, { type: 'tokens' });
     return { ok: true, ...result };
+  }
+
+  // "No thanks, not this one" - the X next to a row on the "Ready for a
+  // bonus?" panel. Just marks it settled so it stops showing up; no reward,
+  // no notification, nothing else changes. Idempotent (dismissing an
+  // already-dismissed or already-bonused row is a silent no-op) since the
+  // client only ever calls this from a row it can already see.
+  async dismissBonus(familyId: string, actorId: string, instanceId: string) {
+    await this.assertAdult(actorId);
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (inst.bonusGrantedAt || inst.bonusDismissedAt) return { ok: true };
+    await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { bonusDismissedAt: new Date() } });
+    return { ok: true };
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {

@@ -522,12 +522,14 @@ export default function ChoresPanel({
   const BONUS_WINDOW_MS = 48 * 60 * 60 * 1000;
   const bonusEligible = bonusSettings?.enabled
     ? scopedChores
+        .filter((c) => !c.bonusExcluded)
         .flatMap((c) =>
           c.instances
             .filter(
               (i) =>
                 i.status === 'APPROVED' &&
                 !i.bonusGrantedAt &&
+                !i.bonusDismissedAt &&
                 i.completedAt &&
                 Date.now() - new Date(i.completedAt).getTime() < BONUS_WINDOW_MS &&
                 recipientKid(i),
@@ -795,7 +797,7 @@ export default function ChoresPanel({
               Done ✓{active.approvedByUser && ` - approved by ${active.approvedByUser.displayName}`}
             </span>
           )}
-          {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !active.bonusGrantedAt && recipientKid(active) && (
+          {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !chore.bonusExcluded && !active.bonusGrantedAt && !active.bonusDismissedAt && recipientKid(active) && (
             <button
               onClick={() => setBonusTarget({ instanceId: active.id, choreTitle: chore.title, recipientName: recipientKid(active)!.displayName })}
               className="rounded-md border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
@@ -1042,14 +1044,24 @@ export default function ChoresPanel({
                     <td className="px-2 py-1.5 text-slate-500">{recipientKid(instance)!.displayName}</td>
                     <td className="px-2 py-1.5 text-slate-500">{instance.completedAt ? relativeTime(instance.completedAt) : '-'}</td>
                     <td className="px-2 py-1.5">
-                      <button
-                        onClick={() =>
-                          setBonusTarget({ instanceId: instance.id, choreTitle: chore.title, recipientName: recipientKid(instance)!.displayName })
-                        }
-                        className="whitespace-nowrap rounded border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
-                      >
-                        🎁 Bonus
-                      </button>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() =>
+                            setBonusTarget({ instanceId: instance.id, choreTitle: chore.title, recipientName: recipientKid(instance)!.displayName })
+                          }
+                          className="whitespace-nowrap rounded border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
+                        >
+                          🎁 Bonus
+                        </button>
+                        <button
+                          onClick={() => act(() => client.dismissBonus(instance.id))}
+                          aria-label="Dismiss - no bonus for this one"
+                          title="Dismiss - no bonus for this one"
+                          className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -1173,7 +1185,7 @@ export default function ChoresPanel({
                           </button>
                         </>
                       )}
-                      {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !active.bonusGrantedAt && recipientKid(active) && (
+                      {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !chore.bonusExcluded && !active.bonusGrantedAt && !active.bonusDismissedAt && recipientKid(active) && (
                         <button
                           onClick={() => setBonusTarget({ instanceId: active.id, choreTitle: chore.title, recipientName: recipientKid(active)!.displayName })}
                           className="rounded border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
@@ -1289,6 +1301,7 @@ export default function ChoresPanel({
           chore={editing}
           choreId={editingId}
           choreWord={choreWord}
+          bonusEnabled={!!bonusSettings?.enabled}
           onClose={() => setFormOpen(false)}
           onSaved={async () => {
             setFormOpen(false);
@@ -1347,6 +1360,7 @@ function ChoreForm({
   chore,
   choreId,
   choreWord,
+  bonusEnabled,
   onClose,
   onSaved,
 }: {
@@ -1358,6 +1372,10 @@ function ChoreForm({
   chore: Chore | null;
   choreId?: string | null;
   choreWord: string;
+  // Whether the family-wide 🎁 bonus toggle is on - the per-chore "never
+  // offer a bonus for this chore" checkbox only makes sense to show when
+  // there's a bonus feature to opt out of at all.
+  bonusEnabled: boolean;
   onClose: () => void;
   onSaved: () => void;
 }) {
@@ -1401,6 +1419,7 @@ function ChoreForm({
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
   const [useWheelForBonus, setUseWheelForBonus] = useState(chore?.useWheelForBonus ?? false);
+  const [bonusExcluded, setBonusExcluded] = useState(chore?.bonusExcluded ?? false);
 
   useEffect(() => {
     client.locations().then(setLocations).catch(() => undefined);
@@ -1450,6 +1469,7 @@ function ChoreForm({
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
       useWheelForBonus: streakEnabled && useWheelForBonus,
+      bonusExcluded,
     };
     localStorage.setItem(LAST_CHORE_LOCATION_KEY, locationId || '');
     if (choreId) await client.updateChore(choreId, body);
@@ -1608,6 +1628,15 @@ function ChoreForm({
               <label className="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked={requireProof} onChange={(e) => setRequireProof(e.target.checked)} />
                 Require a photo
+              </label>
+            </Field>
+          )}
+
+          {bonusEnabled && (
+            <Field label="🎁 Bonus" help="Keeps this chore off the 'Ready for a bonus?' panel and its row/detail buttons entirely - for something you never want to offer extra tokens on.">
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={bonusExcluded} onChange={(e) => setBonusExcluded(e.target.checked)} />
+                Never offer a bonus for this chore
               </label>
             </Field>
           )}

@@ -328,6 +328,10 @@ export interface ChoreInstance {
   // instance (only possible once it's APPROVED) - null/undefined = not
   // given yet, so the 🎁 button still shows.
   bonusGrantedAt?: string | null;
+  // Set when an adult dismisses this instance off the "Ready for a bonus?"
+  // panel ("no thanks, not this one") - same suppression effect as
+  // bonusGrantedAt, just without actually granting anything.
+  bonusDismissedAt?: string | null;
 }
 
 // One row of the adults-only "did this actually work right" activity log -
@@ -466,6 +470,9 @@ export interface Chore {
   streakGoal?: number | null;
   streakBonusTokens: number;
   useWheelForBonus: boolean;
+  // Never offer the 🎁 bonus for this chore, even while the family-wide
+  // toggle is on - an adult's permanent per-chore exclude.
+  bonusExcluded?: boolean;
 }
 
 export interface Balance {
@@ -1915,6 +1922,10 @@ export function choreClient(kioskToken?: string) {
     // configured pool) - the server rejects anything else.
     grantBonus: (instanceId: string, opts: { tokens?: number; draw?: boolean }) =>
       req<{ ok: true; kind: 'TOKENS' | 'DRAW'; amount?: number }>(`/chores/instances/${instanceId}/bonus`, { method: 'POST', body: JSON.stringify(opts) }, kioskToken),
+    // "No thanks, not this one" - drops it off the "Ready for a bonus?"
+    // panel without granting anything.
+    dismissBonus: (instanceId: string) =>
+      req<{ ok: true }>(`/chores/instances/${instanceId}/bonus/dismiss`, { method: 'POST' }, kioskToken),
     choreBonusSettings: () => req<ChoreBonusSettings>('/chores/bonus-settings', undefined, kioskToken),
     updateChoreBonusSettings: (enabled: boolean, pool: PoolEntry[]) =>
       req<ChoreBonusSettings>('/chores/bonus-settings', { method: 'PATCH', body: JSON.stringify({ enabled, pool }) }, kioskToken),

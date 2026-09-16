@@ -168,4 +168,9 @@ export class ChoresController {
   grantBonus(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string, @Body() body: { tokens?: number; draw?: boolean }) {
     return this.chores.grantBonus(u.familyId, u.userId, instanceId, body);
   }
+
+  @Post('instances/:instanceId/bonus/dismiss')
+  dismissBonus(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
+    return this.chores.dismissBonus(u.familyId, u.userId, instanceId);
+  }
 }
