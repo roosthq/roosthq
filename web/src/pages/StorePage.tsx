@@ -19,6 +19,10 @@ import { usePaginatedList } from '../usePaginatedList';
 // card will show.
 const PRIZE_CROP_ASPECT = 16 / 9;
 
+// Same array + Set<number> toggle-button convention as ChoresPanel's own
+// "Day(s) of week" picker - not shared/exported there, so mirrored locally.
+const DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 export default function StorePage({
   me,
   tokenName,
@@ -863,6 +867,11 @@ export function PrizeForm({
   const [passDailyLimit, setPassDailyLimit] = useState(prize?.passDailyLimit != null ? String(prize.passDailyLimit) : '');
   const [passWeeklyLimit, setPassWeeklyLimit] = useState(prize?.passWeeklyLimit != null ? String(prize.passWeeklyLimit) : '');
   const [passMonthlyLimit, setPassMonthlyLimit] = useState(prize?.passMonthlyLimit != null ? String(prize.passMonthlyLimit) : '');
+  // Off by default (empty set) - matches every existing pass's current
+  // behavior exactly. Same Set<number> toggle-button convention as
+  // ChoresPanel's own "Day(s) of week" picker.
+  const [passBlockedDays, setPassBlockedDays] = useState<Set<number>>(new Set(prize?.passBlockedDaysOfWeek ?? []));
+  const [dateRestricted, setDateRestricted] = useState(!!prize?.passBlockedDaysOfWeek?.length);
 
   useEffect(() => {
     api.locations(kioskToken).then(setLocations).catch(() => undefined);
@@ -900,6 +909,10 @@ export function PrizeForm({
         await alert("Name what's being counted (e.g. \"cookie\").");
         return;
       }
+      if (dateRestricted && passBlockedDays.size === 0) {
+        await alert('Pick at least one day to restrict, or turn date restrictions off.');
+        return;
+      }
     }
     const body = {
       name,
@@ -925,6 +938,7 @@ export function PrizeForm({
             passDailyLimit: passDailyLimit ? Math.max(1, Math.floor(Number(passDailyLimit))) : null,
             passWeeklyLimit: passWeeklyLimit ? Math.max(1, Math.floor(Number(passWeeklyLimit))) : null,
             passMonthlyLimit: passMonthlyLimit ? Math.max(1, Math.floor(Number(passMonthlyLimit))) : null,
+            passBlockedDaysOfWeek: dateRestricted && passBlockedDays.size ? [...passBlockedDays].sort() : null,
           }
         : {}),
       ...(prize?.suggested ? { suggested: false } : {}),
@@ -1224,6 +1238,34 @@ export function PrizeForm({
                     </label>
                   ))}
                 </div>
+              </div>
+
+              <div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" checked={dateRestricted} onChange={(e) => setDateRestricted(e.target.checked)} />
+                  <span className="text-slate-500">Date restrictions (block purchase on certain days - e.g. "no tech" days)</span>
+                </label>
+                {dateRestricted && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {DOW.map((d, i) => (
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() =>
+                          setPassBlockedDays((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(i)) next.delete(i);
+                            else next.add(i);
+                            return next;
+                          })
+                        }
+                        className={`rounded-md border px-3 py-1 text-sm ${passBlockedDays.has(i) ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                      >
+                        {d}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}

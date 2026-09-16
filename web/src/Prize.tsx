@@ -32,6 +32,8 @@ export function formatPassQuantity(
 // (instead of Event showing a tag and Item showing nothing) so card heights
 // line up. `icon` is a Lucide icon name (see LucideIcon.tsx) - render via
 // <LucideIcon name={TYPE_TAG[type].icon}/>, not as raw text.
+const DOW_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 export const TYPE_TAG: Record<StorePrize['type'], { icon: string; slot: string; label: string; className: string }> = {
   ITEM: { icon: 'gift', slot: 'prize.item', label: 'Item', className: 'text-slate-500' },
   EVENT: { icon: 'ticket', slot: 'prize.event', label: 'Event', className: 'text-purple-500' },
@@ -96,6 +98,12 @@ export function PassCard({
                 ]
                   .filter(Boolean)
                   .join(', ')}`}
+              {!!prize.passBlockedDaysOfWeek?.length &&
+                ` · no ${prize.passBlockedDaysOfWeek
+                  .slice()
+                  .sort()
+                  .map((d) => DOW_SHORT[d])
+                  .join(', ')}`}
             </p>
           )}
         </div>
@@ -114,7 +122,8 @@ export function PassCard({
   const totalCost = prize.tokenCost * clampedQty;
   const limitReached = maxQty === 0 && limitMax === 0;
   const cantAfford = maxQty === 0 && !limitReached;
-  const disabled = maxQty === 0 || !canRedeem || presenceBlocked;
+  const blockedToday = !!prize.blockedToday; // server-computed, same convention as remainingNow
+  const disabled = maxQty === 0 || !canRedeem || presenceBlocked || blockedToday;
 
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border bg-white">
@@ -166,10 +175,10 @@ export function PassCard({
         <button
           onClick={() => onBuy(clampedQty)}
           disabled={disabled}
-          title={canRedeem ? undefined : 'Ask a grown-up to redeem this for you'}
+          title={canRedeem ? (blockedToday ? "Date-restricted - can't be bought today" : undefined) : 'Ask a grown-up to redeem this for you'}
           className={`rounded-lg bg-slate-800 font-semibold text-white hover:bg-slate-700 disabled:opacity-40 ${compact ? 'py-1 text-xs' : 'py-2 text-sm'}`}
         >
-          {!canRedeem ? 'Ask a grown-up' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
+          {!canRedeem ? 'Ask a grown-up' : blockedToday ? 'Not today' : limitReached ? 'Limit reached' : cantAfford ? 'Not enough' : prize.requiresApproval ? 'Ask for it' : 'Get it now'}
         </button>
       </div>
     </div>

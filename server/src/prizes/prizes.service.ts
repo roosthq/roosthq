@@ -49,6 +49,8 @@ export interface PrizeInput {
   passDailyLimit?: number | null;
   passWeeklyLimit?: number | null;
   passMonthlyLimit?: number | null;
+  // int[], 0=Sun..6=Sat - weekdays this pass can't be bought on. null/empty = no restriction.
+  passBlockedDaysOfWeek?: number[] | null;
 }
 
 export interface PrizeSuggestionInput {
@@ -212,6 +214,9 @@ export class PrizesService {
         }
       }
     }
+    // Same "today's weekday, once, not per-prize" computation redeem() does -
+    // cheap enough to just call for every request, no caching needed.
+    const todayDow = dowOfKey(todayKeyInZone(DEFAULT_TIMEZONE));
     return visible.map((p) => ({
       id: p.id,
       name: p.name,
@@ -240,7 +245,9 @@ export class PrizesService {
       passDailyLimit: p.passDailyLimit,
       passWeeklyLimit: p.passWeeklyLimit,
       passMonthlyLimit: p.passMonthlyLimit,
+      passBlockedDaysOfWeek: p.passBlockedDaysOfWeek as number[] | null,
       remainingNow: remainingByPrizeId.get(p.id),
+      blockedToday: p.type === 'PASS' && Array.isArray(p.passBlockedDaysOfWeek) && (p.passBlockedDaysOfWeek as number[]).includes(todayDow),
     }));
   }
 
@@ -259,6 +266,8 @@ export class PrizesService {
         passDailyLimit: null,
         passWeeklyLimit: null,
         passMonthlyLimit: null,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable array here, same as imageCrop above
+        passBlockedDaysOfWeek: null as any,
       };
     }
     return {
@@ -270,6 +279,8 @@ export class PrizesService {
       passDailyLimit: dto.passDailyLimit ?? null,
       passWeeklyLimit: dto.passWeeklyLimit ?? null,
       passMonthlyLimit: dto.passMonthlyLimit ?? null,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable array here, same as imageCrop above
+      passBlockedDaysOfWeek: (dto.passBlockedDaysOfWeek?.length ? dto.passBlockedDaysOfWeek : null) as any,
     };
   }
 
@@ -442,6 +453,13 @@ export class PrizesService {
 
     const quantity = prize.type === 'PASS' ? Math.max(1, Math.floor(requestedQuantity) || 1) : 1;
     if (prize.type === 'PASS') {
+      const blockedDays = prize.passBlockedDaysOfWeek as number[] | null;
+      if (Array.isArray(blockedDays) && blockedDays.length) {
+        const todayDow = dowOfKey(todayKeyInZone(DEFAULT_TIMEZONE));
+        if (blockedDays.includes(todayDow)) {
+          throw new BadRequestException("This pass can't be bought today");
+        }
+      }
       const remaining = await this.remainingPassQuantity(prize, actingUserId);
       if (remaining != null && quantity > remaining) {
         throw new BadRequestException(remaining === 0 ? "You've hit the limit for this today" : `Only ${remaining} left of this for now`);

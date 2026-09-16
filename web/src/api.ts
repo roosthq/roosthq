@@ -1188,11 +1188,17 @@ export interface StorePrize {
   passDailyLimit?: number | null;
   passWeeklyLimit?: number | null;
   passMonthlyLimit?: number | null;
+  // int[], 0=Sun..6=Sat - weekdays this pass can't be bought on. null/empty = no restriction.
+  passBlockedDaysOfWeek?: number[] | null;
   // Kid-view only (undefined for an adult, or a PASS with no limit set) -
   // the tightest of whichever day/week/month limit currently applies, so
   // the buy stepper can cap itself instead of letting a request that's
   // guaranteed to be rejected go through.
   remainingNow?: number | null;
+  // Server-computed like remainingNow - true iff today's weekday is in
+  // passBlockedDaysOfWeek. The client never redoes this math itself (see
+  // PassCard) - same reasoning as remainingNow, one source of truth.
+  blockedToday?: boolean;
 }
 
 export interface Redemption {

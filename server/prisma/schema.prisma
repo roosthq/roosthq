@@ -1361,6 +1361,15 @@ model Prize {
   passDailyLimit   Int?
   passWeeklyLimit  Int?
   passMonthlyLimit Int?
+  // PASS type only (null/empty otherwise) - weekdays (int[], 0=Sun..6=Sat,
+  // same convention as Chore.daysOfWeek) this pass CANNOT be bought on -
+  // "no tech Tuesdays" style gating. null/empty = no restriction (default,
+  // matches every existing pass's current behavior). No separate on/off
+  // boolean - presence/non-emptiness of this array IS the toggle, same
+  // convention as passDailyLimit etc. above. Enforced in
+  // PrizesService.redeem(), computed ahead of time for the UI in list()
+  // as blockedToday.
+  passBlockedDaysOfWeek Json?
 
   family      Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
   location    Location?         @relation(fields: [locationId], references: [id], onDelete: SetNull)
