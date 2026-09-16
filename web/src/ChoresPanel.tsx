@@ -497,6 +497,17 @@ export default function ChoresPanel({
     return m?.role === 'KID' ? m : undefined;
   }
 
+  // Only ever fed a completedAt inside the 48h bonusEligible window - "3h
+  // ago" reads faster there than a calendar date would.
+  function relativeTime(iso: string): string {
+    const mins = Math.round((Date.now() - new Date(iso).getTime()) / 60_000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.round(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    return 'yesterday';
+  }
+
   // Recently-approved-not-yet-bonused instances, across every chore - NOT
   // just whichever one the per-chore "active occurrence" picker happens to
   // be showing (needed because approving a DAILY chore spawns tomorrow's
@@ -1014,21 +1025,37 @@ export default function ChoresPanel({
         // already follows elsewhere (see StoryOrderSwap.tsx's own comment).
         <div className="card-nested mt-3 rounded-lg p-3">
           <p className="text-sm font-semibold">🎁 Ready for a bonus?</p>
-          <ul className="mt-2 space-y-1.5 text-sm">
-            {bonusEligible.map(({ chore, instance }) => (
-              <li key={instance.id} className="flex items-center justify-between gap-2">
-                <span className="min-w-0 flex-1 break-words text-slate-500">
-                  {chore.title} · {recipientKid(instance)!.displayName}
-                </span>
-                <button
-                  onClick={() => setBonusTarget({ instanceId: instance.id, choreTitle: chore.title, recipientName: recipientKid(instance)!.displayName })}
-                  className="shrink-0 rounded border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
-                >
-                  🎁 Bonus
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-2 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b text-left text-xs text-slate-400">
+                  <th className="px-2 py-1.5">Chore</th>
+                  <th className="px-2 py-1.5">Kid</th>
+                  <th className="px-2 py-1.5">Completed</th>
+                  <th className="px-2 py-1.5" />
+                </tr>
+              </thead>
+              <tbody>
+                {bonusEligible.map(({ chore, instance }) => (
+                  <tr key={instance.id} className="border-b last:border-0 hover:bg-slate-50">
+                    <td className="px-2 py-1.5 font-medium">{chore.title}</td>
+                    <td className="px-2 py-1.5 text-slate-500">{recipientKid(instance)!.displayName}</td>
+                    <td className="px-2 py-1.5 text-slate-500">{instance.completedAt ? relativeTime(instance.completedAt) : '-'}</td>
+                    <td className="px-2 py-1.5">
+                      <button
+                        onClick={() =>
+                          setBonusTarget({ instanceId: instance.id, choreTitle: chore.title, recipientName: recipientKid(instance)!.displayName })
+                        }
+                        className="whitespace-nowrap rounded border border-amber-400 px-2 py-1 text-xs hover:bg-slate-50"
+                      >
+                        🎁 Bonus
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 
