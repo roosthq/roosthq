@@ -497,6 +497,22 @@ export default function ChoresPanel({
     return m?.role === 'KID' ? m : undefined;
   }
 
+  // Every approved-not-yet-bonused instance still in the loaded window
+  // (each chore keeps its last 5), across every chore - NOT just whichever
+  // one the per-chore "active occurrence" picker happens to be showing.
+  // Needed because approving a DAILY chore spawns tomorrow's OPEN instance
+  // immediately, which the picker then shows instead - burying the just-
+  // approved one (and its row-level 🎁 button) before an adult could ever
+  // reach it there. This list is what actually guarantees the bonus stays
+  // reachable regardless of how fast the next occurrence spawns.
+  const bonusEligible = bonusSettings?.enabled
+    ? scopedChores.flatMap((c) =>
+        c.instances
+          .filter((i) => i.status === 'APPROVED' && !i.bonusGrantedAt && recipientKid(i))
+          .map((i) => ({ chore: c, instance: i })),
+      )
+    : [];
+
   type Row = (typeof rows)[number];
 
   // Table view's sort - same `rows` the card view groups by person, just
@@ -971,6 +987,27 @@ export default function ChoresPanel({
               ))}
             </ul>
           )}
+        </div>
+      )}
+
+      {isAdult && bonusEligible.length > 0 && (
+        <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 p-3">
+          <p className="text-sm font-semibold text-amber-800">🎁 Ready for a bonus?</p>
+          <ul className="mt-2 space-y-1.5 text-sm">
+            {bonusEligible.map(({ chore, instance }) => (
+              <li key={instance.id} className="flex items-center justify-between gap-2">
+                <span className="min-w-0 flex-1 break-words">
+                  {chore.title} · {recipientKid(instance)!.displayName}
+                </span>
+                <button
+                  onClick={() => setBonusTarget({ instanceId: instance.id, choreTitle: chore.title, recipientName: recipientKid(instance)!.displayName })}
+                  className="shrink-0 rounded border border-amber-300 px-2 py-1 text-xs text-amber-700 hover:bg-white"
+                >
+                  🎁 Bonus
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
 
