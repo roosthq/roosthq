@@ -48,6 +48,21 @@ export class ChoresController {
     return this.chores.deletedChores(u.familyId, u.userId);
   }
 
+  // ---- Bonus (adult discretion, off by default). Declared before the :id
+  // route for the same reason as history/deleted above - 'bonus-settings'
+  // would otherwise get swallowed as a chore id (GET silently 200'd with
+  // null instead of real settings; PATCH 404'd trying to update a chore
+  // with that id - caught live testing this, not by tsc/build).
+  @Get('bonus-settings')
+  getBonusSettings(@CurrentUser() u: SessionPayload) {
+    return this.chores.getBonusSettings(u.familyId, u.userId);
+  }
+
+  @Patch('bonus-settings')
+  updateBonusSettings(@CurrentUser() u: SessionPayload, @Body() body: { enabled: boolean; pool: unknown }) {
+    return this.chores.updateBonusSettings(u.familyId, u.userId, body.enabled, body.pool);
+  }
+
   @Get(':id')
   get(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.chores.getChore(u.familyId, id);
@@ -147,17 +162,6 @@ export class ChoresController {
   @Post('instances/:instanceId/reject')
   reject(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
     return this.chores.reject(u.familyId, u.userId, instanceId);
-  }
-
-  // ---- Bonus (adult discretion, off by default) ----
-  @Get('bonus-settings')
-  getBonusSettings(@CurrentUser() u: SessionPayload) {
-    return this.chores.getBonusSettings(u.familyId, u.userId);
-  }
-
-  @Patch('bonus-settings')
-  updateBonusSettings(@CurrentUser() u: SessionPayload, @Body() body: { enabled: boolean; pool: unknown }) {
-    return this.chores.updateBonusSettings(u.familyId, u.userId, body.enabled, body.pool);
   }
 
   @Post('instances/:instanceId/bonus')
