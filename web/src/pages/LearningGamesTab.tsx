@@ -151,6 +151,9 @@ export default function LearningGamesTab({
 function PayoutSettings() {
   const [tokensPerCorrect, setTokensPerCorrect] = useState<number | null>(null);
   const [bonusPool, setBonusPool] = useState<PoolEntry[]>([]);
+  // '' = no cap (matches every family's behavior before this setting
+  // existed - no hardcoded default). A non-empty value is the real cap.
+  const [dailySessionCap, setDailySessionCap] = useState('');
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -159,6 +162,7 @@ function PayoutSettings() {
     api.learningSettings().then((s) => {
       setTokensPerCorrect(s.tokensPerCorrect);
       setBonusPool(s.bonusPool);
+      setDailySessionCap(s.dailySessionCap != null ? String(s.dailySessionCap) : '');
     });
     // Full non-archived list, not pre-filtered to AWARD_ONLY - PoolEditor
     // does that filtering itself (same reason MiniGamesTab fetches it this
@@ -171,7 +175,7 @@ function PayoutSettings() {
     setSaving(true);
     setSaved(false);
     try {
-      await api.updateLearningSettings(tokensPerCorrect, bonusPool);
+      await api.updateLearningSettings(tokensPerCorrect, bonusPool, dailySessionCap ? Math.max(1, Math.floor(Number(dailySessionCap))) : null);
       setSaved(true);
     } finally {
       setSaving(false);
@@ -203,6 +207,23 @@ function PayoutSettings() {
           <PoolEditor pool={bonusPool} onChange={setBonusPool} prizes={prizes} />
         </div>
       </div>
+
+      <label className="mt-3 block text-sm">
+        <span className="text-slate-500">Daily reward limit (optional - rewarded sessions per kid per day)</span>
+        <input
+          type="number"
+          min={1}
+          className="mt-1 w-24 rounded border px-2 py-1.5 text-sm"
+          value={dailySessionCap}
+          onChange={(e) => setDailySessionCap(e.target.value)}
+          onFocus={(e) => e.target.select()}
+          placeholder="No limit"
+        />
+        <span className="mt-1 block text-xs text-slate-400">
+          Past this many finished sessions in one day, a kid can keep playing (still counts toward mastery/grade) but stops earning tokens
+          until tomorrow. Any subject, combined - not per-subject. Blank = no limit, same as today.
+        </span>
+      </label>
 
       <button
         onClick={save}
@@ -709,7 +730,10 @@ export function PlaySession({
     const BreakGame = currentBreakGame;
     return (
       <div className="mt-4">
-        <div className="mb-1 flex justify-end">{quitButton}</div>
+        <div className="mb-1 flex items-center justify-between gap-2">
+          {session.practiceOnly ? <span className="text-xs font-semibold text-slate-400">🎓 Practice - no tokens today</span> : <span />}
+          {quitButton}
+        </div>
         <BreakGame grade={session.grade} onDone={afterBreak} />
         {confirmQuitModal}
       </div>
@@ -720,7 +744,11 @@ export function PlaySession({
     return (
       <div className="mt-4 flex flex-col items-center gap-3 rounded-xl border bg-white p-8 text-center">
         <div className="text-2xl font-bold">{summary.allCorrect ? '🌟 Perfect session!' : 'Session complete!'}</div>
-        <TokenBadge icon={tokenIcon} amount={sessionTokens} label="earned" size="lg" />
+        {session?.practiceOnly ? (
+          <p className="text-sm text-slate-500">🎓 Practice session - today's Learning reward limit was already used up, so no tokens this time. Back tomorrow!</p>
+        ) : (
+          <TokenBadge icon={tokenIcon} amount={sessionTokens} label="earned" size="lg" />
+        )}
         {summary.allCorrect && summary.bonusTokens > 0 && (
           <p className="text-sm text-amber-600 flex items-center gap-1">
             Got every question right - <TokenBadge icon={tokenIcon} amount={`+${summary.bonusTokens}`} label="bonus" />
@@ -762,10 +790,22 @@ export function PlaySession({
             Question {index + 1} of {questions.length}
           </span>
           <div className="flex items-center gap-2">
-            <TokenBadge icon={tokenIcon} amount={sessionTokens} label="so far" />
+            {session?.practiceOnly ? (
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 font-semibold text-slate-500" title="Today's Learning reward limit is used up - this one's just for practice.">
+                🎓 Practice
+              </span>
+            ) : (
+              <TokenBadge icon={tokenIcon} amount={sessionTokens} label="so far" />
+            )}
             {quitButton}
           </div>
         </div>
+        {session?.practiceOnly && (
+          <p className="mb-3 rounded bg-slate-50 px-2.5 py-1.5 text-xs text-slate-500">
+            You've hit today's Learning reward limit - nice work! This session won't earn tokens, but it still counts toward mastering{' '}
+            {SUBJECT_META[session.subject].label}. Rewards are back tomorrow.
+          </p>
+        )}
         <QuestionVisual visual={q.visual} />
         <p className="text-lg font-semibold">{q.prompt}</p>
 

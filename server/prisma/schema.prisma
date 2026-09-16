@@ -1163,6 +1163,17 @@ model LearningGamesSettings {
   // MiniGame.poolJson, rolled via the exact same weighted-draw code
   // (LearningService.draw) - a real Prize is a valid bonus row, not just
   // a token range.
+  // null (default, no hardcoded fallback - Casey's own instruction) = no
+  // limit, matches every family's behavior today. Set = how many
+  // REWARDED sessions (any subject combined, not per-subject) a kid can
+  // complete per day before payout stops - closes the "Learning pays
+  // better than chores so just grind it" arbitrage without ever locking
+  // the feature itself. A session past the cap still plays completely
+  // normally (still tracks EduQuestionProgress/mastery, still can
+  // promote a grade) - see EduSession.practiceOnly - it just doesn't pay
+  // tokens, and the kid is told that BEFORE starting, not surprised at
+  // the end.
+  dailySessionCap  Int?
   updatedById      String
   updatedAt        DateTime @updatedAt
 
@@ -1282,6 +1293,14 @@ model EduSession {
   // kept doing it until landing on ones they already knew, dodging
   // whatever they actually needed to review. {blockA?: string[], blockB?: string[]}
   presentedJson   Json      @default("{}")
+  // Set once at startSession, from LearningGamesSettings.dailySessionCap -
+  // true if this kid had already completed that many REWARDED sessions
+  // today when this one started. A practiceOnly session plays completely
+  // normally (still tracks progress/mastery/grade promotion) but every
+  // answer() call forces tokensAwarded to 0 and DONE skips the bonus
+  // roll + ledger entry entirely - decided upfront, not at the end, so
+  // the live "so far" counter never promises tokens that don't land.
+  practiceOnly    Boolean   @default(false)
   // Running tally shown to the kid live as they play ("5 so far") - NOT
   // written to TokenLedger until DONE, where the real payout happens in one
   // shot. Finishing the session is what makes it real; quitting early earns

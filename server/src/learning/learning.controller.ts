@@ -28,8 +28,8 @@ export class LearningController {
   }
 
   @Patch('settings')
-  updateSettings(@CurrentUser() u: SessionPayload, @Body() body: { tokensPerCorrect: number; bonusPool: unknown }) {
-    return this.learning.updateSettings(u.familyId, u.userId, body.tokensPerCorrect, body.bonusPool);
+  updateSettings(@CurrentUser() u: SessionPayload, @Body() body: { tokensPerCorrect: number; bonusPool: unknown; dailySessionCap?: number | null }) {
+    return this.learning.updateSettings(u.familyId, u.userId, body.tokensPerCorrect, body.bonusPool, body.dailySessionCap);
   }
 
   // ---- Progress (adult-only) ----

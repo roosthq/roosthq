@@ -622,6 +622,11 @@ export interface EduGradeRow {
 export interface LearningGamesSettings {
   tokensPerCorrect: number;
   bonusPool: PoolEntry[];
+  // null (default) = no cap - every family's behavior before this setting
+  // existed. Set = how many REWARDED sessions/day (any subject combined) a
+  // kid can complete before payout stops for the rest of the day - see
+  // EduSession.practiceOnly.
+  dailySessionCap: number | null;
 }
 
 // Optional word-problem illustration - rendered by QuestionVisual.tsx as
@@ -654,6 +659,12 @@ export interface EduSessionStart {
   // Running total from before this resume, if any - so the "N so far"
   // display picks up where it left off instead of visibly resetting to 0.
   tokensAwarded: number;
+  // Set once, before the first question - true means today's rewarded-
+  // session cap is already used up, so this one plays completely
+  // normally (still tracks progress/mastery) but won't pay any tokens no
+  // matter how it goes. Told upfront so the "N so far" counter never
+  // promises something that won't land.
+  practiceOnly: boolean;
 }
 
 export interface EduAnswerResult {
@@ -668,6 +679,10 @@ export interface EduAnswerResult {
   // this grade's bank just bumped the kid up a grade (LearningService.
   // maybePromote) - the new grade number, for a "leveled up!" banner.
   promotedTo?: number | null;
+  // Echoes EduSessionStart.practiceOnly - the client already has this from
+  // session start, but it's included here too for a result screen that
+  // doesn't want to thread the original start-response through.
+  practiceOnly?: boolean;
 }
 
 export interface EduAdvanceResult {
@@ -1808,8 +1823,8 @@ export const api = {
   setLearningGrade: (userId: string, subject: EduSubject, grade: number) =>
     req<{ grade: number }>('/learning/grades', { method: 'PATCH', body: JSON.stringify({ userId, subject, grade }) }),
   learningSettings: () => req<LearningGamesSettings>('/learning/settings'),
-  updateLearningSettings: (tokensPerCorrect: number, bonusPool: PoolEntry[]) =>
-    req<LearningGamesSettings>('/learning/settings', { method: 'PATCH', body: JSON.stringify({ tokensPerCorrect, bonusPool }) }),
+  updateLearningSettings: (tokensPerCorrect: number, bonusPool: PoolEntry[], dailySessionCap?: number | null) =>
+    req<LearningGamesSettings>('/learning/settings', { method: 'PATCH', body: JSON.stringify({ tokensPerCorrect, bonusPool, dailySessionCap }) }),
   startLearningSession: (subject: EduSubject, kioskToken?: string) =>
     req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject }) }, kioskToken),
   answerLearningQuestion: (sessionId: string, questionId: string, given: string, kioskToken?: string) =>

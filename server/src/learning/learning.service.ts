@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from '../display/display-events.service';
 import { assertFeatureEnabled } from '../common/features';
-import { DEFAULT_TIMEZONE, todayKeyInZone } from '../common/timezone';
+import { DEFAULT_TIMEZONE, todayKeyInZone, startOfDayInZone } from '../common/timezone';
 import { paginate, parsePageParams } from '../common/pagination';
 import type { PoolEntry } from '../reward-games/reward-games.service';
 
@@ -191,19 +191,36 @@ export class LearningService {
   async getSettings(familyId: string, actorId: string) {
     await this.assertAdult(actorId);
     const s = await this.ensureSettings(familyId, actorId);
-    return { tokensPerCorrect: s.tokensPerCorrect, bonusPool: s.bonusPoolJson as unknown as PoolEntry[] };
+    return { tokensPerCorrect: s.tokensPerCorrect, bonusPool: s.bonusPoolJson as unknown as PoolEntry[], dailySessionCap: s.dailySessionCap };
   }
 
-  async updateSettings(familyId: string, actorId: string, tokensPerCorrect: number, bonusPool: unknown) {
+  async updateSettings(familyId: string, actorId: string, tokensPerCorrect: number, bonusPool: unknown, dailySessionCap?: number | null) {
     await this.assertAdult(actorId);
     await this.ensureSettings(familyId, actorId);
     const pool = this.sanitizePool(bonusPool);
     const tpc = Math.max(0, Math.floor(tokensPerCorrect));
+    // null/undefined = no cap (matches every family's current behavior,
+    // no hardcoded fallback - Casey's own instruction); anything else
+    // clamps to a real positive count.
+    const cap = dailySessionCap == null ? null : Math.max(1, Math.floor(dailySessionCap));
     await this.prisma.learningGamesSettings.update({
       where: { familyId },
-      data: { tokensPerCorrect: tpc, bonusPoolJson: pool as unknown as Prisma.InputJsonValue, updatedById: actorId },
+      data: { tokensPerCorrect: tpc, bonusPoolJson: pool as unknown as Prisma.InputJsonValue, dailySessionCap: cap, updatedById: actorId },
     });
-    return { tokensPerCorrect: tpc, bonusPool: pool };
+    return { tokensPerCorrect: tpc, bonusPool: pool, dailySessionCap: cap };
+  }
+
+  // How many REWARDED sessions (practiceOnly: false, any subject combined)
+  // this kid has already finished today, in DEFAULT_TIMEZONE - the count
+  // startSession compares against dailySessionCap. A practiceOnly session
+  // doesn't count against itself (it was never going to pay out anyway),
+  // so hitting the cap is permanent for the rest of the day, not something
+  // more practice sessions could accidentally "use up" further.
+  private async rewardedSessionsToday(userId: string): Promise<number> {
+    const dayStart = startOfDayInZone(todayKeyInZone(DEFAULT_TIMEZONE), DEFAULT_TIMEZONE);
+    return this.prisma.eduSession.count({
+      where: { userId, status: 'DONE', practiceOnly: false, finishedAt: { gte: dayStart } },
+    });
   }
 
   // ---------------- Sessions (kid-facing) ----------------
@@ -333,10 +350,31 @@ export class LearningService {
       throw new BadRequestException(`You've mastered every ${subj.toLowerCase()} question so far - more is coming once a higher grade is added!`);
     }
     const questions = await this.pickQuestions(subj, grade, userId, [], BLOCK_SIZE);
+    // Decided upfront, before a single question is shown - see
+    // EduSession.practiceOnly's own comment for why this can't wait until
+    // the end. dailySessionCap null (default) = no cap, every session
+    // stays rewarded exactly like before this feature existed.
+    const settings = await this.ensureSettings(familyId, userId);
+    const practiceOnly = settings.dailySessionCap != null && (await this.rewardedSessionsToday(userId)) >= settings.dailySessionCap;
     const session = await this.prisma.eduSession.create({
-      data: { userId, subject: subj, grade, status: 'BLOCK_A', presentedJson: { blockA: questions.map((q) => q.id) } as unknown as Prisma.InputJsonValue },
+      data: {
+        userId,
+        subject: subj,
+        grade,
+        status: 'BLOCK_A',
+        practiceOnly,
+        presentedJson: { blockA: questions.map((q) => q.id) } as unknown as Prisma.InputJsonValue,
+      },
     });
-    return { sessionId: session.id, subject: subj, grade, phase: 'BLOCK_A', questions: questions.map((q) => this.presentQuestion(q)), tokensAwarded: 0 };
+    return {
+      sessionId: session.id,
+      subject: subj,
+      grade,
+      phase: 'BLOCK_A',
+      questions: questions.map((q) => this.presentQuestion(q)),
+      tokensAwarded: 0,
+      practiceOnly,
+    };
   }
 
   // Rebuilds exactly what a resumed session should hand the client: the
@@ -352,6 +390,7 @@ export class LearningService {
     roundsJson: unknown;
     presentedJson: unknown;
     tokensAwarded: number;
+    practiceOnly: boolean;
   }) {
     const presented = (session.presentedJson as { blockA?: string[]; blockB?: string[] }) ?? {};
     const rounds = (session.roundsJson as unknown as EduRound[]) ?? [];
@@ -370,6 +409,7 @@ export class LearningService {
       phase: session.status as 'BLOCK_A' | 'BREAK' | 'BLOCK_B',
       questions: ordered.map((q) => this.presentQuestion(q)),
       tokensAwarded: session.tokensAwarded,
+      practiceOnly: session.practiceOnly,
     };
   }
 
@@ -418,7 +458,10 @@ export class LearningService {
     // This question's own share, for the live "N so far" counter - NOT
     // written to the ledger here. Real payout happens once, at DONE, below
     // (Casey's own instruction: finishing is what makes it real).
-    const tokensAwarded = correct && !buyer?.tokensDisabled ? settings.tokensPerCorrect : 0;
+    // practiceOnly forces this to 0 regardless of correctness - decided at
+    // startSession, told to the kid before the first question, never a
+    // surprise sprung here.
+    const tokensAwarded = correct && !buyer?.tokensDisabled && !session.practiceOnly ? settings.tokensPerCorrect : 0;
 
     const blockCount = rounds.filter((r) => r.block === session.status).length;
 
@@ -435,7 +478,11 @@ export class LearningService {
       let bonusTokens = 0;
       let bonusPrizeId: string | null = null;
       const bonusPool = settings.bonusPoolJson as unknown as PoolEntry[];
-      if (allCorrect) {
+      // practiceOnly skips the bonus roll entirely, not just the token
+      // amount - rolling it anyway would let a "no payout today" session
+      // still win a real prize off the pool, which is exactly the loophole
+      // this whole feature exists to close.
+      if (allCorrect && !session.practiceOnly) {
         const result = this.draw(bonusPool);
         if (result.kind === 'PRIZE') {
           bonusPrizeId = result.prizeId;
@@ -476,7 +523,7 @@ export class LearningService {
       // its own running total, which by now already equals
       // totalQuestionTokens without the server needing to re-send it.
       // bonusTokens is separate and additive, shown as its own line.
-      return { correct, correctAnswer: question.answer, tokensAwarded, phase: 'DONE', allCorrect, bonusTokens, bonusPrizeId, promotedTo };
+      return { correct, correctAnswer: question.answer, tokensAwarded, phase: 'DONE', allCorrect, bonusTokens, bonusPrizeId, promotedTo, practiceOnly: session.practiceOnly };
     }
 
     // Block A just completed - hand off to the arcade break; block B's
