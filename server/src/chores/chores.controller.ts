@@ -148,4 +148,20 @@ export class ChoresController {
   reject(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string) {
     return this.chores.reject(u.familyId, u.userId, instanceId);
   }
+
+  // ---- Bonus (adult discretion, off by default) ----
+  @Get('bonus-settings')
+  getBonusSettings(@CurrentUser() u: SessionPayload) {
+    return this.chores.getBonusSettings(u.familyId, u.userId);
+  }
+
+  @Patch('bonus-settings')
+  updateBonusSettings(@CurrentUser() u: SessionPayload, @Body() body: { enabled: boolean; pool: unknown }) {
+    return this.chores.updateBonusSettings(u.familyId, u.userId, body.enabled, body.pool);
+  }
+
+  @Post('instances/:instanceId/bonus')
+  grantBonus(@CurrentUser() u: SessionPayload, @Param('instanceId') instanceId: string, @Body() body: { tokens?: number; draw?: boolean }) {
+    return this.chores.grantBonus(u.familyId, u.userId, instanceId, body);
+  }
 }

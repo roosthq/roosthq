@@ -62,6 +62,12 @@ enum LedgerType {
   // from a pre-drawn, chance-based skill game"; this is "paid because the
   // answer was actually right", a different kind of thing even though both
   // land in the same ledger.
+  // An adult's discretionary "above and beyond" bonus on an already-approved
+  // chore (flat extra tokens; a pool draw goes through RewardGame instead
+  // and never writes this directly). Its own type rather than reusing
+  // STREAK_BONUS - this is a one-off adult judgment call, not a mechanical
+  // "hit N in a row" payout, and worth being able to tell apart in a report.
+  CHORE_BONUS
 }
 
 enum PresenceStatus {
@@ -171,6 +177,7 @@ model Family {
   miniGames        MiniGame[]
   publishedMiniGames PublishedMiniGame[]
   learningGamesSettings LearningGamesSettings?
+  choreBonusSettings    ChoreBonusSettings?
 }
 
 // ---------- Icons ----------
@@ -509,6 +516,7 @@ model User {
   eduSessions               EduSession[]          @relation("EduSessionUser")
   eduProgress               EduQuestionProgress[] @relation("EduProgressUser")
   learningGamesSettingsUpdated LearningGamesSettings[]
+  choreBonusSettingsUpdated    ChoreBonusSettings[]
 
   @@index([familyId])
 }
@@ -805,6 +813,12 @@ model ChoreInstance {
   claimedByUserId String? // who is doing/did this occurrence (for ANYONE, set on claim)
   warnedThreshold Int? // smallest due-soon minutes threshold (120/60/30/15) already notified
   proofImage      String?             @db.Text // photo attached by the kid (data URI) when chore.requireProof
+  // Set the moment an adult uses the optional "add a bonus" action on this
+  // instance (ChoresService.grantBonus) - once true, the button disappears
+  // and grantBonus refuses a second one. Only ever true on an already-
+  // APPROVED instance; unrelated to the chore's own reward, which is
+  // untouched either way.
+  bonusGrantedAt  DateTime?
 
   chore          Chore            @relation(fields: [choreId], references: [id], onDelete: Cascade)
   checks         ChoreItemCheck[]
@@ -824,6 +838,27 @@ model ChoreItemCheck {
   checklist ChoreChecklist @relation(fields: [checklistId], references: [id], onDelete: Cascade)
 
   @@id([choreInstanceId, checklistId])
+}
+
+// Family-wide, off by default (Casey's own ask: "togglable") - one optional
+// "add a bonus" action available at chore-approval time, adult's own
+// discretion for a kid who went genuinely above and beyond. Deliberately
+// NOT a per-chore setting or a mandatory rating scale (see PLANNING.md's
+// decision note on why): most approvals never touch this at all, so it's
+// one family-wide pool an adult can draw from occasionally, same shape as
+// LearningGamesSettings.
+model ChoreBonusSettings {
+  familyId    String   @id
+  enabled     Boolean  @default(false)
+  poolJson    Json? // PoolEntry[] - same shape/draw as Award/MiniGame/Learning
+  // bonus pools. null/empty = the pool-draw option isn't offered yet (an
+  // adult can still grant flat bonus tokens with no pool configured at
+  // all - see ChoresService.grantBonus).
+  updatedById String
+  updatedAt   DateTime @updatedAt
+
+  family    Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  updatedBy User   @relation(fields: [updatedById], references: [id])
 }
 
 // ---------- Tokens ----------

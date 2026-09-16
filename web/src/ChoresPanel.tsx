@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
+  api,
   choreClient,
   prizeClient,
   pluralize,
@@ -10,6 +11,9 @@ import {
   type ChoreClient,
   type FamilyLocation,
   type PendingWheel,
+  type ChoreBonusSettings,
+  type PoolEntry,
+  type StorePrize,
 } from './api';
 import { celebrate } from './celebrate';
 import ProofButton from './ProofButton';
@@ -20,6 +24,8 @@ import TokenBadge from './TokenBadge';
 import LucideIcon from './LucideIcon';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
+import CollapsibleSection from './CollapsibleSection';
+import PoolEditor from './PoolEditor';
 import { myLocationIds } from './displayScope';
 import { addDaysToKey, dateKeyInZone, endOfDayInZone, startOfDayInZone, todayKeyInZone } from './timezone';
 
@@ -219,6 +225,19 @@ export default function ChoresPanel({
   const [choreWord, setChoreWord] = useState('Chore');
   const [formOpen, setFormOpen] = useState(false);
   const [packsOpen, setPacksOpen] = useState(false);
+  // Family-wide, off by default (togglable in the settings panel below,
+  // adults/top-manager only) - fetched everywhere ChoresPanel mounts
+  // (portal AND kiosk) purely to decide whether the 🎁 button shows at all;
+  // only the settings-editing UI itself is gated to the full portal.
+  const [bonusSettings, setBonusSettings] = useState<ChoreBonusSettings | null>(null);
+  const [bonusTarget, setBonusTarget] = useState<{ instanceId: string; choreTitle: string; recipientName: string } | null>(null);
+  const [bonusSettingsOpen, setBonusSettingsOpen] = useState(false);
+  const refreshBonusSettings = useCallback(() => {
+    client.choreBonusSettings().then(setBonusSettings).catch(() => setBonusSettings(null));
+  }, [client]);
+  useEffect(() => {
+    refreshBonusSettings();
+  }, [refreshBonusSettings]);
   // Wheels this person has earned and not yet spun. Shown as a big call-to-
   // action; spinning happens on THEIR screen (phone, tablet, or kiosk).
   const [pendingWheels, setPendingWheels] = useState<PendingWheel[]>([]);
@@ -468,6 +487,15 @@ export default function ChoresPanel({
   // approver's own tap plays the distinct streak-milestone sound instead of
   // the plain "chore approved" one when this approval also hit a streak goal.
   const approveSlot = (r: unknown) => ((r as { milestoneHit?: boolean } | undefined)?.milestoneHit ? 'streakMilestone' : 'choreApproved');
+
+  // The 🎁 bonus button is for a KID's effort specifically, not something an
+  // adult grants themselves on their own auto-approved chore - returns the
+  // member record (for their display name) only when that's who this
+  // instance actually belongs to.
+  function recipientKid(instance: { claimedByUserId?: string | null }) {
+    const m = members.find((x) => x.id === instance.claimedByUserId);
+    return m?.role === 'KID' ? m : undefined;
+  }
 
   type Row = (typeof rows)[number];
 
@@ -727,6 +755,16 @@ export default function ChoresPanel({
               Done ✓{active.approvedByUser && ` - approved by ${active.approvedByUser.displayName}`}
             </span>
           )}
+          {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !active.bonusGrantedAt && recipientKid(active) && (
+            <button
+              onClick={() => setBonusTarget({ instanceId: active.id, choreTitle: chore.title, recipientName: recipientKid(active)!.displayName })}
+              className="rounded-md border border-amber-300 px-2 py-1 text-xs text-amber-700 hover:bg-amber-50"
+              title="Went above and beyond? Give an extra bonus."
+            >
+              🎁 Bonus
+            </button>
+          )}
+          {active?.status === 'APPROVED' && active.bonusGrantedAt && <span className="text-xs text-amber-600">🎁 Bonus given</span>}
           {active?.status === 'MISSED' && (
             <span className="text-xs font-medium text-red-500">Missed - no {tokenName} earned</span>
           )}
@@ -868,6 +906,15 @@ export default function ChoresPanel({
           {!today && isAdult && (
             <button onClick={() => setPacksOpen(true)} className="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50" title="Add a ready-made set of chores">
               <LucideIcon name="package" slot="chores.packs" size={14} /> Packs
+            </button>
+          )}
+          {!today && isAdult && (
+            <button
+              onClick={() => setBonusSettingsOpen(true)}
+              className="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-slate-50"
+              title="Optional adult-discretion bonus at approval time - off by default"
+            >
+              🎁 Bonus{bonusSettings?.enabled ? '' : ' (off)'}
             </button>
           )}
           {isAdult && (
@@ -1041,6 +1088,16 @@ export default function ChoresPanel({
                           </button>
                         </>
                       )}
+                      {active?.status === 'APPROVED' && isAdult && bonusSettings?.enabled && !active.bonusGrantedAt && recipientKid(active) && (
+                        <button
+                          onClick={() => setBonusTarget({ instanceId: active.id, choreTitle: chore.title, recipientName: recipientKid(active)!.displayName })}
+                          className="rounded border border-amber-300 px-2 py-1 text-xs text-amber-700 hover:bg-amber-50"
+                          title="Went above and beyond? Give an extra bonus."
+                        >
+                          🎁 Bonus
+                        </button>
+                      )}
+                      {active?.status === 'APPROVED' && active.bonusGrantedAt && <span className="text-xs text-amber-600">🎁</span>}
                       {isAdult && (
                         <button
                           onClick={() => {
@@ -1154,6 +1211,30 @@ export default function ChoresPanel({
           }}
         />
       )}
+      {bonusSettingsOpen && (
+        <BonusSettingsModal
+          client={client}
+          settings={bonusSettings}
+          onClose={() => setBonusSettingsOpen(false)}
+          onSaved={(s) => {
+            setBonusSettings(s);
+            setBonusSettingsOpen(false);
+          }}
+        />
+      )}
+      {bonusTarget && (
+        <BonusModal
+          client={client}
+          target={bonusTarget}
+          pool={bonusSettings?.pool ?? []}
+          tokenIcon={tokenIcon}
+          onClose={() => setBonusTarget(null)}
+          onDone={async () => {
+            setBonusTarget(null);
+            await refresh();
+          }}
+        />
+      )}
     </section>
   );
 }
@@ -1168,19 +1249,12 @@ function Field({ label, help, children }: { label: string; help?: string; childr
   );
 }
 
-// A long form of 15+ fields read as one undifferentiated wall - nothing told
-// you "these four are the basics, these are scheduling, these are bonus
-// stuff" without reading every label. Same fields, same order, just grouped
-// under a heading so the shape of the form is visible at a glance instead
-// of only after scrolling through all of it.
-function FieldGroup({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <div className="border-t pt-4 first:border-t-0 first:pt-0">
-      <h4 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">{title}</h4>
-      <div className="space-y-4">{children}</div>
-    </div>
-  );
-}
+// The 4 groups below (Basics/Reward & rules/Schedule/Bonuses & checklist)
+// used to be a plain always-open FieldGroup - a long form of 15+ fields read
+// as one undifferentiated wall even with headings. Now CollapsibleSection:
+// same grouping, but Schedule/Bonuses collapse by default on a fresh chore
+// (nothing in them yet) and auto-open the moment either has real state -
+// see scheduleConfigured/bonusesConfigured below.
 
 function ChoreForm({
   client,
@@ -1253,6 +1327,22 @@ function ChoreForm({
   // way to find or edit it again.
   const needsAssignee = assignmentType === 'SPECIFIC' && assignees.size === 0;
 
+  // Schedule/Bonuses start collapsed only when there's genuinely nothing in
+  // them yet (a brand-new chore, or an existing one that never touched these) -
+  // anything already configured opens automatically so it's never hidden
+  // from whoever's editing it. Basics and Reward always stay open - a name
+  // and a reward amount are required on every chore, not optional extras.
+  const scheduleConfigured = !!repeat || daysOfWeek.size > 0 || !!dueTime;
+  const bonusesConfigured = streakEnabled || checklist.trim() !== '';
+  const scheduleBadge = repeat
+    ? REPEAT_OPTIONS.find((r) => r.value === repeat)?.label
+    : daysOfWeek.size
+      ? `${daysOfWeek.size} day${daysOfWeek.size > 1 ? 's' : ''}/wk`
+      : undefined;
+  const bonusesBadge = [streakEnabled && `Streak x${streakGoal}`, checklist.trim() && `${checklist.split('\n').filter((s) => s.trim()).length} items`]
+    .filter(Boolean)
+    .join(', ');
+
   async function submit() {
     if (!title || needsAssignee) return;
     const body = {
@@ -1308,7 +1398,7 @@ function ChoreForm({
               original. Its own history and streak start fresh.
             </p>
           )}
-          <FieldGroup title="Basics">
+          <CollapsibleSection title="Basics" defaultOpen>
           <Field label={`${choreWord} name`}>
             <input className="w-full rounded-md border px-3 py-2 text-sm" placeholder="e.g. Take out the trash" value={title} onChange={(e) => setTitle(e.target.value)} />
           </Field>
@@ -1373,9 +1463,9 @@ function ChoreForm({
               ))}
             </select>
           </Field>
-          </FieldGroup>
+          </CollapsibleSection>
 
-          <FieldGroup title="Reward &amp; rules">
+          <CollapsibleSection title="Reward & rules" defaultOpen>
           <Field label="Reward" help="Tokens for whoever completes it (after approval).">
             <input type="number" min={0} className="w-28 rounded-md border px-3 py-2 text-sm" value={tokenValue} onChange={(e) => setTokenValue(Number(e.target.value))} onFocus={(e) => e.target.select()} />
           </Field>
@@ -1449,9 +1539,9 @@ function ChoreForm({
               />
             </Field>
           )}
-          </FieldGroup>
+          </CollapsibleSection>
 
-          <FieldGroup title="Schedule">
+          <CollapsibleSection title="Schedule" defaultOpen={scheduleConfigured} badge={scheduleBadge}>
           <Field label="Repeat" help={repeatHelp}>
             <select className="w-full rounded-md border px-3 py-2 text-sm" value={repeat} onChange={(e) => setRepeat(e.target.value)}>
               {REPEAT_OPTIONS.map((r) => (
@@ -1511,9 +1601,9 @@ function ChoreForm({
               onChange={(e) => setDueTime(e.target.value)}
             />
           </Field>
-          </FieldGroup>
+          </CollapsibleSection>
 
-          <FieldGroup title="Bonuses &amp; checklist">
+          <CollapsibleSection title="Bonuses & checklist" defaultOpen={bonusesConfigured} badge={bonusesBadge || undefined}>
           <Field label="Streak bonus" help="Optional - extra tokens for keeping a streak of on-time completions going.">
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={streakEnabled} onChange={(e) => setStreakEnabled(e.target.checked)} />
@@ -1568,7 +1658,7 @@ function ChoreForm({
           <Field label="Checklist" help="Optional - one sub-task per line.">
             <textarea className="h-24 w-full rounded-md border px-3 py-2 text-sm" placeholder={'e.g.\nGather trash from each room\nTake bins to the curb'} value={checklist} onChange={(e) => setChecklist(e.target.value)} />
           </Field>
-          </FieldGroup>
+          </CollapsibleSection>
         </div>
     </Modal>
   );
@@ -1660,6 +1750,169 @@ function StarterPacksModal({
           </li>
         ))}
       </ul>
+    </Modal>
+  );
+}
+
+// Family-wide toggle + optional prize pool for the 🎁 bonus button - off by
+// default (Casey's own ask: "togglable"), not per-chore. Kept deliberately
+// small: an on/off switch plus the same PoolEditor every other pool feature
+// uses, nothing else to configure - the amount for a flat-tokens bonus is
+// typed fresh each time it's actually given (BonusModal below), not preset
+// here.
+function BonusSettingsModal({
+  client,
+  settings,
+  onClose,
+  onSaved,
+}: {
+  client: ChoreClient;
+  settings: ChoreBonusSettings | null;
+  onClose: () => void;
+  onSaved: (s: ChoreBonusSettings) => void;
+}) {
+  const [enabled, setEnabled] = useState(settings?.enabled ?? false);
+  const [pool, setPool] = useState<PoolEntry[]>(settings?.pool ?? []);
+  const [prizes, setPrizes] = useState<StorePrize[]>([]);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    api.prizes().then(setPrizes).catch(() => setPrizes([]));
+  }, []);
+
+  async function save() {
+    setSaving(true);
+    try {
+      onSaved(await client.updateChoreBonusSettings(enabled, pool));
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Modal
+      onClose={onClose}
+      header={<h3 className="text-lg font-bold">🎁 Chore bonus</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button onClick={save} disabled={saving} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50">
+            {saving ? 'Saving…' : 'Save'}
+          </button>
+        </div>
+      }
+    >
+      <p className="text-sm text-slate-500">
+        An optional extra reward an adult can give on top of the normal chore reward, for a kid who genuinely went above and beyond - adult's
+        discretion, not a rating on every chore. Most approvals never touch it even once it's on.
+      </p>
+      <label className="mt-3 flex items-center gap-2 text-sm">
+        <input type="checkbox" checked={enabled} onChange={(e) => setEnabled(e.target.checked)} />
+        Show the 🎁 Bonus button on approved chores
+      </label>
+
+      {enabled && (
+        <CollapsibleSection title="Surprise draw pool (optional)" defaultOpen={pool.length > 0} badge={pool.length ? `${pool.length} prizes` : undefined}>
+          <p className="text-xs text-slate-400">
+            Adds a second bonus option beyond flat tokens - a weighted draw the kid rolls themselves. Leave empty to only offer flat tokens.
+          </p>
+          <div className="mt-2">
+            <PoolEditor pool={pool} onChange={setPool} prizes={prizes} />
+          </div>
+        </CollapsibleSection>
+      )}
+    </Modal>
+  );
+}
+
+// The actual "give a bonus" action, opened from the 🎁 button on one already-
+// approved instance. Two options: flat extra tokens (amount typed fresh each
+// time - this is a one-off judgment call, not a preset), or a surprise draw
+// from the family's configured pool (only offered if one's been set up) -
+// the kid rolls that themselves later, same deferred reveal as the streak
+// bonus wheel.
+function BonusModal({
+  client,
+  target,
+  pool,
+  tokenIcon,
+  onClose,
+  onDone,
+}: {
+  client: ChoreClient;
+  target: { instanceId: string; choreTitle: string; recipientName: string };
+  pool: PoolEntry[];
+  tokenIcon: string;
+  onClose: () => void;
+  onDone: () => void;
+}) {
+  const [mode, setMode] = useState<'TOKENS' | 'DRAW'>('TOKENS');
+  const [tokens, setTokens] = useState(5);
+  const [saving, setSaving] = useState(false);
+  const { alert } = useDialog();
+
+  async function submit() {
+    setSaving(true);
+    try {
+      await client.grantBonus(target.instanceId, mode === 'DRAW' ? { draw: true } : { tokens: Math.max(1, Math.floor(Number(tokens) || 0)) });
+      onDone();
+    } catch (e) {
+      await alert((e as Error).message || 'Something went wrong');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <Modal
+      onClose={onClose}
+      header={<h3 className="text-lg font-semibold">🎁 Bonus for {target.recipientName}</h3>}
+      footer={
+        <div className="flex justify-end gap-2">
+          <button onClick={onClose} className="rounded-md border px-3 py-1.5 text-sm">
+            Cancel
+          </button>
+          <button onClick={submit} disabled={saving} className="rounded-md bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50">
+            {saving ? 'Giving…' : 'Give bonus'}
+          </button>
+        </div>
+      }
+    >
+      <p className="text-sm text-slate-500">Above and beyond on "{target.choreTitle}" - this is on top of their normal reward, one-time.</p>
+      <div className="mt-3 flex flex-wrap gap-3 text-sm">
+        <label className="flex items-center gap-1">
+          <input type="radio" checked={mode === 'TOKENS'} onChange={() => setMode('TOKENS')} />
+          Bonus tokens
+        </label>
+        {pool.length > 0 && (
+          <label className="flex items-center gap-1">
+            <input type="radio" checked={mode === 'DRAW'} onChange={() => setMode('DRAW')} />
+            Surprise draw
+          </label>
+        )}
+      </div>
+      {mode === 'TOKENS' ? (
+        <label className="mt-3 block text-sm">
+          <span className="text-slate-500">Amount</span>
+          <div className="mt-1 flex items-center gap-2">
+            <input
+              type="number"
+              min={1}
+              value={tokens}
+              onChange={(e) => setTokens(Number(e.target.value))}
+              onFocus={(e) => e.target.select()}
+              className="w-24 rounded-md border px-3 py-2 text-sm"
+            />
+            <TokenBadge icon={tokenIcon} amount={Math.max(1, Math.floor(Number(tokens) || 0))} />
+          </div>
+        </label>
+      ) : (
+        <p className="mt-3 text-xs text-slate-400">
+          They'll get a surprise draw to roll themselves - the amount (or prize) stays unknown until they do, same as a streak-milestone wheel.
+        </p>
+      )}
     </Modal>
   );
 }

@@ -5,6 +5,7 @@ import Modal from '../Modal';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import IconPicker from '../IconPicker';
+import CollapsibleSection from '../CollapsibleSection';
 import { formatDateTime } from '../dateFormat';
 import { AWARD_PACKS } from '../awardPacks';
 import { GAME_TYPES, GAME_TYPE_META, fakePreviewRoll } from '../rewardGames';
@@ -506,10 +507,13 @@ export function AwardForm({
             </>
           )}
 
-          <div className="rounded border p-3">
-            <span className="text-sm font-medium">Chance bonus</span>
-            <p className="mt-0.5 text-xs text-slate-400">On top of the flat value above - a wheel range or a pool, never both.</p>
-            <div className="mt-2 flex flex-wrap gap-4 text-sm">
+          <CollapsibleSection
+            title="Chance bonus"
+            badge={chanceType === 'wheel' ? 'Wheel' : chanceType === 'pool' ? `Pool (${pool.length} prize${pool.length === 1 ? '' : 's'})` : undefined}
+            defaultOpen={chanceType !== 'none'}
+          >
+            <p className="text-xs text-slate-400">On top of the flat value above - a wheel range or a pool, never both.</p>
+            <div className="flex flex-wrap gap-4 text-sm">
               <label className="flex items-center gap-1.5">
                 <input type="radio" checked={chanceType === 'none'} onChange={() => setChanceType('none')} />
                 None
@@ -529,7 +533,7 @@ export function AwardForm({
                 phrase wrapping as a whole (same bug as the chore form's
                 streak-bonus sentence). */}
             {chanceType === 'wheel' && (
-              <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
+              <div className="flex flex-wrap items-center gap-2 text-sm">
                 <input
                   type="number"
                   min={1}
@@ -552,7 +556,7 @@ export function AwardForm({
             )}
 
             {chanceType === 'pool' && (
-              <div className="mt-3 space-y-3">
+              <div className="space-y-3">
                 <PoolEditor pool={pool} onChange={setPool} prizes={prizes} />
 
                 <label className="block text-xs">
@@ -621,7 +625,7 @@ export function AwardForm({
                 </div>
               </div>
             )}
-          </div>
+          </CollapsibleSection>
         </div>
 
         {previewStyle && (

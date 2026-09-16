@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
-import { RewardGamesService, type GameType } from '../reward-games/reward-games.service';
+import { RewardGamesService, type GameType, type PoolEntry } from '../reward-games/reward-games.service';
 import { AuditLogService } from '../security/audit-log.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { PresenceService } from '../presence/presence.service';
@@ -1227,6 +1227,119 @@ export class ChoresService {
     if (due) await this.createNextInstance(inst.chore.id, due);
     this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
     return { ...updated, milestoneHit };
+  }
+
+  // ---------------- Bonus (adult discretion, family-wide toggle, off by default) ----------------
+
+  private async ensureBonusSettings(familyId: string, actorId: string) {
+    const existing = await this.prisma.choreBonusSettings.findUnique({ where: { familyId } });
+    if (existing) return existing;
+    return this.prisma.choreBonusSettings.create({ data: { familyId, updatedById: actorId } });
+  }
+
+  async getBonusSettings(familyId: string, actorId: string) {
+    await this.assertAdult(actorId);
+    const s = await this.ensureBonusSettings(familyId, actorId);
+    return { enabled: s.enabled, pool: (s.poolJson as unknown as PoolEntry[]) ?? [] };
+  }
+
+  // Never trust the client's own idea of a valid pool - same shape/reasoning
+  // as Awards/MiniGames/Learning's own sanitizePool, deliberately duplicated
+  // rather than shared (same call those files make: this is small enough
+  // that sharing would cost more than copying). Unlike those, an empty pool
+  // is fine here - the flat-tokens bonus option needs no pool at all.
+  private sanitizeBonusPool(input: unknown): PoolEntry[] {
+    if (!Array.isArray(input)) return [];
+    const out: PoolEntry[] = [];
+    for (const raw of input) {
+      if (!raw || typeof raw !== 'object') continue;
+      const p = raw as Record<string, unknown>;
+      const weight = typeof p.weight === 'number' && p.weight > 0 ? p.weight : 1;
+      if (p.kind === 'TOKENS' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'TOKENS', min: Math.max(0, Math.floor(p.min)), max: Math.max(0, Math.floor(p.max)), weight });
+      } else if (p.kind === 'STREAK_FREEZE' && typeof p.min === 'number' && typeof p.max === 'number') {
+        out.push({ kind: 'STREAK_FREEZE', min: Math.max(1, Math.floor(p.min)), max: Math.max(1, Math.floor(p.max)), weight });
+      } else if (p.kind === 'PRIZE' && typeof p.prizeId === 'string' && p.prizeId) {
+        out.push({ kind: 'PRIZE', prizeId: p.prizeId, weight });
+      }
+    }
+    return out;
+  }
+
+  async updateBonusSettings(familyId: string, actorId: string, enabled: boolean, pool: unknown) {
+    await this.assertAdult(actorId);
+    await this.ensureBonusSettings(familyId, actorId);
+    const cleanPool = this.sanitizeBonusPool(pool);
+    await this.prisma.choreBonusSettings.update({
+      where: { familyId },
+      data: {
+        enabled: !!enabled,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable array here, same as Prize.passBlockedDaysOfWeek
+        poolJson: (cleanPool.length ? cleanPool : null) as any,
+        updatedById: actorId,
+      },
+    });
+    return { enabled: !!enabled, pool: cleanPool };
+  }
+
+  // Separate action from approve/reject on purpose - approving stays exactly
+  // as fast as it's always been (most approvals never touch this), and this
+  // is something an adult reaches for occasionally, for a kid who genuinely
+  // went above and beyond. Only on an already-APPROVED instance, only once
+  // (bonusGrantedAt guards a second call), and only for a KID recipient -
+  // the point is rewarding a kid's effort, not something an adult grants
+  // themselves on their own auto-approved chore.
+  async grantBonus(familyId: string, approverId: string, instanceId: string, opts: { tokens?: number; draw?: boolean }) {
+    await this.assertAdult(approverId);
+    const settings = await this.ensureBonusSettings(familyId, approverId);
+    if (!settings.enabled) throw new BadRequestException('Chore bonuses are turned off for this family');
+    if (!(await this.featureEnabled(familyId, 'tokens'))) throw new BadRequestException('Tokens are off for this family');
+    const inst = await this.ownedInstance(familyId, instanceId);
+    if (inst.status !== 'APPROVED') throw new BadRequestException('Approve it first, then add a bonus');
+    if (inst.bonusGrantedAt) throw new BadRequestException('Already gave a bonus for this one');
+    const recipientId = inst.claimedByUserId;
+    if (!recipientId) throw new NotFoundException('No one to give the bonus to');
+    const recipient = await this.prisma.user.findUnique({ where: { id: recipientId } });
+    if (!recipient) throw new NotFoundException('Member not found');
+    if (recipient.role !== 'KID') throw new BadRequestException("Bonuses are for a kid's effort, not an adult's own chore");
+    if (recipient.tokensDisabled) throw new BadRequestException(`${recipient.displayName} has tokens turned off`);
+
+    let result: { kind: 'TOKENS'; amount: number } | { kind: 'DRAW' };
+    if (opts.draw) {
+      // Same deferred "queue it, THEY roll it" pattern as the streak bonus
+      // wheel above - an adult granting the bonus shouldn't be the one who
+      // spins the kid's own draw, and the amount stays a real surprise
+      // until they do.
+      const pool = settings.poolJson as unknown as PoolEntry[] | null;
+      if (!pool?.length) throw new BadRequestException('No bonus pool set up yet - add one in Settings, or give flat tokens instead');
+      await this.rewardGames.createFromPool(familyId, recipientId, pool, { reason: `Bonus: ${inst.chore.title}`, refId: inst.id });
+      await this.notifications.create(
+        familyId,
+        recipientId,
+        'STREAK_BONUS',
+        `🎁 You earned a bonus draw on "${inst.chore.title}" - go see what you got!`,
+        { link: '/chores' },
+      );
+      result = { kind: 'DRAW' };
+    } else {
+      const amount = Math.max(0, Math.floor(Number(opts.tokens) || 0));
+      if (!amount) throw new BadRequestException('Enter a positive number of bonus tokens');
+      await this.prisma.tokenLedger.create({
+        data: {
+          userId: recipientId,
+          delta: amount,
+          reason: `Bonus: ${inst.chore.title}`,
+          type: 'CHORE_BONUS',
+          refId: inst.id,
+          createdById: approverId,
+        },
+      });
+      await this.notifications.create(familyId, recipientId, 'STREAK_BONUS', `🎁 Bonus awarded on "${inst.chore.title}"!`, { link: '/chores' });
+      result = { kind: 'TOKENS', amount };
+    }
+    await this.prisma.choreInstance.update({ where: { id: instanceId }, data: { bonusGrantedAt: new Date() } });
+    this.displayEvents.publish(familyId, { type: 'tokens' });
+    return { ok: true, ...result };
   }
 
   async reject(familyId: string, approverId: string, instanceId: string) {

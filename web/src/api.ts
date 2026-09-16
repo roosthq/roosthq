@@ -324,6 +324,10 @@ export interface ChoreInstance {
   hasProof?: boolean; // photo attached (fetch via proofImage())
   // Adults only - the server omits this entirely for a kid's session.
   approvedByUser?: { id: string; displayName: string } | null;
+  // Set once an adult uses the optional "add a bonus" action on this
+  // instance (only possible once it's APPROVED) - null/undefined = not
+  // given yet, so the 🎁 button still shows.
+  bonusGrantedAt?: string | null;
 }
 
 // One row of the adults-only "did this actually work right" activity log -
@@ -617,6 +621,13 @@ export interface EduGradeRow {
   userId: string;
   displayName: string;
   subjects: Record<EduSubject, number>;
+}
+
+export interface ChoreBonusSettings {
+  // Off by default - a family-wide toggle, no per-chore setting. Most
+  // approvals never touch this at all even once it's on.
+  enabled: boolean;
+  pool: PoolEntry[]; // empty = the pool-draw option isn't offered yet; flat bonus tokens still work either way
 }
 
 export interface LearningGamesSettings {
@@ -1683,6 +1694,9 @@ export const api = {
     req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }),
   rejectInstance: (instanceId: string) =>
     req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }),
+  choreBonusSettings: () => req<ChoreBonusSettings>('/chores/bonus-settings'),
+  updateChoreBonusSettings: (enabled: boolean, pool: PoolEntry[]) =>
+    req<ChoreBonusSettings>('/chores/bonus-settings', { method: 'PATCH', body: JSON.stringify({ enabled, pool }) }),
 
   // all=true -> family-wide activity feed (adults only, enforced server-side).
   notifications: (all = false, skip = 0, take = 50) =>
@@ -1897,6 +1911,13 @@ export function choreClient(kioskToken?: string) {
       req(`/chores/instances/${instanceId}/approve`, { method: 'POST' }, kioskToken),
     rejectInstance: (instanceId: string) =>
       req(`/chores/instances/${instanceId}/reject`, { method: 'POST' }, kioskToken),
+    // opts is exactly one of {tokens} (flat bonus) or {draw: true} (roll the
+    // configured pool) - the server rejects anything else.
+    grantBonus: (instanceId: string, opts: { tokens?: number; draw?: boolean }) =>
+      req<{ ok: true; kind: 'TOKENS' | 'DRAW'; amount?: number }>(`/chores/instances/${instanceId}/bonus`, { method: 'POST', body: JSON.stringify(opts) }, kioskToken),
+    choreBonusSettings: () => req<ChoreBonusSettings>('/chores/bonus-settings', undefined, kioskToken),
+    updateChoreBonusSettings: (enabled: boolean, pool: PoolEntry[]) =>
+      req<ChoreBonusSettings>('/chores/bonus-settings', { method: 'PATCH', body: JSON.stringify({ enabled, pool }) }, kioskToken),
   };
 }
 

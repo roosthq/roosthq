@@ -6,6 +6,7 @@ import { TYPE_TAG, PrizeImage, PrizeDetailModal, resizeImageFile, formatPassQuan
 import ImageCropper from '../ImageCropper';
 import { useDialog } from '../Dialog';
 import Modal from '../Modal';
+import CollapsibleSection from '../CollapsibleSection';
 import LucideIcon from '../LucideIcon';
 import { formatDate } from '../dateFormat';
 import AwardsPage from './AwardsPage';
@@ -949,6 +950,21 @@ export function PrizeForm({
   }
 
   const input = 'w-full rounded border px-3 py-2 text-sm';
+  // "Rules & visibility" collapses only when every field inside is still at
+  // its out-of-the-box default - the moment any one of them is set to
+  // something non-default (very common: Award-only, Specific people, no
+  // approval needed, a location), it opens automatically so an active
+  // setting is never hidden from whoever's editing it.
+  const rulesConfigured = (type !== 'PASS' && !repeatable) || !requiresApproval || visibility !== 'STORE' || scope !== 'GLOBAL' || !!locationId;
+  const rulesBadge = [
+    type !== 'PASS' && !repeatable && 'One-off',
+    !requiresApproval && 'Auto-grants',
+    visibility === 'AWARD_ONLY' && 'Award only',
+    scope === 'SPECIFIC' && 'Specific people',
+    locationId && locations.find((l) => l.id === locationId)?.name,
+  ]
+    .filter(Boolean)
+    .join(', ');
   return (
     <>
     <Modal
@@ -1054,96 +1070,99 @@ export function PrizeForm({
             <p className="text-xs text-slate-400">Auto-set from real price (always rounded down) - edit to override.</p>
           )}
 
-          {type !== 'PASS' && (
-            <>
-              <label className="flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable(e.target.checked)} />
-                Can be purchased again after being bought
-              </label>
-              <p className="text-xs text-slate-400">
-                {repeatable
-                  ? 'Stays in the store - anyone eligible can buy it any number of times.'
-                  : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
-              </p>
-            </>
-          )}
-
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={requiresApproval} onChange={(e) => setRequiresApproval(e.target.checked)} />
-            Needs an adult to approve it
+          <label className="block text-sm">
+            <span className="text-slate-500">Type</span>
+            <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT' | 'PASS')}>
+              <option value="ITEM">Item</option>
+              <option value="EVENT">Event (e.g. movie trip)</option>
+              <option value="PASS">Pass (tech time, a late bedtime, a chore skip...)</option>
+            </select>
           </label>
-          <p className="text-xs text-slate-400">
-            {requiresApproval
-              ? 'Goes into the pending queue - an adult grants/fulfills it before it counts.'
-              : "Happens instantly on redeem - no adult action, never enters the pending queue."}
-          </p>
 
-          <div>
-            <span className="text-sm text-slate-500">Visibility</span>
-            <div className="mt-1 flex flex-wrap gap-3 text-sm">
-              <label className="flex items-center gap-1">
-                <input type="radio" checked={visibility === 'STORE'} onChange={() => setVisibility('STORE')} />
-                <LucideIcon name="shopping-bag" slot="store.purchasable" size={14} /> Purchasable in the Store
-              </label>
-              <label className="flex items-center gap-1">
-                <input type="radio" checked={visibility === 'AWARD_ONLY'} onChange={() => setVisibility('AWARD_ONLY')} />
-                <LucideIcon name="gamepad-2" slot="store.awardOnly" size={14} /> Award only (hidden)
-              </label>
-            </div>
-            <p className="mt-1 text-xs text-slate-400">
-              {visibility === 'AWARD_ONLY'
-                ? "Kids never see this in the Store or know it exists - it only shows up if a reward game's pool rolls it. A genuine surprise."
-                : 'Shows in the Store like any other prize - kids can browse and buy it with tokens.'}
-            </p>
-          </div>
-
-          <div>
-            <span className="text-sm text-slate-500">Who can redeem?</span>
-            <div className="mt-1 flex flex-wrap gap-3 text-sm">
-              <label className="flex items-center gap-1">
-                <input type="radio" checked={scope === 'GLOBAL'} onChange={() => setScope('GLOBAL')} />
-                Open to anyone
-              </label>
-              <label className="flex items-center gap-1">
-                <input type="radio" checked={scope === 'SPECIFIC'} onChange={() => setScope('SPECIFIC')} />
-                Specific people
-              </label>
-            </div>
-            {scope === 'SPECIFIC' && (
-              // Real grid, not flex-wrap chips - same fix as the chore
-              // form's assignee list, for the same reason (names of
-              // different lengths never lined up into columns).
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                {members.map((m) => (
-                  <label key={m.id} className="flex items-center gap-2 text-sm">
-                    <input
-                      type="checkbox"
-                      checked={assignedUserIds.has(m.id)}
-                      onChange={(e) => {
-                        const n = new Set(assignedUserIds);
-                        if (e.target.checked) n.add(m.id);
-                        else n.delete(m.id);
-                        setAssignedUserIds(n);
-                      }}
-                    />
-                    <span className="break-words">{m.displayName}</span>
-                  </label>
-                ))}
-                {members.length === 0 && <span className="text-xs text-slate-400">No members yet.</span>}
+          <CollapsibleSection title="Rules & visibility" defaultOpen={rulesConfigured} badge={rulesBadge || undefined}>
+            {type !== 'PASS' && (
+              <div>
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable(e.target.checked)} />
+                  Can be purchased again after being bought
+                </label>
+                <p className="mt-1 text-xs text-slate-400">
+                  {repeatable
+                    ? 'Stays in the store - anyone eligible can buy it any number of times.'
+                    : "Sold once, then archived - you'll need to revive it from the archive to sell it again."}
+                </p>
               </div>
             )}
-          </div>
 
-          <div className="flex gap-3">
-            <label className="flex-1 text-sm">
-              <span className="text-slate-500">Type</span>
-              <select className={input} value={type} onChange={(e) => setType(e.target.value as 'ITEM' | 'EVENT' | 'PASS')}>
-                <option value="ITEM">Item</option>
-                <option value="EVENT">Event (e.g. movie trip)</option>
-                <option value="PASS">Pass (tech time, a late bedtime, a chore skip...)</option>
-              </select>
-            </label>
-            <label className="flex-1 text-sm">
+            <div>
+              <label className="flex items-center gap-2 text-sm">
+                <input type="checkbox" checked={requiresApproval} onChange={(e) => setRequiresApproval(e.target.checked)} />
+                Needs an adult to approve it
+              </label>
+              <p className="mt-1 text-xs text-slate-400">
+                {requiresApproval
+                  ? 'Goes into the pending queue - an adult grants/fulfills it before it counts.'
+                  : "Happens instantly on redeem - no adult action, never enters the pending queue."}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-sm text-slate-500">Visibility</span>
+              <div className="mt-1 flex flex-wrap gap-3 text-sm">
+                <label className="flex items-center gap-1">
+                  <input type="radio" checked={visibility === 'STORE'} onChange={() => setVisibility('STORE')} />
+                  <LucideIcon name="shopping-bag" slot="store.purchasable" size={14} /> Purchasable in the Store
+                </label>
+                <label className="flex items-center gap-1">
+                  <input type="radio" checked={visibility === 'AWARD_ONLY'} onChange={() => setVisibility('AWARD_ONLY')} />
+                  <LucideIcon name="gamepad-2" slot="store.awardOnly" size={14} /> Award only (hidden)
+                </label>
+              </div>
+              <p className="mt-1 text-xs text-slate-400">
+                {visibility === 'AWARD_ONLY'
+                  ? "Kids never see this in the Store or know it exists - it only shows up if a reward game's pool rolls it. A genuine surprise."
+                  : 'Shows in the Store like any other prize - kids can browse and buy it with tokens.'}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-sm text-slate-500">Who can redeem?</span>
+              <div className="mt-1 flex flex-wrap gap-3 text-sm">
+                <label className="flex items-center gap-1">
+                  <input type="radio" checked={scope === 'GLOBAL'} onChange={() => setScope('GLOBAL')} />
+                  Open to anyone
+                </label>
+                <label className="flex items-center gap-1">
+                  <input type="radio" checked={scope === 'SPECIFIC'} onChange={() => setScope('SPECIFIC')} />
+                  Specific people
+                </label>
+              </div>
+              {scope === 'SPECIFIC' && (
+                // Real grid, not flex-wrap chips - same fix as the chore
+                // form's assignee list, for the same reason (names of
+                // different lengths never lined up into columns).
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  {members.map((m) => (
+                    <label key={m.id} className="flex items-center gap-2 text-sm">
+                      <input
+                        type="checkbox"
+                        checked={assignedUserIds.has(m.id)}
+                        onChange={(e) => {
+                          const n = new Set(assignedUserIds);
+                          if (e.target.checked) n.add(m.id);
+                          else n.delete(m.id);
+                          setAssignedUserIds(n);
+                        }}
+                      />
+                      <span className="break-words">{m.displayName}</span>
+                    </label>
+                  ))}
+                  {members.length === 0 && <span className="text-xs text-slate-400">No members yet.</span>}
+                </div>
+              )}
+            </div>
+
+            <label className="block text-sm">
               <span className="text-slate-500">Location (optional)</span>
               <select className={input} value={locationId} onChange={(e) => setLocationId(e.target.value)}>
                 <option value="">No location</option>
@@ -1154,7 +1173,7 @@ export function PrizeForm({
                 ))}
               </select>
             </label>
-          </div>
+          </CollapsibleSection>
 
           {type === 'PASS' && (
             <div className="card-nested flex flex-col gap-3 rounded-lg p-3">
@@ -1209,9 +1228,16 @@ export function PrizeForm({
                 </div>
               )}
 
-              <div>
-                <span className="text-sm text-slate-500">Limits (optional - max units per kid)</span>
-                <div className="mt-1 grid grid-cols-3 gap-2">
+              <CollapsibleSection
+                title="Limits (optional - max units per kid)"
+                defaultOpen={!!(passDailyLimit || passWeeklyLimit || passMonthlyLimit)}
+                badge={
+                  [passDailyLimit && `${passDailyLimit}/day`, passWeeklyLimit && `${passWeeklyLimit}/wk`, passMonthlyLimit && `${passMonthlyLimit}/mo`]
+                    .filter(Boolean)
+                    .join(', ') || undefined
+                }
+              >
+                <div className="grid grid-cols-3 gap-2">
                   {(
                     [
                       ['Per day', passDailyLimit, setPassDailyLimit],
@@ -1238,12 +1264,16 @@ export function PrizeForm({
                     </label>
                   ))}
                 </div>
-              </div>
+              </CollapsibleSection>
 
-              <div>
+              <CollapsibleSection
+                title="Date restrictions"
+                defaultOpen={dateRestricted}
+                badge={dateRestricted && passBlockedDays.size ? [...passBlockedDays].sort().map((d) => DOW[d]).join(', ') : undefined}
+              >
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" checked={dateRestricted} onChange={(e) => setDateRestricted(e.target.checked)} />
-                  <span className="text-slate-500">Date restrictions (block purchase on certain days - e.g. "no tech" days)</span>
+                  <span className="text-slate-500">Block purchase on certain days - e.g. "no tech" days</span>
                 </label>
                 {dateRestricted && (
                   <div className="mt-2 flex flex-wrap gap-1">
@@ -1266,7 +1296,7 @@ export function PrizeForm({
                     ))}
                   </div>
                 )}
-              </div>
+              </CollapsibleSection>
             </div>
           )}
         </div>

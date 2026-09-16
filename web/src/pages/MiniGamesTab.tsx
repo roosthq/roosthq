@@ -17,6 +17,7 @@ import PoolEditor from '../PoolEditor';
 import TokenBadge, { formatTokenAmount } from '../TokenBadge';
 import Modal from '../Modal';
 import { formatDateTime } from '../dateFormat';
+import CollapsibleSection from '../CollapsibleSection';
 
 // Shared input look, same as AwardsPage's own form - so a mini-game form
 // reads like the rest of the app instead of its own thing.
@@ -244,25 +245,37 @@ function ConsolationFields({
   partialCreditPerStep: number;
   onPartialCreditPerStep: (n: number) => void;
 }) {
+  // "Configured" means a real consolation is actually in effect - a flat
+  // loss payout above zero, or partial credit switched on (even if its
+  // per-step amount happens to be 0 right now, the toggle itself is real
+  // state someone set). A fresh/unset game has neither, so it stays
+  // collapsed and out of the way.
+  const configured = loseTokenValue > 0 || partialCreditEnabled;
+  const badgeParts: string[] = [];
+  if (loseTokenValue > 0) badgeParts.push(`+${loseTokenValue} on loss`);
+  if (partialCreditEnabled) badgeParts.push(partialCreditPerStep > 0 ? `+${partialCreditPerStep}/step` : 'partial credit');
+
   return (
-    <div className="grid grid-cols-2 gap-3">
-      <Field label="Consolation on loss" help="Flat tokens paid even on a loss">
-        <input type="number" min={0} value={loseTokenValue} onChange={(e) => onLoseTokenValue(Number(e.target.value))} className={input} />
-      </Field>
-      <Field label="Partial credit per step">
-        <div className="flex items-center gap-2">
-          <input type="checkbox" checked={partialCreditEnabled} onChange={(e) => onPartialCreditEnabled(e.target.checked)} className="h-4 w-4" />
-          <input
-            type="number"
-            min={0}
-            value={partialCreditPerStep}
-            onChange={(e) => onPartialCreditPerStep(Number(e.target.value))}
-            disabled={!partialCreditEnabled}
-            className={`${input} disabled:opacity-40`}
-          />
-        </div>
-      </Field>
-    </div>
+    <CollapsibleSection title="Consolation prize" badge={badgeParts.length ? badgeParts.join(', ') : undefined} defaultOpen={configured}>
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Consolation on loss" help="Flat tokens paid even on a loss">
+          <input type="number" min={0} value={loseTokenValue} onChange={(e) => onLoseTokenValue(Number(e.target.value))} className={input} />
+        </Field>
+        <Field label="Partial credit per step">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" checked={partialCreditEnabled} onChange={(e) => onPartialCreditEnabled(e.target.checked)} className="h-4 w-4" />
+            <input
+              type="number"
+              min={0}
+              value={partialCreditPerStep}
+              onChange={(e) => onPartialCreditPerStep(Number(e.target.value))}
+              disabled={!partialCreditEnabled}
+              className={`${input} disabled:opacity-40`}
+            />
+          </div>
+        </Field>
+      </div>
+    </CollapsibleSection>
   );
 }
 
@@ -651,14 +664,12 @@ function MiniGameFormModal({
         <Field label="Description" help="Optional">
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className={input} />
         </Field>
-        <div>
-          <h4 className="mb-2 text-sm font-semibold">Default settings</h4>
+        <CollapsibleSection title="Default settings" defaultOpen={true}>
           <ConfigEditor gameType={gameType} config={config} onChange={setConfig} />
-        </div>
-        <div>
-          <h4 className="mb-2 text-sm font-semibold">Default prize pool</h4>
+        </CollapsibleSection>
+        <CollapsibleSection title="Default prize pool" defaultOpen={true}>
           <PoolEditor pool={pool} onChange={setPool} prizes={prizes} />
-        </div>
+        </CollapsibleSection>
         <ConsolationFields
           loseTokenValue={loseTokenValue}
           onLoseTokenValue={setLoseTokenValue}
@@ -739,14 +750,12 @@ function GrantModal({
           </Field>
         )}
         <p className="text-xs text-slate-400">Prefilled from the catalog defaults - edit freely, only this one play uses it.</p>
-        <div>
-          <h4 className="mb-2 text-sm font-semibold">Settings</h4>
+        <CollapsibleSection title="Settings" defaultOpen={true}>
           <ConfigEditor gameType={game.gameType} config={config} onChange={setConfig} />
-        </div>
-        <div>
-          <h4 className="mb-2 text-sm font-semibold">Prize pool</h4>
+        </CollapsibleSection>
+        <CollapsibleSection title="Prize pool" defaultOpen={true}>
           <PoolEditor pool={pool} onChange={setPool} prizes={prizes} />
-        </div>
+        </CollapsibleSection>
         <ConsolationFields
           loseTokenValue={loseTokenValue}
           onLoseTokenValue={setLoseTokenValue}
