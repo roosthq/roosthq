@@ -151,6 +151,16 @@ export class DisplayController {
     return this.display.unlock(ctx.familyId, body.userId, body.pin);
   }
 
+  // Silent renewal of an already-unlocked kiosk session - see
+  // DisplayService.refreshKiosk. Authenticated by the display token
+  // (physical kiosk access, never expires) plus the old kiosk token's own
+  // signature (proves this profile really was unlocked before) - no PIN.
+  @UseGuards(DisplayOrUserGuard)
+  @Post('kiosk-refresh')
+  async kioskRefresh(@FamilyCtx() ctx: FamilyContext, @Body() body: { oldToken: string }) {
+    return this.display.refreshKiosk(ctx.familyId, body.oldToken);
+  }
+
   // On-the-fly light/dark toggle, right from the kiosk header - no adult
   // unlock needed, same trust level as the screensaver/refresh/fullscreen
   // buttons next to it (see DisplaysService.setTheme for why).

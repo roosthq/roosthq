@@ -241,6 +241,49 @@ export class LearningService {
   // 3. already-mastered, oldest-mastered first (fallback once the other
   //    two buckets are empty - e.g. this kid has genuinely gotten
   //    everything right and is just waiting to be promoted a grade)
+  // Weighted by BUCKET, not by individual question - drawing per-item would
+  // get diluted the moment the bank is mostly mastered (a large bank like
+  // Social/Logic's 110/grade means "mastered" can easily be 100+ items
+  // against a handful of wrong/untried ones; per-item weighting there still
+  // mostly draws from the huge bucket even at a steep per-item ratio).
+  // Weighting the BUCKET itself keeps the proportion constant regardless of
+  // how many questions sit in each one - still random (Casey's own
+  // instruction: "they can still be random, those 2 just need higher
+  // weight"), but wrong/untried stay dominant all the way to the last few
+  // questions in a grade, which is exactly when a kid most needs to actually
+  // land on them to finish. Replaces the old strict bucket-FILL (100%
+  // priority order, mastered never touched at all until wrong+untried ran
+  // dry) with something that still leans hard the same way without being
+  // fully deterministic.
+  private static readonly WEIGHT_WRONG = 5;
+  private static readonly WEIGHT_NEW = 3;
+  private static readonly WEIGHT_MASTERED = 1;
+
+  // Per slot: a weighted lottery over whichever buckets still have items
+  // left (buckets already shuffled by the caller), draws that bucket's next
+  // item. A bucket running dry just drops out of future rolls instead of
+  // ever handing back a duplicate.
+  private pickWeightedBuckets<T>(buckets: { items: T[]; weight: number }[], count: number): T[] {
+    const state = buckets.map((b) => ({ pool: [...b.items], weight: b.weight }));
+    const picked: T[] = [];
+    while (picked.length < count) {
+      const available = state.filter((s) => s.pool.length);
+      if (!available.length) break;
+      const total = available.reduce((s, b) => s + b.weight, 0);
+      let r = Math.random() * total;
+      let chosen = available[available.length - 1];
+      for (const b of available) {
+        r -= b.weight;
+        if (r <= 0) {
+          chosen = b;
+          break;
+        }
+      }
+      picked.push(chosen.pool.pop() as T);
+    }
+    return picked;
+  }
+
   private async pickQuestions(subject: string, grade: number, userId: string, excludeIds: string[], count: number) {
     const all = await this.prisma.eduQuestion.findMany({ where: { subject, grade, active: true } });
     if (!all.length) throw new BadRequestException(`No ${subject} questions yet for grade ${grade}`);
@@ -249,30 +292,19 @@ export class LearningService {
     const progressById = new Map(progress.map((p) => [p.questionId, p]));
 
     const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
-    const stillWrong = shuffle(all.filter((q) => !excluded.has(q.id) && progressById.get(q.id)?.correct === false));
-    const neverTried = shuffle(all.filter((q) => !excluded.has(q.id) && !progressById.has(q.id)));
-    const mastered = all
-      .filter((q) => !excluded.has(q.id) && progressById.get(q.id)?.correct === true)
-      .sort((a, b) => (progressById.get(a.id)?.updatedAt.getTime() ?? 0) - (progressById.get(b.id)?.updatedAt.getTime() ?? 0));
+    const eligible = all.filter((q) => !excluded.has(q.id));
+    const stillWrong = shuffle(eligible.filter((q) => progressById.get(q.id)?.correct === false));
+    const neverTried = shuffle(eligible.filter((q) => !progressById.has(q.id)));
+    const mastered = shuffle(eligible.filter((q) => progressById.get(q.id)?.correct === true));
 
-    const picked: typeof all = [];
-    for (const bucket of [stillWrong, neverTried, mastered]) {
-      for (const q of bucket) {
-        if (picked.length >= count) break;
-        picked.push(q);
-      }
-      if (picked.length >= count) break;
-    }
-    // Bank smaller than `count` even across every bucket (tiny seed data) -
-    // top up with whatever's left, excluded ids included, rather than
-    // shortchanging the block.
-    if (picked.length < count) {
-      for (const q of all) {
-        if (picked.length >= count) break;
-        if (!picked.some((p) => p.id === q.id)) picked.push(q);
-      }
-    }
-    return picked.slice(0, count);
+    return this.pickWeightedBuckets(
+      [
+        { items: stillWrong, weight: LearningService.WEIGHT_WRONG },
+        { items: neverTried, weight: LearningService.WEIGHT_NEW },
+        { items: mastered, weight: LearningService.WEIGHT_MASTERED },
+      ],
+      count,
+    );
   }
 
   // Answer is deliberately withheld from what's sent to the client - a kid

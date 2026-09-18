@@ -2,6 +2,60 @@
 // routes /api to the server. In dev, the Vite proxy forwards /api to localhost:3000.
 const BASE = import.meta.env.VITE_API_BASE_URL ?? '/api';
 
+// Read directly off the URL rather than importing displayApi.ts's own
+// `displayToken` constant - that module already imports BASE_URL from here,
+// so importing back would be circular. A kiosk's ?token= never changes for
+// the life of the tab, so re-reading it here is exactly equivalent.
+const KIOSK_DISPLAY_TOKEN = new URLSearchParams(window.location.search).get('token');
+
+// Display.tsx registers this once so a silent kiosk-token refresh (below)
+// can push the fresh token into its own `active` state - every call AFTER
+// the one that triggered the refresh then uses it too, not just the retried
+// one. Nothing else needs to know this happened.
+let onKioskTokenRefreshed: ((newToken: string) => void) | null = null;
+export function setKioskTokenRefreshHandler(fn: ((newToken: string) => void) | null) {
+  onKioskTokenRefreshed = fn;
+}
+
+// Coalesces concurrent refreshes (several requests can all 401 in the same
+// tick) into one server round-trip instead of a stampede of them.
+let kioskRefreshInFlight: Promise<string | null> | null = null;
+
+// A kid can leave the kiosk selected for most of a day - signKiosk's 12h
+// token WILL eventually need renewing no matter how proactive Display.tsx's
+// own refresh interval is (a suspended tab, one missed tick, a network
+// blip). This is the actual fix for "unauthorized" ever reaching a kid who
+// has no way to know what that word means or how to fix it: mint a fresh
+// token from the display token (never expires - that's the kiosk's real
+// credential) plus the old kiosk token's own signature, silently, before
+// the failure is ever shown to anyone. Returns null (not authenticated as a
+// kiosk at all, or the display token itself is gone/revoked) if there's
+// nothing sensible to do, in which case the caller's normal error handling
+// takes over same as always.
+async function refreshKioskToken(oldToken: string): Promise<string | null> {
+  if (!KIOSK_DISPLAY_TOKEN) return null;
+  if (!kioskRefreshInFlight) {
+    kioskRefreshInFlight = fetch(`${BASE}/display/kiosk-refresh?token=${encodeURIComponent(KIOSK_DISPLAY_TOKEN)}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ oldToken }),
+    })
+      .then(async (res) => {
+        if (!res.ok) return null;
+        const body = await res.json().catch(() => null);
+        return typeof body?.token === 'string' ? body.token : null;
+      })
+      .catch(() => null)
+      .finally(() => {
+        kioskRefreshInFlight = null;
+      });
+  }
+  const fresh = await kioskRefreshInFlight;
+  if (fresh) onKioskTokenRefreshed?.(fresh);
+  return fresh;
+}
+
 // kioskToken: when set, authenticate as a kiosk-selected profile (x-kiosk-token
 // header) instead of the browser session cookie.
 async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Promise<T> {
@@ -9,6 +63,18 @@ async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Pr
   if (kioskToken) headers['x-kiosk-token'] = kioskToken;
   const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...init, headers });
   if (!res.ok) {
+    // See refreshKioskToken's own comment - never let a stale kiosk session
+    // surface as "Unauthorized" to a kid if a silent refresh+retry can fix
+    // it first. Skipped entirely for a plain (non-kiosk) request - an
+    // adult's expired cookie session should just fail normally, there's no
+    // display token to silently re-auth from.
+    if (res.status === 401 && kioskToken) {
+      const fresh = await refreshKioskToken(kioskToken);
+      if (fresh) {
+        const retryRes = await fetch(`${BASE}${path}`, { credentials: 'include', ...init, headers: { ...headers, 'x-kiosk-token': fresh } });
+        if (retryRes.ok) return retryRes.status === 204 ? (undefined as T) : ((await retryRes.json()) as T);
+      }
+    }
     // Surface the server's actual message (e.g. "Password must be at least
     // 8 characters") instead of a generic "400 Bad Request" - every caller
     // that does `catch (e) { alert(e.message) }` benefits, not just new ones.

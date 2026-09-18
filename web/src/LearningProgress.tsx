@@ -48,6 +48,15 @@ export function LearningProgressDetail({ progress, hideCounts = false }: { progr
                 )
               ) : (
                 <>
+                  {/* Same bar the kid sees on their own view (hideCounts) -
+                      Casey's own ask: an adult gets the visual progress bar
+                      TOO, in addition to the raw numbers below, not instead
+                      of them. */}
+                  <div className="mt-1.5">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                      <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
+                    </div>
+                  </div>
                   <div className="mt-1.5 flex flex-wrap gap-3 text-xs text-slate-500">
                     <span>✅ {sp.masteredCount} mastered</span>
                     <span>❌ {sp.wrongCount} wrong</span>

@@ -8,7 +8,7 @@ import { PrismaService } from '../prisma.service';
 import { DisplayEventsService } from './display-events.service';
 import { CalendarsService } from '../calendars/calendars.service';
 import { verifyPin } from '../crypto/pin';
-import { signKiosk } from '../auth/jwt';
+import { signKiosk, verifyKioskForRefresh } from '../auth/jwt';
 import { LoginThrottleService } from '../security/login-throttle.service';
 import { DEFAULT_TIMEZONE, weekRangeInZone } from '../common/timezone';
 
@@ -84,6 +84,28 @@ export class DisplayService {
         presenceLocationId: user.presenceLocationId,
       },
     };
+  }
+
+  // Silent kiosk-session renewal - no PIN, no adult, nothing a kid would
+  // ever see. A kiosk profile can sit selected for most of a day (screensaver
+  // on, nobody touching it) while signKiosk's 12h token quietly approaches
+  // expiry; the client refreshes proactively well before that (and reactively
+  // on any 401, see web/src/api.ts's req()), so in normal use this just
+  // extends the SAME already-legitimately-unlocked session, over and over,
+  // invisibly. `oldToken` proves it really was unlocked before (its
+  // signature must check out, even though it's likely expired by the time
+  // this gets called) - that's the whole security model here, not a PIN.
+  async refreshKiosk(familyId: string, oldToken: string) {
+    let payload: { userId: string; familyId: string };
+    try {
+      payload = verifyKioskForRefresh(oldToken);
+    } catch {
+      throw new UnauthorizedException('Session needs a fresh unlock');
+    }
+    if (payload.familyId !== familyId) throw new UnauthorizedException('Session needs a fresh unlock');
+    const user = await this.prisma.user.findFirst({ where: { id: payload.userId, familyId } });
+    if (!user) throw new NotFoundException('Profile not found');
+    return { token: signKiosk({ userId: user.id, familyId }) };
   }
 
   async get(familyId: string) {

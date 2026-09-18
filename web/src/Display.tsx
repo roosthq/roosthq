@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   api,
   BASE_URL,
+  setKioskTokenRefreshHandler,
   choreClient,
   prizeClient,
   ROLE_ICON,
@@ -115,6 +116,31 @@ export default function Display() {
   const [pinFor, setPinFor] = useState<Member | null>(null);
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
+
+  // Registers with api.ts's req() so a REACTIVE refresh (triggered by an
+  // actual 401 mid-request, from anywhere - ChoresPanel, PrizesPanel, a
+  // learning session, ...) can push the new token straight into `active`
+  // instead of only fixing the one call that happened to trigger it.
+  useEffect(() => {
+    setKioskTokenRefreshHandler((newToken) => setActive((prev) => (prev ? { ...prev, token: newToken } : prev)));
+    return () => setKioskTokenRefreshHandler(null);
+  }, []);
+
+  // PROACTIVE refresh, well ahead of signKiosk's 12h expiry - the point of
+  // this one is that a kid selected on the kiosk for most of a day should
+  // basically never hit the reactive 401 path above at all. 30 min leaves a
+  // 24x margin against any single missed tick (tab backgrounded, a
+  // transient network blip) ever actually reaching real expiry.
+  useEffect(() => {
+    if (!active) return;
+    const KIOSK_REFRESH_MS = 30 * 60_000;
+    const id = setInterval(() => {
+      dpost<{ token: string }>('/display/kiosk-refresh', { oldToken: active.token })
+        .then(({ token }) => setActive((prev) => (prev ? { ...prev, token } : prev)))
+        .catch(() => undefined); // a miss here isn't fatal - the reactive path above still catches it
+    }, KIOSK_REFRESH_MS);
+    return () => clearInterval(id);
+  }, [active?.token]);
 
   const [calendarOptions, setCalendarOptions] = useState<SharedCalendar[]>([]);
   const [addingEvent, setAddingEvent] = useState(false);

@@ -12,12 +12,20 @@ export class AuthGuard implements CanActivate {
     // an adult (e.g. via the owner's "Display" preview link) while a kid is selected
     // on the kiosk, and the kid's actions must not silently run as that adult.
     const token = (req.headers['x-kiosk-token'] as string) ?? req.cookies?.[SESSION_COOKIE];
-    if (!token) throw new UnauthorizedException();
+    // Bare UnauthorizedException() renders as the literal word "Unauthorized"
+    // in the UI's alert modal (see web/src/api.ts's req()) - fine for an
+    // adult, meaningless to a kid. A kiosk session expiring mid-use is
+    // supposed to be fixed silently by req()'s own refresh-and-retry before
+    // it ever reaches here a second time; this message is only the
+    // fallback for when that's genuinely not possible (e.g. no display
+    // token at all) or for an adult's own expired cookie.
+    const message = 'Your session ended - sign in again to continue.';
+    if (!token) throw new UnauthorizedException(message);
     try {
       req.user = verifySession(token);
       return true;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(message);
     }
   }
 }

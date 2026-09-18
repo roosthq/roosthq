@@ -49,7 +49,7 @@ export class DisplayOrUserGuard implements CanActivate {
       }
     }
 
-    throw new UnauthorizedException();
+    throw new UnauthorizedException('This display needs a fresh kiosk link - ask a grown-up to reconnect it.');
   }
 }
 

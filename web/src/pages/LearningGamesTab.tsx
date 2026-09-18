@@ -456,6 +456,15 @@ export function PlaySession({
   // the button click just... did nothing, no error, no explanation. Caught
   // live in a browser check, not by tsc.
   const [startError, setStartError] = useState<string | null>(null);
+  // submit() used to have no try/catch at all - a failed request (a
+  // transient network blip, the rare case even the kiosk-token silent
+  // refresh in api.ts's req() can't paper over) threw as an unhandled
+  // rejection: no modal, no inline message, the tap just did nothing and
+  // the kid was stuck staring at the same question forever. `submitting`
+  // also guards against a slow/duplicate double-tap firing two answers for
+  // the same question.
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [showProgress, setShowProgress] = useState(false);
   // Grade + progress-per-subject for the subject picker itself (Casey's
   // own instruction: show the grade level and a progress bar toward the
@@ -579,20 +588,30 @@ export function PlaySession({
   }, []);
 
   async function submit() {
-    if (!session || !given.trim()) return;
+    if (!session || !given.trim() || submitting) return;
+    setSubmitting(true);
+    setSubmitError(null);
     const q = questions[index];
-    const result = await api.answerLearningQuestion(session.sessionId, q.id, given.trim(), kioskToken);
-    // Right/wrong cue plays the instant the answer lands, same beat as the
-    // ✅/❌ feedback text below - not deferred to Next, so it actually reads
-    // as feedback ON the answer instead of on whatever comes after it.
-    // Family-assignable (Settings > Features > Sounds), not a fixed cue -
-    // unlike mini-games' own click/hit/miss.
-    playSlotSound(result.correct ? 'eduCorrect' : 'eduWrong');
-    setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
-    setSessionTokens((t) => t + result.tokensAwarded);
-    setPhase('FEEDBACK');
-    if (result.phase === 'DONE') {
-      setSummary({ allCorrect: !!result.allCorrect, bonusTokens: result.bonusTokens ?? 0, promotedTo: result.promotedTo ?? null });
+    try {
+      const result = await api.answerLearningQuestion(session.sessionId, q.id, given.trim(), kioskToken);
+      // Right/wrong cue plays the instant the answer lands, same beat as the
+      // ✅/❌ feedback text below - not deferred to Next, so it actually reads
+      // as feedback ON the answer instead of on whatever comes after it.
+      // Family-assignable (Settings > Features > Sounds), not a fixed cue -
+      // unlike mini-games' own click/hit/miss.
+      playSlotSound(result.correct ? 'eduCorrect' : 'eduWrong');
+      setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
+      setSessionTokens((t) => t + result.tokensAwarded);
+      setPhase('FEEDBACK');
+      if (result.phase === 'DONE') {
+        setSummary({ allCorrect: !!result.allCorrect, bonusTokens: result.bonusTokens ?? 0, promotedTo: result.promotedTo ?? null });
+      }
+    } catch {
+      // Stay on the same question with what they already typed/picked still
+      // there - "try again" is the whole fix, not losing their place.
+      setSubmitError("That didn't go through - try tapping Submit again.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -833,12 +852,13 @@ export function PlaySession({
                 placeholder="Type your answer"
               />
             )}
+            {submitError && <p className="mt-2 text-center text-sm font-medium text-red-500">{submitError}</p>}
             <button
               onClick={submit}
-              disabled={!given.trim()}
+              disabled={!given.trim() || submitting}
               className="mt-4 w-full rounded-lg bg-amber-500 py-2.5 font-semibold text-white disabled:opacity-40"
             >
-              Submit
+              {submitting ? 'Submitting…' : 'Submit'}
             </button>
           </div>
         )}
