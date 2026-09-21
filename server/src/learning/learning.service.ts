@@ -355,10 +355,25 @@ export class LearningService {
     // Resume whatever's already in flight for this subject instead of
     // dealing a fresh hand - see presentedJson's own comment for why this
     // exists (closing the quit-and-reroll-for-an-easy-question exploit).
+    // Only resumes a session started TODAY though - an abandoned session
+    // left open overnight (kid walked away mid-block) used to get resumed
+    // forever, dragging its stale `practiceOnly` flag (decided against
+    // yesterday's rewardedSessionsToday count) into today and showing "hit
+    // today's limit" on a kid who hadn't done anything today at all. A
+    // session that's aged past midnight gets closed out below instead, same
+    // as the "nothing left to resume" cleanup right after this block.
+    const dayStart = startOfDayInZone(todayKeyInZone(DEFAULT_TIMEZONE), DEFAULT_TIMEZONE);
     const inFlight = await this.prisma.eduSession.findFirst({
-      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] } },
+      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { gte: dayStart } },
       orderBy: { startedAt: 'desc' },
     });
+    const stale = await this.prisma.eduSession.findMany({
+      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { lt: dayStart } },
+      select: { id: true },
+    });
+    if (stale.length) {
+      await this.prisma.eduSession.updateMany({ where: { id: { in: stale.map((s) => s.id) } }, data: { status: 'ABANDONED', finishedAt: new Date() } });
+    }
     if (inFlight) {
       const resumed = await this.resumeSession(inFlight);
       if (resumed.phase === 'BREAK' || resumed.questions.length > 0) return resumed;
