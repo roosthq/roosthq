@@ -17,7 +17,7 @@ import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
 import Modal from '../Modal';
-import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader } from '../LearningProgress';
+import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader, KidProgress } from '../LearningProgress';
 
 import TenFrameFill from '../breakGames/math/TenFrameFill';
 import NumberPopLadder from '../breakGames/math/NumberPopLadder';
@@ -138,7 +138,13 @@ export default function LearningGamesTab({
     <div className="mt-4 flex flex-col gap-6">
       <PayoutSettings />
       <GradeSettings members={members} />
-      <KidProgress members={members} />
+      <div className="rounded-lg border bg-white p-3">
+        <h3 className="font-semibold">Kid progress</h3>
+        <p className="text-xs text-slate-400">Per-subject mastery, grade, questions they're currently getting wrong, and recent sessions.</p>
+        <div className="mt-3">
+          <KidProgress members={members} />
+        </div>
+      </div>
       <BreakGamePreview />
     </div>
   ) : (
@@ -292,44 +298,6 @@ function GradeSettings({ members }: { members: Member[] }) {
                 </div>
               ))}
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ---------------- Adult: per-kid progress, wrong questions, session history ----------------
-// Casey's own request - see mastery/wrong-question detail per kid without
-// having to watch them play. One accordion row per kid, fetched lazily on
-// open (bank-size + progress queries per subject aren't free, no reason to
-// run them for every kid up front).
-
-function KidProgress({ members }: { members: Member[] }) {
-  const kids = members.filter((m) => m.role === 'KID');
-  const [openId, setOpenId] = useState<string | null>(null);
-
-  if (kids.length === 0) return null;
-
-  return (
-    <div className="rounded-lg border bg-white p-3">
-      <h3 className="font-semibold">Kid progress</h3>
-      <p className="text-xs text-slate-400">Per-subject mastery, questions they're currently getting wrong, and recent sessions.</p>
-      <div className="mt-3 flex flex-col gap-2">
-        {kids.map((k) => (
-          <div key={k.id} className="rounded border">
-            <button
-              onClick={() => setOpenId(openId === k.id ? null : k.id)}
-              className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium hover:bg-slate-50"
-            >
-              <span>{k.displayName}</span>
-              <span className="text-slate-400">{openId === k.id ? '▲' : '▼'}</span>
-            </button>
-            {openId === k.id && (
-              <div className="border-t p-3">
-                <LearningProgressLoader userId={k.id} />
-              </div>
-            )}
           </div>
         ))}
       </div>

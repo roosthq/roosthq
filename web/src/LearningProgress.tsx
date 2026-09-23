@@ -148,63 +148,40 @@ export function LearningProgressLoader({ userId, kioskToken, hideCounts = false 
   return <LearningProgressDetail progress={progress} hideCounts={hideCounts} />;
 }
 
-// Kiosk, adult profile: Casey's own instruction - an adult standing at the
-// kiosk shouldn't see the kid-facing "pick a subject and play" panel at
-// all, just a glance at how the kids are doing. One row per kid, one
-// accuracy chip per subject - the full wrong-question/session breakdown is
-// what "My Progress" (kid) and the Learning settings accordion (adult, in
-// the app) are already for; this is deliberately lighter than either.
-export function KidsLearningQuickStats({ members, kioskToken }: { members: Member[]; kioskToken?: string }) {
+// Adult review, per kid: mastery/grade/progress bar, questions they're
+// currently getting wrong, and recent sessions - lazy-fetched on open (bank-
+// size + progress queries per subject aren't free, no reason to run them for
+// every kid up front). Shared between the Learning settings tab (cookie
+// session) and the kiosk's adult profile view (`kioskToken` instead) -
+// Casey's own instruction: the kiosk used to swap in a tiny accuracy-chip
+// summary instead of this (KidsLearningQuickStats, removed) on the theory
+// that a glance was enough; it wasn't - too small to actually read, and
+// missing the grade/progress-bar/count detail an adult standing at the
+// kiosk wants exactly as much as one reviewing from Settings does.
+export function KidProgress({ members, kioskToken }: { members: Member[]; kioskToken?: string }) {
   const kids = members.filter((m) => m.role === 'KID');
-  const kidIds = kids.map((k) => k.id).join(',');
-  const [progressByKid, setProgressByKid] = useState<Record<string, EduProgress | null>>({});
+  const [openId, setOpenId] = useState<string | null>(null);
 
-  useEffect(() => {
-    let alive = true;
-    for (const kid of kids) {
-      api
-        .learningProgress(kid.id, kioskToken)
-        .then((p) => {
-          if (alive) setProgressByKid((prev) => ({ ...prev, [kid.id]: p }));
-        })
-        .catch(() => {
-          if (alive) setProgressByKid((prev) => ({ ...prev, [kid.id]: null }));
-        });
-    }
-    return () => {
-      alive = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [kidIds, kioskToken]);
-
-  if (kids.length === 0) return <p className="text-xs text-slate-400">No kids on this display.</p>;
+  if (kids.length === 0) return null;
 
   return (
     <div className="flex flex-col gap-2">
-      {kids.map((k) => {
-        const p = progressByKid[k.id];
-        return (
-          <div key={k.id} className="rounded border bg-white px-2.5 py-2">
-            <p className="text-sm font-medium">{k.displayName}</p>
-            {p === undefined ? (
-              <p className="text-xs text-slate-400">Loading…</p>
-            ) : p === null ? (
-              <p className="text-xs text-slate-400">Couldn't load.</p>
-            ) : (
-              <div className="mt-1 flex flex-wrap gap-1.5">
-                {EDU_SUBJECTS.map((s) => {
-                  const sp = p.subjects[s];
-                  return (
-                    <span key={s} className="inline-flex items-center gap-1 rounded bg-slate-50 px-1.5 py-0.5 text-xs text-slate-500">
-                      {SUBJECT_META[s].icon} {sp.accuracyPct === null ? 'new' : `${sp.accuracyPct}%`}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        );
-      })}
+      {kids.map((k) => (
+        <div key={k.id} className="rounded border bg-white">
+          <button
+            onClick={() => setOpenId(openId === k.id ? null : k.id)}
+            className="flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium hover:bg-slate-50"
+          >
+            <span>{k.displayName}</span>
+            <span className="text-slate-400">{openId === k.id ? '▲' : '▼'}</span>
+          </button>
+          {openId === k.id && (
+            <div className="border-t p-3">
+              <LearningProgressLoader userId={k.id} kioskToken={kioskToken} />
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

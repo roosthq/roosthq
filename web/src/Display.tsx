@@ -34,7 +34,7 @@ import ChoresPanel from './ChoresPanel';
 import PrizesPanel from './PrizesPanel';
 import MiniGamesKidView from './MiniGamesKidView';
 import { PlaySession } from './pages/LearningGamesTab';
-import { SUBJECT_META, LearningProgressLoader, KidsLearningQuickStats } from './LearningProgress';
+import { SUBJECT_META, LearningProgressLoader, KidProgress } from './LearningProgress';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -1185,7 +1185,7 @@ export default function Display() {
                     {showLearningGames && isAdult && (
                       <div className="panel p-3">
                         <h3 className="mb-2 text-sm font-semibold text-slate-500">Learning</h3>
-                        <KidsLearningQuickStats members={members} kioskToken={active.token} />
+                        <KidProgress members={members} kioskToken={active.token} />
                       </div>
                     )}
                     {showLearningGames && !isAdult && (
