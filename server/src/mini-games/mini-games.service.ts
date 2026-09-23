@@ -660,12 +660,12 @@ export class MiniGamesService {
         prizeWonId = drawnResult.prizeId;
         const prize = await this.prisma.prize.findUnique({ where: { id: drawnResult.prizeId } });
         if (prize) {
-          await this.prisma.redemption.create({ data: { prizeId: drawnResult.prizeId, userId, status: 'FULFILLED', source: 'GAME' } });
+          const redemption = await this.prisma.redemption.create({ data: { prizeId: drawnResult.prizeId, userId, status: 'FULFILLED', source: 'GAME' } });
           await this.notifications.notifyAdults(
             familyId,
             'GAME_PRIZE_WON',
             `🎁 ${buyer?.displayName ?? 'Someone'} won "${prize.name}" from ${gameName} - get it ready for them!`,
-            { link: '/store', excludeUserId: userId, subjectUserId: userId },
+            { link: `/store?tab=prizes&redemptionId=${redemption.id}`, refId: redemption.id, excludeUserId: userId, subjectUserId: userId },
           );
         }
       } else if (drawnResult.kind === 'STREAK_FREEZE') {

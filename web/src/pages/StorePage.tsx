@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api, prizeClient, familyFeatureEnabled, DATA_REFRESH_EVENT, type CropRect, type FamilySettings, type Me, type StorePrize, type Redemption, type FamilyLocation, type Member, type MyPresence, kidPermissionEnabled } from '../api';
 import TokenBadge from '../TokenBadge';
@@ -140,6 +140,7 @@ export default function StorePage({
     setPrizes(p);
     setBalance(b.balance);
     setHistory(r.items);
+    setStoreLoaded(true);
     if (isAdult) api.listUsers().then(setMembers).catch(() => setMembers([]));
   }, [isAdult, me.id]);
 
@@ -152,6 +153,60 @@ export default function StorePage({
   // go buy. `prizes` here already includes archived ones, so look the full
   // record up by id instead of trusting the redemption's own copy.
   const prizeById = (id: string) => prizes.find((p) => p.id === id);
+
+  // A REDEMPTION_REQUESTED/FULFILLED/GAME_PRIZE_WON or PRIZE_SUGGESTED
+  // notification deep-links here as ?redemptionId=X / ?suggestionId=X (see
+  // prizes.service.ts, mini-games.service.ts, reward-games.service.ts)
+  // instead of a bare /store - resolved against the freshly-loaded data
+  // exactly once, same "highlight it if it's still waiting, say plainly if
+  // it's already resolved" pattern ChoresPanel's own ?instanceId= uses.
+  const [dlRedemptionId] = useState(() => params.get('redemptionId'));
+  const [dlSuggestionId] = useState(() => params.get('suggestionId'));
+  const [storeLoaded, setStoreLoaded] = useState(false);
+  const [deepLinkNotice, setDeepLinkNotice] = useState<{ kind: 'resolved' | 'missing'; text: string } | null>(null);
+  const highlightRedemptionRef = useRef<HTMLLIElement | null>(null);
+  const highlightSuggestionRef = useRef<HTMLLIElement | null>(null);
+  const deepLinkHandled = useRef(false);
+  useEffect(() => {
+    if (!storeLoaded || deepLinkHandled.current || (!dlRedemptionId && !dlSuggestionId)) return;
+    deepLinkHandled.current = true;
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete('redemptionId');
+        next.delete('suggestionId');
+        return next;
+      },
+      { replace: true },
+    );
+    if (dlRedemptionId) {
+      const r = history.find((x) => x.id === dlRedemptionId);
+      if (!r) {
+        setDeepLinkNotice({ kind: 'missing', text: 'That request could not be found - it may already be resolved.' });
+      } else if (r.status !== 'REQUESTED') {
+        const who = r.approvedByUser?.displayName;
+        setDeepLinkNotice({
+          kind: 'resolved',
+          text:
+            r.status === 'FULFILLED'
+              ? `"${r.prize.name}" was already handled${who ? ` by ${who}` : ''} - nothing left to do.`
+              : `"${r.prize.name}" was already declined${who ? ` by ${who}` : ''} and refunded - nothing left to do.`,
+        });
+      } else {
+        highlightRedemptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } else if (dlSuggestionId) {
+      const p = prizes.find((x) => x.id === dlSuggestionId);
+      if (!p) {
+        setDeepLinkNotice({ kind: 'missing', text: 'That suggestion was already declined and removed - nothing left to do.' });
+      } else if (!p.suggested) {
+        setDeepLinkNotice({ kind: 'resolved', text: `"${p.name}" was already reviewed and added to the store - nothing left to do.` });
+      } else {
+        highlightSuggestionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs once, guarded by deepLinkHandled
+  }, [storeLoaded]);
 
   // "Who can redeem" picker in the create/edit form - a plain adult should
   // only be offered kids (or anyone else) who actually live in one of THEIR
@@ -319,6 +374,20 @@ export default function StorePage({
 
   return (
     <div>
+      {deepLinkNotice && (
+        <div className="card-tinted mb-3 flex items-start justify-between gap-3 rounded p-3 text-sm">
+          <span>
+            {deepLinkNotice.kind === 'resolved' ? '✅' : 'ℹ️'} {deepLinkNotice.text}
+          </span>
+          <button
+            onClick={() => setDeepLinkNotice(null)}
+            aria-label="Dismiss"
+            className="shrink-0 rounded p-0.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-lg font-semibold">Store</h2>
         <div className="flex flex-wrap items-center gap-2">
@@ -598,7 +667,12 @@ export default function StorePage({
           {!isAdult && <p className="text-xs text-slate-400">Waiting for an adult to review these.</p>}
           <ul className="mt-2 space-y-1 text-sm">
             {suggestions.map((p) => (
-              <li key={p.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
+              <li
+                key={p.id}
+                ref={p.id === dlSuggestionId ? highlightSuggestionRef : undefined}
+                className="flex items-center justify-between gap-2 rounded border bg-white p-2"
+                style={p.id === dlSuggestionId ? { boxShadow: '0 0 0 2px var(--accent)' } : undefined}
+              >
                 <span className="min-w-0 flex-1 break-words">
                   {p.name}
                   {isAdult && p.suggestedByName && (
@@ -633,7 +707,12 @@ export default function StorePage({
           <h3 className="text-md font-semibold">Pending redemptions</h3>
           <ul className="mt-2 space-y-1 text-sm">
             {pending.map((r) => (
-              <li key={r.id} className="flex items-center justify-between gap-2 rounded border bg-white p-2">
+              <li
+                key={r.id}
+                ref={r.id === dlRedemptionId ? highlightRedemptionRef : undefined}
+                className="flex items-center justify-between gap-2 rounded border bg-white p-2"
+                style={r.id === dlRedemptionId ? { boxShadow: '0 0 0 2px var(--accent)' } : undefined}
+              >
                 <span className="flex min-w-0 flex-1 items-center gap-2">
                   <span className="min-w-0 break-words">
                     <strong className="font-medium">{memberName(r.userId)}</strong> wants{' '}

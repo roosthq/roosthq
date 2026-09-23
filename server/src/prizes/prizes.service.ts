@@ -336,7 +336,7 @@ export class PrizesService {
     });
     const requester = await this.prisma.user.findUnique({ where: { id: userId } });
     await this.notifications.notifyAdults(familyId, 'PRIZE_SUGGESTED', `${requester?.displayName ?? 'A kid'} wants "${dto.name}" added to the store`, {
-      link: '/store',
+      link: `/store?tab=prizes&suggestionId=${prize.id}`,
       refId: prize.id,
       subjectUserId: userId,
     });
@@ -498,11 +498,11 @@ export class PrizesService {
         familyId,
         'REDEMPTION_FULFILLED',
         `${actor.displayName} used ${PrizesService.formatPassQuantity(prize, quantity)} of "${prize.name}"`,
-        { link: '/store', excludeUserId: actingUserId, refId: redemption.id, subjectUserId: actingUserId },
+        { link: `/store?tab=prizes&redemptionId=${redemption.id}`, excludeUserId: actingUserId, refId: redemption.id, subjectUserId: actingUserId },
       );
     } else {
       await this.notifications.notifyAdults(familyId, 'REDEMPTION_REQUESTED', `${actor.displayName} wants "${prize.name}"${label}`, {
-        link: '/store',
+        link: `/store?tab=prizes&redemptionId=${redemption.id}`,
         excludeUserId: actingUserId,
         refId: redemption.id,
         subjectUserId: actingUserId,
@@ -525,7 +525,16 @@ export class PrizesService {
       include: { prize: true },
     });
     if (!r || r.prize.familyId !== familyId) throw new NotFoundException('Redemption not found');
-    if (status === 'REJECTED' && r.status !== 'REJECTED') {
+    // Already-resolved guard: this used to have no status check at all, so
+    // a second adult acting on a stale notification/pending-list snapshot
+    // (someone else already fulfilled or rejected it) could double-refund
+    // tokens (rejecting an already-fulfilled one) or grant a prize a second
+    // time for free (fulfilling an already-rejected/refunded one), and
+    // either way silently overwrite the first adult's decision. Once
+    // resolved either way, later calls are a no-op - same "already done,
+    // just return it" pattern chores.service.ts's finalizeApproval uses.
+    if (r.status === 'FULFILLED' || r.status === 'REJECTED') return r;
+    if (status === 'REJECTED') {
       await this.prisma.tokenLedger.create({
         data: {
           userId: r.userId,

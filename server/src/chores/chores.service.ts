@@ -1006,7 +1006,7 @@ export class ChoresService {
       inst.chore.familyId,
       'CHORE_PENDING',
       `${actor?.displayName ?? 'Someone'} finished "${inst.chore.title}" - needs approval`,
-      { link: '/chores', refId: inst.id, subjectUserId: userId },
+      { link: `/chores?instanceId=${inst.id}`, refId: inst.id, subjectUserId: userId },
     );
     this.displayEvents.publish(familyId, { type: 'chores' });
     return updated;
@@ -1371,6 +1371,17 @@ export class ChoresService {
   async reject(familyId: string, approverId: string, instanceId: string) {
     await this.assertAdult(approverId);
     const inst = await this.ownedInstance(familyId, instanceId);
+    // Already-resolved guard: a second adult rejecting an instance another
+    // adult already approved (both saw it pending from separate surfaces -
+    // the chores page, the hourglass indicator, a stale notification) must
+    // not silently undo that approval - it used to unconditionally flip
+    // APPROVED back to OPEN, discarding completedAt AND the token/streak
+    // reward the approval already granted (which never gets reversed), plus
+    // double-counting this adult's rejectionsGiven stat and firing a bogus
+    // CHORE_REJECTED. Only a still-PENDING instance can actually be
+    // rejected - same "already done, just return it" pattern
+    // finalizeApproval's own APPROVED guard uses.
+    if (inst.status !== 'PENDING') return inst;
     // Adult-profile stat; lifetime counter, tracked from 2026-08 onward.
     await this.prisma.user.update({ where: { id: approverId }, data: { rejectionsGiven: { increment: 1 } } });
     const updated = await this.prisma.choreInstance.update({

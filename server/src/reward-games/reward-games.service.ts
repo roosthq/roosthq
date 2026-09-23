@@ -184,7 +184,7 @@ export class RewardGamesService {
         // over; `source: 'GAME'` keeps it out of the normal pending-approval
         // queue entirely (it's never status REQUESTED), so there's nothing
         // to reject.
-        await this.prisma.redemption.create({
+        const redemption = await this.prisma.redemption.create({
           data: { prizeId: picked.prizeId, userId: game.userId, status: 'FULFILLED', source: 'GAME' },
         });
         const winner = await this.prisma.user.findUnique({ where: { id: game.userId }, select: { displayName: true } });
@@ -192,7 +192,7 @@ export class RewardGamesService {
           game.familyId,
           'GAME_PRIZE_WON',
           `🎁 ${winner?.displayName ?? 'Someone'} won "${prize.name}" from a reward game - get it ready for them!`,
-          { link: '/store', excludeUserId: game.userId, subjectUserId: game.userId },
+          { link: `/store?tab=prizes&redemptionId=${redemption.id}`, refId: redemption.id, excludeUserId: game.userId, subjectUserId: game.userId },
         );
       }
       this.displayEvents.publish(game.familyId, { type: 'tokens' });

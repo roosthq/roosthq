@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   api,
   choreClient,
@@ -267,11 +267,52 @@ export default function ChoresPanel({
     setBalances(b);
     setMembers(m);
     setLocations(l);
+    setChoresLoaded(true);
   }, [client]);
 
   useEffect(() => {
     refresh();
   }, [refresh]);
+
+  // A CHORE_PENDING notification deep-links here as ?instanceId=X (see
+  // chores.service.ts) instead of a bare /chores - this resolves that ID
+  // against the freshly-loaded data exactly once, so clicking a
+  // notification either lands the adult right on the still-pending row
+  // (highlightInstanceId below scrolls PendingPanel to it) or - the other
+  // half of Casey's ask - tells them plainly it's already handled instead
+  // of just quietly showing a list with that row missing. Read off
+  // window.location directly, not react-router's useSearchParams: this
+  // component also mounts on the kiosk (Display.tsx) outside any
+  // <BrowserRouter>, same reason `searchQuery` above does it this way.
+  const [deepLinkInstanceId] = useState(() => new URLSearchParams(window.location.search).get('instanceId'));
+  const [choresLoaded, setChoresLoaded] = useState(false);
+  const [deepLinkNotice, setDeepLinkNotice] = useState<{ kind: 'resolved' | 'missing'; text: string } | null>(null);
+  const deepLinkHandled = useRef(false);
+  useEffect(() => {
+    if (!deepLinkInstanceId || !choresLoaded || deepLinkHandled.current) return;
+    deepLinkHandled.current = true;
+    // Strip the param right away - the banner/highlight below is what
+    // carries the outcome forward, not the URL, so a refresh or the back
+    // button doesn't replay this lookup against by-then-stale data.
+    const url = new URL(window.location.href);
+    url.searchParams.delete('instanceId');
+    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+    const found = chores.flatMap((c) => c.instances.map((instance) => ({ chore: c, instance }))).find((x) => x.instance.id === deepLinkInstanceId);
+    if (!found) {
+      setDeepLinkNotice({ kind: 'missing', text: "That chore's notification is no longer valid - it may have been removed." });
+    } else if (found.instance.status !== 'PENDING') {
+      const who = found.instance.approvedByUser?.displayName;
+      setDeepLinkNotice({
+        kind: 'resolved',
+        text:
+          found.instance.status === 'APPROVED'
+            ? `"${found.chore.title}" was already approved${who ? ` by ${who}` : ''} - nothing left to do.`
+            : `"${found.chore.title}" was sent back for another try - it's open again, not waiting on you.`,
+      });
+    }
+    // status === 'PENDING': no notice needed - it's still genuinely waiting,
+    // and PendingPanel (rendered below, when showPending) scrolls to it.
+  }, [deepLinkInstanceId, choresLoaded, chores]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps -- refresh is stable per client; only refreshSignal should re-trigger this
   useEffect(() => {
@@ -869,6 +910,20 @@ export default function ChoresPanel({
 
   return (
     <section>
+      {deepLinkNotice && (
+        <div className="card-tinted mb-3 flex items-start justify-between gap-3 rounded p-3 text-sm">
+          <span>
+            {deepLinkNotice.kind === 'resolved' ? '✅' : 'ℹ️'} {deepLinkNotice.text}
+          </span>
+          <button
+            onClick={() => setDeepLinkNotice(null)}
+            aria-label="Dismiss"
+            className="shrink-0 rounded p-0.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       {showHouseholdTabs && (
         <div className="mb-3 flex flex-wrap gap-1">
           <button
@@ -1081,6 +1136,7 @@ export default function ChoresPanel({
             tokenName={tokenName}
             tokenIcon={tokenIcon}
             onChanged={refresh}
+            highlightInstanceId={deepLinkInstanceId}
           />
         </div>
       )}

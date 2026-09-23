@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Chore, ChoreClient, Member, PrizeClient, Redemption, StorePrize } from './api';
 import { celebrate } from './celebrate';
 import TokenBadge from './TokenBadge';
@@ -16,6 +16,7 @@ export default function PendingPanel({
   tokenIcon,
   refreshSignal,
   onChanged,
+  highlightInstanceId,
 }: {
   chores: Chore[];
   client: ChoreClient;
@@ -25,6 +26,11 @@ export default function PendingPanel({
   tokenIcon: string;
   refreshSignal?: number;
   onChanged: () => void;
+  // Scrolls to and rings the one row a notification deep-link pointed at
+  // (see ChoresPanel's own comment on ?instanceId=) - null/undefined for
+  // every other mount of this component (the kiosk's own PendingPanel,
+  // or a normal visit with no notification behind it).
+  highlightInstanceId?: string | null;
 }) {
   const [redemptions, setRedemptions] = useState<Redemption[]>([]);
   const [prizes, setPrizes] = useState<StorePrize[]>([]);
@@ -69,6 +75,10 @@ export default function PendingPanel({
   const pendingRedemptions = redemptions.filter((r) => r.status === 'REQUESTED');
   const prizeById = (id: string) => prizes.find((p) => p.id === id);
   const [viewingPrize, setViewingPrize] = useState<StorePrize | null>(null);
+  const highlightRef = useRef<HTMLLIElement | null>(null);
+  useEffect(() => {
+    if (highlightInstanceId) highlightRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [highlightInstanceId, pendingChores.length]);
 
   async function act(
     fn: () => Promise<unknown>,
@@ -97,7 +107,12 @@ export default function PendingPanel({
           // width line, actions always get their own line below it - a
           // long title next to badges/buttons used to force an ugly
           // mid-sentence wrap once the row ran out of horizontal room.
-          <li key={instance.id} className="rounded border bg-white p-2 text-sm">
+          <li
+            key={instance.id}
+            ref={instance.id === highlightInstanceId ? highlightRef : undefined}
+            className="rounded border bg-white p-2 text-sm"
+            style={instance.id === highlightInstanceId ? { boxShadow: '0 0 0 2px var(--accent)' } : undefined}
+          >
             <div className="break-words">
               <span className="font-medium">{chore.title}</span>
               {instance.claimedByUserId && <span className="text-slate-400"> · {memberName(instance.claimedByUserId)}</span>}
