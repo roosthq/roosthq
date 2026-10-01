@@ -9,7 +9,13 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { DisplayEventsService } from '../display/display-events.service';
-import { RewardGamesService, type GameType, type PoolEntry } from '../reward-games/reward-games.service';
+import { RewardGamesService, GAME_TYPES, type GameType, type PoolEntry } from '../reward-games/reward-games.service';
+
+// A pinned reward game must be a real one; anything else (including the
+// form's "random") stores null = pick a random one each time.
+function sanitizeGameType(v: string | null | undefined): GameType | null {
+  return v && (GAME_TYPES as readonly string[]).includes(v) ? (v as GameType) : null;
+}
 import { AuditLogService } from '../security/audit-log.service';
 import { StreakFreezeService } from '../streak-freeze/streak-freeze.service';
 import { PresenceService } from '../presence/presence.service';
@@ -54,6 +60,7 @@ export interface CreateChoreDto {
   streakGoal?: number | null;
   streakBonusTokens?: number;
   useWheelForBonus?: boolean;
+  streakGameType?: string | null;
   // Opt OUT of the 🎁 bonus feature for this one chore - the family-wide
   // toggle (ChoreBonusSettings.enabled) still has to be on too; this just
   // lets an adult permanently exclude a specific chore they never want to
@@ -100,7 +107,8 @@ const CHORE_DIFF_FIELDS = [
   ['latePenaltyPercent', 'late penalty %'],
   ['streakGoal', 'streak goal'],
   ['streakBonusTokens', 'streak bonus tokens'],
-  ['useWheelForBonus', 'use wheel for bonus'],
+  ['useWheelForBonus', 'use reward game for bonus'],
+  ['streakGameType', 'bonus reward game'],
 ] as const;
 
 // Only the fields UpdateChoreDto can actually carry - a plain scalar
@@ -471,6 +479,7 @@ export class ChoresService {
         streakGoal: dto.streakGoal ?? null,
         streakBonusTokens: Math.max(0, dto.streakBonusTokens ?? 0),
         useWheelForBonus: !!dto.useWheelForBonus,
+        streakGameType: dto.useWheelForBonus ? sanitizeGameType(dto.streakGameType) : null,
         bonusExcluded: !!dto.bonusExcluded,
         createdById,
         assignees:
@@ -728,6 +737,9 @@ export class ChoresService {
         ...(dto.streakGoal !== undefined && { streakGoal: dto.streakGoal }),
         ...(dto.streakBonusTokens !== undefined && { streakBonusTokens: Math.max(0, dto.streakBonusTokens) }),
         ...(dto.useWheelForBonus !== undefined && { useWheelForBonus: !!dto.useWheelForBonus }),
+        ...((dto.streakGameType !== undefined || dto.useWheelForBonus === false) && {
+          streakGameType: dto.useWheelForBonus === false ? null : sanitizeGameType(dto.streakGameType),
+        }),
         ...(dto.bonusExcluded !== undefined && { bonusExcluded: !!dto.bonusExcluded }),
     };
     await this.prisma.chore.update({ where: { id }, data: updateData });
@@ -1150,14 +1162,12 @@ export class ChoresService {
           // An adult approving it shouldn't be the one who spins the kid's
           // wheel, and the amount stays unknown until the wheel stops.
           if (wheelActive) {
-            // Was a hardcoded 1, 5 (and always a random reveal game) - now
-            // real Family-level fields (defaulting to that exact same 1/5 +
-            // random) so a token rescale (PLANNING.md §17) has something to
-            // multiply, and an adult can pin a specific game instead of
-            // leaving it a surprise every time.
+            // Range is a real Family-level field (token rescale, PLANNING.md
+            // §17, multiplies it); the game itself is per-chore
+            // (Chore.streakGameType, null = random each time).
             const wheelRange = await this.prisma.family.findUnique({
               where: { id: inst.chore.familyId },
-              select: { streakWheelMin: true, streakWheelMax: true, streakWheelGameType: true },
+              select: { streakWheelMin: true, streakWheelMax: true },
             });
             await this.rewardGames.create(
               inst.chore.familyId,
@@ -1166,13 +1176,13 @@ export class ChoresService {
               wheelRange?.streakWheelMax ?? 5,
               `Bonus wheel: ${inst.chore.title} (${currentStreak} in a row)`,
               inst.id,
-              (wheelRange?.streakWheelGameType as GameType | null) ?? undefined,
+              (inst.chore.streakGameType as GameType | null) ?? undefined,
             );
             await this.notifications.create(
               inst.chore.familyId,
               recipient,
               'STREAK_BONUS',
-              `🎡 You earned a bonus wheel on "${inst.chore.title}" - go spin it!`,
+              `🎁 You earned a bonus reward on "${inst.chore.title}" - go play it!`,
               { link: '/chores' },
             );
           }

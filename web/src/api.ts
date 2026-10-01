@@ -536,6 +536,7 @@ export interface Chore {
   streakGoal?: number | null;
   streakBonusTokens: number;
   useWheelForBonus: boolean;
+  streakGameType?: string | null; // pinned reward game for the streak bonus; null = random
   // Never offer the 🎁 bonus for this chore, even while the family-wide
   // toggle is on - an adult's permanent per-chore exclude.
   bonusExcluded?: boolean;
@@ -869,6 +870,20 @@ export interface AwardCatalogItem {
   defaultTokenValue: number;
   defaultStreakFreezeValue: number;
   grantCount: number;
+}
+
+// An award this person hasn't been shown the celebration popup for yet.
+export interface UnseenAward {
+  id: string; // grant id
+  awardName: string;
+  icon: string | null;
+  description: string | null;
+  note: string | null;
+  grantedByName: string;
+  tokenValue: number;
+  streakFreezeValue: number;
+  hasGame: boolean; // a reward game came with it and is still waiting to be played
+  createdAt: string;
 }
 
 export interface EarnedAwardGrant {
@@ -1796,6 +1811,8 @@ export const api = {
   awardsCatalog: (kioskToken?: string) => req<AwardCatalogItem[]>('/awards', undefined, kioskToken),
   earnedAwards: (userId?: string, kioskToken?: string) =>
     req<EarnedAward[]>(`/awards/earned${userId ? `?userId=${userId}` : ''}`, undefined, kioskToken),
+  unseenAwards: (kioskToken?: string) => req<UnseenAward[]>('/awards/unseen', undefined, kioskToken),
+  markAwardSeen: (grantId: string, kioskToken?: string) => req(`/awards/grants/${grantId}/seen`, { method: 'POST' }, kioskToken),
   awardHistory: (skip = 0, take = 50) => req<{ items: AwardGrantHistoryItem[]; hasMore: boolean }>(`/awards/history?skip=${skip}&take=${take}`),
   createAward: (
     body: {

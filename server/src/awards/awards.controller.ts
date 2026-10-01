@@ -22,6 +22,17 @@ export class AwardsController {
     return this.awards.earned(u.familyId, u.userId, userId || u.userId);
   }
 
+  // The caller's own awards they haven't been shown the celebration popup for.
+  @Get('unseen')
+  unseen(@CurrentUser() u: SessionPayload) {
+    return this.awards.unseen(u.familyId, u.userId);
+  }
+
+  @Post('grants/:grantId/seen')
+  markSeen(@CurrentUser() u: SessionPayload, @Param('grantId') grantId: string) {
+    return this.awards.markSeen(u.userId, grantId);
+  }
+
   // Adults-only, family-wide grant history.
   @Get('history')
   history(@CurrentUser() u: SessionPayload, @Query('skip') skip?: string, @Query('take') take?: string) {

@@ -17,19 +17,15 @@ export function setCelebrationSound(on: boolean) {
 // Burst confetti from the center of `from` (usually the tapped button), or
 // screen-center when no element is handy. `slot` picks which of this
 // family's assigned sounds plays - see SOUND_SLOTS in sounds.ts.
-export function celebrate(from?: HTMLElement | null, slot: string = 'notification') {
-  const rect = from?.getBoundingClientRect();
-  const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
-  const cy = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
-
+function burst(cx: number, cy: number, pieces: number, reach: number) {
   const host = document.createElement('div');
   host.className = 'confetti-host';
   host.style.left = `${cx}px`;
   host.style.top = `${cy}px`;
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < pieces; i++) {
     const p = document.createElement('span');
     const angle = Math.random() * Math.PI * 2;
-    const dist = 60 + Math.random() * 130;
+    const dist = (60 + Math.random() * 130) * reach;
     p.className = 'confetti-piece';
     p.style.background = COLORS[i % COLORS.length];
     p.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
@@ -41,6 +37,23 @@ export function celebrate(from?: HTMLElement | null, slot: string = 'notificatio
   }
   document.body.appendChild(host);
   setTimeout(() => host.remove(), 1100);
+}
 
+export function celebrate(from?: HTMLElement | null, slot: string = 'notification') {
+  const rect = from?.getBoundingClientRect();
+  const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+  const cy = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+  burst(cx, cy, 26, 1);
   if (soundEnabled) playSlotSound(slot);
+}
+
+// A full-screen show for a big moment (an award, say): one sound, then a
+// volley of larger bursts scattered across the upper screen over ~2.5s.
+export function fireworks(slot: string = 'notification') {
+  if (soundEnabled) playSlotSound(slot);
+  for (let i = 0; i < 9; i++) {
+    setTimeout(() => {
+      burst(window.innerWidth * (0.12 + Math.random() * 0.76), window.innerHeight * (0.12 + Math.random() * 0.5), 42, 1.5);
+    }, i * 280);
+  }
 }

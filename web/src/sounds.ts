@@ -22,6 +22,7 @@ export const SOUND_SLOTS: { id: string; label: string; help: string; defaultId?:
   { id: 'redemptionFulfilled', label: 'Redemption fulfilled', help: 'A prize gets marked ready' },
   { id: 'rewardGameWin', label: 'Reward game win', help: 'A wheel/box/card/slot reveals a prize' },
   { id: 'levelUp', label: 'Level up', help: 'Someone reaches a new level' },
+  { id: 'awardGranted', label: 'Award received', help: 'The celebration popup when a kid is given an award', defaultId: 'fanfare' },
   { id: 'notification', label: 'Notification (generic)', help: 'Anything else that dings' },
   { id: 'eduCorrect', label: 'Learning: correct answer', help: 'Right answer in a Learning games session', defaultId: 'coin' },
   { id: 'eduWrong', label: 'Learning: wrong answer', help: 'Wrong answer in a Learning games session', defaultId: 'bloop' },

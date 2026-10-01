@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySettings, type FontSize, type FamilyLocation, type MyPresence } from './api';
 import { myLocationIds } from './displayScope';
 import LocationJoinModal from './LocationJoinModal';
@@ -12,6 +12,7 @@ import KidApp from './KidApp';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
 import CalendarPage from './pages/CalendarPage';
+import AwardCelebration from './AwardCelebration';
 import ChoresPage from './pages/ChoresPage';
 import StorePage from './pages/StorePage';
 import ProfilePage from './pages/ProfilePage';
@@ -36,6 +37,7 @@ function applyFontSize(f: string) {
 }
 
 export default function App() {
+  const navigate = useNavigate();
   const [me, setMe] = useState<Me | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [locations, setLocations] = useState<FamilyLocation[] | null>(null);
@@ -232,6 +234,7 @@ export default function App() {
           onUpdateProfile={updateProfile}
           onLoggedOut={logout}
         />
+        {!me.ghostedBy && <AwardCelebration tokenIcon={tokenIcon} onPlayGame={() => navigate('/chores')} />}
       </>
     );
   }
@@ -284,6 +287,9 @@ export default function App() {
         </div>
       )}
       <Nav me={me} onLogout={logout} onToggleTheme={toggleTheme} />
+      {/* Not while an adult is ghosting this account - dismissing it would
+          mark the real person's award seen before they ever saw it. */}
+      {!me.ghostedBy && <AwardCelebration tokenIcon={tokenIcon} onPlayGame={() => navigate('/chores')} />}
       <main className="mx-auto max-w-5xl p-6">
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />

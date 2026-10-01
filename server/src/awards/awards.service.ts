@@ -211,6 +211,48 @@ export class AwardsService {
     return [...byAward.values()];
   }
 
+  // Awards this person hasn't had the celebration popup for yet (oldest
+  // first, capped) - polled by the kiosk/app, which only shows the popup once
+  // the person is actually there and active, so nothing is missed by being
+  // away when it was handed out. Only ever the caller's own grants.
+  async unseen(familyId: string, userId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'awards'))) return [];
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: { tokensDisabled: true } });
+    const grants = await this.prisma.awardGrant.findMany({
+      where: { userId, seenAt: null, award: { familyId } },
+      include: { award: true, grantedBy: { select: { displayName: true } } },
+      orderBy: { createdAt: 'asc' },
+      take: 10,
+    });
+    if (!grants.length) return [];
+    // A reward game attached to a grant is queued with refId = grant.id; only
+    // one still waiting to be played is worth telling them about.
+    const games = await this.prisma.rewardGame.findMany({
+      where: { userId, spunAt: null, refId: { in: grants.map((g) => g.id) } },
+      select: { refId: true },
+    });
+    const withGame = new Set(games.map((g) => g.refId));
+    return grants.map((g) => ({
+      id: g.id,
+      awardName: g.award.name,
+      icon: g.award.icon,
+      description: g.award.description,
+      note: g.note,
+      grantedByName: g.grantedBy.displayName,
+      tokenValue: user?.tokensDisabled ? 0 : g.tokenValue,
+      streakFreezeValue: g.streakFreezeValue,
+      hasGame: withGame.has(g.id),
+      createdAt: g.createdAt,
+    }));
+  }
+
+  // Recipient-only: dismissing the popup. Idempotent, and silently ignores a
+  // grant that isn't theirs rather than leaking whether it exists.
+  async markSeen(userId: string, grantId: string) {
+    await this.prisma.awardGrant.updateMany({ where: { id: grantId, userId, seenAt: null }, data: { seenAt: new Date() } });
+    return { ok: true };
+  }
+
   // Adults-only, family-wide grant history - who gave what to whom, the note,
   // the token value actually given, and when. Newest first.
   async history(familyId: string, actorId: string, skip = 0, take = 50) {

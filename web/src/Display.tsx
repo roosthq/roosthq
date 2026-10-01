@@ -48,6 +48,7 @@ import PendingPanel from './PendingPanel';
 import TokenAdjustModal from './TokenAdjustModal';
 import DinnerWeekModal from './DinnerWeekModal';
 import KioskStatsModal from './KioskStatsModal';
+import AwardCelebration from './AwardCelebration';
 import PresenceModal from './PresenceModal';
 import RulesPage from './pages/RulesPage';
 import Modal from './Modal';
@@ -1497,6 +1498,18 @@ export default function Display() {
 
       <OnScreenKeyboard enabled={!!config.onScreenKeyboard} />
 
+      {/* Per-profile (key) so one person's pending awards never pop up on
+          someone else's session; paused behind the screensaver, and picked
+          back up on the first touch after it. */}
+      {active && (
+        <AwardCelebration
+          key={active.user.id}
+          kioskToken={active.token}
+          tokenIcon={tokenIcon}
+          paused={screensaverOn}
+          refreshSignal={dataRefreshSignal}
+        />
+      )}
       {screensaverOn && <Screensaver weather={weather} onDismiss={() => setScreensaverOn(false)} />}
 
       {pinFor && (

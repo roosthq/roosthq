@@ -26,6 +26,7 @@ import { useDialog } from './Dialog';
 import Modal from './Modal';
 import CollapsibleSection from './CollapsibleSection';
 import PoolEditor from './PoolEditor';
+import { GAME_TYPES, GAME_TYPE_META } from './rewardGames';
 import { myLocationIds } from './displayScope';
 import { addDaysToKey, dateKeyInZone, endOfDayInZone, startOfDayInZone, todayKeyInZone } from './timezone';
 
@@ -720,7 +721,7 @@ export default function ChoresPanel({
                   · <LucideIcon name="flame" slot="badge.streak" size={12} /> {chore.currentStreak} in a row
                   {!!chore.streakGoal && chore.useWheelForBonus ? (
                     <>
-                      (<LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={12} /> wheel every {chore.streakGoal})
+                      (<LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={12} /> reward game every {chore.streakGoal})
                     </>
                   ) : !!chore.streakGoal && chore.streakBonusTokens > 0 ? (
                     `(bonus every ${chore.streakGoal})`
@@ -1475,6 +1476,8 @@ function ChoreForm({
   const [streakGoal, setStreakGoal] = useState(chore?.streakGoal ?? 5);
   const [streakBonusTokens, setStreakBonusTokens] = useState(chore?.streakBonusTokens ?? 0);
   const [useWheelForBonus, setUseWheelForBonus] = useState(chore?.useWheelForBonus ?? false);
+  // '' = random game each time; otherwise a pinned GAME_TYPES value.
+  const [streakGameType, setStreakGameType] = useState(chore?.streakGameType ?? '');
   const [bonusExcluded, setBonusExcluded] = useState(chore?.bonusExcluded ?? false);
 
   useEffect(() => {
@@ -1525,6 +1528,7 @@ function ChoreForm({
       streakGoal: streakEnabled ? Math.max(1, Number(streakGoal) || 1) : null,
       streakBonusTokens: streakEnabled ? Math.max(0, Number(streakBonusTokens) || 0) : 0,
       useWheelForBonus: streakEnabled && useWheelForBonus,
+      streakGameType: streakEnabled && useWheelForBonus ? streakGameType || null : null,
       bonusExcluded,
     };
     localStorage.setItem(LAST_CHORE_LOCATION_KEY, locationId || '');
@@ -1813,14 +1817,35 @@ function ChoreForm({
                 </div>
               </div>
             )}
-            {/* Wheel and flat bonus tokens are mutually exclusive per chore
-                (never both, never one silently overriding the other family-
-                wide) - only offered at all once the family's turned the
-                bonusWheel feature on. */}
+            {/* A reward game and flat bonus tokens are mutually exclusive per
+                chore (never both, never one silently overriding the other
+                family-wide) - the game option is only offered once the
+                family's bonusWheel feature is on. */}
             {streakEnabled && !famDisabled.includes('bonusWheel') && !famDisabled.includes('tokens') && (
-              <label className="mt-2 flex items-center gap-2 text-sm">
-                <input type="checkbox" checked={useWheelForBonus} onChange={(e) => setUseWheelForBonus(e.target.checked)} />
-                <LucideIcon name="ferris-wheel" slot="chores.bonusWheel" size={14} /> Spin the bonus wheel instead of awarding flat tokens
+              <label className="mt-2 block text-sm">
+                <span className="text-slate-500">Bonus reward</span>
+                <select
+                  className="mt-1 w-full rounded-md border px-2 py-1.5 text-sm"
+                  value={useWheelForBonus ? streakGameType || 'RANDOM' : 'FLAT'}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    setUseWheelForBonus(v !== 'FLAT');
+                    setStreakGameType(v === 'FLAT' || v === 'RANDOM' ? '' : v);
+                  }}
+                >
+                  <option value="FLAT">Flat bonus tokens (set above)</option>
+                  <option value="RANDOM">🎲 A surprise reward game (random each time)</option>
+                  {GAME_TYPES.map((gt) => (
+                    <option key={gt} value={gt}>
+                      {GAME_TYPE_META[gt].label} (always this game)
+                    </option>
+                  ))}
+                </select>
+                {useWheelForBonus && (
+                  <span className="mt-1 block text-xs text-slate-400">
+                    They play it themselves when the streak hits - the family's token range is set in Settings.
+                  </span>
+                )}
               </label>
             )}
           </Field>
