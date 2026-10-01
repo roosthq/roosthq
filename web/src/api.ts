@@ -545,6 +545,7 @@ export interface Balance {
   userId: string;
   balance: number;
   earned?: number; // lifetime positive total - XP for the level badge
+  spent?: number; // lifetime negative total (positive number), same invariant dollar units as earned
 }
 
 export type NotifyChannel = 'inapp' | 'push' | 'email';

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
+import { api, choreClient, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
 import Modal from './Modal';
 import LevelBadge from './LevelBadge';
 import { AwardIcon } from './pages/AwardsPage';
@@ -72,6 +72,7 @@ export default function KioskStatsModal({
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [levelUpTo, setLevelUpTo] = useState<number | null>(null);
   const [bonusStreakFreezes, setBonusStreakFreezes] = useState(0);
+  const [lifetime, setLifetime] = useState<{ earned: number; spent: number } | null>(null);
 
   useEffect(() => {
     api.tokenBalance(userId, kioskToken).then((b) => setBalance(b.balance)).catch(() => undefined);
@@ -86,6 +87,16 @@ export default function KioskStatsModal({
     // rendered as a list - a bigger one-shot window beats real pagination
     // here, since paginating would make those totals visibly incomplete.
     api.tokenLedger(userId, kioskToken, 0, 200).then((r) => setLedger(r.items)).catch(() => setLedger([]));
+    // Server-side lifetime totals - the 200-row ledger above silently drops
+    // the oldest earnings for anyone with a longer history, which understated
+    // their level here (see ProfilePage for the same fix).
+    choreClient(kioskToken)
+      .balances()
+      .then((bs) => {
+        const mine = bs.find((b) => b.userId === userId);
+        setLifetime(mine ? { earned: mine.earned ?? 0, spent: mine.spent ?? 0 } : null);
+      })
+      .catch(() => setLifetime(null));
     api.earnedAwards(userId, kioskToken).then(setAwards).catch(() => setAwards([]));
     api.familySettings(kioskToken).then(setFamily).catch(() => undefined);
     // #4 - this modal is one of the three spots that count as "actually
@@ -105,9 +116,11 @@ export default function KioskStatsModal({
   // rescale); earned/spent below are the same totals redisplayed at the
   // family's CURRENT token scale, same as ProfilePage - see PLANNING.md §17.
   const currentTokenValueUsd = family?.tokenValueUsd || 1;
-  const earnedInvariant = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  const ledgerEarned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  const ledgerSpent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0);
+  const earnedInvariant = lifetime?.earned ?? ledgerEarned;
   const earned = Math.round(earnedInvariant / currentTokenValueUsd);
-  const spent = Math.round(ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0) / currentTokenValueUsd);
+  const spent = Math.round((lifetime?.spent ?? ledgerSpent) / currentTokenValueUsd);
   const myChores = chores.filter((c) => c.assignees.some((a) => a.userId === userId));
   const bestStreak = Math.max(0, ...myChores.map((c) => c.currentStreak), 0);
   const freezesBanked = myChores.reduce((sum, c) => sum + c.streakFreezes, 0) + bonusStreakFreezes;

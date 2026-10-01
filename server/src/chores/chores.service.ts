@@ -1534,7 +1534,7 @@ export class ChoresService {
     // back out for display, never for the level calculation itself. For any
     // row written before this existed, or a family that's never rescaled,
     // this is byte-for-byte identical to the old raw-delta sum.
-    const [grouped, earnedGrouped] = await Promise.all([
+    const [grouped, earnedGrouped, spentGrouped] = await Promise.all([
       this.prisma.tokenLedger.groupBy({
         by: ['userId'],
         _sum: { delta: true },
@@ -1545,9 +1545,23 @@ export class ChoresService {
         _sum: { dollarEquivalent: true },
         where: { user: { familyId }, delta: { gt: 0 }, type: { not: 'REBASE' } },
       }),
+      this.prisma.tokenLedger.groupBy({
+        by: ['userId'],
+        _sum: { dollarEquivalent: true },
+        where: { user: { familyId }, delta: { lt: 0 }, type: { not: 'REBASE' } },
+      }),
     ]);
     const earnedBy = new Map(earnedGrouped.map((g) => [g.userId, g._sum.dollarEquivalent ?? 0]));
-    return grouped.map((g) => ({ userId: g.userId, balance: g._sum.delta ?? 0, earned: earnedBy.get(g.userId) ?? 0 }));
+    // Negative rows store a negative dollarEquivalent; expose spent as a
+    // positive invariant total, same sign convention the clients used when
+    // they summed Math.abs() over the ledger themselves.
+    const spentBy = new Map(spentGrouped.map((g) => [g.userId, Math.abs(g._sum.dollarEquivalent ?? 0)]));
+    return grouped.map((g) => ({
+      userId: g.userId,
+      balance: g._sum.delta ?? 0,
+      earned: earnedBy.get(g.userId) ?? 0,
+      spent: spentBy.get(g.userId) ?? 0,
+    }));
   }
 
   // Still-actionable chores due on a given calendar day, for the kiosk's idle

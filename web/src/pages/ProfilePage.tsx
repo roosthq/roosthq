@@ -128,6 +128,7 @@ export default function ProfilePage({
   const [members, setMembers] = useState<Member[]>([]);
   const [allBalances, setAllBalances] = useState<Record<string, number>>({});
   const [earnedBy, setEarnedBy] = useState<Record<string, number>>({});
+  const [spentBy, setSpentBy] = useState<Record<string, number>>({});
   const [balance, setBalance] = useState(0);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [awards, setAwards] = useState<EarnedAward[]>([]);
@@ -195,6 +196,7 @@ export default function ProfilePage({
     api.balances().then((bs) => {
       setAllBalances(Object.fromEntries(bs.map((x) => [x.userId, x.balance])));
       setEarnedBy(Object.fromEntries(bs.map((x) => [x.userId, x.earned ?? 0])));
+      setSpentBy(Object.fromEntries(bs.map((x) => [x.userId, x.spent ?? 0])));
     }).catch(() => undefined);
     // A kid can only ever see their own earned awards (server enforces this
     // too) - skip the call rather than surface a 403 when browsing a sibling.
@@ -255,9 +257,16 @@ export default function ProfilePage({
   // this page (dollarEquivalent, not raw delta) - see PLANNING.md §17. Both
   // are no-ops (equal the raw sums exactly) unless the family has rescaled.
   const currentTokenValueUsd = family?.tokenValueUsd || 1;
-  const earnedInvariant = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  // The server's lifetime totals (balances()), NOT a sum over `ledger` above:
+  // that's only the newest 200 rows, so anyone with a longer history (252 for
+  // Jameson) silently lost their oldest earnings from this page - showing a
+  // lower level and "earned" than the leaderboard, which already used the
+  // server total. The ledger sum is only a fallback until balances() loads.
+  const ledgerEarned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
+  const ledgerSpent = ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0);
+  const earnedInvariant = earnedBy[targetId] ?? ledgerEarned;
   const earned = Math.round(earnedInvariant / currentTokenValueUsd);
-  const spent = Math.round(ledger.filter((l) => l.delta < 0).reduce((s, l) => s + Math.abs(l.dollarEquivalent), 0) / currentTokenValueUsd);
+  const spent = Math.round((spentBy[targetId] ?? ledgerSpent) / currentTokenValueUsd);
   const choresDone = ledger.filter((l) => l.type === 'CHORE').length;
 
   async function adjust(sign: 1 | -1) {
