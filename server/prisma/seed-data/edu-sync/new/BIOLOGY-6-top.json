@@ -1,0 +1,1063 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What word describes any animal that has a backbone?",
+  "choicesJson": null,
+  "answer": "vertebrate",
+  "acceptedAnswers": [
+   "vertebrates"
+  ],
+  "tags": [
+   "classification",
+   "vertebrates"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft you can catch axolotls in buckets. A real axolotl is an amphibian. Which of these animals is also an amphibian?",
+  "choicesJson": [
+   "Gecko",
+   "Newt",
+   "Alligator",
+   "Seahorse"
+  ],
+  "answer": "Newt",
+  "tags": [
+   "classification",
+   "amphibians",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A snail, a clam and an octopus all have soft bodies and no backbone. Which animal group do they belong to?",
+  "choicesJson": [
+   "Arthropods",
+   "Echinoderms",
+   "Mollusks",
+   "Reptiles"
+  ],
+  "answer": "Mollusks",
+  "tags": [
+   "classification",
+   "invertebrates"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals is NOT a fish, even though its name has \"fish\" in it?",
+  "choicesJson": [
+   "Swordfish",
+   "Catfish",
+   "Starfish",
+   "Goldfish"
+  ],
+  "answer": "Starfish",
+  "tags": [
+   "classification",
+   "invertebrates"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A lizard lies on a warm rock in the morning sun before it goes hunting. Why does it do this?",
+  "choicesJson": [
+   "It is drying off after a swim",
+   "It is making vitamin C from sunlight",
+   "It is warm-blooded and is trying to cool down",
+   "It is cold-blooded and needs outside heat to warm up"
+  ],
+  "answer": "It is cold-blooded and needs outside heat to warm up",
+  "tags": [
+   "animals",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A scientist sorts animals with a yes-or-no key. Question 1: Does it have feathers? Question 2: Can it fly? Which animal answers \"yes\" to question 1 and \"no\" to question 2?",
+  "choicesJson": [
+   "Penguin",
+   "Robin",
+   "Bat",
+   "Frog"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "classification",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Bigfoot is said to be a tall, hairy, ape-like creature. If it were a real animal that had hair and fed its babies milk, which group would it belong to?",
+  "choicesJson": [
+   "Birds",
+   "Amphibians",
+   "Reptiles",
+   "Mammals"
+  ],
+  "answer": "Mammals",
+  "tags": [
+   "classification",
+   "mammals",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An SCP-style file describes a specimen with four legs and moist skin with no scales. It lays jelly-covered eggs in a pond and breathes through gills as a baby. Which group does it belong to?",
+  "choicesJson": [
+   "Reptile",
+   "Bird",
+   "Mammal",
+   "Amphibian"
+  ],
+  "answer": "Amphibian",
+  "tags": [
+   "classification",
+   "amphibians",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The place where an animal finds food, water, shelter and space to live is called its what?",
+  "choicesJson": null,
+  "answer": "habitat",
+  "acceptedAnswers": [
+   "habitats"
+  ],
+  "tags": [
+   "habitats",
+   "ecosystems"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Coral reefs are packed with fish and other sea life. In which kind of ocean water do most coral reefs grow?",
+  "choicesJson": [
+   "Cold, deep, dark water",
+   "Icy polar water",
+   "Warm, shallow, sunlit water",
+   "Fresh water in rivers"
+  ],
+  "answer": "Warm, shallow, sunlit water",
+  "tags": [
+   "habitats",
+   "ocean"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which layer of a rainforest is the thick, leafy roof made by the tops of most of the trees?",
+  "choicesJson": [
+   "Canopy",
+   "Forest floor",
+   "Root layer",
+   "Understory"
+  ],
+  "answer": "Canopy",
+  "tags": [
+   "habitats",
+   "rainforest"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On a Roblox tycoon island you build a pond with fish, frogs and reeds, plus water, mud and sunshine. All of these living and nonliving parts interacting together make up a what?",
+  "choicesJson": [
+   "Ecosystem",
+   "Cell",
+   "Species",
+   "Fossil"
+  ],
+  "answer": "Ecosystem",
+  "tags": [
+   "ecosystems",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which pair has one living (biotic) part and one nonliving (abiotic) part of a pond ecosystem?",
+  "choicesJson": [
+   "Rock and sand",
+   "Fish and turtle",
+   "Algae and snail",
+   "Frog and water"
+  ],
+  "answer": "Frog and water",
+  "tags": [
+   "ecosystems",
+   "biotic-abiotic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which biome has long, cold winters and forests of evergreen trees such as spruce and pine?",
+  "choicesJson": [
+   "Coral reef",
+   "Taiga",
+   "Savanna",
+   "Desert"
+  ],
+  "answer": "Taiga",
+  "tags": [
+   "habitats",
+   "biomes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A woodpecker and an owl live in the same forest. The woodpecker eats insects from tree bark, and the owl hunts mice at night. Why can both live there without fighting over food?",
+  "choicesJson": [
+   "Owls never need to eat at all",
+   "They are the same species of bird",
+   "They each use different food and habits",
+   "Woodpeckers hunt only at night like owls"
+  ],
+  "answer": "They each use different food and habits",
+  "tags": [
+   "ecosystems",
+   "niches"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pond has 40 frogs. Each frog eats about 25 insects every week. About how many insects do all the frogs eat in one week?",
+  "choicesJson": null,
+  "answer": "1000",
+  "acceptedAnswers": [
+   "1,000",
+   "one thousand"
+  ],
+  "tags": [
+   "ecosystems",
+   "food-chains"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A wildfire burns a meadow, but the soil is still there. Over the next few years grass, then shrubs, then young trees grow back. What is this slow regrowth called?",
+  "choicesJson": [
+   "Primary succession",
+   "Extinction",
+   "Secondary succession",
+   "Migration"
+  ],
+  "answer": "Secondary succession",
+  "tags": [
+   "ecosystems",
+   "succession"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A caterpillar is the eating-and-growing stage of a butterfly. What is the scientific name for this stage?",
+  "choicesJson": null,
+  "answer": "larva",
+  "acceptedAnswers": [
+   "larvae"
+  ],
+  "tags": [
+   "life-cycles",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Pokemon, Caterpie turns into a hard-shelled Metapod before it becomes Butterfree. Which stage of a real butterfly's life is most like Metapod?",
+  "choicesJson": [
+   "Larva",
+   "Pupa",
+   "Egg",
+   "Adult"
+  ],
+  "answer": "Pupa",
+  "tags": [
+   "life-cycles",
+   "insects",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of human life comes between childhood and adulthood and includes puberty?",
+  "choicesJson": [
+   "Toddlerhood",
+   "Adolescence",
+   "Infancy",
+   "Old age"
+  ],
+  "answer": "Adolescence",
+  "tags": [
+   "life-cycles",
+   "human-body"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A female sea turtle buries about 100 eggs in the sand and leaves. Few of the hatchlings will survive to adulthood. Why does laying so many eggs help the species?",
+  "choicesJson": [
+   "Every hatchling is guaranteed to survive to adulthood",
+   "More eggs make the sand warmer for the adults",
+   "Some hatchlings may survive even if many are eaten",
+   "The extra eggs become food for the mother later"
+  ],
+  "answer": "Some hatchlings may survive even if many are eaten",
+  "tags": [
+   "life-cycles",
+   "reptiles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals can live for more than 100 years?",
+  "choicesJson": [
+   "Rabbit",
+   "Giant tortoise",
+   "Mouse",
+   "Housefly"
+  ],
+  "answer": "Giant tortoise",
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bean seedling is 4 cm tall on Monday, 6 cm on Tuesday and 8 cm on Wednesday. If it keeps growing at the same steady rate, how many cm tall will it be on Friday? (number only)",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "12 cm",
+   "twelve"
+  ],
+  "tags": [
+   "life-cycles",
+   "plants",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which job do red blood cells do in your body?",
+  "choicesJson": [
+   "They help blood form clots",
+   "They carry oxygen around the body",
+   "They make bile for digestion",
+   "They fight germs and infections"
+  ],
+  "answer": "They carry oxygen around the body",
+  "tags": [
+   "human-body",
+   "circulatory-system"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The colored part of your eye changes the size of the pupil to let in more or less light. What is it called?",
+  "choicesJson": [
+   "Retina",
+   "Cornea",
+   "Iris",
+   "Optic nerve"
+  ],
+  "answer": "Iris",
+  "tags": [
+   "human-body",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list shows the path food takes through your digestive system, in the correct order?",
+  "choicesJson": [
+   "Mouth, esophagus, stomach, small intestine",
+   "Mouth, small intestine, stomach, esophagus",
+   "Mouth, stomach, esophagus, small intestine",
+   "Esophagus, mouth, stomach, small intestine"
+  ],
+  "answer": "Mouth, esophagus, stomach, small intestine",
+  "tags": [
+   "human-body",
+   "digestive-system"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habit does the most to keep your heart muscle strong?",
+  "choicesJson": [
+   "Staying up late playing games every night",
+   "Skipping meals to save time",
+   "Regular exercise such as running",
+   "Drinking sugary soda all day long"
+  ],
+  "answer": "Regular exercise such as running",
+  "tags": [
+   "health",
+   "circulatory-system"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Mario Kart you choose when to press the button to use an item, so that is a decision. Which of these is a reflex, a fast response your body makes without thinking?",
+  "choicesJson": [
+   "Blinking when dust flies toward your eye",
+   "Choosing which kart to drive",
+   "Pressing the item button",
+   "Steering around a curve"
+  ],
+  "answer": "Blinking when dust flies toward your eye",
+  "tags": [
+   "human-body",
+   "nervous-system",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Milk, cheese and yogurt are rich in a mineral that helps build strong bones and teeth. What is the mineral?",
+  "choicesJson": null,
+  "answer": "calcium",
+  "tags": [
+   "health",
+   "nutrition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Your resting heart beats about 70 times each minute. About how many times does it beat in 10 minutes?",
+  "choicesJson": null,
+  "answer": "700",
+  "acceptedAnswers": [
+   "seven hundred"
+  ],
+  "tags": [
+   "human-body",
+   "circulatory-system",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Under a microscope, a student sees a cell with a stiff, rectangular outline and several green oval parts inside. Which kind of cell is it most likely to be?",
+  "choicesJson": [
+   "Red blood cell",
+   "Animal cell",
+   "Nerve cell",
+   "Plant cell"
+  ],
+  "answer": "Plant cell",
+  "tags": [
+   "cells",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An amoeba is a living thing made of just one cell. Which word describes it?",
+  "choicesJson": [
+   "Invertebrate",
+   "Multicellular",
+   "Herbivore",
+   "Unicellular"
+  ],
+  "answer": "Unicellular",
+  "tags": [
+   "cells",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Suppose that in a certain kind of hamster, brown fur (B) is dominant over white fur (b). A brown hamster with genes Bb has babies with a white hamster with genes bb. About what fraction of the babies will be white?",
+  "choicesJson": [
+   "1/4",
+   "1/2",
+   "0",
+   "3/4"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "genetics",
+   "punnett-squares"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Most human body cells have 46 chromosomes. These come in matching pairs. How many pairs is that?",
+  "choicesJson": null,
+  "answer": "23",
+  "acceptedAnswers": [
+   "twenty-three",
+   "twenty three",
+   "23 pairs"
+  ],
+  "tags": [
+   "genetics",
+   "chromosomes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft you breed two animals to get a baby. In real life, people who choose which animals or plants to breed so that useful traits show up in the offspring are doing what?",
+  "choicesJson": [
+   "Migration",
+   "Hibernation",
+   "Selective breeding",
+   "Photosynthesis"
+  ],
+  "answer": "Selective breeding",
+  "tags": [
+   "genetics",
+   "traits",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these does a healthy plant NOT need in order to grow?",
+  "choicesJson": [
+   "Sunlight",
+   "Water",
+   "Fresh meat",
+   "Carbon dioxide"
+  ],
+  "answer": "Fresh meat",
+  "tags": [
+   "plants",
+   "needs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the tiny baby plant inside a seed called?",
+  "choicesJson": [
+   "Pistil",
+   "Embryo",
+   "Spore",
+   "Bud"
+  ],
+  "answer": "Embryo",
+  "tags": [
+   "plants",
+   "seeds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Grass has a thick web of many thin roots near the surface. How does this help on a rainy hillside?",
+  "choicesJson": [
+   "It lets the grass breathe underwater",
+   "It makes the grass grow taller than trees",
+   "It holds the soil in place",
+   "It stores sugar in the soil for winter"
+  ],
+  "answer": "It holds the soil in place",
+  "tags": [
+   "plants",
+   "roots"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pine trees keep their needle-shaped leaves all winter. A waxy coating on each needle helps the tree by doing what?",
+  "choicesJson": [
+   "Reducing water loss",
+   "Attracting bees",
+   "Making the needles softer",
+   "Absorbing snow for water"
+  ],
+  "answer": "Reducing water loss",
+  "tags": [
+   "plants",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Plants make sugar by photosynthesis. Which process do plant cells use to release the energy stored in that sugar?",
+  "choicesJson": [
+   "Pollination",
+   "Cellular respiration",
+   "Germination",
+   "Transpiration"
+  ],
+  "answer": "Cellular respiration",
+  "tags": [
+   "plants",
+   "energy"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Apples and berries have sweet, juicy flesh around their seeds. How does this help the plant reproduce?",
+  "choicesJson": [
+   "It stops the seeds from ever sprouting",
+   "It makes the roots grow faster",
+   "It keeps pollen from escaping",
+   "Animals eat it and spread the seeds"
+  ],
+  "answer": "Animals eat it and spread the seeds",
+  "tags": [
+   "plants",
+   "seeds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Each year, a tree adds one new ring to its trunk. A cut stump has 23 rings. About how old was the tree?",
+  "choicesJson": [
+   "23 years",
+   "46 years",
+   "12 years",
+   "230 years"
+  ],
+  "answer": "23 years",
+  "tags": [
+   "plants",
+   "trees"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a Roblox farming game, your crops droop when you forget to water them. A real plant wilts in a similar way. Why?",
+  "choicesJson": [
+   "Its leaves have too much chlorophyll",
+   "Its cells lose water, so the stem and leaves go limp",
+   "Its roots have grown into its leaves",
+   "It has soaked up too much sunlight"
+  ],
+  "answer": "Its cells lose water, so the stem and leaves go limp",
+  "tags": [
+   "plants",
+   "water",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Minecraft has cute axolotls, and real axolotls can regrow lost legs and tails. What is this ability to regrow body parts called? (starts with R)",
+  "choicesJson": null,
+  "answer": "regeneration",
+  "acceptedAnswers": [
+   "regrowth"
+  ],
+  "tags": [
+   "animals",
+   "adaptations",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mia gives one bean plant water every day and gives an identical bean plant no water. Both sit in the same sunny window. What is she testing?",
+  "choicesJson": [
+   "Whether sunlight affects plant growth",
+   "Whether soil color affects plant growth",
+   "Whether water affects plant growth",
+   "Whether plants can hear music"
+  ],
+  "answer": "Whether water affects plant growth",
+  "tags": [
+   "plants",
+   "scientific method"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the main job of a flower's bright, sweet-smelling petals?",
+  "choicesJson": [
+   "To make sugar for the plant",
+   "To soak up water from the soil",
+   "To protect the roots",
+   "To attract bees and butterflies"
+  ],
+  "answer": "To attract bees and butterflies",
+  "tags": [
+   "plants",
+   "flowers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dracula legends say he can turn into a bat. Real fruit bats eat fruit at night and drop seeds as they fly. How does this help the plants?",
+  "choicesJson": [
+   "It spreads seeds to new places",
+   "It makes the fruit taste sour",
+   "It gives the plants pollen",
+   "It helps the plants make chlorophyll"
+  ],
+  "answer": "It spreads seeds to new places",
+  "tags": [
+   "plants",
+   "seeds",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Plants are not the only living things that do photosynthesis. Which of these also makes its own food using sunlight?",
+  "choicesJson": [
+   "Algae",
+   "Mushrooms",
+   "Earthworms",
+   "Tadpoles"
+  ],
+  "answer": "Algae",
+  "tags": [
+   "photosynthesis",
+   "algae"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Soft down feathers cover a baby duck. What is their main job?",
+  "choicesJson": [
+   "To help it glide through the air",
+   "To trap heat and keep it warm",
+   "To help it see in the dark",
+   "To hold its bones together"
+  ],
+  "answer": "To trap heat and keep it warm",
+  "tags": [
+   "animals",
+   "body coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A deer has wide, flat back teeth, while a tiger has sharp, pointed teeth. What are the deer's flat teeth best for?",
+  "choicesJson": [
+   "Tearing raw meat",
+   "Catching fish",
+   "Grinding tough plants",
+   "Stabbing prey"
+  ],
+  "answer": "Grinding tough plants",
+  "tags": [
+   "animals",
+   "diet",
+   "teeth"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Hawks and owls have eyes on the front of their faces instead of on the sides. How does this help a hunter?",
+  "choicesJson": [
+   "It lets them see behind themselves",
+   "It protects their eyes from sunlight",
+   "It helps them hear better",
+   "It helps them judge distance to prey"
+  ],
+  "answer": "It helps them judge distance to prey",
+  "tags": [
+   "animals",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Shine a flashlight at a cat in a dark yard and its eyes seem to glow. Why?",
+  "choicesJson": [
+   "Cats make light in their eyes like fireflies",
+   "A shiny layer in the eye reflects light",
+   "Cat eyes are made of glass-like crystals",
+   "The cat's brain gives off heat"
+  ],
+  "answer": "A shiny layer in the eye reflects light",
+  "tags": [
+   "animals",
+   "senses"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Birds lose their old, worn feathers and grow new ones on a regular schedule. What is this called?",
+  "choicesJson": null,
+  "answer": "molting",
+  "acceptedAnswers": [
+   "moulting",
+   "molt",
+   "moult"
+  ],
+  "tags": [
+   "animals",
+   "body coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Animal Crossing you spot fish shadows under the water. Real fish sense their surroundings with a row of sensors along their sides, called the lateral line. What does it detect?",
+  "choicesJson": [
+   "Vibrations and movement in the water",
+   "Colors of coral",
+   "Sunlight above the surface",
+   "The taste of food"
+  ],
+  "answer": "Vibrations and movement in the water",
+  "tags": [
+   "animals",
+   "senses",
+   "theme:animalcrossing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A duck spreads oil from a gland near its tail over its feathers. What does the oil do?",
+  "choicesJson": [
+   "It helps the duck sink faster",
+   "It helps the duck see underwater",
+   "It helps keep the feathers waterproof",
+   "It lets the duck smell food"
+  ],
+  "answer": "It helps keep the feathers waterproof",
+  "tags": [
+   "animals",
+   "body coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A camel's hump is not filled with water. What does it mainly store?",
+  "choicesJson": [
+   "Sand",
+   "Air",
+   "Milk",
+   "Fat"
+  ],
+  "answer": "Fat",
+  "tags": [
+   "animals",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When a threatened octopus squirts a cloud of dark ink, what does the ink do?",
+  "choicesJson": [
+   "It confuses the predator so the octopus can escape",
+   "It helps the octopus find food",
+   "It lets the octopus breathe underwater",
+   "It warms the water around the octopus"
+  ],
+  "answer": "It confuses the predator so the octopus can escape",
+  "tags": [
+   "animals",
+   "adaptations",
+   "defense"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ants and butterflies use their antennae to sense the world. Which two senses do antennae mainly help with?",
+  "choicesJson": [
+   "Chewing and biting",
+   "Smell and touch",
+   "Walking and jumping",
+   "Breathing and digesting"
+  ],
+  "answer": "Smell and touch",
+  "tags": [
+   "animals",
+   "senses",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A baby flamingo is gray, but adult flamingos turn pink. Where does the pink color come from?",
+  "choicesJson": [
+   "A special pink paint made in their wings",
+   "Sunlight slowly tanning their feathers",
+   "Pigments in the shrimp and algae they eat",
+   "Drinking pink salt water in the lagoon"
+  ],
+  "answer": "Pigments in the shrimp and algae they eat",
+  "tags": [
+   "animals",
+   "diet",
+   "body coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a pond, water fleas eat algae, minnows eat water fleas, and herons eat minnows. Which list shows the food chain in the correct order, starting with the producer?",
+  "choicesJson": [
+   "Heron -> minnow -> water flea -> algae",
+   "Algae -> water flea -> minnow -> heron",
+   "Water flea -> algae -> heron -> minnow",
+   "Minnow -> heron -> algae -> water flea"
+  ],
+  "answer": "Algae -> water flea -> minnow -> heron",
+  "tags": [
+   "food chains",
+   "ecology"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A lion is a predator that hunts zebras. What is the word for the animal being hunted?",
+  "choicesJson": null,
+  "answer": "prey",
+  "tags": [
+   "food chains",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Imagine a forest where all the decomposers vanished. What would most likely happen over time?",
+  "choicesJson": [
+   "The soil would become richer very quickly",
+   "Plants would grow faster because of the extra dead material",
+   "Herbivores would disappear at once because they eat decomposers",
+   "Dead matter would pile up and the soil would lose nutrients"
+  ],
+  "answer": "Dead matter would pile up and the soil would lose nutrients",
+  "tags": [
+   "food chains",
+   "decomposers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Earthworms and dung beetles feed on dead plant material and animal waste. What are animals like this called?",
+  "choicesJson": [
+   "Apex predators",
+   "Producers",
+   "Detritivores",
+   "Pollinators"
+  ],
+  "answer": "Detritivores",
+  "tags": [
+   "food chains",
+   "diet"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A clam sits on the seafloor and strains tiny bits of food out of the water. What kind of feeder is it?",
+  "choicesJson": [
+   "Scavenger",
+   "Filter feeder",
+   "Ambush predator",
+   "Grazer"
+  ],
+  "answer": "Filter feeder",
+  "tags": [
+   "diet",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Creepers in Minecraft hiss and explode when you get close. A real bombardier beetle has a surprise defense of its own. What does it do when attacked?",
+  "choicesJson": [
+   "It sprays a hot, stinging chemical from its rear",
+   "It freezes in place until it gets dark",
+   "It grows a hard shell in a few seconds",
+   "It calls other beetles with a loud roar"
+  ],
+  "answer": "It sprays a hot, stinging chemical from its rear",
+  "tags": [
+   "adaptations",
+   "defense",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "SCP-173 is a fictional statue creature said to freeze whenever someone is watching it. Some real animals also freeze or go limp when frightened. Which animal is famous for playing dead?",
+  "choicesJson": [
+   "Eagle",
+   "Dolphin",
+   "Virginia opossum",
+   "Zebra"
+  ],
+  "answer": "Virginia opossum",
+  "tags": [
+   "adaptations",
+   "behavior",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many people think chameleons change color only to hide. Scientists have found another important reason. What is it?",
+  "choicesJson": [
+   "To grow bigger scales",
+   "To send signals to other chameleons",
+   "To digest food faster",
+   "To breathe underwater"
+  ],
+  "answer": "To send signals to other chameleons",
+  "tags": [
+   "adaptations",
+   "reptiles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many female sea turtles swim long distances and then return to nest. Where do many of them return to lay their eggs?",
+  "choicesJson": [
+   "The beach where they hatched",
+   "A cold river",
+   "A coral reef",
+   "The deep ocean floor"
+  ],
+  "answer": "The beach where they hatched",
+  "tags": [
+   "migration",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A squirrel buries acorns in the fall and digs them up in winter. What is this food-saving behavior called?",
+  "choicesJson": [
+   "Molting",
+   "Migrating",
+   "Camouflage",
+   "Caching"
+  ],
+  "answer": "Caching",
+  "tags": [
+   "adaptations",
+   "behavior"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A young spider spins a web the very first time without anyone teaching it. What is an inborn behavior like this called?",
+  "choicesJson": null,
+  "answer": "instinct",
+  "acceptedAnswers": [
+   "an instinct",
+   "instincts",
+   "innate"
+  ],
+  "tags": [
+   "adaptations",
+   "behavior"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the Antarctic winter, emperor penguins huddle together and take turns moving from the cold outer edge to the warm middle. What does this behavior do?",
+  "choicesJson": [
+   "It helps them find fish",
+   "It helps them keep warm",
+   "It helps them lay more eggs",
+   "It helps them hide from seals"
+  ],
+  "answer": "It helps them keep warm",
+  "tags": [
+   "adaptations",
+   "behavior"
+  ]
+ }
+]

@@ -1,0 +1,469 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of place is this?",
+  "choicesJson": [
+   "Ocean",
+   "Desert",
+   "Forest"
+  ],
+  "answer": "Desert",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-desert-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of place is this?",
+  "choicesJson": [
+   "Desert",
+   "Coral reef",
+   "Mountain"
+  ],
+  "answer": "Coral reef",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-reef-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a coral reef?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-reef-b.webp",
+    "learning/img/habitats-swamp-a.webp",
+    "learning/img/habitats-savanna-b.webp",
+    "learning/img/habitats-tundra-c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a mountain?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-mountain-b.webp",
+    "learning/img/habitats-deciduous-a.webp",
+    "learning/img/habitats-reef-b.webp",
+    "learning/img/habitats-pond-a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this insect?",
+  "choicesJson": [
+   "Bee",
+   "Ladybug",
+   "Butterfly"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-adult.webp",
+   "alt": "An adult orange and black monarch butterfly resting on a purple coneflower."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is this?",
+  "choicesJson": [
+   "Owl",
+   "Duck",
+   "Chicken"
+  ],
+  "answer": "Chicken",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-hen.webp",
+   "alt": "The head of a brown and white hen with a red comb."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "These fuzzy babies came out of eggs. What are they?",
+  "choicesJson": [
+   "Chicks",
+   "Puppies",
+   "Kittens"
+  ],
+  "answer": "Chicks",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-chick.webp",
+   "alt": "Several fluffy brown baby chicks in a red basket."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this red bug with black spots?",
+  "choicesJson": [
+   "Ant",
+   "Ladybug",
+   "Bee"
+  ],
+  "answer": "Ladybug",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-adult.webp",
+   "alt": "A red seven-spot ladybug with black spots resting on a leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A plant can start from one of these. What are they?",
+  "choicesJson": [
+   "Apples",
+   "Seeds",
+   "Leaves"
+  ],
+  "answer": "Seeds",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-plant-seed.webp",
+   "alt": "A pile of black sunflower seeds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is growing out of the soil?",
+  "choicesJson": [
+   "A rock",
+   "A small plant",
+   "A worm"
+  ],
+  "answer": "A small plant",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-plant-seedling.webp",
+   "alt": "A young sunflower seedling with two green leaves growing from dark soil."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this animal called?",
+  "choicesJson": [
+   "Caterpillar",
+   "Snake",
+   "Fish"
+  ],
+  "answer": "Caterpillar",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-caterpillar.webp",
+   "alt": "A yellow, black and white striped monarch caterpillar on a milkweed leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal starts its life as an egg?",
+  "choicesJson": [
+   "Dog",
+   "Cat",
+   "Butterfly"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which comes first in a chicken's life?",
+  "choicesJson": [
+   "Hen",
+   "Chick",
+   "Egg"
+  ],
+  "answer": "Egg",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ]
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a butterfly?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-hen.webp",
+    "learning/img/life-cycles-ladybug-adult.webp",
+    "learning/img/life-cycles-monarch-adult.webp",
+    "learning/img/life-cycles-frog-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different animals."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a frog?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-ladybug-adult.webp",
+    "learning/img/life-cycles-hen.webp",
+    "learning/img/life-cycles-frog-adult.webp",
+    "learning/img/life-cycles-monarch-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different animals."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a ladybug?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-chick.webp",
+    "learning/img/life-cycles-plant-flower.webp",
+    "learning/img/life-cycles-tadpole.webp",
+    "learning/img/life-cycles-ladybug-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different living things."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of flower is this?",
+  "choicesJson": [
+   "Tulip",
+   "Rose",
+   "Sunflower"
+  ],
+  "answer": "Sunflower",
+  "acceptedAnswers": [],
+  "tags": [
+   "flowers",
+   "identify"
+  ],
+  "media": {
+   "image": "learning/img/plants-sunflower.webp",
+   "alt": "A big yellow flower with a brown middle."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a flower?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "flowers",
+   "plant parts"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-pine-cone.webp",
+    "learning/img/plants-tulip-flower.webp",
+    "learning/img/plants-acorn.webp",
+    "learning/img/plants-moss.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a leaf?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "plant parts"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-leaf.webp",
+    "learning/img/plants-tulip-flower.webp",
+    "learning/img/plants-acorn.webp",
+    "learning/img/plants-tree-roots.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows seeds?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "seeds",
+   "plant parts"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-lettuce.webp",
+    "learning/img/plants-bamboo-stems.webp",
+    "learning/img/plants-sunflower-seeds.webp",
+    "learning/img/plants-moss.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do seeds need to start growing?",
+  "choicesJson": [
+   "Only ice and snow",
+   "Only loud music",
+   "Water and warmth"
+  ],
+  "answer": "Water and warmth",
+  "acceptedAnswers": [],
+  "tags": [
+   "seeds",
+   "growing"
+  ],
+  "media": {
+   "image": "learning/img/plants-pea-sprouts.webp",
+   "alt": "Young green pea sprouts push up from dark soil beside the pale seeds they grew from."
+  }
+ }
+]

@@ -1,0 +1,291 @@
+[
+ {
+  "id": "cmu0xa7pj007o12z231909v3e",
+  "action": "deactivate",
+  "reason": "Near-duplicate of other tallest-ordering rows (same format, only names differ)"
+ },
+ {
+  "id": "cmu0xa7pk007v12z23xrxlvlq",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (oldest)"
+ },
+ {
+  "id": "cmu0xa7pk007z12z2gtwh0ac0",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (oldest)"
+ },
+ {
+  "id": "cmu0xa7pk008112z2yfml9pcu",
+  "action": "deactivate",
+  "reason": "Ungrammatical \"is scored higher than\" and near-duplicate ordering row"
+ },
+ {
+  "id": "cmu0xa7pk008212z2wz8736qu",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (tallest)"
+ },
+ {
+  "id": "cmu0xa7pk008312z2m0jf6dcg",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (youngest)"
+ },
+ {
+  "id": "cmu0xa7pk008512z2igd9awtl",
+  "action": "deactivate",
+  "reason": "Ungrammatical \"is scored higher than\" and near-duplicate ordering row"
+ },
+ {
+  "id": "cmu0xa7pk008c12z2glf11w5u",
+  "action": "deactivate",
+  "reason": "Ungrammatical \"is scored higher than\" and near-duplicate ordering row"
+ },
+ {
+  "id": "cmu0xa7pk008d12z292e09tqt",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (tallest)"
+ },
+ {
+  "id": "cmu0xa7pk008l12z27hgak9yd",
+  "action": "deactivate",
+  "reason": "Ungrammatical \"is scored higher than\" and near-duplicate ordering row"
+ },
+ {
+  "id": "cmu0xa7pk008n12z2cyat5gh8",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (oldest)"
+ },
+ {
+  "id": "cmu0xa7pk008o12z23yltbxfl",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (youngest)"
+ },
+ {
+  "id": "cmu0xa7pl008y12z2pwmk6u44",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (tallest)"
+ },
+ {
+  "id": "cmu0xa7pl009312z2y7mwhwto",
+  "action": "deactivate",
+  "reason": "Near-duplicate ordering row (youngest)"
+ },
+ {
+  "id": "cmu0xa7pj006r12z2fnyggdig",
+  "action": "deactivate",
+  "reason": "Near-duplicate of \"Author is to Book as Painter is to Painting\" (creator:creation analogy)"
+ },
+ {
+  "id": "cmu0xa7pj006y12z24dts8cdp",
+  "action": "deactivate",
+  "reason": "Near-duplicate trivial syllogism (multiples of 2), always Yes"
+ },
+ {
+  "id": "cmu0xa7pl009112z2dp3q2xdh",
+  "action": "deactivate",
+  "reason": "Near-duplicate trivial syllogism (multiples of 2), always Yes"
+ },
+ {
+  "id": "cmu0xa7pj007k12z2w3t8f1vk",
+  "action": "deactivate",
+  "reason": "Near-duplicate trivial syllogism (multiples of 5), always Yes"
+ },
+ {
+  "id": "cmu0xa7pk007u12z2k8h565l8",
+  "action": "deactivate",
+  "reason": "Near-duplicate trivial syllogism (multiples of 7), always Yes"
+ },
+ {
+  "id": "cmu0xa7pj006z12z26hrwtnk5",
+  "action": "deactivate",
+  "reason": "Ambiguous (49 is the only odd number, 82 the only non-square) and near-duplicate square odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pj007112z24pqxt75z",
+  "action": "deactivate",
+  "reason": "Ambiguous (9 is the only odd number, 26 the only non-square) and near-duplicate square odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pj007m12z2rvvanc0u",
+  "action": "deactivate",
+  "reason": "Ambiguous (36 is the only even number, 65 the only non-square) and near-duplicate square odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pj007312z2euant6vc",
+  "action": "deactivate",
+  "reason": "Sequence answer already in prompt; overlaps with other square-number sequences"
+ },
+ {
+  "id": "cmu0xa7pj007p12z2h3teutlg",
+  "action": "deactivate",
+  "reason": "Sequence answer already in prompt; overlaps with other square-number sequences"
+ },
+ {
+  "id": "cmu0xa7pj007c12z2k281smxy",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 3,9,27,81 sequence (x3), same answer"
+ },
+ {
+  "id": "cmu0xa7pk008j12z2jze1x61s",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 3,9,27,81 sequence (same sequence one term longer)"
+ },
+ {
+  "id": "cmu0xa7pk007y12z2rbd3lg4w",
+  "action": "deactivate",
+  "reason": "Ambiguous (4 is only even, but 1 also not prime/consecutive) and duplicate parity odd-one-out of tiny numbers"
+ },
+ {
+  "id": "cmu0xa7pk008912z23am2d9gr",
+  "action": "deactivate",
+  "reason": "Near-duplicate of \"5, 7, 8, 3\" parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pk008i12z2tw6nfl40",
+  "action": "deactivate",
+  "reason": "Same number set as \"10, 9, 13, 11\" odd-one-out (exact duplicate set)"
+ },
+ {
+  "id": "cmu0xa7pk008g12z229wkz6w5",
+  "action": "deactivate",
+  "reason": "Same number set as \"20, 21, 17, 19\" odd-one-out (exact duplicate set)"
+ },
+ {
+  "id": "cmu0xa7pl009012z27if1qw6l",
+  "action": "deactivate",
+  "reason": "Same number set as \"20, 21, 17, 19\" odd-one-out (exact duplicate set)"
+ },
+ {
+  "id": "cmu0xa7pl008x12z2uls4acuc",
+  "action": "deactivate",
+  "reason": "Near-duplicate parity odd-one-out (one odd among evens)"
+ },
+ {
+  "id": "cmu0xa7pk008t12z2v85q36k9",
+  "action": "deactivate",
+  "reason": "Near-duplicate parity odd-one-out (one odd among evens)"
+ },
+ {
+  "id": "cmu0xa7pl008z12z2ib8yxbl0",
+  "action": "deactivate",
+  "reason": "Ambiguous: 2 is the only even number and 9 the only non-prime; primes too advanced for grade 3"
+ },
+ {
+  "id": "cmu0xa7pk008e12z2u38btl14",
+  "action": "deactivate",
+  "reason": "Near-duplicate of tools odd-one-out (Drill, Hammer, Shirt, Screwdriver); glove can also be gear"
+ },
+ {
+  "id": "cmu0xa7pl008u12z2wqk8hycq",
+  "action": "deactivate",
+  "reason": "Near-duplicate furniture odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pl008w12z28mbf38dz",
+  "action": "deactivate",
+  "reason": "Near-duplicate furniture odd-one-out"
+ },
+ {
+  "id": "cmu0xa7pj006l12z2fdpr5r17",
+  "action": "fix",
+  "reason": "Ambiguous analogy: needle acts on cloth as well as carrying thread. Use tool:thing it works on with one clear answer",
+  "prompt": "Hammer is to Nail as Screwdriver is to __?",
+  "choicesJson": [
+   "Saw",
+   "Screw",
+   "Toolbox",
+   "Paint"
+  ],
+  "answer": "Screw"
+ },
+ {
+  "id": "cmu0xa7pj006w12z23k60aclz",
+  "action": "fix",
+  "reason": "Branch is also a valid whole for a leaf; replace distractor so Tree is the only answer",
+  "choicesJson": [
+   "Tree",
+   "Root",
+   "Rain",
+   "Seed"
+  ],
+  "answer": "Tree"
+ },
+ {
+  "id": "cmu0xa7pi006d12z2o24mmu3s",
+  "action": "fix",
+  "reason": "Add number word as accepted answer",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7pj006t12z20q3oqp7r",
+  "action": "fix",
+  "reason": "Awkward \"Four friends:\" colon opener; reword as clear sentences",
+  "prompt": "Four friends took a quiz. Nina scored higher than Omar. Omar scored higher than Pia. Pia scored higher than Quinn. Who scored the lowest?"
+ },
+ {
+  "id": "cmu0xa7pj007e12z2x4vlxwlu",
+  "action": "fix",
+  "reason": "Sequence answer already in prompt; true next term is 49",
+  "choicesJson": [
+   "29",
+   "36",
+   "49",
+   "42"
+  ],
+  "answer": "49"
+ },
+ {
+  "id": "cmu0xa7pk008m12z2otsi3835",
+  "action": "fix",
+  "reason": "Sequence answer already in prompt; true next term is 121",
+  "choicesJson": [
+   "112",
+   "110",
+   "121",
+   "102"
+  ],
+  "answer": "121"
+ },
+ {
+  "id": "cmu0xa7pj007a12z2y7p6n2h1",
+  "action": "fix",
+  "reason": "Ungrammatical \"Opal is scored higher\"; reword",
+  "prompt": "Opal scored higher than Sana. Sana scored higher than Mia. Who scored the highest?"
+ },
+ {
+  "id": "cmu0xa7pj007b12z2j2qfzad9",
+  "action": "fix",
+  "reason": "Ambiguous: Sunday, Saturday, Scared all start with S so Monday could be the odd one; use a clear non-day",
+  "prompt": "Which one doesn't belong: Friday, Monday, Banana, Sunday",
+  "choicesJson": [
+   "Friday",
+   "Monday",
+   "Banana",
+   "Sunday"
+  ],
+  "answer": "Banana"
+ },
+ {
+  "id": "cmu0xa7pk008f12z2ftlvpk7t",
+  "action": "fix",
+  "reason": "Syllogism always answered Yes; make it a real reasoning check with answer No (wrong-direction inference)",
+  "prompt": "Pretend every creeper is green. You see a green mob. Is it definitely a creeper?",
+  "choicesJson": [
+   "Yes",
+   "No"
+  ],
+  "answer": "No"
+ },
+ {
+  "id": "cmu0xa7pk008s12z2i261osye",
+  "action": "fix",
+  "reason": "Trivial tautology always Yes; replace with a contrapositive style question with answer No",
+  "prompt": "All multiples of 6 are even. The number 15 is not even. Is 15 a multiple of 6?",
+  "choicesJson": [
+   "Yes",
+   "No"
+  ],
+  "answer": "No"
+ }
+]

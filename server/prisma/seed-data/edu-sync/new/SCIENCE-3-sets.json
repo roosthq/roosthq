@@ -1,0 +1,1085 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This shiny black rock breaks into sharp, curved edges and looks like glass. What is it?",
+  "choicesJson": [
+   "Sandstone",
+   "Granite",
+   "Obsidian",
+   "Marble"
+  ],
+  "answer": "Obsidian",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "minerals"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-obsidian.webp",
+   "alt": "A shiny, black, glassy chunk of obsidian."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This gray rock has so many tiny holes that it feels very light. What is it?",
+  "choicesJson": [
+   "Granite",
+   "Quartz",
+   "Marble",
+   "Pumice"
+  ],
+  "answer": "Pumice",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-pumice.webp",
+   "alt": "A light gray pumice stone full of tiny holes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the speckled crystals in this rock. Which rock is it?",
+  "choicesJson": [
+   "Obsidian",
+   "Granite",
+   "Coal",
+   "Pumice"
+  ],
+  "answer": "Granite",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-granite.webp",
+   "alt": "A close-up of a pink, white and black speckled piece of granite with visible crystals."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This black rock is dug out of mines and burned to make electricity. What is it?",
+  "choicesJson": [
+   "Obsidian",
+   "Coal",
+   "Quartz",
+   "Basalt"
+  ],
+  "answer": "Coal",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "energy"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-coal.webp",
+   "alt": "A shiny black lump of coal with rough, layered surfaces."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This huge mass of ice moves very slowly over land. What is it called?",
+  "choicesJson": [
+   "Iceberg",
+   "Glacier",
+   "Snowman",
+   "Waterfall"
+  ],
+  "answer": "Glacier",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "ice"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-glacier.webp",
+   "alt": "A blue-white wall of glacier ice meeting the sea in Alaska."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A river slowly carved this deep valley with steep rock walls. What kind of landform is it?",
+  "choicesJson": [
+   "Island",
+   "Canyon",
+   "Delta",
+   "Sand dune"
+  ],
+  "answer": "Canyon",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "erosion"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-canyon.webp",
+   "alt": "The Grand Canyon with layered red rock walls and clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Teton peaks in the distance form a long chain of high, rocky land. What kind of landform are they?",
+  "choicesJson": [
+   "Mountain range",
+   "Plain",
+   "Delta",
+   "Island"
+  ],
+  "answer": "Mountain range",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-mountains.webp",
+   "alt": "A snowy, jagged mountain range rising behind a green valley."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This landform shoots hot water and steam high into the air. What is it called?",
+  "choicesJson": [
+   "Glacier",
+   "Waterfall",
+   "Delta",
+   "Geyser"
+  ],
+  "answer": "Geyser",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "heat"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-geyser.webp",
+   "alt": "A geyser shooting a tall column of hot water and steam into the sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A glacier begins when snow piles up for many years. What does the heavy snow get squeezed into?",
+  "choicesJson": [
+   "Mud",
+   "Ice",
+   "Rock",
+   "Sand"
+  ],
+  "answer": "Ice",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "ice"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-glacier.webp",
+   "alt": "A blue-white wall of glacier ice meeting the sea in Alaska."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What mostly builds and moves sand dunes?",
+  "choicesJson": [
+   "Wind",
+   "Earthquakes",
+   "Glaciers",
+   "Lava"
+  ],
+  "answer": "Wind",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "wind"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-dunes.webp",
+   "alt": "Rolling orange sand dunes with tufts of grass."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows pumice, a rock so full of air holes that it can float?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-coal.webp",
+    "learning/img/rocks-landforms-pumice.webp",
+    "learning/img/rocks-landforms-pyrite.webp",
+    "learning/img/rocks-landforms-granite.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows volcanic glass?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-obsidian.webp",
+    "learning/img/rocks-landforms-granite.webp",
+    "learning/img/rocks-landforms-conglomerate.webp",
+    "learning/img/rocks-landforms-sandstone.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the shiny golden mineral called pyrite, or \"fool's gold\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "minerals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-granite.webp",
+    "learning/img/rocks-landforms-pyrite.webp",
+    "learning/img/rocks-landforms-obsidian.webp",
+    "learning/img/rocks-landforms-quartz.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an island?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-canyon.webp",
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-geyser.webp",
+    "learning/img/rocks-landforms-island.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows hot, melted rock flowing out of a volcano?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "volcanoes"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-waterfall.webp",
+    "learning/img/rocks-landforms-lava.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the inside of a cave?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "caves"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-cave.webp",
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-delta.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a geyser?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-lava.webp",
+    "learning/img/rocks-landforms-geyser.webp",
+    "learning/img/rocks-landforms-waterfall.webp",
+    "learning/img/rocks-landforms-glacier.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Earth",
+   "Uranus",
+   "Neptune",
+   "Saturn"
+  ],
+  "answer": "Neptune",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-neptune.webp",
+   "alt": "A photo of a deep blue planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Uranus",
+   "Mercury",
+   "Neptune",
+   "Venus"
+  ],
+  "answer": "Uranus",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-uranus.webp",
+   "alt": "A photo of a pale blue-green planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What covers most of Earth's surface, as you can see in this photo?",
+  "choicesJson": [
+   "Sand",
+   "Water",
+   "Forest",
+   "Ice"
+  ],
+  "answer": "Water",
+  "tags": [
+   "space",
+   "earth"
+  ],
+  "media": {
+   "image": "learning/img/space-earth.webp",
+   "alt": "A photo of a blue and white planet in black space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The white swirls in this photo of Earth are mostly what?",
+  "choicesJson": [
+   "Smoke from volcanoes",
+   "Snowstorms only",
+   "Clouds",
+   "Spaceships"
+  ],
+  "answer": "Clouds",
+  "tags": [
+   "space",
+   "earth"
+  ],
+  "media": {
+   "image": "learning/img/space-earth.webp",
+   "alt": "A photo of a blue and white planet in black space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What makes the Moon shine in the night sky?",
+  "choicesJson": [
+   "It makes its own light",
+   "It reflects sunlight",
+   "It glows from lava",
+   "It is lit by Earth's cities"
+  ],
+  "answer": "It reflects sunlight",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-moon.webp",
+   "alt": "A round gray space object with dark patches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do the big flat panels on the space station do?",
+  "choicesJson": [
+   "Make electricity from sunlight",
+   "Catch rain water",
+   "Keep astronauts cool with fans",
+   "Help it fly like wings"
+  ],
+  "answer": "Make electricity from sunlight",
+  "tags": [
+   "space",
+   "iss"
+  ],
+  "media": {
+   "image": "learning/img/space-iss.webp",
+   "alt": "A large spacecraft with big solar panels."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the head of a comet mostly made of?",
+  "choicesJson": [
+   "Hot lava",
+   "Liquid water",
+   "Pure gold",
+   "Ice, dust, and rock"
+  ],
+  "answer": "Ice, dust, and rock",
+  "tags": [
+   "space",
+   "comets"
+  ],
+  "media": {
+   "image": "learning/img/space-comet.webp",
+   "alt": "A glowing object with a long tail in a starry sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Our solar system is inside a galaxy. What is its name?",
+  "choicesJson": [
+   "The Milky Way",
+   "Orion's Belt",
+   "The Big Dipper",
+   "The Sombrero"
+  ],
+  "answer": "The Milky Way",
+  "tags": [
+   "space",
+   "galaxies"
+  ],
+  "media": {
+   "image": "learning/img/space-galaxy.webp",
+   "alt": "A huge swirl of stars in space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why can't we see the ground on the planet in this photo?",
+  "choicesJson": [
+   "It is hiding behind the Moon",
+   "Thick clouds cover it",
+   "It has no surface at all",
+   "It is too small to see"
+  ],
+  "answer": "Thick clouds cover it",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-venus.webp",
+   "alt": "A photo of a planet covered in thick pale clouds."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The planet in this photo is the farthest planet from the Sun. How many planets are closer to the Sun than it is?",
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-neptune.webp",
+   "alt": "A photo of a deep blue planet."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an astronaut on the Moon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-moon.webp",
+    "learning/img/space-astronaut-moon.webp",
+    "learning/img/space-iss.webp",
+    "learning/img/space-earth.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a galaxy?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "space",
+   "galaxies"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-moon.webp",
+    "learning/img/space-comet.webp",
+    "learning/img/space-sun.webp",
+    "learning/img/space-galaxy.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the planet with big, bright rings?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-venus.webp",
+    "learning/img/space-saturn.webp",
+    "learning/img/space-jupiter.webp",
+    "learning/img/space-neptune.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the planet closest to the Sun?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-jupiter.webp",
+    "learning/img/space-earth.webp",
+    "learning/img/space-mercury.webp",
+    "learning/img/space-neptune.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of cloud is this?",
+  "choicesJson": [
+   "Cirrus",
+   "Stratus",
+   "Cumulus",
+   "Cumulonimbus"
+  ],
+  "answer": "Cumulus",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulus.webp",
+   "alt": "Puffy white cumulus clouds with flat gray bottoms against a deep blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which kind of cloud do you see in this picture?",
+  "choicesJson": [
+   "Cumulus",
+   "Cirrus",
+   "Cumulonimbus",
+   "Stratus"
+  ],
+  "answer": "Stratus",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-stratus.webp",
+   "alt": "A smooth gray layer of stratus cloud covering the whole sky above some trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this kind of cloud?",
+  "choicesJson": [
+   "Cumulus",
+   "Cirrus",
+   "Stratus",
+   "Cumulonimbus"
+  ],
+  "answer": "Cirrus",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cirrus2.webp",
+   "alt": "Feathery, hook-shaped cirrus clouds streaking across a blue sky above a hillside."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "These hard lumps of ice fell from a thunderstorm. What are they called?",
+  "choicesJson": [
+   "Dew",
+   "Frost",
+   "Hail",
+   "Fog"
+  ],
+  "answer": "Hail",
+  "tags": [
+   "hail",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hail.webp",
+   "alt": "Small clear lumps of hail lying on dark ground among leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Little drops of water form on a spider web on a cool morning. What are these drops called?",
+  "choicesJson": [
+   "Hail",
+   "Dew",
+   "Sleet",
+   "Smoke"
+  ],
+  "answer": "Dew",
+  "tags": [
+   "dew",
+   "water cycle"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-dew.webp",
+   "alt": "Tiny water drops of dew sparkling on a spider web."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This giant swirl of clouds was photographed from space. What is it?",
+  "choicesJson": [
+   "A volcano",
+   "A rainbow",
+   "A snowflake",
+   "A hurricane"
+  ],
+  "answer": "A hurricane",
+  "tags": [
+   "hurricane",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hurricane.webp",
+   "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A thunderstorm is rumbling and you see lightning. What is the safest thing to do?",
+  "choicesJson": [
+   "Swim in a lake",
+   "Stand under a tall tree",
+   "Go inside a building",
+   "Fly a kite"
+  ],
+  "answer": "Go inside a building",
+  "tags": [
+   "lightning",
+   "safety"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning.webp",
+   "alt": "Bright branching lightning bolts lighting up a dark blue storm sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A tornado warning sounds at school. Where is the safest place to go?",
+  "choicesJson": [
+   "Next to a big window",
+   "Out on the playground",
+   "A hallway or room with no windows",
+   "Up on the roof"
+  ],
+  "answer": "A hallway or room with no windows",
+  "tags": [
+   "tornado",
+   "safety"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-tornado.webp",
+   "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In The Wizard of Oz, a tornado carries Dorothy's house away from Kansas. What is a tornado?",
+  "choicesJson": [
+   "A spinning column of air that touches the ground",
+   "A very tall rainbow",
+   "A big pile of snow",
+   "A stream of warm water"
+  ],
+  "answer": "A spinning column of air that touches the ground",
+  "tags": [
+   "tornado",
+   "weather",
+   "theme:wizardofoz"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-tornado.webp",
+   "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Rain, snow, sleet and hail all fall from clouds. What is the science word for water falling from the sky?",
+  "choicesJson": [
+   "Evaporation",
+   "Precipitation",
+   "Condensation",
+   "Erosion"
+  ],
+  "answer": "Precipitation",
+  "tags": [
+   "water cycle",
+   "rain"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rain.webp",
+   "alt": "Heavy rain falling over a muddy river and trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many main colors are usually listed in a rainbow?",
+  "choicesJson": [
+   "4",
+   "7",
+   "5",
+   "9"
+  ],
+  "answer": "7",
+  "tags": [
+   "rainbow",
+   "light"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rainbow.webp",
+   "alt": "A rainbow arching over a hillside town beneath gray clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An icicle grows when melting snow drips down and then does what?",
+  "choicesJson": [
+   "Flies off",
+   "Turns into hail",
+   "Burns away",
+   "Freezes again"
+  ],
+  "answer": "Freezes again",
+  "tags": [
+   "ice",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-icicles.webp",
+   "alt": "Long icicles hanging from a snowy roof edge on a red wall."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hurricane warning is announced for your town on the coast. What should your family do?",
+  "choicesJson": [
+   "Wait outside to see the eye",
+   "Go to the beach to watch the waves",
+   "Follow the safety instructions and leave if told to evacuate",
+   "Ignore it and go swimming"
+  ],
+  "answer": "Follow the safety instructions and leave if told to evacuate",
+  "tags": [
+   "hurricane",
+   "safety"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hurricane.webp",
+   "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows cumulus clouds?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-stratus.webp",
+    "learning/img/weather-clouds-cirrus2.webp",
+    "learning/img/weather-clouds-lightning2.webp",
+    "learning/img/weather-clouds-cumulus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows cirrus clouds?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-cirrus2.webp",
+    "learning/img/weather-clouds-stratus.webp",
+    "learning/img/weather-clouds-cumulonimbus2.webp",
+    "learning/img/weather-clouds-cumulus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows frost?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "frost",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-dew.webp",
+    "learning/img/weather-clouds-icicles.webp",
+    "learning/img/weather-clouds-frost.webp",
+    "learning/img/weather-clouds-hail.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a hurricane seen from space?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "hurricane",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-cumulonimbus.webp",
+    "learning/img/weather-clouds-hurricane2.webp",
+    "learning/img/weather-clouds-tornado.webp",
+    "learning/img/weather-clouds-snowfall.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ }
+]

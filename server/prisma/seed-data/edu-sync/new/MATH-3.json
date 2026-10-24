@@ -1,0 +1,1920 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the value of the digit 7 in the number 472?",
+  "choicesJson": null,
+  "answer": "70",
+  "acceptedAnswers": [
+   "seventy"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is the same as 600 + 40 + 3?",
+  "choicesJson": [
+   "634",
+   "643",
+   "463",
+   "6,043"
+  ],
+  "answer": "643",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is the greatest?",
+  "choicesJson": [
+   "3,085",
+   "3,508",
+   "3,058",
+   "3,850"
+  ],
+  "answer": "3,850",
+  "tags": [
+   "place-value",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which symbol makes this true? 526 __ 562",
+  "choicesJson": [
+   "=",
+   "<",
+   ">"
+  ],
+  "answer": "<",
+  "tags": [
+   "comparing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Write this number using digits: five hundred two.",
+  "choicesJson": null,
+  "answer": "502",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number is 10 more than 395?",
+  "choicesJson": null,
+  "answer": "405",
+  "tags": [
+   "number-sense"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number is 100 less than 1,250?",
+  "choicesJson": null,
+  "answer": "1150",
+  "acceptedAnswers": [
+   "1,150"
+  ],
+  "tags": [
+   "number-sense"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many groups of ten make 340?",
+  "choicesJson": [
+   "3",
+   "4",
+   "34",
+   "340"
+  ],
+  "answer": "34",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "2,700 is the same as how many hundreds?",
+  "choicesJson": null,
+  "answer": "27",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the expanded form of 4,205?",
+  "choicesJson": [
+   "4,000 + 200 + 50",
+   "400 + 20 + 5",
+   "4,000 + 200 + 5",
+   "4,000 + 20 + 5"
+  ],
+  "answer": "4,000 + 200 + 5",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list shows these numbers in order from least to greatest?",
+  "choicesJson": [
+   "481, 418, 814",
+   "814, 481, 418",
+   "418, 481, 814",
+   "418, 814, 481"
+  ],
+  "answer": "418, 481, 814",
+  "tags": [
+   "comparing",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Use the digits 3, 9, and 5 once each. What is the smallest 3-digit number you can make?",
+  "choicesJson": null,
+  "answer": "359",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Use the digits 4, 0, and 8 once each. What is the greatest 3-digit number you can make?",
+  "choicesJson": null,
+  "answer": "840",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these numbers is even?",
+  "choicesJson": [
+   "37",
+   "91",
+   "163",
+   "58"
+  ],
+  "answer": "58",
+  "tags": [
+   "number-sense"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number comes next? 520, 620, 720, __",
+  "choicesJson": null,
+  "answer": "820",
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count backward by 10s: 340, 330, 320, __",
+  "choicesJson": null,
+  "answer": "310",
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is between 480 and 490?",
+  "choicesJson": [
+   "479",
+   "485",
+   "491",
+   "500"
+  ],
+  "answer": "485",
+  "tags": [
+   "number-sense"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In the number 5,316, which digit is in the hundreds place?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A number line goes from 0 to 100 with a mark every 10. An arrow points halfway between 40 and 50. What number is the arrow pointing to?",
+  "choicesJson": null,
+  "answer": "45",
+  "tags": [
+   "number-line"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Alex stored 538 cobblestone blocks in a Minecraft chest. What is the value of the digit 3 in 538?",
+  "choicesJson": [
+   "3",
+   "300",
+   "30",
+   "53"
+  ],
+  "answer": "30",
+  "tags": [
+   "place-value",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/2?",
+  "choicesJson": [
+   "1/4",
+   "2/4",
+   "2/3",
+   "3/4"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions",
+   "equivalent-fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is greater: 1/8 or 1/6?",
+  "choicesJson": [
+   "They are equal",
+   "1/6",
+   "1/8"
+  ],
+  "answer": "1/6",
+  "tags": [
+   "fractions",
+   "comparing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many fourths make 1 whole?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On a number line from 0 to 1, which fraction is exactly in the middle?",
+  "choicesJson": [
+   "2/3",
+   "1/4",
+   "1/3",
+   "1/2"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions",
+   "number-line"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A chocolate bar has 8 equal pieces. Kai eats 3 pieces and Mia eats 2 pieces. What fraction of the bar did they eat in all?",
+  "choicesJson": [
+   "6/8",
+   "5/8",
+   "5/16",
+   "1/8"
+  ],
+  "answer": "5/8",
+  "tags": [
+   "fractions",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Steve's Minecraft hotbar has 9 slots. 4 of the slots hold blocks. What fraction of the hotbar holds blocks?",
+  "choicesJson": [
+   "9/4",
+   "5/9",
+   "4/9",
+   "4/5"
+  ],
+  "answer": "4/9",
+  "tags": [
+   "fractions",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A square is cut into 3 equal parts. What is each part called?",
+  "choicesJson": [
+   "a half",
+   "a fourth",
+   "a third",
+   "a fifth"
+  ],
+  "answer": "a third",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is greater: 3/4 or 3/8?",
+  "choicesJson": [
+   "3/8",
+   "They are equal",
+   "3/4"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "fractions",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list of fractions goes from least to greatest?",
+  "choicesJson": [
+   "1/4, 1/8, 1/2",
+   "1/8, 1/4, 1/2",
+   "1/2, 1/4, 1/8",
+   "1/8, 1/2, 1/4"
+  ],
+  "answer": "1/8, 1/4, 1/2",
+  "tags": [
+   "fractions",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Fortnite squad has 4 players. Three of them are inside the safe zone. What fraction of the squad is inside the safe zone?",
+  "choicesJson": [
+   "1/4",
+   "3/4",
+   "3/3",
+   "4/3"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "fractions",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the blank: 1/3 = 2/__",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "fractions",
+   "equivalent-fractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the blank: 2/6 = 1/__",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "fractions",
+   "equivalent-fractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Roblox obby has 15 checkpoints. You have reached 1/3 of them. How many checkpoints have you reached?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "fractions",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "An SCP-style vault holds 20 containers. One fourth of them are labeled Safe. How many containers are labeled Safe?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "fractions",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the smallest piece of the same candy bar?",
+  "choicesJson": [
+   "1/2",
+   "1/5",
+   "1/10"
+  ],
+  "answer": "1/10",
+  "tags": [
+   "fractions",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the fraction 5/8, what does the 8 tell you?",
+  "choicesJson": [
+   "The fraction is 8 times bigger",
+   "5 parts are shaded",
+   "There are 5 wholes",
+   "The whole has 8 equal parts"
+  ],
+  "answer": "The whole has 8 equal parts",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A number line from 0 to 1 is cut into 8 equal steps. An arrow is 5 steps to the right of 0. Which fraction does it point to?",
+  "choicesJson": [
+   "8/5",
+   "5/8",
+   "4/8",
+   "6/8"
+  ],
+  "answer": "5/8",
+  "tags": [
+   "fractions",
+   "number-line"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number comes next? 7, 14, 21, 28, __",
+  "choicesJson": null,
+  "answer": "35",
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number comes next? 64, 56, 48, 40, __",
+  "choicesJson": null,
+  "answer": "32",
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Alex builds a Minecraft staircase. Step 1 uses 2 blocks, step 2 uses 4 blocks, and step 3 uses 6 blocks. If the pattern keeps going, how many blocks does step 5 use?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "patterns",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bar graph shows favorite pets. Dogs got 9 votes, cats got 6, fish got 3, and birds got 4. How many more votes did dogs get than cats?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "graphs",
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tally chart shows favorite lunches: pizza 8, tacos 7, pasta 5, salad 2. How many kids voted in all?",
+  "choicesJson": null,
+  "answer": "22",
+  "tags": [
+   "data",
+   "graphs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a picture graph, each star stands for 4 kids. The row for soccer has 6 stars. How many kids does that row show?",
+  "choicesJson": null,
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bar graph shows how many Roblox obbies four friends finished: Ava 12, Ben 8, Cy 15, Dee 10. How many obbies did they finish altogether?",
+  "choicesJson": null,
+  "answer": "45",
+  "tags": [
+   "graphs",
+   "data",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bar graph scale counts by 10s: 0, 10, 20, 30. A bar ends halfway between 20 and 30. What number does the bar show?",
+  "choicesJson": null,
+  "answer": "25",
+  "tags": [
+   "graphs",
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tally chart has 4 groups with 5 tally marks in each group, plus 3 extra tally marks. How many tally marks is that in all?",
+  "choicesJson": null,
+  "answer": "23",
+  "tags": [
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A line plot shows pencil lengths. 3 pencils are 5 inches long, 4 pencils are 6 inches long, and 2 pencils are 7 inches long. How many pencils are longer than 5 inches?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "data",
+   "graphs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A table shows books read: Monday 3, Tuesday 5, Wednesday 2, Thursday 6. How many more books were read on Thursday than on Wednesday?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Kids voted for their favorite movie monster: Godzilla 14, Dracula 9, Bigfoot 11, Mummy 6. How many votes did Godzilla and Bigfoot get together?",
+  "choicesJson": null,
+  "answer": "25",
+  "tags": [
+   "data",
+   "graphs",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a spooky story, a tall faceless figure appears in the woods every 6 nights: night 6, night 12, night 18. On which night does it appear next?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "night 24"
+  ],
+  "tags": [
+   "patterns",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Steve mines 345 blocks of stone in the morning and 128 blocks in the afternoon. How many blocks did he mine in all?",
+  "choicesJson": null,
+  "answer": "473",
+  "tags": [
+   "addition",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is 506 - 238?",
+  "choicesJson": [
+   "278",
+   "268",
+   "372",
+   "332"
+  ],
+  "answer": "268",
+  "tags": [
+   "subtraction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 467 + 295?",
+  "choicesJson": null,
+  "answer": "762",
+  "tags": [
+   "addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Maya has 500 Robux. She buys a hat for 175 Robux. How many Robux does she have left?",
+  "choicesJson": null,
+  "answer": "325",
+  "tags": [
+   "subtraction",
+   "word-problem",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A movie starts at 3:15 PM and lasts 2 hours. What time does it end?",
+  "choicesJson": [
+   "6:15 PM",
+   "5:15 PM",
+   "5:30 PM",
+   "4:15 PM"
+  ],
+  "answer": "5:15 PM",
+  "tags": [
+   "time"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many minutes are in 2 hours?",
+  "choicesJson": null,
+  "answer": "120",
+  "acceptedAnswers": [
+   "120 minutes"
+  ],
+  "tags": [
+   "time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which unit would you use to measure how long a pencil is?",
+  "choicesJson": [
+   "Centimeters",
+   "Kilograms",
+   "Liters",
+   "Kilometers"
+  ],
+  "answer": "Centimeters",
+  "tags": [
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Jo has 2 quarters, 1 dime and 3 pennies. How much money does she have?",
+  "choicesJson": [
+   "63 cents",
+   "53 cents",
+   "73 cents",
+   "65 cents"
+  ],
+  "answer": "63 cents",
+  "tags": [
+   "money"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Jonesy gathers 36 wood, 48 brick and 25 metal to build a fort. How many building materials is that in all?",
+  "choicesJson": null,
+  "answer": "109",
+  "tags": [
+   "addition",
+   "word-problem",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the best estimate for the mass of a paper clip?",
+  "choicesJson": [
+   "1 gram",
+   "10 kilograms",
+   "1 kilogram",
+   "100 grams"
+  ],
+  "answer": "1 gram",
+  "tags": [
+   "measurement",
+   "mass"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the best estimate for how much juice fits in a small cup?",
+  "choicesJson": [
+   "2 milliliters",
+   "250 milliliters",
+   "250 liters",
+   "25 liters"
+  ],
+  "answer": "250 milliliters",
+  "tags": [
+   "measurement",
+   "volume"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Football practice starts at 4:30 PM and ends at 5:45 PM. How many minutes long is practice?",
+  "choicesJson": null,
+  "answer": "75",
+  "acceptedAnswers": [
+   "75 minutes",
+   "seventy-five"
+  ],
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "It is 8:20 PM. Nina's show starts in 45 minutes. What time does it start?",
+  "choicesJson": [
+   "8:55 PM",
+   "9:00 PM",
+   "9:05 PM",
+   "9:25 PM"
+  ],
+  "answer": "9:05 PM",
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many days are in 3 weeks?",
+  "choicesJson": null,
+  "answer": "21",
+  "acceptedAnswers": [
+   "twenty-one",
+   "21 days"
+  ],
+  "tags": [
+   "time",
+   "calendar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ribbon is 85 cm long. Nia cuts off 37 cm. How many cm of ribbon are left?",
+  "choicesJson": null,
+  "answer": "48",
+  "acceptedAnswers": [
+   "48 cm"
+  ],
+  "tags": [
+   "subtraction",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the longest length?",
+  "choicesJson": [
+   "1 kilometer",
+   "1 millimeter",
+   "1 centimeter",
+   "1 meter"
+  ],
+  "answer": "1 kilometer",
+  "tags": [
+   "measurement"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A game costs $20. Zoe pays with a $50 bill. How many dollars of change does she get back?",
+  "choicesJson": null,
+  "answer": "30",
+  "acceptedAnswers": [
+   "$30"
+  ],
+  "tags": [
+   "money",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Sam buys a notebook for $3 and 2 pens that cost $2 each. How many dollars does Sam spend in all?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "$7",
+   "seven"
+  ],
+  "tags": [
+   "money",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A store had 250 stickers. It sold 85 on Monday and 70 on Tuesday. How many stickers are left?",
+  "choicesJson": null,
+  "answer": "95",
+  "tags": [
+   "subtraction",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ava reads 24 pages on Monday. On Tuesday she reads 6 more pages than she read on Monday. How many pages did she read on both days?",
+  "choicesJson": null,
+  "answer": "54",
+  "tags": [
+   "addition",
+   "multi-step"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Guards take turns watching SCP-173, the statue, in 10-minute shifts so it never gets a chance to move. How many shifts does it take to cover 1 hour?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "time",
+   "word-problem",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Bigfoot footprint in the mud is 16 inches long. Dan's shoe is 9 inches long. How many inches longer is the footprint?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven",
+   "7 inches"
+  ],
+  "tags": [
+   "measurement",
+   "subtraction",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a movie, Godzilla walks 240 meters to the harbor and then 175 meters to the bridge. How many meters does he walk in all?",
+  "choicesJson": null,
+  "answer": "415",
+  "acceptedAnswers": [
+   "415 meters"
+  ],
+  "tags": [
+   "addition",
+   "measurement",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each iron pickaxe needs 3 iron ingots. Alex has 10 ingots and crafts 2 pickaxes. How many iron ingots does she have left?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "multi-step",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One full Minecraft day-night cycle lasts 20 real minutes. How many real minutes do 3 full cycles last?",
+  "choicesJson": null,
+  "answer": "60",
+  "acceptedAnswers": [
+   "60 minutes",
+   "sixty"
+  ],
+  "tags": [
+   "time",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mario finishes lap 1 in 38 seconds, lap 2 in 41 seconds and lap 3 in 36 seconds. What is his total time in seconds?",
+  "choicesJson": null,
+  "answer": "115",
+  "acceptedAnswers": [
+   "115 seconds"
+  ],
+  "tags": [
+   "addition",
+   "time",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ben has 64 trading cards. He trades away 19 cards and then gets 27 new ones. How many cards does he have now?",
+  "choicesJson": null,
+  "answer": "72",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group of coins is worth exactly 30 cents?",
+  "choicesJson": [
+   "2 dimes and 1 nickel",
+   "3 nickels",
+   "1 quarter and 1 dime",
+   "1 quarter and 1 nickel"
+  ],
+  "answer": "1 quarter and 1 nickel",
+  "tags": [
+   "money"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On a clock, the hour hand is halfway between the 7 and the 8, and the minute hand points to the 6. What time is it?",
+  "choicesJson": [
+   "8:30",
+   "6:30",
+   "7:06",
+   "7:30"
+  ],
+  "answer": "7:30",
+  "tags": [
+   "time",
+   "clocks"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 1000 - 372?",
+  "choicesJson": null,
+  "answer": "628",
+  "tags": [
+   "subtraction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sum is the greatest?",
+  "choicesJson": [
+   "410 + 170",
+   "199 + 405",
+   "250 + 340",
+   "300 + 295"
+  ],
+  "answer": "199 + 405",
+  "tags": [
+   "addition",
+   "comparing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number goes in the blank to make this true? 47 + ? = 100. Type the number.",
+  "choicesJson": null,
+  "answer": "53",
+  "acceptedAnswers": [
+   "fifty-three"
+  ],
+  "tags": [
+   "addition",
+   "missing-number"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Estimate 298 + 403 by rounding each number to the nearest hundred first. What is your estimate?",
+  "choicesJson": null,
+  "answer": "700",
+  "tags": [
+   "estimation",
+   "addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Jada's cat has a mass of 5 kilograms. Her dog has a mass of 12 kilograms. How many kilograms more does the dog have than the cat?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven",
+   "7 kilograms"
+  ],
+  "tags": [
+   "mass",
+   "subtraction",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A jug holds 9 liters of juice. Cleo pours 4 liters into one bowl and 3 liters into another bowl. How many liters are left in the jug?",
+  "choicesJson": null,
+  "answer": "2",
+  "acceptedAnswers": [
+   "two",
+   "2 liters"
+  ],
+  "tags": [
+   "volume",
+   "multi-step"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One Roblox obby takes Zac 12 minutes to finish. How many minutes does he need to finish 3 obbies in a row?",
+  "choicesJson": null,
+  "answer": "36",
+  "acceptedAnswers": [
+   "36 minutes",
+   "thirty-six"
+  ],
+  "tags": [
+   "time",
+   "word-problem",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Today is Monday. What day of the week will it be 10 days from now?",
+  "choicesJson": [
+   "Wednesday",
+   "Friday",
+   "Monday",
+   "Thursday"
+  ],
+  "answer": "Thursday",
+  "tags": [
+   "time",
+   "calendar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many months of the year have exactly 30 days?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "time",
+   "calendar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A crayon starts at the 3 cm mark on a ruler and ends at the 11 cm mark. How many centimeters long is the crayon?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight",
+   "8 cm"
+  ],
+  "tags": [
+   "measurement",
+   "ruler"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Leo has $20. He buys 2 slices of pizza for $4 each and a drink for $3. How many dollars does he have left?",
+  "choicesJson": null,
+  "answer": "9",
+  "acceptedAnswers": [
+   "$9",
+   "nine"
+  ],
+  "tags": [
+   "money",
+   "multi-step"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "There are 52 kids on a bus. At the first stop, 14 kids get off. At the second stop, 8 kids get on. How many kids are on the bus now?",
+  "choicesJson": null,
+  "answer": "46",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A class has 15 chores to finish. They finish 6 before lunch and 5 after lunch. How many chores are still left?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "multi-step",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Link has 150 rupees. He buys a shield for 90 rupees and a potion for 35 rupees. How many rupees does he have left?",
+  "choicesJson": null,
+  "answer": "25",
+  "acceptedAnswers": [
+   "25 rupees",
+   "twenty-five"
+  ],
+  "tags": [
+   "multi-step",
+   "subtraction",
+   "theme:zelda"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count Dracula sleeps in his coffin from 7 AM until 5 PM. How many hours does he sleep?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten",
+   "10 hours"
+  ],
+  "tags": [
+   "time",
+   "elapsed-time",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A movie lasts 1 hour and 30 minutes. It starts at 6:15 PM. What time does it end?",
+  "choicesJson": [
+   "8:15 PM",
+   "7:45 PM",
+   "7:05 PM",
+   "7:15 PM"
+  ],
+  "answer": "7:45 PM",
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is another way to write 3 dollars and 5 cents?",
+  "choicesJson": [
+   "$3.05",
+   "$35.00",
+   "$0.35",
+   "$3.50"
+  ],
+  "answer": "$3.05",
+  "tags": [
+   "money",
+   "decimals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many cents are 3 dimes and 2 nickels worth altogether?",
+  "choicesJson": null,
+  "answer": "40",
+  "acceptedAnswers": [
+   "40 cents",
+   "forty"
+  ],
+  "tags": [
+   "money"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mia sold 56 cups of lemonade on Friday. On Saturday she sold twice as many cups as on Friday. How many cups did she sell on both days?",
+  "choicesJson": null,
+  "answer": "168",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Three friends collected seashells. Tia found 126, Omar found 98 and Rue found 145. How many shells did they find in all?",
+  "choicesJson": null,
+  "answer": "369",
+  "tags": [
+   "addition",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A library has 802 books. If 456 of them are checked out, how many books are still on the shelves?",
+  "choicesJson": null,
+  "answer": "346",
+  "tags": [
+   "subtraction",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In this game, each creeper drops exactly 2 gunpowder when it is defeated. How much gunpowder do you get from 6 creepers?",
+  "choicesJson": [
+   "8",
+   "10",
+   "12",
+   "14"
+  ],
+  "answer": "12",
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Skip count by 4s: 4, 8, 12, 16, __. What number comes next?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Your Roblox obby has 7 checkpoints. You earn 3 coins at each checkpoint. How many coins do you earn in all?",
+  "choicesJson": null,
+  "answer": "21",
+  "acceptedAnswers": [
+   "twenty-one",
+   "twenty one"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Your Fortnite squad finds 20 shield potions. The 4 teammates share them equally. How many potions does each teammate get?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "division",
+   "sharing",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A containment room has 5 shelves. Each shelf holds 4 sealed boxes. How many sealed boxes are there in all?",
+  "choicesJson": [
+   "9",
+   "16",
+   "20",
+   "24"
+  ],
+  "answer": "20",
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tall, faceless Slender-style figure shows up in 3 photos every night. How many photos is that after 6 nights?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dracula's castle has 3 towers. Each tower has 8 bats hanging inside. How many bats are there in all?",
+  "choicesJson": [
+   "11",
+   "32",
+   "21",
+   "24"
+  ],
+  "answer": "24",
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:dracula"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mario jumps through 5 pipes and collects 6 coins from each one. How many coins does he collect?",
+  "choicesJson": null,
+  "answer": "30",
+  "acceptedAnswers": [
+   "thirty"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A trainer has 36 berries and feeds the same number to each of her 6 Pokemon. How many berries does each Pokemon get?",
+  "choicesJson": [
+   "5",
+   "7",
+   "6",
+   "9"
+  ],
+  "answer": "6",
+  "tags": [
+   "division",
+   "sharing",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count backward by 5s: 40, 35, 30, __. What number comes next?",
+  "choicesJson": null,
+  "answer": "25",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five"
+  ],
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number makes this true? 5 x __ = 35",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "multiplication",
+   "missing-number"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number makes this true? __ ÷ 4 = 7",
+  "choicesJson": null,
+  "answer": "28",
+  "acceptedAnswers": [
+   "twenty-eight",
+   "twenty eight"
+  ],
+  "tags": [
+   "division",
+   "missing-number"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "An egg carton has 2 rows. Each row has 6 eggs. How many eggs are in the carton?",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve"
+  ],
+  "tags": [
+   "multiplication",
+   "arrays"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A box of muffins has 3 rows with 5 muffins in each row. Which multiplication sentence matches the box?",
+  "choicesJson": [
+   "5 - 3",
+   "3 + 5",
+   "3 x 3",
+   "3 x 5"
+  ],
+  "answer": "3 x 5",
+  "tags": [
+   "multiplication",
+   "arrays"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which multiplication sentence is the same as 4 + 4 + 4 + 4 + 4?",
+  "choicesJson": [
+   "4 + 5",
+   "5 x 4",
+   "4 x 4",
+   "5 x 5"
+  ],
+  "answer": "5 x 4",
+  "tags": [
+   "multiplication",
+   "repeated-addition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which multiplication fact has the same answer as 6 x 4?",
+  "choicesJson": [
+   "6 x 6",
+   "4 x 4",
+   "6 + 4",
+   "4 x 6"
+  ],
+  "answer": "4 x 6",
+  "tags": [
+   "multiplication",
+   "properties"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 9 x 0?",
+  "choicesJson": null,
+  "answer": "0",
+  "acceptedAnswers": [
+   "zero"
+  ],
+  "tags": [
+   "multiplication",
+   "properties"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You know that 8 x 4 = 32. Use that fact to solve 32 ÷ 8.",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "division",
+   "fact-families"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Can 15 cookies be shared equally between 2 kids with none left over?",
+  "choicesJson": [
+   "Yes, 8 each",
+   "Yes, 7 each",
+   "No, 1 would be left over"
+  ],
+  "answer": "No, 1 would be left over",
+  "tags": [
+   "division",
+   "sharing",
+   "even-odd"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "There are 20 balloons. They are tied into bunches of 5 balloons each. How many bunches are there?",
+  "choicesJson": [
+   "15",
+   "4",
+   "5",
+   "25"
+  ],
+  "answer": "4",
+  "tags": [
+   "division",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Share 18 stickers equally among 3 friends. How many stickers does each friend get?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "division",
+   "sharing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A shop has 4 shelves with 3 toys on each shelf. There are also 2 toys on the counter. How many toys are there altogether?",
+  "choicesJson": null,
+  "answer": "14",
+  "acceptedAnswers": [
+   "fourteen"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "two-step"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A garden has 4 rows of tomato plants. Each row has 8 plants. How many tomato plants are there?",
+  "choicesJson": [
+   "12",
+   "28",
+   "32",
+   "36"
+  ],
+  "answer": "32",
+  "tags": [
+   "multiplication",
+   "arrays"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bakery puts 10 cupcakes on each tray. How many cupcakes are on 7 trays?",
+  "choicesJson": null,
+  "answer": "70",
+  "acceptedAnswers": [
+   "seventy"
+  ],
+  "tags": [
+   "multiplication",
+   "tens"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Every bike has 2 wheels. How many wheels are on 9 bikes?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "multiplication",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A teacher puts 28 pencils equally into 4 cups. How many pencils are in each cup?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "division",
+   "sharing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A stop sign is shaped like an octagon. How many sides does an octagon have?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "shapes",
+   "polygons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which shape has exactly 5 sides?",
+  "choicesJson": [
+   "Octagon",
+   "Triangle",
+   "Pentagon",
+   "Hexagon"
+  ],
+  "answer": "Pentagon",
+  "tags": [
+   "shapes",
+   "polygons"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Minecraft blocks are shaped like cubes. How many edges does one cube have?",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve"
+  ],
+  "tags": [
+   "solid-shapes",
+   "cube",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A can of soup is shaped like which solid shape?",
+  "choicesJson": [
+   "Cone",
+   "Sphere",
+   "Cylinder",
+   "Pyramid"
+  ],
+  "answer": "Cylinder",
+  "tags": [
+   "solid-shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which solid shape has one flat circle on the bottom and a pointed tip on top?",
+  "choicesJson": [
+   "Sphere",
+   "Cone",
+   "Cylinder",
+   "Cube"
+  ],
+  "answer": "Cone",
+  "tags": [
+   "solid-shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pyramid has a square base. How many triangle-shaped faces does it have?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "solid-shapes",
+   "pyramid"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Two lines that always stay the same distance apart and never touch are called what?",
+  "choicesJson": [
+   "Crossing",
+   "Perpendicular",
+   "Parallel",
+   "Curved"
+  ],
+  "answer": "Parallel",
+  "tags": [
+   "geometry",
+   "lines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Two straight lines cross to make a square corner. What are these lines called?",
+  "choicesJson": [
+   "Perpendicular",
+   "Parallel",
+   "Wavy",
+   "Curved"
+  ],
+  "answer": "Perpendicular",
+  "tags": [
+   "geometry",
+   "lines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A quadrilateral is a shape with 4 sides. Which of these is a quadrilateral?",
+  "choicesJson": [
+   "Rectangle",
+   "Pentagon",
+   "Triangle",
+   "Hexagon"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "shapes",
+   "quadrilaterals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group has only shapes with 4 sides?",
+  "choicesJson": [
+   "Pentagon, hexagon, octagon",
+   "Triangle, square, hexagon",
+   "Circle, oval, square",
+   "Square, rectangle, rhombus"
+  ],
+  "answer": "Square, rectangle, rhombus",
+  "tags": [
+   "shapes",
+   "quadrilaterals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Picture a line down the middle of each capital letter. Which letter looks the same on both sides of the line?",
+  "choicesJson": [
+   "G",
+   "F",
+   "R",
+   "A"
+  ],
+  "answer": "A",
+  "tags": [
+   "symmetry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A shape has 3 sides and one square corner. Which shape is it?",
+  "choicesJson": [
+   "Square",
+   "Hexagon",
+   "Rectangle",
+   "Right triangle"
+  ],
+  "answer": "Right triangle",
+  "tags": [
+   "shapes",
+   "triangles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names the line from the center of a circle to its edge?",
+  "choicesJson": [
+   "Diameter",
+   "Radius",
+   "Corner",
+   "Side"
+  ],
+  "answer": "Radius",
+  "tags": [
+   "shapes",
+   "circles"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A playground is a rectangle that is 10 meters long and 6 meters wide. How many meters is it around the whole playground?",
+  "choicesJson": null,
+  "answer": "32",
+  "acceptedAnswers": [
+   "thirty-two",
+   "thirty two"
+  ],
+  "tags": [
+   "perimeter",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A containment fence goes around a rectangular room that is 9 meters long and 4 meters wide. How many meters of fence are needed?",
+  "choicesJson": null,
+  "answer": "26",
+  "acceptedAnswers": [
+   "twenty-six",
+   "twenty six"
+  ],
+  "tags": [
+   "perimeter",
+   "word-problem",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rug is a rectangle that is 8 feet long and 3 feet wide. What is the perimeter of the rug in feet?",
+  "choicesJson": null,
+  "answer": "22",
+  "acceptedAnswers": [
+   "twenty-two",
+   "twenty two"
+  ],
+  "tags": [
+   "perimeter",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A hexagon has 6 sides. Each side is 3 centimeters long. What is the perimeter of the hexagon in centimeters?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "perimeter",
+   "polygons"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A patio is a rectangle that is 3 meters wide and 9 meters long. How many square meters does it cover?",
+  "choicesJson": null,
+  "answer": "27",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ],
+  "tags": [
+   "area",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A tile floor is covered with 5 rows of square tiles. Each row has 6 tiles. How many tiles cover the floor?",
+  "choicesJson": [
+   "11",
+   "30",
+   "25",
+   "36"
+  ],
+  "answer": "30",
+  "tags": [
+   "area",
+   "multiplication"
+  ]
+ }
+]

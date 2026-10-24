@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, EDU_SUBJECTS, type EduSubject, type EduQuestionRow, type EduQuestionDetail, type EduQuestionInput } from './api';
+import { api, EDU_SUBJECTS, type EduQuestionType, type EduSubject, type EduQuestionRow, type EduQuestionDetail, type EduQuestionInput } from './api';
 import { SUBJECT_META, GRADE_LABELS } from './LearningProgress';
 import { usePaginatedList } from './usePaginatedList';
 import { useDialog } from './Dialog';
@@ -13,9 +13,10 @@ import Modal from './Modal';
 // Save round-trips to the server and back.
 const EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F1E6}-\u{1F1FF}⭐❤️‍]/u;
 
-const TYPE_LABEL: Record<'MULTIPLE_CHOICE' | 'TEXT_INPUT', string> = {
+const TYPE_LABEL: Record<EduQuestionType, string> = {
   MULTIPLE_CHOICE: 'Multiple choice',
   TEXT_INPUT: 'Written answer',
+  IMAGE_CHOICE: 'Picture choice',
 };
 
 // Owner-only: the shared question bank behind Learning games, every subject
@@ -28,10 +29,14 @@ const TYPE_LABEL: Record<'MULTIPLE_CHOICE' | 'TEXT_INPUT', string> = {
 export default function LearningQuestionsPanel() {
   const [subjectFilter, setSubjectFilter] = useState<EduSubject | ''>('');
   const [gradeFilter, setGradeFilter] = useState<string>('');
-  const [typeFilter, setTypeFilter] = useState<'' | 'MULTIPLE_CHOICE' | 'TEXT_INPUT'>('');
+  const [typeFilter, setTypeFilter] = useState<'' | EduQuestionType>('');
   const [search, setSearch] = useState('');
   const [activeOnly, setActiveOnly] = useState(false);
   const [editingId, setEditingId] = useState<string | null | 'new'>(null);
+  const [attention, setAttention] = useState<Array<{ id: string; subject: EduSubject; grade: number; prompt: string; answer: string; kidsStuck: number; mostAttempts: number }>>([]);
+  useEffect(() => {
+    api.eduQuestionHealth().then(setAttention).catch(() => setAttention([]));
+  }, []);
 
   const { items, hasMore, loading, loadingMore, loadMore, reload } = usePaginatedList<EduQuestionRow>(
     (skip) =>
@@ -48,6 +53,28 @@ export default function LearningQuestionsPanel() {
         Instance-wide, same as Holidays - every family plays from this one bank. Tap a question to edit it; anything a kid's
         already answered can be deactivated but not deleted, so their history stays intact.
       </p>
+
+      {attention.length > 0 && (
+        <details className="rounded-lg border p-2.5">
+          <summary className="cursor-pointer text-sm font-medium text-amber-600">
+            ⚠️ Needs attention - {attention.length} question{attention.length === 1 ? '' : 's'} kids keep missing
+          </summary>
+          <p className="mt-1 text-xs text-slate-400">Answered 3 or more times and still wrong right now. A question that stumps this much is often a wrong answer key or confusing wording.</p>
+          <ul className="mt-2 flex flex-col gap-1">
+            {attention.map((q) => (
+              <li key={q.id}>
+                <button onClick={() => setEditingId(q.id)} className="flex w-full items-center gap-2 rounded border px-2.5 py-1.5 text-left text-xs hover:bg-slate-50">
+                  <span className="shrink-0 font-medium">
+                    {SUBJECT_META[q.subject].icon} {GRADE_LABELS[q.grade]}
+                  </span>
+                  <span className="min-w-0 flex-1 truncate">{q.prompt}</span>
+                  <span className="shrink-0 text-slate-400">key: {q.answer.slice(0, 24)} - {q.mostAttempts} tries</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
 
       <div className="flex flex-wrap items-end gap-2">
         <label className="text-sm">
@@ -82,6 +109,7 @@ export default function LearningQuestionsPanel() {
             <option value="">All</option>
             <option value="MULTIPLE_CHOICE">Multiple choice</option>
             <option value="TEXT_INPUT">Written answer</option>
+            <option value="IMAGE_CHOICE">Picture choice</option>
           </select>
         </label>
         <label className="min-w-0 flex-1 text-sm">
@@ -164,7 +192,8 @@ function QuestionEditor({
   const [loading, setLoading] = useState(!!id);
   const [subject, setSubject] = useState<EduSubject>(defaultSubject);
   const [grade, setGrade] = useState(defaultGrade);
-  const [type, setType] = useState<'MULTIPLE_CHOICE' | 'TEXT_INPUT'>('MULTIPLE_CHOICE');
+  const [type, setType] = useState<EduQuestionType>('MULTIPLE_CHOICE');
+  const [accepted, setAccepted] = useState('');
   const [prompt, setPrompt] = useState('');
   const [choices, setChoices] = useState<string[]>(EMPTY_CHOICES);
   const [correctIdx, setCorrectIdx] = useState(0);
@@ -183,7 +212,8 @@ function QuestionEditor({
       setGrade(q.grade);
       setType(q.type);
       setPrompt(q.prompt);
-      if (q.type === 'MULTIPLE_CHOICE') {
+      setAccepted((q.acceptedAnswers ?? []).join(', '));
+      if (q.type === 'MULTIPLE_CHOICE' || q.type === 'IMAGE_CHOICE') {
         const cs = q.choices ?? EMPTY_CHOICES;
         setChoices(cs);
         const idx = cs.findIndex((c) => c.trim().toLowerCase() === q.answer.trim().toLowerCase());
@@ -229,8 +259,9 @@ function QuestionEditor({
       grade,
       type,
       prompt: prompt.trim(),
-      answer: type === 'MULTIPLE_CHOICE' ? choices[correctIdx] ?? '' : answer,
-      choices: type === 'MULTIPLE_CHOICE' ? choices.map((c) => c.trim()).filter(Boolean) : undefined,
+      answer: type === 'TEXT_INPUT' ? answer : choices[correctIdx] ?? '',
+      choices: type === 'TEXT_INPUT' ? undefined : choices.map((c) => c.trim()).filter(Boolean),
+      acceptedAnswers: type === 'TEXT_INPUT' ? accepted.split(',').map((a) => a.trim()).filter(Boolean) : undefined,
       active,
     };
     setBusy(true);
@@ -314,6 +345,11 @@ function QuestionEditor({
             </label>
           </div>
 
+          {type === 'IMAGE_CHOICE' ? (
+            <p className="rounded border px-2.5 py-1.5 text-xs text-slate-500">
+              📷 Picture question. Its photos and sound can't be edited here - you can fix the prompt, change which picture is correct, or deactivate it.
+            </p>
+          ) : (
           <label className="text-sm">
             <span className="block text-xs text-slate-500">Type</span>
             <div className="mt-1 flex rounded border p-0.5 text-sm">
@@ -329,13 +365,14 @@ function QuestionEditor({
               ))}
             </div>
           </label>
+          )}
 
           <label className="text-sm">
             <span className="block text-xs text-slate-500">Prompt - emoji welcome</span>
             <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={2} className={input} />
           </label>
 
-          {type === 'MULTIPLE_CHOICE' ? (
+          {type !== 'TEXT_INPUT' ? (
             <div>
               <span className="block text-xs text-slate-500">Choices - pick the correct one, emoji welcome</span>
               <div className="mt-1 space-y-1.5">
@@ -351,12 +388,13 @@ function QuestionEditor({
                     <input
                       value={c}
                       onChange={(e) => setChoices(choices.map((x, idx) => (idx === i ? e.target.value : x)))}
-                      className="min-w-0 flex-1 rounded border px-2 py-1.5 text-sm"
+                      disabled={type === 'IMAGE_CHOICE'}
+                      className="min-w-0 flex-1 rounded border px-2 py-1.5 text-sm disabled:opacity-60"
                     />
                     <button
                       type="button"
                       onClick={() => removeChoice(i)}
-                      disabled={choices.length <= 2}
+                      disabled={choices.length <= 2 || type === 'IMAGE_CHOICE'}
                       className="shrink-0 rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 disabled:opacity-30"
                       aria-label="Remove choice"
                     >
@@ -368,7 +406,7 @@ function QuestionEditor({
               <button
                 type="button"
                 onClick={addChoice}
-                disabled={choices.length >= 6}
+                disabled={choices.length >= 6 || type === 'IMAGE_CHOICE'}
                 className="mt-1.5 rounded border px-2 py-1 text-xs hover:bg-slate-50 disabled:opacity-40"
               >
                 + Add choice
@@ -378,6 +416,12 @@ function QuestionEditor({
             <label className="text-sm">
               <span className="block text-xs text-slate-500">Written answer - no emoji, a kid has to type this back exactly</span>
               <input value={answer} onChange={(e) => onAnswerChange(e.target.value)} className={input} />
+            </label>
+          )}
+          {type === 'TEXT_INPUT' && (
+            <label className="text-sm">
+              <span className="block text-xs text-slate-500">Also accept (optional, comma separated) - e.g. "seven" for 7, or a plural</span>
+              <input value={accepted} onChange={(e) => setAccepted(e.target.value.replace(new RegExp(EMOJI_RE, 'gu'), ''))} className={input} />
             </label>
           )}
 

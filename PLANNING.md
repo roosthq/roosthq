@@ -1708,3 +1708,17 @@ history, newest last:
   drag-match, a genuinely new concept on the same asymmetric engine as
   Habitat Sort). Path to Flag and Number Pop Ladder round the 5-game pool
   out, same borrow-for-pacing tradeoff Logic made for its remaining slots.
+
+### 19.x Learning overhaul (2026-10-24)
+
+Driven by an audit of the live bank (4,633 questions): ~630 duplicate rows (SOCIAL alone had 317 across grades), at least one wrong answer key ("64, 125, 216, 343, 512, __" answering 512), 5 questions with any imagery, and a typed answer key that disagreed with itself ("Consumers" vs "Consumer"). Decisions:
+
+- **Bank hygiene is a gate, not a one-off.** `server/prisma/tools/edu-validate.js` (answer is a choice, no duplicate choices, sequence answers not already shown, arithmetic recomputed, a/an, media files exist) and `edu-sync.js` (idempotent, additive, never deletes; applies a reviewed bundle from `prisma/seed-data/edu-sync`). Deactivate, never delete: kids' progress rows stay.
+- **Mastery counts only ACTIVE questions**, and promotion needs min(90%, 150) of a grade's active bank (top of the ladder: uncapped 90%). With 250-400 questions a grade, "every single one" would have turned a grade into months.
+- **Media questions.** `EduQuestion.mediaJson` ({image, audio, alt, choiceImages}), new type `IMAGE_CHOICE` (choices are letter badges over photos), `acceptedJson` for alternate typed answers. All photos/sounds are real Wikimedia Commons files (CC0/PD/CC BY/CC BY-SA only), credited in `web/public/learning/CREDITS.md`. Math/logic pictures (clocks, fractions, graphs, patterns) are drawn from the parameters that define their answer (`viz.py`), so they cannot be wrong.
+- **Biology** is a seventh subject (animals and life science), photo and sound heavy.
+- **Explore & Review**: a kid at the top of a subject (nothing higher to promote into) is no longer locked while unseen/still-wrong questions exist at or below their grade; those sessions pay half (floored, only for newly mastered questions) and never roll the perfect bonus. Below-grade questions added later also enter normal sessions through a capped catch-up bucket (max 1 per block).
+- **Redemption Round**: exactly one wrong in a rewarded session offers one slightly harder bonus question (research: a small upward step keeps interest, a large one lowers it). It can only add, pays at most what a perfect session pays, expires after 30 minutes, and is claimed atomically.
+- **Monster Den**: one monster per subject and grade (49, procedural SVG with recognizable pop-culture names), befriended at 8+/10, form grows with mastery. Derived from sessions and progress, no table.
+- **Concurrency**: `EduSession.rev` compare-and-swap + transactions on answer/redemption; answers must come from the dealt block; the daily cap counts in-flight sessions.
+- Open source, so real franchise names (Minecraft, Roblox, Fortnite, Pokemon, SCP, ...) are used freely as question flavor (about 20% of new text questions).

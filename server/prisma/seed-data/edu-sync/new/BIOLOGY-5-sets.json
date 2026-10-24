@@ -1,0 +1,532 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Some deep-sea animals make their own light. What is this called?",
+  "choicesJson": [
+   "Bioluminescence",
+   "Photosynthesis",
+   "Camouflage",
+   "Hibernation"
+  ],
+  "answer": "Bioluminescence",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-deep-a.webp",
+   "alt": "A dark red squid in dark blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A cactus's sharp spines are really what part of the plant, changed into a new shape?",
+  "choicesJson": [
+   "Leaves",
+   "Flowers",
+   "Seeds",
+   "Roots"
+  ],
+  "answer": "Leaves",
+  "tags": [
+   "adaptations",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-saguaro.webp",
+   "alt": "A tall cactus with many arms."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Cave ceilings can have pointed rocks hanging down, called stalactites. What are the ones that grow up from the floor called?",
+  "answer": "stalagmites",
+  "acceptedAnswers": [
+   "stalagmite"
+  ],
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-cave-d.webp",
+   "alt": "Rock formations hanging from a cave ceiling."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the hard white outer layer of the crown of a tooth called?",
+  "choicesJson": [
+   "Root",
+   "Pulp",
+   "Enamel",
+   "Gum"
+  ],
+  "answer": "Enamel",
+  "tags": [
+   "human body",
+   "teeth"
+  ],
+  "media": {
+   "image": "learning/img/human-body-tooth.webp",
+   "alt": "A drawing of a tooth sliced open to show the inside."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the hardest substance in the human body?",
+  "choicesJson": [
+   "Muscle",
+   "Bone",
+   "Tooth enamel",
+   "Fingernail"
+  ],
+  "answer": "Tooth enamel",
+  "tags": [
+   "human body",
+   "teeth"
+  ],
+  "media": {
+   "image": "learning/img/human-body-child-teeth.webp",
+   "alt": "A child's jaw with baby teeth and adult teeth growing underneath."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the job of the organ in this picture?",
+  "choicesJson": [
+   "It pumps blood",
+   "It holds up your body",
+   "It cleans waste out of the blood",
+   "It helps you see"
+  ],
+  "answer": "It cleans waste out of the blood",
+  "tags": [
+   "human body",
+   "organs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-kidney.webp",
+   "alt": "A drawing of a kidney cut in half."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bundle of nerves runs inside the backbone and carries messages to and from the brain?",
+  "choicesJson": [
+   "Spinal cord",
+   "Pupil",
+   "Eardrum",
+   "Windpipe"
+  ],
+  "answer": "Spinal cord",
+  "tags": [
+   "human body",
+   "nervous system"
+  ],
+  "media": {
+   "image": "learning/img/human-body-spine.webp",
+   "alt": "A side view of the backbone made of stacked bones."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The lower end of the femur meets the shin bone at which joint?",
+  "choicesJson": [
+   "Elbow",
+   "Wrist",
+   "Shoulder",
+   "Knee"
+  ],
+  "answer": "Knee",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-femur.webp",
+   "alt": "A drawing of the long thigh bone."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which muscle under the lungs moves down to pull air in when you breathe?",
+  "choicesJson": [
+   "Stomach",
+   "Biceps",
+   "Tongue",
+   "Diaphragm"
+  ],
+  "answer": "Diaphragm",
+  "tags": [
+   "human body",
+   "lungs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-lungs.webp",
+   "alt": "A drawing of two lungs cut open with the windpipe at the top."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which blood vessels carry blood away from the heart?",
+  "choicesJson": [
+   "Arteries",
+   "Capillaries",
+   "Veins",
+   "Nerves"
+  ],
+  "answer": "Arteries",
+  "tags": [
+   "human body",
+   "heart"
+  ],
+  "media": {
+   "image": "learning/img/human-body-heart-lungs.webp",
+   "alt": "A colored drawing of the heart between two lungs in the chest."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the nerve cells that send messages in the brain called?",
+  "choicesJson": [
+   "Neurons",
+   "Enamel",
+   "Vertebrae",
+   "Pupils"
+  ],
+  "answer": "Neurons",
+  "tags": [
+   "human body",
+   "nervous system"
+  ],
+  "media": {
+   "image": "learning/img/human-body-brain.webp",
+   "alt": "A side view of a human brain with colored sections."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where are the three smallest bones in your body?",
+  "choicesJson": [
+   "In your ear",
+   "In your finger",
+   "In your nose",
+   "In your toe"
+  ],
+  "answer": "In your ear",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-ear.webp",
+   "alt": "A drawing of the outside of a human ear."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "After the stomach, food moves into which long, coiled organ that absorbs most nutrients?",
+  "choicesJson": [
+   "Small intestine",
+   "Kidney",
+   "Brain",
+   "Lungs"
+  ],
+  "answer": "Small intestine",
+  "tags": [
+   "human body",
+   "digestion"
+  ],
+  "media": {
+   "image": "learning/img/human-body-stomach.webp",
+   "alt": "A drawing of a stomach cut open to show the inside lining."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bone of the skull can move so you can chew and talk?",
+  "choicesJson": [
+   "The cheekbone",
+   "The lower jaw",
+   "The top of the head",
+   "The forehead"
+  ],
+  "answer": "The lower jaw",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skull.webp",
+   "alt": "A front view of a human skull."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the organ that cleans blood and makes urine?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "human body",
+   "organs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-kidney.webp",
+    "learning/img/human-body-stomach.webp",
+    "learning/img/human-body-liver.webp",
+    "learning/img/human-body-lungs.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Inside this case, the caterpillar's body is changing completely into a butterfly. What is this big change called?",
+  "choicesJson": [
+   "Metamorphosis",
+   "Migration",
+   "Pollination",
+   "Hibernation"
+  ],
+  "answer": "Metamorphosis",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-chrysalis.webp",
+   "alt": "A green monarch chrysalis covered in water drops hanging from a milkweed plant."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a ladybug's life cycle, what stage comes between the larva and the adult? Type one word.",
+  "answer": "pupa",
+  "acceptedAnswers": [
+   "the pupa",
+   "a pupa"
+  ],
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Butterflies and ladybugs each have four stages: egg, larva, pupa, and adult. What is this kind of change called?",
+  "choicesJson": [
+   "Migration",
+   "Complete metamorphosis",
+   "Incomplete metamorphosis",
+   "Hibernation"
+  ],
+  "answer": "Complete metamorphosis",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A grasshopper goes egg, nymph, adult. Which stage does it skip that a butterfly has?",
+  "choicesJson": [
+   "Egg",
+   "Pupa",
+   "Nymph",
+   "Adult"
+  ],
+  "answer": "Pupa",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ferns do not make seeds. They make tiny spreading cells called what instead? Type one word.",
+  "answer": "spores",
+  "acceptedAnswers": [
+   "spore"
+  ],
+  "tags": [
+   "ferns",
+   "reproduction"
+  ],
+  "media": {
+   "image": "learning/img/plants-fern.webp",
+   "alt": "A patch of green ferns with feathery fronds grows on a forest floor."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Moss stays short and small. What is the main reason?",
+  "choicesJson": [
+   "It has no tubes to carry water up high",
+   "It cannot make its own food",
+   "It is really a fungus",
+   "It only grows at night"
+  ],
+  "answer": "It has no tubes to carry water up high",
+  "acceptedAnswers": [],
+  "tags": [
+   "moss",
+   "plant structure"
+  ],
+  "media": {
+   "image": "learning/img/plants-moss.webp",
+   "alt": "A thick, soft carpet of bright green moss covers a surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Plant roots are covered in tiny root hairs. What do root hairs help the plant do?",
+  "choicesJson": [
+   "Take in more water and minerals",
+   "Make seeds",
+   "Catch sunlight",
+   "Attract bees"
+  ],
+  "answer": "Take in more water and minerals",
+  "acceptedAnswers": [],
+  "tags": [
+   "roots",
+   "plant parts"
+  ],
+  "media": {
+   "image": "learning/img/plants-radish-roots.webp",
+   "alt": "A whole red radish and two radish halves showing white flesh lie on a white cloth."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Leaves use sunlight, water, and carbon dioxide to make sugar. Which gas do they release into the air?",
+  "choicesJson": [
+   "Nitrogen",
+   "Helium",
+   "Hydrogen",
+   "Oxygen"
+  ],
+  "answer": "Oxygen",
+  "acceptedAnswers": [],
+  "tags": [
+   "photosynthesis",
+   "leaves"
+  ],
+  "media": {
+   "image": "learning/img/plants-lettuce.webp",
+   "alt": "Large, crinkly green lettuce leaves with pale veins."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Leaves make sugar from sunlight, water, and carbon dioxide. What is this process called?",
+  "choicesJson": [
+   "Pollination",
+   "Photosynthesis",
+   "Germination",
+   "Evaporation"
+  ],
+  "answer": "Photosynthesis",
+  "acceptedAnswers": [],
+  "tags": [
+   "photosynthesis",
+   "leaves"
+  ],
+  "media": {
+   "image": "learning/img/plants-leaf.webp",
+   "alt": "A bright green leaf with a thick middle vein and many thin side veins, lit from behind."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, touching a cactus hurts you. In real life, the sharp spines of a cactus are really changed forms of which plant parts?",
+  "choicesJson": [
+   "Leaves",
+   "Roots",
+   "Seeds",
+   "Flowers"
+  ],
+  "answer": "Leaves",
+  "acceptedAnswers": [],
+  "tags": [
+   "cactus",
+   "adaptations",
+   "theme:minecraft"
+  ],
+  "media": {
+   "image": "learning/img/plants-saguaro-cactus.webp",
+   "alt": "Tall saguaro cacti with upright arms grow on a desert hillside under a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How do many mushrooms get their food?",
+  "choicesJson": [
+   "By making sugar in green leaves",
+   "By trapping insects with leaves",
+   "By drinking sunlight",
+   "By breaking down dead things like logs and leaves"
+  ],
+  "answer": "By breaking down dead things like logs and leaves",
+  "acceptedAnswers": [],
+  "tags": [
+   "fungi",
+   "plants vs fungi"
+  ],
+  "media": {
+   "image": "learning/img/plants-mushroom.webp",
+   "alt": "A red mushroom with white spots on its cap stands on a white stalk on the forest floor."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Super Mario, a Super Mushroom makes you grow. In real life, mushrooms are not plants. They belong to the kingdom of what? Type one word.",
+  "answer": "fungi",
+  "acceptedAnswers": [
+   "fungus",
+   "kingdom fungi",
+   "the fungi"
+  ],
+  "tags": [
+   "fungi",
+   "classification",
+   "theme:mario"
+  ],
+  "media": {
+   "image": "learning/img/plants-mushroom.webp",
+   "alt": "A red mushroom with white spots on its cap stands on a white stalk on the forest floor."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A sunflower makes its own food from sunlight. In a food chain, what is a sunflower called?",
+  "choicesJson": [
+   "Consumer",
+   "Decomposer",
+   "Predator",
+   "Producer"
+  ],
+  "answer": "Producer",
+  "acceptedAnswers": [],
+  "tags": [
+   "food chains",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/plants-sunflower.webp",
+   "alt": "A big yellow flower with a brown middle."
+  }
+ }
+]

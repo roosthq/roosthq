@@ -1,0 +1,445 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This scientist studied radioactivity and was the first woman to win a Nobel Prize. Type her last name.",
+  "answer": "Curie",
+  "acceptedAnswers": [
+   "marie curie",
+   "madame curie"
+  ],
+  "tags": [
+   "famous people",
+   "science"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-marie-curie.webp",
+   "alt": "Black-and-white photo of a woman with gray hair pulled back."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Marie Curie was the first person to win Nobel Prizes in two different sciences. Which two sciences were they?",
+  "choicesJson": [
+   "Biology and astronomy",
+   "Chemistry and medicine",
+   "Physics and chemistry",
+   "Physics and geology"
+  ],
+  "answer": "Physics and chemistry",
+  "tags": [
+   "famous people",
+   "science"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Frederick Douglass started an anti-slavery newspaper. What was it called?",
+  "choicesJson": [
+   "The North Star",
+   "The Daily Planet",
+   "The Boston Globe",
+   "The Liberty Bell"
+  ],
+  "answer": "The North Star",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The 19th Amendment gave women the right to vote, which Susan B. Anthony fought for. In what year did it become law?",
+  "answer": "1920",
+  "acceptedAnswers": [],
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Albert Einstein's famous equation is E = mc². What does the E stand for?",
+  "answer": "energy",
+  "acceptedAnswers": [],
+  "tags": [
+   "famous people",
+   "science"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Marie Curie moved to France as an adult. In which country was she born?",
+  "choicesJson": [
+   "Germany",
+   "Italy",
+   "Poland",
+   "Spain"
+  ],
+  "answer": "Poland",
+  "tags": [
+   "famous people",
+   "science"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country's flag is this?",
+  "choicesJson": [
+   "Canada",
+   "Chile",
+   "Colombia",
+   "Peru"
+  ],
+  "answer": "Peru",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-peru.webp",
+   "alt": "A flag with red, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country uses this flag?",
+  "choicesJson": [
+   "Thailand",
+   "France",
+   "Russia",
+   "Netherlands"
+  ],
+  "answer": "Thailand",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-thailand.webp",
+   "alt": "A flag with red, white and blue horizontal stripes, with the widest stripe in blue in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to which country?",
+  "choicesJson": [
+   "United Kingdom",
+   "United States",
+   "New Zealand",
+   "Australia"
+  ],
+  "answer": "New Zealand",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-new-zealand.webp",
+   "alt": "A blue flag with the Union Jack in the corner and four red stars edged in white."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country flies this flag?",
+  "choicesJson": [
+   "Brazil",
+   "Chile",
+   "Peru",
+   "Colombia"
+  ],
+  "answer": "Colombia",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-colombia.webp",
+   "alt": "A flag with yellow, blue and red horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Whose flag is this?",
+  "choicesJson": [
+   "Chile",
+   "Poland",
+   "Cuba",
+   "Peru"
+  ],
+  "answer": "Chile",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-chile.webp",
+   "alt": "A flag with a white stripe above a red stripe and a blue square with a white star."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to Australia?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-usa.webp",
+    "learning/img/flags-new-zealand.webp",
+    "learning/img/flags-australia.webp",
+    "learning/img/flags-uk.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of New Zealand.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-australia.webp",
+    "learning/img/flags-usa.webp",
+    "learning/img/flags-uk.webp",
+    "learning/img/flags-new-zealand.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Colombia uses this flag. On which continent is Colombia found?",
+  "choicesJson": [
+   "North America",
+   "Africa",
+   "South America",
+   "Asia"
+  ],
+  "answer": "South America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-colombia.webp",
+   "alt": "A flag with yellow, blue and red horizontal stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Name this white marble tomb built in the 1600s.",
+  "answer": "Taj Mahal",
+  "acceptedAnswers": [
+   "The Taj Mahal"
+  ],
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-taj-mahal.webp",
+   "alt": "A white marble building with a big dome and four tall towers beside a long pool."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Name this prehistoric ring of giant stones in England.",
+  "answer": "Stonehenge",
+  "acceptedAnswers": [],
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-stonehenge.webp",
+   "alt": "A ring of giant standing stones with flat stones on top, in a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which mountain range is home to this peak, the highest above sea level on Earth?",
+  "choicesJson": [
+   "Andes",
+   "Himalayas",
+   "Rocky Mountains",
+   "Alps"
+  ],
+  "answer": "Himalayas",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-mount-everest.webp",
+   "alt": "A huge snowy mountain rising above a rocky valley."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country is home to this record-setting skyscraper?",
+  "choicesJson": [
+   "Saudi Arabia",
+   "India",
+   "United Arab Emirates",
+   "Turkey"
+  ],
+  "answer": "United Arab Emirates",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-burj-khalifa.webp",
+   "alt": "A very tall, thin skyscraper rising above a city full of other tall buildings."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which Brazilian city does this statue overlook?",
+  "choicesJson": [
+   "São Paulo",
+   "Brasília",
+   "Salvador",
+   "Rio de Janeiro"
+  ],
+  "answer": "Rio de Janeiro",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-christ-the-redeemer.webp",
+   "alt": "A huge statue of a robed man with arms stretched wide on top of a forested mountain, seen from above."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Petra?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-petra.webp",
+    "learning/img/landmarks-gateway-arch.webp",
+    "learning/img/landmarks-neuschwanstein.webp",
+    "learning/img/landmarks-mount-fuji.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which Indigenous people of Australia are the traditional owners of this sacred rock?",
+  "choicesJson": [
+   "Maori",
+   "Anangu",
+   "Inuit",
+   "Sami"
+  ],
+  "answer": "Anangu",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-uluru.webp",
+   "alt": "A giant red-orange rock shaped like a loaf glowing at sunset above desert bushes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country is this huge temple complex in?",
+  "choicesJson": [
+   "Thailand",
+   "Vietnam",
+   "Cambodia",
+   "India"
+  ],
+  "answer": "Cambodia",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-angkor-wat.webp",
+   "alt": "Several stone towers shaped like lotus buds behind palm trees and a pond."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This cathedral has colorful onion-shaped domes. In which capital city is it?",
+  "choicesJson": [
+   "Kyiv",
+   "Warsaw",
+   "Berlin",
+   "Moscow"
+  ],
+  "answer": "Moscow",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-st-basils-cathedral.webp",
+   "alt": "A church with colorful swirled onion-shaped domes on a snowy square."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Name this landmark, one of the longest structures ever built.",
+  "answer": "Great Wall of China",
+  "acceptedAnswers": [
+   "Great Wall",
+   "The Great Wall",
+   "The Great Wall of China"
+  ],
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-great-wall.webp",
+   "alt": "A long stone wall with watchtowers winding over green mountains."
+  }
+ }
+]

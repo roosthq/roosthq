@@ -1,0 +1,1607 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "1",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2696edeb0a57.webp",
+   "alt": "1 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "1",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/99bc26ccec92.webp",
+   "alt": "1 stars"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "1",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ac29ecadad23.webp",
+   "alt": "1 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
+  "answer": "2",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9777295ca9a2.webp",
+   "alt": "2 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
+  "answer": "2",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0fd0c0d81260.webp",
+   "alt": "2 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many balls are there?",
+  "choicesJson": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
+  "answer": "2",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5e555ef0f63e.webp",
+   "alt": "2 balls"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8b33ac4b58b3.webp",
+   "alt": "3 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0ae1bf635036.webp",
+   "alt": "3 stars"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4fdbca36d72e.webp",
+   "alt": "3 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many triangles are there?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/12e7b18e558d.webp",
+   "alt": "4 triangles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many balls are there?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fa0a2859d274.webp",
+   "alt": "4 balls"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f8b9b1cdaad3.webp",
+   "alt": "4 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c3025cf9bb9b.webp",
+   "alt": "5 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many balls are there?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/28143d06d910.webp",
+   "alt": "5 balls"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4935404400df.webp",
+   "alt": "5 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/35333a5d1c48.webp",
+   "alt": "6 stars"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/232fab30ca6b.webp",
+   "alt": "6 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/436765c8a8a6.webp",
+   "alt": "6 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/faf7341c7de4.webp",
+   "alt": "7 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many hearts are there?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1e05e1213a2f.webp",
+   "alt": "7 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many triangles are there?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bd0e25bac830.webp",
+   "alt": "7 triangles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3fbb74fd7c67.webp",
+   "alt": "8 stars"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6dc8845e0432.webp",
+   "alt": "8 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many triangles are there?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d494ba47db3f.webp",
+   "alt": "8 triangles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f15180229f7e.webp",
+   "alt": "9 stars"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many squares are there?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/15023aedc6b1.webp",
+   "alt": "9 squares"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many triangles are there?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/214391aaef2d.webp",
+   "alt": "9 triangles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many triangles are there?",
+  "choicesJson": [
+   "10",
+   "8",
+   "9",
+   "11"
+  ],
+  "answer": "10",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f5c9b5779abb.webp",
+   "alt": "10 triangles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many balls are there?",
+  "choicesJson": [
+   "10",
+   "8",
+   "9",
+   "11"
+  ],
+  "answer": "10",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/dfe9471eb26b.webp",
+   "alt": "10 balls"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many stars are there?",
+  "choicesJson": [
+   "10",
+   "8",
+   "9",
+   "11"
+  ],
+  "answer": "10",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5297e1f33774.webp",
+   "alt": "10 stars"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more balls?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8efc81a4c9fd.webp",
+    "learning/img/viz/10d5c1f7b21c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more balls?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f75144ec2722.webp",
+    "learning/img/viz/347520d4eb6a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer squares?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7d72fd824279.webp",
+    "learning/img/viz/f93bca6658f8.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer hearts?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d76eb47618eb.webp",
+    "learning/img/viz/0c1499e527bc.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ff01103295a8.webp",
+    "learning/img/viz/49df5d96fc86.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more squares?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d99a67903d70.webp",
+    "learning/img/viz/f93bca6658f8.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/6c26d23f7837.webp",
+    "learning/img/viz/57cab7fce2b9.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more stars?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/037351a1fefd.webp",
+    "learning/img/viz/bb301fdeee5d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more balls?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/39e32daa1303.webp",
+    "learning/img/viz/355308cedb16.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer balls?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/34998d1cc9dc.webp",
+    "learning/img/viz/b10445213cf2.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/5c175be80c90.webp",
+    "learning/img/viz/341e99d5a4db.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more hearts?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bd2bef1d4093.webp",
+    "learning/img/viz/78d99f2edd70.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/6a21ac911af8.webp",
+    "learning/img/viz/48914c1c4efa.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/2a5bd7aac1ed.webp",
+    "learning/img/viz/9fc299d0d012.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has fewer stars?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "A",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8966744532b8.webp",
+    "learning/img/viz/e8a2d247b3d9.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture has more triangles?",
+  "choicesJson": [
+   "A",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "counting",
+   "compare",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bd1e089ebc40.webp",
+    "learning/img/viz/49df5d96fc86.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B"
+   ],
+   "alt": "Two groups"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "1",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/54f16435356d.webp",
+   "alt": "A ten frame with 1 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "2",
+   "1",
+   "3",
+   "4"
+  ],
+  "answer": "2",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fdd49a100502.webp",
+   "alt": "A ten frame with 2 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/61f1549f3575.webp",
+   "alt": "A ten frame with 3 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d11181af5de.webp",
+   "alt": "A ten frame with 4 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6a25fa5f76d9.webp",
+   "alt": "A ten frame with 5 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a41da02eb047.webp",
+   "alt": "A ten frame with 6 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5c25a96a191e.webp",
+   "alt": "A ten frame with 7 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4151ae292d6f.webp",
+   "alt": "A ten frame with 8 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many dots are in the ten frame?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8465033752b1.webp",
+   "alt": "A ten frame with 9 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Circle",
+   "Square",
+   "Hexagon",
+   "Rhombus"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/420621d59ce6.webp",
+   "alt": "A orange circle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Circle",
+   "Parallelogram",
+   "Rectangle",
+   "Triangle"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ddbd9a87816e.webp",
+   "alt": "A purple circle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Circle",
+   "Octagon",
+   "Trapezoid",
+   "Rhombus"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/874ecd42fe3d.webp",
+   "alt": "A green circle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Square",
+   "Hexagon",
+   "Parallelogram",
+   "Triangle"
+  ],
+  "answer": "Square",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e840b7fa5993.webp",
+   "alt": "A orange square"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Square",
+   "Triangle",
+   "Octagon",
+   "Oval"
+  ],
+  "answer": "Square",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3001d25925d6.webp",
+   "alt": "A green square"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Square",
+   "Octagon",
+   "Rhombus",
+   "Trapezoid"
+  ],
+  "answer": "Square",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/af5826a2a50e.webp",
+   "alt": "A pink square"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rectangle",
+   "Circle",
+   "Hexagon",
+   "Rhombus"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/03bca342a8e9.webp",
+   "alt": "A pink rectangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rectangle",
+   "Triangle",
+   "Trapezoid",
+   "Parallelogram"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e25836e72e16.webp",
+   "alt": "A purple rectangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rectangle",
+   "Parallelogram",
+   "Circle",
+   "Pentagon"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/42fb90f06855.webp",
+   "alt": "A red rectangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Triangle",
+   "Rhombus",
+   "Rectangle",
+   "Circle"
+  ],
+  "answer": "Triangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/848f17d1bc31.webp",
+   "alt": "A red triangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Triangle",
+   "Circle",
+   "Hexagon",
+   "Parallelogram"
+  ],
+  "answer": "Triangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ed4290aadae3.webp",
+   "alt": "A pink triangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Triangle",
+   "Circle",
+   "Pentagon",
+   "Trapezoid"
+  ],
+  "answer": "Triangle",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b4938820494b.webp",
+   "alt": "A green triangle"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a circle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1659c840d872.webp",
+    "learning/img/viz/9cdf07eb3b84.webp",
+    "learning/img/viz/6778e1b1dd35.webp",
+    "learning/img/viz/8ed82958c6e4.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a circle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/39820511fbe9.webp",
+    "learning/img/viz/05ed99f29ae6.webp",
+    "learning/img/viz/3ce1563e5855.webp",
+    "learning/img/viz/5d9775d87bcf.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a square?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bc6db8eb9be6.webp",
+    "learning/img/viz/00d1b08f16ff.webp",
+    "learning/img/viz/2a0ec334f951.webp",
+    "learning/img/viz/9983f1e05dd6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a square?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/2a0ec334f951.webp",
+    "learning/img/viz/ccd20b2e0b09.webp",
+    "learning/img/viz/00d1b08f16ff.webp",
+    "learning/img/viz/549e802a9242.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a triangle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f8b0102e12e1.webp",
+    "learning/img/viz/b6f9f05e860a.webp",
+    "learning/img/viz/0742825cc500.webp",
+    "learning/img/viz/5507b44472ab.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a triangle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8040107bec29.webp",
+    "learning/img/viz/182e304efcbf.webp",
+    "learning/img/viz/1292177e57b1.webp",
+    "learning/img/viz/e7f0976b378f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a rectangle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/6f7e098f59d9.webp",
+    "learning/img/viz/7edda945128e.webp",
+    "learning/img/viz/d08c134f631d.webp",
+    "learning/img/viz/7abb9d7b1656.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a rectangle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/02b82b5bacb4.webp",
+    "learning/img/viz/7cfa5f0a4d91.webp",
+    "learning/img/viz/a36d5b7020ab.webp",
+    "learning/img/viz/4aeb89833d1d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ }
+]

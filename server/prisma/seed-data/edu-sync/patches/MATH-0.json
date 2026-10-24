@@ -1,0 +1,629 @@
+[
+ {
+  "id": "cmu0xa7rv00fb12z2rpgv9hue",
+  "action": "deactivate",
+  "reason": "No image or list of stars in the prompt; unanswerable as text"
+ },
+ {
+  "id": "cmu0xa7rw00ff12z2o85xrh36",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fg12z2kryj717n",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fh12z2a6yo2qer",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fi12z2bj01lt37",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fj12z2hoal972y",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fk12z2y58yp0j1",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fn12z2xdtrzggk",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fp12z2pxl85y5u",
+  "action": "fix",
+  "prompt": "Which 3D shape looks like a ball?",
+  "reason": "Cylinder and cone also roll; ask for the ball shape unambiguously"
+ },
+ {
+  "id": "cmu0xa7rw00fq12z2r3u3yxt4",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fr12z2oraeocpr",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00ft12z2y5hm7k6a",
+  "action": "fix",
+  "prompt": "How many fingers are on one hand?",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "Grammar: missing verb; accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fu12z2kbtfkdtl",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fv12z2207vc46i",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fw12z2way7ewjs",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fx12z2wvc0c2mo",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fy12z274t3e15f",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00fz12z2teoc9w4q",
+  "action": "deactivate",
+  "reason": "Duplicate of 3 + 2 = ? (same sum, swapped addends)"
+ },
+ {
+  "id": "cmu0xa7rw00g012z2i8jmf182",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g112z2emvyrkkq",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g212z2mt1n3imb",
+  "action": "fix",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g312z2oy3lyx9t",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g412z2hhr8jj9b",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g512z25mzb9v5m",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g612z2r67tcuh9",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g712z2kfjdkhbe",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g812z26si0y6r8",
+  "action": "fix",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00g912z233roka1i",
+  "action": "fix",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00ga12z2pzfhceql",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gb12z2swnicweh",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gc12z2bwrtnpik",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gd12z24mbojeqe",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00ge12z2zg1dkbca",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gf12z2dzlm9bc9",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gg12z2u5rk7tp1",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gh12z2d5bnrcup",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gi12z2ahh58ti7",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gj12z21fz1kcpz",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gk12z242os9lrr",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gl12z2pr2vn48u",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gm12z2sujusflt",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gn12z24y84tz3k",
+  "action": "fix",
+  "acceptedAnswers": [
+   "zero"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00go12z29squhm35",
+  "action": "fix",
+  "acceptedAnswers": [
+   "zero"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gp12z28x1p7yzl",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gq12z2j9eo7r5h",
+  "action": "fix",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gr12z23achrx73",
+  "action": "fix",
+  "acceptedAnswers": [
+   "thirteen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gs12z2u59wu56v",
+  "action": "fix",
+  "acceptedAnswers": [
+   "sixteen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gt12z2ncsbef94",
+  "action": "fix",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rw00gu12z2p5q1qebe",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00gv12z2fbypfhyp",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00gw12z2zf2xmkbo",
+  "action": "fix",
+  "acceptedAnswers": [
+   "fourteen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00gx12z2noy3t058",
+  "action": "fix",
+  "acceptedAnswers": [
+   "nineteen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00h112z2rq4hnmc4",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seventeen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00h212z2jkbhfxf2",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00h512z2962z2s0c",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00hc12z2pqrz6t3o",
+  "action": "deactivate",
+  "reason": "Gives away its own answer (prompt says 5) and is awkwardly worded"
+ },
+ {
+  "id": "cmu0xa7rx00hd12z25tn98qek",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00he12z2lvg1uixp",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00hh12z2v2etdya2",
+  "action": "deactivate",
+  "reason": "Near-duplicate of \"What shape is round with no corners?\""
+ },
+ {
+  "id": "cmu0xa7rx00hk12z27mfu915h",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00hy12z2bh7q5e7f",
+  "action": "fix",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00hz12z2himremk0",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i012z2jcnurja5",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i112z2yzlj0hao",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i212z202o51ct7",
+  "action": "fix",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i312z24x00bdao",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i412z25le5mk8j",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i512z2mrao531d",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i612z2qcpp9zov",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i712z25yn7sjav",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i812z2pavbo355",
+  "action": "fix",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00i912z2u5lxfnzo",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7rx00ia12z2l7m8i64n",
+  "action": "fix",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00ib12z23skt8vme",
+  "action": "fix",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00ic12z2f7vb5zs7",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00id12z2sbcm0u7m",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00ie12z2grewvdus",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00if12z2jj48tgtr",
+  "action": "fix",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00ig12z28s1c5en7",
+  "action": "fix",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "reason": "accept number word"
+ },
+ {
+  "id": "cmu0xa7ry00ih12z2q6m18yv7",
+  "action": "fix",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "reason": "accept number word"
+ }
+]

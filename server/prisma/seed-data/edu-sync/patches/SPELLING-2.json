@@ -1,0 +1,239 @@
+[
+ {
+  "id": "cmu0xa8c302q212z2mxkfak8h",
+  "action": "fix",
+  "reason": "\"teem\" is a real word (long e), so two choices are correctly spelled. Replace with a non-word.",
+  "choicesJson": [
+   "team",
+   "teme",
+   "teeme",
+   "tem"
+  ]
+ },
+ {
+  "id": "cmu0xa8c302qa12z2u1s1ld5b",
+  "action": "fix",
+  "reason": "\"beech\" (the tree) is a real word, so two choices are correct. Replace with a non-word.",
+  "choicesJson": [
+   "beach",
+   "beeche",
+   "beash",
+   "beache"
+  ]
+ },
+ {
+  "id": "cmu0xa8c502sa12z299dtio6i",
+  "action": "fix",
+  "reason": "\"wether\" is a real word (a male sheep). Replace with a non-word.",
+  "choicesJson": [
+   "weather",
+   "wheather",
+   "weathur",
+   "weathr"
+  ]
+ },
+ {
+  "id": "cmu0xa8c502sq12z2c7bt1jmw",
+  "action": "fix",
+  "reason": "\"tern\" is a real word (a bird). Replace with a non-word.",
+  "choicesJson": [
+   "turn",
+   "tirn",
+   "turne",
+   "turnn"
+  ]
+ },
+ {
+  "id": "cmu0xa8c502sy12z2rzw17cwl",
+  "action": "fix",
+  "reason": "\"prise\" is a real word (British spelling of pry). Replace with a non-word.",
+  "choicesJson": [
+   "prize",
+   "prieze",
+   "pryze",
+   "prizze"
+  ]
+ },
+ {
+  "id": "cmu0xa8c302qh12z202q5foqu",
+  "action": "fix",
+  "reason": "Clue fits toss/fling/hurl too; add a starting-letters hint.",
+  "prompt": "Spell the word for what you do to a ball to send it through the air. It starts with 'thr'."
+ },
+ {
+  "id": "cmu0xa8c402ql12z2nczhi8dq",
+  "action": "fix",
+  "reason": "Clue also fits shore/beach; add hint.",
+  "prompt": "Spell the word for the land right next to the ocean. It starts with 'c'."
+ },
+ {
+  "id": "cmu0xa8c402qn12z2rfex8yq8",
+  "action": "fix",
+  "reason": "Clue also fits spot/mark; add hint.",
+  "prompt": "Spell the word for a mark left behind that is hard to wash out, like grape juice on a shirt. It starts with 'st'."
+ },
+ {
+  "id": "cmu0xa8c402qt12z2hfx2lny6",
+  "action": "fix",
+  "reason": "Clue also fits creek/brook; add hint.",
+  "prompt": "Spell the word for a small narrow river. It starts with 'str'."
+ },
+ {
+  "id": "cmu0xa8c402qx12z2mgr319s5",
+  "action": "fix",
+  "reason": "Clue also fits groan (which is another answer in this file); add hint.",
+  "prompt": "Spell the word for a long, low sound someone makes when in pain. It starts with 'm'."
+ },
+ {
+  "id": "cmu0xa8c402rz12z28pd736vx",
+  "action": "fix",
+  "reason": "Clue also fits bike; add letter count.",
+  "prompt": "Spell the word for a two-wheeled vehicle you pedal with your feet. It has 7 letters."
+ },
+ {
+  "id": "cmu0xa8c502sf12z2nbb2hbsr",
+  "action": "fix",
+  "reason": "Clue also fits woods/jungle; add hint.",
+  "prompt": "Spell the word for a large area covered with trees. It starts with 'f'."
+ },
+ {
+  "id": "cmu0xa8c502sj12z22bgiboiz",
+  "action": "fix",
+  "reason": "Clue also fits van/truck; add hint.",
+  "prompt": "Spell the word for a vehicle with four wheels that people drive. It starts with 'c'."
+ },
+ {
+  "id": "cmu0xa8c502sn12z26ndc3cdb",
+  "action": "fix",
+  "reason": "Clue also fits top/jacket/sweater; add hint.",
+  "prompt": "Spell the word for the clothing you wear on your upper body. It starts with 'sh'."
+ },
+ {
+  "id": "cmu0xa8c502sr12z2qmw6bne9",
+  "action": "fix",
+  "reason": "Clue also fits doctor; make it specific and add hint.",
+  "prompt": "Spell the word for a hospital worker who is not a doctor but helps take care of patients. It starts with 'n'."
+ },
+ {
+  "id": "cmu0xa8c502sv12z2iuqsxuqq",
+  "action": "fix",
+  "reason": "Clue also fits giant/vast/enormous; add hint.",
+  "prompt": "Spell the word meaning extremely big. It has 4 letters and ends with a silent e."
+ },
+ {
+  "id": "cmu0xa8c302qe12z2nk44h00n",
+  "action": "fix",
+  "reason": "Clue also fits park/safari; add hint.",
+  "prompt": "Spell the word for a place you go to see wild animals up close. It starts with 'z'."
+ },
+ {
+  "id": "cmu0xa8c502t112z2luobbs57",
+  "action": "fix",
+  "reason": "Clue also fits telephone; add hint.",
+  "prompt": "Spell the word for the device you use to call someone. It starts with 'ph'."
+ },
+ {
+  "id": "cmu0xa8c402rv12z277wibr92",
+  "action": "fix",
+  "reason": "Accept British spelling.",
+  "acceptedAnswers": [
+   "favourite"
+  ]
+ },
+ {
+  "id": "cmu0xa8c302q412z2c87pypva",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "they’re"
+  ]
+ },
+ {
+  "id": "cmu0xa8c302q512z2e3p9b8u0",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "you’re"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402qz12z2zub5tno9",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "couldn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r012z2k1f4fz93",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "wouldn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r112z2ailabx7w",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "shouldn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r212z2p5fossw3",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "haven’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r312z2un47t03g",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "hasn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r412z277sno5pa",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "aren’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r512z2j6vykz6r",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "weren’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r612z2n0o21ej3",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "let’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r712z22dl2ipec",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "who’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8c402r812z2sbzyium1",
+  "action": "fix",
+  "reason": "Phone keyboards often type a curly apostrophe; app does not normalize it, so accept it.",
+  "acceptedAnswers": [
+   "here’s"
+  ]
+ }
+]

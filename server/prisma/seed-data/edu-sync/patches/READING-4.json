@@ -1,0 +1,90 @@
+[
+  {
+    "id": "cmu0xa7ze01af12z20m2xsz45",
+    "action": "fix",
+    "reason": "Prompt gave away answer by repeating persuade/persuasive; made it a concrete scenario",
+    "prompt": "An author writes an essay arguing that kids should get a longer recess and gives three reasons to support the idea. This is an example of..."
+  },
+  {
+    "id": "cmu0xa7ze01ah12z200vbya97",
+    "action": "fix",
+    "reason": "Stray leading quote mark; unclear wording",
+    "prompt": "In the sentence 'She got drenched in the storm,' what does the word 'drenched' most likely mean?"
+  },
+  {
+    "id": "cmu0xa7ze01ak12z24bbr2c2y",
+    "action": "fix",
+    "reason": "Grammar: should ask which sentence best summarizes",
+    "prompt": "'Maria's science fair project failed twice, but she adjusted her hypothesis and tried again.' Which sentence best summarizes this?"
+  },
+  {
+    "id": "cmu0xa7ze01am12z2tgfdd2dp",
+    "action": "fix",
+    "reason": "Contradicted row 84 (same baking-steps scenario with different answer, inform vs instruct); new scenario has one clear answer",
+    "prompt": "An author writes a magazine article explaining how volcanoes form and erupt. The author is writing mainly to..."
+  },
+  {
+    "id": "cmu0xa7ze01ay12z2cv652t9i",
+    "action": "fix",
+    "reason": "Wires do not fit a painting scene and confuse the inference; replaced with brushes",
+    "prompt": "'Brushes and empty paint cans littered the floor, and a ladder leaned against a half-finished mural on the wall.' What can you infer is happening in this room?"
+  },
+  {
+    "id": "cmu0xa7ze01b012z2nt10scai",
+    "action": "fix",
+    "reason": "Correct answer claimed \"passed down\", which the passage does not support; reworded to what can actually be inferred",
+    "choicesJson": [
+      "They have been used many times over the years",
+      "They were just printed",
+      "No one has ever cooked from them",
+      "They belong to a professional chef only"
+    ],
+    "answer": "They have been used many times over the years"
+  },
+  {
+    "id": "cmu0xa7zf01c912z2tz3qtdew",
+    "action": "fix",
+    "reason": "Confusing wording (\"fresh coat of dust wiped away\"); rewritten clearly",
+    "prompt": "'The trophy case was dusty everywhere except one corner, where a shiny new plaque now sat.' What can you infer?"
+  },
+  {
+    "id": "cmu0xa7ze01b412z24mg880r2",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 2 (which sentence is a metaphor); row 2 has the better distractors (includes a simile)"
+  },
+  {
+    "id": "cmu0xa7ze01b712z2wpgnl6tu",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 10 (which sentence uses personification) and row 100"
+  },
+  {
+    "id": "cmu0xa7ze01bb12z2ff07ae70",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 77 (which sentence can be checked/verified as fact)"
+  },
+  {
+    "id": "cmu0xa7zf01c212z2woa2o1za",
+    "action": "deactivate",
+    "reason": "Near-duplicate theme of row 15 (lie/cheat then confess); row 15 is cleaner"
+  },
+  {
+    "id": "cmu0xa7zf01cl12z26p4z8fy9",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 44 (problem-solution text structure)"
+  },
+  {
+    "id": "cmu0xa7zf01cm12z2gguaktm6",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 43 (sequence text structure)"
+  },
+  {
+    "id": "cmu0xa7zf01co12z29axfz2ai",
+    "action": "deactivate",
+    "reason": "Near-duplicate of row 46 (persuasive speech/column purpose)"
+  },
+  {
+    "id": "cmu0xa7zg01cz12z2kelhitry",
+    "action": "deactivate",
+    "reason": "Near-duplicate theme of row 65 (cooperation beats competition)"
+  }
+]

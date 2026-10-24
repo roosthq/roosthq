@@ -1,0 +1,1135 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This scientist came up with the theory of relativity and won the Nobel Prize in Physics. Type his last name.",
+  "answer": "Einstein",
+  "acceptedAnswers": [
+   "albert einstein"
+  ],
+  "tags": [
+   "famous people",
+   "science"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-albert-einstein.webp",
+   "alt": "Old photo of a man with wavy hair and a mustache."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which scientist discovered the elements polonium and radium?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "famous people",
+   "science"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-marie-curie.webp",
+    "learning/img/famous-people-rosa-parks.webp",
+    "learning/img/famous-people-susan-b-anthony.webp",
+    "learning/img/famous-people-helen-keller.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which scientist is known for the theory of relativity?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "famous people",
+   "science"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-thomas-edison.webp",
+    "learning/img/famous-people-albert-einstein.webp",
+    "learning/img/famous-people-benjamin-franklin.webp",
+    "learning/img/famous-people-george-washington.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which Founding Father was the main writer of the Declaration of Independence?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-thomas-jefferson.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-benjamin-franklin.webp",
+    "learning/img/famous-people-frederick-douglass.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Abraham Lincoln gave a very short, famous speech at a Civil War battlefield in Pennsylvania in 1863. What is it called?",
+  "choicesJson": [
+   "The Farewell Address",
+   "The Gettysburg Address",
+   "The Bill of Rights",
+   "The Pledge of Allegiance"
+  ],
+  "answer": "The Gettysburg Address",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many terms did George Washington serve as president?",
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Helen Keller learned language with help from her teacher. What was her teacher's name?",
+  "choicesJson": [
+   "Clara Barton",
+   "Anne Sullivan",
+   "Dolley Madison",
+   "Betsy Ross"
+  ],
+  "answer": "Anne Sullivan",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Abraham Lincoln was which number president of the United States? Type the number.",
+  "answer": "16",
+  "acceptedAnswers": [
+   "sixteenth",
+   "16th"
+  ],
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Which country does this flag belong to? Type its name.",
+  "answer": "Ireland",
+  "acceptedAnswers": [
+   "republic of ireland"
+  ],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-ireland.webp",
+   "alt": "A flag with green, white and orange vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Whose flag is this?",
+  "choicesJson": [
+   "Kenya",
+   "Jamaica",
+   "Nigeria",
+   "South Africa"
+  ],
+  "answer": "Kenya",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-kenya.webp",
+   "alt": "A flag with black, red and green stripes and a red shield with two spears in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country uses this flag?",
+  "choicesJson": [
+   "Greece",
+   "Chile",
+   "Argentina",
+   "Israel"
+  ],
+  "answer": "Argentina",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-argentina.webp",
+   "alt": "A flag with light blue and white stripes and a golden sun in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to which country?",
+  "choicesJson": [
+   "Chile",
+   "Cuba",
+   "Philippines",
+   "Thailand"
+  ],
+  "answer": "Cuba",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-cuba.webp",
+   "alt": "A flag with blue and white stripes and a red triangle holding a white star."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country does this flag represent?",
+  "choicesJson": [
+   "Argentina",
+   "Greece",
+   "Israel",
+   "Turkey"
+  ],
+  "answer": "Israel",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-israel.webp",
+   "alt": "A white flag with two blue stripes and a blue six-pointed star in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country uses this flag?",
+  "choicesJson": [
+   "Nigeria",
+   "Egypt",
+   "Saudi Arabia",
+   "Turkey"
+  ],
+  "answer": "Saudi Arabia",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-saudi-arabia.webp",
+   "alt": "A green flag with white Arabic writing and a white sword."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country flies this flag?",
+  "choicesJson": [
+   "Japan",
+   "Ukraine",
+   "Poland",
+   "Russia"
+  ],
+  "answer": "Poland",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-poland.webp",
+   "alt": "A flag with a white stripe on top and a red stripe on the bottom."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Whose flag is this?",
+  "choicesJson": [
+   "Colombia",
+   "Ukraine",
+   "Sweden",
+   "Poland"
+  ],
+  "answer": "Ukraine",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-ukraine.webp",
+   "alt": "A flag with a blue stripe on top and a yellow stripe on the bottom."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country does this flag represent?",
+  "choicesJson": [
+   "Turkey",
+   "China",
+   "Japan",
+   "Vietnam"
+  ],
+  "answer": "Vietnam",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-vietnam.webp",
+   "alt": "A red flag with a large yellow star in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country's flag is this?",
+  "choicesJson": [
+   "Vietnam",
+   "Cuba",
+   "Philippines",
+   "Chile"
+  ],
+  "answer": "Philippines",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-philippines.webp",
+   "alt": "A flag with a blue stripe, a red stripe, and a white triangle holding a yellow sun and three yellow stars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country does this flag represent?",
+  "choicesJson": [
+   "Brazil",
+   "South Africa",
+   "Kenya",
+   "Jamaica"
+  ],
+  "answer": "Jamaica",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-jamaica.webp",
+   "alt": "A flag with a yellow diagonal cross, green triangles at the top and bottom, and black triangles at the sides."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country uses this flag?",
+  "choicesJson": [
+   "Spain",
+   "Brazil",
+   "Portugal",
+   "Mexico"
+  ],
+  "answer": "Portugal",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-portugal.webp",
+   "alt": "A flag with green and red vertical bands and a coat of arms where they meet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country flies this flag?",
+  "choicesJson": [
+   "Italy",
+   "Nigeria",
+   "South Africa",
+   "Kenya"
+  ],
+  "answer": "Nigeria",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-nigeria.webp",
+   "alt": "A flag with green, white and green vertical stripes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of Ireland.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-italy.webp",
+    "learning/img/flags-ireland.webp",
+    "learning/img/flags-nigeria.webp",
+    "learning/img/flags-india.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to Switzerland?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-turkey.webp",
+    "learning/img/flags-peru.webp",
+    "learning/img/flags-canada.webp",
+    "learning/img/flags-switzerland.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of Norway.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-switzerland.webp",
+    "learning/img/flags-uk.webp",
+    "learning/img/flags-sweden.webp",
+    "learning/img/flags-norway.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pick the flag of Cuba.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-usa.webp",
+    "learning/img/flags-cuba.webp",
+    "learning/img/flags-chile.webp",
+    "learning/img/flags-philippines.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these is the flag of Jamaica?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-brazil.webp",
+    "learning/img/flags-kenya.webp",
+    "learning/img/flags-jamaica.webp",
+    "learning/img/flags-south-africa.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to Kenya?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-nigeria.webp",
+    "learning/img/flags-egypt.webp",
+    "learning/img/flags-kenya.webp",
+    "learning/img/flags-south-africa.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of Poland.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-russia.webp",
+    "learning/img/flags-thailand.webp",
+    "learning/img/flags-ukraine.webp",
+    "learning/img/flags-poland.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the flag of Ukraine?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-sweden.webp",
+    "learning/img/flags-poland.webp",
+    "learning/img/flags-ukraine.webp",
+    "learning/img/flags-colombia.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these is the flag of Vietnam?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-china.webp",
+    "learning/img/flags-japan.webp",
+    "learning/img/flags-vietnam.webp",
+    "learning/img/flags-turkey.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Nigeria. Which continent is Nigeria on?",
+  "choicesJson": [
+   "Oceania",
+   "Africa",
+   "Asia",
+   "Europe"
+  ],
+  "answer": "Africa",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-nigeria.webp",
+   "alt": "A flag with green, white and green vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Cuba uses this flag. On which continent is Cuba found?",
+  "choicesJson": [
+   "North America",
+   "Oceania",
+   "South America",
+   "Europe"
+  ],
+  "answer": "North America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-cuba.webp",
+   "alt": "A flag with blue and white stripes and a red triangle holding a white star."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is Jamaica, the country with this flag, part of?",
+  "choicesJson": [
+   "North America",
+   "Oceania",
+   "Europe",
+   "South America"
+  ],
+  "answer": "North America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-jamaica.webp",
+   "alt": "A flag with a yellow diagonal cross, green triangles at the top and bottom, and black triangles at the sides."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Vietnam. Which continent is Vietnam on?",
+  "choicesJson": [
+   "South America",
+   "North America",
+   "Oceania",
+   "Asia"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-vietnam.webp",
+   "alt": "A red flag with a large yellow star in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Thailand uses this flag. On which continent is Thailand found?",
+  "choicesJson": [
+   "Africa",
+   "Europe",
+   "Oceania",
+   "Asia"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-thailand.webp",
+   "alt": "A flag with red, white and blue horizontal stripes, with the widest stripe in blue in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is Ukraine, the country with this flag, part of?",
+  "choicesJson": [
+   "Asia",
+   "Europe",
+   "Oceania",
+   "South America"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-ukraine.webp",
+   "alt": "A flag with a blue stripe on top and a yellow stripe on the bottom."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Norway. Which continent is Norway on?",
+  "choicesJson": [
+   "Oceania",
+   "South America",
+   "Asia",
+   "Europe"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-norway.webp",
+   "alt": "A red flag with a blue cross edged in white."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Peru uses this flag. On which continent is Peru found?",
+  "choicesJson": [
+   "Africa",
+   "South America",
+   "Europe",
+   "North America"
+  ],
+  "answer": "South America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-peru.webp",
+   "alt": "A flag with red, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is the Philippines, the country with this flag, part of?",
+  "choicesJson": [
+   "Africa",
+   "Europe",
+   "Asia",
+   "Oceania"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-philippines.webp",
+   "alt": "A flag with a blue stripe, a red stripe, and a white triangle holding a yellow sun and three yellow stars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Portugal. Which continent is Portugal on?",
+  "choicesJson": [
+   "Oceania",
+   "North America",
+   "South America",
+   "Europe"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-portugal.webp",
+   "alt": "A flag with green and red vertical bands and a coat of arms where they meet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Some of the white stars on this flag make a group that can be seen in the southern sky. What is it called?",
+  "choicesJson": [
+   "Cassiopeia",
+   "Big Dipper",
+   "Southern Cross",
+   "Orion's Belt"
+  ],
+  "answer": "Southern Cross",
+  "tags": [
+   "flags",
+   "stars"
+  ],
+  "media": {
+   "image": "learning/img/flags-australia.webp",
+   "alt": "A blue flag with the Union Jack in the corner and several white stars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is unusual about the shape of this flag compared to most national flags?",
+  "choicesJson": [
+   "It is a triangle",
+   "It has a hole in it",
+   "It is a square",
+   "It is a circle"
+  ],
+  "answer": "It is a square",
+  "tags": [
+   "flags",
+   "shapes"
+  ],
+  "media": {
+   "image": "learning/img/flags-switzerland.webp",
+   "alt": "A square red flag with a white cross in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The words on the blue circle of this flag are written in which language?",
+  "choicesJson": [
+   "Spanish",
+   "Portuguese",
+   "French",
+   "English"
+  ],
+  "answer": "Portuguese",
+  "tags": [
+   "flags",
+   "language"
+  ],
+  "media": {
+   "image": "learning/img/flags-brazil.webp",
+   "alt": "A green flag with a yellow diamond and a blue circle with white stars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This tower was built for a World's Fair in 1889. What is it mostly made of?",
+  "choicesJson": [
+   "Marble",
+   "Wood",
+   "Iron",
+   "Concrete"
+  ],
+  "answer": "Iron",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-eiffel-tower.webp",
+   "alt": "A tall tower made of iron beams standing on a green lawn under a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which ancient people built this mountaintop city in the Andes?",
+  "choicesJson": [
+   "Aztec",
+   "Maya",
+   "Roman",
+   "Inca"
+  ],
+  "answer": "Inca",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-machu-picchu.webp",
+   "alt": "Old stone ruins and green grass terraces in front of a steep mountain."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This ancient temple was built to honor which Greek goddess?",
+  "choicesJson": [
+   "Athena",
+   "Hera",
+   "Aphrodite",
+   "Demeter"
+  ],
+  "answer": "Athena",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-parthenon.webp",
+   "alt": "Tall stone columns of an ancient temple, seen from below against a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The name Big Ben really belongs to which part of this famous London tower?",
+  "choicesJson": [
+   "The clock face",
+   "The giant bell inside",
+   "The pointed roof",
+   "The river beside it"
+  ],
+  "answer": "The giant bell inside",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-big-ben.webp",
+   "alt": "A tall stone clock tower with gold decorations on a hazy day."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which famous Spanish architect designed this church in Barcelona?",
+  "choicesJson": [
+   "Gustave Eiffel",
+   "Frank Lloyd Wright",
+   "Antoni Gaudí",
+   "Michelangelo"
+  ],
+  "answer": "Antoni Gaudí",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-sagrada-familia.webp",
+   "alt": "Four tall, decorated stone towers with colorful tops against a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which king ordered this fairy-tale castle to be built in the 1800s?",
+  "choicesJson": [
+   "King Henry VIII",
+   "King Louis XIV",
+   "King Arthur",
+   "King Ludwig II"
+  ],
+  "answer": "King Ludwig II",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-neuschwanstein.webp",
+   "alt": "A white fairy-tale castle with pointed towers on a forested hill."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why does this famous tower lean?",
+  "choicesJson": [
+   "Soft ground sank under one side",
+   "It was built to lean on purpose",
+   "A storm bent its metal frame",
+   "Its top is much heavier than its bottom"
+  ],
+  "answer": "Soft ground sank under one side",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-leaning-tower-of-pisa.webp",
+   "alt": "A tall round white tower that tilts to one side, beside a big white marble church."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This tower was built for the 1962 World's Fair. In which US state is it?",
+  "choicesJson": [
+   "Oregon",
+   "Washington",
+   "Colorado",
+   "Florida"
+  ],
+  "answer": "Washington",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-space-needle.webp",
+   "alt": "A tall tower with a round saucer-shaped top against a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This huge domed building has stood for nearly 1,500 years. In which city is it?",
+  "choicesJson": [
+   "Athens",
+   "Rome",
+   "Istanbul",
+   "Cairo"
+  ],
+  "answer": "Istanbul",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-hagia-sophia.webp",
+   "alt": "A large domed building with four tall pointed towers beside it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these presidents is NOT carved into this mountain?",
+  "choicesJson": [
+   "George Washington",
+   "Thomas Jefferson",
+   "Abraham Lincoln",
+   "John F. Kennedy"
+  ],
+  "answer": "John F. Kennedy",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-mount-rushmore.webp",
+   "alt": "Four giant faces carved into the side of a rocky mountain."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Parthenon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-parthenon.webp",
+    "learning/img/landmarks-colosseum.webp",
+    "learning/img/landmarks-taj-mahal.webp",
+    "learning/img/landmarks-sagrada-familia.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ }
+]

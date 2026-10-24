@@ -1,0 +1,173 @@
+[
+ {
+  "id": "cmu0xa7oo003d12z23o3ov98t",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 1,2,4,8,16 and 2,4,8,16,32 doubling questions"
+ },
+ {
+  "id": "cmu0xa7op003l12z2z2y3gbfz",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 100,90,80 count-down question"
+ },
+ {
+  "id": "cmu0xa7op004512z2547o9b4j",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq004k12z20stolaih",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq004n12z2dh7q78zb",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq004o12z2vthdl9ay",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq005512z24usywfmw",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq005b12z2699jk7qg",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq005j12z2gqh3p9ur",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq005s12z2mj9ftcwd",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7or005y12z2gvmjxyze",
+  "action": "deactivate",
+  "reason": "Tautology: the premise restates the answer; \"multiples/divisible\" is above grade 2"
+ },
+ {
+  "id": "cmu0xa7oq004r12z23ym1vb84",
+  "action": "deactivate",
+  "reason": "Ambiguous odd-one-out: two valid answers (even/odd and the intended rule): 16 is the only even, 37 is the only non-square"
+ },
+ {
+  "id": "cmu0xa7oq005d12z25nh27sf8",
+  "action": "deactivate",
+  "reason": "Ambiguous odd-one-out: two valid answers (even/odd and the intended rule): 35 is the only odd; multiples of 7 above grade"
+ },
+ {
+  "id": "cmu0xa7oq005k12z2pyzts1m1",
+  "action": "deactivate",
+  "reason": "Ambiguous odd-one-out: two valid answers (even/odd and the intended rule): 49 is the only odd"
+ },
+ {
+  "id": "cmu0xa7or006112z2bihkdxnm",
+  "action": "deactivate",
+  "reason": "Ambiguous odd-one-out: two valid answers (even/odd and the intended rule): 9 is the only odd"
+ },
+ {
+  "id": "cmu0xa7oq005o12z2sh6kf7zn",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Hugo/Cara/Gia slowest ordering question"
+ },
+ {
+  "id": "cmu0xa7oq005x12z2y4o9sonw",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Leo/Opal/Ivy fastest ordering question"
+ },
+ {
+  "id": "cmu0xa7oq005112z2kwna80jp",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Sana/Pia/Ava tallest ordering question"
+ },
+ {
+  "id": "cmu0xa7oo003312z21m9ohn4m",
+  "action": "fix",
+  "reason": "Accept number word",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7oo003912z2de7bifht",
+  "action": "fix",
+  "reason": "Accept number word",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five",
+   "twentyfive"
+  ]
+ },
+ {
+  "id": "cmu0xa7oo003i12z2u5w4tvs5",
+  "action": "fix",
+  "reason": "Accept number word",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7op003o12z2e7cplra0",
+  "action": "fix",
+  "reason": "Accept number word",
+  "acceptedAnswers": [
+   "twenty"
+  ]
+ },
+ {
+  "id": "cmu0xa7op003r12z2pq4oiwyg",
+  "action": "fix",
+  "reason": "Prompt says four kids but only three are named",
+  "prompt": "Three kids: Ben is older than Cody. Cody is older than Dan. Who is the youngest?"
+ },
+ {
+  "id": "cmu0xa7op003t12z28c21r7fs",
+  "action": "fix",
+  "reason": "Missing articles",
+  "prompt": "A pilot flies a plane. A captain sails a __?"
+ },
+ {
+  "id": "cmu0xa7op003v12z2u12babb3",
+  "action": "fix",
+  "reason": "Clarify choices grammar",
+  "choicesJson": [
+   "Yes, it must be a square",
+   "Maybe, it could be a square",
+   "No, it cannot be a square"
+  ],
+  "answer": "Maybe, it could be a square"
+ },
+ {
+  "id": "cmu0xa7op003z12z2n8luxzal",
+  "action": "fix",
+  "reason": "Awkward \"is scored higher\" wording",
+  "prompt": "Mia scored higher than Gia. Gia scored higher than Rey. Rey scored higher than Quin. Who scored the lowest?"
+ },
+ {
+  "id": "cmu0xa7or006312z2fwewiy46",
+  "action": "fix",
+  "reason": "Marked 34 but 15 is the only odd number (34, 12, 6 are even); 15 is the true odd one out",
+  "answer": "15"
+ },
+ {
+  "id": "cmu0xa7oq005q12z24zfgcr0v",
+  "action": "fix",
+  "reason": "Answer 25 already in prompt; next square number is 36",
+  "choicesJson": [
+   "30",
+   "36",
+   "35",
+   "41"
+  ],
+  "answer": "36"
+ }
+]

@@ -113,6 +113,9 @@
     "type": "TEXT_INPUT",
     "prompt": "What comes next: 10, 9, 8, __?",
     "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
     "tags": [
       "pattern",
       "counting-down"
@@ -275,12 +278,11 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which number doesn't belong: 10, 20, 30, 35, 40",
+    "prompt": "Which number doesn't belong: 10, 20, 35, 40",
     "choicesJson": [
-      "10",
       "20",
-      "30",
       "35",
+      "10",
       "40"
     ],
     "answer": "35",
@@ -302,14 +304,14 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Doctor is to Sick as Teacher is to __?",
+    "prompt": "Doctor is to Hospital as Teacher is to __?",
     "choicesJson": [
-      "Learning",
-      "Sleepy",
-      "Hungry",
-      "Tired"
+      "Zoo",
+      "School",
+      "Beach",
+      "Kitchen"
     ],
-    "answer": "Learning",
+    "answer": "School",
     "tags": [
       "analogy"
     ]
@@ -332,6 +334,9 @@
     "type": "TEXT_INPUT",
     "prompt": "What comes next: 1, 2, 4, 8, __?",
     "answer": "16",
+    "acceptedAnswers": [
+      "sixteen"
+    ],
     "tags": [
       "pattern"
     ]
@@ -406,18 +411,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 3 are divisible by 3. 15 is a multiple of 3. Is 15 divisible by 3?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which one doesn't belong: Circle, Triangle, Rectangle, Van",
     "choicesJson": [
       "Circle",
@@ -432,19 +425,20 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 2 are divisible by 2. 4 is a multiple of 2. Is 4 divisible by 2?",
+    "prompt": "All sharks live in water. Bruce is a shark. Where does Bruce live?",
     "choicesJson": [
-      "Yes",
-      "No"
+      "On a mountain",
+      "In water",
+      "In a tree"
     ],
-    "answer": "Yes",
+    "answer": "In water",
     "tags": [
       "syllogism"
     ]
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Noah is scored higher than Quin. Quin is scored higher than Ava. Who is the highest scorer?",
+    "prompt": "Noah scored higher than Quin. Quin scored higher than Ava. Who scored the highest?",
     "choicesJson": [
       "Noah",
       "Ava",
@@ -514,20 +508,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What comes next: 2, 5, 8, 11, 14, __?",
-    "choicesJson": [
-      "21",
-      "17",
-      "18",
-      "12"
-    ],
-    "answer": "17",
-    "tags": [
-      "pattern"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What comes next: 1, 2, 3, 4, 5, __?",
     "choicesJson": [
       "9",
@@ -570,56 +550,15 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Kya is scored higher than Noah. Noah is scored higher than Mia. Who is the highest scorer?",
+    "prompt": "Every creeper in Minecraft is green. Spike is a creeper. What color is Spike?",
     "choicesJson": [
-      "Noah",
-      "Mia",
-      "Kya"
+      "Pink",
+      "Blue",
+      "Green"
     ],
-    "answer": "Kya",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 3 are divisible by 3. 6 is a multiple of 3. Is 6 divisible by 3?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
+    "answer": "Green",
     "tags": [
       "syllogism"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which one doesn't belong: Bowl, Blue, Spoon, Cup",
-    "choicesJson": [
-      "Bowl",
-      "Blue",
-      "Spoon",
-      "Cup"
-    ],
-    "answer": "Blue",
-    "tags": [
-      "classification"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Noah is older than Ivy. Ivy is older than Sana. Who is the oldest?",
-    "choicesJson": [
-      "Ivy",
-      "Sana",
-      "Noah"
-    ],
-    "answer": "Noah",
-    "tags": [
-      "reasoning",
-      "ordering"
     ]
   },
   {
@@ -638,19 +577,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 2 are divisible by 2. 10 is a multiple of 2. Is 10 divisible by 2?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 5 are divisible by 5. 30 is a multiple of 5. Is 30 divisible by 5?",
+    "prompt": "If it rains, the grass gets wet. It is raining. Is the grass wet?",
     "choicesJson": [
       "Yes",
       "No"
@@ -732,7 +659,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Finn is scored higher than Pia. Pia is scored higher than Sana. Who is the lowest scorer?",
+    "prompt": "Finn scored higher than Pia. Pia scored higher than Sana. Who scored the lowest?",
     "choicesJson": [
       "Pia",
       "Sana",
@@ -830,20 +757,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Theo is scored higher than Leo. Leo is scored higher than Ivy. Who is the lowest scorer?",
-    "choicesJson": [
-      "Theo",
-      "Ivy",
-      "Leo"
-    ],
-    "answer": "Ivy",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Rey is older than Ava. Ava is older than Sana. Who is the youngest?",
     "choicesJson": [
       "Sana",
@@ -854,18 +767,6 @@
     "tags": [
       "reasoning",
       "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 5 are divisible by 5. 10 is a multiple of 5. Is 10 divisible by 5?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
     ]
   },
   {
@@ -894,18 +795,6 @@
     "answer": "Bee",
     "tags": [
       "classification"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 4 are divisible by 4. 12 is a multiple of 4. Is 12 divisible by 4?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
     ]
   },
   {
@@ -952,34 +841,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Ben is older than Hugo. Hugo is older than Kya. Who is the oldest?",
-    "choicesJson": [
-      "Hugo",
-      "Kya",
-      "Ben"
-    ],
-    "answer": "Ben",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Hugo is older than Ava. Ava is older than Ela. Who is the youngest?",
-    "choicesJson": [
-      "Hugo",
-      "Ava",
-      "Ela"
-    ],
-    "answer": "Ela",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which one doesn't belong: Eagle, Foot, Knee, Hand",
     "choicesJson": [
       "Eagle",
@@ -990,32 +851,6 @@
     "answer": "Eagle",
     "tags": [
       "classification"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Mia is faster than Ela. Ela is faster than Sana. Who is the fastest?",
-    "choicesJson": [
-      "Sana",
-      "Ela",
-      "Mia"
-    ],
-    "answer": "Mia",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 2 are divisible by 2. 8 is a multiple of 2. Is 8 divisible by 2?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
     ]
   },
   {
@@ -1044,62 +879,6 @@
     "answer": "Truck",
     "tags": [
       "classification"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Ben is faster than Ela. Ela is faster than Noah. Who is the fastest?",
-    "choicesJson": [
-      "Noah",
-      "Ela",
-      "Ben"
-    ],
-    "answer": "Ben",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Leo is taller than Ela. Ela is taller than Opal. Who is the shortest?",
-    "choicesJson": [
-      "Opal",
-      "Leo",
-      "Ela"
-    ],
-    "answer": "Opal",
-    "tags": [
-      "reasoning",
-      "ordering"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What comes next: 8, 7, 6, 5, 4, __?",
-    "choicesJson": [
-      "2",
-      "3",
-      "1",
-      "4"
-    ],
-    "answer": "3",
-    "tags": [
-      "pattern"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What comes next: 6, 5, 4, 3, 2, __?",
-    "choicesJson": [
-      "2",
-      "4",
-      "0",
-      "1"
-    ],
-    "answer": "1",
-    "tags": [
-      "pattern"
     ]
   },
   {
@@ -1202,18 +981,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 4 are divisible by 4. 20 is a multiple of 4. Is 20 divisible by 4?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which one doesn't belong: Pink, Swimming, Soccer, Basketball",
     "choicesJson": [
       "Pink",
@@ -1224,18 +991,6 @@
     "answer": "Pink",
     "tags": [
       "classification"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "All multiples of 5 are divisible by 5. 25 is a multiple of 5. Is 25 divisible by 5?",
-    "choicesJson": [
-      "Yes",
-      "No"
-    ],
-    "answer": "Yes",
-    "tags": [
-      "syllogism"
     ]
   },
   {
@@ -1502,6 +1257,3687 @@
     "answer": "Crow",
     "tags": [
       "classification"
+    ]
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/00868bd59770.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/5899a79e859e.webp",
+        "learning/img/viz/d5b4cb30dba6.webp",
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/8802f6b4a67f.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/792bc630ab41.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d30a40501b6e.webp",
+        "learning/img/viz/a16d3e8dafb2.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/f1a5bee77b00.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/851c237be124.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/f1a5bee77b00.webp",
+        "learning/img/viz/66c8c82a740b.webp",
+        "learning/img/viz/e5bf2f4105ad.webp",
+        "learning/img/viz/3f6daf9c915b.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/56cc06093fad.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/836415b59913.webp",
+        "learning/img/viz/67f06d7615cd.webp",
+        "learning/img/viz/e5bf2f4105ad.webp",
+        "learning/img/viz/1d9050a77d1d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/fcc4d1cd45fe.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d13fe5d42dda.webp",
+        "learning/img/viz/b04ad223813d.webp",
+        "learning/img/viz/1a11d7c241ee.webp",
+        "learning/img/viz/92cb11da41f5.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/e6a994e7bec8.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/5af6b5b53540.webp",
+        "learning/img/viz/9e34fb261be4.webp",
+        "learning/img/viz/38c831ac9112.webp",
+        "learning/img/viz/44df50cafc53.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/fb26af041572.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/44df50cafc53.webp",
+        "learning/img/viz/f7f67645c58e.webp",
+        "learning/img/viz/f1a5bee77b00.webp",
+        "learning/img/viz/0852ca6415fd.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/fa2b3e66f8c4.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/fcb658d349d2.webp",
+        "learning/img/viz/f700c6bde0a4.webp",
+        "learning/img/viz/836415b59913.webp",
+        "learning/img/viz/db4c30d73c16.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/48c87b183188.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/cbc592d067e7.webp",
+        "learning/img/viz/e2aac199861e.webp",
+        "learning/img/viz/d30a40501b6e.webp",
+        "learning/img/viz/615aafb744c7.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b28cfae0cf8c.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/44df50cafc53.webp",
+        "learning/img/viz/7120744ccc1c.webp",
+        "learning/img/viz/be9fa2b876d6.webp",
+        "learning/img/viz/92cb11da41f5.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/f52e5d41a280.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/f700c6bde0a4.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/d13fe5d42dda.webp",
+        "learning/img/viz/1ad8e753cb08.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/650f96c5b50a.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d5b4cb30dba6.webp",
+        "learning/img/viz/23bce2591112.webp",
+        "learning/img/viz/38c831ac9112.webp",
+        "learning/img/viz/b04ad223813d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/25d323a3ffb0.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d30a40501b6e.webp",
+        "learning/img/viz/f1a5bee77b00.webp",
+        "learning/img/viz/1a11d7c241ee.webp",
+        "learning/img/viz/db4c30d73c16.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/0113b1a86de2.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/9adabddcb292.webp",
+        "learning/img/viz/836415b59913.webp",
+        "learning/img/viz/928595ba13f9.webp",
+        "learning/img/viz/f7f67645c58e.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/4cf99d07b12d.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/44df50cafc53.webp",
+        "learning/img/viz/38c831ac9112.webp",
+        "learning/img/viz/d146dd702424.webp",
+        "learning/img/viz/c651309f6809.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/a4c15b149484.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/f700c6bde0a4.webp",
+        "learning/img/viz/7346011036c0.webp",
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/b04ad223813d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/2fd8bd48d5fb.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/44df50cafc53.webp",
+        "learning/img/viz/92cb11da41f5.webp",
+        "learning/img/viz/a60890533735.webp",
+        "learning/img/viz/e2aac199861e.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b0ee63430fe2.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/5af6b5b53540.webp",
+        "learning/img/viz/47f5bdb62bac.webp",
+        "learning/img/viz/25775131c550.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/a63c2e731952.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/e5bf2f4105ad.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/ed5b6529d7cf.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/7a3e7c149c3b.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/df1b9bd74264.webp",
+        "learning/img/viz/b28210ce080b.webp",
+        "learning/img/viz/5af6b5b53540.webp",
+        "learning/img/viz/d13fe5d42dda.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/bbad3c576e3f.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d5b4cb30dba6.webp",
+        "learning/img/viz/8d7bd5f8dfba.webp",
+        "learning/img/viz/d146dd702424.webp",
+        "learning/img/viz/d13fe5d42dda.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/398ce5f387ae.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/ca1cd81920c7.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/dbda21ffaa5f.webp",
+        "learning/img/viz/e5bf2f4105ad.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/e787f7bef45a.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/67f06d7615cd.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/d146dd702424.webp",
+        "learning/img/viz/b28210ce080b.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/bbad3c576e3f.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d13fe5d42dda.webp",
+        "learning/img/viz/ca1cd81920c7.webp",
+        "learning/img/viz/8d7bd5f8dfba.webp",
+        "learning/img/viz/d5b4cb30dba6.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/969dcfb15780.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/615aafb744c7.webp",
+        "learning/img/viz/1d9050a77d1d.webp",
+        "learning/img/viz/f7f67645c58e.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/089b6aa0d8ce.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/bc7441a73e75.webp",
+        "learning/img/viz/ca1cd81920c7.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/d146dd702424.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b181f266306a.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/ca1cd81920c7.webp",
+        "learning/img/viz/5a19d2d2b1bb.webp",
+        "learning/img/viz/d5f172e91569.webp",
+        "learning/img/viz/5af6b5b53540.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/ae3b3aab1a87.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/92cb11da41f5.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/ffadaa868d98.webp",
+        "learning/img/viz/023d54e2bbb0.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/6d6f1b5b48ea.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/66c8c82a740b.webp",
+        "learning/img/viz/615aafb744c7.webp",
+        "learning/img/viz/c5bca7717193.webp",
+        "learning/img/viz/5af6b5b53540.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b049c97db94c.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/5af6b5b53540.webp",
+        "learning/img/viz/92cb11da41f5.webp",
+        "learning/img/viz/e2aac199861e.webp",
+        "learning/img/viz/670fa9d3ba59.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/5b30f5d337e7.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/b28210ce080b.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/a4c15b149484.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d25a28446f6.webp",
+        "learning/img/viz/ffadaa868d98.webp",
+        "learning/img/viz/92cb11da41f5.webp",
+        "learning/img/viz/7346011036c0.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/a63c2e731952.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/ffadaa868d98.webp",
+        "learning/img/viz/8f9e1460375d.webp",
+        "learning/img/viz/84d9f502ba09.webp",
+        "learning/img/viz/ed5b6529d7cf.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/a8cfbe0bcaa6.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/ffadaa868d98.webp",
+        "learning/img/viz/9e34fb261be4.webp",
+        "learning/img/viz/38c831ac9112.webp",
+        "learning/img/viz/bd51302bf075.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/db6e8564d741.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/25775131c550.webp",
+        "learning/img/viz/d5b4cb30dba6.webp",
+        "learning/img/viz/ffadaa868d98.webp",
+        "learning/img/viz/0d320c65731d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/089b6aa0d8ce.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/836415b59913.webp",
+        "learning/img/viz/b04ad223813d.webp",
+        "learning/img/viz/bc7441a73e75.webp",
+        "learning/img/viz/92cb11da41f5.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/e779342b6e84.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/e5bf2f4105ad.webp",
+        "learning/img/viz/8802f6b4a67f.webp",
+        "learning/img/viz/44df50cafc53.webp",
+        "learning/img/viz/a16d3e8dafb2.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/ec79e29c9118.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/bd51302bf075.webp",
+        "learning/img/viz/f1a5bee77b00.webp",
+        "learning/img/viz/02b68e569e32.webp",
+        "learning/img/viz/836415b59913.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/4200d2b01777.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/0d320c65731d.webp",
+        "learning/img/viz/836415b59913.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/e5bf2f4105ad.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/82e7c4a64848.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/66c8c82a740b.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/7120744ccc1c.webp",
+        "learning/img/viz/826f16a96450.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b982d5148ca1.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/1a11d7c241ee.webp",
+        "learning/img/viz/d30a40501b6e.webp",
+        "learning/img/viz/4b3f142e743e.webp",
+        "learning/img/viz/db4c30d73c16.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/873e296b90f1.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/f700c6bde0a4.webp",
+        "learning/img/viz/84d9f502ba09.webp",
+        "learning/img/viz/736d82b4f398.webp",
+        "learning/img/viz/4b3f142e743e.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/b7441f3b9d59.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/25775131c550.webp",
+        "learning/img/viz/0e54f947d445.webp",
+        "learning/img/viz/0d320c65731d.webp",
+        "learning/img/viz/e2aac199861e.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "What comes next in the pattern?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "patterns",
+      "visual"
+    ],
+    "media": {
+      "alt": "A row of shapes in a pattern with a missing last one",
+      "image": "learning/img/viz/faa33d7a534d.webp",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/c9bab8fdef8c.webp",
+        "learning/img/viz/f700c6bde0a4.webp",
+        "learning/img/viz/09ae26c62503.webp",
+        "learning/img/viz/44df50cafc53.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/71a695a736a8.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "B",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/88b6a87bf18f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/8c3ba663ca38.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/8a3953486618.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/69e63cc0527d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "A",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/f278bfcd5ab5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "E",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/f91db995b75e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/0c0d38063abf.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/3ec8b2495eea.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "B",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/90ac83275b1f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/521b332de6a5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "D",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/5e35f7e6cb17.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F"
+    ],
+    "answer": "E",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/137a74d24146.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is different from the others?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "odd-one-out",
+      "visual"
+    ],
+    "media": {
+      "alt": "Shapes in boxes labeled with letters",
+      "image": "learning/img/viz/0bc26edaafb1.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steve's hotbar goes: sword, pickaxe, axe, sword, pickaxe, __. What tool comes next?",
+    "choicesJson": [
+      "Sword",
+      "Shovel",
+      "Axe",
+      "Pickaxe"
+    ],
+    "answer": "Axe",
+    "tags": [
+      "pattern",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 2, 2, 3, 3, 4, 4, __?",
+    "choicesJson": [
+      "4",
+      "6",
+      "5"
+    ],
+    "answer": "5",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is missing: 10, 20, __, 40, 50",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "pattern",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count by 10s. What comes next: 60, 70, 80, __?",
+    "answer": "90",
+    "acceptedAnswers": [
+      "ninety"
+    ],
+    "tags": [
+      "pattern",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The shapes go: circle, square, square, circle, square, square, circle, __. What shape comes next?",
+    "choicesJson": [
+      "Triangle",
+      "Square",
+      "Circle"
+    ],
+    "answer": "Square",
+    "tags": [
+      "pattern",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count back by 5s: 25, 20, 15, __. What comes next?",
+    "choicesJson": [
+      "12",
+      "10",
+      "5",
+      "13"
+    ],
+    "answer": "10",
+    "tags": [
+      "pattern",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Roblox obby, chest 1 has 10 coins, chest 2 has 12 coins, and chest 3 has 14 coins. If the pattern keeps going, how many coins are in chest 4?",
+    "choicesJson": [
+      "15",
+      "18",
+      "16",
+      "20"
+    ],
+    "answer": "16",
+    "tags": [
+      "pattern",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, the storm circle shrinks a little each time. Its size goes 100, 80, 60, __. What size comes next?",
+    "choicesJson": [
+      "50",
+      "40",
+      "30",
+      "45"
+    ],
+    "answer": "40",
+    "tags": [
+      "pattern",
+      "skip-counting",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pattern repeats: triangle, triangle, square. What is the 6th shape?",
+    "choicesJson": [
+      "Square",
+      "Triangle",
+      "Circle"
+    ],
+    "answer": "Square",
+    "tags": [
+      "pattern",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the rule for this pattern: 4, 6, 8, 10?",
+    "choicesJson": [
+      "Add 2",
+      "Add 3",
+      "Subtract 2",
+      "Add 4"
+    ],
+    "answer": "Add 2",
+    "tags": [
+      "pattern",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the rule for this pattern: 20, 17, 14, 11?",
+    "choicesJson": [
+      "Subtract 2",
+      "Subtract 3",
+      "Add 3"
+    ],
+    "answer": "Subtract 3",
+    "tags": [
+      "pattern",
+      "rules"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is missing: 9, 8, __, 6, 5",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "pattern",
+      "counting-down"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 1, 2, 4, 5, 7, 8, __? Hint: the jumps go +1, +2, +1, +2.",
+    "choicesJson": [
+      "9",
+      "10",
+      "11"
+    ],
+    "answer": "10",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A tower has 1 window on floor 1, 3 windows on floor 2, and 5 windows on floor 3. How many windows will floor 4 have if the pattern keeps going?",
+    "choicesJson": [
+      "6",
+      "8",
+      "7",
+      "9"
+    ],
+    "answer": "7",
+    "tags": [
+      "pattern",
+      "odd-numbers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count by 5s. What number is missing: 35, 40, __, 50",
+    "answer": "45",
+    "acceptedAnswers": [
+      "forty-five",
+      "forty five",
+      "fortyfive"
+    ],
+    "tags": [
+      "pattern",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dance goes: clap, stomp, snap, clap, stomp, snap, clap, __. What move comes next?",
+    "choicesJson": [
+      "Snap",
+      "Stomp",
+      "Clap"
+    ],
+    "answer": "Stomp",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ruby is taller than Omar. Omar is taller than Dax. Who is in the middle?",
+    "choicesJson": [
+      "Dax",
+      "Omar",
+      "Ruby"
+    ],
+    "answer": "Omar",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Four friends stand in a line. Mia is first. Leo is right behind Mia. Zoe is last. Sam is the other friend. Where is Sam in the line?",
+    "choicesJson": [
+      "Second",
+      "Fourth",
+      "Third"
+    ],
+    "answer": "Third",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Max, Ivy, and Tom sit in a row. Ivy sits in the middle. Max sits on the left. Who sits on the right?",
+    "choicesJson": [
+      "Ivy",
+      "Tom",
+      "Max"
+    ],
+    "answer": "Tom",
+    "tags": [
+      "ordering",
+      "position"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The red tower is taller than the blue tower. The green tower is shorter than the blue tower. Which tower is the tallest?",
+    "choicesJson": [
+      "Red",
+      "Green",
+      "Blue"
+    ],
+    "answer": "Red",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sonic crossed the finish line before Tails. Tails crossed the finish line before Knuckles. Who came in last?",
+    "choicesJson": [
+      "Knuckles",
+      "Sonic",
+      "Tails"
+    ],
+    "answer": "Knuckles",
+    "tags": [
+      "ordering",
+      "deduction",
+      "theme:sonic"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a shelf, the red book is to the left of the blue book. The green book is to the right of the blue book. Which book is in the middle?",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "ordering",
+      "position"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ben lives on floor 2. Ivy lives one floor above Ben. Which floor does Ivy live on?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pia has more stickers than Sam. Sam has more stickers than Jo. Who has the fewest stickers?",
+    "choicesJson": [
+      "Pia",
+      "Jo",
+      "Sam"
+    ],
+    "answer": "Jo",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A dog, a cat, and a bird stand in a line. The cat is first. The bird is not last. Which pet is last?",
+    "choicesJson": [
+      "Bird",
+      "Dog",
+      "Cat"
+    ],
+    "answer": "Dog",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Zoe has one pet. It is a dog, a cat, or a fish. Her pet does not bark and does not meow. What pet does Zoe have?",
+    "choicesJson": [
+      "Fish",
+      "Dog",
+      "Cat"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "deduction",
+      "elimination"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Tom, Ana, and Raj each wear a hat. The hats are red, blue, and green. Tom wears red. Ana does not wear blue. What color hat does Raj wear?",
+    "choicesJson": [
+      "Green",
+      "Blue",
+      "Red"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "deduction",
+      "elimination"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three heroes line up to jump off the Battle Bus. Peely is behind Jonesy. Jonesy is behind Fishstick. Who is first in line?",
+    "choicesJson": [
+      "Peely",
+      "Jonesy",
+      "Fishstick"
+    ],
+    "answer": "Fishstick",
+    "tags": [
+      "ordering",
+      "deduction",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "At a friendly monster party, the mummy is shorter than the vampire. The little ghost is shorter than the mummy. Who is the shortest?",
+    "choicesJson": [
+      "Little ghost",
+      "Mummy",
+      "Vampire"
+    ],
+    "answer": "Little ghost",
+    "tags": [
+      "ordering",
+      "deduction",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rosa's birthday is before Ty's birthday. Ty's birthday is before Eli's birthday. Whose birthday comes last in the year?",
+    "choicesJson": [
+      "Rosa",
+      "Eli",
+      "Ty"
+    ],
+    "answer": "Eli",
+    "tags": [
+      "ordering",
+      "deduction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ash has 3 gym badges, Brock has 5 gym badges, and Misty has 4 gym badges. Who has the middle number of badges?",
+    "choicesJson": [
+      "Misty",
+      "Brock",
+      "Ash"
+    ],
+    "answer": "Misty",
+    "tags": [
+      "ordering",
+      "numbers",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bus has 4 seats in a row, numbered 1 to 4. Lia sits in seat 2. Omar sits right next to Lia, in a seat with a bigger number. Which seat does Omar sit in?",
+    "choicesJson": [
+      "Seat 3",
+      "Seat 1",
+      "Seat 4"
+    ],
+    "answer": "Seat 3",
+    "tags": [
+      "ordering",
+      "position"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: A triangle has 3 sides.",
+    "choicesJson": [
+      "True",
+      "False"
+    ],
+    "answer": "True",
+    "tags": [
+      "true-false",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: A circle has 3 corners.",
+    "choicesJson": [
+      "True",
+      "False"
+    ],
+    "answer": "False",
+    "tags": [
+      "true-false",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If it rains, Dad brings an umbrella. It is raining today. What does Dad bring?",
+    "choicesJson": [
+      "An umbrella",
+      "A kite",
+      "A sled",
+      "Sunglasses"
+    ],
+    "answer": "An umbrella",
+    "tags": [
+      "if-then",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a number is even, you can split it into two equal groups. 8 is even. Can you split 8 into two equal groups?",
+    "choicesJson": [
+      "Yes",
+      "No"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "if-then",
+      "even-odd"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: 5 is bigger than 8.",
+    "choicesJson": [
+      "True",
+      "False"
+    ],
+    "answer": "False",
+    "tags": [
+      "true-false",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: There are 7 days in one week.",
+    "choicesJson": [
+      "False",
+      "True"
+    ],
+    "answer": "True",
+    "tags": [
+      "true-false"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: 10 + 5 = 16",
+    "choicesJson": [
+      "False",
+      "True"
+    ],
+    "answer": "False",
+    "tags": [
+      "true-false",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "True or false: In Minecraft, a creeper is green.",
+    "choicesJson": [
+      "True",
+      "False"
+    ],
+    "answer": "True",
+    "tags": [
+      "true-false",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If Mario grabs a Super Mushroom, he grows big. Mario just grabbed a Super Mushroom. What happens?",
+    "choicesJson": [
+      "He grows big",
+      "He gets smaller",
+      "He turns invisible"
+    ],
+    "answer": "He grows big",
+    "tags": [
+      "if-then",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In an obby, if you touch the red lava, you go back to the start. Kai touched the red lava. Where does Kai go?",
+    "choicesJson": [
+      "Back to the start",
+      "To the finish",
+      "To the middle"
+    ],
+    "answer": "Back to the start",
+    "tags": [
+      "if-then",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is true?",
+    "choicesJson": [
+      "3 is more than 2",
+      "5 is the same as 6",
+      "4 is less than 1"
+    ],
+    "answer": "3 is more than 2",
+    "tags": [
+      "true-false",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is false?",
+    "choicesJson": [
+      "Fire is cold",
+      "Ice is cold",
+      "Snow is cold"
+    ],
+    "answer": "Fire is cold",
+    "tags": [
+      "true-false",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If today is Saturday, what day is it two days from now?",
+    "choicesJson": [
+      "Sunday",
+      "Tuesday",
+      "Monday",
+      "Friday"
+    ],
+    "answer": "Monday",
+    "tags": [
+      "if-then",
+      "days"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "If you add 0 to a number, the number stays the same. What is 7 + 0?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "if-then",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a shape has 3 sides, it is a triangle. Mia drew a shape with 3 sides. What shape did Mia draw?",
+    "choicesJson": [
+      "Square",
+      "Triangle",
+      "Circle"
+    ],
+    "answer": "Triangle",
+    "tags": [
+      "if-then",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A robot follows this rule: if the number is bigger than 5, say YES. If not, say NO. The number is 5. What does the robot say?",
+    "choicesJson": [
+      "NO",
+      "YES"
+    ],
+    "answer": "NO",
+    "tags": [
+      "if-then",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Every cookie in the jar is chocolate. Ana takes one cookie from the jar. What kind of cookie is it?",
+    "choicesJson": [
+      "Vanilla",
+      "Oatmeal",
+      "Chocolate"
+    ],
+    "answer": "Chocolate",
+    "tags": [
+      "if-then",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Every ball in the box is red. Which ball can NOT be in the box?",
+    "choicesJson": [
+      "A red ball",
+      "A blue ball",
+      "A small red ball"
+    ],
+    "answer": "A blue ball",
+    "tags": [
+      "if-then",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steve picks 2 apples on day 1, 5 apples on day 2, 8 apples on day 3, and 11 apples on day 4. If the pattern keeps going, how many apples does he pick on day 5?",
+    "choicesJson": [
+      "12",
+      "13",
+      "14",
+      "15"
+    ],
+    "answer": "14",
+    "tags": [
+      "pattern",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letter comes next: A, C, E, G, __?",
+    "choicesJson": [
+      "I",
+      "J",
+      "H"
+    ],
+    "answer": "I",
+    "tags": [
+      "pattern",
+      "letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: clap, stomp, clap, stomp, clap, __?",
+    "choicesJson": [
+      "stomp",
+      "jump",
+      "clap"
+    ],
+    "answer": "stomp",
+    "tags": [
+      "pattern",
+      "rhythm"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: 🍎 🍌 🍇 🍎 🍌 __?",
+    "choicesJson": [
+      "🍎",
+      "🍇",
+      "🍌"
+    ],
+    "answer": "🍇",
+    "tags": [
+      "pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Roblox obby, the checkpoints are at stage 10, stage 20, stage 30, and stage 40. Which stage is the next checkpoint?",
+    "choicesJson": [
+      "45",
+      "60",
+      "50"
+    ],
+    "answer": "50",
+    "tags": [
+      "pattern",
+      "skip-counting",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is missing: 7, 9, __, 13, 15?",
+    "choicesJson": [
+      "10",
+      "12",
+      "11"
+    ],
+    "answer": "11",
+    "tags": [
+      "pattern",
+      "missing-number"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, 50 players are left. Then 45 are left. Then 40, then 35. If it keeps going down the same way, how many players are left next?",
+    "choicesJson": [
+      "25",
+      "30",
+      "32",
+      "34"
+    ],
+    "answer": "30",
+    "tags": [
+      "pattern",
+      "counting-down",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What day comes next: Monday, Wednesday, Friday, __?",
+    "choicesJson": [
+      "Saturday",
+      "Sunday",
+      "Monday"
+    ],
+    "answer": "Sunday",
+    "tags": [
+      "pattern",
+      "days"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What month comes next: January, March, May, __?",
+    "choicesJson": [
+      "July",
+      "August",
+      "June"
+    ],
+    "answer": "July",
+    "tags": [
+      "pattern",
+      "months"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: small, medium, large, small, medium, __?",
+    "choicesJson": [
+      "large",
+      "medium",
+      "small"
+    ],
+    "answer": "large",
+    "tags": [
+      "pattern",
+      "size"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count by 2s: 2, 4, 6, 9, 10. Which number does not fit the pattern?",
+    "choicesJson": [
+      "4",
+      "6",
+      "9",
+      "10"
+    ],
+    "answer": "9",
+    "tags": [
+      "pattern",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ash catches 3 Pokemon on Monday, 4 on Tuesday, 5 on Wednesday, and 6 on Thursday. If the pattern keeps going, how many does he catch on Friday?",
+    "choicesJson": [
+      "8",
+      "6",
+      "7"
+    ],
+    "answer": "7",
+    "tags": [
+      "pattern",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A block tower has 3 blocks on day 1, 5 blocks on day 2, 7 blocks on day 3, and 9 blocks on day 4. How many blocks will it have on day 5?",
+    "choicesJson": [
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "answer": "11",
+    "tags": [
+      "pattern",
+      "growing-pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next: ⭐, ⭐⭐, ⭐⭐⭐, __?",
+    "choicesJson": [
+      "⭐⭐⭐⭐⭐",
+      "⭐⭐",
+      "⭐⭐⭐⭐"
+    ],
+    "answer": "⭐⭐⭐⭐",
+    "tags": [
+      "pattern",
+      "growing-pattern"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Head is to hat as hand is to __?",
+    "choicesJson": [
+      "belt",
+      "glove",
+      "shoe"
+    ],
+    "answer": "glove",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Day is to sun as night is to __?",
+    "choicesJson": [
+      "cloud",
+      "moon",
+      "rain"
+    ],
+    "answer": "moon",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pig is to oink as cow is to __?",
+    "choicesJson": [
+      "meow",
+      "quack",
+      "bark",
+      "moo"
+    ],
+    "answer": "moo",
+    "tags": [
+      "analogy",
+      "animal-sounds"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Big is to small as tall is to __?",
+    "choicesJson": [
+      "big",
+      "short",
+      "long"
+    ],
+    "answer": "short",
+    "tags": [
+      "analogy",
+      "opposites"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Eyes are to see as ears are to __?",
+    "choicesJson": [
+      "taste",
+      "hear",
+      "smell"
+    ],
+    "answer": "hear",
+    "tags": [
+      "analogy",
+      "senses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Cold is to ice as hot is to __?",
+    "choicesJson": [
+      "fire",
+      "rain",
+      "snow"
+    ],
+    "answer": "fire",
+    "tags": [
+      "analogy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sword is to fight as pickaxe is to __?",
+    "choicesJson": [
+      "dig",
+      "swim",
+      "sleep"
+    ],
+    "answer": "dig",
+    "tags": [
+      "analogy",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ghost is to boo as dog is to __?",
+    "choicesJson": [
+      "quack",
+      "moo",
+      "woof"
+    ],
+    "answer": "woof",
+    "tags": [
+      "analogy",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A dime is to 10 cents as a nickel is to __?",
+    "choicesJson": [
+      "25 cents",
+      "1 cent",
+      "5 cents"
+    ],
+    "answer": "5 cents",
+    "tags": [
+      "analogy",
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sock is to foot as mitten is to __?",
+    "choicesJson": [
+      "head",
+      "hand",
+      "knee"
+    ],
+    "answer": "hand",
+    "tags": [
+      "analogy",
+      "clothes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bird is to nest as bee is to __?",
+    "choicesJson": [
+      "hive",
+      "cave",
+      "pond"
+    ],
+    "answer": "hive",
+    "tags": [
+      "analogy",
+      "homes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Teacher is to school as chef is to __?",
+    "choicesJson": [
+      "kitchen",
+      "zoo",
+      "hospital"
+    ],
+    "answer": "kitchen",
+    "tags": [
+      "analogy",
+      "jobs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mario is to red as Luigi is to __?",
+    "choicesJson": [
+      "blue",
+      "yellow",
+      "green"
+    ],
+    "answer": "green",
+    "tags": [
+      "analogy",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Fish is to swim as bird is to __?",
+    "choicesJson": [
+      "fly",
+      "run",
+      "dig"
+    ],
+    "answer": "fly",
+    "tags": [
+      "analogy",
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ben goes up 2 stairs and then goes down 2 stairs. Where is Ben now?",
+    "choicesJson": [
+      "Where he started",
+      "2 stairs below where he started",
+      "2 stairs above where he started"
+    ],
+    "answer": "Where he started",
+    "tags": [
+      "spatial",
+      "direction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sam takes 3 steps forward and then 1 step back. How many steps is Sam from where he started?",
+    "choicesJson": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "answer": "2",
+    "tags": [
+      "spatial",
+      "steps"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mia stands in the middle of a line of 5 kids. How many kids are in front of her?",
+    "choicesJson": [
+      "1",
+      "3",
+      "2"
+    ],
+    "answer": "2",
+    "tags": [
+      "spatial",
+      "position"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three boxes sit in a row. The red box is on the left. The blue box is on the right. Where is the green box?",
+    "choicesJson": [
+      "Left",
+      "Middle",
+      "Right"
+    ],
+    "answer": "Middle",
+    "tags": [
+      "spatial",
+      "position"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A cat sits on top of a table. A ball is under the table. Which one is closer to the floor?",
+    "choicesJson": [
+      "The cat",
+      "They are the same",
+      "The ball"
+    ],
+    "answer": "The ball",
+    "tags": [
+      "spatial",
+      "position-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A 2 by 2 grid has 4 boxes: two on top and two on the bottom. A star is in the top-left box. You slide it one box to the right. Which box is the star in now?",
+    "choicesJson": [
+      "Top-left",
+      "Bottom-left",
+      "Bottom-right",
+      "Top-right"
+    ],
+    "answer": "Top-right",
+    "tags": [
+      "spatial",
+      "grid"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Five lily pads sit in a row, numbered 1 to 5 from left to right. A frog sits on pad 2 and hops 2 pads to the right. Which pad number is the frog on now?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "spatial",
+      "grid"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You are on stage 7 of an obby in Roblox. You fall back 3 stages. What stage are you on now?",
+    "choicesJson": [
+      "10",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "4",
+    "tags": [
+      "spatial",
+      "number-line",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a map, north is at the top. Which way is the bottom of the map?",
+    "choicesJson": [
+      "East",
+      "West",
+      "South",
+      "North"
+    ],
+    "answer": "South",
+    "tags": [
+      "spatial",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a map, north is at the top and east is on the right. Which way is the left side of the map?",
+    "choicesJson": [
+      "West",
+      "North",
+      "South",
+      "East"
+    ],
+    "answer": "West",
+    "tags": [
+      "spatial",
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You are facing a wall. You turn right, and then you turn right again. Which way are you facing now?",
+    "choicesJson": [
+      "Toward the wall",
+      "Away from the wall",
+      "Up at the ceiling"
+    ],
+    "answer": "Away from the wall",
+    "tags": [
+      "spatial",
+      "turns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Zoe is 3rd in line. Max stands right behind her. What place in line is Max?",
+    "choicesJson": [
+      "3rd",
+      "2nd",
+      "4th"
+    ],
+    "answer": "4th",
+    "tags": [
+      "spatial",
+      "ordinal"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A line has 4 kids. Ava is first and Leo is last. Ben stands right behind Ava. What place is Ben in?",
+    "choicesJson": [
+      "1st",
+      "3rd",
+      "2nd",
+      "4th"
+    ],
+    "answer": "2nd",
+    "tags": [
+      "spatial",
+      "ordinal"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, you build a ramp. Then you build a wall to the left of the ramp. Then you build a second wall to the left of the first wall. Which piece is farthest to the left?",
+    "choicesJson": [
+      "The first wall",
+      "The second wall",
+      "The ramp"
+    ],
+    "answer": "The second wall",
+    "tags": [
+      "spatial",
+      "left-right",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rooms in a hallway are numbered 1 to 5 from left to right. A friendly ghost floats from room 2 two rooms to the right. Which room is it in now?",
+    "choicesJson": [
+      "3",
+      "5",
+      "4"
+    ],
+    "answer": "4",
+    "tags": [
+      "spatial",
+      "number-line",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Mario Kart, you are in 3rd place. You zoom past 1 racer. What place are you in now?",
+    "choicesJson": [
+      "1st",
+      "2nd",
+      "3rd",
+      "4th"
+    ],
+    "answer": "2nd",
+    "tags": [
+      "spatial",
+      "position",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bookshelf has 3 shelves: top, middle, and bottom. The red book is on the shelf just above the middle shelf. Which shelf holds the red book?",
+    "choicesJson": [
+      "Top",
+      "Middle",
+      "Bottom"
+    ],
+    "answer": "Top",
+    "tags": [
+      "spatial",
+      "position-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one cannot fly?",
+    "choicesJson": [
+      "Penguin",
+      "Eagle",
+      "Crow",
+      "Robin"
+    ],
+    "answer": "Penguin",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT an animal in Minecraft?",
+    "choicesJson": [
+      "Sheep",
+      "Pig",
+      "Cow",
+      "Pickaxe"
+    ],
+    "answer": "Pickaxe",
+    "tags": [
+      "classification",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has no corners?",
+    "choicesJson": [
+      "Rectangle",
+      "Circle",
+      "Square",
+      "Triangle"
+    ],
+    "answer": "Circle",
+    "tags": [
+      "shapes",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT hot?",
+    "choicesJson": [
+      "Sun",
+      "Ice cube",
+      "Fire",
+      "Stove"
+    ],
+    "answer": "Ice cube",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT a Pokemon?",
+    "choicesJson": [
+      "Eevee",
+      "Sonic",
+      "Bulbasaur",
+      "Jigglypuff"
+    ],
+    "answer": "Sonic",
+    "tags": [
+      "classification",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one does NOT live in water?",
+    "choicesJson": [
+      "Cow",
+      "Shark",
+      "Octopus",
+      "Dolphin"
+    ],
+    "answer": "Cow",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three of these equal 4. Which one does NOT?",
+    "choicesJson": [
+      "3 + 1",
+      "1 + 3",
+      "2 + 3",
+      "2 + 2"
+    ],
+    "answer": "2 + 3",
+    "tags": [
+      "classification",
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one does NOT have wheels?",
+    "choicesJson": [
+      "Car",
+      "Bike",
+      "Wagon",
+      "Boat"
+    ],
+    "answer": "Boat",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group does a carrot belong to?",
+    "choicesJson": [
+      "Vegetables",
+      "Fruits",
+      "Toys"
+    ],
+    "answer": "Vegetables",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT worn on your feet?",
+    "choicesJson": [
+      "Boot",
+      "Sandal",
+      "Sock",
+      "Hat"
+    ],
+    "answer": "Hat",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three of these are tiny. Which one is huge?",
+    "choicesJson": [
+      "Mouse",
+      "Elephant",
+      "Ant",
+      "Bee"
+    ],
+    "answer": "Elephant",
+    "tags": [
+      "classification",
+      "size"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT a movie monster?",
+    "choicesJson": [
+      "Dracula",
+      "King Kong",
+      "Godzilla",
+      "Puppy"
+    ],
+    "answer": "Puppy",
+    "tags": [
+      "classification",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT round?",
+    "choicesJson": [
+      "Coin",
+      "Ball",
+      "Plate",
+      "Book"
+    ],
+    "answer": "Book",
+    "tags": [
+      "classification",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is NOT alive?",
+    "choicesJson": [
+      "Cat",
+      "Tree",
+      "Rock",
+      "Flower"
+    ],
+    "answer": "Rock",
+    "tags": [
+      "classification",
+      "science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word does NOT start with the same sound as the others?",
+    "choicesJson": [
+      "Sand",
+      "Sun",
+      "Moon",
+      "Sock"
+    ],
+    "answer": "Moon",
+    "tags": [
+      "word-logic",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three of these have wings. Which one does NOT?",
+    "choicesJson": [
+      "Butterfly",
+      "Airplane",
+      "Eagle",
+      "Table"
+    ],
+    "answer": "Table",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one does NOT belong with the others?",
+    "choicesJson": [
+      "Crayon",
+      "Marker",
+      "Pencil",
+      "Spoon"
+    ],
+    "answer": "Spoon",
+    "tags": [
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "I have two hands and a face, but I cannot wave. I tell you the time. What am I?",
+    "choicesJson": [
+      "Shoe",
+      "Spoon",
+      "Clock"
+    ],
+    "answer": "Clock",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "I have lead inside and an eraser on top. I help you write. What am I?",
+    "choicesJson": [
+      "Crayon",
+      "Spoon",
+      "Pen",
+      "Pencil"
+    ],
+    "answer": "Pencil",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "I have four legs and a flat top, but I cannot walk. You eat dinner on me. What am I?",
+    "choicesJson": [
+      "Table",
+      "Chair",
+      "Lamp",
+      "Cow"
+    ],
+    "answer": "Table",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What has a head and a tail but no body?",
+    "choicesJson": [
+      "A book",
+      "A fish",
+      "A coin",
+      "A dog"
+    ],
+    "answer": "A coin",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What gets wetter the more it dries?",
+    "choicesJson": [
+      "A rain cloud",
+      "A sponge",
+      "A fish",
+      "A towel"
+    ],
+    "answer": "A towel",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What has teeth but cannot bite?",
+    "choicesJson": [
+      "A comb",
+      "A dog",
+      "A shark",
+      "A crocodile"
+    ],
+    "answer": "A comb",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am white and cold. I fall from the sky in winter. Kids build a man out of me. What am I?",
+    "answer": "snow",
+    "acceptedAnswers": [
+      "the snow",
+      "snowflake",
+      "snowflakes"
+    ],
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am green and I sneak up on you in Minecraft. I go sss and then BOOM. What am I?",
+    "answer": "creeper",
+    "acceptedAnswers": [
+      "a creeper",
+      "the creeper",
+      "creepers"
+    ],
+    "tags": [
+      "riddle",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am a pet that barks. My name starts with D. What am I?",
+    "answer": "dog",
+    "acceptedAnswers": [
+      "a dog"
+    ],
+    "tags": [
+      "riddle",
+      "word-logic"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I rhyme with cat and you wear me on your head. What am I?",
+    "answer": "hat",
+    "acceptedAnswers": [
+      "a hat"
+    ],
+    "tags": [
+      "riddle",
+      "rhyming"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I rhyme with sun. I am a number. I come right before 2. What am I?",
+    "answer": "one",
+    "acceptedAnswers": [
+      "1"
+    ],
+    "tags": [
+      "riddle",
+      "rhyming"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many letters are in the word CAT?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "word-logic",
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Which day comes between Tuesday and Thursday?",
+    "answer": "Wednesday",
+    "tags": [
+      "word-logic",
+      "days"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means the opposite of empty?",
+    "choicesJson": [
+      "Tiny",
+      "Full",
+      "Cold"
+    ],
+    "answer": "Full",
+    "tags": [
+      "word-logic",
+      "opposites"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am Ash's yellow partner Pokemon with a lightning-bolt tail. My name starts with P. Who am I?",
+    "answer": "Pikachu",
+    "tags": [
+      "riddle",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "I am yellow and curved. Monkeys love to eat me. What am I?",
+    "choicesJson": [
+      "Pear",
+      "Lemon",
+      "Banana",
+      "Corn"
+    ],
+    "answer": "Banana",
+    "tags": [
+      "riddle"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am a number. I come after 5 and before 7. What number am I?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "riddle",
+      "numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is both a color and a fruit?",
+    "choicesJson": [
+      "Pear",
+      "Orange",
+      "Banana",
+      "Apple"
+    ],
+    "answer": "Orange",
+    "tags": [
+      "word-logic"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bag has only blue cubes. You pick one without looking. Will it be red?",
+    "choicesJson": [
+      "No, never",
+      "Maybe",
+      "Yes, always"
+    ],
+    "answer": "No, never",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bag has 1 red marble and 5 blue marbles. You pick one without looking. Which color are you more likely to get?",
+    "choicesJson": [
+      "They are the same",
+      "Blue",
+      "Red"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bag has 3 green blocks and 1 yellow block. You pick one without looking. Which color are you less likely to get?",
+    "choicesJson": [
+      "Green",
+      "Yellow",
+      "They are the same"
+    ],
+    "answer": "Yellow",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You flip a coin. How many different ways can it land?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "probability",
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A spinner is half red and half blue. You spin it. Which sentence is true?",
+    "choicesJson": [
+      "They are equally likely",
+      "Red is more likely",
+      "Blue is more likely"
+    ],
+    "answer": "They are equally likely",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A regular die has the numbers 1 to 6. Can you roll a 9?",
+    "choicesJson": [
+      "No, never",
+      "Yes, always",
+      "Yes, sometimes"
+    ],
+    "answer": "No, never",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Minecraft chest has 4 diamonds and 1 apple. Steve grabs one item without looking. Which is he more likely to grab?",
+    "choicesJson": [
+      "Diamond",
+      "Apple",
+      "They are the same"
+    ],
+    "answer": "Diamond",
+    "tags": [
+      "probability",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Zed collects 4 coins in a Roblox obby. Then he finds 3 more. How many coins does he have now?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "counting",
+      "addition",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ria won 2 Victory Royales in Fortnite on Saturday and 3 on Sunday. How many did she win in all?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "counting",
+      "addition",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many legs do 2 dogs have in all?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many wheels do 3 bikes have in all?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bag has 2 red cubes and 2 blue cubes. You pick one without looking. Is red more likely than blue?",
+    "choicesJson": [
+      "No, blue is more likely",
+      "Yes, red is more likely",
+      "No, they are equally likely"
+    ],
+    "answer": "No, they are equally likely",
+    "tags": [
+      "probability"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 7 ducks in a pond. 2 ducks swim away. How many ducks are left?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "counting",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is impossible?",
+    "choicesJson": [
+      "A bird flying",
+      "A cat sleeping",
+      "A fish riding a bike",
+      "A dog barking"
+    ],
+    "answer": "A fish riding a bike",
+    "tags": [
+      "probability",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Mario Kart race, Toad finishes 3rd. How many racers finished ahead of Toad?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "counting",
+      "ordering",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5 players are in a game of Among Us. 1 is the Impostor. How many are Crewmates?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "counting",
+      "subtraction",
+      "theme:amongus"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Dracula has 3 bat friends. Each bat has 2 wings. How many wings are there in all?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "counting",
+      "skip-counting",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mia has 5 stickers. She gets 5 more. How many stickers does she have now?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "counting",
+      "addition"
     ]
   }
 ]

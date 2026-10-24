@@ -1,0 +1,23 @@
+[
+{"id":"cmu0xa8cs02tf12z2nlfprlbl","action":"fix","reason":"Prompt spelled out 're' + 'peat', giving away the answer; also vague","prompt":"Spell the word meaning 'to say or do something again'. It starts with 're' and rhymes with 'seat'."},
+{"id":"cmu0xa8cs02tq12z2dea0z8n9","action":"fix","reason":"Definition 'look at before it happens' is inaccurate","prompt":"Add the prefix 'pre' to 'view' - spell the new word meaning 'to see something ahead of time'."},
+{"id":"cmu0xa8cs02u212z2xprdilkc","action":"fix","reason":"'unhurried' too hard for grade 3","prompt":"Add the suffix 'ly' to 'slow' - spell the new word meaning 'in a way that is not fast'."},
+{"id":"cmu0xa8cs02ug12z2foi3fjkx","action":"fix","reason":"Apostrophe may be typed as a curly quote","acceptedAnswers":["it’s"]},
+{"id":"cmu0xa8cs02ui12z2lbiandy2","action":"fix","reason":"Apostrophe may be typed as a curly quote","acceptedAnswers":["you’re"]},
+{"id":"cmu0xa8cs02uk12z2kefpk4d0","action":"fix","reason":"Apostrophe may be typed as a curly quote","acceptedAnswers":["who’s"]},
+{"id":"cmu0xa8cs02um12z2izssxp0h","action":"fix","reason":"'a part of something' fits 'part', 'section' etc.; ambiguous","prompt":"Spell the word that sounds like 'peace' and means 'a part of something' (as in 'a ___ of pizza')."},
+{"id":"cmu0xa8cs02un12z2rucdf6e5","action":"fix","reason":"'simple' is also a valid answer; ambiguous with plane","prompt":"Spell the word meaning 'simple, not fancy'. It ends in 'ain'."},
+{"id":"cmu0xa8cs02uo12z2tj2zmpdj","action":"fix","reason":"Several valid answers (jet, airplane); ambiguous with plain","prompt":"Spell the word for an aircraft with wings that flies through the sky. It ends in 'ane'."},
+{"id":"cmu0xa8ct02us12z2lubkh8kb","action":"fix","reason":"'across' also fits the definition","prompt":"Spell the word that sounds like 'threw' and means 'from one side to the other' (as in 'walk ___ the tunnel')."},
+{"id":"cmu0xa8ct02ut12z2x5dkxbh8","action":"fix","reason":"'take', 'rob' also fit; ambiguous with steel","prompt":"Spell the word meaning 'to take something that isn't yours'. It rhymes with 'meal'."},
+{"id":"cmu0xa8ct02uu12z2vhoilgmm","action":"fix","reason":"'iron' also fits; ambiguous with steal","prompt":"Spell the word for the strong metal used to build bridges and buildings. It rhymes with 'wheel'."},
+{"id":"cmu0xa8ct02uw12z26sgnalca","action":"fix","reason":"'split', 'crack' also fit; ambiguous","prompt":"Spell the word that sounds like 'brake' and means 'to split something into pieces'. It ends in 'eak'."},
+{"id":"cmu0xa8ct02uz12z245q4mp3n","action":"fix","reason":"'memorize' also fits the definition","prompt":"Spell the word meaning 'to keep something in your memory'. It starts with 'rem'."},
+{"id":"cmu0xa8ct02v112z2j1u6xjdq","action":"fix","reason":"'likely' also fits 'most likely'","prompt":"Spell the word meaning 'most likely' (as in 'It will ___ rain today'). It starts with 'prob'."},
+{"id":"cmu0xa8ct02v312z20gf2sqy0","action":"fix","reason":"'accident' and other words also fit; ambiguous","prompt":"Spell the word for something unexpected that happens, like a surprise party. It starts with 'sur'."},
+{"id":"cmu0xa8ct02v512z2llghhe28","action":"fix","reason":"'till' is an equally valid answer","acceptedAnswers":["till"]},
+{"id":"cmu0xa8ct02vb12z2qcdjvv19","action":"fix","reason":"'think', 'trust' also fit; ambiguous","prompt":"Spell the word meaning 'to think something is true'. It starts with 'bel'."},
+{"id":"cmu0xa8ct02vf12z2tdw5etls","action":"fix","reason":"'giggle', 'chuckle' also fit; ambiguous","prompt":"Spell the word for what you do when something is very funny: ha ha ha! It ends in 'ugh'."},
+{"id":"cmu0xa8ct02vx12z2ffd4l7ko","action":"fix","reason":"Prompt names 'birthday' as an example, which is a plausible wrong answer","prompt":"Spell the word for a special day off from school or work, like Thanksgiving or the Fourth of July."},
+{"id":"cmu0xa8ct02w312z21t273mzd","action":"fix","reason":"'photo', 'image' also fit; ambiguous","prompt":"Spell the word for a drawing, painting, or photograph. It starts with 'pic'."}
+]

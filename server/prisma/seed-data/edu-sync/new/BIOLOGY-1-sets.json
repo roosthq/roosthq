@@ -1,0 +1,791 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is this?",
+  "choicesJson": [
+   "Desert",
+   "Rainforest",
+   "Coral reef",
+   "Arctic tundra"
+  ],
+  "answer": "Rainforest",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-rainforest-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is this?",
+  "choicesJson": [
+   "Pond",
+   "Coral reef",
+   "Mountain"
+  ],
+  "answer": "Mountain",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-mountain-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ducklings are paddling in this water. Which habitat is this?",
+  "choicesJson": [
+   "Mountain",
+   "Cave",
+   "Desert",
+   "Pond"
+  ],
+  "answer": "Pond",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-pond-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal would live here?",
+  "choicesJson": [
+   "Polar bear",
+   "Toucan",
+   "Lion",
+   "Clownfish"
+  ],
+  "answer": "Lion",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-savanna-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal would live here?",
+  "choicesJson": [
+   "Clownfish",
+   "Giraffe",
+   "Camel",
+   "Polar bear"
+  ],
+  "answer": "Clownfish",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-reef-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does this animal live?",
+  "choicesJson": [
+   "A rainforest",
+   "The Arctic",
+   "A hot desert"
+  ],
+  "answer": "The Arctic",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-polarbear.webp",
+   "alt": "A photo of an animal."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does this animal live?",
+  "choicesJson": [
+   "Desert",
+   "Ocean",
+   "Swamp"
+  ],
+  "answer": "Desert",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-camel2.webp",
+   "alt": "A photo of an animal."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat does this giraffe live in?",
+  "choicesJson": [
+   "Savanna",
+   "Arctic tundra",
+   "Cave"
+  ],
+  "answer": "Savanna",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-giraffe.webp",
+   "alt": "A photo of an animal."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ducks have webbed feet. What do they help a duck do?",
+  "choicesJson": [
+   "Fly high",
+   "Swim",
+   "Dig holes",
+   "Climb trees"
+  ],
+  "answer": "Swim",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-pond-b.webp",
+   "alt": "Ducklings swimming near tall green reeds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of plant covers most of a savanna?",
+  "choicesJson": [
+   "Grass",
+   "Moss on ice",
+   "Seaweed",
+   "Cactus"
+  ],
+  "answer": "Grass",
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-savanna-b.webp",
+   "alt": "A flat grassland with one tree."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a desert?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-tundra-c.webp",
+    "learning/img/habitats-reef-a.webp",
+    "learning/img/habitats-deciduous-b.webp",
+    "learning/img/habitats-desert-b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a rainforest?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-mountain-b.webp",
+    "learning/img/habitats-desert-c.webp",
+    "learning/img/habitats-rainforest-b.webp",
+    "learning/img/habitats-lake-c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a cave?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-mountain-b.webp",
+    "learning/img/habitats-desert-b.webp",
+    "learning/img/habitats-cave-d.webp",
+    "learning/img/habitats-pond-b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which animal lives in a desert?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-sloth.webp",
+    "learning/img/habitats-clownfish.webp",
+    "learning/img/habitats-camel2.webp",
+    "learning/img/habitats-polarbear.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which animal lives in the rainforest?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-mountaingoat.webp",
+    "learning/img/habitats-arcticfox.webp",
+    "learning/img/habitats-camel2.webp",
+    "learning/img/habitats-sloth.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which animal lives on a coral reef?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-clownfish.webp",
+    "learning/img/habitats-deer.webp",
+    "learning/img/habitats-lioness.webp",
+    "learning/img/habitats-mountaingoat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal will hatch from these eggs?",
+  "choicesJson": [
+   "Tadpoles",
+   "Caterpillars",
+   "Chicks"
+  ],
+  "answer": "Tadpoles",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-frog-eggs.webp",
+   "alt": "A round clump of frog eggs, each a black dot in clear jelly, floating in water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Lizard",
+   "Frog",
+   "Mouse"
+  ],
+  "answer": "Frog",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-frog-adult.webp",
+   "alt": "A tan common frog with dark spots sitting on a rock among fallen leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hen sits on her eggs to keep them warm. What comes out of the eggs when they hatch?",
+  "choicesJson": [
+   "Puppies",
+   "Chicks",
+   "Frogs",
+   "Caterpillars"
+  ],
+  "answer": "Chicks",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-chicken-egg.webp",
+   "alt": "A tray full of brown chicken eggs."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do we call a baby chicken? Type one word.",
+  "answer": "chick",
+  "acceptedAnswers": [
+   "chicks",
+   "a chick"
+  ],
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-chick.webp",
+   "alt": "Several fluffy brown baby chicks in a red basket."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A caterpillar is changing inside this hard case. What is the case called?",
+  "choicesJson": [
+   "Chrysalis",
+   "Nest",
+   "Web",
+   "Shell"
+  ],
+  "answer": "Chrysalis",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-chrysalis.webp",
+   "alt": "A green monarch chrysalis covered in water drops hanging from a milkweed plant."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a caterpillar turn into after it makes a chrysalis?",
+  "choicesJson": [
+   "Butterfly",
+   "Ladybug",
+   "Frog"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What stage comes right after the egg in a frog's life?",
+  "choicesJson": [
+   "Tadpole",
+   "Chrysalis",
+   "Adult frog"
+  ],
+  "answer": "Tadpole",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list shows a chicken's life cycle in the right order?",
+  "choicesJson": [
+   "Chick, egg, hen",
+   "Egg, chick, hen",
+   "Hen, chick, egg"
+  ],
+  "answer": "Egg, chick, hen",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ]
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a chick?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-tadpole.webp",
+    "learning/img/life-cycles-monarch-caterpillar.webp",
+    "learning/img/life-cycles-chick.webp",
+    "learning/img/life-cycles-ladybug-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different animals."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tadpole?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-chick.webp",
+    "learning/img/life-cycles-monarch-caterpillar.webp",
+    "learning/img/life-cycles-tadpole.webp",
+    "learning/img/life-cycles-ladybug-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different animals."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a seed?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-plant-flower.webp",
+    "learning/img/life-cycles-plant-seedling.webp",
+    "learning/img/life-cycles-plant-seed.webp",
+    "learning/img/life-cycles-plant-fruit.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different plant stages."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an egg that a hen laid?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-ladybug-eggs.webp",
+    "learning/img/life-cycles-frog-eggs.webp",
+    "learning/img/life-cycles-chicken-egg.webp",
+    "learning/img/life-cycles-monarch-egg.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different kinds of eggs."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What kind of tree grows coconuts? Type one word.",
+  "answer": "palm",
+  "acceptedAnswers": [
+   "palm tree",
+   "coconut palm",
+   "palms",
+   "a palm",
+   "coconut palm tree",
+   "coconut tree",
+   "palm trees"
+  ],
+  "tags": [
+   "trees",
+   "identify"
+  ],
+  "media": {
+   "image": "learning/img/plants-palm-trees.webp",
+   "alt": "Tall trees in a grassy field."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a cactus?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "cactus",
+   "identify"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-saguaro-cactus.webp",
+    "learning/img/plants-pine-tree.webp",
+    "learning/img/plants-palm-trees.webp",
+    "learning/img/plants-fern.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a pine tree?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "trees",
+   "identify"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-palm-trees.webp",
+    "learning/img/plants-pine-tree.webp",
+    "learning/img/plants-saguaro-cactus.webp",
+    "learning/img/plants-fern.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "These parts grow underground. They soak up water and hold the plant in the soil. What are they called?",
+  "answer": "roots",
+  "acceptedAnswers": [
+   "root",
+   "the roots",
+   "tree roots"
+  ],
+  "tags": [
+   "plant parts",
+   "roots"
+  ],
+  "media": {
+   "image": "learning/img/plants-tree-roots.webp",
+   "alt": "Thick plant parts that stick out of a soil bank."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The small things in this photo can be planted to grow new plants. What are they called?",
+  "answer": "seeds",
+  "acceptedAnswers": [
+   "seed",
+   "sunflower seeds"
+  ],
+  "tags": [
+   "seeds",
+   "plant parts"
+  ],
+  "media": {
+   "image": "learning/img/plants-sunflower-seeds.webp",
+   "alt": "A big pile of small black sunflower seeds with pale stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When you eat a lettuce salad, which plant part are you eating?",
+  "choicesJson": [
+   "Roots",
+   "Seeds",
+   "Leaves"
+  ],
+  "answer": "Leaves",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "food plants"
+  ],
+  "media": {
+   "image": "learning/img/plants-lettuce.webp",
+   "alt": "Large, crinkly green lettuce leaves with pale veins."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of this young plant catches sunlight to help make food?",
+  "choicesJson": [
+   "Leaves",
+   "Roots",
+   "Seeds"
+  ],
+  "answer": "Leaves",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "plant parts"
+  ],
+  "media": {
+   "image": "learning/img/plants-bean-plant.webp",
+   "alt": "A young bean plant with two big heart-shaped green leaves grows in a blue pot of soil."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This tiny plant just sprouted from a seed. What does it need to keep growing?",
+  "choicesJson": [
+   "Only darkness",
+   "Lots of salt",
+   "Sunlight and water"
+  ],
+  "answer": "Sunlight and water",
+  "acceptedAnswers": [],
+  "tags": [
+   "growing",
+   "needs of plants"
+  ],
+  "media": {
+   "image": "learning/img/plants-seedling.webp",
+   "alt": "A tiny green seedling with two small leaves grows up from brown soil."
+  }
+ }
+]

@@ -1,0 +1,171 @@
+[
+ {
+  "id": "cmu0xa83a01pj12z2x7djwcx1",
+  "action": "fix",
+  "reason": "\"consumer\" distractor is also technically correct for prey",
+  "choicesJson": [
+   "prey",
+   "predator",
+   "producer",
+   "decomposer"
+  ],
+  "answer": "prey"
+ },
+ {
+  "id": "cmu0xa83a01pr12z2iyk8ljz6",
+  "action": "fix",
+  "reason": "odd distractor \"Plasma only\"; simplify to 3 choices",
+  "choicesJson": [
+   "Liquid",
+   "Solid",
+   "Gas"
+  ],
+  "answer": "Solid"
+ },
+ {
+  "id": "cmu0xa83a01pt12z2izljilgv",
+  "action": "deactivate",
+  "reason": "velocity is above grade 3"
+ },
+ {
+  "id": "cmu0xa83a01pu12z2g8lwgopm",
+  "action": "fix",
+  "reason": "friction is itself a force so prompt is redundant/confusing; reword",
+  "prompt": "If nothing pushes or pulls on a moving object, not even friction, what will it do?"
+ },
+ {
+  "id": "cmu0xa83a01qa12z2alobt7og",
+  "action": "deactivate",
+  "reason": "near-duplicate of other producer questions (tree, grass in food chain)"
+ },
+ {
+  "id": "cmu0xa83b01qd12z2xrxxq2nu",
+  "action": "fix",
+  "reason": "\"None of them\" is a none-of-the-above style choice",
+  "choicesJson": [
+   "Rabbit",
+   "Grass",
+   "Fox"
+  ],
+  "answer": "Grass"
+ },
+ {
+  "id": "cmu0xa83b01qe12z2nexb08b0",
+  "action": "fix",
+  "reason": "\"None of them\" is a none-of-the-above style choice",
+  "choicesJson": [
+   "Grass",
+   "Rabbit",
+   "Fox"
+  ],
+  "answer": "Fox"
+ },
+ {
+  "id": "cmu0xa83b01qq12z2ndd8v4y4",
+  "action": "deactivate",
+  "reason": "near-duplicate of the igneous rocks question"
+ },
+ {
+  "id": "cmu0xa83b01qv12z2dsol1wkd",
+  "action": "deactivate",
+  "reason": "near-duplicate of the metamorphic rock question, wordy choices"
+ },
+ {
+  "id": "cmu0xa83b01qy12z2bosngvix",
+  "action": "deactivate",
+  "reason": "above grade 3"
+ },
+ {
+  "id": "cmu0xa83b01r312z28zd8vo4h",
+  "action": "fix",
+  "reason": "\"Dew only\" is a confusing distractor",
+  "choicesJson": [
+   "Fog",
+   "Steam",
+   "Snow",
+   "Dew"
+  ],
+  "answer": "Snow"
+ },
+ {
+  "id": "cmu0xa83b01r812z26wt3aql3",
+  "action": "fix",
+  "reason": "prompt names the Grand Canyon, giving away the answer",
+  "prompt": "Which of these landforms is most often carved out by a river over millions of years?"
+ },
+ {
+  "id": "cmu0xa83b01rn12z2qtb22l0t",
+  "action": "deactivate",
+  "reason": "above grade 3"
+ },
+ {
+  "id": "cmu0xa83b01ro12z2orihic9t",
+  "action": "fix",
+  "reason": "weak/arguable distractors (single/basic machine)",
+  "choicesJson": [
+   "A solar machine",
+   "A compound machine",
+   "A magnetic machine",
+   "A natural machine"
+  ],
+  "answer": "A compound machine"
+ },
+ {
+  "id": "cmu0xa83c01rp12z28touo50k",
+  "action": "deactivate",
+  "reason": "near-duplicate of the wedge/axe head question"
+ },
+ {
+  "id": "cmu0xa83c01rr12z25m14q2yh",
+  "action": "deactivate",
+  "reason": "glucose is above grade 3"
+ },
+ {
+  "id": "cmu0xa83c01ry12z298szl2ib",
+  "action": "fix",
+  "reason": "pollination is moving pollen between flowers; fertilizing wording is inaccurate",
+  "prompt": "What do we call it when pollen is moved from one flower to another to help make seeds?"
+ },
+ {
+  "id": "cmu0xa83c01s012z2xppwxeq6",
+  "action": "deactivate",
+  "reason": "redundant with the oxygen byproduct question"
+ },
+ {
+  "id": "cmu0xa83c01rx12z2f3mxfvl5",
+  "action": "deactivate",
+  "reason": "above grade 3"
+ },
+ {
+  "id": "cmu0xa83c01s212z2emqmjzv7",
+  "action": "deactivate",
+  "reason": "above grade 3"
+ },
+ {
+  "id": "cmu0xa83c01s412z2xjhh9cte",
+  "action": "fix",
+  "reason": "silly distractors",
+  "choicesJson": [
+   "An element",
+   "A fossil",
+   "A solution",
+   "A crystal"
+  ],
+  "answer": "A solution"
+ },
+ {
+  "id": "cmu0xa83c01s612z21e98oluz",
+  "action": "deactivate",
+  "reason": "above grade 3"
+ },
+ {
+  "id": "cmu0xa83c01sb12z293i1tmb3",
+  "action": "deactivate",
+  "reason": "duplicate of mass question (amount of matter, force needed to move it)"
+ },
+ {
+  "id": "cmu0xa83c01sf12z21fdyzjgc",
+  "action": "deactivate",
+  "reason": "abstract wording, overlaps solution question"
+ }
+]

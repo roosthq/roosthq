@@ -1,0 +1,480 @@
+[
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/92cb11da41f5.webp",
+    "learning/img/viz/df1b9bd74264.webp",
+    "learning/img/viz/7301d635eb76.webp",
+    "learning/img/viz/928595ba13f9.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/584cb5010bc3.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/09ae26c62503.webp",
+    "learning/img/viz/d13fe5d42dda.webp",
+    "learning/img/viz/cbc592d067e7.webp",
+    "learning/img/viz/d5f172e91569.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/c3d60b6b0cc9.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/25775131c550.webp",
+    "learning/img/viz/84d9f502ba09.webp",
+    "learning/img/viz/47f5bdb62bac.webp",
+    "learning/img/viz/5af6b5b53540.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/69e99d4dd914.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d5f172e91569.webp",
+    "learning/img/viz/f7f67645c58e.webp",
+    "learning/img/viz/fb1cd71fae90.webp",
+    "learning/img/viz/d13fe5d42dda.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/13bf6a4bdcba.webp"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c1ec2ba34f1d.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c437ba5be510.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0ad0e2ab5d66.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "E",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29e80fe9f0bc.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/09ff0e53fc88.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/599a1d45eb75.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2dd383322efa.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8df6af940609.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2b5957e7ac33.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6ba62bfefe28.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "F",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/951b9c529fc4.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/27f04969b74b.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/733dd6b0da74.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b9a375194ddb.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/66a625ecc2dc.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/42999843a9fc.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/690b175a5f13.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0fbc96c60fa1.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ }
+]

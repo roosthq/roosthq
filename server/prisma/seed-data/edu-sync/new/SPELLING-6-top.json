@@ -1,0 +1,408 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these Minecraft words begins with a blend of three consonant letters in a row?",
+  "choicesJson": [
+   "Skeleton",
+   "Creeper",
+   "Ghast",
+   "Stronghold"
+  ],
+  "answer": "Stronghold",
+  "tags": [
+   "word-patterns",
+   "blends",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which word do the letters 'ch' make the /k/ sound, as in 'echo'?",
+  "choicesJson": [
+   "chalk",
+   "chaos",
+   "cheese",
+   "chase"
+  ],
+  "answer": "chaos",
+  "tags": [
+   "word-patterns",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which word do the letters 'ou' make the short u sound, as in 'bug'?",
+  "choicesJson": [
+   "soup",
+   "couch",
+   "cloud",
+   "couple"
+  ],
+  "answer": "couple",
+  "tags": [
+   "word-patterns",
+   "vowels"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same long a sound as the word 'eight'?",
+  "choicesJson": [
+   "weigh",
+   "height",
+   "receive",
+   "seize"
+  ],
+  "answer": "weigh",
+  "tags": [
+   "word-patterns",
+   "vowels"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters finish the word for the person who lives next door? n__ghbor",
+  "choicesJson": [
+   "ie",
+   "ei",
+   "ai",
+   "ea"
+  ],
+  "answer": "ei",
+  "tags": [
+   "missing-letters",
+   "tricky-spelling"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these words begins with a silent p?",
+  "choicesJson": [
+   "puppy",
+   "pterodactyl",
+   "pirate",
+   "plaid"
+  ],
+  "answer": "pterodactyl",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One word in this sentence is misspelled. Which one? \"The campers heard a strange noise comming from the basement.\"",
+  "choicesJson": [
+   "comming",
+   "campers",
+   "basement",
+   "strange"
+  ],
+  "answer": "comming",
+  "tags": [
+   "high-frequency",
+   "double-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which noun is spelled the same in both its singular and plural forms?",
+  "choicesJson": [
+   "goose",
+   "wolf",
+   "sheep",
+   "mouse"
+  ],
+  "answer": "sheep",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which prefix turns 'legal' into its opposite, meaning 'against the law'?",
+  "choicesJson": [
+   "dis-",
+   "in-",
+   "un-",
+   "il-"
+  ],
+  "answer": "il-",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Kids often write 'should of' by mistake. Which sentence is correct?",
+  "choicesJson": [
+   "We should off taken the other path.",
+   "We should halve taken the other path.",
+   "We should have taken the other path.",
+   "We should of taken the other path."
+  ],
+  "answer": "We should have taken the other path.",
+  "tags": [
+   "contractions",
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Count the syllables in the word 'unforgettable'. How many are there?",
+  "choicesJson": [
+   "4",
+   "6",
+   "3",
+   "5"
+  ],
+  "answer": "5",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these spooky words is a compound word, made of two smaller words joined together?",
+  "choicesJson": [
+   "Phantom",
+   "Specter",
+   "Moonlight",
+   "Vampire"
+  ],
+  "answer": "Moonlight",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Our Fortnite squad landed and grabbed every _____ of loot we could find. Which word fits?",
+  "choicesJson": [
+   "peace",
+   "piece",
+   "peas"
+  ],
+  "answer": "piece",
+  "tags": [
+   "homophones",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The pilot landed the _____ on the short runway. Which word fits?",
+  "choicesJson": [
+   "plank",
+   "plane",
+   "plain"
+  ],
+  "answer": "plane",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Do not _____ your time on a game that keeps crashing. Which word fits?",
+  "choicesJson": [
+   "waste",
+   "west",
+   "waist"
+  ],
+  "answer": "waste",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Foundation researcher _____ the team down the hall to the containment chamber. Which word fits?",
+  "choicesJson": [
+   "lied",
+   "lead",
+   "led"
+  ],
+  "answer": "led",
+  "tags": [
+   "homophones",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Shhh! The library must stay _____ so everyone can read. Which word fits?",
+  "choicesJson": [
+   "quiet",
+   "quite",
+   "quit"
+  ],
+  "answer": "quiet",
+  "tags": [
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Yesterday, Maya _____ the red controller, but today she wants the blue one. Which word fits?",
+  "choicesJson": [
+   "choice",
+   "chose",
+   "choose"
+  ],
+  "answer": "chose",
+  "tags": [
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A _____ of cows wandered into the farmer's field. Which word fits?",
+  "choicesJson": [
+   "hurt",
+   "herd",
+   "heard"
+  ],
+  "answer": "herd",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Steve tamed three _____ in Minecraft, and each one follows him around. Spell the plural of 'wolf'.",
+  "choicesJson": null,
+  "answer": "wolves",
+  "tags": [
+   "plurals",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "An old saying claims a cat has nine _____. Spell the plural of 'life'.",
+  "choicesJson": null,
+  "answer": "lives",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a Roblox obby, your character falls off and returns to the last checkpoint. Spell the word made from 're' + 'spawn' that means 'to appear again in the game'.",
+  "choicesJson": null,
+  "answer": "respawn",
+  "tags": [
+   "prefixes",
+   "word-building",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the prefix 'dis' to 'satisfied'. Spell the new word that means 'not happy with how something turned out'. Watch the double s!",
+  "choicesJson": null,
+  "answer": "dissatisfied",
+  "tags": [
+   "prefixes",
+   "double-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The campers _____ when the tall, faceless figure stepped out of the trees. Spell the past tense of 'panic'. Add a k before the -ed.",
+  "choicesJson": null,
+  "answer": "panicked",
+  "tags": [
+   "suffixes",
+   "word-building",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ly to 'basic'. Words that end in -ic use -ally instead. Spell the new word that means 'in the most important or simplest way'.",
+  "choicesJson": null,
+  "answer": "basically",
+  "tags": [
+   "suffixes",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for what you do with your ears when you pay close attention. It has a silent t.",
+  "choicesJson": null,
+  "answer": "listen",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word that means 'to go up something using your hands and feet'. It ends with a silent b.",
+  "choicesJson": null,
+  "answer": "climb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the compound word made from 'cup' + 'board', a cabinet where dishes are kept. The p is silent when you say it.",
+  "choicesJson": null,
+  "answer": "cupboard",
+  "tags": [
+   "compound-words",
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count Dracula is a famous monster from old movies who sleeps in a coffin by day and wears a long cape. Spell the word for this kind of fanged monster.",
+  "choicesJson": null,
+  "answer": "vampire",
+  "tags": [
+   "spell-from-clue",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a person who travels into space. Its Greek roots mean 'star' and 'sailor'.",
+  "choicesJson": null,
+  "answer": "astronaut",
+  "tags": [
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the number that comes right after thirty-nine. Be careful, it is NOT spelled with a u.",
+  "choicesJson": null,
+  "answer": "forty",
+  "tags": [
+   "high-frequency",
+   "tricky-spelling"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Picture an animal with a very long neck that eats leaves from the tops of tall trees. Spell its name. It has a double f.",
+  "choicesJson": null,
+  "answer": "giraffe",
+  "tags": [
+   "spell-from-clue",
+   "double-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the missing letters to spell what pirates hunt for on a map with an X: tre_s_re. Type the whole word.",
+  "choicesJson": null,
+  "answer": "treasure",
+  "tags": [
+   "missing-letters"
+  ]
+ }
+]

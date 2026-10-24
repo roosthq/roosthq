@@ -1,0 +1,161 @@
+[
+ {
+  "id": "cmu0xa87w027w12z2v800umfm",
+  "action": "fix",
+  "reason": "Memorial Day: distractor about people who served is Veterans Day and arguably also true; replace with clearly wrong options",
+  "prompt": "What does Memorial Day honor?",
+  "choicesJson": [
+   "America's freedom from Britain",
+   "U.S. presidents",
+   "soldiers who died serving the country",
+   "the Pilgrims and the Wampanoag"
+  ],
+  "answer": "soldiers who died serving the country"
+ },
+ {
+  "id": "cmu0xa87x028y12z2qkuo4yow",
+  "action": "fix",
+  "reason": "Mismatched distractor wording and overlap with Memorial Day option; clearer question",
+  "prompt": "Which people does Veterans Day honor?",
+  "choicesJson": [
+   "U.S. presidents",
+   "people who have served in the military",
+   "inventors",
+   "the Pilgrims"
+  ],
+  "answer": "people who have served in the military"
+ },
+ {
+  "id": "cmu0xa87w027y12z25jycxpy4",
+  "action": "fix",
+  "reason": "Capitalization of 'the' mid-sentence",
+  "prompt": "Where is the Liberty Bell located?"
+ },
+ {
+  "id": "cmu0xa87x029812z2u9whc8dc",
+  "action": "fix",
+  "reason": "Capitalization of 'the' mid-sentence",
+  "prompt": "Where is the Washington Monument located?"
+ },
+ {
+  "id": "cmu0xa87x029i12z2o9qthlf6",
+  "action": "fix",
+  "reason": "Capitalization of 'the' mid-sentence",
+  "prompt": "Where is the U.S. Capitol located?"
+ },
+ {
+  "id": "cmu0xa87w028g12z2q7bo2b21",
+  "action": "fix",
+  "reason": "Colorado is sometimes called Southwest; remove ambiguous Southwest option",
+  "choicesJson": [
+   "Southeast",
+   "West",
+   "Midwest",
+   "Northeast"
+  ]
+ },
+ {
+  "id": "cmu0xa87x029l12z2l1jd603c",
+  "action": "fix",
+  "reason": "Nevada is sometimes called Southwest; remove ambiguous Southwest option",
+  "choicesJson": [
+   "West",
+   "Southeast",
+   "Midwest",
+   "Northeast"
+  ]
+ },
+ {
+  "id": "cmu0xa87x028j12z2ssbiln5z",
+  "action": "fix",
+  "reason": "Arizona is West by Census and Southwest in the 5-region model; remove West option to avoid two defensible answers",
+  "choicesJson": [
+   "Midwest",
+   "Southwest",
+   "Southeast",
+   "Northeast"
+  ]
+ },
+ {
+  "id": "cmu0xa87y02a312z2mhuy7zhg",
+  "action": "fix",
+  "reason": "Same West vs Southwest ambiguity; remove West option",
+  "choicesJson": [
+   "Northeast",
+   "Southwest",
+   "Southeast",
+   "Midwest"
+  ]
+ },
+ {
+  "id": "cmu0xa87y02ai12z2olnat1dr",
+  "action": "fix",
+  "reason": "Arkansas sometimes grouped with Southwest; remove Southwest option",
+  "choicesJson": [
+   "Midwest",
+   "Northeast",
+   "West",
+   "Southeast"
+  ]
+ },
+ {
+  "id": "cmu0xa87x028k12z2yjr1u9vd",
+  "action": "fix",
+  "reason": "Awkward fill-in grammar; make a real question",
+  "prompt": "What is it called when there is not enough of something for everyone who wants it?"
+ },
+ {
+  "id": "cmu0xa87x028n12z2s4w943y6",
+  "action": "fix",
+  "reason": "Vague wording and silly distractors",
+  "prompt": "What is it called when citizens choose their leaders by marking a ballot?",
+  "choicesJson": [
+   "Voting",
+   "Taxing",
+   "Marching",
+   "Trading"
+  ],
+  "answer": "Voting"
+ },
+ {
+  "id": "cmu0xa87x028p12z2lwng7s81",
+  "action": "fix",
+  "reason": "'Coldest' is debatable (Southern/Antarctic is colder); ask only about the North Pole",
+  "prompt": "Which ocean surrounds the North Pole?"
+ },
+ {
+  "id": "cmu0xa87x028z12z22xaadx04",
+  "action": "fix",
+  "reason": "Inconsistent capitalization and answer much longer than distractors",
+  "choicesJson": [
+   "decides what laws mean",
+   "carries out laws",
+   "manages the state's schools",
+   "makes laws"
+  ],
+  "answer": "decides what laws mean"
+ },
+ {
+  "id": "cmu0xa87y029o12z2xpv69ccq",
+  "action": "fix",
+  "reason": "Grammar (the opposite) and silly 'Down' distractor",
+  "prompt": "Which direction is the opposite of East?",
+  "choicesJson": [
+   "North",
+   "South",
+   "West",
+   "Northeast"
+  ],
+  "answer": "West"
+ },
+ {
+  "id": "cmu0xa87y029n12z2ustxfkeg",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'What is a river?'"
+ },
+ {
+  "id": "cmu0xa87y02aa12z2bnc0hytr",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the 'service' (cutting hair) question"
+ }
+]

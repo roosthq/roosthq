@@ -1,0 +1,191 @@
+[
+ {
+  "id": "cmu0xa8e702zf12z2mo795euh",
+  "action": "fix",
+  "reason": "duplicate choice \"priviledge\"",
+  "choicesJson": [
+   "priviledge",
+   "privilege",
+   "privelege",
+   "privilage"
+  ]
+ },
+ {
+  "id": "cmu0xa8e702zg12z2265gcrlu",
+  "action": "fix",
+  "reason": "garbled prompt",
+  "prompt": "Add the prefix 'un' to 'equal'. Spell the word meaning 'not the same in size or amount'."
+ },
+ {
+  "id": "cmu0xa8e702zn12z2lgx2wghn",
+  "action": "fix",
+  "reason": "wrong split of word; should be anthropo + logy",
+  "prompt": "The Greek root 'anthropo' means 'human' and 'logy' means 'study of'. Spell the word for the study of human societies and cultures (anthropo + logy)."
+ },
+ {
+  "id": "cmu0xa8e702zq12z21nl56rq7",
+  "action": "fix",
+  "reason": "accept US alt spelling",
+  "acceptedAnswers": [
+   "monolog"
+  ]
+ },
+ {
+  "id": "cmu0xa8e702zv12z2m8gts16g",
+  "action": "fix",
+  "reason": "clue ambiguous (sketch, chart); add word parts",
+  "prompt": "The Greek prefix 'dia' means 'across' and the root 'gram' means 'written or drawn'. Spell the word for a simple drawing that explains how something works (dia + gram)."
+ },
+ {
+  "id": "cmu0xa8e802zw12z29z62fbff",
+  "action": "fix",
+  "reason": "accept British spelling",
+  "acceptedAnswers": [
+   "kilometre"
+  ]
+ },
+ {
+  "id": "cmu0xa8e802zx12z28br1tzzf",
+  "action": "deactivate",
+  "reason": "religion-themed word; spec excludes religion beyond neutral social studies"
+ },
+ {
+  "id": "cmu0xa8e802zy12z2ul7jwj5l",
+  "action": "fix",
+  "reason": "accept British spelling",
+  "acceptedAnswers": [
+   "synchronise"
+  ]
+ },
+ {
+  "id": "cmu0xa8e8030d12z2jxl9qs2w",
+  "action": "fix",
+  "reason": "synonym ambiguity (admit, confess); add hint",
+  "prompt": "Spell the word that starts with 'ack' and means 'to admit that something is true or real'."
+ },
+ {
+  "id": "cmu0xa8e8030f12z2qmj6r4xd",
+  "action": "fix",
+  "reason": "synonym ambiguity (mail, communication); add hint",
+  "prompt": "Spell the word that starts with 'corr' and means 'letters or messages exchanged between people'."
+ },
+ {
+  "id": "cmu0xa8e8030h12z2wqk15kc5",
+  "action": "fix",
+  "reason": "synonym ambiguity (personality, character); add hint",
+  "prompt": "Spell the word that starts with 'temper' and means 'a person's usual way of thinking, feeling, and behaving'."
+ },
+ {
+  "id": "cmu0xa8e8030j12z28vw6n3z6",
+  "action": "fix",
+  "reason": "synonym ambiguity (persistence); add hint",
+  "prompt": "Spell the word meaning 'continued effort despite difficulty'. It has 'sever' in the middle and ends in '-ance'."
+ },
+ {
+  "id": "cmu0xa8e8030l12z2ckutjsdt",
+  "action": "fix",
+  "reason": "prompt contains the answer root (\"question\")",
+  "prompt": "Spell the word meaning 'doubtful, or not clearly good or right'. It starts with 'quest' and ends with '-able'."
+ },
+ {
+  "id": "cmu0xa8e8030n12z2z9livw8i",
+  "action": "fix",
+  "reason": "synonym ambiguity (friendship, fellowship); add hint",
+  "prompt": "Spell the word that starts with 'cam' and means 'mutual trust and friendship among a group of people'."
+ },
+ {
+  "id": "cmu0xa8e8030v12z2sluxahg3",
+  "action": "fix",
+  "reason": "ambiguous (measure, meter, estimate)",
+  "prompt": "Spell the word that rhymes with 'page' and means 'to estimate', or a dial that measures something like fuel."
+ },
+ {
+  "id": "cmu0xa8e8030x12z2o9rv7uvv",
+  "action": "fix",
+  "reason": "synonym ambiguity; add hint",
+  "prompt": "Spell the word that starts with 'lei' and means free time when you can relax and do what you enjoy."
+ },
+ {
+  "id": "cmu0xa8e8030z12z2jvl8b18p",
+  "action": "fix",
+  "reason": "synonym ambiguity (odd, strange)",
+  "prompt": "Spell the word meaning 'strange or unusual'. It breaks the 'i before e' rule."
+ },
+ {
+  "id": "cmu0xa8e8030y12z2vlq42fb2",
+  "action": "fix",
+  "reason": "\"seise\" is a real (legal) variant spelling",
+  "choicesJson": [
+   "sieze",
+   "seize",
+   "seaze",
+   "seeze"
+  ]
+ },
+ {
+  "id": "cmu0xa8e8031012z2j1ao5z83",
+  "action": "fix",
+  "reason": "\"bazaar\" is a correctly spelled word, two arguably valid choices",
+  "choicesJson": [
+   "bizzare",
+   "bizare",
+   "bizarre",
+   "bizarr"
+  ]
+ },
+ {
+  "id": "cmu0xa8e8031112z2f8r57dvg",
+  "action": "deactivate",
+  "reason": "word also names a drug; unsuitable for kids app and clue is synonym-ambiguous"
+ },
+ {
+  "id": "cmu0xa8e9031l12z2c4d001g0",
+  "action": "fix",
+  "reason": "accept hyphenated form",
+  "acceptedAnswers": [
+   "counter-attack"
+  ]
+ },
+ {
+  "id": "cmu0xa8e9031y12z29qifrh95",
+  "action": "fix",
+  "reason": "wrong suffix: space + ious (drop e)",
+  "prompt": "Add the suffix 'ious' to 'space' (drop the e). Spell the word meaning 'having a lot of room'."
+ },
+ {
+  "id": "cmu0xa8e9031z12z202thxmal",
+  "action": "fix",
+  "reason": "prefix/suffix math yields gorgous; clarify",
+  "prompt": "Add the suffix 'ous' to 'gorge' (keep the e). Spell the word meaning 'extremely beautiful'."
+ },
+ {
+  "id": "cmu0xa8e9032012z2h1ha4v2a",
+  "action": "fix",
+  "reason": "drop-e hint",
+  "prompt": "Add the suffix 'ary' to 'imagine' (drop the e). Spell the word meaning 'existing only in the mind, not real'."
+ },
+ {
+  "id": "cmu0xa8e9032312z2ht6ouhsy",
+  "action": "fix",
+  "reason": "drop-e hint",
+  "prompt": "Add the suffix 'ous' to 'adventure' (drop the e). Spell the word meaning 'willing to take risks and try new things'."
+ },
+ {
+  "id": "cmu0xa8e9032512z2ho3bwd4g",
+  "action": "fix",
+  "reason": "significant + ance is wrong",
+  "prompt": "Change the '-ant' ending of 'significant' to '-ance'. Spell the word meaning 'the importance or meaning of something'."
+ },
+ {
+  "id": "cmu0xa8e9032612z24xqk5icn",
+  "action": "fix",
+  "reason": "compete + ive gives \"competive\"",
+  "prompt": "Add the suffix 'itive' to 'compete' (drop the e). Spell the word meaning 'having a strong desire to win'."
+ },
+ {
+  "id": "cmu0xa8e9032812z22tmc3yyq",
+  "action": "fix",
+  "reason": "clear + ify gives \"clearify\"",
+  "prompt": "Add the suffix 'ify' to the root 'clar' (as in 'clarity'). Spell the word meaning 'to make something easier to understand'."
+ }
+]

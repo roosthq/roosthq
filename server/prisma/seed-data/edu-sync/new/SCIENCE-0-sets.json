@@ -1,0 +1,188 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is our home planet. What is it called?",
+  "choicesJson": [
+   "The Moon",
+   "The Sun",
+   "Earth"
+  ],
+  "answer": "Earth",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-earth.webp",
+   "alt": "A photo of a blue and white planet in black space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this big glowing ball?",
+  "choicesJson": [
+   "A planet",
+   "The Sun",
+   "The Moon"
+  ],
+  "answer": "The Sun",
+  "tags": [
+   "space",
+   "sun"
+  ],
+  "media": {
+   "image": "learning/img/space-sun.webp",
+   "alt": "A glowing orange ball in black space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this round, gray space object that goes around Earth?",
+  "choicesJson": [
+   "The Moon",
+   "Mars",
+   "The Sun"
+  ],
+  "answer": "The Moon",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-moon.webp",
+   "alt": "A round gray space object with dark patches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is in the sky in this picture?",
+  "choicesJson": [
+   "Clouds",
+   "Stars",
+   "A rainbow"
+  ],
+  "answer": "Clouds",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulus.webp",
+   "alt": "Puffy white cumulus clouds with flat gray bottoms against a deep blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What colorful arch is in the sky in this picture?",
+  "choicesJson": [
+   "A bridge",
+   "A rainbow",
+   "A kite"
+  ],
+  "answer": "A rainbow",
+  "tags": [
+   "rainbow",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rainbow.webp",
+   "alt": "A rainbow arching over a hillside town beneath gray clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What bright flash is in the sky in this storm picture?",
+  "choicesJson": [
+   "A rainbow",
+   "The moon",
+   "Lightning"
+  ],
+  "answer": "Lightning",
+  "tags": [
+   "lightning",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning.webp",
+   "alt": "Bright branching lightning bolts lighting up a dark blue storm sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What covers the trees and the garage in this picture?",
+  "choicesJson": [
+   "Sand",
+   "Snow",
+   "Paint"
+  ],
+  "answer": "Snow",
+  "tags": [
+   "snow",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-snow.webp",
+   "alt": "A garage, a porch and evergreen trees all covered with fresh white snow."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows lightning?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "lightning",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-snow.webp",
+    "learning/img/weather-clouds-rainbow2.webp",
+    "learning/img/weather-clouds-lightning.webp",
+    "learning/img/weather-clouds-fog.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a rainbow?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "rainbow",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-rainbow2.webp",
+    "learning/img/weather-clouds-icicles.webp",
+    "learning/img/weather-clouds-rain.webp",
+    "learning/img/weather-clouds-hurricane.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ }
+]

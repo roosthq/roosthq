@@ -1,0 +1,407 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word ends with the /ch/ sound?",
+  "choicesJson": [
+   "beak",
+   "beast",
+   "beach",
+   "bean"
+  ],
+  "answer": "beach",
+  "tags": [
+   "phonics",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, which of these words has a soft c, where the letter c sounds like /s/?",
+  "choicesJson": [
+   "coal",
+   "ice",
+   "cactus",
+   "cobblestone"
+  ],
+  "answer": "ice",
+  "tags": [
+   "phonics",
+   "soft-c",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The prefix 'sub-' means 'under.' Which word names a train system that runs under the ground?",
+  "choicesJson": [
+   "highway",
+   "runway",
+   "subway",
+   "doorway"
+  ],
+  "answer": "subway",
+  "tags": [
+   "prefixes",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the word 'their' correctly?",
+  "choicesJson": [
+   "Their going to the arcade after school.",
+   "Put the books over their.",
+   "Their is a dragon outside.",
+   "The kids packed their lunches."
+  ],
+  "answer": "The kids packed their lunches.",
+  "tags": [
+   "homophones",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the word 'light' to mean 'not heavy'?",
+  "choicesJson": [
+   "The ghost carried a light into the attic.",
+   "The backpack was so light that Ana carried it with one finger.",
+   "The light turned green.",
+   "Please turn on the light."
+  ],
+  "answer": "The backpack was so light that Ana carried it with one finger.",
+  "tags": [
+   "multiple-meaning",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The rope bridge in the video game looked flimsy. Which word means the opposite of 'flimsy'?",
+  "choicesJson": [
+   "wobbly",
+   "thin",
+   "weak",
+   "sturdy"
+  ],
+  "answer": "sturdy",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When the lights went out in the haunted house, Ella began to tremble. Which word means the same as 'tremble'?",
+  "choicesJson": [
+   "sprint",
+   "giggle",
+   "whisper",
+   "shake"
+  ],
+  "answer": "shake",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Yesterday, Dev ____ a wild Pikachu in the tall grass. Type the past tense of 'catch' to fill the blank.",
+  "choicesJson": null,
+  "answer": "caught",
+  "tags": [
+   "verbs",
+   "grammar",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the correct verb?",
+  "choicesJson": [
+   "My brother and I plays Fortnite every Friday.",
+   "My brother and I play Fortnite every Friday.",
+   "My brother and I playing Fortnite every Friday.",
+   "My brother and I are play Fortnite every Friday."
+  ],
+  "answer": "My brother and I play Fortnite every Friday.",
+  "tags": [
+   "subject-verb-agreement",
+   "grammar",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses 'good' or 'well' correctly?",
+  "choicesJson": [
+   "Maya plays soccer good.",
+   "Maya play soccer well.",
+   "Maya plays soccer goodly.",
+   "Maya plays soccer well."
+  ],
+  "answer": "Maya plays soccer well.",
+  "tags": [
+   "adverbs",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three birds each built a nest in the tree. Which phrase correctly shows that the nests belong to the three birds?",
+  "choicesJson": [
+   "the birds nests",
+   "the birds' nests",
+   "the bird's nests",
+   "the birds's nests"
+  ],
+  "answer": "the birds' nests",
+  "tags": [
+   "apostrophes",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word best completes the sentence? 'Do you want pizza ___ tacos for dinner?'",
+  "choicesJson": [
+   "so",
+   "because",
+   "or",
+   "until"
+  ],
+  "answer": "or",
+  "tags": [
+   "conjunctions",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence puts the comma in the correct place?",
+  "choicesJson": [
+   "After lunch we, played tag.",
+   "After, lunch we played tag.",
+   "After lunch, we played tag.",
+   "After lunch we played, tag."
+  ],
+  "answer": "After lunch, we played tag.",
+  "tags": [
+   "commas",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word needs a capital letter in this sentence? 'Our class has a big test on friday.'",
+  "choicesJson": [
+   "class",
+   "friday",
+   "test",
+   "big"
+  ],
+  "answer": "friday",
+  "tags": [
+   "capitalization",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is a noun that names a feeling or an idea, not something you can touch?",
+  "choicesJson": [
+   "sword",
+   "dragon",
+   "courage",
+   "castle"
+  ],
+  "answer": "courage",
+  "tags": [
+   "nouns",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sea otters sleep floating on their backs. To keep from drifting apart, they often hold paws. Some otters also wrap themselves in strands of kelp, like a seaweed blanket. Why do sea otters hold paws while they sleep?",
+  "choicesJson": [
+   "To stay warm in the snow",
+   "To catch fish",
+   "So they do not drift apart",
+   "To play a game"
+  ],
+  "answer": "So they do not drift apart",
+  "tags": [
+   "comprehension",
+   "details"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Containment file: The Echo Box is a small wooden box that repeats the last word it hears. When a guard said, 'Good morning,' the box whispered, 'Morning.' If a guard says, 'Open the red door,' what will the box most likely whisper?",
+  "choicesJson": [
+   "Open",
+   "Red",
+   "Open the red door",
+   "Door"
+  ],
+  "answer": "Door",
+  "tags": [
+   "comprehension",
+   "inference",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A lighthouse has a bright lamp at the top. Its beam sweeps across the water so ships can see where the rocky coast is. Some lighthouses also have loud horns for foggy nights. What is the main idea of this passage?",
+  "choicesJson": [
+   "Lighthouses are built only on sandy beaches.",
+   "Ships never need help at night.",
+   "Foghorns are louder than lamps.",
+   "Lighthouses use lights and horns to keep ships safe."
+  ],
+  "answer": "Lighthouses use lights and horns to keep ships safe.",
+  "tags": [
+   "comprehension",
+   "main-idea"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dr. Mira built a friendly monster robot in her lab. First, she welded on two metal arms. Next, she attached a square head. After that, she flipped the power switch, and the robot waved hello. What did Dr. Mira do right before she flipped the power switch?",
+  "choicesJson": [
+   "She welded on two metal arms.",
+   "She painted the robot green.",
+   "The robot waved hello.",
+   "She attached a square head."
+  ],
+  "answer": "She attached a square head.",
+  "tags": [
+   "comprehension",
+   "sequence",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Abby burst through the door with soaked shoes and dripping hair. In her hand was an umbrella bent inside out. What most likely happened to Abby?",
+  "choicesJson": [
+   "She went swimming in a pool.",
+   "She walked through a windy rainstorm.",
+   "She ate lunch outside in the sun.",
+   "She stayed home all day."
+  ],
+  "answer": "She walked through a windy rainstorm.",
+  "tags": [
+   "inference",
+   "comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mina's cheeks turned bright red, and she hid her face in her hands when everyone sang 'Happy Birthday' to her at the restaurant. Which word best describes how Mina feels?",
+  "choicesJson": [
+   "furious",
+   "bored",
+   "embarrassed",
+   "sleepy"
+  ],
+  "answer": "embarrassed",
+  "tags": [
+   "character-feelings",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Bo the beaver bragged that he could build a dam all by himself. Every night, the river broke it apart. Finally, Bo asked the other beavers for help, and together they built a dam that held. What is the theme of this story?",
+  "choicesJson": [
+   "Working together can solve problems that are hard to do alone.",
+   "Rivers are always dangerous.",
+   "Beavers should never build dams.",
+   "Bragging makes you a better builder."
+  ],
+  "answer": "Working together can solve problems that are hard to do alone.",
+  "tags": [
+   "theme",
+   "comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dad said the first level of the video game was a piece of cake. What does 'a piece of cake' mean here?",
+  "choicesJson": [
+   "very sweet",
+   "very easy",
+   "very small",
+   "very messy"
+  ],
+  "answer": "very easy",
+  "tags": [
+   "idioms",
+   "figurative-language"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which text feature would help you compare the heights of five mountains side by side?",
+  "choicesJson": [
+   "a dedication",
+   "a title page",
+   "a table with rows and columns",
+   "a glossary"
+  ],
+  "answer": "a table with rows and columns",
+  "tags": [
+   "text-features",
+   "tables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which kind of writing is organized into lines and stanzas and often uses rhyme?",
+  "choicesJson": [
+   "a recipe",
+   "an index",
+   "a newspaper headline",
+   "a poem"
+  ],
+  "answer": "a poem",
+  "tags": [
+   "genres",
+   "poetry"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a story, a detective follows muddy footprints and finds a torn note to figure out who took the missing trophy. What genre is this story?",
+  "choicesJson": [
+   "fable",
+   "mystery",
+   "biography",
+   "science fiction"
+  ],
+  "answer": "mystery",
+  "tags": [
+   "genres",
+   "mystery"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list of words is in alphabetical (ABC) order?",
+  "choicesJson": [
+   "drum, dragon, duck, dune",
+   "duck, dragon, drum, dune",
+   "dragon, drum, duck, dune",
+   "dune, duck, drum, dragon"
+  ],
+  "answer": "dragon, drum, duck, dune",
+  "tags": [
+   "dictionary-skills",
+   "word-analysis"
+  ]
+ }
+]

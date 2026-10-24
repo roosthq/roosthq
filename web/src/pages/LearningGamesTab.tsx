@@ -7,6 +7,7 @@ import {
   type EduQuestionForPlay,
   type EduSessionStart,
   type EduProgress,
+  type EduMonster,
   type Member,
   type PoolEntry,
   type StorePrize,
@@ -16,6 +17,9 @@ import { playSlotSound } from '../sounds';
 import TokenBadge from '../TokenBadge';
 import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
+import { QuestionPhoto, QuestionAudio, ImageChoices } from '../QuestionMedia';
+import MonsterArt, { monsterFor } from '../MonsterArt';
+import MonsterDen from '../MonsterDen';
 import Modal from '../Modal';
 import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader, KidProgress } from '../LearningProgress';
 
@@ -101,6 +105,15 @@ const BREAK_GAMES: Record<EduSubject, BreakGameEntry[]> = {
   // drag-match) on the same asymmetric engine as Habitat Sort. Path to Flag
   // and Number Pop Ladder round the pool out to 5, same borrow-for-pacing
   // tradeoff Logic already made.
+  // Biology borrows the life-science-flavored science breaks (habitats, life
+  // cycles) plus the matching/sorting ones that work for any topic.
+  BIOLOGY: [
+    { Component: HabitatSort, minGrade: 0, label: 'Habitat Sort' },
+    { Component: LifeCycleRing, minGrade: 2, label: 'Life Cycle Ring' },
+    { Component: SpeedMatch, minGrade: 0, label: 'Speed Match' },
+    { Component: DetectiveClues, minGrade: 0, label: 'Detective Clues' },
+    { Component: PathToFlag, minGrade: 0, label: 'Path to Flag' },
+  ],
   SOCIAL: [
     { Component: MapClues, minGrade: 0, label: 'Map Clues' },
     { Component: CapitalMatch, minGrade: 0, label: 'Capital Match' },
@@ -383,7 +396,7 @@ function BreakGamePreview() {
 
 // ---------------- Kid: pick a subject, play a session ----------------
 
-type Phase = 'PICK_SUBJECT' | 'STARTING' | 'QUESTION' | 'FEEDBACK' | 'BREAK' | 'DONE';
+type Phase = 'PICK_SUBJECT' | 'STARTING' | 'QUESTION' | 'FEEDBACK' | 'BREAK' | 'DONE' | 'REDEEM_OFFER' | 'REDEEM_Q' | 'REDEEM_FEEDBACK';
 
 // Reused as-is by the kiosk (Display.tsx): kioskToken swaps every API call
 // from the cookie session to the kiosk-token one, initialSubject skips
@@ -417,7 +430,23 @@ export function PlaySession({
   const [given, setGiven] = useState('');
   const [feedback, setFeedback] = useState<{ correct: boolean; correctAnswer: string } | null>(null);
   const [sessionTokens, setSessionTokens] = useState(0);
-  const [summary, setSummary] = useState<{ allCorrect: boolean; bonusTokens: number; promotedTo: number | null } | null>(null);
+  const [summary, setSummary] = useState<{
+    allCorrect: boolean;
+    bonusTokens: number;
+    promotedTo: number | null;
+    befriended: boolean;
+    alreadyFriend: boolean;
+    redemptionOffer: boolean;
+    correctCount: number;
+  } | null>(null);
+  // Right answers so far this session - drives the monster's "hit" meter and
+  // the 8-of-10 befriend check shown on the result screen.
+  const [hits, setHits] = useState(0);
+  const [hitFlash, setHitFlash] = useState(false);
+  const [showDen, setShowDen] = useState(false);
+  // Redemption Round (one bonus question after a session with exactly one wrong).
+  const [redeemQuestion, setRedeemQuestion] = useState<EduQuestionForPlay | null>(null);
+  const [redeemResult, setRedeemResult] = useState<{ correct: boolean; correctAnswer: string; bonusTokens: number; tokensAwarded: number } | null>(null);
   // Set when a subject has no question bank yet for this kid's grade
   // (Reading/Science/Spelling as of PLANNING.md §19's first build - only
   // Math has content). Without this, starting one of them failed silently:
@@ -523,6 +552,9 @@ export function PlaySession({
       const s = await api.startLearningSession(subject, kioskToken);
       setSession(s);
       setSessionTokens(s.tokensAwarded);
+      setHits(s.correctSoFar ?? 0);
+      setRedeemQuestion(null);
+      setRedeemResult(null);
       if (s.phase === 'BREAK') {
         // Resumed mid-break (no questions to show) - same as a normal
         // block-A finish: pick a break game, land on the BREAK screen.
@@ -570,9 +602,23 @@ export function PlaySession({
       playSlotSound(result.correct ? 'eduCorrect' : 'eduWrong');
       setFeedback({ correct: result.correct, correctAnswer: result.correctAnswer });
       setSessionTokens((t) => t + result.tokensAwarded);
+      const newHits = result.correctCount ?? hits + (result.correct ? 1 : 0);
+      if (result.correct) {
+        setHits(newHits);
+        setHitFlash(true);
+        setTimeout(() => setHitFlash(false), 260);
+      }
       setPhase('FEEDBACK');
       if (result.phase === 'DONE') {
-        setSummary({ allCorrect: !!result.allCorrect, bonusTokens: result.bonusTokens ?? 0, promotedTo: result.promotedTo ?? null });
+        setSummary({
+          allCorrect: !!result.allCorrect,
+          bonusTokens: result.bonusTokens ?? 0,
+          promotedTo: result.promotedTo ?? null,
+          befriended: !!result.befriended,
+          alreadyFriend: !!result.alreadyFriend,
+          redemptionOffer: !!result.redemptionOffer,
+          correctCount: newHits,
+        });
       }
     } catch {
       // Stay on the same question with what they already typed/picked still
@@ -592,7 +638,8 @@ export function PlaySession({
       // perfect session that just didn't roll a bonus) gets the normal
       // complete sound. Both assignable, same as eduCorrect/eduWrong above.
       playSlotSound(summary.allCorrect && summary.bonusTokens > 0 ? 'eduSessionBonus' : 'eduSessionComplete');
-      setPhase('DONE');
+      if (summary.befriended) celebrate(undefined, 'levelUp');
+      setPhase(summary.redemptionOffer ? 'REDEEM_OFFER' : 'DONE');
       refreshSubjectProgress(); // grade/mastery may have just changed
       return;
     }
@@ -626,6 +673,49 @@ export function PlaySession({
     setPhase('QUESTION');
   }
 
+  async function answerRedemptionQuestion() {
+    if (!session || !given.trim() || submitting) return;
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const r = await api.answerRedemption(session.sessionId, given.trim(), kioskToken);
+      playSlotSound(r.correct ? 'eduSessionBonus' : 'eduWrong');
+      setRedeemResult({ correct: r.correct, correctAnswer: r.correctAnswer, bonusTokens: r.bonusTokens, tokensAwarded: r.tokensAwarded });
+      if (r.correct) {
+        setSessionTokens((t) => t + r.tokensAwarded + r.bonusTokens);
+        setSummary((sm) => (sm ? { ...sm, allCorrect: true, bonusTokens: sm.bonusTokens + r.bonusTokens, promotedTo: r.promotedTo ?? sm.promotedTo } : sm));
+      }
+      setPhase('REDEEM_FEEDBACK');
+    } catch {
+      setSubmitError("That didn't go through - try tapping Submit again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function respondToRedemption(accept: boolean) {
+    if (!session) return;
+    setSubmitting(true);
+    setSubmitError(null);
+    try {
+      const r = await api.startRedemption(session.sessionId, accept, kioskToken);
+      if (accept && r.question) {
+        setRedeemQuestion(r.question);
+        setGiven('');
+        setPhase('REDEEM_Q');
+      } else {
+        setSummary((sm) => (sm ? { ...sm, redemptionOffer: false } : sm));
+        setPhase('DONE');
+      }
+    } catch (e) {
+      // Stay put with the reason shown - hiding the offer here would strand a
+      // question the server may already have handed out.
+      setSubmitError(e instanceof Error && e.message ? e.message : "That didn't go through - try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   function playAgain() {
     setSession(null);
     setQuestions([]);
@@ -646,6 +736,14 @@ export function PlaySession({
             stop partway? No problem - the same questions will be waiting for you next time.
           </p>
           <div className="flex shrink-0 items-center gap-2">
+            {myUserId && subjectProgress?.monsters && subjectProgress.monsters.length > 0 && (
+              <button
+                onClick={() => setShowDen(true)}
+                className="whitespace-nowrap rounded border px-2.5 py-1.5 text-xs font-semibold text-slate-500 hover:bg-slate-50"
+              >
+                🐲 Monster Den
+              </button>
+            )}
             {myUserId && (
               <button
                 onClick={() => setShowProgress(true)}
@@ -666,8 +764,10 @@ export function PlaySession({
         <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {EDU_SUBJECTS.map((s) => {
             const sp = subjectProgress?.subjects[s];
-            const pct = sp && sp.bankSize > 0 ? Math.min(100, Math.round((sp.masteredCount / sp.bankSize) * 100)) : 0;
+            const target = sp ? sp.promoteAt || sp.bankSize : 0;
+            const pct = sp && target > 0 ? Math.min(100, Math.round((sp.masteredCount / target) * 100)) : 0;
             const locked = !!sp?.locked;
+            const exploring = !locked && (sp?.reviewAvailable ?? 0) > 0;
             return (
               <li key={s}>
                 <button
@@ -688,6 +788,8 @@ export function PlaySession({
                       <span className="text-xs text-slate-400">{GRADE_LABELS[sp.grade]} grade</span>
                       {locked ? (
                         <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-emerald-700">Mastered for now!</span>
+                      ) : exploring ? (
+                        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-emerald-700">🧭 Explore &amp; Review ({sp?.reviewAvailable} new)</span>
                       ) : (
                         <span className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
                           <span className="block h-full rounded-full" style={{ width: `${pct}%`, background: 'var(--accent)' }} />
@@ -700,6 +802,11 @@ export function PlaySession({
             );
           })}
         </ul>
+        {showDen && subjectProgress?.monsters && (
+          <Modal maxWidthClass="max-w-2xl" onBackdropClick={() => setShowDen(false)} header={<h3 className="text-lg font-semibold">🐲 My Monster Den</h3>}>
+            <MonsterDen monsters={subjectProgress.monsters as EduMonster[]} />
+          </Modal>
+        )}
         {showProgress && myUserId && (
           <Modal
             maxWidthClass="max-w-2xl"
@@ -730,7 +837,19 @@ export function PlaySession({
   if (phase === 'DONE' && summary) {
     return (
       <div className="mt-4 flex flex-col items-center gap-3 rounded-xl border bg-white p-8 text-center">
-        <div className="text-2xl font-bold">{summary.allCorrect ? '🌟 Perfect session!' : 'Session complete!'}</div>
+        <div className="text-2xl font-bold">{summary.allCorrect ? '🌟 Perfect session!' : session?.mode === 'REVIEW' ? '🧭 Explore & Review complete!' : 'Session complete!'}</div>
+        {session && session.mode !== 'REVIEW' && (
+          <div className="flex flex-col items-center">
+            <MonsterArt subject={session.subject} grade={session.grade} stage={summary.correctCount >= 8 ? 2 : 1} silhouette={summary.correctCount < 8 && !summary.alreadyFriend} size={110} />
+            <p className="text-sm font-semibold">
+              {summary.befriended
+                ? `🎉 You befriended ${monsterFor(session.subject, session.grade).name}!`
+                : summary.correctCount >= 8 || summary.alreadyFriend
+                  ? `${monsterFor(session.subject, session.grade).name} is already your friend - nice work!`
+                  : `${summary.correctCount} of 10 right. Get 8 to befriend ${monsterFor(session.subject, session.grade).name}!`}
+            </p>
+          </div>
+        )}
         {session?.practiceOnly ? (
           <p className="text-sm text-slate-500">🎓 Practice session - today's Learning reward limit was already used up, so no tokens this time. Back tomorrow!</p>
         ) : (
@@ -766,6 +885,127 @@ export function PlaySession({
     );
   }
 
+  if (phase === 'REDEEM_OFFER' && session) {
+    return (
+      <div className="mt-4 flex flex-col items-center gap-3 rounded-xl border bg-white p-8 text-center">
+        <div className="text-3xl">🎯</div>
+        <div className="text-2xl font-bold">So close! Redemption Round</div>
+        <p className="max-w-sm text-sm text-slate-500">
+          You only missed one. Answer one bonus question - a little trickier - to win the perfect-session bonus. Nothing you already earned can
+          be lost, so it is a free try!
+        </p>
+        {submitError && <p className="text-sm font-medium text-red-500">{submitError}</p>}
+        <div className="mt-2 flex gap-2">
+          <button
+            onClick={() => respondToRedemption(true)}
+            disabled={submitting}
+            className="rounded-lg bg-amber-500 px-5 py-2 font-semibold text-white hover:bg-amber-400 disabled:opacity-50"
+          >
+            Let us go!
+          </button>
+          <button
+            onClick={() => respondToRedemption(false)}
+            disabled={submitting}
+            className="rounded-lg border px-5 py-2 font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50"
+          >
+            No thanks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if ((phase === 'REDEEM_Q' || phase === 'REDEEM_FEEDBACK') && redeemQuestion) {
+    const rq = redeemQuestion;
+    return (
+      <div className="mt-4 flex flex-col items-center gap-4">
+        <div className="w-full max-w-md rounded-xl border bg-white p-6">
+          <div className="mb-3 text-xs font-semibold text-amber-600">🎯 Redemption Round - one bonus question</div>
+          <QuestionVisual visual={rq.visual} />
+          <QuestionPhoto media={rq.media} />
+          <QuestionAudio media={rq.media} autoPlayKey={rq.id} />
+          <p className="text-lg font-semibold">{rq.prompt}</p>
+          {phase === 'REDEEM_Q' && (
+            <div className="mt-4">
+              {rq.type === 'IMAGE_CHOICE' && rq.choices ? (
+                <ImageChoices choices={rq.choices} media={rq.media} given={given} onPick={setGiven} />
+              ) : rq.type === 'MULTIPLE_CHOICE' && rq.choices ? (
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {rq.choices.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => setGiven(c)}
+                      className={`rounded-lg border px-3 py-2 text-sm ${given === c ? 'border-slate-800 bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <input
+                  autoFocus
+                  className="mt-1 w-full rounded border px-3 py-2 text-lg"
+                  value={given}
+                  onChange={(e) => setGiven(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && answerRedemptionQuestion()}
+                  placeholder="Type your answer"
+                />
+              )}
+              {submitError && <p className="mt-2 text-center text-sm font-medium text-red-500">{submitError}</p>}
+              <button
+                onClick={answerRedemptionQuestion}
+                disabled={!given.trim() || submitting}
+                className="mt-4 w-full rounded-lg bg-amber-500 py-2.5 font-semibold text-white disabled:opacity-40"
+              >
+                {submitting ? 'Submitting…' : 'Submit'}
+              </button>
+              <button
+                onClick={() => respondToRedemption(false)}
+                disabled={submitting}
+                className="mt-2 w-full rounded-lg py-1.5 text-sm font-medium text-slate-400 hover:text-slate-600"
+              >
+                Skip the bonus question
+              </button>
+            </div>
+          )}
+          {phase === 'REDEEM_FEEDBACK' && redeemResult && (
+            <>
+              {rq.type === 'IMAGE_CHOICE' && rq.choices && (
+                <div className="mb-3 mt-3">
+                  <ImageChoices choices={rq.choices} media={rq.media} given={given} onPick={() => undefined} correct={redeemResult.correctAnswer} />
+                </div>
+              )}
+            </>
+          )}
+          {phase === 'REDEEM_FEEDBACK' && redeemResult && (
+            <div className="mt-4">
+              <p className={`text-lg font-bold ${redeemResult.correct ? 'text-green-600' : 'text-red-500'}`}>
+                {redeemResult.correct
+                  ? '🌟 You did it! Perfect-session bonus unlocked!'
+                  : `❌ Not this time - it was "${redeemResult.correctAnswer}". You still keep everything you earned!`}
+              </p>
+              {redeemResult.correct && (
+                <p className="mt-1 flex items-center gap-1 text-sm text-amber-600">
+                  <TokenBadge icon={tokenIcon} amount={`+${redeemResult.tokensAwarded + redeemResult.bonusTokens}`} label="bonus" />
+                </p>
+              )}
+              <button
+                onClick={() => {
+                  setGiven('');
+                  setSummary((sm) => (sm ? { ...sm, redemptionOffer: false } : sm));
+                  setPhase('DONE');
+                }}
+                className="mt-4 w-full rounded-lg bg-slate-800 py-2.5 font-semibold text-white hover:bg-slate-700"
+              >
+                Continue
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   const q = questions[index];
   if (!q) return null;
 
@@ -793,12 +1033,33 @@ export function PlaySession({
             {SUBJECT_META[session.subject].label}. Rewards are back tomorrow.
           </p>
         )}
+        {session && (
+          <div className="mb-3 flex items-center gap-3 rounded-lg px-1">
+            <MonsterArt subject={session.subject} grade={session.grade} stage={1} size={56} hit={hitFlash} />
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400">
+                <span>{monsterFor(session.subject, session.grade).name}</span>
+                <span>
+                  {hits} hit{hits === 1 ? '' : 's'}
+                  {session.mode === 'REVIEW' ? ' - 🧭 Explore & Review (half pay)' : ' - 8 befriends it'}
+                </span>
+              </div>
+              <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                <div className="h-full rounded-full transition-all" style={{ width: `${Math.min(100, hits * 10)}%`, background: 'var(--accent)' }} />
+              </div>
+            </div>
+          </div>
+        )}
         <QuestionVisual visual={q.visual} />
+        <QuestionPhoto media={q.media} />
+        <QuestionAudio media={q.media} autoPlayKey={q.id} />
         <p className="text-lg font-semibold">{q.prompt}</p>
 
         {phase === 'QUESTION' && (
           <div className="mt-4">
-            {q.type === 'MULTIPLE_CHOICE' && q.choices ? (
+            {q.type === 'IMAGE_CHOICE' && q.choices ? (
+              <ImageChoices choices={q.choices} media={q.media} given={given} onPick={setGiven} />
+            ) : q.type === 'MULTIPLE_CHOICE' && q.choices ? (
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {q.choices.map((c) => (
                   <button
@@ -833,8 +1094,13 @@ export function PlaySession({
 
         {phase === 'FEEDBACK' && feedback && (
           <div className="mt-4">
+            {q.type === 'IMAGE_CHOICE' && q.choices && (
+              <div className="mb-3">
+                <ImageChoices choices={q.choices} media={q.media} given={given} onPick={() => undefined} correct={feedback.correctAnswer} />
+              </div>
+            )}
             <p className={`text-lg font-bold ${feedback.correct ? 'text-green-600' : 'text-red-500'}`}>
-              {feedback.correct ? '✅ Correct!' : `❌ Not quite - it was "${feedback.correctAnswer}"`}
+              {feedback.correct ? '✅ Correct!' : q.type === 'IMAGE_CHOICE' ? `❌ Not quite - it was picture ${feedback.correctAnswer}` : `❌ Not quite - it was "${feedback.correctAnswer}"`}
             </p>
             <button onClick={next} className="mt-4 w-full rounded-lg bg-slate-800 py-2.5 font-semibold text-white hover:bg-slate-700">
               Next

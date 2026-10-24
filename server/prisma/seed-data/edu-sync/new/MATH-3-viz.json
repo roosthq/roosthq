@@ -1,0 +1,2300 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:12",
+   "1:13",
+   "1:42",
+   "3:12"
+  ],
+  "answer": "1:12",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/48961f58f2db.webp",
+   "alt": "An analog clock showing 1:12"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:21",
+   "10:21",
+   "6:48",
+   "9:21"
+  ],
+  "answer": "6:21",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d924de9c41e5.webp",
+   "alt": "An analog clock showing 6:21"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:41",
+   "4:41",
+   "9:21",
+   "9:37"
+  ],
+  "answer": "9:41",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3403126c7f5c.webp",
+   "alt": "An analog clock showing 9:41"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:42",
+   "3:33",
+   "3:43",
+   "3:46"
+  ],
+  "answer": "3:42",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/822bf00dce39.webp",
+   "alt": "An analog clock showing 3:42"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:18",
+   "12:18",
+   "2:04",
+   "2:31"
+  ],
+  "answer": "2:18",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e435758f68e8.webp",
+   "alt": "An analog clock showing 2:18"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:18",
+   "1:18",
+   "3:17",
+   "3:28"
+  ],
+  "answer": "3:18",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/30db8622dec0.webp",
+   "alt": "An analog clock showing 3:18"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:07",
+   "11:07",
+   "3:26",
+   "9:07"
+  ],
+  "answer": "3:07",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/527068bf978d.webp",
+   "alt": "An analog clock showing 3:07"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:29",
+   "11:37",
+   "11:42",
+   "8:29"
+  ],
+  "answer": "11:29",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e3fbceb42ad4.webp",
+   "alt": "An analog clock showing 11:29"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:06",
+   "1:06",
+   "2:06",
+   "6:08"
+  ],
+  "answer": "6:06",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/24d51d9ccdc4.webp",
+   "alt": "An analog clock showing 6:06"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:12",
+   "2:12",
+   "3:12",
+   "8:12"
+  ],
+  "answer": "12:12",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9efd3b099fb0.webp",
+   "alt": "An analog clock showing 12:12"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:42",
+   "10:42",
+   "2:44",
+   "4:42"
+  ],
+  "answer": "2:42",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/509c53275f30.webp",
+   "alt": "An analog clock showing 2:42"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:16",
+   "12:16",
+   "7:16",
+   "9:16"
+  ],
+  "answer": "3:16",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bacee0f43844.webp",
+   "alt": "An analog clock showing 3:16"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:21",
+   "11:21",
+   "1:47",
+   "3:21"
+  ],
+  "answer": "1:21",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f03113b24f55.webp",
+   "alt": "An analog clock showing 1:21"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:46",
+   "11:46",
+   "12:46",
+   "3:07"
+  ],
+  "answer": "3:46",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4c3689943bac.webp",
+   "alt": "An analog clock showing 3:46"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:19",
+   "11:06",
+   "11:08",
+   "8:19"
+  ],
+  "answer": "11:19",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/337abcfa5300.webp",
+   "alt": "An analog clock showing 11:19"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:27",
+   "1:27",
+   "8:12",
+   "8:41"
+  ],
+  "answer": "8:27",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ddc8390d2a1a.webp",
+   "alt": "An analog clock showing 8:27"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:42",
+   "10:42",
+   "4:04",
+   "4:46"
+  ],
+  "answer": "4:42",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bd80a95732b1.webp",
+   "alt": "An analog clock showing 4:42"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:39",
+   "10:39",
+   "1:39",
+   "3:29"
+  ],
+  "answer": "3:39",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/97a0adaa6c8b.webp",
+   "alt": "An analog clock showing 3:39"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:19",
+   "12:19",
+   "8:19",
+   "9:19"
+  ],
+  "answer": "1:19",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e40cb33e3ba4.webp",
+   "alt": "An analog clock showing 1:19"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:13",
+   "12:24",
+   "1:13",
+   "2:13"
+  ],
+  "answer": "12:13",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9bac163fe992.webp",
+   "alt": "An analog clock showing 12:13"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:16",
+   "7:11",
+   "7:48",
+   "8:16"
+  ],
+  "answer": "7:16",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2a5bec4984dc.webp",
+   "alt": "An analog clock showing 7:16"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:03",
+   "11:04",
+   "11:18",
+   "12:03"
+  ],
+  "answer": "11:03",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fa8223a6b170.webp",
+   "alt": "An analog clock showing 11:03"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:09",
+   "3:09",
+   "6:21",
+   "6:47"
+  ],
+  "answer": "6:09",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29d9eebd7d06.webp",
+   "alt": "An analog clock showing 6:09"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:24",
+   "8:24",
+   "9:16",
+   "9:29"
+  ],
+  "answer": "9:24",
+  "tags": [
+   "time",
+   "minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/555bfb05c32e.webp",
+   "alt": "An analog clock showing 9:24"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 1:05?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/4a33262099a5.webp",
+    "learning/img/viz/de7102d63f21.webp",
+    "learning/img/viz/131ec0b18e0e.webp",
+    "learning/img/viz/04f786fa5d86.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:55?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d544e1296b4b.webp",
+    "learning/img/viz/87c3a8f84f90.webp",
+    "learning/img/viz/5863b0b729b2.webp",
+    "learning/img/viz/ef466276d111.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 11:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bf4b8070d72b.webp",
+    "learning/img/viz/d36ee116e733.webp",
+    "learning/img/viz/e59ce622675e.webp",
+    "learning/img/viz/5f458ede824f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 1:10?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/61524b763674.webp",
+    "learning/img/viz/28b8a70f3b5b.webp",
+    "learning/img/viz/c4a6f9cac195.webp",
+    "learning/img/viz/c4f6ebe1eb95.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 1:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/70105b0c9c5a.webp",
+    "learning/img/viz/4010e61ca2e8.webp",
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/54b872545287.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 12:10?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/3623f06254c2.webp",
+    "learning/img/viz/00bf1e1ec488.webp",
+    "learning/img/viz/aa26dd8e7ca2.webp",
+    "learning/img/viz/8f67045ded56.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 4:05?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/99b3b5264e63.webp",
+    "learning/img/viz/d1d777e10121.webp",
+    "learning/img/viz/08df1ee75f05.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 6:40?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/5863b0b729b2.webp",
+    "learning/img/viz/53cfc993c06e.webp",
+    "learning/img/viz/85642d6e7141.webp",
+    "learning/img/viz/d18f7230c12a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 12:10?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d28af4bb5db3.webp",
+    "learning/img/viz/aa26dd8e7ca2.webp",
+    "learning/img/viz/53cfc993c06e.webp",
+    "learning/img/viz/c4e3a0655378.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:05?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/647ff14f6f01.webp",
+    "learning/img/viz/87c3a8f84f90.webp",
+    "learning/img/viz/cfba4cd8d981.webp",
+    "learning/img/viz/123a0db99413.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 7:15?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1b88ed0a870f.webp",
+    "learning/img/viz/b1e61b9cb939.webp",
+    "learning/img/viz/bfdc3f9da0c8.webp",
+    "learning/img/viz/28b8a70f3b5b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 4:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/feca2324c8f0.webp",
+    "learning/img/viz/6c9dcf04bad9.webp",
+    "learning/img/viz/0c8e68d40fa4.webp",
+    "learning/img/viz/bc7ca18904d6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bcd403b3ac80.webp",
+    "learning/img/viz/ece4c5b6998c.webp",
+    "learning/img/viz/0825ce9f24ad.webp",
+    "learning/img/viz/feca2324c8f0.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:10?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7f3100bb03ce.webp",
+    "learning/img/viz/00bf1e1ec488.webp",
+    "learning/img/viz/cbadb73204a9.webp",
+    "learning/img/viz/c6bcee56b2e8.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "1/6",
+   "2/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "1/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6857a9be9530.webp",
+   "alt": "A circle cut into 6 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "1/6",
+   "2/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "1/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1cb462089292.webp",
+   "alt": "A bar cut into 6 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "2/6",
+   "1/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "2/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/69e0bdc86692.webp",
+   "alt": "A circle cut into 6 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "2/6",
+   "1/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "2/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/46bdb3c276b8.webp",
+   "alt": "A bar cut into 6 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "3/6",
+   "1/6",
+   "2/6",
+   "4/6"
+  ],
+  "answer": "3/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/455cb51cf99c.webp",
+   "alt": "A circle cut into 6 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "3/6",
+   "1/6",
+   "2/6",
+   "4/6"
+  ],
+  "answer": "3/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/34339e10d62b.webp",
+   "alt": "A bar cut into 6 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "4/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "4/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3db72f88e043.webp",
+   "alt": "A circle cut into 6 equal parts with 4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "4/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "4/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5f8528ddc1db.webp",
+   "alt": "A bar cut into 6 equal parts with 4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "5/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "5/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c92e84d67872.webp",
+   "alt": "A circle cut into 6 equal parts with 5 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "5/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "5/6",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d3c836e93ecf.webp",
+   "alt": "A bar cut into 6 equal parts with 5 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "1/8",
+   "2/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "1/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/12a490aa2269.webp",
+   "alt": "A circle cut into 8 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "1/8",
+   "2/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "1/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/489ea18dc39d.webp",
+   "alt": "A bar cut into 8 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "2/8",
+   "1/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "2/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/35080186df21.webp",
+   "alt": "A circle cut into 8 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "2/8",
+   "1/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "2/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0c34a498c7ae.webp",
+   "alt": "A bar cut into 8 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "3/8",
+   "1/8",
+   "2/8",
+   "4/8"
+  ],
+  "answer": "3/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7652b9828eca.webp",
+   "alt": "A circle cut into 8 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "3/8",
+   "1/8",
+   "2/8",
+   "4/8"
+  ],
+  "answer": "3/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9d5e167fd9d0.webp",
+   "alt": "A bar cut into 8 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "4/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "4/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6e1878ff9efe.webp",
+   "alt": "A circle cut into 8 equal parts with 4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "4/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "4/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ba9efe4c0d2a.webp",
+   "alt": "A bar cut into 8 equal parts with 4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "5/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "5/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3534acee520a.webp",
+   "alt": "A circle cut into 8 equal parts with 5 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "5/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "5/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e6ec974d5e88.webp",
+   "alt": "A bar cut into 8 equal parts with 5 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "6/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "6/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e2d56e04111b.webp",
+   "alt": "A circle cut into 8 equal parts with 6 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "6/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "6/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/80eb9c185f3e.webp",
+   "alt": "A bar cut into 8 equal parts with 6 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "7/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "7/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/44a8fa9c6e88.webp",
+   "alt": "A circle cut into 8 equal parts with 7 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "7/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "7/8",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f88a5f36b2e4.webp",
+   "alt": "A bar cut into 8 equal parts with 7 shaded"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 3/8 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/adb4f4be2ea5.webp",
+    "learning/img/viz/2d327ec16177.webp",
+    "learning/img/viz/ae7612625657.webp",
+    "learning/img/viz/43adb88a1dca.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 5/6 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/208a5bca1c4b.webp",
+    "learning/img/viz/eeddc4fc3671.webp",
+    "learning/img/viz/f449f3b7619e.webp",
+    "learning/img/viz/da5d771585cf.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 5/8 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ae7612625657.webp",
+    "learning/img/viz/5c197977a4f7.webp",
+    "learning/img/viz/c8bcfd9ba289.webp",
+    "learning/img/viz/208a5bca1c4b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 1/6 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/3ef4c970da76.webp",
+    "learning/img/viz/919f948d5cc9.webp",
+    "learning/img/viz/be96ae95c691.webp",
+    "learning/img/viz/adb4f4be2ea5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Cats?",
+  "answer": "8",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fe5214395727.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Birds?",
+  "answer": "9",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0233c71f78dc.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Cats?",
+  "answer": "9",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/744eb7f24b60.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Birds?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ffc58251b29f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Cats?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/861cf3d7546f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Red?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/91d7e73482c9.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Green?",
+  "answer": "5",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/feccfcaf1e17.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Blue?",
+  "answer": "4",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2930886a09f.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Pink?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bc7d1c2b0bbd.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Blue?",
+  "answer": "7",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b5f920c4ed94.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Tacos?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f06e089601db.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Pasta?",
+  "answer": "6",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/be4704786133.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Tacos?",
+  "answer": "8",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/277df58d23ba.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Pizza?",
+  "answer": "7",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29acf5572a39.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Pizza?",
+  "answer": "7",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/773ca783d7a6.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Chess?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1c97ce6587ce.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Swim?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04e837ee2b0f.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Soccer?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a753d70db3f5.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Art?",
+  "answer": "7",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a983bcd1dd64.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Swim?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d311ca9711e.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Thu?",
+  "answer": "9",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8ec365bcbdc4.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Wed?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c53ce0e0958d.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Wed?",
+  "answer": "9",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc108c6bc690.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Tue?",
+  "answer": "7",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1dca95daa450.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Tue?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f5ee70537fa2.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Grape?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5d635f302053.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Plum?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cbcbab1bd80a.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Plum?",
+  "answer": "10",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2e8ec1df491.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Kiwi?",
+  "answer": "2",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2cdfc0746f12.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose Grape?",
+  "answer": "5",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea09cbba2fee.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "2/2"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e9e862f3e56b.webp",
+   "alt": "A number line from 0 to 1 cut into 2 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "1/3",
+   "2/3",
+   "1/4",
+   "3/3"
+  ],
+  "answer": "1/3",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9361957194e3.webp",
+   "alt": "A number line from 0 to 1 cut into 3 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "2/3",
+   "1/3",
+   "2/4",
+   "3/3"
+  ],
+  "answer": "2/3",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/75f43832c8d8.webp",
+   "alt": "A number line from 0 to 1 cut into 3 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "1/4",
+   "2/4",
+   "3/4",
+   "1/5"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4d3d2d2898a8.webp",
+   "alt": "A number line from 0 to 1 cut into 4 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "2/4",
+   "1/4",
+   "3/4",
+   "2/5"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5f188d772592.webp",
+   "alt": "A number line from 0 to 1 cut into 4 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "3/4",
+   "1/4",
+   "2/4",
+   "3/5"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2992d9c24fdd.webp",
+   "alt": "A number line from 0 to 1 cut into 4 equal parts"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "6",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9b889e57ae31.webp",
+   "alt": "A grid rectangle 2 by 3"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "6",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/44700de5a18f.webp",
+   "alt": "A grid rectangle 3 by 2"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "9",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7bd0506ee8c1.webp",
+   "alt": "A grid rectangle 3 by 3"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "12",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/298c89824644.webp",
+   "alt": "A grid rectangle 3 by 4"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "8",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b97b70206811.webp",
+   "alt": "A grid rectangle 4 by 2"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "12",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9987cbccfcad.webp",
+   "alt": "A grid rectangle 4 by 3"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "16",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/855a24eeee83.webp",
+   "alt": "A grid rectangle 4 by 4"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "20",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6a734c484653.webp",
+   "alt": "A grid rectangle 4 by 5"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "15",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/218b4486e714.webp",
+   "alt": "A grid rectangle 5 by 3"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "20",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0b25c8347a12.webp",
+   "alt": "A grid rectangle 5 by 4"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "12",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4936d59acd19.webp",
+   "alt": "A grid rectangle 6 by 2"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of the shaded rectangle?",
+  "answer": "30",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c26f8492546f.webp",
+   "alt": "A grid rectangle 6 by 5"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/15a391251db8.webp",
+   "alt": "A rectangle 2 cm by 7 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "10",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/02a979649727.webp",
+   "alt": "A rectangle 3 cm by 2 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a44136b6e012.webp",
+   "alt": "A rectangle 3 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "20",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/532bebe591bc.webp",
+   "alt": "A rectangle 3 cm by 7 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6bb317eb8325.webp",
+   "alt": "A rectangle 4 cm by 5 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e589d68cded6.webp",
+   "alt": "A rectangle 5 cm by 4 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "22",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cb894e9ddbdd.webp",
+   "alt": "A rectangle 5 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/48c5f3b4a698.webp",
+   "alt": "A rectangle 6 cm by 3 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "24",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0686f4ec0ba8.webp",
+   "alt": "A rectangle 7 cm by 5 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "26",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f7cbed125d69.webp",
+   "alt": "A rectangle 7 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "22",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0cbe8e88e644.webp",
+   "alt": "A rectangle 9 cm by 2 cm"
+  }
+ }
+]

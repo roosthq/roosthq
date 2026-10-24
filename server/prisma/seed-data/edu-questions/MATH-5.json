@@ -1,1004 +1,3157 @@
 [
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/2 + 1/4 = ? (as a fraction, e.g. 5/6)",
-  "answer": "3/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5/6 - 1/6 = ? (as a fraction, e.g. 2/9)",
-  "answer": "4/6",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/2 x 1/3 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/6",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3.25 + 1.5 = ?",
-  "answer": "4.75",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "7.8 - 2.3 = ?",
-  "answer": "5.5",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A box is 4 units long, 3 units wide, and 2 units tall. What is its volume (length x width x height)?",
-  "answer": "24",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 2 + 3 x 4 = ?",
-  "answer": "14",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (2 + 3) x 4 = ?",
-  "answer": "20",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, which point is at (0,0)?",
-  "choicesJson": [
-   "The origin",
-   "The top-right corner",
-   "Anywhere on the x-axis",
-   "There's no such point"
-  ],
-  "answer": "The origin",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, the point (3,0) is how far along the x-axis?",
-  "choicesJson": [
-   "0",
-   "3",
-   "It's on the y-axis"
-  ],
-  "answer": "3",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "0.6 x 10 = ?",
-  "answer": "6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "12.4 / 4 = ?",
-  "answer": "3.1",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is in simplest form?",
-  "choicesJson": [
-   "2/4",
-   "3/5",
-   "4/8",
-   "5/10"
-  ],
-  "answer": "3/5",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 3 units. What is its volume (side x side x side)?",
-  "answer": "27",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "4/5 + 3/5 = ? (as a fraction, e.g. 5/6)",
-  "answer": "7/5",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "10 - 2 x 3 = ?",
-  "answer": "4",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/3 + 1/6 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/2",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/4 - 1/2 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2/5 + 1/10 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/2",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5/6 - 1/3 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/2",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/4 x 1/2 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2/3 x 3/4 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/2",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/2 x 1/2 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/5 x 1/3 = ? (as a fraction, e.g. 5/6)",
-  "answer": "1/5",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is in simplest form: 6/9 or 2/3?",
-  "choicesJson": [
-   "6/9",
-   "2/3"
-  ],
-  "answer": "2/3",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is in simplest form: 4/10 or 2/5?",
-  "choicesJson": [
-   "4/10",
-   "2/5"
-  ],
-  "answer": "2/5",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Reduce 8/12 to simplest form (as a fraction).",
-  "answer": "2/3",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Reduce 10/15 to simplest form (as a fraction).",
-  "answer": "2/3",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/8 + 3/8 = ? (as a fraction, e.g. 5/8)",
-  "answer": "6/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "7/10 - 3/10 = ? (as a fraction, e.g. 2/10)",
-  "answer": "4/10",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/8 + 3/8 = ? (as a fraction, e.g. 5/6)",
-  "answer": "4/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5/8 - 2/8 = ? (as a fraction, e.g. 5/6)",
-  "answer": "3/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2/9 + 4/9 = ? (as a fraction, e.g. 5/6)",
-  "answer": "6/9",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "7/12 - 5/12 = ? (as a fraction, e.g. 5/6)",
-  "answer": "2/12",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/5 x 2/3 = ? (as a fraction, e.g. 5/6)",
-  "answer": "2/15",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/7 x 2/3 = ? (as a fraction, e.g. 5/6)",
-  "answer": "6/21",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "4/9 x 3/4 = ? (as a fraction, e.g. 5/6)",
-  "answer": "12/36",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is bigger: 5/9 or 4/9?",
-  "choicesJson": [
-   "5/9",
-   "4/9",
-   "They are equal"
-  ],
-  "answer": "5/9",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is smaller: 7/8 or 5/8?",
-  "choicesJson": [
-   "7/8",
-   "5/8",
-   "They are equal"
-  ],
-  "answer": "5/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is equivalent to 3/6?",
-  "choicesJson": [
-   "1/2",
-   "2/3",
-   "1/3",
-   "3/4"
-  ],
-  "answer": "1/2",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "4.2 x 3 = ?",
-  "answer": "12.6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "0.8 x 5 = ?",
-  "answer": "4",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "15.6 / 3 = ?",
-  "answer": "5.2",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "9.9 / 3 = ?",
-  "answer": "3.3",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2.4 x 2.5 = ?",
-  "answer": "6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "6.75 + 2.25 = ?",
-  "answer": "9",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "10.5 - 3.75 = ?",
-  "answer": "6.75",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "0.4 x 100 = ?",
-  "answer": "40",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3.6 / 0.6 = ?",
-  "answer": "6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5.05 + 1.95 = ?",
-  "answer": "7",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal is bigger: 0.75 or 0.7?",
-  "choicesJson": [
-   "0.75",
-   "0.7",
-   "They are equal"
-  ],
-  "answer": "0.75",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 4.567 to the nearest hundredth.",
-  "choicesJson": [
-   "4.56",
-   "4.57",
-   "4.6",
-   "4.5"
-  ],
-  "answer": "4.57",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "7.25 x 2 = ?",
-  "answer": "14.5",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "18.9 / 3 = ?",
-  "answer": "6.3",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "0.9 x 0.9 = ?",
-  "answer": "0.81",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5.4 / 0.9 = ?",
-  "answer": "6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "22.5 / 5 = ?",
-  "answer": "4.5",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1.1 x 1.1 = ?",
-  "answer": "1.21",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "13.65 + 4.35 = ?",
-  "answer": "18",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "20 - 6.25 = ?",
-  "answer": "13.75",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "0.05 x 100 = ?",
-  "answer": "5",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3.14 + 2.86 = ?",
-  "answer": "6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A box is 5 units long, 4 units wide, and 3 units tall. What is its volume?",
-  "answer": "60",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A box is 6 units long, 2 units wide, and 2 units tall. What is its volume?",
-  "answer": "24",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 4 units. What is its volume?",
-  "answer": "64",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 5 units. What is its volume?",
-  "answer": "125",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A fish tank is 10 inches long, 5 inches wide, and 6 inches tall. What is its volume in cubic inches?",
-  "answer": "300",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A storage box is 8 feet long, 3 feet wide, and 2 feet tall. What is its volume in cubic feet?",
-  "answer": "48",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A shoe box is 12 inches long, 6 inches wide, and 4 inches tall. What is its volume?",
-  "answer": "288",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 6 units. What is its volume?",
-  "answer": "216",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 2 units. What is its volume?",
-  "answer": "8",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A freezer chest is 5 feet long, 3 feet wide, and 2 feet tall. What is its volume in cubic feet?",
-  "answer": "30",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A gift box is 9 inches long, 5 inches wide, and 4 inches tall. What is its volume?",
-  "answer": "180",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cube has sides of 10 units. What is its volume?",
-  "answer": "1000",
-  "tags": [
-   "volume"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 5 + 2 x 3 = ?",
-  "answer": "11",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (5 + 2) x 3 = ?",
-  "answer": "21",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 20 - 4 x 2 = ?",
-  "answer": "12",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (20 - 4) x 2 = ?",
-  "answer": "32",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 6 x 3 - 4 = ?",
-  "answer": "14",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 8 x (5 - 2) = ?",
-  "answer": "24",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 12 / 4 + 5 = ?",
-  "answer": "8",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 3 + 4 x 2 - 1 = ?",
-  "answer": "10",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (3 + 4) x (2 - 1) = ?",
-  "answer": "7",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 18 / 3 + 2 x 5 = ?",
-  "answer": "16",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 9 - 3 x 2 = ?",
-  "answer": "3",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (9 - 3) x 2 = ?",
-  "answer": "12",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 4 x 5 + 6 = ?",
-  "answer": "26",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 4 x (5 + 6) = ?",
-  "answer": "44",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: 15 / 5 + 3 x 2 = ?",
-  "answer": "9",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Following order of operations: (15 / 5 + 3) x 2 = ?",
-  "answer": "12",
-  "tags": [
-   "order-of-operations"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "On a coordinate plane, what is the x-coordinate of the point (5, 2)?",
-  "answer": "5",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "On a coordinate plane, what is the y-coordinate of the point (5, 2)?",
-  "answer": "2",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, which point lies exactly on the y-axis?",
-  "choicesJson": [
-   "(0,4)",
-   "(4,0)",
-   "(4,4)",
-   "(1,1)"
-  ],
-  "answer": "(0,4)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, which point lies exactly on the x-axis?",
-  "choicesJson": [
-   "(0,3)",
-   "(3,0)",
-   "(3,3)",
-   "(2,2)"
-  ],
-  "answer": "(3,0)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, in which direction do you move for a positive y value: up or down?",
-  "choicesJson": [
-   "Up",
-   "Down"
-  ],
-  "answer": "Up",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, in which direction do you move for a positive x value: left or right?",
-  "choicesJson": [
-   "Left",
-   "Right"
-  ],
-  "answer": "Right",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the coordinates of a point that is 4 units right and 3 units up from the origin?",
-  "answer": "(4,3)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the coordinates of the origin?",
-  "answer": "(0,0)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "On a coordinate plane, which point is farther from the origin along the x-axis: (2,0) or (7,0)?",
-  "choicesJson": [
-   "(2,0)",
-   "(7,0)"
-  ],
-  "answer": "(7,0)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "On a coordinate plane, what is the y-coordinate of the point (0, 6)?",
-  "answer": "6",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "On a coordinate plane, what is the x-coordinate of the point (0, 6)?",
-  "answer": "0",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Starting at the origin, you move 5 units right and 0 units up. What point are you at?",
-  "answer": "(5,0)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Starting at the origin, you move 0 units right and 7 units up. What point are you at?",
-  "answer": "(0,7)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which point has the same x-coordinate as (3, 8): (3, 1) or (8, 3)?",
-  "choicesJson": [
-   "(3,1)",
-   "(8,3)"
-  ],
-  "answer": "(3,1)",
-  "tags": [
-   "coordinate-plane"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A cereal box is 3.5 inches wide, 8 inches deep, and 12 inches tall. What is its volume in cubic inches?",
-  "answer": "336",
-  "tags": [
-   "volume",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Maria has 3/4 of a pizza. She eats 1/4 of the whole pizza. What fraction of the pizza does she have left (as a fraction, e.g. 5/6)?",
-  "answer": "2/4",
-  "tags": [
-   "fractions",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A runner covers 2.5 kilometers on Monday and 3.75 kilometers on Tuesday. How many kilometers in total?",
-  "answer": "6.25",
-  "tags": [
-   "decimals",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "You buy 3 notebooks at $2.50 each. How much do you spend in total, in dollars (just the number, e.g. 12)?",
-  "answer": "7.5",
-  "tags": [
-   "decimals",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A rectangular prism-shaped aquarium is 12 inches long, 6 inches wide, and 8 inches tall. What is its volume?",
-  "answer": "576",
-  "tags": [
-   "volume",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Follow order of operations: a recipe needs (2 cups + 1 cup) x 3 batches. How many cups total?",
-  "answer": "9",
-  "tags": [
-   "order-of-operations",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A juice pitcher holds 2.5 liters. If you pour out 0.75 liters, how many liters are left?",
-  "answer": "1.75",
-  "tags": [
-   "decimals",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A box of tiles covers 3/4 of a square yard. Another box covers 1/4 of a square yard. How much do the two boxes cover together (as a fraction, e.g. 5/6)?",
-  "answer": "4/4",
-  "tags": [
-   "fractions",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A moving truck is 16 feet long, 8 feet wide, and 8 feet tall inside. What is its volume in cubic feet?",
-  "answer": "1024",
-  "tags": [
-   "volume",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Follow order of operations: 3 teams of 4 players plus 2 coaches. How many people in all (3 x 4 + 2)?",
-  "answer": "14",
-  "tags": [
-   "order-of-operations",
-   "word-problem"
-  ]
- }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "1.5",
+      "0.5",
+      "1.0",
+      "2.0"
+    ],
+    "answer": "1.5",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/4989197ad185.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "2.5",
+      "1.5",
+      "2.0",
+      "3.0"
+    ],
+    "answer": "2.5",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/a5e2a02e42c3.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "3.5",
+      "2.5",
+      "3.0",
+      "4.0"
+    ],
+    "answer": "3.5",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/091c80391f40.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(6, 2)",
+      "(2, 6)",
+      "(7, 2)",
+      "(6, 3)"
+    ],
+    "answer": "(6, 2)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (6, 2)",
+      "image": "learning/img/viz/e58ea5a9383a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(3, 7)",
+      "(7, 3)",
+      "(4, 7)",
+      "(3, 8)"
+    ],
+    "answer": "(3, 7)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (3, 7)",
+      "image": "learning/img/viz/a41f15dcff81.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(8, 1)",
+      "(1, 8)",
+      "(9, 1)",
+      "(8, 2)"
+    ],
+    "answer": "(8, 1)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (8, 1)",
+      "image": "learning/img/viz/06d55f8741c8.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(2, 7)",
+      "(7, 2)",
+      "(3, 7)",
+      "(2, 8)"
+    ],
+    "answer": "(2, 7)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (2, 7)",
+      "image": "learning/img/viz/494273a4312b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(5, 2)",
+      "(2, 5)",
+      "(6, 2)",
+      "(5, 3)"
+    ],
+    "answer": "(5, 2)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (5, 2)",
+      "image": "learning/img/viz/286da654dfec.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(1, 9)",
+      "(9, 1)",
+      "(2, 9)",
+      "(1, 10)"
+    ],
+    "answer": "(1, 9)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (1, 9)",
+      "image": "learning/img/viz/a872b6471422.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(3, 4)",
+      "(4, 3)",
+      "(4, 4)",
+      "(3, 5)"
+    ],
+    "answer": "(3, 4)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (3, 4)",
+      "image": "learning/img/viz/1f15fbb9c554.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(6, 4)",
+      "(4, 6)",
+      "(7, 4)",
+      "(6, 5)"
+    ],
+    "answer": "(6, 4)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (6, 4)",
+      "image": "learning/img/viz/9b80435f62fb.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(2, 5)",
+      "(5, 2)",
+      "(3, 5)",
+      "(2, 6)"
+    ],
+    "answer": "(2, 5)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (2, 5)",
+      "image": "learning/img/viz/96b2012e750b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(2, 8)",
+      "(8, 2)",
+      "(3, 8)",
+      "(2, 9)"
+    ],
+    "answer": "(2, 8)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (2, 8)",
+      "image": "learning/img/viz/ccce5c829994.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(6, 1)",
+      "(1, 6)",
+      "(7, 1)",
+      "(6, 2)"
+    ],
+    "answer": "(6, 1)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (6, 1)",
+      "image": "learning/img/viz/8d5d2c5d8306.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(4, 1)",
+      "(1, 4)",
+      "(5, 1)",
+      "(4, 2)"
+    ],
+    "answer": "(4, 1)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (4, 1)",
+      "image": "learning/img/viz/9d7434479f78.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(5, 3)",
+      "(3, 5)",
+      "(6, 3)",
+      "(5, 4)"
+    ],
+    "answer": "(5, 3)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (5, 3)",
+      "image": "learning/img/viz/d7686e294f08.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(2, 6)",
+      "(6, 2)",
+      "(3, 6)",
+      "(2, 7)"
+    ],
+    "answer": "(2, 6)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (2, 6)",
+      "image": "learning/img/viz/ca470ce369b5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(5, 6)",
+      "(6, 5)",
+      "(6, 6)",
+      "(5, 7)"
+    ],
+    "answer": "(5, 6)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (5, 6)",
+      "image": "learning/img/viz/c03d0b0808f0.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the coordinates of the red point? (across first, then up)",
+    "choicesJson": [
+      "(4, 5)",
+      "(5, 4)",
+      "(5, 5)",
+      "(4, 6)"
+    ],
+    "answer": "(4, 5)",
+    "tags": [
+      "coordinates",
+      "visual"
+    ],
+    "media": {
+      "alt": "A coordinate grid with a point at (4, 5)",
+      "image": "learning/img/viz/644b6d9b0045.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the number 4,382,615, what is the value of the digit 8?",
+    "choicesJson": [
+      "800,000",
+      "8,000",
+      "80,000",
+      "800"
+    ],
+    "answer": "80,000",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 300,000 + 40,000 + 600 + 7? Type it without commas.",
+    "answer": "340607",
+    "acceptedAnswers": [
+      "340,607"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 6,748,392 to the nearest ten thousand.",
+    "choicesJson": [
+      "6,740,000",
+      "6,700,000",
+      "6,800,000",
+      "6,750,000"
+    ],
+    "answer": "6,750,000",
+    "tags": [
+      "rounding",
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is the least?",
+    "choicesJson": [
+      "0.405",
+      "0.45",
+      "0.54",
+      "0.504"
+    ],
+    "answer": "0.405",
+    "tags": [
+      "decimals",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Alex has mined 12,408 blocks in Minecraft. Which digit is in the thousands place?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "place-value",
+      "minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "10 to the power of 4 (written 10^4) means 10 x 10 x 10 x 10. What is its value? Type it without commas.",
+    "answer": "10000",
+    "acceptedAnswers": [
+      "10,000"
+    ],
+    "tags": [
+      "powers-of-10"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In the number 7,700, the first 7 is worth how many times as much as the second 7?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Fortnite squad of 4 players splits 3 Slurp Juice bottles equally. How much of a bottle does each player get?",
+    "choicesJson": [
+      "4/3 of a bottle",
+      "3/4 of a bottle",
+      "1/4 of a bottle",
+      "3/7 of a bottle"
+    ],
+    "answer": "3/4 of a bottle",
+    "tags": [
+      "fractions",
+      "division"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which mixed number is equal to 11/4?",
+    "choicesJson": [
+      "3 1/4",
+      "2 1/4",
+      "1 3/4",
+      "2 3/4"
+    ],
+    "answer": "2 3/4",
+    "tags": [
+      "fractions",
+      "mixed-numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which improper fraction is equal to 3 2/5?",
+    "choicesJson": [
+      "15/5",
+      "17/5",
+      "13/5",
+      "6/5"
+    ],
+    "answer": "17/5",
+    "tags": [
+      "fractions",
+      "mixed-numbers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Find the missing number that makes the fractions equal: 3/4 and __/20",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen"
+    ],
+    "tags": [
+      "fractions",
+      "equivalent-fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is larger: 3/5 or 5/8?",
+    "choicesJson": [
+      "3/5",
+      "They are equal",
+      "5/8"
+    ],
+    "answer": "5/8",
+    "tags": [
+      "fractions",
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows the fractions in order from least to greatest?",
+    "choicesJson": [
+      "1/2, 1/3, 1/6, 3/4",
+      "1/6, 1/2, 1/3, 3/4",
+      "1/6, 1/3, 1/2, 3/4",
+      "3/4, 1/2, 1/3, 1/6"
+    ],
+    "answer": "1/6, 1/3, 1/2, 3/4",
+    "tags": [
+      "fractions",
+      "ordering"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Write 3/5 as a decimal.",
+    "answer": "0.6",
+    "acceptedAnswers": [
+      "0.60",
+      ".6"
+    ],
+    "tags": [
+      "fractions",
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Write 1/8 as a decimal. Hint: 1 divided by 8.",
+    "answer": "0.125",
+    "acceptedAnswers": [
+      ".125"
+    ],
+    "tags": [
+      "fractions",
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the number 52.376, which digit is in the hundredths place?",
+    "choicesJson": [
+      "7",
+      "3",
+      "6",
+      "5"
+    ],
+    "answer": "7",
+    "tags": [
+      "decimals",
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is equal to 4 + 0.3 + 0.02?",
+    "choicesJson": [
+      "4.23",
+      "4.032",
+      "43.2",
+      "4.32"
+    ],
+    "answer": "4.32",
+    "tags": [
+      "decimals",
+      "expanded-form"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Your best Roblox obby run took 8.346 seconds. Rounded to the nearest tenth, how many seconds is that?",
+    "answer": "8.3",
+    "acceptedAnswers": [
+      "8.30"
+    ],
+    "tags": [
+      "rounding",
+      "decimals",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Guards logged how many times they checked on SCP-173 each night: 4, 7, 4, 9, 6, 4, 8. What is the mode (the number that appears most often)?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "data",
+      "mode",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Over 4 nights, Alex collected 3, 5, 2 and 6 gunpowder in Minecraft. What is the mean (average) amount collected per night?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "data",
+      "mean",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Five Pikachu have these levels: 12, 7, 15, 9 and 20. What is the median level?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "data",
+      "median",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Four runners finished a race in 3, 5, 8 and 12 minutes. What is the median time in minutes?",
+    "answer": "6.5",
+    "acceptedAnswers": [
+      "6.50",
+      "6 1/2"
+    ],
+    "tags": [
+      "data",
+      "median"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Mario Kart tournament, four players scored 45, 62, 38 and 71 points. What is the range of the scores?",
+    "answer": "33",
+    "acceptedAnswers": [
+      "thirty-three",
+      "thirty three"
+    ],
+    "tags": [
+      "data",
+      "range",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The mean of four numbers is 10. Three of the numbers are 8, 12 and 9. What is the fourth number?",
+    "answer": "11",
+    "acceptedAnswers": [
+      "eleven"
+    ],
+    "tags": [
+      "data",
+      "mean"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which measure of a data set tells you the value that appears most often?",
+    "choicesJson": [
+      "Mode",
+      "Mean",
+      "Median",
+      "Range"
+    ],
+    "answer": "Mode",
+    "tags": [
+      "data",
+      "mode"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A line plot shows pieces of ribbon: 2 pieces are 1/4 inch long, 3 pieces are 1/2 inch long, and 1 piece is 3/4 inch long. What is the total length of all the ribbon?",
+    "choicesJson": [
+      "2 1/4 inches",
+      "1 3/4 inches",
+      "3 1/4 inches",
+      "2 3/4 inches"
+    ],
+    "answer": "2 3/4 inches",
+    "tags": [
+      "data",
+      "line-plot",
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bar graph shows favorite pets: dog 18, cat 12, fish 7, hamster 3. How many students were surveyed in all?",
+    "answer": "40",
+    "acceptedAnswers": [
+      "forty"
+    ],
+    "tags": [
+      "data",
+      "bar-graph"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a picture graph, each soccer ball icon stands for 4 goals. Dana's row has 6 whole icons and 1 half icon. How many goals does Dana's row show?",
+    "answer": "26",
+    "acceptedAnswers": [
+      "twenty-six",
+      "twenty six"
+    ],
+    "tags": [
+      "data",
+      "picture-graph"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A line graph shows a sunflower's height: Day 1 is 2 cm, Day 2 is 4 cm, Day 3 is 7 cm, Day 4 is 8 cm, Day 5 is 9 cm. Between which two days did it grow the most?",
+    "choicesJson": [
+      "Day 1 to Day 2",
+      "Day 3 to Day 4",
+      "Day 4 to Day 5",
+      "Day 2 to Day 3"
+    ],
+    "answer": "Day 2 to Day 3",
+    "tags": [
+      "data",
+      "line-graph"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number comes next? 2, 6, 18, 54, __",
+    "answer": "162",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number comes next? 1.2, 1.7, 2.2, 2.7, __",
+    "answer": "3.2",
+    "acceptedAnswers": [
+      "3.20"
+    ],
+    "tags": [
+      "patterns",
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A function machine multiplies each input by 3 and then subtracts 1. If you put in 6, what number comes out?",
+    "answer": "17",
+    "acceptedAnswers": [
+      "seventeen"
+    ],
+    "tags": [
+      "patterns",
+      "rules"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Pattern A starts at 0 and adds 3 each time: 0, 3, 6, 9, 12. Pattern B starts at 0 and adds 6 each time: 0, 6, 12, 18, 24. Each number in Pattern B is how many times the matching number in Pattern A (after the 0)?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "patterns",
+      "rules"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A table shows that 1 skateboard has 4 wheels, 2 skateboards have 8 wheels, and 3 skateboards have 12 wheels. How many wheels do 7 skateboards have?",
+    "answer": "28",
+    "acceptedAnswers": [
+      "twenty-eight",
+      "twenty eight"
+    ],
+    "tags": [
+      "patterns",
+      "tables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each number is the sum of the two numbers before it: 3, 5, 8, 13, 21, __. What number comes next?",
+    "answer": "34",
+    "acceptedAnswers": [
+      "thirty-four",
+      "thirty four"
+    ],
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bowling setup uses rows of 1, 2, 3 and 4 pins, which is 10 pins in all. If a setup had 6 rows following the same pattern, how many pins would it need?",
+    "answer": "21",
+    "acceptedAnswers": [
+      "twenty-one",
+      "twenty one"
+    ],
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A number line is split into tenths between 2 and 3. A point sits on the 7th mark after 2. Which number is the point?",
+    "choicesJson": [
+      "2.6",
+      "2.07",
+      "2.7",
+      "3.7"
+    ],
+    "answer": "2.7",
+    "tags": [
+      "decimals",
+      "number-line"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is between 3.4 and 3.5?",
+    "choicesJson": [
+      "3.45",
+      "3.54",
+      "3.35",
+      "3.6"
+    ],
+    "answer": "3.45",
+    "tags": [
+      "decimals",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the best estimate for 6,108 - 2,897?",
+    "choicesJson": [
+      "4,000",
+      "3,000",
+      "2,000",
+      "9,000"
+    ],
+    "answer": "3,000",
+    "tags": [
+      "estimation",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is the greatest?",
+    "choicesJson": [
+      "98,675",
+      "89,765",
+      "98,756",
+      "98,765"
+    ],
+    "answer": "98,765",
+    "tags": [
+      "place-value",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A mummy wakes up every 4 hours and a vampire wakes up every 6 hours. If both wake up at midnight, how many hours later will they next wake up at the same time?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "multiples",
+      "number-sense",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these numbers is prime?",
+    "choicesJson": [
+      "51",
+      "59",
+      "57",
+      "63"
+    ],
+    "answer": "59",
+    "tags": [
+      "prime-numbers",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Monster hunters measured four mystery footprints they think belong to Bigfoot. Which footprint is the longest?",
+    "choicesJson": [
+      "15.04 inches",
+      "14.9 inches",
+      "15.14 inches",
+      "15.4 inches"
+    ],
+    "answer": "15.4 inches",
+    "tags": [
+      "decimals",
+      "comparing",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which comparison is true?",
+    "choicesJson": [
+      "1.04 < 1.4",
+      "0.25 > 0.3",
+      "0.7 < 0.65",
+      "3.20 > 3.3"
+    ],
+    "answer": "1.04 < 1.4",
+    "tags": [
+      "decimals",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 4.7 ÷ 10?",
+    "answer": "0.47",
+    "acceptedAnswers": [
+      ".47"
+    ],
+    "tags": [
+      "decimals",
+      "powers-of-10"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Four jars hold 1/4, 1/2, 1/2 and 3/4 of a liter of juice. If all the juice is poured together and shared equally among the 4 jars, how much juice is in each jar?",
+    "choicesJson": [
+      "1/4 liter",
+      "2 liters",
+      "1/2 liter",
+      "3/4 liter"
+    ],
+    "answer": "1/2 liter",
+    "tags": [
+      "fractions",
+      "data",
+      "mean"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A town has 2,468,905 people. Round that number to the nearest hundred thousand.",
+    "choicesJson": [
+      "2,400,000",
+      "2,470,000",
+      "2,500,000",
+      "2,000,000"
+    ],
+    "answer": "2,500,000",
+    "tags": [
+      "rounding",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many hundreds are in 4,500?",
+    "answer": "45",
+    "acceptedAnswers": [
+      "forty-five",
+      "forty five"
+    ],
+    "tags": [
+      "place-value",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A toy block staircase has 3 blocks in step 1, and every new step adds 2 more blocks than the step before it (step 2 has 5, step 3 has 7). How many blocks are in step 9?",
+    "answer": "19",
+    "acceptedAnswers": [
+      "nineteen"
+    ],
+    "tags": [
+      "patterns",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft player mines 4,238 blocks on Saturday and 3,794 blocks on Sunday. How many blocks did the player mine in all?",
+    "answer": "8032",
+    "acceptedAnswers": [
+      "8,032"
+    ],
+    "tags": [
+      "addition",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A monster hunter is following a Bigfoot trail that is 12,500 feet long. So far the hunter has walked 8,764 feet. How many feet are left to follow?",
+    "answer": "3736",
+    "acceptedAnswers": [
+      "3,736"
+    ],
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is 56,208 + 27,945?",
+    "choicesJson": [
+      "83,153",
+      "84,153",
+      "84,143",
+      "85,153"
+    ],
+    "answer": "84,153",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A game server has room for 100,000 players. Right now 46,372 players are online. How many open spots are left?",
+    "answer": "53628",
+    "acceptedAnswers": [
+      "53,628"
+    ],
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Mario Kart, Toad finishes the first lap in 52.38 seconds and the second lap in 49.75 seconds. What is his total time for both laps, in seconds?",
+    "answer": "102.13",
+    "tags": [
+      "decimals",
+      "addition",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Sam pays for a $13.49 book with a $20 bill. How much change should Sam get, in dollars (just the number, like 4.25)?",
+    "answer": "6.51",
+    "acceptedAnswers": [
+      "$6.51"
+    ],
+    "tags": [
+      "money",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A movie starts at 6:45 PM and lasts 2 hours 30 minutes. What time does it end?",
+    "choicesJson": [
+      "8:15 PM",
+      "9:30 PM",
+      "9:15 PM",
+      "9:45 PM"
+    ],
+    "answer": "9:15 PM",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many minutes are in 3 hours and 20 minutes?",
+    "answer": "200",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is the longest length?",
+    "choicesJson": [
+      "5 feet",
+      "70 inches",
+      "1 yard",
+      "2 yards"
+    ],
+    "answer": "2 yards",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A wall in a building game is 4 yards long. How many feet long is the wall?",
+    "answer": "12",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many ounces are in 3 pounds?",
+    "choicesJson": [
+      "48",
+      "36",
+      "30",
+      "16"
+    ],
+    "answer": "48",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many milliliters are in 2.5 liters?",
+    "answer": "2500",
+    "acceptedAnswers": [
+      "2,500"
+    ],
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Each Fortnite match Sofia plays lasts 24 minutes. She plays 5 matches in a row with no breaks. How long does she play in all?",
+    "choicesJson": [
+      "1 hour 45 minutes",
+      "2 hours 15 minutes",
+      "2 hours 30 minutes",
+      "2 hours"
+    ],
+    "answer": "2 hours",
+    "tags": [
+      "time",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many grams are in 4.5 kilograms?",
+    "answer": "4500",
+    "acceptedAnswers": [
+      "4,500"
+    ],
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Lena buys 4 Pokemon card packs that cost $4.25 each. She pays with a $20 bill. How much change does she get, in dollars (just the number, like 4.25)?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "3.00",
+      "$3",
+      "$3.00"
+    ],
+    "tags": [
+      "money",
+      "word-problem",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "School starts at 8:15 AM and ends at 3:05 PM. How long is the school day?",
+    "choicesJson": [
+      "6 hours 40 minutes",
+      "7 hours 10 minutes",
+      "6 hours 50 minutes",
+      "7 hours 50 minutes"
+    ],
+    "answer": "6 hours 50 minutes",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A tall kid is 7 feet 4 inches tall in a costume with stilts. How many inches tall is that?",
+    "answer": "88",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rope is 3 meters long. You cut it into pieces that are each 25 centimeters long. How many pieces do you get? (Hint: 1 meter = 100 centimeters.)",
+    "answer": "12",
+    "tags": [
+      "measurement",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A guard checks the room of SCP-173, the statue, every 20 minutes. The first check is at 9:00 PM. At what time is the 4th check?",
+    "choicesJson": [
+      "9:40 PM",
+      "10:20 PM",
+      "10:00 PM",
+      "10:30 PM"
+    ],
+    "answer": "10:00 PM",
+    "tags": [
+      "time",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cave has 248 bats. At dusk 75 bats fly out, and then 130 more bats fly out. How many bats are still in the cave?",
+    "answer": "43",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bake sale sold 48 cookies on Friday. On Saturday it sold twice as many cookies as on Friday. How many cookies did it sell on both days together?",
+    "answer": "144",
+    "tags": [
+      "word-problem",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mia has $50. She buys a shirt for $18.75 and a hat for $12.25. How much money does she have left, in dollars (just the number, like 4.25)?",
+    "answer": "19",
+    "acceptedAnswers": [
+      "19.00",
+      "$19",
+      "$19.00"
+    ],
+    "tags": [
+      "money",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, Jordan earns 25 coins for each stage. He finishes 12 stages and then spends 140 coins on a new skin. How many coins does he have left?",
+    "answer": "160",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am thinking of a number. I add 17 to it, then subtract 9, and I get 50. What is my number?",
+    "answer": "42",
+    "tags": [
+      "reasoning",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Estimate 4,872 + 3,129 by rounding each number to the nearest thousand first. What is the estimate?",
+    "choicesJson": [
+      "7,000",
+      "9,000",
+      "7,500",
+      "8,000"
+    ],
+    "answer": "8,000",
+    "tags": [
+      "estimation",
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A train leaves the station at 7:50 AM and arrives at 11:20 AM. How many minutes long is the trip?",
+    "answer": "210",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many quarters are worth $6.75?",
+    "answer": "27",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which pile of coins is worth the most money?",
+    "choicesJson": [
+      "30 dimes",
+      "14 quarters",
+      "250 pennies",
+      "80 nickels"
+    ],
+    "answer": "80 nickels",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A thermometer in Frankenstein's lab reads 98.6 degrees F. After a cold wind blows through, it reads 71.9 degrees F. By how many degrees did the temperature drop?",
+    "answer": "26.7",
+    "tags": [
+      "decimals",
+      "subtraction",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular garden is 15 meters long and 9 meters wide. How many meters of fence are needed to go all the way around it?",
+    "answer": "48",
+    "tags": [
+      "measurement",
+      "perimeter"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular rug is 8 feet long and 6 feet wide. How many square feet of floor does it cover?",
+    "answer": "48",
+    "tags": [
+      "measurement",
+      "area"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "One box weighs 2 pounds 6 ounces. Another box weighs 1 pound 13 ounces. What is their total weight in ounces? (1 pound = 16 ounces.)",
+    "answer": "67",
+    "tags": [
+      "measurement",
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pet store has 3 fish tanks with 18 fish in each tank. The store sells 15 fish and then gets 9 new fish. How many fish does the store have now?",
+    "answer": "48",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Luis has 96 stickers. He gives 24 to his sister and splits the rest equally among 4 friends. How many stickers does each friend get?",
+    "answer": "18",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Lego display needs 500 bricks. On Monday Ava uses 175 bricks and on Tuesday she uses 198 bricks. How many bricks does she still have left to place?",
+    "answer": "127",
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:lego"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many seconds are in 4 minutes 15 seconds?",
+    "answer": "255",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which amount of time is the same as 2 and a half hours?",
+    "choicesJson": [
+      "150 minutes",
+      "90 minutes",
+      "120 minutes",
+      "250 minutes"
+    ],
+    "answer": "150 minutes",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Today is Wednesday. What day of the week will it be 100 days from today?",
+    "choicesJson": [
+      "Thursday",
+      "Saturday",
+      "Friday",
+      "Sunday"
+    ],
+    "answer": "Friday",
+    "tags": [
+      "time",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Your friend's party is on April 6. Today is March 28. How many days are there until the party?",
+    "answer": "9",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A family buys 3 kid tickets at $7.50 each and 2 adult tickets at $11 each. What is the total cost, in dollars (just the number, like 4.25)?",
+    "answer": "44.5",
+    "acceptedAnswers": [
+      "44.50",
+      "$44.50"
+    ],
+    "tags": [
+      "money",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Among Us, the crew must finish 40 tasks in total. Six crewmates have each finished 5 tasks. How many tasks are still left?",
+    "answer": "10",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:amongus"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A board is 6 feet long. A carpenter cuts off a piece that is 2 feet 8 inches long. How many inches long is the piece that is left?",
+    "answer": "40",
+    "tags": [
+      "measurement",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is greater: 3.5 kilograms or 3,400 grams?",
+    "choicesJson": [
+      "3,400 grams",
+      "They are equal",
+      "3.5 kilograms"
+    ],
+    "answer": "3.5 kilograms",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pool holds 800 gallons when full. It has 365 gallons in it, and then 275 more gallons are added. How many more gallons are needed to fill it?",
+    "answer": "160",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A lemonade stand earned $84.50 on Saturday and $67.25 on Sunday. It spent $45 on supplies. How much profit did it make, in dollars (just the number, like 4.25)?",
+    "answer": "106.75",
+    "acceptedAnswers": [
+      "$106.75"
+    ],
+    "tags": [
+      "money",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ava is 3 years older than Ben. Ben is 2 years younger than Cal. Cal is 11 years old. How old is Ava?",
+    "answer": "12",
+    "tags": [
+      "reasoning",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number makes this true? 450 - __ = 278",
+    "choicesJson": [
+      "162",
+      "182",
+      "728",
+      "172"
+    ],
+    "answer": "172",
+    "tags": [
+      "subtraction",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Soccer practice runs from 4:40 PM to 6:05 PM. How many minutes long is practice?",
+    "answer": "85",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 7,002 - 3,845?",
+    "answer": "3157",
+    "acceptedAnswers": [
+      "3,157"
+    ],
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 1,250 + 3,075 + 2,480?",
+    "answer": "6805",
+    "acceptedAnswers": [
+      "6,805"
+    ],
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A storage room has 12 chests, and each chest has 27 slots. How many slots are there in all?",
+    "answer": "324",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A shelf holds 5 full boxes of pencils, and each box has 64 pencils. How many pencils are on the shelf?",
+    "answer": "320",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, you earn 24 coins for every level you finish. How many coins do you earn for finishing 15 levels?",
+    "answer": "360",
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Fortnite match, 100 players are split evenly into squads of 4 players. How many squads are there?",
+    "answer": "25",
+    "acceptedAnswers": [
+      "twenty-five",
+      "twenty five"
+    ],
+    "tags": [
+      "division",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An SCP Foundation guard checks 18 containment cells every hour. How many cell checks does the guard make during an 8-hour shift?",
+    "answer": "144",
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Dracula's castle has 14 rooms, and 12 bats sleep in each room. How many bats live in the castle?",
+    "answer": "168",
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A horde of 100 Minecraft zombies lines up in groups of 8. After making as many full groups as possible, how many zombies are left over?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "division",
+      "remainders",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a factor of 56?",
+    "choicesJson": [
+      "6",
+      "9",
+      "7",
+      "12"
+    ],
+    "answer": "7",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a multiple of 12?",
+    "choicesJson": [
+      "50",
+      "48",
+      "56",
+      "62"
+    ],
+    "answer": "48",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a composite number?",
+    "choicesJson": [
+      "13",
+      "21",
+      "17",
+      "19"
+    ],
+    "answer": "21",
+    "tags": [
+      "prime-numbers",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shows 36 written as a product of prime numbers only?",
+    "choicesJson": [
+      "2 x 3 x 6",
+      "2 x 2 x 3 x 3",
+      "4 x 9",
+      "3 x 3 x 4"
+    ],
+    "answer": "2 x 2 x 3 x 3",
+    "tags": [
+      "prime-numbers",
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the greatest common factor of 24 and 36?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Two fireworks launchers fire together at second 0. One fires every 4 seconds and the other fires every 6 seconds. At what second will they next fire together?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "multiples",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 35 x 1000?",
+    "answer": "35000",
+    "acceptedAnswers": [
+      "35,000"
+    ],
+    "tags": [
+      "multiplication",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 24 x 50?",
+    "answer": "1200",
+    "acceptedAnswers": [
+      "1,200"
+    ],
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 36 x 24?",
+    "answer": "864",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A collector keeps 125 trading cards in each binder. How many cards are in 7 binders?",
+    "answer": "875",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 1248 ÷ 6?",
+    "answer": "208",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 672 ÷ 21?",
+    "answer": "32",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A game gives your team 156 gold coins to share equally among 6 teammates. How many coins does each teammate get?",
+    "answer": "26",
+    "tags": [
+      "division",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You skip count by 25s: 25, 50, 75, 100, and so on. What is the 12th number you say?",
+    "answer": "300",
+    "tags": [
+      "skip-counting",
+      "multiples"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the best estimate for 398 x 21?",
+    "choicesJson": [
+      "800",
+      "80000",
+      "8000",
+      "6000"
+    ],
+    "answer": "8000",
+    "tags": [
+      "estimation",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A dragon keeps 15 treasure chests with 24 gold coins in each one. A knight sneaks in and steals 60 coins. How many coins are left?",
+    "answer": "300",
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which expression equals 7 x 24 when you use the distributive property?",
+    "choicesJson": [
+      "7 x 20 + 4",
+      "7 + 20 x 4",
+      "7 x 20 + 7 x 4",
+      "7 x 2 + 7 x 4"
+    ],
+    "answer": "7 x 20 + 7 x 4",
+    "tags": [
+      "multiplication",
+      "properties"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An Among Us ship has 120 tasks to share equally among 8 crewmates. How many tasks does each crewmate get?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen"
+    ],
+    "tags": [
+      "division",
+      "word-problem",
+      "theme:among-us"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A number is divisible by 9 when its digits add up to a multiple of 9. Which number is divisible by 9?",
+    "choicesJson": [
+      "246",
+      "412",
+      "351",
+      "575"
+    ],
+    "answer": "351",
+    "tags": [
+      "divisibility",
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many degrees are in a right angle?",
+    "choicesJson": [
+      "90",
+      "45",
+      "180",
+      "360"
+    ],
+    "answer": "90",
+    "tags": [
+      "angles",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The three angles inside any triangle add up to how many degrees?",
+    "answer": "180",
+    "tags": [
+      "angles",
+      "triangles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A triangle has two angles that measure 50 degrees and 60 degrees. How many degrees is the third angle?",
+    "answer": "70",
+    "tags": [
+      "angles",
+      "triangles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The four angles inside any quadrilateral add up to how many degrees?",
+    "answer": "360",
+    "tags": [
+      "angles",
+      "quadrilaterals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular skate park has a perimeter of 46 meters and is 14 meters long. How many meters wide is it?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "nine"
+    ],
+    "tags": [
+      "perimeter",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular Roblox obby platform is 12 studs long and 15 studs wide. What is its area in square studs?",
+    "answer": "180",
+    "tags": [
+      "area",
+      "geometry",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A square has a perimeter of 36 centimeters. How long is one side, in centimeters?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "nine"
+    ],
+    "tags": [
+      "perimeter",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A triangle has a base of 10 centimeters and a height of 6 centimeters. What is its area in square centimeters?",
+    "answer": "30",
+    "tags": [
+      "area",
+      "triangles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A werewolf's rectangular pen has an area of 72 square feet and a length of 9 feet. How many feet wide is the pen?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "area",
+      "geometry",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A triangle has side lengths of 5 cm, 5 cm, and 8 cm. What type of triangle is it?",
+    "choicesJson": [
+      "Equilateral",
+      "Scalene",
+      "Right",
+      "Isosceles"
+    ],
+    "answer": "Isosceles",
+    "tags": [
+      "triangles",
+      "geometry"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An angle measures 120 degrees. What kind of angle is it?",
+    "choicesJson": [
+      "Acute",
+      "Obtuse",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "geometry"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which statement is true?",
+    "choicesJson": [
+      "Every rectangle is a square",
+      "Every square is a rectangle",
+      "Every trapezoid is a square",
+      "No rhombus is a parallelogram"
+    ],
+    "answer": "Every square is a rectangle",
+    "tags": [
+      "quadrilaterals",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A four-sided shape has exactly one pair of parallel sides. What is it called?",
+    "answer": "trapezoid",
+    "acceptedAnswers": [
+      "a trapezoid",
+      "trapezium"
+    ],
+    "tags": [
+      "quadrilaterals",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many lines of symmetry does a regular hexagon have?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "symmetry",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Every Minecraft block is shaped like a cube. How many edges does a cube have?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "3d-shapes",
+      "geometry",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which 3D shape has one flat circular face and one pointed tip (vertex)?",
+    "choicesJson": [
+      "Cone",
+      "Cylinder",
+      "Sphere",
+      "Pyramid"
+    ],
+    "answer": "Cone",
+    "tags": [
+      "3d-shapes",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A circle has a diameter of 14 centimeters. What is its radius in centimeters?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "circles",
+      "geometry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/2 + 1/4 = ? (as a fraction, e.g. 5/6)",
+    "answer": "3/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5/6 - 1/6 = ? (as a fraction, e.g. 2/9)",
+    "answer": "2/3",
+    "acceptedAnswers": [
+      "4/6"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/2 x 1/3 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/6",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3.25 + 1.5 = ?",
+    "answer": "4.75",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7.8 - 2.3 = ?",
+    "answer": "5.5",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A box is 4 units long, 3 units wide, and 2 units tall. What is its volume (length x width x height)?",
+    "answer": "24",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 2 + 3 x 4 = ?",
+    "answer": "14",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (2 + 3) x 4 = ?",
+    "answer": "20",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a coordinate plane, what is the point (0,0) called?",
+    "choicesJson": [
+      "The origin",
+      "The top-right corner",
+      "Anywhere on the x-axis",
+      "There's no such point"
+    ],
+    "answer": "The origin",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Starting at the origin, how many units along the x-axis is the point (3,0)?",
+    "choicesJson": [
+      "0",
+      "3",
+      "It's on the y-axis"
+    ],
+    "answer": "3",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.6 x 10 = ?",
+    "answer": "6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "12.4 ÷ 4 = ?",
+    "answer": "3.1",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is in simplest form?",
+    "choicesJson": [
+      "2/4",
+      "3/5",
+      "4/8",
+      "5/10"
+    ],
+    "answer": "3/5",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 3 units. What is its volume (side x side x side)?",
+    "answer": "27",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "4/5 + 3/5 = ? (as a fraction, e.g. 5/6)",
+    "answer": "7/5",
+    "acceptedAnswers": [
+      "1 2/5",
+      "1.4"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "10 - 2 x 3 = ?",
+    "answer": "4",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/3 + 1/6 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "3/6"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/4 - 1/2 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/4",
+    "acceptedAnswers": [
+      "2/8"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2/5 + 1/10 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "5/10"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5/6 - 1/3 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "3/6"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/4 x 1/2 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/8",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2/3 x 3/4 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "6/12"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/2 x 1/2 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/5 x 1/3 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/5",
+    "acceptedAnswers": [
+      "3/15"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is NOT in simplest form?",
+    "choicesJson": [
+      "3/7",
+      "5/8",
+      "6/10",
+      "7/9"
+    ],
+    "answer": "6/10",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Reduce 8/12 to simplest form (as a fraction).",
+    "answer": "2/3",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Reduce 10/15 to simplest form (as a fraction).",
+    "answer": "2/3",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/8 + 3/8 = ? (as a fraction, e.g. 5/8)",
+    "answer": "3/4",
+    "acceptedAnswers": [
+      "6/8"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7/10 - 3/10 = ? (as a fraction, e.g. 2/10)",
+    "answer": "2/5",
+    "acceptedAnswers": [
+      "4/10"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/8 + 3/8 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "4/8"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5/8 - 2/8 = ? (as a fraction, e.g. 5/6)",
+    "answer": "3/8",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2/9 + 4/9 = ? (as a fraction, e.g. 5/6)",
+    "answer": "2/3",
+    "acceptedAnswers": [
+      "6/9"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7/12 - 5/12 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/6",
+    "acceptedAnswers": [
+      "2/12"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/5 x 2/3 = ? (as a fraction, e.g. 5/6)",
+    "answer": "2/15",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/7 x 2/3 = ? (as a fraction, e.g. 5/6)",
+    "answer": "2/7",
+    "acceptedAnswers": [
+      "6/21"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "4/9 x 3/4 = ? (as a fraction, e.g. 5/6)",
+    "answer": "1/3",
+    "acceptedAnswers": [
+      "12/36"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is bigger: 3/4 or 2/3?",
+    "choicesJson": [
+      "3/4",
+      "2/3",
+      "They are equal"
+    ],
+    "answer": "3/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is smaller: 5/6 or 7/8?",
+    "choicesJson": [
+      "5/6",
+      "7/8",
+      "They are equal"
+    ],
+    "answer": "5/6",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equivalent to 3/6?",
+    "choicesJson": [
+      "1/2",
+      "2/3",
+      "1/3",
+      "3/4"
+    ],
+    "answer": "1/2",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "4.2 x 3 = ?",
+    "answer": "12.6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.8 x 5 = ?",
+    "answer": "4",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "15.6 ÷ 3 = ?",
+    "answer": "5.2",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "9.9 ÷ 3 = ?",
+    "answer": "3.3",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2.4 x 2.5 = ?",
+    "answer": "6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "6.75 + 2.25 = ?",
+    "answer": "9",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "10.5 - 3.75 = ?",
+    "answer": "6.75",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.4 x 100 = ?",
+    "answer": "40",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3.6 ÷ 0.6 = ?",
+    "answer": "6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5.05 + 1.95 = ?",
+    "answer": "7",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is bigger: 0.75 or 0.7?",
+    "choicesJson": [
+      "0.75",
+      "0.7",
+      "They are equal"
+    ],
+    "answer": "0.75",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 4.567 to the nearest hundredth.",
+    "choicesJson": [
+      "4.56",
+      "4.57",
+      "4.6",
+      "4.5"
+    ],
+    "answer": "4.57",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7.25 x 2 = ?",
+    "answer": "14.5",
+    "acceptedAnswers": [
+      "14.50"
+    ],
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "18.9 ÷ 3 = ?",
+    "answer": "6.3",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.9 x 0.9 = ?",
+    "answer": "0.81",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5.4 ÷ 0.9 = ?",
+    "answer": "6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "22.5 ÷ 5 = ?",
+    "answer": "4.5",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1.1 x 1.1 = ?",
+    "answer": "1.21",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "13.65 + 4.35 = ?",
+    "answer": "18",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "20 - 6.25 = ?",
+    "answer": "13.75",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.05 x 100 = ?",
+    "answer": "5",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3.14 + 2.86 = ?",
+    "answer": "6",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A box is 5 units long, 4 units wide, and 3 units tall. What is its volume?",
+    "answer": "60",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A box is 6 units long, 2 units wide, and 2 units tall. What is its volume?",
+    "answer": "24",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 4 units. What is its volume?",
+    "answer": "64",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 5 units. What is its volume?",
+    "answer": "125",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A fish tank is 10 inches long, 5 inches wide, and 6 inches tall. What is its volume in cubic inches?",
+    "answer": "300",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A storage box is 8 feet long, 3 feet wide, and 2 feet tall. What is its volume in cubic feet?",
+    "answer": "48",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A shoe box is 12 inches long, 6 inches wide, and 4 inches tall. What is its volume in cubic inches?",
+    "answer": "288",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 6 units. What is its volume?",
+    "answer": "216",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 2 units. What is its volume?",
+    "answer": "8",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A freezer chest is 5 feet long, 3 feet wide, and 2 feet tall. What is its volume in cubic feet?",
+    "answer": "30",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A gift box is 9 inches long, 5 inches wide, and 4 inches tall. What is its volume in cubic inches?",
+    "answer": "180",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cube has sides of 10 units. What is its volume?",
+    "answer": "1000",
+    "tags": [
+      "volume"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 5 + 2 x 3 = ?",
+    "answer": "11",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (5 + 2) x 3 = ?",
+    "answer": "21",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 20 - 4 x 2 = ?",
+    "answer": "12",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (20 - 4) x 2 = ?",
+    "answer": "32",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 6 x 3 - 4 = ?",
+    "answer": "14",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 8 x (5 - 2) = ?",
+    "answer": "24",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 12 ÷ 4 + 5 = ?",
+    "answer": "8",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 3 + 4 x 2 - 1 = ?",
+    "answer": "10",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (3 + 4) x (2 - 1) = ?",
+    "answer": "7",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 18 ÷ 3 + 2 x 5 = ?",
+    "answer": "16",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 9 - 3 x 2 = ?",
+    "answer": "3",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (9 - 3) x 2 = ?",
+    "answer": "12",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 4 x 5 + 6 = ?",
+    "answer": "26",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 4 x (5 + 6) = ?",
+    "answer": "44",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: 15 ÷ 5 + 3 x 2 = ?",
+    "answer": "9",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Using the order of operations: (15 ÷ 5 + 3) x 2 = ?",
+    "answer": "12",
+    "tags": [
+      "order-of-operations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "On a coordinate plane, what is the x-coordinate of the point (5, 2)?",
+    "answer": "5",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "On a coordinate plane, what is the y-coordinate of the point (5, 2)?",
+    "answer": "2",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a coordinate plane, which point lies exactly on the y-axis?",
+    "choicesJson": [
+      "(0,4)",
+      "(4,0)",
+      "(4,4)",
+      "(1,1)"
+    ],
+    "answer": "(0,4)",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a coordinate plane, which point lies exactly on the x-axis?",
+    "choicesJson": [
+      "(0,3)",
+      "(3,0)",
+      "(3,3)",
+      "(2,2)"
+    ],
+    "answer": "(3,0)",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a coordinate plane, which direction do you move from the origin to reach a point with a positive y-coordinate?",
+    "choicesJson": [
+      "Left",
+      "Up",
+      "Right",
+      "Down"
+    ],
+    "answer": "Up",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a coordinate plane, which direction do you move from the origin to reach a point with a positive x-coordinate?",
+    "choicesJson": [
+      "Up",
+      "Left",
+      "Down",
+      "Right"
+    ],
+    "answer": "Right",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What are the coordinates of a point that is 4 units right and 3 units up from the origin?",
+    "answer": "(4,3)",
+    "acceptedAnswers": [
+      "4,3",
+      "(4, 3)",
+      "4, 3"
+    ],
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these points is farthest from the origin?",
+    "choicesJson": [
+      "(2,0)",
+      "(0,3)",
+      "(5,0)",
+      "(0,6)"
+    ],
+    "answer": "(0,6)",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "On a coordinate plane, what is the y-coordinate of the point (0, 6)?",
+    "answer": "6",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "On a coordinate plane, what is the x-coordinate of the point (0, 6)?",
+    "answer": "0",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Starting at the origin, you move 5 units right and 0 units up. What point are you at?",
+    "answer": "(5,0)",
+    "acceptedAnswers": [
+      "5,0",
+      "(5, 0)",
+      "5, 0"
+    ],
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Starting at the origin, you move 0 units right and 7 units up. What point are you at?",
+    "answer": "(0,7)",
+    "acceptedAnswers": [
+      "0,7",
+      "(0, 7)",
+      "0, 7"
+    ],
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which point has the same x-coordinate as (3, 8)?",
+    "choicesJson": [
+      "(8,3)",
+      "(3,1)",
+      "(8,8)",
+      "(1,8)"
+    ],
+    "answer": "(3,1)",
+    "tags": [
+      "coordinate-plane"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cereal box is 3.5 inches wide, 8 inches deep, and 12 inches tall. What is its volume in cubic inches?",
+    "answer": "336",
+    "tags": [
+      "volume",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Maria has 3/4 of a pizza. She eats 1/4 of the whole pizza. What fraction of the pizza does she have left (as a fraction, e.g. 5/6)?",
+    "answer": "1/2",
+    "acceptedAnswers": [
+      "2/4"
+    ],
+    "tags": [
+      "fractions",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A runner covers 2.5 kilometers on Monday and 3.75 kilometers on Tuesday. How many kilometers in total?",
+    "answer": "6.25",
+    "tags": [
+      "decimals",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You buy 3 notebooks at $2.50 each. How much do you spend in total, in dollars (just the number, e.g. 12)?",
+    "answer": "7.5",
+    "acceptedAnswers": [
+      "7.50",
+      "$7.50"
+    ],
+    "tags": [
+      "decimals",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular aquarium is 12 inches long, 6 inches wide, and 8 inches tall. What is its volume in cubic inches?",
+    "answer": "576",
+    "tags": [
+      "volume",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each batch of a recipe needs 2 cups of flour and 1 cup of sugar. How many cups of flour and sugar do you need for 3 batches?",
+    "answer": "9",
+    "tags": [
+      "order-of-operations",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A juice pitcher holds 2.5 liters. If you pour out 0.75 liters, how many liters are left?",
+    "answer": "1.75",
+    "tags": [
+      "decimals",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A box of tiles covers 3/4 of a square yard. Another box covers 1/4 of a square yard. How many square yards do the two boxes cover together (a whole number or a fraction like 5/6)?",
+    "answer": "1",
+    "acceptedAnswers": [
+      "4/4",
+      "1/1",
+      "one"
+    ],
+    "tags": [
+      "fractions",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A moving truck is 16 feet long, 8 feet wide, and 8 feet tall inside. What is its volume in cubic feet?",
+    "answer": "1024",
+    "tags": [
+      "volume",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 3 teams with 4 players each, plus 2 coaches in all. How many people is that in total?",
+    "answer": "14",
+    "tags": [
+      "order-of-operations",
+      "word-problem"
+    ]
+  }
 ]

@@ -1,118 +1,7185 @@
 [
-  { "type": "TEXT_INPUT", "prompt": "47 + 28 = ?", "answer": "75", "tags": ["addition"] },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "47 + 28 = ?",
+    "answer": "75",
+    "tags": [
+      "addition"
+    ]
+  },
   {
     "type": "TEXT_INPUT",
     "prompt": "A baker has 7 cookies on one tray and 5 on another. How many cookies does the baker have in all?",
-    "visualJson": { "kind": "combine", "item": "cookie", "a": 7, "b": 5 },
     "answer": "12",
-    "tags": ["addition", "word-problem"]
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
   },
-  { "type": "TEXT_INPUT", "prompt": "63 - 27 = ?", "answer": "36", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "You have a quarter, a dime, and a nickel. How many cents total?", "answer": "40", "tags": ["money"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "How many nickels make a quarter?", "choicesJson": ["3", "4", "5", "6"], "answer": "5", "tags": ["money"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Skip count by 5s: 5, 10, 15, __?", "choicesJson": ["18", "20", "25", "16"], "answer": "20", "tags": ["counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "3 rows of 4 stars is the same as adding 4 three times. How many stars total?", "choicesJson": ["7", "10", "12", "16"], "answer": "12", "tags": ["multiplication-intro"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the long hand on the 2. How many minutes past the hour is that?", "choicesJson": ["2", "10", "20", "5"], "answer": "10", "tags": ["time"] },
-  { "type": "TEXT_INPUT", "prompt": "How many centimeters are in a length measured as 'about 2 paperclips long, each 3 cm'? (2 x 3)", "answer": "6", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is closer to 50: 47 or 42?", "choicesJson": ["47", "42"], "answer": "47", "tags": ["rounding"] },
-  { "type": "TEXT_INPUT", "prompt": "100 - 45 = ?", "answer": "55", "tags": ["subtraction"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is even?", "choicesJson": ["7", "12", "9", "15"], "answer": "12", "tags": ["even-odd"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which number is odd?", "choicesJson": ["8", "10", "13", "6"], "answer": "13", "tags": ["even-odd"] },
-  { "type": "TEXT_INPUT", "prompt": "36 + 19 = ?", "answer": "55", "tags": ["addition"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A rectangle has how many corners?", "choicesJson": ["2", "3", "4", "5"], "answer": "4", "tags": ["shapes"] },
-  { "type": "TEXT_INPUT", "prompt": "If a book costs 35 cents and you pay with 2 quarters (50 cents), how much change do you get?", "answer": "15", "tags": ["money"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is heavier: a feather or a brick?", "choicesJson": ["A feather", "A brick"], "answer": "A brick", "tags": ["measurement"] },
-  { "type": "TEXT_INPUT", "prompt": "8 x 2 (think: 8 + 8) = ?", "answer": "16", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "38 + 25 = ?", "answer": "63", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "56 + 37 = ?", "answer": "93", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "29 + 44 = ?", "answer": "73", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "67 + 18 = ?", "answer": "85", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "72 + 19 = ?", "answer": "91", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "84 + 9 = ?", "answer": "93", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "45 + 45 = ?", "answer": "90", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "58 + 33 = ?", "answer": "91", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "82 - 35 = ?", "answer": "47", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "91 - 47 = ?", "answer": "44", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "70 - 28 = ?", "answer": "42", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "64 - 19 = ?", "answer": "45", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "100 - 62 = ?", "answer": "38", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "53 - 26 = ?", "answer": "27", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "88 - 39 = ?", "answer": "49", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "You have 3 quarters and 2 dimes. How many cents do you have?", "answer": "95", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "A toy costs 65 cents. You pay with a dollar (100 cents). How much change do you get?", "answer": "35", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "How many quarters make one dollar?", "answer": "4", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "How many dimes make one dollar?", "answer": "10", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "You have 4 quarters. How many dollars is that?", "answer": "1", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "You buy a snack for 45 cents and pay with 2 quarters (50 cents). How much change do you get?", "answer": "5", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "How many nickels make one dollar?", "answer": "20", "tags": ["money"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Skip count by 5s: 45, 50, 55, __?", "choicesJson": ["58", "60", "65", "56"], "answer": "60", "tags": ["counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Skip count by 10s: 70, 80, 90, __?", "choicesJson": ["95", "100", "91", "110"], "answer": "100", "tags": ["counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Skip count by 3s: 3, 6, 9, __?", "choicesJson": ["10", "12", "11", "13"], "answer": "12", "tags": ["counting"] },
-  { "type": "TEXT_INPUT", "prompt": "What number is 100 more than 250?", "answer": "350", "tags": ["counting"] },
-  { "type": "TEXT_INPUT", "prompt": "What number is 100 less than 500?", "answer": "400", "tags": ["counting"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "4 rows of 5 stars is the same as adding 5 four times. How many stars total?", "choicesJson": ["9", "15", "20", "25"], "answer": "20", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "2 x 6 (think: 2 + 2 + 2 + 2 + 2 + 2) = ?", "answer": "12", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "5 x 3 (think: 5 + 5 + 5) = ?", "answer": "15", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "A garden has 4 rows of 6 flowers. How many flowers total?", "answer": "24", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "6 x 2 (think: 6 + 6) = ?", "answer": "12", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "There are 5 bikes. Each bike has 2 wheels. How many wheels in all?", "answer": "10", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "3 x 4 (think: 3 + 3 + 3 + 3) = ?", "answer": "12", "tags": ["multiplication-intro"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the long hand on the 6. How many minutes past the hour is that?", "choicesJson": ["6", "30", "60", "5"], "answer": "30", "tags": ["time"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "The clock shows the long hand on the 9. How many minutes past the hour is that?", "choicesJson": ["9", "45", "15", "30"], "answer": "45", "tags": ["time"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "If it is 4:15, where is the long hand pointing?", "choicesJson": ["The 3", "The 4", "The 12", "The 6"], "answer": "The 3", "tags": ["time"] },
-  { "type": "TEXT_INPUT", "prompt": "How many minutes are there between 2:00 and 2:30?", "answer": "30", "tags": ["time"] },
-  { "type": "TEXT_INPUT", "prompt": "A movie starts at 3:00 and lasts 1 hour. What time does it end?", "answer": "4:00", "tags": ["time"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which unit would you use to measure the length of a pencil: inches or miles?", "choicesJson": ["Inches", "Miles"], "answer": "Inches", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is closer to the length of a school bus: 30 feet or 3 feet?", "choicesJson": ["30 feet", "3 feet"], "answer": "30 feet", "tags": ["measurement"] },
-  { "type": "TEXT_INPUT", "prompt": "How many centimeters are in a length measured as 4 paperclips, each 3 cm long?", "answer": "12", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is heavier: a bowling ball or a balloon?", "choicesJson": ["A bowling ball", "A balloon"], "answer": "A bowling ball", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "About how many cups are in a pint: 2 cups or 5 cups?", "choicesJson": ["2 cups", "5 cups"], "answer": "2 cups", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is closer to 30: 26 or 33?", "choicesJson": ["26", "33"], "answer": "33", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 64 to the nearest ten.", "choicesJson": ["60", "70", "65", "64"], "answer": "60", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 95 to the nearest ten.", "choicesJson": ["90", "100", "95", "85"], "answer": "100", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 12 to the nearest ten.", "choicesJson": ["10", "20", "15", "12"], "answer": "10", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 78 to the nearest ten.", "choicesJson": ["70", "80", "75", "78"], "answer": "80", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these numbers is even: 15, 22, 9, or 31?", "choicesJson": ["15", "22", "9", "31"], "answer": "22", "tags": ["even-odd"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these numbers is odd: 14, 20, 17, or 8?", "choicesJson": ["14", "20", "17", "8"], "answer": "17", "tags": ["even-odd"] },
-  { "type": "TEXT_INPUT", "prompt": "Is 18 an even number or an odd number?", "answer": "even", "tags": ["even-odd"] },
-  { "type": "TEXT_INPUT", "prompt": "Is 27 an even number or an odd number?", "answer": "odd", "tags": ["even-odd"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these numbers is even: 41, 56, or 63?", "choicesJson": ["41", "56", "63"], "answer": "56", "tags": ["even-odd"] },
-  { "type": "TEXT_INPUT", "prompt": "How many corners does a hexagon have?", "answer": "6", "tags": ["shapes"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape has 8 sides?", "choicesJson": ["Hexagon", "Octagon", "Pentagon", "Square"], "answer": "Octagon", "tags": ["shapes"] },
-  { "type": "TEXT_INPUT", "prompt": "How many edges does a cube have?", "answer": "12", "tags": ["shapes"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which 3D shape has a curved surface and 2 flat circle faces?", "choicesJson": ["Cone", "Cylinder", "Cube", "Sphere"], "answer": "Cylinder", "tags": ["shapes"] },
-  { "type": "TEXT_INPUT", "prompt": "How many faces does a rectangular prism have?", "answer": "6", "tags": ["shapes"] },
-  { "type": "TEXT_INPUT", "prompt": "A zoo has 24 monkeys and 18 birds. How many animals is that in all?", "answer": "42", "tags": ["addition", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "There are 36 students in one class and 29 in another. How many students total?", "answer": "65", "tags": ["addition", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Dana sold 27 cups of lemonade on Saturday and 34 on Sunday. How many cups did she sell in all?", "answer": "61", "tags": ["addition", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A parking lot has 45 cars in the morning. 17 more cars arrive. How many cars are there now?", "answer": "62", "tags": ["addition", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A library has 90 books. 38 are checked out. How many books are still on the shelf?", "answer": "52", "tags": ["subtraction", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "There are 74 crayons in a box. 26 are broken and thrown away. How many good crayons are left?", "answer": "48", "tags": ["subtraction", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A theater has 100 seats. 63 are filled. How many seats are empty?", "answer": "37", "tags": ["subtraction", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Ben had 55 baseball cards. He traded away 19 of them. How many cards does Ben have left?", "answer": "36", "tags": ["subtraction", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "You have 2 quarters, 1 dime, and 3 pennies. How many cents do you have in all?", "answer": "63", "tags": ["money", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A juice box costs 55 cents. You pay with 3 quarters (75 cents). How much change do you get?", "answer": "20", "tags": ["money", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "You save 4 quarters each week. How many cents is that after 1 week?", "answer": "100", "tags": ["money"] },
-  { "type": "TEXT_INPUT", "prompt": "A carton holds 6 eggs. How many eggs are in 3 cartons?", "answer": "18", "tags": ["multiplication-intro", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "Each spider has 8 legs. How many legs do 2 spiders have?", "answer": "16", "tags": ["multiplication-intro", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "A classroom has 5 tables with 4 chairs at each table. How many chairs in all?", "answer": "20", "tags": ["multiplication-intro", "word-problem"] },
-  { "type": "TEXT_INPUT", "prompt": "19 + 27 = ?", "answer": "46", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "48 + 26 = ?", "answer": "74", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "63 + 28 = ?", "answer": "91", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "77 - 34 = ?", "answer": "43", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "95 - 58 = ?", "answer": "37", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "44 - 17 = ?", "answer": "27", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "36 + 49 = ?", "answer": "85", "tags": ["addition"] },
-  { "type": "TEXT_INPUT", "prompt": "81 - 46 = ?", "answer": "35", "tags": ["subtraction"] },
-  { "type": "TEXT_INPUT", "prompt": "7 x 2 (think: 7 + 7) = ?", "answer": "14", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "4 x 4 (think: 4 + 4 + 4 + 4) = ?", "answer": "16", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "A pack has 3 rows of 5 pencils. How many pencils total?", "answer": "15", "tags": ["multiplication-intro"] },
-  { "type": "TEXT_INPUT", "prompt": "Each hand has 5 fingers. How many fingers do 4 hands have?", "answer": "20", "tags": ["multiplication-intro"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 55 to the nearest ten.", "choicesJson": ["50", "60", "55", "45"], "answer": "60", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Round 21 to the nearest ten.", "choicesJson": ["20", "30", "25", "21"], "answer": "20", "tags": ["rounding"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these numbers is even: 33, 48, or 51?", "choicesJson": ["33", "48", "51"], "answer": "48", "tags": ["even-odd"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these numbers is odd: 60, 45, or 88?", "choicesJson": ["60", "45", "88"], "answer": "45", "tags": ["even-odd"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which shape has 3 corners and 3 sides?", "choicesJson": ["Square", "Triangle", "Pentagon", "Circle"], "answer": "Triangle", "tags": ["shapes"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which is longer: a football field or a car?", "choicesJson": ["A football field", "A car"], "answer": "A football field", "tags": ["measurement"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "About how many inches tall is a doorknob from the floor: 36 inches or 3 inches?", "choicesJson": ["36 inches", "3 inches"], "answer": "36 inches", "tags": ["measurement"] }
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "63 - 27 = ?",
+    "answer": "36",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have a quarter, a dime, and a nickel. How many cents total?",
+    "answer": "40",
+    "acceptedAnswers": [
+      "40 cents",
+      "forty"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many nickels make a quarter?",
+    "choicesJson": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "answer": "5",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 5s: 5, 10, 15, __?",
+    "choicesJson": [
+      "18",
+      "20",
+      "25",
+      "16"
+    ],
+    "answer": "20",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "3 rows of 4 stars is the same as adding 4 three times. How many stars total?",
+    "choicesJson": [
+      "7",
+      "10",
+      "12",
+      "16"
+    ],
+    "answer": "12",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The clock shows the long hand on the 2. How many minutes past the hour is that?",
+    "choicesJson": [
+      "2",
+      "10",
+      "20",
+      "5"
+    ],
+    "answer": "10",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pencil is as long as 2 paperclips in a row. Each paperclip is 3 cm long. How long is the pencil in centimeters?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six",
+      "6 cm"
+    ],
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is closest to 50?",
+    "choicesJson": [
+      "42",
+      "47",
+      "39"
+    ],
+    "answer": "47",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "100 - 45 = ?",
+    "answer": "55",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is even?",
+    "choicesJson": [
+      "7",
+      "12",
+      "9",
+      "15"
+    ],
+    "answer": "12",
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is odd?",
+    "choicesJson": [
+      "8",
+      "10",
+      "13",
+      "6"
+    ],
+    "answer": "13",
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "36 + 19 = ?",
+    "answer": "55",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A rectangle has how many corners?",
+    "choicesJson": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "4",
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "If a book costs 35 cents and you pay with 2 quarters (50 cents), how much change do you get?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "15 cents",
+      "fifteen"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "8 x 2 (think: 8 + 8) = ?",
+    "answer": "16",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "38 + 25 = ?",
+    "answer": "63",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "56 + 37 = ?",
+    "answer": "93",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "29 + 44 = ?",
+    "answer": "73",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "67 + 18 = ?",
+    "answer": "85",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "72 + 19 = ?",
+    "answer": "91",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "84 + 9 = ?",
+    "answer": "93",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "45 + 45 = ?",
+    "answer": "90",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "58 + 33 = ?",
+    "answer": "91",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "82 - 35 = ?",
+    "answer": "47",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "91 - 47 = ?",
+    "answer": "44",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "70 - 28 = ?",
+    "answer": "42",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "64 - 19 = ?",
+    "answer": "45",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "100 - 62 = ?",
+    "answer": "38",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "53 - 26 = ?",
+    "answer": "27",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "88 - 39 = ?",
+    "answer": "49",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 3 quarters and 2 dimes. How many cents do you have?",
+    "answer": "95",
+    "acceptedAnswers": [
+      "95 cents"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A toy costs 65 cents. You pay with a dollar (100 cents). How much change do you get?",
+    "answer": "35",
+    "acceptedAnswers": [
+      "35 cents"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many quarters make one dollar?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many dimes make one dollar?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 4 quarters. How many dollars is that?",
+    "answer": "1",
+    "acceptedAnswers": [
+      "one",
+      "$1",
+      "1 dollar"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many nickels make one dollar?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 5s: 45, 50, 55, __?",
+    "choicesJson": [
+      "58",
+      "60",
+      "65",
+      "56"
+    ],
+    "answer": "60",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 10s: 70, 80, 90, __?",
+    "choicesJson": [
+      "95",
+      "100",
+      "91",
+      "110"
+    ],
+    "answer": "100",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 3s: 3, 6, 9, __?",
+    "choicesJson": [
+      "10",
+      "12",
+      "11",
+      "13"
+    ],
+    "answer": "12",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 100 more than 250?",
+    "answer": "350",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 100 less than 500?",
+    "answer": "400",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "4 rows of 5 stars is the same as adding 5 four times. How many stars total?",
+    "choicesJson": [
+      "9",
+      "15",
+      "20",
+      "25"
+    ],
+    "answer": "20",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2 x 6 (think: 2 + 2 + 2 + 2 + 2 + 2) = ?",
+    "answer": "12",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5 x 3 (think: 5 + 5 + 5) = ?",
+    "answer": "15",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A garden has 4 rows of 6 flowers. How many flowers total?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 5 bikes. Each bike has 2 wheels. How many wheels in all?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3 x 4 (think: 3 + 3 + 3 + 3) = ?",
+    "answer": "12",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The clock shows the long hand on the 6. How many minutes past the hour is that?",
+    "choicesJson": [
+      "6",
+      "30",
+      "60",
+      "5"
+    ],
+    "answer": "30",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The clock shows the long hand on the 9. How many minutes past the hour is that?",
+    "choicesJson": [
+      "9",
+      "45",
+      "15",
+      "30"
+    ],
+    "answer": "45",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If it is 4:15, where is the long hand pointing?",
+    "choicesJson": [
+      "The 3",
+      "The 4",
+      "The 12",
+      "The 6"
+    ],
+    "answer": "The 3",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many minutes are there between 2:00 and 2:30?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty",
+      "30 minutes"
+    ],
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A movie starts at 3:00 and lasts 1 hour. What time does it end?",
+    "answer": "4:00",
+    "acceptedAnswers": [
+      "4",
+      "400",
+      "4 o'clock"
+    ],
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which unit would you use to measure the length of a pencil?",
+    "choicesJson": [
+      "Miles",
+      "Pounds",
+      "Inches"
+    ],
+    "answer": "Inches",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is closest to the length of a school bus?",
+    "choicesJson": [
+      "3 feet",
+      "300 feet",
+      "30 feet"
+    ],
+    "answer": "30 feet",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many centimeters are in a length measured as 4 paperclips, each 3 cm long?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve",
+      "12 cm"
+    ],
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is the heaviest?",
+    "choicesJson": [
+      "A balloon",
+      "A feather",
+      "A bowling ball"
+    ],
+    "answer": "A bowling ball",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many cups are in 1 pint?",
+    "choicesJson": [
+      "4 cups",
+      "2 cups",
+      "8 cups"
+    ],
+    "answer": "2 cups",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is closest to 30?",
+    "choicesJson": [
+      "26",
+      "38",
+      "33"
+    ],
+    "answer": "33",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 64 to the nearest ten.",
+    "choicesJson": [
+      "60",
+      "70",
+      "65",
+      "64"
+    ],
+    "answer": "60",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 95 to the nearest ten.",
+    "choicesJson": [
+      "90",
+      "100",
+      "95",
+      "85"
+    ],
+    "answer": "100",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 12 to the nearest ten.",
+    "choicesJson": [
+      "10",
+      "20",
+      "15",
+      "12"
+    ],
+    "answer": "10",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 78 to the nearest ten.",
+    "choicesJson": [
+      "70",
+      "80",
+      "75",
+      "78"
+    ],
+    "answer": "80",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these numbers is odd: 14, 20, 17, or 8?",
+    "choicesJson": [
+      "14",
+      "20",
+      "17",
+      "8"
+    ],
+    "answer": "17",
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Is 18 an even number or an odd number?",
+    "answer": "even",
+    "acceptedAnswers": [
+      "even number"
+    ],
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Is 27 an even number or an odd number?",
+    "answer": "odd",
+    "acceptedAnswers": [
+      "odd number"
+    ],
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these numbers is even: 41, 56, or 63?",
+    "choicesJson": [
+      "41",
+      "56",
+      "63"
+    ],
+    "answer": "56",
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many corners does a hexagon have?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has 8 sides?",
+    "choicesJson": [
+      "Hexagon",
+      "Octagon",
+      "Pentagon",
+      "Square"
+    ],
+    "answer": "Octagon",
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many edges does a cube have?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which 3D shape has a curved surface and 2 flat circle faces?",
+    "choicesJson": [
+      "Cone",
+      "Cylinder",
+      "Cube",
+      "Sphere"
+    ],
+    "answer": "Cylinder",
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many faces does a rectangular prism have?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A zoo has 24 monkeys and 18 birds. How many animals is that in all?",
+    "answer": "42",
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 36 students in one class and 29 in another. How many students total?",
+    "answer": "65",
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Dana sold 27 cups of lemonade on Saturday and 34 on Sunday. How many cups did she sell in all?",
+    "answer": "61",
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A parking lot has 45 cars in the morning. 17 more cars arrive. How many cars are there now?",
+    "answer": "62",
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A library has 90 books. 38 are checked out. How many books are still on the shelf?",
+    "answer": "52",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "There are 74 crayons in a box. 26 are broken and thrown away. How many good crayons are left?",
+    "answer": "48",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A theater has 100 seats. 63 are filled. How many seats are empty?",
+    "answer": "37",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ben had 55 baseball cards. He traded away 19 of them. How many cards does Ben have left?",
+    "answer": "36",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 2 quarters, 1 dime, and 3 pennies. How many cents do you have in all?",
+    "answer": "63",
+    "acceptedAnswers": [
+      "63 cents"
+    ],
+    "tags": [
+      "money",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A juice box costs 55 cents. You pay with 3 quarters (75 cents). How much change do you get?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "20 cents",
+      "twenty"
+    ],
+    "tags": [
+      "money",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You save 4 quarters each week. How many cents is that after 1 week?",
+    "answer": "100",
+    "acceptedAnswers": [
+      "100 cents",
+      "one hundred"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A carton holds 6 eggs. How many eggs are in 3 cartons?",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "multiplication-intro",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each spider has 8 legs. How many legs do 2 spiders have?",
+    "answer": "16",
+    "acceptedAnswers": [
+      "sixteen"
+    ],
+    "tags": [
+      "multiplication-intro",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A classroom has 5 tables with 4 chairs at each table. How many chairs in all?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "multiplication-intro",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "19 + 27 = ?",
+    "answer": "46",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "48 + 26 = ?",
+    "answer": "74",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "63 + 28 = ?",
+    "answer": "91",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "77 - 34 = ?",
+    "answer": "43",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "95 - 58 = ?",
+    "answer": "37",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "44 - 17 = ?",
+    "answer": "27",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "36 + 49 = ?",
+    "answer": "85",
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "81 - 46 = ?",
+    "answer": "35",
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7 x 2 (think: 7 + 7) = ?",
+    "answer": "14",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "4 x 4 (think: 4 + 4 + 4 + 4) = ?",
+    "answer": "16",
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pack has 3 rows of 5 pencils. How many pencils total?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen"
+    ],
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each hand has 5 fingers. How many fingers do 4 hands have?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "multiplication-intro"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 55 to the nearest ten.",
+    "choicesJson": [
+      "50",
+      "60",
+      "55",
+      "45"
+    ],
+    "answer": "60",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 21 to the nearest ten.",
+    "choicesJson": [
+      "20",
+      "30",
+      "25",
+      "21"
+    ],
+    "answer": "20",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these numbers is odd: 60, 45, or 88?",
+    "choicesJson": [
+      "60",
+      "45",
+      "88"
+    ],
+    "answer": "45",
+    "tags": [
+      "even-odd"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has 3 corners and 3 sides?",
+    "choicesJson": [
+      "Square",
+      "Triangle",
+      "Pentagon",
+      "Circle"
+    ],
+    "answer": "Triangle",
+    "tags": [
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is the longest?",
+    "choicesJson": [
+      "A pencil",
+      "A football field",
+      "A car"
+    ],
+    "answer": "A football field",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About how high above the floor is a doorknob?",
+    "choicesJson": [
+      "3 inches",
+      "360 inches",
+      "36 inches"
+    ],
+    "answer": "36 inches",
+    "tags": [
+      "measurement"
+    ]
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth 25 cents?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "coins",
+      "value"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-dime.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-quarter.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth 50 cents?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "coins",
+      "value"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-quarter.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-penny.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "A Minecraft villager sells an apple for 25 cents. Which single coin pays for it exactly?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "coins",
+      "value",
+      "theme:minecraft"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-dime.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-penny.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth the most?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "coins",
+      "comparing"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-quarter.webp",
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-nickel.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth the least?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "coins",
+      "comparing"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-nickel.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-dime.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth more than a nickel but less than a quarter?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "coins",
+      "comparing"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-penny.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-dime.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth the same as 5 pennies?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-dime.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-half-dollar.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth the same as 2 nickels?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-penny.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-nickel.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin is worth the same as 10 pennies?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-nickel.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-half-dollar.webp"
+      ]
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many cents is this coin worth?",
+    "answer": "25",
+    "acceptedAnswers": [
+      "twenty-five",
+      "twenty five",
+      "25 cents",
+      "twenty-five cents"
+    ],
+    "tags": [
+      "coins",
+      "value"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-quarter.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many cents is this coin worth?",
+    "answer": "50",
+    "acceptedAnswers": [
+      "fifty",
+      "50 cents",
+      "fifty cents"
+    ],
+    "tags": [
+      "coins",
+      "value"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-half-dollar.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many dollars is this bill worth?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten",
+      "$10",
+      "10 dollars",
+      "ten dollars"
+    ],
+    "tags": [
+      "bills",
+      "value"
+    ],
+    "media": {
+      "alt": "A United States paper bill, front side.",
+      "image": "learning/img/money-bill-10.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many dollars is this bill worth?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty",
+      "$20",
+      "20 dollars",
+      "twenty dollars"
+    ],
+    "tags": [
+      "bills",
+      "value"
+    ],
+    "media": {
+      "alt": "A United States paper bill, front side.",
+      "image": "learning/img/money-bill-20.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 2 of these coins. How many cents do you have in all?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten",
+      "10 cents",
+      "ten cents"
+    ],
+    "tags": [
+      "coins",
+      "adding"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-nickel.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 3 of these coins. How many cents do you have in all?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty",
+      "30 cents",
+      "thirty cents"
+    ],
+    "tags": [
+      "coins",
+      "adding"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-dime.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mario grabs 3 nickels like this one. How many cents is that in all?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen",
+      "15 cents",
+      "fifteen cents"
+    ],
+    "tags": [
+      "coins",
+      "adding",
+      "theme:mario"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-nickel.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Pokemon card pack costs 3 of these coins. How many cents is that?",
+    "answer": "75",
+    "acceptedAnswers": [
+      "seventy-five",
+      "seventy five",
+      "75 cents",
+      "seventy-five cents"
+    ],
+    "tags": [
+      "coins",
+      "adding",
+      "theme:pokemon"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-quarter.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have this coin and 2 pennies. How many cents do you have in all?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven",
+      "7 cents",
+      "seven cents"
+    ],
+    "tags": [
+      "coins",
+      "adding"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-nickel.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have this coin and a nickel. How many cents do you have in all?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen",
+      "15 cents",
+      "fifteen cents"
+    ],
+    "tags": [
+      "coins",
+      "adding"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-dime.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You add 1 more penny to this pile. Now how many cents is the pile worth?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten",
+      "10 cents",
+      "ten cents"
+    ],
+    "tags": [
+      "coins",
+      "counting"
+    ],
+    "media": {
+      "alt": "A small pile of coins on a white surface.",
+      "image": "learning/img/money-pile-pennies.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is this pile of pennies worth more or less than 1 dime?",
+    "choicesJson": [
+      "More than a dime",
+      "Less than a dime",
+      "The same as a dime"
+    ],
+    "answer": "Less than a dime",
+    "tags": [
+      "coins",
+      "comparing"
+    ],
+    "media": {
+      "alt": "A small pile of coins on a white surface.",
+      "image": "learning/img/money-pile-pennies.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is this coin worth more than a dime?",
+    "choicesJson": [
+      "It is worth the same",
+      "No",
+      "Yes"
+    ],
+    "answer": "No",
+    "tags": [
+      "coins",
+      "comparing"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-nickel.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many of these coins make 1 dollar?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-quarter.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many of these coins make 1 dollar?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-dime.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many of these coins make 1 dollar?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "coins",
+      "trading coins"
+    ],
+    "media": {
+      "alt": "A close-up photo of a United States coin, heads side.",
+      "image": "learning/img/money-half-dollar.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 4 of these bills. How many dollars do you have in all?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four",
+      "$4",
+      "4 dollars",
+      "four dollars"
+    ],
+    "tags": [
+      "bills",
+      "adding"
+    ],
+    "media": {
+      "alt": "A United States paper bill, front side.",
+      "image": "learning/img/money-bill-1.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 2 of these bills. How many dollars do you have in all?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty",
+      "$20",
+      "20 dollars",
+      "twenty dollars"
+    ],
+    "tags": [
+      "bills",
+      "adding"
+    ],
+    "media": {
+      "alt": "A United States paper bill, front side.",
+      "image": "learning/img/money-bill-10.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which bill is worth 10 dollars?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "bills",
+      "value"
+    ],
+    "media": {
+      "alt": "Several United States paper bills to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-bill-10.webp",
+        "learning/img/money-bill-1.webp",
+        "learning/img/money-bill-5.webp",
+        "learning/img/money-bill-20.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which bill is worth 20 dollars?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "bills",
+      "value"
+    ],
+    "media": {
+      "alt": "Several United States paper bills to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-bill-1.webp",
+        "learning/img/money-bill-5.webp",
+        "learning/img/money-bill-10.webp",
+        "learning/img/money-bill-20.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which bill is worth the same as two $5 bills?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "bills",
+      "trading bills"
+    ],
+    "media": {
+      "alt": "Several United States paper bills to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-bill-1.webp",
+        "learning/img/money-bill-5.webp",
+        "learning/img/money-bill-20.webp",
+        "learning/img/money-bill-10.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "8:15",
+      "2:15",
+      "8:00",
+      "9:15"
+    ],
+    "answer": "8:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 8:15",
+      "image": "learning/img/viz/33e4e1a56ecc.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "11:15",
+      "11:00",
+      "12:15",
+      "6:15"
+    ],
+    "answer": "11:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 11:15",
+      "image": "learning/img/viz/4e5de8ab2e20.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "1:15",
+      "1:45",
+      "4:15",
+      "5:15"
+    ],
+    "answer": "1:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 1:15",
+      "image": "learning/img/viz/dea645bd99c3.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "2:45",
+      "2:15",
+      "2:30",
+      "5:45"
+    ],
+    "answer": "2:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 2:45",
+      "image": "learning/img/viz/0f7e699ffffa.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "12:15",
+      "12:45",
+      "3:00",
+      "7:15"
+    ],
+    "answer": "12:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 12:15",
+      "image": "learning/img/viz/4a0e7732fd5c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:45",
+      "12:45",
+      "4:45",
+      "9:45"
+    ],
+    "answer": "3:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:45",
+      "image": "learning/img/viz/65f7f15a1741.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "5:15",
+      "10:15",
+      "12:15",
+      "9:15"
+    ],
+    "answer": "5:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 5:15",
+      "image": "learning/img/viz/a26257971aef.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:15",
+      "5:15",
+      "7:15",
+      "8:15"
+    ],
+    "answer": "6:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:15",
+      "image": "learning/img/viz/632dce4e0a40.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:45",
+      "6:30",
+      "8:45",
+      "9:30"
+    ],
+    "answer": "6:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:45",
+      "image": "learning/img/viz/3f4706355776.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "7:15",
+      "3:15",
+      "6:15",
+      "7:00"
+    ],
+    "answer": "7:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 7:15",
+      "image": "learning/img/viz/c24a53bb4a14.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "4:45",
+      "10:45",
+      "4:00",
+      "7:45"
+    ],
+    "answer": "4:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 4:45",
+      "image": "learning/img/viz/c0d3868fd15c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "4:15",
+      "10:15",
+      "7:15",
+      "9:15"
+    ],
+    "answer": "4:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 4:15",
+      "image": "learning/img/viz/a3bdadc2d807.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "5:45",
+      "11:45",
+      "2:45",
+      "8:45"
+    ],
+    "answer": "5:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 5:45",
+      "image": "learning/img/viz/c4a81f80f47d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "12:45",
+      "10:45",
+      "8:45",
+      "9:00"
+    ],
+    "answer": "12:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 12:45",
+      "image": "learning/img/viz/3fad4d92fd95.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:15",
+      "12:15",
+      "3:00",
+      "3:30"
+    ],
+    "answer": "3:15",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:15",
+      "image": "learning/img/viz/5bb102192613.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "1:45",
+      "10:45",
+      "1:15",
+      "7:45"
+    ],
+    "answer": "1:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 1:45",
+      "image": "learning/img/viz/215edfe72b7c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "10:45",
+      "11:45",
+      "2:45",
+      "8:45"
+    ],
+    "answer": "10:45",
+    "tags": [
+      "time",
+      "quarter",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 10:45",
+      "image": "learning/img/viz/b2dd0a8e8ccd.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "11:40",
+      "11:35",
+      "11:50",
+      "8:55"
+    ],
+    "answer": "11:40",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 11:40",
+      "image": "learning/img/viz/8d309688f377.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "5:50",
+      "10:25",
+      "12:50",
+      "3:50"
+    ],
+    "answer": "5:50",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 5:50",
+      "image": "learning/img/viz/435436a70fa5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "12:25",
+      "12:10",
+      "2:25",
+      "4:25"
+    ],
+    "answer": "12:25",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 12:25",
+      "image": "learning/img/viz/328d5b64aa68.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:05",
+      "1:05",
+      "3:05",
+      "6:10"
+    ],
+    "answer": "6:05",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:05",
+      "image": "learning/img/viz/417488dc069d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:10",
+      "1:10",
+      "6:40",
+      "6:50"
+    ],
+    "answer": "6:10",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:10",
+      "image": "learning/img/viz/04104c5b205e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "9:55",
+      "2:55",
+      "4:55",
+      "9:35"
+    ],
+    "answer": "9:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 9:55",
+      "image": "learning/img/viz/3c5eb4423a1e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "1:20",
+      "1:05",
+      "4:20",
+      "6:20"
+    ],
+    "answer": "1:20",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 1:20",
+      "image": "learning/img/viz/bfdf042f37ff.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "4:40",
+      "4:20",
+      "8:20",
+      "9:40"
+    ],
+    "answer": "4:40",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 4:40",
+      "image": "learning/img/viz/86242692f1b1.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "9:35",
+      "5:35",
+      "9:20",
+      "9:55"
+    ],
+    "answer": "9:35",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 9:35",
+      "image": "learning/img/viz/6f11c525a803.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:40",
+      "11:40",
+      "12:40",
+      "7:40"
+    ],
+    "answer": "3:40",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:40",
+      "image": "learning/img/viz/aa157fb2b29b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:20",
+      "12:20",
+      "2:20",
+      "3:10"
+    ],
+    "answer": "3:20",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:20",
+      "image": "learning/img/viz/dc125356c15a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "12:10",
+      "12:50",
+      "6:10",
+      "7:10"
+    ],
+    "answer": "12:10",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 12:10",
+      "image": "learning/img/viz/38aee19a1613.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:55",
+      "2:55",
+      "6:20",
+      "9:55"
+    ],
+    "answer": "6:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:55",
+      "image": "learning/img/viz/315ee8f8e14d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "6:25",
+      "4:25",
+      "6:05",
+      "6:20"
+    ],
+    "answer": "6:25",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 6:25",
+      "image": "learning/img/viz/9a0e3d867674.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "2:55",
+      "11:10",
+      "7:55",
+      "9:55"
+    ],
+    "answer": "2:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 2:55",
+      "image": "learning/img/viz/a6d0067b4052.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "9:10",
+      "7:10",
+      "9:35",
+      "9:55"
+    ],
+    "answer": "9:10",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 9:10",
+      "image": "learning/img/viz/e9d46ae5d5e9.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "11:25",
+      "11:35",
+      "4:25",
+      "5:55"
+    ],
+    "answer": "11:25",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 11:25",
+      "image": "learning/img/viz/1a6d6448408a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "2:05",
+      "11:05",
+      "1:10",
+      "6:05"
+    ],
+    "answer": "2:05",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 2:05",
+      "image": "learning/img/viz/7fc057a5d965.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:55",
+      "3:35",
+      "3:40",
+      "8:55"
+    ],
+    "answer": "3:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:55",
+      "image": "learning/img/viz/3f48ef6eca89.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "9:20",
+      "12:20",
+      "6:20",
+      "9:55"
+    ],
+    "answer": "9:20",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 9:20",
+      "image": "learning/img/viz/d9fbc824e26b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "8:35",
+      "7:40",
+      "8:05",
+      "8:10"
+    ],
+    "answer": "8:35",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 8:35",
+      "image": "learning/img/viz/c190e8d3f75b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "8:55",
+      "10:55",
+      "11:40",
+      "3:55"
+    ],
+    "answer": "8:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 8:55",
+      "image": "learning/img/viz/6488037d409f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "7:10",
+      "2:35",
+      "7:05",
+      "7:35"
+    ],
+    "answer": "7:10",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 7:10",
+      "image": "learning/img/viz/4c7f5cf6c8d5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "3:50",
+      "3:10",
+      "3:55",
+      "5:50"
+    ],
+    "answer": "3:50",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 3:50",
+      "image": "learning/img/viz/04ec47be2e38.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "10:40",
+      "3:40",
+      "7:40",
+      "8:50"
+    ],
+    "answer": "10:40",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 10:40",
+      "image": "learning/img/viz/3472db32e49c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time does the clock show?",
+    "choicesJson": [
+      "10:55",
+      "2:55",
+      "6:55",
+      "8:55"
+    ],
+    "answer": "10:55",
+    "tags": [
+      "time",
+      "five-minute",
+      "visual"
+    ],
+    "media": {
+      "alt": "An analog clock showing 10:55",
+      "image": "learning/img/viz/20c51426035b.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 12:15?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/da9fb0a0d458.webp",
+        "learning/img/viz/1e37b6898c8a.webp",
+        "learning/img/viz/3306a1de9d1f.webp",
+        "learning/img/viz/08df1ee75f05.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 1:45?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/544434f3f57b.webp",
+        "learning/img/viz/4010e61ca2e8.webp",
+        "learning/img/viz/8a4264bab1fc.webp",
+        "learning/img/viz/1b88ed0a870f.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 5:45?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/1ecbc8adc906.webp",
+        "learning/img/viz/bcd403b3ac80.webp",
+        "learning/img/viz/b452bec7736c.webp",
+        "learning/img/viz/064f5e612b18.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 8:30?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/7f3100bb03ce.webp",
+        "learning/img/viz/5750ac44f076.webp",
+        "learning/img/viz/c180e974d5a9.webp",
+        "learning/img/viz/f5dcce07eb2f.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 5:45?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/064f5e612b18.webp",
+        "learning/img/viz/7f3100bb03ce.webp",
+        "learning/img/viz/bcd403b3ac80.webp",
+        "learning/img/viz/d3407d05606d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 1:30?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/8a4264bab1fc.webp",
+        "learning/img/viz/ad60233ecaba.webp",
+        "learning/img/viz/1e37b6898c8a.webp",
+        "learning/img/viz/bcd403b3ac80.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 7:00?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/3623f06254c2.webp",
+        "learning/img/viz/c180e974d5a9.webp",
+        "learning/img/viz/1b88ed0a870f.webp",
+        "learning/img/viz/7f3100bb03ce.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 5:45?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/bcd403b3ac80.webp",
+        "learning/img/viz/4a33262099a5.webp",
+        "learning/img/viz/ad60233ecaba.webp",
+        "learning/img/viz/c6bcee56b2e8.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 12:45?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/cbadb73204a9.webp",
+        "learning/img/viz/c4a6f9cac195.webp",
+        "learning/img/viz/485c2fcffbf8.webp",
+        "learning/img/viz/d3407d05606d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 11:30?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/3306a1de9d1f.webp",
+        "learning/img/viz/9fba100b916c.webp",
+        "learning/img/viz/d36ee116e733.webp",
+        "learning/img/viz/544434f3f57b.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 5:15?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/4010e61ca2e8.webp",
+        "learning/img/viz/a73c33bf3adc.webp",
+        "learning/img/viz/3623f06254c2.webp",
+        "learning/img/viz/c26b8be3c276.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 5:15?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/b452bec7736c.webp",
+        "learning/img/viz/1fc1106f591a.webp",
+        "learning/img/viz/c26b8be3c276.webp",
+        "learning/img/viz/a73c33bf3adc.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 2:30?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/a73c33bf3adc.webp",
+        "learning/img/viz/45611d885db1.webp",
+        "learning/img/viz/9fbec4890f55.webp",
+        "learning/img/viz/1b88ed0a870f.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which clock shows 2:00?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "time",
+      "clock-pick",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four clocks",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/8a4264bab1fc.webp",
+        "learning/img/viz/c26b8be3c276.webp",
+        "learning/img/viz/04fa6f614eab.webp",
+        "learning/img/viz/0437e3ff662a.webp"
+      ]
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "5",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A pentagon",
+      "image": "learning/img/viz/ef1edc58af1c.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "5",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A pentagon",
+      "image": "learning/img/viz/2eed9d395b7a.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "5",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A pentagon",
+      "image": "learning/img/viz/681ce26521a1.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "6",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A hexagon",
+      "image": "learning/img/viz/15a47dd87dcb.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "6",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A hexagon",
+      "image": "learning/img/viz/f4dfd19f0791.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "6",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A hexagon",
+      "image": "learning/img/viz/c9db6231200e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Octagon",
+      "Hexagon",
+      "Circle",
+      "Parallelogram"
+    ],
+    "answer": "Octagon",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A pink octagon",
+      "image": "learning/img/viz/bed0dc841e63.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "8",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A octagon",
+      "image": "learning/img/viz/bed0dc841e63.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Octagon",
+      "Parallelogram",
+      "Hexagon",
+      "Pentagon"
+    ],
+    "answer": "Octagon",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A blue octagon",
+      "image": "learning/img/viz/1570223bab3e.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "8",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A octagon",
+      "image": "learning/img/viz/1570223bab3e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Octagon",
+      "Circle",
+      "Parallelogram",
+      "Rectangle"
+    ],
+    "answer": "Octagon",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A green octagon",
+      "image": "learning/img/viz/b0d7a885dfc4.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "8",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A octagon",
+      "image": "learning/img/viz/b0d7a885dfc4.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rhombus",
+      "image": "learning/img/viz/ac5c6e425126.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rhombus",
+      "image": "learning/img/viz/b2a69046fb69.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rhombus",
+      "image": "learning/img/viz/70e219d57fcf.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Trapezoid",
+      "Octagon",
+      "Oval",
+      "Rectangle"
+    ],
+    "answer": "Trapezoid",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A blue trapezoid",
+      "image": "learning/img/viz/cf937d7ff8bf.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A trapezoid",
+      "image": "learning/img/viz/cf937d7ff8bf.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Trapezoid",
+      "Oval",
+      "Rectangle",
+      "Square"
+    ],
+    "answer": "Trapezoid",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A green trapezoid",
+      "image": "learning/img/viz/36d7f1bab761.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A trapezoid",
+      "image": "learning/img/viz/36d7f1bab761.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Trapezoid",
+      "Circle",
+      "Triangle",
+      "Rhombus"
+    ],
+    "answer": "Trapezoid",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A red trapezoid",
+      "image": "learning/img/viz/c97b652edc37.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A trapezoid",
+      "image": "learning/img/viz/c97b652edc37.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Parallelogram",
+      "Circle",
+      "Hexagon",
+      "Octagon"
+    ],
+    "answer": "Parallelogram",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A green parallelogram",
+      "image": "learning/img/viz/6e663cdd0929.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A parallelogram",
+      "image": "learning/img/viz/6e663cdd0929.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Parallelogram",
+      "Rhombus",
+      "Rectangle",
+      "Square"
+    ],
+    "answer": "Parallelogram",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A pink parallelogram",
+      "image": "learning/img/viz/10bed2059575.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A parallelogram",
+      "image": "learning/img/viz/10bed2059575.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is this?",
+    "choicesJson": [
+      "Parallelogram",
+      "Hexagon",
+      "Circle",
+      "Trapezoid"
+    ],
+    "answer": "Parallelogram",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A red parallelogram",
+      "image": "learning/img/viz/3ea94f8cbae7.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many sides does this shape have?",
+    "answer": "4",
+    "tags": [
+      "shapes",
+      "visual"
+    ],
+    "media": {
+      "alt": "A parallelogram",
+      "image": "learning/img/viz/3ea94f8cbae7.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "1/2",
+      "1/3",
+      "1/4"
+    ],
+    "answer": "1/2",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 2 equal parts with 1 shaded",
+      "image": "learning/img/viz/94dc1e12cdd1.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the circle is shaded?",
+    "choicesJson": [
+      "1/3",
+      "1/2",
+      "1/4",
+      "2/3"
+    ],
+    "answer": "1/3",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle cut into 3 equal parts with 1 shaded",
+      "image": "learning/img/viz/0cc62c6afe7c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "1/3",
+      "1/2",
+      "1/4",
+      "2/3"
+    ],
+    "answer": "1/3",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 3 equal parts with 1 shaded",
+      "image": "learning/img/viz/d600fb946793.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the circle is shaded?",
+    "choicesJson": [
+      "2/3",
+      "1/2",
+      "1/3",
+      "2/4"
+    ],
+    "answer": "2/3",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle cut into 3 equal parts with 2 shaded",
+      "image": "learning/img/viz/4602aaa55188.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "2/3",
+      "1/2",
+      "1/3",
+      "2/4"
+    ],
+    "answer": "2/3",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 3 equal parts with 2 shaded",
+      "image": "learning/img/viz/fa4b91ba7eff.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "1/4",
+      "1/3",
+      "1/5",
+      "2/4"
+    ],
+    "answer": "1/4",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 4 equal parts with 1 shaded",
+      "image": "learning/img/viz/a56c62264f10.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "2/4",
+      "1/3",
+      "1/4",
+      "2/5"
+    ],
+    "answer": "2/4",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 4 equal parts with 2 shaded",
+      "image": "learning/img/viz/d56391b44287.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction of the bar is shaded?",
+    "choicesJson": [
+      "3/4",
+      "1/3",
+      "1/4",
+      "2/4"
+    ],
+    "answer": "3/4",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar cut into 4 equal parts with 3 shaded",
+      "image": "learning/img/viz/d4707afcb6c0.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows 1/4 shaded?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four circles",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/fc8961d27447.webp",
+        "learning/img/viz/919f948d5cc9.webp",
+        "learning/img/viz/ddb7705693c4.webp",
+        "learning/img/viz/86922ad88f2d.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows 2/4 shaded?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four circles",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/86922ad88f2d.webp",
+        "learning/img/viz/ddb7705693c4.webp",
+        "learning/img/viz/d926939dc927.webp",
+        "learning/img/viz/76f9a44711ed.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows 3/4 shaded?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four circles",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/d926939dc927.webp",
+        "learning/img/viz/eeddc4fc3671.webp",
+        "learning/img/viz/7dae6a6fb57a.webp",
+        "learning/img/viz/ddb7705693c4.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows 1/3 shaded?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four circles",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/e9fac1d89d0e.webp",
+        "learning/img/viz/86922ad88f2d.webp",
+        "learning/img/viz/76f9a44711ed.webp",
+        "learning/img/viz/dc54df87eea3.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows 2/3 shaded?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "Four circles",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/viz/7dae6a6fb57a.webp",
+        "learning/img/viz/dc54df87eea3.webp",
+        "learning/img/viz/e9fac1d89d0e.webp",
+        "learning/img/viz/ddb7705693c4.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Cats",
+      "Dogs",
+      "Fish",
+      "Birds"
+    ],
+    "answer": "Cats",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/fe5214395727.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Dogs",
+      "Cats",
+      "Fish",
+      "Birds"
+    ],
+    "answer": "Dogs",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/fe5214395727.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Birds",
+      "Dogs",
+      "Cats",
+      "Fish"
+    ],
+    "answer": "Birds",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/0233c71f78dc.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Fish",
+      "Dogs",
+      "Cats",
+      "Birds"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/0233c71f78dc.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Cats",
+      "Dogs",
+      "Fish",
+      "Birds"
+    ],
+    "answer": "Cats",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/744eb7f24b60.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Birds",
+      "Dogs",
+      "Cats",
+      "Fish"
+    ],
+    "answer": "Birds",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/744eb7f24b60.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Birds",
+      "Dogs",
+      "Cats",
+      "Fish"
+    ],
+    "answer": "Birds",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/ffc58251b29f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Fish",
+      "Dogs",
+      "Cats",
+      "Birds"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/ffc58251b29f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Cats",
+      "Dogs",
+      "Fish",
+      "Birds"
+    ],
+    "answer": "Cats",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/861cf3d7546f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Dogs",
+      "Cats",
+      "Fish",
+      "Birds"
+    ],
+    "answer": "Dogs",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/861cf3d7546f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Blue",
+      "Red",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/91d7e73482c9.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Red",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/91d7e73482c9.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Red",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/feccfcaf1e17.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pink",
+      "Red",
+      "Blue",
+      "Green"
+    ],
+    "answer": "Pink",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/feccfcaf1e17.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Pink",
+      "Red",
+      "Blue",
+      "Green"
+    ],
+    "answer": "Pink",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b2930886a09f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Red",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b2930886a09f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Blue",
+      "Red",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/bc7d1c2b0bbd.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pink",
+      "Red",
+      "Blue",
+      "Green"
+    ],
+    "answer": "Pink",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/bc7d1c2b0bbd.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Red",
+      "Blue",
+      "Green",
+      "Pink"
+    ],
+    "answer": "Red",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b5f920c4ed94.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pink",
+      "Red",
+      "Blue",
+      "Green"
+    ],
+    "answer": "Pink",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b5f920c4ed94.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Tacos",
+      "Pizza",
+      "Pasta",
+      "Soup"
+    ],
+    "answer": "Tacos",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/f06e089601db.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pizza",
+      "Tacos",
+      "Pasta",
+      "Soup"
+    ],
+    "answer": "Pizza",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/f06e089601db.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Soup",
+      "Pizza",
+      "Tacos",
+      "Pasta"
+    ],
+    "answer": "Soup",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/be4704786133.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pasta",
+      "Pizza",
+      "Tacos",
+      "Soup"
+    ],
+    "answer": "Pasta",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/be4704786133.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Pasta",
+      "Pizza",
+      "Tacos",
+      "Soup"
+    ],
+    "answer": "Pasta",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/277df58d23ba.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pizza",
+      "Tacos",
+      "Pasta",
+      "Soup"
+    ],
+    "answer": "Pizza",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/277df58d23ba.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Soup",
+      "Pizza",
+      "Tacos",
+      "Pasta"
+    ],
+    "answer": "Soup",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/29acf5572a39.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pasta",
+      "Pizza",
+      "Tacos",
+      "Soup"
+    ],
+    "answer": "Pasta",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/29acf5572a39.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Pizza",
+      "Tacos",
+      "Pasta",
+      "Soup"
+    ],
+    "answer": "Pizza",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/773ca783d7a6.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Pasta",
+      "Pizza",
+      "Tacos",
+      "Soup"
+    ],
+    "answer": "Pasta",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/773ca783d7a6.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Soccer",
+      "Swim",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Soccer",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1c97ce6587ce.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Chess",
+      "Soccer",
+      "Swim",
+      "Art"
+    ],
+    "answer": "Chess",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1c97ce6587ce.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Soccer",
+      "Swim",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Soccer",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/04e837ee2b0f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Swim",
+      "Soccer",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Swim",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/04e837ee2b0f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Swim",
+      "Soccer",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Swim",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a753d70db3f5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Chess",
+      "Soccer",
+      "Swim",
+      "Art"
+    ],
+    "answer": "Chess",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a753d70db3f5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Soccer",
+      "Swim",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Soccer",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a983bcd1dd64.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Swim",
+      "Soccer",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Swim",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a983bcd1dd64.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Swim",
+      "Soccer",
+      "Chess",
+      "Art"
+    ],
+    "answer": "Swim",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1d311ca9711e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Chess",
+      "Soccer",
+      "Swim",
+      "Art"
+    ],
+    "answer": "Chess",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1d311ca9711e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Thu",
+      "Mon",
+      "Tue",
+      "Wed"
+    ],
+    "answer": "Thu",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/8ec365bcbdc4.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Mon",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/8ec365bcbdc4.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Mon",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/c53ce0e0958d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Wed",
+      "Mon",
+      "Tue",
+      "Thu"
+    ],
+    "answer": "Wed",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/c53ce0e0958d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Mon",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/fc108c6bc690.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Thu",
+      "Mon",
+      "Tue",
+      "Wed"
+    ],
+    "answer": "Thu",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/fc108c6bc690.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Wed",
+      "Mon",
+      "Tue",
+      "Thu"
+    ],
+    "answer": "Wed",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/1dca95daa450.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Mon",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/1dca95daa450.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Tue",
+      "Mon",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Tue",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/f5ee70537fa2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu"
+    ],
+    "answer": "Mon",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/f5ee70537fa2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Kiwi",
+      "Apple",
+      "Grape",
+      "Plum"
+    ],
+    "answer": "Kiwi",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/5d635f302053.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Grape",
+      "Apple",
+      "Plum",
+      "Kiwi"
+    ],
+    "answer": "Grape",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/5d635f302053.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Plum",
+      "Apple",
+      "Grape",
+      "Kiwi"
+    ],
+    "answer": "Plum",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/cbcbab1bd80a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Grape",
+      "Apple",
+      "Plum",
+      "Kiwi"
+    ],
+    "answer": "Grape",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/cbcbab1bd80a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Plum",
+      "Apple",
+      "Grape",
+      "Kiwi"
+    ],
+    "answer": "Plum",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/b2e8ec1df491.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Apple",
+      "Grape",
+      "Plum",
+      "Kiwi"
+    ],
+    "answer": "Apple",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/b2e8ec1df491.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Plum",
+      "Apple",
+      "Grape",
+      "Kiwi"
+    ],
+    "answer": "Plum",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/2cdfc0746f12.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Kiwi",
+      "Apple",
+      "Grape",
+      "Plum"
+    ],
+    "answer": "Kiwi",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/2cdfc0746f12.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the tallest?",
+    "choicesJson": [
+      "Apple",
+      "Grape",
+      "Plum",
+      "Kiwi"
+    ],
+    "answer": "Apple",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/ea09cbba2fee.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bar is the shortest?",
+    "choicesJson": [
+      "Kiwi",
+      "Apple",
+      "Grape",
+      "Plum"
+    ],
+    "answer": "Kiwi",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/ea09cbba2fee.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "2",
+      "0",
+      "4",
+      "6"
+    ],
+    "answer": "2",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/92ab9dd9bc52.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "4",
+      "0",
+      "2",
+      "6"
+    ],
+    "answer": "4",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/9a37cbfb80e8.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "6",
+      "2",
+      "4",
+      "8"
+    ],
+    "answer": "6",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/71f33bd10ce0.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "8",
+      "4",
+      "6",
+      "10"
+    ],
+    "answer": "8",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/2d9d05159b36.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "10",
+      "6",
+      "8",
+      "12"
+    ],
+    "answer": "10",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/ee197915e18e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "12",
+      "8",
+      "10",
+      "14"
+    ],
+    "answer": "12",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/77ba87529d76.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "14",
+      "10",
+      "12",
+      "16"
+    ],
+    "answer": "14",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/374b83c56db6.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "16",
+      "12",
+      "14",
+      "18"
+    ],
+    "answer": "16",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/19462f8c6c11.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+    "choicesJson": [
+      "18",
+      "14",
+      "16",
+      "20"
+    ],
+    "answer": "18",
+    "tags": [
+      "number-line",
+      "skip-count",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line counting by 2s",
+      "image": "learning/img/viz/4c3f7243012b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "10",
+      "0",
+      "20",
+      "30"
+    ],
+    "answer": "10",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/e096755ba5c2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "20",
+      "0",
+      "10",
+      "30"
+    ],
+    "answer": "20",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/ac076d64e05f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "30",
+      "10",
+      "20",
+      "40"
+    ],
+    "answer": "30",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/4c6ed74320b3.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "40",
+      "20",
+      "30",
+      "50"
+    ],
+    "answer": "40",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/7b7360edd796.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "50",
+      "30",
+      "40",
+      "60"
+    ],
+    "answer": "50",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/fc55c5969115.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "60",
+      "40",
+      "50",
+      "70"
+    ],
+    "answer": "60",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/4f23c652edae.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "70",
+      "50",
+      "60",
+      "80"
+    ],
+    "answer": "70",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/976650389821.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "80",
+      "60",
+      "70",
+      "90"
+    ],
+    "answer": "80",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/0cffd1b644a2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "90",
+      "70",
+      "80",
+      "100"
+    ],
+    "answer": "90",
+    "tags": [
+      "number-line",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 100",
+      "image": "learning/img/viz/beba4b3e7616.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the number 463, which digit is in the tens place?",
+    "choicesJson": [
+      "6",
+      "4",
+      "3"
+    ],
+    "answer": "6",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many tens are in 70?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is the same as 300 + 40 + 5?",
+    "choicesJson": [
+      "354",
+      "3045",
+      "435",
+      "345"
+    ],
+    "answer": "345",
+    "tags": [
+      "place-value",
+      "expanded-form"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number has 5 hundreds, 0 tens, and 8 ones?",
+    "answer": "508",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which comparison is true?",
+    "choicesJson": [
+      "382 < 328",
+      "382 > 328",
+      "382 = 328"
+    ],
+    "answer": "382 > 328",
+    "tags": [
+      "comparing-numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is the greatest?",
+    "choicesJson": [
+      "479",
+      "794",
+      "749",
+      "497"
+    ],
+    "answer": "794",
+    "tags": [
+      "comparing-numbers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number comes right after 599?",
+    "answer": "600",
+    "acceptedAnswers": [
+      "six hundred"
+    ],
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number comes right before 800?",
+    "answer": "799",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count by 100s: 300, 400, 500, __?",
+    "answer": "600",
+    "acceptedAnswers": [
+      "six hundred"
+    ],
+    "tags": [
+      "counting",
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count backward by 10s: 90, 80, 70, __?",
+    "choicesJson": [
+      "50",
+      "65",
+      "69",
+      "60"
+    ],
+    "answer": "60",
+    "tags": [
+      "counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is written as \"two hundred thirty-six\"?",
+    "choicesJson": [
+      "263",
+      "236",
+      "2036",
+      "326"
+    ],
+    "answer": "236",
+    "tags": [
+      "place-value",
+      "number-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "10 tens is the same as how many hundreds?",
+    "answer": "1",
+    "acceptedAnswers": [
+      "one"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows the numbers in order from least to greatest?",
+    "choicesJson": [
+      "182, 128, 218",
+      "218, 182, 128",
+      "128, 218, 182",
+      "128, 182, 218"
+    ],
+    "answer": "128, 182, 218",
+    "tags": [
+      "comparing-numbers",
+      "ordering"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the value of the 7 in the number 372? Type the number.",
+    "answer": "70",
+    "acceptedAnswers": [
+      "seventy"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is between 450 and 460?",
+    "choicesJson": [
+      "445",
+      "455",
+      "465",
+      "470"
+    ],
+    "answer": "455",
+    "tags": [
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A chocolate bar is broken into 4 equal pieces. You eat 1 piece. What fraction of the bar did you eat?",
+    "choicesJson": [
+      "1/2",
+      "1/3",
+      "1/4",
+      "4/1"
+    ],
+    "answer": "1/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many fourths (quarters) make one whole pizza?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which way of cutting a sandwich gives you halves?",
+    "choicesJson": [
+      "2 equal parts",
+      "2 parts, one much bigger than the other",
+      "3 equal parts",
+      "4 equal parts"
+    ],
+    "answer": "2 equal parts",
+    "tags": [
+      "fractions",
+      "halves"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Steve mined 18 iron ingots and gives half of them to Alex in Minecraft. How many ingots does he give her?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "nine"
+    ],
+    "tags": [
+      "fractions",
+      "halves",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which piece is bigger: 1/2 of a candy bar or 1/4 of the same candy bar?",
+    "choicesJson": [
+      "1/4 of the bar",
+      "They are the same size",
+      "1/2 of the bar"
+    ],
+    "answer": "1/2 of the bar",
+    "tags": [
+      "fractions",
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A sandwich is cut into 2 equal pieces. You eat 1 piece. What fraction of the sandwich did you eat?",
+    "choicesJson": [
+      "1/3",
+      "1/4",
+      "2/1",
+      "1/2"
+    ],
+    "answer": "1/2",
+    "tags": [
+      "fractions",
+      "halves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pizza is cut into 4 equal slices. Two slices are eaten. What fraction of the pizza is left?",
+    "choicesJson": [
+      "1/4",
+      "2/4",
+      "3/4",
+      "4/4"
+    ],
+    "answer": "2/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox obby has 4 equal stages. You beat 3 of them. What fraction of the obby did you finish?",
+    "choicesJson": [
+      "3/4",
+      "1/4",
+      "3/3",
+      "4/3"
+    ],
+    "answer": "3/4",
+    "tags": [
+      "fractions",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Fortnite squad of 4 players shares 8 med kits equally. How many med kits does each player get?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "equal-shares",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Dracula has 20 bats. They split into 4 equal groups and 1 group flies out of the castle. How many bats fly out?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "fractions",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A tally chart shows one group of 5 tally marks and then 3 more marks. How many is that in all?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "data",
+      "tally"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a picture graph, each 🍎 stands for 2 apples. A row has 4 🍎. How many apples does that row show?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "data",
+      "picture-graph"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft picture graph uses 1 pickaxe symbol for every 10 blocks mined. Dirt has 5 pickaxes and stone has 3 pickaxes. How many more blocks of dirt than stone were mined?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "data",
+      "picture-graph",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bar graph shows favorite pets: dogs 9, cats 6, fish 3, birds 2. How many more kids picked dogs than cats?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "data",
+      "bar-graph"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bar graph shows votes for favorite ice cream: chocolate 8, vanilla 5, strawberry 7, mint 3. Which flavor got the most votes?",
+    "choicesJson": [
+      "Vanilla",
+      "Strawberry",
+      "Mint",
+      "Chocolate"
+    ],
+    "answer": "Chocolate",
+    "tags": [
+      "data",
+      "bar-graph"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A class voted for a favorite lunch: pizza 6, tacos 9, burgers 4, pasta 5. How many kids voted in all?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "data",
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Roblox, you beat 7 obby levels on Monday, 5 on Tuesday, and 9 on Wednesday. How many levels did you beat in all?",
+    "answer": "21",
+    "acceptedAnswers": [
+      "twenty-one",
+      "twenty one"
+    ],
+    "tags": [
+      "data",
+      "addition",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What comes next in this pattern? red, blue, red, blue, red, __",
+    "choicesJson": [
+      "red",
+      "green",
+      "yellow",
+      "blue"
+    ],
+    "answer": "blue",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This pattern goes 3, 8, 13, 18. What is the rule?",
+    "choicesJson": [
+      "Add 5",
+      "Add 3",
+      "Add 10",
+      "Add 8"
+    ],
+    "answer": "Add 5",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Look at this pattern: clap, stomp, stomp, clap, stomp, stomp, clap, __. What comes next?",
+    "choicesJson": [
+      "clap",
+      "jump",
+      "stomp"
+    ],
+    "answer": "stomp",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count backward by 5s: 50, 45, 40, 35, __?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "patterns",
+      "counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is missing? 12, 14, __, 18, 20",
+    "answer": "16",
+    "acceptedAnswers": [
+      "sixteen"
+    ],
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pattern repeats like this: triangle, circle, circle, triangle, circle, circle, and so on. What is the 9th shape?",
+    "choicesJson": [
+      "Triangle",
+      "Circle",
+      "Square"
+    ],
+    "answer": "Circle",
+    "tags": [
+      "patterns",
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pattern uses 3 stars in row 1, 6 stars in row 2, and 9 stars in row 3. If it keeps going, how many stars are in row 5?",
+    "answer": "15",
+    "acceptedAnswers": [
+      "fifteen"
+    ],
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "I am a number between 30 and 40. My ones digit is 7. What number am I?",
+    "answer": "37",
+    "acceptedAnswers": [
+      "thirty-seven",
+      "thirty seven"
+    ],
+    "tags": [
+      "number-sense",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 10 more than 67?",
+    "answer": "77",
+    "acceptedAnswers": [
+      "seventy-seven",
+      "seventy seven"
+    ],
+    "tags": [
+      "number-sense",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 10 less than 52?",
+    "answer": "42",
+    "acceptedAnswers": [
+      "forty-two",
+      "forty two"
+    ],
+    "tags": [
+      "number-sense",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Base-ten blocks show 2 flats (100 each), 1 rod (10), and 6 single cubes (1 each). What number do they show?",
+    "answer": "216",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The statue in the SCP Foundation is called SCP-173. In the number 173, which digit is in the tens place?",
+    "choicesJson": [
+      "3",
+      "1",
+      "7",
+      "17"
+    ],
+    "answer": "7",
+    "tags": [
+      "place-value",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A tall, thin Slender-style figure hides in the woods. A scout counts the trees in 6 groups of 10. How many trees did the scout count?",
+    "answer": "60",
+    "acceptedAnswers": [
+      "sixty"
+    ],
+    "tags": [
+      "counting",
+      "skip-counting",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A logbook says Nessie was spotted 245 times last year and 253 times this year. Which year had more sightings?",
+    "choicesJson": [
+      "Last year",
+      "This year",
+      "Both years were the same"
+    ],
+    "answer": "This year",
+    "tags": [
+      "comparing-numbers",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft tally chart shows 7 zombies, 4 skeletons, and 9 creepers. How many more creepers than skeletons are there?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "data",
+      "tally",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number has a 9 in the hundreds place?",
+    "choicesJson": [
+      "349",
+      "394",
+      "934",
+      "439"
+    ],
+    "answer": "934",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, Steve mines 45 blocks of dirt and then 37 blocks of stone. How many blocks did he mine in all?",
+    "answer": "82",
+    "tags": [
+      "addition",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, you have 63 pieces of gunpowder. You use 28 of them to make TNT. How many pieces are left?",
+    "answer": "35",
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Roblox obby has 3 stages. Stage 1 has 12 jumps, stage 2 has 15 jumps, and stage 3 has 9 jumps. How many jumps are there in all?",
+    "answer": "36",
+    "tags": [
+      "addition",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "100 players jump off the Battle Bus in Fortnite. After one minute, 58 of them have landed. How many players have not landed yet?",
+    "answer": "42",
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The SCP Foundation keeps 48 creatures in Wing A and 36 creatures in Wing B. How many creatures are in both wings?",
+    "answer": "84",
+    "tags": [
+      "addition",
+      "word-problem",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A tall Slender-style figure steps out of the woods at 7:30. It vanishes 30 minutes later. What time does it vanish?",
+    "choicesJson": [
+      "8:00",
+      "7:00",
+      "8:30",
+      "7:45"
+    ],
+    "answer": "8:00",
+    "tags": [
+      "time",
+      "word-problem",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A movie monster is 90 feet tall. A skyscraper is 65 feet tall. How many feet taller is the monster?",
+    "answer": "25",
+    "tags": [
+      "subtraction",
+      "measurement",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Dracula's castle tower has 100 steps. A werewolf has climbed 64 of them. How many steps are left to climb?",
+    "answer": "36",
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a spooky story, a Bigfoot footprint is 15 inches long. If you place 2 of those footprints heel to toe in a line, how many inches long is the line?",
+    "answer": "30",
+    "tags": [
+      "measurement",
+      "addition",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Pretend a Minecraft villager sells a map for 7 emeralds and a book for 9 emeralds. How many emeralds do you need to buy both?",
+    "answer": "16",
+    "tags": [
+      "addition",
+      "money",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is 10 more than 195?",
+    "choicesJson": [
+      "196",
+      "205",
+      "295",
+      "185"
+    ],
+    "answer": "205",
+    "tags": [
+      "addition",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 10 less than 305?",
+    "answer": "295",
+    "acceptedAnswers": [
+      "two hundred ninety-five"
+    ],
+    "tags": [
+      "subtraction",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "25 + __ = 60. What number goes in the blank?",
+    "answer": "35",
+    "tags": [
+      "addition",
+      "missing-number"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "__ - 18 = 30. What number goes in the blank?",
+    "answer": "48",
+    "tags": [
+      "subtraction",
+      "missing-number"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number sentence is in the same fact family as 8 + 7 = 15?",
+    "choicesJson": [
+      "15 + 7 = 22",
+      "8 - 7 = 1",
+      "7 + 7 = 14",
+      "15 - 7 = 8"
+    ],
+    "answer": "15 - 7 = 8",
+    "tags": [
+      "fact-families",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round each number to the nearest ten to estimate 29 + 52. About what is the sum?",
+    "choicesJson": [
+      "70",
+      "80",
+      "90",
+      "100"
+    ],
+    "answer": "80",
+    "tags": [
+      "estimation",
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "245 + 30 = ?",
+    "answer": "275",
+    "tags": [
+      "addition",
+      "three-digit"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "234 + 125 = ?",
+    "answer": "359",
+    "tags": [
+      "addition",
+      "three-digit"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "489 - 253 = ?",
+    "answer": "236",
+    "tags": [
+      "subtraction",
+      "three-digit"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mia has 15 stickers. Leo has 9 more stickers than Mia. How many stickers does Leo have?",
+    "answer": "24",
+    "tags": [
+      "addition",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Sam has 34 marbles. That is 12 more than Ava has. How many marbles does Ava have?",
+    "answer": "22",
+    "tags": [
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which pair of numbers adds up to 100?",
+    "choicesJson": [
+      "55 and 45",
+      "60 and 30",
+      "45 and 45",
+      "75 and 35"
+    ],
+    "answer": "55 and 45",
+    "tags": [
+      "addition",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "14 + 6 = 10 + __. What number goes in the blank?",
+    "answer": "10",
+    "tags": [
+      "equal-sign",
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is greater: 56 + 20 or 90 - 10?",
+    "choicesJson": [
+      "56 + 20",
+      "They are equal",
+      "90 - 10"
+    ],
+    "answer": "90 - 10",
+    "tags": [
+      "comparing",
+      "addition",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 20 + 35 + 15?",
+    "answer": "70",
+    "tags": [
+      "addition",
+      "three-addends"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which tool would you use to find out how heavy an apple is?",
+    "choicesJson": [
+      "A ruler",
+      "A clock",
+      "A thermometer",
+      "A scale"
+    ],
+    "answer": "A scale",
+    "tags": [
+      "measurement",
+      "tools"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many inches are in 1 foot?",
+    "choicesJson": [
+      "10",
+      "36",
+      "12",
+      "100"
+    ],
+    "answer": "12",
+    "tags": [
+      "measurement",
+      "length"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many feet are in 1 yard?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "measurement",
+      "length"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many centimeters are in 1 meter?",
+    "choicesJson": [
+      "100",
+      "10",
+      "12",
+      "1000"
+    ],
+    "answer": "100",
+    "tags": [
+      "measurement",
+      "length"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A ribbon is 45 cm long. You cut off 18 cm. How many cm are left?",
+    "answer": "27",
+    "tags": [
+      "measurement",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Tom's pet snake is 24 inches long. Nina's pet snake is 17 inches long. How many inches longer is Tom's snake?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "measurement",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which temperature is most likely on a hot summer day at the beach?",
+    "choicesJson": [
+      "32 degrees F",
+      "5 degrees F",
+      "90 degrees F"
+    ],
+    "answer": "90 degrees F",
+    "tags": [
+      "measurement",
+      "temperature"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pencil is 7 inches long. A crayon is 3 inches long. How many inches long are they when placed end to end?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "measurement",
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is longer: 1 foot or 1 yard?",
+    "choicesJson": [
+      "1 foot",
+      "They are the same length",
+      "1 yard"
+    ],
+    "answer": "1 yard",
+    "tags": [
+      "measurement",
+      "length"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time is 30 minutes after 4:15?",
+    "choicesJson": [
+      "5:15",
+      "4:45",
+      "4:30",
+      "4:50"
+    ],
+    "answer": "4:45",
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "School starts at 8:30 in the morning and ends at 3:30 in the afternoon. How many hours long is the school day?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven",
+      "7 hours"
+    ],
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many hours are in one whole day?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which time is most likely when you eat breakfast on a school day?",
+    "choicesJson": [
+      "7:00 p.m.",
+      "12:00 p.m.",
+      "7:00 a.m."
+    ],
+    "answer": "7:00 a.m.",
+    "tags": [
+      "time",
+      "am-pm"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What time is 1 hour and 15 minutes after 2:00?",
+    "answer": "3:15",
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your video game level takes 20 minutes. You start at 6:10. What time do you finish?",
+    "choicesJson": [
+      "6:30",
+      "6:20",
+      "7:10",
+      "6:50"
+    ],
+    "answer": "6:30",
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The short hand points to the 7 and the long hand points to the 6. What time is it?",
+    "choicesJson": [
+      "6:35",
+      "7:06",
+      "6:07",
+      "7:30"
+    ],
+    "answer": "7:30",
+    "tags": [
+      "time",
+      "clocks"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 3 dimes and 4 nickels. How many cents do you have?",
+    "answer": "50",
+    "tags": [
+      "money",
+      "coins"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group of coins is worth exactly 50 cents?",
+    "choicesJson": [
+      "4 dimes",
+      "1 quarter and 1 dime",
+      "2 quarters",
+      "3 dimes and 1 nickel"
+    ],
+    "answer": "2 quarters",
+    "tags": [
+      "money",
+      "coins"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A sticker costs 29 cents. How many cents do 2 stickers cost?",
+    "answer": "58",
+    "tags": [
+      "money",
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Lena has $5. She buys a toy for $3 and a book for $1. How many dollars does she have left?",
+    "answer": "1",
+    "acceptedAnswers": [
+      "$1",
+      "one"
+    ],
+    "tags": [
+      "money",
+      "multi-step"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A notebook costs $8 and a pen costs $2. How many dollars do they cost together?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "$10",
+      "ten"
+    ],
+    "tags": [
+      "money",
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is worth more: 3 dimes or 5 nickels?",
+    "choicesJson": [
+      "5 nickels",
+      "3 dimes",
+      "They are worth the same"
+    ],
+    "answer": "3 dimes",
+    "tags": [
+      "money",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pet shop has 28 fish. It sells 9 fish and then gets 15 new fish. How many fish does the shop have now?",
+    "answer": "34",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Maya read 18 pages on Monday and 24 pages on Tuesday. Her book has 60 pages. How many pages does she still have to read?",
+    "answer": "18",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ben has 12 stickers. Cara has 5 fewer stickers than Ben. How many stickers do Ben and Cara have together?",
+    "answer": "19",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bus has 45 riders. At the next stop, 18 riders get off. Which number sentence shows how many riders are still on the bus?",
+    "choicesJson": [
+      "45 - 18 = 27",
+      "45 + 18 = 63",
+      "45 + 27 = 72",
+      "27 - 18 = 9"
+    ],
+    "answer": "45 - 18 = 27",
+    "tags": [
+      "word-problem",
+      "number-sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pretend a creeper drops 3 gunpowder every time. How much gunpowder do you get from 4 creepers?",
+    "choicesJson": [
+      "7",
+      "10",
+      "12",
+      "9"
+    ],
+    "answer": "12",
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "One Minecraft crafting table needs 4 planks. How many planks do you need for 5 crafting tables?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You skip count by 2s: 2, 4, 6, 8, and so on until you say 20. How many numbers did you say?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 10s to find 6 x 10.",
+    "choicesJson": [
+      "16",
+      "60",
+      "50",
+      "600"
+    ],
+    "answer": "60",
+    "tags": [
+      "skip-counting",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "12 cookies are shared equally by 3 friends. How many cookies does each friend get?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "division",
+      "sharing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which addition sentence shows 4 groups of 3?",
+    "choicesJson": [
+      "4 + 3",
+      "3 + 3 + 3",
+      "3 + 3 + 3 + 3",
+      "4 + 4"
+    ],
+    "answer": "3 + 3 + 3 + 3",
+    "tags": [
+      "multiplication",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each stage of a Roblox obby has 5 coins to collect. How many coins are in 6 stages?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "15 cards are dealt equally to 3 players. That is 15 ÷ 3. How many cards does each player get?",
+    "choicesJson": [
+      "12",
+      "4",
+      "5",
+      "18"
+    ],
+    "answer": "5",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Share 15 grapes equally among 5 kids. How many grapes does each kid get?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "division",
+      "sharing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A friendly alien has 3 eyes. How many eyes do 5 aliens have in all?",
+    "choicesJson": [
+      "8",
+      "15",
+      "12",
+      "10"
+    ],
+    "answer": "15",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pizza is cut into 8 slices. How many slices are there in 2 pizzas?",
+    "answer": "16",
+    "acceptedAnswers": [
+      "sixteen"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "18 stickers are put into 2 equal groups. How many stickers are in each group?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "nine"
+    ],
+    "tags": [
+      "division",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number sentence shows 5 groups of 2?",
+    "choicesJson": [
+      "5 + 2 = 7",
+      "5 x 2 = 10",
+      "2 x 2 = 4",
+      "5 - 2 = 3"
+    ],
+    "answer": "5 x 2 = 10",
+    "tags": [
+      "multiplication",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cat has 4 paws. How many paws do 6 cats have in all?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Fortnite squad has 4 players. How many players are there in 5 squads?",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A dime is worth 10 cents. How many cents are 7 dimes worth?",
+    "answer": "70",
+    "acceptedAnswers": [
+      "seventy"
+    ],
+    "tags": [
+      "skip-counting",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A silly SCP-style lab puts 24 containment boxes into 4 equal rows. How many boxes are in each row?",
+    "choicesJson": [
+      "6",
+      "8",
+      "20",
+      "28"
+    ],
+    "answer": "6",
+    "tags": [
+      "division",
+      "equal-groups",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A kid leaves 2 muddy footprints on each of 9 steps. How many muddy footprints are there in all?",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "32 bats sleep in Dracula's cave. Each perch holds 4 bats. How many perches are full?",
+    "choicesJson": [
+      "28",
+      "7",
+      "8",
+      "9"
+    ],
+    "answer": "8",
+    "tags": [
+      "division",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which multiplication sentence is the same as 6 + 6 + 6 + 6 + 6?",
+    "choicesJson": [
+      "5 x 6",
+      "6 x 6",
+      "5 x 5",
+      "6 x 4"
+    ],
+    "answer": "5 x 6",
+    "tags": [
+      "multiplication",
+      "repeated-addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A nickel is worth 5 cents. How many cents are 7 nickels worth?",
+    "answer": "35",
+    "acceptedAnswers": [
+      "thirty-five",
+      "thirty five"
+    ],
+    "tags": [
+      "skip-counting",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sam has 16 carrots to share equally with 4 rabbits. How many carrots does each rabbit get?",
+    "choicesJson": [
+      "4",
+      "12",
+      "3",
+      "5"
+    ],
+    "answer": "4",
+    "tags": [
+      "division",
+      "sharing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft chest has 9 diamonds. A second chest also has 9 diamonds. How many diamonds are in both chests?",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "addition",
+      "doubles",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 4s: 4, 8, 12, __?",
+    "choicesJson": [
+      "14",
+      "20",
+      "15",
+      "16"
+    ],
+    "answer": "16",
+    "tags": [
+      "skip-counting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An octopus has 8 arms. How many arms do 3 octopuses have in all?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "14 kids split into 2 equal teams. How many kids are on each team?",
+    "choicesJson": [
+      "12",
+      "7",
+      "8",
+      "6"
+    ],
+    "answer": "7",
+    "tags": [
+      "division",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Frankenstein's lab has 3 shelves. Each shelf holds 6 jars. How many jars are there in all?",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "There are 4 bags with 2 oranges in each bag. Which number sentence tells how many oranges there are in all?",
+    "choicesJson": [
+      "4 - 2 = 2",
+      "4 x 2 = 8",
+      "4 + 2 = 6",
+      "2 x 2 = 4"
+    ],
+    "answer": "4 x 2 = 8",
+    "tags": [
+      "multiplication",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A painter needs 30 feet of tape. Each roll has 10 feet of tape. How many rolls does the painter need?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "division",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has 4 equal sides and 4 square corners?",
+    "choicesJson": [
+      "Triangle",
+      "Hexagon",
+      "Circle",
+      "Square"
+    ],
+    "answer": "Square",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many corners does a cube have?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A party hat is shaped like which 3D shape?",
+    "choicesJson": [
+      "Cube",
+      "Sphere",
+      "Cone",
+      "Cylinder"
+    ],
+    "answer": "Cone",
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A shape has 6 sides. What is it called?",
+    "choicesJson": [
+      "Pentagon",
+      "Octagon",
+      "Triangle",
+      "Hexagon"
+    ],
+    "answer": "Hexagon",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A quadrilateral is a shape with 4 sides. Which shape is a quadrilateral?",
+    "choicesJson": [
+      "Rectangle",
+      "Triangle",
+      "Pentagon",
+      "Hexagon"
+    ],
+    "answer": "Rectangle",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A square is a quadrilateral. How many sides does every quadrilateral have?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You cut a square from one corner to the opposite corner in a straight line. What two shapes do you get?",
+    "choicesJson": [
+      "Two triangles",
+      "Two squares",
+      "Two circles",
+      "Two pentagons"
+    ],
+    "answer": "Two triangles",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A rectangle is split into 3 equal parts. What do we call each part?",
+    "choicesJson": [
+      "A half",
+      "A third",
+      "A whole",
+      "A fourth"
+    ],
+    "answer": "A third",
+    "tags": [
+      "geometry",
+      "equal-parts"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You put 2 identical square tiles side by side with no gaps. Which shape do you make?",
+    "choicesJson": [
+      "Circle",
+      "Rectangle",
+      "Triangle",
+      "Hexagon"
+    ],
+    "answer": "Rectangle",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A gift box is shaped like a cube. How many square faces does the box have?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a creepypasta story, a tall faceless figure stands beside 4 triangle-shaped warning signs. How many sides do the signs have in all?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "geometry",
+      "multiplication",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many corners do 3 rectangles have in all?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "geometry",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a 3D shape?",
+    "choicesJson": [
+      "Square",
+      "Cube",
+      "Triangle",
+      "Circle"
+    ],
+    "answer": "Cube",
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A can of soup is shaped like which 3D shape?",
+    "choicesJson": [
+      "Cone",
+      "Cube",
+      "Cylinder",
+      "Sphere"
+    ],
+    "answer": "Cylinder",
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has 2 more sides than a square?",
+    "choicesJson": [
+      "Hexagon",
+      "Pentagon",
+      "Triangle",
+      "Octagon"
+    ],
+    "answer": "Hexagon",
+    "tags": [
+      "geometry",
+      "shapes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pie is cut into 4 equal parts. What do we call each part?",
+    "choicesJson": [
+      "A half",
+      "A third",
+      "A fourth",
+      "A whole"
+    ],
+    "answer": "A fourth",
+    "tags": [
+      "geometry",
+      "equal-parts"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangle is covered with 2 rows of 5 square tiles. How many tiles cover the rectangle?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "geometry",
+      "arrays"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A floor has 3 rows of square tiles with 6 tiles in each row. How many tiles are on the floor?",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "geometry",
+      "arrays"
+    ]
+  }
 ]

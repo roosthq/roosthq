@@ -1,0 +1,1813 @@
+[
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/emu.webp",
+    "learning/img/chicken.webp",
+    "learning/img/owl.webp",
+    "learning/img/bald-eagle.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/owl.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Harbor seal",
+   "Otter",
+   "Chimpanzee",
+   "Goat"
+  ],
+  "answer": "Goat",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/goat.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Squirrel",
+   "Jaguar",
+   "Kangaroo",
+   "Cat"
+  ],
+  "answer": "Cat",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/cat.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Cheetah",
+   "Monkey",
+   "Skunk",
+   "Brown bear"
+  ],
+  "answer": "Brown bear",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/brown-bear.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "White-tailed deer",
+   "African elephant",
+   "Monkey",
+   "Giraffe"
+  ],
+  "answer": "Giraffe",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/giraffe.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/gorilla.webp",
+    "learning/img/lion.webp",
+    "learning/img/giraffe.webp",
+    "learning/img/rabbit.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/lion.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/goat.webp",
+    "learning/img/lion.webp",
+    "learning/img/giant-panda.webp",
+    "learning/img/polar-bear.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/goat.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Owl",
+   "Swan",
+   "Peacock",
+   "Duck"
+  ],
+  "answer": "Owl",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/owl.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Duck",
+   "Flamingo",
+   "Great blue heron",
+   "Crow"
+  ],
+  "answer": "Duck",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/duck.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Emu",
+   "Penguin",
+   "Flamingo",
+   "Hummingbird"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/penguin.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Cat",
+   "Red fox",
+   "Horse",
+   "Polar bear"
+  ],
+  "answer": "Horse",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/horse.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/zebra.webp",
+    "learning/img/brown-bear.webp",
+    "learning/img/lion.webp",
+    "learning/img/camel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/brown-bear.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/peacock.webp",
+    "learning/img/chicken.webp",
+    "learning/img/penguin.webp",
+    "learning/img/flamingo.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/penguin.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/hummingbird.webp",
+    "learning/img/peacock.webp",
+    "learning/img/chicken.webp",
+    "learning/img/woodpecker.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/chicken.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rabbit.webp",
+    "learning/img/hedgehog.webp",
+    "learning/img/tiger.webp",
+    "learning/img/cougar.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/tiger.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/otter.webp",
+    "learning/img/donkey.webp",
+    "learning/img/horse.webp",
+    "learning/img/chimpanzee.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/horse.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/cougar.webp",
+    "learning/img/cow.webp",
+    "learning/img/sheep.webp",
+    "learning/img/walrus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/cow.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/robin.webp",
+    "learning/img/macaw.webp",
+    "learning/img/woodpecker.webp",
+    "learning/img/swan.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/robin.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Ring-tailed lemur",
+   "Tiger",
+   "Beaver",
+   "Armadillo"
+  ],
+  "answer": "Tiger",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/tiger.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/otter.webp",
+    "learning/img/giraffe.webp",
+    "learning/img/zebra.webp",
+    "learning/img/red-fox.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/giraffe.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Cow",
+   "Armadillo",
+   "Horse",
+   "Sloth"
+  ],
+  "answer": "Cow",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/cow.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/grasshopper.webp",
+    "learning/img/monarch-butterfly.webp",
+    "learning/img/honeybee.webp",
+    "learning/img/firefly.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/honeybee.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flamingo.webp",
+    "learning/img/robin.webp",
+    "learning/img/duck.webp",
+    "learning/img/great-blue-heron.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/duck.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/armadillo.webp",
+    "learning/img/bat.webp",
+    "learning/img/tiger.webp",
+    "learning/img/dog.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/dog.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reindeer.webp",
+    "learning/img/chimpanzee.webp",
+    "learning/img/donkey.webp",
+    "learning/img/cat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/cat.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/orb-weaver-spider.webp",
+    "learning/img/toad.webp",
+    "learning/img/frog.webp",
+    "learning/img/toucan.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/frog.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "American robin",
+   "Great blue heron",
+   "Turkey",
+   "Owl"
+  ],
+  "answer": "American robin",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/robin.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Dog",
+   "Hedgehog",
+   "Raccoon",
+   "Reindeer"
+  ],
+  "answer": "Dog",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/dog.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Ladybug",
+   "Grasshopper",
+   "Honeybee",
+   "Dragonfly"
+  ],
+  "answer": "Honeybee",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/honeybee.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Chimpanzee",
+   "Rhinoceros",
+   "Squirrel",
+   "Sheep"
+  ],
+  "answer": "Sheep",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/sheep.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Toco toucan",
+   "Turkey",
+   "Chicken",
+   "Ostrich"
+  ],
+  "answer": "Chicken",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/chicken.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/polar-bear.webp",
+    "learning/img/red-fox.webp",
+    "learning/img/giant-panda.webp",
+    "learning/img/sheep.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/sheep.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Frog",
+   "Snail",
+   "Capybara",
+   "Toad"
+  ],
+  "answer": "Frog",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/frog.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Meerkat",
+   "Lion",
+   "Squirrel",
+   "Rhinoceros"
+  ],
+  "answer": "Lion",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/lion.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a frog?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/capybara.webp",
+    "learning/img/toad.webp",
+    "learning/img/snail.webp",
+    "learning/img/frog.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Goat",
+   "Otter",
+   "Chimpanzee",
+   "Harbor seal"
+  ],
+  "answer": "Goat",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/goat.webp",
+   "alt": "A white goat with curved horns and a beard lying on green grass in the sun."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a monarch butterfly?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/ladybug.webp",
+    "learning/img/monarch-butterfly.webp",
+    "learning/img/firefly.webp",
+    "learning/img/praying-mantis.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a rabbit?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/cougar.webp",
+    "learning/img/cow.webp",
+    "learning/img/raccoon.webp",
+    "learning/img/rabbit.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Monarch butterfly",
+   "Firefly",
+   "Praying mantis",
+   "Ladybug"
+  ],
+  "answer": "Monarch butterfly",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/monarch-butterfly.webp",
+   "alt": "An orange and black monarch butterfly with white spots rests on an orange flower."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Cat",
+   "Polar bear",
+   "Horse",
+   "Red fox"
+  ],
+  "answer": "Horse",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/horse.webp",
+   "alt": "A gray-brown horse with a dark mane and tail, wearing a teal halter, standing sideways in a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Zebra",
+   "Meerkat",
+   "Polar bear",
+   "Horse"
+  ],
+  "answer": "Zebra",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/zebra.webp",
+   "alt": "A plains zebra standing in dry grass with a blue sky behind it, showing its black and white stripes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a bottlenose dolphin?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/lion.webp",
+    "learning/img/moose.webp",
+    "learning/img/dog.webp",
+    "learning/img/bottlenose-dolphin.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a honeybee?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/honeybee.webp",
+    "learning/img/grasshopper.webp",
+    "learning/img/ladybug.webp",
+    "learning/img/dragonfly.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Cricket",
+   "Honeybee",
+   "Ladybug",
+   "Firefly"
+  ],
+  "answer": "Ladybug",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/ladybug.webp",
+   "alt": "A red seven-spot ladybug with black spots crawls on a white daisy."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a monkey?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/orangutan.webp",
+    "learning/img/monkey.webp",
+    "learning/img/cheetah.webp",
+    "learning/img/dog.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a giraffe?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/giraffe.webp",
+    "learning/img/african-elephant.webp",
+    "learning/img/white-tailed-deer.webp",
+    "learning/img/monkey.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Cat",
+   "Squirrel",
+   "Jaguar",
+   "Kangaroo"
+  ],
+  "answer": "Cat",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/cat.webp",
+   "alt": "A black and white cat lying on the back of a brown couch in front of a red patterned rug."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an American robin?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/robin.webp",
+    "learning/img/turkey.webp",
+    "learning/img/owl.webp",
+    "learning/img/great-blue-heron.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a penguin?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/hummingbird.webp",
+    "learning/img/flamingo.webp",
+    "learning/img/emu.webp",
+    "learning/img/penguin.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a dog?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/hedgehog.webp",
+    "learning/img/reindeer.webp",
+    "learning/img/raccoon.webp",
+    "learning/img/dog.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Donkey",
+   "Horse",
+   "Squirrel",
+   "Sheep"
+  ],
+  "answer": "Squirrel",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/squirrel.webp",
+   "alt": "A close-up of a gray squirrel's face and chest with long whiskers and bright dark eyes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a lion?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rhinoceros.webp",
+    "learning/img/meerkat.webp",
+    "learning/img/squirrel.webp",
+    "learning/img/lion.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Ostrich",
+   "Turkey",
+   "Toco toucan",
+   "Chicken"
+  ],
+  "answer": "Chicken",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/chicken.webp",
+   "alt": "Close-up of a white and gray rooster's head with a bright red comb and wattle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Great white shark",
+   "Goldfish",
+   "Stingray",
+   "Clownfish"
+  ],
+  "answer": "Goldfish",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/goldfish.webp",
+   "alt": "A bright orange goldfish swims close to the camera with other goldfish behind it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Tiger",
+   "Beaver",
+   "Ring-tailed lemur",
+   "Armadillo"
+  ],
+  "answer": "Tiger",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/tiger.webp",
+   "alt": "A Bengal tiger walking through dry grass and shrubs while looking toward the camera, showing its orange coat with black stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Armadillo",
+   "Sloth",
+   "Cow",
+   "Horse"
+  ],
+  "answer": "Cow",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/cow.webp",
+   "alt": "A black and white cow standing in a green field full of yellow dandelions."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a sheep?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rhinoceros.webp",
+    "learning/img/sheep.webp",
+    "learning/img/squirrel.webp",
+    "learning/img/chimpanzee.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Duck",
+   "Flamingo",
+   "Crow",
+   "Great blue heron"
+  ],
+  "answer": "Duck",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/duck.webp",
+   "alt": "A male mallard duck with a shiny green head and yellow bill floating on calm water."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a brown bear?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/skunk.webp",
+    "learning/img/cheetah.webp",
+    "learning/img/monkey.webp",
+    "learning/img/brown-bear.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a ladybug?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/honeybee.webp",
+    "learning/img/ladybug.webp",
+    "learning/img/cricket.webp",
+    "learning/img/firefly.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a pig?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/pig.webp",
+    "learning/img/chimpanzee.webp",
+    "learning/img/rabbit.webp",
+    "learning/img/african-elephant.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a goldfish?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/great-white-shark.webp",
+    "learning/img/goldfish.webp",
+    "learning/img/stingray.webp",
+    "learning/img/clownfish.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Duck",
+   "Swan",
+   "Peacock",
+   "Owl"
+  ],
+  "answer": "Owl",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/owl.webp",
+   "alt": "A great horned owl perched on an evergreen branch, looking toward the camera with bright yellow eyes and a white throat patch."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a zebra?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/horse.webp",
+    "learning/img/polar-bear.webp",
+    "learning/img/meerkat.webp",
+    "learning/img/zebra.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Tokay gecko",
+   "Alligator",
+   "Turtle",
+   "Chameleon"
+  ],
+  "answer": "Turtle",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/turtle.webp",
+   "alt": "A red-eared slider turtle floating in shallow water with its head raised and its shell showing."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Dog",
+   "Moose",
+   "Lion",
+   "Bottlenose dolphin"
+  ],
+  "answer": "Bottlenose dolphin",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/bottlenose-dolphin.webp",
+   "alt": "A bottlenose dolphin leaping out of the water through the foamy wake of a boat."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Rabbit",
+   "Cougar",
+   "Cow",
+   "Raccoon"
+  ],
+  "answer": "Rabbit",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/rabbit.webp",
+   "alt": "A young wild European rabbit sitting side-on on dry grass with its ears up."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Dog",
+   "Orangutan",
+   "Cheetah",
+   "Monkey"
+  ],
+  "answer": "Monkey",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/monkey.webp",
+   "alt": "A brown rhesus macaque monkey sitting on short grass and looking toward the camera."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Bat",
+   "African elephant",
+   "Otter",
+   "Beaver"
+  ],
+  "answer": "African elephant",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/african-elephant.webp",
+   "alt": "An African elephant with big ears and two white tusks walking toward the camera through green bushes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a turtle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/alligator.webp",
+    "learning/img/turtle.webp",
+    "learning/img/gecko.webp",
+    "learning/img/chameleon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Pig",
+   "Rabbit",
+   "Chimpanzee",
+   "African elephant"
+  ],
+  "answer": "Pig",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/pig.webp",
+   "alt": "A pink pig standing in dug-up dark soil in front of a wooden fence."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an African elephant?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/african-elephant.webp",
+    "learning/img/otter.webp",
+    "learning/img/beaver.webp",
+    "learning/img/bat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a squirrel?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/sheep.webp",
+    "learning/img/squirrel.webp",
+    "learning/img/donkey.webp",
+    "learning/img/horse.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ }
+]

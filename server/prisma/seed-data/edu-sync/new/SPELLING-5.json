@@ -1,0 +1,1449 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pillagers are raiding the village! Which word completes the sentence? 'They want to ___ all of the villagers' emeralds.'",
+  "choicesJson": [
+   "steil",
+   "steel",
+   "steal"
+  ],
+  "answer": "steal",
+  "tags": [
+   "homophones",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the word that fits: 'Nessie flicked her long ___ and splashed the tour boat.'",
+  "choicesJson": [
+   "taile",
+   "tail",
+   "tale"
+  ],
+  "answer": "tail",
+  "tags": [
+   "homophones",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Choose the correct word: 'The werewolves howled at the moon, and ___ howls echoed across the hills.'",
+  "choicesJson": [
+   "there",
+   "their",
+   "they're"
+  ],
+  "answer": "their",
+  "tags": [
+   "homophones",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word completes the sentence? '___ going to start the boss fight without us!'",
+  "choicesJson": [
+   "There",
+   "Their",
+   "They're"
+  ],
+  "answer": "They're",
+  "tags": [
+   "homophones",
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which pair of words fills both blanks? 'I think ___ ready for the final boss, but ___ sword is still made of wood.'",
+  "choicesJson": [
+   "your ... you're",
+   "your ... your",
+   "you're ... your",
+   "you're ... you're"
+  ],
+  "answer": "you're ... your",
+  "tags": [
+   "homophones",
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which pair of words fills both blanks? 'The robot lost ___ battery, and now ___ going to shut down.'",
+  "choicesJson": [
+   "it's ... it's",
+   "its ... it's",
+   "its ... its",
+   "it's ... its"
+  ],
+  "answer": "its ... it's",
+  "tags": [
+   "homophones",
+   "contractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word that completes the sentence: 'Can my little brother join our squad, ___?' (It means 'also'.)",
+  "choicesJson": null,
+  "answer": "too",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Turn up your headphones so you can ___ the footsteps coming from behind you. Which word fits?",
+  "choicesJson": [
+   "here",
+   "hair",
+   "hear"
+  ],
+  "answer": "hear",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word completes the sentence? 'I can't decide ___ to play an obby or a tycoon game on Roblox.'",
+  "choicesJson": [
+   "wheather",
+   "weather",
+   "whether"
+  ],
+  "answer": "whether",
+  "tags": [
+   "commonly-confused",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Riding down the steep hill, Mia squeezed the ___ on her bike to slow down. Which word fits?",
+  "choicesJson": [
+   "braik",
+   "break",
+   "brake"
+  ],
+  "answer": "brake",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Choose the correct word: 'The school ___ announced that the field trip was canceled because of the storm.'",
+  "choicesJson": [
+   "principle",
+   "princepal",
+   "principal"
+  ],
+  "answer": "principal",
+  "tags": [
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "SCP-173 is a statue that stays ___ whenever anyone is looking at it. Which word fits?",
+  "choicesJson": [
+   "stationairy",
+   "stationery",
+   "stationary"
+  ],
+  "answer": "stationary",
+  "tags": [
+   "commonly-confused",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the word that fits: 'The old bridge cracked under the ___ of the huge truck.'",
+  "choicesJson": [
+   "wate",
+   "weight",
+   "wait"
+  ],
+  "answer": "weight",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word that sounds like 'peace' and completes the sentence: 'Can I have one more ___ of pizza?'",
+  "choicesJson": null,
+  "answer": "piece",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word completes the sentence? 'Please ___ your name at the top of your paper.'",
+  "choicesJson": [
+   "right",
+   "write",
+   "rite"
+  ],
+  "answer": "write",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Choose the correct word: 'Students are not ___ to run in the hallway.'",
+  "choicesJson": [
+   "aloud",
+   "allowed",
+   "alowed"
+  ],
+  "answer": "allowed",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word that completes the sentence: 'A brave ___ in shining armor fought the dragon.' (Hint: it begins with a silent k.)",
+  "choicesJson": null,
+  "answer": "knight",
+  "tags": [
+   "homophones",
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "To bake the cake, Mom mixed eggs, sugar, and ___. Which word fits?",
+  "choicesJson": [
+   "flowre",
+   "flour",
+   "flower"
+  ],
+  "answer": "flour",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word completes the sentence? 'After dinner, we had ice cream with sprinkles for ___.'",
+  "choicesJson": [
+   "desert",
+   "desart",
+   "dessert"
+  ],
+  "answer": "dessert",
+  "tags": [
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word completes the question? '___ turn is it to pick the next level?'",
+  "choicesJson": [
+   "Who's",
+   "Whose",
+   "Whos"
+  ],
+  "answer": "Whose",
+  "tags": [
+   "homophones",
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the /f/ sound spelled 'ph'?",
+  "choicesJson": [
+   "pillow",
+   "pumpkin",
+   "phantom",
+   "pistol"
+  ],
+  "answer": "phantom",
+  "tags": [
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a short e sound, like in 'pet'?",
+  "choicesJson": [
+   "bread",
+   "beast",
+   "bean",
+   "beach"
+  ],
+  "answer": "bread",
+  "tags": [
+   "vowel-patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same vowel sound as 'bird'?",
+  "choicesJson": [
+   "corn",
+   "barn",
+   "fear",
+   "fern"
+  ],
+  "answer": "fern",
+  "tags": [
+   "vowel-patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters complete the word for the room where you cook? ki__en",
+  "choicesJson": [
+   "tsh",
+   "tch",
+   "ch",
+   "sh"
+  ],
+  "answer": "tch",
+  "tags": [
+   "word-patterns",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the green Minecraft mob that sneaks up on you, hisses, and explodes. The long e sound in its name is spelled 'ee'.",
+  "choicesJson": null,
+  "answer": "creeper",
+  "tags": [
+   "spell-from-clue",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the scaly, fire-breathing creature that guards treasure in many fairy tales (6 letters, starts with 'dr').",
+  "choicesJson": null,
+  "answer": "dragon",
+  "tags": [
+   "spell-from-clue",
+   "blends"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a groaning, shuffling monster that shows up at night in many video games (6 letters, starts with z).",
+  "choicesJson": null,
+  "answer": "zombie",
+  "tags": [
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the sparkling gem that is the hardest natural material on Earth (7 letters, starts with d).",
+  "choicesJson": null,
+  "answer": "diamond",
+  "tags": [
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the yellow electric Pokemon with red cheeks and a lightning-bolt tail. It ends with the digraph 'ch' plus 'u'.",
+  "choicesJson": null,
+  "answer": "pikachu",
+  "tags": [
+   "spell-from-clue",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Dracula is famous for his long, pointy teeth. Spell the word for a vampire's pointy teeth (5 letters, ends with 's').",
+  "choicesJson": null,
+  "answer": "fangs",
+  "tags": [
+   "spell-from-clue",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the tall tube on a roof that lets smoke from a fireplace escape (7 letters, starts with the digraph 'ch').",
+  "choicesJson": null,
+  "answer": "chimney",
+  "tags": [
+   "spell-from-clue",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the bumpy joint on your finger where it bends (7 letters, begins with a silent k).",
+  "choicesJson": null,
+  "answer": "knuckle",
+  "tags": [
+   "spell-from-clue",
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Fortnite, the last player standing celebrates on top of the leaderboard. Spell the word that means 'a win' (7 letters, starts with v).",
+  "choicesJson": null,
+  "answer": "victory",
+  "tags": [
+   "spell-from-clue",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the flat piece of armor a knight holds up to block attacks (6 letters, starts with the digraph 'sh').",
+  "choicesJson": null,
+  "answer": "shield",
+  "tags": [
+   "spell-from-clue",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the gold, jewels, and coins that pirates bury on an island (8 letters, starts with 'tr').",
+  "choicesJson": null,
+  "answer": "treasure",
+  "tags": [
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the loud rumbling noise you hear after lightning (7 letters, starts with the digraph 'th').",
+  "choicesJson": null,
+  "answer": "thunder",
+  "tags": [
+   "spell-from-clue",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these words begins with a silent k?",
+  "choicesJson": [
+   "knot",
+   "kettle",
+   "kitchen",
+   "kick"
+  ],
+  "answer": "knot",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a tiny garden statue with a pointy red hat and a white beard. It begins with a silent g.",
+  "choicesJson": null,
+  "answer": "gnome",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent b?",
+  "choicesJson": [
+   "bubble",
+   "number",
+   "rabbit",
+   "climb"
+  ],
+  "answer": "climb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the body part where your hand joins your arm. It begins with a silent w.",
+  "choicesJson": null,
+  "answer": "wrist",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent t?",
+  "choicesJson": [
+   "plant",
+   "table",
+   "castle",
+   "tent"
+  ],
+  "answer": "castle",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A friendly ghost floats down the hallway. Which letter is silent in the word 'ghost'?",
+  "choicesJson": [
+   "g",
+   "h",
+   "o",
+   "s"
+  ],
+  "answer": "h",
+  "tags": [
+   "silent-letters",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word that means 'to protect or watch over'. It rhymes with 'yard' and has a silent u.",
+  "choicesJson": null,
+  "answer": "guard",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent s?",
+  "choicesJson": [
+   "desk",
+   "mist",
+   "island",
+   "sand"
+  ],
+  "answer": "island",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the slip of paper that proves you paid for something at a store. It has a silent p.",
+  "choicesJson": null,
+  "answer": "receipt",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the tool with two blades that cuts paper. It has a silent c.",
+  "choicesJson": null,
+  "answer": "scissors",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to pay attention to a sound'. It has a silent t.",
+  "choicesJson": null,
+  "answer": "listen",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the weapon with a long blade that a knight carries. It has a silent w.",
+  "choicesJson": null,
+  "answer": "sword",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the season between summer and winter. It has a silent n at the end.",
+  "choicesJson": null,
+  "answer": "autumn",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent l?",
+  "choicesJson": [
+   "collar",
+   "candle",
+   "calf",
+   "camel"
+  ],
+  "answer": "calf",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I heard footsteps behind me, but I ___ it was my dog. Which spelling completes the sentence?",
+  "choicesJson": [
+   "thought",
+   "thot",
+   "thougt",
+   "thaught"
+  ],
+  "answer": "thought",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter completes the word 'beaut_ful'?",
+  "choicesJson": [
+   "e",
+   "a",
+   "y",
+   "i"
+  ],
+  "answer": "i",
+  "tags": [
+   "sight-words",
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'as much as you need'. It rhymes with 'stuff'.",
+  "choicesJson": null,
+  "answer": "enough",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Every Roblox obby has a ___ set of jumps. Spell the word that means 'not the same'. It has nine letters and starts with 'diff'.",
+  "choicesJson": null,
+  "answer": "different",
+  "tags": [
+   "sight-words",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is misspelled in this sentence? 'Every Fortnite squad hopes to recieve a Victory Royale, but only one team can win.'",
+  "choicesJson": [
+   "recieve",
+   "squad",
+   "Every",
+   "team"
+  ],
+  "answer": "recieve",
+  "tags": [
+   "sight-words",
+   "proofreading",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Yesterday I ___ a wild Pikachu. Spell the past tense of the word 'catch'.",
+  "choicesJson": null,
+  "answer": "caught",
+  "tags": [
+   "sight-words",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Steve walked ___ the Nether portal. Spell the word that means 'in one side and out the other'. It has seven letters.",
+  "choicesJson": null,
+  "answer": "through",
+  "tags": [
+   "sight-words",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to think something is true'. It has seven letters and is spelled with 'ie'.",
+  "choicesJson": null,
+  "answer": "believe",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter completes the word 'spe_ial'?",
+  "choicesJson": [
+   "k",
+   "t",
+   "c",
+   "s"
+  ],
+  "answer": "c",
+  "tags": [
+   "sight-words",
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Rainbow Road is my ___ Mario Kart track. Spell the word that means 'liked the best'. It starts with 'fav'.",
+  "choicesJson": null,
+  "answer": "favorite",
+  "acceptedAnswers": [
+   "favourite"
+  ],
+  "tags": [
+   "sight-words",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'most of the time'. It starts with 'usu' and ends with 'ally'.",
+  "choicesJson": null,
+  "answer": "usually",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has exactly four syllables?",
+  "choicesJson": [
+   "vampire",
+   "alligator",
+   "ghost",
+   "zombie"
+  ],
+  "answer": "alligator",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Abominable Snowman is a legendary creature. How many syllables are in the word 'abominable'?",
+  "choicesJson": [
+   "3",
+   "4",
+   "6",
+   "5"
+  ],
+  "answer": "5",
+  "tags": [
+   "syllables",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which choice splits the word 'skeleton' into its syllables correctly?",
+  "choicesJson": [
+   "sk-ele-ton",
+   "ske-let-on",
+   "skelet-on",
+   "skel-e-ton"
+  ],
+  "answer": "skel-e-ton",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put the two words together to spell the one word for a place where ghosts like to hang out in spooky stories: grave + yard.",
+  "choicesJson": null,
+  "answer": "graveyard",
+  "tags": [
+   "word-building",
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'were' and 'wolf' together to spell the name of the monster that turns into a wolf under a full moon.",
+  "choicesJson": null,
+  "answer": "werewolf",
+  "tags": [
+   "word-building",
+   "compound-words",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter completes the monster name 'Fran_enstein'?",
+  "choicesJson": [
+   "k",
+   "c",
+   "q",
+   "g"
+  ],
+  "answer": "k",
+  "tags": [
+   "missing-letters",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters complete the word 'sp__ky', meaning creepy in a fun way, like a haunted house?",
+  "choicesJson": [
+   "oo",
+   "oa",
+   "uu",
+   "ou"
+  ],
+  "answer": "oo",
+  "tags": [
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters complete the word 'te__ible'?",
+  "choicesJson": [
+   "r",
+   "rr",
+   "rl",
+   "rrr"
+  ],
+  "answer": "rr",
+  "tags": [
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter completes the word 'obs_acle', as in the jumps and spinning bars in a Roblox obby?",
+  "choicesJson": [
+   "p",
+   "d",
+   "t",
+   "k"
+  ],
+  "answer": "t",
+  "tags": [
+   "missing-letters",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'mine' to finish the sentence: 'I spent all night ___ for diamonds in Minecraft.' Spell the new word.",
+  "choicesJson": null,
+  "answer": "mining",
+  "tags": [
+   "word-building",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'hide' to finish the sentence: 'The cat is ___ under the bed.' Spell the new word.",
+  "choicesJson": null,
+  "answer": "hiding",
+  "tags": [
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'drop' to finish the sentence: 'A supply crate is ___ from the sky.' Spell the new word.",
+  "choicesJson": null,
+  "answer": "dropping",
+  "tags": [
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ed to 'tag' to finish the sentence: 'In the game of tag, Maya was ___ by her brother.' Spell the new word.",
+  "choicesJson": null,
+  "answer": "tagged",
+  "tags": [
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Take the prefix 'un-' and the suffix '-able' off 'unbeatable'. Spell the base word that is left.",
+  "choicesJson": null,
+  "answer": "beat",
+  "tags": [
+   "word-building",
+   "base-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word can you spell using only the letters in 'creeper'? Each letter can be used only as many times as it appears.",
+  "choicesJson": [
+   "cheer",
+   "pepper",
+   "peer",
+   "ripe"
+  ],
+  "answer": "peer",
+  "tags": [
+   "word-building",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Change the y to i and add -ed to 'try' to finish the sentence: 'She ___ three times to beat the boss.' Spell the new word.",
+  "choicesJson": null,
+  "answer": "tried",
+  "tags": [
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Three werewolves howled at the moon. What is the singular (one) form of 'werewolves'?",
+  "choicesJson": null,
+  "answer": "werewolf",
+  "tags": [
+   "plurals",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, five ___ chased Steve across the plains at night. Which is the correct plural of 'zombie'?",
+  "choicesJson": [
+   "zombys",
+   "zombies",
+   "zombes",
+   "zombieies"
+  ],
+  "answer": "zombies",
+  "tags": [
+   "plurals",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A shark grows thousands of new ___ during its life. Spell the plural of 'tooth'.",
+  "choicesJson": null,
+  "answer": "teeth",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct plural of 'city'?",
+  "choicesJson": [
+   "cityes",
+   "citis",
+   "citys",
+   "cities"
+  ],
+  "answer": "cities",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A farmer dug up six ___ from the field. Spell the plural of 'potato'.",
+  "choicesJson": null,
+  "answer": "potatoes",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these words is spelled exactly the same in the singular and the plural?",
+  "choicesJson": [
+   "sheep",
+   "wolf",
+   "goose",
+   "mouse"
+  ],
+  "answer": "sheep",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which plural is made by just adding -s, because a vowel comes right before the final o?",
+  "choicesJson": [
+   "radios",
+   "heroes",
+   "tomatoes",
+   "potatoes"
+  ],
+  "answer": "radios",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A cat is said to have nine ___. Which is the correct plural of 'life'?",
+  "choicesJson": [
+   "lives",
+   "lifves",
+   "lifs",
+   "lifes"
+  ],
+  "answer": "lives",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The library has long wooden ___ full of books. Spell the plural of 'shelf'.",
+  "choicesJson": null,
+  "answer": "shelves",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the correct plural of 'ox'?",
+  "choicesJson": [
+   "oxen",
+   "oxis",
+   "oxes",
+   "oxens"
+  ],
+  "answer": "oxen",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A desert is home to many prickly plants. Spell the plural of 'cactus'.",
+  "choicesJson": null,
+  "answer": "cacti",
+  "acceptedAnswers": [
+   "cactuses"
+  ],
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the plural of 'crisis'?",
+  "choicesJson": [
+   "crisises",
+   "crises",
+   "crisis's",
+   "crisi"
+  ],
+  "answer": "crises",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Every atom has a center called a nucleus. Spell the plural of 'nucleus'.",
+  "choicesJson": null,
+  "answer": "nuclei",
+  "acceptedAnswers": [
+   "nucleuses"
+  ],
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens to the word 'baby' when you make it plural, as in 'two babies'?",
+  "choicesJson": [
+   "Change the y to i and add -es",
+   "Just add -es",
+   "Just add -s",
+   "Change the y to e and add -s"
+  ],
+  "answer": "Change the y to i and add -es",
+  "tags": [
+   "plurals",
+   "spelling-rules"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Fortnite, players leap from the flying Battle Bus. Join 'sky' and 'dive' to spell the compound word for jumping out of a plane.",
+  "choicesJson": null,
+  "answer": "skydive",
+  "tags": [
+   "compound-words",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An SCP Foundation guard needs to unlock a containment door. Which compound word names the small opening in the lock where the key goes?",
+  "choicesJson": [
+   "hallway",
+   "bookmark",
+   "keyhole",
+   "doorbell"
+  ],
+  "answer": "keyhole",
+  "tags": [
+   "compound-words",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Lightning flashed and rain poured down in a huge ___. Join 'thunder' and 'storm' to spell the compound word.",
+  "choicesJson": null,
+  "answer": "thunderstorm",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You own two of them, so you have two ___. Spell the plural of the compound word 'toothbrush'.",
+  "choicesJson": null,
+  "answer": "toothbrushes",
+  "tags": [
+   "compound-words",
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct contraction of 'they are'?",
+  "choicesJson": [
+   "they're",
+   "they'r",
+   "their",
+   "theyre"
+  ],
+  "answer": "they're",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, you hear a hiss and shout, 'Run! ___ about to explode!' Which choice correctly fills the blank (it is)?",
+  "choicesJson": [
+   "Its",
+   "It's",
+   "Its's",
+   "Its'"
+  ],
+  "answer": "It's",
+  "tags": [
+   "contractions",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct contraction of 'cannot'?",
+  "choicesJson": [
+   "cann't",
+   "cant'",
+   "can't",
+   "ca'nt"
+  ],
+  "answer": "can't",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the contraction 'we're', the apostrophe takes the place of which letter from 'we are'?",
+  "choicesJson": [
+   "e",
+   "w",
+   "a",
+   "r"
+  ],
+  "answer": "a",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses a contraction correctly?",
+  "choicesJson": [
+   "I,m stuck on level three of this puzzle.",
+   "I'am stuck on level three of this puzzle.",
+   "Im' stuck on level three of this puzzle.",
+   "I'm stuck on level three of this puzzle."
+  ],
+  "answer": "I'm stuck on level three of this puzzle.",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses 'its' or 'it's' correctly?",
+  "choicesJson": [
+   "The ghost wiped its dusty sheet.",
+   "Its late, said the ghost.",
+   "The ghost wiped it's dusty sheet.",
+   "Its' dark in the haunted house."
+  ],
+  "answer": "The ghost wiped its dusty sheet.",
+  "tags": [
+   "contractions",
+   "commonly-confused"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which two words make the contraction 'shouldn't'?",
+  "choicesJson": [
+   "should not",
+   "should now",
+   "should nit",
+   "shall not"
+  ],
+  "answer": "should not",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Hey team, ___ ready to drop into the Fortnite island? Which choice means 'who is'?",
+  "choicesJson": [
+   "Whos",
+   "Who'se",
+   "Whose",
+   "Who's"
+  ],
+  "answer": "Who's",
+  "tags": [
+   "contractions",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct contraction of 'would have'?",
+  "choicesJson": [
+   "would've",
+   "woulda've",
+   "would'of",
+   "wouldof"
+  ],
+  "answer": "would've",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct contraction of 'let us'?",
+  "choicesJson": [
+   "le'ts",
+   "let's",
+   "lets",
+   "lets'"
+  ],
+  "answer": "let's",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which contraction pair is NOT matched correctly?",
+  "choicesJson": [
+   "I'm = I am",
+   "you're = you are",
+   "we've = we have",
+   "he's = he were"
+  ],
+  "answer": "he's = he were",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the contraction for 'they will'. Include the apostrophe.",
+  "choicesJson": null,
+  "answer": "they'll",
+  "acceptedAnswers": [
+   "they’ll"
+  ],
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the contraction for 'does not'. Include the apostrophe.",
+  "choicesJson": null,
+  "answer": "doesn't",
+  "acceptedAnswers": [
+   "doesn’t"
+  ],
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A friendly ghost can appear and then ___. Add the prefix 'dis-' to 'appear' to spell the word that means 'go out of sight'.",
+  "choicesJson": null,
+  "answer": "disappear",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Roblox, your character 'respawns' after falling off the obby. What does the prefix 're-' mean?",
+  "choicesJson": [
+   "under",
+   "before",
+   "again",
+   "not"
+  ],
+  "answer": "again",
+  "tags": [
+   "prefixes",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word that means 'to spell something wrongly' (mis + spell). Watch the double letters!",
+  "choicesJson": null,
+  "answer": "misspell",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The shadow moved in a way that was not natural. Using the prefix 'un-', spell the word meaning 'not natural'.",
+  "choicesJson": null,
+  "answer": "unnatural",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sonic races straight into danger without any fear. Which word, made with the suffix '-less', describes him?",
+  "choicesJson": [
+   "fearless",
+   "unfear",
+   "fearful",
+   "fearly"
+  ],
+  "answer": "fearless",
+  "tags": [
+   "suffixes",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The kids jumped for joy, full of excitement and ___. Add the suffix '-ness' to 'happy' to spell the word for the feeling of being happy. Remember to change the y.",
+  "choicesJson": null,
+  "answer": "happiness",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Pokemon trainer is ___ to catch a rare Pokemon. Which spelling of 'hope' + '-ing' fits the blank?",
+  "choicesJson": [
+   "hoppeing",
+   "hopeing",
+   "hopping",
+   "hoping"
+  ],
+  "answer": "hoping",
+  "tags": [
+   "suffixes",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The puppy is ___ across the yard. Add '-ing' to 'run' and spell the new word.",
+  "choicesJson": null,
+  "answer": "running",
+  "tags": [
+   "suffixes",
+   "spelling-rules"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which suffix means 'one who does something', as in 'teacher' and 'runner'?",
+  "choicesJson": [
+   "-less",
+   "-er",
+   "-ful",
+   "-ly"
+  ],
+  "answer": "-er",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with a prefix that means 'under' or 'below'?",
+  "choicesJson": [
+   "supermarket",
+   "bicycle",
+   "submarine",
+   "triangle"
+  ],
+  "answer": "submarine",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does the prefix 'tri-' mean, as in 'tripod' and 'triplets'?",
+  "choicesJson": [
+   "one",
+   "many",
+   "three",
+   "two"
+  ],
+  "answer": "three",
+  "tags": [
+   "prefixes"
+  ]
+ }
+]

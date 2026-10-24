@@ -1,0 +1,1895 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with the same sound as 'ship'?",
+  "choicesJson": [
+   "sock",
+   "shell",
+   "chair"
+  ],
+  "answer": "shell",
+  "tags": [
+   "phonics",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with the same sound as 'chip'?",
+  "choicesJson": [
+   "ship",
+   "sock",
+   "chair"
+  ],
+  "answer": "chair",
+  "tags": [
+   "phonics",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the long a sound, like in 'cake'?",
+  "choicesJson": [
+   "bat",
+   "lake",
+   "hen"
+  ],
+  "answer": "lake",
+  "tags": [
+   "phonics",
+   "vowels"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter finishes the farm animal word? p _ g",
+  "choicesJson": [
+   "e",
+   "i",
+   "a"
+  ],
+  "answer": "i",
+  "tags": [
+   "phonics",
+   "letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many syllables (claps) are in the word 'banana'? Type a number.",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "phonics",
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has two syllables (two claps)?",
+  "choicesJson": [
+   "rabbit",
+   "sun",
+   "cat"
+  ],
+  "answer": "rabbit",
+  "tags": [
+   "phonics",
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Adding a silent e to 'hop' makes the word 'hope'. What sound does the o make in 'hope'?",
+  "choicesJson": [
+   "The short o sound",
+   "It says its name (long o)",
+   "It makes no sound"
+  ],
+  "answer": "It says its name (long o)",
+  "tags": [
+   "phonics",
+   "silent-e"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with the same two-letter blend as 'creeper' from Minecraft?",
+  "choicesJson": [
+   "crab",
+   "tree",
+   "sheep"
+  ],
+  "answer": "crab",
+  "tags": [
+   "phonics",
+   "blends",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word ends with the same sound as 'fish'?",
+  "choicesJson": [
+   "fist",
+   "fin",
+   "wish"
+  ],
+  "answer": "wish",
+  "tags": [
+   "phonics",
+   "digraphs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many syllables (claps) are in the word 'Pikachu'?",
+  "choicesJson": [
+   "2",
+   "4",
+   "3"
+  ],
+  "answer": "3",
+  "tags": [
+   "phonics",
+   "syllables",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same vowel sound as 'feet'?",
+  "choicesJson": [
+   "sock",
+   "step",
+   "seed"
+  ],
+  "answer": "seed",
+  "tags": [
+   "phonics",
+   "vowels"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Change the first letter of 'cat' to m. What new word do you make?",
+  "choicesJson": null,
+  "answer": "mat",
+  "tags": [
+   "phonics",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Take the first letter off the word 'snail'. What word is left?",
+  "choicesJson": null,
+  "answer": "nail",
+  "tags": [
+   "phonics",
+   "word-building"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same vowel sound as 'coin'?",
+  "choicesJson": [
+   "boat",
+   "boil",
+   "bone"
+  ],
+  "answer": "boil",
+  "tags": [
+   "phonics",
+   "vowel-teams"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same vowel sound as 'moon'?",
+  "choicesJson": [
+   "spoon",
+   "cap",
+   "sock"
+  ],
+  "answer": "spoon",
+  "tags": [
+   "phonics",
+   "vowel-teams"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the word 'knee', the k is silent. Which word also has a silent k at the start?",
+  "choicesJson": [
+   "kid",
+   "knot",
+   "kit"
+  ],
+  "answer": "knot",
+  "tags": [
+   "phonics",
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Alex builds a house in Minecraft. At night, a creeper hisses near her door. Alex runs inside and shuts the door. Why does Alex shut the door?",
+  "choicesJson": [
+   "To go to sleep",
+   "Because it is morning",
+   "To keep the creeper out",
+   "To get more wood"
+  ],
+  "answer": "To keep the creeper out",
+  "tags": [
+   "comprehension",
+   "inference",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Kai is playing an obby in Roblox. He falls off the very last jump. Kai grins and says, 'I will try again!' What can you tell about Kai?",
+  "choicesJson": [
+   "He never falls",
+   "He does not give up",
+   "He is afraid of games"
+  ],
+  "answer": "He does not give up",
+  "tags": [
+   "comprehension",
+   "inference",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mia lands on the island in Fortnite with her team. They open a chest and share everything inside. 'Teamwork wins!' says Mia. What is this story mostly about?",
+  "choicesJson": [
+   "Building a tall tower",
+   "Losing a game",
+   "Sharing and teamwork"
+  ],
+  "answer": "Sharing and teamwork",
+  "tags": [
+   "comprehension",
+   "main-idea",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Bigfoot lives deep in the woods. When hikers walk by, he hides behind a big tree and peeks out at them. What can you tell about Bigfoot?",
+  "choicesJson": [
+   "He is loud",
+   "He is shy",
+   "He is hungry"
+  ],
+  "answer": "He is shy",
+  "tags": [
+   "comprehension",
+   "inference",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pip the penguin wanted to fly. He flapped and flapped, but he stayed on the ice. Then he dove into the water and zoomed past the fish. What can Pip do well?",
+  "choicesJson": [
+   "Swim fast",
+   "Climb trees",
+   "Fly high"
+  ],
+  "answer": "Swim fast",
+  "tags": [
+   "comprehension",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Lena's tooth was loose. She wiggled it all day. That night it fell out, and she put it under her pillow. Which is the best title for this story?",
+  "choicesJson": [
+   "Lena's Loose Tooth",
+   "A Trip to the Zoo",
+   "The Big Soccer Game"
+  ],
+  "answer": "Lena's Loose Tooth",
+  "tags": [
+   "comprehension",
+   "main-idea"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The class hamster, Nugget, got out of his cage. Ms. Rivera looked under every desk. At last, Jo found him sleeping in a shoe. What was the problem in this story?",
+  "choicesJson": [
+   "Nugget got out of his cage",
+   "Jo lost her shoe",
+   "The class was too loud"
+  ],
+  "answer": "Nugget got out of his cage",
+  "tags": [
+   "comprehension",
+   "story-elements"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Nina has a red kite. The wind is strong today. Up, up, up it goes! What goes up, up, up? Type one word.",
+  "choicesJson": null,
+  "answer": "kite",
+  "acceptedAnswers": [
+   "a kite",
+   "the kite",
+   "her kite",
+   "red kite",
+   "her red kite",
+   "a red kite"
+  ],
+  "tags": [
+   "comprehension"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The bunny hopped into the garden. It nibbled a crunchy carrot. What did the bunny eat? Type one word.",
+  "choicesJson": null,
+  "answer": "carrot",
+  "acceptedAnswers": [
+   "a carrot",
+   "the carrot",
+   "carrots"
+  ],
+  "tags": [
+   "comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Jen put on her coat, hat, and gloves. She ran outside and rolled a giant snowball. What season is it most likely to be?",
+  "choicesJson": [
+   "Summer",
+   "Spring",
+   "Winter"
+  ],
+  "answer": "Winter",
+  "tags": [
+   "comprehension",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sara's face turned red. She stomped her feet and said, 'That is not fair!' How does Sara feel?",
+  "choicesJson": [
+   "Sleepy",
+   "Angry",
+   "Proud"
+  ],
+  "answer": "Angry",
+  "tags": [
+   "comprehension",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'I can fly!' said the little robot. 'Not yet,' said Dad. 'First I will add your wings.' Who said, 'I can fly'?",
+  "choicesJson": [
+   "Dad",
+   "A bird",
+   "The robot"
+  ],
+  "answer": "The robot",
+  "tags": [
+   "comprehension",
+   "dialogue"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The sand was warm. Waves splashed on the shore. Kids built castles and ate ice cream. Where does this story take place?",
+  "choicesJson": [
+   "At the beach",
+   "In a snowy forest",
+   "In a classroom"
+  ],
+  "answer": "At the beach",
+  "tags": [
+   "comprehension",
+   "setting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The baby was as quiet as a mouse.' What does this tell you about the baby?",
+  "choicesJson": [
+   "The baby was very quiet",
+   "The baby was a mouse",
+   "The baby was very loud"
+  ],
+  "answer": "The baby was very quiet",
+  "tags": [
+   "figurative-language",
+   "similes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence has a sound word, like boom or pop?",
+  "choicesJson": [
+   "The bee is yellow and black.",
+   "The bee buzzed past my ear.",
+   "I saw a bee on a flower."
+  ],
+  "answer": "The bee buzzed past my ear.",
+  "tags": [
+   "figurative-language",
+   "sound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'It is raining cats and dogs.' What does this mean?",
+  "choicesJson": [
+   "Cats and dogs are playing in the yard",
+   "Pets are falling from the sky",
+   "It is raining very hard"
+  ],
+  "answer": "It is raining very hard",
+  "tags": [
+   "figurative-language",
+   "idioms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The pillow was as soft as a cloud.' Which two things are being compared?",
+  "choicesJson": [
+   "A pillow and a bed",
+   "A cloud and the sky",
+   "A pillow and a cloud"
+  ],
+  "answer": "A pillow and a cloud",
+  "tags": [
+   "figurative-language",
+   "similes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A friend yells, 'Hold your horses!' What does your friend want you to do?",
+  "choicesJson": [
+   "Wait and slow down",
+   "Go get some horses",
+   "Run faster"
+  ],
+  "answer": "Wait and slow down",
+  "tags": [
+   "figurative-language",
+   "idioms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word sounds like the noise it names?",
+  "choicesJson": [
+   "wet",
+   "splash",
+   "puddle"
+  ],
+  "answer": "splash",
+  "tags": [
+   "figurative-language",
+   "sound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The wind whispered through the trees.' What does 'whispered' tell you about the wind?",
+  "choicesJson": [
+   "It was soft and quiet",
+   "It was loud and strong",
+   "It was as cold as ice"
+  ],
+  "answer": "It was soft and quiet",
+  "tags": [
+   "figurative-language",
+   "personification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Pikachu is as quick as lightning.' What does this tell you about Pikachu?",
+  "choicesJson": [
+   "Pikachu is very fast",
+   "Pikachu is very slow",
+   "Pikachu is very loud"
+  ],
+  "answer": "Pikachu is very fast",
+  "tags": [
+   "figurative-language",
+   "similes",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Leo says the first level in Super Mario is 'a piece of cake.' What does he mean?",
+  "choicesJson": [
+   "It is very hard",
+   "It is made of cake",
+   "It is very easy"
+  ],
+  "answer": "It is very easy",
+  "tags": [
+   "figurative-language",
+   "idioms",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a book shows the chapter names and their page numbers?",
+  "choicesJson": [
+   "Cover",
+   "Table of contents",
+   "Glossary"
+  ],
+  "answer": "Table of contents",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a glossary at the back of a book tell you?",
+  "choicesJson": [
+   "when the book was made",
+   "who drew the pictures",
+   "what hard words mean"
+  ],
+  "answer": "what hard words mean",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why might an author print some words in bold (dark, thick letters)?",
+  "choicesJson": [
+   "To hide them",
+   "To make the page longer",
+   "To show they are important"
+  ],
+  "answer": "To show they are important",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A photo of a polar bear has the words 'A polar bear naps on the ice' under it. What are those words called?",
+  "choicesJson": [
+   "A title",
+   "A caption",
+   "A glossary"
+  ],
+  "answer": "A caption",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which text feature uses a picture with labels to show the parts of something, like a flower?",
+  "choicesJson": [
+   "A diagram",
+   "A caption",
+   "A table of contents"
+  ],
+  "answer": "A diagram",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who draws the pictures in a book?",
+  "choicesJson": [
+   "The author",
+   "The illustrator",
+   "The librarian"
+  ],
+  "answer": "The illustrator",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A book has an index that says 'volcano, page 20'. What does an index help you do?",
+  "choicesJson": [
+   "Learn what words mean",
+   "See who wrote the book",
+   "Find where a topic is in the book"
+  ],
+  "answer": "Find where a topic is in the book",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is nonfiction (true facts)?",
+  "choicesJson": [
+   "A poem about a dancing dragon",
+   "A book about real sharks and what they eat",
+   "A story about a shark who bakes cakes"
+  ],
+  "answer": "A book about real sharks and what they eat",
+  "tags": [
+   "genre",
+   "nonfiction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A story with dragons, wizards, and magic spells is called a...",
+  "choicesJson": [
+   "fantasy",
+   "weather report",
+   "biography"
+  ],
+  "answer": "fantasy",
+  "tags": [
+   "genre"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A movie about Godzilla stomping through a city is made up. What kind of story is it?",
+  "choicesJson": [
+   "Nonfiction",
+   "Biography",
+   "Fiction"
+  ],
+  "answer": "Fiction",
+  "tags": [
+   "genre",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Minecraft guide book has a table of contents. It says 'Crafting Tools ... page 12'. What page do you turn to for crafting tools? Type a number.",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve",
+   "page 12"
+  ],
+  "tags": [
+   "text-features",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is a noun (a person, place, or thing)?",
+  "choicesJson": [
+   "jump",
+   "loud",
+   "castle",
+   "soft"
+  ],
+  "answer": "castle",
+  "tags": [
+   "nouns",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The cat jumped over the fence.' Which word is the verb (the action word)?",
+  "choicesJson": [
+   "cat",
+   "jumped",
+   "fence"
+  ],
+  "answer": "jumped",
+  "tags": [
+   "verbs",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The fluffy dog barked.' Which word tells what the dog is like?",
+  "choicesJson": [
+   "fluffy",
+   "barked",
+   "The"
+  ],
+  "answer": "fluffy",
+  "tags": [
+   "adjectives",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these words is an action word (a verb)?",
+  "choicesJson": [
+   "pencil",
+   "tall",
+   "sleep",
+   "green"
+  ],
+  "answer": "sleep",
+  "tags": [
+   "verbs",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Is 'happy' a noun, a verb, or an adjective? Type your answer.",
+  "choicesJson": null,
+  "answer": "adjective",
+  "acceptedAnswers": [
+   "an adjective",
+   "describing word"
+  ],
+  "tags": [
+   "adjectives",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You just got a Victory Royale in Fortnite! Which end mark shows big excitement at the end of 'We won'?",
+  "choicesJson": [
+   "question mark",
+   "exclamation point",
+   "period"
+  ],
+  "answer": "exclamation point",
+  "tags": [
+   "punctuation",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word needs a capital letter? 'my dog likes bones.'",
+  "choicesJson": [
+   "my",
+   "dog",
+   "bones"
+  ],
+  "answer": "my",
+  "tags": [
+   "capitalization"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Today I saw tom at the park.' Which word needs a capital letter because it is a name?",
+  "choicesJson": [
+   "tom",
+   "saw",
+   "park"
+  ],
+  "answer": "tom",
+  "tags": [
+   "capitalization"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What two words make up the word 'don't'?",
+  "choicesJson": [
+   "does not",
+   "do not",
+   "did not"
+  ],
+  "answer": "do not",
+  "tags": [
+   "contractions",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one shows that the toy belongs to Sam?",
+  "choicesJson": [
+   "Sams toy",
+   "Sam's toy",
+   "Sams' toy"
+  ],
+  "answer": "Sam's toy",
+  "tags": [
+   "punctuation",
+   "apostrophes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word can take the place of 'Sara' in this sentence? Sara likes pizza.",
+  "choicesJson": [
+   "It",
+   "He",
+   "She"
+  ],
+  "answer": "She",
+  "tags": [
+   "pronouns",
+   "parts-of-speech"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The brave Pikachu zapped the big rock.' Which word describes Pikachu?",
+  "choicesJson": [
+   "rock",
+   "brave",
+   "big",
+   "zapped"
+  ],
+  "answer": "brave",
+  "tags": [
+   "adjectives",
+   "parts-of-speech",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits the blank? Mario ___ over the pipe.",
+  "choicesJson": [
+   "jump",
+   "jumping",
+   "jumps"
+  ],
+  "answer": "jumps",
+  "tags": [
+   "verbs",
+   "grammar",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means almost the same as 'glad'?",
+  "choicesJson": [
+   "sad",
+   "angry",
+   "hungry",
+   "happy"
+  ],
+  "answer": "happy",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means almost the same as 'shiny'?",
+  "choicesJson": [
+   "sparkly",
+   "dull",
+   "rough",
+   "dusty"
+  ],
+  "answer": "sparkly",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means almost the same as 'pretty'?",
+  "choicesJson": [
+   "noisy",
+   "heavy",
+   "muddy",
+   "lovely"
+  ],
+  "answer": "lovely",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means almost the same as 'chilly'?",
+  "choicesJson": [
+   "cold",
+   "warm",
+   "dry",
+   "sunny"
+  ],
+  "answer": "cold",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Another word for 'sofa' starts with the letter c. What is it?",
+  "choicesJson": null,
+  "answer": "couch",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a Roblox obby, you leap over a gap. Which word means almost the same as 'leap'?",
+  "choicesJson": [
+   "crawl",
+   "jump",
+   "dig",
+   "wait"
+  ],
+  "answer": "jump",
+  "tags": [
+   "synonyms",
+   "vocabulary",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the opposite of 'hot'?",
+  "choicesJson": [
+   "soft",
+   "cold",
+   "dry",
+   "sunny"
+  ],
+  "answer": "cold",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the opposite of 'day'?",
+  "choicesJson": null,
+  "answer": "night",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the opposite of 'old' in 'an old toy'?",
+  "choicesJson": [
+   "slow",
+   "small",
+   "new",
+   "tall"
+  ],
+  "answer": "new",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A cheetah is fast. Which word is the opposite of 'fast'?",
+  "choicesJson": [
+   "tiny",
+   "bright",
+   "quick",
+   "slow"
+  ],
+  "answer": "slow",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the opposite of 'clean'?",
+  "choicesJson": [
+   "dry",
+   "dirty",
+   "fresh",
+   "shiny"
+  ],
+  "answer": "dirty",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the opposite of 'win'?",
+  "choicesJson": [
+   "play",
+   "run",
+   "lose",
+   "cheer"
+  ],
+  "answer": "lose",
+  "tags": [
+   "antonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The cave in Minecraft was dim, so Alex lit a torch.' What does 'dim' mean?",
+  "choicesJson": [
+   "not bright",
+   "very hot",
+   "very loud"
+  ],
+  "answer": "not bright",
+  "tags": [
+   "context-clues",
+   "vocabulary",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Mom whispered so she would not wake the baby.' What does 'whispered' mean?",
+  "choicesJson": [
+   "ran fast",
+   "spoke very softly",
+   "sang loudly",
+   "jumped high"
+  ],
+  "answer": "spoke very softly",
+  "tags": [
+   "context-clues",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Ben was thrilled to get a puppy. He jumped and cheered!' What does 'thrilled' mean?",
+  "choicesJson": [
+   "very sleepy",
+   "very sad",
+   "very excited"
+  ],
+  "answer": "very excited",
+  "tags": [
+   "context-clues",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the word 'bat' to mean an animal that flies?",
+  "choicesJson": [
+   "The bat was made of wood.",
+   "He hit the ball with a bat.",
+   "A bat flew out of the cave at night."
+  ],
+  "answer": "A bat flew out of the cave at night.",
+  "tags": [
+   "multiple-meaning",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The Lego tower was fragile, so Dan carried it slowly.' What does 'fragile' mean?",
+  "choicesJson": [
+   "very bright",
+   "very heavy",
+   "easy to break",
+   "very tall"
+  ],
+  "answer": "easy to break",
+  "tags": [
+   "context-clues",
+   "vocabulary",
+   "theme:lego"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The kids were famished after the game, so they ate three pizzas.' What does 'famished' mean?",
+  "choicesJson": [
+   "very hungry",
+   "very sleepy",
+   "very cold"
+  ],
+  "answer": "very hungry",
+  "tags": [
+   "context-clues",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word does not belong with the others?",
+  "choicesJson": [
+   "cat",
+   "dog",
+   "hamster",
+   "banana"
+  ],
+  "answer": "banana",
+  "tags": [
+   "categories",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Ducks have webbed feet. The feet help ducks swim fast. Ducks also use them to walk on mud.' What is this mostly about?",
+  "choicesJson": [
+   "Why ducks like mud",
+   "Where ducks sleep",
+   "How to cook a duck",
+   "How ducks use their feet"
+  ],
+  "answer": "How ducks use their feet",
+  "tags": [
+   "main-idea"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Tom has a dog named Rex. Rex fetches sticks. Rex sleeps on Tom's bed.' What is this mostly about?",
+  "choicesJson": [
+   "Tom's school",
+   "Tom's dog Rex",
+   "A big storm"
+  ],
+  "answer": "Tom's dog Rex",
+  "tags": [
+   "main-idea"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Alex gathers wood in Minecraft. She makes planks. Then she builds a small house for the night.' What is this mostly about?",
+  "choicesJson": [
+   "Alex builds a house",
+   "Alex bakes a cake",
+   "Alex digs for gold",
+   "Alex rides a pig"
+  ],
+  "answer": "Alex builds a house",
+  "tags": [
+   "main-idea",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Lily has two cats and one fish. The cats are named Pip and Moe.' How many cats does Lily have?",
+  "choicesJson": [
+   "One",
+   "Two",
+   "Three"
+  ],
+  "answer": "Two",
+  "tags": [
+   "details",
+   "comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The robot was red with blue eyes. It rolled across the room.' What color were the robot's eyes?",
+  "choicesJson": [
+   "Blue",
+   "Red",
+   "Green"
+  ],
+  "answer": "Blue",
+  "tags": [
+   "details",
+   "comprehension"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "'Max joined a Roblox obby. He jumped over three red blocks and then slid down a slide.' How many red blocks did Max jump over? Type a number.",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "details",
+   "comprehension",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Jen found a seed. She planted it. Later, a flower grew.' What happened last?",
+  "choicesJson": [
+   "She planted it",
+   "A flower grew",
+   "Jen found a seed"
+  ],
+  "answer": "A flower grew",
+  "tags": [
+   "sequencing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits best in the middle? 'First, I wash my hands. ___, I dry them. Last, I eat.'",
+  "choicesJson": [
+   "Next",
+   "Because",
+   "Never"
+  ],
+  "answer": "Next",
+  "tags": [
+   "sequencing",
+   "transition-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'First, Kai lands on the island in Fortnite. Next, he finds a shield. Then he builds a ramp. Last, he wins!' What did Kai do right after he found a shield?",
+  "choicesJson": [
+   "Landed on the island",
+   "Built a ramp",
+   "Found a chest",
+   "Won the game"
+  ],
+  "answer": "Built a ramp",
+  "tags": [
+   "sequencing",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The ice cream sat in the hot sun. It melted.' What happened to the ice cream because of the sun?",
+  "choicesJson": [
+   "It was eaten",
+   "It got bigger",
+   "It melted"
+  ],
+  "answer": "It melted",
+  "tags": [
+   "cause-effect"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Sam jumped in the puddle. His socks got wet.' What made Sam's socks wet?",
+  "choicesJson": [
+   "Jumping in the puddle",
+   "Brushing his teeth",
+   "Eating lunch"
+  ],
+  "answer": "Jumping in the puddle",
+  "tags": [
+   "cause-effect"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Steve held out some wheat in Minecraft, so the cows followed him.' Why did the cows follow Steve?",
+  "choicesJson": [
+   "He was wearing a hat",
+   "He was sleeping",
+   "He held out wheat"
+  ],
+  "answer": "He held out wheat",
+  "tags": [
+   "cause-effect",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ava did not wear her coat on a snowy day. What might happen to Ava?",
+  "choicesJson": [
+   "She might feel cold",
+   "She might get a sunburn",
+   "She might feel hot"
+  ],
+  "answer": "She might feel cold",
+  "tags": [
+   "cause-effect"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the missing word that tells why. It starts with b. 'I took an umbrella ___ it was raining.'",
+  "choicesJson": null,
+  "answer": "because",
+  "tags": [
+   "cause-effect",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is written correctly?",
+  "choicesJson": [
+   "We like pizza.",
+   "we like pizza",
+   "Like we pizza."
+  ],
+  "answer": "We like pizza.",
+  "tags": [
+   "sentences",
+   "capitalization"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which mark goes at the end of this sentence? 'Where is my diamond sword'",
+  "choicesJson": [
+   "?",
+   ".",
+   "!"
+  ],
+  "answer": "?",
+  "tags": [
+   "punctuation",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type a or an to fill the blank: I ate ___ apple.",
+  "choicesJson": null,
+  "answer": "an",
+  "tags": [
+   "grammar",
+   "a-an"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group of words is correct?",
+  "choicesJson": [
+   "an dog",
+   "a elephant",
+   "an elephant"
+  ],
+  "answer": "an elephant",
+  "tags": [
+   "grammar",
+   "a-an"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits? 'Two puppies ___ playing in the yard.'",
+  "choicesJson": [
+   "am",
+   "is",
+   "are"
+  ],
+  "answer": "are",
+  "tags": [
+   "grammar",
+   "verbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits? 'My cat ___ asleep on the couch.'",
+  "choicesJson": [
+   "is",
+   "are",
+   "am"
+  ],
+  "answer": "is",
+  "tags": [
+   "grammar",
+   "verbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits? 'I ___ ready for the game.'",
+  "choicesJson": [
+   "are",
+   "is",
+   "am"
+  ],
+  "answer": "am",
+  "tags": [
+   "grammar",
+   "verbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Mia and Leo play tag.' Which word can take the place of 'Mia and Leo'?",
+  "choicesJson": [
+   "He",
+   "She",
+   "They"
+  ],
+  "answer": "They",
+  "tags": [
+   "pronouns",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The pizza is hot.' Which word can take the place of 'The pizza'?",
+  "choicesJson": [
+   "It",
+   "He",
+   "They"
+  ],
+  "answer": "It",
+  "tags": [
+   "pronouns",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group of words makes sense as a sentence?",
+  "choicesJson": [
+   "The frog jumps high.",
+   "High the jumps frog.",
+   "Jumps the frog high."
+  ],
+  "answer": "The frog jumps high.",
+  "tags": [
+   "sentences",
+   "word-order"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group of words is a whole sentence?",
+  "choicesJson": [
+   "Sonic ran fast.",
+   "Fast and blue",
+   "Ran very fast"
+  ],
+  "answer": "Sonic ran fast.",
+  "tags": [
+   "sentences",
+   "fragments",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Luna rode her bike.' Who is this sentence about?",
+  "choicesJson": [
+   "bike",
+   "Luna",
+   "rode"
+  ],
+  "answer": "Luna",
+  "tags": [
+   "sentences",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits? 'The dogs ___ in the yard.'",
+  "choicesJson": [
+   "running",
+   "runs",
+   "run"
+  ],
+  "answer": "run",
+  "tags": [
+   "grammar",
+   "verbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'We play on saturday.' Which word needs a capital letter?",
+  "choicesJson": [
+   "on",
+   "saturday",
+   "play"
+  ],
+  "answer": "saturday",
+  "tags": [
+   "capitalization",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses commas in a list correctly?",
+  "choicesJson": [
+   "Alex has, a sword a pickaxe and a shield.",
+   "Alex has a sword, a pickaxe, and a shield.",
+   "Alex has a sword a pickaxe, and, a shield."
+  ],
+  "answer": "Alex has a sword, a pickaxe, and a shield.",
+  "tags": [
+   "punctuation",
+   "commas",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence tells about something that already happened?",
+  "choicesJson": [
+   "Yesterday I finished the obby.",
+   "Tomorrow I will finish the obby.",
+   "I finish the obby right now."
+  ],
+  "answer": "Yesterday I finished the obby.",
+  "tags": [
+   "verb-tense",
+   "grammar",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence tells about something that will happen later?",
+  "choicesJson": [
+   "We built a ramp.",
+   "We will build a ramp soon.",
+   "We build a ramp every game."
+  ],
+  "answer": "We will build a ramp soon.",
+  "tags": [
+   "verb-tense",
+   "grammar",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means MORE THAN ONE?",
+  "choicesJson": [
+   "wolf",
+   "wolves",
+   "a wolf"
+  ],
+  "answer": "wolves",
+  "tags": [
+   "plurals",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word asks about a place? '___ is my backpack?'",
+  "choicesJson": [
+   "Where",
+   "When",
+   "Who"
+  ],
+  "answer": "Where",
+  "tags": [
+   "question-words",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word asks about time? '___ is your birthday?'",
+  "choicesJson": [
+   "Who",
+   "Where",
+   "When"
+  ],
+  "answer": "When",
+  "tags": [
+   "question-words",
+   "grammar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the missing word: 'Right now, we ___ going to the park.'",
+  "choicesJson": null,
+  "answer": "are",
+  "tags": [
+   "grammar",
+   "verbs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word that can take the place of 'my sister and I': '___ like pizza.'",
+  "choicesJson": null,
+  "answer": "we",
+  "tags": [
+   "pronouns",
+   "grammar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sentences are here? 'The cat ran. The dog barked. The bird sang.'",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "sentences",
+   "counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Every sentence starts with a ___ letter (a big letter). What is the missing word?",
+  "choicesJson": null,
+  "answer": "capital",
+  "acceptedAnswers": [
+   "uppercase",
+   "upper case",
+   "big"
+  ],
+  "tags": [
+   "sentences",
+   "capitalization"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What mark goes at the end of a telling sentence?",
+  "choicesJson": null,
+  "answer": "period",
+  "acceptedAnswers": [
+   "a period",
+   "full stop",
+   "dot",
+   "."
+  ],
+  "tags": [
+   "punctuation",
+   "sentences"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Zack yawned and rubbed his eyes. His head drooped onto his desk. How does Zack feel?",
+  "choicesJson": [
+   "Excited",
+   "Tired",
+   "Angry"
+  ],
+  "answer": "Tired",
+  "tags": [
+   "inference",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Steve heard a loud 'ssssss' right behind him. He ran away as fast as he could. What was most likely behind Steve?",
+  "choicesJson": [
+   "A cow",
+   "A chicken",
+   "A creeper"
+  ],
+  "answer": "A creeper",
+  "tags": [
+   "inference",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Maya found a wallet on the playground and gave it to her teacher. What kind of person is Maya?",
+  "choicesJson": [
+   "Honest",
+   "Greedy",
+   "Lazy"
+  ],
+  "answer": "Honest",
+  "tags": [
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "At first, Ben was scared of the dark. Then his mom gave him a night-light, and he fell asleep smiling. How did Ben's feeling change?",
+  "choicesJson": [
+   "From scared to calm",
+   "From calm to scared",
+   "From angry to sleepy"
+  ],
+  "answer": "From scared to calm",
+  "tags": [
+   "character",
+   "feelings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ty broke a cup by accident. He was nervous, but he told his mom the truth. She thanked him for being honest. What lesson does the story teach?",
+  "choicesJson": [
+   "Moms are always mad",
+   "Tell the truth, even when it is hard",
+   "Never touch cups"
+  ],
+  "answer": "Tell the truth, even when it is hard",
+  "tags": [
+   "theme",
+   "lesson"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "All summer, Ant stored food while Grasshopper played. When winter came, Ant had plenty to eat. What lesson does this story teach?",
+  "choicesJson": [
+   "Work hard and plan ahead",
+   "Always play all day",
+   "Winter is fun"
+  ],
+  "answer": "Work hard and plan ahead",
+  "tags": [
+   "theme",
+   "lesson"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pia saw a new kid sitting alone at recess and invited him to play. He smiled all day. What lesson does the story teach?",
+  "choicesJson": [
+   "Be kind and include others",
+   "Recess is long",
+   "Playing is tiring"
+  ],
+  "answer": "Be kind and include others",
+  "tags": [
+   "theme",
+   "lesson"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A character tells a story using the word 'I'. Which sentence is told that way?",
+  "choicesJson": [
+   "The boy ran to the bus stop.",
+   "Tom ran to the bus stop.",
+   "I ran to the bus stop."
+  ],
+  "answer": "I ran to the bus stop.",
+  "tags": [
+   "point-of-view"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is told by someone watching Ava, not by Ava herself?",
+  "choicesJson": [
+   "Ava jumped into the pool.",
+   "I jumped into the pool.",
+   "We jumped into the pool."
+  ],
+  "answer": "Ava jumped into the pool.",
+  "tags": [
+   "point-of-view"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ella came home. Her puppy wagged its tail and licked her face. How does the puppy feel about Ella?",
+  "choicesJson": [
+   "Mad at her",
+   "Scared of her",
+   "Happy to see her"
+  ],
+  "answer": "Happy to see her",
+  "tags": [
+   "inference",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Grandpa carried in a cake with seven candles. Everyone sang to Leo, and Leo blew out the candles. What are they celebrating?",
+  "choicesJson": [
+   "A race",
+   "A test",
+   "A birthday"
+  ],
+  "answer": "A birthday",
+  "tags": [
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sam packed goggles, a towel, and swim trunks. Where is Sam most likely going?",
+  "choicesJson": [
+   "To the library",
+   "To the pool",
+   "To a snowy hill"
+  ],
+  "answer": "To the pool",
+  "tags": [
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "People say Bigfoot left giant footprints in the mud, each one as long as a door. What can you tell about Bigfoot?",
+  "choicesJson": [
+   "He must be tiny",
+   "He must be very big",
+   "He must be a fish"
+  ],
+  "answer": "He must be very big",
+  "tags": [
+   "inference",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "After a battle, Mia's Pokemon was tired. Mia gave it a soft bed and a snack. What does this show about Mia?",
+  "choicesJson": [
+   "She does not like Pokemon",
+   "She is in a hurry",
+   "She cares about her Pokemon"
+  ],
+  "answer": "She cares about her Pokemon",
+  "tags": [
+   "character",
+   "inference",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Tess hid behind her mom and looked at the floor. Rex waved and said hi to everyone. Which character is shy?",
+  "choicesJson": [
+   "Neither of them",
+   "Tess",
+   "Rex"
+  ],
+  "answer": "Tess",
+  "tags": [
+   "character",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ravi dropped his lunch tray. Everyone looked at him, and his cheeks turned red. How does Ravi feel?",
+  "choicesJson": [
+   "Proud",
+   "Embarrassed",
+   "Sleepy"
+  ],
+  "answer": "Embarrassed",
+  "tags": [
+   "inference",
+   "feelings"
+  ]
+ }
+]

@@ -1,0 +1,350 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "ant",
+   "apple",
+   "arm"
+  ],
+  "answer": "apple",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-apple.webp",
+   "alt": "A shiny red apple with a short stem on a white background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "bat",
+   "ball",
+   "bag"
+  ],
+  "answer": "ball",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-ball.webp",
+   "alt": "A white soccer ball with orange and gray patches sitting on short green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "bun",
+   "bus",
+   "bug"
+  ],
+  "answer": "bus",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bus.webp",
+   "alt": "A yellow school bus parked on a paved lot under a cloudy sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "cap",
+   "cut",
+   "cup"
+  ],
+  "answer": "cup",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-cup.webp",
+   "alt": "A white cup of black coffee on a saucer on a marble table."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "leg",
+   "egg",
+   "ear"
+  ],
+  "answer": "egg",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-egg.webp",
+   "alt": "A single brown egg on a white background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "hat",
+   "hut",
+   "hot"
+  ],
+  "answer": "hat",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-hat.webp",
+   "alt": "A straw hat with a dark blue band with white dots."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "mom",
+   "moon",
+   "mop"
+  ],
+  "answer": "moon",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-moon.webp",
+   "alt": "A full moon glowing in a dark night sky."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the first letter of this picture's name.",
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-apple.webp",
+   "alt": "A shiny red apple with a short stem on a white background."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the letter its name starts with.",
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bed.webp",
+   "alt": "A bed with white sheets and fluffy white pillows."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the first letter of this picture's name? Type it.",
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-cup.webp",
+   "alt": "A white cup of black coffee on a saucer on a marble table."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the first letter of this picture's name.",
+  "answer": "E",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-egg.webp",
+   "alt": "A single brown egg on a white background."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the first letter of this picture's name.",
+  "answer": "M",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-moon.webp",
+   "alt": "A full moon glowing in a dark night sky."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the letter its name starts with.",
+  "answer": "N",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-nest.webp",
+   "alt": "A bird nest made of twigs in a tree with orange flowers."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a cup?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-cup.webp",
+    "learning/img/reading-pictures-lamp.webp",
+    "learning/img/reading-pictures-hammer.webp",
+    "learning/img/reading-pictures-egg.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture goes with the word \"hat\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-lamp.webp",
+    "learning/img/reading-pictures-spoon.webp",
+    "learning/img/reading-pictures-apple.webp",
+    "learning/img/reading-pictures-hat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the picture of an egg.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-apple.webp",
+    "learning/img/reading-pictures-jar.webp",
+    "learning/img/reading-pictures-egg.webp",
+    "learning/img/reading-pictures-moon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture goes with the word \"moon\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-egg.webp",
+    "learning/img/reading-pictures-lamp.webp",
+    "learning/img/reading-pictures-moon.webp",
+    "learning/img/reading-pictures-bell.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word rhymes with the name of this picture?",
+  "choicesJson": [
+   "pup",
+   "cap",
+   "cut"
+  ],
+  "answer": "pup",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-cup.webp",
+   "alt": "A white cup of black coffee on a saucer on a marble table."
+  }
+ }
+]

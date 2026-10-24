@@ -1,0 +1,486 @@
+[
+ {
+  "id": "cmu0xa7r400c912z2yomm0aia",
+  "action": "fix",
+  "reason": "Only 2 choices; add third",
+  "choicesJson": [
+   "Yes",
+   "Can't tell",
+   "No"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400ca12z2y76pzkap",
+  "action": "fix",
+  "reason": "Number word accepted",
+  "acceptedAnswers": [
+   "eight"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400cd12z29bbfygr3",
+  "action": "fix",
+  "reason": "Ambiguous: No and Can't tell both defensible; reworded",
+  "prompt": "A valid argument with true premises always has a true conclusion. This argument has a false premise. What do we know about its conclusion?",
+  "choicesJson": [
+   "It must be false",
+   "It must be true",
+   "It could be true or false"
+  ],
+  "answer": "It could be true or false"
+ },
+ {
+  "id": "cmu0xa7r400ce12z21p4i4ypm",
+  "action": "fix",
+  "reason": "Ambiguous Yes/No; rewritten as a must-be-true question",
+  "prompt": "Some cats are black. Some black things are cars. Which statement must be true?",
+  "choicesJson": [
+   "Some cats are cars",
+   "Some black things are cats",
+   "All cats are black",
+   "All cars are black"
+  ],
+  "answer": "Some black things are cats"
+ },
+ {
+  "id": "cmu0xa7r400cf12z2c8lb29sp",
+  "action": "fix",
+  "reason": "Number word accepted",
+  "acceptedAnswers": [
+   "twenty-one",
+   "twenty one"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400ch12z2jvnnps8o",
+  "action": "fix",
+  "reason": "a/an false positive on letter A; use X Y Z, add third choice",
+  "prompt": "All X are Y. All Y are Z. Must every X also be Z?",
+  "choicesJson": [
+   "Yes",
+   "No",
+   "Can't tell"
+  ],
+  "answer": "Yes"
+ },
+ {
+  "id": "cmu0xa7r400ck12z21o845pom",
+  "action": "fix",
+  "reason": "Number word accepted",
+  "acceptedAnswers": [
+   "one hundred sixty",
+   "one hundred and sixty"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400co12z2b51tiwzl",
+  "action": "fix",
+  "reason": "Only 2 choices; add third",
+  "choicesJson": [
+   "Yes",
+   "Can't tell",
+   "No"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400cp12z2n959cx53",
+  "action": "fix",
+  "reason": "Number word accepted",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400cs12z2r1ehas3i",
+  "action": "fix",
+  "reason": "Only 2 choices; add third",
+  "choicesJson": [
+   "Yes",
+   "No",
+   "Can't tell"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400ct12z2b2khvezm",
+  "action": "fix",
+  "reason": "Both No and Not enough information defensible; real penguin fact clouds it; reworded",
+  "prompt": "Some birds cannot fly. All penguins are birds. Using only these two facts, what is true about penguins?",
+  "choicesJson": [
+   "They cannot fly",
+   "They can fly",
+   "We cannot tell from these facts"
+  ],
+  "answer": "We cannot tell from these facts"
+ },
+ {
+  "id": "cmu0xa7r400cu12z2mbgge6qj",
+  "action": "fix",
+  "reason": "Rule wording reads like alternating steps; clarified",
+  "prompt": "Each number is 3 times the number before it, minus 4: 3, 5, 11, 29, 83, __?"
+ },
+ {
+  "id": "cmu0xa7r400cw12z2lhno2mza",
+  "action": "fix",
+  "reason": "a/an false positive on letter A; use X Y Z; clearer question, 3 choices",
+  "prompt": "All X are Y. No Y are Z. Can any X be Z?",
+  "choicesJson": [
+   "Yes, some can",
+   "Can't tell",
+   "No, none can"
+  ],
+  "answer": "No, none can"
+ },
+ {
+  "id": "cmu0xa7r400cy12z29wwhbs5t",
+  "action": "fix",
+  "reason": "Sentence fragment; add accepted forms",
+  "prompt": "Seven people stand in a line. Jax is 3rd. Kim is two places after Jax. What position is Kim?",
+  "acceptedAnswers": [
+   "five",
+   "5th",
+   "fifth"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400cz12z2xu5kj3rc",
+  "action": "fix",
+  "reason": "Number word accepted",
+  "acceptedAnswers": [
+   "eighty-two",
+   "eighty two"
+  ]
+ },
+ {
+  "id": "cmu0xa7r400d112z2ai3k0rmw",
+  "action": "fix",
+  "reason": "Ambiguous (No and Can't tell both fit; real-world never lies = honest); replaced with clear affirming-the-consequent puzzle",
+  "prompt": "Every creeper explodes. Something just exploded near your base. Can we be sure it was a creeper?",
+  "choicesJson": [
+   "Yes, it was definitely a creeper",
+   "No, creepers never explode",
+   "No, something else could have exploded too"
+  ],
+  "answer": "No, something else could have exploded too"
+ },
+ {
+  "id": "cmu0xa7r500d812z2mvso8lib",
+  "action": "fix",
+  "reason": "Answer 343 already in sequence; true next term is 512",
+  "choicesJson": [
+   "450",
+   "343",
+   "512",
+   "561"
+  ],
+  "answer": "512"
+ },
+ {
+  "id": "cmu0xa7r500dp12z26guh5pzm",
+  "action": "fix",
+  "reason": "Ambiguous: 25 was the only odd number too; made all even",
+  "prompt": "Which number doesn't belong: 46, 30, 10, 20",
+  "choicesJson": [
+   "30",
+   "46",
+   "10",
+   "20"
+  ],
+  "answer": "46"
+ },
+ {
+  "id": "cmu0xa7r500dw12z2xumu3blt",
+  "action": "fix",
+  "reason": "Ambiguous: 36 was the only even number too; made all odd",
+  "prompt": "Which number doesn't belong: 49, 25, 81, 65",
+  "choicesJson": [
+   "49",
+   "25",
+   "65",
+   "81"
+  ],
+  "answer": "65"
+ },
+ {
+  "id": "cmu0xa7r600ef12z2uu8n89w8",
+  "action": "fix",
+  "reason": "Ambiguous: 18 was the only even number too; now odd multiples of 9 plus 75",
+  "prompt": "Which number doesn't belong: 27, 9, 63, 75",
+  "choicesJson": [
+   "27",
+   "9",
+   "63",
+   "75"
+  ],
+  "answer": "75"
+ },
+ {
+  "id": "cmu0xa7r400cq12z2m01ggj1l",
+  "action": "deactivate",
+  "reason": "Near-dup of the other chess row; says Six players but names four; best record ambiguous (Dana 2-1 vs Grace 1-0)"
+ },
+ {
+  "id": "cmu0xa7r400cv12z21llhyewr",
+  "action": "deactivate",
+  "reason": "Near-dup of the primes odd-one-out row (11,13,17,19,21)"
+ },
+ {
+  "id": "cmu0xa7r500d212z2s1sj8p8k",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r500dc12z2qf5vay5d",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r500dk12z2711x3u26",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r500dn12z2ow7vn81g",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r500dx12z26cexpiz7",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r600ep12z2p2y0out2",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r600er12z22zr4byw9",
+  "action": "deactivate",
+  "reason": "Restates its own premise, gives away its answer; near-dup"
+ },
+ {
+  "id": "cmu0xa7r500dh12z2igfl797i",
+  "action": "deactivate",
+  "reason": "Near-dup of 5,10,20,40,80 doubling row"
+ },
+ {
+  "id": "cmu0xa7r500dv12z265dwnfa0",
+  "action": "deactivate",
+  "reason": "Answer 729 already in sequence; near-dup of the cubes row (fixed version kept)"
+ },
+ {
+  "id": "cmu0xa7r600ei12z2t5glur8d",
+  "action": "deactivate",
+  "reason": "Near-dup of 7,15,31,63,127 (same x2+1 sequence shifted)"
+ },
+ {
+  "id": "cmu0xa7r600f612z2sa9d95xp",
+  "action": "deactivate",
+  "reason": "Near-dup of 7,15,31,63,127 (same x2+1 sequence shifted)"
+ },
+ {
+  "id": "cmu0xa7r500dr12z2twz57bo2",
+  "action": "deactivate",
+  "reason": "Near-dup squares odd-one-out; ambiguous (16 only even)"
+ },
+ {
+  "id": "cmu0xa7r500du12z26chgmfqg",
+  "action": "deactivate",
+  "reason": "Near-dup squares odd-one-out; ambiguous (9 only odd)"
+ },
+ {
+  "id": "cmu0xa7r600ea12z2u5fd50y4",
+  "action": "deactivate",
+  "reason": "Near-dup squares odd-one-out; ambiguous (49 only odd)"
+ },
+ {
+  "id": "cmu0xa7r600em12z2k8ky37fo",
+  "action": "deactivate",
+  "reason": "Near-dup squares odd-one-out; ambiguous (100 only even)"
+ },
+ {
+  "id": "cmu0xa7r600e212z2pxmzvz3w",
+  "action": "deactivate",
+  "reason": "Near-dup primes/parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r600eo12z237skjhgk",
+  "action": "deactivate",
+  "reason": "Near-dup primes odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r500dl12z2gm2jletg",
+  "action": "deactivate",
+  "reason": "Near-dup parity odd-one-out; prime reading gives two non-primes"
+ },
+ {
+  "id": "cmu0xa7r600e112z2m1npuwxd",
+  "action": "deactivate",
+  "reason": "Near-dup parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r600ee12z202cqj0y6",
+  "action": "deactivate",
+  "reason": "Near-dup parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r600eq12z2jrqg6xul",
+  "action": "deactivate",
+  "reason": "Near-dup parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r600ex12z266wkqjcb",
+  "action": "deactivate",
+  "reason": "Ambiguous: 44 only even but 45 only multiple of 5; near-dup parity"
+ },
+ {
+  "id": "cmu0xa7r600f012z2mop0tlpt",
+  "action": "deactivate",
+  "reason": "Near-dup parity odd-one-out"
+ },
+ {
+  "id": "cmu0xa7r600f412z2ej5ie3b7",
+  "action": "deactivate",
+  "reason": "Ambiguous (2 and 17 both prime); near-dup parity"
+ },
+ {
+  "id": "cmu0xa7r600f512z2mdb5vwc8",
+  "action": "deactivate",
+  "reason": "Ambiguous: 46 only even but 45 only multiple of 5; near-dup parity"
+ },
+ {
+  "id": "cmu0xa7r600f912z2339vwt97",
+  "action": "deactivate",
+  "reason": "Ambiguous: 34 only even, 37 only prime, 35 only multiple of 5"
+ },
+ {
+  "id": "cmu0xa7r500d412z2x8tchquj",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500d612z2um64kmla",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500d712z2p3mpge53",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500dd12z2yow8zjrp",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500de12z26qqba880",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500df12z2ca2iz66m",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500dj12z2xsszmgjr",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500do12z2ew0k6h7i",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600e412z2r4d76tkg",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600e612z2lysksanf",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600e712z2vuawueo8",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600eb12z2d3t8mskp",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600eh12z2lm83mg05",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600es12z2ei4gov12",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600ez12z2jf1kna5f",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600f112z2sk6xqksx",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r600f712z201oz1sfl",
+  "action": "deactivate",
+  "reason": "Too easy for grade 6 (trivial category sort); redundant with other odd-one-out rows"
+ },
+ {
+  "id": "cmu0xa7r500d912z2r42tdizw",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r500dt12z2dm2xz1sn",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r500dz12z2xeg6iuvu",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600e512z2kkrgc0dv",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600e812z2kgo0iybi",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600ed12z24597cou0",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600eg12z2n95ofru6",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600en12z23zjdrxbx",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ },
+ {
+  "id": "cmu0xa7r600ew12z208u3ahtc",
+  "action": "deactivate",
+  "reason": "Premises listed in order so answer is just first or last name; too easy for grade 6; near-dup of ordering row kept"
+ }
+]

@@ -1,0 +1,12 @@
+[
+{"id":"cmu0xa84y01vq12z2d9t8cttt","action":"fix","reason":"Silly distractor 'crust again'; replace with a plausible Earth sphere","choicesJson":["mantle","core","atmosphere","hydrosphere"]},
+{"id":"cmu0xa84y01vs12z2a9voeyqx","action":"fix","reason":"Garbled prompt; 'gravity' is not an energy type and was a bad distractor","prompt":"A lightbulb transforms electrical energy into which types of energy?","choicesJson":["Light and heat energy","Chemical energy only","Sound energy only","Nuclear energy only"],"answer":"Light and heat energy"},
+{"id":"cmu0xa84y01w512z26rylon5y","action":"fix","reason":"Distractor 'Ribosome, then organism' is nonsensical; use plausible levels","choicesJson":["Organism","Ecosystem","Population","Ribosome"]},
+{"id":"cmu0xa84y01w712z2buug0grl","action":"fix","reason":"Prompt asks for a type of microscope but distractors are other tools; ask for the tool instead","prompt":"Which tool would a student typically use in a school lab to view cells?"},
+{"id":"cmu0xa84z01wy12z29hd1u9jz","action":"fix","reason":"'A resistor only' is a weak, odd distractor","choicesJson":["An insulator","A conductor","A magnet","A solvent"]},
+{"id":"cmu0xa84z01xn12z2ft4b44d2","action":"fix","reason":"Prompt gives away the answer ('water molecule')","prompt":"What do we call the smallest particle of a compound that still has the properties of that compound?"},
+{"id":"cmu0xa85001xz12z2lozpsnwx","action":"fix","reason":"Wrong: 'brown eyes vs blue eyes' are versions of a trait (variations/alleles), not 'traits' as asked; reword to a clean definition","prompt":"What do we call a characteristic passed from parents to offspring, like eye color or hair color?","choicesJson":["A trait","An organ","A tissue","A reactant"],"answer":"A trait"},
+{"id":"cmu0xa85001y112z26kb37a9v","action":"deactivate","reason":"Mirror duplicate of the 'inherited trait vs learned behavior' question (eye color row); keep the eye color one"},
+{"id":"cmu0xa85001ya12z2y5m81bqv","action":"fix","reason":"Kingdoms are not the broadest groups (domains are broader); soften the claim","prompt":"What do we call the large groups used to classify living things, like Animalia or Plantae?"},
+{"id":"cmu0xa85001ye12z2bbfkygfc","action":"fix","reason":"'Must eat other organisms' is arguably also true of fungi (Fungi is a distractor); rewrite to be unambiguous","prompt":"Which kingdom includes humans, dogs, and insects?"}
+]

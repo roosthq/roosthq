@@ -1,0 +1,173 @@
+[
+ {
+  "id": "cmu0xa7no000612z23ty07skb",
+  "action": "fix",
+  "reason": "accept number word",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7np000k12z27ggt58cm",
+  "action": "fix",
+  "reason": "accept number word",
+  "acceptedAnswers": [
+   "eight"
+  ]
+ },
+ {
+  "id": "cmu0xa7np001212z2nqzosj1z",
+  "action": "deactivate",
+  "reason": "multiples/divisible too advanced for K; circular"
+ },
+ {
+  "id": "cmu0xa7np001e12z25tmr18gc",
+  "action": "deactivate",
+  "reason": "multiples/divisible too advanced for K; circular; dup"
+ },
+ {
+  "id": "cmu0xa7nq002c12z27shsc0v2",
+  "action": "deactivate",
+  "reason": "near-dup +1 sequence"
+ },
+ {
+  "id": "cmu0xa7nq002z12z27vttaoje",
+  "action": "deactivate",
+  "reason": "near-dup +1 sequence"
+ },
+ {
+  "id": "cmu0xa7nq002112z2c1h8hq53",
+  "action": "deactivate",
+  "reason": "near-dup odd-number sequence"
+ },
+ {
+  "id": "cmu0xa7nq002m12z2t57bk7iw",
+  "action": "deactivate",
+  "reason": "ambiguous: ruler is also a tool"
+ },
+ {
+  "id": "cmu0xa7nq002y12z29u49c7xv",
+  "action": "deactivate",
+  "reason": "ambiguous: ruler is also a tool"
+ },
+ {
+  "id": "cmu0xa7np001f12z24h8k2b48",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (tallest)"
+ },
+ {
+  "id": "cmu0xa7nq002412z2evt5hhgn",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (tallest)"
+ },
+ {
+  "id": "cmu0xa7nq002f12z2b842x5gr",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (tallest)"
+ },
+ {
+  "id": "cmu0xa7nq001w12z2y7705z0e",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (oldest)"
+ },
+ {
+  "id": "cmu0xa7nq002k12z2lsyap2gv",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (oldest)"
+ },
+ {
+  "id": "cmu0xa7nq002t12z2v41th0jy",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (oldest)"
+ },
+ {
+  "id": "cmu0xa7nq002812z2l7115aly",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (youngest)"
+ },
+ {
+  "id": "cmu0xa7nq002v12z2fggq1c78",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (youngest)"
+ },
+ {
+  "id": "cmu0xa7nq002i12z2mcf4ntwa",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (shortest)"
+ },
+ {
+  "id": "cmu0xa7nq002n12z2ele0aazj",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (shortest)"
+ },
+ {
+  "id": "cmu0xa7nq002w12z2sx662u7t",
+  "action": "deactivate",
+  "reason": "near-dup ordering template (lowest scorer)"
+ },
+ {
+  "id": "cmu0xa7np001712z28rz12tsq",
+  "action": "deactivate",
+  "reason": "near-dup tools odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001112z2dkpe2h9m",
+  "action": "deactivate",
+  "reason": "near-dup tools odd-one-out; Proud hard for K"
+ },
+ {
+  "id": "cmu0xa7np001a12z26eh4ofaa",
+  "action": "deactivate",
+  "reason": "near-dup instruments; musical saw exists"
+ },
+ {
+  "id": "cmu0xa7np001r12z2s1ee2pq7",
+  "action": "deactivate",
+  "reason": "near-dup instruments odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001j12z2ixkej09j",
+  "action": "deactivate",
+  "reason": "near-dup furniture odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001t12z2h5djfp8r",
+  "action": "deactivate",
+  "reason": "near-dup furniture odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001s12z2zcpqkpqp",
+  "action": "deactivate",
+  "reason": "near-dup sports odd-one-out"
+ },
+ {
+  "id": "cmu0xa7nq002g12z2u4fab44g",
+  "action": "deactivate",
+  "reason": "near-dup sports odd-one-out"
+ },
+ {
+  "id": "cmu0xa7nq002012z2rb0irqr9",
+  "action": "deactivate",
+  "reason": "near-dup feelings odd-one-out"
+ },
+ {
+  "id": "cmu0xa7nq002212z2cvjobx7r",
+  "action": "deactivate",
+  "reason": "near-dup feelings odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001d12z2558ebopq",
+  "action": "deactivate",
+  "reason": "near-dup weather odd-one-out"
+ },
+ {
+  "id": "cmu0xa7np001n12z2qa2xxhvp",
+  "action": "deactivate",
+  "reason": "near-dup months odd-one-out"
+ },
+ {
+  "id": "cmu0xa7nq003112z2r3qb8yiy",
+  "action": "deactivate",
+  "reason": "near-dup drinks odd-one-out"
+ }
+]

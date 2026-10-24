@@ -1,0 +1,11 @@
+[
+{"id":"cmu0xa7x4011912z2npx19fe4","action":"deactivate","reason":"Near-duplicate of cmu0xa7x5012u12z2q5ttl7qt (fable, talking animals, same choices)."},
+{"id":"cmu0xa7x4011h12z2i0bnterp","action":"deactivate","reason":"Near-duplicate of cmu0xa7x5012v12z2qbn37zy5 (biography, true story about a real person)."},
+{"id":"cmu0xa7x4011f12z2z0qeu745","action":"fix","reason":"Prompt gave away the answer ('was sad'); rewrote so the feeling must be inferred.","prompt":"'Tom dropped his ice cream and started to cry.' How did Tom feel?"},
+{"id":"cmu0xa7x4011x12z20crtufzh","action":"fix","reason":"Prompt gave away the answer ('happy'); rewrote so the feeling must be inferred.","prompt":"'After the long hike, the campers smiled and cheered when they saw the lake.' How did the campers feel?"},
+{"id":"cmu0xa7x5012q12z2jvkuqom5","action":"fix","reason":"'Person telling the story' is ambiguous (a character can narrate); awkward distractor 'illustrator who draws only'. Clarified and reordered.","prompt":"The person who writes a book is the...","choicesJson":["character","author","illustrator","setting"],"answer":"author"},
+{"id":"cmu0xa7x5012x12z2vfqs60ci","action":"fix","reason":"Choices mixed 'fiction' with article-led answers ('a fact', 'a recipe'), giving away the answer by grammar.","prompt":"Which kind of book is a made-up story that did not really happen?","choicesJson":["Biography","Recipe","Fiction","Map"],"answer":"Fiction"},
+{"id":"cmu0xa7x6013y12z2l9xlmzcb","action":"fix","reason":"Choice 'won' repeats the prompt word and confuses; replaced with a clear distractor.","choicesJson":["one","two","ten","four"],"answer":"one"},
+{"id":"cmu0xa7x6013z12z2unsnb97t","action":"fix","reason":"Wrong: 'their' does not sound like 'hare' (hair does). Rewrote as a true homophone question.","prompt":"Which word sounds like 'hare' but means the stuff that grows on your head?","choicesJson":["here","hair","hear","her"],"answer":"hair"},
+{"id":"cmu0xa7x6014012z2s0imuet2","action":"fix","reason":"Wrong: 'know' does not sound like 'nose' ('no' does). Changed prompt word to 'no' and replaced distractors.","prompt":"Which word sounds like 'no' but means to be aware of something, like in 'I ___ the answer'?","choicesJson":["now","new","know","nose"],"answer":"know"}
+]

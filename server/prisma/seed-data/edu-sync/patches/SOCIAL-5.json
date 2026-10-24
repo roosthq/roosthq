@@ -1,0 +1,14 @@
+[
+{"id":"cmu0xa89002du12z27paxl3ou","action":"fix","reason":"Prompt asks for a number; accept the number word too","acceptedAnswers":["five"]},
+{"id":"cmu0xa89102ex12z2vsb7xyqd","action":"deactivate","reason":"Ambiguous: Delaware is Northeast/Mid-Atlantic in many 5-region curricula and Southeast in others; both appear as choices"},
+{"id":"cmu0xa89102f012z2vvkidwuf","action":"fix","reason":"Prompt says responsibility but the answer (voting) is a right","prompt":"What is one right U.S. citizens gain when they turn 18?"},
+{"id":"cmu0xa89102f712z2rei9wpf3","action":"fix","reason":"Awkward 'a ____?' wording and 'a Government' does not fit grammatically","prompt":"A farmer grows corn to sell at the market. In economics, what is the farmer called?"},
+{"id":"cmu0xa89202gg12z2v5wmvd2o","action":"fix","reason":"Utah sometimes grouped with Southwest in some curricula; remove the ambiguous distractor","choicesJson":["Midwest","Northeast","Southeast","West"]},
+{"id":"cmu0xa89002e812z25l8hq376","action":"deactivate","reason":"Duplicate of 'What is the capital of Mississippi?'"},
+{"id":"cmu0xa89102fe12z26trwd3dd","action":"deactivate","reason":"Duplicate of 'Which of these cities is the capital of Kentucky?'"},
+{"id":"cmu0xa89102f912z2dxwx14hn","action":"deactivate","reason":"Duplicate of the multiple-choice Florida capital question; Tallahassee is also a hard typed spelling"},
+{"id":"cmu0xa89002ec12z27h9fg09j","action":"deactivate","reason":"Duplicate of the text-input Montana capital question"},
+{"id":"cmu0xa89102f112z220dub855","action":"deactivate","reason":"Reverse duplicate of 'What is the capital of Connecticut?'"},
+{"id":"cmu0xa89102f812z2slo7m4ui","action":"deactivate","reason":"Near-duplicate of the Japan continent question (both Asia) and too easy for grade 5"},
+{"id":"cmu0xa89202gt12z2i01sx87g","action":"deactivate","reason":"Near-duplicate of the Germany continent question (both Europe) and too easy for grade 5"}
+]

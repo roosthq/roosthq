@@ -1,0 +1,1235 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This man was the main writer of the Declaration of Independence and later became president. Who is he?",
+  "choicesJson": [
+   "George Washington",
+   "Benjamin Franklin",
+   "Thomas Jefferson",
+   "John Adams"
+  ],
+  "answer": "Thomas Jefferson",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-thomas-jefferson.webp",
+   "alt": "Old painted portrait of a man with gray hair and a dark coat."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "He escaped slavery and became a famous writer and speaker who spoke out against slavery. Who is he?",
+  "choicesJson": [
+   "Frederick Douglass",
+   "Abraham Lincoln",
+   "Thomas Jefferson",
+   "Benjamin Franklin"
+  ],
+  "answer": "Frederick Douglass",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-frederick-douglass.webp",
+   "alt": "Black-and-white photo of an older man with fluffy white hair and a white beard."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "For many years she worked so that women could win the right to vote. Who is she?",
+  "choicesJson": [
+   "Marie Curie",
+   "Amelia Earhart",
+   "Susan B. Anthony",
+   "Helen Keller"
+  ],
+  "answer": "Susan B. Anthony",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-susan-b-anthony.webp",
+   "alt": "Old engraved portrait of a woman with her hair pulled back, seen from the side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This inventor is famous for inventing the phonograph and holding more than 1,000 US patents. Who is he?",
+  "choicesJson": [
+   "Thomas Edison",
+   "Benjamin Franklin",
+   "Albert Einstein",
+   "Thomas Jefferson"
+  ],
+  "answer": "Thomas Edison",
+  "tags": [
+   "famous people",
+   "inventors"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-thomas-edison.webp",
+   "alt": "Black-and-white photo of an older man in a suit and bow tie."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "She was deaf and blind, learned to communicate with help from a teacher, and became a famous author. Who is she?",
+  "choicesJson": [
+   "Helen Keller",
+   "Marie Curie",
+   "Susan B. Anthony",
+   "Amelia Earhart"
+  ],
+  "answer": "Helen Keller",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-helen-keller.webp",
+   "alt": "Black-and-white photo of a woman seen from the side with her head tilted down."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which person invented the phonograph and held more than 1,000 US patents?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "famous people",
+   "inventors"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-benjamin-franklin.webp",
+    "learning/img/famous-people-albert-einstein.webp",
+    "learning/img/famous-people-thomas-edison.webp",
+    "learning/img/famous-people-thomas-jefferson.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which woman worked for many years to win women the right to vote?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-amelia-earhart.webp",
+    "learning/img/famous-people-helen-keller.webp",
+    "learning/img/famous-people-susan-b-anthony.webp",
+    "learning/img/famous-people-marie-curie.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these people is on the US $100 bill?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-abraham-lincoln.webp",
+    "learning/img/famous-people-benjamin-franklin.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-thomas-jefferson.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which woman was both deaf and blind and still became a famous author and speaker?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-rosa-parks.webp",
+    "learning/img/famous-people-susan-b-anthony.webp",
+    "learning/img/famous-people-helen-keller.webp",
+    "learning/img/famous-people-harriet-tubman.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which person escaped slavery and became a famous speaker and newspaper publisher?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-abraham-lincoln.webp",
+    "learning/img/famous-people-frederick-douglass.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-benjamin-franklin.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In what year did Neil Armstrong walk on the Moon?",
+  "answer": "1969",
+  "acceptedAnswers": [],
+  "tags": [
+   "famous people",
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Harriet Tubman helped people travel the Underground Railroad. What was the Underground Railroad?",
+  "choicesJson": [
+   "A secret network of people and safe places",
+   "A train that ran in tunnels under cities",
+   "A famous bridge over the Ohio River",
+   "A railroad built by the army"
+  ],
+  "answer": "A secret network of people and safe places",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Benjamin Franklin invented glasses that help you see both close up and far away. What are they called?",
+  "answer": "bifocals",
+  "acceptedAnswers": [
+   "bifocal"
+  ],
+  "tags": [
+   "famous people",
+   "inventors"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Neil Armstrong landed on the Moon as part of which space mission?",
+  "choicesJson": [
+   "Apollo 11",
+   "Apollo 13",
+   "Voyager 1",
+   "Challenger"
+  ],
+  "answer": "Apollo 11",
+  "tags": [
+   "famous people",
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these famous people was never president of the United States?",
+  "choicesJson": [
+   "George Washington",
+   "Benjamin Franklin",
+   "Abraham Lincoln",
+   "Thomas Jefferson"
+  ],
+  "answer": "Benjamin Franklin",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Thomas Jefferson was which number president of the United States? Type the number.",
+  "answer": "3",
+  "acceptedAnswers": [
+   "three",
+   "third",
+   "3rd"
+  ],
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Helen Keller learned words by feeling letters spelled into her hand. Which sense was she using?",
+  "choicesJson": [
+   "Hearing",
+   "Touch",
+   "Taste",
+   "Sight"
+  ],
+  "answer": "Touch",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the country that flies this flag.",
+  "answer": "India",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-india.webp",
+   "alt": "A flag with orange, white and green stripes and a blue wheel in the middle."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the country that uses this flag.",
+  "answer": "Egypt",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-egypt.webp",
+   "alt": "A flag with red, white and black stripes and a golden eagle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to which country?",
+  "choicesJson": [
+   "China",
+   "Japan",
+   "South Korea",
+   "Thailand"
+  ],
+  "answer": "South Korea",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-south-korea.webp",
+   "alt": "A white flag with a red and blue circle in the middle and four sets of black bars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country flies this flag?",
+  "choicesJson": [
+   "South Africa",
+   "Kenya",
+   "Brazil",
+   "Nigeria"
+  ],
+  "answer": "South Africa",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-south-africa.webp",
+   "alt": "A flag with a sideways green Y shape, red and blue stripes, and a black triangle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country does this flag represent?",
+  "choicesJson": [
+   "France",
+   "Netherlands",
+   "Poland",
+   "Russia"
+  ],
+  "answer": "Russia",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-russia.webp",
+   "alt": "A flag with white, blue and red horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country flies this flag?",
+  "choicesJson": [
+   "Argentina",
+   "Greece",
+   "Israel",
+   "Sweden"
+  ],
+  "answer": "Greece",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-greece.webp",
+   "alt": "A flag with blue and white stripes and a white cross on a blue square in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Whose flag is this?",
+  "choicesJson": [
+   "China",
+   "Saudi Arabia",
+   "Vietnam",
+   "Turkey"
+  ],
+  "answer": "Turkey",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-turkey.webp",
+   "alt": "A red flag with a white crescent moon and a white star."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country's flag is this?",
+  "choicesJson": [
+   "Russia",
+   "Netherlands",
+   "France",
+   "Germany"
+  ],
+  "answer": "Netherlands",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-netherlands.webp",
+   "alt": "A flag with red, white and blue horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to which country?",
+  "choicesJson": [
+   "Canada",
+   "Switzerland",
+   "Turkey",
+   "Poland"
+  ],
+  "answer": "Switzerland",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-switzerland.webp",
+   "alt": "A square red flag with a white cross in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country's flag is this?",
+  "choicesJson": [
+   "United Kingdom",
+   "Norway",
+   "Switzerland",
+   "Sweden"
+  ],
+  "answer": "Norway",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-norway.webp",
+   "alt": "A red flag with a blue cross edged in white."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to which country?",
+  "choicesJson": [
+   "Greece",
+   "Sweden",
+   "Norway",
+   "Ukraine"
+  ],
+  "answer": "Sweden",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-sweden.webp",
+   "alt": "A blue flag with a yellow cross."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to India?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-italy.webp",
+    "learning/img/flags-mexico.webp",
+    "learning/img/flags-india.webp",
+    "learning/img/flags-ireland.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the flag of South Korea?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-japan.webp",
+    "learning/img/flags-vietnam.webp",
+    "learning/img/flags-south-korea.webp",
+    "learning/img/flags-china.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pick the flag of Sweden.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-ukraine.webp",
+    "learning/img/flags-sweden.webp",
+    "learning/img/flags-greece.webp",
+    "learning/img/flags-norway.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these is the flag of Greece?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-argentina.webp",
+    "learning/img/flags-netherlands.webp",
+    "learning/img/flags-israel.webp",
+    "learning/img/flags-greece.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the flag of the Netherlands?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-russia.webp",
+    "learning/img/flags-netherlands.webp",
+    "learning/img/flags-france.webp",
+    "learning/img/flags-germany.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pick the flag of Turkey.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-vietnam.webp",
+    "learning/img/flags-china.webp",
+    "learning/img/flags-turkey.webp",
+    "learning/img/flags-saudi-arabia.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent does the country with this flag belong to?",
+  "choicesJson": [
+   "North America",
+   "Oceania",
+   "Africa",
+   "Europe"
+  ],
+  "answer": "Africa",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-kenya.webp",
+   "alt": "A flag with black, red and green stripes and a red shield with two spears in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where in the world is the country with this flag? Pick its continent.",
+  "choicesJson": [
+   "South America",
+   "Africa",
+   "Asia",
+   "North America"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-india.webp",
+   "alt": "A flag with orange, white and green stripes and a blue wheel in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "South Africa uses this flag. On which continent is South Africa found?",
+  "choicesJson": [
+   "Europe",
+   "Africa",
+   "Oceania",
+   "North America"
+  ],
+  "answer": "Africa",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-south-africa.webp",
+   "alt": "A flag with a sideways green Y shape, red and blue stripes, and a black triangle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is Germany, the country with this flag, part of?",
+  "choicesJson": [
+   "South America",
+   "Oceania",
+   "Asia",
+   "Europe"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-germany.webp",
+   "alt": "A flag with black, red and gold horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Argentina. Which continent is Argentina on?",
+  "choicesJson": [
+   "Oceania",
+   "South America",
+   "Africa",
+   "Asia"
+  ],
+  "answer": "South America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-argentina.webp",
+   "alt": "A flag with light blue and white stripes and a golden sun in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "South Korea uses this flag. On which continent is South Korea found?",
+  "choicesJson": [
+   "Oceania",
+   "Asia",
+   "North America",
+   "South America"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-south-korea.webp",
+   "alt": "A white flag with a red and blue circle in the middle and four sets of black bars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is Egypt, the country with this flag, part of?",
+  "choicesJson": [
+   "Oceania",
+   "Europe",
+   "North America",
+   "Africa"
+  ],
+  "answer": "Africa",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-egypt.webp",
+   "alt": "A flag with red, white and black stripes and a golden eagle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is shown in the middle of this flag?",
+  "choicesJson": [
+   "Bear",
+   "Horse",
+   "Lion",
+   "Eagle"
+  ],
+  "answer": "Eagle",
+  "tags": [
+   "flags",
+   "symbols"
+  ],
+  "media": {
+   "image": "learning/img/flags-mexico.webp",
+   "alt": "A flag with green, white and red vertical stripes and an eagle on a cactus in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this flag often called?",
+  "choicesJson": [
+   "Stars and Stripes",
+   "Tricolor",
+   "Union Jack",
+   "Maple Leaf"
+  ],
+  "answer": "Union Jack",
+  "tags": [
+   "flags",
+   "symbols"
+  ],
+  "media": {
+   "image": "learning/img/flags-uk.webp",
+   "alt": "A flag with a red cross and a red X edged in white on a blue background."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many stripes does this flag have?",
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "flags",
+   "counting"
+  ],
+  "media": {
+   "image": "learning/img/flags-greece.webp",
+   "alt": "A flag with blue and white stripes and a white cross on a blue square in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the colors of the stripes on this flag, from top to bottom?",
+  "choicesJson": [
+   "Red, white, and blue",
+   "White, blue, and red",
+   "Blue, white, and red",
+   "Red, blue, and white"
+  ],
+  "answer": "Red, white, and blue",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-netherlands.webp",
+   "alt": "A flag with red, white and blue horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the colors of the stripes on this flag, from left to right?",
+  "choicesJson": [
+   "White, green, and orange",
+   "Orange, white, and green",
+   "Green, white, and orange",
+   "Green, orange, and white"
+  ],
+  "answer": "Green, white, and orange",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-ireland.webp",
+   "alt": "A flag with green, white and orange vertical stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many stripes does this flag have?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "flags",
+   "counting"
+  ],
+  "media": {
+   "image": "learning/img/flags-cuba.webp",
+   "alt": "A flag with blue and white stripes and a red triangle holding a white star."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag has two stripes. What colors are they, from top to bottom?",
+  "choicesJson": [
+   "Blue and yellow",
+   "Red and yellow",
+   "Yellow and blue",
+   "Blue and red"
+  ],
+  "answer": "Blue and yellow",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-ukraine.webp",
+   "alt": "A flag with a blue stripe on top and a yellow stripe on the bottom."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the colors of the stripes on this flag, from top to bottom?",
+  "choicesJson": [
+   "White, red, and blue",
+   "Red, white, and blue",
+   "White, blue, and red",
+   "Blue, white, and red"
+  ],
+  "answer": "White, blue, and red",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-russia.webp",
+   "alt": "A flag with white, blue and red horizontal stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What two colors are on this flag, from top to bottom?",
+  "choicesJson": [
+   "Red and white",
+   "Blue and white",
+   "White and blue",
+   "White and red"
+  ],
+  "answer": "White and red",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-poland.webp",
+   "alt": "A flag with a white stripe on top and a red stripe on the bottom."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This snow-capped volcano is the tallest mountain in which country?",
+  "choicesJson": [
+   "China",
+   "Japan",
+   "Peru",
+   "Italy"
+  ],
+  "answer": "Japan",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-mount-fuji.webp",
+   "alt": "A snow-capped cone-shaped mountain above a calm lake at sunset."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This marble tomb was built by an emperor for his wife. In which country is it?",
+  "choicesJson": [
+   "Egypt",
+   "Turkey",
+   "India",
+   "Mexico"
+  ],
+  "answer": "India",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-taj-mahal.webp",
+   "alt": "A white marble building with a big dome and four tall towers beside a long pool."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This waterfall sits on the border of Canada and which other country?",
+  "choicesJson": [
+   "Mexico",
+   "Russia",
+   "Brazil",
+   "United States"
+  ],
+  "answer": "United States",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-niagara-falls.webp",
+   "alt": "A huge curved waterfall with white mist rising into the sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which river carved this huge canyon over millions of years?",
+  "choicesJson": [
+   "Colorado River",
+   "Mississippi River",
+   "Hudson River",
+   "Rio Grande"
+  ],
+  "answer": "Colorado River",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-grand-canyon.webp",
+   "alt": "Layers of red and tan rock in a very deep, wide canyon."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This building was carved straight into a rock cliff. In which country is it?",
+  "choicesJson": [
+   "Egypt",
+   "Jordan",
+   "Morocco",
+   "Turkey"
+  ],
+  "answer": "Jordan",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-petra.webp",
+   "alt": "A grand building with columns carved into a rose-colored rock cliff."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Angkor Wat?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-stonehenge.webp",
+    "learning/img/landmarks-cn-tower.webp",
+    "learning/img/landmarks-angkor-wat.webp",
+    "learning/img/landmarks-brooklyn-bridge.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This old mission was the site of a famous battle in 1836. In which state is it?",
+  "choicesJson": [
+   "Ohio",
+   "Oregon",
+   "Georgia",
+   "Texas"
+  ],
+  "answer": "Texas",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-alamo.webp",
+   "alt": "An old stone building with a curved top, a carved doorway and a lawn in front."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This arch in St. Louis honors westward expansion. St. Louis is called the Gateway to the ___. Type the missing word.",
+  "answer": "West",
+  "acceptedAnswers": [
+   "the West",
+   "west"
+  ],
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-gateway-arch.webp",
+   "alt": "A shiny silver arch curving high over a city beside a river."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which river does this famous New York City bridge cross?",
+  "choicesJson": [
+   "East River",
+   "Hudson River",
+   "Potomac River",
+   "Mississippi River"
+  ],
+  "answer": "East River",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-brooklyn-bridge.webp",
+   "alt": "A bridge with two stone towers with pointed arches and long cables, over water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which city is this famous bell on display?",
+  "choicesJson": [
+   "Boston",
+   "Philadelphia",
+   "Chicago",
+   "Los Angeles"
+  ],
+  "answer": "Philadelphia",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-liberty-bell.webp",
+   "alt": "A large dark metal bell with a long crack, standing inside a glass-walled hall."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this ancient Roman arena where gladiators fought.",
+  "answer": "Colosseum",
+  "acceptedAnswers": [
+   "Coliseum",
+   "The Colosseum",
+   "The Coliseum",
+   "Roman Colosseum"
+  ],
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-colosseum.webp",
+   "alt": "A huge ancient stone arena with rows of arches, lit up at dusk."
+  }
+ }
+]

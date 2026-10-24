@@ -1,0 +1,923 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this clear crystal mineral. It is also the main ingredient in most beach sand.",
+  "choicesJson": [],
+  "answer": "quartz",
+  "acceptedAnswers": [
+   "quartz crystal",
+   "quartz crystals"
+  ],
+  "tags": [
+   "minerals",
+   "rocks"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-quartz.webp",
+   "alt": "A cluster of clear, six-sided quartz crystals against a black background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "People sometimes call this shiny, golden mineral \"fool's gold.\" What is its real name?",
+  "choicesJson": [
+   "Quartz",
+   "Obsidian",
+   "Pyrite",
+   "Basalt"
+  ],
+  "answer": "Pyrite",
+  "acceptedAnswers": [],
+  "tags": [
+   "minerals"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-pyrite.webp",
+   "alt": "A cluster of shiny, brassy gold-colored cube-shaped pyrite crystals."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this white, veined stone that sculptors use to carve statues and builders use for floors.",
+  "choicesJson": [],
+  "answer": "marble",
+  "acceptedAnswers": [
+   "marble stone"
+  ],
+  "tags": [
+   "rocks"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-marble.webp",
+   "alt": "Polished white marble tiles with thin gray veins."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This rock formed from grains of sand that were pressed and cemented together over a long time. What type of rock is it?",
+  "choicesJson": [
+   "Sedimentary",
+   "Igneous",
+   "Metamorphic"
+  ],
+  "answer": "Sedimentary",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "sedimentary"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-sandstone.webp",
+   "alt": "A tan and orange rock sample made of tiny cemented sand grains."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This dark rock formed when lava cooled and hardened. What type of rock is it?",
+  "choicesJson": [
+   "Sedimentary",
+   "Igneous",
+   "Metamorphic"
+  ],
+  "answer": "Igneous",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "igneous"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-basalt.webp",
+   "alt": "A dark gray, fine-grained piece of basalt rock."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why can pumice float on water?",
+  "choicesJson": [
+   "It is full of tiny air holes",
+   "It is hollow in the middle",
+   "It is coated in oil",
+   "It is made of wood"
+  ],
+  "answer": "It is full of tiny air holes",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "density"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-pumice.webp",
+   "alt": "A light gray pumice stone full of tiny holes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Coal formed over millions of years from the remains of what?",
+  "choicesJson": [
+   "Seashells only",
+   "Ancient plants",
+   "Desert sand",
+   "Volcanic glass"
+  ],
+  "answer": "Ancient plants",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "energy"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-coal.webp",
+   "alt": "A shiny black lump of coal with rough, layered surfaces."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The glowing orange material in this photo has come out onto Earth's surface. What is it called?",
+  "choicesJson": [
+   "Sand",
+   "Ash",
+   "Magma",
+   "Lava"
+  ],
+  "answer": "Lava",
+  "acceptedAnswers": [],
+  "tags": [
+   "volcanoes",
+   "earth science"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-lava.webp",
+   "alt": "A river of glowing orange lava moving under dark, cooled rock."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The pointed shapes hanging from this cave ceiling are called what?",
+  "choicesJson": [
+   "Stalagmites",
+   "Stalactites",
+   "Geysers",
+   "Dunes"
+  ],
+  "answer": "Stalactites",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "caves"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-cave.webp",
+   "alt": "Pale stalactites hanging from the rocky ceiling inside a cave."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where a river slows down and drops sand and mud as it meets the sea, a fan-shaped landform can build up. What is it called?",
+  "choicesJson": [
+   "Delta",
+   "Island",
+   "Canyon",
+   "Glacier"
+  ],
+  "answer": "Delta",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "rivers"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-delta.webp",
+   "alt": "A satellite image of the Nile Delta, a green fan shape where the river meets the sea."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Wind and water wore away softer rock until only this curved bridge of stone was left. What is this landform?",
+  "choicesJson": [
+   "Volcano",
+   "Glacier",
+   "Natural arch",
+   "Cave"
+  ],
+  "answer": "Natural arch",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "erosion"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-arch.webp",
+   "alt": "A natural red sandstone arch standing on a ridge in Utah."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mount Fuji is a volcano. What is melted rock called while it is still underground?",
+  "choicesJson": [
+   "Granite",
+   "Magma",
+   "Soil",
+   "Lava"
+  ],
+  "answer": "Magma",
+  "acceptedAnswers": [],
+  "tags": [
+   "volcanoes",
+   "earth science"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-volcano.webp",
+   "alt": "Mount Fuji, a cone-shaped volcano with a snowy top, seen across a calm lake."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What mostly carved the Grand Canyon over millions of years?",
+  "choicesJson": [
+   "An earthquake",
+   "A sandstorm",
+   "A flowing river",
+   "A volcano"
+  ],
+  "answer": "A flowing river",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "erosion"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-canyon.webp",
+   "alt": "The Grand Canyon with layered red rock walls and clouds."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Natural arches form when wind, water and ice slowly wear rock away. What is this process called? Type one word.",
+  "choicesJson": [],
+  "answer": "erosion",
+  "acceptedAnswers": [
+   "weathering"
+  ],
+  "tags": [
+   "landforms",
+   "erosion"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-arch.webp",
+   "alt": "A natural red sandstone arch standing on a ridge in Utah."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these rocks is sedimentary?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "sedimentary"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-granite.webp",
+    "learning/img/rocks-landforms-basalt.webp",
+    "learning/img/rocks-landforms-obsidian.webp",
+    "learning/img/rocks-landforms-sandstone.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these rocks is igneous?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "igneous"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-sandstone.webp",
+    "learning/img/rocks-landforms-conglomerate.webp",
+    "learning/img/rocks-landforms-marble.webp",
+    "learning/img/rocks-landforms-basalt.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a river delta?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "rivers"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-delta.webp",
+    "learning/img/rocks-landforms-canyon.webp",
+    "learning/img/rocks-landforms-dunes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a natural arch carved by erosion?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "erosion"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-arch.webp",
+    "learning/img/rocks-landforms-lake.webp",
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-waterfall.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Mercury",
+   "Earth",
+   "Venus",
+   "Mars"
+  ],
+  "answer": "Venus",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-venus.webp",
+   "alt": "A photo of a planet covered in thick pale clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Venus",
+   "Mars",
+   "Mercury",
+   "Uranus"
+  ],
+  "answer": "Mercury",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-mercury.webp",
+   "alt": "A photo of a gray planet covered in craters."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why does this planet look red-orange?",
+  "choicesJson": [
+   "It is on fire",
+   "It is covered in lava",
+   "Its dust and rocks contain rust",
+   "It has red oceans"
+  ],
+  "answer": "Its dust and rocks contain rust",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-mars.webp",
+   "alt": "A photo of an orange-red planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why does an astronaut need a spacesuit on the Moon?",
+  "choicesJson": [
+   "It rains there all the time",
+   "There is no air to breathe",
+   "The Moon is covered in water",
+   "Moon dust is sticky like glue"
+  ],
+  "answer": "There is no air to breathe",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-astronaut-moon.webp",
+   "alt": "An astronaut in a spacesuit standing on gray dust."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Footprints left by astronauts on the Moon can last a very long time. Why?",
+  "choicesJson": [
+   "Moon dust never moves, even if it is kicked",
+   "There is almost no wind or rain to wipe them away",
+   "The footprints are covered in ice",
+   "The ground is made of concrete"
+  ],
+  "answer": "There is almost no wind or rain to wipe them away",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-astronaut-moon.webp",
+   "alt": "An astronaut in a spacesuit standing on gray dust."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This planet is a gas giant. What is it mostly made of?",
+  "choicesJson": [
+   "Solid rock",
+   "Liquid water",
+   "Iron and nickel",
+   "Hydrogen and helium gas"
+  ],
+  "answer": "Hydrogen and helium gas",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-saturn.webp",
+   "alt": "A photo of a planet with wide flat rings."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which way does a comet's tail point?",
+  "choicesJson": [
+   "Away from the Sun",
+   "Toward the Sun",
+   "Always straight down",
+   "Toward the nearest planet"
+  ],
+  "answer": "Away from the Sun",
+  "tags": [
+   "space",
+   "comets"
+  ],
+  "media": {
+   "image": "learning/img/space-comet.webp",
+   "alt": "A glowing object with a long tail in a starry sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "About how long does Earth take to travel once around the Sun?",
+  "choicesJson": [
+   "One year",
+   "One month",
+   "One day",
+   "One week"
+  ],
+  "answer": "One year",
+  "tags": [
+   "space",
+   "earth"
+  ],
+  "media": {
+   "image": "learning/img/space-earth.webp",
+   "alt": "A photo of a blue and white planet in black space."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Neptune?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-neptune.webp",
+    "learning/img/space-mars.webp",
+    "learning/img/space-earth.webp",
+    "learning/img/space-uranus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Venus, the hottest planet?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-mercury.webp",
+    "learning/img/space-mars.webp",
+    "learning/img/space-uranus.webp",
+    "learning/img/space-venus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of cloud is this tall thundercloud with a flat top?",
+  "choicesJson": [
+   "Cumulonimbus",
+   "Cumulus",
+   "Stratus",
+   "Cirrus"
+  ],
+  "answer": "Cumulonimbus",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulonimbus.webp",
+   "alt": "A tall thunderstorm cloud with a flat anvil top, seen from above."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Cirrus clouds float very high in the sky. What are they mostly made of?",
+  "choicesJson": [
+   "Smoke",
+   "Ice crystals",
+   "Dust",
+   "Salt"
+  ],
+  "answer": "Ice crystals",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cirrus2.webp",
+   "alt": "Feathery, hook-shaped cirrus clouds streaking across a blue sky above a hillside."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which weather is most likely to come from a gray layer of cloud like this one?",
+  "choicesJson": [
+   "A heat wave",
+   "Giant hailstones",
+   "A tornado",
+   "Light drizzle"
+  ],
+  "answer": "Light drizzle",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-stratus.webp",
+   "alt": "A smooth gray layer of stratus cloud covering the whole sky above some trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Clouds form when water vapor in the air cools and changes into tiny drops of water. What is this change called?",
+  "choicesJson": [
+   "Evaporation",
+   "Melting",
+   "Condensation",
+   "Erosion"
+  ],
+  "answer": "Condensation",
+  "tags": [
+   "clouds",
+   "water cycle"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulus.webp",
+   "alt": "Puffy white cumulus clouds with flat gray bottoms against a deep blue sky."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the calm center of a hurricane called?",
+  "answer": "eye",
+  "acceptedAnswers": [
+   "the eye",
+   "an eye"
+  ],
+  "tags": [
+   "hurricane",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hurricane2.webp",
+   "alt": "A close view from space of the eye of Hurricane Florence ringed by thick spiraling clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many main arms does a typical snowflake crystal have?",
+  "choicesJson": [
+   "8",
+   "4",
+   "6",
+   "10"
+  ],
+  "answer": "6",
+  "tags": [
+   "snow",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-snowflake.webp",
+   "alt": "A close-up of a single six-armed snowflake crystal resting on snow."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, a lightning strike can charge a creeper. In real life, you see lightning before you hear thunder. Why?",
+  "choicesJson": [
+   "Thunder happens before the lightning",
+   "Light travels much faster than sound",
+   "Lightning is closer than thunder",
+   "Sound travels faster than light"
+  ],
+  "answer": "Light travels much faster than sound",
+  "tags": [
+   "lightning",
+   "light and sound",
+   "theme:minecraft"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning2.webp",
+   "alt": "Several lightning bolts reaching down from a stormy night sky toward the ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How hot is the air right around a bolt of lightning?",
+  "choicesJson": [
+   "About as cold as a freezer",
+   "About as hot as a summer day",
+   "About as hot as a hair dryer",
+   "Hotter than the surface of the Sun"
+  ],
+  "answer": "Hotter than the surface of the Sun",
+  "tags": [
+   "lightning",
+   "energy"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning.webp",
+   "alt": "Bright branching lightning bolts lighting up a dark blue storm sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Frost can cover a leaf overnight. What must be true about the leaf's temperature?",
+  "choicesJson": [
+   "It is exactly 100 degrees F",
+   "It is above 70 degrees F",
+   "It is at or below 32 degrees F",
+   "It is hotter than the air"
+  ],
+  "answer": "It is at or below 32 degrees F",
+  "tags": [
+   "frost",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-frost.webp",
+   "alt": "A leaf covered in white frost crystals on a freezing morning."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You are riding in a car in thick fog. Which lights help the driver see best and be seen?",
+  "choicesJson": [
+   "Low-beam headlights",
+   "High-beam headlights",
+   "Only the radio lights",
+   "No lights at all"
+  ],
+  "answer": "Low-beam headlights",
+  "tags": [
+   "fog",
+   "safety"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-fog.webp",
+   "alt": "Thick gray fog hiding the far shore of a calm lake with evergreen trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You see a rainbow in the rain in front of you. Where is the Sun?",
+  "choicesJson": [
+   "In front of you, near the rain",
+   "Directly above you",
+   "Behind you",
+   "Inside the rain cloud"
+  ],
+  "answer": "Behind you",
+  "tags": [
+   "rainbow",
+   "light"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rainbow.webp",
+   "alt": "A rainbow arching over a hillside town beneath gray clouds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dew forms when air touches a cool surface. What happens to the water vapor in the air?",
+  "choicesJson": [
+   "It freezes into hail",
+   "It condenses into drops of liquid water",
+   "It turns into smoke",
+   "It melts into snow"
+  ],
+  "answer": "It condenses into drops of liquid water",
+  "tags": [
+   "dew",
+   "water cycle"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-dew.webp",
+   "alt": "Tiny water drops of dew sparkling on a spider web."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a cumulonimbus cloud?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-cumulonimbus2.webp",
+    "learning/img/weather-clouds-cirrus2.webp",
+    "learning/img/weather-clouds-stratus.webp",
+    "learning/img/weather-clouds-cumulus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows hail?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "hail",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-dew.webp",
+    "learning/img/weather-clouds-snow.webp",
+    "learning/img/weather-clouds-hail.webp",
+    "learning/img/weather-clouds-icicles.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows high clouds made of ice crystals?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-cumulus.webp",
+    "learning/img/weather-clouds-cirrus2.webp",
+    "learning/img/weather-clouds-stratus.webp",
+    "learning/img/weather-clouds-snow.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ }
+]

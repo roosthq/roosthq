@@ -1,0 +1,173 @@
+[
+ {
+  "id": "cmu0i0pty01w51m1z48ao5iaf",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'What do tadpoles grow up to become?' (same answer, inverse wording)"
+ },
+ {
+  "id": "cmu0i0pty01wb1m1zpu39g5ah",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the whale ocean-mammal question"
+ },
+ {
+  "id": "cmu0i0ptz01xg1m1zpap3eb4h",
+  "action": "deactivate",
+  "reason": "Same fact as 'right after winter' (Spring); redundant"
+ },
+ {
+  "id": "cmu0i0ptz01xh1m1z3seteb55",
+  "action": "deactivate",
+  "reason": "Same fact as 'right after summer' (Fall); redundant"
+ },
+ {
+  "id": "cmu0i0ptz01xz1m1zc5i6rka1",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'hard and see-through' (Glass)"
+ },
+ {
+  "id": "cmu0i0pu001ym1m1znhxrdhh4",
+  "action": "deactivate",
+  "reason": "Region-dependent (spring storms are common in the US Plains); ambiguous, plus odd distractor 'Spring only'"
+ },
+ {
+  "id": "cmu0i0pu001yb1m1z641w8oxi",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'main source of light and heat for Earth'"
+ },
+ {
+  "id": "cmu0i0pty01vz1m1zxzkmgfba",
+  "action": "fix",
+  "reason": "Reword 'best'; 'metal rock' is odd, use a plain metal spoon",
+  "prompt": "Which of these would float on water?",
+  "choicesJson": [
+   "A wooden stick",
+   "A metal spoon",
+   "A brick",
+   "A big rock"
+  ],
+  "answer": "A wooden stick"
+ },
+ {
+  "id": "cmu0i0pty01wf1m1z1nq0d9tz",
+  "action": "fix",
+  "reason": "'Cocoon shell' is a plausible-correct distractor (kids say cocoon) and 'Larva only' is odd; use clearly wrong options",
+  "choicesJson": [
+   "Chrysalis",
+   "Egg",
+   "Caterpillar",
+   "Tadpole"
+  ],
+  "answer": "Chrysalis"
+ },
+ {
+  "id": "cmu0i0pty01wk1m1z3qep3qjx",
+  "action": "fix",
+  "reason": "Prompt names caterpillar which is also a choice; maggot is gross and too hard for grade 1; simplify",
+  "prompt": "Which baby animal looks like a tiny copy of its parent when it hatches?",
+  "choicesJson": [
+   "A tadpole",
+   "A chick",
+   "A caterpillar"
+  ],
+  "answer": "A chick"
+ },
+ {
+  "id": "cmu0i0pty01wl1m1zjmwgg2yc",
+  "action": "fix",
+  "reason": "Awkward grammar; 'A leaf' can be arguably correct for cuttings",
+  "prompt": "What does a new plant usually start from?",
+  "choicesJson": [
+   "A seed",
+   "A rock",
+   "A feather",
+   "A cloud"
+  ],
+  "answer": "A seed"
+ },
+ {
+  "id": "cmu0i0pty01wm1m1zsv5bmvbs",
+  "action": "fix",
+  "reason": "'A sapling rock' is a nonsense option",
+  "choicesJson": [
+   "A seedling",
+   "A cocoon",
+   "A larva",
+   "A tadpole"
+  ],
+  "answer": "A seedling"
+ },
+ {
+  "id": "cmu0i0ptz01x61m1zeynqj3rq",
+  "action": "fix",
+  "reason": "Weak distractors ('Oxygen only', 'Nitrogen gas alone') are awkward and arguably confusing",
+  "choicesJson": [
+   "Helium",
+   "Carbon dioxide",
+   "Smoke",
+   "Steam"
+  ],
+  "answer": "Carbon dioxide"
+ },
+ {
+  "id": "cmu0i0ptz01x81m1z8bc9xssj",
+  "action": "fix",
+  "reason": "'The soil' is not a plant part",
+  "choicesJson": [
+   "The roots",
+   "The stem and leaves",
+   "The seed coat"
+  ],
+  "answer": "The stem and leaves"
+ },
+ {
+  "id": "cmu0i0ptz01xb1m1zqklpqtxx",
+  "action": "fix",
+  "reason": "Answer ('A root vegetable') is given away in the prompt",
+  "prompt": "A carrot grows underground. Which part of a plant is a carrot?",
+  "choicesJson": [
+   "Leaf",
+   "Flower",
+   "Root",
+   "Seed"
+  ],
+  "answer": "Root"
+ },
+ {
+  "id": "cmu0i0ptz01xw1m1zqgjpwu2g",
+  "action": "fix",
+  "reason": "'Heavy metal rock' is an odd phrase; use a clear metal object",
+  "choicesJson": [
+   "A wooden log",
+   "A foam block",
+   "A metal key",
+   "A plastic ball"
+  ],
+  "answer": "A metal key"
+ },
+ {
+  "id": "cmu0i0pu001yf1m1zfv50drt4",
+  "action": "fix",
+  "reason": "Ambiguous: a planet's ring and a cloud also reflect sunlight; make the contrast clear",
+  "prompt": "Which of these shines at night only by reflecting sunlight?",
+  "choicesJson": [
+   "A star",
+   "A firefly",
+   "The moon",
+   "A candle"
+  ],
+  "answer": "The moon"
+ },
+ {
+  "id": "cmu0i0pu001yl1m1z7ud8v7rp",
+  "action": "fix",
+  "reason": "Incomplete-sentence stem; wind IS moving air. Make it a clear question",
+  "prompt": "What is wind?",
+  "choicesJson": [
+   "Moving air",
+   "Moving water",
+   "Moving rocks",
+   "Moving light"
+  ],
+  "answer": "Moving air"
+ }
+]

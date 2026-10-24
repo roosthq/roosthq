@@ -1,0 +1,268 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "broccoli",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-broccoli.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "brocoli",
+   "broccoli",
+   "brocolli",
+   "broccolli"
+  ],
+  "answer": "broccoli",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-broccoli.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "helicopter",
+  "acceptedAnswers": [
+   "chopper"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-helicopter.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "helicoptor",
+   "helikopter",
+   "helicopter",
+   "helacopter"
+  ],
+  "answer": "helicopter",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-helicopter.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "pineapple",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pineapple.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "pinapple",
+   "pineapple",
+   "pineappel",
+   "pineaple"
+  ],
+  "answer": "pineapple",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pineapple.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "scissors",
+  "acceptedAnswers": [
+   "scissor"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-scissors.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "helicopter",
+   "flower",
+   "tractor",
+   "scissors"
+  ],
+  "answer": "scissors",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-scissors.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "strawberry",
+  "acceptedAnswers": [
+   "strawberries"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-strawberry.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "tractor",
+   "sandwich",
+   "strawberry",
+   "broccoli"
+  ],
+  "answer": "strawberry",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-strawberry.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "toothbrush",
+  "acceptedAnswers": [
+   "tooth brush"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-toothbrush.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "toothbrush",
+   "tootbrush",
+   "toothbrus",
+   "toothbrash"
+  ],
+  "answer": "toothbrush",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-toothbrush.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"pineapple\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-glasses.webp",
+    "learning/img/spelling-pictures-pineapple.webp",
+    "learning/img/spelling-pictures-broccoli.webp",
+    "learning/img/spelling-pictures-toothbrush.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"strawberry\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-sandwich.webp",
+    "learning/img/spelling-pictures-helicopter.webp",
+    "learning/img/spelling-pictures-tractor.webp",
+    "learning/img/spelling-pictures-strawberry.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ }
+]

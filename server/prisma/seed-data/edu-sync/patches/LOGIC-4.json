@@ -1,0 +1,346 @@
+[
+ {
+  "id": "cmu0xa7qc009g12z2mttxbv4h",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the Sphere polygon odd-one-out; Sphere version is clearer (2D vs 3D)."
+ },
+ {
+  "id": "cmu0xa7qc009l12z246jsbwg6",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 5,11,23,47 (double and add 1); keeping the other doubling-plus-one items."
+ },
+ {
+  "id": "cmu0xa7qc009s12z2im1wf1bf",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 128,64,32,16 (halving)."
+ },
+ {
+  "id": "cmu0xa7qd00a412z2xrefc3nt",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Saturday/Hat odd-one-out (day among items)."
+ },
+ {
+  "id": "cmu0xa7qd00ab12z2w1t8ny77",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Scared/Hockey/Bored/Angry (Hockey as odd one out)."
+ },
+ {
+  "id": "cmu0xa7qd00ah12z23f1qsa6t",
+  "action": "deactivate",
+  "reason": "Tautology: 'multiple of 5' and 'divisible by 5' mean the same thing, gives away answer; near-duplicate of other multiples syllogisms."
+ },
+ {
+  "id": "cmu0xa7qd00ak12z2t082o3ns",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 4 / divisible by 4) gives away answer; duplicate pattern."
+ },
+ {
+  "id": "cmu0xa7qd00al12z2c25eo7jz",
+  "action": "deactivate",
+  "reason": "Ambiguous: 26 is the only even number but 29 is the only prime, two valid answers."
+ },
+ {
+  "id": "cmu0xa7qd00am12z26r61sdhb",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is fastest', 4 names in order)."
+ },
+ {
+  "id": "cmu0xa7qd00aw12z2kfaozy74",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is oldest')."
+ },
+ {
+  "id": "cmu0xa7qd00ax12z29102ojqy",
+  "action": "deactivate",
+  "reason": "Near-duplicate odd-one-out by parity."
+ },
+ {
+  "id": "cmu0xa7qd00b112z26pr2u6m4",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is tallest')."
+ },
+ {
+  "id": "cmu0xa7qd00b212z2rpync4yg",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Baseball/March odd-one-out (fruit among months)."
+ },
+ {
+  "id": "cmu0xa7qd00b312z2suuqeu1g",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is tallest')."
+ },
+ {
+  "id": "cmu0xa7qd00b412z2j2zpcvrw",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is youngest')."
+ },
+ {
+  "id": "cmu0xa7qd00b612z2vmwz3m3r",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 4 / divisible by 4) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qd00b712z21n9roi6e",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 8 / divisible by 8) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qd00b912z20qvn2xh7",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Oval/Diamond/Square/Cherry (animal among shapes)."
+ },
+ {
+  "id": "cmu0xa7qe00bc12z2rvk0ol87",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 7 / divisible by 7) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qe00be12z2he2f8dn2",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 2 / divisible by 2) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qe00bf12z2fq4xrw6v",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is tallest')."
+ },
+ {
+  "id": "cmu0xa7qe00bg12z2cbgx7q1w",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Baseball/March and Elbow/Baseball odd-one-outs."
+ },
+ {
+  "id": "cmu0xa7qe00bi12z2gyhm6q0u",
+  "action": "deactivate",
+  "reason": "Answer 125 already appears in the prompt's own sequence (flag); also near-duplicate of 1,8,27,64 cubes item."
+ },
+ {
+  "id": "cmu0xa7qe00bm12z2cpxpi8x1",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the scored-ranking item, awkward 'is scored higher than' grammar."
+ },
+ {
+  "id": "cmu0xa7qe00bn12z2kupyxboq",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Baseball/March odd-one-out (color among months)."
+ },
+ {
+  "id": "cmu0xa7qe00bo12z296dyc3vc",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is shortest')."
+ },
+ {
+  "id": "cmu0xa7qe00bp12z2ctlo7pem",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the scored-ranking item, awkward grammar."
+ },
+ {
+  "id": "cmu0xa7qe00br12z2w142eyw3",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is youngest')."
+ },
+ {
+  "id": "cmu0xa7qe00bs12z2cm7hqlee",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is tallest')."
+ },
+ {
+  "id": "cmu0xa7qe00bt12z2xmtuqjqg",
+  "action": "deactivate",
+  "reason": "Near-duplicate of Saw/Bee/Fly/Beetle odd-one-out (insects plus an object)."
+ },
+ {
+  "id": "cmu0xa7qe00bu12z23a0zqocs",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is youngest')."
+ },
+ {
+  "id": "cmu0xa7qe00bv12z25325kl8m",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the scored-ranking item, awkward grammar."
+ },
+ {
+  "id": "cmu0xa7qe00bw12z2i8c1roub",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is fastest')."
+ },
+ {
+  "id": "cmu0xa7qe00bx12z2wbb0m2gm",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 8 / divisible by 8) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qe00by12z2yng1veux",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 7 / divisible by 7) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qe00c012z25cgeh87f",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 3,26,7,19 (prime vs even/composite)."
+ },
+ {
+  "id": "cmu0xa7qe00c212z28jbba6sz",
+  "action": "deactivate",
+  "reason": "Near-duplicate parity odd-one-out (17 also only prime)."
+ },
+ {
+  "id": "cmu0xa7qe00c312z2otikjs3i",
+  "action": "deactivate",
+  "reason": "Ambiguous: squares rule gives 50 but parity gives 25 (only odd); also duplicate of 16,25,36,40,49."
+ },
+ {
+  "id": "cmu0xa7qe00c412z2my361u71",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 3,26,7,19 odd-one-out."
+ },
+ {
+  "id": "cmu0xa7qe00c512z2xw1g6ooq",
+  "action": "deactivate",
+  "reason": "Tautology (multiple of 5 / divisible by 5) gives away answer; duplicate."
+ },
+ {
+  "id": "cmu0xa7qe00c612z2ivu0jl2u",
+  "action": "deactivate",
+  "reason": "Near-duplicate chain-ordering item ('who is oldest')."
+ },
+ {
+  "id": "cmu0xa7qe00c712z2ppahcuf8",
+  "action": "deactivate",
+  "reason": "Ambiguous: a screwdriver is also a well-known cocktail/drink name; near-duplicate of Foot/Juice/Milk/Lemonade."
+ },
+ {
+  "id": "cmu0xa7qd00a512z2ydq1z7tu",
+  "action": "fix",
+  "reason": "Answer 121 was already in the prompt sequence; true next term is 144 (12 squared).",
+  "choicesJson": [
+   "115",
+   "107",
+   "144",
+   "131"
+  ],
+  "answer": "144"
+ },
+ {
+  "id": "cmu0xa7qc009j12z2qagrqu80",
+  "action": "fix",
+  "reason": "Prompt said 'Five students' but only three named; confusing. Clarified.",
+  "prompt": "Jo is directly behind Kim. Kim is directly behind Lee. Who is closer to the front of the line, Jo or Lee?"
+ },
+ {
+  "id": "cmu0xa7qc009k12z21dq7z3wz",
+  "action": "fix",
+  "reason": "Ambiguous analogy: a pilot works in an airplane or an airport (both listed). Replaced with unambiguous job-to-action analogy.",
+  "prompt": "Chef is to cook as Pilot is to __?",
+  "choicesJson": [
+   "Swim",
+   "Fly",
+   "Paint",
+   "Sing"
+  ],
+  "answer": "Fly"
+ },
+ {
+  "id": "cmu0xa7qc009b12z2otjfvbru",
+  "action": "fix",
+  "reason": "Add accepted forms.",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five",
+   "25 tokens"
+  ]
+ },
+ {
+  "id": "cmu0xa7qc009h12z2mi6g9hw1",
+  "action": "fix",
+  "reason": "Add accepted forms.",
+  "acceptedAnswers": [
+   "one hundred eighty",
+   "180 miles"
+  ]
+ },
+ {
+  "id": "cmu0xa7qc009n12z2b7qu1zvx",
+  "action": "fix",
+  "reason": "Add accepted forms.",
+  "acceptedAnswers": [
+   "four",
+   "4 tokens"
+  ]
+ },
+ {
+  "id": "cmu0xa7qc009u12z2nljlgiz3",
+  "action": "fix",
+  "reason": "Add accepted forms.",
+  "acceptedAnswers": [
+   "ten"
+  ]
+ },
+ {
+  "id": "cmu0xa7qc009x12z28ar2lc2g",
+  "action": "fix",
+  "reason": "Add accepted forms.",
+  "acceptedAnswers": [
+   "five",
+   "5 tokens"
+  ]
+ },
+ {
+  "id": "cmu0xa7qc00a212z2erod4wnu",
+  "action": "fix",
+  "reason": "Rewritten in scrambled order for real deduction instead of a simple chain; answer still Sana.",
+  "prompt": "Kya is faster than Finn. Sana is faster than Kya. Dev is slower than Finn. Ela is slower than Dev. Who is the fastest?"
+ },
+ {
+  "id": "cmu0xa7qd00aj12z23dk50caj",
+  "action": "fix",
+  "reason": "Differentiated from other fastest-chain items: asks for second fastest in scrambled order. Order is Finn > Cara > Ela > Hugo.",
+  "prompt": "Ela is faster than Hugo. Finn is faster than Cara. Cara is faster than Ela. Who is the second fastest?",
+  "answer": "Cara"
+ },
+ {
+  "id": "cmu0xa7qd00ar12z2iffa6kza",
+  "action": "fix",
+  "reason": "Rewritten in scrambled order for real deduction; order is Ivy > Jax > Quin > Cara > Hugo, answer still Hugo.",
+  "prompt": "Quin is older than Cara. Ivy is older than Jax. Jax is older than Quin. Cara is older than Hugo. Who is the youngest?"
+ },
+ {
+  "id": "cmu0xa7qd00au12z2g0yc3j93",
+  "action": "fix",
+  "reason": "Awkward grammar 'is scored higher than'.",
+  "prompt": "Finn scored higher than Ela. Ela scored higher than Rey. Rey scored higher than Hugo. Hugo scored higher than Mia. Who has the lowest score?"
+ },
+ {
+  "id": "cmu0xa7qe00bj12z252lilsqj",
+  "action": "fix",
+  "reason": "Differentiated from other chain items: asks for the middle one. Order Jax > Theo > Cara > Noah > Leo, middle is Cara.",
+  "prompt": "Jax is taller than Theo. Theo is taller than Cara. Cara is taller than Noah. Noah is taller than Leo. Who is in the middle when they line up from tallest to shortest?",
+  "answer": "Cara"
+ },
+ {
+  "id": "cmu0xa7qe00bh12z2j9gi2z4n",
+  "action": "fix",
+  "reason": "Ambiguous: 2 is the only even number (parity) vs 55 not prime. Replaced 2 with 11 so only 55 is non-prime and all are odd.",
+  "prompt": "Which number doesn't belong: 11, 31, 23, 55",
+  "choicesJson": [
+   "31",
+   "55",
+   "23",
+   "11"
+  ],
+  "answer": "55"
+ },
+ {
+  "id": "cmu0xa7qd00ai12z2adxr1sk8",
+  "action": "fix",
+  "reason": "Ambiguous: 20 is the only even number vs 41 not a multiple of 5. Replaced 20 with 45 so all are odd and only 41 is not a multiple of 5.",
+  "prompt": "Which number doesn't belong: 25, 15, 45, 41",
+  "choicesJson": [
+   "25",
+   "41",
+   "15",
+   "45"
+  ],
+  "answer": "41"
+ }
+]

@@ -1,1113 +1,4659 @@
 [
- {
-  "type": "TEXT_INPUT",
-  "prompt": "24 x 3 = ?",
-  "answer": "72",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "156 / 12 = ?",
-  "answer": "13",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is equivalent to 1/2?",
-  "choicesJson": [
-   "2/3",
-   "2/4",
-   "3/5",
-   "1/4"
-  ],
-  "answer": "2/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is bigger: 3/4 or 1/2?",
-  "choicesJson": [
-   "3/4",
-   "1/2",
-   "They are equal"
-  ],
-  "answer": "3/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "What is 0.5 written as a fraction?",
-  "choicesJson": [
-   "1/2",
-   "1/5",
-   "5/10ths written wrong",
-   "1/4"
-  ],
-  "answer": "1/2",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal is bigger: 0.3 or 0.29?",
-  "choicesJson": [
-   "0.3",
-   "0.29",
-   "They are equal"
-  ],
-  "answer": "0.3",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the factors of 12? How many factors does 12 have total (1,2,3,4,6,12)?",
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is a factor of 20?",
-  "choicesJson": [
-   "6",
-   "5",
-   "7",
-   "9"
-  ],
-  "answer": "5",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is a right angle?",
-  "choicesJson": [
-   "45 degrees",
-   "90 degrees",
-   "180 degrees",
-   "30 degrees"
-  ],
-  "answer": "90 degrees",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "132 x 4 = ?",
-  "answer": "528",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "312 / 6 = ?",
-  "answer": "52",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which angle looks bigger than a right angle?",
-  "choicesJson": [
-   "Acute angle",
-   "Obtuse angle",
-   "Zero angle"
-  ],
-  "answer": "Obtuse angle",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/8 + 2/8 = ? (as a fraction, just the top number over 8)",
-  "answer": "5/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 3.67 to the nearest whole number.",
-  "choicesJson": [
-   "3",
-   "4",
-   "3.7",
-   "4.7"
-  ],
-  "answer": "4",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What is the least common multiple of 4 and 6?",
-  "answer": "12",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "215 x 3 = ?",
-  "answer": "645",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal equals 3/10?",
-  "choicesJson": [
-   "0.3",
-   "0.03",
-   "3.10",
-   "0.31"
-  ],
-  "answer": "0.3",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "243 x 3 = ?",
-  "answer": "729",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "124 x 5 = ?",
-  "answer": "620",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "316 x 2 = ?",
-  "answer": "632",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "108 x 6 = ?",
-  "answer": "648",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "342 x 4 = ?",
-  "answer": "1368",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "27 x 12 = ?",
-  "answer": "324",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "34 x 11 = ?",
-  "answer": "374",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "45 x 13 = ?",
-  "answer": "585",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "56 x 14 = ?",
-  "answer": "784",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "23 x 21 = ?",
-  "answer": "483",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "18 x 15 = ?",
-  "answer": "270",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "29 x 6 = ?",
-  "answer": "174",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "52 x 7 = ?",
-  "answer": "364",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "63 x 8 = ?",
-  "answer": "504",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "256 / 4 = ?",
-  "answer": "64",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "441 / 7 = ?",
-  "answer": "63",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "512 / 8 = ?",
-  "answer": "64",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "693 / 9 = ?",
-  "answer": "77",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "455 / 5 = ?",
-  "answer": "91",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "336 / 6 = ?",
-  "answer": "56",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "572 / 11 = ?",
-  "answer": "52",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "624 / 12 = ?",
-  "answer": "52",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "936 / 12 = ?",
-  "answer": "78",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "828 / 12 = ?",
-  "answer": "69",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "384 / 8 = ?",
-  "answer": "48",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "490 / 7 = ?",
-  "answer": "70",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is equivalent to 2/3?",
-  "choicesJson": [
-   "4/6",
-   "3/4",
-   "5/6",
-   "2/5"
-  ],
-  "answer": "4/6",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is equivalent to 3/4?",
-  "choicesJson": [
-   "6/8",
-   "5/6",
-   "4/5",
-   "2/3"
-  ],
-  "answer": "6/8",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is bigger: 2/3 or 3/5?",
-  "choicesJson": [
-   "2/3",
-   "3/5",
-   "They are equal"
-  ],
-  "answer": "2/3",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is bigger: 5/6 or 4/5?",
-  "choicesJson": [
-   "5/6",
-   "4/5",
-   "They are equal"
-  ],
-  "answer": "5/6",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1/4 + 1/4 = ? (as a fraction)",
-  "answer": "2/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2/5 + 1/5 = ? (as a fraction)",
-  "answer": "3/5",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "5/6 - 1/6 = ? (as a fraction)",
-  "answer": "4/6",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "3/4 - 1/4 = ? (as a fraction)",
-  "answer": "2/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is in simplest form: 4/8 or 3/7?",
-  "choicesJson": [
-   "4/8",
-   "3/7"
-  ],
-  "answer": "3/7",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which fraction is NOT in simplest form?",
-  "choicesJson": [
-   "3/5",
-   "2/4",
-   "5/7",
-   "1/3"
-  ],
-  "answer": "2/4",
-  "tags": [
-   "fractions"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal is bigger: 0.65 or 0.6?",
-  "choicesJson": [
-   "0.65",
-   "0.6",
-   "They are equal"
-  ],
-  "answer": "0.65",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal is smaller: 0.08 or 0.8?",
-  "choicesJson": [
-   "0.08",
-   "0.8",
-   "They are equal"
-  ],
-  "answer": "0.08",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "What is 0.25 written as a fraction?",
-  "choicesJson": [
-   "1/4",
-   "1/5",
-   "2/5",
-   "1/2"
-  ],
-  "answer": "1/4",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "What decimal equals 7/10?",
-  "choicesJson": [
-   "0.7",
-   "0.07",
-   "7.10",
-   "0.71"
-  ],
-  "answer": "0.7",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 5.42 to the nearest whole number.",
-  "choicesJson": [
-   "5",
-   "6",
-   "5.4",
-   "5.5"
-  ],
-  "answer": "5",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 8.91 to the nearest whole number.",
-  "choicesJson": [
-   "8",
-   "9",
-   "8.9",
-   "9.1"
-  ],
-  "answer": "9",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "1.5 + 2.3 = ?",
-  "answer": "3.8",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "4.6 - 1.2 = ?",
-  "answer": "3.4",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "What decimal equals 45/100?",
-  "choicesJson": [
-   "0.45",
-   "4.5",
-   "45.0",
-   "0.045"
-  ],
-  "answer": "0.45",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is greater: 1.2 or 1.19?",
-  "choicesJson": [
-   "1.2",
-   "1.19",
-   "They are equal"
-  ],
-  "answer": "1.2",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the factors of 18? How many factors does 18 have total (1,2,3,6,9,18)?",
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is a factor of 24?",
-  "choicesJson": [
-   "5",
-   "6",
-   "7",
-   "9"
-  ],
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is a factor of 30?",
-  "choicesJson": [
-   "4",
-   "6",
-   "7",
-   "8"
-  ],
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the factors of 16? How many factors does 16 have total (1,2,4,8,16)?",
-  "answer": "5",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is NOT a factor of 36?",
-  "choicesJson": [
-   "4",
-   "6",
-   "8",
-   "9"
-  ],
-  "answer": "8",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Is 7 a factor of 42? Answer yes or no.",
-  "answer": "yes",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Is 5 a factor of 42? Answer yes or no.",
-  "answer": "no",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is an acute angle?",
-  "choicesJson": [
-   "30 degrees",
-   "90 degrees",
-   "120 degrees",
-   "180 degrees"
-  ],
-  "answer": "30 degrees",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is a straight angle?",
-  "choicesJson": [
-   "90 degrees",
-   "180 degrees",
-   "45 degrees",
-   "270 degrees"
-  ],
-  "answer": "180 degrees",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A right angle measures how many degrees?",
-  "answer": "90",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which angle is smaller than a right angle?",
-  "choicesJson": [
-   "Acute angle",
-   "Obtuse angle",
-   "Straight angle"
-  ],
-  "answer": "Acute angle",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "How many degrees are in a full circle?",
-  "answer": "360",
-  "tags": [
-   "angles"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 462 to the nearest hundred.",
-  "choicesJson": [
-   "400",
-   "500",
-   "460",
-   "462"
-  ],
-  "answer": "500",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 1350 to the nearest hundred.",
-  "choicesJson": [
-   "1300",
-   "1400",
-   "1350",
-   "1000"
-  ],
-  "answer": "1400",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 6.28 to the nearest tenth.",
-  "choicesJson": [
-   "6.2",
-   "6.3",
-   "6.0",
-   "6.28"
-  ],
-  "answer": "6.3",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 9.14 to the nearest tenth.",
-  "choicesJson": [
-   "9.1",
-   "9.2",
-   "9.0",
-   "9.14"
-  ],
-  "answer": "9.1",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Round 3782 to the nearest thousand.",
-  "choicesJson": [
-   "3000",
-   "4000",
-   "3800",
-   "3700"
-  ],
-  "answer": "4000",
-  "tags": [
-   "rounding"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What is the least common multiple of 3 and 5?",
-  "answer": "15",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What is the least common multiple of 4 and 10?",
-  "answer": "20",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What is the least common multiple of 6 and 8?",
-  "answer": "24",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is a common multiple of 2 and 3?",
-  "choicesJson": [
-   "4",
-   "6",
-   "9",
-   "10"
-  ],
-  "answer": "6",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which is a common multiple of 4 and 5?",
-  "choicesJson": [
-   "15",
-   "18",
-   "20",
-   "22"
-  ],
-  "answer": "20",
-  "tags": [
-   "multiples"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A theater has 24 rows with 18 seats in each row. How many seats are there in all?",
-  "answer": "432",
-  "tags": [
-   "multiplication",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A factory makes 156 toys per day. How many toys does it make in 4 days?",
-  "answer": "624",
-  "tags": [
-   "multiplication",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A school has 486 students split evenly into 6 classes. How many students are in each class?",
-  "answer": "81",
-  "tags": [
-   "division",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A trucking company has 528 boxes to load equally onto 8 trucks. How many boxes go on each truck?",
-  "answer": "66",
-  "tags": [
-   "division",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A pie is cut into 8 equal slices. If 2 people each eat 3 slices, what fraction of the pie is left (as a fraction)?",
-  "answer": "2/8",
-  "tags": [
-   "fractions",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A recipe uses 0.75 cups of milk and 0.5 cups of water. How many cups of liquid in total?",
-  "answer": "1.25",
-  "tags": [
-   "decimals",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "24 cookies are shared evenly so that each friend gets 4 cookies. How many friends are there?",
-  "answer": "6",
-  "tags": [
-   "factors",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "A pizza place makes pizzas cut into 6 equal slices. A group orders 3 pizzas. How many slices are there in all?",
-  "answer": "18",
-  "tags": [
-   "multiplication",
-   "word-problem"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "37 x 9 = ?",
-  "answer": "333",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "48 x 6 = ?",
-  "answer": "288",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "73 x 5 = ?",
-  "answer": "365",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "84 x 4 = ?",
-  "answer": "336",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "96 x 3 = ?",
-  "answer": "288",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "19 x 14 = ?",
-  "answer": "266",
-  "tags": [
-   "multiplication"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "864 / 9 = ?",
-  "answer": "96",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "720 / 8 = ?",
-  "answer": "90",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "399 / 21 = ?",
-  "answer": "19",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "312 / 4 = ?",
-  "answer": "78",
-  "tags": [
-   "division"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "2.75 + 3.5 = ?",
-  "answer": "6.25",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "9.6 - 4.25 = ?",
-  "answer": "5.35",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which decimal equals 6/10?",
-  "choicesJson": [
-   "0.6",
-   "0.06",
-   "6.10",
-   "0.61"
-  ],
-  "answer": "0.6",
-  "tags": [
-   "decimals"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "What are the factors of 28? How many factors does 28 have total (1,2,4,7,14,28)?",
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is a factor of 45?",
-  "choicesJson": [
-   "6",
-   "7",
-   "9",
-   "11"
-  ],
-  "answer": "9",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which number is NOT a factor of 40?",
-  "choicesJson": [
-   "4",
-   "5",
-   "6",
-   "8"
-  ],
-  "answer": "6",
-  "tags": [
-   "factors"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "67 x 9 = ?",
-  "answer": "603",
-  "tags": [
-   "multiplication"
-  ]
- }
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "24 x 3 = ?",
+    "answer": "72",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "156 ÷ 12 = ?",
+    "answer": "13",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equivalent to 1/2?",
+    "choicesJson": [
+      "2/3",
+      "2/4",
+      "3/5",
+      "1/4"
+    ],
+    "answer": "2/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is bigger: 3/4 or 1/2?",
+    "choicesJson": [
+      "3/4",
+      "1/2",
+      "They are equal"
+    ],
+    "answer": "3/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is 0.5 written as a fraction?",
+    "choicesJson": [
+      "1/5",
+      "1/4",
+      "1/2",
+      "2/5"
+    ],
+    "answer": "1/2",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is bigger: 0.3 or 0.29?",
+    "choicesJson": [
+      "0.3",
+      "0.29",
+      "They are equal"
+    ],
+    "answer": "0.3",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many factors does 12 have? (Count 1 and 12 too.)",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a factor of 20?",
+    "choicesJson": [
+      "6",
+      "5",
+      "7",
+      "9"
+    ],
+    "answer": "5",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which angle measure is a right angle?",
+    "choicesJson": [
+      "45 degrees",
+      "90 degrees",
+      "180 degrees",
+      "30 degrees"
+    ],
+    "answer": "90 degrees",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "132 x 4 = ?",
+    "answer": "528",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "312 ÷ 6 = ?",
+    "answer": "52",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which type of angle is bigger than 90 degrees but smaller than 180 degrees?",
+    "choicesJson": [
+      "Acute angle",
+      "Right angle",
+      "Obtuse angle"
+    ],
+    "answer": "Obtuse angle",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/8 + 2/8 = ? (write your answer as a fraction)",
+    "answer": "5/8",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 3.67 to the nearest whole number.",
+    "choicesJson": [
+      "3",
+      "4",
+      "3.7",
+      "4.7"
+    ],
+    "answer": "4",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the least common multiple of 4 and 6?",
+    "answer": "12",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "215 x 3 = ?",
+    "answer": "645",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal equals 3/10?",
+    "choicesJson": [
+      "0.3",
+      "0.03",
+      "3.10",
+      "0.31"
+    ],
+    "answer": "0.3",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "243 x 3 = ?",
+    "answer": "729",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "124 x 5 = ?",
+    "answer": "620",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "316 x 2 = ?",
+    "answer": "632",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "108 x 6 = ?",
+    "answer": "648",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "342 x 4 = ?",
+    "answer": "1368",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "27 x 12 = ?",
+    "answer": "324",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "34 x 11 = ?",
+    "answer": "374",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "45 x 13 = ?",
+    "answer": "585",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "56 x 14 = ?",
+    "answer": "784",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "23 x 21 = ?",
+    "answer": "483",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "18 x 15 = ?",
+    "answer": "270",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "29 x 6 = ?",
+    "answer": "174",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "52 x 7 = ?",
+    "answer": "364",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "63 x 8 = ?",
+    "answer": "504",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "256 ÷ 4 = ?",
+    "answer": "64",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "441 ÷ 7 = ?",
+    "answer": "63",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "512 ÷ 8 = ?",
+    "answer": "64",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "693 ÷ 9 = ?",
+    "answer": "77",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "455 ÷ 5 = ?",
+    "answer": "91",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "336 ÷ 6 = ?",
+    "answer": "56",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "572 ÷ 11 = ?",
+    "answer": "52",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "624 ÷ 12 = ?",
+    "answer": "52",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "936 ÷ 12 = ?",
+    "answer": "78",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "828 ÷ 12 = ?",
+    "answer": "69",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "384 ÷ 8 = ?",
+    "answer": "48",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "490 ÷ 7 = ?",
+    "answer": "70",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equivalent to 2/3?",
+    "choicesJson": [
+      "4/6",
+      "3/4",
+      "5/6",
+      "2/5"
+    ],
+    "answer": "4/6",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equivalent to 3/4?",
+    "choicesJson": [
+      "6/8",
+      "5/6",
+      "4/5",
+      "2/3"
+    ],
+    "answer": "6/8",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is bigger: 2/3 or 3/5?",
+    "choicesJson": [
+      "2/3",
+      "3/5",
+      "They are equal"
+    ],
+    "answer": "2/3",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is bigger: 5/6 or 4/5?",
+    "choicesJson": [
+      "5/6",
+      "4/5",
+      "They are equal"
+    ],
+    "answer": "5/6",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1/4 + 1/4 = ? (as a fraction)",
+    "answer": "2/4",
+    "acceptedAnswers": [
+      "1/2"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2/5 + 1/5 = ? (as a fraction)",
+    "answer": "3/5",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5/6 - 1/6 = ? (as a fraction)",
+    "answer": "4/6",
+    "acceptedAnswers": [
+      "2/3"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "3/4 - 1/4 = ? (as a fraction)",
+    "answer": "2/4",
+    "acceptedAnswers": [
+      "1/2"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is in simplest form: 4/8 or 3/7?",
+    "choicesJson": [
+      "4/8",
+      "3/7"
+    ],
+    "answer": "3/7",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is NOT in simplest form?",
+    "choicesJson": [
+      "3/5",
+      "2/4",
+      "5/7",
+      "1/3"
+    ],
+    "answer": "2/4",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is bigger: 0.65 or 0.6?",
+    "choicesJson": [
+      "0.65",
+      "0.6",
+      "They are equal"
+    ],
+    "answer": "0.65",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is smaller: 0.08 or 0.8?",
+    "choicesJson": [
+      "0.08",
+      "0.8",
+      "They are equal"
+    ],
+    "answer": "0.08",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is 0.25 written as a fraction?",
+    "choicesJson": [
+      "1/4",
+      "1/5",
+      "2/5",
+      "1/2"
+    ],
+    "answer": "1/4",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What decimal equals 7/10?",
+    "choicesJson": [
+      "0.7",
+      "0.07",
+      "7.10",
+      "0.71"
+    ],
+    "answer": "0.7",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 5.42 to the nearest whole number.",
+    "choicesJson": [
+      "5",
+      "6",
+      "5.4",
+      "5.5"
+    ],
+    "answer": "5",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 8.91 to the nearest whole number.",
+    "choicesJson": [
+      "8",
+      "9",
+      "8.9",
+      "9.1"
+    ],
+    "answer": "9",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "1.5 + 2.3 = ?",
+    "answer": "3.8",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "4.6 - 1.2 = ?",
+    "answer": "3.4",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What decimal equals 45/100?",
+    "choicesJson": [
+      "0.45",
+      "4.5",
+      "45.0",
+      "0.045"
+    ],
+    "answer": "0.45",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is greater: 1.2 or 1.19?",
+    "choicesJson": [
+      "1.2",
+      "1.19",
+      "They are equal"
+    ],
+    "answer": "1.2",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many factors does 18 have? (Count 1 and 18 too.)",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a factor of 24?",
+    "choicesJson": [
+      "5",
+      "6",
+      "7",
+      "9"
+    ],
+    "answer": "6",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a factor of 30?",
+    "choicesJson": [
+      "4",
+      "6",
+      "7",
+      "8"
+    ],
+    "answer": "6",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many factors does 16 have? (Count 1 and 16 too.)",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is NOT a factor of 36?",
+    "choicesJson": [
+      "4",
+      "6",
+      "8",
+      "9"
+    ],
+    "answer": "8",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Is 7 a factor of 42? Answer yes or no.",
+    "answer": "yes",
+    "acceptedAnswers": [
+      "y"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Is 5 a factor of 42? Answer yes or no.",
+    "answer": "no",
+    "acceptedAnswers": [
+      "n"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is an acute angle?",
+    "choicesJson": [
+      "30 degrees",
+      "90 degrees",
+      "120 degrees",
+      "180 degrees"
+    ],
+    "answer": "30 degrees",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is a straight angle?",
+    "choicesJson": [
+      "90 degrees",
+      "180 degrees",
+      "45 degrees",
+      "270 degrees"
+    ],
+    "answer": "180 degrees",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A right angle measures how many degrees?",
+    "answer": "90",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which angle is smaller than a right angle?",
+    "choicesJson": [
+      "Acute angle",
+      "Obtuse angle",
+      "Straight angle"
+    ],
+    "answer": "Acute angle",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many degrees are in a full circle?",
+    "answer": "360",
+    "tags": [
+      "angles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 462 to the nearest hundred.",
+    "choicesJson": [
+      "400",
+      "500",
+      "460",
+      "462"
+    ],
+    "answer": "500",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 1350 to the nearest hundred.",
+    "choicesJson": [
+      "1300",
+      "1400",
+      "1350",
+      "1000"
+    ],
+    "answer": "1400",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 6.28 to the nearest tenth.",
+    "choicesJson": [
+      "6.2",
+      "6.3",
+      "6.0",
+      "6.28"
+    ],
+    "answer": "6.3",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 9.14 to the nearest tenth.",
+    "choicesJson": [
+      "9.1",
+      "9.2",
+      "9.0",
+      "9.14"
+    ],
+    "answer": "9.1",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 3782 to the nearest thousand.",
+    "choicesJson": [
+      "3000",
+      "4000",
+      "3800",
+      "3700"
+    ],
+    "answer": "4000",
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the least common multiple of 3 and 5?",
+    "answer": "15",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the least common multiple of 4 and 10?",
+    "answer": "20",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the least common multiple of 6 and 8?",
+    "answer": "24",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is a common multiple of 2 and 3?",
+    "choicesJson": [
+      "4",
+      "6",
+      "9",
+      "10"
+    ],
+    "answer": "6",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is a common multiple of 4 and 5?",
+    "choicesJson": [
+      "15",
+      "18",
+      "20",
+      "22"
+    ],
+    "answer": "20",
+    "tags": [
+      "multiples"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A theater has 24 rows with 18 seats in each row. How many seats are there in all?",
+    "answer": "432",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A factory makes 156 toys per day. How many toys does it make in 4 days?",
+    "answer": "624",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A school has 486 students split evenly into 6 classes. How many students are in each class?",
+    "answer": "81",
+    "tags": [
+      "division",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A trucking company has 528 boxes to load equally onto 8 trucks. How many boxes go on each truck?",
+    "answer": "66",
+    "tags": [
+      "division",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pie is cut into 8 equal slices. If 2 people each eat 3 slices, what fraction of the pie is left? (write it as a fraction)",
+    "answer": "2/8",
+    "acceptedAnswers": [
+      "1/4"
+    ],
+    "tags": [
+      "fractions",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A recipe uses 0.75 cups of milk and 0.5 cups of water. How many cups of liquid in total?",
+    "answer": "1.25",
+    "tags": [
+      "decimals",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "24 cookies are shared evenly so that each friend gets 4 cookies. How many friends are there?",
+    "answer": "6",
+    "tags": [
+      "factors",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pizza place makes pizzas cut into 6 equal slices. A group orders 3 pizzas. How many slices are there in all?",
+    "answer": "18",
+    "tags": [
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "37 x 9 = ?",
+    "answer": "333",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "48 x 6 = ?",
+    "answer": "288",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "73 x 5 = ?",
+    "answer": "365",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "84 x 4 = ?",
+    "answer": "336",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "96 x 3 = ?",
+    "answer": "288",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "19 x 14 = ?",
+    "answer": "266",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "864 ÷ 9 = ?",
+    "answer": "96",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "720 ÷ 8 = ?",
+    "answer": "90",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "399 ÷ 21 = ?",
+    "answer": "19",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "312 ÷ 4 = ?",
+    "answer": "78",
+    "tags": [
+      "division"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "2.75 + 3.5 = ?",
+    "answer": "6.25",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "9.6 - 4.25 = ?",
+    "answer": "5.35",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many factors does 28 have? (Count 1 and 28 too.)",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is a factor of 45?",
+    "choicesJson": [
+      "6",
+      "7",
+      "9",
+      "11"
+    ],
+    "answer": "9",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is NOT a factor of 40?",
+    "choicesJson": [
+      "4",
+      "5",
+      "6",
+      "8"
+    ],
+    "answer": "6",
+    "tags": [
+      "factors"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "67 x 9 = ?",
+    "answer": "603",
+    "tags": [
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 1/2?",
+    "choicesJson": [
+      "2/4",
+      "3/4",
+      "2/5",
+      "1/3"
+    ],
+    "answer": "2/4",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 1/2 shaded",
+      "image": "learning/img/viz/09c617fec269.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 1/2?",
+    "choicesJson": [
+      "3/6",
+      "4/6",
+      "3/7",
+      "1/3"
+    ],
+    "answer": "3/6",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 1/2 shaded",
+      "image": "learning/img/viz/09c617fec269.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 1/2?",
+    "choicesJson": [
+      "4/8",
+      "5/8",
+      "4/9",
+      "1/3"
+    ],
+    "answer": "4/8",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 1/2 shaded",
+      "image": "learning/img/viz/09c617fec269.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 1/4?",
+    "choicesJson": [
+      "2/8",
+      "3/8",
+      "2/9",
+      "1/5"
+    ],
+    "answer": "2/8",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 1/4 shaded",
+      "image": "learning/img/viz/a52dbb62be43.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 1/3?",
+    "choicesJson": [
+      "2/6",
+      "3/6",
+      "2/7",
+      "1/4"
+    ],
+    "answer": "2/6",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 1/3 shaded",
+      "image": "learning/img/viz/0cc62c6afe7c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 3/4?",
+    "choicesJson": [
+      "6/8",
+      "7/8",
+      "6/9",
+      "3/5"
+    ],
+    "answer": "6/8",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 3/4 shaded",
+      "image": "learning/img/viz/2e8f6726b2d7.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 2/3?",
+    "choicesJson": [
+      "4/6",
+      "5/6",
+      "4/7",
+      "2/4"
+    ],
+    "answer": "4/6",
+    "tags": [
+      "fractions",
+      "equivalent",
+      "visual"
+    ],
+    "media": {
+      "alt": "A circle with 2/3 shaded",
+      "image": "learning/img/viz/4602aaa55188.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "21",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/fe5214395727.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "21",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/0233c71f78dc.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Cats than Dogs?",
+    "answer": "4",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/744eb7f24b60.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "26",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/744eb7f24b60.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Dogs than Cats?",
+    "answer": "1",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/ffc58251b29f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "27",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/ffc58251b29f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of pets",
+      "image": "learning/img/viz/861cf3d7546f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "20",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/91d7e73482c9.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Green than Pink?",
+    "answer": "1",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/feccfcaf1e17.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/feccfcaf1e17.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Pink than Red?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b2930886a09f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "14",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b2930886a09f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "18",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/bc7d1c2b0bbd.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of colors",
+      "image": "learning/img/viz/b5f920c4ed94.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Soup than Pizza?",
+    "answer": "6",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/f06e089601db.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "25",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/f06e089601db.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Tacos than Pizza?",
+    "answer": "1",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/be4704786133.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "33",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/be4704786133.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Soup than Pizza?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/277df58d23ba.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "29",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/277df58d23ba.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/29acf5572a39.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Pizza than Tacos?",
+    "answer": "1",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/773ca783d7a6.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "19",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of foods",
+      "image": "learning/img/viz/773ca783d7a6.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Swim than Art?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1c97ce6587ce.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "27",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1c97ce6587ce.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/04e837ee2b0f.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "18",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a753d70db3f5.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Soccer than Art?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a983bcd1dd64.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/a983bcd1dd64.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "25",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of clubs",
+      "image": "learning/img/viz/1d311ca9711e.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "28",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/8ec365bcbdc4.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "20",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/c53ce0e0958d.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Mon than Wed?",
+    "answer": "1",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/fc108c6bc690.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "25",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/fc108c6bc690.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Tue than Thu?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/1dca95daa450.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/1dca95daa450.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of days",
+      "image": "learning/img/viz/f5ee70537fa2.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "19",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/5d635f302053.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "25",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/cbcbab1bd80a.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "23",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/b2e8ec1df491.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Plum than Apple?",
+    "answer": "3",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/2cdfc0746f12.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "24",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/2cdfc0746f12.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many more chose Plum than Kiwi?",
+    "answer": "5",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/ea09cbba2fee.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chose in all? Add up every bar.",
+    "answer": "26",
+    "tags": [
+      "graphs",
+      "visual"
+    ],
+    "media": {
+      "alt": "A bar graph of fruit",
+      "image": "learning/img/viz/ea09cbba2fee.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "1/6",
+      "2/6",
+      "3/6",
+      "4/6"
+    ],
+    "answer": "1/6",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 6 equal parts",
+      "image": "learning/img/viz/480e16a5974c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "2/6",
+      "1/6",
+      "3/6",
+      "4/6"
+    ],
+    "answer": "2/6",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 6 equal parts",
+      "image": "learning/img/viz/0863727dd341.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "3/6",
+      "1/6",
+      "2/6",
+      "4/6"
+    ],
+    "answer": "3/6",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 6 equal parts",
+      "image": "learning/img/viz/e39161e2ec52.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "4/6",
+      "1/6",
+      "2/6",
+      "3/6"
+    ],
+    "answer": "4/6",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 6 equal parts",
+      "image": "learning/img/viz/68bad8bed1d5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "5/6",
+      "1/6",
+      "2/6",
+      "3/6"
+    ],
+    "answer": "5/6",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 6 equal parts",
+      "image": "learning/img/viz/43b85d4ec10b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "1/8",
+      "2/8",
+      "3/8",
+      "4/8"
+    ],
+    "answer": "1/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/7053c0e050d9.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "2/8",
+      "1/8",
+      "3/8",
+      "4/8"
+    ],
+    "answer": "2/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/492f03ea73a5.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "3/8",
+      "1/8",
+      "2/8",
+      "4/8"
+    ],
+    "answer": "3/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/213db9d556f7.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "4/8",
+      "1/8",
+      "2/8",
+      "3/8"
+    ],
+    "answer": "4/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/4ca29f3d58d6.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "5/8",
+      "1/8",
+      "2/8",
+      "3/8"
+    ],
+    "answer": "5/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/9840dd29fa73.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "6/8",
+      "1/8",
+      "2/8",
+      "3/8"
+    ],
+    "answer": "6/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/20ee9e5f6043.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What fraction is the red dot on?",
+    "choicesJson": [
+      "7/8",
+      "1/8",
+      "2/8",
+      "3/8"
+    ],
+    "answer": "7/8",
+    "tags": [
+      "number-line",
+      "fractions",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line from 0 to 1 cut into 8 equal parts",
+      "image": "learning/img/viz/99e52f55b85a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "0.5",
+      "0.3",
+      "0.4",
+      "0.6"
+    ],
+    "answer": "0.5",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/0e9d609d585a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "0.2",
+      "0.0",
+      "0.1",
+      "0.3"
+    ],
+    "answer": "0.2",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/1d4732ff5ad2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "0.7",
+      "0.5",
+      "0.6",
+      "0.8"
+    ],
+    "answer": "0.7",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/794ec8f9b874.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "0.9",
+      "0.7",
+      "0.8",
+      "1.0"
+    ],
+    "answer": "0.9",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/72a7e3cd9920.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number is the red dot on?",
+    "choicesJson": [
+      "0.3",
+      "0.1",
+      "0.2",
+      "0.4"
+    ],
+    "answer": "0.3",
+    "tags": [
+      "number-line",
+      "decimals",
+      "visual"
+    ],
+    "media": {
+      "alt": "A number line with decimals",
+      "image": "learning/img/viz/b57e7e0e083c.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "12",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/8bfce35a97dc.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "12",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/148f738c7ae4.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "13",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/e3ff94c45687.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "18",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/66b44e6e81ad.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "14",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/502cd0a03324.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "18",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/39e2d5709dd2.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+    "answer": "11",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "An L-shaped grid figure",
+      "image": "learning/img/viz/ea518cb61d32.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "14",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 2 cm by 7 cm",
+      "image": "learning/img/viz/15a391251db8.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "6",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 3 cm by 2 cm",
+      "image": "learning/img/viz/02a979649727.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "18",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 3 cm by 6 cm",
+      "image": "learning/img/viz/a44136b6e012.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "21",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 3 cm by 7 cm",
+      "image": "learning/img/viz/532bebe591bc.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "20",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 4 cm by 5 cm",
+      "image": "learning/img/viz/6bb317eb8325.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "20",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 5 cm by 4 cm",
+      "image": "learning/img/viz/e589d68cded6.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "30",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 5 cm by 6 cm",
+      "image": "learning/img/viz/cb894e9ddbdd.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "18",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 6 cm by 3 cm",
+      "image": "learning/img/viz/48c5f3b4a698.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "35",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 7 cm by 5 cm",
+      "image": "learning/img/viz/0686f4ec0ba8.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "42",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 7 cm by 6 cm",
+      "image": "learning/img/viz/f7cbed125d69.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "18",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 9 cm by 2 cm",
+      "image": "learning/img/viz/0cbe8e88e644.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+    "answer": "30",
+    "tags": [
+      "perimeter",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 9 cm by 6 cm",
+      "image": "learning/img/viz/aea1f44e8bd2.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "54",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 9 cm by 6 cm",
+      "image": "learning/img/viz/aea1f44e8bd2.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+    "answer": "32",
+    "tags": [
+      "perimeter",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 9 cm by 7 cm",
+      "image": "learning/img/viz/7207ea4f7569.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+    "answer": "63",
+    "tags": [
+      "area",
+      "visual"
+    ],
+    "media": {
+      "alt": "A rectangle 9 cm by 7 cm",
+      "image": "learning/img/viz/7207ea4f7569.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Acute",
+      "Right",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Acute",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/c3133c2713d8.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Acute",
+      "Right",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Acute",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/e5514c148c7f.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Acute",
+      "Right",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Acute",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/708c3696bb5a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Acute",
+      "Right",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Acute",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/93e489d54385.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Acute",
+      "Right",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Acute",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/71835f326800.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Right",
+      "Acute",
+      "Obtuse",
+      "Straight"
+    ],
+    "answer": "Right",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/c83c89cf9e39.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Obtuse",
+      "Acute",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/0875cf3678af.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Obtuse",
+      "Acute",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/26ab195e1358.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Obtuse",
+      "Acute",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/2d76529b1a8d.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Obtuse",
+      "Acute",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/a78f886e3535.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Obtuse",
+      "Acute",
+      "Right",
+      "Straight"
+    ],
+    "answer": "Obtuse",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/bfe5e7bb69e4.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of angle is this?",
+    "choicesJson": [
+      "Straight",
+      "Acute",
+      "Right",
+      "Obtuse"
+    ],
+    "answer": "Straight",
+    "tags": [
+      "angles",
+      "visual"
+    ],
+    "media": {
+      "alt": "An angle drawn by two rays",
+      "image": "learning/img/viz/4ffe285829b1.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is the dashed red line a line of symmetry for this shape?",
+    "choicesJson": [
+      "Yes",
+      "No",
+      "Only sometimes"
+    ],
+    "answer": "Yes",
+    "tags": [
+      "symmetry",
+      "visual"
+    ],
+    "media": {
+      "alt": "A shape with a dashed line",
+      "image": "learning/img/viz/b3e2b98c14f0.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Is the dashed red line a line of symmetry for this shape?",
+    "choicesJson": [
+      "No",
+      "Yes",
+      "Only sometimes"
+    ],
+    "answer": "No",
+    "tags": [
+      "symmetry",
+      "visual"
+    ],
+    "media": {
+      "alt": "A shape with a dashed line",
+      "image": "learning/img/viz/25d4109fe07e.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the number 48,305, what is the value of the digit 8?",
+    "choicesJson": [
+      "80",
+      "800",
+      "8,000",
+      "8"
+    ],
+    "answer": "8,000",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number has 6 thousands, 2 hundreds, 0 tens and 5 ones?",
+    "answer": "6205",
+    "acceptedAnswers": [
+      "6,205"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is the greatest?",
+    "choicesJson": [
+      "45,032",
+      "45,320",
+      "43,520",
+      "45,302"
+    ],
+    "answer": "45,320",
+    "tags": [
+      "place-value",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 1,000 more than 7,849?",
+    "answer": "8849",
+    "acceptedAnswers": [
+      "8,849"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number is 10,000 less than 53,120?",
+    "answer": "43120",
+    "acceptedAnswers": [
+      "43,120"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shows 3,407 in expanded form?",
+    "choicesJson": [
+      "3,000 + 40 + 7",
+      "3,000 + 400 + 7",
+      "3,000 + 400 + 70",
+      "300 + 40 + 7"
+    ],
+    "answer": "3,000 + 400 + 7",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the word form of 12,060?",
+    "choicesJson": [
+      "Twelve thousand, six",
+      "Twelve thousand, six hundred",
+      "One thousand, two hundred sixty",
+      "Twelve thousand, sixty"
+    ],
+    "answer": "Twelve thousand, sixty",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many hundreds make 3,000?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the number 5,500, the 5 in the thousands place is worth how many times as much as the 5 in the hundreds place?",
+    "choicesJson": [
+      "100 times",
+      "5 times",
+      "1,000 times",
+      "10 times"
+    ],
+    "answer": "10 times",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Round 28,640 to the nearest ten thousand.",
+    "choicesJson": [
+      "20,000",
+      "28,000",
+      "30,000",
+      "29,000"
+    ],
+    "answer": "30,000",
+    "tags": [
+      "rounding",
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Round 4,596 to the nearest ten.",
+    "answer": "4600",
+    "acceptedAnswers": [
+      "4,600"
+    ],
+    "tags": [
+      "rounding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Fortnite player has 3,205 V-Bucks. Which digit is in the hundreds place?",
+    "choicesJson": [
+      "3",
+      "0",
+      "5",
+      "2"
+    ],
+    "answer": "2",
+    "tags": [
+      "place-value",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number has a 7 in the ten-thousands place?",
+    "choicesJson": [
+      "7,214",
+      "17,204",
+      "27,140",
+      "70,214"
+    ],
+    "answer": "70,214",
+    "tags": [
+      "place-value"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Use the digits 5, 0, 8 and 3 once each. What is the smallest 4-digit number you can make?",
+    "answer": "3058",
+    "acceptedAnswers": [
+      "3,058"
+    ],
+    "tags": [
+      "place-value",
+      "number-sense"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number is between 6,450 and 6,550?",
+    "choicesJson": [
+      "6,399",
+      "6,600",
+      "6,499",
+      "6,551"
+    ],
+    "answer": "6,499",
+    "tags": [
+      "number-sense",
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which symbol makes this true? 25,610 ? 25,160",
+    "choicesJson": [
+      "=",
+      "<",
+      ">"
+    ],
+    "answer": ">",
+    "tags": [
+      "comparing",
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to one whole?",
+    "choicesJson": [
+      "5/6",
+      "6/6",
+      "1/6",
+      "6/7"
+    ],
+    "answer": "6/6",
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal equals 9/100?",
+    "choicesJson": [
+      "0.9",
+      "0.09",
+      "0.19",
+      "0.009"
+    ],
+    "answer": "0.09",
+    "tags": [
+      "decimals",
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7/12 + 3/12 = ? Write your answer as a fraction.",
+    "answer": "10/12",
+    "acceptedAnswers": [
+      "5/6"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which mixed number is equal to 7/4?",
+    "choicesJson": [
+      "1 3/4",
+      "2 3/4",
+      "3 1/4",
+      "1 1/4"
+    ],
+    "answer": "1 3/4",
+    "tags": [
+      "fractions",
+      "mixed-numbers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is equal to 2 1/3?",
+    "choicesJson": [
+      "6/3",
+      "7/3",
+      "5/3",
+      "8/3"
+    ],
+    "answer": "7/3",
+    "tags": [
+      "fractions",
+      "mixed-numbers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, Alex uses 1/8 of a stack of planks for each door she builds. What fraction of a stack does she use for 5 doors?",
+    "answer": "5/8",
+    "tags": [
+      "fractions",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fraction is greater than 1/2?",
+    "choicesJson": [
+      "3/8",
+      "1/4",
+      "2/5",
+      "5/8"
+    ],
+    "answer": "5/8",
+    "tags": [
+      "fractions",
+      "comparing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows 1/2, 1/3 and 1/4 from least to greatest?",
+    "choicesJson": [
+      "1/4, 1/2, 1/3",
+      "1/4, 1/3, 1/2",
+      "1/3, 1/4, 1/2",
+      "1/2, 1/3, 1/4"
+    ],
+    "answer": "1/4, 1/3, 1/2",
+    "tags": [
+      "fractions",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "0.7 + 0.5 = ?",
+    "answer": "1.2",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many hundredths are in 0.37?",
+    "answer": "37",
+    "acceptedAnswers": [
+      "thirty-seven",
+      "thirty seven"
+    ],
+    "tags": [
+      "decimals",
+      "place-value"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal means 3 wholes and 4 tenths?",
+    "choicesJson": [
+      "0.34",
+      "3.04",
+      "3.4",
+      "34.0"
+    ],
+    "answer": "3.4",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mia buys a sticker for $1.35 and a pencil for $0.75. How much does she spend in all, in dollars?",
+    "answer": "2.10",
+    "acceptedAnswers": [
+      "2.1",
+      "$2.10",
+      "$2.1"
+    ],
+    "tags": [
+      "decimals",
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which decimal is equal to 0.4?",
+    "choicesJson": [
+      "0.04",
+      "4.0",
+      "0.40",
+      "0.044"
+    ],
+    "answer": "0.40",
+    "tags": [
+      "decimals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows 0.5, 0.05 and 0.55 from least to greatest?",
+    "choicesJson": [
+      "0.5, 0.05, 0.55",
+      "0.05, 0.5, 0.55",
+      "0.55, 0.5, 0.05",
+      "0.05, 0.55, 0.5"
+    ],
+    "answer": "0.05, 0.5, 0.55",
+    "tags": [
+      "decimals",
+      "comparing"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Pikachu eats 3/8 of a berry pie and Eevee eats 4/8 of the same pie. What fraction of the pie did they eat together?",
+    "answer": "7/8",
+    "tags": [
+      "fractions",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Twelve Among Us crewmates line up for a photo. 1/4 of them are wearing red. How many crewmates are wearing red?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "fractions",
+      "theme:among-us"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a number line, a dot sits exactly halfway between 2 and 3. Which decimal names the dot?",
+    "choicesJson": [
+      "2.05",
+      "2.25",
+      "3.5",
+      "2.5"
+    ],
+    "answer": "2.5",
+    "tags": [
+      "decimals",
+      "number-line"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many 1/4-size pieces does it take to make 2 whole pizzas?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "fractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number comes next? 5, 12, 19, 26, __",
+    "answer": "33",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the rule for this pattern? 3, 9, 27, 81",
+    "choicesJson": [
+      "Multiply by 9",
+      "Add 3",
+      "Add 6",
+      "Multiply by 3"
+    ],
+    "answer": "Multiply by 3",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number comes next? 1, 4, 9, 16, 25, __",
+    "choicesJson": [
+      "30",
+      "32",
+      "49",
+      "36"
+    ],
+    "answer": "36",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Four players scored 12, 7, 20 and 15 points in a game. What is the difference between the highest and the lowest score?",
+    "answer": "13",
+    "acceptedAnswers": [
+      "thirteen"
+    ],
+    "tags": [
+      "data"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bar graph shows favorite games: Minecraft 14 votes, Roblox 11 votes, Fortnite 9 votes, Mario Kart 6 votes. How many more kids voted for Minecraft than for Fortnite?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "data",
+      "graphs",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bar graph shows favorite pets: dogs 18, cats 15, fish 7, hamsters 5. How many kids were surveyed in all?",
+    "answer": "45",
+    "tags": [
+      "data",
+      "graphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a pictograph, each star stands for 10 pages read. Jo's row has 3 whole stars and 1 half star. How many pages did Jo read?",
+    "answer": "35",
+    "tags": [
+      "data",
+      "graphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A line plot shows the lengths of some beetles. 2 beetles are 1/4 inch long, 4 beetles are 1/2 inch long, and 1 beetle is 3/4 inch long. How many beetles are 1/2 inch or longer?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "data",
+      "line-plot",
+      "fractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A scientist measures a pumpkin's height every week for 10 weeks. Which display best shows how the height changes over time?",
+    "choicesJson": [
+      "Pictograph",
+      "Number line",
+      "Tally chart",
+      "Line graph"
+    ],
+    "answer": "Line graph",
+    "tags": [
+      "data",
+      "graphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A tally chart has 3 full groups of five marks and 2 extra marks. How many tally marks is that in all?",
+    "answer": "17",
+    "acceptedAnswers": [
+      "seventeen"
+    ],
+    "tags": [
+      "data",
+      "tally"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A function table gives these outputs: input 1 gives 4, input 2 gives 7, input 3 gives 10, input 4 gives 13. What is the output for input 6?",
+    "answer": "19",
+    "acceptedAnswers": [
+      "nineteen"
+    ],
+    "tags": [
+      "patterns",
+      "function-table"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Foundation guard checks an SCP-173-style statue every 15 minutes. The checks are at 2:00, 2:15, 2:30, and so on. What time is the 5th check?",
+    "choicesJson": [
+      "3:00",
+      "3:15",
+      "2:45",
+      "3:30"
+    ],
+    "answer": "3:00",
+    "tags": [
+      "patterns",
+      "time",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A tall, faceless shadow figure shows up in the woods on night 3, then every 4 nights after that (night 7, night 11, and so on). On which night does it appear for the 4th time?",
+    "choicesJson": [
+      "Night 12",
+      "Night 19",
+      "Night 15",
+      "Night 16"
+    ],
+    "answer": "Night 15",
+    "tags": [
+      "patterns",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A werewolf howled 3 times on Monday, 5 times on Tuesday, 8 times on Wednesday and 6 times on Thursday. How many howls was that in all?",
+    "answer": "22",
+    "acceptedAnswers": [
+      "twenty-two",
+      "twenty two"
+    ],
+    "tags": [
+      "data",
+      "addition",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Steve builds a staircase in Minecraft. Step 1 uses 3 blocks, step 2 uses 5 blocks, step 3 uses 7 blocks, and each new step uses 2 more blocks than the one before. How many blocks does step 10 use?",
+    "answer": "21",
+    "acceptedAnswers": [
+      "twenty-one",
+      "twenty one"
+    ],
+    "tags": [
+      "patterns",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number breaks this pattern? 6, 12, 18, 25, 30",
+    "choicesJson": [
+      "12",
+      "25",
+      "18",
+      "30"
+    ],
+    "answer": "25",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pattern repeats circle, square, triangle, circle, square, triangle, and so on. What is the 10th shape?",
+    "choicesJson": [
+      "Square",
+      "Triangle",
+      "Circle"
+    ],
+    "answer": "Circle",
+    "tags": [
+      "patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, Steve mined 1,248 cobblestone on Monday and 1,375 cobblestone on Tuesday. How many cobblestone did he mine in all?",
+    "answer": "2623",
+    "acceptedAnswers": [
+      "2,623"
+    ],
+    "tags": [
+      "addition",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "5,000 - 2,468 = ?",
+    "answer": "2532",
+    "acceptedAnswers": [
+      "2,532"
+    ],
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the best estimate for 398 + 205?",
+    "choicesJson": [
+      "500",
+      "700",
+      "600",
+      "900"
+    ],
+    "answer": "600",
+    "tags": [
+      "estimation",
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A movie starts at 3:45 PM and lasts 2 hours 20 minutes. What time does it end?",
+    "choicesJson": [
+      "6:05 PM",
+      "6:25 PM",
+      "5:55 PM",
+      "6:15 PM"
+    ],
+    "answer": "6:05 PM",
+    "tags": [
+      "time",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many centimeters are in 3 meters?",
+    "answer": "300",
+    "acceptedAnswers": [
+      "300 cm",
+      "300 centimeters"
+    ],
+    "tags": [
+      "measurement",
+      "metric"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the longest length?",
+    "choicesJson": [
+      "1,800 millimeters",
+      "2 meters",
+      "1 meter",
+      "150 centimeters"
+    ],
+    "answer": "2 meters",
+    "tags": [
+      "measurement",
+      "metric"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mia buys a $3.75 notebook and a $1.50 pen. She pays with a $10 bill. How much change does she get, in dollars?",
+    "answer": "4.75",
+    "acceptedAnswers": [
+      "$4.75"
+    ],
+    "tags": [
+      "money",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many minutes are in 3 hours?",
+    "answer": "180",
+    "acceptedAnswers": [
+      "180 minutes"
+    ],
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, Sam collects 275 coins in stage 1 and 389 coins in stage 2. Then he spends 150 coins on a speed boost. How many coins does he have left?",
+    "answer": "514",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A pet store has 3 fish tanks with 12 fish in each tank. Then 9 fish are sold. How many fish are left?",
+    "choicesJson": [
+      "24",
+      "36",
+      "21",
+      "27"
+    ],
+    "answer": "27",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many ounces are in 2 pounds?",
+    "answer": "32",
+    "acceptedAnswers": [
+      "32 ounces",
+      "32 oz"
+    ],
+    "tags": [
+      "measurement",
+      "weight"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which unit is best for measuring the amount of water in a swimming pool?",
+    "choicesJson": [
+      "Inches",
+      "Gallons",
+      "Ounces",
+      "Teaspoons"
+    ],
+    "answer": "Gallons",
+    "tags": [
+      "measurement",
+      "capacity"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Luna's Fortnite squad has 4 players. Each player collects 235 wood. The squad then uses 340 wood to build a fort. How much wood is left?",
+    "answer": "600",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Football practice starts at 4:15 PM and ends at 5:50 PM. How long is practice?",
+    "choicesJson": [
+      "1 hour 35 minutes",
+      "1 hour 45 minutes",
+      "2 hours 5 minutes",
+      "1 hour 25 minutes"
+    ],
+    "answer": "1 hour 35 minutes",
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many seconds are in 4 minutes?",
+    "answer": "240",
+    "acceptedAnswers": [
+      "240 seconds"
+    ],
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangle is 12 feet long and 7 feet wide. What is its perimeter in feet?",
+    "answer": "38",
+    "acceptedAnswers": [
+      "38 feet",
+      "38 ft"
+    ],
+    "tags": [
+      "perimeter",
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular garden is 9 meters long and 6 meters wide. What is its area in square meters?",
+    "answer": "54",
+    "acceptedAnswers": [
+      "54 square meters"
+    ],
+    "tags": [
+      "area",
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group of coins is worth exactly $1.35?",
+    "choicesJson": [
+      "5 quarters and 1 dime",
+      "4 quarters and 2 dimes",
+      "5 quarters and 2 dimes",
+      "3 quarters and 5 dimes"
+    ],
+    "answer": "5 quarters and 1 dime",
+    "tags": [
+      "money",
+      "coins"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "At a make-believe SCP site, one team must keep eyes on SCP-173 at all times. Team A watches for 2 hours 15 minutes. Then Team B watches for 1 hour 50 minutes. How many minutes did the two teams watch in all?",
+    "answer": "245",
+    "acceptedAnswers": [
+      "245 minutes"
+    ],
+    "tags": [
+      "time",
+      "multi-step",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is longer: 3 yards or 100 inches?",
+    "choicesJson": [
+      "They are the same length",
+      "3 yards",
+      "100 inches"
+    ],
+    "answer": "3 yards",
+    "tags": [
+      "measurement",
+      "customary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many cups are in 2 quarts?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "8 cups"
+    ],
+    "tags": [
+      "measurement",
+      "capacity"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jayden has $50. He buys 3 game cards that cost $12 each. How much money does he have left?",
+    "choicesJson": [
+      "$26",
+      "$16",
+      "$38",
+      "$14"
+    ],
+    "answer": "$14",
+    "tags": [
+      "money",
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, one TNT block is crafted from 5 gunpowder and 4 sand. Steve wants to craft 6 TNT blocks. How many gunpowder and sand does he need altogether?",
+    "answer": "54",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A hike begins at 8:15 AM and ends at 9:05 AM. How many minutes long is the hike?",
+    "answer": "50",
+    "acceptedAnswers": [
+      "50 minutes"
+    ],
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What time is 45 minutes after 11:30 AM?",
+    "choicesJson": [
+      "12:15 PM",
+      "12:05 PM",
+      "11:15 AM",
+      "12:45 PM"
+    ],
+    "answer": "12:15 PM",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "7,384 + 2,619 = ?",
+    "answer": "10003",
+    "acceptedAnswers": [
+      "10,003"
+    ],
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "10,000 - 3,846 = ?",
+    "answer": "6154",
+    "acceptedAnswers": [
+      "6,154"
+    ],
+    "tags": [
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which subtraction is a good estimate for 6,812 - 2,194 when each number is rounded to the nearest thousand?",
+    "choicesJson": [
+      "6,000 - 3,000",
+      "7,000 - 3,000",
+      "6,000 - 2,000",
+      "7,000 - 2,000"
+    ],
+    "answer": "7,000 - 2,000",
+    "tags": [
+      "estimation",
+      "subtraction",
+      "rounding"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a monster movie, a giant lizard is 148 meters tall. It stands next to a skyscraper that is 325 meters tall. How many meters taller is the skyscraper?",
+    "answer": "177",
+    "acceptedAnswers": [
+      "177 meters"
+    ],
+    "tags": [
+      "subtraction",
+      "word-problem",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A silly vampire goes to sleep in his coffin at 7:00 AM and wakes up at 5:30 PM. How long did he sleep?",
+    "choicesJson": [
+      "12 hours 30 minutes",
+      "11 hours 30 minutes",
+      "10 hours 30 minutes",
+      "10 hours"
+    ],
+    "answer": "10 hours 30 minutes",
+    "tags": [
+      "time",
+      "elapsed-time",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A family buys 3 pizzas that cost $11 each and one drink that costs $4. How many dollars do they spend in all?",
+    "answer": "37",
+    "acceptedAnswers": [
+      "$37"
+    ],
+    "tags": [
+      "money",
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many inches are in 5 feet?",
+    "answer": "60",
+    "acceptedAnswers": [
+      "60 inches"
+    ],
+    "tags": [
+      "measurement",
+      "customary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A ribbon is 2 meters long. Dani cuts off 45 centimeters. How many centimeters of ribbon are left?",
+    "choicesJson": [
+      "165 cm",
+      "145 cm",
+      "245 cm",
+      "155 cm"
+    ],
+    "answer": "155 cm",
+    "tags": [
+      "measurement",
+      "subtraction",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Mario Kart, Luigi drives 3 laps. Each lap takes him 1 minute 25 seconds. How many seconds does he drive in all?",
+    "answer": "255",
+    "acceptedAnswers": [
+      "255 seconds"
+    ],
+    "tags": [
+      "time",
+      "multi-step",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Pokemon fan has 8 packs of cards with 10 cards in each pack. She trades away 23 cards. How many cards does she have left?",
+    "answer": "57",
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What number makes this true? 4,500 + ___ = 7,200",
+    "choicesJson": [
+      "3,700",
+      "2,300",
+      "11,700",
+      "2,700"
+    ],
+    "answer": "2,700",
+    "tags": [
+      "addition",
+      "missing-number"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The school bus picks up Omar at 7:20 AM. School starts at 8:05 AM. How many minutes from pickup until school starts?",
+    "answer": "45",
+    "acceptedAnswers": [
+      "45 minutes"
+    ],
+    "tags": [
+      "time",
+      "elapsed-time"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which expression finds the total cost of 4 shirts at $9 each and 2 hats at $6 each?",
+    "choicesJson": [
+      "(4 + 2) x (9 + 6)",
+      "4 x 9 x 2 x 6",
+      "(4 + 9) x (2 + 6)",
+      "(4 x 9) + (2 x 6)"
+    ],
+    "answer": "(4 x 9) + (2 x 6)",
+    "tags": [
+      "money",
+      "expressions",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bakery bakes 8 trays of muffins with 12 muffins on each tray. It sells 79 muffins. How many muffins are left?",
+    "answer": "17",
+    "tags": [
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ben is 4 years older than Cara. Cara is twice as old as Dev. Dev is 5 years old. How old is Ben?",
+    "answer": "14",
+    "acceptedAnswers": [
+      "14 years",
+      "14 years old"
+    ],
+    "tags": [
+      "reasoning",
+      "multi-step",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the most reasonable weight for a house cat?",
+    "choicesJson": [
+      "400 kilograms",
+      "40 kilograms",
+      "4 grams",
+      "4 kilograms"
+    ],
+    "answer": "4 kilograms",
+    "tags": [
+      "measurement",
+      "metric",
+      "weight"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many grams are in 5 kilograms?",
+    "answer": "5000",
+    "acceptedAnswers": [
+      "5,000",
+      "5000 grams",
+      "5,000 grams"
+    ],
+    "tags": [
+      "measurement",
+      "metric"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A road trip is 640 miles long. A family drives 285 miles in the morning and 198 miles in the afternoon. How many miles are left to drive?",
+    "answer": "157",
+    "acceptedAnswers": [
+      "157 miles"
+    ],
+    "tags": [
+      "multi-step",
+      "word-problem",
+      "subtraction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A clock shows 2:50. What time will it show 25 minutes later?",
+    "choicesJson": [
+      "3:35",
+      "3:05",
+      "3:25",
+      "3:15"
+    ],
+    "answer": "3:15",
+    "tags": [
+      "time"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The perimeter of a square is 36 inches. How many inches long is one side?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "9 inches"
+    ],
+    "tags": [
+      "perimeter",
+      "measurement",
+      "reasoning"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Lena has 3 dollar bills, 2 quarters, and 4 dimes. How many cents does she have in all?",
+    "answer": "390",
+    "acceptedAnswers": [
+      "390 cents"
+    ],
+    "tags": [
+      "money",
+      "coins"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepypasta story describes a tall, faceless Slender-style figure that is 8 feet tall. A 4th grader is 4 feet 6 inches tall. How much taller is the figure?",
+    "choicesJson": [
+      "48 inches",
+      "42 inches",
+      "30 inches",
+      "54 inches"
+    ],
+    "answer": "42 inches",
+    "tags": [
+      "measurement",
+      "multi-step",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A video game has 3 worlds. World 1 has 128 coins, world 2 has 247 coins, and world 3 has 356 coins. How many coins are there in all?",
+    "answer": "731",
+    "tags": [
+      "addition",
+      "word-problem",
+      "video-games"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which amount of time is the same as 2 hours 15 minutes?",
+    "choicesJson": [
+      "135 minutes",
+      "145 minutes",
+      "125 minutes",
+      "215 minutes"
+    ],
+    "answer": "135 minutes",
+    "tags": [
+      "time",
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "52,483 + 19,764 = ?",
+    "answer": "72247",
+    "acceptedAnswers": [
+      "72,247"
+    ],
+    "tags": [
+      "addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A water bottle holds 500 milliliters. How many of these bottles does it take to fill a 2-liter jug?",
+    "choicesJson": [
+      "2",
+      "5",
+      "4",
+      "20"
+    ],
+    "answer": "4",
+    "tags": [
+      "measurement",
+      "capacity",
+      "metric"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Pretend every creeper drops exactly 3 gunpowder. How much gunpowder do you get from 8 creepers?",
+    "answer": "24",
+    "acceptedAnswers": [
+      "twenty-four",
+      "twenty four"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Skip count by 15s: 15, 30, 45, 60, __. What number comes next?",
+    "answer": "75",
+    "acceptedAnswers": [
+      "seventy-five",
+      "seventy five"
+    ],
+    "tags": [
+      "skip-counting",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Skip count by 7s: 7, 14, 21, __, 35. Which number is missing?",
+    "choicesJson": [
+      "27",
+      "28",
+      "30",
+      "29"
+    ],
+    "answer": "28",
+    "tags": [
+      "skip-counting",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A party has 5 pizza boxes. Each box has 8 slices inside. How many slices are there in all?",
+    "answer": "40",
+    "acceptedAnswers": [
+      "forty"
+    ],
+    "tags": [
+      "equal-groups",
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A pack of 36 trading cards is shared equally among 4 friends. How many cards does each friend get?",
+    "answer": "9",
+    "acceptedAnswers": [
+      "nine"
+    ],
+    "tags": [
+      "division",
+      "sharing",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Your Fortnite squad has 4 players, and each player collects 25 metal. How much metal does the squad have in all?",
+    "answer": "100",
+    "acceptedAnswers": [
+      "one hundred"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, you earn 8 Robux for every stage you finish. How many Robux do you earn from 6 stages?",
+    "answer": "48",
+    "acceptedAnswers": [
+      "forty-eight",
+      "forty eight"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which number makes this true? 9 x __ = 63",
+    "choicesJson": [
+      "8",
+      "6",
+      "7",
+      "9"
+    ],
+    "answer": "7",
+    "tags": [
+      "multiplication",
+      "missing-factor"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What number goes in the blank? 6 x __ = 72",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "multiplication",
+      "missing-factor"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A garden has 6 rows of tomato plants. Each row has 7 plants. How many plants are in the garden?",
+    "answer": "42",
+    "acceptedAnswers": [
+      "forty-two",
+      "forty two"
+    ],
+    "tags": [
+      "arrays",
+      "multiplication",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count Dracula has 31 bats. He sends the same number of bats to each of 4 towers, as many as he can. How many bats are left over?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "division",
+      "remainders",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is 47 ÷ 6?",
+    "choicesJson": [
+      "7 R 5",
+      "7 R 6",
+      "6 R 11",
+      "8 R 1"
+    ],
+    "answer": "7 R 5",
+    "tags": [
+      "division",
+      "remainders"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is 247 x 0?",
+    "answer": "0",
+    "acceptedAnswers": [
+      "zero"
+    ],
+    "tags": [
+      "multiplication",
+      "properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is another way to find 6 x 7?",
+    "choicesJson": [
+      "6 + 5 x 2",
+      "6 x 5 + 6 x 2",
+      "6 x 5 + 2",
+      "5 x 7 + 2"
+    ],
+    "answer": "6 x 5 + 6 x 2",
+    "tags": [
+      "multiplication",
+      "properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which fact has the same answer as 4 x 9?",
+    "choicesJson": [
+      "4 x 6",
+      "9 ÷ 4",
+      "9 x 4",
+      "4 + 9"
+    ],
+    "answer": "9 x 4",
+    "tags": [
+      "multiplication",
+      "properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is greater: 8 groups of 6 or 7 groups of 7?",
+    "choicesJson": [
+      "They are equal",
+      "7 groups of 7",
+      "8 groups of 6"
+    ],
+    "answer": "7 groups of 7",
+    "tags": [
+      "equal-groups",
+      "multiplication"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "At a make-believe SCP-style containment site, each cell needs 4 guards. There are 9 cells. How many guards are needed in all?",
+    "answer": "36",
+    "acceptedAnswers": [
+      "thirty-six",
+      "thirty six"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a campfire legend, a tall shadowy figure creeps 5 steps closer every minute. How many steps does it creep in 12 minutes?",
+    "answer": "60",
+    "acceptedAnswers": [
+      "sixty"
+    ],
+    "tags": [
+      "multiplication",
+      "word-problem",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A collector buys 7 packs of trading cards. Each pack has 10 cards. How many cards is that in all?",
+    "answer": "70",
+    "acceptedAnswers": [
+      "seventy"
+    ],
+    "tags": [
+      "multiplication",
+      "equal-groups",
+      "word-problem"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mario has 72 coins. He puts the same number of coins into each of 9 bags. How many coins are in each bag?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "division",
+      "sharing",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "35 stickers are put into groups of 5. How many groups are there?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "division",
+      "equal-groups"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which multiplication sentence matches 8 + 8 + 8 + 8 + 8?",
+    "choicesJson": [
+      "5 + 8",
+      "8 x 8",
+      "5 x 8",
+      "8 + 5"
+    ],
+    "answer": "5 x 8",
+    "tags": [
+      "multiplication",
+      "repeated-addition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is a stop sign?",
+    "choicesJson": [
+      "Octagon",
+      "Pentagon",
+      "Square",
+      "Hexagon"
+    ],
+    "answer": "Octagon",
+    "tags": [
+      "geometry",
+      "polygons"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangular garden is 8 meters long and 5 meters wide. What is the perimeter of the garden in meters?",
+    "answer": "26",
+    "acceptedAnswers": [
+      "twenty-six",
+      "twenty six"
+    ],
+    "tags": [
+      "geometry",
+      "perimeter"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The floor of your Fortnite build is a rectangle 8 tiles long and 7 tiles wide. What is its area in square tiles?",
+    "answer": "56",
+    "acceptedAnswers": [
+      "fifty-six",
+      "fifty six"
+    ],
+    "tags": [
+      "geometry",
+      "area",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A square picture frame has sides that are each 7 cm long. What is the perimeter of the frame in cm?",
+    "answer": "28",
+    "acceptedAnswers": [
+      "twenty-eight",
+      "twenty eight"
+    ],
+    "tags": [
+      "geometry",
+      "perimeter"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rectangle has a perimeter of 30 cm and a length of 9 cm. How wide is it, in cm?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "geometry",
+      "perimeter"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which pair of lines never cross, no matter how far they go?",
+    "choicesJson": [
+      "Curved lines",
+      "Perpendicular lines",
+      "Parallel lines",
+      "Intersecting lines"
+    ],
+    "answer": "Parallel lines",
+    "tags": [
+      "geometry",
+      "lines"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many lines of symmetry does a square have?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "geometry",
+      "symmetry"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many lines of symmetry does a rectangle have if it is not a square?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "geometry",
+      "symmetry"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A triangle has three sides that are all the same length. What is it called?",
+    "choicesJson": [
+      "Scalene",
+      "Right",
+      "Isosceles",
+      "Equilateral"
+    ],
+    "answer": "Equilateral",
+    "tags": [
+      "geometry",
+      "triangles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A triangle has sides of 5 cm, 6 cm, and 7 cm. What type of triangle is it, based on its side lengths?",
+    "choicesJson": [
+      "Equilateral",
+      "Scalene",
+      "Isosceles"
+    ],
+    "answer": "Scalene",
+    "tags": [
+      "geometry",
+      "triangles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Two angles in a triangle measure 60 degrees and 70 degrees. How many degrees is the third angle?",
+    "answer": "50",
+    "acceptedAnswers": [
+      "fifty"
+    ],
+    "tags": [
+      "geometry",
+      "triangles",
+      "angles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which shape has 4 equal sides and 4 right angles?",
+    "choicesJson": [
+      "Square",
+      "Rectangle",
+      "Trapezoid",
+      "Rhombus"
+    ],
+    "answer": "Square",
+    "tags": [
+      "geometry",
+      "quadrilaterals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many pairs of parallel sides does a parallelogram have?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "geometry",
+      "quadrilaterals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these shapes is NOT a quadrilateral?",
+    "choicesJson": [
+      "Rectangle",
+      "Rhombus",
+      "Square",
+      "Pentagon"
+    ],
+    "answer": "Pentagon",
+    "tags": [
+      "geometry",
+      "quadrilaterals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft block is shaped like a cube. How many flat faces does a cube have?",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "geometry",
+      "3d-shapes",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which 3D shape has one circular flat face, one point at the top, and a curved side?",
+    "choicesJson": [
+      "Cylinder",
+      "Sphere",
+      "Pyramid",
+      "Cone"
+    ],
+    "answer": "Cone",
+    "tags": [
+      "geometry",
+      "3d-shapes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A mummy's tomb is shaped like a square pyramid. How many triangular faces does the pyramid have?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "geometry",
+      "3d-shapes",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Two shapes that are exactly the same size and shape are called what?",
+    "choicesJson": [
+      "Congruent",
+      "Parallel",
+      "Acute",
+      "Adjacent"
+    ],
+    "answer": "Congruent",
+    "tags": [
+      "geometry",
+      "congruence"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A round pizza has a radius of 6 inches. What is its diameter in inches?",
+    "answer": "12",
+    "acceptedAnswers": [
+      "twelve"
+    ],
+    "tags": [
+      "geometry",
+      "circles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these has two endpoints?",
+    "choicesJson": [
+      "Line",
+      "Line segment",
+      "Ray"
+    ],
+    "answer": "Line segment",
+    "tags": [
+      "geometry",
+      "lines"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A regular pentagon has 5 equal sides. Each side is 6 m long. What is its perimeter in meters?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "geometry",
+      "perimeter"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An L-shaped rug is made of two rectangles joined together. One is 6 ft by 4 ft and the other is 3 ft by 2 ft. What is the total area of the rug in square feet?",
+    "answer": "30",
+    "acceptedAnswers": [
+      "thirty"
+    ],
+    "tags": [
+      "geometry",
+      "area"
+    ]
+  }
 ]

@@ -1,0 +1,240 @@
+[
+ {
+  "id": "cmu0xa7us00rp12z2660d0xos",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "156 ÷ 12 = ?"
+ },
+ {
+  "id": "cmu0xa7us00ry12z2462dj07o",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "312 ÷ 6 = ?"
+ },
+ {
+  "id": "cmu0xa7us00sj12z2vjwknzan",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "256 ÷ 4 = ?"
+ },
+ {
+  "id": "cmu0xa7us00sk12z28u9ckomb",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "441 ÷ 7 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sl12z2gxx72gry",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "512 ÷ 8 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sm12z2mkog88ep",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "693 ÷ 9 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sn12z223kqulm3",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "455 ÷ 5 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00so12z2qjc9xtkz",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "336 ÷ 6 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sp12z2nx6iwylo",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "572 ÷ 11 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sq12z204rw9mf8",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "624 ÷ 12 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00sr12z2k4w0xxza",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "936 ÷ 12 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00ss12z27548zij7",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "828 ÷ 12 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00st12z27eq5a3wh",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "384 ÷ 8 = ?"
+ },
+ {
+  "id": "cmu0xa7ut00su12z2s1eqo3f9",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "490 ÷ 7 = ?"
+ },
+ {
+  "id": "cmu0xa7uu00uf12z2hxm7lu7v",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "864 ÷ 9 = ?"
+ },
+ {
+  "id": "cmu0xa7uu00ug12z2ebjzumov",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "720 ÷ 8 = ?"
+ },
+ {
+  "id": "cmu0xa7uu00uh12z2odyqzr4n",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "399 ÷ 21 = ?"
+ },
+ {
+  "id": "cmu0xa7uu00ui12z2ttgy635u",
+  "action": "fix",
+  "reason": "Use the division sign per style spec",
+  "prompt": "312 ÷ 4 = ?"
+ },
+ {
+  "id": "cmu0xa7us00ru12z2x8p8xoo4",
+  "action": "fix",
+  "reason": "Prompt listed the factors, giving away the answer and asking two questions",
+  "prompt": "How many factors does 12 have? (Count 1 and 12 too.)",
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00tf12z2ltxtf3o2",
+  "action": "fix",
+  "reason": "Prompt listed the factors, giving away the answer and asking two questions",
+  "prompt": "How many factors does 18 have? (Count 1 and 18 too.)",
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00ti12z27u8c5g2h",
+  "action": "fix",
+  "reason": "Prompt listed the factors, giving away the answer and asking two questions",
+  "prompt": "How many factors does 16 have? (Count 1 and 16 too.)",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7uu00um12z2qja7okwm",
+  "action": "fix",
+  "reason": "Prompt listed the factors, giving away the answer and asking two questions",
+  "prompt": "How many factors does 28 have? (Count 1 and 28 too.)",
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7us00rs12z2c8hk8lig",
+  "action": "fix",
+  "reason": "Junk distractor '5/10ths written wrong'",
+  "choicesJson": [
+   "1/5",
+   "1/4",
+   "1/2",
+   "2/5"
+  ],
+  "answer": "1/2"
+ },
+ {
+  "id": "cmu0xa7us00s012z252nzcp9e",
+  "action": "fix",
+  "reason": "Confusing wording",
+  "prompt": "3/8 + 2/8 = ? (write your answer as a fraction)"
+ },
+ {
+  "id": "cmu0xa7us00rw12z25v5eq4g5",
+  "action": "fix",
+  "reason": "Wording: angle measure, not angle",
+  "prompt": "Which angle measure is a right angle?"
+ },
+ {
+  "id": "cmu0xa7us00rz12z2ac8crhjn",
+  "action": "fix",
+  "reason": "'Zero angle' is a poor distractor and wording vague",
+  "prompt": "Which type of angle is bigger than 90 degrees but smaller than 180 degrees?",
+  "choicesJson": [
+   "Acute angle",
+   "Right angle",
+   "Obtuse angle"
+  ],
+  "answer": "Obtuse angle"
+ },
+ {
+  "id": "cmu0xa7ut00sz12z2iojk4kc3",
+  "action": "fix",
+  "reason": "2/4 and 1/2 are both right",
+  "acceptedAnswers": [
+   "1/2"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00t112z2zhwyqmvc",
+  "action": "fix",
+  "reason": "4/6 and 2/3 are both right",
+  "acceptedAnswers": [
+   "2/3"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00t212z2xeutymbb",
+  "action": "fix",
+  "reason": "2/4 and 1/2 are both right",
+  "acceptedAnswers": [
+   "1/2"
+  ]
+ },
+ {
+  "id": "cmu0xa7uu00u512z2dwtwyrjx",
+  "action": "fix",
+  "reason": "2/8 and 1/4 both right; clearer wording",
+  "prompt": "A pie is cut into 8 equal slices. If 2 people each eat 3 slices, what fraction of the pie is left? (write it as a fraction)",
+  "acceptedAnswers": [
+   "1/4"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00tk12z29z2om203",
+  "action": "fix",
+  "reason": "Accept short form",
+  "acceptedAnswers": [
+   "y"
+  ]
+ },
+ {
+  "id": "cmu0xa7ut00tl12z2ihf0yltm",
+  "action": "fix",
+  "reason": "Accept short form",
+  "acceptedAnswers": [
+   "n"
+  ]
+ },
+ {
+  "id": "cmu0xa7uu00ul12z2rkivaa87",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'Which decimal equals 3/10?' and 'What decimal equals 7/10?'"
+ }
+]

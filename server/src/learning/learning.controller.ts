@@ -54,6 +54,18 @@ export class LearningController {
     return this.learning.advance(u.familyId, u.userId, id);
   }
 
+  // Redemption Round: the optional bonus question after a session with exactly
+  // one wrong answer (see LearningService.startRedemption).
+  @Post('sessions/:id/redemption')
+  startRedemption(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { accept: boolean }) {
+    return this.learning.startRedemption(u.familyId, u.userId, id, !!body.accept);
+  }
+
+  @Post('sessions/:id/redemption/answer')
+  answerRedemption(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { given: string }) {
+    return this.learning.answerRedemption(u.familyId, u.userId, id, body.given);
+  }
+
   @Post('sessions/:id/abandon')
   abandon(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
     return this.learning.abandonSession(u.familyId, u.userId, id);
@@ -78,6 +90,12 @@ export class LearningController {
       page.skip,
       page.take,
     );
+  }
+
+  // Registered BEFORE questions/:id - same static-vs-:id ordering rule as everywhere else.
+  @Get('questions-health')
+  questionHealth(@CurrentUser() u: SessionPayload) {
+    return this.learning.questionHealth(u.userId);
   }
 
   @Get('questions/:id')

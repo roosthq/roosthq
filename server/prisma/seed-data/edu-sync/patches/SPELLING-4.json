@@ -1,0 +1,157 @@
+[
+ {
+  "id": "cmu0xa8dg02w512z27s66zmiv",
+  "action": "fix",
+  "reason": "'know' rhymes with 'no', not 'now'; vague meaning",
+  "prompt": "Spell the word with a silent 'k' meaning to have facts or information in your mind (rhymes with 'go').",
+  "answer": "know"
+ },
+ {
+  "id": "cmu0xa8dg02w712z2280q4oam",
+  "action": "fix",
+  "reason": "'flight' does not mean 'very high up' ('high' also fits); wrong clue",
+  "prompt": "Spell the word with a silent 'gh' for a trip taken in an airplane.",
+  "answer": "flight"
+ },
+ {
+  "id": "cmu0xa8dg02wd12z2175quwwy",
+  "action": "fix",
+  "reason": "'sch' is not a silent c; it makes a 'sk' sound. Clue was wrong",
+  "prompt": "Spell the word for the building where kids go to learn. It starts with 'sch' (which sounds like 'sk').",
+  "answer": "school"
+ },
+ {
+  "id": "cmu0xa8dg02we12z28vimwv31",
+  "action": "fix",
+  "reason": "'bravery' in the prompt is an equally valid synonym; add first-letters hint",
+  "prompt": "Spell the word for the strength to do something scary or hard (it starts with 'cou').",
+  "answer": "courage"
+ },
+ {
+  "id": "cmu0xa8dg02wg12z2yothgety",
+  "action": "fix",
+  "reason": "'bounce' has no silent b; replaced with a true silent-b word",
+  "prompt": "Spell the word with a silent 'b' for the short, thick finger on the side of your hand.",
+  "answer": "thumb"
+ },
+ {
+  "id": "cmu0xa8dh02xf12z2e6bgszon",
+  "action": "fix",
+  "reason": "Definition has synonyms ('instantly'); add hint",
+  "prompt": "Spell the word meaning 'right away, without delay' (it starts with 'imm').",
+  "answer": "immediately"
+ },
+ {
+  "id": "cmu0xa8dh02xl12z2mrq6zebf",
+  "action": "fix",
+  "reason": "'clumsy' in the clue is itself a valid answer; add hint",
+  "prompt": "Spell the word meaning 'clumsy or uncomfortable' (it starts with 'aw').",
+  "answer": "awkward"
+ },
+ {
+  "id": "cmu0xa8dh02xn12z204fueika",
+  "action": "fix",
+  "reason": "Definition fits other words (upset); add hint",
+  "prompt": "Spell the word meaning 'feeling sad because something didn't happen as hoped' (it starts with 'dis').",
+  "answer": "disappointed"
+ },
+ {
+  "id": "cmu0xa8dh02xp12z2toou09nu",
+  "action": "fix",
+  "reason": "'strange' is a valid answer to this clue; add hint",
+  "prompt": "Spell the word meaning 'strange and hard to explain, like a mystery' (it starts with 'mys').",
+  "answer": "mysterious"
+ },
+ {
+  "id": "cmu0xa8dh02xr12z2t26gxjt2",
+  "action": "fix",
+  "reason": "'precious' also fits; add hint",
+  "prompt": "Spell the word meaning 'worth a lot of money or importance' (it starts with 'val').",
+  "answer": "valuable"
+ },
+ {
+  "id": "cmu0xa8dh02xt12z27r0c0ryz",
+  "action": "fix",
+  "reason": "'engaging' and others also fit; add hint",
+  "prompt": "Spell the word meaning 'holding your attention' (it starts with 'inter').",
+  "answer": "interesting"
+ },
+ {
+  "id": "cmu0xa8dh02xv12z2ra4fvbkh",
+  "action": "fix",
+  "reason": "'get' and 'accept' also fit the clue; add hint",
+  "prompt": "Spell the word meaning 'to get or accept something given to you' (it starts with 'rec').",
+  "answer": "receive"
+ },
+ {
+  "id": "cmu0xa8dh02xx12z2scx5knb7",
+  "action": "fix",
+  "reason": "'thankful' in the clue is an equally valid answer; add hint",
+  "prompt": "Spell the word meaning 'feeling thankful' (it starts with 'grate').",
+  "answer": "grateful"
+ },
+ {
+  "id": "cmu0xa8dh02xz12z265ocxx0i",
+  "action": "fix",
+  "reason": "'tasty' and 'yummy' also fit; add hint",
+  "prompt": "Spell the word meaning 'tasting very good' (it starts with 'del').",
+  "answer": "delicious"
+ },
+ {
+  "id": "cmu0xa8dh02y112z2rt65ldaq",
+  "action": "fix",
+  "reason": "'harmful' and 'unsafe' also fit; add hint",
+  "prompt": "Spell the word meaning 'likely to cause harm' (it starts with 'dang').",
+  "answer": "dangerous"
+ },
+ {
+  "id": "cmu0xa8dh02yc12z24hl25rdv",
+  "action": "fix",
+  "reason": "'co-operate' with hyphen is an accepted form",
+  "acceptedAnswers": [
+   "co-operate"
+  ]
+ },
+ {
+  "id": "cmu0xa8dh02yh12z225wp4iwi",
+  "action": "fix",
+  "reason": "educate + 'tion' = 'educatetion'; suffix description was wrong",
+  "prompt": "Drop the final 'e' from 'educate' and add the suffix 'ion'. Spell the word for the process of teaching and learning.",
+  "answer": "education"
+ },
+ {
+  "id": "cmu0xa8dh02yi12z24v9w7mio",
+  "action": "fix",
+  "reason": "'approval'/'authorization' also fit the clue; add hint",
+  "prompt": "Spell the word meaning 'official approval to do something'. It is built from 'permit' plus a suffix, and starts with 'perm'.",
+  "answer": "permission"
+ },
+ {
+  "id": "cmu0xa8di02yt12z2fyb55r3h",
+  "action": "fix",
+  "reason": "celebrate + 'tion' = 'celebratetion'; suffix description was wrong",
+  "prompt": "Drop the final 'e' from 'celebrate' and add the suffix 'ion'. Spell the word for a party or event honoring something special.",
+  "answer": "celebration"
+ },
+ {
+  "id": "cmu0xa8di02yu12z2r1xp9v86",
+  "action": "fix",
+  "reason": "invent + 'tion' = 'inventtion'; suffix is 'ion'",
+  "prompt": "Add the suffix 'ion' to 'invent'. Spell the word for something newly created.",
+  "answer": "invention"
+ },
+ {
+  "id": "cmu0xa8di02z512z2mh9h0qcv",
+  "action": "fix",
+  "reason": "'desert' and 'dessert' are not pronounced alike, so not true homophones",
+  "prompt": "Spell the word for a dry, sandy place that gets little rain (do not mix it up with the sweet treat 'dessert').",
+  "answer": "desert"
+ },
+ {
+  "id": "cmu0xa8di02z612z2dt7t81k0",
+  "action": "fix",
+  "reason": "'desert' and 'dessert' are not pronounced alike, so not true homophones",
+  "prompt": "Spell the word for the sweet treat you eat after a meal (do not mix it up with the dry place 'desert').",
+  "answer": "dessert"
+ }
+]

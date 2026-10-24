@@ -1,0 +1,913 @@
+[
+ {
+  "id": "cmu0xa7vj00uq12z2rkmmf76n",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "The ratio of red balls to blue balls is 2:3. If there are 6 red balls, how many blue balls are there?",
+  "acceptedAnswers": [
+   "nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vj00ur12z2uu30zdpu",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty"
+  ]
+ },
+ {
+  "id": "cmu0xa7vj00us12z27h192px4",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "thirty"
+  ]
+ },
+ {
+  "id": "cmu0xa7vj00ut12z2cibxkj9s",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00uu12z2uq9gn0y6",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative seven",
+   "minus seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00uw12z295xdfsut",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00ux12z29a8s5wae",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "sixteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00uy12z24eczpubc",
+  "action": "fix",
+  "reason": "Choice '5x2' looked like a typo; use superscript",
+  "choicesJson": [
+   "5x",
+   "6x",
+   "5x²",
+   "6x²"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00uz12z26ap8dpnj",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "eleven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v012z28ip2jjzx",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "fifteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v112z2k6s5rcz4",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "What is the mean (average) of 4, 6, and 8?",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v212z2ll66g0cw",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v312z2wkcfcf89",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "two"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v412z206bb4jdc",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v512z2dj8xe7lk",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative twelve",
+   "minus twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v712z2xepv3yoi",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "The ratio of red apples to green apples is 3:4. If there are 12 red apples, how many green apples are there?",
+  "acceptedAnswers": [
+   "sixteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v812z2fs8kvcd5",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "The ratio of dogs to cats is 5:2. If there are 10 dogs, how many cats are there?",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00v912z2rp9jz9ud",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00va12z2le3dvhg6",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vb12z26xur0f5n",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "The ratio of blue marbles to red marbles is 4:5. If there are 20 blue marbles, how many red marbles are there?",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vc12z2eo4udbmi",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "2 to 3",
+   "2 : 3"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vd12z2gbkjfplh",
+  "action": "fix",
+  "reason": "Three simplify-ratio rows all had answer 2:3; changed numbers for variety",
+  "prompt": "Simplify the ratio 10:4 to lowest terms.",
+  "answer": "5:2",
+  "acceptedAnswers": [
+   "5 to 2",
+   "5 : 2"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00ve12z29hsvxhd8",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "300 cm",
+   "300cm"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vf12z2vf6bsmte",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "A drink mix uses concentrate and water in a 1:4 ratio. If you use 3 cups of concentrate, how many cups of water do you need?",
+  "acceptedAnswers": [
+   "twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vg12z2z5ct8k7h",
+  "action": "fix",
+  "reason": "Three simplify-ratio rows all had answer 2:3; changed numbers for variety",
+  "prompt": "Simplify the ratio 8:20 to lowest terms.",
+  "answer": "2:5",
+  "acceptedAnswers": [
+   "2 to 5",
+   "2 : 5"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vh12z202xk1uh5",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vi12z26ccccksu",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "The ratio of red beads to white beads is 7:3. If there are 21 red beads, how many white beads are there?",
+  "acceptedAnswers": [
+   "nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vj12z2ucpl10hp",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "3 to 2",
+   "3 : 2"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vk12z25k1k1cux",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "ten"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vl12z2q6kljin2",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "thirty"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vm12z2bo07fkoc",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vn12z2sywz1n0u",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vo12z2thyyoc8o",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "ten"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vp12z2z67rtzrc",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "thirty",
+   "30%"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vq12z2xp4nvbtr",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "twenty",
+   "20%"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vr12z24728oyyp",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "ten",
+   "$10"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vs12z2dsawxyw4",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "fifty-four",
+   "fifty four",
+   "$54"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vt12z2y26obvpu",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "fourteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vu12z2nw0i4ilh",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "thirty"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vv12z2eab1hx4g",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vw12z2l8yproe1",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "12.5%",
+   "12 1/2",
+   "12 1/2%"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vx12z29j3jajcn",
+  "action": "fix",
+  "reason": "Awkward wording; reworded",
+  "prompt": "A video game costs $50. The sales tax is 8%. How many dollars is the tax?",
+  "acceptedAnswers": [
+   "four",
+   "$4"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vy12z26ksm947s",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative four",
+   "minus four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00vz12z2kp5dqvgt",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w012z2qs26l1qq",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative six",
+   "minus six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w112z24321uq21",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative three",
+   "minus three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w212z23t6wnarb",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative nine",
+   "minus nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w312z28xze85pf",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative eleven",
+   "minus eleven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w412z2ztpkhr61",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative twenty",
+   "minus twenty"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w512z2evx39zkf",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w612z2jm3qqf2w",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative three",
+   "minus three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w712z2hlxf0enb",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative five",
+   "minus five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w812z2x58qo8an",
+  "action": "fix",
+  "reason": "Only 2 choices (50% guess); widened to 4 choices",
+  "prompt": "Which of these numbers is the greatest?",
+  "choicesJson": [
+   "-3",
+   "4",
+   "-9",
+   "0"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00w912z27atns8kv",
+  "action": "fix",
+  "reason": "Only 2 choices and near-duplicate of the -8/-2 row; changed to an ordering question",
+  "prompt": "Which list shows the numbers in order from least to greatest?",
+  "choicesJson": [
+   "-15, -20, 5",
+   "5, -15, -20",
+   "-20, -15, 5",
+   "-20, 5, -15"
+  ],
+  "answer": "-20, -15, 5"
+ },
+ {
+  "id": "cmu0xa7vk00wa12z2e39qvw4w",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00wb12z2wodpe5lu",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00wc12z2kc8j5fml",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative five",
+   "minus five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00wd12z2mxc1lmr0",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative two",
+   "minus two"
+  ]
+ },
+ {
+  "id": "cmu0xa7vk00we12z2tomv9r2y",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative twenty-five",
+   "minus twenty-five",
+   "negative twenty five",
+   "minus twenty five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wf12z2wep4lp3g",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "negative twelve",
+   "minus twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wg12z2binjwvvp",
+  "action": "fix",
+  "reason": "Only 2 choices (50% guess); widened to 4 choices",
+  "prompt": "Which is the coldest temperature?",
+  "choicesJson": [
+   "-3 degrees",
+   "0 degrees",
+   "5 degrees",
+   "-10 degrees"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wh12z2qje2b7mx",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "sixteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wi12z2zv6329al",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-five",
+   "twenty five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wj12z2uxftlyxj",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "one hundred",
+   "a hundred"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wk12z2eyijzn6a",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "thirty-two",
+   "thirty two"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wl12z2muco3vvw",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wm12z29vnopmtg",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "thirty-six",
+   "thirty six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wn12z2aji5z62w",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "sixty-four",
+   "sixty four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wo12z2rnau6wpz",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "one"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wp12z2zupzta8l",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "one thousand",
+   "1,000"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wq12z2o2s5171h",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "forty-nine",
+   "forty nine"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wr12z2m5hv8mtv",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "sixty-four",
+   "sixty four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00ws12z2hel0vihs",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "eight"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wu12z2gz3cc6fm",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "eighty-one",
+   "eighty one"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wv12z2s8dj0qkm",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "5 x",
+   "5*x"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00ww12z2pt5d9wrl",
+  "action": "fix",
+  "reason": "Choice '7x2' looked like a typo; use superscript",
+  "choicesJson": [
+   "7x + 2",
+   "9x",
+   "6x + 2",
+   "7x²"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wx12z2yh3ndulc",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wy12z2ixg89ljq",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "sixteen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00wz12z2co82epnu",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x012z2ojkgek57",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x112z2s6ayuh1q",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x212z2kfl3tacs",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x312z28w87c3jo",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x412z2n1ygoehm",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twelve"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x812z28dv5nbgu",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00x912z2gf0wvs86",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xa12z29sok3i8c",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "eleven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xb12z2690dnzuo",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the 'y increased by 5' row"
+ },
+ {
+  "id": "cmu0xa7vl00xc12z251jzz9g5",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "What is the mean (average) of 2, 4, 6, and 8?",
+  "acceptedAnswers": [
+   "five"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xd12z2sb683416",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "What is the mean (average) of 9, 16, and 26?",
+  "acceptedAnswers": [
+   "seventeen"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xe12z2kplehf9u",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xf12z2so0o2a0a",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xg12z2wbrj5nz2",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xh12z232jf56fz",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "eight"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xi12z2abemxkd8",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xj12z2x5bvae7a",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-seven",
+   "twenty seven"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xk12z26l5ip3jk",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded; accept mixed-number form",
+  "prompt": "What is the mean (average) of 5, 10, 15, and 20?",
+  "acceptedAnswers": [
+   "12 1/2"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xl12z21dgj3si6",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 'median of 3, 9, 5, 1, 7' (same format, same answer 5)"
+ },
+ {
+  "id": "cmu0xa7vl00xm12z2aiohoiw8",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xn12z2sjfpaetz",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "ten"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xo12z2ezcnmwzp",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "twelve",
+   "$12"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xp12z24m5sq0vx",
+  "action": "fix",
+  "reason": "add accepted answer forms (number words)",
+  "acceptedAnswers": [
+   "four"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xq12z29bq0y75a",
+  "action": "fix",
+  "reason": "Prompt gave away the working; reworded",
+  "prompt": "Apples cost $3 each. You buy x apples, and x = 5. How many dollars do you spend?",
+  "acceptedAnswers": [
+   "fifteen",
+   "$15"
+  ]
+ },
+ {
+  "id": "cmu0xa7vl00xr12z22j92o0k1",
+  "action": "fix",
+  "reason": "add accepted answer forms",
+  "acceptedAnswers": [
+   "-165 feet",
+   "-165 ft"
+  ]
+ }
+]

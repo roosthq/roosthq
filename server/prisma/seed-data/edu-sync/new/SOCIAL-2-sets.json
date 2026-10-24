@@ -1,0 +1,916 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Firefighters hook their hoses to this. What is it?",
+  "choicesJson": [
+   "Fire hydrant",
+   "Street lamp",
+   "Mailbox"
+  ],
+  "answer": "Fire hydrant",
+  "tags": [
+   "community helpers",
+   "firefighters"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-fire-hydrant.webp",
+   "alt": "A red fire hydrant standing in green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which helper uses a machine like this to dig at a building site?",
+  "choicesJson": [
+   "Mail carrier",
+   "Teacher",
+   "Builder"
+  ],
+  "answer": "Builder",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-excavator.webp",
+   "alt": "A yellow excavator with a long arm and bucket digging at a building site."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does this truck do?",
+  "choicesJson": [
+   "Picks up trash",
+   "Carries letters",
+   "Puts out fires"
+  ],
+  "answer": "Picks up trash",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-garbage-truck.webp",
+   "alt": "A yellow garbage truck parked on a city street while a worker in a bright vest stands at the back."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A nurse or doctor uses this tool to measure what?",
+  "choicesJson": [
+   "Height",
+   "Weight",
+   "Temperature"
+  ],
+  "answer": "Temperature",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-thermometer.webp",
+   "alt": "A white and green digital thermometer with a number showing on its screen."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this flying vehicle with spinning blades.",
+  "answer": "helicopter",
+  "acceptedAnswers": [
+   "a helicopter",
+   "chopper"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-helicopter.webp",
+   "alt": "A red and white helicopter with spinning rotor blades flying in front of snowy mountains."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This vehicle rushes hurt people to the hospital. Type its name.",
+  "answer": "ambulance",
+  "acceptedAnswers": [
+   "an ambulance",
+   "ambulence"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-ambulance.webp",
+   "alt": "A white ambulance van with a red cross, a red stripe and flashing lights on its roof, parked outdoors."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This machine digs holes at building sites. Type its name.",
+  "answer": "excavator",
+  "acceptedAnswers": [
+   "digger",
+   "backhoe",
+   "an excavator",
+   "a digger",
+   "excavater"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-excavator.webp",
+   "alt": "A yellow excavator with a long arm and bucket digging at a building site."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the special name for a boat that carries people and cars across the water.",
+  "answer": "ferry",
+  "acceptedAnswers": [
+   "ferry boat",
+   "ferryboat",
+   "a ferry",
+   "the ferry"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-boat.webp",
+   "alt": "A large white and green ferry boat sailing across blue water beside a dock."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this red thing that firefighters get water from.",
+  "answer": "hydrant",
+  "acceptedAnswers": [
+   "fire hydrant",
+   "a hydrant",
+   "a fire hydrant",
+   "fire plug",
+   "fireplug"
+  ],
+  "tags": [
+   "community helpers",
+   "firefighters"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-fire-hydrant.webp",
+   "alt": "A red fire hydrant standing in green grass."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a machine a builder uses to dig?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-excavator.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-mail-truck.webp",
+    "learning/img/community-helpers-school-bus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: an excavator, an airplane, a mail truck and a school bus."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which truck picks up our trash?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-fire-truck.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-mail-truck.webp",
+    "learning/img/community-helpers-garbage-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a fire truck, a school bus, a mail truck and a garbage truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows something that firefighters connect their hoses to?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "community helpers",
+   "firefighters"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-mailboxes.webp",
+    "learning/img/community-helpers-toothbrush.webp",
+    "learning/img/community-helpers-fire-hydrant.webp",
+    "learning/img/community-helpers-stethoscope.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a row of mailboxes, a toothbrush, a fire hydrant and a stethoscope."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which tool checks if you have a fever?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-toothbrush.webp",
+    "learning/img/community-helpers-thermometer.webp",
+    "learning/img/community-helpers-mailboxes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: chef's knives, a toothbrush, a thermometer and a row of mailboxes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle carries many people and cars across the water?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-boat.webp",
+    "learning/img/community-helpers-school-bus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a train, an airplane, a ferry boat and a school bus."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle can take off straight up into the air?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-helicopter.webp",
+    "learning/img/community-helpers-boat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: an airplane, a train, a helicopter and a ferry boat."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle rushes to a fire?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-fire-truck.webp",
+    "learning/img/community-helpers-tractor.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-mail-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a fire truck, a tractor, a school bus and a mail truck."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This man led the American army in the Revolutionary War and then became the 1st president. Who is he?",
+  "choicesJson": [
+   "John Adams",
+   "George Washington",
+   "Thomas Jefferson",
+   "Abraham Lincoln"
+  ],
+  "answer": "George Washington",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-george-washington.webp",
+   "alt": "Old painted portrait of a man with white hair and a serious face."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the first president of the United States?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-abraham-lincoln.webp",
+    "learning/img/famous-people-albert-einstein.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-frederick-douglass.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which person was the first to walk on the Moon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "famous people",
+   "space"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-thomas-edison.webp",
+    "learning/img/famous-people-albert-einstein.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-neil-armstrong.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which president is on the US one-dollar bill?",
+  "choicesJson": [
+   "Abraham Lincoln",
+   "Thomas Jefferson",
+   "George Washington",
+   "Benjamin Franklin"
+  ],
+  "answer": "George Washington",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Thomas Edison is famous for improving which invention so people could light their homes?",
+  "choicesJson": [
+   "Telephone",
+   "Light bulb",
+   "Airplane",
+   "Telescope"
+  ],
+  "answer": "Light bulb",
+  "tags": [
+   "famous people",
+   "inventors"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the country that uses this flag.",
+  "answer": "United States",
+  "acceptedAnswers": [
+   "usa",
+   "us",
+   "u.s.",
+   "u.s.a.",
+   "america",
+   "united states of america",
+   "the united states",
+   "the usa"
+  ],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-usa.webp",
+   "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Which country does this flag belong to? Type its name.",
+  "answer": "Canada",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-canada.webp",
+   "alt": "A flag with a red maple leaf on a white square between two red bars."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This is the flag of which country? Type your answer.",
+  "answer": "Japan",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-japan.webp",
+   "alt": "A white flag with a large red circle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which country's flag is this?",
+  "choicesJson": [
+   "United Kingdom",
+   "Canada",
+   "Germany",
+   "Mexico"
+  ],
+  "answer": "United Kingdom",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-uk.webp",
+   "alt": "A flag with a red cross and a red X edged in white on a blue background."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to Japan?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-south-korea.webp",
+    "learning/img/flags-poland.webp",
+    "learning/img/flags-switzerland.webp",
+    "learning/img/flags-japan.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of Canada.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-canada.webp",
+    "learning/img/flags-switzerland.webp",
+    "learning/img/flags-uk.webp",
+    "learning/img/flags-peru.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the flag of the United States?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-usa.webp",
+    "learning/img/flags-uk.webp",
+    "learning/img/flags-cuba.webp",
+    "learning/img/flags-australia.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many stars are on this flag?",
+  "answer": "50",
+  "acceptedAnswers": [
+   "fifty"
+  ],
+  "tags": [
+   "flags",
+   "counting"
+  ],
+  "media": {
+   "image": "learning/img/flags-usa.webp",
+   "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of leaf is in the middle of this flag?",
+  "choicesJson": [
+   "Birch leaf",
+   "Palm leaf",
+   "Oak leaf",
+   "Maple leaf"
+  ],
+  "answer": "Maple leaf",
+  "tags": [
+   "flags",
+   "symbols"
+  ],
+  "media": {
+   "image": "learning/img/flags-canada.webp",
+   "alt": "A flag with a red maple leaf on a white square between two red bars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is in the middle of this flag?",
+  "choicesJson": [
+   "Square",
+   "Circle",
+   "Triangle",
+   "Star"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "flags",
+   "shapes"
+  ],
+  "media": {
+   "image": "learning/img/flags-japan.webp",
+   "alt": "A white flag with a large red circle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the colors of the stripes on this flag, from left to right?",
+  "choicesJson": [
+   "Green, white, and red",
+   "Green, red, and white",
+   "Red, white, and green",
+   "White, green, and red"
+  ],
+  "answer": "Green, white, and red",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-italy.webp",
+   "alt": "A flag with green, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this famous statue in New York Harbor?",
+  "choicesJson": [
+   "Christ the Redeemer",
+   "Mount Rushmore",
+   "Great Sphinx",
+   "Statue of Liberty"
+  ],
+  "answer": "Statue of Liberty",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-statue-of-liberty.webp",
+   "alt": "A tall green statue of a robed woman holding up a torch, standing on a stone base by the water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this beautiful white building?",
+  "choicesJson": [
+   "India",
+   "Egypt",
+   "Brazil",
+   "Canada"
+  ],
+  "answer": "India",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-taj-mahal.webp",
+   "alt": "A white marble building with a big dome and four tall towers beside a long pool."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This tower leans to one side. In which country is it?",
+  "choicesJson": [
+   "France",
+   "Italy",
+   "Canada",
+   "Japan"
+  ],
+  "answer": "Italy",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-leaning-tower-of-pisa.webp",
+   "alt": "A tall round white tower that tilts to one side, beside a big white marble church."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Sydney Opera House?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-great-wall.webp",
+    "learning/img/landmarks-alamo.webp",
+    "learning/img/landmarks-sydney-opera-house.webp",
+    "learning/img/landmarks-gateway-arch.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Niagara Falls?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-grand-canyon.webp",
+    "learning/img/landmarks-mount-everest.webp",
+    "learning/img/landmarks-uluru.webp",
+    "learning/img/landmarks-niagara-falls.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this ancient stone arena?",
+  "choicesJson": [
+   "Colosseum",
+   "Parthenon",
+   "Stonehenge",
+   "Alamo"
+  ],
+  "answer": "Colosseum",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-colosseum.webp",
+   "alt": "A huge ancient stone arena with rows of arches, lit up at dusk."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this famous tower?",
+  "choicesJson": [
+   "Japan",
+   "France",
+   "Mexico",
+   "Egypt"
+  ],
+  "answer": "France",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-eiffel-tower.webp",
+   "alt": "A tall tower made of iron beams standing on a green lawn under a blue sky."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Gateway Arch?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-christ-the-redeemer.webp",
+    "learning/img/landmarks-parthenon.webp",
+    "learning/img/landmarks-gateway-arch.webp",
+    "learning/img/landmarks-white-house.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this giant red rock in the middle of Australia called?",
+  "choicesJson": [
+   "Mount Fuji",
+   "Grand Canyon",
+   "Stonehenge",
+   "Uluru (Ayers Rock)"
+  ],
+  "answer": "Uluru (Ayers Rock)",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-uluru.webp",
+   "alt": "A giant red-orange rock shaped like a loaf glowing at sunset above desert bushes."
+  }
+ }
+]

@@ -1,0 +1,17 @@
+[
+{"id":"cmu0xa88g02bf12z2a8a8zsvm","action":"deactivate","reason":"Near-duplicate: New Jersey capital asked 3 times in same direction; TEXT_INPUT version kept"},
+{"id":"cmu0xa88h02cs12z28uf9hud8","action":"deactivate","reason":"Near-duplicate: New Jersey capital asked 3 times in same direction; TEXT_INPUT version kept"},
+{"id":"cmu0xa88g02b212z2h8cxpgvi","action":"deactivate","reason":"Near-duplicate of TEXT_INPUT 'The capital of West Virginia is ____.'"},
+{"id":"cmu0xa88g02ay12z2m0fieh6u","action":"deactivate","reason":"Near-duplicate of TEXT_INPUT 'The capital of Missouri is ____.'"},
+{"id":"cmu0xa88h02co12z27i4xw19c","action":"deactivate","reason":"Near-duplicate of TEXT_INPUT 'The capital of Pennsylvania is ____.'"},
+{"id":"cmu0xa88g02b612z2os4vhn83","action":"fix","reason":"Distractors were absurd and the correct answer was the only sensible, longest option; made distractors plausible and similar in length","choicesJson":["So the government can decide which rules it wants to ignore","So only some people have to follow the laws","So freedoms are protected while people act fairly toward each other","So adults can take away any freedom they choose"],"answer":"So freedoms are protected while people act fairly toward each other"},
+{"id":"cmu0xa88h02ct12z2mpo9tl84","action":"fix","reason":"Prompt gave away the answer ('bell') and distractors were not bells; reworded to ask for the landmark","prompt":"Which of these landmarks in Philadelphia is a symbol of American independence?","choicesJson":["The U.S. Capitol","The Liberty Bell","Mount Rushmore","The Gateway Arch"],"answer":"The Liberty Bell"},
+{"id":"cmu0xa88g02c712z2s5lhh0jv","action":"fix","reason":"Awkward prompt that gave away the answer ('national') and had a silly distractor; now a clear question with exact-match answer","prompt":"Which city is the capital of the United States?","choicesJson":["Los Angeles","New York City","Washington, D.C.","Chicago"],"answer":"Washington, D.C."},
+{"id":"cmu0xa88h02cf12z20f53a6fk","action":"fix","reason":"Distractors 'Family government' and 'School government' were silly; replaced with real levels of government","choicesJson":["County government","Local government","Federal (national) government","State government"],"answer":"Federal (national) government"},
+{"id":"cmu0xa88h02ci12z2j1tg9fab","action":"fix","reason":"A state governor heads a state executive branch, making 'the Governor' a confusing distractor; replaced with the Senate","choicesJson":["the President","the Supreme Court","Congress","the Senate"],"answer":"the President"},
+{"id":"cmu0xa88h02d612z2u6d5qv0z","action":"fix","reason":"A plateau also rises above surrounding land; added 'with a peak' to make Mountain the only correct choice","prompt":"Which landform is described as: very tall, high land with a peak that rises above the land around it?"},
+{"id":"cmu0xa88i02dp12z228g5gsvq","action":"fix","reason":"Awkward 'a ____?' punctuation; clearer prompt","prompt":"A family buys corn at the market to eat. In economics, the family is acting as a ____."},
+{"id":"cmu0xa88g02bq12z20wj65h4p","action":"fix","reason":"Ambiguous: Washington could mean Washington, D.C.; specify the state","prompt":"The capital of the state of Washington is ____."},
+{"id":"cmu0xa88g02bj12z2syrlngg7","action":"fix","reason":"Add common typed abbreviation","acceptedAnswers":["OKC"]},
+{"id":"cmu0xa88h02d012z2qv0inkla","action":"fix","reason":"Add common nickname form","acceptedAnswers":["Jeff City"]}
+]

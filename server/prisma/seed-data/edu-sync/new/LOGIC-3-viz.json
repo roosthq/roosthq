@@ -1,0 +1,703 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "F",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7b3d8cfd060e.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "E",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d2895c62afa0.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "F",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b1758de1810c.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a30df6dbc475.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fa247a5a7ead.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "E",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5233be7b767c.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bada279154fc.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b92d0adb7be2.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "F",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/867b52baf9ce.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c9bab8fdef8c.webp",
+    "learning/img/viz/23bce2591112.webp",
+    "learning/img/viz/c8c8d9538abb.webp",
+    "learning/img/viz/eea06a451078.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/9bb9f55294fe.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/70ea39e74f6c.webp",
+    "learning/img/viz/8d7bd5f8dfba.webp",
+    "learning/img/viz/c651309f6809.webp",
+    "learning/img/viz/fb1cd71fae90.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/6f36992b6131.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f1bbb070cd45.webp",
+    "learning/img/viz/fb1cd71fae90.webp",
+    "learning/img/viz/5899a79e859e.webp",
+    "learning/img/viz/b28210ce080b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/bb070dfe7591.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/70ea39e74f6c.webp",
+    "learning/img/viz/cbc592d067e7.webp",
+    "learning/img/viz/be9fa2b876d6.webp",
+    "learning/img/viz/65aeae396fe0.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/e7e4cba87c46.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8d7bd5f8dfba.webp",
+    "learning/img/viz/1d9050a77d1d.webp",
+    "learning/img/viz/1ad8e753cb08.webp",
+    "learning/img/viz/8f7dce7fcf51.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/8c6e3542c0f9.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a16d3e8dafb2.webp",
+    "learning/img/viz/eea06a451078.webp",
+    "learning/img/viz/736d82b4f398.webp",
+    "learning/img/viz/f1bbb070cd45.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/a5e743149913.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f1bbb070cd45.webp",
+    "learning/img/viz/af5b97d33ce3.webp",
+    "learning/img/viz/9e34fb261be4.webp",
+    "learning/img/viz/70ea39e74f6c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/02a45b5bdfb8.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0a6bdb8b1394.webp",
+    "learning/img/viz/d1fc2fc4e743.webp",
+    "learning/img/viz/dbda21ffaa5f.webp",
+    "learning/img/viz/70ea39e74f6c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/c1a92f3d3d8e.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1a11d7c241ee.webp",
+    "learning/img/viz/cbc592d067e7.webp",
+    "learning/img/viz/18bb0ae0173f.webp",
+    "learning/img/viz/c8c8d9538abb.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/139208268001.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a16d3e8dafb2.webp",
+    "learning/img/viz/a60890533735.webp",
+    "learning/img/viz/736d82b4f398.webp",
+    "learning/img/viz/c8c8d9538abb.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/898a32363aa0.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ae489b11b4ad.webp",
+    "learning/img/viz/c8c8d9538abb.webp",
+    "learning/img/viz/a16d3e8dafb2.webp",
+    "learning/img/viz/5899a79e859e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/f16d0a5dd0e4.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c651309f6809.webp",
+    "learning/img/viz/5a19d2d2b1bb.webp",
+    "learning/img/viz/f1bbb070cd45.webp",
+    "learning/img/viz/5899a79e859e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/8cc4189b95d3.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/dbda21ffaa5f.webp",
+    "learning/img/viz/c9bab8fdef8c.webp",
+    "learning/img/viz/fb1cd71fae90.webp",
+    "learning/img/viz/c651309f6809.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/c1b0e945424e.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7b561b3cf411.webp",
+    "learning/img/viz/cbc592d067e7.webp",
+    "learning/img/viz/7301d635eb76.webp",
+    "learning/img/viz/b28210ce080b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/2a21fd3afbb3.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8f7dce7fcf51.webp",
+    "learning/img/viz/5899a79e859e.webp",
+    "learning/img/viz/c8c8d9538abb.webp",
+    "learning/img/viz/736d82b4f398.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/391f2155b91e.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which shape goes in the empty box?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "matrix",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1ad8e753cb08.webp",
+    "learning/img/viz/736d82b4f398.webp",
+    "learning/img/viz/fb1cd71fae90.webp",
+    "learning/img/viz/0852ca6415fd.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A three by three grid of shapes with the last box empty",
+   "image": "learning/img/viz/49fba7080f71.webp"
+  }
+ }
+]

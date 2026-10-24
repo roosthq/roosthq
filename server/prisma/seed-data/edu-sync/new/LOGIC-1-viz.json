@@ -1,0 +1,1644 @@
+[
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/5899a79e859e.webp",
+    "learning/img/viz/d5b4cb30dba6.webp",
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/8802f6b4a67f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/00868bd59770.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d30a40501b6e.webp",
+    "learning/img/viz/a16d3e8dafb2.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/f1a5bee77b00.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/792bc630ab41.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f1a5bee77b00.webp",
+    "learning/img/viz/66c8c82a740b.webp",
+    "learning/img/viz/e5bf2f4105ad.webp",
+    "learning/img/viz/3f6daf9c915b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/851c237be124.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/836415b59913.webp",
+    "learning/img/viz/67f06d7615cd.webp",
+    "learning/img/viz/e5bf2f4105ad.webp",
+    "learning/img/viz/1d9050a77d1d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/56cc06093fad.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d13fe5d42dda.webp",
+    "learning/img/viz/b04ad223813d.webp",
+    "learning/img/viz/1a11d7c241ee.webp",
+    "learning/img/viz/92cb11da41f5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/fcc4d1cd45fe.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/5af6b5b53540.webp",
+    "learning/img/viz/9e34fb261be4.webp",
+    "learning/img/viz/38c831ac9112.webp",
+    "learning/img/viz/44df50cafc53.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/e6a994e7bec8.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/44df50cafc53.webp",
+    "learning/img/viz/f7f67645c58e.webp",
+    "learning/img/viz/f1a5bee77b00.webp",
+    "learning/img/viz/0852ca6415fd.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/fb26af041572.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/fcb658d349d2.webp",
+    "learning/img/viz/f700c6bde0a4.webp",
+    "learning/img/viz/836415b59913.webp",
+    "learning/img/viz/db4c30d73c16.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/fa2b3e66f8c4.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/cbc592d067e7.webp",
+    "learning/img/viz/e2aac199861e.webp",
+    "learning/img/viz/d30a40501b6e.webp",
+    "learning/img/viz/615aafb744c7.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/48c87b183188.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/44df50cafc53.webp",
+    "learning/img/viz/7120744ccc1c.webp",
+    "learning/img/viz/be9fa2b876d6.webp",
+    "learning/img/viz/92cb11da41f5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b28cfae0cf8c.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f700c6bde0a4.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/d13fe5d42dda.webp",
+    "learning/img/viz/1ad8e753cb08.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/f52e5d41a280.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d5b4cb30dba6.webp",
+    "learning/img/viz/23bce2591112.webp",
+    "learning/img/viz/38c831ac9112.webp",
+    "learning/img/viz/b04ad223813d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/650f96c5b50a.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d30a40501b6e.webp",
+    "learning/img/viz/f1a5bee77b00.webp",
+    "learning/img/viz/1a11d7c241ee.webp",
+    "learning/img/viz/db4c30d73c16.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/25d323a3ffb0.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/9adabddcb292.webp",
+    "learning/img/viz/836415b59913.webp",
+    "learning/img/viz/928595ba13f9.webp",
+    "learning/img/viz/f7f67645c58e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/0113b1a86de2.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/44df50cafc53.webp",
+    "learning/img/viz/38c831ac9112.webp",
+    "learning/img/viz/d146dd702424.webp",
+    "learning/img/viz/c651309f6809.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/4cf99d07b12d.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f700c6bde0a4.webp",
+    "learning/img/viz/7346011036c0.webp",
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/b04ad223813d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/a4c15b149484.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/44df50cafc53.webp",
+    "learning/img/viz/92cb11da41f5.webp",
+    "learning/img/viz/a60890533735.webp",
+    "learning/img/viz/e2aac199861e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/2fd8bd48d5fb.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/5af6b5b53540.webp",
+    "learning/img/viz/47f5bdb62bac.webp",
+    "learning/img/viz/25775131c550.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b0ee63430fe2.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/e5bf2f4105ad.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/ed5b6529d7cf.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/a63c2e731952.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/df1b9bd74264.webp",
+    "learning/img/viz/b28210ce080b.webp",
+    "learning/img/viz/5af6b5b53540.webp",
+    "learning/img/viz/d13fe5d42dda.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/7a3e7c149c3b.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d5b4cb30dba6.webp",
+    "learning/img/viz/8d7bd5f8dfba.webp",
+    "learning/img/viz/d146dd702424.webp",
+    "learning/img/viz/d13fe5d42dda.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/bbad3c576e3f.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ca1cd81920c7.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/dbda21ffaa5f.webp",
+    "learning/img/viz/e5bf2f4105ad.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/398ce5f387ae.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/67f06d7615cd.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/d146dd702424.webp",
+    "learning/img/viz/b28210ce080b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/e787f7bef45a.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d13fe5d42dda.webp",
+    "learning/img/viz/ca1cd81920c7.webp",
+    "learning/img/viz/8d7bd5f8dfba.webp",
+    "learning/img/viz/d5b4cb30dba6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/bbad3c576e3f.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/615aafb744c7.webp",
+    "learning/img/viz/1d9050a77d1d.webp",
+    "learning/img/viz/f7f67645c58e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/969dcfb15780.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bc7441a73e75.webp",
+    "learning/img/viz/ca1cd81920c7.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/d146dd702424.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/089b6aa0d8ce.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ca1cd81920c7.webp",
+    "learning/img/viz/5a19d2d2b1bb.webp",
+    "learning/img/viz/d5f172e91569.webp",
+    "learning/img/viz/5af6b5b53540.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b181f266306a.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/92cb11da41f5.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/ffadaa868d98.webp",
+    "learning/img/viz/023d54e2bbb0.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/ae3b3aab1a87.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/66c8c82a740b.webp",
+    "learning/img/viz/615aafb744c7.webp",
+    "learning/img/viz/c5bca7717193.webp",
+    "learning/img/viz/5af6b5b53540.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/6d6f1b5b48ea.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/5af6b5b53540.webp",
+    "learning/img/viz/92cb11da41f5.webp",
+    "learning/img/viz/e2aac199861e.webp",
+    "learning/img/viz/670fa9d3ba59.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b049c97db94c.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/b28210ce080b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/5b30f5d337e7.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d25a28446f6.webp",
+    "learning/img/viz/ffadaa868d98.webp",
+    "learning/img/viz/92cb11da41f5.webp",
+    "learning/img/viz/7346011036c0.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/a4c15b149484.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ffadaa868d98.webp",
+    "learning/img/viz/8f9e1460375d.webp",
+    "learning/img/viz/84d9f502ba09.webp",
+    "learning/img/viz/ed5b6529d7cf.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/a63c2e731952.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ffadaa868d98.webp",
+    "learning/img/viz/9e34fb261be4.webp",
+    "learning/img/viz/38c831ac9112.webp",
+    "learning/img/viz/bd51302bf075.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/a8cfbe0bcaa6.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/25775131c550.webp",
+    "learning/img/viz/d5b4cb30dba6.webp",
+    "learning/img/viz/ffadaa868d98.webp",
+    "learning/img/viz/0d320c65731d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/db6e8564d741.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/836415b59913.webp",
+    "learning/img/viz/b04ad223813d.webp",
+    "learning/img/viz/bc7441a73e75.webp",
+    "learning/img/viz/92cb11da41f5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/089b6aa0d8ce.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/e5bf2f4105ad.webp",
+    "learning/img/viz/8802f6b4a67f.webp",
+    "learning/img/viz/44df50cafc53.webp",
+    "learning/img/viz/a16d3e8dafb2.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/e779342b6e84.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bd51302bf075.webp",
+    "learning/img/viz/f1a5bee77b00.webp",
+    "learning/img/viz/02b68e569e32.webp",
+    "learning/img/viz/836415b59913.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/ec79e29c9118.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/0d320c65731d.webp",
+    "learning/img/viz/836415b59913.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/e5bf2f4105ad.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/4200d2b01777.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/66c8c82a740b.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/7120744ccc1c.webp",
+    "learning/img/viz/826f16a96450.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/82e7c4a64848.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1a11d7c241ee.webp",
+    "learning/img/viz/d30a40501b6e.webp",
+    "learning/img/viz/4b3f142e743e.webp",
+    "learning/img/viz/db4c30d73c16.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b982d5148ca1.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/f700c6bde0a4.webp",
+    "learning/img/viz/84d9f502ba09.webp",
+    "learning/img/viz/736d82b4f398.webp",
+    "learning/img/viz/4b3f142e743e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/873e296b90f1.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/25775131c550.webp",
+    "learning/img/viz/0e54f947d445.webp",
+    "learning/img/viz/0d320c65731d.webp",
+    "learning/img/viz/e2aac199861e.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/b7441f3b9d59.webp"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "What comes next in the pattern?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "patterns",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c9bab8fdef8c.webp",
+    "learning/img/viz/f700c6bde0a4.webp",
+    "learning/img/viz/09ae26c62503.webp",
+    "learning/img/viz/44df50cafc53.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "A row of shapes in a pattern with a missing last one",
+   "image": "learning/img/viz/faa33d7a534d.webp"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/71a695a736a8.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/88b6a87bf18f.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8c3ba663ca38.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8a3953486618.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/69e63cc0527d.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f278bfcd5ab5.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "E",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f91db995b75e.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0c0d38063abf.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3ec8b2495eea.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "B",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/90ac83275b1f.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/521b332de6a5.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "D",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5e35f7e6cb17.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D",
+   "E",
+   "F"
+  ],
+  "answer": "E",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/137a74d24146.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is different from the others?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "odd-one-out",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0bc26edaafb1.webp",
+   "alt": "Shapes in boxes labeled with letters"
+  }
+ }
+]

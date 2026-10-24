@@ -1,0 +1,352 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "-8",
+   "-10",
+   "-6",
+   "-4"
+  ],
+  "answer": "-8",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/02fb53d40cca.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "-6",
+   "-10",
+   "-8",
+   "-4"
+  ],
+  "answer": "-6",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/df3cd3d96a8d.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "-4",
+   "-8",
+   "-6",
+   "-2"
+  ],
+  "answer": "-4",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f13ee609ffc9.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "-2",
+   "-6",
+   "-4",
+   "0"
+  ],
+  "answer": "-2",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d8f5d94317f1.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "2",
+   "-2",
+   "0",
+   "4"
+  ],
+  "answer": "2",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4dc213bfb6ac.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "4",
+   "0",
+   "2",
+   "6"
+  ],
+  "answer": "4",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/82b3b692fa38.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "6",
+   "2",
+   "4",
+   "8"
+  ],
+  "answer": "6",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d4712dd5fe01.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "8",
+   "4",
+   "6",
+   "10"
+  ],
+  "answer": "8",
+  "tags": [
+   "number-line",
+   "negative-numbers",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b5be85ad97ad.webp",
+   "alt": "A number line from -10 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(8, 5)",
+   "(5, 8)",
+   "(9, 5)",
+   "(8, 6)"
+  ],
+  "answer": "(8, 5)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bc5f1565bd77.webp",
+   "alt": "A coordinate grid with a point at (8, 5)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(9, 7)",
+   "(7, 9)",
+   "(10, 7)",
+   "(9, 8)"
+  ],
+  "answer": "(9, 7)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bbf4515ac1fb.webp",
+   "alt": "A coordinate grid with a point at (9, 7)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(9, 4)",
+   "(4, 9)",
+   "(10, 4)",
+   "(9, 5)"
+  ],
+  "answer": "(9, 4)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d010a0f12380.webp",
+   "alt": "A coordinate grid with a point at (9, 4)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(9, 6)",
+   "(6, 9)",
+   "(10, 6)",
+   "(9, 7)"
+  ],
+  "answer": "(9, 6)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3ba7ecc4abe4.webp",
+   "alt": "A coordinate grid with a point at (9, 6)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(7, 9)",
+   "(9, 7)",
+   "(8, 9)",
+   "(7, 10)"
+  ],
+  "answer": "(7, 9)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7101c711228a.webp",
+   "alt": "A coordinate grid with a point at (7, 9)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(7, 6)",
+   "(6, 7)",
+   "(8, 6)",
+   "(7, 7)"
+  ],
+  "answer": "(7, 6)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/de725e925d4c.webp",
+   "alt": "A coordinate grid with a point at (7, 6)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(8, 9)",
+   "(9, 8)",
+   "(9, 9)",
+   "(8, 10)"
+  ],
+  "answer": "(8, 9)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fd17edcb4077.webp",
+   "alt": "A coordinate grid with a point at (8, 9)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(6, 8)",
+   "(8, 6)",
+   "(7, 8)",
+   "(6, 9)"
+  ],
+  "answer": "(6, 8)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/596eaef0a1f3.webp",
+   "alt": "A coordinate grid with a point at (6, 8)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(8, 7)",
+   "(7, 8)",
+   "(9, 7)",
+   "(8, 8)"
+  ],
+  "answer": "(8, 7)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/11cfe5e5321d.webp",
+   "alt": "A coordinate grid with a point at (8, 7)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(8, 4)",
+   "(4, 8)",
+   "(9, 4)",
+   "(8, 5)"
+  ],
+  "answer": "(8, 4)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ab9a4f890318.webp",
+   "alt": "A coordinate grid with a point at (8, 4)"
+  }
+ }
+]

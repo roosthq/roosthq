@@ -1,0 +1,294 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this coin called?",
+  "choicesJson": [
+   "Quarter",
+   "Penny",
+   "Dime"
+  ],
+  "answer": "Penny",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-penny.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this coin called?",
+  "choicesJson": [
+   "Penny",
+   "Quarter",
+   "Nickel"
+  ],
+  "answer": "Nickel",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-nickel.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call this coin?",
+  "choicesJson": [
+   "Penny",
+   "Quarter",
+   "Dime",
+   "Nickel"
+  ],
+  "answer": "Dime",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-dime.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this coin?",
+  "choicesJson": [
+   "Dime",
+   "Penny",
+   "Quarter"
+  ],
+  "answer": "Quarter",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-quarter.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is a penny?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is a dime?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-dime.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a quarter?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-nickel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is a nickel?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-half-dollar.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin looks like copper? Copper is reddish-brown.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "colors"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dime.webp",
+    "learning/img/money-penny.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-nickel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Sonic's rings are gold. Which coin is gold-colored too?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "colors",
+   "theme:sonic"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dollar-coin-washington.webp",
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the most?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-nickel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ }
+]

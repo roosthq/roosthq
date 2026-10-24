@@ -43,21 +43,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which word means the opposite of 'ancient'?",
-    "choicesJson": [
-      "modern",
-      "old",
-      "historic",
-      "wise"
-    ],
-    "answer": "modern",
-    "tags": [
-      "antonyms"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "'The word 'canine' in the sentence 'The vet treats canine patients' most likely means...",
+    "prompt": "In the sentence 'The vet treats canine patients,' what does 'canine' most likely mean?",
     "choicesJson": [
       "dog-related",
       "cat-related",
@@ -339,20 +325,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which sentence contains a simile?",
-    "choicesJson": [
-      "The classroom was as quiet as a library.",
-      "The classroom was quiet.",
-      "Nobody spoke in the classroom.",
-      "The classroom had desks."
-    ],
-    "answer": "The classroom was as quiet as a library.",
-    "tags": [
-      "figurative-language"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which sentence contains a metaphor?",
     "choicesJson": [
       "Her smile was sunshine on a cloudy day.",
@@ -445,20 +417,6 @@
       "Some regions get more rain than others."
     ],
     "answer": "Rainy days are the most miserable kind of weather.",
-    "tags": [
-      "fact-opinion"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which sentence could be checked and proven true?",
-    "choicesJson": [
-      "A hexagon has six sides.",
-      "Hexagons are the coolest shape.",
-      "Shapes with more sides are better.",
-      "Everyone loves hexagons."
-    ],
-    "answer": "A hexagon has six sides.",
     "tags": [
       "fact-opinion"
     ]
@@ -689,20 +647,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "A story narrated by someone who knows the thoughts of every character is told from...",
-    "choicesJson": [
-      "omniscient point of view",
-      "limited point of view",
-      "first person point of view",
-      "no point of view"
-    ],
-    "answer": "omniscient point of view",
-    "tags": [
-      "story-elements"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "The lesson or message an author wants readers to take away from a story is called the...",
     "choicesJson": [
       "theme",
@@ -887,14 +831,9 @@
     "type": "TEXT_INPUT",
     "prompt": "What is the plural of the word 'cactus'?",
     "answer": "cacti",
-    "tags": [
-      "grammar"
-    ]
-  },
-  {
-    "type": "TEXT_INPUT",
-    "prompt": "What is the past tense of the word 'bring'?",
-    "answer": "brought",
+    "acceptedAnswers": [
+      "cactuses"
+    ],
     "tags": [
       "grammar"
     ]
@@ -909,7 +848,7 @@
   },
   {
     "type": "TEXT_INPUT",
-    "prompt": "Add the suffix '-tion' to 'act' to make a noun. What is the word?",
+    "prompt": "Add the suffix '-ion' to 'act' to make a noun. What is the word?",
     "answer": "action",
     "tags": [
       "grammar"
@@ -917,8 +856,11 @@
   },
   {
     "type": "TEXT_INPUT",
-    "prompt": "Combine these into a compound word: 'light' + 'house' = ?",
+    "prompt": "What compound word names the tall tower with a bright light that guides ships at night?",
     "answer": "lighthouse",
+    "acceptedAnswers": [
+      "light house"
+    ],
     "tags": [
       "grammar"
     ]
@@ -1037,20 +979,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which sentence describes one thing by calling it something else, without using 'like' or 'as'?",
-    "choicesJson": [
-      "Homework is a mountain I have to climb every night.",
-      "Homework takes a long time.",
-      "I have a lot of homework tonight.",
-      "My homework is due tomorrow."
-    ],
-    "answer": "Homework is a mountain I have to climb every night.",
-    "tags": [
-      "figurative-language"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which phrase is an idiom meaning 'to reveal a secret by accident'?",
     "choicesJson": [
       "let the cat out of the bag",
@@ -1059,20 +987,6 @@
       "catch a ball"
     ],
     "answer": "let the cat out of the bag",
-    "tags": [
-      "figurative-language"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which sentence gives a non-human thing human actions or feelings?",
-    "choicesJson": [
-      "The wind howled angrily against the windows.",
-      "The wind was strong last night.",
-      "It was very windy outside.",
-      "The wind blew the leaves."
-    ],
-    "answer": "The wind howled angrily against the windows.",
     "tags": [
       "figurative-language"
     ]
@@ -1219,20 +1133,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "A story where a fisherman struggles against a fair society that won't let him fish in certain waters is a conflict of...",
-    "choicesJson": [
-      "character vs. society",
-      "character vs. self",
-      "character vs. nature",
-      "character vs. character"
-    ],
-    "answer": "character vs. society",
-    "tags": [
-      "story-elements"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "The moment of highest tension in a story, right before the problem starts to resolve, is called the...",
     "choicesJson": [
       "climax",
@@ -1361,6 +1261,9 @@
     "type": "TEXT_INPUT",
     "prompt": "What is the plural of the word 'octopus'?",
     "answer": "octopuses",
+    "acceptedAnswers": [
+      "octopi"
+    ],
     "tags": [
       "grammar"
     ]
@@ -1383,38 +1286,14 @@
   },
   {
     "type": "TEXT_INPUT",
-    "prompt": "Combine these into a compound word: 'fire' + 'fighter' = ?",
+    "prompt": "What compound word names a person whose job is to put out fires?",
     "answer": "firefighter",
+    "acceptedAnswers": [
+      "fire fighter",
+      "fireman"
+    ],
     "tags": [
       "grammar"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A story narrated using 'I' where the narrator only knows their own thoughts is told from...",
-    "choicesJson": [
-      "first person point of view",
-      "third person omniscient",
-      "third person limited",
-      "second person"
-    ],
-    "answer": "first person point of view",
-    "tags": [
-      "point-of-view"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A story where the narrator follows one character closely but cannot read that character's mind is...",
-    "choicesJson": [
-      "third person limited",
-      "first person",
-      "omniscient",
-      "second person"
-    ],
-    "answer": "third person limited",
-    "tags": [
-      "point-of-view"
     ]
   },
   {
@@ -1424,7 +1303,7 @@
       "The bridge was under repair",
       "Downtown was closed",
       "It was rush hour",
-      "The detour was faster normally"
+      "Drivers wanted to see downtown"
     ],
     "answer": "The bridge was under repair",
     "tags": [
@@ -1450,13 +1329,2359 @@
     "prompt": "'Since the concert sold out in an hour, the band added a second show.' Why did the band add a second show?",
     "choicesJson": [
       "The first show sold out quickly",
-      "The venue was too small always",
+      "The band wanted a bigger stage",
       "Fans complained about the music",
       "Tickets were too expensive"
     ],
     "answer": "The first show sold out quickly",
     "tags": [
       "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word ends with the /ch/ sound?",
+    "choicesJson": [
+      "beak",
+      "beast",
+      "beach",
+      "bean"
+    ],
+    "answer": "beach",
+    "tags": [
+      "phonics",
+      "digraphs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, which of these words has a soft c, where the letter c sounds like /s/?",
+    "choicesJson": [
+      "coal",
+      "ice",
+      "cactus",
+      "cobblestone"
+    ],
+    "answer": "ice",
+    "tags": [
+      "phonics",
+      "soft-c",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The prefix 'sub-' means 'under.' Which word names a train system that runs under the ground?",
+    "choicesJson": [
+      "highway",
+      "runway",
+      "subway",
+      "doorway"
+    ],
+    "answer": "subway",
+    "tags": [
+      "prefixes",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses the word 'their' correctly?",
+    "choicesJson": [
+      "Their going to the arcade after school.",
+      "Put the books over their.",
+      "Their is a dragon outside.",
+      "The kids packed their lunches."
+    ],
+    "answer": "The kids packed their lunches.",
+    "tags": [
+      "homophones",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses the word 'light' to mean 'not heavy'?",
+    "choicesJson": [
+      "The ghost carried a light into the attic.",
+      "The backpack was so light that Ana carried it with one finger.",
+      "The light turned green.",
+      "Please turn on the light."
+    ],
+    "answer": "The backpack was so light that Ana carried it with one finger.",
+    "tags": [
+      "multiple-meaning",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The rope bridge in the video game looked flimsy. Which word means the opposite of 'flimsy'?",
+    "choicesJson": [
+      "wobbly",
+      "thin",
+      "weak",
+      "sturdy"
+    ],
+    "answer": "sturdy",
+    "tags": [
+      "antonyms",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When the lights went out in the haunted house, Ella began to tremble. Which word means the same as 'tremble'?",
+    "choicesJson": [
+      "sprint",
+      "giggle",
+      "whisper",
+      "shake"
+    ],
+    "answer": "shake",
+    "tags": [
+      "synonyms",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Yesterday, Dev ____ a wild Pikachu in the tall grass. Type the past tense of 'catch' to fill the blank.",
+    "answer": "caught",
+    "tags": [
+      "verbs",
+      "grammar",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses the correct verb?",
+    "choicesJson": [
+      "My brother and I plays Fortnite every Friday.",
+      "My brother and I play Fortnite every Friday.",
+      "My brother and I playing Fortnite every Friday.",
+      "My brother and I are play Fortnite every Friday."
+    ],
+    "answer": "My brother and I play Fortnite every Friday.",
+    "tags": [
+      "subject-verb-agreement",
+      "grammar",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses 'good' or 'well' correctly?",
+    "choicesJson": [
+      "Maya plays soccer good.",
+      "Maya play soccer well.",
+      "Maya plays soccer goodly.",
+      "Maya plays soccer well."
+    ],
+    "answer": "Maya plays soccer well.",
+    "tags": [
+      "adverbs",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three birds each built a nest in the tree. Which phrase correctly shows that the nests belong to the three birds?",
+    "choicesJson": [
+      "the birds nests",
+      "the birds' nests",
+      "the bird's nests",
+      "the birds's nests"
+    ],
+    "answer": "the birds' nests",
+    "tags": [
+      "apostrophes",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word best completes the sentence? 'Do you want pizza ___ tacos for dinner?'",
+    "choicesJson": [
+      "so",
+      "because",
+      "or",
+      "until"
+    ],
+    "answer": "or",
+    "tags": [
+      "conjunctions",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence puts the comma in the correct place?",
+    "choicesJson": [
+      "After lunch we, played tag.",
+      "After, lunch we played tag.",
+      "After lunch, we played tag.",
+      "After lunch we played, tag."
+    ],
+    "answer": "After lunch, we played tag.",
+    "tags": [
+      "commas",
+      "punctuation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word needs a capital letter in this sentence? 'Our class has a big test on friday.'",
+    "choicesJson": [
+      "class",
+      "friday",
+      "test",
+      "big"
+    ],
+    "answer": "friday",
+    "tags": [
+      "capitalization",
+      "punctuation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a noun that names a feeling or an idea, not something you can touch?",
+    "choicesJson": [
+      "sword",
+      "dragon",
+      "courage",
+      "castle"
+    ],
+    "answer": "courage",
+    "tags": [
+      "nouns",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sea otters sleep floating on their backs. To keep from drifting apart, they often hold paws. Some otters also wrap themselves in strands of kelp, like a seaweed blanket. Why do sea otters hold paws while they sleep?",
+    "choicesJson": [
+      "To stay warm in the snow",
+      "To catch fish",
+      "So they do not drift apart",
+      "To play a game"
+    ],
+    "answer": "So they do not drift apart",
+    "tags": [
+      "comprehension",
+      "details"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Containment file: The Echo Box is a small wooden box that repeats the last word it hears. When a guard said, 'Good morning,' the box whispered, 'Morning.' If a guard says, 'Open the red door,' what will the box most likely whisper?",
+    "choicesJson": [
+      "Open",
+      "Red",
+      "Open the red door",
+      "Door"
+    ],
+    "answer": "Door",
+    "tags": [
+      "comprehension",
+      "inference",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A lighthouse has a bright lamp at the top. Its beam sweeps across the water so ships can see where the rocky coast is. Some lighthouses also have loud horns for foggy nights. What is the main idea of this passage?",
+    "choicesJson": [
+      "Lighthouses are built only on sandy beaches.",
+      "Ships never need help at night.",
+      "Foghorns are louder than lamps.",
+      "Lighthouses use lights and horns to keep ships safe."
+    ],
+    "answer": "Lighthouses use lights and horns to keep ships safe.",
+    "tags": [
+      "comprehension",
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dr. Mira built a friendly monster robot in her lab. First, she welded on two metal arms. Next, she attached a square head. After that, she flipped the power switch, and the robot waved hello. What did Dr. Mira do right before she flipped the power switch?",
+    "choicesJson": [
+      "She welded on two metal arms.",
+      "She painted the robot green.",
+      "The robot waved hello.",
+      "She attached a square head."
+    ],
+    "answer": "She attached a square head.",
+    "tags": [
+      "comprehension",
+      "sequence",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Abby burst through the door with soaked shoes and dripping hair. In her hand was an umbrella bent inside out. What most likely happened to Abby?",
+    "choicesJson": [
+      "She went swimming in a pool.",
+      "She walked through a windy rainstorm.",
+      "She ate lunch outside in the sun.",
+      "She stayed home all day."
+    ],
+    "answer": "She walked through a windy rainstorm.",
+    "tags": [
+      "inference",
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mina's cheeks turned bright red, and she hid her face in her hands when everyone sang 'Happy Birthday' to her at the restaurant. Which word best describes how Mina feels?",
+    "choicesJson": [
+      "furious",
+      "bored",
+      "embarrassed",
+      "sleepy"
+    ],
+    "answer": "embarrassed",
+    "tags": [
+      "character-feelings",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bo the beaver bragged that he could build a dam all by himself. Every night, the river broke it apart. Finally, Bo asked the other beavers for help, and together they built a dam that held. What is the theme of this story?",
+    "choicesJson": [
+      "Working together can solve problems that are hard to do alone.",
+      "Rivers are always dangerous.",
+      "Beavers should never build dams.",
+      "Bragging makes you a better builder."
+    ],
+    "answer": "Working together can solve problems that are hard to do alone.",
+    "tags": [
+      "theme",
+      "comprehension"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dad said the first level of the video game was a piece of cake. What does 'a piece of cake' mean here?",
+    "choicesJson": [
+      "very sweet",
+      "very easy",
+      "very small",
+      "very messy"
+    ],
+    "answer": "very easy",
+    "tags": [
+      "idioms",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which text feature would help you compare the heights of five mountains side by side?",
+    "choicesJson": [
+      "a dedication",
+      "a title page",
+      "a table with rows and columns",
+      "a glossary"
+    ],
+    "answer": "a table with rows and columns",
+    "tags": [
+      "text-features",
+      "tables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which kind of writing is organized into lines and stanzas and often uses rhyme?",
+    "choicesJson": [
+      "a recipe",
+      "an index",
+      "a newspaper headline",
+      "a poem"
+    ],
+    "answer": "a poem",
+    "tags": [
+      "genres",
+      "poetry"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a story, a detective follows muddy footprints and finds a torn note to figure out who took the missing trophy. What genre is this story?",
+    "choicesJson": [
+      "fable",
+      "mystery",
+      "biography",
+      "science fiction"
+    ],
+    "answer": "mystery",
+    "tags": [
+      "genres",
+      "mystery"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list of words is in alphabetical (ABC) order?",
+    "choicesJson": [
+      "drum, dragon, duck, dune",
+      "duck, dragon, drum, dune",
+      "dragon, drum, duck, dune",
+      "dune, duck, drum, dragon"
+    ],
+    "answer": "dragon, drum, duck, dune",
+    "tags": [
+      "dictionary-skills",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the prefix 'un-' mean in the word 'unlock'?",
+    "choicesJson": [
+      "again",
+      "not or the opposite of",
+      "before",
+      "too much"
+    ],
+    "answer": "not or the opposite of",
+    "tags": [
+      "prefixes",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A creeper blew up your Minecraft house! Add the prefix 're-' to 'build' to make a word meaning 'build again'. What is the word?",
+    "answer": "rebuild",
+    "tags": [
+      "prefixes",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the suffix '-less' mean in the word 'fearless'?",
+    "choicesJson": [
+      "without",
+      "full of",
+      "again",
+      "one who"
+    ],
+    "answer": "without",
+    "tags": [
+      "suffixes",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means 'full of help'?",
+    "choicesJson": [
+      "helpless",
+      "helper",
+      "helpful",
+      "helped"
+    ],
+    "answer": "helpful",
+    "tags": [
+      "suffixes",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dad keeps replaying his favorite song. What is the root word of 'replaying'?",
+    "choicesJson": [
+      "re",
+      "play",
+      "ing",
+      "playing"
+    ],
+    "answer": "play",
+    "tags": [
+      "root-words",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many syllables are in the word 'dinosaur'? Type a number.",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "syllables",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has exactly four syllables?",
+    "choicesJson": [
+      "pizza",
+      "banana",
+      "watermelon",
+      "elephant"
+    ],
+    "answer": "watermelon",
+    "tags": [
+      "syllables",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has the long 'a' sound spelled with the letters 'ai'?",
+    "choicesJson": [
+      "rain",
+      "rack",
+      "raft",
+      "ran"
+    ],
+    "answer": "rain",
+    "tags": [
+      "vowel-teams",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has the same vowel sound as 'boat'?",
+    "choicesJson": [
+      "moon",
+      "cow",
+      "hat",
+      "snow"
+    ],
+    "answer": "snow",
+    "tags": [
+      "vowel-teams",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has the same vowel sound as 'cloud'?",
+    "choicesJson": [
+      "coat",
+      "town",
+      "cart",
+      "cube"
+    ],
+    "answer": "town",
+    "tags": [
+      "vowel-sounds",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Mario Kart, you drive a kart around the track. Which of these words has an r-controlled vowel, where the letter r changes the vowel sound?",
+    "choicesJson": [
+      "kart",
+      "coin",
+      "drift",
+      "boost"
+    ],
+    "answer": "kart",
+    "tags": [
+      "r-controlled-vowels",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word begins with a silent letter?",
+    "choicesJson": [
+      "kitten",
+      "kite",
+      "knight",
+      "kind"
+    ],
+    "answer": "knight",
+    "tags": [
+      "silent-letters",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word is the letter 'b' silent?",
+    "choicesJson": [
+      "bubble",
+      "lamb",
+      "bat",
+      "robot"
+    ],
+    "answer": "lamb",
+    "tags": [
+      "silent-letters",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with a digraph, two letters that work together to make one sound?",
+    "choicesJson": [
+      "trick",
+      "blast",
+      "crest",
+      "chest"
+    ],
+    "answer": "chest",
+    "tags": [
+      "digraphs",
+      "phonics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The prefix 'mis-' means 'wrongly' or 'badly'. What does the word 'misspell' mean?",
+    "choicesJson": [
+      "to spell again",
+      "to spell loudly",
+      "to spell wrongly",
+      "to spell before"
+    ],
+    "answer": "to spell wrongly",
+    "tags": [
+      "prefixes",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a spooky movie, one werewolf howls at the moon. Then two more show up. What is the plural of 'werewolf'?",
+    "answer": "werewolves",
+    "tags": [
+      "plurals",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The guide words at the top of a dictionary page are 'mine' and 'mist'. Which word would you find on that page?",
+    "choicesJson": [
+      "mall",
+      "mother",
+      "mop",
+      "mint"
+    ],
+    "answer": "mint",
+    "tags": [
+      "dictionary-skills",
+      "word-analysis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The Victory Royale screen glowed like a fireworks show.' Which word tells you this is a simile?",
+    "choicesJson": [
+      "glowed",
+      "show",
+      "like",
+      "screen"
+    ],
+    "answer": "like",
+    "tags": [
+      "similes",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The classroom was a zoo during the party.' What does this metaphor mean?",
+    "choicesJson": [
+      "The room was loud and wild",
+      "The class went on a trip to the zoo",
+      "There were animals at the party",
+      "The classroom was very quiet"
+    ],
+    "answer": "The room was loud and wild",
+    "tags": [
+      "metaphors",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Before the school play, Mia's dad said, 'Break a leg!' What did he mean?",
+    "choicesJson": [
+      "Be careful on the stairs",
+      "Take a long break",
+      "Run to the stage",
+      "Good luck"
+    ],
+    "answer": "Good luck",
+    "tags": [
+      "idioms",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sam stayed home because he felt under the weather. What does 'under the weather' mean?",
+    "choicesJson": [
+      "sick or not feeling well",
+      "standing in the rain",
+      "very happy",
+      "lost outside"
+    ],
+    "answer": "sick or not feeling well",
+    "tags": [
+      "idioms",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Among Us, Red acted strange near the vent. Blue said, 'Something smells fishy.' What did Blue mean?",
+    "choicesJson": [
+      "Someone is cooking seafood",
+      "The ship is out of oxygen",
+      "Something seems suspicious",
+      "Red needs a bath"
+    ],
+    "answer": "Something seems suspicious",
+    "tags": [
+      "idioms",
+      "theme:amongus"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "SCP-173 is the statue that moves when nobody is looking. A guard says, 'I stared at it for a million years without blinking!' What kind of figurative language is this?",
+    "choicesJson": [
+      "simile",
+      "onomatopoeia",
+      "personification",
+      "hyperbole"
+    ],
+    "answer": "hyperbole",
+    "tags": [
+      "hyperbole",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'The sun smiled down on the picnic blanket.' Which thing is given a human action?",
+    "choicesJson": [
+      "the blanket",
+      "the sun",
+      "the picnic"
+    ],
+    "answer": "the sun",
+    "tags": [
+      "personification",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence has alliteration, words that start with the same sound?",
+    "choicesJson": [
+      "The penguin sat on the ice.",
+      "Penguins eat fish.",
+      "Peter the penguin practiced his piano.",
+      "The ice was cold."
+    ],
+    "answer": "Peter the penguin practiced his piano.",
+    "tags": [
+      "alliteration",
+      "figurative-language"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a dinosaur book, the word 'paleontologist' is printed in bold. Where could you look to find out what it means?",
+    "choicesJson": [
+      "the glossary",
+      "the title page",
+      "the front cover",
+      "the dedication"
+    ],
+    "answer": "the glossary",
+    "tags": [
+      "text-features",
+      "glossary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Under a photo in a book about Loch Ness are the words, 'Fog hangs over the lake in Scotland.' What is this text called?",
+    "choicesJson": [
+      "a title",
+      "a caption",
+      "a glossary",
+      "an index"
+    ],
+    "answer": "a caption",
+    "tags": [
+      "text-features",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A nonfiction article has these headings: 'What Is a Volcano?', 'How Volcanoes Erupt', and 'Famous Volcanoes'. Under which heading would you most likely read how lava and ash shoot out of the ground?",
+    "choicesJson": [
+      "What Is a Volcano?",
+      "Famous Volcanoes",
+      "How Volcanoes Erupt"
+    ],
+    "answer": "How Volcanoes Erupt",
+    "tags": [
+      "text-features",
+      "headings"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A recipe lists its steps as 1, 2, 3, and 4. Why does the author use a numbered list?",
+    "choicesJson": [
+      "to show which step is the longest",
+      "to show how many people will eat",
+      "to show the order of the steps",
+      "to list the author's favorite foods"
+    ],
+    "answer": "to show the order of the steps",
+    "tags": [
+      "text-features",
+      "lists"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Table of Contents: Mercury, page 4. Venus, page 11. Mars, page 18. Jupiter, page 25. On what page should you start reading to learn about Mars? Type the number.",
+    "answer": "18",
+    "acceptedAnswers": [
+      "eighteen"
+    ],
+    "tags": [
+      "text-features",
+      "table-of-contents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hana made a bar graph of her classmates' favorite pets. The bar for dogs reaches 12, the bar for cats reaches 9, and the bar for fish reaches 5. Which pet is the class favorite?",
+    "choicesJson": [
+      "Cats",
+      "Fish",
+      "Dogs"
+    ],
+    "answer": "Dogs",
+    "tags": [
+      "text-features",
+      "graphs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A short story in which animals talk and act like people, and that ends with a lesson, is called a...",
+    "choicesJson": [
+      "biography",
+      "fable",
+      "glossary",
+      "almanac"
+    ],
+    "answer": "fable",
+    "tags": [
+      "genres",
+      "fables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A book about the real life of Marie Curie, written by another author, is a...",
+    "choicesJson": [
+      "biography",
+      "autobiography",
+      "fantasy",
+      "mystery"
+    ],
+    "answer": "biography",
+    "tags": [
+      "genres",
+      "biography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which story is a fantasy?",
+    "choicesJson": [
+      "A girl bakes cookies with her grandpa.",
+      "A class takes a field trip to the zoo.",
+      "A boy rides a dragon to a castle in the clouds.",
+      "A team wins a soccer game."
+    ],
+    "answer": "A boy rides a dragon to a castle in the clouds.",
+    "tags": [
+      "genres",
+      "fantasy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A story about kids who fly a spaceship to a robot colony on Mars in the year 2300 is most likely...",
+    "choicesJson": [
+      "historical fiction",
+      "science fiction",
+      "biography",
+      "folktale"
+    ],
+    "answer": "science fiction",
+    "tags": [
+      "genres",
+      "science-fiction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A made-up story about a girl and her family traveling the Oregon Trail in the 1850s is...",
+    "choicesJson": [
+      "science fiction",
+      "autobiography",
+      "fable",
+      "historical fiction"
+    ],
+    "answer": "historical fiction",
+    "tags": [
+      "genres",
+      "historical-fiction"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a story, Paul Bunyan is a giant lumberjack whose footprints made lakes. What kind of story is full of big exaggerations like this?",
+    "choicesJson": [
+      "a biography",
+      "a how-to guide",
+      "a tall tale",
+      "a newspaper article"
+    ],
+    "answer": "a tall tale",
+    "tags": [
+      "genres",
+      "tall-tales"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Luna's hamster, Biscuit, sleeps all day. At night, he runs on his wheel and stuffs seeds into his cheeks. Luna is usually asleep by then. When is Biscuit most active?",
+    "choicesJson": [
+      "at night",
+      "in the morning",
+      "at lunchtime",
+      "all day long"
+    ],
+    "answer": "at night",
+    "tags": [
+      "comprehension",
+      "details"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Marco stared at the empty seat next to him on the bus. His best friend had moved away over the summer. Marco put his backpack on the seat and looked out the window. How does Marco most likely feel?",
+    "choicesJson": [
+      "excited",
+      "lonely",
+      "proud",
+      "sleepy"
+    ],
+    "answer": "lonely",
+    "tags": [
+      "comprehension",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "First, Dad poured batter onto the hot pan. Next, bubbles popped on top. Then he flipped the pancake. Last, he slid it onto my plate. What did Dad do right after the bubbles popped on top?",
+    "choicesJson": [
+      "He slid it onto the plate.",
+      "He poured the batter.",
+      "He added syrup.",
+      "He flipped the pancake."
+    ],
+    "answer": "He flipped the pancake.",
+    "tags": [
+      "comprehension",
+      "sequence"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The power went out during the storm. Kai's family lit candles and played a board game. By bedtime, no one missed the TV. Why did the family light candles?",
+    "choicesJson": [
+      "The power went out.",
+      "They were having a birthday.",
+      "They wanted to bake cookies.",
+      "The storm had ended."
+    ],
+    "answer": "The power went out.",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The turtle was so sluggish that a snail passed it on the path. What does 'sluggish' mean?",
+    "choicesJson": [
+      "fast and strong",
+      "loud and angry",
+      "slow and low on energy",
+      "small and shiny"
+    ],
+    "answer": "slow and low on energy",
+    "tags": [
+      "comprehension",
+      "context-clues"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bats are the only mammals that can truly fly. Their wings are made of thin skin stretched over long finger bones. Many bats hunt at night, using the echoes of their own squeaks to find insects. What is the main idea of this passage?",
+    "choicesJson": [
+      "Bats are birds that sleep in caves.",
+      "All bats eat only fruit.",
+      "Bats cannot see anything.",
+      "Bats have special body parts and skills for flying and hunting."
+    ],
+    "answer": "Bats have special body parts and skills for flying and hunting.",
+    "tags": [
+      "comprehension",
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Researcher's note: In the SCP stories, SCP-999 is a friendly orange blob that loves to play. When someone feels sad, it hugs them until they feel better. What does SCP-999 do when someone feels sad?",
+    "choicesJson": [
+      "It runs away.",
+      "It hugs them until they feel better.",
+      "It tells a scary story.",
+      "It turns invisible."
+    ],
+    "answer": "It hugs them until they feel better.",
+    "tags": [
+      "comprehension",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kai wanted to set up the tent before dark. Dark clouds rolled in, so Kai hurried and tied down the corners first. When the rain started, the tent stayed in place. Why did Kai hurry to tie down the tent?",
+    "choicesJson": [
+      "Kai was hungry.",
+      "The tent was too big.",
+      "Dark clouds were rolling in.",
+      "Kai wanted to go home."
+    ],
+    "answer": "Dark clouds were rolling in.",
+    "tags": [
+      "comprehension",
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kayla's character kept falling off the spinning platform in the Roblox obby. She watched how the platform turned and jumped just as the gap came around. On her tenth try, she reached the checkpoint. What helped Kayla reach the checkpoint?",
+    "choicesJson": [
+      "watching the platform and timing her jump",
+      "luck alone",
+      "a friend playing for her",
+      "skipping the platform"
+    ],
+    "answer": "watching the platform and timing her jump",
+    "tags": [
+      "comprehension",
+      "details",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ravi saw a younger kid drop his lunch tray. Ravi picked up the tray, wiped the floor, and shared half of his own sandwich. Which word best describes Ravi?",
+    "choicesJson": [
+      "greedy",
+      "kind",
+      "shy",
+      "bossy"
+    ],
+    "answer": "kind",
+    "tags": [
+      "comprehension",
+      "character-traits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Soccer and basketball both use a ball and two teams. In soccer, players mostly use their feet to move the ball. In basketball, players mostly use their hands. How are the two sports different?",
+    "choicesJson": [
+      "Soccer uses a ball, but basketball does not.",
+      "Soccer has no teams, but basketball does.",
+      "Basketball players mostly use their feet.",
+      "Soccer players mostly use their feet, and basketball players mostly use their hands."
+    ],
+    "answer": "Soccer players mostly use their feet, and basketball players mostly use their hands.",
+    "tags": [
+      "comprehension",
+      "compare-contrast"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pip the squirrel hid nuts in forty different places and never wrote anything down. When winter came, Pip could only remember six of the hiding spots, and went hungry until a friend shared a snack. The next fall, Pip drew a map of every spot. What lesson does Pip learn?",
+    "choicesJson": [
+      "Squirrels should never save nuts.",
+      "Friends should never share food.",
+      "Keeping track of things helps you find them later.",
+      "Winter is the best season."
+    ],
+    "answer": "Keeping track of things helps you find them later.",
+    "tags": [
+      "comprehension",
+      "theme-lesson"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Some people say Bigfoot is a giant, hairy creature that walks through the forests of the Pacific Northwest. Nobody has ever proven that Bigfoot is real. Why does the author begin with 'Some people say'?",
+    "choicesJson": [
+      "to show this is a claim, not a proven fact",
+      "to prove that Bigfoot is real",
+      "to tell readers to go hiking",
+      "to describe a map of the forest"
+    ],
+    "answer": "to show this is a claim, not a proven fact",
+    "tags": [
+      "comprehension",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The explorer was exhausted after the long climb up the mountain. What does 'exhausted' mean?",
+    "choicesJson": [
+      "very hungry",
+      "very tired",
+      "very proud",
+      "very cold"
+    ],
+    "answer": "very tired",
+    "tags": [
+      "vocabulary",
+      "word-meaning"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is the opposite of 'ancient'?",
+    "choicesJson": [
+      "old",
+      "dusty",
+      "historic",
+      "modern"
+    ],
+    "answer": "modern",
+    "tags": [
+      "antonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creeper crept toward the village without making a sound. Which word means the same as 'silently'?",
+    "choicesJson": [
+      "loudly",
+      "quietly",
+      "angrily",
+      "slowly"
+    ],
+    "answer": "quietly",
+    "tags": [
+      "synonyms",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bat flew out of the dark cave at sunset. Which meaning of 'bat' is used in this sentence?",
+    "choicesJson": [
+      "a wooden stick used in baseball",
+      "a small flying animal",
+      "a type of ball",
+      "a kind of tree"
+    ],
+    "answer": "a small flying animal",
+    "tags": [
+      "multiple-meaning",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses 'bark' to mean the sound a dog makes?",
+    "choicesJson": [
+      "Moss grew on the bark of the old oak.",
+      "She peeled the bark off the branch.",
+      "Squirrels hid acorns under the bark.",
+      "The dog's loud bark woke the whole street."
+    ],
+    "answer": "The dog's loud bark woke the whole street.",
+    "tags": [
+      "multiple-meaning",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'un-' to the word 'happy.' What new word do you make?",
+    "answer": "unhappy",
+    "tags": [
+      "prefixes",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word completes the sentence? 'Mia could not ____ her teacher over all the noise.'",
+    "choicesJson": [
+      "here",
+      "hare",
+      "hear",
+      "her"
+    ],
+    "answer": "hear",
+    "tags": [
+      "homophones",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word means about the same as 'rapid'?",
+    "choicesJson": [
+      "steady",
+      "swift",
+      "silent",
+      "sharp"
+    ],
+    "answer": "swift",
+    "tags": [
+      "synonyms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the Roblox obby, the first jump was easy, but the last jump was extremely hard. Which word in the sentence is the opposite of 'hard'?",
+    "choicesJson": [
+      "first",
+      "easy",
+      "jump",
+      "last"
+    ],
+    "answer": "easy",
+    "tags": [
+      "antonyms",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word best completes the sentence? 'The tiny mouse ____ across the kitchen floor.'",
+    "choicesJson": [
+      "stomped",
+      "lumbered",
+      "scurried",
+      "marched"
+    ],
+    "answer": "scurried",
+    "tags": [
+      "word-choice",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The gloomy cave was so dark and damp that Mia shivered. What does 'gloomy' most likely mean?",
+    "choicesJson": [
+      "dark and dreary",
+      "bright and cheerful",
+      "warm and cozy",
+      "loud and busy"
+    ],
+    "answer": "dark and dreary",
+    "tags": [
+      "context-clues",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The frightened rabbit bolted from the bush as the fox came near. What does 'bolted' most likely mean?",
+    "choicesJson": [
+      "fell asleep quickly",
+      "ate a snack",
+      "ran away suddenly",
+      "hid slowly"
+    ],
+    "answer": "ran away suddenly",
+    "tags": [
+      "context-clues",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Pokemon game, the trainer stayed vigilant and watched every patch of tall grass for wild Pokemon. What does 'vigilant' mean?",
+    "choicesJson": [
+      "sleepy",
+      "careless",
+      "watchful",
+      "silly"
+    ],
+    "answer": "watchful",
+    "tags": [
+      "vocabulary",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, a squad that earns a Victory Royale has won the match. Which word is the opposite of 'victory'?",
+    "choicesJson": [
+      "triumph",
+      "prize",
+      "defeat",
+      "battle"
+    ],
+    "answer": "defeat",
+    "tags": [
+      "antonyms",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, Alex chopped down a tree. Next, she turned the logs into planks. Then she crafted a crafting table. Finally, she made a wooden pickaxe. What did Alex do third?",
+    "choicesJson": [
+      "Chopped down a tree",
+      "Turned the logs into planks",
+      "Made a wooden pickaxe",
+      "Crafted a crafting table"
+    ],
+    "answer": "Crafted a crafting table",
+    "tags": [
+      "sequence",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Leo forgot to charge his tablet last night. This morning it would not turn on. What was the effect of Leo forgetting to charge it?",
+    "choicesJson": [
+      "He bought a new tablet.",
+      "The tablet got louder.",
+      "The screen cracked.",
+      "The tablet would not turn on."
+    ],
+    "answer": "The tablet would not turn on.",
+    "tags": [
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The monster hunters waited on the shore of Loch Ness all night. Then thick fog rolled across the water, and they could not see a thing. Why could the hunters not see the lake?",
+    "choicesJson": [
+      "The sun was too bright.",
+      "They fell asleep.",
+      "Thick fog covered the water.",
+      "The lake dried up."
+    ],
+    "answer": "Thick fog covered the water.",
+    "tags": [
+      "cause-effect",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a clue that one event caused another?",
+    "choicesJson": [
+      "finally",
+      "first",
+      "meanwhile",
+      "because"
+    ],
+    "answer": "because",
+    "tags": [
+      "cause-effect"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Emperor penguins huddle together when freezing winds blow. The penguins on the outside take turns moving to the warm middle of the group. This teamwork keeps them from freezing. What is the main idea?",
+    "choicesJson": [
+      "Penguins cannot swim.",
+      "Penguins live in warm places.",
+      "Emperor penguins stay warm by huddling and taking turns.",
+      "Penguins eat only fish."
+    ],
+    "answer": "Emperor penguins stay warm by huddling and taking turns.",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A paragraph says, 'Volcanoes can change the land around them.' Which detail best supports this main idea?",
+    "choicesJson": [
+      "Some people visit Hawaii.",
+      "Mountains are very tall.",
+      "Lava cools into new rock and builds new land.",
+      "Many people like to draw pictures."
+    ],
+    "answer": "Lava cools into new rock and builds new land.",
+    "tags": [
+      "details",
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Mario Kart, Luigi drove over a banana peel. His kart spun out, and two racers zoomed past him. What was the effect of the banana peel?",
+    "choicesJson": [
+      "Luigi won the race.",
+      "Luigi's kart spun out.",
+      "The racers stopped.",
+      "The track ended."
+    ],
+    "answer": "Luigi's kart spun out.",
+    "tags": [
+      "cause-effect",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Godzilla first stomped onto movie screens in Japan in 1954. Since then, the giant monster has starred in dozens of films. What is the main idea?",
+    "choicesJson": [
+      "Japan has no movie theaters.",
+      "Godzilla has been a movie monster for a very long time.",
+      "Godzilla was in only one film.",
+      "All monsters come from Japan."
+    ],
+    "answer": "Godzilla has been a movie monster for a very long time.",
+    "tags": [
+      "main-idea",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Jada opened her lemonade stand at nine o'clock. By noon she had sold twenty cups to neighbors and joggers. She used the money to buy a new soccer ball. How many cups of lemonade did Jada sell by noon? (Type a number.)",
+    "answer": "20",
+    "acceptedAnswers": [
+      "twenty"
+    ],
+    "tags": [
+      "details"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steps: 1. Plant a seed. 2. Water the seed every day. 3. A green sprout pops up. 4. A flower blooms. Which step happens just before the flower blooms?",
+    "choicesJson": [
+      "Plant a seed.",
+      "A green sprout pops up.",
+      "Water the seed every day.",
+      "Pick the flower."
+    ],
+    "answer": "A green sprout pops up.",
+    "tags": [
+      "sequence"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which title best fits a paragraph about feeding a hamster, giving it fresh water, and cleaning its cage?",
+    "choicesJson": [
+      "The History of Wheels",
+      "Famous Zoos Around the World",
+      "How to Take Care of a Hamster",
+      "Why Rain Falls"
+    ],
+    "answer": "How to Take Care of a Hamster",
+    "tags": [
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A paragraph explains why Mars looks red. Which sentence does NOT belong in the paragraph?",
+    "choicesJson": [
+      "Iron in the soil of Mars has rusted.",
+      "Frogs lay their eggs in ponds.",
+      "Rusty dust gives the planet a reddish color.",
+      "This is why Mars is called the Red Planet."
+    ],
+    "answer": "Frogs lay their eggs in ponds.",
+    "tags": [
+      "details",
+      "main-idea"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is the noun in this sentence? 'The brave knight ran.'",
+    "choicesJson": [
+      "brave",
+      "The",
+      "ran",
+      "knight"
+    ],
+    "answer": "knight",
+    "tags": [
+      "nouns",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is an adjective in this sentence? 'The slimy frog jumped quickly.'",
+    "choicesJson": [
+      "frog",
+      "jumped",
+      "slimy",
+      "quickly"
+    ],
+    "answer": "slimy",
+    "tags": [
+      "adjectives",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word tells HOW the turtle moved? 'The turtle crawled slowly across the road.'",
+    "choicesJson": [
+      "turtle",
+      "slowly",
+      "across",
+      "road"
+    ],
+    "answer": "slowly",
+    "tags": [
+      "adverbs",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which pronoun can replace 'Maya and Sam' in this sentence? '_____ went to the park.'",
+    "choicesJson": [
+      "We",
+      "He",
+      "They",
+      "It"
+    ],
+    "answer": "They",
+    "tags": [
+      "pronouns",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word correctly completes the sentence? 'Yesterday, the dragon ____ over the village.'",
+    "choicesJson": [
+      "flied",
+      "flyed",
+      "flowed",
+      "flew"
+    ],
+    "answer": "flew",
+    "tags": [
+      "verb-tense",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the past tense of the verb 'swim.'",
+    "answer": "swam",
+    "tags": [
+      "verb-tense",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which end mark belongs at the end of this sentence? 'Do you want to play tag'",
+    "choicesJson": [
+      "period",
+      "exclamation point",
+      "comma",
+      "question mark"
+    ],
+    "answer": "question mark",
+    "tags": [
+      "punctuation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses an apostrophe correctly to show that the backpack belongs to Tom?",
+    "choicesJson": [
+      "Toms backpack is blue.",
+      "Tom's backpack is blue.",
+      "Tom backpack's is blue.",
+      "Tom's' backpack is blue."
+    ],
+    "answer": "Tom's backpack is blue.",
+    "tags": [
+      "punctuation",
+      "apostrophes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which contraction for 'did not' is written correctly?",
+    "choicesJson": [
+      "did'nt",
+      "didnt'",
+      "didn't",
+      "dident"
+    ],
+    "answer": "didn't",
+    "tags": [
+      "punctuation",
+      "contractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses quotation marks and commas correctly?",
+    "choicesJson": [
+      "Let's build a fort, said Eli.",
+      "\"Let's build a fort\" said, Eli.",
+      "\"Let's build a fort,\" said Eli.",
+      "\"Let's build a fort, said Eli.\""
+    ],
+    "answer": "\"Let's build a fort,\" said Eli.",
+    "tags": [
+      "punctuation",
+      "quotation-marks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a comma belong in this sentence? 'Yes I can come to your party.'",
+    "choicesJson": [
+      "After 'can'",
+      "After 'I'",
+      "After 'Yes'",
+      "After 'party'"
+    ],
+    "answer": "After 'Yes'",
+    "tags": [
+      "punctuation",
+      "commas"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the sentence 'Pikachu zapped the rock,' what kind of word is 'zapped'?",
+    "choicesJson": [
+      "noun",
+      "verb",
+      "adjective",
+      "adverb"
+    ],
+    "answer": "verb",
+    "tags": [
+      "verbs",
+      "parts-of-speech",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a proper noun that must start with a capital letter?",
+    "choicesJson": [
+      "city",
+      "river",
+      "Tokyo",
+      "street"
+    ],
+    "answer": "Tokyo",
+    "tags": [
+      "nouns",
+      "capitalization"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word correctly completes the sentence? 'Of the three dragons, Ember was the ____.'",
+    "choicesJson": [
+      "faster",
+      "fastest",
+      "most fast",
+      "fastly"
+    ],
+    "answer": "fastest",
+    "tags": [
+      "adjectives",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The knight was famished after the long quest, so he ate three bowls of stew. What does 'famished' most likely mean?",
+    "choicesJson": [
+      "very sleepy",
+      "very hungry",
+      "very happy",
+      "very lost"
+    ],
+    "answer": "very hungry",
+    "tags": [
+      "context-clues",
+      "vocabulary"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group of words is a complete sentence?",
+    "choicesJson": [
+      "Under the old bridge.",
+      "The dragon slept in its cave.",
+      "Because the bell rang.",
+      "Ran down the hill fast."
+    ],
+    "answer": "The dragon slept in its cave.",
+    "tags": [
+      "sentences",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which choice turns the fragment 'When the lights went out' into a complete sentence?",
+    "choicesJson": [
+      "When the lights went out in the.",
+      "When the lights went out and then.",
+      "When the lights went out, we found flashlights.",
+      "When the lights went out, and."
+    ],
+    "answer": "When the lights went out, we found flashlights.",
+    "tags": [
+      "sentences",
+      "fragments"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is a run-on sentence?",
+    "choicesJson": [
+      "The zombie groaned I ran away fast.",
+      "The zombie groaned, and I ran away fast.",
+      "The zombie groaned.",
+      "I ran away fast."
+    ],
+    "answer": "The zombie groaned I ran away fast.",
+    "tags": [
+      "sentences",
+      "run-ons"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which verb correctly completes the sentence? 'The two zombies ___ slowly toward the door.'",
+    "choicesJson": [
+      "walk",
+      "is walking",
+      "walks",
+      "walking"
+    ],
+    "answer": "walk",
+    "tags": [
+      "subject-verb-agreement",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word best completes the sentence? 'I wanted to play outside, ___ it started to rain.'",
+    "choicesJson": [
+      "but",
+      "or",
+      "so",
+      "because"
+    ],
+    "answer": "but",
+    "tags": [
+      "conjunctions",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which words in this sentence need capital letters? 'we flew to florida last summer.'",
+    "choicesJson": [
+      "last and summer",
+      "we and florida",
+      "florida only",
+      "we, flew, and florida"
+    ],
+    "answer": "we and florida",
+    "tags": [
+      "capitalization",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence uses commas in a list correctly?",
+    "choicesJson": [
+      "Steve packed a sword a pickaxe, and a shield.",
+      "Steve packed, a sword a pickaxe and, a shield.",
+      "Steve packed a sword, a pickaxe, and a shield.",
+      "Steve packed a sword, a pickaxe and a, shield."
+    ],
+    "answer": "Steve packed a sword, a pickaxe, and a shield.",
+    "tags": [
+      "commas",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What contraction can you make from the words 'do not'? (Type it with the apostrophe, or without.)",
+    "answer": "don't",
+    "acceptedAnswers": [
+      "dont"
+    ],
+    "tags": [
+      "contractions",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word correctly completes the sentence? '___ going to the arcade after school.'",
+    "choicesJson": [
+      "Them",
+      "They're",
+      "Their",
+      "There"
+    ],
+    "answer": "They're",
+    "tags": [
+      "homophones",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word correctly completes the sentence? 'The robot lost ___ battery halfway through the race.'",
+    "choicesJson": [
+      "its",
+      "it",
+      "it's",
+      "itself"
+    ],
+    "answer": "its",
+    "tags": [
+      "homophones",
+      "possessives"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of sentence is this? 'What a gigantic dragon that is!'",
+    "choicesJson": [
+      "statement",
+      "command",
+      "exclamation",
+      "question"
+    ],
+    "answer": "exclamation",
+    "tags": [
+      "sentence-types",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is a command?",
+    "choicesJson": [
+      "Where did you put your shoes?",
+      "What a messy room!",
+      "Put your shoes by the door.",
+      "The shoes are by the door."
+    ],
+    "answer": "Put your shoes by the door.",
+    "tags": [
+      "sentence-types",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In this Mario Kart sentence, what is the complete subject? 'The red shell slid across the track.'",
+    "choicesJson": [
+      "The red shell",
+      "slid across the track",
+      "shell",
+      "across the track"
+    ],
+    "answer": "The red shell",
+    "tags": [
+      "subject-predicate",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is a compound sentence (two complete thoughts joined together)?",
+    "choicesJson": [
+      "I opened the window.",
+      "The cool breeze in the room.",
+      "Opening the window slowly.",
+      "I opened the window, and a cool breeze came in."
+    ],
+    "answer": "I opened the window, and a cool breeze came in.",
+    "tags": [
+      "sentences",
+      "compound-sentences"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word correctly completes the sentence? 'An elephant is ___ than a mouse.'",
+    "choicesJson": [
+      "more big",
+      "bigger",
+      "biggest",
+      "bigest"
+    ],
+    "answer": "bigger",
+    "tags": [
+      "comparatives",
+      "adjectives"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is written in the future tense?",
+    "choicesJson": [
+      "Yesterday, we visited the museum.",
+      "We are visiting the museum right now.",
+      "We visit the museum every year.",
+      "Tomorrow, we will visit the museum."
+    ],
+    "answer": "Tomorrow, we will visit the museum.",
+    "tags": [
+      "verb-tense",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is written correctly?",
+    "choicesJson": [
+      "I don't have no homework tonight.",
+      "I don't have any homework tonight.",
+      "I haven't got none homework tonight.",
+      "I don't has any homework tonight."
+    ],
+    "answer": "I don't have any homework tonight.",
+    "tags": [
+      "negatives",
+      "grammar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a preposition in this sentence? 'The cat hid under the bed.'",
+    "choicesJson": [
+      "hid",
+      "cat",
+      "under",
+      "bed"
+    ],
+    "answer": "under",
+    "tags": [
+      "prepositions",
+      "parts-of-speech"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kai had one lunch left. A new student sat alone with an empty tray, so Kai handed over half of his sandwich and his apple. Which word best describes Kai?",
+    "choicesJson": [
+      "generous",
+      "selfish",
+      "jealous",
+      "bored"
+    ],
+    "answer": "generous",
+    "tags": [
+      "character-traits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Maya's hands shook as she stepped onto the stage. She took a deep breath and gripped her note cards tightly. How does Maya most likely feel?",
+    "choicesJson": [
+      "Bored",
+      "Nervous",
+      "Sleepy",
+      "Furious"
+    ],
+    "answer": "Nervous",
+    "tags": [
+      "character-feelings",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "At the start of a story, Ben was afraid of the dark and slept with three night-lights. By the end, he marched through the basement with a flashlight and a grin. How did Ben change?",
+    "choicesJson": [
+      "He became lazier",
+      "He became angrier",
+      "He became braver",
+      "He became sleepier"
+    ],
+    "answer": "He became braver",
+    "tags": [
+      "character-change"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Nova skipped every practice because she thought she was already the best player. Her teammates practiced each day. At the tournament, Nova's team lost badly. What is the theme of this story?",
+    "choicesJson": [
+      "Tournaments are not fun",
+      "Talent is not enough without hard work",
+      "Teammates should never practice",
+      "The best players never lose"
+    ],
+    "answer": "Talent is not enough without hard work",
+    "tags": [
+      "theme"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Minecraft story, Alex built her house far from everyone because she did not trust other players. One night, zombies swarmed her door. Her neighbor Sam, whom she had ignored, ran over with torches and a sword and drove them off. What is the best lesson of this story?",
+    "choicesJson": [
+      "Zombies are afraid of torches",
+      "Never build a house at night",
+      "Friends and neighbors can help you when you need it",
+      "Swords are better than torches"
+    ],
+    "answer": "Friends and neighbors can help you when you need it",
+    "tags": [
+      "theme",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Zack crept down the hall. He heard a strange noise behind the door.' Which point of view is this passage told from?",
+    "choicesJson": [
+      "first person",
+      "third person",
+      "second person"
+    ],
+    "answer": "third person",
+    "tags": [
+      "point-of-view"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rosa says, 'That pop quiz was so unfair!' Her teacher, Mr. Park, says, 'I gave the quiz to find out what everyone had learned.' Why do Rosa and Mr. Park describe the quiz so differently?",
+    "choicesJson": [
+      "The quiz changed in between",
+      "Rosa made the quiz herself",
+      "Mr. Park was not paying attention",
+      "They each see the quiz from their own point of view"
+    ],
+    "answer": "They each see the quiz from their own point of view",
+    "tags": [
+      "point-of-view",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The old baby monitor on the shelf crackled with a creepy scratching sound every night at 3 a.m. Dani crept over with a flashlight and found only her cat, batting at the monitor's cord. What can you infer?",
+    "choicesJson": [
+      "A ghost was talking through the monitor",
+      "The cat was causing the scratching noise",
+      "The monitor was brand new",
+      "Dani was not scared at all"
+    ],
+    "answer": "The cat was causing the scratching noise",
+    "tags": [
+      "inference",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In an SCP-style story, a sign on the steel door says: 'Never look away from the statue.' Guard Lin has stared at it for an hour, even though her eyes are watering. What can you infer about the statue?",
+    "choicesJson": [
+      "The statue is made of cookie dough",
+      "Lin loves to stare at art",
+      "Something risky might happen when no one is watching it",
+      "The statue is very small"
+    ],
+    "answer": "Something risky might happen when no one is watching it",
+    "tags": [
+      "inference",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jax's Roblox avatar fell off the obby for the ninth time. He threw up his hands, laughed, and said, 'Okay, one more try!' What can you infer about Jax?",
+    "choicesJson": [
+      "He is ready to quit forever",
+      "He is angry at his friends",
+      "He has never played before",
+      "He is determined and keeps a good attitude"
+    ],
+    "answer": "He is determined and keeps a good attitude",
+    "tags": [
+      "inference",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Priya promised to take care of her class hamster over the weekend. Before she left school, she checked the cage latch three times. Why did she check it so many times?",
+    "choicesJson": [
+      "She wanted the hamster to escape",
+      "She felt responsible for keeping the hamster safe",
+      "She was bored",
+      "She forgot how latches work"
+    ],
+    "answer": "She felt responsible for keeping the hamster safe",
+    "tags": [
+      "inference",
+      "character-motivation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Fortnite story, Cam jumped off the Battle Bus the second it started, without looking at the map. He landed far from the storm circle and spent the whole match running. What lesson does Cam's story teach?",
+    "choicesJson": [
+      "Never play with friends",
+      "Running is always the best plan",
+      "Think and plan before you act",
+      "Maps are too hard to read"
+    ],
+    "answer": "Think and plan before you act",
+    "tags": [
+      "theme",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'Not again,' groaned Lila, staring out the window at the rain. She had been planning the picnic for weeks. How does Lila feel?",
+    "choicesJson": [
+      "Excited",
+      "Proud",
+      "Disappointed",
+      "Sleepy"
+    ],
+    "answer": "Disappointed",
+    "tags": [
+      "character-feelings",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Waves slapped against the hull, gulls screamed overhead, and the air smelled like salt and fish. Where does this scene most likely take place?",
+    "choicesJson": [
+      "In a library",
+      "At a harbor",
+      "In a desert",
+      "In a classroom"
+    ],
+    "answer": "At a harbor",
+    "tags": [
+      "inference",
+      "setting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Grandpa's eyes got shiny as he looked at an old photo of his dog from when he was a boy. He smiled and let out a long sigh. What can you infer about Grandpa?",
+    "choicesJson": [
+      "He just bought a new dog",
+      "He is angry at the photographer",
+      "He is remembering something special from the past",
+      "He cannot see the photo"
+    ],
+    "answer": "He is remembering something special from the past",
+    "tags": [
+      "inference",
+      "character-feelings"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sam always reads each test question twice and checks his answers before turning the test in. Jo finishes first and never checks anything. Which word describes Sam?",
+    "choicesJson": [
+      "careless",
+      "careful",
+      "messy",
+      "rushed"
+    ],
+    "answer": "careful",
+    "tags": [
+      "character-traits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The monster in the old castle had huge hands and a loud growl, so everyone in the village stayed away. When a little girl dropped her basket of apples, the monster gently picked up every apple and handed them back. What is the theme of this story?",
+    "choicesJson": [
+      "Apples are healthy",
+      "Little girls should avoid castles",
+      "Do not judge someone only by how they look",
+      "Growling is rude"
+    ],
+    "answer": "Do not judge someone only by how they look",
+    "tags": [
+      "theme",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence tells the story from Bigfoot's own point of view?",
+    "choicesJson": [
+      "Bigfoot tiptoed through the pines, hoping no hikers would see him.",
+      "The hikers saw Bigfoot's huge footprints in the mud.",
+      "I tiptoed through the pines, hoping no hikers would see me.",
+      "You tiptoed through the pines, hoping no hikers would see you."
+    ],
+    "answer": "I tiptoed through the pines, hoping no hikers would see me.",
+    "tags": [
+      "point-of-view",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "At first, Eli felt jealous when his sister won the science fair trophy. Then she hugged him and said she could not have won without his help. Eli smiled. How did Eli's feelings change?",
+    "choicesJson": [
+      "From happy to jealous",
+      "From sleepy to excited",
+      "From jealous to glad",
+      "They did not change"
+    ],
+    "answer": "From jealous to glad",
+    "tags": [
+      "character-change",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bao pulled on thick mittens, wrapped his scarf twice around his neck, and grabbed his sled on the way out the door. What can you infer about the weather?",
+    "choicesJson": [
+      "It is hot and sunny",
+      "It is snowy and cold",
+      "It is windy but warm",
+      "It is a rainy summer day"
+    ],
+    "answer": "It is snowy and cold",
+    "tags": [
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Before her long trip, Mina checked her list twice, packed extra snacks, and printed a map in case her phone died. Which word best describes Mina?",
+    "choicesJson": [
+      "forgetful",
+      "prepared",
+      "lazy",
+      "silly"
+    ],
+    "answer": "prepared",
+    "tags": [
+      "character-traits",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Lena found a wallet full of cash on the playground. Even though she wanted to buy a new video game, she took it straight to the school office. What does this show about Lena?",
+    "choicesJson": [
+      "She is greedy",
+      "She is shy",
+      "She is clumsy",
+      "She is honest"
+    ],
+    "answer": "She is honest",
+    "tags": [
+      "character-traits",
+      "inference"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'I don't need help,' Tomas muttered, but he kept glancing at the heavy box he could not lift. What can you infer about Tomas?",
+    "choicesJson": [
+      "He has no interest in the box",
+      "He can lift the box easily",
+      "He probably wants help but is too proud to ask",
+      "He is asking for help loudly"
+    ],
+    "answer": "He probably wants help but is too proud to ask",
+    "tags": [
+      "inference",
+      "character-feelings"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "'I have lived in this castle for five hundred years,' sighed Count Dracula. 'Nobody ever visits, not even to say hello.' How does the Count most likely feel?",
+    "choicesJson": [
+      "Excited about his party",
+      "Proud of his many friends",
+      "Sleepy after a nap",
+      "Lonely"
+    ],
+    "answer": "Lonely",
+    "tags": [
+      "inference",
+      "theme:monsters"
     ]
   }
 ]

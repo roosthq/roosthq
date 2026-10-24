@@ -1,0 +1,168 @@
+[
+ {
+  "id": "cmu0xa7wc00zc12z2qtgtnacz",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "one"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zd12z2bbh5fk70",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "one"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00ze12z2aa60yz52",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "one"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zf12z2dz1xley3",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "two"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zg12z2i1ovnc3v",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "two"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zh12z2y0f4ib9a",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "two"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zi12z2agkytpe4",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zj12z2zuws5xqw",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zk12z26jex8gsn",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00zl12z28pp3haky",
+  "action": "fix",
+  "reason": "Add number-word accepted answer",
+  "acceptedAnswers": [
+   "three"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00ys12z2va3y0y56",
+  "action": "fix",
+  "reason": "K also makes the /k/ in /kw/, so K was arguably correct; replace distractors",
+  "choicesJson": [
+   "T",
+   "Q",
+   "M",
+   "S"
+  ]
+ },
+ {
+  "id": "cmu0xa7wc00yt12z2b40k1gbr",
+  "action": "fix",
+  "reason": "G can make the /j/ sound (giraffe), ambiguous distractor; replace",
+  "choicesJson": [
+   "B",
+   "J",
+   "D",
+   "W"
+  ]
+ },
+ {
+  "id": "cmu0xa7wb00y512z20048u9j8",
+  "action": "deactivate",
+  "reason": "Duplicate of the fable question, clumsier wording"
+ },
+ {
+  "id": "cmu0xa7wd010712z20snxi2od",
+  "action": "deactivate",
+  "reason": "Near-duplicate sight-word question; \"most often\" is a shaky superlative"
+ },
+ {
+  "id": "cmu0xa7wd010d12z2onzxwedm",
+  "action": "deactivate",
+  "reason": "Near-duplicate sight-word question with awkward wording"
+ },
+ {
+  "id": "cmu0xa7wd010g12z2gtnat1bx",
+  "action": "deactivate",
+  "reason": "Near-duplicate complete-sentence question; \"phrase\" is above kindergarten vocabulary"
+ },
+ {
+  "id": "cmu0xa7wd010j12z29qtedr9l",
+  "action": "deactivate",
+  "reason": "Near-duplicate complete-sentence question; \"fragment\" is above kindergarten vocabulary"
+ },
+ {
+  "id": "cmu0xa7wd010x12z2viohja8n",
+  "action": "fix",
+  "reason": "Poems do not always rhyme; \"index\" is too hard for K",
+  "prompt": "A piece of writing with short lines that often rhyme is called a...",
+  "choicesJson": [
+   "recipe",
+   "map",
+   "poem",
+   "list"
+  ],
+  "answer": "poem"
+ },
+ {
+  "id": "cmu0xa7wd010y12z2v9yg5nj1",
+  "action": "fix",
+  "reason": "A map is not necessarily a page; clearer wording",
+  "prompt": "A drawing that shows where places are is called a...",
+  "choicesJson": [
+   "poem",
+   "fable",
+   "map",
+   "diary"
+  ],
+  "answer": "map"
+ },
+ {
+  "id": "cmu0xa7wd010z12z2qetx3ed7",
+  "action": "fix",
+  "reason": "Subject-verb/article mismatch (\"Steps ... are called a\")",
+  "prompt": "A list of steps that tells how to cook food is called a...",
+  "choicesJson": [
+   "poem",
+   "map",
+   "fable",
+   "recipe"
+  ],
+  "answer": "recipe"
+ }
+]

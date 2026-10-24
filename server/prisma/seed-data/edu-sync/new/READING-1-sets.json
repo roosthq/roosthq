@@ -1,0 +1,688 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "bed",
+   "bud",
+   "bad",
+   "bid"
+  ],
+  "answer": "bed",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bed.webp",
+   "alt": "A bed with white sheets and fluffy white pillows."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "bell",
+   "bull",
+   "ball",
+   "bill"
+  ],
+  "answer": "bell",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bell.webp",
+   "alt": "A large bronze bell hanging in a blue metal frame outdoors."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "boot",
+   "back",
+   "book",
+   "look"
+  ],
+  "answer": "book",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-book.webp",
+   "alt": "A stack of four books with pastel blue, green, yellow and pink covers on a wooden table."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "cage",
+   "cane",
+   "cake",
+   "cap"
+  ],
+  "answer": "cake",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-cake.webp",
+   "alt": "A round cake decorated with cream and fruit with many lit candles on top."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "can",
+   "car",
+   "cart",
+   "cat"
+  ],
+  "answer": "car",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-car.webp",
+   "alt": "An old light green sedan parked on a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "deer",
+   "door",
+   "doll",
+   "dog"
+  ],
+  "answer": "door",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-door.webp",
+   "alt": "A blue double door in an arched stone doorway."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "fox",
+   "form",
+   "fork",
+   "fort"
+  ],
+  "answer": "fork",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-fork.webp",
+   "alt": "Two silver forks lying on a dark woven place mat."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "kite",
+   "bite",
+   "kit",
+   "kid"
+  ],
+  "answer": "kite",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-kite.webp",
+   "alt": "A colorful kite shaped like a dragon flying in a blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "rest",
+   "next",
+   "nut",
+   "nest"
+  ],
+  "answer": "nest",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-nest.webp",
+   "alt": "A bird nest made of twigs in a tree with orange flowers."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "piano",
+   "puzzle",
+   "pizza",
+   "pasta"
+  ],
+  "answer": "pizza",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-pizza.webp",
+   "alt": "A round cheese pizza in an open cardboard box."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "rang",
+   "ring",
+   "king",
+   "rug"
+  ],
+  "answer": "ring",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-ring.webp",
+   "alt": "A gold ring with a large sparkling diamond in a ring box."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "tan",
+   "tank",
+   "tint",
+   "tent"
+  ],
+  "answer": "tent",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-tent.webp",
+   "alt": "A green camping tent in a grassy field with mountains behind it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "wash",
+   "watch",
+   "witch",
+   "match"
+  ],
+  "answer": "watch",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-watch.webp",
+   "alt": "A wristwatch with a gray face and numbers and a brown leather strap."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "organ",
+   "ocean",
+   "oven",
+   "orange"
+  ],
+  "answer": "orange",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-orange.webp",
+   "alt": "A whole orange, a half orange and a single orange segment."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the first letter of this picture's name? Type it.",
+  "answer": "T",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-tent.webp",
+   "alt": "A green camping tent in a grassy field with mountains behind it."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the first letter of this picture's name.",
+  "answer": "I",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-igloo.webp",
+   "alt": "A dome-shaped igloo made of snow with an open door in a snowy forest."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the letter its name starts with.",
+  "answer": "P",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-pizza.webp",
+   "alt": "A round cheese pizza in an open cardboard box."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the first letter of this picture's name?",
+  "choicesJson": [
+   "M",
+   "T",
+   "B"
+  ],
+  "answer": "B",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bell.webp",
+   "alt": "A large bronze bell hanging in a blue metal frame outdoors."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter does the name of this picture start with?",
+  "choicesJson": [
+   "C",
+   "B",
+   "S"
+  ],
+  "answer": "C",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-clock.webp",
+   "alt": "A round white wall clock with black numbers and black hands."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. What letter starts its name?",
+  "choicesJson": [
+   "V",
+   "F",
+   "H"
+  ],
+  "answer": "F",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-fork.webp",
+   "alt": "Two silver forks lying on a dark woven place mat."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the first letter of this picture's name?",
+  "choicesJson": [
+   "N",
+   "R",
+   "L"
+  ],
+  "answer": "L",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-lamp.webp",
+   "alt": "A table lamp with a yellow glass shade and an orange base."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter does the name of this picture start with?",
+  "choicesJson": [
+   "C",
+   "F",
+   "S"
+  ],
+  "answer": "S",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-spoon.webp",
+   "alt": "A silver spoon on a light gray background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. What letter starts its name?",
+  "choicesJson": [
+   "H",
+   "M",
+   "N"
+  ],
+  "answer": "H",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-hammer.webp",
+   "alt": "A claw hammer with a metal head and an orange handle."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Read the word: kite. Which picture matches?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-bell.webp",
+    "learning/img/reading-pictures-tent.webp",
+    "learning/img/reading-pictures-kite.webp",
+    "learning/img/reading-pictures-jar.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tent?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-kite.webp",
+    "learning/img/reading-pictures-pizza.webp",
+    "learning/img/reading-pictures-tent.webp",
+    "learning/img/reading-pictures-book.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture goes with the word \"fork\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-fork.webp",
+    "learning/img/reading-pictures-pencil.webp",
+    "learning/img/reading-pictures-egg.webp",
+    "learning/img/reading-pictures-cup.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the picture of a lamp.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-moon.webp",
+    "learning/img/reading-pictures-clock.webp",
+    "learning/img/reading-pictures-book.webp",
+    "learning/img/reading-pictures-lamp.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a pizza?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-orange.webp",
+    "learning/img/reading-pictures-cake.webp",
+    "learning/img/reading-pictures-apple.webp",
+    "learning/img/reading-pictures-pizza.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Read the word: bell. Which picture matches?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-bell.webp",
+    "learning/img/reading-pictures-drum.webp",
+    "learning/img/reading-pictures-clock.webp",
+    "learning/img/reading-pictures-hammer.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word rhymes with the name of this picture?",
+  "choicesJson": [
+   "red",
+   "sun",
+   "pig"
+  ],
+  "answer": "red",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bed.webp",
+   "alt": "A bed with white sheets and fluffy white pillows."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word rhymes with its name?",
+  "choicesJson": [
+   "star",
+   "frog",
+   "jam"
+  ],
+  "answer": "star",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-jar.webp",
+   "alt": "An empty glass mason jar with a metal lid."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word rhymes with its name?",
+  "choicesJson": [
+   "spoon",
+   "star",
+   "bell"
+  ],
+  "answer": "spoon",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-moon.webp",
+   "alt": "A full moon glowing in a dark night sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word rhymes with the name of this picture?",
+  "choicesJson": [
+   "rug",
+   "rain",
+   "sing"
+  ],
+  "answer": "sing",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-ring.webp",
+   "alt": "A gold ring with a large sparkling diamond in a ring box."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word rhymes with its name?",
+  "choicesJson": [
+   "cake",
+   "look",
+   "bike"
+  ],
+  "answer": "look",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-book.webp",
+   "alt": "A stack of four books with pastel blue, green, yellow and pink covers on a wooden table."
+  }
+ }
+]

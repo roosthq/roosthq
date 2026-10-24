@@ -1,0 +1,22 @@
+[
+{"id":"cmu0xa879024x12z2ggjr4w5e","action":"deactivate","reason":"Near-duplicate of the 'Which economics word means: scarcity' row (same fact); long definition choices are hard for grade 2."},
+{"id":"cmu0xa879024z12z2japhtd53","action":"deactivate","reason":"Awkward 'celebrate or honor' wording with mismatched lowercase verb choices; same fact as 'Which holiday celebrates America's freedom from Britain?'."},
+{"id":"cmu0xa879025512z2xqypcbfd","action":"deactivate","reason":"Awkward 'celebrate or honor' wording with mismatched choices; same fact as 'Which holiday honors civil rights leader Martin Luther King Jr.?'."},
+{"id":"cmu0xa87b026q12z2krcfyihp","action":"deactivate","reason":"Awkward 'celebrate or honor' wording with mismatched choices; same fact as 'Which holiday honors U.S. presidents?'."},
+{"id":"cmu0xa879025g12z2a06eds9s","action":"deactivate","reason":"Duplicate of 'Which landform is described as: large area of flat land?'; also 'high, flat area' distractor is confusable."},
+{"id":"cmu0xa87a025q12z2i025gur2","action":"deactivate","reason":"Duplicate of the 'Which body of water is described as: a large area of ocean partly surrounded by land?' row."},
+{"id":"cmu0xa87a025t12z2dmx14u9o","action":"deactivate","reason":"Duplicate of 'Which landform is described as: low land between mountains or hills?'."},
+{"id":"cmu0xa87a026j12z2lyq1b5y8","action":"deactivate","reason":"Grammar error ('a ocean') and duplicate of the 'huge body of salt water' row."},
+{"id":"cmu0xa87b026s12z28g0ey8ho","action":"deactivate","reason":"Duplicate of 'Which landform is described as: high, flat area of land?'."},
+{"id":"cmu0xa87b027f12z2tu2tn7yf","action":"deactivate","reason":"Grammar error ('a island') and duplicate of 'land completely surrounded by water' row."},
+{"id":"cmu0xa879024s12z2m0b067su","action":"fix","reason":"Memorial Day was a distractor and can also be read as honoring military people; replaced so Veterans Day is the only correct choice.","choicesJson":["Thanksgiving","Martin Luther King Jr. Day","Presidents Day","Veterans Day"]},
+{"id":"cmu0xa879025112z23d4ysvcr","action":"fix","reason":"Plateau is also a large flat area of land, so two choices could fit; replaced it with Peninsula.","choicesJson":["Mountain","Peninsula","Island","Plain"]},
+{"id":"cmu0xa879024y12z2g7654dao","action":"fix","reason":"Capitalization: 'the' mid-sentence.","prompt":"Where is the Statue of Liberty located?"},
+{"id":"cmu0xa87b027c12z2kz2ysv3r","action":"fix","reason":"Capitalization: 'the' mid-sentence.","prompt":"Where is the White House located?"},
+{"id":"cmu0xa879025412z24d4qeqpv","action":"fix","reason":"Sentence ended with a question mark after a blank; clearer wording.","prompt":"In the United States, citizens vote to choose leaders like the ____."},
+{"id":"cmu0xa87a025o12z2bfu01lwj","action":"fix","reason":"Grammar: missing 'the'.","prompt":"Which direction is the opposite of North?"},
+{"id":"cmu0xa87a025s12z2542vuxv8","action":"fix","reason":"'Both the same thing' choice is nonsensical wording.","choicesJson":["A want","Neither","Both","A need"]},
+{"id":"cmu0xa87a026112z21fpor4ms","action":"fix","reason":"Ungrammatical prompt (missing 'is').","prompt":"Which holiday is a day for giving thanks, remembered with the Pilgrims and Wampanoag?"},
+{"id":"cmu0xa87a026e12z25vvmilph","action":"fix","reason":"Prompt gave away the answer ('50 stars' -> 50 states).","prompt":"What do the stars on the American flag stand for?"},
+{"id":"cmu0xa87b027412z2utvblg67","action":"fix","reason":"Prompt gave away the answer ('13 stripes' -> 13 colonies).","prompt":"What do the stripes on the American flag stand for?"}
+]

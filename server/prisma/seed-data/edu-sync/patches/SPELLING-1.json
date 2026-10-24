@@ -1,0 +1,434 @@
+[
+ {
+  "id": "cmu0xa8bb02mz12z22olhdd7e",
+  "action": "fix",
+  "reason": "pup is equally correct for young dog",
+  "acceptedAnswers": [
+   "pup"
+  ]
+ },
+ {
+  "id": "cmu0xa8bb02n012z22guyy928",
+  "action": "fix",
+  "reason": "splash is not a frog sound; ambiguous (plop). Reworded as fill-in with hint",
+  "prompt": "You jump into a pool and make a big ___. Spell the word that starts with spl."
+ },
+ {
+  "id": "cmu0xa8bb02n112z2pq0ongw9",
+  "action": "fix",
+  "reason": "snakes are not slippery; clearer wording",
+  "prompt": "Spell the word for a long reptile with no legs that slithers and hisses."
+ },
+ {
+  "id": "cmu0xa8bb02n212z2uaplqsp2",
+  "action": "fix",
+  "reason": "Convert to fill-in-letters format for variety (too many \"which word is spelled correctly\")",
+  "prompt": "Fill in the missing letters: tr__n. You ride it on tracks.",
+  "choicesJson": [
+   "ay",
+   "ai",
+   "ea"
+  ],
+  "answer": "ai"
+ },
+ {
+  "id": "cmu0xa8bb02n512z2t8p0defs",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "don’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bb02n612z2ufgwvgps",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "isn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bb02n712z2t6xdnpha",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "I’m"
+  ]
+ },
+ {
+  "id": "cmu0xa8bb02nb12z2cf4ncqgx",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: __ell. You can find one on the beach.",
+  "choicesJson": [
+   "ch",
+   "sh",
+   "th"
+  ],
+  "answer": "sh"
+ },
+ {
+  "id": "cmu0xa8bb02ng12z2z7rptocj",
+  "action": "fix",
+  "reason": "prompt gave away \"happy\" and several words fit (happy, pleased); add rhyme clue",
+  "prompt": "Spell the word that means happy and rhymes with sad."
+ },
+ {
+  "id": "cmu0xa8bb02nk12z2g4341e5a",
+  "action": "fix",
+  "reason": "ambiguous (trip, stumble, slip); add banana peel and sl hint",
+  "prompt": "Spell the word for what you do on a banana peel by accident. It starts with sl."
+ },
+ {
+  "id": "cmu0xa8bb02nn12z2beawi4hs",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: sp__n. You eat soup with it.",
+  "choicesJson": [
+   "oa",
+   "ou",
+   "oo"
+  ],
+  "answer": "oo"
+ },
+ {
+  "id": "cmu0xa8bb02nq12z2r2uvbbp1",
+  "action": "fix",
+  "reason": "xylophone/cymbal also hit with sticks; clearer clue",
+  "prompt": "Spell the word for a round instrument you bang with sticks to go boom, boom!"
+ },
+ {
+  "id": "cmu0xa8bb02nt12z2nsibgnax",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letter: gr_pe. It is a small round fruit that grows in bunches.",
+  "choicesJson": [
+   "a",
+   "u",
+   "i"
+  ],
+  "answer": "a"
+ },
+ {
+  "id": "cmu0xa8bb02ny12z2b70dcrsd",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: ch__se. Mice love it.",
+  "choicesJson": [
+   "ea",
+   "ee",
+   "ei"
+  ],
+  "answer": "ee"
+ },
+ {
+  "id": "cmu0xa8bb02o312z2hjcgeax0",
+  "action": "fix",
+  "reason": "ambiguous noun/verb (bathe); clearer clue",
+  "prompt": "Spell the word for what you take in a tub of warm water to get clean. It rhymes with path."
+ },
+ {
+  "id": "cmu0xa8bb02o612z2wog35ue2",
+  "action": "fix",
+  "reason": "Convert for format variety; old distractor \"wheal\" is a real word",
+  "prompt": "Fill in the missing letters: wh__l. A car has four of them.",
+  "choicesJson": [
+   "ai",
+   "oo",
+   "ee"
+  ],
+  "answer": "ee"
+ },
+ {
+  "id": "cmu0xa8bc02o812z2ct1ebsvn",
+  "action": "fix",
+  "reason": "Distractor \"roc\" is a real word (mythical bird); replaced",
+  "choicesJson": [
+   "rock",
+   "rokc",
+   "rok",
+   "rockk"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02oa12z2wq2chh9l",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: cl__k. It tells you the time.",
+  "choicesJson": [
+   "ok",
+   "oc",
+   "ac"
+  ],
+  "answer": "oc"
+ },
+ {
+  "id": "cmu0xa8bc02of12z2mmu34alv",
+  "action": "fix",
+  "reason": "ambiguous (inspect, examine); add context and ck hint",
+  "prompt": "Spell the word for what you do to your work to make sure it has no mistakes. It ends with ck."
+ },
+ {
+  "id": "cmu0xa8bc02ol12z24jpbayvs",
+  "action": "fix",
+  "reason": "plate also fits \"flat object to carry food\"; clearer clue",
+  "prompt": "Spell the word for a flat board with edges that you use to carry your lunch in the cafeteria."
+ },
+ {
+  "id": "cmu0xa8bc02oo12z21ed9akce",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: b__t. It floats on water.",
+  "choicesJson": [
+   "ie",
+   "oa",
+   "ui"
+  ],
+  "answer": "oa"
+ },
+ {
+  "id": "cmu0xa8bc02op12z2f8q8qzb1",
+  "action": "fix",
+  "reason": "prompt said \"jacket\", which also fits; clearer clue",
+  "prompt": "Spell the word for the thick, warm clothing you wear outside in winter. It rhymes with goat."
+ },
+ {
+  "id": "cmu0xa8bc02oq12z2plapl8s1",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: r__d. Cars drive on it.",
+  "choicesJson": [
+   "oe",
+   "ow",
+   "oa"
+  ],
+  "answer": "oa"
+ },
+ {
+  "id": "cmu0xa8bc02ou12z2ftwpu8b3",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: l__t. A lamp gives you this.",
+  "choicesJson": [
+   "ai",
+   "oi",
+   "igh"
+  ],
+  "answer": "igh"
+ },
+ {
+  "id": "cmu0xa8bc02ow12z278o6vflg",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letter: k_te. It flies on a string in the wind.",
+  "choicesJson": [
+   "e",
+   "y",
+   "i"
+  ],
+  "answer": "i"
+ },
+ {
+  "id": "cmu0xa8bc02ox12z254naimx5",
+  "action": "fix",
+  "reason": "bicycle is equally correct",
+  "acceptedAnswers": [
+   "bicycle"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02oy12z2u7ibjv53",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letter: ca_e. You blow out candles on it.",
+  "choicesJson": [
+   "k",
+   "c",
+   "q"
+  ],
+  "answer": "k"
+ },
+ {
+  "id": "cmu0xa8bc02oz12z2707fhgza",
+  "action": "fix",
+  "reason": "prompt gave away \"cord\" and was wordy; simpler clue",
+  "prompt": "Spell the word for the thick, strong cord used in a tug-of-war game."
+ },
+ {
+  "id": "cmu0xa8bc02p012z2dl7ir8sv",
+  "action": "fix",
+  "reason": "Distractor \"noes\" is a real word; replaced",
+  "choicesJson": [
+   "nose",
+   "noze",
+   "nosse",
+   "nouse"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p112z2ug6c2yh1",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "can’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p212z2utqcreuj",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "won’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p312z2wj5mka6p",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "didn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p412z22h77zp5l",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "wasn’t"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p512z23o2j6j0t",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "it’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p612z23dal5ny9",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "that’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p712z2csreus4w",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "he’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p812z2eetibqyy",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "she’s"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02p912z2q3e4ebq4",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "we’re"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02pa12z2kstvha7s",
+  "action": "fix",
+  "reason": "accept curly apostrophe from phone keyboards",
+  "acceptedAnswers": [
+   "they’ll"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02pj12z21yjypw9p",
+  "action": "fix",
+  "reason": "grandmother and nana are equally correct",
+  "acceptedAnswers": [
+   "grandmother",
+   "nana",
+   "granny"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02pk12z2hrqje4ej",
+  "action": "fix",
+  "reason": "Distractor \"grampa\" is an accepted spelling; replaced",
+  "choicesJson": [
+   "grandpa",
+   "grandpah",
+   "grandpuh",
+   "grandpaa"
+  ]
+ },
+ {
+  "id": "cmu0xa8bc02pr12z2o4zr60kb",
+  "action": "fix",
+  "reason": "bunny and hare also fit the clue",
+  "acceptedAnswers": [
+   "bunny",
+   "hare"
+  ]
+ },
+ {
+  "id": "cmu0xa8bd02pt12z2dxuuz0m0",
+  "action": "fix",
+  "reason": "supper is equally correct",
+  "acceptedAnswers": [
+   "supper"
+  ]
+ },
+ {
+  "id": "cmu0xa8bd02pu12z214ltuamd",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: ha__er. You use it to pound nails.",
+  "choicesJson": [
+   "m",
+   "mn",
+   "mm"
+  ],
+  "answer": "mm"
+ },
+ {
+  "id": "cmu0xa8bd02pw12z2gpu5qtyk",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: su__er. It is the hottest season.",
+  "choicesJson": [
+   "nn",
+   "mm",
+   "m"
+  ],
+  "answer": "mm"
+ },
+ {
+  "id": "cmu0xa8bd02py12z215201q7r",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: a__ow. You shoot it from a bow.",
+  "choicesJson": [
+   "r",
+   "rn",
+   "rr"
+  ],
+  "answer": "rr"
+ },
+ {
+  "id": "cmu0xa8bd02q012z2dc1xtcjs",
+  "action": "fix",
+  "reason": "Convert for format variety",
+  "prompt": "Fill in the missing letters: mi__en. You wear it on your hand in winter.",
+  "choicesJson": [
+   "pp",
+   "tt",
+   "t"
+  ],
+  "answer": "tt"
+ }
+]

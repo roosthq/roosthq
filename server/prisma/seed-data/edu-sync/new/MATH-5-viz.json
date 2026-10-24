@@ -1,0 +1,366 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "1.5",
+   "0.5",
+   "1.0",
+   "2.0"
+  ],
+  "answer": "1.5",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4989197ad185.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "2.5",
+   "1.5",
+   "2.0",
+   "3.0"
+  ],
+  "answer": "2.5",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a5e2a02e42c3.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "3.5",
+   "2.5",
+   "3.0",
+   "4.0"
+  ],
+  "answer": "3.5",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/091c80391f40.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(6, 2)",
+   "(2, 6)",
+   "(7, 2)",
+   "(6, 3)"
+  ],
+  "answer": "(6, 2)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e58ea5a9383a.webp",
+   "alt": "A coordinate grid with a point at (6, 2)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(3, 7)",
+   "(7, 3)",
+   "(4, 7)",
+   "(3, 8)"
+  ],
+  "answer": "(3, 7)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a41f15dcff81.webp",
+   "alt": "A coordinate grid with a point at (3, 7)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(8, 1)",
+   "(1, 8)",
+   "(9, 1)",
+   "(8, 2)"
+  ],
+  "answer": "(8, 1)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/06d55f8741c8.webp",
+   "alt": "A coordinate grid with a point at (8, 1)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(2, 7)",
+   "(7, 2)",
+   "(3, 7)",
+   "(2, 8)"
+  ],
+  "answer": "(2, 7)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/494273a4312b.webp",
+   "alt": "A coordinate grid with a point at (2, 7)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(5, 2)",
+   "(2, 5)",
+   "(6, 2)",
+   "(5, 3)"
+  ],
+  "answer": "(5, 2)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/286da654dfec.webp",
+   "alt": "A coordinate grid with a point at (5, 2)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(1, 9)",
+   "(9, 1)",
+   "(2, 9)",
+   "(1, 10)"
+  ],
+  "answer": "(1, 9)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a872b6471422.webp",
+   "alt": "A coordinate grid with a point at (1, 9)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(3, 4)",
+   "(4, 3)",
+   "(4, 4)",
+   "(3, 5)"
+  ],
+  "answer": "(3, 4)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1f15fbb9c554.webp",
+   "alt": "A coordinate grid with a point at (3, 4)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(6, 4)",
+   "(4, 6)",
+   "(7, 4)",
+   "(6, 5)"
+  ],
+  "answer": "(6, 4)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9b80435f62fb.webp",
+   "alt": "A coordinate grid with a point at (6, 4)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(2, 5)",
+   "(5, 2)",
+   "(3, 5)",
+   "(2, 6)"
+  ],
+  "answer": "(2, 5)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/96b2012e750b.webp",
+   "alt": "A coordinate grid with a point at (2, 5)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(2, 8)",
+   "(8, 2)",
+   "(3, 8)",
+   "(2, 9)"
+  ],
+  "answer": "(2, 8)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ccce5c829994.webp",
+   "alt": "A coordinate grid with a point at (2, 8)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(6, 1)",
+   "(1, 6)",
+   "(7, 1)",
+   "(6, 2)"
+  ],
+  "answer": "(6, 1)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8d5d2c5d8306.webp",
+   "alt": "A coordinate grid with a point at (6, 1)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(4, 1)",
+   "(1, 4)",
+   "(5, 1)",
+   "(4, 2)"
+  ],
+  "answer": "(4, 1)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9d7434479f78.webp",
+   "alt": "A coordinate grid with a point at (4, 1)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(5, 3)",
+   "(3, 5)",
+   "(6, 3)",
+   "(5, 4)"
+  ],
+  "answer": "(5, 3)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d7686e294f08.webp",
+   "alt": "A coordinate grid with a point at (5, 3)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(2, 6)",
+   "(6, 2)",
+   "(3, 6)",
+   "(2, 7)"
+  ],
+  "answer": "(2, 6)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ca470ce369b5.webp",
+   "alt": "A coordinate grid with a point at (2, 6)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(5, 6)",
+   "(6, 5)",
+   "(6, 6)",
+   "(5, 7)"
+  ],
+  "answer": "(5, 6)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c03d0b0808f0.webp",
+   "alt": "A coordinate grid with a point at (5, 6)"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the coordinates of the red point? (across first, then up)",
+  "choicesJson": [
+   "(4, 5)",
+   "(5, 4)",
+   "(5, 5)",
+   "(4, 6)"
+  ],
+  "answer": "(4, 5)",
+  "tags": [
+   "coordinates",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/644b6d9b0045.webp",
+   "alt": "A coordinate grid with a point at (4, 5)"
+  }
+ }
+]

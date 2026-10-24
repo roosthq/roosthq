@@ -1,0 +1,1844 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a solid?",
+  "choicesJson": [
+   "Milk",
+   "A wooden block",
+   "Steam",
+   "Juice"
+  ],
+  "answer": "A wooden block",
+  "tags": [
+   "matter",
+   "solids"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a liquid?",
+  "choicesJson": [
+   "A brick",
+   "A book",
+   "Orange juice",
+   "A spoon"
+  ],
+  "answer": "Orange juice",
+  "tags": [
+   "matter",
+   "liquids"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a gas?",
+  "choicesJson": [
+   "Ice",
+   "Air inside a balloon",
+   "A toy block"
+  ],
+  "answer": "Air inside a balloon",
+  "tags": [
+   "matter",
+   "gases"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ice turns into water when it gets warm. What is this called?",
+  "answer": "melting",
+  "acceptedAnswers": [
+   "melt",
+   "melts",
+   "melted"
+  ],
+  "tags": [
+   "matter",
+   "melting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Water turns into what when it gets very cold in the freezer?",
+  "answer": "ice",
+  "acceptedAnswers": [
+   "ice cube",
+   "solid ice"
+  ],
+  "tags": [
+   "matter",
+   "freezing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these feels soft?",
+  "choicesJson": [
+   "A brick",
+   "A pillow",
+   "A rock",
+   "A metal spoon"
+  ],
+  "answer": "A pillow",
+  "tags": [
+   "matter",
+   "properties"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these feels rough?",
+  "choicesJson": [
+   "A silk scarf",
+   "A cotton ball",
+   "Sandpaper",
+   "A soap bubble"
+  ],
+  "answer": "Sandpaper",
+  "tags": [
+   "matter",
+   "properties"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these feels smooth?",
+  "choicesJson": [
+   "Tree bark",
+   "Sandpaper",
+   "A pinecone",
+   "A glass marble"
+  ],
+  "answer": "A glass marble",
+  "tags": [
+   "matter",
+   "properties"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these will sink in water?",
+  "choicesJson": [
+   "A rubber duck",
+   "A beach ball",
+   "A cork",
+   "A rock"
+  ],
+  "answer": "A rock",
+  "tags": [
+   "matter",
+   "sink-float"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these will float in water?",
+  "choicesJson": [
+   "A rock",
+   "A coin",
+   "A wooden toy boat",
+   "A key"
+  ],
+  "answer": "A wooden toy boat",
+  "tags": [
+   "matter",
+   "sink-float"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these does a magnet pick up?",
+  "choicesJson": [
+   "A plastic cup",
+   "A paper clip",
+   "A wooden spoon",
+   "A rubber band"
+  ],
+  "answer": "A paper clip",
+  "tags": [
+   "matter",
+   "magnets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is the heaviest?",
+  "choicesJson": [
+   "A feather",
+   "A leaf",
+   "A brick",
+   "A sheet of paper"
+  ],
+  "answer": "A brick",
+  "tags": [
+   "matter",
+   "weight"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens when you stir sugar into warm water?",
+  "choicesJson": [
+   "It turns into a rock",
+   "It mixes in and seems to disappear",
+   "It freezes solid",
+   "It grows bigger"
+  ],
+  "answer": "It mixes in and seems to disappear",
+  "tags": [
+   "matter",
+   "mixtures"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, you can pour water from a bucket. What kind of matter is water?",
+  "choicesJson": [
+   "Gas",
+   "Solid",
+   "Liquid"
+  ],
+  "answer": "Liquid",
+  "tags": [
+   "matter",
+   "liquids",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fortnite players build walls out of brick. Is brick hard or soft?",
+  "choicesJson": [
+   "Soft",
+   "Hard",
+   "Squishy"
+  ],
+  "answer": "Hard",
+  "tags": [
+   "matter",
+   "properties",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A snow monster stands in a hot desert. What happens to its snow body?",
+  "choicesJson": [
+   "It turns into metal",
+   "It melts",
+   "It gets bigger"
+  ],
+  "answer": "It melts",
+  "tags": [
+   "matter",
+   "melting",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is heavier, a mouse or Godzilla?",
+  "choicesJson": [
+   "They weigh the same",
+   "A mouse",
+   "Godzilla"
+  ],
+  "answer": "Godzilla",
+  "tags": [
+   "matter",
+   "weight",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is sand made of?",
+  "choicesJson": [
+   "Sugar",
+   "Tiny pieces of rock",
+   "Melted plastic",
+   "Dried leaves"
+  ],
+  "answer": "Tiny pieces of rock",
+  "tags": [
+   "earth-materials"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Plants grow in this brown stuff in the ground. What is it called?",
+  "answer": "soil",
+  "acceptedAnswers": [
+   "dirt",
+   "the soil",
+   "topsoil"
+  ],
+  "tags": [
+   "earth-materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is very tall and has a peak at the top?",
+  "choicesJson": [
+   "Valley",
+   "Lake",
+   "Beach",
+   "Mountain"
+  ],
+  "answer": "Mountain",
+  "tags": [
+   "landforms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call low land between two mountains?",
+  "choicesJson": [
+   "Island",
+   "Desert",
+   "Valley"
+  ],
+  "answer": "Valley",
+  "tags": [
+   "landforms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call land with water all around it?",
+  "choicesJson": [
+   "Mountain",
+   "Island",
+   "Desert",
+   "Valley"
+  ],
+  "answer": "Island",
+  "tags": [
+   "landforms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which place is very dry and gets very little rain?",
+  "choicesJson": [
+   "Desert",
+   "Lake",
+   "Ocean"
+  ],
+  "answer": "Desert",
+  "tags": [
+   "landforms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call a long stream of water that flows across the land?",
+  "choicesJson": [
+   "Hill",
+   "River",
+   "Cave"
+  ],
+  "answer": "River",
+  "tags": [
+   "landforms",
+   "water"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the name of the hot melted rock that flows out of a volcano?",
+  "answer": "lava",
+  "tags": [
+   "landforms",
+   "volcanoes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A puddle disappears on a sunny day. What made it dry up?",
+  "choicesJson": [
+   "Snow",
+   "The sun's heat",
+   "The moon's glow",
+   "A shadow"
+  ],
+  "answer": "The sun's heat",
+  "tags": [
+   "water-cycle"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Clouds are made of tiny drops of what?",
+  "answer": "water",
+  "acceptedAnswers": [
+   "water drops",
+   "water droplets",
+   "liquid water"
+  ],
+  "tags": [
+   "water-cycle",
+   "clouds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which water tastes salty?",
+  "choicesJson": [
+   "Rainwater",
+   "Ocean water",
+   "Drinking water",
+   "Melted snow"
+  ],
+  "answer": "Ocean water",
+  "tags": [
+   "water",
+   "oceans"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What does snow turn into when it melts?",
+  "answer": "water",
+  "acceptedAnswers": [
+   "liquid water"
+  ],
+  "tags": [
+   "water-cycle",
+   "melting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Dinosaur bones that turned to stone are called what?",
+  "answer": "fossils",
+  "acceptedAnswers": [
+   "fossil",
+   "a fossil"
+  ],
+  "tags": [
+   "earth-materials",
+   "fossils"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where is most of Earth's water?",
+  "choicesJson": [
+   "Rivers",
+   "The ocean",
+   "Lakes",
+   "Puddles"
+  ],
+  "answer": "The ocean",
+  "tags": [
+   "water",
+   "oceans"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you get when you mix soil and water?",
+  "answer": "mud",
+  "tags": [
+   "earth-materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Minecraft players mine coal and iron. In real life, where do miners find them?",
+  "choicesJson": [
+   "From clouds",
+   "From the ocean's surface",
+   "From under the ground",
+   "From treetops"
+  ],
+  "answer": "From under the ground",
+  "tags": [
+   "earth-materials",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Onix looks like a snake made of boulders. What is a boulder?",
+  "choicesJson": [
+   "A cloud",
+   "A big rock",
+   "A puddle"
+  ],
+  "answer": "A big rock",
+  "tags": [
+   "earth-materials",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario jumps over lava in Bowser's castle. Is lava hot or cold?",
+  "choicesJson": [
+   "Frozen",
+   "Cold",
+   "Hot"
+  ],
+  "answer": "Hot",
+  "tags": [
+   "landforms",
+   "volcanoes",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool helps you see small things up close?",
+  "choicesJson": [
+   "Ruler",
+   "Scale",
+   "Magnifying glass",
+   "Thermometer"
+  ],
+  "answer": "Magnifying glass",
+  "tags": [
+   "tools"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool tells you how hot or cold it is?",
+  "choicesJson": [
+   "Ruler",
+   "Thermometer",
+   "Clock"
+  ],
+  "answer": "Thermometer",
+  "tags": [
+   "tools",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a ruler measure?",
+  "choicesJson": [
+   "How hot something is",
+   "How heavy something is",
+   "What time it is",
+   "How long something is"
+  ],
+  "answer": "How long something is",
+  "tags": [
+   "tools",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool helps you look at far-away stars and planets?",
+  "choicesJson": [
+   "Ruler",
+   "Scale",
+   "Telescope"
+  ],
+  "answer": "Telescope",
+  "tags": [
+   "tools"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool measures how much milk is in a container?",
+  "choicesJson": [
+   "Clock",
+   "Measuring cup",
+   "Ruler"
+  ],
+  "answer": "Measuring cup",
+  "tags": [
+   "tools",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A scientist looks at and touches a rock to learn about it. What is she doing?",
+  "choicesJson": [
+   "Cooking",
+   "Sleeping",
+   "Observing"
+  ],
+  "answer": "Observing",
+  "tags": [
+   "scientific-method"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In science class, which sense should you never use to test an unknown liquid?",
+  "choicesJson": [
+   "Sight",
+   "Taste",
+   "Hearing"
+  ],
+  "answer": "Taste",
+  "tags": [
+   "scientific-method",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A scientist guesses what will happen before an experiment. What is that guess called?",
+  "choicesJson": [
+   "A nap",
+   "A snack",
+   "A prediction"
+  ],
+  "answer": "A prediction",
+  "tags": [
+   "scientific-method"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A scientist tries something out on purpose to find an answer. What is that called?",
+  "answer": "experiment",
+  "acceptedAnswers": [
+   "an experiment",
+   "experiments",
+   "test",
+   "a test"
+  ],
+  "tags": [
+   "scientific-method"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What should you wear to keep your eyes safe during an experiment?",
+  "choicesJson": [
+   "A hat",
+   "Mittens",
+   "Safety goggles",
+   "A scarf"
+  ],
+  "answer": "Safety goggles",
+  "tags": [
+   "scientific-method",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A thermometer shows 90 degrees Fahrenheit outside. Is it hot or cold?",
+  "choicesJson": [
+   "Cold",
+   "Snowing",
+   "Hot"
+  ],
+  "answer": "Hot",
+  "tags": [
+   "tools",
+   "measurement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Putting rocks into groups that are alike is called what?",
+  "choicesJson": [
+   "Melting",
+   "Sorting",
+   "Floating"
+  ],
+  "answer": "Sorting",
+  "tags": [
+   "scientific-method",
+   "earth-materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You race your friend like in Mario Kart. Which tool can time the race?",
+  "choicesJson": [
+   "Ruler",
+   "Thermometer",
+   "Stopwatch",
+   "Scale"
+  ],
+  "answer": "Stopwatch",
+  "tags": [
+   "tools",
+   "measurement",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A scientist finds a giant Bigfoot footprint. Which tool measures how long it is?",
+  "choicesJson": [
+   "Ruler",
+   "Thermometer",
+   "Telescope"
+  ],
+  "answer": "Ruler",
+  "tags": [
+   "tools",
+   "measurement",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You have two toy Roblox figures. Which tool tells you which one is heavier?",
+  "choicesJson": [
+   "Ruler",
+   "Thermometer",
+   "Telescope",
+   "Scale"
+  ],
+  "answer": "Scale",
+  "tags": [
+   "tools",
+   "weight",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What two things can make a toy move?",
+  "choicesJson": [
+   "Hot and cold",
+   "Push and pull",
+   "Paint and glue"
+  ],
+  "answer": "Push and pull",
+  "tags": [
+   "forces"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You kick a soccer ball. Is that a push or a pull?",
+  "choicesJson": [
+   "Pull",
+   "Neither",
+   "Push"
+  ],
+  "answer": "Push",
+  "tags": [
+   "forces"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You hold a wagon handle and tug it toward you. Is that a push or a pull? Type one word.",
+  "answer": "pull",
+  "acceptedAnswers": [
+   "a pull"
+  ],
+  "tags": [
+   "forces"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You let go of a ball. Which way does it fall?",
+  "choicesJson": [
+   "Sideways",
+   "Up",
+   "Down"
+  ],
+  "answer": "Down",
+  "tags": [
+   "forces",
+   "gravity"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is the most slippery?",
+  "choicesJson": [
+   "Ice",
+   "Sandpaper",
+   "A rug"
+  ],
+  "answer": "Ice",
+  "tags": [
+   "forces",
+   "friction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these will a magnet NOT pick up?",
+  "choicesJson": [
+   "A steel paper clip",
+   "An iron nail",
+   "A wooden spoon"
+  ],
+  "answer": "A wooden spoon",
+  "tags": [
+   "magnets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You give a toy car a big push. How far will it roll compared with a tiny push?",
+  "choicesJson": [
+   "The same",
+   "Farther",
+   "Not as far"
+  ],
+  "answer": "Farther",
+  "tags": [
+   "forces",
+   "motion"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bowling ball hits the pins. What happens to the pins?",
+  "choicesJson": [
+   "They turn to gold",
+   "They get knocked over",
+   "They float up"
+  ],
+  "answer": "They get knocked over",
+  "tags": [
+   "forces",
+   "motion"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is moving?",
+  "choicesJson": [
+   "A rolling ball",
+   "A rock on the ground",
+   "A parked car"
+  ],
+  "answer": "A rolling ball",
+  "tags": [
+   "motion"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do solar panels use to make electricity?",
+  "choicesJson": [
+   "Sunlight",
+   "Moonlight only",
+   "Snow"
+  ],
+  "answer": "Sunlight",
+  "tags": [
+   "energy"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You rub your hands together fast. How do they feel?",
+  "choicesJson": [
+   "Frozen",
+   "Wet",
+   "Warmer"
+  ],
+  "answer": "Warmer",
+  "tags": [
+   "energy",
+   "heat"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sound is louder?",
+  "choicesJson": [
+   "A hush",
+   "A shout",
+   "A whisper"
+  ],
+  "answer": "A shout",
+  "tags": [
+   "sound"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What makes a shadow?",
+  "choicesJson": [
+   "Something is cold",
+   "Something makes a sound",
+   "Something blocks the light"
+  ],
+  "answer": "Something blocks the light",
+  "tags": [
+   "light"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dr. Frankenstein's movie lab has machines that zap with electricity. Which of these needs electricity to work?",
+  "choicesJson": [
+   "A TV",
+   "A pencil",
+   "A rock"
+  ],
+  "answer": "A TV",
+  "tags": [
+   "energy",
+   "electricity",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What can make a wind turbine spin?",
+  "choicesJson": [
+   "Rocks",
+   "Wind",
+   "Sand"
+  ],
+  "answer": "Wind",
+  "tags": [
+   "energy",
+   "engineering"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, sand blocks fall straight down. What real force pulls things down to the ground?",
+  "choicesJson": [
+   "Sunlight",
+   "Gravity",
+   "Magnets"
+  ],
+  "answer": "Gravity",
+  "tags": [
+   "gravity",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Fortnite, your glider helps you float slowly down. What does it catch to slow you down?",
+  "choicesJson": [
+   "Snow",
+   "Sand",
+   "Air"
+  ],
+  "answer": "Air",
+  "tags": [
+   "forces",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sonic loves to roll fast. Which shape rolls best?",
+  "choicesJson": [
+   "A cube",
+   "A ball",
+   "A triangle"
+  ],
+  "answer": "A ball",
+  "tags": [
+   "motion",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a battery do for a toy?",
+  "choicesJson": [
+   "Gives it power to work",
+   "Cleans it",
+   "Makes it sleepy"
+  ],
+  "answer": "Gives it power to work",
+  "tags": [
+   "energy",
+   "electricity"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool shows which way the wind is blowing?",
+  "choicesJson": [
+   "A weather vane",
+   "A scale",
+   "A ruler"
+  ],
+  "answer": "A weather vane",
+  "tags": [
+   "weather",
+   "tools"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these helps keep you dry in the rain?",
+  "choicesJson": [
+   "Sandals",
+   "Sunglasses",
+   "An umbrella"
+  ],
+  "answer": "An umbrella",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is fog?",
+  "choicesJson": [
+   "A strong wind",
+   "A cloud close to the ground",
+   "A kind of snow"
+  ],
+  "answer": "A cloud close to the ground",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a tornado?",
+  "choicesJson": [
+   "A spinning funnel of wind",
+   "A rainbow",
+   "A gentle breeze"
+  ],
+  "answer": "A spinning funnel of wind",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call a soft, gentle wind?",
+  "choicesJson": [
+   "breeze",
+   "hurricane",
+   "blizzard"
+  ],
+  "answer": "breeze",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Thunder is booming outside. Where is a safe place to be?",
+  "choicesJson": [
+   "Under a tall tree",
+   "Inside a building",
+   "In an open field"
+  ],
+  "answer": "Inside a building",
+  "tags": [
+   "weather",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pikachu zaps with electricity. Which kind of weather has big electric sparks in the sky?",
+  "choicesJson": [
+   "A thunderstorm",
+   "A foggy morning",
+   "A sunny day"
+  ],
+  "answer": "A thunderstorm",
+  "tags": [
+   "weather",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a rain gauge measure?",
+  "choicesJson": [
+   "How hot it is",
+   "How much rain fell",
+   "How fast the wind blows"
+  ],
+  "answer": "How much rain fell",
+  "tags": [
+   "weather",
+   "tools"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A weather forecast tells you what?",
+  "choicesJson": [
+   "What to eat for lunch",
+   "What the weather will be",
+   "What time it is"
+  ],
+  "answer": "What the weather will be",
+  "tags": [
+   "weather"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The sun gives us light and what else?",
+  "choicesJson": [
+   "Heat",
+   "Wind",
+   "Rain"
+  ],
+  "answer": "Heat",
+  "tags": [
+   "weather",
+   "energy"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which place is usually cold and icy all year long?",
+  "choicesJson": [
+   "A desert",
+   "The North Pole",
+   "A beach in Florida"
+  ],
+  "answer": "The North Pole",
+  "tags": [
+   "climate"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A desert gets very little of what?",
+  "choicesJson": [
+   "Rain",
+   "Air",
+   "Sunshine"
+  ],
+  "answer": "Rain",
+  "tags": [
+   "climate"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which place is warm and rainy almost every day?",
+  "choicesJson": [
+   "A rainforest",
+   "A desert",
+   "The North Pole"
+  ],
+  "answer": "A rainforest",
+  "tags": [
+   "climate"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool pounds a nail into wood?",
+  "choicesJson": [
+   "A hammer",
+   "A spoon",
+   "Scissors"
+  ],
+  "answer": "A hammer",
+  "tags": [
+   "tools",
+   "engineering"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What shape is a wheel? Type one word.",
+  "answer": "circle",
+  "acceptedAnswers": [
+   "round",
+   "a circle"
+  ],
+  "tags": [
+   "engineering",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a ramp help you do?",
+  "choicesJson": [
+   "Make things louder",
+   "Make things disappear",
+   "Move things up or down more easily"
+  ],
+  "answer": "Move things up or down more easily",
+  "tags": [
+   "engineering",
+   "simple-machines"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which material is strongest for building a house?",
+  "choicesJson": [
+   "Bricks",
+   "Cotton balls",
+   "Paper"
+  ],
+  "answer": "Bricks",
+  "tags": [
+   "engineering",
+   "materials"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an engineer do?",
+  "choicesJson": [
+   "Grows carrots",
+   "Sings in a band",
+   "Designs and builds things"
+  ],
+  "answer": "Designs and builds things",
+  "tags": [
+   "engineering"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do bike riders wear helmets?",
+  "choicesJson": [
+   "To protect their heads",
+   "To look taller",
+   "To keep their ears warm"
+  ],
+  "answer": "To protect their heads",
+  "tags": [
+   "engineering",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "People hunt for Nessie in a lake in Scotland. Which vehicle can travel under the water?",
+  "choicesJson": [
+   "A bicycle",
+   "A helicopter",
+   "A submarine"
+  ],
+  "answer": "A submarine",
+  "tags": [
+   "technology",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "SCP Foundation scientists build a safe box to hold a big monster. Which makes the strongest box?",
+  "choicesJson": [
+   "Cloth",
+   "Steel",
+   "Paper"
+  ],
+  "answer": "Steel",
+  "tags": [
+   "engineering",
+   "materials",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You build a Roblox obby, but one jump is too hard. What should a good builder do?",
+  "choicesJson": [
+   "Give up forever",
+   "Change the jump and test it again",
+   "Delete the whole game"
+  ],
+  "answer": "Change the jump and test it again",
+  "tags": [
+   "engineering",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which base keeps a tall block tower from falling over?",
+  "choicesJson": [
+   "No base at all",
+   "A wide base",
+   "A tiny base"
+  ],
+  "answer": "A wide base",
+  "tags": [
+   "engineering"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a seat belt do in a car?",
+  "choicesJson": [
+   "Keeps you safe",
+   "Makes the car faster",
+   "Plays music"
+  ],
+  "answer": "Keeps you safe",
+  "tags": [
+   "engineering",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one gives off its own light?",
+  "choicesJson": [
+   "A mirror",
+   "A flashlight",
+   "A spoon"
+  ],
+  "answer": "A flashlight",
+  "tags": [
+   "light"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one can light pass through so you can see through it?",
+  "choicesJson": [
+   "A brick wall",
+   "A wooden door",
+   "A clear window",
+   "A cardboard box"
+  ],
+  "answer": "A clear window",
+  "tags": [
+   "light"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a mirror do to light that hits it?",
+  "choicesJson": [
+   "Bounces it back",
+   "Turns it into sound",
+   "Makes it cold"
+  ],
+  "answer": "Bounces it back",
+  "tags": [
+   "light"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Lightning and thunder happen at the same moment. Which one reaches you first?",
+  "choicesJson": [
+   "Light",
+   "Sound",
+   "They are the same"
+  ],
+  "answer": "Light",
+  "tags": [
+   "light",
+   "sound"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When you hit a drum, it shakes back and forth. What does the shaking make?",
+  "choicesJson": [
+   "Rain",
+   "A shadow",
+   "Snow",
+   "Sound"
+  ],
+  "answer": "Sound",
+  "tags": [
+   "sound"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one makes a very high sound?",
+  "choicesJson": [
+   "A big drum's boom",
+   "A lion's deep roar",
+   "A mouse's squeak"
+  ],
+  "answer": "A mouse's squeak",
+  "tags": [
+   "sound"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which instrument do you blow into to make music?",
+  "choicesJson": [
+   "A drum",
+   "A flute",
+   "A piano"
+  ],
+  "answer": "A flute",
+  "tags": [
+   "sound"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which color is in a rainbow?",
+  "choicesJson": [
+   "Black",
+   "Gray",
+   "Red",
+   "Brown"
+  ],
+  "answer": "Red",
+  "tags": [
+   "light",
+   "color"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, it is very dark in a cave. Which item gives off light?",
+  "choicesJson": [
+   "A pickaxe",
+   "A bed",
+   "A sword",
+   "A torch"
+  ],
+  "answer": "A torch",
+  "tags": [
+   "light",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Fortnite, you hear footsteps getting louder and louder. Is the player coming closer or going away?",
+  "choicesJson": [
+   "Coming closer",
+   "Going away",
+   "Standing still"
+  ],
+  "answer": "Coming closer",
+  "tags": [
+   "sound",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Bigfoot shouts in a big cave and hears his voice come back. What is that called?",
+  "answer": "echo",
+  "acceptedAnswers": [
+   "an echo"
+  ],
+  "tags": [
+   "sound",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Roblox player turns on a gaming laptop. What does the laptop need to work?",
+  "choicesJson": [
+   "Sand",
+   "Electricity",
+   "Snow",
+   "Grass"
+  ],
+  "answer": "Electricity",
+  "tags": [
+   "electricity",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Frankenstein's monster wakes up when lightning zaps him. Lightning is a giant spark of what?",
+  "choicesJson": [
+   "Water",
+   "Wind",
+   "Electricity",
+   "Sand"
+  ],
+  "answer": "Electricity",
+  "tags": [
+   "electricity",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one does NOT need electricity to work?",
+  "choicesJson": [
+   "A toaster",
+   "A crayon",
+   "A TV",
+   "A plugged-in lamp"
+  ],
+  "answer": "A crayon",
+  "tags": [
+   "electricity"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which toy usually needs batteries to move?",
+  "choicesJson": [
+   "A jump rope",
+   "Building blocks",
+   "A remote-control car",
+   "A teddy bear"
+  ],
+  "answer": "A remote-control car",
+  "tags": [
+   "electricity",
+   "batteries"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT safe to do?",
+  "choicesJson": [
+   "Poke a fork into a wall outlet",
+   "Press a light switch",
+   "Turn on a lamp",
+   "Plug in a charger with a grown-up"
+  ],
+  "answer": "Poke a fork into a wall outlet",
+  "tags": [
+   "electricity",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one does NOT let electricity flow through it easily?",
+  "choicesJson": [
+   "A copper wire",
+   "An iron nail",
+   "A steel key",
+   "A rubber glove"
+  ],
+  "answer": "A rubber glove",
+  "tags": [
+   "electricity"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, redstone dust carries power like a wire. In real life, which one carries electricity well?",
+  "choicesJson": [
+   "A plastic bag",
+   "A wooden spoon",
+   "A copper wire"
+  ],
+  "answer": "A copper wire",
+  "tags": [
+   "electricity",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What planet do we live on?",
+  "answer": "Earth",
+  "acceptedAnswers": [
+   "the earth",
+   "planet earth"
+  ],
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is called the Red Planet?",
+  "choicesJson": [
+   "Venus",
+   "Mars",
+   "Jupiter",
+   "Earth"
+  ],
+  "answer": "Mars",
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario hops between planets. Which real planet is the biggest?",
+  "choicesJson": [
+   "Mars",
+   "Earth",
+   "Jupiter",
+   "Mercury"
+  ],
+  "answer": "Jupiter",
+  "tags": [
+   "space",
+   "planets",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet has big, bright rings around it?",
+  "choicesJson": [
+   "Saturn",
+   "Mars",
+   "Earth"
+  ],
+  "answer": "Saturn",
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many planets circle our sun?",
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An astronaut lets go of a pencil inside the space station. What does it do?",
+  "choicesJson": [
+   "Falls fast",
+   "Melts",
+   "Floats in the air"
+  ],
+  "answer": "Floats in the air",
+  "tags": [
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do astronauts ride to get into space?",
+  "choicesJson": [
+   "A school bus",
+   "A sailboat",
+   "A train",
+   "A rocket"
+  ],
+  "answer": "A rocket",
+  "tags": [
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call a group of stars that make a picture in the sky?",
+  "choicesJson": [
+   "Rainbow",
+   "Constellation",
+   "Comet",
+   "Planet"
+  ],
+  "answer": "Constellation",
+  "tags": [
+   "space",
+   "stars"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a 'shooting star' really?",
+  "choicesJson": [
+   "A star falling to Earth",
+   "A tiny moon",
+   "A small space rock burning up",
+   "A flying firework"
+  ],
+  "answer": "A small space rock burning up",
+  "tags": [
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the thin, curved shape the moon sometimes has?",
+  "choicesJson": [
+   "A full moon",
+   "A square moon",
+   "A crescent moon"
+  ],
+  "answer": "A crescent moon",
+  "tags": [
+   "space",
+   "moon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Earth is in a huge group of stars. What is it called?",
+  "choicesJson": [
+   "Cookie Way",
+   "Soda Spiral",
+   "Milky Way"
+  ],
+  "answer": "Milky Way",
+  "tags": [
+   "space",
+   "stars"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a planet?",
+  "choicesJson": [
+   "Mars",
+   "Venus",
+   "The sun",
+   "Neptune"
+  ],
+  "answer": "The sun",
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call a space ball of ice and dust with a glowing tail?",
+  "choicesJson": [
+   "A planet",
+   "A comet",
+   "A moon",
+   "A sun"
+  ],
+  "answer": "A comet",
+  "tags": [
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one does Earth travel around?",
+  "choicesJson": [
+   "The moon",
+   "A star far away",
+   "The sun"
+  ],
+  "answer": "The sun",
+  "tags": [
+   "space",
+   "planets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A magnet has two ends. What are they called?",
+  "choicesJson": [
+   "Arms",
+   "Roots",
+   "Wings",
+   "Poles"
+  ],
+  "answer": "Poles",
+  "tags": [
+   "magnets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Two magnets can pull together. They can also do what?",
+  "choicesJson": [
+   "Melt",
+   "Push apart",
+   "Glow in the dark"
+  ],
+  "answer": "Push apart",
+  "tags": [
+   "magnets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A compass needle points toward which direction?",
+  "choicesJson": [
+   "East",
+   "North",
+   "Up"
+  ],
+  "answer": "North",
+  "tags": [
+   "magnets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In an SCP-style lab, a worker drops a steel key into a crack. Which tool could pull it out?",
+  "choicesJson": [
+   "A feather",
+   "A sponge",
+   "A balloon",
+   "A magnet"
+  ],
+  "answer": "A magnet",
+  "tags": [
+   "magnets",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens when you mix baking soda and vinegar?",
+  "choicesJson": [
+   "It turns into ice",
+   "It fizzes and makes bubbles",
+   "It disappears into the air"
+  ],
+  "answer": "It fizzes and makes bubbles",
+  "tags": [
+   "chemistry"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What color do you get when you mix blue and yellow paint?",
+  "answer": "green",
+  "tags": [
+   "color",
+   "chemistry"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one dissolves (mixes in) when you stir it into water?",
+  "choicesJson": [
+   "Sand",
+   "Pebbles",
+   "Sugar"
+  ],
+  "answer": "Sugar",
+  "tags": [
+   "matter",
+   "chemistry"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario sees hot lava in a castle. When real lava cools down, what does it turn into?",
+  "choicesJson": [
+   "Water",
+   "Solid rock",
+   "Snow",
+   "Ice cream"
+  ],
+  "answer": "Solid rock",
+  "tags": [
+   "matter",
+   "theme:mario"
+  ]
+ }
+]

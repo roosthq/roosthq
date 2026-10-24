@@ -1,0 +1,941 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who drives this truck?",
+  "choicesJson": [
+   "Librarian",
+   "Mail carrier",
+   "Farmer"
+  ],
+  "answer": "Mail carrier",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-mail-truck.webp",
+   "alt": "A white mail truck with a blue eagle logo and red and blue stripes parked beside a grassy hill."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This vehicle takes sick or hurt people to the hospital. What is it?",
+  "choicesJson": [
+   "Garbage truck",
+   "Taxi",
+   "Ambulance"
+  ],
+  "answer": "Ambulance",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-ambulance.webp",
+   "alt": "A white ambulance van with a red cross, a red stripe and flashing lights on its roof, parked outdoors."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which helper uses this tool to listen to your heart?",
+  "choicesJson": [
+   "Doctor",
+   "Farmer",
+   "Chef"
+  ],
+  "answer": "Doctor",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-stethoscope.webp",
+   "alt": "A stethoscope with black tubing and a round silver end lying on a gray surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who fills these boxes with letters and packages?",
+  "choicesJson": [
+   "Mail carrier",
+   "Chef",
+   "Dentist"
+  ],
+  "answer": "Mail carrier",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-mailboxes.webp",
+   "alt": "Several metal mailboxes on posts in a row beside a desert road."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which helper uses big knives like these at work?",
+  "choicesJson": [
+   "Firefighter",
+   "Mail carrier",
+   "Chef"
+  ],
+  "answer": "Chef",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-chef-knife.webp",
+   "alt": "Three large chef knives lying side by side on a wooden cutting board."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who takes care of a place full of books like this?",
+  "choicesJson": [
+   "Firefighter",
+   "Librarian",
+   "Farmer"
+  ],
+  "answer": "Librarian",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-library-shelves.webp",
+   "alt": "Wooden library shelves filled with rows of colorful books beneath a round window."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who works in a room with a chair like this?",
+  "choicesJson": [
+   "Librarian",
+   "Dentist",
+   "Farmer"
+  ],
+  "answer": "Dentist",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-dental-chair.webp",
+   "alt": "A dental chair in a dentist office with cabinets, a light and a tray of tools."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which helper drives this on a farm?",
+  "choicesJson": [
+   "Librarian",
+   "Dentist",
+   "Farmer"
+  ],
+  "answer": "Farmer",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-tractor.webp",
+   "alt": "An old green tractor with a small roof and big back tires parked on pavement."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who wears a helmet like this to work?",
+  "choicesJson": [
+   "Librarian",
+   "Dentist",
+   "Firefighter"
+  ],
+  "answer": "Firefighter",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-firefighter-helmet.webp",
+   "alt": "A red firefighter helmet with yellow reflective patches sitting on a table."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who drives this vehicle?",
+  "choicesJson": [
+   "Dentist",
+   "Bus driver",
+   "Firefighter"
+  ],
+  "answer": "Bus driver",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-school-bus.webp",
+   "alt": "A long yellow school bus with black stripes parked on a paved lot."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who flies this vehicle?",
+  "choicesJson": [
+   "Librarian",
+   "Farmer",
+   "Pilot"
+  ],
+  "answer": "Pilot",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-airplane.webp",
+   "alt": "A white passenger airplane with two engines flying low through a cloudy sky with its landing gear down."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type one word for this big yellow vehicle.",
+  "answer": "bus",
+  "acceptedAnswers": [
+   "school bus",
+   "a bus",
+   "a school bus"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-school-bus.webp",
+   "alt": "A long yellow school bus with black stripes parked on a paved lot."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this vehicle.",
+  "answer": "train",
+  "acceptedAnswers": [
+   "a train",
+   "the train",
+   "locomotive"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-train.webp",
+   "alt": "A blue and silver passenger train locomotive coming around a bend on railroad tracks."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this vehicle that flies.",
+  "answer": "airplane",
+  "acceptedAnswers": [
+   "plane",
+   "aeroplane",
+   "aircraft",
+   "jet",
+   "airliner",
+   "an airplane",
+   "a plane"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-airplane.webp",
+   "alt": "A white passenger airplane with two engines flying low through a cloudy sky with its landing gear down."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this emergency vehicle.",
+  "answer": "fire truck",
+  "acceptedAnswers": [
+   "firetruck",
+   "fire engine",
+   "fireengine",
+   "a fire truck",
+   "a fire engine"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-fire-truck.webp",
+   "alt": "A red fire engine with white stripes and the label E73 parked on a street beside autumn trees."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of this vehicle that a farmer drives.",
+  "answer": "tractor",
+  "acceptedAnswers": [
+   "a tractor"
+  ],
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-tractor.webp",
+   "alt": "An old green tractor with a small roof and big back tires parked on pavement."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the tool we use to clean our teeth.",
+  "answer": "toothbrush",
+  "acceptedAnswers": [
+   "tooth brush",
+   "a toothbrush"
+  ],
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-toothbrush.webp",
+   "alt": "A yellow toothbrush with toothpaste squeezed onto its bristles from a tube."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the helper who drives a car like this.",
+  "answer": "police officer",
+  "acceptedAnswers": [
+   "police",
+   "policeman",
+   "policewoman",
+   "cop",
+   "police man",
+   "police woman",
+   "trooper",
+   "state trooper",
+   "a police officer",
+   "officer"
+  ],
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-police-car.webp",
+   "alt": "A gray state police SUV with a badge on its door parked in a parking lot."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the box where our letters are delivered.",
+  "answer": "mailbox",
+  "acceptedAnswers": [
+   "mail box",
+   "a mailbox",
+   "letterbox",
+   "letter box",
+   "post box"
+  ],
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-mailboxes.webp",
+   "alt": "Several metal mailboxes on posts in a row beside a desert road."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tractor?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-excavator.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-tractor.webp",
+    "learning/img/community-helpers-fire-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: an excavator, a school bus, a tractor and a fire truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows something a firefighter wears?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "community helpers",
+   "firefighters"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-toothbrush.webp",
+    "learning/img/community-helpers-thermometer.webp",
+    "learning/img/community-helpers-firefighter-helmet.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: chef's knives, a toothbrush, a thermometer and a firefighter helmet."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tool a doctor uses?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-stethoscope.webp",
+    "learning/img/community-helpers-toothbrush.webp",
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-mailboxes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a stethoscope, a toothbrush, chef's knives and a row of mailboxes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows something a chef uses?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-mailboxes.webp",
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-stethoscope.webp",
+    "learning/img/community-helpers-firefighter-helmet.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a row of mailboxes, chef's knives, a stethoscope and a firefighter helmet."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows where a librarian works?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "community helpers",
+   "places"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-garbage-truck.webp",
+    "learning/img/community-helpers-library-shelves.webp",
+    "learning/img/community-helpers-dental-chair.webp",
+    "learning/img/community-helpers-classroom.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a garbage truck, library bookshelves, a dentist's chair and a classroom."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows where a dentist works?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "community helpers",
+   "places"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-library-shelves.webp",
+    "learning/img/community-helpers-dental-chair.webp",
+    "learning/img/community-helpers-classroom.webp",
+    "learning/img/community-helpers-garbage-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: library bookshelves, a dentist's chair, a classroom and a garbage truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows where a teacher works?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "community helpers",
+   "places"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-classroom.webp",
+    "learning/img/community-helpers-garbage-truck.webp",
+    "learning/img/community-helpers-excavator.webp",
+    "learning/img/community-helpers-dental-chair.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a classroom, a garbage truck, an excavator and a dentist's chair."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle works in farm fields?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-tractor.webp",
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-ambulance.webp",
+    "learning/img/community-helpers-police-car.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a tractor, a train, an ambulance and a police car."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle do police officers drive?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-mail-truck.webp",
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-train.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a mail truck, a police car, a school bus and a train."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle takes kids to school?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-boat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a school bus, a police car, an airplane and a ferry boat."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle helps people who are hurt or sick?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-ambulance.webp",
+    "learning/img/community-helpers-tractor.webp",
+    "learning/img/community-helpers-mail-truck.webp",
+    "learning/img/community-helpers-garbage-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: an ambulance, a tractor, a mail truck and a garbage truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle rolls along metal tracks?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-ambulance.webp",
+    "learning/img/community-helpers-boat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a train, a school bus, an ambulance and a ferry boat."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows what a mail carrier puts letters into?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-fire-hydrant.webp",
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-stethoscope.webp",
+    "learning/img/community-helpers-mailboxes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a fire hydrant, chef's knives, a stethoscope and a row of mailboxes."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows something that helps keep teeth clean?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-chef-knife.webp",
+    "learning/img/community-helpers-thermometer.webp",
+    "learning/img/community-helpers-stethoscope.webp",
+    "learning/img/community-helpers-toothbrush.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: chef's knives, a thermometer, a stethoscope and a toothbrush."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the White House?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-christ-the-redeemer.webp",
+    "learning/img/landmarks-great-wall.webp",
+    "learning/img/landmarks-space-needle.webp",
+    "learning/img/landmarks-white-house.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Mount Rushmore?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-mount-rushmore.webp",
+    "learning/img/landmarks-mount-fuji.webp",
+    "learning/img/landmarks-leaning-tower-of-pisa.webp",
+    "learning/img/landmarks-alamo.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this famous clock tower called?",
+  "choicesJson": [
+   "Space Needle",
+   "Big Ben",
+   "Eiffel Tower",
+   "Gateway Arch"
+  ],
+  "answer": "Big Ben",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-big-ben.webp",
+   "alt": "A tall stone clock tower with gold decorations on a hazy day."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this famous ancient monument?",
+  "choicesJson": [
+   "Angkor Wat",
+   "Parthenon",
+   "Stonehenge",
+   "Machu Picchu"
+  ],
+  "answer": "Stonehenge",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-stonehenge.webp",
+   "alt": "A ring of giant standing stones with flat stones on top, in a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this famous cracked bell called?",
+  "choicesJson": [
+   "Big Ben",
+   "Alamo Bell",
+   "Eagle Bell",
+   "Liberty Bell"
+  ],
+  "answer": "Liberty Bell",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-liberty-bell.webp",
+   "alt": "A large dark metal bell with a long crack, standing inside a glass-walled hall."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this very long wall?",
+  "choicesJson": [
+   "China",
+   "Brazil",
+   "Egypt",
+   "Canada"
+  ],
+  "answer": "China",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-great-wall.webp",
+   "alt": "A long stone wall with watchtowers winding over green mountains."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this tall tower with a flying-saucer top called?",
+  "choicesJson": [
+   "Eiffel Tower",
+   "Space Needle",
+   "Big Ben",
+   "Leaning Tower of Pisa"
+  ],
+  "answer": "Space Needle",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-space-needle.webp",
+   "alt": "A tall tower with a round saucer-shaped top against a blue sky."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Golden Gate Bridge?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-stonehenge.webp",
+    "learning/img/landmarks-sydney-opera-house.webp",
+    "learning/img/landmarks-golden-gate-bridge.webp",
+    "learning/img/landmarks-st-basils-cathedral.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ }
+]

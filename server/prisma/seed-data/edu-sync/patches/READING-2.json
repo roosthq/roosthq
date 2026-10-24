@@ -1,0 +1,11 @@
+[
+  {"id":"cmu0xa7xu014i12z23d75b511","action":"fix","reason":"Freezing point depends on units; specify Fahrenheit so the fact is unambiguous","choicesJson":["Pizza is the best food.","Dogs are cuter than cats.","Water freezes at 32 degrees Fahrenheit.","Summer is too hot."],"answer":"Water freezes at 32 degrees Fahrenheit."},
+  {"id":"cmu0xa7xv015712z2n06me1lw","action":"fix","reason":"'It could be any season' is a hedge distractor that makes the answer arguable; use three clear choices","choicesJson":["Summer","Fall or winter","Spring"],"answer":"Fall or winter"},
+  {"id":"cmu0xa7xv015r12z21f3o01n5","action":"fix","reason":"'loss' is also an opposite of victory, so two choices were correct; replace it","choicesJson":["success","defeat","prize","game"],"answer":"defeat"},
+  {"id":"cmu0xa7xv015v12z2rdrlsken","action":"deactivate","reason":"'loomed' is well above grade 2 and the answer phrasing is vague"},
+  {"id":"cmu0xa7xv016012z20hizs7dy","action":"fix","reason":"Wrong definition: the turning point is the climax, not falling action. Rewritten as a grade-appropriate resolution question with unambiguous answer","prompt":"In a story, the part near the end where the problem gets solved is called the...","choicesJson":["setting","resolution","glossary","caption"],"answer":"resolution"},
+  {"id":"cmu0xa7xv016312z2fwq8ic5z","action":"deactivate","reason":"Exposition is a grade 4+ term, too hard for grade 2"},
+  {"id":"cmu0xa7xv016412z2zf2q96jn","action":"fix","reason":"Prompt contained markdown asterisks; rewrite in plain text","prompt":"Words printed in bold letters in a textbook usually signal that the word is..."},
+  {"id":"cmu0xa7xv016d12z2631h9d09","action":"fix","reason":"Accept hyphenated spelling of the word","acceptedAnswers":["re-do"]},
+  {"id":"cmu0xa7xw016r12z29yuepden","action":"deactivate","reason":"Weak inference: an empty dusty case is also consistent with a brand-new case, so the marked answer is not the only reasonable one"}
+]

@@ -1,0 +1,562 @@
+[
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the most?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-dollar-coin-washington.webp",
+    "learning/img/money-dime.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the same as 5 nickels?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-penny.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the same as 2 quarters?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-dollar-coin-washington.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the same as 5 dimes?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-dollar-coin-washington.webp",
+    "learning/img/money-nickel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the same as 100 pennies?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-dollar-coin-washington.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many cents is this coin worth?",
+  "answer": "100",
+  "acceptedAnswers": [
+   "one hundred",
+   "hundred",
+   "100 cents",
+   "one hundred cents"
+  ],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-dollar-coin-washington.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 4 of these coins. How many cents do you have in all?",
+  "answer": "100",
+  "acceptedAnswers": [
+   "one hundred",
+   "hundred",
+   "100 cents",
+   "one hundred cents"
+  ],
+  "tags": [
+   "coins",
+   "adding"
+  ],
+  "media": {
+   "image": "learning/img/money-quarter.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have this coin and a dime. How many cents do you have in all?",
+  "answer": "35",
+  "acceptedAnswers": [
+   "thirty-five",
+   "thirty five",
+   "35 cents",
+   "thirty-five cents"
+  ],
+  "tags": [
+   "coins",
+   "adding"
+  ],
+  "media": {
+   "image": "learning/img/money-quarter.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have this coin and a quarter. How many cents do you have in all?",
+  "answer": "75",
+  "acceptedAnswers": [
+   "seventy-five",
+   "seventy five",
+   "75 cents",
+   "seventy-five cents"
+  ],
+  "tags": [
+   "coins",
+   "adding"
+  ],
+  "media": {
+   "image": "learning/img/money-half-dollar.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many of these coins make 25 cents?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "image": "learning/img/money-nickel.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many pennies make 1 dollar?",
+  "answer": "100",
+  "acceptedAnswers": [
+   "one hundred",
+   "hundred"
+  ],
+  "tags": [
+   "coins",
+   "bills"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-1.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 3 of these bills. How many dollars do you have in all?",
+  "answer": "15",
+  "acceptedAnswers": [
+   "fifteen",
+   "$15",
+   "15 dollars",
+   "fifteen dollars"
+  ],
+  "tags": [
+   "bills",
+   "adding"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-5.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 3 of these bills. How many dollars do you have in all?",
+  "answer": "60",
+  "acceptedAnswers": [
+   "sixty",
+   "$60",
+   "60 dollars",
+   "sixty dollars"
+  ],
+  "tags": [
+   "bills",
+   "adding"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-20.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A sticker costs 15 cents. You pay with this coin. How many cents do you get back in change?",
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten",
+   "10 cents",
+   "ten cents"
+  ],
+  "tags": [
+   "coins",
+   "change"
+  ],
+  "media": {
+   "image": "learning/img/money-quarter.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Link buys a heart snack for 35 cents. He pays with this coin. How many cents does he get back in change?",
+  "answer": "15",
+  "acceptedAnswers": [
+   "fifteen",
+   "15 cents",
+   "fifteen cents"
+  ],
+  "tags": [
+   "coins",
+   "change",
+   "theme:zelda"
+  ],
+  "media": {
+   "image": "learning/img/money-half-dollar.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A toy costs 3 dollars. You pay with this bill. How many dollars do you get back in change?",
+  "answer": "2",
+  "acceptedAnswers": [
+   "two",
+   "$2",
+   "2 dollars",
+   "two dollars"
+  ],
+  "tags": [
+   "bills",
+   "change"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-5.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A snack costs 7 dollars. You pay with this bill. How many dollars do you get back in change?",
+  "answer": "3",
+  "acceptedAnswers": [
+   "three",
+   "$3",
+   "3 dollars",
+   "three dollars"
+  ],
+  "tags": [
+   "bills",
+   "change"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-10.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Fortnite toy costs 12 dollars. You pay with this bill. How many dollars do you get back in change?",
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight",
+   "$8",
+   "8 dollars",
+   "eight dollars"
+  ],
+  "tags": [
+   "bills",
+   "change",
+   "theme:fortnite"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-20.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Pokemon toy costs 8 dollars. You pay with 2 of these bills. How many dollars do you get back in change?",
+  "answer": "2",
+  "acceptedAnswers": [
+   "two",
+   "$2",
+   "2 dollars",
+   "two dollars"
+  ],
+  "tags": [
+   "bills",
+   "change",
+   "theme:pokemon"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-5.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Minecraft, a villager asks you to pay 4 of these coins. How many cents is that in all?",
+  "answer": "40",
+  "acceptedAnswers": [
+   "forty",
+   "40 cents",
+   "forty cents"
+  ],
+  "tags": [
+   "coins",
+   "adding",
+   "theme:minecraft"
+  ],
+  "media": {
+   "image": "learning/img/money-dime.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth the same as four $5 bills?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "trading bills"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth the same as ten $1 bills?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "trading bills"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth the same as two $10 bills?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "trading bills"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth more than $5 but less than $20?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-20.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ }
+]

@@ -1,0 +1,10 @@
+[
+{"id":"cmu0xa81o01jn12z26wt63opk","action":"deactivate","reason":"Answer 'Pollinate (make new flowers)' is inaccurate (pollination helps make seeds/fruit) and uses a word too hard for K; near-duplicate of the bee question 'Which small flying insect visits flowers...'"},
+{"id":"cmu0xa81o01jt12z2rgp9h7an","action":"fix","reason":"Prompt gave away answer ('smells'); reworded and moved answer position","prompt":"You sniff a flower. Which sense are you using?","choicesJson":["Sight","Smell","Taste","Touch"],"answer":"Smell"},
+{"id":"cmu0xa81o01jw12z2ecf1kotj","action":"fix","reason":"Prompt gave away answer ('feel' -> Touch)","prompt":"Which sense tells you that sand is bumpy?"},
+{"id":"cmu0xa81p01jz12z29r1qqa7k","action":"deactivate","reason":"Near-duplicate of 'Which body part do you use to taste food?' (answer Tongue); taste buds is harder than K level"},
+{"id":"cmu0xa81p01k112z2nat7f5c6","action":"deactivate","reason":"Same question as 'Which of these is NOT a living thing?' and 'Which of these is nonliving?'; clumsy wording"},
+{"id":"cmu0xa81p01k612z2u3p02zu1","action":"deactivate","reason":"Near-duplicate of 'Which of these is a living thing?' (tree); also odd distractors"},
+{"id":"cmu0xa81p01kj12z2jg0ez2wk","action":"fix","reason":"'Sand' is part of soil so it is a questionable distractor; replaced with Plastic","choicesJson":["Nutrients","Ice","Plastic","Glass"]},
+{"id":"cmu0xa81p01kq12z2r2khahze","action":"deactivate","reason":"Near-duplicate of the sun question 'very hot and lights up the sky'; distractor 'A star' is also technically true since the sun is a star"}
+]

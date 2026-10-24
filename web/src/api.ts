@@ -689,7 +689,7 @@ export interface MiniGameTierInput {
 }
 
 // ---------- Learning games (PLANNING.md §19) ----------
-export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC', 'SOCIAL'] as const;
+export const EDU_SUBJECTS = ['MATH', 'READING', 'SCIENCE', 'SPELLING', 'LOGIC', 'SOCIAL', 'BIOLOGY'] as const;
 export type EduSubject = (typeof EDU_SUBJECTS)[number];
 
 export interface EduGradeRow {
@@ -723,12 +723,27 @@ export type EduQuestionVisual =
   | { kind: 'count'; item: 'apple' | 'star' | 'cookie' | 'balloon'; n: number }
   | { kind: 'combine'; item: 'apple' | 'star' | 'cookie' | 'balloon'; a: number; b: number };
 
+// Photo/audio attached to a question - paths are relative to the site root
+// ("learning/img/lion.webp"), see web/public/learning/CREDITS.md. For an
+// IMAGE_CHOICE question `choiceImages[i]` is the picture for `choices[i]`
+// (the choices themselves are just labels like "A"/"B" shown as badges).
+export interface EduQuestionMedia {
+  image?: string;
+  audio?: string;
+  alt?: string;
+  choiceImages?: string[];
+  choiceAlts?: string[];
+}
+
+export type EduQuestionType = 'MULTIPLE_CHOICE' | 'TEXT_INPUT' | 'IMAGE_CHOICE';
+
 export interface EduQuestionForPlay {
   id: string;
-  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  type: EduQuestionType;
   prompt: string;
   choices: string[] | null; // answer is never sent to the client
   visual: EduQuestionVisual | null;
+  media?: EduQuestionMedia | null;
 }
 
 export interface EduSessionStart {
@@ -751,6 +766,12 @@ export interface EduSessionStart {
   // matter how it goes. Told upfront so the "N so far" counter never
   // promises something that won't land.
   practiceOnly: boolean;
+  // NORMAL, or REVIEW = "Explore & Review" (top of the ladder: only unseen /
+  // still-wrong questions, half pay, no perfect bonus).
+  mode?: 'NORMAL' | 'REVIEW';
+  // Right answers already given in a resumed session (so the hit meter and the
+  // 8-of-10 befriend check pick up where it left off).
+  correctSoFar?: number;
 }
 
 export interface EduAnswerResult {
@@ -769,6 +790,38 @@ export interface EduAnswerResult {
   // session start, but it's included here too for a result screen that
   // doesn't want to thread the original start-response through.
   practiceOnly?: boolean;
+  mode?: 'NORMAL' | 'REVIEW';
+  // Set only on the DONE answer: this session just befriended its grade's
+  // monster for the first time (8+ of 10 right).
+  befriended?: boolean;
+  // Right answers in the whole session, and whether this grade's monster was
+  // already a friend from an earlier session.
+  correctCount?: number;
+  alreadyFriend?: boolean;
+  // DONE answer only: exactly one wrong in a rewarded session - offer the
+  // Redemption Round bonus question.
+  redemptionOffer?: boolean;
+}
+
+export interface EduRedemptionStart {
+  ok: boolean;
+  question?: EduQuestionForPlay;
+}
+
+export interface EduRedemptionResult {
+  correct: boolean;
+  correctAnswer: string;
+  tokensAwarded: number;
+  bonusTokens: number;
+  bonusPrizeId: string | null;
+  promotedTo: number | null;
+}
+
+export interface EduMonster {
+  subject: EduSubject;
+  grade: number;
+  befriended: boolean;
+  masteredPct: number; // 0-100 of that grade's bank mastered - drives the monster's stage
 }
 
 export interface EduAdvanceResult {
@@ -778,9 +831,10 @@ export interface EduAdvanceResult {
 
 export interface EduWrongQuestion {
   id: string;
-  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  type: EduQuestionType;
   prompt: string;
   choices: string[] | null;
+  media?: EduQuestionMedia | null;
   correctAnswer: string;
   attempts: number;
 }
@@ -791,6 +845,12 @@ export interface EduSubjectProgress {
   masteredCount: number;
   wrongCount: number;
   untriedCount: number;
+  // Mastered count needed to move up a grade (90% of the bank) - progress bars
+  // scale to this so a full bar means "ready for the next grade".
+  promoteAt?: number;
+  // Top of the ladder but unseen/still-wrong questions exist at or below this
+  // grade: the subject plays as "Explore & Review" instead of locking.
+  reviewAvailable?: number;
   accuracyPct: number | null; // null = never attempted anything at this grade
   // Mastered every active question at this grade with nothing at the next
   // grade to promote into yet - startSession refuses a new session in this
@@ -818,6 +878,7 @@ export interface EduProgress {
   displayName: string;
   subjects: Record<EduSubject, EduSubjectProgress>;
   recentSessions: EduRecentSession[];
+  monsters?: EduMonster[];
 }
 
 // ---- Question bank admin (owner-only - LearningQuestionsPanel) ----
@@ -826,7 +887,7 @@ export interface EduQuestionRow {
   id: string;
   subject: EduSubject;
   grade: number;
-  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  type: EduQuestionType;
   prompt: string;
   active: boolean;
   isCustom: boolean; // true = an owner added/edited it; false = original seed content
@@ -837,10 +898,12 @@ export interface EduQuestionDetail {
   id: string;
   subject: EduSubject;
   grade: number;
-  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  type: EduQuestionType;
   prompt: string;
   choices: string[] | null;
   answer: string;
+  acceptedAnswers?: string[];
+  media?: EduQuestionMedia | null;
   active: boolean;
   isCustom: boolean;
   answeredByCount: number;
@@ -849,10 +912,11 @@ export interface EduQuestionDetail {
 export interface EduQuestionInput {
   subject: EduSubject;
   grade: number;
-  type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT';
+  type: EduQuestionType;
   prompt: string;
   choices?: string[];
   answer: string;
+  acceptedAnswers?: string[];
   active?: boolean;
 }
 
@@ -1934,6 +1998,10 @@ export const api = {
     req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject }) }, kioskToken),
   answerLearningQuestion: (sessionId: string, questionId: string, given: string, kioskToken?: string) =>
     req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
+  startRedemption: (sessionId: string, accept: boolean, kioskToken?: string) =>
+    req<EduRedemptionStart>(`/learning/sessions/${sessionId}/redemption`, { method: 'POST', body: JSON.stringify({ accept }) }, kioskToken),
+  answerRedemption: (sessionId: string, given: string, kioskToken?: string) =>
+    req<EduRedemptionResult>(`/learning/sessions/${sessionId}/redemption/answer`, { method: 'POST', body: JSON.stringify({ given }) }, kioskToken),
   advanceLearningSession: (sessionId: string, kioskToken?: string) =>
     req<EduAdvanceResult>(`/learning/sessions/${sessionId}/advance`, { method: 'POST' }, kioskToken),
   abandonLearningSession: (sessionId: string, kioskToken?: string) =>
@@ -1955,6 +2023,10 @@ export const api = {
     params.set('take', String(take));
     return req<{ items: EduQuestionRow[]; hasMore: boolean }>(`/learning/questions?${params}`);
   },
+  eduQuestionHealth: () =>
+    req<Array<{ id: string; subject: EduSubject; grade: number; type: EduQuestionType; prompt: string; answer: string; kidsStuck: number; mostAttempts: number }>>(
+      '/learning/questions-health',
+    ),
   getEduQuestion: (id: string) => req<EduQuestionDetail>(`/learning/questions/${id}`),
   createEduQuestion: (dto: EduQuestionInput) => req<EduQuestionDetail>('/learning/questions', { method: 'POST', body: JSON.stringify(dto) }),
   updateEduQuestion: (id: string, dto: Partial<EduQuestionInput>) =>

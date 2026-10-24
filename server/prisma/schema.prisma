@@ -1278,6 +1278,13 @@ model EduQuestion {
   // everything as plain text" feedback). null for a plain arithmetic prompt
   // that doesn't need one.
   visualJson  Json?
+  // Photo/audio attached to the question - {image?, audio?, alt?, choiceImages?}
+  // with paths like "learning/img/lion.webp" served from web/public (credits
+  // live in web/public/learning/CREDITS.md). null = plain text question.
+  mediaJson   Json?
+  // TEXT_INPUT only: other answers that count as right (plural/singular,
+  // "7" vs "seven"). string[] - the main `answer` is always accepted too.
+  acceptedJson Json?
   active      Boolean @default(true)
   // null = original seeded content (seed-edu-questions.js). Set = an owner
   // added/edited it through the admin question bank (LearningQuestionsPanel) -
@@ -1352,6 +1359,19 @@ model EduSession {
   // roll + ledger entry entirely - decided upfront, not at the end, so
   // the live "so far" counter never promises tokens that don't land.
   practiceOnly    Boolean   @default(false)
+  // NORMAL = a regular session at the kid's grade. REVIEW = "Explore &
+  // Review": the subject is mastered at its top grade, so this draws only
+  // questions the kid hasn't seen (or still has wrong) at or below it, pays
+  // half, and never rolls the perfect-session bonus.
+  mode            String    @default("NORMAL")
+  // The optional Redemption Round after a rewarded session with exactly one
+  // wrong answer: {state: OFFERED|DECLINED|ACCEPTED|WON|LOST, questionId?}.
+  // null = never offered.
+  redemptionJson  Json?
+  // Compare-and-swap counter: every state-changing write to a session is
+  // `updateMany where rev = <what I read>` + rev+1, so two simultaneous
+  // requests (a double-tap, a script) can't both advance or pay it.
+  rev             Int       @default(0)
   // Running tally shown to the kid live as they play ("5 so far") - NOT
   // written to TokenLedger until DONE, where the real payout happens in one
   // shot. Finishing the session is what makes it real; quitting early earns

@@ -1,0 +1,1904 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "apple",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-apple.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "lemon",
+   "apple",
+   "train"
+  ],
+  "answer": "apple",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-apple.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "banana",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-banana.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "candle",
+   "shell",
+   "banana"
+  ],
+  "answer": "banana",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-banana.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "bike",
+  "acceptedAnswers": [
+   "bicycle"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bike.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "bike",
+   "pear",
+   "shoe"
+  ],
+  "answer": "bike",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bike.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "book",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-book.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "piano",
+   "bike",
+   "book"
+  ],
+  "answer": "book",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-book.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "boot",
+  "acceptedAnswers": [
+   "boots"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-boot.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "boot",
+   "bot",
+   "boote"
+  ],
+  "answer": "boot",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-boot.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "bottle",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bottle.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "cookie",
+   "popcorn",
+   "bottle"
+  ],
+  "answer": "bottle",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bottle.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "bread",
+  "acceptedAnswers": [
+   "loaf"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bread.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "bred",
+   "bread",
+   "breadd"
+  ],
+  "answer": "bread",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bread.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "bridge",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bridge.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "lemon",
+   "cheese",
+   "bridge"
+  ],
+  "answer": "bridge",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-bridge.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "broom",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-broom.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "chair",
+   "broom",
+   "truck"
+  ],
+  "answer": "broom",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-broom.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "cake",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cake.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "drum",
+   "globe",
+   "cake"
+  ],
+  "answer": "cake",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cake.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "camera",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-camera.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "camra",
+   "cammera",
+   "camera"
+  ],
+  "answer": "camera",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-camera.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "candle",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-candle.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "candle",
+   "ladder",
+   "grapes"
+  ],
+  "answer": "candle",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-candle.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "carrot",
+  "acceptedAnswers": [
+   "carrots"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-carrot.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "hammer",
+   "tomato",
+   "carrot"
+  ],
+  "answer": "carrot",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-carrot.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "chair",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-chair.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "chiar",
+   "chare",
+   "chair"
+  ],
+  "answer": "chair",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-chair.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "cherry",
+  "acceptedAnswers": [
+   "cherries"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cherry.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "cherrie",
+   "chery",
+   "cherry"
+  ],
+  "answer": "cherry",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cherry.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "clock",
+  "acceptedAnswers": [
+   "wall clock"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-clock.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "bread",
+   "clock",
+   "moon"
+  ],
+  "answer": "clock",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-clock.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "cookie",
+  "acceptedAnswers": [
+   "cookies"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cookie.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "cookie",
+   "cokie",
+   "cookey"
+  ],
+  "answer": "cookie",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-cookie.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "corn",
+  "acceptedAnswers": [
+   "corn cob",
+   "maize"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-corn.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "boat",
+   "corn",
+   "hat"
+  ],
+  "answer": "corn",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-corn.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "donut",
+  "acceptedAnswers": [
+   "doughnut"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-donut.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "watch",
+   "cherry",
+   "donut"
+  ],
+  "answer": "donut",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-donut.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "door",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-door.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "doar",
+   "door",
+   "dor"
+  ],
+  "answer": "door",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-door.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "flower",
+  "acceptedAnswers": [
+   "rose"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-flower.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "flower",
+   "flouer",
+   "flowr"
+  ],
+  "answer": "flower",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-flower.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "globe",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-globe.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "pizza",
+   "globe",
+   "chair"
+  ],
+  "answer": "globe",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-globe.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "grapes",
+  "acceptedAnswers": [
+   "grape"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-grapes.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "graips",
+   "grapse",
+   "grapes"
+  ],
+  "answer": "grapes",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-grapes.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "hammer",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-hammer.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "hammar",
+   "hammer",
+   "hamer"
+  ],
+  "answer": "hammer",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-hammer.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "house",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-house.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "house",
+   "table",
+   "pizza"
+  ],
+  "answer": "house",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-house.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "ladder",
+  "acceptedAnswers": [
+   "stepladder",
+   "step ladder"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-ladder.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "bridge",
+   "ladder",
+   "pencil"
+  ],
+  "answer": "ladder",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-ladder.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "leaf",
+  "acceptedAnswers": [
+   "leaves"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-leaf.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "leaf",
+   "ball",
+   "fork"
+  ],
+  "answer": "leaf",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-leaf.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "lemon",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-lemon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "lemen",
+   "lemmon",
+   "lemon"
+  ],
+  "answer": "lemon",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-lemon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "moon",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-moon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "drum",
+   "moon",
+   "spoon"
+  ],
+  "answer": "moon",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-moon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "pear",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pear.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "pear",
+   "tent",
+   "globe"
+  ],
+  "answer": "pear",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pear.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "pencil",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pencil.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "pencil",
+   "bridge",
+   "window"
+  ],
+  "answer": "pencil",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pencil.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "phone",
+  "acceptedAnswers": [
+   "telephone"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-phone.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "phon",
+   "phone",
+   "fone"
+  ],
+  "answer": "phone",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-phone.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "piano",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-piano.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "piano",
+   "lemon",
+   "train"
+  ],
+  "answer": "piano",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-piano.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "pizza",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pizza.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "chair",
+   "pizza",
+   "piano"
+  ],
+  "answer": "pizza",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-pizza.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "potato",
+  "acceptedAnswers": [
+   "potatoes"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-potato.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "potato",
+   "cheese",
+   "apple"
+  ],
+  "answer": "potato",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-potato.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "shell",
+  "acceptedAnswers": [
+   "seashell",
+   "sea shell"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-shell.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "shelle",
+   "shell",
+   "shel"
+  ],
+  "answer": "shell",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-shell.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "shoe",
+  "acceptedAnswers": [
+   "shoes"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-shoe.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "shoe",
+   "phone",
+   "door"
+  ],
+  "answer": "shoe",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-shoe.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "spoon",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-spoon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "spoun",
+   "spon",
+   "spoon"
+  ],
+  "answer": "spoon",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-spoon.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "table",
+  "acceptedAnswers": [
+   "picnic table"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-table.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "cake",
+   "cheese",
+   "table"
+  ],
+  "answer": "table",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-table.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "tomato",
+  "acceptedAnswers": [
+   "tomatoes"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-tomato.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "tomato",
+   "carrot",
+   "camera"
+  ],
+  "answer": "tomato",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-tomato.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word for this picture.",
+  "answer": "train",
+  "acceptedAnswers": [
+   "locomotive",
+   "steam train"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-train.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "train",
+   "trian",
+   "trane"
+  ],
+  "answer": "train",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-train.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What do you see? Type the word.",
+  "answer": "truck",
+  "acceptedAnswers": [
+   "dump truck"
+  ],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-truck.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the correct spelling for this picture?",
+  "choicesJson": [
+   "truk",
+   "truck",
+   "truc"
+  ],
+  "answer": "truck",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-truck.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at the picture. Type the word.",
+  "answer": "window",
+  "acceptedAnswers": [],
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-window.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word names this picture?",
+  "choicesJson": [
+   "window",
+   "pencil",
+   "cherry"
+  ],
+  "answer": "window",
+  "tags": [
+   "vocabulary",
+   "picture words"
+  ],
+  "media": {
+   "image": "learning/img/spelling-pictures-window.webp",
+   "alt": "A photo of something to name."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"bike\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-bike.webp",
+    "learning/img/spelling-pictures-tent.webp",
+    "learning/img/spelling-pictures-house.webp",
+    "learning/img/spelling-pictures-moon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"boot\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-lamp.webp",
+    "learning/img/spelling-pictures-ball.webp",
+    "learning/img/spelling-pictures-boot.webp",
+    "learning/img/spelling-pictures-fork.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"bridge\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-globe.webp",
+    "learning/img/spelling-pictures-ladder.webp",
+    "learning/img/spelling-pictures-bridge.webp",
+    "learning/img/spelling-pictures-house.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"candle\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-pizza.webp",
+    "learning/img/spelling-pictures-pencil.webp",
+    "learning/img/spelling-pictures-candle.webp",
+    "learning/img/spelling-pictures-grapes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"chair\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-globe.webp",
+    "learning/img/spelling-pictures-pizza.webp",
+    "learning/img/spelling-pictures-donut.webp",
+    "learning/img/spelling-pictures-chair.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"clock\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-guitar.webp",
+    "learning/img/spelling-pictures-truck.webp",
+    "learning/img/spelling-pictures-clock.webp",
+    "learning/img/spelling-pictures-chair.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"flower\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-ladder.webp",
+    "learning/img/spelling-pictures-potato.webp",
+    "learning/img/spelling-pictures-carrot.webp",
+    "learning/img/spelling-pictures-flower.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"globe\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-donut.webp",
+    "learning/img/spelling-pictures-apple.webp",
+    "learning/img/spelling-pictures-globe.webp",
+    "learning/img/spelling-pictures-tent.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"hammer\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-hammer.webp",
+    "learning/img/spelling-pictures-guitar.webp",
+    "learning/img/spelling-pictures-house.webp",
+    "learning/img/spelling-pictures-bridge.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"house\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-chair.webp",
+    "learning/img/spelling-pictures-house.webp",
+    "learning/img/spelling-pictures-truck.webp",
+    "learning/img/spelling-pictures-watch.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"moon\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-fork.webp",
+    "learning/img/spelling-pictures-moon.webp",
+    "learning/img/spelling-pictures-lamp.webp",
+    "learning/img/spelling-pictures-tent.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"pencil\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-guitar.webp",
+    "learning/img/spelling-pictures-ladder.webp",
+    "learning/img/spelling-pictures-cheese.webp",
+    "learning/img/spelling-pictures-pencil.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"potato\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-bottle.webp",
+    "learning/img/spelling-pictures-banana.webp",
+    "learning/img/spelling-pictures-cheese.webp",
+    "learning/img/spelling-pictures-potato.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"shell\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-bread.webp",
+    "learning/img/spelling-pictures-shell.webp",
+    "learning/img/spelling-pictures-potato.webp",
+    "learning/img/spelling-pictures-pizza.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"truck\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-piano.webp",
+    "learning/img/spelling-pictures-clock.webp",
+    "learning/img/spelling-pictures-truck.webp",
+    "learning/img/spelling-pictures-tomato.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture matches the word \"window\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "spelling",
+   "picture words"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/spelling-pictures-flower.webp",
+    "learning/img/spelling-pictures-orange.webp",
+    "learning/img/spelling-pictures-window.webp",
+    "learning/img/spelling-pictures-candle.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ }
+]

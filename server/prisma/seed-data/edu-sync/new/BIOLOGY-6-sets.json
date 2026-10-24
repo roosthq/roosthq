@@ -1,0 +1,149 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of the brain, at the back, helps with balance and coordination?",
+  "choicesJson": [
+   "Cerebellum",
+   "Brain stem",
+   "Eardrum",
+   "Cerebrum"
+  ],
+  "answer": "Cerebellum",
+  "tags": [
+   "human body",
+   "brain"
+  ],
+  "media": {
+   "image": "learning/img/human-body-brain.webp",
+   "alt": "A side view of a human brain with colored sections."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fluid made by the liver helps your body digest fats?",
+  "choicesJson": [
+   "Sweat",
+   "Saliva",
+   "Tears",
+   "Bile"
+  ],
+  "answer": "Bile",
+  "tags": [
+   "human body",
+   "digestion"
+  ],
+  "media": {
+   "image": "learning/img/human-body-liver.webp",
+   "alt": "A drawing of the underside of a human liver."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Inside many bones, a soft tissue makes new blood cells. What is it called?",
+  "choicesJson": [
+   "Enamel",
+   "Cartilage",
+   "Bone marrow",
+   "Tendon"
+  ],
+  "answer": "Bone marrow",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skeleton.webp",
+   "alt": "A front view of the bones of the head, shoulders, arms and rib cage."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the organ that makes bile?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "human body",
+   "digestion"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-lungs.webp",
+    "learning/img/human-body-stomach.webp",
+    "learning/img/human-body-liver.webp",
+    "learning/img/human-body-kidney.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Tiny holes on the underside of leaves let gases move in and out. What are these holes called?",
+  "choicesJson": [
+   "Stomata",
+   "Veins",
+   "Petals",
+   "Root hairs"
+  ],
+  "answer": "Stomata",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "plant structure"
+  ],
+  "media": {
+   "image": "learning/img/plants-leaf.webp",
+   "alt": "A bright green leaf with a thick middle vein and many thin side veins, lit from behind."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Inside a plant's stem, which tubes carry water up from the roots?",
+  "choicesJson": [
+   "Xylem",
+   "Phloem",
+   "Stomata",
+   "Chloroplasts"
+  ],
+  "answer": "Xylem",
+  "acceptedAnswers": [],
+  "tags": [
+   "stems",
+   "plant structure"
+  ],
+  "media": {
+   "image": "learning/img/plants-bamboo-stems.webp",
+   "alt": "Tall, jointed green and yellow bamboo stems stand side by side in a grove."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mushrooms and plants both grow in soil. Which feature do plants have that mushrooms do NOT?",
+  "choicesJson": [
+   "Cells that grow",
+   "A need for water",
+   "A way to reproduce",
+   "Chlorophyll for making food from sunlight"
+  ],
+  "answer": "Chlorophyll for making food from sunlight",
+  "acceptedAnswers": [],
+  "tags": [
+   "fungi",
+   "plants vs fungi"
+  ],
+  "media": {
+   "image": "learning/img/plants-mushroom.webp",
+   "alt": "A red mushroom with white spots on its cap."
+  }
+ }
+]

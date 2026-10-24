@@ -1,0 +1,502 @@
+[
+ {
+  "id": "cmu0i0pm8010v1m1z0ez9tnzw",
+  "action": "fix",
+  "reason": "Answer 4/6 is not simplified; 2/3 is the simplified form, 4/6 also accepted",
+  "answer": "2/3",
+  "acceptedAnswers": [
+   "4/6"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011m1m1z1dqntn38",
+  "action": "fix",
+  "reason": "Simplify answer; accept 6/8",
+  "answer": "3/4",
+  "acceptedAnswers": [
+   "6/8"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011n1m1zz09t78jj",
+  "action": "fix",
+  "reason": "Simplify answer; accept 4/10",
+  "answer": "2/5",
+  "acceptedAnswers": [
+   "4/10"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011o1m1zrhgrunep",
+  "action": "fix",
+  "reason": "Simplify answer; accept 4/8",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "4/8"
+  ]
+ },
+ {
+  "id": "cmu0i0pm9011q1m1zwlcjufyn",
+  "action": "fix",
+  "reason": "Simplify answer; accept 6/9",
+  "answer": "2/3",
+  "acceptedAnswers": [
+   "6/9"
+  ]
+ },
+ {
+  "id": "cmu0i0pm9011r1m1zlal8hnk7",
+  "action": "fix",
+  "reason": "Simplify answer; accept 2/12",
+  "answer": "1/6",
+  "acceptedAnswers": [
+   "2/12"
+  ]
+ },
+ {
+  "id": "cmu0i0pm9011t1m1ztfb3ha58",
+  "action": "fix",
+  "reason": "Simplify answer; accept 6/21",
+  "answer": "2/7",
+  "acceptedAnswers": [
+   "6/21"
+  ]
+ },
+ {
+  "id": "cmu0i0pm9011u1m1z81uxwkzt",
+  "action": "fix",
+  "reason": "Simplify answer; accept 12/36",
+  "answer": "1/3",
+  "acceptedAnswers": [
+   "12/36"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013r1m1zey5vrw90",
+  "action": "fix",
+  "reason": "Simplify answer; accept 2/4",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "2/4"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013x1m1z9au43dfy",
+  "action": "fix",
+  "reason": "Answer 4/4 is an odd form of 1; accept both",
+  "prompt": "A box of tiles covers 3/4 of a square yard. Another box covers 1/4 of a square yard. How many square yards do the two boxes cover together (a whole number or a fraction like 5/6)?",
+  "answer": "1",
+  "acceptedAnswers": [
+   "4/4",
+   "1/1",
+   "one"
+  ]
+ },
+ {
+  "id": "cmu0i0pm801181m1z95ee02cj",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "7/5",
+  "acceptedAnswers": [
+   "1 2/5",
+   "1.4"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011a1m1zq872kxe9",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "3/6"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011c1m1zn6xctybk",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "5/10"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011d1m1za1g0n7tg",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "3/6"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011f1m1z0lhfjyjz",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/2",
+  "acceptedAnswers": [
+   "6/12"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011h1m1zxqyrl5ur",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/5",
+  "acceptedAnswers": [
+   "3/15"
+  ]
+ },
+ {
+  "id": "cmu0i0pm8011b1m1ziafjhxgu",
+  "action": "fix",
+  "reason": "Accept equivalent unsimplified or alternate form",
+  "answer": "1/4",
+  "acceptedAnswers": [
+   "2/8"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013t1m1z0dahhqfe",
+  "action": "fix",
+  "reason": "Accept 7.50 money format",
+  "answer": "7.5",
+  "acceptedAnswers": [
+   "7.50",
+   "$7.50"
+  ]
+ },
+ {
+  "id": "cmu0i0pm9012a1m1zfiad9o25",
+  "action": "fix",
+  "reason": "Accept trailing-zero form",
+  "answer": "14.5",
+  "acceptedAnswers": [
+   "14.50"
+  ]
+ },
+ {
+  "id": "cmu0i0pm801121m1znek9n1er",
+  "action": "fix",
+  "reason": "Awkward wording; clarify what is being asked",
+  "prompt": "On a coordinate plane, what is the point (0,0) called?"
+ },
+ {
+  "id": "cmu0i0pm801131m1zlizfxbtx",
+  "action": "fix",
+  "reason": "Clarify wording",
+  "prompt": "Starting at the origin, how many units along the x-axis is the point (3,0)?"
+ },
+ {
+  "id": "cmu0i0pma013g1m1zzwct9br2",
+  "action": "fix",
+  "reason": "Only 2 choices and the options were named in the prompt; use 4 choices",
+  "prompt": "On a coordinate plane, which direction do you move from the origin to reach a point with a positive y-coordinate?",
+  "choicesJson": [
+   "Left",
+   "Up",
+   "Right",
+   "Down"
+  ],
+  "answer": "Up"
+ },
+ {
+  "id": "cmu0i0pma013h1m1zall9h9f5",
+  "action": "fix",
+  "reason": "Only 2 choices and the options were named in the prompt; use 4 choices",
+  "prompt": "On a coordinate plane, which direction do you move from the origin to reach a point with a positive x-coordinate?",
+  "choicesJson": [
+   "Up",
+   "Left",
+   "Down",
+   "Right"
+  ],
+  "answer": "Right"
+ },
+ {
+  "id": "cmu0i0pma013i1m1zjsedlr2d",
+  "action": "fix",
+  "reason": "Accept spacing variants",
+  "answer": "(4,3)",
+  "acceptedAnswers": [
+   "4,3",
+   "(4, 3)",
+   "4, 3"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013n1m1zjk1so8ky",
+  "action": "fix",
+  "reason": "Accept spacing variants",
+  "answer": "(5,0)",
+  "acceptedAnswers": [
+   "5,0",
+   "(5, 0)",
+   "5, 0"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013o1m1z5cv7od8c",
+  "action": "fix",
+  "reason": "Accept spacing variants",
+  "answer": "(0,7)",
+  "acceptedAnswers": [
+   "0,7",
+   "(0, 7)",
+   "0, 7"
+  ]
+ },
+ {
+  "id": "cmu0i0pma013k1m1zsl7buk6u",
+  "action": "fix",
+  "reason": "Only 2 trivial choices; make 4-choice distance question",
+  "prompt": "Which of these points is farthest from the origin?",
+  "choicesJson": [
+   "(2,0)",
+   "(0,3)",
+   "(5,0)",
+   "(0,6)"
+  ],
+  "answer": "(0,6)"
+ },
+ {
+  "id": "cmu0i0pma013p1m1ztuwjhjyk",
+  "action": "fix",
+  "reason": "Only 2 choices; use 4",
+  "prompt": "Which point has the same x-coordinate as (3, 8)?",
+  "choicesJson": [
+   "(8,3)",
+   "(3,1)",
+   "(8,8)",
+   "(1,8)"
+  ],
+  "answer": "(3,1)"
+ },
+ {
+  "id": "cmu0i0pm9011v1m1zm5ox5ruf",
+  "action": "fix",
+  "reason": "Same-denominator comparison is grade 3; use unlike denominators",
+  "prompt": "Which is bigger: 3/4 or 2/3?",
+  "choicesJson": [
+   "3/4",
+   "2/3",
+   "They are equal"
+  ],
+  "answer": "3/4"
+ },
+ {
+  "id": "cmu0i0pm9011w1m1z6b7ntcez",
+  "action": "fix",
+  "reason": "Same-denominator comparison is grade 3; use unlike denominators (20/24 vs 21/24)",
+  "prompt": "Which is smaller: 5/6 or 7/8?",
+  "choicesJson": [
+   "5/6",
+   "7/8",
+   "They are equal"
+  ],
+  "answer": "5/6"
+ },
+ {
+  "id": "cmu0i0pm8011j1m1zq3yt4o3t",
+  "action": "fix",
+  "reason": "Only 2 choices, near-duplicate of other simplest-form rows; rewritten as a distinct 4-choice question",
+  "prompt": "Which fraction is NOT in simplest form?",
+  "choicesJson": [
+   "3/7",
+   "5/8",
+   "6/10",
+   "7/9"
+  ],
+  "answer": "6/10"
+ },
+ {
+  "id": "cmu0i0pm9012q1m1z97aq2htv",
+  "action": "fix",
+  "reason": "Add units",
+  "prompt": "A shoe box is 12 inches long, 6 inches wide, and 4 inches tall. What is its volume in cubic inches?"
+ },
+ {
+  "id": "cmu0i0pm9012u1m1zyr3g4wes",
+  "action": "fix",
+  "reason": "Add units",
+  "prompt": "A gift box is 9 inches long, 5 inches wide, and 4 inches tall. What is its volume in cubic inches?"
+ },
+ {
+  "id": "cmu0i0pma013u1m1zebmz0org",
+  "action": "fix",
+  "reason": "Awkward wording; add units",
+  "prompt": "A rectangular aquarium is 12 inches long, 6 inches wide, and 8 inches tall. What is its volume in cubic inches?"
+ },
+ {
+  "id": "cmu0i0pma013v1m1zi40t7uax",
+  "action": "fix",
+  "reason": "Awkward wording",
+  "prompt": "Each batch of a recipe needs 2 cups of flour and 1 cup of sugar. How many cups of flour and sugar do you need for 3 batches?"
+ },
+ {
+  "id": "cmu0i0pma013z1m1z20m9zarw",
+  "action": "fix",
+  "reason": "Awkward wording; prompt gave away the expression",
+  "prompt": "There are 3 teams with 4 players each, plus 2 coaches in all. How many people is that in total?"
+ },
+ {
+  "id": "cmu0i0pm801101m1zhxs1na9b",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 2 + 3 x 4 = ?"
+ },
+ {
+  "id": "cmu0i0pm801111m1zdeqvterk",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (2 + 3) x 4 = ?"
+ },
+ {
+  "id": "cmu0i0pm801151m1zupq9ap4v",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "12.4 ÷ 4 = ?"
+ },
+ {
+  "id": "cmu0i0pm901201m1zbqvih9e1",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "15.6 ÷ 3 = ?"
+ },
+ {
+  "id": "cmu0i0pm901211m1zjbio6x38",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "9.9 ÷ 3 = ?"
+ },
+ {
+  "id": "cmu0i0pm901261m1zwoyk94k0",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "3.6 ÷ 0.6 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012b1m1z02xigq1z",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "18.9 ÷ 3 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012d1m1zwlbd2i5b",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "5.4 ÷ 0.9 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012e1m1zmex5smms",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "22.5 ÷ 5 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012w1m1zsj1bs8q9",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 5 + 2 x 3 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012x1m1zd7gphnqu",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (5 + 2) x 3 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012y1m1zv3wetdnz",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 20 - 4 x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pm9012z1m1zd5mf1wtc",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (20 - 4) x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pm901301m1z5ku15muf",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 6 x 3 - 4 = ?"
+ },
+ {
+  "id": "cmu0i0pma01311m1zz9l1urre",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 8 x (5 - 2) = ?"
+ },
+ {
+  "id": "cmu0i0pma01321m1zcy0dz8kq",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 12 ÷ 4 + 5 = ?"
+ },
+ {
+  "id": "cmu0i0pma01331m1z68rmk9oy",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 3 + 4 x 2 - 1 = ?"
+ },
+ {
+  "id": "cmu0i0pma01341m1zc9gz7tzo",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (3 + 4) x (2 - 1) = ?"
+ },
+ {
+  "id": "cmu0i0pma01351m1zi2nvhmqp",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 18 ÷ 3 + 2 x 5 = ?"
+ },
+ {
+  "id": "cmu0i0pma01361m1zzu353uuj",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 9 - 3 x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pma01371m1zg0ao4nvb",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (9 - 3) x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pma01381m1z6ngwrsc4",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 4 x 5 + 6 = ?"
+ },
+ {
+  "id": "cmu0i0pma01391m1zff3hh9u6",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 4 x (5 + 6) = ?"
+ },
+ {
+  "id": "cmu0i0pma013a1m1zgtnburae",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: 15 ÷ 5 + 3 x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pma013b1m1ziwae9muo",
+  "action": "fix",
+  "reason": "Grammar (\"Following order of operations\") and use the division sign per spec",
+  "prompt": "Using the order of operations: (15 ÷ 5 + 3) x 2 = ?"
+ },
+ {
+  "id": "cmu0i0pm8011i1m1zowv5oijr",
+  "action": "deactivate",
+  "reason": "Two-choice near-duplicate of \"Which fraction is in simplest form?\" row"
+ },
+ {
+  "id": "cmu0i0pma013j1m1zgdg42bf7",
+  "action": "deactivate",
+  "reason": "Near-duplicate (inverse) of the \"what is (0,0) called\" row"
+ }
+]

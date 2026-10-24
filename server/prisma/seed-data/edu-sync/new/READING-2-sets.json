@@ -1,0 +1,489 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "uncle",
+   "umpire",
+   "umbrella",
+   "unicorn"
+  ],
+  "answer": "umbrella",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-umbrella.webp",
+   "alt": "An open umbrella with blue and yellow sections lying on a stone pavement."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "scooters",
+   "sweaters",
+   "scissors",
+   "sisters"
+  ],
+  "answer": "scissors",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-scissors.webp",
+   "alt": "A pair of scissors with gray handles."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "guard",
+   "guitar",
+   "garden",
+   "guess"
+  ],
+  "answer": "guitar",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-guitar.webp",
+   "alt": "An acoustic guitar standing on a stand in front of wooden cabinets."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "hammer",
+   "hammock",
+   "helmet",
+   "hamper"
+  ],
+  "answer": "hammer",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-hammer.webp",
+   "alt": "A claw hammer with a metal head and an orange handle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "pebble",
+   "pepper",
+   "pillow",
+   "pencil"
+  ],
+  "answer": "pencil",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-pencil.webp",
+   "alt": "A black wooden pencil with a sharp tip lying on a red surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What word goes with this picture?",
+  "choicesJson": [
+   "violet",
+   "visit",
+   "violin",
+   "vitamin"
+  ],
+  "answer": "violin",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-violin.webp",
+   "alt": "A violin standing upright on a white background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word goes with the picture?",
+  "choicesJson": [
+   "zebra",
+   "zero",
+   "zoom",
+   "zipper"
+  ],
+  "answer": "zipper",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-zipper.webp",
+   "alt": "Three zippers in gold, red and gray on a black background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word names it?",
+  "choicesJson": [
+   "igloo",
+   "island",
+   "insect",
+   "iguana"
+  ],
+  "answer": "igloo",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-igloo.webp",
+   "alt": "A dome-shaped igloo made of snow with an open door in a snowy forest."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word matches the picture?",
+  "choicesJson": [
+   "yard",
+   "yo-yo",
+   "yarn",
+   "yawn"
+  ],
+  "answer": "yo-yo",
+  "tags": [
+   "picture words",
+   "vocabulary"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-yoyo.webp",
+   "alt": "A blue glowing yo-yo with green string on a wooden table."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the first letter of this picture's name? Type it.",
+  "answer": "Z",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-zipper.webp",
+   "alt": "Three zippers in gold, red and gray on a black background."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the first letter of this picture's name.",
+  "answer": "Y",
+  "acceptedAnswers": [],
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-yoyo.webp",
+   "alt": "A blue glowing yo-yo with green string on a wooden table."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the first letter of this picture's name?",
+  "choicesJson": [
+   "T",
+   "J",
+   "G",
+   "K"
+  ],
+  "answer": "G",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-guitar.webp",
+   "alt": "An acoustic guitar standing on a stand in front of wooden cabinets."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter does the name of this picture start with?",
+  "choicesJson": [
+   "O",
+   "U",
+   "A",
+   "R"
+  ],
+  "answer": "O",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-orange.webp",
+   "alt": "A whole orange, a half orange and a single orange segment."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. What letter starts its name?",
+  "choicesJson": [
+   "P",
+   "B",
+   "F",
+   "T"
+  ],
+  "answer": "P",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-pencil.webp",
+   "alt": "A black wooden pencil with a sharp tip lying on a red surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the first letter of this picture's name?",
+  "choicesJson": [
+   "U",
+   "O",
+   "I",
+   "N"
+  ],
+  "answer": "U",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-umbrella.webp",
+   "alt": "An open umbrella with blue and yellow sections lying on a stone pavement."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter does the name of this picture start with?",
+  "choicesJson": [
+   "B",
+   "W",
+   "T",
+   "V"
+  ],
+  "answer": "V",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-violin.webp",
+   "alt": "A violin standing upright on a white background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. What letter starts its name?",
+  "choicesJson": [
+   "M",
+   "Y",
+   "V",
+   "W"
+  ],
+  "answer": "W",
+  "tags": [
+   "phonics",
+   "letters"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-watch.webp",
+   "alt": "A wristwatch with a gray face and numbers and a brown leather strap."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture goes with the word \"guitar\"?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-guitar.webp",
+    "learning/img/reading-pictures-violin.webp",
+    "learning/img/reading-pictures-spoon.webp",
+    "learning/img/reading-pictures-drum.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows scissors?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-scissors.webp",
+    "learning/img/reading-pictures-hammer.webp",
+    "learning/img/reading-pictures-fork.webp",
+    "learning/img/reading-pictures-pencil.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the picture of an umbrella.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-umbrella.webp",
+    "learning/img/reading-pictures-kite.webp",
+    "learning/img/reading-pictures-tent.webp",
+    "learning/img/reading-pictures-hat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Read the word: hammer. Which picture matches?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "picture words",
+   "word reading"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/reading-pictures-pencil.webp",
+    "learning/img/reading-pictures-hammer.webp",
+    "learning/img/reading-pictures-spoon.webp",
+    "learning/img/reading-pictures-scissors.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word rhymes with its name?",
+  "choicesJson": [
+   "tree",
+   "bird",
+   "lock"
+  ],
+  "answer": "lock",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-clock.webp",
+   "alt": "A round white wall clock with black numbers and black hands."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word rhymes with the name of this picture?",
+  "choicesJson": [
+   "dog",
+   "dot",
+   "floor"
+  ],
+  "answer": "floor",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-door.webp",
+   "alt": "A blue double door in an arched stone doorway."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the picture. Which word rhymes with its name?",
+  "choicesJson": [
+   "dog",
+   "pan",
+   "shell"
+  ],
+  "answer": "shell",
+  "tags": [
+   "rhyming",
+   "phonics"
+  ],
+  "media": {
+   "image": "learning/img/reading-pictures-bell.webp",
+   "alt": "A large bronze bell hanging in a blue metal frame outdoors."
+  }
+ }
+]

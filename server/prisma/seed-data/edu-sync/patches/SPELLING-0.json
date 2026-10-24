@@ -1,0 +1,275 @@
+[
+ {
+  "id": "cmu0xa8ae02k312z2k9fj5k01",
+  "action": "fix",
+  "reason": "Prompt contains the answer word",
+  "prompt": "Spell the word for a tall plant with a trunk, branches and leaves."
+ },
+ {
+  "id": "cmu0xa8ae02jy12z285ng9i3g",
+  "action": "fix",
+  "reason": "kitten/kitty also fit",
+  "acceptedAnswers": [
+   "kitten",
+   "kitty"
+  ]
+ },
+ {
+  "id": "cmu0xa8ae02jz12z2inrzuhly",
+  "action": "fix",
+  "reason": "puppy also fits",
+  "acceptedAnswers": [
+   "puppy"
+  ]
+ },
+ {
+  "id": "cmu0xa8ae02ka12z29samm2e9",
+  "action": "fix",
+  "reason": "mother/mum also fit; ambiguous",
+  "prompt": "Spell the 3-letter word kids call their mother.",
+  "acceptedAnswers": [
+   "mum"
+  ]
+ },
+ {
+  "id": "cmu0xa8af02m012z2dhq0knnb",
+  "action": "fix",
+  "reason": "Prompt gave away \"father\"; pop also fits",
+  "prompt": "Spell the 3-letter word kids call their father.",
+  "acceptedAnswers": [
+   "pop"
+  ]
+ },
+ {
+  "id": "cmu0xa8ae02kd12z2zndom7ft",
+  "action": "fix",
+  "reason": "glass/mug/bottle also fit; ambiguous",
+  "prompt": "Spell the word for what you drink from. It rhymes with 'pup'."
+ },
+ {
+  "id": "cmu0xa8ae02kj12z2kngpta8v",
+  "action": "fix",
+  "reason": "crate/carton also fit",
+  "prompt": "Spell the word for a cardboard container you pack things in. It rhymes with 'fox'."
+ },
+ {
+  "id": "cmu0xa8ae02kk12z2nsojjrod",
+  "action": "fix",
+  "reason": "jelly also fits",
+  "prompt": "Spell the 3-letter word for the sweet fruit spread you put on toast."
+ },
+ {
+  "id": "cmu0xa8ae02kl12z2x1280u2x",
+  "action": "fix",
+  "reason": "\"mesh\" too hard for K; clearer clue",
+  "prompt": "Spell the word for what you use to catch a butterfly."
+ },
+ {
+  "id": "cmu0xa8ae02kp12z24kj8l1ji",
+  "action": "fix",
+  "reason": "truck/bus also fit",
+  "prompt": "Spell the word for a vehicle that rhymes with 'man'."
+ },
+ {
+  "id": "cmu0xa8ae02kr12z2ahwdr7qq",
+  "action": "fix",
+  "reason": "owl also fits",
+  "prompt": "Spell the word for the flying animal that sleeps upside down. It rhymes with 'cat'."
+ },
+ {
+  "id": "cmu0xa8ae02ku12z23l6bisod",
+  "action": "fix",
+  "reason": "shack/cabin also fit",
+  "prompt": "Spell the word for a small simple house. It rhymes with 'but'."
+ },
+ {
+  "id": "cmu0xa8af02l012z2agxfajwp",
+  "action": "fix",
+  "reason": "bathtub also fits",
+  "acceptedAnswers": [
+   "bathtub"
+  ]
+ },
+ {
+  "id": "cmu0xa8af02l612z2rnq2dnph",
+  "action": "fix",
+  "reason": "Prompt contains \"zipper\", gives away answer",
+  "prompt": "Spell the word meaning to close a jacket by sliding a tab up."
+ },
+ {
+  "id": "cmu0xa8af02l912z2tdc3wa0q",
+  "action": "fix",
+  "reason": "Clumsy, gives away taxi",
+  "prompt": "Spell the 3-letter word for a taxi."
+ },
+ {
+  "id": "cmu0xa8af02lc12z2z9sddzpr",
+  "action": "fix",
+  "reason": "feet also fit \"walk on\"",
+  "prompt": "Spell the word for the body part that has a knee and an ankle."
+ },
+ {
+  "id": "cmu0xa8af02lj12z2421y8hf7",
+  "action": "fix",
+  "reason": "Night sky ambiguous (dark blue)",
+  "prompt": "Spell the color of a panda's ears and legs."
+ },
+ {
+  "id": "cmu0xa8af02m212z2mgn45hot",
+  "action": "fix",
+  "reason": "\"siblings\" too hard for K",
+  "prompt": "Spell the word for the people you live with, like your parents, brothers and sisters."
+ },
+ {
+  "id": "cmu0xa8af02m412z2lz69kp21",
+  "action": "fix",
+  "reason": "house also fits",
+  "acceptedAnswers": [
+   "house"
+  ]
+ },
+ {
+  "id": "cmu0xa8af02m612z2x574f29y",
+  "action": "fix",
+  "reason": "small/tiny also fit",
+  "acceptedAnswers": [
+   "small",
+   "tiny"
+  ]
+ },
+ {
+  "id": "cmu0xa8af02ma12z2vu9dxxwf",
+  "action": "fix",
+  "reason": "hop/leap also fit",
+  "prompt": "Spell the word that starts with j and means to push off the ground with your feet."
+ },
+ {
+  "id": "cmu0xa8af02me12z27lfy5t6u",
+  "action": "fix",
+  "reason": "love also fits",
+  "prompt": "Spell the word meaning you enjoy something. It rhymes with 'bike'."
+ },
+ {
+  "id": "cmu0xa8af02mg12z2e1g4nplw",
+  "action": "fix",
+  "reason": "Awkward wording",
+  "prompt": "Spell the past tense of 'say'. Example: She ___ hello."
+ },
+ {
+  "id": "cmu0xa8ag02mq12z265a6er7e",
+  "action": "fix",
+  "reason": "ant/fly/bee also fit",
+  "prompt": "Spell the word for a creepy-crawly insect that rhymes with 'rug'."
+ },
+ {
+  "id": "cmu0xa8ag02ms12z2dlnjrnlc",
+  "action": "fix",
+  "reason": "air conditioner also fits",
+  "prompt": "Spell the word for a machine that keeps you cool by moving air. It rhymes with 'can'."
+ },
+ {
+  "id": "cmu0xa8ag02mt12z28ddtvzkv",
+  "action": "fix",
+  "reason": "bacon/pork also fit",
+  "prompt": "Spell the 3-letter word for meat from a pig, often eaten in a sandwich."
+ },
+ {
+  "id": "cmu0xa8ae02kg12z2q1i4y371",
+  "action": "fix",
+  "reason": "sprint/jog also fit",
+  "prompt": "Spell the word meaning to move fast on your feet. It rhymes with 'fun'."
+ },
+ {
+  "id": "cmu0xa8ae02k912z2amcccf7t",
+  "action": "fix",
+  "reason": "\"raid\" is a real, correctly spelled word",
+  "choicesJson": [
+   "red",
+   "redd",
+   "rede",
+   "rhed"
+  ]
+ },
+ {
+  "id": "cmu0xa8ae02ks12z2lvio09e0",
+  "action": "fix",
+  "reason": "\"made\" is a real, correctly spelled word",
+  "choicesJson": [
+   "mad",
+   "madd",
+   "maed",
+   "maad"
+  ]
+ },
+ {
+  "id": "cmu0xa8ag02mu12z2bpdm9a5g",
+  "action": "fix",
+  "reason": "\"wat\" is a real word",
+  "choicesJson": [
+   "wet",
+   "wett",
+   "wete",
+   "weet"
+  ]
+ },
+ {
+  "id": "cmu0xa8ae02k412z28bogr0kq",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of something you wear on your head?"
+ },
+ {
+  "id": "cmu0xa8ae02k512z2235015ey",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of the farm animal that says oink?"
+ },
+ {
+  "id": "cmu0xa8af02le12z27ki2rg05",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of the tiny insect that marches in a line?"
+ },
+ {
+  "id": "cmu0xa8af02lg12z2422apkfn",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of the color of the sky on a sunny day?"
+ },
+ {
+  "id": "cmu0xa8af02lm12z2lnvqol34",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of the color of cotton candy?"
+ },
+ {
+  "id": "cmu0xa8af02lx12z2xdxr5k0p",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of a shape with four equal sides?"
+ },
+ {
+  "id": "cmu0xa8af02m112z20izu73ze",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of a very young child?"
+ },
+ {
+  "id": "cmu0xa8af02m712z2vs3x6sav",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of what you drink from the tap?"
+ },
+ {
+  "id": "cmu0xa8af02m912z28pwcsq0d",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of something you read?"
+ },
+ {
+  "id": "cmu0xa8ag02mr12z2mr3hg93m",
+  "action": "fix",
+  "reason": "Too many generic \"Which word is spelled correctly?\" rows; add context for variety",
+  "prompt": "Which is the correct spelling of a hat with a brim in front?"
+ }
+]

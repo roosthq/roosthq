@@ -1,16 +1,2518 @@
 [
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper builds houses, roads, and buildings?",
+    "prompt": "Which vehicle is this?",
     "choicesJson": [
-      "Grocer",
-      "Construction worker",
-      "Dentist",
-      "Bus driver"
+      "School bus",
+      "Fire truck",
+      "Airplane"
     ],
-    "answer": "Construction worker",
+    "answer": "Fire truck",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A red fire engine with white stripes and the label E73 parked on a street beside autumn trees.",
+      "image": "learning/img/community-helpers-fire-truck.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is this vehicle?",
+    "choicesJson": [
+      "Boat",
+      "School bus",
+      "Helicopter"
+    ],
+    "answer": "School bus",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A long yellow school bus with black stripes parked on a paved lot.",
+      "image": "learning/img/community-helpers-school-bus.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is this flying machine?",
+    "choicesJson": [
+      "Boat",
+      "Helicopter",
+      "Train"
+    ],
+    "answer": "Helicopter",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A red and white helicopter with spinning rotor blades flying in front of snowy mountains.",
+      "image": "learning/img/community-helpers-helicopter.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does this vehicle travel?",
+    "choicesJson": [
+      "On railroad tracks",
+      "In the sky",
+      "On water"
+    ],
+    "answer": "On water",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A large white and green ferry boat sailing across blue water beside a dock.",
+      "image": "learning/img/community-helpers-boat.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call this vehicle?",
+    "choicesJson": [
+      "Bus",
+      "Train",
+      "Helicopter"
+    ],
+    "answer": "Train",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A blue and silver passenger train locomotive coming around a bend on railroad tracks.",
+      "image": "learning/img/community-helpers-train.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is this flying vehicle with big wings?",
+    "choicesJson": [
+      "Airplane",
+      "Hot air balloon",
+      "Helicopter"
+    ],
+    "answer": "Airplane",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "A white passenger airplane with two engines flying low through a cloudy sky with its landing gear down.",
+      "image": "learning/img/community-helpers-airplane.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we use this for?",
+    "choicesJson": [
+      "Cleaning our teeth",
+      "Cutting paper",
+      "Drinking water"
+    ],
+    "answer": "Cleaning our teeth",
+    "tags": [
+      "community helpers",
+      "tools"
+    ],
+    "media": {
+      "alt": "A yellow toothbrush with toothpaste squeezed onto its bristles from a tube.",
+      "image": "learning/img/community-helpers-toothbrush.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who teaches kids in a room like this?",
+    "choicesJson": [
+      "Chef",
+      "Pilot",
+      "Teacher"
+    ],
+    "answer": "Teacher",
+    "tags": [
+      "community helpers"
+    ],
+    "media": {
+      "alt": "A school classroom with student desks and chairs, a teacher desk, a whiteboard and shelves of folders.",
+      "image": "learning/img/community-helpers-classroom.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who drives a car like this?",
+    "choicesJson": [
+      "Police officer",
+      "Dentist",
+      "Chef"
+    ],
+    "answer": "Police officer",
+    "tags": [
+      "community helpers"
+    ],
+    "media": {
+      "alt": "A gray state police SUV with a badge on its door parked in a parking lot.",
+      "image": "learning/img/community-helpers-police-car.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a fire truck?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a school bus, a fire truck, an airplane and a train.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-school-bus.webp",
+        "learning/img/community-helpers-fire-truck.webp",
+        "learning/img/community-helpers-airplane.webp",
+        "learning/img/community-helpers-train.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a school bus?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a police car, a ferry boat, a helicopter and a school bus.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-police-car.webp",
+        "learning/img/community-helpers-boat.webp",
+        "learning/img/community-helpers-helicopter.webp",
+        "learning/img/community-helpers-school-bus.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows an airplane?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a helicopter, an airplane, a ferry boat and a garbage truck.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-helicopter.webp",
+        "learning/img/community-helpers-airplane.webp",
+        "learning/img/community-helpers-boat.webp",
+        "learning/img/community-helpers-garbage-truck.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which vehicle sails on the water?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: an airplane, a train, a police car and a ferry boat.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-airplane.webp",
+        "learning/img/community-helpers-train.webp",
+        "learning/img/community-helpers-police-car.webp",
+        "learning/img/community-helpers-boat.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a train?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a fire truck, a ferry boat, a train and a garbage truck.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-fire-truck.webp",
+        "learning/img/community-helpers-boat.webp",
+        "learning/img/community-helpers-train.webp",
+        "learning/img/community-helpers-garbage-truck.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which vehicle has spinning blades on top?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a train, an airplane, a helicopter and a ferry boat.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-train.webp",
+        "learning/img/community-helpers-airplane.webp",
+        "learning/img/community-helpers-helicopter.webp",
+        "learning/img/community-helpers-boat.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows an ambulance?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a police car, an ambulance, a fire truck and a school bus.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-police-car.webp",
+        "learning/img/community-helpers-ambulance.webp",
+        "learning/img/community-helpers-fire-truck.webp",
+        "learning/img/community-helpers-school-bus.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a police car?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a police car, an ambulance, a mail truck and a fire truck.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-police-car.webp",
+        "learning/img/community-helpers-ambulance.webp",
+        "learning/img/community-helpers-mail-truck.webp",
+        "learning/img/community-helpers-fire-truck.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a mail truck?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "vehicles",
+      "community"
+    ],
+    "media": {
+      "alt": "Pictures A to D in order: a garbage truck, a tractor, a school bus and a mail truck.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/community-helpers-garbage-truck.webp",
+        "learning/img/community-helpers-tractor.webp",
+        "learning/img/community-helpers-school-bus.webp",
+        "learning/img/community-helpers-mail-truck.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the Statue of Liberty?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-statue-of-liberty.webp",
+        "learning/img/landmarks-pyramids-of-giza.webp",
+        "learning/img/landmarks-sydney-opera-house.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the Eiffel Tower?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "B",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-niagara-falls.webp",
+        "learning/img/landmarks-eiffel-tower.webp",
+        "learning/img/landmarks-taj-mahal.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a big pyramid?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "C",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-big-ben.webp",
+        "learning/img/landmarks-niagara-falls.webp",
+        "learning/img/landmarks-pyramids-of-giza.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a castle?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-neuschwanstein.webp",
+        "learning/img/landmarks-golden-gate-bridge.webp",
+        "learning/img/landmarks-grand-canyon.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a bridge?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "B",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-stonehenge.webp",
+        "learning/img/landmarks-golden-gate-bridge.webp",
+        "learning/img/landmarks-taj-mahal.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a waterfall?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "C",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-us-capitol.webp",
+        "learning/img/landmarks-great-wall.webp",
+        "learning/img/landmarks-niagara-falls.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a very long wall?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "3 photos of famous places, labeled A, B and C.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-great-wall.webp",
+        "learning/img/landmarks-space-needle.webp",
+        "learning/img/landmarks-christ-the-redeemer.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who was the first president of the United States?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "George Washington"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "history",
+      "presidents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Whose face is on the penny?",
+    "choicesJson": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Neil Armstrong"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "history",
+      "presidents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dr. Martin Luther King Jr. wanted all people to be treated how?",
+    "choicesJson": [
+      "Fairly",
+      "Quietly",
+      "Meanly"
+    ],
+    "answer": "Fairly",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rosa Parks bravely said no to an unfair rule. Where was she?",
+    "choicesJson": [
+      "On a bus",
+      "On a boat",
+      "On a bike"
+    ],
+    "answer": "On a bus",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who was the first person to walk on the moon?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "Benjamin Franklin",
+      "Neil Armstrong"
+    ],
+    "answer": "Neil Armstrong",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Wright brothers are famous for building the first successful what?",
+    "choicesJson": [
+      "Train",
+      "Submarine",
+      "Airplane"
+    ],
+    "answer": "Airplane",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Pilgrims sailed to America on a ship called the what?",
+    "choicesJson": [
+      "Submarine",
+      "Rocket",
+      "Mayflower"
+    ],
+    "answer": "Mayflower",
+    "tags": [
+      "history",
+      "thanksgiving"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the Statue of Liberty hold up in her hand?",
+    "choicesJson": [
+      "A guitar",
+      "A balloon",
+      "A torch"
+    ],
+    "answer": "A torch",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does the president of the United States live and work?",
+    "choicesJson": [
+      "A castle",
+      "A lighthouse",
+      "The White House"
+    ],
+    "answer": "The White House",
+    "tags": [
+      "civics",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one was a real person who lived long ago?",
+    "choicesJson": [
+      "George Washington",
+      "Frankenstein's monster",
+      "Godzilla"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "history",
+      "real-vs-pretend",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "George Washington and Abraham Lincoln both had which job?",
+    "choicesJson": [
+      "Pilot",
+      "Chef",
+      "President"
+    ],
+    "answer": "President",
+    "tags": [
+      "history",
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is Mount Rushmore famous for?",
+    "choicesJson": [
+      "A real castle",
+      "A huge water slide",
+      "Giant president faces carved in rock"
+    ],
+    "answer": "Giant president faces carved in rock",
+    "tags": [
+      "history",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In what year did the United States say it was free and independent?",
+    "choicesJson": [
+      "1492",
+      "2001",
+      "1776"
+    ],
+    "answer": "1776",
+    "tags": [
+      "history",
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who lived in America first, before the Pilgrims came?",
+    "choicesJson": [
+      "Native Americans",
+      "Astronauts",
+      "Cowboys"
+    ],
+    "answer": "Native Americans",
+    "tags": [
+      "history",
+      "cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many presidents does the United States have at one time?",
+    "choicesJson": [
+      "Ten",
+      "One",
+      "Fifty"
+    ],
+    "answer": "One",
+    "tags": [
+      "civics",
+      "presidents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many stars are on the United States flag?",
+    "choicesJson": [
+      "50",
+      "5",
+      "500"
+    ],
+    "answer": "50",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bird is a symbol of the United States?",
+    "choicesJson": [
+      "Bald eagle",
+      "Parrot",
+      "Penguin"
+    ],
+    "answer": "Bald eagle",
+    "tags": [
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday is America's birthday, with fireworks on July 4th?",
+    "choicesJson": [
+      "Independence Day",
+      "Valentine's Day",
+      "Halloween"
+    ],
+    "answer": "Independence Day",
+    "tags": [
+      "holidays",
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do kids say at the door on Halloween?",
+    "choicesJson": [
+      "Happy birthday!",
+      "Trick or treat!",
+      "Good night!"
+    ],
+    "answer": "Trick or treat!",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which holiday might kids dress up as Dracula or a mummy?",
+    "choicesJson": [
+      "Thanksgiving",
+      "Halloween",
+      "Labor Day"
+    ],
+    "answer": "Halloween",
+    "tags": [
+      "holidays",
+      "traditions",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which holiday do many families eat turkey together?",
+    "choicesJson": [
+      "Thanksgiving",
+      "Earth Day",
+      "Valentine's Day"
+    ],
+    "answer": "Thanksgiving",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which holiday do people give cards and hearts to people they love?",
+    "choicesJson": [
+      "Valentine's Day",
+      "Halloween",
+      "Independence Day"
+    ],
+    "answer": "Valentine's Day",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On Veterans Day, who do we thank?",
+    "choicesJson": [
+      "Bakers at the bakery",
+      "Clowns at the circus",
+      "Soldiers who served our country"
+    ],
+    "answer": "Soldiers who served our country",
+    "tags": [
+      "holidays",
+      "civics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a good way to help our planet on Earth Day?",
+    "choicesJson": [
+      "Leave lights on all day",
+      "Recycle paper and cans",
+      "Throw trash on the ground"
+    ],
+    "answer": "Recycle paper and cans",
+    "tags": [
+      "holidays",
+      "community"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday starts the new year on January 1?",
+    "choicesJson": [
+      "Halloween",
+      "New Year's Day",
+      "Thanksgiving"
+    ],
+    "answer": "New Year's Day",
+    "tags": [
+      "holidays",
+      "calendar"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do people often blow out on a birthday cake?",
+    "choicesJson": [
+      "Candles",
+      "Flags",
+      "Sandwiches"
+    ],
+    "answer": "Candles",
+    "tags": [
+      "traditions",
+      "celebrations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "When we say the Pledge of Allegiance, what do we look at?",
+    "answer": "flag",
+    "acceptedAnswers": [
+      "the flag",
+      "american flag",
+      "us flag",
+      "the american flag"
+    ],
+    "tags": [
+      "symbols",
+      "civics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday has a menorah with candles?",
+    "choicesJson": [
+      "Earth Day",
+      "Hanukkah",
+      "Halloween"
+    ],
+    "answer": "Hanukkah",
+    "tags": [
+      "holidays",
+      "cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday has a decorated tree with lights in December?",
+    "choicesJson": [
+      "Christmas",
+      "Veterans Day",
+      "Independence Day"
+    ],
+    "answer": "Christmas",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the United States national anthem?",
+    "choicesJson": [
+      "Happy Birthday",
+      "Row, Row, Row Your Boat",
+      "The Star-Spangled Banner"
+    ],
+    "answer": "The Star-Spangled Banner",
+    "tags": [
+      "symbols",
+      "songs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who helps kids cross the street safely near school?",
+    "choicesJson": [
+      "Mail carrier",
+      "Lifeguard",
+      "Crossing guard"
+    ],
+    "answer": "Crossing guard",
+    "tags": [
+      "community-helpers",
+      "safety"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Who flies an airplane?",
+    "answer": "pilot",
+    "acceptedAnswers": [
+      "a pilot"
+    ],
     "tags": [
       "community-helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who watches swimmers to keep them safe at a pool?",
+    "choicesJson": [
+      "Librarian",
+      "Lifeguard",
+      "Cook"
+    ],
+    "answer": "Lifeguard",
+    "tags": [
+      "community-helpers",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of a school?",
+    "choicesJson": [
+      "Farmer",
+      "Mail carrier",
+      "Principal"
+    ],
+    "answer": "Principal",
+    "tags": [
+      "community-helpers",
+      "school"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mario is a plumber. What does a plumber fix?",
+    "choicesJson": [
+      "Pipes",
+      "Cars",
+      "Shoes"
+    ],
+    "answer": "Pipes",
+    "tags": [
+      "community-helpers",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where can you borrow books for free?",
+    "choicesJson": [
+      "Gas station",
+      "Library",
+      "Fire station"
+    ],
+    "answer": "Library",
+    "tags": [
+      "community",
+      "places"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where do doctors and nurses help sick people?",
+    "choicesJson": [
+      "Hospital",
+      "Playground",
+      "Toy store"
+    ],
+    "answer": "Hospital",
+    "tags": [
+      "community",
+      "places"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In LEGO City, where would the firefighters work?",
+    "choicesJson": [
+      "Library",
+      "Bakery",
+      "Fire station"
+    ],
+    "answer": "Fire station",
+    "tags": [
+      "community",
+      "places",
+      "theme:lego"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pizza every Friday night is a family what?",
+    "choicesJson": [
+      "Mountain",
+      "Spelling test",
+      "Tradition"
+    ],
+    "answer": "Tradition",
+    "tags": [
+      "family",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence about families is true?",
+    "choicesJson": [
+      "Families must have exactly five people",
+      "Families can look different from each other",
+      "All families look exactly the same"
+    ],
+    "answer": "Families can look different from each other",
+    "tags": [
+      "family",
+      "cultures"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What polite word do we say when we ask for something?",
+    "answer": "please",
+    "tags": [
+      "rules",
+      "manners"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A friend gives you a gift. What do you say?",
+    "choicesJson": [
+      "Nothing",
+      "Go away!",
+      "Thank you!"
+    ],
+    "answer": "Thank you!",
+    "tags": [
+      "rules",
+      "manners"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You are lost in a store. Who can help you?",
+    "choicesJson": [
+      "A store worker with a name tag",
+      "No one, so leave the store",
+      "Anyone who offers you candy"
+    ],
+    "answer": "A store worker with a name tag",
+    "tags": [
+      "rules",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do we wear a helmet on a bike?",
+    "choicesJson": [
+      "To protect our head",
+      "To look like a knight",
+      "To go faster"
+    ],
+    "answer": "To protect our head",
+    "tags": [
+      "rules",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the safe way to move in the school hallway?",
+    "choicesJson": [
+      "Walk",
+      "Run fast",
+      "Slide on the floor"
+    ],
+    "answer": "Walk",
+    "tags": [
+      "rules",
+      "school"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Among Us, crewmates do tasks. At home, jobs like setting the table are called what?",
+    "answer": "chores",
+    "acceptedAnswers": [
+      "chore"
+    ],
+    "tags": [
+      "family",
+      "responsibility",
+      "theme:among-us"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Animal Crossing, animals live near you. People who live near you are your what?",
+    "answer": "neighbors",
+    "acceptedAnswers": [
+      "neighbor",
+      "neighbours",
+      "neighbour"
+    ],
+    "tags": [
+      "community",
+      "theme:animal-crossing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft villagers trade emeralds for things. In real life, what do we use to buy things?",
+    "choicesJson": [
+      "Leaves",
+      "Rocks",
+      "Money"
+    ],
+    "answer": "Money",
+    "tags": [
+      "economics",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your team is building a house in Minecraft. What is good teamwork?",
+    "choicesJson": [
+      "Break each other's blocks",
+      "One person does everything",
+      "Everyone shares and helps"
+    ],
+    "answer": "Everyone shares and helps",
+    "tags": [
+      "rules",
+      "teamwork",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Roblox, who should know your password?",
+    "choicesJson": [
+      "Any player who asks",
+      "Only you and a trusted grown-up",
+      "Everyone in the game"
+    ],
+    "answer": "Only you and a trusted grown-up",
+    "tags": [
+      "rules",
+      "safety",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You lose a Fortnite match. What does a good sport say?",
+    "choicesJson": [
+      "I quit forever!",
+      "You cheated!",
+      "Good game!"
+    ],
+    "answer": "Good game!",
+    "tags": [
+      "rules",
+      "manners",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is the biggest?",
+    "choicesJson": [
+      "A house",
+      "A school",
+      "A country"
+    ],
+    "answer": "A country",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What color is water usually shown on a map?",
+    "choicesJson": [
+      "Orange",
+      "Blue",
+      "Red"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "maps"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What shape is our planet Earth?",
+    "choicesJson": [
+      "Square like a box",
+      "Round like a ball",
+      "Flat like a plate"
+    ],
+    "answer": "Round like a ball",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What planet do we live on?",
+    "answer": "Earth",
+    "acceptedAnswers": [
+      "the earth"
+    ],
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kids in many countries play Roblox. Which model of Earth can you spin to find countries?",
+    "choicesJson": [
+      "A ruler",
+      "A globe",
+      "A clock"
+    ],
+    "answer": "A globe",
+    "tags": [
+      "maps",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Most of Earth is covered by what?",
+    "choicesJson": [
+      "Ice cream",
+      "Water",
+      "Sand"
+    ],
+    "answer": "Water",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the biggest ocean on Earth?",
+    "choicesJson": [
+      "Arctic Ocean",
+      "Atlantic Ocean",
+      "Pacific Ocean"
+    ],
+    "answer": "Pacific Ocean",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a huge piece of land, like Africa?",
+    "choicesJson": [
+      "Puddle",
+      "Continent",
+      "Island"
+    ],
+    "answer": "Continent",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call land with water all around it?",
+    "choicesJson": [
+      "Desert",
+      "Mountain",
+      "Island"
+    ],
+    "answer": "Island",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, which item points the way back to where you first started?",
+    "choicesJson": [
+      "Pickaxe",
+      "Bucket",
+      "Compass"
+    ],
+    "answer": "Compass",
+    "tags": [
+      "directions",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You face the door, then turn to face the opposite way. Where is the door now?",
+    "choicesJson": [
+      "In front of you",
+      "Behind you",
+      "Above you"
+    ],
+    "answer": "Behind you",
+    "tags": [
+      "directions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the box on a map that explains its pictures called?",
+    "choicesJson": [
+      "A map lock",
+      "A map door",
+      "A map key"
+    ],
+    "answer": "A map key",
+    "tags": [
+      "maps"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On many maps, a blue wiggly line shows what?",
+    "choicesJson": [
+      "A river",
+      "A building",
+      "A road"
+    ],
+    "answer": "A river",
+    "tags": [
+      "maps"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many continents are on Earth?",
+    "answer": "7",
+    "acceptedAnswers": [
+      "seven"
+    ],
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The United States is on which continent?",
+    "choicesJson": [
+      "Antarctica",
+      "North America",
+      "Africa"
+    ],
+    "answer": "North America",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is the coldest and covered in ice?",
+    "choicesJson": [
+      "Africa",
+      "Antarctica",
+      "Asia"
+    ],
+    "answer": "Antarctica",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Giraffes live wild on which continent?",
+    "choicesJson": [
+      "Africa",
+      "Europe",
+      "South America"
+    ],
+    "answer": "Africa",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kangaroos live wild in which country?",
+    "choicesJson": [
+      "Canada",
+      "Egypt",
+      "Australia"
+    ],
+    "answer": "Australia",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mario is an Italian plumber. Pizza and pasta come from which country?",
+    "choicesJson": [
+      "Italy",
+      "Japan",
+      "Brazil"
+    ],
+    "answer": "Italy",
+    "tags": [
+      "world-cultures",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Tacos are a famous food from which country?",
+    "choicesJson": [
+      "China",
+      "Norway",
+      "Mexico"
+    ],
+    "answer": "Mexico",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pikachu first appeared in video games made in which country?",
+    "choicesJson": [
+      "Japan",
+      "Brazil",
+      "Canada"
+    ],
+    "answer": "Japan",
+    "tags": [
+      "world-cultures",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Godzilla movies were first made in Japan. Japan is on which continent?",
+    "choicesJson": [
+      "Europe",
+      "Africa",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "People tell stories of the Loch Ness Monster in a lake in Scotland. Scotland is on which continent?",
+    "choicesJson": [
+      "South America",
+      "Europe",
+      "Antarctica"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "geography",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft has desert temples shaped like pyramids. The Great Pyramids are in which country?",
+    "choicesJson": [
+      "Egypt",
+      "Canada",
+      "Iceland"
+    ],
+    "answer": "Egypt",
+    "tags": [
+      "world-history",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ancient Egyptians wrote with little pictures called what?",
+    "choicesJson": [
+      "Emojis",
+      "Hieroglyphs",
+      "Cursive"
+    ],
+    "answer": "Hieroglyphs",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Great Wall is in which country?",
+    "choicesJson": [
+      "China",
+      "Greece",
+      "Peru"
+    ],
+    "answer": "China",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Eiffel Tower is in which country?",
+    "choicesJson": [
+      "France",
+      "Egypt",
+      "India"
+    ],
+    "answer": "France",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Big Ben is a famous clock tower in London. London is in which country?",
+    "choicesJson": [
+      "Japan",
+      "England",
+      "Mexico"
+    ],
+    "answer": "England",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Taj Mahal is a famous building in which country?",
+    "choicesJson": [
+      "Brazil",
+      "India",
+      "Canada"
+    ],
+    "answer": "India",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which country's flag has a red maple leaf?",
+    "choicesJson": [
+      "Italy",
+      "Canada",
+      "Brazil"
+    ],
+    "answer": "Canada",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bonjour means hello in which language?",
+    "choicesJson": [
+      "Spanish",
+      "French",
+      "Japanese"
+    ],
+    "answer": "French",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Hola means hello in which language?",
+    "answer": "Spanish",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Many people in China and Japan eat with what?",
+    "choicesJson": [
+      "Roller skates",
+      "Chopsticks",
+      "Hammers"
+    ],
+    "answer": "Chopsticks",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Diwali is a festival in India. What is it known as the festival of?",
+    "choicesJson": [
+      "Snow",
+      "Lights",
+      "Kites"
+    ],
+    "answer": "Lights",
+    "tags": [
+      "world-cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which country is the biggest in the world by land size?",
+    "choicesJson": [
+      "Russia",
+      "Canada",
+      "Italy"
+    ],
+    "answer": "Russia",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mount Everest is the tallest mountain above sea level. Which continent is it on?",
+    "choicesJson": [
+      "South America",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, cacti grow in deserts. A real desert gets very little what?",
+    "choicesJson": [
+      "Rain",
+      "Sand",
+      "Sun"
+    ],
+    "answer": "Rain",
+    "tags": [
+      "geography",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a very tall, rocky landform that reaches high into the sky?",
+    "choicesJson": [
+      "Valley",
+      "Lake",
+      "Mountain"
+    ],
+    "answer": "Mountain",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If something is ancient, it is very, very what?",
+    "choicesJson": [
+      "Old",
+      "Small",
+      "New"
+    ],
+    "answer": "Old",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which lived first on Earth, dinosaurs or people?",
+    "choicesJson": [
+      "Dinosaurs",
+      "They lived at the same time",
+      "People"
+    ],
+    "answer": "Dinosaurs",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The first Olympic Games were held long ago in which country?",
+    "choicesJson": [
+      "Canada",
+      "Greece",
+      "Brazil"
+    ],
+    "answer": "Greece",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, Vikings sailed across the sea in what?",
+    "choicesJson": [
+      "Trains",
+      "Bikes",
+      "Ships"
+    ],
+    "answer": "Ships",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where did kings and queens often live long ago?",
+    "choicesJson": [
+      "In castles",
+      "In submarines",
+      "In igloos"
+    ],
+    "answer": "In castles",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Long ago, sailors used stars to find their way. When did they see the stars?",
+    "choicesJson": [
+      "At lunch",
+      "At noon",
+      "At night"
+    ],
+    "answer": "At night",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What round invention helps cars, bikes, and wagons roll?",
+    "answer": "wheel",
+    "acceptedAnswers": [
+      "wheels",
+      "a wheel",
+      "tire",
+      "tires"
+    ],
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Machu Picchu is a city the Inca built high in the mountains of which country?",
+    "choicesJson": [
+      "Peru",
+      "Iceland",
+      "Egypt"
+    ],
+    "answer": "Peru",
+    "tags": [
+      "world-history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Polar bears live near which place?",
+    "choicesJson": [
+      "The North Pole",
+      "The South Pole",
+      "The Equator"
+    ],
+    "answer": "The North Pole",
+    "tags": [
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A cat sits between two boxes. Where is the cat?",
+    "choicesJson": [
+      "On the moon",
+      "In the middle of the boxes",
+      "Far from both boxes"
+    ],
+    "answer": "In the middle of the boxes",
+    "tags": [
+      "directions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "On a pirate treasure map, what letter marks the spot?",
+    "answer": "X",
+    "tags": [
+      "maps"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Roblox obby, a sign says go right. Which way is the opposite of right?",
+    "choicesJson": [
+      "Up",
+      "Left",
+      "Back"
+    ],
+    "answer": "Left",
+    "tags": [
+      "directions",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of our whole country, the United States?",
+    "choicesJson": [
+      "Mayor",
+      "President",
+      "Principal"
+    ],
+    "answer": "President",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the leader of a city or town?",
+    "choicesJson": [
+      "Judge",
+      "Mayor",
+      "President"
+    ],
+    "answer": "Mayor",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How do grown-ups pick a leader?",
+    "choicesJson": [
+      "They race",
+      "They vote",
+      "They guess"
+    ],
+    "answer": "They vote",
+    "tags": [
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three kids vote for pizza. Two kids vote for tacos. Which food wins?",
+    "choicesJson": [
+      "Pizza",
+      "Tacos",
+      "Salad"
+    ],
+    "answer": "Pizza",
+    "tags": [
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count Dracula and a friendly mummy run for mayor of Monster Town. The mummy gets 7 votes. Dracula gets 4 votes. Who wins?",
+    "choicesJson": [
+      "They tie",
+      "The mummy",
+      "Count Dracula"
+    ],
+    "answer": "The mummy",
+    "tags": [
+      "voting",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your Fortnite squad votes on where to land. Three teammates pick the beach and one picks the forest. Where does the squad go?",
+    "choicesJson": [
+      "The forest",
+      "Nowhere",
+      "The beach"
+    ],
+    "answer": "The beach",
+    "tags": [
+      "voting",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Crewmates in Among Us vote on which room to check first. Cafeteria gets 4 votes and Reactor gets 2. Which room wins?",
+    "choicesJson": [
+      "Neither",
+      "Cafeteria",
+      "Reactor"
+    ],
+    "answer": "Cafeteria",
+    "tags": [
+      "voting",
+      "theme:among-us"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who works in a courtroom and decides what is fair under the law?",
+    "choicesJson": [
+      "Cook",
+      "Mail carrier",
+      "Judge"
+    ],
+    "answer": "Judge",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the group that makes laws for our country called?",
+    "choicesJson": [
+      "Congress",
+      "Circus",
+      "Classroom"
+    ],
+    "answer": "Congress",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which leader is in charge of a whole state?",
+    "choicesJson": [
+      "Coach",
+      "Mayor",
+      "Governor"
+    ],
+    "answer": "Governor",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When we say the Pledge of Allegiance, where do we put our hand?",
+    "choicesJson": [
+      "On our heart",
+      "On our head",
+      "On our knee"
+    ],
+    "answer": "On our heart",
+    "tags": [
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does it mean to vote?",
+    "choicesJson": [
+      "To pick up trash",
+      "To go to sleep",
+      "To make a choice that gets counted"
+    ],
+    "answer": "To make a choice that gets counted",
+    "tags": [
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is voting fair for a group?",
+    "choicesJson": [
+      "One person picks for all",
+      "Nobody picks",
+      "Everyone gets a say"
+    ],
+    "answer": "Everyone gets a say",
+    "tags": [
+      "voting"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Food, water, and a home are things people ____. Type need or want.",
+    "answer": "need",
+    "acceptedAnswers": [
+      "needs"
+    ],
+    "tags": [
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which big green statue in New York Harbor stands for freedom?",
+    "choicesJson": [
+      "Godzilla",
+      "Statue of Liberty",
+      "Big Ben"
+    ],
+    "answer": "Statue of Liberty",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the United States?",
+    "choicesJson": [
+      "A city",
+      "A school",
+      "A country"
+    ],
+    "answer": "A country",
+    "tags": [
+      "government",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a person who belongs to a country?",
+    "choicesJson": [
+      "A citizen",
+      "A tree",
+      "A cloud"
+    ],
+    "answer": "A citizen",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a law?",
+    "choicesJson": [
+      "A rule everyone in a place must follow",
+      "A kind of toy",
+      "A funny song"
+    ],
+    "answer": "A rule everyone in a place must follow",
+    "tags": [
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one do you need to live?",
+    "choicesJson": [
+      "Water",
+      "Tablet",
+      "Toy robot"
+    ],
+    "answer": "Water",
+    "tags": [
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is a want and not a need?",
+    "choicesJson": [
+      "Water",
+      "Food",
+      "A toy dinosaur"
+    ],
+    "answer": "A toy dinosaur",
+    "tags": [
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steve gets hungry in Minecraft. People get hungry too. Which one is a real need that fixes hunger?",
+    "choicesJson": [
+      "Gold",
+      "Skins",
+      "Food"
+    ],
+    "answer": "Food",
+    "tags": [
+      "needs-wants",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many cents is a dime worth?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten",
+      "10 cents",
+      "ten cents"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which coin is worth 5 cents?",
+    "choicesJson": [
+      "Penny",
+      "Nickel",
+      "Quarter"
+    ],
+    "answer": "Nickel",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which coin is worth the most?",
+    "choicesJson": [
+      "Penny",
+      "Quarter",
+      "Dime"
+    ],
+    "answer": "Quarter",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How do grown-ups earn money?",
+    "choicesJson": [
+      "By working at a job",
+      "By sleeping",
+      "By watching clouds"
+    ],
+    "answer": "By working at a job",
+    "tags": [
+      "money",
+      "jobs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a piggy bank used for?",
+    "choicesJson": [
+      "Playing music",
+      "Feeding pigs",
+      "Saving money"
+    ],
+    "answer": "Saving money",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You put a little money in your piggy bank each week. What happens to your pile of money?",
+    "choicesJson": [
+      "It turns into toys",
+      "It gets bigger",
+      "It gets smaller"
+    ],
+    "answer": "It gets bigger",
+    "tags": [
+      "money",
+      "saving"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where do people keep money safe?",
+    "choicesJson": [
+      "A bus",
+      "A bakery",
+      "A bank"
+    ],
+    "answer": "A bank",
+    "tags": [
+      "money",
+      "saving"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A baker makes bread. Is the baker a producer or a consumer?",
+    "choicesJson": [
+      "Mayor",
+      "Producer",
+      "Consumer"
+    ],
+    "answer": "Producer",
+    "tags": [
+      "producers-consumers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You eat the bread the baker made. What are you?",
+    "choicesJson": [
+      "A baker",
+      "A consumer",
+      "A producer"
+    ],
+    "answer": "A consumer",
+    "tags": [
+      "producers-consumers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many pennies make one nickel?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Lego factory makes bricks to sell. What is the factory?",
+    "choicesJson": [
+      "A consumer",
+      "A producer",
+      "A voter"
+    ],
+    "answer": "A producer",
+    "tags": [
+      "producers-consumers",
+      "theme:lego"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You swap your Pikachu card for a friend's Charmander card. What is this called?",
+    "choicesJson": [
+      "Voting",
+      "Sleeping",
+      "Trading"
+    ],
+    "answer": "Trading",
+    "tags": [
+      "trade",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Minecraft villager gives you bread when you give emeralds. In that trade, emeralds work like what?",
+    "choicesJson": [
+      "Maps",
+      "Money",
+      "Pillows"
+    ],
+    "answer": "Money",
+    "tags": [
+      "money",
+      "trade",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mario sees a toy that costs 3 coins. He has 5 coins. Can he buy it?",
+    "choicesJson": [
+      "No, he needs more",
+      "No, toys are free",
+      "Yes, he has enough"
+    ],
+    "answer": "Yes, he has enough",
+    "tags": [
+      "money",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You help in a Roblox game and get paid in Robux. What is getting money for work called?",
+    "choicesJson": [
+      "Earning",
+      "Voting",
+      "Trading"
+    ],
+    "answer": "Earning",
+    "tags": [
+      "money",
+      "jobs",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Animal Crossing, you catch a fish and sell it for Bells. What are Bells in the game?",
+    "choicesJson": [
+      "Money",
+      "Food",
+      "Clothes"
+    ],
+    "answer": "Money",
+    "tags": [
+      "money",
+      "theme:animal-crossing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which coin is worth more, a penny or a dime?",
+    "choicesJson": [
+      "They are the same",
+      "Penny",
+      "Dime"
+    ],
+    "answer": "Dime",
+    "tags": [
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one does a pet dog need to live?",
+    "choicesJson": [
+      "Food and water",
+      "A tiny hat",
+      "A game console"
+    ],
+    "answer": "Food and water",
+    "tags": [
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is a need for every kid?",
+    "choicesJson": [
+      "A safe home",
+      "A pet dragon",
+      "A giant TV"
+    ],
+    "answer": "A safe home",
+    "tags": [
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A kid sells lemonade at a stand. A neighbor pays for a cup. Who is the customer?",
+    "choicesJson": [
+      "The lemonade",
+      "The neighbor",
+      "The cup"
+    ],
+    "answer": "The neighbor",
+    "tags": [
+      "economics",
+      "money"
     ]
   },
   {
@@ -43,7 +2545,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What do we call the area with homes near your house, where your neighbors live?",
+    "prompt": "What do we call the place where you and your neighbors live?",
     "choicesJson": [
       "A neighborhood",
       "A continent",
@@ -57,20 +2559,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they help people find and check out books?",
-    "choicesJson": [
-      "Teacher",
-      "Librarian",
-      "Sanitation worker",
-      "Nurse"
-    ],
-    "answer": "Librarian",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What does a police officer do?",
     "choicesJson": [
       "keeps people safe and makes sure people follow laws",
@@ -79,20 +2567,6 @@
       "delivers letters and packages"
     ],
     "answer": "keeps people safe and makes sure people follow laws",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper grows crops or raises animals for food?",
-    "choicesJson": [
-      "Farmer",
-      "Bus driver",
-      "Nurse",
-      "Grocer"
-    ],
-    "answer": "Farmer",
     "tags": [
       "community-helpers"
     ]
@@ -143,20 +2617,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they keep people safe and makes sure people follow laws?",
-    "choicesJson": [
-      "Veterinarian",
-      "Firefighter",
-      "Police officer",
-      "Farmer"
-    ],
-    "answer": "Police officer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which word means something is very close by?",
     "choicesJson": [
       "Huge",
@@ -168,20 +2628,6 @@
     "tags": [
       "geography",
       "directions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper drives a bus to take people where they need to go?",
-    "choicesJson": [
-      "Mail carrier",
-      "Bus driver",
-      "Teacher",
-      "Doctor"
-    ],
-    "answer": "Bus driver",
-    "tags": [
-      "community-helpers"
     ]
   },
   {
@@ -208,20 +2654,6 @@
       "puts out fires and helps in emergencies"
     ],
     "answer": "helps students learn",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they build houses, roads, and buildings?",
-    "choicesJson": [
-      "Doctor",
-      "Firefighter",
-      "Construction worker",
-      "Dentist"
-    ],
-    "answer": "Construction worker",
     "tags": [
       "community-helpers"
     ]
@@ -256,21 +2688,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they deliver letters and packages?",
-    "choicesJson": [
-      "Mail carrier",
-      "Doctor",
-      "Teacher",
-      "Grocer"
-    ],
-    "answer": "Mail carrier",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Long ago, people used candles or lanterns for light. Today, we usually use ____?",
+    "prompt": "Long ago, people used candles for light. What do we usually use today?",
     "choicesJson": [
       "Nothing",
       "Electric lights",
@@ -285,21 +2703,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper keeps people safe and makes sure people follow laws?",
-    "choicesJson": [
-      "Sanitation worker",
-      "Grocer",
-      "Librarian",
-      "Police officer"
-    ],
-    "answer": "Police officer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Long ago, people traveled mostly by horse or wagon. Today, many people travel by ____?",
+    "prompt": "Long ago, people traveled by horse and wagon. How do many people travel today?",
     "choicesJson": [
       "Boat only",
       "Horse only",
@@ -310,20 +2714,6 @@
     "tags": [
       "history",
       "past-present"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they prepare food for people to eat?",
-    "choicesJson": [
-      "Farmer",
-      "Cook",
-      "Veterinarian",
-      "Nurse"
-    ],
-    "answer": "Cook",
-    "tags": [
-      "community-helpers"
     ]
   },
   {
@@ -342,20 +2732,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper collects and hauls away trash?",
-    "choicesJson": [
-      "Nurse",
-      "Sanitation worker",
-      "Bus driver",
-      "Cook"
-    ],
-    "answer": "Sanitation worker",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Who takes care of people's teeth?",
     "choicesJson": [
       "Firefighter",
@@ -364,20 +2740,6 @@
       "Doctor"
     ],
     "answer": "Dentist",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper helps take care of sick or hurt people?",
-    "choicesJson": [
-      "Nurse",
-      "Grocer",
-      "Farmer",
-      "Police officer"
-    ],
-    "answer": "Nurse",
     "tags": [
       "community-helpers"
     ]
@@ -394,21 +2756,6 @@
     "answer": "Cousins",
     "tags": [
       "family"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A photograph of your grandparents when they were young shows the ____?",
-    "choicesJson": [
-      "Future",
-      "Past",
-      "Present",
-      "Weather"
-    ],
-    "answer": "Past",
-    "tags": [
-      "history",
-      "past-present"
     ]
   },
   {
@@ -442,40 +2789,12 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they drive a bus to take people where they need to go?",
-    "choicesJson": [
-      "Grocer",
-      "Firefighter",
-      "Bus driver",
-      "Police officer"
-    ],
-    "answer": "Bus driver",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper takes care of people's teeth?",
-    "choicesJson": [
-      "Construction worker",
-      "Firefighter",
-      "Teacher",
-      "Dentist"
-    ],
-    "answer": "Dentist",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "If a bird flies above your head, where is it?",
+    "prompt": "A kite is flying high in the sky. Where is the kite compared to you?",
     "choicesJson": [
       "Below you",
       "Above you",
       "Under the ground",
-      "Behind a mountain"
+      "Inside your shoe"
     ],
     "answer": "Above you",
     "tags": [
@@ -573,21 +2892,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which bird is a national symbol of the United States, often shown near the flag?",
-    "choicesJson": [
-      "A parrot",
-      "A penguin",
-      "The bald eagle",
-      "A flamingo"
-    ],
-    "answer": "The bald eagle",
-    "tags": [
-      "symbols",
-      "flag"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What does a mail carrier do?",
     "choicesJson": [
       "delivers letters and packages",
@@ -616,35 +2920,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they take care of people's teeth?",
-    "choicesJson": [
-      "Bus driver",
-      "Dentist",
-      "Construction worker",
-      "Cook"
-    ],
-    "answer": "Dentist",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper runs a store that sells food?",
-    "choicesJson": [
-      "Mail carrier",
-      "Grocer",
-      "Veterinarian",
-      "Bus driver"
-    ],
-    "answer": "Grocer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A group of people who live together and care for each other is called a ____?",
+    "prompt": "What do we call people who live together in a home and care for each other?",
     "choicesJson": [
       "Country",
       "Continent",
@@ -673,14 +2949,13 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What shape are the stars on the American flag?",
+    "prompt": "Which colors are the stripes on the American flag?",
     "choicesJson": [
-      "Star shaped",
-      "Square",
-      "Triangle",
-      "Round like circles"
+      "Blue and green",
+      "Red and white",
+      "Yellow and black"
     ],
-    "answer": "Star shaped",
+    "answer": "Red and white",
     "tags": [
       "symbols",
       "flag"
@@ -702,7 +2977,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Long ago, farmers plowed fields using animals. Today, many farmers use ____?",
+    "prompt": "Long ago, farmers plowed fields with animals. What do many farmers use today?",
     "choicesJson": [
       "Only their hands",
       "Tractors and machines",
@@ -723,20 +2998,6 @@
       "Firefighter",
       "Grocer",
       "Sanitation worker"
-    ],
-    "answer": "Cook",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper prepares food for people to eat?",
-    "choicesJson": [
-      "Cook",
-      "Police officer",
-      "Mail carrier",
-      "Farmer"
     ],
     "answer": "Cook",
     "tags": [
@@ -787,20 +3048,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper helps students learn?",
-    "choicesJson": [
-      "Teacher",
-      "Veterinarian",
-      "Doctor",
-      "Bus driver"
-    ],
-    "answer": "Teacher",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What is a flag?",
     "choicesJson": [
       "A piece of cloth with colors and symbols that stands for a country or group",
@@ -844,20 +3091,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they put out fires and helps in emergencies?",
-    "choicesJson": [
-      "Farmer",
-      "Firefighter",
-      "Mail carrier",
-      "Police officer"
-    ],
-    "answer": "Firefighter",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Who helps sick or hurt people get better?",
     "choicesJson": [
       "Sanitation worker",
@@ -887,25 +3120,10 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they collect and hauls away trash?",
-    "choicesJson": [
-      "Cook",
-      "Sanitation worker",
-      "Farmer",
-      "Bus driver"
-    ],
-    "answer": "Sanitation worker",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A thing that happened a long time ago, before you were born, is from the ____?",
+    "prompt": "Something that happened long before you were born is from which time?",
     "choicesJson": [
       "Present",
       "Future",
-      "Sky",
       "Past"
     ],
     "answer": "Past",
@@ -918,7 +3136,7 @@
     "type": "MULTIPLE_CHOICE",
     "prompt": "What does a nurse do?",
     "choicesJson": [
-      "helps sick or hurt people get better",
+      "drives a bus to take people where they need to go",
       "helps take care of sick or hurt people",
       "collects and hauls away trash",
       "runs a store that sells food"
@@ -944,35 +3162,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "If you walk toward the sunrise in the morning, you are walking which way?",
-    "choicesJson": [
-      "East",
-      "Up",
-      "Down",
-      "West"
-    ],
-    "answer": "East",
-    "tags": [
-      "geography",
-      "directions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they help take care of sick or hurt people?",
-    "choicesJson": [
-      "Nurse",
-      "Doctor",
-      "Veterinarian",
-      "Bus driver"
-    ],
-    "answer": "Nurse",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which word means something is a long way away?",
     "choicesJson": [
       "Quiet",
@@ -984,20 +3173,6 @@
     "tags": [
       "geography",
       "directions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper puts out fires and helps in emergencies?",
-    "choicesJson": [
-      "Veterinarian",
-      "Firefighter",
-      "Cook",
-      "Grocer"
-    ],
-    "answer": "Firefighter",
-    "tags": [
-      "community-helpers"
     ]
   },
   {
@@ -1032,21 +3207,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which direction is up if you are looking at the sky?",
-    "choicesJson": [
-      "Down",
-      "Backwards",
-      "Up",
-      "Sideways"
-    ],
-    "answer": "Up",
-    "tags": [
-      "geography",
-      "directions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Where does the sun rise in the morning?",
     "choicesJson": [
       "In the West",
@@ -1062,34 +3222,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper helps sick or hurt people get better?",
-    "choicesJson": [
-      "Grocer",
-      "Teacher",
-      "Farmer",
-      "Doctor"
-    ],
-    "answer": "Doctor",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they run a store that sells food?",
-    "choicesJson": [
-      "Cook",
-      "Librarian",
-      "Grocer",
-      "Firefighter"
-    ],
-    "answer": "Grocer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What should you say if you bump into someone by accident?",
     "choicesJson": [
       "Say sorry",
@@ -1101,21 +3233,6 @@
     "tags": [
       "civics",
       "rules"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What colors are on the American flag?",
-    "choicesJson": [
-      "Orange and purple",
-      "Black and gold",
-      "Green, yellow, and pink",
-      "Red, white, and blue"
-    ],
-    "answer": "Red, white, and blue",
-    "tags": [
-      "symbols",
-      "flag"
     ]
   },
   {
@@ -1221,34 +3338,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they help students learn?",
-    "choicesJson": [
-      "Sanitation worker",
-      "Mail carrier",
-      "Cook",
-      "Teacher"
-    ],
-    "answer": "Teacher",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper helps people find and check out books?",
-    "choicesJson": [
-      "Teacher",
-      "Construction worker",
-      "Sanitation worker",
-      "Librarian"
-    ],
-    "answer": "Librarian",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Why do we clean up our toys when we finish playing?",
     "choicesJson": [
       "To make more noise",
@@ -1264,7 +3353,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Long ago, people wrote letters by hand and waited days to send them. Today, we often send messages using ____?",
+    "prompt": "Long ago, people wrote letters by hand. What do we often use to send messages today?",
     "choicesJson": [
       "Smoke signals only",
       "Horses only",
@@ -1279,26 +3368,11 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they grow crops or raises animals for food?",
-    "choicesJson": [
-      "Farmer",
-      "Grocer",
-      "Sanitation worker",
-      "Firefighter"
-    ],
-    "answer": "Farmer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Something happening right now is happening in the ____?",
+    "prompt": "Something happening right now is in which time?",
     "choicesJson": [
       "Present",
       "Past",
-      "Future",
-      "Ocean"
+      "Future"
     ],
     "answer": "Present",
     "tags": [
@@ -1316,20 +3390,6 @@
       "Teacher"
     ],
     "answer": "Grocer",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper takes care of sick or hurt animals?",
-    "choicesJson": [
-      "Sanitation worker",
-      "Teacher",
-      "Veterinarian",
-      "Firefighter"
-    ],
-    "answer": "Veterinarian",
     "tags": [
       "community-helpers"
     ]
@@ -1407,20 +3467,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which community helper delivers letters and packages?",
-    "choicesJson": [
-      "Police officer",
-      "Firefighter",
-      "Mail carrier",
-      "Veterinarian"
-    ],
-    "answer": "Mail carrier",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "If two friends both want the same toy, what is a fair thing to do?",
     "choicesJson": [
       "Hide the toy",
@@ -1436,60 +3482,16 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What should you do before crossing the street?",
-    "choicesJson": [
-      "Look both ways",
-      "Run across quickly",
-      "Skip in circles",
-      "Close your eyes"
-    ],
-    "answer": "Look both ways",
-    "tags": [
-      "civics",
-      "rules"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "If a ball is under the table, where is it?",
     "choicesJson": [
-      "Next to the sky",
-      "Above the table",
-      "Inside the wall",
-      "Below the table"
+      "On top of the table",
+      "Below the table",
+      "Next to the table"
     ],
     "answer": "Below the table",
     "tags": [
       "geography",
       "directions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they help sick or hurt people get better?",
-    "choicesJson": [
-      "Librarian",
-      "Mail carrier",
-      "Grocer",
-      "Doctor"
-    ],
-    "answer": "Doctor",
-    "tags": [
-      "community-helpers"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What job does a person have if they take care of sick or hurt animals?",
-    "choicesJson": [
-      "Construction worker",
-      "Librarian",
-      "Nurse",
-      "Veterinarian"
-    ],
-    "answer": "Veterinarian",
-    "tags": [
-      "community-helpers"
     ]
   },
   {
@@ -1547,36 +3549,6 @@
     "tags": [
       "civics",
       "rules"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What is another name for the American flag?",
-    "choicesJson": [
-      "The Stars and Stripes",
-      "The Rainbow Banner",
-      "The Golden Cloth",
-      "The Silver Sheet"
-    ],
-    "answer": "The Stars and Stripes",
-    "tags": [
-      "symbols",
-      "flag"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which is an example of something far away, like a place in another country?",
-    "choicesJson": [
-      "Your front yard",
-      "Your bedroom",
-      "Another country",
-      "Your kitchen"
-    ],
-    "answer": "Another country",
-    "tags": [
-      "geography",
-      "directions"
     ]
   }
 ]

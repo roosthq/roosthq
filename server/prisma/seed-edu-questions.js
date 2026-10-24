@@ -68,6 +68,8 @@ async function main() {
         answer: r.answer,
         tags: r.tags ?? [],
         visualJson: r.visualJson ?? null,
+        mediaJson: r.media ?? r.mediaJson ?? null,
+        acceptedJson: r.acceptedAnswers ?? r.acceptedJson ?? null,
       })),
     });
     totalInserted += rows.length;

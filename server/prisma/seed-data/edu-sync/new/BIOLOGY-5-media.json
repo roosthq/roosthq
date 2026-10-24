@@ -1,0 +1,1422 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an axolotl mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/axolotl.webp",
+   "alt": "A pale pink axolotl with feathery gills walking on sand beside green water plants."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a leafcutter ant?",
+  "choicesJson": [
+   "Bird",
+   "Insect",
+   "Reptile",
+   "Fish"
+  ],
+  "answer": "Insect",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/leafcutter-ant.webp",
+   "alt": "A leafcutter ant carries a large green leaf piece over its back across a rough surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a quokka?",
+  "choicesJson": [
+   "Reptile",
+   "Bird",
+   "Mammal",
+   "Amphibian"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/quokka.webp",
+   "alt": "A small brown quokka sits upright on sandy ground beside green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a red panda mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/red-panda.webp",
+   "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a Hercules beetle usually live?",
+  "choicesJson": [
+   "On grassland",
+   "In a jungle",
+   "In the ocean",
+   "In a wetland"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/hercules-beetle.webp",
+   "alt": "A male Hercules beetle with a long curved black horn rests on a piece of cork bark."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a tarantula?",
+  "choicesJson": [
+   "Bird",
+   "Fish",
+   "Insect",
+   "Spider or scorpion (arachnid)"
+  ],
+  "answer": "Spider or scorpion (arachnid)",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/tarantula.webp",
+   "alt": "A hairy tarantula with orange-banded legs stands on sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a black widow spider usually live?",
+  "choicesJson": [
+   "In the mountains",
+   "On grassland",
+   "In a desert",
+   "In a backyard or garden"
+  ],
+  "answer": "In a backyard or garden",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/black-widow-spider.webp",
+   "alt": "A shiny black spider with long thin legs hangs in its web, showing a red hourglass mark on its round belly."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an atlas moth?",
+  "choicesJson": [
+   "Fish",
+   "Reptile",
+   "Insect",
+   "Bird"
+  ],
+  "answer": "Insect",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/atlas-moth.webp",
+   "alt": "An atlas moth rests with its large reddish-brown wings spread wide, showing clear window-like spots."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a fennec fox usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In a desert",
+   "In a forest",
+   "In the mountains"
+  ],
+  "answer": "In a desert",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/fennec-fox.webp",
+   "alt": "A sandy-colored fennec fox with huge ears stands on gravel and looks at the camera."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a kakapo?",
+  "choicesJson": [
+   "Fish",
+   "Mammal",
+   "Amphibian",
+   "Bird"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/kakapo.webp",
+   "alt": "A green, moss-colored kakapo parrot with a pale bill sits among leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an okapi?",
+  "choicesJson": [
+   "Insect",
+   "Mammal",
+   "Amphibian",
+   "Fish"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/okapi.webp",
+   "alt": "An okapi walks on grass with a dark brown body and white stripes on its legs and rump."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a hammerhead shark mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/hammerhead-shark.webp",
+   "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a quokka usually live?",
+  "choicesJson": [
+   "On a farm",
+   "On the savanna",
+   "In rivers and lakes",
+   "On grassland"
+  ],
+  "answer": "On grassland",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/quokka.webp",
+   "alt": "A small brown quokka sits upright on sandy ground beside green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a leafcutter ant usually live?",
+  "choicesJson": [
+   "In rivers and lakes",
+   "On the savanna",
+   "On a farm",
+   "In a jungle"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/leafcutter-ant.webp",
+   "alt": "A leafcutter ant carries a large green leaf piece over its back across a rough surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a Tasmanian devil usually live?",
+  "choicesJson": [
+   "On the savanna",
+   "In a forest",
+   "On grassland",
+   "In a backyard or garden"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/tasmanian-devil.webp",
+   "alt": "A black Tasmanian devil with a white chest patch walks through green grass and dandelions."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a sea anemone?",
+  "choicesJson": [
+   "Bird",
+   "Mammal",
+   "Amphibian",
+   "Jellyfish or coral (cnidarian)"
+  ],
+  "answer": "Jellyfish or coral (cnidarian)",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/sea-anemone.webp",
+   "alt": "A green sea anemone with a ring of soft tentacles around its mouth sits open in a rocky tide pool among mussel shells."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does an aye-aye usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In a jungle",
+   "On grassland",
+   "On the savanna"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/aye-aye.webp",
+   "alt": "An aye-aye with big orange eyes and large ears peers out of the dark from among dry leaves and twigs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a pufferfish mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/pufferfish.webp",
+   "alt": "A blackspotted puffer with a gray back, a yellow belly and black spots swimming near a coral reef."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a thorny devil usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "On a farm",
+   "In a desert",
+   "In people's homes"
+  ],
+  "answer": "In a desert",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/thorny-devil.webp",
+   "alt": "A spiky thorny devil lizard walks across red desert sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a Hercules beetle?",
+  "choicesJson": [
+   "Insect",
+   "Bird",
+   "Amphibian",
+   "Mammal"
+  ],
+  "answer": "Insect",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/hercules-beetle.webp",
+   "alt": "A male Hercules beetle with a long curved black horn rests on a piece of cork bark."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a blue morpho butterfly usually live?",
+  "choicesJson": [
+   "In a jungle",
+   "In a forest",
+   "In a wetland",
+   "In the cold Arctic"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/blue-morpho-butterfly.webp",
+   "alt": "A blue morpho butterfly rests on a big green leaf with its shiny blue wings open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a stag beetle usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In a jungle",
+   "In people's homes",
+   "In a forest"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/stag-beetle.webp",
+   "alt": "A male stag beetle with large reddish jaws crawls on weathered wood."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a blue morpho butterfly?",
+  "choicesJson": [
+   "Mammal",
+   "Bird",
+   "Insect",
+   "Fish"
+  ],
+  "answer": "Insect",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/blue-morpho-butterfly.webp",
+   "alt": "A blue morpho butterfly rests on a big green leaf with its shiny blue wings open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a basilisk lizard?",
+  "choicesJson": [
+   "Fish",
+   "Amphibian",
+   "Reptile",
+   "Insect"
+  ],
+  "answer": "Reptile",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/basilisk-lizard.webp",
+   "alt": "A brown common basilisk lizard with a long tail rests on a fallen log."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a coral?",
+  "choicesJson": [
+   "Reptile",
+   "Bird",
+   "Mammal",
+   "Jellyfish or coral (cnidarian)"
+  ],
+  "answer": "Jellyfish or coral (cnidarian)",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/coral.webp",
+   "alt": "A pale pink branching coral with many bumpy tips grows on a shallow reef with a couple of small fish nearby."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a secretary bird usually live?",
+  "choicesJson": [
+   "On a farm",
+   "In a jungle",
+   "On the savanna",
+   "On grassland"
+  ],
+  "answer": "On the savanna",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/secretary-bird.webp",
+   "alt": "A secretary bird with a crest of black feathers and long legs standing in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does an atlas moth usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "On the savanna",
+   "On grassland",
+   "In a jungle"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/atlas-moth.webp",
+   "alt": "An atlas moth rests with its large reddish-brown wings spread wide, showing clear window-like spots."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does an echidna usually live?",
+  "choicesJson": [
+   "In people's homes",
+   "In rivers and lakes",
+   "In a forest",
+   "In the cold Arctic"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/echidna.webp",
+   "alt": "A short-beaked echidna with spiny quills sniffing the grass with its long snout."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a great horned owl?",
+  "choicesJson": [
+   "Reptile",
+   "Insect",
+   "Fish",
+   "Bird"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/great-horned-owl.webp",
+   "alt": "A great horned owl perched on a branch, looking at the camera with big yellow eyes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a Tasmanian devil?",
+  "choicesJson": [
+   "Reptile",
+   "Amphibian",
+   "Fish",
+   "Mammal"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/tasmanian-devil.webp",
+   "alt": "A black Tasmanian devil with a white chest patch walks through green grass and dandelions."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a mandrill mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/mandrill.webp",
+   "alt": "A mandrill with a red and blue face and a golden beard stands on green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an Atlantic puffin mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/atlantic-puffin.webp",
+   "alt": "An Atlantic puffin with a bright orange-and-red beak and orange feet standing on a grassy cliff edge above the sea."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a great horned owl usually live?",
+  "choicesJson": [
+   "In the mountains",
+   "In a jungle",
+   "In a desert",
+   "In a forest"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/great-horned-owl.webp",
+   "alt": "A great horned owl perched on a branch, looking at the camera with big yellow eyes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a leatherback sea turtle?",
+  "choicesJson": [
+   "Mammal",
+   "Bird",
+   "Reptile",
+   "Fish"
+  ],
+  "answer": "Reptile",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/leatherback-sea-turtle.webp",
+   "alt": "A leatherback sea turtle with a dark, white-spotted body resting on a sandy beach at night."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a cassowary mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/cassowary.webp",
+   "alt": "A big black cassowary with a bright blue neck and a helmet-like crest stands among green rainforest plants."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a sea otter?",
+  "choicesJson": [
+   "Mammal",
+   "Fish",
+   "Bird",
+   "Reptile"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/sea-otter.webp",
+   "alt": "A sea otter floating in the water, looking at the camera and holding an octopus."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a thorny devil?",
+  "choicesJson": [
+   "Fish",
+   "Mammal",
+   "Reptile",
+   "Amphibian"
+  ],
+  "answer": "Reptile",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/thorny-devil.webp",
+   "alt": "A spiky thorny devil lizard walks across red desert sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a shoebill?",
+  "choicesJson": [
+   "Bird",
+   "Amphibian",
+   "Insect",
+   "Mammal"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/shoebill.webp",
+   "alt": "A shoebill facing the camera with its huge shoe-shaped bill in front of green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a leatherback sea turtle usually live?",
+  "choicesJson": [
+   "In the ocean",
+   "In people's homes",
+   "In a wetland",
+   "On a farm"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/leatherback-sea-turtle.webp",
+   "alt": "A leatherback sea turtle with a dark, white-spotted body resting on a sandy beach at night."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an anglerfish mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/anglerfish.webp",
+   "alt": "A big, flat, speckled anglerfish resting on a rocky seafloor, facing the camera with its wide mouth and a thin fishing lure rising from its head."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an echidna?",
+  "choicesJson": [
+   "Reptile",
+   "Amphibian",
+   "Mammal",
+   "Insect"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/echidna.webp",
+   "alt": "A short-beaked echidna with spiny quills sniffing the grass with its long snout."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a sea otter usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In the ocean",
+   "In a forest",
+   "In rivers and lakes"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/sea-otter.webp",
+   "alt": "A sea otter floating in the water, looking at the camera and holding an octopus."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a gharial usually live?",
+  "choicesJson": [
+   "In people's homes",
+   "In a wetland",
+   "In the mountains",
+   "In rivers and lakes"
+  ],
+  "answer": "In rivers and lakes",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/gharial.webp",
+   "alt": "A gharial rests in shallow river water with its long, thin snout open to show its teeth."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does an okapi usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In a jungle",
+   "In people's homes",
+   "On grassland"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/okapi.webp",
+   "alt": "An okapi walks on grass with a dark brown body and white stripes on its legs and rump."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a shoebill usually live?",
+  "choicesJson": [
+   "In a jungle",
+   "In a backyard or garden",
+   "In a wetland",
+   "In a forest"
+  ],
+  "answer": "In a wetland",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/shoebill.webp",
+   "alt": "A shoebill facing the camera with its huge shoe-shaped bill in front of green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a black widow spider?",
+  "choicesJson": [
+   "Insect",
+   "Spider or scorpion (arachnid)",
+   "Bird",
+   "Mammal"
+  ],
+  "answer": "Spider or scorpion (arachnid)",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/black-widow-spider.webp",
+   "alt": "A shiny black spider with long thin legs hangs in its web, showing a red hourglass mark on its round belly."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a tarantula usually live?",
+  "choicesJson": [
+   "In people's homes",
+   "In a jungle",
+   "In the ocean",
+   "In a desert"
+  ],
+  "answer": "In a desert",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/tarantula.webp",
+   "alt": "A hairy tarantula with orange-banded legs stands on sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a coral usually live?",
+  "choicesJson": [
+   "On the savanna",
+   "In a forest",
+   "In a backyard or garden",
+   "In the ocean"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/coral.webp",
+   "alt": "A pale pink branching coral with many bumpy tips grows on a shallow reef with a couple of small fish nearby."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an albatross mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/albatross.webp",
+   "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a fennec fox?",
+  "choicesJson": [
+   "Fish",
+   "Bird",
+   "Reptile",
+   "Mammal"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/fennec-fox.webp",
+   "alt": "A sandy-colored fennec fox with huge ears stands on gravel and looks at the camera."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a snow leopard mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/snow-leopard.webp",
+   "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a nautilus?",
+  "choicesJson": [
+   "Mollusk",
+   "Reptile",
+   "Fish",
+   "Insect"
+  ],
+  "answer": "Mollusk",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/nautilus.webp",
+   "alt": "A nautilus with a red-and-white striped spiral shell and a head full of pale tentacles rests on sand beside dark rocks."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a capybara mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/capybara.webp",
+   "alt": "A capybara with brown shaggy fur grazing on green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an aye-aye?",
+  "choicesJson": [
+   "Fish",
+   "Mammal",
+   "Amphibian",
+   "Reptile"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/aye-aye.webp",
+   "alt": "An aye-aye with big orange eyes and large ears peers out of the dark from among dry leaves and twigs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a gharial?",
+  "choicesJson": [
+   "Insect",
+   "Mammal",
+   "Reptile",
+   "Amphibian"
+  ],
+  "answer": "Reptile",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/gharial.webp",
+   "alt": "A gharial rests in shallow river water with its long, thin snout open to show its teeth."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a ball python mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/ball-python.webp",
+   "alt": "A ball python with a tan and dark brown pattern lies coiled in a loose circle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an orb-weaver spider?",
+  "choicesJson": [
+   "Mammal",
+   "Amphibian",
+   "Insect",
+   "Spider or scorpion (arachnid)"
+  ],
+  "answer": "Spider or scorpion (arachnid)",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/orb-weaver-spider.webp",
+   "alt": "A striped brown and yellow spider with long banded legs sits in the middle of its round web in front of green leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a king cobra mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/king-cobra.webp",
+   "alt": "A king cobra raises the front of its body off the ground, with its head up and its long body trailing behind in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a warthog mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/warthog.webp",
+   "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a nautilus usually live?",
+  "choicesJson": [
+   "In a forest",
+   "In the mountains",
+   "In a desert",
+   "In the ocean"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/nautilus.webp",
+   "alt": "A nautilus with a red-and-white striped spiral shell and a head full of pale tentacles rests on sand beside dark rocks."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a peregrine falcon mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/peregrine-falcon.webp",
+   "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a salamander mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/salamander.webp",
+   "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a secretary bird?",
+  "choicesJson": [
+   "Mammal",
+   "Bird",
+   "Fish",
+   "Reptile"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/secretary-bird.webp",
+   "alt": "A secretary bird with a crest of black feathers and long legs standing in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a sea anemone usually live?",
+  "choicesJson": [
+   "In the ocean",
+   "On grassland",
+   "In a forest",
+   "In the mountains"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/sea-anemone.webp",
+   "alt": "A green sea anemone with a ring of soft tentacles around its mouth sits open in a rocky tide pool among mussel shells."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a spotted hyena mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/spotted-hyena.webp",
+   "alt": "A spotted hyena with a tan coat and dark spots walks through dry golden grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a kakapo usually live?",
+  "choicesJson": [
+   "In a forest",
+   "In a backyard or garden",
+   "In a wetland",
+   "In the mountains"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/kakapo.webp",
+   "alt": "A green, moss-colored kakapo parrot with a pale bill sits among leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a wildebeest mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/wildebeest.webp",
+   "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a platypus mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/platypus.webp",
+   "alt": "A platypus with a flat bill and a broad tail swimming at the surface of a river."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a basilisk lizard usually live?",
+  "choicesJson": [
+   "In a desert",
+   "In the cold Arctic",
+   "In a backyard or garden",
+   "In a jungle"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/basilisk-lizard.webp",
+   "alt": "A brown common basilisk lizard with a long tail rests on a fallen log."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an oryx mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/oryx.webp",
+   "alt": "A gemsbok, a kind of oryx, stands in dry grassland with long straight horns and a black and white face."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does an orb-weaver spider usually live?",
+  "choicesJson": [
+   "On grassland",
+   "In rivers and lakes",
+   "In a backyard or garden",
+   "In a jungle"
+  ],
+  "answer": "In a backyard or garden",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/orb-weaver-spider.webp",
+   "alt": "A striped brown and yellow spider with long banded legs sits in the middle of its round web in front of green leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a wombat mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/wombat.webp",
+   "alt": "A round, furry common wombat grazing on short green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a stag beetle?",
+  "choicesJson": [
+   "Insect",
+   "Reptile",
+   "Amphibian",
+   "Fish"
+  ],
+  "answer": "Insect",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/stag-beetle.webp",
+   "alt": "A male stag beetle with large reddish jaws crawls on weathered wood."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a rattlesnake mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/rattlesnake.webp",
+   "alt": "A tan prairie rattlesnake lies in loose coils on red dirt, looking toward the camera, with its rattle showing near its tail."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a lionfish mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/lionfish.webp",
+   "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a tapir mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/tapir.webp",
+   "alt": "A South American tapir standing in shallow river water beside leafy plants."
+  }
+ }
+]

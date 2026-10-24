@@ -1,1002 +1,2785 @@
 [
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "conscience",
-   "consience",
-   "conscence",
-   "concience"
-  ],
-  "answer": "conscience",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "rhythm",
-   "rythm",
-   "rhythem",
-   "rhithm"
-  ],
-  "answer": "rhythm",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "occurrence",
-   "occurance",
-   "occurrance",
-   "ocurrence"
-  ],
-  "answer": "occurrence",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The root 'chron' means 'time'. Spell the word for a list of events in time order (chron + ology).",
-  "answer": "chronology",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The root 'photo' means 'light'. Spell the process plants use to turn light into food (photo + synthesis).",
-  "answer": "photosynthesis",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the noun meaning 'a helpful suggestion given to someone' - often confused with the verb 'advise'.",
-  "answer": "advice",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to give advice' (a verb) - often confused with the noun 'advice'.",
-  "answer": "advise",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "maintenance",
-   "maintainance",
-   "maintenence",
-   "maintenace"
-  ],
-  "answer": "maintenance",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "privilege",
-   "priviledge",
-   "priviledge",
-   "privelege"
-  ],
-  "answer": "privilege",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'not the same' or a mathematical symbol showing amounts aren't equal - starts with 'un' + 'equal'.",
-  "answer": "unequal",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "existence",
-   "existance",
-   "existense",
-   "existanse"
-  ],
-  "answer": "existence",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The root 'geo' means 'earth'. Spell the subject that studies Earth's land and features (geo + graphy).",
-  "answer": "geography",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "accommodate",
-   "accomodate",
-   "acommodate",
-   "accommadate"
-  ],
-  "answer": "accommodate",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The root 'auto' means 'self'. Spell the word for a written life-story of yourself (auto + biography).",
-  "answer": "autobiography",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek prefix 'hypo' means 'under' and 'therm' means 'heat'. Spell the word for a dangerously low body temperature (hypo + thermia).",
-  "answer": "hypothermia",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek prefix 'hyper' means 'over' or 'excessive'. Spell the word meaning 'unusually or abnormally energetic' (hyper + active).",
-  "answer": "hyperactive",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'anthro' means 'human' and 'logy' means 'study of'. Spell the word for the study of human societies and cultures (anthro + pology).",
-  "answer": "anthropology",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'morph' means 'form' and 'meta' means 'change'. Spell the word for a complete change in form, like a caterpillar becoming a butterfly.",
-  "answer": "metamorphosis",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'poly' means 'many' and 'gon' means 'angle'. Spell the word for a shape with many straight sides (poly + gon).",
-  "answer": "polygon",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'mono' means 'one' and 'logue' relates to speech. Spell the word for a long speech given by one person alone (mono + logue).",
-  "answer": "monologue",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'pan' means 'all'. Spell the word for a wide, unbroken view of a whole area (pan + orama).",
-  "answer": "panorama",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'syn' means 'together/same' and 'onym' means 'name'. Spell the word for a word that means the same as another word (syn + onym).",
-  "answer": "synonym",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'ortho' means 'straight/correct' and 'dont' relates to teeth. Spell the word for a dentist who straightens teeth (ortho + dont + ist).",
-  "answer": "orthodontist",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'phobia' means 'fear'. Spell the word for a fear of small, enclosed spaces (claustro + phobia).",
-  "answer": "claustrophobia",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'gram' means 'written or drawn'. Spell the word for a simple drawing that explains how something works.",
-  "answer": "diagram",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'meter' means 'measure' and 'kilo' means 'a thousand'. Spell the unit of distance equal to 1,000 meters (kilo + meter).",
-  "answer": "kilometer",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'theo' means 'god' and 'logy' means 'study of'. Spell the word for the study of religion and beliefs about God (theo + logy).",
-  "answer": "theology",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Greek root 'chron' means 'time' and 'syn' means 'together'. Spell the word meaning 'to make things happen at the same time' (syn + chron + ize).",
-  "answer": "synchronize",
-  "tags": [
-   "greek-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'ject' means 'to throw'. Spell the word meaning 'to refuse to accept something' (re + ject).",
-  "answer": "reject",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'ject' means 'to throw' and 'pro' means 'forward'. Spell the word for a planned piece of work, or to throw an image forward onto a screen (pro + ject).",
-  "answer": "project",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'ject' means 'to throw' and 'in' means 'into'. Spell the word meaning 'to force a liquid into something, like with a needle' (in + ject).",
-  "answer": "inject",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'fract' means 'to break'. Spell the word for a break, especially in a bone.",
-  "answer": "fracture",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'frag' means 'to break'. Spell the word for a small broken-off piece of something.",
-  "answer": "fragment",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'vert' means 'to turn' and 'con' means 'with'. Spell the word meaning 'to change something into a different form' (con + vert).",
-  "answer": "convert",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'vert' means 'to turn' and 'in' means 'into'. Spell the word meaning 'to turn something upside down or reverse its order' (in + vert).",
-  "answer": "invert",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'tract' means 'to pull' and 'at/ad' means 'toward'. Spell the word meaning 'to pull something toward you' (at + tract).",
-  "answer": "attract",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'tract' means 'to pull' and 'con' means 'together'. Spell the word for a written agreement, or to shrink together (con + tract).",
-  "answer": "contract",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'tract' means 'to pull' and 'dis' means 'away'. Spell the word meaning 'to pull someone's attention away from something' (dis + tract).",
-  "answer": "distract",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'ced' means 'to go' and 'ex' means 'out/beyond'. Spell the word meaning 'to go beyond a limit' (ex + ceed).",
-  "answer": "exceed",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'ced' means 'to go' and 'se' means 'apart'. Spell the word meaning 'to formally withdraw from a group or country' (se + cede).",
-  "answer": "secede",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'struct' means 'to build' and 'con' means 'together'. Spell the word meaning 'to build something' (con + struct).",
-  "answer": "construct",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "The Latin root 'vis' means 'to see'. Spell the word meaning 'able to be seen' (vis + ible).",
-  "answer": "visible",
-  "tags": [
-   "latin-roots"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to admit that something is true or real'.",
-  "answer": "acknowledge",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "entrepreneur",
-   "entreprenuer",
-   "entreprenur",
-   "entrepeneur"
-  ],
-  "answer": "entrepreneur",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for letters or messages exchanged between people.",
-  "answer": "correspondence",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "exhilarate",
-   "exilarate",
-   "exhillarate",
-   "exhilerate"
-  ],
-  "answer": "exhilarate",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a person's usual way of thinking, feeling, and behaving.",
-  "answer": "temperament",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "resilience",
-   "resiliance",
-   "reslience",
-   "resilliance"
-  ],
-  "answer": "resilience",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'continued effort despite difficulty'.",
-  "answer": "perseverance",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "controversy",
-   "contraversy",
-   "controvercy",
-   "controversey"
-  ],
-  "answer": "controversy",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'doubtful or open to question'.",
-  "answer": "questionable",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "hierarchy",
-   "heirarchy",
-   "hierarcy",
-   "hiearchy"
-  ],
-  "answer": "hierarchy",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the mutual trust and friendship among a group of people.",
-  "answer": "camaraderie",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "silhouette",
-   "silouette",
-   "silhoutte",
-   "silhoette"
-  ],
-  "answer": "silhouette",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a space completely empty of matter, or the appliance that cleans floors by suction.",
-  "answer": "vacuum",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "colleague",
-   "collegue",
-   "colleauge",
-   "coleague"
-  ],
-  "answer": "colleague",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'not obvious or noticeable' - it has a silent 'b'.",
-  "answer": "subtle",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "tongue",
-   "tounge",
-   "tonge",
-   "tounque"
-  ],
-  "answer": "tongue",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the art of speaking or writing effectively to persuade.",
-  "answer": "rhetoric",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "nuisance",
-   "nusance",
-   "nuisence",
-   "nuisanse"
-  ],
-  "answer": "nuisance",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to measure or estimate', or an instrument used to measure.",
-  "answer": "gauge",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "forfeit",
-   "forfiet",
-   "forfeight",
-   "forfit"
-  ],
-  "answer": "forfeit",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for free time when you can relax and do what you enjoy.",
-  "answer": "leisure",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "seize",
-   "sieze",
-   "seeze",
-   "seise"
-  ],
-  "answer": "seize",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'strange or unusual'.",
-  "answer": "weird",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "bizarre",
-   "bizzare",
-   "bazaar",
-   "bizarr"
-  ],
-  "answer": "bizarre",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a feeling of overwhelming joy or excitement.",
-  "answer": "ecstasy",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "acquaintance",
-   "aquaintance",
-   "acquaintence",
-   "aquaintence"
-  ],
-  "answer": "acquaintance",
-  "tags": [
-   "advanced-vocab"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to draw out a response' (often confused with 'illicit').",
-  "answer": "elicit",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'not legally permitted' (often confused with 'elicit').",
-  "answer": "illicit",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'harmful or unfavorable' (often confused with 'averse').",
-  "answer": "adverse",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'having a strong dislike of something' (often confused with 'adverse').",
-  "answer": "averse",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'careful not to attract attention or reveal secrets' (often confused with 'discrete').",
-  "answer": "discreet",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'separate and distinct' (often confused with 'discreet').",
-  "answer": "discrete",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'famous and respected' (often confused with 'imminent').",
-  "answer": "eminent",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'about to happen very soon' (often confused with 'eminent').",
-  "answer": "imminent",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to show off' (often confused with 'flout').",
-  "answer": "flaunt",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to openly disregard a rule' (often confused with 'flaunt').",
-  "answer": "flout",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to remove unacceptable parts of something' (often confused with 'sensor').",
-  "answer": "censor",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a device that detects changes and sends signals (often confused with 'censor').",
-  "answer": "sensor",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the sturdy cloth used for painting or tents (often confused with 'canvass').",
-  "answer": "canvas",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to go around asking people for votes or opinions' (often confused with 'canvas').",
-  "answer": "canvass",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'concerned with right and wrong behavior' (often confused with 'morale').",
-  "answer": "moral",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the confidence and enthusiasm of a group (often confused with 'moral').",
-  "answer": "morale",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the verb meaning 'to wrap around or cover completely' (often confused with the noun 'envelope').",
-  "answer": "envelop",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the noun for the paper covering you put a letter inside (often confused with the verb 'envelop').",
-  "answer": "envelope",
-  "tags": [
-   "commonly-confused"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'counter' to 'attack' - spell the word for an attack made in response to an enemy's attack.",
-  "answer": "counterattack",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'retro' (meaning 'backward') to the root 'spect' - spell the word meaning 'a look back at past events'.",
-  "answer": "retrospect",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'omni' (meaning 'all') to 'present' - spell the word meaning 'present everywhere at once'.",
-  "answer": "omnipresent",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'extra' to 'terrestrial' - spell the word meaning 'coming from outside planet Earth'.",
-  "answer": "extraterrestrial",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'bi' (meaning 'two') to 'lingual' - spell the word meaning 'able to speak two languages'.",
-  "answer": "bilingual",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'tri' (meaning 'three') to 'athlon' - spell the word for a race combining three events: swimming, biking, and running.",
-  "answer": "triathlon",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'quad' (meaning 'four') to 'lateral' - spell the word for a shape with four sides.",
-  "answer": "quadrilateral",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'post' (meaning 'after') to the root 'pone' - spell the word meaning 'to delay something until later'.",
-  "answer": "postpone",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'pseudo' (meaning 'false') to 'onym' (meaning 'name') - spell the word for a fake name an author uses instead of their real one.",
-  "answer": "pseudonym",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'mal' (meaning 'bad') to 'function' - spell the word meaning 'to fail to work properly'.",
-  "answer": "malfunction",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'pro' to 'active' - spell the word meaning 'taking action to prevent problems before they happen'.",
-  "answer": "proactive",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the prefix 'intro' (meaning 'inward') to the root 'vert' - spell the word for a person who prefers quiet, solitary activities.",
-  "answer": "introvert",
-  "tags": [
-   "prefixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'esque' to 'picture' - spell the word meaning 'visually pleasing, like a painting'.",
-  "answer": "picturesque",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ous' to 'space' - spell the word meaning 'having a lot of room'.",
-  "answer": "spacious",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ous' to 'gorge' - spell the word meaning 'extremely beautiful'.",
-  "answer": "gorgeous",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ary' to 'imagine' - spell the word meaning 'existing only in the mind, not real'.",
-  "answer": "imaginary",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ism' to 'hero' - spell the word for great courage or bravery.",
-  "answer": "heroism",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ist' to 'piano' - spell the word for a person who plays the piano.",
-  "answer": "pianist",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ous' to 'adventure' - spell the word meaning 'willing to take risks and try new things'.",
-  "answer": "adventurous",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ent' to 'persist' - spell the word meaning 'continuing firmly despite difficulty'.",
-  "answer": "persistent",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ance' to 'significant' - spell the word meaning 'the importance or meaning of something'.",
-  "answer": "significance",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ive' to 'compete' - spell the word meaning 'having a strong desire to win'.",
-  "answer": "competitive",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'able' to 'predict' - spell the word meaning 'able to be known in advance'.",
-  "answer": "predictable",
-  "tags": [
-   "suffixes"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Add the suffix 'ify' to 'clear' - spell the word meaning 'to make something easier to understand'.",
-  "answer": "clarify",
-  "tags": [
-   "suffixes"
-  ]
- }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these Minecraft words begins with a blend of three consonant letters in a row?",
+    "choicesJson": [
+      "Skeleton",
+      "Creeper",
+      "Ghast",
+      "Stronghold"
+    ],
+    "answer": "Stronghold",
+    "tags": [
+      "word-patterns",
+      "blends",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word do the letters 'ch' make the /k/ sound, as in 'echo'?",
+    "choicesJson": [
+      "chalk",
+      "chaos",
+      "cheese",
+      "chase"
+    ],
+    "answer": "chaos",
+    "tags": [
+      "word-patterns",
+      "digraphs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word do the letters 'ou' make the short u sound, as in 'bug'?",
+    "choicesJson": [
+      "soup",
+      "couch",
+      "cloud",
+      "couple"
+    ],
+    "answer": "couple",
+    "tags": [
+      "word-patterns",
+      "vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has the same long a sound as the word 'eight'?",
+    "choicesJson": [
+      "weigh",
+      "height",
+      "receive",
+      "seize"
+    ],
+    "answer": "weigh",
+    "tags": [
+      "word-patterns",
+      "vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letters finish the word for the person who lives next door? n__ghbor",
+    "choicesJson": [
+      "ie",
+      "ei",
+      "ai",
+      "ea"
+    ],
+    "answer": "ei",
+    "tags": [
+      "missing-letters",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these words begins with a silent p?",
+    "choicesJson": [
+      "puppy",
+      "pterodactyl",
+      "pirate",
+      "plaid"
+    ],
+    "answer": "pterodactyl",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "One word in this sentence is misspelled. Which one? \"The campers heard a strange noise comming from the basement.\"",
+    "choicesJson": [
+      "comming",
+      "campers",
+      "basement",
+      "strange"
+    ],
+    "answer": "comming",
+    "tags": [
+      "high-frequency",
+      "double-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which noun is spelled the same in both its singular and plural forms?",
+    "choicesJson": [
+      "goose",
+      "wolf",
+      "sheep",
+      "mouse"
+    ],
+    "answer": "sheep",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which prefix turns 'legal' into its opposite, meaning 'against the law'?",
+    "choicesJson": [
+      "dis-",
+      "in-",
+      "un-",
+      "il-"
+    ],
+    "answer": "il-",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Kids often write 'should of' by mistake. Which sentence is correct?",
+    "choicesJson": [
+      "We should off taken the other path.",
+      "We should halve taken the other path.",
+      "We should have taken the other path.",
+      "We should of taken the other path."
+    ],
+    "answer": "We should have taken the other path.",
+    "tags": [
+      "contractions",
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count the syllables in the word 'unforgettable'. How many are there?",
+    "choicesJson": [
+      "4",
+      "6",
+      "3",
+      "5"
+    ],
+    "answer": "5",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these spooky words is a compound word, made of two smaller words joined together?",
+    "choicesJson": [
+      "Phantom",
+      "Specter",
+      "Moonlight",
+      "Vampire"
+    ],
+    "answer": "Moonlight",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Our Fortnite squad landed and grabbed every _____ of loot we could find. Which word fits?",
+    "choicesJson": [
+      "peace",
+      "piece",
+      "peas"
+    ],
+    "answer": "piece",
+    "tags": [
+      "homophones",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The pilot landed the _____ on the short runway. Which word fits?",
+    "choicesJson": [
+      "plank",
+      "plane",
+      "plain"
+    ],
+    "answer": "plane",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Do not _____ your time on a game that keeps crashing. Which word fits?",
+    "choicesJson": [
+      "waste",
+      "west",
+      "waist"
+    ],
+    "answer": "waste",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Foundation researcher _____ the team down the hall to the containment chamber. Which word fits?",
+    "choicesJson": [
+      "lied",
+      "lead",
+      "led"
+    ],
+    "answer": "led",
+    "tags": [
+      "homophones",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Shhh! The library must stay _____ so everyone can read. Which word fits?",
+    "choicesJson": [
+      "quiet",
+      "quite",
+      "quit"
+    ],
+    "answer": "quiet",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Yesterday, Maya _____ the red controller, but today she wants the blue one. Which word fits?",
+    "choicesJson": [
+      "choice",
+      "chose",
+      "choose"
+    ],
+    "answer": "chose",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A _____ of cows wandered into the farmer's field. Which word fits?",
+    "choicesJson": [
+      "hurt",
+      "herd",
+      "heard"
+    ],
+    "answer": "herd",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Steve tamed three _____ in Minecraft, and each one follows him around. Spell the plural of 'wolf'.",
+    "answer": "wolves",
+    "tags": [
+      "plurals",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An old saying claims a cat has nine _____. Spell the plural of 'life'.",
+    "answer": "lives",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, your character falls off and returns to the last checkpoint. Spell the word made from 're' + 'spawn' that means 'to appear again in the game'.",
+    "answer": "respawn",
+    "tags": [
+      "prefixes",
+      "word-building",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'dis' to 'satisfied'. Spell the new word that means 'not happy with how something turned out'. Watch the double s!",
+    "answer": "dissatisfied",
+    "tags": [
+      "prefixes",
+      "double-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The campers _____ when the tall, faceless figure stepped out of the trees. Spell the past tense of 'panic'. Add a k before the -ed.",
+    "answer": "panicked",
+    "tags": [
+      "suffixes",
+      "word-building",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add -ly to 'basic'. Words that end in -ic use -ally instead. Spell the new word that means 'in the most important or simplest way'.",
+    "answer": "basically",
+    "tags": [
+      "suffixes",
+      "word-building"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for what you do with your ears when you pay close attention. It has a silent t.",
+    "answer": "listen",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means 'to go up something using your hands and feet'. It ends with a silent b.",
+    "answer": "climb",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made from 'cup' + 'board', a cabinet where dishes are kept. The p is silent when you say it.",
+    "answer": "cupboard",
+    "tags": [
+      "compound-words",
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Count Dracula is a famous monster from old movies who sleeps in a coffin by day and wears a long cape. Spell the word for this kind of fanged monster.",
+    "answer": "vampire",
+    "tags": [
+      "spell-from-clue",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a person who travels into space. Its Greek roots mean 'star' and 'sailor'.",
+    "answer": "astronaut",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the number that comes right after thirty-nine. Be careful, it is NOT spelled with a u.",
+    "answer": "forty",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Picture an animal with a very long neck that eats leaves from the tops of tall trees. Spell its name. It has a double f.",
+    "answer": "giraffe",
+    "tags": [
+      "spell-from-clue",
+      "double-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters to spell what pirates hunt for on a map with an X: tre_s_re. Type the whole word.",
+    "answer": "treasure",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steve and Alex put a torch in _____ new cave. Which word fits?",
+    "choicesJson": [
+      "their",
+      "they're",
+      "there"
+    ],
+    "answer": "their",
+    "tags": [
+      "homophones",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "I saved up my Robux so I could _____ a cool new skin. Which word fits?",
+    "choicesJson": [
+      "by",
+      "buy",
+      "bye"
+    ],
+    "answer": "buy",
+    "tags": [
+      "homophones",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The squad argued about _____ to land at Tilted Towers or somewhere quiet. Which word fits?",
+    "choicesJson": [
+      "weather",
+      "whether",
+      "wither"
+    ],
+    "answer": "whether",
+    "tags": [
+      "commonly-confused",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "SCP-173 can move whenever nobody is looking, so the guards were not _____ to look away.",
+    "choicesJson": [
+      "allowed",
+      "loud",
+      "aloud"
+    ],
+    "answer": "allowed",
+    "tags": [
+      "homophones",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The campers spotted a tall, faceless figure and ran _____ the dark woods. Which word fits?",
+    "choicesJson": [
+      "threw",
+      "through",
+      "thorough"
+    ],
+    "answer": "through",
+    "tags": [
+      "commonly-confused",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "First we raced in Mario Kart, _____ we ate pizza. Which word fits?",
+    "choicesJson": [
+      "then",
+      "than",
+      "them"
+    ],
+    "answer": "then",
+    "tags": [
+      "commonly-confused",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Too little sleep can _____ how well you play your best sport. Which word fits?",
+    "choicesJson": [
+      "defect",
+      "affect",
+      "effect"
+    ],
+    "answer": "affect",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A big _____ of the new rule was quieter hallways. Which word fits?",
+    "choicesJson": [
+      "defect",
+      "effect",
+      "affect"
+    ],
+    "answer": "effect",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Thank you! I am happy to _____ your invitation to the party. Which word fits?",
+    "choicesJson": [
+      "accept",
+      "expect",
+      "except"
+    ],
+    "answer": "accept",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Everyone _____ the twins finished the quiz early. Which word fits?",
+    "choicesJson": [
+      "except",
+      "accept",
+      "expect"
+    ],
+    "answer": "except",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The robot lost _____ left arm during the battle. Which word fits?",
+    "choicesJson": [
+      "is",
+      "its",
+      "it's"
+    ],
+    "answer": "its",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "_____ going to snow tonight, so pack a warm hat. Which word fits?",
+    "choicesJson": [
+      "Its",
+      "It's",
+      "It"
+    ],
+    "answer": "It's",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "_____ going to love the new arcade! Which word fits?",
+    "choicesJson": [
+      "You",
+      "You're",
+      "Your"
+    ],
+    "answer": "You're",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Tighten your shoelaces, because a _____ lace can make you trip. Which word fits?",
+    "choicesJson": [
+      "loss",
+      "loose",
+      "lose"
+    ],
+    "answer": "loose",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The _____ announced the winners of the science fair. Which word fits?",
+    "choicesJson": [
+      "principle",
+      "principal",
+      "principel",
+      "princible"
+    ],
+    "answer": "principal",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The robot stayed _____ until someone pressed the green button. Which word fits?",
+    "choicesJson": [
+      "stationery",
+      "station",
+      "stationary"
+    ],
+    "answer": "stationary",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "My coach gave me a nice _____ after the game. Which word fits?",
+    "choicesJson": [
+      "complement",
+      "complaint",
+      "compliment"
+    ],
+    "answer": "compliment",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Washington, D.C. is the _____ city of the United States. Which word fits?",
+    "choicesJson": [
+      "capital",
+      "capitol",
+      "captain"
+    ],
+    "answer": "capital",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The chocolate lava cake was the best _____ at the party. Which word fits?",
+    "choicesJson": [
+      "deserts",
+      "dessert",
+      "desert"
+    ],
+    "answer": "dessert",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Squeeze the hand _____ to slow your bike down. Which word fits?",
+    "choicesJson": [
+      "braid",
+      "break",
+      "brake"
+    ],
+    "answer": "brake",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "_____ turn is it to roll the dice? Which word fits?",
+    "choicesJson": [
+      "Who",
+      "Who's",
+      "Whose"
+    ],
+    "answer": "Whose",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Roblox runner _____ me on the last jump of the obby. Which word fits?",
+    "choicesJson": [
+      "past",
+      "pasted",
+      "passed"
+    ],
+    "answer": "passed",
+    "tags": [
+      "commonly-confused",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with a silent consonant?",
+    "choicesJson": [
+      "knuckle",
+      "kettle",
+      "koala",
+      "kayak"
+    ],
+    "answer": "knuckle",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word do the letters 'ti' make the 'sh' sound?",
+    "choicesJson": [
+      "stamp",
+      "tiny",
+      "title",
+      "station"
+    ],
+    "answer": "station",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has the same vowel sound as 'moon'?",
+    "choicesJson": [
+      "hook",
+      "spooky",
+      "flood",
+      "good"
+    ],
+    "answer": "spooky",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent 'gh'?",
+    "choicesJson": [
+      "laugh",
+      "though",
+      "ghost",
+      "tough"
+    ],
+    "answer": "though",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word do the letters 'ie' make the long e sound?",
+    "choicesJson": [
+      "field",
+      "pie",
+      "tie",
+      "friend"
+    ],
+    "answer": "field",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which word does the letter o make a short u sound, like the u in 'bug'?",
+    "choicesJson": [
+      "love",
+      "lose",
+      "lone",
+      "loop"
+    ],
+    "answer": "love",
+    "tags": [
+      "word-patterns"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the name of the green Minecraft mob that sneaks up and explodes. The long e sound is spelled with ee.",
+    "answer": "creeper",
+    "tags": [
+      "spell-from-clue",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Mary Shelley's novel, the scientist who builds the monster is Victor ____. Spell his last name.",
+    "answer": "frankenstein",
+    "tags": [
+      "spell-from-clue",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the name of the legendary hairy forest creature made of the words 'big' and 'foot'.",
+    "answer": "bigfoot",
+    "acceptedAnswers": [
+      "big foot",
+      "big-foot"
+    ],
+    "tags": [
+      "spell-from-clue",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the formal word for the season between summer and winter. It ends with a silent n.",
+    "answer": "autumn",
+    "tags": [
+      "spell-from-clue",
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the body part that pumps blood around your body. The letters e-a-r are hiding inside it.",
+    "answer": "heart",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the place where you can borrow books. Many people forget the first r and say 'libary'.",
+    "answer": "library",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the homophone of 'pair' that names a fruit with green or yellow skin.",
+    "answer": "pear",
+    "tags": [
+      "homophones",
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the homophone of 'wait' that tells how heavy something is.",
+    "answer": "weight",
+    "tags": [
+      "homophones",
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the homophone of 'cereal' that means 'happening one after another in a series'.",
+    "answer": "serial",
+    "tags": [
+      "homophones",
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the shortest month of the year. Most people forget the first 'r'.",
+    "answer": "february",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mia said, \"I will ____ beat that Roblox obby tonight!\" Which spelling fills the blank?",
+    "choicesJson": [
+      "definately",
+      "definitly",
+      "defanitely",
+      "definitely"
+    ],
+    "answer": "definitely",
+    "tags": [
+      "high-frequency",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence has every word spelled correctly?",
+    "choicesJson": [
+      "We won the Victory Royale becuase we stayed together.",
+      "We won the Victory Royale because we stayed together.",
+      "We won the Victory Royale becase we stayed togther.",
+      "We won the Victory Royale because we stayd together."
+    ],
+    "answer": "We won the Victory Royale because we stayed together.",
+    "tags": [
+      "high-frequency",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means 'right away'. It starts with 'imm' and ends with '-ly'.",
+    "answer": "immediately",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You are ending a letter to your grandma. Which closing word is spelled correctly? \"____, Alex\"",
+    "choicesJson": [
+      "Sincerly",
+      "Sincearly",
+      "Sincerely",
+      "Sinceerly"
+    ],
+    "answer": "Sincerely",
+    "tags": [
+      "high-frequency"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the people and system that run a country or state. Do not forget the 'n' before the 'm'.",
+    "answer": "government",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which spelling is correct? Hint: there is 'a rat' hiding in the middle of the word.",
+    "choicesJson": [
+      "seperate",
+      "separate",
+      "separete",
+      "seprate"
+    ],
+    "answer": "separate",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which spelling is correct for the word that means 'as much as you need' and rhymes with 'rough'?",
+    "choicesJson": [
+      "enuff",
+      "enogh",
+      "enough",
+      "enouf"
+    ],
+    "answer": "enough",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The mouse scurried ____ the long tunnel from one end to the other. Spell the missing word (it starts with 'th' and ends with 'ough').",
+    "answer": "through",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Yesterday I ____ about my science test all day. Spell the past tense of 'think'.",
+    "answer": "thought",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for all the air, water, land and living things around us. It starts with 'env'.",
+    "answer": "environment",
+    "tags": [
+      "high-frequency",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "intresting",
+      "interesting",
+      "interesing",
+      "intersting"
+    ],
+    "answer": "interesting",
+    "tags": [
+      "high-frequency"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The ______ of the movie was so spooky that Dad jumped out of his seat. Which spelling fits the blank?",
+    "choicesJson": [
+      "begining",
+      "beggining",
+      "beginnig",
+      "beginning"
+    ],
+    "answer": "beginning",
+    "tags": [
+      "high-frequency",
+      "double-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters to spell the word that means 'not the same': diff_r_nt. Type the whole word.",
+    "answer": "different",
+    "tags": [
+      "high-frequency",
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has both a silent k and a silent gh?",
+    "choicesJson": [
+      "night",
+      "kitten",
+      "knight",
+      "light"
+    ],
+    "answer": "knight",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the body part where your hand joins your arm. It starts with a silent w.",
+    "answer": "wrist",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the name of the tiny bearded garden statue with a pointy red hat. It starts with a silent g.",
+    "answer": "gnome",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Only one of these words has a silent g. Which one?",
+    "choicesJson": [
+      "Signal",
+      "Signature",
+      "Sign",
+      "Signify"
+    ],
+    "answer": "Sign",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a huge stone fortress with towers where kings and queens lived long ago. It has a silent t.",
+    "answer": "castle",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a spooky spirit that haunts old houses. It has a silent h.",
+    "answer": "ghost",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Minecraft, Steve crafts a diamond ____ to fight zombies. Spell the weapon. It has a silent w.",
+    "answer": "sword",
+    "tags": [
+      "silent-letters",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent l?",
+    "choicesJson": [
+      "salad",
+      "silver",
+      "salmon",
+      "sleep"
+    ],
+    "answer": "salmon",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In an SCP-style story, a Foundation ____ watches over the creature's containment cell all night. Spell the word for a person who protects a place. It has a silent u.",
+    "answer": "guard",
+    "tags": [
+      "silent-letters",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In most words, 'gh' sounds like 'f' (cough) but sometimes it is silent. Which word has a silent gh?",
+    "choicesJson": [
+      "laugh",
+      "cough",
+      "enough",
+      "daughter"
+    ],
+    "answer": "daughter",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepypasta tells of a tall, thin figure that appears in the woods at night. Which word from that sentence has a silent gh?",
+    "choicesJson": [
+      "figure",
+      "woods",
+      "night",
+      "tall"
+    ],
+    "answer": "night",
+    "tags": [
+      "silent-letters",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the slip of paper you get after buying something, as proof you paid. It has a silent p.",
+    "answer": "receipt",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Animal Crossing, you move to a deserted piece of land surrounded by water. Spell the word for that kind of land. It has a silent s.",
+    "answer": "island",
+    "tags": [
+      "silent-letters",
+      "theme:animalcrossing"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Clap it out: how many syllables are in the word 'emergency'?",
+    "choicesJson": [
+      "3",
+      "4",
+      "5",
+      "2"
+    ],
+    "answer": "4",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these dinosaur and monster words has exactly four syllables?",
+    "choicesJson": [
+      "Raptor",
+      "Mummy",
+      "Triceratops",
+      "Godzilla"
+    ],
+    "answer": "Triceratops",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Three of these Pokemon names have three syllables. Which one has a different number?",
+    "choicesJson": [
+      "Pikachu",
+      "Bulbasaur",
+      "Squirtle",
+      "Charmander"
+    ],
+    "answer": "Squirtle",
+    "tags": [
+      "syllables",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letters complete the word for a special event or time? occa__on",
+    "choicesJson": [
+      "ci",
+      "ti",
+      "si",
+      "zi"
+    ],
+    "answer": "si",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which vowel completes the word for a chart of days and months that hangs on a wall? calend_r",
+    "choicesJson": [
+      "e",
+      "o",
+      "a",
+      "i"
+    ],
+    "answer": "a",
+    "tags": [
+      "missing-letters",
+      "tricky-spelling"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Remember 'i before e, except after c'. Which letters complete the word that means 'to get something'? rec__ve",
+    "choicesJson": [
+      "ie",
+      "ea",
+      "ei",
+      "ee"
+    ],
+    "answer": "ei",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters to spell the bandage-wrapped monster from old Egyptian tomb movies: m_mm_. Type the whole word.",
+    "answer": "mummy",
+    "tags": [
+      "missing-letters",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix -ful to 'beauty'. The y changes to i. Spell the new word.",
+    "answer": "beautiful",
+    "tags": [
+      "word-building",
+      "suffixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Steve is digging for diamonds in Minecraft. Which spelling is right when you add -ing to 'mine'? \"Steve is ____ for diamonds.\"",
+    "choicesJson": [
+      "mineing",
+      "minning",
+      "mining",
+      "miining"
+    ],
+    "answer": "mining",
+    "tags": [
+      "word-building",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Yesterday the rabbit ____ across the yard. Spell the past tense of 'hop'.",
+    "answer": "hopped",
+    "tags": [
+      "word-building",
+      "double-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'mis' to 'spell'. Spell the new word that means 'to spell something wrong'.",
+    "answer": "misspell",
+    "tags": [
+      "word-building",
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'un' to 'necessary'. Spell the new word that means 'not needed'.",
+    "answer": "unnecessary",
+    "tags": [
+      "word-building",
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix -ment to 'achieve'. Spell the new word for something you did well after hard work.",
+    "answer": "achievement",
+    "tags": [
+      "word-building",
+      "suffixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the root word in 'unbelievable'?",
+    "choicesJson": [
+      "lieve",
+      "believe",
+      "belie",
+      "unbelieve"
+    ],
+    "answer": "believe",
+    "tags": [
+      "word-building",
+      "root-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The monster movie had three of them howling at the moon. Spell the plural of 'werewolf'.",
+    "answer": "werewolves",
+    "tags": [
+      "plurals",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The museum has two ancient _____ on display, wrapped in linen. Which is the correct plural of 'mummy'?",
+    "choicesJson": [
+      "mummys",
+      "mummyes",
+      "mummies",
+      "mummis"
+    ],
+    "answer": "mummies",
+    "tags": [
+      "plurals",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The baker pulled three fresh ___ of bread out of the oven. Which plural of 'loaf' completes the sentence?",
+    "choicesJson": [
+      "loafs",
+      "loaves",
+      "loafes",
+      "loavs"
+    ],
+    "answer": "loaves",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The class studied three big ___ in history. Which is the correct plural of 'crisis'?",
+    "choicesJson": [
+      "crisises",
+      "crisis's",
+      "crisi",
+      "crises"
+    ],
+    "answer": "crises",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The farmer dug up 40 of them from the field. Spell the plural of 'potato'.",
+    "answer": "potatoes",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You cut a pizza into two equal pieces. Which word is the plural of 'half'?",
+    "choicesJson": [
+      "halfs",
+      "halfes",
+      "halvs",
+      "halves"
+    ],
+    "answer": "halves",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A graph has an x-axis and a y-axis. Together they are called the ___ of the graph. Which plural of 'axis' completes the sentence?",
+    "choicesJson": [
+      "axises",
+      "axes",
+      "axeses",
+      "axis's"
+    ],
+    "answer": "axes",
+    "tags": [
+      "plurals",
+      "math-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The chef sharpened all five ___ before dinner. Which is the correct plural of 'knife'?",
+    "choicesJson": [
+      "knives",
+      "knifes",
+      "knifs",
+      "knifves"
+    ],
+    "answer": "knives",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Only one of these plurals is spelled WRONG. Which one?",
+    "choicesJson": [
+      "babies",
+      "monkeys",
+      "ladys",
+      "cities"
+    ],
+    "answer": "ladys",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "One tiny living cell is a bacterium. Spell the plural, used when you mean lots of them.",
+    "answer": "bacteria",
+    "tags": [
+      "plurals",
+      "irregular"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A circle has one radius. Spell the plural of 'radius' that ends in the letter i.",
+    "answer": "radii",
+    "tags": [
+      "plurals",
+      "irregular"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct plural of 'mother-in-law'?",
+    "choicesJson": [
+      "mothers-in-laws",
+      "mother-in-law's",
+      "mother-in-lawes",
+      "mothers-in-law"
+    ],
+    "answer": "mothers-in-law",
+    "tags": [
+      "plurals",
+      "compound-plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add -ing to 'run' to finish the sentence: In Minecraft, the player is ___ away from a creeper.",
+    "answer": "running",
+    "tags": [
+      "suffixes",
+      "doubling-letters",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add -ed to 'drop' to finish the sentence: In Fortnite, Maya ___ from the Battle Bus onto the island.",
+    "answer": "dropped",
+    "tags": [
+      "suffixes",
+      "doubling-letters",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add -ing to 'dive' to finish the sentence: The seal is ___ deep to catch a fish.",
+    "answer": "diving",
+    "tags": [
+      "suffixes",
+      "drop-the-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add -est to 'silly' to finish the sentence: That was the ___ joke I have ever heard.",
+    "answer": "silliest",
+    "tags": [
+      "suffixes",
+      "y-to-i"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which prefix turns the word 'possible' into its opposite?",
+    "choicesJson": [
+      "un-",
+      "dis-",
+      "im-",
+      "mis-"
+    ],
+    "answer": "im-",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A storm knocked down the team's fort, so they had to ___ it. Spell the word that means 'build again'.",
+    "answer": "rebuild",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the opposite of 'visible'. It describes something that cannot be seen.",
+    "answer": "invisible",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepypasta says a tall, shadowy figure can suddenly ___ into the fog. Which spelling is correct?",
+    "choicesJson": [
+      "dissapear",
+      "disappear",
+      "disapear",
+      "dissappear"
+    ],
+    "answer": "disappear",
+    "tags": [
+      "prefixes",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ending finishes the word poss___, meaning 'able to happen'?",
+    "choicesJson": [
+      "-able",
+      "-uble",
+      "-eble",
+      "-ible"
+    ],
+    "answer": "-ible",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creeper's big blast is an ___. Which spelling is correct?",
+    "choicesJson": [
+      "explotion",
+      "explosion",
+      "explossion",
+      "explosian"
+    ],
+    "answer": "explosion",
+    "tags": [
+      "suffixes",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the noun made from 'happy' + 'ness'. The y changes to an i.",
+    "answer": "happiness",
+    "tags": [
+      "suffixes",
+      "y-to-i"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word made from 'argue' + 'ment'. The silent e disappears.",
+    "answer": "argument",
+    "tags": [
+      "suffixes",
+      "drop-the-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A game boss that no one can ever defeat is called ___. Spell the word made from un + beat + able.",
+    "answer": "unbeatable",
+    "tags": [
+      "prefixes",
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the adverb made from 'true' + 'ly'. It loses its final e.",
+    "answer": "truly",
+    "tags": [
+      "suffixes",
+      "drop-the-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which prefix means 'under' or 'below'?",
+    "choicesJson": [
+      "super-",
+      "inter-",
+      "sub-",
+      "trans-"
+    ],
+    "answer": "sub-",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these Minecraft words is a compound word, made from two smaller words joined together?",
+    "choicesJson": [
+      "Creeper",
+      "Zombie",
+      "Diamond",
+      "Redstone"
+    ],
+    "answer": "Redstone",
+    "tags": [
+      "compound-words",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made from 'grave' + 'yard', a spooky place where ghosts like to hang out.",
+    "answer": "graveyard",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A haunted house sign lists four words. Which one is NOT a compound word?",
+    "choicesJson": [
+      "Moonlight",
+      "Cobweb",
+      "Skeleton",
+      "Nightfall"
+    ],
+    "answer": "Skeleton",
+    "tags": [
+      "compound-words",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made from 'joy' + 'stick', the lever on a game controller.",
+    "answer": "joystick",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word can be joined to 'ball', 'work' and 'place' to make three new words?",
+    "choicesJson": [
+      "hand",
+      "sun",
+      "fire",
+      "door"
+    ],
+    "answer": "fire",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which compound word is spelled correctly?",
+    "choicesJson": [
+      "whereever",
+      "wherrever",
+      "wherever",
+      "wherevar"
+    ],
+    "answer": "wherever",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means 'by this time', as in 'I have ___ finished my quest'. It looks like 'all' + 'ready' but has only one l in the middle.",
+    "answer": "already",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made from 'scare' + 'crow', a figure in a field that frightens birds away.",
+    "answer": "scarecrow",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct contraction of 'will not'?",
+    "choicesJson": [
+      "willn't",
+      "won't",
+      "wo'nt",
+      "wont'"
+    ],
+    "answer": "won't",
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence is written correctly?",
+    "choicesJson": [
+      "Your the best builder on the server.",
+      "Youre the best builder on the server.",
+      "You'er the best builder on the server.",
+      "You're the best builder on the server."
+    ],
+    "answer": "You're the best builder on the server.",
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "SCP-173 is a statue that only moves when nobody is watching it. A guard warns, 'We ___ blink around the statue!' Which contraction of 'do not' completes it?",
+    "choicesJson": [
+      "do'nt",
+      "don't",
+      "dont'",
+      "do'not"
+    ],
+    "answer": "don't",
+    "tags": [
+      "contractions",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Among Us, a crewmate cries, '___ not the impostor!' Which contraction of 'I am' completes it?",
+    "choicesJson": [
+      "Im",
+      "I'm",
+      "I'am",
+      "Ia'm"
+    ],
+    "answer": "I'm",
+    "tags": [
+      "contractions",
+      "theme:amongus"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "conscience",
+      "consience",
+      "conscence",
+      "concience"
+    ],
+    "answer": "conscience",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "rhythm",
+      "rythm",
+      "rhythem",
+      "rhithm"
+    ],
+    "answer": "rhythm",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "occurrence",
+      "occurance",
+      "occurrance",
+      "ocurrence"
+    ],
+    "answer": "occurrence",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The root 'chron' means 'time'. Spell the word for a list of events in time order (chron + ology).",
+    "answer": "chronology",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The root 'photo' means 'light'. Spell the process plants use to turn light into food (photo + synthesis).",
+    "answer": "photosynthesis",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the noun meaning 'a helpful suggestion given to someone' - often confused with the verb 'advise'.",
+    "answer": "advice",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to give advice' (a verb) - often confused with the noun 'advice'.",
+    "answer": "advise",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "maintenance",
+      "maintainance",
+      "maintenence",
+      "maintenace"
+    ],
+    "answer": "maintenance",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "priviledge",
+      "privilege",
+      "privelege",
+      "privilage"
+    ],
+    "answer": "privilege",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'un' to 'equal'. Spell the word meaning 'not the same in size or amount'.",
+    "answer": "unequal",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "existence",
+      "existance",
+      "existense",
+      "existanse"
+    ],
+    "answer": "existence",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The root 'geo' means 'earth'. Spell the subject that studies Earth's land and features (geo + graphy).",
+    "answer": "geography",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "accommodate",
+      "accomodate",
+      "acommodate",
+      "accommadate"
+    ],
+    "answer": "accommodate",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The root 'auto' means 'self'. Spell the word for a written life-story of yourself (auto + biography).",
+    "answer": "autobiography",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek prefix 'hypo' means 'under' and 'therm' means 'heat'. Spell the word for a dangerously low body temperature (hypo + thermia).",
+    "answer": "hypothermia",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek prefix 'hyper' means 'over' or 'excessive'. Spell the word meaning 'unusually or abnormally energetic' (hyper + active).",
+    "answer": "hyperactive",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'anthropo' means 'human' and 'logy' means 'study of'. Spell the word for the study of human societies and cultures (anthropo + logy).",
+    "answer": "anthropology",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'morph' means 'form' and 'meta' means 'change'. Spell the word for a complete change in form, like a caterpillar becoming a butterfly.",
+    "answer": "metamorphosis",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'poly' means 'many' and 'gon' means 'angle'. Spell the word for a shape with many straight sides (poly + gon).",
+    "answer": "polygon",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'mono' means 'one' and 'logue' relates to speech. Spell the word for a long speech given by one person alone (mono + logue).",
+    "answer": "monologue",
+    "acceptedAnswers": [
+      "monolog"
+    ],
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'pan' means 'all'. Spell the word for a wide, unbroken view of a whole area (pan + orama).",
+    "answer": "panorama",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'syn' means 'together/same' and 'onym' means 'name'. Spell the word for a word that means the same as another word (syn + onym).",
+    "answer": "synonym",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'ortho' means 'straight/correct' and 'dont' relates to teeth. Spell the word for a dentist who straightens teeth (ortho + dont + ist).",
+    "answer": "orthodontist",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'phobia' means 'fear'. Spell the word for a fear of small, enclosed spaces (claustro + phobia).",
+    "answer": "claustrophobia",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek prefix 'dia' means 'across' and the root 'gram' means 'written or drawn'. Spell the word for a simple drawing that explains how something works (dia + gram).",
+    "answer": "diagram",
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'meter' means 'measure' and 'kilo' means 'a thousand'. Spell the unit of distance equal to 1,000 meters (kilo + meter).",
+    "answer": "kilometer",
+    "acceptedAnswers": [
+      "kilometre"
+    ],
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Greek root 'chron' means 'time' and 'syn' means 'together'. Spell the word meaning 'to make things happen at the same time' (syn + chron + ize).",
+    "answer": "synchronize",
+    "acceptedAnswers": [
+      "synchronise"
+    ],
+    "tags": [
+      "greek-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'ject' means 'to throw'. Spell the word meaning 'to refuse to accept something' (re + ject).",
+    "answer": "reject",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'ject' means 'to throw' and 'pro' means 'forward'. Spell the word for a planned piece of work, or to throw an image forward onto a screen (pro + ject).",
+    "answer": "project",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'ject' means 'to throw' and 'in' means 'into'. Spell the word meaning 'to force a liquid into something, like with a needle' (in + ject).",
+    "answer": "inject",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'fract' means 'to break'. Spell the word for a break, especially in a bone.",
+    "answer": "fracture",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'frag' means 'to break'. Spell the word for a small broken-off piece of something.",
+    "answer": "fragment",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'vert' means 'to turn' and 'con' means 'with'. Spell the word meaning 'to change something into a different form' (con + vert).",
+    "answer": "convert",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'vert' means 'to turn' and 'in' means 'into'. Spell the word meaning 'to turn something upside down or reverse its order' (in + vert).",
+    "answer": "invert",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'tract' means 'to pull' and 'at/ad' means 'toward'. Spell the word meaning 'to pull something toward you' (at + tract).",
+    "answer": "attract",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'tract' means 'to pull' and 'con' means 'together'. Spell the word for a written agreement, or to shrink together (con + tract).",
+    "answer": "contract",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'tract' means 'to pull' and 'dis' means 'away'. Spell the word meaning 'to pull someone's attention away from something' (dis + tract).",
+    "answer": "distract",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'ced' means 'to go' and 'ex' means 'out/beyond'. Spell the word meaning 'to go beyond a limit' (ex + ceed).",
+    "answer": "exceed",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'ced' means 'to go' and 'se' means 'apart'. Spell the word meaning 'to formally withdraw from a group or country' (se + cede).",
+    "answer": "secede",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'struct' means 'to build' and 'con' means 'together'. Spell the word meaning 'to build something' (con + struct).",
+    "answer": "construct",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The Latin root 'vis' means 'to see'. Spell the word meaning 'able to be seen' (vis + ible).",
+    "answer": "visible",
+    "tags": [
+      "latin-roots"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that starts with 'ack' and means 'to admit that something is true or real'.",
+    "answer": "acknowledge",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "entrepreneur",
+      "entreprenuer",
+      "entreprenur",
+      "entrepeneur"
+    ],
+    "answer": "entrepreneur",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that starts with 'corr' and means 'letters or messages exchanged between people'.",
+    "answer": "correspondence",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "exhilarate",
+      "exilarate",
+      "exhillarate",
+      "exhilerate"
+    ],
+    "answer": "exhilarate",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that starts with 'temper' and means 'a person's usual way of thinking, feeling, and behaving'.",
+    "answer": "temperament",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "resilience",
+      "resiliance",
+      "reslience",
+      "resilliance"
+    ],
+    "answer": "resilience",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'continued effort despite difficulty'. It has 'sever' in the middle and ends in '-ance'.",
+    "answer": "perseverance",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "controversy",
+      "contraversy",
+      "controvercy",
+      "controversey"
+    ],
+    "answer": "controversy",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'doubtful, or not clearly good or right'. It starts with 'quest' and ends with '-able'.",
+    "answer": "questionable",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "hierarchy",
+      "heirarchy",
+      "hierarcy",
+      "hiearchy"
+    ],
+    "answer": "hierarchy",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that starts with 'cam' and means 'mutual trust and friendship among a group of people'.",
+    "answer": "camaraderie",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "silhouette",
+      "silouette",
+      "silhoutte",
+      "silhoette"
+    ],
+    "answer": "silhouette",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a space completely empty of matter, or the appliance that cleans floors by suction.",
+    "answer": "vacuum",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "colleague",
+      "collegue",
+      "colleauge",
+      "coleague"
+    ],
+    "answer": "colleague",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'not obvious or noticeable' - it has a silent 'b'.",
+    "answer": "subtle",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "tongue",
+      "tounge",
+      "tonge",
+      "tounque"
+    ],
+    "answer": "tongue",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the art of speaking or writing effectively to persuade.",
+    "answer": "rhetoric",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "nuisance",
+      "nusance",
+      "nuisence",
+      "nuisanse"
+    ],
+    "answer": "nuisance",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that rhymes with 'page' and means 'to estimate', or a dial that measures something like fuel.",
+    "answer": "gauge",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "forfeit",
+      "forfiet",
+      "forfeight",
+      "forfit"
+    ],
+    "answer": "forfeit",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that starts with 'lei' and means free time when you can relax and do what you enjoy.",
+    "answer": "leisure",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "sieze",
+      "seize",
+      "seaze",
+      "seeze"
+    ],
+    "answer": "seize",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'strange or unusual'. It breaks the 'i before e' rule.",
+    "answer": "weird",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "bizzare",
+      "bizare",
+      "bizarre",
+      "bizarr"
+    ],
+    "answer": "bizarre",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "acquaintance",
+      "aquaintance",
+      "acquaintence",
+      "aquaintence"
+    ],
+    "answer": "acquaintance",
+    "tags": [
+      "advanced-vocab"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to draw out a response' (often confused with 'illicit').",
+    "answer": "elicit",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'not legally permitted' (often confused with 'elicit').",
+    "answer": "illicit",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'harmful or unfavorable' (often confused with 'averse').",
+    "answer": "adverse",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'having a strong dislike of something' (often confused with 'adverse').",
+    "answer": "averse",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'careful not to attract attention or reveal secrets' (often confused with 'discrete').",
+    "answer": "discreet",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'separate and distinct' (often confused with 'discreet').",
+    "answer": "discrete",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'famous and respected' (often confused with 'imminent').",
+    "answer": "eminent",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'about to happen very soon' (often confused with 'eminent').",
+    "answer": "imminent",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to show off' (often confused with 'flout').",
+    "answer": "flaunt",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to openly disregard a rule' (often confused with 'flaunt').",
+    "answer": "flout",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to remove unacceptable parts of something' (often confused with 'sensor').",
+    "answer": "censor",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a device that detects changes and sends signals (often confused with 'censor').",
+    "answer": "sensor",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the sturdy cloth used for painting or tents (often confused with 'canvass').",
+    "answer": "canvas",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to go around asking people for votes or opinions' (often confused with 'canvas').",
+    "answer": "canvass",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'concerned with right and wrong behavior' (often confused with 'morale').",
+    "answer": "moral",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the confidence and enthusiasm of a group (often confused with 'moral').",
+    "answer": "morale",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the verb meaning 'to wrap around or cover completely' (often confused with the noun 'envelope').",
+    "answer": "envelop",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the noun for the paper covering you put a letter inside (often confused with the verb 'envelop').",
+    "answer": "envelope",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'counter' to 'attack' - spell the word for an attack made in response to an enemy's attack.",
+    "answer": "counterattack",
+    "acceptedAnswers": [
+      "counter-attack"
+    ],
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'retro' (meaning 'backward') to the root 'spect' - spell the word meaning 'a look back at past events'.",
+    "answer": "retrospect",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'omni' (meaning 'all') to 'present' - spell the word meaning 'present everywhere at once'.",
+    "answer": "omnipresent",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'extra' to 'terrestrial' - spell the word meaning 'coming from outside planet Earth'.",
+    "answer": "extraterrestrial",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'bi' (meaning 'two') to 'lingual' - spell the word meaning 'able to speak two languages'.",
+    "answer": "bilingual",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'tri' (meaning 'three') to 'athlon' - spell the word for a race combining three events: swimming, biking, and running.",
+    "answer": "triathlon",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'quad' (meaning 'four') to 'lateral' - spell the word for a shape with four sides.",
+    "answer": "quadrilateral",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'post' (meaning 'after') to the root 'pone' - spell the word meaning 'to delay something until later'.",
+    "answer": "postpone",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'pseudo' (meaning 'false') to 'onym' (meaning 'name') - spell the word for a fake name an author uses instead of their real one.",
+    "answer": "pseudonym",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'mal' (meaning 'bad') to 'function' - spell the word meaning 'to fail to work properly'.",
+    "answer": "malfunction",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'pro' to 'active' - spell the word meaning 'taking action to prevent problems before they happen'.",
+    "answer": "proactive",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the prefix 'intro' (meaning 'inward') to the root 'vert' - spell the word for a person who prefers quiet, solitary activities.",
+    "answer": "introvert",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'esque' to 'picture' - spell the word meaning 'visually pleasing, like a painting'.",
+    "answer": "picturesque",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ious' to 'space' (drop the e). Spell the word meaning 'having a lot of room'.",
+    "answer": "spacious",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ous' to 'gorge' (keep the e). Spell the word meaning 'extremely beautiful'.",
+    "answer": "gorgeous",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ary' to 'imagine' (drop the e). Spell the word meaning 'existing only in the mind, not real'.",
+    "answer": "imaginary",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ism' to 'hero' - spell the word for great courage or bravery.",
+    "answer": "heroism",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ist' to 'piano' - spell the word for a person who plays the piano.",
+    "answer": "pianist",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ous' to 'adventure' (drop the e). Spell the word meaning 'willing to take risks and try new things'.",
+    "answer": "adventurous",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ent' to 'persist' - spell the word meaning 'continuing firmly despite difficulty'.",
+    "answer": "persistent",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Change the '-ant' ending of 'significant' to '-ance'. Spell the word meaning 'the importance or meaning of something'.",
+    "answer": "significance",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'itive' to 'compete' (drop the e). Spell the word meaning 'having a strong desire to win'.",
+    "answer": "competitive",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'able' to 'predict' - spell the word meaning 'able to be known in advance'.",
+    "answer": "predictable",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add the suffix 'ify' to the root 'clar' (as in 'clarity'). Spell the word meaning 'to make something easier to understand'.",
+    "answer": "clarify",
+    "tags": [
+      "suffixes"
+    ]
+  }
 ]

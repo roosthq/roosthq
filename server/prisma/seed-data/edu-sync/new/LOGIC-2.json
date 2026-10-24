@@ -1,0 +1,2105 @@
+[
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count by 10s: 35, 45, 55, 65, __. What number goes in the blank?",
+  "answer": "75",
+  "acceptedAnswers": [
+   "seventy-five",
+   "seventy five"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Minecraft, 1 log makes 4 planks. So 2 logs make 8 planks, and 3 logs make 12 planks. How many planks do 5 logs make?",
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape comes next? Triangle, Circle, Circle, Triangle, Circle, Circle, Triangle, Circle, __",
+  "choicesJson": [
+   "Triangle",
+   "Square",
+   "Circle"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "pattern",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count backward by 3s: 20, 17, 14, 11, __. What number goes in the blank?",
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "pattern"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This pattern adds 2, then adds 1, then repeats: 1, 3, 4, 6, 7, 9, __. What number comes next?",
+  "choicesJson": [
+   "10",
+   "8",
+   "11",
+   "12"
+  ],
+  "answer": "10",
+  "tags": [
+   "pattern"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Fortnite builder stacks ramps. Floor 1 has 3 ramps, floor 2 has 6 ramps, and floor 3 has 9 ramps. If the pattern keeps going, how many ramps are on floor 4?",
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at this pattern: 2, 5, 8, 11, 14. What is the rule?",
+  "choicesJson": [
+   "Add 3",
+   "Add 4",
+   "Add 2",
+   "Add 5"
+  ],
+  "answer": "Add 3",
+  "tags": [
+   "pattern",
+   "rules"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the missing number: 30, 25, __, 15, 10.",
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The colors red, blue, green repeat over and over. What color is the 9th one?",
+  "choicesJson": [
+   "Red",
+   "Blue",
+   "Green"
+  ],
+  "answer": "Green",
+  "tags": [
+   "pattern",
+   "repeating"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Nina gets 5 stickers every day. After 1 day she has 5, after 2 days she has 10, and after 3 days she has 15. How many stickers does she have after 6 days?",
+  "answer": "30",
+  "acceptedAnswers": [
+   "thirty"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Shapes get one more side each time: a triangle has 3 sides, a square has 4 sides, a pentagon has 5 sides. Which shape comes next?",
+  "choicesJson": [
+   "Octagon",
+   "Circle",
+   "Rectangle",
+   "Hexagon"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "pattern",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at this pattern: 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, __. What number starts the next group?",
+  "choicesJson": [
+   "4",
+   "6",
+   "5",
+   "8"
+  ],
+  "answer": "5",
+  "tags": [
+   "pattern"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pattern counts by 4s: 4, 8, 12, 16, and keeps going. Which of these numbers will be in the pattern?",
+  "choicesJson": [
+   "22",
+   "26",
+   "30",
+   "24"
+  ],
+  "answer": "24",
+  "tags": [
+   "pattern",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a Roblox obby, there are checkpoints at stages 3, 6, 9, and 12. Which stage has the next checkpoint?",
+  "answer": "15",
+  "acceptedAnswers": [
+   "fifteen"
+  ],
+  "tags": [
+   "pattern",
+   "skip-counting",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pattern goes: big red circle, small blue square, big red circle, small blue square, big red circle. What comes next?",
+  "choicesJson": [
+   "Big red circle",
+   "Small red square",
+   "Big blue square",
+   "Small blue square"
+  ],
+  "answer": "Small blue square",
+  "tags": [
+   "pattern",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Look at this pattern: 11, 22, 33, 44, __. What number comes next?",
+  "answer": "55",
+  "acceptedAnswers": [
+   "fifty-five",
+   "fifty five"
+  ],
+  "tags": [
+   "pattern"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Zoe says the pattern 2, 4, 6, 9, 10 counts by 2s. Which number does NOT fit her pattern?",
+  "choicesJson": [
+   "4",
+   "6",
+   "10",
+   "9"
+  ],
+  "answer": "9",
+  "tags": [
+   "pattern",
+   "find-the-error"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A magic box adds 4 to every number. If you put in 2, out comes 6. If you put in 5, what comes out?",
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "pattern",
+   "rules"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A magic box follows a secret rule. Put in 3 and get 6. Put in 5 and get 10. Put in 7 and what comes out?",
+  "answer": "14",
+  "acceptedAnswers": [
+   "fourteen"
+  ],
+  "tags": [
+   "pattern",
+   "rules"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pyramid of cans has 1 can on top, 2 cans in the next row, 3 cans in the next row, and 4 cans in the bottom row. How many cans are in the pyramid altogether?",
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "pattern",
+   "addition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three kids stand in a row for a photo: Ivan, Lena, and Omar. Ivan is on the left end. Omar is on the right end. Who is in the middle?",
+  "choicesJson": [
+   "Omar",
+   "Ivan",
+   "Lena"
+  ],
+  "answer": "Lena",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Four kids stand in line: Kai, Jo, Lin, and Max. Kai is first. Jo is second. Lin is last. Who is third?",
+  "choicesJson": [
+   "Max",
+   "Kai",
+   "Lin",
+   "Jo"
+  ],
+  "answer": "Max",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ben is taller than Cy. Ava is shorter than Cy. Who is in the middle when they line up by height?",
+  "choicesJson": [
+   "Ben",
+   "Cy",
+   "Ava"
+  ],
+  "answer": "Cy",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ria, Tom, and Uma sit on a bench. Ria is not on either end. Tom sits on the left end. Who sits on the right end?",
+  "choicesJson": [
+   "Uma",
+   "Tom",
+   "Ria"
+  ],
+  "answer": "Uma",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a race, Finn finished after Hana but before Gus. Who finished first?",
+  "choicesJson": [
+   "Gus",
+   "Hana",
+   "Finn"
+  ],
+  "answer": "Hana",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three toy cars race: Red, Blue, and Green. Red finishes before Blue. Green finishes after Blue. Which car finishes second?",
+  "choicesJson": [
+   "Green",
+   "Red",
+   "Blue"
+  ],
+  "answer": "Blue",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three friends finished a Fortnite match: Rio, Pax, and Zed. Among the three, Rio finished first. Zed did not finish last. Who finished last?",
+  "choicesJson": [
+   "Rio",
+   "Zed",
+   "Pax"
+  ],
+  "answer": "Pax",
+  "tags": [
+   "ordering",
+   "deduction",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three trainers each pick a different starter: Bulbasaur, Charmander, or Squirtle. Mia does not pick Bulbasaur. Leo picks Charmander. Which starter does Mia pick?",
+  "choicesJson": [
+   "Squirtle",
+   "Bulbasaur",
+   "Charmander"
+  ],
+  "answer": "Squirtle",
+  "tags": [
+   "deduction",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Lia, Max, and Ned each have one pet: a dog, a cat, or a bird. Lia's pet has feathers. Max's pet barks. Which pet does Ned have?",
+  "choicesJson": [
+   "A dog",
+   "A bird",
+   "A cat"
+  ],
+  "answer": "A cat",
+  "tags": [
+   "deduction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Eli lives on floor 2. Dev lives on the floor right above Eli. Cara lives on the floor right above Dev. What floor does Cara live on?",
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The Foundation has four cells in a row, numbered 1 to 4. A statue, a ghost, a slime, and a mimic each stay in a different cell. The ghost is in cell 1. The slime is right next to the ghost. The mimic is in cell 4. Which cell is the statue in?",
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "ordering",
+   "deduction",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sam's birthday is in March. Tia's birthday is earlier in the year than Sam's. Uli's birthday is later in the year than Sam's. Whose birthday comes first in the year?",
+  "choicesJson": [
+   "Sam",
+   "Uli",
+   "Tia"
+  ],
+  "answer": "Tia",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Four books are on a shelf: red, blue, green, and yellow. Red is first from the left. Yellow is last. Blue is right next to red. What color is the third book from the left?",
+  "choicesJson": [
+   "Green",
+   "Yellow",
+   "Blue",
+   "Red"
+  ],
+  "answer": "Green",
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Use only the clues. Bigfoot is taller than a mailbox. Dracula is taller than a mailbox. Who is taller, Bigfoot or Dracula?",
+  "choicesJson": [
+   "Bigfoot",
+   "Dracula",
+   "They are the same height",
+   "We cannot tell from the clues"
+  ],
+  "answer": "We cannot tell from the clues",
+  "tags": [
+   "deduction",
+   "ordering",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Zane is 5th in line for the slide. How many kids are in front of Zane?",
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "There are 6 kids in a line. Pip is 4th. How many kids are behind Pip?",
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "ordering",
+   "deduction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A toy is hidden under one of 3 cups: red, blue, or yellow. It is not under the red cup. It is not under the yellow cup. Which cup hides the toy?",
+  "choicesJson": [
+   "Red cup",
+   "Yellow cup",
+   "Blue cup"
+  ],
+  "answer": "Blue cup",
+  "tags": [
+   "deduction",
+   "elimination"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am a 2-digit number. My tens digit is 4. My ones digit is 3 more than my tens digit. What number am I?",
+  "answer": "47",
+  "acceptedAnswers": [
+   "forty-seven",
+   "forty seven"
+  ],
+  "tags": [
+   "deduction",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am thinking of a number. It is more than 20 and less than 24. It is an even number. What is my number?",
+  "answer": "22",
+  "acceptedAnswers": [
+   "twenty-two",
+   "twenty two"
+  ],
+  "tags": [
+   "deduction",
+   "even-odd"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A mystery number is between 10 and 20. It is odd. Its two digits add up to 8. What is the number?",
+  "answer": "17",
+  "acceptedAnswers": [
+   "seventeen"
+  ],
+  "tags": [
+   "deduction",
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "True or false: All odd numbers end in 5.",
+  "choicesJson": [
+   "True",
+   "False"
+  ],
+  "answer": "False",
+  "tags": [
+   "true-false",
+   "even-odd"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dev says: \"All birds can fly.\" Which bird shows that Dev is wrong?",
+  "choicesJson": [
+   "Robin",
+   "Penguin",
+   "Eagle",
+   "Owl"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "true-false",
+   "counterexample"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, every creeper is green. Jo sees a green mob. Is Jo's mob definitely a creeper?",
+  "choicesJson": [
+   "No, a slime is green too",
+   "Yes, because creepers are mobs",
+   "Yes, every green mob is a creeper",
+   "No, creepers are not green"
+  ],
+  "answer": "No, a slime is green too",
+  "tags": [
+   "if-then",
+   "true-false",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Tia says: \"If it rains, I stay inside.\" Later, Ned sees Tia playing outside at the park. What do we know?",
+  "choicesJson": [
+   "It is raining",
+   "It is snowing",
+   "It is not raining",
+   "It is nighttime"
+  ],
+  "answer": "It is not raining",
+  "tags": [
+   "if-then",
+   "reasoning"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which statement is true?",
+  "choicesJson": [
+   "9 is less than 7",
+   "12 is greater than 15",
+   "5 + 5 = 12",
+   "20 is the same as 10 + 10"
+  ],
+  "answer": "20 is the same as 10 + 10",
+  "tags": [
+   "true-false",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three of these coin facts are true and one is false. Which one is false?",
+  "choicesJson": [
+   "A dime is worth 10 cents",
+   "A penny is worth 10 cents",
+   "A nickel is worth 5 cents",
+   "A quarter is worth 25 cents"
+  ],
+  "answer": "A penny is worth 10 cents",
+  "tags": [
+   "true-false",
+   "money"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In old movies, Dracula only comes out at night. A kid sees Dracula outside. What time must it be?",
+  "choicesJson": [
+   "Nighttime",
+   "Morning",
+   "Noon",
+   "Afternoon"
+  ],
+  "answer": "Nighttime",
+  "tags": [
+   "if-then",
+   "reasoning",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the SCP stories, the statue SCP-173 can only move when nobody is looking at it. Four guards are all staring at the statue. What can the statue do?",
+  "choicesJson": [
+   "Run to the door",
+   "Walk around the room",
+   "Jump on a guard",
+   "Nothing, it has to stay still"
+  ],
+  "answer": "Nothing, it has to stay still",
+  "tags": [
+   "if-then",
+   "reasoning",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dee has 40 Robux. She can only buy things that cost 40 Robux or less. A hat costs 50 Robux. Can Dee buy the hat?",
+  "choicesJson": [
+   "Yes",
+   "No"
+  ],
+  "answer": "No",
+  "tags": [
+   "if-then",
+   "comparing",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Zed colors a number blue only if it is greater than 50. Which number will Zed color blue?",
+  "choicesJson": [
+   "50",
+   "40",
+   "51",
+   "48"
+  ],
+  "answer": "51",
+  "tags": [
+   "if-then",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "True or false: A cube has 6 faces.",
+  "choicesJson": [
+   "False",
+   "True"
+  ],
+  "answer": "True",
+  "tags": [
+   "true-false",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sam says: \"Every number more than 3 is also more than 5.\" Which number shows that Sam is wrong?",
+  "choicesJson": [
+   "2",
+   "6",
+   "4",
+   "8"
+  ],
+  "answer": "4",
+  "tags": [
+   "true-false",
+   "counterexample"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Hana says: \"An odd number plus an odd number is always odd.\" Which example shows that Hana is wrong?",
+  "choicesJson": [
+   "3 + 4 = 7",
+   "2 + 2 = 4",
+   "1 + 6 = 7",
+   "3 + 5 = 8"
+  ],
+  "answer": "3 + 5 = 8",
+  "tags": [
+   "true-false",
+   "even-odd",
+   "counterexample"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mario grabs coins in a pattern: 10, 20, 30, 40. If it keeps going, how many coins does he grab next?",
+  "choicesJson": null,
+  "answer": "50",
+  "acceptedAnswers": [
+   "fifty"
+  ],
+  "tags": [
+   "sequences",
+   "skip-counting",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Steve crafts torches in batches of 3, 6, 9, and 12. How many torches are in the next batch if the pattern keeps going?",
+  "choicesJson": [
+   "14",
+   "16",
+   "15",
+   "18"
+  ],
+  "answer": "15",
+  "tags": [
+   "sequences",
+   "skip-counting",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count backwards by 5s: 50, 45, 40, 35, __. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "30",
+  "acceptedAnswers": [
+   "thirty"
+  ],
+  "tags": [
+   "sequences",
+   "counting-back"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Find the missing number: 14, 16, __, 20, 22.",
+  "choicesJson": [
+   "17",
+   "18",
+   "19",
+   "24"
+  ],
+  "answer": "18",
+  "tags": [
+   "sequences",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count up by 100s: 135, 235, 335, __. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "435",
+  "acceptedAnswers": [
+   "four hundred thirty-five",
+   "four hundred thirty five"
+  ],
+  "tags": [
+   "sequences",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Godzilla leaves footprints on the beach at 2 m, 5 m, 8 m, and 11 m from the water. Where is the next footprint if the pattern continues?",
+  "choicesJson": [
+   "12 m",
+   "13 m",
+   "14 m",
+   "15 m"
+  ],
+  "answer": "14 m",
+  "tags": [
+   "sequences",
+   "skip-counting",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You build a tower in Fortnite. 1 floor uses 20 wood, 2 floors use 40 wood, and 3 floors use 60 wood. How much wood do 4 floors use?",
+  "choicesJson": [
+   "70",
+   "80",
+   "90",
+   "100"
+  ],
+  "answer": "80",
+  "tags": [
+   "sequences",
+   "skip-counting",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the pattern: red, blue, blue, red, blue, blue, red. What color comes next?",
+  "choicesJson": [
+   "Red",
+   "Green",
+   "Blue"
+  ],
+  "answer": "Blue",
+  "tags": [
+   "patterns",
+   "sequences"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pattern skips one day each time: Tuesday, Thursday, Saturday, __. Which day comes next?",
+  "choicesJson": [
+   "Sunday",
+   "Monday",
+   "Tuesday",
+   "Friday"
+  ],
+  "answer": "Monday",
+  "tags": [
+   "patterns",
+   "sequences",
+   "days"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An SCP guard checks a contained creature's cell every 5 minutes: at 1:00, 1:05, 1:10, and 1:15. When is the next check?",
+  "choicesJson": [
+   "1:25",
+   "1:30",
+   "1:50",
+   "1:20"
+  ],
+  "answer": "1:20",
+  "tags": [
+   "sequences",
+   "time",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape comes next: square, triangle, circle, square, triangle, __?",
+  "choicesJson": [
+   "Square",
+   "Circle",
+   "Triangle",
+   "Star"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "patterns",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A rocket countdown goes 20, 18, 16, 14, and so on. What number is next?",
+  "choicesJson": [
+   "13",
+   "12",
+   "10",
+   "11"
+  ],
+  "answer": "12",
+  "tags": [
+   "sequences",
+   "counting-back"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Your Roblox pet earns coins every minute. You have 25 coins after 1 minute, 50 coins after 2 minutes, and 75 coins after 3 minutes. How many coins do you have after 4 minutes?",
+  "choicesJson": [
+   "80",
+   "90",
+   "100",
+   "125"
+  ],
+  "answer": "100",
+  "tags": [
+   "sequences",
+   "skip-counting",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number goes in the blank: 35, 40, __, 50, 55?",
+  "choicesJson": null,
+  "answer": "45",
+  "acceptedAnswers": [
+   "forty-five",
+   "forty five"
+  ],
+  "tags": [
+   "sequences",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fill in the blank with the next odd number in the pattern: 21, 23, 25, __, 29.",
+  "choicesJson": [
+   "27",
+   "26",
+   "28",
+   "31"
+  ],
+  "answer": "27",
+  "tags": [
+   "sequences",
+   "odd-even"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The gaps between these numbers grow by 1 each time: 1, 2, 4, 7, 11, __. What number comes next?",
+  "choicesJson": [
+   "16",
+   "15",
+   "14",
+   "18"
+  ],
+  "answer": "16",
+  "tags": [
+   "sequences",
+   "growing-pattern"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This pattern goes up 2, then down 1, over and over: 1, 3, 2, 4, 3, 5, __. What number is next?",
+  "choicesJson": [
+   "6",
+   "7",
+   "2",
+   "4"
+  ],
+  "answer": "4",
+  "tags": [
+   "sequences",
+   "two-step-pattern"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count by 50s: 450, 500, 550, __. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "600",
+  "acceptedAnswers": [
+   "six hundred"
+  ],
+  "tags": [
+   "sequences",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Eyes are to seeing as ears are to __?",
+  "choicesJson": [
+   "Smelling",
+   "Tasting",
+   "Hearing",
+   "Touching"
+  ],
+  "answer": "Hearing",
+  "tags": [
+   "analogies",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Cow is to moo as cat is to __?",
+  "choicesJson": [
+   "Meow",
+   "Woof",
+   "Quack",
+   "Oink"
+  ],
+  "answer": "Meow",
+  "tags": [
+   "analogies",
+   "animal-sounds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pikachu is to Electric type as Squirtle is to __ type?",
+  "choicesJson": [
+   "Fire",
+   "Grass",
+   "Water",
+   "Rock"
+  ],
+  "answer": "Water",
+  "tags": [
+   "analogies",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Book is to reading as music is to __?",
+  "choicesJson": [
+   "Tasting",
+   "Listening",
+   "Counting",
+   "Kicking"
+  ],
+  "answer": "Listening",
+  "tags": [
+   "analogies",
+   "actions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Day is to night as summer is to __?",
+  "choicesJson": [
+   "Sunny",
+   "July",
+   "Beach",
+   "Winter"
+  ],
+  "answer": "Winter",
+  "tags": [
+   "analogies",
+   "opposites",
+   "seasons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Tadpole is to frog as caterpillar is to __?",
+  "choicesJson": [
+   "Spider",
+   "Butterfly",
+   "Worm",
+   "Ant"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "analogies",
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Penny is to 1 cent as dime is to __?",
+  "choicesJson": [
+   "5 cents",
+   "25 cents",
+   "10 cents",
+   "50 cents"
+  ],
+  "answer": "10 cents",
+  "tags": [
+   "analogies",
+   "money"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Hand is to glove as head is to __?",
+  "choicesJson": [
+   "Sock",
+   "Belt",
+   "Boot",
+   "Hat"
+  ],
+  "answer": "Hat",
+  "tags": [
+   "analogies",
+   "clothing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Foot is to feet as tooth is to __?",
+  "choicesJson": null,
+  "answer": "teeth",
+  "tags": [
+   "analogies",
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Left is to right as north is to __?",
+  "choicesJson": [
+   "South",
+   "East",
+   "West",
+   "Up"
+  ],
+  "answer": "South",
+  "tags": [
+   "analogies",
+   "directions",
+   "opposites"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Wheel is to car as wing is to __?",
+  "choicesJson": [
+   "Boat",
+   "Truck",
+   "Airplane",
+   "Bicycle"
+  ],
+  "answer": "Airplane",
+  "tags": [
+   "analogies",
+   "parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ring is to finger as necklace is to __?",
+  "choicesJson": [
+   "Wrist",
+   "Foot",
+   "Knee",
+   "Neck"
+  ],
+  "answer": "Neck",
+  "tags": [
+   "analogies",
+   "body-parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You are facing north. You turn right. Which way are you facing now?",
+  "choicesJson": [
+   "West",
+   "North",
+   "East",
+   "South"
+  ],
+  "answer": "East",
+  "tags": [
+   "spatial",
+   "directions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You are facing east. You turn all the way around to face the opposite direction. Which way are you facing now?",
+  "choicesJson": [
+   "South",
+   "West",
+   "North",
+   "East"
+  ],
+  "answer": "West",
+  "tags": [
+   "spatial",
+   "directions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Zoe takes 3 steps forward, turns around, and takes 3 steps forward again. Where is she now?",
+  "choicesJson": [
+   "3 steps ahead of where she started",
+   "6 steps ahead of where she started",
+   "Back where she started",
+   "3 steps behind where she started"
+  ],
+  "answer": "Back where she started",
+  "tags": [
+   "spatial",
+   "directions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In line for ice cream, Zoe is in front of Max. Max is in front of Lily. Who is in the middle of the three?",
+  "choicesJson": [
+   "Zoe",
+   "Lily",
+   "Max"
+  ],
+  "answer": "Max",
+  "tags": [
+   "spatial",
+   "position"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A star, a heart, and a moon sit in three boxes in a row. The star is in the middle box. The heart is not in the left box. Which box is the heart in?",
+  "choicesJson": [
+   "The left box",
+   "The middle box",
+   "The right box"
+  ],
+  "answer": "The right box",
+  "tags": [
+   "spatial",
+   "deduction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Sonic runs 4 steps to the right, then 1 step back to the left. How many steps is he from where he started?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "spatial",
+   "directions",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A treasure map has columns 1, 2, 3 from left to right and rows A, B, C from top to bottom. The treasure is in the top row and the last column. Which square is it?",
+  "choicesJson": [
+   "A3",
+   "A1",
+   "C1",
+   "C3"
+  ],
+  "answer": "A3",
+  "tags": [
+   "spatial",
+   "grids"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A number line has squares from 0 to 10, with 10 on the right. A robot stands on square 5 and moves 3 squares to the left. Which square is it on now?",
+  "choicesJson": null,
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "spatial",
+   "number-line"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You are facing south. You turn left. Which way are you facing now?",
+  "choicesJson": [
+   "West",
+   "East",
+   "North",
+   "South"
+  ],
+  "answer": "East",
+  "tags": [
+   "spatial",
+   "directions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On a map, the school is north of the park. The library is south of the park. Which place is farthest north?",
+  "choicesJson": [
+   "The park",
+   "The library",
+   "The school"
+  ],
+  "answer": "The school",
+  "tags": [
+   "spatial",
+   "maps",
+   "directions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Link is facing north. He turns right, and then turns right again. Which way is he facing now?",
+  "choicesJson": [
+   "North",
+   "West",
+   "East",
+   "South"
+  ],
+  "answer": "South",
+  "tags": [
+   "spatial",
+   "directions",
+   "theme:zelda"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A house has an attic on top, then a 2nd floor, then a 1st floor, and a basement at the bottom. A friendly ghost starts in the attic and floats down 2 floors. Where is the ghost now?",
+  "choicesJson": [
+   "The basement",
+   "The 2nd floor",
+   "The attic",
+   "The 1st floor"
+  ],
+  "answer": "The 1st floor",
+  "tags": [
+   "spatial",
+   "position"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Guards watch the SCP-173 statue from the corners of a square room. The room has 4 corners and guards stand in 3 of them. How many corners have no guard?",
+  "choicesJson": null,
+  "answer": "1",
+  "acceptedAnswers": [
+   "one"
+  ],
+  "tags": [
+   "spatial",
+   "shapes",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "On a standard die, the numbers on opposite faces add up to 7. The top face shows 4. What number is on the bottom face?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "spatial",
+   "shapes-3d"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Shapes sit in a row of boxes in this pattern: star, moon, star, moon, and it keeps going. Which shape is in the 6th box?",
+  "choicesJson": [
+   "Star",
+   "Sun",
+   "Moon"
+  ],
+  "answer": "Moon",
+  "tags": [
+   "spatial",
+   "patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Pia stands on step 3 of a staircase. She climbs up 4 steps. Which step is she on now?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "spatial",
+   "number-line"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A shelf holds 5 books in a row. From left to right they are red, blue, green, yellow, and purple. Which book is in the middle?",
+  "choicesJson": [
+   "Green",
+   "Yellow",
+   "Blue",
+   "Red"
+  ],
+  "answer": "Green",
+  "tags": [
+   "spatial",
+   "position"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three of these are Minecraft tools. Which one is a block instead?",
+  "choicesJson": [
+   "Pickaxe",
+   "Axe",
+   "Dirt",
+   "Shovel"
+  ],
+  "answer": "Dirt",
+  "tags": [
+   "classification",
+   "odd-one-out",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Your Roblox avatar has 3 hats and 2 shirts. If you wear one hat and one shirt, how many different outfits can you make?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "counting",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A loot chest holds 6 Slurp Juice and 2 shield potions. You grab one item without looking. Which are you more likely to grab?",
+  "choicesJson": [
+   "Shield potion",
+   "Both are equally likely",
+   "Slurp Juice"
+  ],
+  "answer": "Slurp Juice",
+  "tags": [
+   "probability",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a spooky monster: Ghost, Vampire, Werewolf, or Teddy bear?",
+  "choicesJson": [
+   "Vampire",
+   "Ghost",
+   "Teddy bear",
+   "Werewolf"
+  ],
+  "answer": "Teddy bear",
+  "tags": [
+   "classification",
+   "odd-one-out",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three of these are legendary creatures from stories. Which one is a real animal?",
+  "choicesJson": [
+   "Bigfoot",
+   "Loch Ness Monster",
+   "Tiger",
+   "Yeti"
+  ],
+  "answer": "Tiger",
+  "tags": [
+   "classification",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ash's bag has only red Poke Balls. He reaches in without looking. How likely is it that he pulls out a blue Poke Ball?",
+  "choicesJson": [
+   "Certain",
+   "Likely",
+   "Impossible"
+  ],
+  "answer": "Impossible",
+  "tags": [
+   "probability",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mario collects coins in groups of 5. He grabs 4 groups. How many coins does he have?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "counting",
+   "skip-counting",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a game of Among Us, 8 players are crewmates and 2 are impostors. If you point at one player without looking, who is it more likely to be?",
+  "choicesJson": [
+   "An impostor",
+   "A crewmate",
+   "They are equally likely"
+  ],
+  "answer": "A crewmate",
+  "tags": [
+   "probability",
+   "theme:among-us"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Minecraft chest holds 9 pieces of coal and 1 diamond. You grab one item without looking. Which are you more likely to get?",
+  "choicesJson": [
+   "Diamond",
+   "Coal",
+   "They are equally likely"
+  ],
+  "answer": "Coal",
+  "tags": [
+   "probability",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one does NOT have wheels: bike, skateboard, wagon, or sled?",
+  "choicesJson": [
+   "Bike",
+   "Sled",
+   "Skateboard",
+   "Wagon"
+  ],
+  "answer": "Sled",
+  "tags": [
+   "classification",
+   "odd-one-out"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a living thing?",
+  "choicesJson": [
+   "Tree",
+   "Frog",
+   "Mushroom",
+   "Rock"
+  ],
+  "answer": "Rock",
+  "tags": [
+   "classification",
+   "odd-one-out"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one can NOT fly: eagle, bat, penguin, or bee?",
+  "choicesJson": [
+   "Penguin",
+   "Eagle",
+   "Bat",
+   "Bee"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "classification",
+   "odd-one-out"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a vegetable: carrot, broccoli, apple, or peas?",
+  "choicesJson": [
+   "Carrot",
+   "Broccoli",
+   "Peas",
+   "Apple"
+  ],
+  "answer": "Apple",
+  "tags": [
+   "classification",
+   "odd-one-out"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a US coin: penny, nickel, dollar bill, or dime?",
+  "choicesJson": [
+   "Dime",
+   "Penny",
+   "Dollar bill",
+   "Nickel"
+  ],
+  "answer": "Dollar bill",
+  "tags": [
+   "classification",
+   "odd-one-out"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is NOT a planet: Mars, Venus, Moon, or Jupiter?",
+  "choicesJson": [
+   "Moon",
+   "Mars",
+   "Jupiter",
+   "Venus"
+  ],
+  "answer": "Moon",
+  "tags": [
+   "classification",
+   "space"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word does NOT have 2 syllables: pizza, tiger, puppy, or banana?",
+  "choicesJson": [
+   "Pizza",
+   "Tiger",
+   "Banana",
+   "Puppy"
+  ],
+  "answer": "Banana",
+  "tags": [
+   "classification",
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word does NOT rhyme with the others: cat, hat, dog, bat?",
+  "choicesJson": [
+   "Cat",
+   "Hat",
+   "Bat",
+   "Dog"
+  ],
+  "answer": "Dog",
+  "tags": [
+   "classification",
+   "rhymes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three of these words start with the same sound. Which one starts with a different sound: snake, sun, shark, sock?",
+  "choicesJson": [
+   "Shark",
+   "Snake",
+   "Sock",
+   "Sun"
+  ],
+  "answer": "Shark",
+  "tags": [
+   "classification",
+   "word-logic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Here are four shapes: a red circle, a blue circle, a red square, and a green triangle. Which one is red AND has no corners?",
+  "choicesJson": [
+   "Red square",
+   "Blue circle",
+   "Green triangle",
+   "Red circle"
+  ],
+  "answer": "Red circle",
+  "tags": [
+   "classification",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I have hands but I cannot clap. I tell you the time. What am I?",
+  "choicesJson": [
+   "A chair",
+   "A clock",
+   "A cup",
+   "A book"
+  ],
+  "answer": "A clock",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I have four legs but I cannot walk. You sit on me. What am I?",
+  "choicesJson": [
+   "A chair",
+   "A table",
+   "A lamp",
+   "A rug"
+  ],
+  "answer": "A chair",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I am white and cold. Kids build me in the winter, and I melt in the sun. What am I?",
+  "choicesJson": [
+   "A cloud",
+   "A pillow",
+   "A snowman",
+   "A pie"
+  ],
+  "answer": "A snowman",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I have keys but no locks. You can play music on me. What am I?",
+  "choicesJson": [
+   "A door",
+   "A piano",
+   "A treasure chest",
+   "A fence"
+  ],
+  "answer": "A piano",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many letters are in the word \"pizza\"?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "word-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Fill in the missing letter to make a flying animal that comes out at night: B _ T",
+  "choicesJson": null,
+  "answer": "a",
+  "acceptedAnswers": [
+   "bat"
+  ],
+  "tags": [
+   "word-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am a number. I am more than 8 and less than 10. What number am I?",
+  "choicesJson": null,
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "riddle",
+   "number-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am an even number between 11 and 15. I am NOT 12. What number am I?",
+  "choicesJson": null,
+  "answer": "14",
+  "acceptedAnswers": [
+   "fourteen"
+  ],
+  "tags": [
+   "riddle",
+   "number-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am a shape with 3 sides and 3 corners. What shape am I?",
+  "choicesJson": null,
+  "answer": "triangle",
+  "acceptedAnswers": [
+   "a triangle",
+   "triangles"
+  ],
+  "tags": [
+   "riddle",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Unscramble the letters to make an animal that says meow: T A C",
+  "choicesJson": null,
+  "answer": "cat",
+  "acceptedAnswers": [
+   "a cat"
+  ],
+  "tags": [
+   "word-logic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I have one eye, but I cannot see. You use me to sew. What am I?",
+  "choicesJson": [
+   "A needle",
+   "A pirate",
+   "A spoon",
+   "A camera"
+  ],
+  "answer": "A needle",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The more of me you take, the more of me you leave behind. What am I?",
+  "choicesJson": [
+   "Apples",
+   "Footsteps",
+   "Pennies",
+   "Candy"
+  ],
+  "answer": "Footsteps",
+  "tags": [
+   "riddle"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Sam is standing in line. There are 3 kids in front of Sam and 2 kids behind Sam. How many kids are in the line?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "counting",
+   "word-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A farmer has 3 cows and 4 chickens. How many legs do all the animals have altogether?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "counting",
+   "word-logic"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many legs do 3 spiders have in all?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ],
+  "tags": [
+   "counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A spinner has 4 equal parts: 2 are green, 1 is yellow, and 1 is purple. Which color is the spinner most likely to land on?",
+  "choicesJson": [
+   "Yellow",
+   "Purple",
+   "Green"
+  ],
+  "answer": "Green",
+  "tags": [
+   "probability",
+   "spinners"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You flip a coin. How many different ways can it land: heads or tails? Type the number of ways.",
+  "choicesJson": null,
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "probability",
+   "counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bag has only yellow blocks in it. You pull one out without looking. How likely is it to be yellow?",
+  "choicesJson": [
+   "Impossible",
+   "Certain",
+   "Unlikely"
+  ],
+  "answer": "Certain",
+  "tags": [
+   "probability"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A regular die has the numbers 1 to 6 on it. Which number can you NOT roll?",
+  "choicesJson": [
+   "3",
+   "7",
+   "6",
+   "1"
+  ],
+  "answer": "7",
+  "tags": [
+   "probability",
+   "dice"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A regular die has the numbers 1, 2, 3, 4, 5, and 6. How many of those numbers are even?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "probability",
+   "dice"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pizza can have thin crust or thick crust. It can have cheese or pepperoni. How many different pizzas can you order?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "counting",
+   "combinations"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 2 pairs of shorts and 4 shirts. How many different outfits can you make with one pair of shorts and one shirt?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "counting",
+   "combinations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bag has 5 blue cubes and 5 red cubes. You pick one without looking. Which statement is true?",
+  "choicesJson": [
+   "Red is more likely",
+   "Blue is more likely",
+   "Red and blue are equally likely"
+  ],
+  "answer": "Red and blue are equally likely",
+  "tags": [
+   "probability"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which one is impossible?",
+  "choicesJson": [
+   "Rolling a 4 on a die",
+   "Finding a triangle with 5 sides",
+   "Flipping a coin and getting tails",
+   "Rain falling tomorrow"
+  ],
+  "answer": "Finding a triangle with 5 sides",
+  "tags": [
+   "probability"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 3 stickers: a star, a heart, and a moon. You pick 2 different stickers to put on a card. How many different pairs can you pick?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "counting",
+   "combinations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You flip a coin 2 times. Which result is impossible?",
+  "choicesJson": [
+   "Two heads",
+   "One head and one tail",
+   "Two tails",
+   "Three heads"
+  ],
+  "answer": "Three heads",
+  "tags": [
+   "probability",
+   "coins"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tricycle has 3 wheels. How many wheels do 3 tricycles have in all?",
+  "choicesJson": null,
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Pizza got 6 votes, tacos got 4 votes, and burgers got 3 votes. How many kids voted in all?",
+  "choicesJson": null,
+  "answer": "13",
+  "acceptedAnswers": [
+   "thirteen"
+  ],
+  "tags": [
+   "counting",
+   "data"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many of these are fruits: apple, carrot, banana, potato, grape?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "classification",
+   "counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group has more legs in all?",
+  "choicesJson": [
+   "5 birds",
+   "3 dogs",
+   "They have the same number"
+  ],
+  "answer": "3 dogs",
+  "tags": [
+   "counting",
+   "comparing"
+  ]
+ }
+]

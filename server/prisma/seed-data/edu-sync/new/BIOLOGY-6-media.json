@@ -1,0 +1,434 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a blue morpho butterfly mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/blue-morpho-butterfly.webp",
+   "alt": "A blue morpho butterfly rests on a big green leaf with its shiny blue wings open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an okapi mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/okapi.webp",
+   "alt": "An okapi walks on grass with a dark brown body and white stripes on its legs and rump."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a basilisk lizard mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/basilisk-lizard.webp",
+   "alt": "A brown common basilisk lizard with a long tail rests on a fallen log."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a leafcutter ant mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/leafcutter-ant.webp",
+   "alt": "A leafcutter ant carries a large green leaf piece over its back across a rough surface."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a great horned owl mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/great-horned-owl.webp",
+   "alt": "A great horned owl perched on a branch, looking at the camera with big yellow eyes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a nautilus mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/nautilus.webp",
+   "alt": "A nautilus with a red-and-white striped spiral shell and a head full of pale tentacles rests on sand beside dark rocks."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a Tasmanian devil mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/tasmanian-devil.webp",
+   "alt": "A black Tasmanian devil with a white chest patch walks through green grass and dandelions."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a shoebill mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/shoebill.webp",
+   "alt": "A shoebill facing the camera with its huge shoe-shaped bill in front of green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a kakapo mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/kakapo.webp",
+   "alt": "A green, moss-colored kakapo parrot with a pale bill sits among leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a black widow spider mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/black-widow-spider.webp",
+   "alt": "A shiny black spider with long thin legs hangs in its web, showing a red hourglass mark on its round belly."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an atlas moth mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/atlas-moth.webp",
+   "alt": "An atlas moth rests with its large reddish-brown wings spread wide, showing clear window-like spots."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a leatherback sea turtle mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/leatherback-sea-turtle.webp",
+   "alt": "A leatherback sea turtle with a dark, white-spotted body resting on a sandy beach at night."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a tarantula mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/tarantula.webp",
+   "alt": "A hairy tarantula with orange-banded legs stands on sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an orb-weaver spider mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/orb-weaver-spider.webp",
+   "alt": "A striped brown and yellow spider with long banded legs sits in the middle of its round web in front of green leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a Hercules beetle mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/hercules-beetle.webp",
+   "alt": "A male Hercules beetle with a long curved black horn rests on a piece of cork bark."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a sea otter mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/sea-otter.webp",
+   "alt": "A sea otter floating in the water, looking at the camera and holding an octopus."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a fennec fox mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/fennec-fox.webp",
+   "alt": "A sandy-colored fennec fox with huge ears stands on gravel and looks at the camera."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a coral mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/coral.webp",
+   "alt": "A pale pink branching coral with many bumpy tips grows on a shallow reef with a couple of small fish nearby."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a stag beetle mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/stag-beetle.webp",
+   "alt": "A male stag beetle with large reddish jaws crawls on weathered wood."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a sea anemone mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/sea-anemone.webp",
+   "alt": "A green sea anemone with a ring of soft tentacles around its mouth sits open in a rocky tide pool among mussel shells."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a gharial mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/gharial.webp",
+   "alt": "A gharial rests in shallow river water with its long, thin snout open to show its teeth."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a quokka mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/quokka.webp",
+   "alt": "A small brown quokka sits upright on sandy ground beside green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a secretary bird mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/secretary-bird.webp",
+   "alt": "A secretary bird with a crest of black feathers and long legs standing in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an aye-aye mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/aye-aye.webp",
+   "alt": "An aye-aye with big orange eyes and large ears peers out of the dark from among dry leaves and twigs."
+  }
+ }
+]

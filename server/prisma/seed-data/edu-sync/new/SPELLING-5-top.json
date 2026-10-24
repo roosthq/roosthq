@@ -1,0 +1,364 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the same vowel sound as 'eight'?",
+  "choicesJson": [
+   "seize",
+   "receive",
+   "weigh",
+   "height"
+  ],
+  "answer": "weigh",
+  "tags": [
+   "vowel-patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the /sh/ sound spelled with the letters 't-i'?",
+  "choicesJson": [
+   "nation",
+   "native",
+   "natural",
+   "nature"
+  ],
+  "answer": "nation",
+  "tags": [
+   "sound-spellings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with a soft g, making the /j/ sound?",
+  "choicesJson": [
+   "gentle",
+   "garden",
+   "gum",
+   "gold"
+  ],
+  "answer": "gentle",
+  "tags": [
+   "sound-spellings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters complete the word 'lau__ter', the sound you make at a funny joke?",
+  "choicesJson": [
+   "f",
+   "ph",
+   "gh",
+   "ff"
+  ],
+  "answer": "gh",
+  "tags": [
+   "missing-letters",
+   "tricky-spellings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the word that fits: 'The ___ goal of this level is to reach the flag at the top.'",
+  "choicesJson": [
+   "mayn",
+   "main",
+   "mane"
+  ],
+  "answer": "main",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits the sentence? 'Eli ___ a creaking noise from the attic, so he grabbed a flashlight.'",
+  "choicesJson": [
+   "heard",
+   "herd",
+   "hurd"
+  ],
+  "answer": "heard",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word fits the sentence? 'The pirate crew raised the ___ and the ship raced away.'",
+  "choicesJson": [
+   "sale",
+   "sayl",
+   "sail"
+  ],
+  "answer": "sail",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the name of the huge, hairy, ape-like creature said to roam the forests of North America. It is a compound word made from 'big' and 'foot'.",
+  "choicesJson": null,
+  "answer": "bigfoot",
+  "acceptedAnswers": [
+   "big foot"
+  ],
+  "tags": [
+   "spell-from-clue",
+   "compound-words",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A farmer saw two white ___ waddling by the pond. Spell the plural of 'goose'.",
+  "choicesJson": null,
+  "answer": "geese",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The Fortnite squad was full of brave ___. Spell the plural of 'hero'.",
+  "choicesJson": null,
+  "answer": "heroes",
+  "tags": [
+   "plurals",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which prefix turns 'possible' into a word meaning 'not possible'?",
+  "choicesJson": [
+   "un-",
+   "dis-",
+   "re-",
+   "im-"
+  ],
+  "answer": "im-",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Dad told us to ___ the oven before we baked the pizza. Add the prefix 'pre-' to 'heat' and spell the new word.",
+  "choicesJson": null,
+  "answer": "preheat",
+  "tags": [
+   "prefixes",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Maya solved the puzzle ___. Change the y to i and add -ly to 'easy' to spell the new word.",
+  "choicesJson": null,
+  "answer": "easily",
+  "tags": [
+   "suffixes",
+   "word-building"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which spelling is correct when you add '-ment' to 'excite'?",
+  "choicesJson": [
+   "excitment",
+   "exitement",
+   "excitemant",
+   "excitement"
+  ],
+  "answer": "excitement",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with a silent h?",
+  "choicesJson": [
+   "hammer",
+   "hungry",
+   "happy",
+   "honest"
+  ],
+  "answer": "honest",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'not right' or 'incorrect'. It has five letters and begins with a silent w.",
+  "choicesJson": null,
+  "answer": "wrong",
+  "tags": [
+   "silent-letters",
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a Roblox shop game, you owe your friend 50 Robux. Spell the word for money that you owe. It has four letters and a silent b.",
+  "choicesJson": null,
+  "answer": "debt",
+  "tags": [
+   "silent-letters",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these words is a compound word?",
+  "choicesJson": [
+   "zombie",
+   "skeleton",
+   "creeper",
+   "campfire"
+  ],
+  "answer": "campfire",
+  "tags": [
+   "compound-words",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'moon' and 'light' together to spell the compound word for the glow that shines on a graveyard at night.",
+  "choicesJson": null,
+  "answer": "moonlight",
+  "tags": [
+   "compound-words",
+   "word-building"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which choice is the correct contraction of 'will not'?",
+  "choicesJson": [
+   "wo'nt",
+   "won't",
+   "wun't",
+   "willn't"
+  ],
+  "answer": "won't",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the contraction for 'we have'. Include the apostrophe.",
+  "choicesJson": null,
+  "answer": "we've",
+  "acceptedAnswers": [
+   "weve"
+  ],
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Godzilla is a famous movie monster. How many syllables are in the word 'Godzilla'?",
+  "choicesJson": [
+   "2",
+   "4",
+   "3",
+   "5"
+  ],
+  "answer": "3",
+  "tags": [
+   "syllables",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has exactly three syllables?",
+  "choicesJson": [
+   "monster",
+   "ghost",
+   "dinosaur",
+   "phantom"
+  ],
+  "answer": "dinosaur",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters complete the name of a day of the week? Wedn__day",
+  "choicesJson": [
+   "as",
+   "us",
+   "es",
+   "is"
+  ],
+  "answer": "es",
+  "tags": [
+   "missing-letters",
+   "tricky-spellings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which spelling completes the sentence? 'I stayed up late ___ the new game update came out.'",
+  "choicesJson": [
+   "because",
+   "becuase",
+   "becouse",
+   "becase"
+  ],
+  "answer": "because",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a person who lives next door to you. It has eight letters and a silent 'gh' in the middle.",
+  "choicesJson": null,
+  "answer": "neighbor",
+  "acceptedAnswers": [
+   "neighbour"
+  ],
+  "tags": [
+   "tricky-spellings",
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The pizza was so good that Maya ate the ___ thing. Spell the word that sounds like 'hole' and means 'entire'.",
+  "choicesJson": null,
+  "answer": "whole",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word meaning 'to keep apart'. Hint: it has 'a rat' hiding in the middle.",
+  "choicesJson": null,
+  "answer": "separate",
+  "tags": [
+   "tricky-spellings",
+   "spell-from-clue"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "An SCP Foundation file says a creature is full of danger. Add the suffix '-ous' to 'danger' and spell the new word.",
+  "choicesJson": null,
+  "answer": "dangerous",
+  "tags": [
+   "suffixes",
+   "theme:scp"
+  ]
+ }
+]

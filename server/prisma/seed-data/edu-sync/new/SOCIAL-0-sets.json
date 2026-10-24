@@ -1,0 +1,614 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which vehicle is this?",
+  "choicesJson": [
+   "School bus",
+   "Fire truck",
+   "Airplane"
+  ],
+  "answer": "Fire truck",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-fire-truck.webp",
+   "alt": "A red fire engine with white stripes and the label E73 parked on a street beside autumn trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this vehicle?",
+  "choicesJson": [
+   "Boat",
+   "School bus",
+   "Helicopter"
+  ],
+  "answer": "School bus",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-school-bus.webp",
+   "alt": "A long yellow school bus with black stripes parked on a paved lot."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this flying machine?",
+  "choicesJson": [
+   "Boat",
+   "Helicopter",
+   "Train"
+  ],
+  "answer": "Helicopter",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-helicopter.webp",
+   "alt": "A red and white helicopter with spinning rotor blades flying in front of snowy mountains."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does this vehicle travel?",
+  "choicesJson": [
+   "On railroad tracks",
+   "In the sky",
+   "On water"
+  ],
+  "answer": "On water",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-boat.webp",
+   "alt": "A large white and green ferry boat sailing across blue water beside a dock."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call this vehicle?",
+  "choicesJson": [
+   "Bus",
+   "Train",
+   "Helicopter"
+  ],
+  "answer": "Train",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-train.webp",
+   "alt": "A blue and silver passenger train locomotive coming around a bend on railroad tracks."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this flying vehicle with big wings?",
+  "choicesJson": [
+   "Airplane",
+   "Hot air balloon",
+   "Helicopter"
+  ],
+  "answer": "Airplane",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-airplane.webp",
+   "alt": "A white passenger airplane with two engines flying low through a cloudy sky with its landing gear down."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we use this for?",
+  "choicesJson": [
+   "Cleaning our teeth",
+   "Cutting paper",
+   "Drinking water"
+  ],
+  "answer": "Cleaning our teeth",
+  "tags": [
+   "community helpers",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-toothbrush.webp",
+   "alt": "A yellow toothbrush with toothpaste squeezed onto its bristles from a tube."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who teaches kids in a room like this?",
+  "choicesJson": [
+   "Chef",
+   "Pilot",
+   "Teacher"
+  ],
+  "answer": "Teacher",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-classroom.webp",
+   "alt": "A school classroom with student desks and chairs, a teacher desk, a whiteboard and shelves of folders."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who drives a car like this?",
+  "choicesJson": [
+   "Police officer",
+   "Dentist",
+   "Chef"
+  ],
+  "answer": "Police officer",
+  "tags": [
+   "community helpers"
+  ],
+  "media": {
+   "image": "learning/img/community-helpers-police-car.webp",
+   "alt": "A gray state police SUV with a badge on its door parked in a parking lot."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a fire truck?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-fire-truck.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-train.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a school bus, a fire truck, an airplane and a train."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a school bus?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-boat.webp",
+    "learning/img/community-helpers-helicopter.webp",
+    "learning/img/community-helpers-school-bus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a police car, a ferry boat, a helicopter and a school bus."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an airplane?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-helicopter.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-boat.webp",
+    "learning/img/community-helpers-garbage-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a helicopter, an airplane, a ferry boat and a garbage truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle sails on the water?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-boat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: an airplane, a train, a police car and a ferry boat."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a train?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-fire-truck.webp",
+    "learning/img/community-helpers-boat.webp",
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-garbage-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a fire truck, a ferry boat, a train and a garbage truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which vehicle has spinning blades on top?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-train.webp",
+    "learning/img/community-helpers-airplane.webp",
+    "learning/img/community-helpers-helicopter.webp",
+    "learning/img/community-helpers-boat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a train, an airplane, a helicopter and a ferry boat."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an ambulance?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-ambulance.webp",
+    "learning/img/community-helpers-fire-truck.webp",
+    "learning/img/community-helpers-school-bus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a police car, an ambulance, a fire truck and a school bus."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a police car?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-police-car.webp",
+    "learning/img/community-helpers-ambulance.webp",
+    "learning/img/community-helpers-mail-truck.webp",
+    "learning/img/community-helpers-fire-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a police car, an ambulance, a mail truck and a fire truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a mail truck?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "vehicles",
+   "community"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/community-helpers-garbage-truck.webp",
+    "learning/img/community-helpers-tractor.webp",
+    "learning/img/community-helpers-school-bus.webp",
+    "learning/img/community-helpers-mail-truck.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures A to D in order: a garbage truck, a tractor, a school bus and a mail truck."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Statue of Liberty?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-statue-of-liberty.webp",
+    "learning/img/landmarks-pyramids-of-giza.webp",
+    "learning/img/landmarks-sydney-opera-house.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Eiffel Tower?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "B",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-niagara-falls.webp",
+    "learning/img/landmarks-eiffel-tower.webp",
+    "learning/img/landmarks-taj-mahal.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a big pyramid?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-big-ben.webp",
+    "learning/img/landmarks-niagara-falls.webp",
+    "learning/img/landmarks-pyramids-of-giza.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a castle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-neuschwanstein.webp",
+    "learning/img/landmarks-golden-gate-bridge.webp",
+    "learning/img/landmarks-grand-canyon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a bridge?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "B",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-stonehenge.webp",
+    "learning/img/landmarks-golden-gate-bridge.webp",
+    "learning/img/landmarks-taj-mahal.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a waterfall?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "C",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-us-capitol.webp",
+    "learning/img/landmarks-great-wall.webp",
+    "learning/img/landmarks-niagara-falls.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a very long wall?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "A",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-great-wall.webp",
+    "learning/img/landmarks-space-needle.webp",
+    "learning/img/landmarks-christ-the-redeemer.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "3 photos of famous places, labeled A, B and C."
+  }
+ }
+]

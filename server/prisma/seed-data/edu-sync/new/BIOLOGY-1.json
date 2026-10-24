@@ -1,0 +1,2180 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is a mammal?",
+  "choicesJson": [
+   "Shark",
+   "Frog",
+   "Dog",
+   "Snake"
+  ],
+  "answer": "Dog",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is a bird?",
+  "choicesJson": [
+   "Bat",
+   "Penguin",
+   "Dolphin"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A baby frog that lives in the water is called a what?",
+  "choicesJson": [
+   "Caterpillar",
+   "Puppy",
+   "Tadpole"
+  ],
+  "answer": "Tadpole",
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A caterpillar grows up to be a what?",
+  "choicesJson": [
+   "Spider",
+   "Butterfly",
+   "Worm"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "life-cycles",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has feathers?",
+  "choicesJson": [
+   "Eagle",
+   "Cat",
+   "Frog"
+  ],
+  "answer": "Eagle",
+  "tags": [
+   "animals",
+   "body-coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has fur?",
+  "choicesJson": [
+   "Goldfish",
+   "Snake",
+   "Lion"
+  ],
+  "answer": "Lion",
+  "tags": [
+   "animals",
+   "body-coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has scales on its skin?",
+  "choicesJson": [
+   "Rabbit",
+   "Snake",
+   "Duck"
+  ],
+  "answer": "Snake",
+  "tags": [
+   "animals",
+   "body-coverings"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A baby chicken hatches from a what?",
+  "answer": "egg",
+  "acceptedAnswers": [
+   "an egg"
+  ],
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal does NOT hatch from an egg?",
+  "choicesJson": [
+   "Robin",
+   "Turtle",
+   "Horse"
+  ],
+  "answer": "Horse",
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is a reptile?",
+  "choicesJson": [
+   "Frog",
+   "Goldfish",
+   "Lizard"
+  ],
+  "answer": "Lizard",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mammal moms feed their babies what?",
+  "choicesJson": [
+   "Seeds",
+   "Milk",
+   "Leaves"
+  ],
+  "answer": "Milk",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sea animal is a fish, not a mammal?",
+  "choicesJson": [
+   "Dolphin",
+   "Whale",
+   "Shark"
+  ],
+  "answer": "Shark",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has a backbone inside its body?",
+  "choicesJson": [
+   "Worm",
+   "Jellyfish",
+   "Cat",
+   "Snail"
+  ],
+  "answer": "Cat",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A butterfly starts as an egg and then hatches into a caterpillar. What stage comes right after the caterpillar?",
+  "choicesJson": [
+   "Egg",
+   "Chrysalis",
+   "Butterfly"
+  ],
+  "answer": "Chrysalis",
+  "tags": [
+   "life-cycles",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the very first stage in a butterfly's life?",
+  "choicesJson": [
+   "Butterfly",
+   "Chrysalis",
+   "Egg"
+  ],
+  "answer": "Egg",
+  "tags": [
+   "life-cycles",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A tadpole is growing into a frog. What does it grow?",
+  "choicesJson": [
+   "Feathers",
+   "Legs",
+   "Fur"
+  ],
+  "answer": "Legs",
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which two things do plants need to grow?",
+  "choicesJson": [
+   "Candy and soda",
+   "Sunlight and water",
+   "Sand and snow"
+  ],
+  "answer": "Sunlight and water",
+  "tags": [
+   "plants",
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A baby bear is called a what?",
+  "choicesJson": [
+   "Cub",
+   "Lamb",
+   "Kitten"
+  ],
+  "answer": "Cub",
+  "tags": [
+   "baby-animals",
+   "animals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A baby kangaroo rides in its mom's pouch. What is a baby kangaroo called?",
+  "answer": "joey",
+  "acceptedAnswers": [
+   "a joey"
+  ],
+  "tags": [
+   "baby-animals",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is the first stage of a person's life?",
+  "choicesJson": [
+   "Grown-up",
+   "Baby",
+   "Teenager"
+  ],
+  "answer": "Baby",
+  "tags": [
+   "life-cycles",
+   "humans"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has a hard shell on its back?",
+  "choicesJson": [
+   "Cat",
+   "Frog",
+   "Turtle"
+  ],
+  "answer": "Turtle",
+  "tags": [
+   "animals",
+   "body-coverings"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tiny acorn can grow into a big what?",
+  "answer": "tree",
+  "acceptedAnswers": [
+   "a tree",
+   "oak tree",
+   "an oak tree",
+   "oak"
+  ],
+  "tags": [
+   "plants",
+   "life-cycles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is NOT an insect?",
+  "choicesJson": [
+   "Butterfly",
+   "Spider",
+   "Ant"
+  ],
+  "answer": "Spider",
+  "tags": [
+   "insects",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Snakes, lizards and turtles are all what?",
+  "choicesJson": [
+   "Mammals",
+   "Birds",
+   "Reptiles"
+  ],
+  "answer": "Reptiles",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Robins, owls and ducks all belong to which animal group?",
+  "choicesJson": [
+   "Fish",
+   "Birds",
+   "Insects"
+  ],
+  "answer": "Birds",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Cats, dogs and cows are all what?",
+  "choicesJson": [
+   "Reptiles",
+   "Insects",
+   "Mammals"
+  ],
+  "answer": "Mammals",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal group do frogs belong to?",
+  "choicesJson": [
+   "Reptiles",
+   "Amphibians",
+   "Mammals"
+  ],
+  "answer": "Amphibians",
+  "tags": [
+   "animals",
+   "classification"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is a baby duck called? Hint: it ends in -ling.",
+  "answer": "duckling",
+  "acceptedAnswers": [
+   "a duckling"
+  ],
+  "tags": [
+   "baby-animals",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which baby looks very different from the grown-up animal it becomes?",
+  "choicesJson": [
+   "Kitten",
+   "Puppy",
+   "Tadpole"
+  ],
+  "answer": "Tadpole",
+  "tags": [
+   "life-cycles",
+   "animals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many wings does a butterfly have?",
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "insects",
+   "animals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Minecraft has spiders. How many legs does a real spider have?",
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "animals",
+   "classification",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Minecraft has bees that make honey. A real bee has six legs. What group is a bee in?",
+  "choicesJson": [
+   "Mammals",
+   "Birds",
+   "Insects"
+  ],
+  "answer": "Insects",
+  "tags": [
+   "insects",
+   "classification",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Minecraft has axolotls, and they are real animals too. An axolotl is an amphibian, like a frog. Which animal is also an amphibian?",
+  "choicesJson": [
+   "Hawk",
+   "Toad",
+   "Turtle"
+  ],
+  "answer": "Toad",
+  "tags": [
+   "animals",
+   "classification",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Magikarp is a Pokemon that looks like a fish. What do real fish use to breathe underwater?",
+  "choicesJson": [
+   "Wings",
+   "Gills",
+   "Feathers"
+  ],
+  "answer": "Gills",
+  "tags": [
+   "animals",
+   "body-parts",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Yoshi hatches from an egg in the Mario games. Which real animal also hatches from an egg?",
+  "choicesJson": [
+   "Pig",
+   "Turtle",
+   "Rabbit"
+  ],
+  "answer": "Turtle",
+  "tags": [
+   "life-cycles",
+   "animals",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a Roblox pet game, your pet hatches from an egg and grows up. Which is the right order for a real chicken?",
+  "choicesJson": [
+   "Hen, egg, chick",
+   "Chick, hen, egg",
+   "Egg, chick, hen"
+  ],
+  "answer": "Egg, chick, hen",
+  "tags": [
+   "life-cycles",
+   "animals",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fortnite has a Loot Llama. Real llamas have fur and feed their babies milk. What group is a llama in?",
+  "choicesJson": [
+   "Reptile",
+   "Mammal",
+   "Bird"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sonic is a hedgehog, and real hedgehogs are mammals. Which of these is also a mammal?",
+  "choicesJson": [
+   "Owl",
+   "Lizard",
+   "Bat"
+  ],
+  "answer": "Bat",
+  "tags": [
+   "animals",
+   "classification",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Nemo and Dory are fish. What helps real fish swim?",
+  "choicesJson": [
+   "Fins",
+   "Wings",
+   "Paws"
+  ],
+  "answer": "Fins",
+  "tags": [
+   "animals",
+   "body-parts",
+   "theme:movies"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which body part do you use to see?",
+  "choicesJson": [
+   "Ears",
+   "Eyes",
+   "Nose"
+  ],
+  "answer": "Eyes",
+  "tags": [
+   "senses",
+   "body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do you do with your nose?",
+  "choicesJson": [
+   "Smell",
+   "Hear",
+   "Taste"
+  ],
+  "answer": "Smell",
+  "tags": [
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What covers the body of a fish?",
+  "choicesJson": [
+   "Fur",
+   "Feathers",
+   "Scales"
+  ],
+  "answer": "Scales",
+  "tags": [
+   "animal coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What covers a cat's body?",
+  "choicesJson": [
+   "Feathers",
+   "Fur",
+   "Scales"
+  ],
+  "answer": "Fur",
+  "tags": [
+   "animal coverings"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is an elephant's long nose called?",
+  "choicesJson": [],
+  "answer": "trunk",
+  "acceptedAnswers": [
+   "the trunk",
+   "a trunk"
+  ],
+  "tags": [
+   "animal body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has a very long neck so it can reach leaves high in the trees?",
+  "choicesJson": [
+   "Pig",
+   "Giraffe",
+   "Dog"
+  ],
+  "answer": "Giraffe",
+  "tags": [
+   "animal body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which body part helps you taste food?",
+  "choicesJson": [
+   "Tongue",
+   "Eyes",
+   "Ears"
+  ],
+  "answer": "Tongue",
+  "tags": [
+   "senses",
+   "body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of your body covers you and helps you feel hot and cold?",
+  "choicesJson": [
+   "Hair",
+   "Skin",
+   "Teeth"
+  ],
+  "answer": "Skin",
+  "tags": [
+   "senses",
+   "body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You bite a lemon and it makes your face scrunch up. Which sense tells you it is sour?",
+  "choicesJson": [
+   "Hearing",
+   "Sight",
+   "Taste"
+  ],
+  "answer": "Taste",
+  "tags": [
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do a cat's whiskers help it do?",
+  "choicesJson": [
+   "Feel things near it",
+   "Fly",
+   "Swim fast"
+  ],
+  "answer": "Feel things near it",
+  "tags": [
+   "animal body parts",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bird has feathers but cannot fly?",
+  "choicesJson": [
+   "Eagle",
+   "Owl",
+   "Penguin"
+  ],
+  "answer": "Penguin",
+  "tags": [
+   "animal coverings",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is covered in sharp spines called quills?",
+  "choicesJson": [
+   "Porcupine",
+   "Horse",
+   "Goldfish"
+  ],
+  "answer": "Porcupine",
+  "tags": [
+   "animal coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal carries its shell on its back like a little house?",
+  "choicesJson": [
+   "Mouse",
+   "Bee",
+   "Snail"
+  ],
+  "answer": "Snail",
+  "tags": [
+   "animal coverings"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why does a duck have webbed feet?",
+  "choicesJson": [
+   "To climb trees",
+   "To swim",
+   "To dig holes"
+  ],
+  "answer": "To swim",
+  "tags": [
+   "animal body parts",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has big eyes that help it see in the dark?",
+  "choicesJson": [
+   "Owl",
+   "Cow",
+   "Chicken"
+  ],
+  "answer": "Owl",
+  "tags": [
+   "senses",
+   "animal body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A dog sniffs the ground to find a smell. Which body part does it use?",
+  "choicesJson": [
+   "Tail",
+   "Nose",
+   "Paws"
+  ],
+  "answer": "Nose",
+  "tags": [
+   "senses",
+   "animal body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal catches bugs with its long, sticky tongue?",
+  "choicesJson": [
+   "Horse",
+   "Rabbit",
+   "Frog"
+  ],
+  "answer": "Frog",
+  "tags": [
+   "animal body parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal has two feelers on its head called antennae?",
+  "choicesJson": [
+   "Horse",
+   "Butterfly",
+   "Robin"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "animal body parts",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Polar bears in Minecraft have white fur. What does thick fur help a real polar bear do?",
+  "choicesJson": [
+   "Stay warm",
+   "Swim like a fish",
+   "Fly"
+  ],
+  "answer": "Stay warm",
+  "tags": [
+   "animal coverings",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Squirtle has a shell on its back, like a real turtle. What does a turtle's shell do?",
+  "choicesJson": [
+   "Helps it fly",
+   "Protects its body",
+   "Makes it taste better"
+  ],
+  "answer": "Protects its body",
+  "tags": [
+   "animal coverings",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Godzilla looks like a giant lizard. What covers the body of a real lizard?",
+  "choicesJson": [
+   "Feathers",
+   "Scales",
+   "Wool"
+  ],
+  "answer": "Scales",
+  "tags": [
+   "animal coverings",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Roblox, you watch the screen to spot the next jump in an obby. Which sense are you using?",
+  "choicesJson": [
+   "Smell",
+   "Taste",
+   "Sight"
+  ],
+  "answer": "Sight",
+  "tags": [
+   "senses",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Fortnite, you listen for footsteps nearby. Which body part do you use to hear them?",
+  "choicesJson": [
+   "Ears",
+   "Elbows",
+   "Eyes"
+  ],
+  "answer": "Ears",
+  "tags": [
+   "senses",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a plant is flat and green and catches sunlight?",
+  "choicesJson": [
+   "Leaf",
+   "Root",
+   "Seed"
+  ],
+  "answer": "Leaf",
+  "tags": [
+   "plant parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the colorful part of a plant that can grow into a fruit?",
+  "choicesJson": [
+   "Root",
+   "Flower",
+   "Stem"
+  ],
+  "answer": "Flower",
+  "tags": [
+   "plant parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a plant holds it up tall and carries water to the leaves?",
+  "choicesJson": [
+   "Stem",
+   "Seed",
+   "Petal"
+  ],
+  "answer": "Stem",
+  "tags": [
+   "plant parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens to a plant that gets no water for a long time?",
+  "choicesJson": [
+   "It grows faster",
+   "It turns into an animal",
+   "It droops and dries out"
+  ],
+  "answer": "It droops and dries out",
+  "tags": [
+   "plant needs"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Plants use sunlight, water and air to make their own ___. (one word)",
+  "choicesJson": [],
+  "answer": "food",
+  "acceptedAnswers": [
+   "sugar",
+   "sugars",
+   "foods"
+  ],
+  "tags": [
+   "photosynthesis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Plants give off a gas that people need to breathe. What is it called?",
+  "choicesJson": [
+   "Helium",
+   "Oxygen",
+   "Steam"
+  ],
+  "answer": "Oxygen",
+  "tags": [
+   "photosynthesis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When you eat a carrot, which part of the plant are you eating?",
+  "choicesJson": [
+   "Flower",
+   "Leaf",
+   "Root"
+  ],
+  "answer": "Root",
+  "tags": [
+   "plant parts",
+   "food"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When you eat lettuce in a salad, which part of the plant are you eating?",
+  "choicesJson": [
+   "Roots",
+   "Seeds",
+   "Leaves"
+  ],
+  "answer": "Leaves",
+  "tags": [
+   "plant parts",
+   "food"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of a sunflower do people eat as a crunchy snack?",
+  "choicesJson": [
+   "Seeds",
+   "Stem",
+   "Roots"
+  ],
+  "answer": "Seeds",
+  "tags": [
+   "plant parts",
+   "food"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, you plant wheat seeds in a block of dirt. Where do real seeds start to grow?",
+  "choicesJson": [
+   "In the air",
+   "In the soil",
+   "On ice"
+  ],
+  "answer": "In the soil",
+  "tags": [
+   "seeds",
+   "plant needs",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Piranha Plants in Mario games pop out of pipes. What do the roots of a real plant do?",
+  "choicesJson": [
+   "Make flowers",
+   "Catch sunlight",
+   "Soak up water from the soil"
+  ],
+  "answer": "Soak up water from the soil",
+  "tags": [
+   "plant parts",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Bulbasaur has a plant on its back. A real plant needs sunlight to grow. What else does it need?",
+  "choicesJson": [
+   "Water",
+   "Candy",
+   "Sand only"
+  ],
+  "answer": "Water",
+  "tags": [
+   "plant needs",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Venus flytrap snaps shut on bugs, but it makes food from sunlight too. Is it a plant or an animal?",
+  "choicesJson": [
+   "An animal",
+   "A rock",
+   "A plant"
+  ],
+  "answer": "A plant",
+  "tags": [
+   "plants",
+   "photosynthesis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal lives in the ocean?",
+  "choicesJson": [
+   "Camel",
+   "Chicken",
+   "Dolphin"
+  ],
+  "answer": "Dolphin",
+  "tags": [
+   "habitats",
+   "ocean"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A desert is a place that is very ___.",
+  "choicesJson": [
+   "icy",
+   "dry",
+   "wet"
+  ],
+  "answer": "dry",
+  "tags": [
+   "habitats",
+   "desert"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal lives in the icy Arctic?",
+  "choicesJson": [
+   "Monkey",
+   "Polar bear",
+   "Camel"
+  ],
+  "answer": "Polar bear",
+  "tags": [
+   "habitats",
+   "arctic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a fish live?",
+  "choicesJson": [
+   "In a nest",
+   "In a tree",
+   "In water"
+  ],
+  "answer": "In water",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal lives in a warm rainforest?",
+  "choicesJson": [
+   "Walrus",
+   "Toucan",
+   "Camel"
+  ],
+  "answer": "Toucan",
+  "tags": [
+   "habitats",
+   "rainforest"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a habitat?",
+  "choicesJson": [
+   "A kind of food",
+   "A toy for pets",
+   "A place where plants and animals live"
+  ],
+  "answer": "A place where plants and animals live",
+  "tags": [
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a food chain, what gives the grass its energy?",
+  "choicesJson": [
+   "The sun",
+   "A fox",
+   "A rabbit"
+  ],
+  "answer": "The sun",
+  "tags": [
+   "ecosystems",
+   "food chains"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal hunts other animals for food?",
+  "choicesJson": [
+   "Rabbit",
+   "Deer",
+   "Wolf"
+  ],
+  "answer": "Wolf",
+  "tags": [
+   "ecosystems",
+   "diets"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which living thing helps turn dead leaves into healthy soil?",
+  "choicesJson": [
+   "Eagle",
+   "Earthworm",
+   "Dolphin"
+  ],
+  "answer": "Earthworm",
+  "tags": [
+   "ecosystems",
+   "soil"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ocean water tastes ___. Is it sweet, sour, or salty? Type the word.",
+  "answer": "salty",
+  "acceptedAnswers": [
+   "Salty"
+  ],
+  "tags": [
+   "habitats",
+   "ocean"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal lives on a grassland in Africa?",
+  "choicesJson": [
+   "Seal",
+   "Giraffe",
+   "Penguin"
+  ],
+  "answer": "Giraffe",
+  "tags": [
+   "habitats",
+   "grassland"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How can you help keep animal homes clean?",
+  "choicesJson": [
+   "Leave litter in the park",
+   "Throw trash in the river",
+   "Put trash in a bin"
+  ],
+  "answer": "Put trash in a bin",
+  "tags": [
+   "ecosystems",
+   "caring for nature"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal may live in a hole in a tree?",
+  "choicesJson": [
+   "Dolphin",
+   "Squirrel",
+   "Camel"
+  ],
+  "answer": "Squirrel",
+  "tags": [
+   "habitats",
+   "forest"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is awake mostly at night?",
+  "choicesJson": [
+   "Chicken",
+   "Butterfly",
+   "Bat"
+  ],
+  "answer": "Bat",
+  "tags": [
+   "habitats",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, you can find axolotls in lush caves. A real axolotl lives its whole life in ___.",
+  "choicesJson": [
+   "water",
+   "trees",
+   "sand"
+  ],
+  "answer": "water",
+  "tags": [
+   "habitats",
+   "animals",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, bees fly from flower to flower. In real life, what do bees carry that helps flowers make seeds?",
+  "choicesJson": [
+   "Pollen",
+   "Rocks",
+   "Water"
+  ],
+  "answer": "Pollen",
+  "tags": [
+   "ecosystems",
+   "plants",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fortnite players build forts. Which real animal builds a dam from sticks and logs in a stream?",
+  "choicesJson": [
+   "Penguin",
+   "Eagle",
+   "Beaver"
+  ],
+  "answer": "Beaver",
+  "tags": [
+   "habitats",
+   "animals",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Finding Nemo, Nemo the clownfish lives in the ocean on a colorful coral ___. Type the missing word.",
+  "answer": "reef",
+  "acceptedAnswers": [
+   "reefs"
+  ],
+  "tags": [
+   "habitats",
+   "ocean",
+   "theme:nemo"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Godzilla is a giant movie monster who rises from the sea. Which real sea animal has to come up to breathe air?",
+  "choicesJson": [
+   "Whale",
+   "Shark",
+   "Octopus"
+  ],
+  "answer": "Whale",
+  "tags": [
+   "habitats",
+   "ocean",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The five senses are sight, hearing, smell, taste, and ___. Type the missing sense.",
+  "answer": "touch",
+  "acceptedAnswers": [
+   "Touch"
+  ],
+  "tags": [
+   "human body",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which body part do you breathe air into?",
+  "choicesJson": [
+   "Lungs",
+   "Stomach",
+   "Elbow"
+  ],
+  "answer": "Lungs",
+  "tags": [
+   "human body"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "After you swallow your food, where does it go?",
+  "choicesJson": [
+   "Lungs",
+   "Brain",
+   "Stomach"
+  ],
+  "answer": "Stomach",
+  "tags": [
+   "human body",
+   "digestion"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Your skeleton is made of hard things called ___. Type the word.",
+  "answer": "bones",
+  "acceptedAnswers": [
+   "bone",
+   "Bones",
+   "Bone"
+  ],
+  "tags": [
+   "human body",
+   "bones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What helps your body move when you run and jump?",
+  "choicesJson": [
+   "Eyelashes",
+   "Muscles",
+   "Hair"
+  ],
+  "answer": "Muscles",
+  "tags": [
+   "human body",
+   "muscles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which snack is best for healthy teeth?",
+  "choicesJson": [
+   "Sticky candy",
+   "Crunchy apple slices",
+   "Soda"
+  ],
+  "answer": "Crunchy apple slices",
+  "tags": [
+   "health",
+   "teeth"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many times a day should you brush your teeth?",
+  "choicesJson": [
+   "Zero times",
+   "Ten times",
+   "Two times"
+  ],
+  "answer": "Two times",
+  "tags": [
+   "health",
+   "teeth"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do we wash our hands with soap?",
+  "choicesJson": [
+   "To make them taller",
+   "To get rid of germs",
+   "To make them louder"
+  ],
+  "answer": "To get rid of germs",
+  "tags": [
+   "health",
+   "hygiene"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why is sleep good for kids?",
+  "choicesJson": [
+   "It helps your body rest and grow",
+   "It makes your bones shrink",
+   "It turns off your heart"
+  ],
+  "answer": "It helps your body rest and grow",
+  "tags": [
+   "health",
+   "sleep"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which drink is the healthiest choice for every day?",
+  "choicesJson": [
+   "Soda",
+   "Water",
+   "Fruit punch"
+  ],
+  "answer": "Water",
+  "tags": [
+   "health",
+   "nutrition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which activity helps make your heart and body strong?",
+  "choicesJson": [
+   "Playing tag",
+   "Lying still all day",
+   "Watching TV all day"
+  ],
+  "answer": "Playing tag",
+  "tags": [
+   "health",
+   "exercise"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which food is a vegetable?",
+  "choicesJson": [
+   "Cookie",
+   "Cheese",
+   "Carrot"
+  ],
+  "answer": "Carrot",
+  "tags": [
+   "health",
+   "nutrition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does your heart do?",
+  "choicesJson": [
+   "Pumps blood around your body",
+   "Helps you see",
+   "Digests your food"
+  ],
+  "answer": "Pumps blood around your body",
+  "tags": [
+   "human body",
+   "heart"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What grows in when a baby tooth falls out?",
+  "choicesJson": [
+   "Fur",
+   "An adult tooth",
+   "A wing"
+  ],
+  "answer": "An adult tooth",
+  "tags": [
+   "human body",
+   "teeth"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What should you do when you need to sneeze?",
+  "choicesJson": [
+   "Cover it with a tissue or your elbow",
+   "Sneeze right on a friend",
+   "Hold your breath for a minute"
+  ],
+  "answer": "Cover it with a tissue or your elbow",
+  "tags": [
+   "health",
+   "hygiene"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Who can check that your body is healthy?",
+  "choicesJson": [
+   "A doctor",
+   "A pilot",
+   "A chef"
+  ],
+  "answer": "A doctor",
+  "tags": [
+   "health"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What should you put on your skin before playing outside on a very sunny day?",
+  "choicesJson": [
+   "Mittens",
+   "Sunscreen",
+   "Snow boots"
+  ],
+  "answer": "Sunscreen",
+  "tags": [
+   "health",
+   "sun safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sense does your skin help you with?",
+  "choicesJson": [
+   "Smell",
+   "Hearing",
+   "Touch"
+  ],
+  "answer": "Touch",
+  "tags": [
+   "human body",
+   "senses"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why should you wear a helmet when you ride a bike?",
+  "choicesJson": [
+   "To go faster",
+   "To protect your head",
+   "To hear better"
+  ],
+  "answer": "To protect your head",
+  "tags": [
+   "health",
+   "safety"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sonic runs super fast. When you run fast, your heart beats ___.",
+  "choicesJson": [
+   "faster",
+   "slower",
+   "not at all"
+  ],
+  "answer": "faster",
+  "tags": [
+   "human body",
+   "heart",
+   "theme:sonic"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dracula is a movie vampire with two long, pointy fangs. Fangs are a kind of ___.",
+  "choicesJson": [
+   "toe",
+   "ear",
+   "tooth"
+  ],
+  "answer": "tooth",
+  "tags": [
+   "human body",
+   "teeth",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A movie mummy is wrapped in bandages. Which part of your real body covers and protects you on the outside?",
+  "choicesJson": [
+   "Skin",
+   "Brain",
+   "Stomach"
+  ],
+  "answer": "Skin",
+  "tags": [
+   "human body",
+   "skin",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Frankenstein's monster is a movie monster. In real life, which body part is your control center that helps you think?",
+  "choicesJson": [
+   "Brain",
+   "Elbow",
+   "Toe"
+  ],
+  "answer": "Brain",
+  "tags": [
+   "human body",
+   "brain",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is a meat eater?",
+  "choicesJson": [
+   "Cow",
+   "Rabbit",
+   "Lion"
+  ],
+  "answer": "Lion",
+  "tags": [
+   "diets",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A zebra eats grass all day. What kind of eater is a zebra?",
+  "choicesJson": [
+   "Herbivore",
+   "Carnivore",
+   "Omnivore"
+  ],
+  "answer": "Herbivore",
+  "tags": [
+   "diets",
+   "herbivore"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call an animal that eats only meat?",
+  "choicesJson": [
+   "Herbivore",
+   "Carnivore",
+   "Omnivore"
+  ],
+  "answer": "Carnivore",
+  "tags": [
+   "diets",
+   "carnivore"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bear eats berries, fish, and honey. What kind of eater is a bear?",
+  "choicesJson": [
+   "Carnivore",
+   "Herbivore",
+   "Omnivore"
+  ],
+  "answer": "Omnivore",
+  "tags": [
+   "diets",
+   "omnivore"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a food chain, a fox eats a rabbit. What does the rabbit eat?",
+  "choicesJson": [
+   "Meat",
+   "Plants",
+   "Fish"
+  ],
+  "answer": "Plants",
+  "tags": [
+   "food chains"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Plants use light from the ___ to make their food.",
+  "choicesJson": [],
+  "answer": "sun",
+  "acceptedAnswers": [
+   "the sun",
+   "sunlight",
+   "the sunlight"
+  ],
+  "tags": [
+   "food chains",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A caterpillar eats a leaf. A bird eats the caterpillar. Which shows the food chain in order?",
+  "choicesJson": [
+   "Bird, leaf, caterpillar",
+   "Leaf, caterpillar, bird",
+   "Caterpillar, bird, leaf"
+  ],
+  "answer": "Leaf, caterpillar, bird",
+  "tags": [
+   "food chains"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A predator hunts other animals for food. Which animal is a predator?",
+  "choicesJson": [
+   "Rabbit",
+   "Deer",
+   "Owl"
+  ],
+  "answer": "Owl",
+  "tags": [
+   "food chains",
+   "predators"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hawk hunts a mouse. Which one is the prey?",
+  "choicesJson": [
+   "Mouse",
+   "Hawk",
+   "Tree"
+  ],
+  "answer": "Mouse",
+  "tags": [
+   "food chains",
+   "predators"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a giant panda eat most of the time?",
+  "choicesJson": [
+   "Fish",
+   "Meat",
+   "Bamboo"
+  ],
+  "answer": "Bamboo",
+  "tags": [
+   "diets",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A koala eats the leaves of which tree?",
+  "choicesJson": [
+   "Pine",
+   "Eucalyptus",
+   "Apple"
+  ],
+  "answer": "Eucalyptus",
+  "tags": [
+   "diets",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hummingbird uses its long beak to drink what from flowers?",
+  "choicesJson": [
+   "Milk",
+   "Nectar",
+   "Soda"
+  ],
+  "answer": "Nectar",
+  "tags": [
+   "diets",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An anteater uses its long, sticky tongue to eat what?",
+  "choicesJson": [
+   "Ants",
+   "Grass",
+   "Fish"
+  ],
+  "answer": "Ants",
+  "tags": [
+   "diets",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The giant blue whale is the biggest animal ever. What tiny sea animals does it eat?",
+  "choicesJson": [
+   "Krill",
+   "Sharks",
+   "Seals"
+  ],
+  "answer": "Krill",
+  "tags": [
+   "diets",
+   "ocean"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, you feed wheat to a cow. Real cows eat grass and hay. What kind of eater is a cow?",
+  "choicesJson": [
+   "Carnivore",
+   "Herbivore",
+   "Omnivore"
+  ],
+  "answer": "Herbivore",
+  "tags": [
+   "diets",
+   "herbivore",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft, pigs love carrots. Real pigs eat plants and small animals too. What kind of eater is a pig?",
+  "choicesJson": [
+   "Omnivore",
+   "Herbivore",
+   "Carnivore"
+  ],
+  "answer": "Omnivore",
+  "tags": [
+   "diets",
+   "omnivore",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Minecraft axolotl lives in water. Real axolotls have feathery gills. What do gills help an axolotl do?",
+  "choicesJson": [
+   "Fly",
+   "Breathe underwater",
+   "Dig tunnels"
+  ],
+  "answer": "Breathe underwater",
+  "tags": [
+   "adaptations",
+   "amphibians",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fortnite players drop from the sky in squads. Geese fly in a V-shape when they migrate. How does the V help them?",
+  "choicesJson": [
+   "It hides them from the sun",
+   "It helps them save energy",
+   "It helps them find fish"
+  ],
+  "answer": "It helps them save energy",
+  "tags": [
+   "migration",
+   "birds",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a Roblox hide-and-seek game, you hide where you blend in with the walls. What do animals call this kind of hiding?",
+  "choicesJson": [
+   "Migration",
+   "Hibernation",
+   "Camouflage"
+  ],
+  "answer": "Camouflage",
+  "tags": [
+   "camouflage",
+   "adaptations",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does camouflage help an animal do?",
+  "choicesJson": [
+   "Hide from other animals",
+   "Run faster",
+   "Sing louder"
+  ],
+  "answer": "Hide from other animals",
+  "tags": [
+   "camouflage",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal can change the color of its skin?",
+  "choicesJson": [
+   "Elephant",
+   "Chameleon",
+   "Pig"
+  ],
+  "answer": "Chameleon",
+  "tags": [
+   "camouflage",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Arctic hare turns white in winter. How does this help it?",
+  "choicesJson": [
+   "It blends in with the snow",
+   "It stays cleaner",
+   "It can run faster"
+  ],
+  "answer": "It blends in with the snow",
+  "tags": [
+   "camouflage",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A stick insect looks just like a twig. How does this help it?",
+  "choicesJson": [
+   "It can fly higher",
+   "Hungry animals have a hard time seeing it",
+   "It can swim"
+  ],
+  "answer": "Hungry animals have a hard time seeing it",
+  "tags": [
+   "camouflage",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Some animals sleep deeply all winter when food is hard to find. What is this called?",
+  "choicesJson": [
+   "Hibernation",
+   "Swimming",
+   "Camouflage"
+  ],
+  "answer": "Hibernation",
+  "tags": [
+   "hibernation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal hibernates in winter?",
+  "choicesJson": [
+   "Goldfish",
+   "Cat",
+   "Groundhog"
+  ],
+  "answer": "Groundhog",
+  "tags": [
+   "hibernation",
+   "animals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In fall, bears eat a lot of food. Why?",
+  "choicesJson": [
+   "To make it snow",
+   "To store fat for winter",
+   "To grow taller"
+  ],
+  "answer": "To store fat for winter",
+  "tags": [
+   "hibernation",
+   "adaptations"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A groundhog sleeps through the winter in an underground home. What is this home called?",
+  "choicesJson": [
+   "Nest",
+   "Pond",
+   "Burrow"
+  ],
+  "answer": "Burrow",
+  "tags": [
+   "hibernation",
+   "habitats"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call it when animals travel far to find food or warm weather?",
+  "choicesJson": [
+   "Migration",
+   "Hibernation",
+   "Camouflage"
+  ],
+  "answer": "Migration",
+  "tags": [
+   "migration"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal flies south for the winter?",
+  "choicesJson": [
+   "Cow",
+   "Snail",
+   "Canada goose"
+  ],
+  "answer": "Canada goose",
+  "tags": [
+   "migration",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many monarch butterflies fly a long way to a warm place for winter. Where do they go?",
+  "choicesJson": [
+   "Alaska",
+   "Mexico",
+   "Antarctica"
+  ],
+  "answer": "Mexico",
+  "tags": [
+   "migration",
+   "insects"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Emperor penguins stand close together in big groups. Why do they huddle?",
+  "choicesJson": [
+   "To stay warm",
+   "To catch fish",
+   "To play tag"
+  ],
+  "answer": "To stay warm",
+  "tags": [
+   "adaptations",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A camel's hump helps it live in the desert. What does the hump store?",
+  "choicesJson": [
+   "Water",
+   "Fat",
+   "Sand"
+  ],
+  "answer": "Fat",
+  "tags": [
+   "adaptations",
+   "desert"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A thick layer of fat keeps whales and seals warm in cold water. What is it called?",
+  "choicesJson": [
+   "Feathers",
+   "Blubber",
+   "Scales"
+  ],
+  "answer": "Blubber",
+  "tags": [
+   "adaptations",
+   "ocean"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A woodpecker has a strong, pointed beak. What is it good for?",
+  "choicesJson": [
+   "Scooping up fish",
+   "Pecking into tree bark",
+   "Drinking from flowers"
+  ],
+  "answer": "Pecking into tree bark",
+  "tags": [
+   "adaptations",
+   "birds"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a skunk do to protect itself?",
+  "choicesJson": [
+   "Builds a nest",
+   "Flies away",
+   "Sprays a stinky smell"
+  ],
+  "answer": "Sprays a stinky smell",
+  "tags": [
+   "adaptations",
+   "defense"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Squirrels bury acorns in the fall. Why do they do this?",
+  "choicesJson": [
+   "To grow a garden",
+   "To have food to eat in winter",
+   "To make a bed"
+  ],
+  "answer": "To have food to eat in winter",
+  "tags": [
+   "adaptations",
+   "winter"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A friendly creature in a spooky SCP-style story eats only leaves and grass. What kind of eater is it?",
+  "choicesJson": [
+   "Carnivore",
+   "Herbivore",
+   "Omnivore"
+  ],
+  "answer": "Herbivore",
+  "tags": [
+   "diets",
+   "herbivore",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a spooky-fun story, a friendly ghost only comes out at night. Real animals that are awake at night are called what?",
+  "choicesJson": [
+   "Nocturnal",
+   "Migrating",
+   "Hibernating"
+  ],
+  "answer": "Nocturnal",
+  "tags": [
+   "adaptations",
+   "nocturnal",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In movies, Dracula can turn into a bat. What do many real bats eat?",
+  "choicesJson": [
+   "Grass",
+   "Rocks",
+   "Flying bugs"
+  ],
+  "answer": "Flying bugs",
+  "tags": [
+   "diets",
+   "bats",
+   "theme:monsters"
+  ]
+ }
+]

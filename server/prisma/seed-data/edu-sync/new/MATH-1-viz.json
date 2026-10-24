@@ -1,0 +1,2118 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:30",
+   "10:30",
+   "11:30",
+   "8:00"
+  ],
+  "answer": "8:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6e4f26598e34.webp",
+   "alt": "An analog clock showing 8:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:00",
+   "10:00",
+   "3:30",
+   "8:00"
+  ],
+  "answer": "3:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f50428c8272a.webp",
+   "alt": "An analog clock showing 3:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:00",
+   "3:00",
+   "4:00",
+   "6:00"
+  ],
+  "answer": "10:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/86a5d806ac5c.webp",
+   "alt": "An analog clock showing 10:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:30",
+   "10:30",
+   "6:00",
+   "6:30"
+  ],
+  "answer": "12:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3b566638bdbd.webp",
+   "alt": "An analog clock showing 12:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:00",
+   "12:00",
+   "12:30",
+   "4:00"
+  ],
+  "answer": "6:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a4c1fb045b72.webp",
+   "alt": "An analog clock showing 6:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:00",
+   "4:00",
+   "5:00",
+   "7:30"
+  ],
+  "answer": "7:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/477d105ddea4.webp",
+   "alt": "An analog clock showing 7:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:00",
+   "11:00",
+   "4:00",
+   "9:30"
+  ],
+  "answer": "9:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/822d40405129.webp",
+   "alt": "An analog clock showing 9:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:00",
+   "5:00",
+   "7:00",
+   "9:00"
+  ],
+  "answer": "12:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f0dfab486a93.webp",
+   "alt": "An analog clock showing 12:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:30",
+   "11:30",
+   "2:00",
+   "9:30"
+  ],
+  "answer": "2:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a0ebe8a0a0a1.webp",
+   "alt": "An analog clock showing 2:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:30",
+   "10:00",
+   "11:30",
+   "3:30"
+  ],
+  "answer": "10:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c02d9c98d13a.webp",
+   "alt": "An analog clock showing 10:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:00",
+   "10:00",
+   "11:30",
+   "5:00"
+  ],
+  "answer": "11:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3b8ad8916a1e.webp",
+   "alt": "An analog clock showing 11:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:30",
+   "3:30",
+   "4:30",
+   "7:00"
+  ],
+  "answer": "7:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b4e1b0a1aa68.webp",
+   "alt": "An analog clock showing 7:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "5:30",
+   "11:30",
+   "8:30",
+   "9:30"
+  ],
+  "answer": "5:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c1a3bf3b8ed7.webp",
+   "alt": "An analog clock showing 5:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "5:00",
+   "1:00",
+   "4:00",
+   "7:00"
+  ],
+  "answer": "5:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9bbcd576206a.webp",
+   "alt": "An analog clock showing 5:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:00",
+   "10:00",
+   "3:00",
+   "7:00"
+  ],
+  "answer": "8:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3d446cd8a260.webp",
+   "alt": "An analog clock showing 8:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:30",
+   "5:30",
+   "8:30",
+   "9:00"
+  ],
+  "answer": "9:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/659fdb3f1446.webp",
+   "alt": "An analog clock showing 9:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:30",
+   "11:30",
+   "4:00",
+   "5:30"
+  ],
+  "answer": "4:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7d4c8e8ae20f.webp",
+   "alt": "An analog clock showing 4:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:00",
+   "10:00",
+   "2:30",
+   "5:00"
+  ],
+  "answer": "2:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d410d9197e45.webp",
+   "alt": "An analog clock showing 2:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:30",
+   "12:30",
+   "7:30",
+   "8:30"
+  ],
+  "answer": "1:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/28403bf67da4.webp",
+   "alt": "An analog clock showing 1:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:00",
+   "1:30",
+   "3:00",
+   "6:00"
+  ],
+  "answer": "1:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/dc43fa444bfb.webp",
+   "alt": "An analog clock showing 1:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:00",
+   "10:00",
+   "12:00",
+   "5:00"
+  ],
+  "answer": "4:00",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5209ed62ad01.webp",
+   "alt": "An analog clock showing 4:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:30",
+   "11:00",
+   "12:30",
+   "2:30"
+  ],
+  "answer": "11:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c6910cfeb7d1.webp",
+   "alt": "An analog clock showing 11:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:30",
+   "11:30",
+   "4:30",
+   "9:30"
+  ],
+  "answer": "6:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2fc34bb069c9.webp",
+   "alt": "An analog clock showing 6:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:30",
+   "11:30",
+   "5:30",
+   "8:30"
+  ],
+  "answer": "3:30",
+  "tags": [
+   "time",
+   "hour-half",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ddb75f0c0c53.webp",
+   "alt": "An analog clock showing 3:30"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1fc1106f591a.webp",
+    "learning/img/viz/f5dcce07eb2f.webp",
+    "learning/img/viz/9fba100b916c.webp",
+    "learning/img/viz/45611d885db1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/e54c7c9f0e23.webp",
+    "learning/img/viz/9fbec4890f55.webp",
+    "learning/img/viz/064f5e612b18.webp",
+    "learning/img/viz/d3407d05606d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 3:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/d3407d05606d.webp",
+    "learning/img/viz/9fbec4890f55.webp",
+    "learning/img/viz/9fba100b916c.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 11:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/d36ee116e733.webp",
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/544434f3f57b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 6:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/544434f3f57b.webp",
+    "learning/img/viz/485c2fcffbf8.webp",
+    "learning/img/viz/a4c31412493a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 10:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ad60233ecaba.webp",
+    "learning/img/viz/ca067edebd0c.webp",
+    "learning/img/viz/abca7122ac45.webp",
+    "learning/img/viz/45611d885db1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 4:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1e37b6898c8a.webp",
+    "learning/img/viz/abca7122ac45.webp",
+    "learning/img/viz/6c9dcf04bad9.webp",
+    "learning/img/viz/a4c31412493a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 3:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/6c9dcf04bad9.webp",
+    "learning/img/viz/9fbec4890f55.webp",
+    "learning/img/viz/30a6724b38db.webp",
+    "learning/img/viz/d3407d05606d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 12:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/ad60233ecaba.webp",
+    "learning/img/viz/485c2fcffbf8.webp",
+    "learning/img/viz/1ecbc8adc906.webp",
+    "learning/img/viz/d3407d05606d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 9:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/544434f3f57b.webp",
+    "learning/img/viz/e54c7c9f0e23.webp",
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/1e37b6898c8a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 8:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/9fbec4890f55.webp",
+    "learning/img/viz/f5dcce07eb2f.webp",
+    "learning/img/viz/d36ee116e733.webp",
+    "learning/img/viz/485c2fcffbf8.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7f3100bb03ce.webp",
+    "learning/img/viz/485c2fcffbf8.webp",
+    "learning/img/viz/45611d885db1.webp",
+    "learning/img/viz/ad60233ecaba.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 10:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/d3407d05606d.webp",
+    "learning/img/viz/7f3100bb03ce.webp",
+    "learning/img/viz/f5dcce07eb2f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 11:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/485c2fcffbf8.webp",
+    "learning/img/viz/abca7122ac45.webp",
+    "learning/img/viz/d36ee116e733.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the hearts. How many are there?",
+  "answer": "11",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/76ec16b2e0a1.webp",
+   "alt": "11 hearts"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "11",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4956b72b9405.webp",
+   "alt": "11 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "12",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/eb82e3d318c0.webp",
+   "alt": "12 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the hearts. How many are there?",
+  "answer": "12",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/81cf0b96ca2d.webp",
+   "alt": "12 hearts"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the hearts. How many are there?",
+  "answer": "13",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/527308ddf05b.webp",
+   "alt": "13 hearts"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "13",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8da41dd127f9.webp",
+   "alt": "13 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the triangles. How many are there?",
+  "answer": "14",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/801e1593622d.webp",
+   "alt": "14 triangles"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "14",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8f35340a7827.webp",
+   "alt": "14 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the balls. How many are there?",
+  "answer": "15",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/13cd48317243.webp",
+   "alt": "15 balls"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "15",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e268a0bcfff6.webp",
+   "alt": "15 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the triangles. How many are there?",
+  "answer": "16",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c6fbf14461e4.webp",
+   "alt": "16 triangles"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the balls. How many are there?",
+  "answer": "16",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/afd4ce10c153.webp",
+   "alt": "16 balls"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "17",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/89d444807b09.webp",
+   "alt": "17 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the balls. How many are there?",
+  "answer": "17",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b68c53d20420.webp",
+   "alt": "17 balls"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the stars. How many are there?",
+  "answer": "18",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e8945db1c567.webp",
+   "alt": "18 stars"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the hearts. How many are there?",
+  "answer": "18",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/068ea3af9d26.webp",
+   "alt": "18 hearts"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the squares. How many are there?",
+  "answer": "19",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a275695dec52.webp",
+   "alt": "19 squares"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the stars. How many are there?",
+  "answer": "19",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/91a72d9c93b9.webp",
+   "alt": "19 stars"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the triangles. How many are there?",
+  "answer": "20",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/949f6063c9d7.webp",
+   "alt": "20 triangles"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count the hearts. How many are there?",
+  "answer": "20",
+  "tags": [
+   "counting",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/dadfa94240bf.webp",
+   "alt": "20 hearts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/54f16435356d.webp",
+   "alt": "A ten frame with 1 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fdd49a100502.webp",
+   "alt": "A ten frame with 2 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/61f1549f3575.webp",
+   "alt": "A ten frame with 3 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d11181af5de.webp",
+   "alt": "A ten frame with 4 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6a25fa5f76d9.webp",
+   "alt": "A ten frame with 5 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a41da02eb047.webp",
+   "alt": "A ten frame with 6 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5c25a96a191e.webp",
+   "alt": "A ten frame with 7 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "2",
+   "0",
+   "1",
+   "3"
+  ],
+  "answer": "2",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4151ae292d6f.webp",
+   "alt": "A ten frame with 8 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many more dots make 10?",
+  "choicesJson": [
+   "1",
+   "0",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "make-ten",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8465033752b1.webp",
+   "alt": "A ten frame with 9 dots"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Oval",
+   "Pentagon",
+   "Hexagon",
+   "Rhombus"
+  ],
+  "answer": "Oval",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/aa3c5e86eb86.webp",
+   "alt": "A blue oval"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Oval",
+   "Octagon",
+   "Pentagon",
+   "Triangle"
+  ],
+  "answer": "Oval",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/692118893fcb.webp",
+   "alt": "A red oval"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Oval",
+   "Trapezoid",
+   "Hexagon",
+   "Triangle"
+  ],
+  "answer": "Oval",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7a17b73a956e.webp",
+   "alt": "A pink oval"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e840b7fa5993.webp",
+   "alt": "A square"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3001d25925d6.webp",
+   "alt": "A square"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/af5826a2a50e.webp",
+   "alt": "A square"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/03bca342a8e9.webp",
+   "alt": "A rectangle"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e25836e72e16.webp",
+   "alt": "A rectangle"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/42fb90f06855.webp",
+   "alt": "A rectangle"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "3",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/848f17d1bc31.webp",
+   "alt": "A triangle"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "3",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ed4290aadae3.webp",
+   "alt": "A triangle"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "3",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b4938820494b.webp",
+   "alt": "A triangle"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Pentagon",
+   "Trapezoid",
+   "Triangle",
+   "Rectangle"
+  ],
+  "answer": "Pentagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ef1edc58af1c.webp",
+   "alt": "A green pentagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Pentagon",
+   "Rectangle",
+   "Trapezoid",
+   "Hexagon"
+  ],
+  "answer": "Pentagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2eed9d395b7a.webp",
+   "alt": "A pink pentagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Pentagon",
+   "Oval",
+   "Rhombus",
+   "Rectangle"
+  ],
+  "answer": "Pentagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/681ce26521a1.webp",
+   "alt": "A purple pentagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Hexagon",
+   "Pentagon",
+   "Parallelogram",
+   "Triangle"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/15a47dd87dcb.webp",
+   "alt": "A pink hexagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Hexagon",
+   "Rhombus",
+   "Pentagon",
+   "Octagon"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f4dfd19f0791.webp",
+   "alt": "A purple hexagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Hexagon",
+   "Oval",
+   "Trapezoid",
+   "Rhombus"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c9db6231200e.webp",
+   "alt": "A red hexagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rhombus",
+   "Pentagon",
+   "Trapezoid",
+   "Triangle"
+  ],
+  "answer": "Rhombus",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ac5c6e425126.webp",
+   "alt": "A green rhombus"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rhombus",
+   "Oval",
+   "Parallelogram",
+   "Pentagon"
+  ],
+  "answer": "Rhombus",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2a69046fb69.webp",
+   "alt": "A blue rhombus"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Rhombus",
+   "Square",
+   "Parallelogram",
+   "Triangle"
+  ],
+  "answer": "Rhombus",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/70e219d57fcf.webp",
+   "alt": "A pink rhombus"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a hexagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/549e802a9242.webp",
+    "learning/img/viz/3886b9ba6a2d.webp",
+    "learning/img/viz/9983f1e05dd6.webp",
+    "learning/img/viz/d7bb4116a7d6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a hexagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/069c414c0684.webp",
+    "learning/img/viz/d7bb4116a7d6.webp",
+    "learning/img/viz/6c6d78b179df.webp",
+    "learning/img/viz/9983f1e05dd6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a pentagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bc1deefc9221.webp",
+    "learning/img/viz/3d1d958ddf4e.webp",
+    "learning/img/viz/c2517739d333.webp",
+    "learning/img/viz/4b13231461bd.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a pentagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/6c6d78b179df.webp",
+    "learning/img/viz/ae378129fce7.webp",
+    "learning/img/viz/275d6b161b86.webp",
+    "learning/img/viz/bc6db8eb9be6.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an octagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/fbd6cf3394d7.webp",
+    "learning/img/viz/ae378129fce7.webp",
+    "learning/img/viz/bc6db8eb9be6.webp",
+    "learning/img/viz/6c6d78b179df.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an octagon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/182e304efcbf.webp",
+    "learning/img/viz/1d7faff53a95.webp",
+    "learning/img/viz/afbf60f66eef.webp",
+    "learning/img/viz/1292177e57b1.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four shapes"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "1/4"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/09c617fec269.webp",
+   "alt": "A circle cut into 2 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "1/4",
+   "1/3",
+   "1/5",
+   "2/4"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a52dbb62be43.webp",
+   "alt": "A circle cut into 4 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "2/4",
+   "1/3",
+   "1/4",
+   "2/5"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0595bccc09bf.webp",
+   "alt": "A circle cut into 4 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "3/4",
+   "1/3",
+   "1/4",
+   "2/4"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2e8f6726b2d7.webp",
+   "alt": "A circle cut into 4 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "1",
+   "0",
+   "2",
+   "3"
+  ],
+  "answer": "1",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b467445a0f3c.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "2",
+   "0",
+   "1",
+   "3"
+  ],
+  "answer": "2",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/64a8abc7d88f.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "3",
+   "1",
+   "2",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e087d473b4be.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9eacb5a5ca8e.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "5",
+   "3",
+   "4",
+   "6"
+  ],
+  "answer": "5",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f7cf06a3a7a9.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "6",
+   "4",
+   "5",
+   "7"
+  ],
+  "answer": "6",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6035ea290306.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "7",
+   "5",
+   "6",
+   "8"
+  ],
+  "answer": "7",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5256f1184b85.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "8",
+   "6",
+   "7",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2a19ade15c6b.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "9",
+   "7",
+   "8",
+   "10"
+  ],
+  "answer": "9",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f224705a70a1.webp",
+   "alt": "A number line from 0 to 10"
+  }
+ }
+]

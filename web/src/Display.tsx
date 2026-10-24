@@ -35,6 +35,7 @@ import PrizesPanel from './PrizesPanel';
 import MiniGamesKidView from './MiniGamesKidView';
 import { PlaySession } from './pages/LearningGamesTab';
 import { SUBJECT_META, LearningProgressLoader, KidProgress } from './LearningProgress';
+import { MonsterDenLoader } from './MonsterDen';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -159,6 +160,7 @@ export default function Display() {
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
   const [learningSubject, setLearningSubject] = useState<EduSubject | null>(null);
   const [learningProgressOpen, setLearningProgressOpen] = useState(false);
+  const [monsterDenOpen, setMonsterDenOpen] = useState(false);
   const [testPanelOpen, setTestPanelOpen] = useState(false);
   // #9 - its own button, not tucked inside My Stats (an extra step that
   // doesn't make sense when they can't get to My Stats' content anyway once
@@ -1193,9 +1195,14 @@ export default function Display() {
                       <div className="panel p-3">
                         <div className="mb-2 flex items-center justify-between">
                           <h3 className="text-sm font-semibold text-slate-500">Learning</h3>
-                          <button onClick={() => setLearningProgressOpen(true)} className="text-xs font-semibold text-slate-400 hover:text-slate-600">
-                            📊 My Progress
-                          </button>
+                          <span className="flex items-center gap-3">
+                            <button onClick={() => setMonsterDenOpen(true)} className="text-xs font-semibold text-slate-400 hover:text-slate-600">
+                              🐲 Monster Den
+                            </button>
+                            <button onClick={() => setLearningProgressOpen(true)} className="text-xs font-semibold text-slate-400 hover:text-slate-600">
+                              📊 My Progress
+                            </button>
+                          </span>
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           {EDU_SUBJECTS.map((s) => (
@@ -1461,6 +1468,11 @@ export default function Display() {
         </Modal>
       )}
 
+      {monsterDenOpen && active && (
+        <Modal maxWidthClass="max-w-2xl" onBackdropClick={() => setMonsterDenOpen(false)} header={<h3 className="text-lg font-semibold">🐲 {active.user.displayName}'s Monster Den</h3>}>
+          <MonsterDenLoader userId={active.user.id} kioskToken={active.token} />
+        </Modal>
+      )}
       {learningProgressOpen && active && (
         <Modal
           maxWidthClass="max-w-2xl"

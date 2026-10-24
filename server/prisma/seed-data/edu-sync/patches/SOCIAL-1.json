@@ -1,0 +1,9 @@
+[
+{"id":"cmu0xa865021w12z2sisjuggn","action":"deactivate","reason":"Glossary-style taxes definition, too abstract for grade 1; near-duplicate of 'Why do governments collect taxes?' which is kept."},
+{"id":"cmu0xa865023412z2je7o18jb","action":"deactivate","reason":"Near-duplicate of 'Who is usually the leader of a city or town?' (answer Mayor); clunky wording."},
+{"id":"cmu0xa866023r12z2m56qx70s","action":"deactivate","reason":"Near-duplicate of the bald eagle national symbol question (cmu0xa866023e12z2t6g9yyq6), which has cleaner distractors."},
+{"id":"cmu0xa867024d12z2d9u9jd05","action":"deactivate","reason":"Same template as the East/opposite question (cmu0xa865022f12z2tri3ialu); easier North/South version is a light reword."},
+{"id":"cmu0xa865022b12z2voiw6kv4","action":"fix","reason":"Prompt was inaccurate: children are citizens but cannot vote. Reworded to a correct definition.","prompt":"What do we call a person who belongs to a country and has rights and duties there?"},
+{"id":"cmu0xa865022d12z2qj0cnnhz","action":"fix","reason":"Original gave away the answer by being the only choice that is not a 'honors...' phrase (and was a long mismatched option); awkward 'celebrate or honor' prompt.","prompt":"On Thanksgiving, what do families think about and celebrate?","choicesJson":["Finding hidden eggs","Being thankful","Watching fireworks","Trick-or-treating"],"answer":"Being thankful"},
+{"id":"cmu0xa866023n12z22lmg513d","action":"fix","reason":"Awkward 'celebrate or honor' prompt with lowercase 'honors...' fragments as choices; reworded to a clear who-question with parallel choices.","prompt":"Who does Labor Day honor?","choicesJson":["Presidents","Soldiers who died serving the country","Workers","Martin Luther King Jr."],"answer":"Workers"}
+]

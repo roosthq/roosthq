@@ -12,6 +12,7 @@ export const SUBJECT_META: Record<EduSubject, { label: string; icon: string }> =
   SPELLING: { label: 'Spelling', icon: '🔤' },
   LOGIC: { label: 'Logic', icon: '🧩' },
   SOCIAL: { label: 'Social Studies', icon: '🌍' },
+  BIOLOGY: { label: 'Biology', icon: '🧬' },
 };
 export const GRADE_LABELS = ['K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
 
@@ -26,7 +27,10 @@ export function LearningProgressDetail({ progress, hideCounts = false }: { progr
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {EDU_SUBJECTS.map((s) => {
           const sp = progress.subjects[s];
-          const pct = sp.bankSize > 0 ? Math.min(100, Math.round((sp.masteredCount / sp.bankSize) * 100)) : 0;
+          // Scaled to what's needed to MOVE UP (90% of the bank), so a full bar means ready.
+          const target = sp.promoteAt || sp.bankSize;
+          const pct = target > 0 ? Math.min(100, Math.round((sp.masteredCount / target) * 100)) : 0;
+          const exploring = !sp.locked && (sp.reviewAvailable ?? 0) > 0;
           return (
             <div key={s} className="rounded border p-2.5">
               <div className="flex items-center justify-between">
@@ -38,6 +42,8 @@ export function LearningProgressDetail({ progress, hideCounts = false }: { progr
               {hideCounts ? (
                 sp.locked ? (
                   <p className="mt-1.5 text-xs font-medium text-emerald-700">🎉 Mastered every question so far - more coming soon!</p>
+                ) : exploring ? (
+                  <p className="mt-1.5 text-xs font-medium text-emerald-700">🧭 Top of the ladder! Explore &amp; Review: {sp.reviewAvailable} new or tricky questions waiting.</p>
                 ) : (
                   <div className="mt-1.5">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
@@ -67,6 +73,10 @@ export function LearningProgressDetail({ progress, hideCounts = false }: { progr
                     <p className="mt-1 text-xs text-slate-400">{sp.accuracyPct}% correct on questions attempted so far</p>
                   )}
                   {sp.locked && <p className="mt-1 text-xs font-medium text-emerald-700">🎉 Maxed out - waiting on a higher grade's questions.</p>}
+                  {exploring && (
+                    <p className="mt-1 text-xs font-medium text-emerald-700">🧭 Top grade reached - playing Explore &amp; Review ({sp.reviewAvailable} unseen or wrong, half pay).</p>
+                  )}
+                  {sp.promoteAt ? <p className="mt-1 text-xs text-slate-400">Needs {sp.promoteAt} mastered to move up a grade</p> : null}
                 </>
               )}
               {sp.wrongQuestions.length > 0 && (
@@ -185,3 +195,4 @@ export function KidProgress({ members, kioskToken }: { members: Member[]; kioskT
     </div>
   );
 }
+

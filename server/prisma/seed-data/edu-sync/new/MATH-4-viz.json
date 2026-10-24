@@ -1,0 +1,1604 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/2?",
+  "choicesJson": [
+   "2/4",
+   "3/4",
+   "2/5",
+   "1/3"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/09c617fec269.webp",
+   "alt": "A circle with 1/2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/2?",
+  "choicesJson": [
+   "3/6",
+   "4/6",
+   "3/7",
+   "1/3"
+  ],
+  "answer": "3/6",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/09c617fec269.webp",
+   "alt": "A circle with 1/2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/2?",
+  "choicesJson": [
+   "4/8",
+   "5/8",
+   "4/9",
+   "1/3"
+  ],
+  "answer": "4/8",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/09c617fec269.webp",
+   "alt": "A circle with 1/2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/4?",
+  "choicesJson": [
+   "2/8",
+   "3/8",
+   "2/9",
+   "1/5"
+  ],
+  "answer": "2/8",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a52dbb62be43.webp",
+   "alt": "A circle with 1/4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 1/3?",
+  "choicesJson": [
+   "2/6",
+   "3/6",
+   "2/7",
+   "1/4"
+  ],
+  "answer": "2/6",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0cc62c6afe7c.webp",
+   "alt": "A circle with 1/3 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 3/4?",
+  "choicesJson": [
+   "6/8",
+   "7/8",
+   "6/9",
+   "3/5"
+  ],
+  "answer": "6/8",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2e8f6726b2d7.webp",
+   "alt": "A circle with 3/4 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which fraction is equal to 2/3?",
+  "choicesJson": [
+   "4/6",
+   "5/6",
+   "4/7",
+   "2/4"
+  ],
+  "answer": "4/6",
+  "tags": [
+   "fractions",
+   "equivalent",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4602aaa55188.webp",
+   "alt": "A circle with 2/3 shaded"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "21",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fe5214395727.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "21",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0233c71f78dc.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Cats than Dogs?",
+  "answer": "4",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/744eb7f24b60.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "26",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/744eb7f24b60.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Dogs than Cats?",
+  "answer": "1",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ffc58251b29f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "27",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ffc58251b29f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/861cf3d7546f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "20",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/91d7e73482c9.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Green than Pink?",
+  "answer": "1",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/feccfcaf1e17.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/feccfcaf1e17.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Pink than Red?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2930886a09f.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "14",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2930886a09f.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "18",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bc7d1c2b0bbd.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b5f920c4ed94.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Soup than Pizza?",
+  "answer": "6",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f06e089601db.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "25",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f06e089601db.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Tacos than Pizza?",
+  "answer": "1",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/be4704786133.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "33",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/be4704786133.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Soup than Pizza?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/277df58d23ba.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "29",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/277df58d23ba.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29acf5572a39.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Pizza than Tacos?",
+  "answer": "1",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/773ca783d7a6.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "19",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/773ca783d7a6.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Swim than Art?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1c97ce6587ce.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "27",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1c97ce6587ce.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04e837ee2b0f.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "18",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a753d70db3f5.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Soccer than Art?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a983bcd1dd64.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a983bcd1dd64.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "25",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d311ca9711e.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "28",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8ec365bcbdc4.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "20",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c53ce0e0958d.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Mon than Wed?",
+  "answer": "1",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc108c6bc690.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "25",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc108c6bc690.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Tue than Thu?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1dca95daa450.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1dca95daa450.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f5ee70537fa2.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "19",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5d635f302053.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "25",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cbcbab1bd80a.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "23",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2e8ec1df491.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Plum than Apple?",
+  "answer": "3",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2cdfc0746f12.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "24",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2cdfc0746f12.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many more chose Plum than Kiwi?",
+  "answer": "5",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea09cbba2fee.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chose in all? Add up every bar.",
+  "answer": "26",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea09cbba2fee.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "1/6",
+   "2/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "1/6",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/480e16a5974c.webp",
+   "alt": "A number line from 0 to 1 cut into 6 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "2/6",
+   "1/6",
+   "3/6",
+   "4/6"
+  ],
+  "answer": "2/6",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0863727dd341.webp",
+   "alt": "A number line from 0 to 1 cut into 6 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "3/6",
+   "1/6",
+   "2/6",
+   "4/6"
+  ],
+  "answer": "3/6",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e39161e2ec52.webp",
+   "alt": "A number line from 0 to 1 cut into 6 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "4/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "4/6",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/68bad8bed1d5.webp",
+   "alt": "A number line from 0 to 1 cut into 6 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "5/6",
+   "1/6",
+   "2/6",
+   "3/6"
+  ],
+  "answer": "5/6",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/43b85d4ec10b.webp",
+   "alt": "A number line from 0 to 1 cut into 6 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "1/8",
+   "2/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "1/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7053c0e050d9.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "2/8",
+   "1/8",
+   "3/8",
+   "4/8"
+  ],
+  "answer": "2/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/492f03ea73a5.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "3/8",
+   "1/8",
+   "2/8",
+   "4/8"
+  ],
+  "answer": "3/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/213db9d556f7.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "4/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "4/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4ca29f3d58d6.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "5/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "5/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9840dd29fa73.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "6/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "6/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/20ee9e5f6043.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction is the red dot on?",
+  "choicesJson": [
+   "7/8",
+   "1/8",
+   "2/8",
+   "3/8"
+  ],
+  "answer": "7/8",
+  "tags": [
+   "number-line",
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/99e52f55b85a.webp",
+   "alt": "A number line from 0 to 1 cut into 8 equal parts"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "0.5",
+   "0.3",
+   "0.4",
+   "0.6"
+  ],
+  "answer": "0.5",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0e9d609d585a.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "0.2",
+   "0.0",
+   "0.1",
+   "0.3"
+  ],
+  "answer": "0.2",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d4732ff5ad2.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "0.7",
+   "0.5",
+   "0.6",
+   "0.8"
+  ],
+  "answer": "0.7",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/794ec8f9b874.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "0.9",
+   "0.7",
+   "0.8",
+   "1.0"
+  ],
+  "answer": "0.9",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/72a7e3cd9920.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "0.3",
+   "0.1",
+   "0.2",
+   "0.4"
+  ],
+  "answer": "0.3",
+  "tags": [
+   "number-line",
+   "decimals",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b57e7e0e083c.webp",
+   "alt": "A number line with decimals"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "12",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8bfce35a97dc.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "12",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/148f738c7ae4.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "13",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e3ff94c45687.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "18",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/66b44e6e81ad.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "14",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/502cd0a03324.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "18",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/39e2d5709dd2.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each little square is 1 square unit. What is the area of this L-shape?",
+  "answer": "11",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea518cb61d32.webp",
+   "alt": "An L-shaped grid figure"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "14",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/15a391251db8.webp",
+   "alt": "A rectangle 2 cm by 7 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "6",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/02a979649727.webp",
+   "alt": "A rectangle 3 cm by 2 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a44136b6e012.webp",
+   "alt": "A rectangle 3 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "21",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/532bebe591bc.webp",
+   "alt": "A rectangle 3 cm by 7 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "20",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6bb317eb8325.webp",
+   "alt": "A rectangle 4 cm by 5 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "20",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e589d68cded6.webp",
+   "alt": "A rectangle 5 cm by 4 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "30",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cb894e9ddbdd.webp",
+   "alt": "A rectangle 5 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/48c5f3b4a698.webp",
+   "alt": "A rectangle 6 cm by 3 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "35",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0686f4ec0ba8.webp",
+   "alt": "A rectangle 7 cm by 5 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "42",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f7cbed125d69.webp",
+   "alt": "A rectangle 7 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "18",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0cbe8e88e644.webp",
+   "alt": "A rectangle 9 cm by 2 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "30",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/aea1f44e8bd2.webp",
+   "alt": "A rectangle 9 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "54",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/aea1f44e8bd2.webp",
+   "alt": "A rectangle 9 cm by 6 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the perimeter of this rectangle in centimeters? (Just type the number.)",
+  "answer": "32",
+  "tags": [
+   "perimeter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7207ea4f7569.webp",
+   "alt": "A rectangle 9 cm by 7 cm"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the area of this rectangle in square centimeters? (Just type the number.)",
+  "answer": "63",
+  "tags": [
+   "area",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7207ea4f7569.webp",
+   "alt": "A rectangle 9 cm by 7 cm"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Acute",
+   "Right",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Acute",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c3133c2713d8.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Acute",
+   "Right",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Acute",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e5514c148c7f.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Acute",
+   "Right",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Acute",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/708c3696bb5a.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Acute",
+   "Right",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Acute",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/93e489d54385.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Acute",
+   "Right",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Acute",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/71835f326800.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Right",
+   "Acute",
+   "Obtuse",
+   "Straight"
+  ],
+  "answer": "Right",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c83c89cf9e39.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Obtuse",
+   "Acute",
+   "Right",
+   "Straight"
+  ],
+  "answer": "Obtuse",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0875cf3678af.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Obtuse",
+   "Acute",
+   "Right",
+   "Straight"
+  ],
+  "answer": "Obtuse",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/26ab195e1358.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Obtuse",
+   "Acute",
+   "Right",
+   "Straight"
+  ],
+  "answer": "Obtuse",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2d76529b1a8d.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Obtuse",
+   "Acute",
+   "Right",
+   "Straight"
+  ],
+  "answer": "Obtuse",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a78f886e3535.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Obtuse",
+   "Acute",
+   "Right",
+   "Straight"
+  ],
+  "answer": "Obtuse",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bfe5e7bb69e4.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of angle is this?",
+  "choicesJson": [
+   "Straight",
+   "Acute",
+   "Right",
+   "Obtuse"
+  ],
+  "answer": "Straight",
+  "tags": [
+   "angles",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4ffe285829b1.webp",
+   "alt": "An angle drawn by two rays"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Is the dashed red line a line of symmetry for this shape?",
+  "choicesJson": [
+   "Yes",
+   "No",
+   "Only sometimes"
+  ],
+  "answer": "Yes",
+  "tags": [
+   "symmetry",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b3e2b98c14f0.webp",
+   "alt": "A shape with a dashed line"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Is the dashed red line a line of symmetry for this shape?",
+  "choicesJson": [
+   "No",
+   "Yes",
+   "Only sometimes"
+  ],
+  "answer": "No",
+  "tags": [
+   "symmetry",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/25d4109fe07e.webp",
+   "alt": "A shape with a dashed line"
+  }
+ }
+]

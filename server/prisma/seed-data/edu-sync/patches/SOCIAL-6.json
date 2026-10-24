@@ -1,0 +1,17 @@
+[
+{"id":"cmu0xa89l02ha12z21xk0eb4h","action":"deactivate","reason":"Duplicate of TEXT_INPUT capital of Utah (h0)."},
+{"id":"cmu0xa89l02hb12z29un7l5uc","action":"deactivate","reason":"Duplicate of TEXT_INPUT capital of Ohio (hx)."},
+{"id":"cmu0xa89l02h012z25wazpmjl","action":"fix","reason":"Accept common short form.","acceptedAnswers":["Salt Lake"]},
+{"id":"cmu0xa89l02hf12z2yd3xe7rb","action":"deactivate","reason":"Ungrammatical fragment choices for 'best known for' prompt; duplicate of pyramids/Nile question (jp)."},
+{"id":"cmu0xa89m02iu12z28rlgtte6","action":"deactivate","reason":"Ungrammatical fragment choices; duplicate of Colosseum/Rome question (i7)."},
+{"id":"cmu0xa89m02ji12z2o69m1y3k","action":"deactivate","reason":"Ungrammatical fragment choices; duplicate of cradle of civilization question (h9)."},
+{"id":"cmu0xa89m02jr12z2luqskwa1","action":"deactivate","reason":"Duplicate of birthplace of democracy question (iv)."},
+{"id":"cmu0xa89m02it12z2soapbtlb","action":"deactivate","reason":"Duplicate of executive-branch questions (h8, hi); inconsistent capitalization in choices."},
+{"id":"cmu0xa89m02iz12z2oosxwf08","action":"fix","reason":"Inconsistent choice capitalization.","choicesJson":["Interprets laws (decides what laws mean)","Makes laws","Manages the state's schools","Carries out (enforces) laws"],"answer":"Makes laws"},
+{"id":"cmu0xa89m02iq12z2x1fi4lsz","action":"fix","reason":"Inconsistent choice capitalization.","choicesJson":["The Governor","The President","Congress","The Supreme Court"],"answer":"The Supreme Court"},
+{"id":"cmu0xa89l02h812z21lsq2lh5","action":"fix","reason":"'Local' is not a branch of the federal government; use the three real branches.","choicesJson":["Judicial","Legislative","Executive"],"answer":"Executive"},
+{"id":"cmu0xa89n02ju12z24omzzbot","action":"fix","reason":"'Local' is not a branch of the federal government; use the three real branches.","choicesJson":["Legislative","Judicial","Executive"],"answer":"Judicial"},
+{"id":"cmu0xa89n02jw12z20nikp30t","action":"fix","reason":"Awkward '____?' punctuation.","prompt":"Serving on a jury to help decide a court case is an example of a citizen's ____."},
+{"id":"cmu0xa89l02hc12z2zu3b9x5a","action":"fix","reason":"The Declaration was adopted in 1776 (signed mostly in August); wording precision.","prompt":"In what year was the Declaration of Independence adopted?"},
+{"id":"cmu0xa89m02j012z24perkc76","action":"fix","reason":"July 4 marks adoption, not signing, of the Declaration.","prompt":"On what date is Independence Day celebrated, marking the adoption of the Declaration of Independence?"}
+]

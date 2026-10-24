@@ -1,0 +1,788 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is a vampire squid. Which habitat does it live in?",
+  "choicesJson": [
+   "Savanna",
+   "Deep ocean",
+   "Swamp",
+   "Pond"
+  ],
+  "answer": "Deep ocean",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-deep-a.webp",
+   "alt": "A dark red squid floating in dark blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many desert animals come out at night. Why?",
+  "choicesJson": [
+   "Deserts are snowy at night",
+   "There is more water at night",
+   "They cannot see in daylight",
+   "It is cooler than the daytime heat"
+  ],
+  "answer": "It is cooler than the daytime heat",
+  "tags": [
+   "adaptations",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-desert-b.webp",
+   "alt": "A big sand dune with a clear sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do tall mountains have snow on top, even in warm places?",
+  "choicesJson": [
+   "The higher you go, the colder the air gets",
+   "Rain turns to snow when it hits rock",
+   "The sun is closer so it melts less",
+   "Clouds drop snow every day"
+  ],
+  "answer": "The higher you go, the colder the air gets",
+  "tags": [
+   "habitats",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/habitats-mountain-b.webp",
+   "alt": "A snowy mountain peak above evergreen trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Clownfish stay safe by living among the tentacles of what animal?",
+  "choicesJson": [
+   "Sea anemone",
+   "Jellyfish",
+   "Seahorse",
+   "Octopus"
+  ],
+  "answer": "Sea anemone",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-clownfish.webp",
+   "alt": "A clownfish among soft tentacles."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This photo shows the Amazon from above. What do we call the thick layer of treetops that covers a rainforest?",
+  "answer": "canopy",
+  "acceptedAnswers": [
+   "the canopy"
+  ],
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-rainforest-c.webp",
+   "alt": "Green treetops with a river winding through them."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The ground in the Arctic tundra stays frozen below the surface all year. What is this frozen ground called?",
+  "answer": "permafrost",
+  "acceptedAnswers": [
+   "perma frost"
+  ],
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-tundra-c.webp",
+   "alt": "A flat snowy plain with animals walking on it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the ring-shaped part around the pupil called?",
+  "choicesJson": [
+   "Eyelid",
+   "Iris",
+   "Retina",
+   "Lens"
+  ],
+  "answer": "Iris",
+  "tags": [
+   "human body",
+   "senses"
+  ],
+  "media": {
+   "image": "learning/img/human-body-eye.webp",
+   "alt": "A drawing of a human eye with the eyelids open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sound makes a thin skin inside your ear shake. What is it called?",
+  "choicesJson": [
+   "Eardrum",
+   "Cornea",
+   "Earlobe",
+   "Eyelash"
+  ],
+  "answer": "Eardrum",
+  "tags": [
+   "human body",
+   "senses"
+  ],
+  "media": {
+   "image": "learning/img/human-body-ear.webp",
+   "alt": "A drawing of the outside of a human ear."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Besides hearing, what else do parts deep inside your ear help you do?",
+  "choicesJson": [
+   "Stay balanced",
+   "Digest food",
+   "Smell flowers",
+   "Taste food"
+  ],
+  "answer": "Stay balanced",
+  "tags": [
+   "human body",
+   "senses"
+  ],
+  "media": {
+   "image": "learning/img/human-body-ear.webp",
+   "alt": "A drawing of the outside of a human ear."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the largest organ inside the body, shown here?",
+  "choicesJson": [
+   "Liver",
+   "Kidney",
+   "Stomach",
+   "Heart"
+  ],
+  "answer": "Liver",
+  "tags": [
+   "human body",
+   "organs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-liver.webp",
+   "alt": "A drawing of the underside of a human liver."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The small bones that stack up to make the backbone are called what?",
+  "choicesJson": [
+   "Ribs",
+   "Molars",
+   "Joints",
+   "Vertebrae"
+  ],
+  "answer": "Vertebrae",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-spine.webp",
+   "alt": "A side view of the backbone made of stacked bones."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bone is the longest in the human body?",
+  "choicesJson": [
+   "Skull",
+   "Collarbone",
+   "Rib",
+   "Femur (thigh bone)"
+  ],
+  "answer": "Femur (thigh bone)",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-femur.webp",
+   "alt": "A drawing of the long thigh bone."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many chambers (rooms) does a human heart have? Type a number.",
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "human body",
+   "heart"
+  ],
+  "media": {
+   "image": "learning/img/human-body-heart.webp",
+   "alt": "A drawing of a human heart cut open to show the inside."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the name of the tube that carries air from your throat down to your lungs?",
+  "answer": "windpipe",
+  "acceptedAnswers": [
+   "trachea",
+   "the windpipe",
+   "the trachea"
+  ],
+  "tags": [
+   "human body",
+   "lungs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-lungs.webp",
+   "alt": "A drawing of two lungs cut open with the windpipe at the top."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which gas do your lungs take from the air and send into your blood?",
+  "choicesJson": [
+   "Oxygen",
+   "Carbon dioxide",
+   "Hydrogen",
+   "Helium"
+  ],
+  "answer": "Oxygen",
+  "tags": [
+   "human body",
+   "lungs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-lungs.webp",
+   "alt": "A drawing of two lungs cut open with the windpipe at the top."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the stomach?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "human body",
+   "digestion"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-heart.webp",
+    "learning/img/human-body-brain.webp",
+    "learning/img/human-body-lungs.webp",
+    "learning/img/human-body-stomach.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the longest bone in the body?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-skull.webp",
+    "learning/img/human-body-tooth.webp",
+    "learning/img/human-body-femur.webp",
+    "learning/img/human-body-ear.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a ladybug's life is shown in this photo?",
+  "choicesJson": [
+   "Egg",
+   "Larva",
+   "Adult ladybug",
+   "Pupa"
+  ],
+  "answer": "Larva",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-larva.webp",
+   "alt": "A gray and orange spiky ladybug larva crawling along a green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a ladybug's life is shown in this photo?",
+  "choicesJson": [
+   "Larva",
+   "Egg",
+   "Adult ladybug",
+   "Pupa"
+  ],
+  "answer": "Pupa",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-pupa.webp",
+   "alt": "An orange and black ladybug pupa attached to a green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ladybug larvae eat lots of tiny insects called aphids. Why do gardeners like having them around?",
+  "choicesJson": [
+   "They plant new seeds",
+   "They make honey",
+   "They eat pests that harm plants",
+   "They give plants water"
+  ],
+  "answer": "They eat pests that harm plants",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-larva.webp",
+   "alt": "A gray and orange spiky ladybug larva crawling along a green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Inside this stage, what is happening to the ladybug?",
+  "choicesJson": [
+   "Its body is changing into an adult",
+   "It is hatching from an egg",
+   "It is laying eggs",
+   "It is hunting aphids"
+  ],
+  "answer": "Its body is changing into an adult",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-pupa.webp",
+   "alt": "An orange and black ladybug pupa attached to a green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "If a hen keeps a fertilized egg warm, about how long does it take for the chick to hatch?",
+  "choicesJson": [
+   "About 3 days",
+   "About 3 months",
+   "About 1 year",
+   "About 21 days"
+  ],
+  "answer": "About 21 days",
+  "tags": [
+   "life-cycles",
+   "chickens"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-chicken-egg.webp",
+   "alt": "A tray full of brown chicken eggs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "These tadpoles breathe with gills. What will they use to breathe air as adult frogs?",
+  "choicesJson": [
+   "Lungs",
+   "Fins",
+   "Antennae",
+   "Feathers"
+  ],
+  "answer": "Lungs",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-tadpole.webp",
+   "alt": "Two small dark tadpoles with long tails and tiny feathery gills."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the name of this hard case that a butterfly caterpillar makes? Type one word.",
+  "answer": "chrysalis",
+  "acceptedAnswers": [
+   "crysalis",
+   "chrysalises",
+   "chrysalides",
+   "a chrysalis",
+   "the chrysalis",
+   "pupa"
+  ],
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-chrysalis.webp",
+   "alt": "A green monarch chrysalis covered in water drops hanging from a milkweed plant."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the word for a seed starting to grow into a new plant?",
+  "choicesJson": [
+   "Pollination",
+   "Evaporation",
+   "Migration",
+   "Germination"
+  ],
+  "answer": "Germination",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why is a tomato a fruit?",
+  "choicesJson": [
+   "It grows underground",
+   "It is red",
+   "It tastes sweet",
+   "It grows from a flower and holds seeds"
+  ],
+  "answer": "It grows from a flower and holds seeds",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these animals goes through metamorphosis?",
+  "choicesJson": [
+   "Turtle",
+   "Rabbit",
+   "Chicken",
+   "Butterfly"
+  ],
+  "answer": "Butterfly",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ]
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a ladybug larva?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-ladybug-larva.webp",
+    "learning/img/life-cycles-ladybug-pupa.webp",
+    "learning/img/life-cycles-ladybug-adult.webp",
+    "learning/img/life-cycles-ladybug-eggs.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of the stages of a ladybug."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a ladybug pupa, the stage when its body changes into an adult?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-ladybug-eggs.webp",
+    "learning/img/life-cycles-ladybug-pupa.webp",
+    "learning/img/life-cycles-ladybug-adult.webp",
+    "learning/img/life-cycles-ladybug-larva.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of the stages of a ladybug."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the pupa stage of a butterfly?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-monarch-adult.webp",
+    "learning/img/life-cycles-monarch-egg.webp",
+    "learning/img/life-cycles-monarch-chrysalis.webp",
+    "learning/img/life-cycles-monarch-caterpillar.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of the stages of a monarch butterfly."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a living thing that is not a plant?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "fungi",
+   "plants vs fungi"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-fern.webp",
+    "learning/img/plants-moss.webp",
+    "learning/img/plants-mushroom.webp",
+    "learning/img/plants-sunflower.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pines are conifers. Which picture shows part of a conifer?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "conifers",
+   "seeds"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-pine-cone.webp",
+    "learning/img/plants-tulip-flower.webp",
+    "learning/img/plants-apple-blossoms.webp",
+    "learning/img/plants-sunflower.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Venus flytraps grow in soil that has few nutrients. How do they get extra nutrients?",
+  "choicesJson": [
+   "By eating dead leaves from the ground",
+   "By drinking rainwater only",
+   "By trapping and digesting insects",
+   "By growing roots into rocks"
+  ],
+  "answer": "By trapping and digesting insects",
+  "acceptedAnswers": [],
+  "tags": [
+   "carnivorous plants",
+   "adaptations"
+  ],
+  "media": {
+   "image": "learning/img/plants-venus-flytrap.webp",
+   "alt": "A Venus flytrap with open green and red traps edged with spiky teeth grows in a pot."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In fall, the green color fades from leaves like this one and reds and oranges show. What is the green substance in leaves called?",
+  "choicesJson": [
+   "Pollen",
+   "Chlorophyll",
+   "Nectar",
+   "Resin"
+  ],
+  "answer": "Chlorophyll",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "seasons"
+  ],
+  "media": {
+   "image": "learning/img/plants-maple-leaf.webp",
+   "alt": "A red leaf with pointed lobes on a wooden board."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The thin lines in this leaf are called veins. What do veins do?",
+  "choicesJson": [
+   "Carry water and food through the leaf",
+   "Make seeds for the plant",
+   "Protect the leaf from bugs",
+   "Hold the leaf's green color"
+  ],
+  "answer": "Carry water and food through the leaf",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "plant parts"
+  ],
+  "media": {
+   "image": "learning/img/plants-leaf.webp",
+   "alt": "A bright green leaf with a thick middle vein and many thin side veins, lit from behind."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The bumpy green tops of broccoli are mostly which part of the plant?",
+  "choicesJson": [
+   "Roots",
+   "Seeds",
+   "Flower buds",
+   "Leaves"
+  ],
+  "answer": "Flower buds",
+  "acceptedAnswers": [],
+  "tags": [
+   "food plants",
+   "flowers"
+  ],
+  "media": {
+   "image": "learning/img/plants-broccoli.webp",
+   "alt": "A close-up of a green broccoli head made of tiny tightly packed buds."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "When a seed sprouts, which part usually grows out first?",
+  "choicesJson": [
+   "Flower",
+   "Leaf",
+   "Root",
+   "Fruit"
+  ],
+  "answer": "Root",
+  "acceptedAnswers": [],
+  "tags": [
+   "seeds",
+   "germination"
+  ],
+  "media": {
+   "image": "learning/img/plants-pea-sprouts.webp",
+   "alt": "Young green pea sprouts push up from dark soil beside the pale seeds they grew from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Squirrels bury acorns and sometimes forget where. How can that help oak trees?",
+  "choicesJson": [
+   "It makes the old tree taller",
+   "It turns acorns into leaves",
+   "It stops oak trees from growing",
+   "New oak trees can grow in new places"
+  ],
+  "answer": "New oak trees can grow in new places",
+  "acceptedAnswers": [],
+  "tags": [
+   "seeds",
+   "seed dispersal"
+  ],
+  "media": {
+   "image": "learning/img/plants-acorn.webp",
+   "alt": "Three acorns and an acorn cap rest on a speckled stone surface."
+  }
+ }
+]

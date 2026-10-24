@@ -1,0 +1,1378 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This president led the United States during the Civil War. Who is he?",
+  "choicesJson": [
+   "Abraham Lincoln",
+   "George Washington",
+   "Benjamin Franklin",
+   "Thomas Jefferson"
+  ],
+  "answer": "Abraham Lincoln",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-abraham-lincoln.webp",
+   "alt": "Black-and-white photo of a tall man with a beard and no mustache."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This inventor and Founding Father is famous for his kite and lightning experiment. Who is he?",
+  "choicesJson": [
+   "Thomas Edison",
+   "Thomas Jefferson",
+   "Benjamin Franklin",
+   "Albert Einstein"
+  ],
+  "answer": "Benjamin Franklin",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-benjamin-franklin.webp",
+   "alt": "Old painted portrait of an older man with long gray hair and a white collar."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "She escaped slavery and then guided many other people to freedom on the Underground Railroad. Who is she?",
+  "choicesJson": [
+   "Rosa Parks",
+   "Susan B. Anthony",
+   "Helen Keller",
+   "Harriet Tubman"
+  ],
+  "answer": "Harriet Tubman",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-harriet-tubman.webp",
+   "alt": "Old photo of a woman wearing a patterned head scarf and a dark shawl."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In 1932 she became the first woman to fly alone across the Atlantic Ocean. Who is she?",
+  "choicesJson": [
+   "Rosa Parks",
+   "Marie Curie",
+   "Amelia Earhart",
+   "Harriet Tubman"
+  ],
+  "answer": "Amelia Earhart",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-amelia-earhart.webp",
+   "alt": "Black-and-white photo of a woman wearing a leather flying helmet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This astronaut was the first person to walk on the Moon. Who is he?",
+  "choicesJson": [
+   "Buzz Aldrin",
+   "Neil Armstrong",
+   "Albert Einstein",
+   "Thomas Edison"
+  ],
+  "answer": "Neil Armstrong",
+  "tags": [
+   "famous people",
+   "space"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-neil-armstrong.webp",
+   "alt": "Color photo of a man in a suit with short hair in front of an American flag."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In 1955 she refused to give up her bus seat to a white passenger. Her stand inspired a famous bus boycott. Who is she?",
+  "choicesJson": [
+   "Harriet Tubman",
+   "Helen Keller",
+   "Amelia Earhart",
+   "Rosa Parks"
+  ],
+  "answer": "Rosa Parks",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "image": "learning/img/famous-people-rosa-parks.webp",
+   "alt": "Black-and-white photo of a smiling woman with her hair in an updo."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the president who led the country during the Civil War?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-abraham-lincoln.webp",
+    "learning/img/famous-people-george-washington.webp",
+    "learning/img/famous-people-thomas-jefferson.webp",
+    "learning/img/famous-people-benjamin-franklin.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which woman was a famous pilot who flew solo across the Atlantic Ocean?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-marie-curie.webp",
+    "learning/img/famous-people-amelia-earhart.webp",
+    "learning/img/famous-people-harriet-tubman.webp",
+    "learning/img/famous-people-helen-keller.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which woman helped lead people to freedom on the Underground Railroad?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-rosa-parks.webp",
+    "learning/img/famous-people-marie-curie.webp",
+    "learning/img/famous-people-susan-b-anthony.webp",
+    "learning/img/famous-people-harriet-tubman.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which woman refused to give up her bus seat in 1955 and inspired a famous bus boycott?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "famous people",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/famous-people-helen-keller.webp",
+    "learning/img/famous-people-amelia-earhart.webp",
+    "learning/img/famous-people-marie-curie.webp",
+    "learning/img/famous-people-rosa-parks.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four portraits of famous people from history."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which president is on the front of the US penny?",
+  "choicesJson": [
+   "George Washington",
+   "Abraham Lincoln",
+   "Thomas Jefferson",
+   "Benjamin Franklin"
+  ],
+  "answer": "Abraham Lincoln",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which president is on the front of the US nickel?",
+  "choicesJson": [
+   "Thomas Jefferson",
+   "George Washington",
+   "Abraham Lincoln",
+   "Benjamin Franklin"
+  ],
+  "answer": "Thomas Jefferson",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Thomas Jefferson helped write the Declaration of Independence. In what year was it adopted?",
+  "answer": "1776",
+  "acceptedAnswers": [],
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Rosa Parks refused to give up her bus seat in which US state?",
+  "choicesJson": [
+   "Texas",
+   "Alabama",
+   "Ohio",
+   "Maine"
+  ],
+  "answer": "Alabama",
+  "tags": [
+   "famous people",
+   "history"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the country that flies this flag.",
+  "answer": "Mexico",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-mexico.webp",
+   "alt": "A flag with green, white and red vertical stripes and an eagle on a cactus in the middle."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the country that uses this flag.",
+  "answer": "France",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-france.webp",
+   "alt": "A flag with blue, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Which country does this flag belong to? Type its name.",
+  "answer": "Italy",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-italy.webp",
+   "alt": "A flag with green, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This is the flag of which country? Type your answer.",
+  "answer": "Germany",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-germany.webp",
+   "alt": "A flag with black, red and gold horizontal stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the country that flies this flag.",
+  "answer": "China",
+  "acceptedAnswers": [
+   "peoples republic of china",
+   "prc"
+  ],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-china.webp",
+   "alt": "A red flag with one large yellow star and four small yellow stars in the corner."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the name of the country that uses this flag.",
+  "answer": "Brazil",
+  "acceptedAnswers": [
+   "brasil"
+  ],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-brazil.webp",
+   "alt": "A green flag with a yellow diamond and a blue circle with white stars."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Which country does this flag belong to? Type its name.",
+  "answer": "Spain",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-spain.webp",
+   "alt": "A flag with red and yellow horizontal stripes and a coat of arms on the left."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This is the flag of which country? Type your answer.",
+  "answer": "Australia",
+  "acceptedAnswers": [],
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "image": "learning/img/flags-australia.webp",
+   "alt": "A blue flag with the Union Jack in the corner and several white stars."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pick the flag of Mexico.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-ireland.webp",
+    "learning/img/flags-italy.webp",
+    "learning/img/flags-nigeria.webp",
+    "learning/img/flags-mexico.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these is the flag of France?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-netherlands.webp",
+    "learning/img/flags-france.webp",
+    "learning/img/flags-russia.webp",
+    "learning/img/flags-italy.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which flag belongs to Italy?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-mexico.webp",
+    "learning/img/flags-france.webp",
+    "learning/img/flags-italy.webp",
+    "learning/img/flags-ireland.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Find the flag of Brazil.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-portugal.webp",
+    "learning/img/flags-colombia.webp",
+    "learning/img/flags-jamaica.webp",
+    "learning/img/flags-brazil.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the flag of the United Kingdom?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-usa.webp",
+    "learning/img/flags-uk.webp",
+    "learning/img/flags-australia.webp",
+    "learning/img/flags-new-zealand.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Pick the flag of Germany.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-egypt.webp",
+    "learning/img/flags-germany.webp",
+    "learning/img/flags-spain.webp",
+    "learning/img/flags-colombia.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these is the flag of China?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "flags",
+   "countries"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/flags-vietnam.webp",
+    "learning/img/flags-turkey.webp",
+    "learning/img/flags-china.webp",
+    "learning/img/flags-japan.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four national flags to choose from, labeled A to D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is home to the country that flies this flag?",
+  "choicesJson": [
+   "South America",
+   "Asia",
+   "Oceania",
+   "North America"
+  ],
+  "answer": "North America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-usa.webp",
+   "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Canada. Which continent is Canada on?",
+  "choicesJson": [
+   "Asia",
+   "Oceania",
+   "Europe",
+   "North America"
+  ],
+  "answer": "North America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-canada.webp",
+   "alt": "A flag with a red maple leaf on a white square between two red bars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The country with this flag is on which continent?",
+  "choicesJson": [
+   "Oceania",
+   "Europe",
+   "Asia",
+   "Africa"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-japan.webp",
+   "alt": "A white flag with a large red circle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "China uses this flag. On which continent is China found?",
+  "choicesJson": [
+   "North America",
+   "Asia",
+   "Europe",
+   "Africa"
+  ],
+  "answer": "Asia",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-china.webp",
+   "alt": "A red flag with one large yellow star and four small yellow stars in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On which continent would you find the country with this flag?",
+  "choicesJson": [
+   "South America",
+   "North America",
+   "Oceania",
+   "Asia"
+  ],
+  "answer": "South America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-brazil.webp",
+   "alt": "A green flag with a yellow diamond and a blue circle with white stars."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This flag belongs to a country on which continent?",
+  "choicesJson": [
+   "Europe",
+   "Asia",
+   "Africa",
+   "North America"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-france.webp",
+   "alt": "A flag with blue, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which continent is Mexico, the country with this flag, part of?",
+  "choicesJson": [
+   "Asia",
+   "South America",
+   "Oceania",
+   "North America"
+  ],
+  "answer": "North America",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-mexico.webp",
+   "alt": "A flag with green, white and red vertical stripes and an eagle on a cactus in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This is the flag of Italy. Which continent is Italy on?",
+  "choicesJson": [
+   "Europe",
+   "Oceania",
+   "Africa",
+   "Asia"
+  ],
+  "answer": "Europe",
+  "tags": [
+   "flags",
+   "continents"
+  ],
+  "media": {
+   "image": "learning/img/flags-italy.webp",
+   "alt": "A flag with green, white and red vertical stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many stripes does this flag have?",
+  "answer": "13",
+  "acceptedAnswers": [
+   "thirteen"
+  ],
+  "tags": [
+   "flags",
+   "counting"
+  ],
+  "media": {
+   "image": "learning/img/flags-usa.webp",
+   "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The red circle on this flag stands for what?",
+  "choicesJson": [
+   "The sun",
+   "An apple",
+   "The moon",
+   "A rose"
+  ],
+  "answer": "The sun",
+  "tags": [
+   "flags",
+   "symbols"
+  ],
+  "media": {
+   "image": "learning/img/flags-japan.webp",
+   "alt": "A white flag with a large red circle in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which two shapes are on this flag?",
+  "choicesJson": [
+   "A heart and a diamond",
+   "A circle and a triangle",
+   "A sun and a cross",
+   "A crescent moon and a star"
+  ],
+  "answer": "A crescent moon and a star",
+  "tags": [
+   "flags",
+   "shapes"
+  ],
+  "media": {
+   "image": "learning/img/flags-turkey.webp",
+   "alt": "A red flag with a white crescent moon and a white star."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is in the middle of this flag?",
+  "choicesJson": [
+   "An eagle",
+   "A crescent moon",
+   "A blue wheel",
+   "A yellow star"
+  ],
+  "answer": "A blue wheel",
+  "tags": [
+   "flags",
+   "symbols"
+  ],
+  "media": {
+   "image": "learning/img/flags-india.webp",
+   "alt": "A flag with orange, white and green stripes and a blue wheel in the middle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the colors of the stripes on this flag, from top to bottom?",
+  "choicesJson": [
+   "Black, gold, and red",
+   "Red, black, and gold",
+   "Gold, red, and black",
+   "Black, red, and gold"
+  ],
+  "answer": "Black, red, and gold",
+  "tags": [
+   "flags",
+   "colors"
+  ],
+  "media": {
+   "image": "learning/img/flags-germany.webp",
+   "alt": "A flag with black, red and gold horizontal stripes."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many points does the star on this flag have?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "flags",
+   "shapes"
+  ],
+  "media": {
+   "image": "learning/img/flags-vietnam.webp",
+   "alt": "A red flag with a large yellow star in the middle."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many stars are on this flag?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "flags",
+   "counting"
+  ],
+  "media": {
+   "image": "learning/img/flags-china.webp",
+   "alt": "A red flag with one large yellow star and four small yellow stars in the corner."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this huge statue on a mountaintop?",
+  "choicesJson": [
+   "Brazil",
+   "Spain",
+   "Canada",
+   "Egypt"
+  ],
+  "answer": "Brazil",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-christ-the-redeemer.webp",
+   "alt": "A huge statue of a robed man with arms stretched wide on top of a forested mountain, seen from above."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On which continent is this ancient wonder?",
+  "choicesJson": [
+   "Asia",
+   "Africa",
+   "Europe",
+   "South America"
+  ],
+  "answer": "Africa",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-pyramids-of-giza.webp",
+   "alt": "A huge pyramid made of stone blocks rising from desert sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this famous building?",
+  "choicesJson": [
+   "Japan",
+   "England",
+   "Australia",
+   "Brazil"
+  ],
+  "answer": "Australia",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-sydney-opera-house.webp",
+   "alt": "A building with white sail-shaped roofs beside blue water."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Machu Picchu?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/landmarks-liberty-bell.webp",
+    "learning/img/landmarks-mount-fuji.webp",
+    "learning/img/landmarks-golden-gate-bridge.webp",
+    "learning/img/landmarks-machu-picchu.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 photos of famous places, labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This statue was a gift to the United States from which country?",
+  "choicesJson": [
+   "France",
+   "England",
+   "Spain",
+   "Canada"
+  ],
+  "answer": "France",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-statue-of-liberty.webp",
+   "alt": "A tall green statue of a robed woman holding up a torch, standing on a stone base by the water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This pyramid was built as a tomb for what kind of ancient ruler?",
+  "choicesJson": [
+   "A samurai",
+   "A pharaoh",
+   "A Viking",
+   "A pirate"
+  ],
+  "answer": "A pharaoh",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-pyramids-of-giza.webp",
+   "alt": "A huge pyramid made of stone blocks rising from desert sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The president lives in the building in this photo. In which city is it?",
+  "choicesJson": [
+   "New York City",
+   "Philadelphia",
+   "Washington, D.C.",
+   "Los Angeles"
+  ],
+  "answer": "Washington, D.C.",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-white-house.webp",
+   "alt": "A white house with tall columns, a fountain and a green lawn in front."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which state can you visit this mountain carving?",
+  "choicesJson": [
+   "Florida",
+   "Hawaii",
+   "Maine",
+   "South Dakota"
+  ],
+  "answer": "South Dakota",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-mount-rushmore.webp",
+   "alt": "Four giant faces carved into the side of a rocky mountain."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which state is this famous bridge?",
+  "choicesJson": [
+   "California",
+   "Maine",
+   "Texas",
+   "Florida"
+  ],
+  "answer": "California",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-golden-gate-bridge.webp",
+   "alt": "A red-orange suspension bridge stretching across water from a rocky shore."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "This very long wall helped protect which country long ago? Type one word.",
+  "answer": "China",
+  "acceptedAnswers": [],
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-great-wall.webp",
+   "alt": "A long stone wall with watchtowers winding over green mountains."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A giant statue of a sitting president is inside the building in this photo. Which president is it?",
+  "choicesJson": [
+   "George Washington",
+   "Abraham Lincoln",
+   "Thomas Jefferson",
+   "Theodore Roosevelt"
+  ],
+  "answer": "Abraham Lincoln",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-lincoln-memorial.webp",
+   "alt": "A white marble building with a row of tall columns and wide stone steps."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Congress makes laws in the building in this photo. What is it called?",
+  "choicesJson": [
+   "White House",
+   "Lincoln Memorial",
+   "US Capitol",
+   "Supreme Court Building"
+  ],
+  "answer": "US Capitol",
+  "tags": [
+   "landmarks"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-us-capitol.webp",
+   "alt": "A big white building with a tall round dome under a deep blue sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In which country is this tall tower?",
+  "choicesJson": [
+   "Mexico",
+   "Australia",
+   "England",
+   "Canada"
+  ],
+  "answer": "Canada",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-cn-tower.webp",
+   "alt": "A very tall concrete tower with a round pod near the top, above a city skyline at dusk."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "On which continent are these ancient mountain ruins?",
+  "choicesJson": [
+   "South America",
+   "Africa",
+   "Europe",
+   "Asia"
+  ],
+  "answer": "South America",
+  "tags": [
+   "landmarks",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/landmarks-machu-picchu.webp",
+   "alt": "Old stone ruins and green grass terraces in front of a steep mountain."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin has President Abraham Lincoln on its heads side?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-nickel.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-penny.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin has President George Washington on its heads side?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-dime.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin has President Thomas Jefferson on its heads side?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin has President Franklin D. Roosevelt on its heads side?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin has President John F. Kennedy on its heads side?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill has President Abraham Lincoln on it?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "presidents"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill has Alexander Hamilton on it? He was the first Secretary of the Treasury.",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "history"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-10.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ }
+]

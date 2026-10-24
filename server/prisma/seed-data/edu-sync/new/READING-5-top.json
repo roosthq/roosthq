@@ -1,0 +1,342 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with the same sound as 'phantom'?",
+  "choicesJson": [
+   "pan",
+   "ham",
+   "fan",
+   "can"
+  ],
+  "answer": "fan",
+  "tags": [
+   "phonics",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent 'b'?",
+  "choicesJson": [
+   "bubble",
+   "number",
+   "blanket",
+   "climb"
+  ],
+  "answer": "climb",
+  "tags": [
+   "phonics",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Latin root 'port' means 'to carry'. A 'portable' game console is one that...",
+  "choicesJson": [
+   "is very loud",
+   "can be carried easily",
+   "needs a big table",
+   "cannot be moved"
+  ],
+  "answer": "can be carried easily",
+  "tags": [
+   "word-roots",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The prefix 'pre-' means 'before'. What does it mean to 'preheat' an oven?",
+  "choicesJson": [
+   "To heat it again after cooking",
+   "To turn it off",
+   "To heat it before putting the food in",
+   "To heat it twice"
+  ],
+  "answer": "To heat it before putting the food in",
+  "tags": [
+   "prefixes",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the word 'light' to mean 'not heavy'?",
+  "choicesJson": [
+   "The lamp gave off a soft light.",
+   "They arrived at first light.",
+   "Please light the candle for the party.",
+   "Kai's backpack was so light that he forgot he was wearing it."
+  ],
+  "answer": "Kai's backpack was so light that he forgot he was wearing it.",
+  "tags": [
+   "multiple-meaning-words",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word shows the strongest feeling of happiness?",
+  "choicesJson": [
+   "pleased",
+   "thrilled",
+   "glad",
+   "content"
+  ],
+  "answer": "thrilled",
+  "tags": [
+   "shades-of-meaning",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Complete the word pair. 'Brave' is to 'fearless' as 'timid' is to ___.",
+  "choicesJson": [
+   "bold",
+   "loud",
+   "shy",
+   "strong"
+  ],
+  "answer": "shy",
+  "tags": [
+   "analogies",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means almost the same as 'swift'?",
+  "choicesJson": [
+   "slow",
+   "heavy",
+   "loud",
+   "fast"
+  ],
+  "answer": "fast",
+  "tags": [
+   "synonyms",
+   "vocabulary"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The enderman's movements were erratic. It teleported left, then right, then vanished, then popped up behind the player.' What does 'erratic' most likely mean?",
+  "choicesJson": [
+   "slow",
+   "friendly",
+   "unpredictable",
+   "tidy"
+  ],
+  "answer": "unpredictable",
+  "tags": [
+   "context-clues",
+   "vocabulary",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'A tall, pale figure stood perfectly still at the edge of the fog. The campers whispered, because the silence in the woods felt eerie.' What does 'eerie' most likely mean?",
+  "choicesJson": [
+   "bright and cheerful",
+   "strange and a little scary",
+   "very loud",
+   "boring"
+  ],
+  "answer": "strange and a little scary",
+  "tags": [
+   "context-clues",
+   "vocabulary",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence lists the items in parallel form (all in the same pattern)?",
+  "choicesJson": [
+   "Kai likes swimming, biking, and to hike.",
+   "Kai likes to swim, biking, and hike.",
+   "Kai likes swimming, biking, and hiking.",
+   "Kai likes swim, bike, and hiking."
+  ],
+  "answer": "Kai likes swimming, biking, and hiking.",
+  "tags": [
+   "grammar",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence? 'The robot taught ___ to dance by watching videos.'",
+  "choicesJson": [
+   "hisself",
+   "itself",
+   "its self",
+   "ourselves"
+  ],
+  "answer": "itself",
+  "tags": [
+   "pronouns",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the interjection in this sentence? 'Yikes! The pizza is burning.'",
+  "choicesJson": [
+   "Yikes",
+   "pizza",
+   "burning",
+   "is"
+  ],
+  "answer": "Yikes",
+  "tags": [
+   "parts-of-speech",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which kind of work usually has its title written in quotation marks instead of italics?",
+  "choicesJson": [
+   "a novel",
+   "a movie",
+   "a video game",
+   "a poem"
+  ],
+  "answer": "a poem",
+  "tags": [
+   "punctuation"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A book's table of contents says: Chapter 1, Meet the Planets, page 4. Chapter 2, The Sun, page 12. Chapter 3, Comets and Asteroids, page 20. Chapter 4, Space Missions, page 28. On which page should you start reading to learn about comets? Type the number.",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty",
+   "page 20"
+  ],
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses the past progressive tense?",
+  "choicesJson": [
+   "The wizard cast a spell yesterday.",
+   "The wizard was casting a spell when the lights went out.",
+   "The wizard will cast a spell tonight.",
+   "The wizard has cast a spell before."
+  ],
+  "answer": "The wizard was casting a spell when the lights went out.",
+  "tags": [
+   "verb-tense",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses 'good' or 'well' correctly?",
+  "choicesJson": [
+   "The goalie played good in the final game.",
+   "The goalie made a well save in the final game.",
+   "The goalie plays real good.",
+   "The goalie played well in the final game."
+  ],
+  "answer": "The goalie played well in the final game.",
+  "tags": [
+   "grammar",
+   "usage"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the plural of the word 'werewolf'?",
+  "choicesJson": null,
+  "answer": "werewolves",
+  "tags": [
+   "grammar",
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read this passage: 'Ms. Patel's tomato plants drooped and turned yellow. She had been away for two weeks, and nobody watered the garden. When she came home and gave the plants a long drink, they perked up within days.' According to the passage, why did the tomato plants droop?",
+  "choicesJson": [
+   "There was too much sun.",
+   "There was too much water.",
+   "Nobody watered them while she was away.",
+   "Tomatoes cannot grow in gardens."
+  ],
+  "answer": "Nobody watered them while she was away.",
+  "tags": [
+   "cause-effect",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which type of book is written by a person about his or her own life?",
+  "choicesJson": [
+   "biography",
+   "autobiography",
+   "fable",
+   "almanac"
+  ],
+  "answer": "autobiography",
+  "tags": [
+   "genres"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read this passage: 'People have reported seeing Bigfoot for decades, but nobody has produced a body, a bone, or clear DNA. Many footprints and blurry videos turned out to be hoaxes or other animals. Without solid proof, scientists say there is no evidence that Bigfoot exists.' What is the main idea?",
+  "choicesJson": [
+   "Scientists have found Bigfoot's bones.",
+   "Bigfoot is the fastest animal in the forest.",
+   "Reports of Bigfoot lack the solid proof that scientists need.",
+   "Every video of Bigfoot is clear."
+  ],
+  "answer": "Reports of Bigfoot lack the solid proof that scientists need.",
+  "tags": [
+   "main-idea",
+   "passage",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sam stepped inside, dripping. His boots squelched, and his umbrella hung limp and bent out of shape. He shook water from his hair and sighed, 'I should have stayed home.' What most likely happened to Sam?",
+  "choicesJson": [
+   "He went swimming on purpose.",
+   "He was caught in a heavy storm.",
+   "He forgot to wear boots.",
+   "He spent the day inside."
+  ],
+  "answer": "He was caught in a heavy storm.",
+  "tags": [
+   "inference",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a game of Among Us, Rin was sure Zed was the impostor because he stood near a body. She shouted accusations until the crew voted Zed off the ship. After the game, everyone learned Zed had only walked past, and the real impostor was Pip. Rin felt terrible. Which sentence best states the lesson of this story?",
+  "choicesJson": [
+   "Always trust the first player you meet.",
+   "Standing near something is always suspicious.",
+   "Never play games with friends.",
+   "Do not blame someone until you have real evidence."
+  ],
+  "answer": "Do not blame someone until you have real evidence.",
+  "tags": [
+   "theme",
+   "passage",
+   "theme:amongus"
+  ]
+ }
+]

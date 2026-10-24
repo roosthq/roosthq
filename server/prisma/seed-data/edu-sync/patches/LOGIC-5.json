@@ -1,0 +1,408 @@
+[
+ {
+  "id": "cmu0i0ph200fd1m1zba2tnzmp",
+  "action": "fix",
+  "reason": "TEXT_INPUT: add number word",
+  "acceptedAnswers": [
+   "thirty"
+  ]
+ },
+ {
+  "id": "cmu0i0ph300fj1m1zgsu0kh8k",
+  "action": "fix",
+  "reason": "\"No\" was also defensible; make choices unambiguous",
+  "choicesJson": [
+   "Yes, it must be true",
+   "No, it must be false",
+   "Not enough information"
+  ],
+  "answer": "Not enough information"
+ },
+ {
+  "id": "cmu0i0ph300fm1m1zhiktuekz",
+  "action": "fix",
+  "reason": "TEXT_INPUT: add number word",
+  "acceptedAnswers": [
+   "six"
+  ]
+ },
+ {
+  "id": "cmu0i0ph300fr1m1zvavhsx6v",
+  "action": "fix",
+  "reason": "Says six runners but lists five; \"might be\" vague",
+  "prompt": "Five runners race. Ana beat Beto. Beto beat Cara. Cara beat Dan. Eli beat Ana. Who is the fastest?"
+ },
+ {
+  "id": "cmu0i0ph300fs1m1znt1dpcxi",
+  "action": "fix",
+  "reason": "TEXT_INPUT: add number word",
+  "acceptedAnswers": [
+   "fifteen"
+  ]
+ },
+ {
+  "id": "cmu0i0ph300fy1m1zs267nhwa",
+  "action": "fix",
+  "reason": "\"No\" was also defensible; make choices unambiguous",
+  "prompt": "Some students play soccer. Some soccer players are also swimmers. Must it be true that some students are swimmers?",
+  "choicesJson": [
+   "Yes, it must be true",
+   "No, it must be false",
+   "Not enough information"
+  ],
+  "answer": "Not enough information"
+ },
+ {
+  "id": "cmu0i0ph300g01m1zrusyd0x1",
+  "action": "fix",
+  "reason": "Sequence did not fit its stated rule (2 to 7 skips a step); start at 4 and alternate +3 and x2",
+  "prompt": "A number pattern alternates between adding 3 and multiplying by 2: 4, 7, 14, 17, 34, __?",
+  "acceptedAnswers": [
+   "thirty-seven",
+   "thirty seven"
+  ]
+ },
+ {
+  "id": "cmu0i0ph300g11m1zpdc5dt4i",
+  "action": "fix",
+  "reason": "Says six people but only four named",
+  "prompt": "Four people stand in line. Farah is ahead of Gus. Gus is ahead of Hiro. Ivy is ahead of Farah. Who is first?"
+ },
+ {
+  "id": "cmu0i0ph300g61m1zz1ca7n3q",
+  "action": "fix",
+  "reason": "Tautology gave away answer; make a real deduction",
+  "prompt": "All multiples of 10 end in 0. 70 is a multiple of 10. Does 70 end in 0?"
+ },
+ {
+  "id": "cmu0i0ph300g71m1zffamolvu",
+  "action": "fix",
+  "reason": "Answer 49 was already in the sequence; true next term is 64 (8 squared)",
+  "choicesJson": [
+   "57",
+   "64",
+   "40",
+   "48"
+  ],
+  "answer": "64"
+ },
+ {
+  "id": "cmu0i0ph300ga1m1zna9s2rd5",
+  "action": "fix",
+  "reason": "Too easy/duplicate template; make it a middle-rank question",
+  "prompt": "Noah is older than Ivy. Ava is younger than Ivy. Ben is younger than Ava. Who is the second oldest?",
+  "choicesJson": [
+   "Ava",
+   "Ivy",
+   "Noah",
+   "Ben"
+  ],
+  "answer": "Ivy"
+ },
+ {
+  "id": "cmu0i0ph400gm1m1zazsoecrj",
+  "action": "fix",
+  "reason": "Tautology; convert to invalid-reasoning question (answer No)",
+  "prompt": "All multiples of 6 are even. 14 is even. Must 14 be a multiple of 6?",
+  "choicesJson": [
+   "Yes",
+   "No"
+  ],
+  "answer": "No"
+ },
+ {
+  "id": "cmu0i0ph400h91m1zpvjnoodd",
+  "action": "fix",
+  "reason": "Too easy/duplicate template; make it a second-tallest question",
+  "prompt": "Ben is taller than Ela. Cara is shorter than Ela. Noah is shorter than Cara. Who is the second tallest?",
+  "choicesJson": [
+   "Cara",
+   "Ela",
+   "Ben",
+   "Noah"
+  ],
+  "answer": "Ela"
+ },
+ {
+  "id": "cmu0i0ph400hf1m1zw5ug36lk",
+  "action": "fix",
+  "reason": "Tautology; make a real deduction",
+  "prompt": "All multiples of 9 are multiples of 3. 27 is a multiple of 9. Is 27 a multiple of 3?",
+  "choicesJson": [
+   "Yes",
+   "No"
+  ],
+  "answer": "Yes"
+ },
+ {
+  "id": "cmu0i0ph400hn1m1zhoiz7zct",
+  "action": "fix",
+  "reason": "Too easy/duplicate template; make it a third-fastest question (5 racers, 4 choices)",
+  "prompt": "Gia is faster than Ivy. Ava is slower than Ivy. Mia is slower than Ava. Ben is slower than Mia. Who is the third fastest?",
+  "choicesJson": [
+   "Mia",
+   "Ivy",
+   "Ava",
+   "Ben"
+  ],
+  "answer": "Ava"
+ },
+ {
+  "id": "cmu0i0ph400ht1m1zrdf6yw96",
+  "action": "fix",
+  "reason": "Grammar: \"is scored higher than\"",
+  "prompt": "Pia scored higher than Quin. Quin scored higher than Gia. Gia scored higher than Leo. Leo scored higher than Jax. Who has the highest score?"
+ },
+ {
+  "id": "cmu0i0ph500i21m1zkfj15fd9",
+  "action": "fix",
+  "reason": "Answer 512 was already in the sequence; cubes 4^3..8^3, next is 9^3 = 729",
+  "choicesJson": [
+   "500",
+   "729",
+   "512",
+   "522"
+  ],
+  "answer": "729"
+ },
+ {
+  "id": "cmu0i0ph300fp1m1z6ajq81rq",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 3,7,15,31 (x2+1) sequence"
+ },
+ {
+  "id": "cmu0i0ph300g31m1zzfwpf6od",
+  "action": "deactivate",
+  "reason": "Near-duplicate of the squares/quadrilaterals syllogism"
+ },
+ {
+  "id": "cmu0i0ph400gp1m1zo2msmqu6",
+  "action": "deactivate",
+  "reason": "Near-duplicate of 5,11,23,47,95 (x2+1)"
+ },
+ {
+  "id": "cmu0i0ph400h21m1z7kp6t09l",
+  "action": "deactivate",
+  "reason": "Third copy of the x2+1 pattern"
+ },
+ {
+  "id": "cmu0i0ph400hi1m1zmrtkbl72",
+  "action": "deactivate",
+  "reason": "Answer 144 already in sequence and near-duplicate of 9,16,25,36,49"
+ },
+ {
+  "id": "cmu0i0ph400gx1m1zdu3qgyh7",
+  "action": "deactivate",
+  "reason": "Duplicate Fibonacci pattern"
+ },
+ {
+  "id": "cmu0i0ph500i71m1zvmmro4vc",
+  "action": "deactivate",
+  "reason": "Duplicate Fibonacci-style pattern"
+ },
+ {
+  "id": "cmu0i0ph300gf1m1znokmut8j",
+  "action": "deactivate",
+  "reason": "Tautological syllogism (answer is the premise), duplicate template"
+ },
+ {
+  "id": "cmu0i0ph300gg1m1zrenr1ur1",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400go1m1zg9bkby0x",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400gq1m1zpse6mmcj",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400gw1m1zt05k9hu9",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400h41m1z95hfchae",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400i11m1zmo4nbrra",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph500i41m1z3d6l8m7h",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph500ib1m1zloh0959l",
+  "action": "deactivate",
+  "reason": "Tautological syllogism, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph300g91m1zpffrs5el",
+  "action": "deactivate",
+  "reason": "Near-duplicate 4-person ordering; awkward \"is scored higher\""
+ },
+ {
+  "id": "cmu0i0ph300gb1m1zqu182g1i",
+  "action": "deactivate",
+  "reason": "Near-duplicate 4-person ordering"
+ },
+ {
+  "id": "cmu0i0ph300gj1m1zdd6nxep9",
+  "action": "deactivate",
+  "reason": "Near-duplicate 4-person ordering; awkward \"is scored higher\""
+ },
+ {
+  "id": "cmu0i0ph400h71m1zwnnm1q7p",
+  "action": "deactivate",
+  "reason": "Near-duplicate 4-person ordering"
+ },
+ {
+  "id": "cmu0i0ph400he1m1zblcy7ep4",
+  "action": "deactivate",
+  "reason": "Near-duplicate 4-person ordering"
+ },
+ {
+  "id": "cmu0i0ph500i61m1zddooyfhg",
+  "action": "deactivate",
+  "reason": "Near-duplicate 5-person ordering; awkward \"is scored higher\""
+ },
+ {
+  "id": "cmu0i0ph300g51m1zcn16r8vl",
+  "action": "deactivate",
+  "reason": "Near-duplicate squares odd-one-out"
+ },
+ {
+  "id": "cmu0i0ph300gc1m1zb3m66mxl",
+  "action": "deactivate",
+  "reason": "Near-duplicate squares odd-one-out"
+ },
+ {
+  "id": "cmu0i0ph400hw1m1zubjixvkp",
+  "action": "deactivate",
+  "reason": "Near-duplicate squares odd-one-out"
+ },
+ {
+  "id": "cmu0i0ph500i91m1z6gbnkcgl",
+  "action": "deactivate",
+  "reason": "Near-duplicate squares odd-one-out"
+ },
+ {
+  "id": "cmu0i0ph400gy1m1zswq3gd6k",
+  "action": "deactivate",
+  "reason": "Ambiguous (13,17 prime vs 15,16) and duplicate odd/even template"
+ },
+ {
+  "id": "cmu0i0ph400h61m1zghrrfhbv",
+  "action": "deactivate",
+  "reason": "Duplicate odd/even template, ambiguous (multiples of 5)"
+ },
+ {
+  "id": "cmu0i0ph400h81m1zoo73ah9e",
+  "action": "deactivate",
+  "reason": "Duplicate odd/even template"
+ },
+ {
+  "id": "cmu0i0ph500i31m1z3dt7blw4",
+  "action": "deactivate",
+  "reason": "Duplicate odd/even template"
+ },
+ {
+  "id": "cmu0i0ph300gh1m1z3idlpqpq",
+  "action": "deactivate",
+  "reason": "Duplicate even/odd template"
+ },
+ {
+  "id": "cmu0i0ph300g21m1zqucd2mvo",
+  "action": "deactivate",
+  "reason": "Ambiguous (2 is the only even; 9 is the non-prime) and duplicate prime template"
+ },
+ {
+  "id": "cmu0i0ph400i01m1zqk25qwzz",
+  "action": "deactivate",
+  "reason": "Duplicate prime template"
+ },
+ {
+  "id": "cmu0i0ph300g41m1zpzg4tc1x",
+  "action": "deactivate",
+  "reason": "Duplicate tableware odd-one-out, too easy for grade 5"
+ },
+ {
+  "id": "cmu0i0ph400gl1m1zez55cu44",
+  "action": "deactivate",
+  "reason": "Duplicate tableware odd-one-out, too easy for grade 5"
+ },
+ {
+  "id": "cmu0i0ph400gt1m1zq9ztsffo",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400gz1m1zp2661cnu",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400h11m1zsapmzxi7",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400h31m1z2zfd5dek",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hh1m1z8c9rr7h6",
+  "action": "deactivate",
+  "reason": "Ambiguous: kiwi is both a fruit and a bird"
+ },
+ {
+  "id": "cmu0i0ph400hk1m1zsrevs0nb",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hl1m1zzonnvi3g",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate of bird odd-one-out"
+ },
+ {
+  "id": "cmu0i0ph400hr1m1zsbhubjpe",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hs1m1zrqo30p23",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hu1m1zke04o2mb",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hv1m1z40c4mjlj",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph400hx1m1zzk94pw9r",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ },
+ {
+  "id": "cmu0i0ph500ia1m1z4glnw733",
+  "action": "deactivate",
+  "reason": "Too easy for grade 5, duplicate template"
+ }
+]

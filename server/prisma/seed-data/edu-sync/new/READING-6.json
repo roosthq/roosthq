@@ -1,0 +1,2211 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Greek root 'bio' means 'life' and 'graph' means 'write.' What does the word 'biography' most likely mean?",
+  "choicesJson": [
+   "a map of living things",
+   "a drawing of a tiny cell",
+   "a written story of a person's life",
+   "a book about rocks"
+  ],
+  "answer": "a written story of a person's life",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Greek root 'tele' means 'far' and 'scope' means 'to look at.' What is a telescope used for?",
+  "choicesJson": [
+   "Hearing very quiet sounds",
+   "Seeing faraway objects up close",
+   "Measuring heat",
+   "Looking at tiny germs"
+  ],
+  "answer": "Seeing faraway objects up close",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Latin root 'spect' means 'to look.' Which word uses this root?",
+  "choicesJson": [
+   "spaghetti",
+   "spend",
+   "speed",
+   "spectator"
+  ],
+  "answer": "spectator",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The word 'astronaut' comes from the Greek words 'astron' (star) and 'nautes' (sailor). What does 'astronaut' literally mean?",
+  "choicesJson": [
+   "moon digger",
+   "rocket builder",
+   "star sailor",
+   "sky painter"
+  ],
+  "answer": "star sailor",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Latin root 'aud' means 'to hear.' If a sound is 'audible,' what is true about it?",
+  "choicesJson": [
+   "It can be heard",
+   "It can be seen",
+   "It can be touched",
+   "It is too quiet to notice"
+  ],
+  "answer": "It can be heard",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Greek root 'phobia' means 'fear,' and 'arachne' means 'spider.' Which word means 'a fear of spiders'?",
+  "choicesJson": [
+   "acrophobia",
+   "claustrophobia",
+   "aquaphobia",
+   "arachnophobia"
+  ],
+  "answer": "arachnophobia",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the sentence: 'The chef's novel idea was to put mango on a hot dog.' In this sentence, what does 'novel' mean?",
+  "choicesJson": [
+   "a long book",
+   "silly and unsafe",
+   "boring and plain",
+   "new and original"
+  ],
+  "answer": "new and original",
+  "tags": [
+   "multiple-meaning",
+   "context-clues"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Aria must rebuild her cabin after a creeper blast in Minecraft. The root 'struct' means 'build' and the prefix 're-' means 'again.' Which word means 'to build something again'?",
+  "choicesJson": [
+   "construct",
+   "obstruct",
+   "reconstruct",
+   "destroy"
+  ],
+  "answer": "reconstruct",
+  "tags": [
+   "roots",
+   "prefixes",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Among Us, the crew votes and one player gets 'ejected' from the ship. The Latin root 'ject' means 'throw.' What does 'ejected' most likely mean?",
+  "choicesJson": [
+   "pulled in",
+   "given a task",
+   "thrown out",
+   "hidden away"
+  ],
+  "answer": "thrown out",
+  "tags": [
+   "roots",
+   "word-analysis",
+   "theme:among-us"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The prefix 'in-' in 'invisible' means 'not.' Which word also uses 'in-' to mean 'not'?",
+  "choicesJson": [
+   "insert",
+   "inside",
+   "inch",
+   "incorrect"
+  ],
+  "answer": "incorrect",
+  "tags": [
+   "prefixes",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Which suffix can be added to 'hope' to make a word meaning 'without hope'? Type just the suffix.",
+  "choicesJson": null,
+  "answer": "less",
+  "acceptedAnswers": [
+   "-less"
+  ],
+  "tags": [
+   "suffixes",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The word 'unbreakable' is built from a prefix, a base word and a suffix. How many separate parts does it have? Type the number.",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "word-parts",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add the suffix '-ous' to 'danger' to make an adjective meaning 'full of danger.' What is the word?",
+  "choicesJson": null,
+  "answer": "dangerous",
+  "tags": [
+   "suffixes",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Latin root 'port' means 'carry.' Which word means 'able to be carried'?",
+  "choicesJson": [
+   "portrait",
+   "porch",
+   "portable",
+   "poster"
+  ],
+  "answer": "portable",
+  "tags": [
+   "roots",
+   "word-analysis"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Jaden spent three hours building a stone wall around his Minecraft village. That night, zombies pounded on it but could not get in. In the morning, he found a hole near the gate where a creeper had exploded. \"Next time,\" he muttered, \"I'm adding a moat.\"' How does Jaden feel at the end of the passage?",
+  "choicesJson": [
+   "Ready to quit the game",
+   "Proud that nothing went wrong",
+   "Determined to improve his defenses",
+   "Terrified of zombies"
+  ],
+  "answer": "Determined to improve his defenses",
+  "tags": [
+   "inference",
+   "passage",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Item #: SCP-7007. Object Class: Safe. Description: SCP-7007 is a ceramic garden gnome. It looks ordinary during the day. Every night at midnight, it sorts all nearby socks into matching pairs. Special Containment Procedures: SCP-7007 is kept in a locked closet with one laundry basket. Staff must not touch it after dark.' What is the main purpose of the 'Special Containment Procedures' section?",
+  "choicesJson": [
+   "To describe what the object looks like",
+   "To tell a funny story about its discovery",
+   "To explain how the gnome was made",
+   "To list the rules for keeping the object under control"
+  ],
+  "answer": "To list the rules for keeping the object under control",
+  "tags": [
+   "text-features",
+   "passage",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Lightning heats the air around it to about 30,000 degrees Celsius, which is hotter than the surface of the Sun. The superheated air expands so fast that it creates a shockwave. We hear that shockwave as thunder.' According to the passage, what causes thunder?",
+  "choicesJson": [
+   "Clouds rubbing together",
+   "Air expanding quickly after lightning superheats it",
+   "Rain hitting the ground",
+   "The Sun heating the clouds"
+  ],
+  "answer": "Air expanding quickly after lightning superheats it",
+  "tags": [
+   "details",
+   "passage",
+   "nonfiction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'My avatar stood on a platform no wider than a dinner plate. Below me, red lava bubbled. Every other player in the server had already fallen here. I took a slow breath, bent my knees, and jumped.' What is the mood of this passage?",
+  "choicesJson": [
+   "Calm and sleepy",
+   "Silly and joking",
+   "Sad and gloomy",
+   "Tense and suspenseful"
+  ],
+  "answer": "Tense and suspenseful",
+  "tags": [
+   "mood",
+   "passage",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Our school should start lunch recess before lunch. When students play first, they come to the cafeteria hungry and actually finish their meals. Teachers at schools that made this change reported less wasted food and calmer afternoons.' Which sentence is the author's main claim?",
+  "choicesJson": [
+   "When students play first, they come to the cafeteria hungry and actually finish their meals.",
+   "Our school should start lunch recess before lunch.",
+   "Teachers at schools that made this change reported less wasted food and calmer afternoons."
+  ],
+  "answer": "Our school should start lunch recess before lunch.",
+  "tags": [
+   "claim-evidence",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Dr. Vega built a robot to clean her lab. On its first night, it mopped up her notes, polished her glasses until they vanished, and recycled the lab's only door. \"Technically,\" said the robot, \"you told me to remove everything unnecessary.\"' What caused the problem?",
+  "choicesJson": [
+   "The robot followed the instruction too literally",
+   "The robot was broken and could not move",
+   "Dr. Vega forgot to turn the robot on",
+   "The robot wanted to steal her notes"
+  ],
+  "answer": "The robot followed the instruction too literally",
+  "tags": [
+   "cause-effect",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Hikers in the Pacific Northwest have reported seeing a huge, hairy creature called Bigfoot for decades. People have taken blurry photos and made plaster casts of giant footprints. Still, scientists have never found a Bigfoot bone, tooth, or body.' Which statement is best supported by the passage?",
+  "choicesJson": [
+   "Bigfoot has been captured and studied in a lab.",
+   "Scientists have not found physical remains that prove Bigfoot exists.",
+   "Everyone agrees that Bigfoot is real.",
+   "Photos of Bigfoot are always clear."
+  ],
+  "answer": "Scientists have not found physical remains that prove Bigfoot exists.",
+  "tags": [
+   "evidence",
+   "passage",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the line from a poem: 'The moon is a lantern, swinging on a thread of night.' What does this metaphor suggest about the moon?",
+  "choicesJson": [
+   "It is heavy and dangerous",
+   "It glows and lights up the dark",
+   "It is made of metal",
+   "It is very hot"
+  ],
+  "answer": "It glows and lights up the dark",
+  "tags": [
+   "poetry",
+   "figurative-language"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Zoe stared at the empty pizza box. Her little brother grinned with sauce on his chin. \"It's fine,\" she said, her voice tight as a drum. \"Totally fine.\"' How does Zoe most likely feel?",
+  "choicesJson": [
+   "Truly happy for her brother",
+   "Upset, but trying to hide it",
+   "Sleepy and bored",
+   "Confused about the pizza"
+  ],
+  "answer": "Upset, but trying to hide it",
+  "tags": [
+   "inference",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'On the last lap of Rainbow Road, Rosa was stuck in third place. She still had a Mushroom, but she saved it. When the final straight appeared, she hit the boost and zoomed past both rivals just before the finish line.' Why did Rosa wait to use the Mushroom?",
+  "choicesJson": [
+   "She forgot she had it",
+   "She wanted the boost to carry her past the others at the end",
+   "She was trying to lose",
+   "She did not know how to use it"
+  ],
+  "answer": "She wanted the boost to carry her past the others at the end",
+  "tags": [
+   "inference",
+   "passage",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'Max accused Ben of taking the cookies, then Tara, then Jo. Each time he said, \"Trust me, I just know.\" When Mom asked where Max was at four o'clock, he changed the subject.' Which conclusion is best supported by the passage?",
+  "choicesJson": [
+   "Ben, Tara and Jo are all guilty",
+   "Max is the most honest person in the house",
+   "Max may be hiding something, since he gave no proof and avoided a question",
+   "Mom made the cookies disappear"
+  ],
+  "answer": "Max may be hiding something, since he gave no proof and avoided a question",
+  "tags": [
+   "inference",
+   "passage",
+   "evidence"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'On the shore of Loch Ness, the ranger gave an ominous warning: \"Storm clouds are rolling in fast. Get off the water now.\" The tourists glanced at the darkening sky and hurried to the dock.' What does 'ominous' most likely mean?",
+  "choicesJson": [
+   "cheerful and friendly",
+   "suggesting that something bad is coming",
+   "confusing and hard to hear",
+   "very quiet"
+  ],
+  "answer": "suggesting that something bad is coming",
+  "tags": [
+   "context-clues",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'A young pine tree felt ashamed that it stayed green all winter while the maple glittered red in autumn. Then the first snowstorm came. The maple stood bare and shivering, but the pine kept its needles and sheltered a family of sparrows.' What is the best theme of this story?",
+  "choicesJson": [
+   "Bright colors are always more important",
+   "Qualities that seem ordinary can turn out to be valuable",
+   "Trees should never change",
+   "Sparrows are afraid of snow"
+  ],
+  "answer": "Qualities that seem ordinary can turn out to be valuable",
+  "tags": [
+   "theme",
+   "passage"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read: 'The storm circle was closing fast. Priya slapped down a ramp, then a wall, then another ramp, climbing above the treetops just as the purple wall swallowed the ground where she had stood.' What does the phrase 'slapped down' suggest about how Priya acted?",
+  "choicesJson": [
+   "She acted slowly and carefully",
+   "She acted quickly and urgently",
+   "She acted angrily at a friend",
+   "She acted bored"
+  ],
+  "answer": "She acted quickly and urgently",
+  "tags": [
+   "word-choice",
+   "passage",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A writer in a Minecraft story says, 'The creeper's hiss sounded like a kettle about to boil.' What figure of speech is this?",
+  "choicesJson": [
+   "metaphor",
+   "personification",
+   "simile",
+   "hyperbole"
+  ],
+  "answer": "simile",
+  "tags": [
+   "figurative-language",
+   "simile",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses personification?",
+  "choicesJson": [
+   "The game console was old.",
+   "The console is as old as a dinosaur.",
+   "The old game console wheezed, coughed, and finally gave up.",
+   "Consoles cost a lot of money."
+  ],
+  "answer": "The old game console wheezed, coughed, and finally gave up.",
+  "tags": [
+   "figurative-language",
+   "personification"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is an example of hyperbole?",
+  "choicesJson": [
+   "I told you twice to take out the trash.",
+   "Trash day is on Tuesday.",
+   "The trash is in the can.",
+   "I've told you a million times to take out the trash."
+  ],
+  "answer": "I've told you a million times to take out the trash.",
+  "tags": [
+   "figurative-language",
+   "hyperbole"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the sentence 'CRASH! The tray of dishes hit the floor,' which word is an example of onomatopoeia?",
+  "choicesJson": [
+   "tray",
+   "CRASH",
+   "dishes",
+   "floor"
+  ],
+  "answer": "CRASH",
+  "tags": [
+   "figurative-language",
+   "onomatopoeia"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which phrase is an oxymoron, two words that seem to contradict each other?",
+  "choicesJson": [
+   "loud thunder",
+   "quiet mouse",
+   "bright sun",
+   "deafening silence"
+  ],
+  "answer": "deafening silence",
+  "tags": [
+   "figurative-language",
+   "oxymoron"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses alliteration?",
+  "choicesJson": [
+   "The vampire slept in his coffin.",
+   "Dracula drank a dark, delicious drink.",
+   "A bat flew out of the cave.",
+   "Dracula's castle is very old."
+  ],
+  "answer": "Dracula drank a dark, delicious drink.",
+  "tags": [
+   "figurative-language",
+   "alliteration",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "At the first meeting of the new club, Leo told a joke to 'break the ice.' What does 'break the ice' mean?",
+  "choicesJson": [
+   "crack a frozen lake",
+   "end the meeting",
+   "make people feel more comfortable",
+   "start an argument"
+  ],
+  "answer": "make people feel more comfortable",
+  "tags": [
+   "figurative-language",
+   "idioms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence contains a metaphor?",
+  "choicesJson": [
+   "The exam was as hard as a mountain.",
+   "The exam was on Friday.",
+   "The final exam was a mountain we had to climb.",
+   "We took the exam slowly."
+  ],
+  "answer": "The final exam was a mountain we had to climb.",
+  "tags": [
+   "figurative-language",
+   "metaphor"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What figure of speech compares two unlike things directly, without using 'like' or 'as'? Type one word.",
+  "choicesJson": null,
+  "answer": "metaphor",
+  "acceptedAnswers": [
+   "a metaphor",
+   "metaphors"
+  ],
+  "tags": [
+   "figurative-language",
+   "metaphor"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "After a volcano erupted over the whole village, the mayor said, 'We seem to have a small problem.' This is an example of...",
+  "choicesJson": [
+   "hyperbole",
+   "alliteration",
+   "understatement",
+   "onomatopoeia"
+  ],
+  "answer": "understatement",
+  "tags": [
+   "figurative-language",
+   "understatement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Calling a very stingy person 'a Scrooge' refers to a character in the famous story A Christmas Carol. What is this kind of reference called?",
+  "choicesJson": [
+   "oxymoron",
+   "allusion",
+   "onomatopoeia",
+   "alliteration"
+  ],
+  "answer": "allusion",
+  "tags": [
+   "figurative-language",
+   "allusion"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses sensory imagery to help you smell and hear the setting?",
+  "choicesJson": [
+   "The cellar was scary.",
+   "The cellar smelled of damp earth and old pennies, and somewhere in the dark a pipe dripped slowly.",
+   "The cellar was under the house.",
+   "Nobody liked going into the cellar."
+  ],
+  "answer": "The cellar smelled of damp earth and old pennies, and somewhere in the dark a pipe dripped slowly.",
+  "tags": [
+   "figurative-language",
+   "imagery"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Before the final round of a game, Mia brags that she has already won. Her friend says, 'Don't count your chickens before they hatch.' What does the friend mean?",
+  "choicesJson": [
+   "Do not assume you have succeeded before it actually happens",
+   "Always raise chickens",
+   "Eggs break very easily",
+   "Hurry up and finish the game"
+  ],
+  "answer": "Do not assume you have succeeded before it actually happens",
+  "tags": [
+   "figurative-language",
+   "proverbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A reader wants to find every page that mentions 'dragons' in a big fantasy guide. Which text feature should she use?",
+  "choicesJson": [
+   "caption",
+   "table of contents",
+   "index",
+   "byline"
+  ],
+  "answer": "index",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A sonar image in a book about Loch Ness has a line of small print beneath it explaining what the picture shows. What is that line called?",
+  "choicesJson": [
+   "caption",
+   "heading",
+   "byline",
+   "title page"
+  ],
+  "answer": "caption",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a nonfiction article, what is the main job of a heading?",
+  "choicesJson": [
+   "To show who wrote the article",
+   "To list the sources",
+   "To tell what the next section is about",
+   "To define a hard word"
+  ],
+  "answer": "To tell what the next section is about",
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A short, spooky story passed around online, often told as if it could be true, is called a...",
+  "choicesJson": [
+   "fable",
+   "haiku",
+   "biography",
+   "creepypasta"
+  ],
+  "answer": "creepypasta",
+  "tags": [
+   "genres",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A story is set on a space station in the year 3000 and includes robots and warp drives. Which genre is it?",
+  "choicesJson": [
+   "historical fiction",
+   "science fiction",
+   "realistic fiction",
+   "biography"
+  ],
+  "answer": "science fiction",
+  "tags": [
+   "genres"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "An ancient story explains thunder by describing a god beating a giant drum in the sky. Which genre is it?",
+  "choicesJson": [
+   "news report",
+   "diary",
+   "myth",
+   "how-to guide"
+  ],
+  "answer": "myth",
+  "tags": [
+   "genres"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A famous YouTuber writes a book about her own life. What is this kind of book called?",
+  "choicesJson": [
+   "biography",
+   "mystery",
+   "autobiography",
+   "fable"
+  ],
+  "answer": "autobiography",
+  "tags": [
+   "genres"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a poem, a group of lines set apart from the rest, like a paragraph in prose, is called a...",
+  "choicesJson": [
+   "chapter",
+   "stanza",
+   "caption",
+   "scene"
+  ],
+  "answer": "stanza",
+  "tags": [
+   "poetry",
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a play script, the notes in parentheses that tell an actor how to move or speak, such as (whispers) or (exits left), are called...",
+  "choicesJson": [
+   "stage directions",
+   "stanzas",
+   "captions",
+   "headings"
+  ],
+  "answer": "stage directions",
+  "tags": [
+   "drama",
+   "genres"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a primary source?",
+  "choicesJson": [
+   "A textbook chapter about pioneers",
+   "A letter written by a pioneer girl in 1850",
+   "A movie about pioneers made last year",
+   "An encyclopedia article about pioneers"
+  ],
+  "answer": "A letter written by a pioneer girl in 1850",
+  "tags": [
+   "genres",
+   "primary-sources"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a newspaper article, what is the line near the headline that tells who wrote the story called? Type one word.",
+  "choicesJson": null,
+  "answer": "byline",
+  "acceptedAnswers": [
+   "by-line",
+   "a byline"
+  ],
+  "tags": [
+   "text-features"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means the same as 'reluctant'?",
+  "choicesJson": [
+   "eager",
+   "unwilling",
+   "hungry",
+   "certain"
+  ],
+  "answer": "unwilling",
+  "tags": [
+   "vocabulary",
+   "synonyms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means the opposite of 'scarce'?",
+  "choicesJson": [
+   "rare",
+   "tiny",
+   "costly",
+   "plentiful"
+  ],
+  "answer": "plentiful",
+  "tags": [
+   "vocabulary",
+   "antonyms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the Minecraft cave, Alex was wary of every dark corner. She checked each one for creepers before stepping forward. What does 'wary' mean?",
+  "choicesJson": [
+   "bored",
+   "angry",
+   "cautious",
+   "sleepy"
+  ],
+  "answer": "cautious",
+  "tags": [
+   "vocabulary",
+   "context-clues",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means the same as 'colossal'?",
+  "choicesJson": [
+   "ancient",
+   "gigantic",
+   "fragile",
+   "silent"
+  ],
+  "answer": "gigantic",
+  "tags": [
+   "vocabulary",
+   "synonyms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'The climb up the mountain was so arduous that the hikers had to rest every ten minutes.' What does 'arduous' most likely mean?",
+  "choicesJson": [
+   "pleasant and relaxing",
+   "very difficult and tiring",
+   "brand new and shiny",
+   "quiet and peaceful"
+  ],
+  "answer": "very difficult and tiring",
+  "tags": [
+   "vocabulary",
+   "context-clues"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mia says, 'My tablet is almost dead, so I need to charge it before the next Roblox round.' Which meaning of 'charge' is used here?",
+  "choicesJson": [
+   "to ask for payment",
+   "to fill with electrical energy",
+   "to rush forward in an attack",
+   "to accuse of a crime"
+  ],
+  "answer": "to fill with electrical energy",
+  "tags": [
+   "vocabulary",
+   "multiple-meaning",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The prefix 'sub-' means under, and 'terra' means earth. What does 'subterranean' most likely mean?",
+  "choicesJson": [
+   "above the clouds",
+   "made of metal",
+   "underground",
+   "very old"
+  ],
+  "answer": "underground",
+  "tags": [
+   "vocabulary",
+   "word-roots"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Complete the analogy: Hot is to cold as ascend is to ____.",
+  "choicesJson": [
+   "climb",
+   "rise",
+   "descend",
+   "float"
+  ],
+  "answer": "descend",
+  "tags": [
+   "vocabulary",
+   "analogies"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the SCP Foundation stories, SCP-173 is a statue. While someone is watching, it seems inanimate: it does not move, speak, or show any sign of life. What does 'inanimate' mean?",
+  "choicesJson": [
+   "extremely fast",
+   "not alive",
+   "invisible",
+   "very loud"
+  ],
+  "answer": "not alive",
+  "tags": [
+   "vocabulary",
+   "context-clues",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the old story, Dracula's castle was desolate. No villagers, no animals, and no lights could be found for miles. What does 'desolate' most likely mean?",
+  "choicesJson": [
+   "crowded",
+   "empty and lonely",
+   "cozy",
+   "colorful"
+  ],
+  "answer": "empty and lonely",
+  "tags": [
+   "vocabulary",
+   "context-clues",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means the opposite of 'transparent'?",
+  "choicesJson": [
+   "clear",
+   "see-through",
+   "glassy",
+   "opaque"
+  ],
+  "answer": "opaque",
+  "tags": [
+   "vocabulary",
+   "antonyms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Bats are nocturnal. The Latin root 'noct' means night. What does 'nocturnal' mean?",
+  "choicesJson": [
+   "able to fly",
+   "afraid of the dark",
+   "living in caves",
+   "active at night"
+  ],
+  "answer": "active at night",
+  "tags": [
+   "vocabulary",
+   "word-roots"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means the same as 'candid'?",
+  "choicesJson": [
+   "secretive",
+   "fancy",
+   "honest",
+   "nervous"
+  ],
+  "answer": "honest",
+  "tags": [
+   "vocabulary",
+   "synonyms"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word best completes the sentence? 'The village was ____ at night, with nothing but the sound of crickets.'",
+  "choicesJson": [
+   "frantic",
+   "tranquil",
+   "chaotic",
+   "raucous"
+  ],
+  "answer": "tranquil",
+  "tags": [
+   "vocabulary",
+   "context-clues"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'Many video games now teach real skills. Building games help players practice planning and measuring. Puzzle games teach them to solve problems one step at a time. Some games even introduce basic coding.' What is the main idea?",
+  "choicesJson": [
+   "Video games can teach useful real-world skills",
+   "Coding is the most important skill to learn",
+   "Puzzle games are harder than building games",
+   "Players should stop playing building games"
+  ],
+  "answer": "Video games can teach useful real-world skills",
+  "tags": [
+   "main-idea"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'An obby is an obstacle course in Roblox. Players jump across gaps, dodge spinning bars, and climb towers. When a player falls, they do not start over from the very beginning. Instead, they return to the last checkpoint they touched.' According to the passage, what happens when a player falls?",
+  "choicesJson": [
+   "They lose all of their Robux",
+   "They start over from the very beginning",
+   "The course ends for everyone",
+   "They return to the last checkpoint they touched"
+  ],
+  "answer": "They return to the last checkpoint they touched",
+  "tags": [
+   "details",
+   "reading-passages",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the steps. 'To make a wooden pickaxe in Minecraft, first punch a tree to collect logs. Next, turn the logs into planks. Then use planks to make sticks and a crafting table. Finally, use the crafting table to combine planks and sticks into the pickaxe.' Which step happens LAST?",
+  "choicesJson": [
+   "Making a crafting table",
+   "Punching a tree to collect logs",
+   "Combining planks and sticks into the pickaxe",
+   "Turning logs into planks"
+  ],
+  "answer": "Combining planks and sticks into the pickaxe",
+  "tags": [
+   "sequence",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'A storm knocked out the power in Mia's neighborhood at 7 p.m. Her router had no electricity, so her game could not connect to the internet. Mia and her brother pulled out a board game instead.' Why could Mia's game not connect to the internet?",
+  "choicesJson": [
+   "She forgot her password",
+   "The router lost power in the storm",
+   "Her brother unplugged the game",
+   "The board game was too loud"
+  ],
+  "answer": "The router lost power in the storm",
+  "tags": [
+   "cause-effect",
+   "reading-passages"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which pair of words usually signals a cause-and-effect relationship in a text?",
+  "choicesJson": [
+   "first, next",
+   "however, on the other hand",
+   "because, as a result",
+   "for example, such as"
+  ],
+  "answer": "because, as a result",
+  "tags": [
+   "cause-effect",
+   "signal-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'Ana picked her kart before she chose a course in Mario Kart. She watched the countdown after she chose the course. The results screen came up after the race ended.' Which of these four things did Ana do SECOND?",
+  "choicesJson": [
+   "Chose a course",
+   "Picked her kart",
+   "Watched the countdown",
+   "Saw the results screen"
+  ],
+  "answer": "Chose a course",
+  "tags": [
+   "sequence",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A paragraph's main idea is 'Recycling helps protect the environment.' Which detail best supports it?",
+  "choicesJson": [
+   "Many people keep recycling bins in their garages",
+   "Some recycling bins are blue and some are green",
+   "Trash trucks come early on Tuesdays",
+   "Recycling aluminum cans uses much less energy than making new cans from raw materials"
+  ],
+  "answer": "Recycling aluminum cans uses much less energy than making new cans from raw materials",
+  "tags": [
+   "main-idea",
+   "supporting-details"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'For almost a century, people have searched Loch Ness in Scotland for a legendary monster. Searchers have used sonar scans, underwater cameras, and even DNA tests of the lake water. So far, none of these methods has found proof of a giant unknown animal.' What is the main idea?",
+  "choicesJson": [
+   "Loch Ness is the deepest lake in the world",
+   "Scientists have captured the monster on camera",
+   "Despite many high-tech searches, no proof of the Loch Ness monster has been found",
+   "DNA tests are the only way to study lakes"
+  ],
+  "answer": "Despite many high-tech searches, no proof of the Loch Ness monster has been found",
+  "tags": [
+   "main-idea",
+   "reading-passages",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A paragraph explains that medieval castles were built to be hard to attack. Which sentence does NOT belong in the paragraph?",
+  "choicesJson": [
+   "Thick stone walls were hard to break through.",
+   "Many castles had moats to keep attackers away from the walls.",
+   "My cousin got a new puppy last summer.",
+   "Narrow windows let archers defend while staying protected."
+  ],
+  "answer": "My cousin got a new puppy last summer.",
+  "tags": [
+   "main-idea",
+   "supporting-details"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'In a battle royale game like Fortnite, a storm slowly closes in on the map. Because the safe zone keeps shrinking, players are pushed toward the same area. As a result, fights usually become more frequent near the end of a match.' What causes players to end up closer together?",
+  "choicesJson": [
+   "A bigger map",
+   "Louder game music",
+   "The shrinking safe zone",
+   "A longer wait in the lobby"
+  ],
+  "answer": "The shrinking safe zone",
+  "tags": [
+   "cause-effect",
+   "reading-passages",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'First, find flat ground that is clear of rocks and sticks. Next, spread a tarp over the spot to keep out moisture. After that, lay out the tent and pitch it. Finally, store your food away from your sleeping area.' Which step comes immediately BEFORE laying out the tent?",
+  "choicesJson": [
+   "Spreading a tarp over the spot",
+   "Finding flat ground",
+   "Storing food away from the sleeping area",
+   "Cooking dinner"
+  ],
+  "answer": "Spreading a tarp over the spot",
+  "tags": [
+   "sequence",
+   "reading-passages"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which title best fits a passage that explains how the Moon's gravity pulls on Earth's oceans and creates tides?",
+  "choicesJson": [
+   "Why Beaches Are Sandy",
+   "The History of Sailing",
+   "Fun Facts About the Sun",
+   "How the Moon Pulls the Tides"
+  ],
+  "answer": "How the Moon Pulls the Tides",
+  "tags": [
+   "main-idea",
+   "titles"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'Before GPS, lighthouses guided ships away from rocky shores. Their bright beams could be seen for miles, and each lighthouse flashed a different pattern so sailors knew which one they were seeing. Although ships now use satellites, many lighthouses still stand as backups and landmarks.' What is the main idea?",
+  "choicesJson": [
+   "Lighthouses were invented to replace GPS",
+   "Ships no longer need any guidance",
+   "All lighthouses flash the same pattern",
+   "Lighthouses guided ships in the past and are still useful today"
+  ],
+  "answer": "Lighthouses guided ships in the past and are still useful today",
+  "tags": [
+   "main-idea",
+   "reading-passages"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'Roman engineers built roads in layers. Large stones went at the bottom, gravel went in the middle, and flat paving stones were placed on top. The layers helped rainwater drain away, which kept the roads from turning into mud. Some Roman roads are still used today.' According to the passage, what did the layers help the roads do?",
+  "choicesJson": [
+   "Stay cool in summer",
+   "Glow at night",
+   "Let rainwater drain away",
+   "Change color"
+  ],
+  "answer": "Let rainwater drain away",
+  "tags": [
+   "details",
+   "reading-passages"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'In 79 CE, Mount Vesuvius erupted and buried the Roman city of Pompeii under ash. Because the ash sealed buildings, tools, and even loaves of bread, many objects were preserved for centuries. Today, visitors can walk through the ruins and see how people lived.' Why were so many objects at Pompeii preserved?",
+  "choicesJson": [
+   "Visitors cleaned them every year",
+   "Romans stored them in boxes",
+   "Ash buried and sealed them",
+   "Rain washed them every night"
+  ],
+  "answer": "Ash buried and sealed them",
+  "tags": [
+   "cause-effect",
+   "reading-passages"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word best completes the sentence to show sequence? 'Mix the batter in a bowl. ____, pour it into the pan.'",
+  "choicesJson": [
+   "Next",
+   "However",
+   "Because",
+   "Although"
+  ],
+  "answer": "Next",
+  "tags": [
+   "sequence",
+   "transitions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage. 'The town of Elmwood has a legend about a tall, faceless figure said to stand at the edge of the woods at dusk. No one has ever proven that it exists. Still, many families now keep their porch lights on after sunset, and some kids refuse to take the forest shortcut home.' Which detail shows an effect of the legend?",
+  "choicesJson": [
+   "Some kids refuse to take the forest shortcut home",
+   "The legend is about a tall, faceless figure",
+   "No one has proven the figure exists",
+   "The woods are at the edge of town"
+  ],
+  "answer": "Some kids refuse to take the forest shortcut home",
+  "tags": [
+   "cause-effect",
+   "reading-passages",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is the preposition in this sentence? 'The treasure was hidden beneath the old oak tree.'",
+  "choicesJson": [
+   "treasure",
+   "hidden",
+   "oak",
+   "beneath"
+  ],
+  "answer": "beneath",
+  "tags": [
+   "parts-of-speech",
+   "prepositions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What part of speech is the word 'loudly' in this sentence? 'The alarm rang loudly.'",
+  "choicesJson": null,
+  "answer": "adverb",
+  "acceptedAnswers": [
+   "an adverb",
+   "adv"
+  ],
+  "tags": [
+   "parts-of-speech",
+   "adverbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence? 'Zoe and ____ built a treehouse.'",
+  "choicesJson": [
+   "me",
+   "myself",
+   "I",
+   "mine"
+  ],
+  "answer": "I",
+  "tags": [
+   "parts-of-speech",
+   "pronouns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is in the past perfect tense?",
+  "choicesJson": [
+   "The cookies are vanishing quickly.",
+   "The cookies had vanished before Dad got home.",
+   "The cookies vanished while Dad was at work.",
+   "The cookies will vanish by tonight."
+  ],
+  "answer": "The cookies had vanished before Dad got home.",
+  "tags": [
+   "grammar",
+   "verb-tense"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence has correct subject-verb agreement?",
+  "choicesJson": [
+   "The pack of wolves howls at the moon.",
+   "The pack of wolves howl at the moon.",
+   "The pack of wolves howling at the moon.",
+   "The pack of wolves are howl at the moon."
+  ],
+  "answer": "The pack of wolves howls at the moon.",
+  "tags": [
+   "grammar",
+   "subject-verb-agreement"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses commas correctly in a series?",
+  "choicesJson": [
+   "We packed torches a sword and a map.",
+   "We packed, torches a sword and, a map.",
+   "We packed torches, a sword and, a map.",
+   "We packed torches, a sword, and a map."
+  ],
+  "answer": "We packed torches, a sword, and a map.",
+  "tags": [
+   "punctuation",
+   "commas"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Two dragons each have a tail. Which phrase correctly shows that the tails belong to the dragons?",
+  "choicesJson": [
+   "the two dragon's tails",
+   "the two dragons tails'",
+   "the two dragons' tails",
+   "the two dragons's tail"
+  ],
+  "answer": "the two dragons' tails",
+  "tags": [
+   "punctuation",
+   "apostrophes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses a colon correctly?",
+  "choicesJson": [
+   "Pack these items a flashlight: a rope, and a compass.",
+   "Pack: these items a flashlight, a rope, and a compass.",
+   "Pack these items a flashlight, a rope: and a compass.",
+   "Pack these items: a flashlight, a rope, and a compass."
+  ],
+  "answer": "Pack these items: a flashlight, a rope, and a compass.",
+  "tags": [
+   "punctuation",
+   "colons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses quotation marks and commas correctly?",
+  "choicesJson": [
+   "Mia said \"The door opened by itself\".",
+   "Mia said, \"The door opened by itself.\"",
+   "Mia, said \"The door opened by itself.\"",
+   "Mia said, \"The door opened by itself\"."
+  ],
+  "answer": "Mia said, \"The door opened by itself.\"",
+  "tags": [
+   "punctuation",
+   "quotation-marks"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word in this sentence is an abstract noun? 'The knight's courage saved the village.'",
+  "choicesJson": [
+   "courage",
+   "knight's",
+   "saved",
+   "village"
+  ],
+  "answer": "courage",
+  "tags": [
+   "parts-of-speech",
+   "nouns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence? 'The goalie played very ____ in the final game.'",
+  "choicesJson": [
+   "good",
+   "goodly",
+   "gooder",
+   "well"
+  ],
+  "answer": "well",
+  "tags": [
+   "parts-of-speech",
+   "adverbs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is written in the passive voice?",
+  "choicesJson": [
+   "The hero saved the village.",
+   "The hero is saving the village.",
+   "The hero will save the village.",
+   "The village was saved by the hero."
+  ],
+  "answer": "The village was saved by the hero.",
+  "tags": [
+   "grammar",
+   "passive-voice"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is a comma splice, two complete sentences joined by only a comma?",
+  "choicesJson": [
+   "The bridge was out, so we had to turn around.",
+   "The bridge was out, we had to turn around.",
+   "The bridge was out; we had to turn around.",
+   "Because the bridge was out, we turned around."
+  ],
+  "answer": "The bridge was out, we had to turn around.",
+  "tags": [
+   "grammar",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The punctuation mark ; can join two closely related complete sentences. What is it called?",
+  "choicesJson": null,
+  "answer": "semicolon",
+  "acceptedAnswers": [
+   "semi-colon",
+   "semi colon",
+   "a semicolon"
+  ],
+  "tags": [
+   "punctuation",
+   "semicolons"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word best completes the passage? 'The ghost was harmless. ____, the campers screamed anyway.'",
+  "choicesJson": [
+   "However",
+   "For example",
+   "Likewise",
+   "Therefore"
+  ],
+  "answer": "However",
+  "tags": [
+   "grammar",
+   "transitions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the subject of this sentence? 'Under the bridge lurked a troll.'",
+  "choicesJson": [
+   "bridge",
+   "lurked",
+   "Under",
+   "troll"
+  ],
+  "answer": "troll",
+  "tags": [
+   "grammar",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a complete sentence?",
+  "choicesJson": [
+   "A chest full of diamonds and gold.",
+   "Mining all night in the deepest cave.",
+   "Sam crafted a pickaxe from wood and stone.",
+   "Because the creeper blew up the fence."
+  ],
+  "answer": "Sam crafted a pickaxe from wood and stone.",
+  "tags": [
+   "sentence-fragments",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is a run-on?",
+  "choicesJson": [
+   "The zombie groaned it chased Mia across the field.",
+   "The zombie groaned and chased Mia across the field.",
+   "The zombie groaned, and it chased Mia across the field.",
+   "The zombie groaned; then it chased Mia across the field."
+  ],
+  "answer": "The zombie groaned it chased Mia across the field.",
+  "tags": [
+   "run-on",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is a compound sentence?",
+  "choicesJson": [
+   "Playing for hours, I drained my battery.",
+   "I wanted to keep playing, but my battery died.",
+   "When my battery died, I plugged in the charger.",
+   "My battery died during the final round."
+  ],
+  "answer": "I wanted to keep playing, but my battery died.",
+  "tags": [
+   "compound-sentences",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the sentence below, which group of words is the dependent clause?\n'Although the Wi-Fi was slow, Maya still finished her race.'",
+  "choicesJson": [
+   "still finished her race",
+   "her race",
+   "Although the Wi-Fi was slow",
+   "Maya still finished her race"
+  ],
+  "answer": "Although the Wi-Fi was slow",
+  "tags": [
+   "clauses",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence has correct subject-verb agreement?",
+  "choicesJson": [
+   "There is three zombies behind you.",
+   "The keys to the vault is missing.",
+   "Each of the players has a shield.",
+   "Both of the swords is made of iron."
+  ],
+  "answer": "Each of the players has a shield.",
+  "tags": [
+   "subject-verb-agreement",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence?\nMaya and Jo lost ___ phones at the arcade.",
+  "choicesJson": [
+   "her",
+   "their",
+   "his",
+   "its"
+  ],
+  "answer": "their",
+  "tags": [
+   "pronoun-agreement",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence shifts verb tense by mistake?",
+  "choicesJson": [
+   "The sailor waved at the lighthouse and walks toward the boat.",
+   "The sailor waved at the lighthouse and walked toward the boat.",
+   "The sailor will wave at the lighthouse and walk toward the boat.",
+   "The sailor waves at the lighthouse and walks toward the boat."
+  ],
+  "answer": "The sailor waved at the lighthouse and walks toward the boat.",
+  "tags": [
+   "verb-tense",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does the missing comma belong?\nThe bridge collapsed so the heroes had to swim.",
+  "choicesJson": [
+   "after 'swim'",
+   "after 'bridge'",
+   "after 'heroes'",
+   "after 'collapsed'"
+  ],
+  "answer": "after 'collapsed'",
+  "tags": [
+   "commas",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence punctuates the introductory phrase correctly?",
+  "choicesJson": [
+   "After the storm ended, the campers found a cave.",
+   "After the storm, ended the campers found a cave.",
+   "After the storm ended the campers, found a cave.",
+   "After, the storm ended the campers found a cave."
+  ],
+  "answer": "After the storm ended, the campers found a cave.",
+  "tags": [
+   "commas",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Three mice share one hole in the wall of a haunted house. Which phrase shows that the hole belongs to the mice?",
+  "choicesJson": [
+   "the mices' hole",
+   "the mice's hole",
+   "the mices hole",
+   "the mice' hole"
+  ],
+  "answer": "the mice's hole",
+  "tags": [
+   "apostrophes",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "SCP-173 is a statue that cannot move while anyone is looking at it. Which word correctly completes the sentence?\nThe statue cannot move while ___ being watched.",
+  "choicesJson": [
+   "it's",
+   "its",
+   "it",
+   "its'"
+  ],
+  "answer": "it's",
+  "tags": [
+   "its-vs-its",
+   "grammar",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence?\nThe new players say ___ ready for the next match.",
+  "choicesJson": [
+   "they're",
+   "theyre",
+   "there",
+   "their"
+  ],
+  "answer": "they're",
+  "tags": [
+   "homophones",
+   "grammar"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word that correctly completes the sentence.\nTo ___ did the wizard give the magic key?",
+  "answer": "whom",
+  "tags": [
+   "who-vs-whom",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence?\nThe Roblox player jumped ___ over the gap.",
+  "choicesJson": [
+   "caring",
+   "carefulness",
+   "carefully",
+   "careful"
+  ],
+  "answer": "carefully",
+  "tags": [
+   "adverbs",
+   "grammar",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In the sentence 'Wow, that creeper is huge!' what part of speech is the word 'Wow'?",
+  "answer": "interjection",
+  "acceptedAnswers": [
+   "an interjection"
+  ],
+  "tags": [
+   "parts-of-speech",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the sentence 'Alex crafted a sword,' what is the direct object?",
+  "choicesJson": [
+   "Alex crafted",
+   "crafted",
+   "sword",
+   "Alex"
+  ],
+  "answer": "sword",
+  "tags": [
+   "sentence-parts",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses parallel structure?",
+  "choicesJson": [
+   "In Fortnite, Kai likes building, looting, and exploring.",
+   "In Fortnite, Kai likes building, to loot, and explore.",
+   "In Fortnite, Kai likes building, looting, and to explore.",
+   "In Fortnite, Kai likes to build, loot, and exploring."
+  ],
+  "answer": "In Fortnite, Kai likes building, looting, and exploring.",
+  "tags": [
+   "parallel-structure",
+   "grammar",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence has a dangling modifier?",
+  "choicesJson": [
+   "The monster hiding under the bed growled at Lily.",
+   "Hiding under the bed, the monster growled at Lily.",
+   "Hiding under the bed, the monster's growl scared Lily.",
+   "Lily was scared by the monster hiding under the bed."
+  ],
+  "answer": "Hiding under the bed, the monster's growl scared Lily.",
+  "tags": [
+   "modifiers",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence is punctuated correctly?",
+  "choicesJson": [
+   "\"Hide behind the wall,\" whispered Dee.",
+   "\"Hide behind the wall.\" whispered Dee.",
+   "\"Hide behind the wall\", whispered Dee.",
+   "\"Hide behind the wall\" whispered, Dee."
+  ],
+  "answer": "\"Hide behind the wall,\" whispered Dee.",
+  "tags": [
+   "dialogue",
+   "punctuation"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the subordinating conjunction in this sentence.\n'We stayed inside because the zombies were outside.'",
+  "answer": "because",
+  "tags": [
+   "conjunctions",
+   "sentence-structure"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the correct form of the verb to complete the sentence.\nBy midnight, the ghost had ___ (write) a message on the mirror.",
+  "answer": "written",
+  "tags": [
+   "irregular-verbs",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word correctly completes the sentence?\nThe new coach's advice will ___ how you play.",
+  "choicesJson": [
+   "affect",
+   "affected",
+   "effect",
+   "effects"
+  ],
+  "answer": "affect",
+  "tags": [
+   "word-choice",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses 'neither...nor' correctly?",
+  "choicesJson": [
+   "Neither the knight nor the dragons is ready for the storm.",
+   "Neither the knight nor the dragons has been ready for the storm.",
+   "Neither the knight nor the dragons was ready for the storm.",
+   "Neither the knight nor the dragons were ready for the storm."
+  ],
+  "answer": "Neither the knight nor the dragons were ready for the storm.",
+  "tags": [
+   "subject-verb-agreement",
+   "grammar"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the sentence below, which group of words is the prepositional phrase?\n'The tall, faceless figure stood behind the old oak tree.'",
+  "choicesJson": [
+   "stood behind",
+   "The tall, faceless figure",
+   "old oak",
+   "behind the old oak tree"
+  ],
+  "answer": "behind the old oak tree",
+  "tags": [
+   "prepositions",
+   "grammar",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence punctuates the appositive correctly?",
+  "choicesJson": [
+   "Godzilla the king of the monsters, stomped through Tokyo.",
+   "Godzilla the king, of the monsters stomped through Tokyo.",
+   "Godzilla, the king of the monsters stomped through Tokyo.",
+   "Godzilla, the king of the monsters, stomped through Tokyo."
+  ],
+  "answer": "Godzilla, the king of the monsters, stomped through Tokyo.",
+  "tags": [
+   "appositives",
+   "punctuation",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Jordan's Roblox character fell off the last platform of the obby for the ninth time. He shook out his hands, took a slow breath, and tapped Respawn. 'One more,' he muttered.\nWhat can the reader infer about Jordan?",
+  "choicesJson": [
+   "He is angry at his friends for tricking him.",
+   "He is frustrated but determined to keep trying.",
+   "He has decided to quit the game for good.",
+   "He has never played an obby before."
+  ],
+  "answer": "He is frustrated but determined to keep trying.",
+  "tags": [
+   "inference",
+   "character",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Priya noticed that her little brother's shoelace was untied. Without a word, she knelt down, tied it, and hurried to catch up with the group.\nWhich trait best describes Priya?",
+  "choicesJson": [
+   "boastful",
+   "careless",
+   "thoughtful",
+   "impatient"
+  ],
+  "answer": "thoughtful",
+  "tags": [
+   "character-traits",
+   "inference"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Kai ignored Zoe's plan and built tall towers for their Minecraft castle before the walls were finished. At sunset, the creepers came, and the gaps in the unfinished walls let them right in. Kai and Zoe spent the night patching holes. The next morning, Kai said, 'Let's listen to each other's ideas and plan first.'\nWhich statement best expresses the theme of this story?",
+  "choicesJson": [
+   "It is best to build alone.",
+   "Creepers are the most dangerous mobs.",
+   "Planning ahead and listening to teammates helps a team succeed.",
+   "Tall towers are always better than short walls."
+  ],
+  "answer": "Planning ahead and listening to teammates helps a team succeed.",
+  "tags": [
+   "theme",
+   "reading-comprehension",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage.\n'I crept down the stairs, my flashlight shaking in my hand. Something in the basement was breathing.'\nFrom which point of view is this passage told?",
+  "choicesJson": [
+   "first person",
+   "third-person omniscient",
+   "second person",
+   "third-person limited"
+  ],
+  "answer": "first person",
+  "tags": [
+   "point-of-view",
+   "narrator"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage.\n'You open the door. Cold air hits your face, and you step inside.'\nFrom which point of view is this passage told?",
+  "choicesJson": [
+   "third-person limited",
+   "third-person omniscient",
+   "first person",
+   "second person"
+  ],
+  "answer": "second person",
+  "tags": [
+   "point-of-view",
+   "narrator"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A story about a lost kid in a haunted forest is told in the first person by the kid. Why might the author choose first person for a scary story?",
+  "choicesJson": [
+   "It lets readers feel the narrator's fear as it happens.",
+   "It lets readers know what every character is thinking.",
+   "It keeps the narrator from describing any feelings.",
+   "It makes the story shorter."
+  ],
+  "answer": "It lets readers feel the narrator's fear as it happens.",
+  "tags": [
+   "point-of-view",
+   "author-purpose"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hiker must climb through a blizzard to reach a cabin before dark. What type of conflict is this?",
+  "choicesJson": [
+   "character vs. self",
+   "character vs. nature",
+   "character vs. character",
+   "character vs. society"
+  ],
+  "answer": "character vs. nature",
+  "tags": [
+   "conflict",
+   "plot"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Zara found a wallet with fifty dollars inside. She had lost her bus fare that morning, and she stared at the wallet for a long time. Then she walked to the school office and handed it in.\nWhat type of conflict does Zara face?",
+  "choicesJson": [
+   "character vs. society",
+   "character vs. character",
+   "character vs. self",
+   "character vs. nature"
+  ],
+  "answer": "character vs. self",
+  "tags": [
+   "conflict",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Notes from Containment Room 12:\nDay 1: The statue was facing the door.\nDay 2: The statue was facing the door.\nDay 3: The camera feed glitched for two seconds. After the glitch, the statue was facing the window.\nWhat can the reader reasonably infer?",
+  "choicesJson": [
+   "The statue probably moves when no one is watching it.",
+   "Nothing in the room has changed.",
+   "The camera turned the statue.",
+   "The researcher moved the statue every day."
+  ],
+  "answer": "The statue probably moves when no one is watching it.",
+  "tags": [
+   "inference",
+   "evidence",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage.\n'The fog swallowed the dock, and the lantern's light shrank to a weak yellow circle. Somewhere beyond the water, a bell rang once, then stopped.'\nWhich words best describe the mood?",
+  "choicesJson": [
+   "calm and relaxing",
+   "eerie and mysterious",
+   "cheerful and lively",
+   "silly and playful"
+  ],
+  "answer": "eerie and mysterious",
+  "tags": [
+   "mood",
+   "setting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a vampire story, the narrator notices that the stranger never appears in any mirror and never eats at dinner. Later, we learn that he is a vampire. The early details are examples of...",
+  "choicesJson": [
+   "flashback",
+   "personification",
+   "a simile",
+   "foreshadowing"
+  ],
+  "answer": "foreshadowing",
+  "tags": [
+   "foreshadowing",
+   "plot",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In an obstacle race, Dex brags that he never needs help. After he fails the course twice, he asks a teammate for advice and thanks her when it works.\nWhich statement best describes how Dex changes?",
+  "choicesJson": [
+   "He becomes more boastful.",
+   "He becomes lazier.",
+   "He learns to value help from others.",
+   "He stops caring about the race."
+  ],
+  "answer": "He learns to value help from others.",
+  "tags": [
+   "character-change",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which sentence uses indirect characterization to show that Lena is generous?",
+  "choicesJson": [
+   "Lena had a generous personality.",
+   "Lena split her lunch with the new kid.",
+   "Everyone knew Lena as a generous person.",
+   "Lena was a generous girl."
+  ],
+  "answer": "Lena split her lunch with the new kid.",
+  "tags": [
+   "characterization",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a theme (a message about life) rather than just a topic?",
+  "choicesJson": [
+   "Friends can help you face your fears.",
+   "a boy who loses his keys",
+   "two dogs becoming friends",
+   "a haunted house"
+  ],
+  "answer": "Friends can help you face your fears.",
+  "tags": [
+   "theme",
+   "reading-comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Rafi's band has a talent show next week. He skips movie night with his cousins and practices the drums until midnight, even after his fingers ache.\nWhat most likely motivates Rafi?",
+  "choicesJson": [
+   "He wants to get out of the talent show.",
+   "He dislikes his cousins.",
+   "He is bored of music.",
+   "He wants to perform well at the talent show."
+  ],
+  "answer": "He wants to perform well at the talent show.",
+  "tags": [
+   "motivation",
+   "character"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Read the passage.\n'Kenji tugged his hood low and kept his eyes on his shoes. When the teacher called on him, he mumbled, \"I don't know,\" even though his hand had been halfway up a moment earlier.'\nWhich inference is best supported by the passage?",
+  "choicesJson": [
+   "Kenji is nervous about speaking in front of the class.",
+   "Kenji does not know the answer to anything.",
+   "Kenji is cold.",
+   "Kenji is angry at his teacher."
+  ],
+  "answer": "Kenji is nervous about speaking in front of the class.",
+  "tags": [
+   "inference",
+   "evidence"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a monster movie, scientists notice that the fish are fleeing the harbor, the birds are leaving the island, and the ground is trembling. What is most likely to happen next?",
+  "choicesJson": [
+   "A giant creature will soon appear.",
+   "The scientists will go on vacation.",
+   "A calm, sunny day will begin.",
+   "The fish will return to the harbor."
+  ],
+  "answer": "A giant creature will soon appear.",
+  "tags": [
+   "predicting",
+   "inference",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word best describes the narrator's tone?\n'Oh sure, because eating cold broccoli for the fifth night in a row is exactly what I dreamed of.'",
+  "choicesJson": [
+   "sarcastic",
+   "fearful",
+   "curious",
+   "grateful"
+  ],
+  "answer": "sarcastic",
+  "tags": [
+   "tone",
+   "author-purpose"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A story set in the present day suddenly describes what happened to the narrator when she was six years old. This technique is called a...",
+  "choicesJson": [
+   "moral",
+   "flashback",
+   "foreshadowing",
+   "cliffhanger"
+  ],
+  "answer": "flashback",
+  "tags": [
+   "plot",
+   "literary-devices"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A girl keeps a cracked lantern on her shelf. It no longer works, but she refuses to throw it away because it belonged to her grandfather. The lantern most likely symbolizes...",
+  "choicesJson": [
+   "her love and memories of her grandfather",
+   "her plan to start a camping trip",
+   "her fear of the dark",
+   "her wish to buy new things"
+  ],
+  "answer": "her love and memories of her grandfather",
+  "tags": [
+   "symbolism",
+   "reading-comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "'Another A-minus?' Dana scoffed. 'Anyone could have done that. I was practically sleeping.'\nWhich trait is shown by Dana's dialogue?",
+  "choicesJson": [
+   "generosity",
+   "shyness",
+   "honesty",
+   "arrogance"
+  ],
+  "answer": "arrogance",
+  "tags": [
+   "dialogue",
+   "character-traits"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In an Among Us match, Blue says she saw Red come out of a vent near Electrical. Red says he was doing wiring tasks in Navigation the whole time.\nWhich inference is best supported?",
+  "choicesJson": [
+   "Blue is definitely the impostor.",
+   "Both players are telling the truth.",
+   "Red is definitely the impostor.",
+   "Their accounts cannot both be true, so one of them is mistaken or lying."
+  ],
+  "answer": "Their accounts cannot both be true, so one of them is mistaken or lying.",
+  "tags": [
+   "inference",
+   "evidence",
+   "theme:among-us"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Every morning, Tomas watered the tiny, crooked tree outside the school. Other kids laughed at him, and the tree grew only a few inches each year. Years later, its shade covered the whole playground, and the same kids sat beneath it.\nWhich statement best expresses the theme?",
+  "choicesJson": [
+   "Patient effort can pay off over time.",
+   "Trees grow fastest near schools.",
+   "Laughing at others is fun.",
+   "It is wise to give up quickly."
+  ],
+  "answer": "Patient effort can pay off over time.",
+  "tags": [
+   "theme",
+   "reading-comprehension"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Maya reached the ancient ruins and found dust covering the floor, except for one trail of small, fresh footprints leading inside.\nWhat can Maya infer?",
+  "choicesJson": [
+   "Someone entered the ruins recently.",
+   "The ruins were built yesterday.",
+   "The dust was cleaned this morning.",
+   "No one has ever visited the ruins."
+  ],
+  "answer": "Someone entered the ruins recently.",
+  "tags": [
+   "inference",
+   "evidence"
+  ]
+ }
+]

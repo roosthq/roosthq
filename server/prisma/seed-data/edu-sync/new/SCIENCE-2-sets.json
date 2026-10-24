@@ -1,0 +1,894 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mount Fuji in Japan is shown here. What kind of landform is it?",
+  "choicesJson": [
+   "Canyon",
+   "Glacier",
+   "Delta",
+   "Volcano"
+  ],
+  "answer": "Volcano",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "volcanoes"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-volcano.webp",
+   "alt": "Mount Fuji, a cone-shaped volcano with a snowy top, seen across a calm lake."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Water tumbles over a high edge in this photo. Type the name of this landform.",
+  "choicesJson": [],
+  "answer": "waterfall",
+  "acceptedAnswers": [
+   "a waterfall",
+   "waterfalls",
+   "falls",
+   "water fall"
+  ],
+  "tags": [
+   "landforms",
+   "water"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-waterfall.webp",
+   "alt": "A tour boat below Niagara's Horseshoe Falls, a wide curtain of falling water with a rainbow."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This piece of land is completely surrounded by water. What is it called?",
+  "choicesJson": [
+   "Island",
+   "Canyon",
+   "Delta",
+   "Peninsula"
+  ],
+  "answer": "Island",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-island.webp",
+   "alt": "An island with a steep green peak rising from turquoise water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Wind piled up these hills of sand in a desert. What are they called?",
+  "choicesJson": [
+   "Volcanoes",
+   "Deltas",
+   "Sand dunes",
+   "Glaciers"
+  ],
+  "answer": "Sand dunes",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "wind"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-dunes.webp",
+   "alt": "Rolling orange sand dunes with tufts of grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the body of water in this photo, with land all around it?",
+  "choicesJson": [
+   "Glacier",
+   "Lake",
+   "Island",
+   "Ocean"
+  ],
+  "answer": "Lake",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "water"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-lake.webp",
+   "alt": "A small blue lake surrounded by rocky mountain peaks."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a glacier?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-canyon.webp",
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-waterfall.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a canyon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-geyser.webp",
+    "learning/img/rocks-landforms-canyon.webp",
+    "learning/img/rocks-landforms-lake.webp",
+    "learning/img/rocks-landforms-island.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows sand dunes?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-glacier.webp",
+    "learning/img/rocks-landforms-lake.webp",
+    "learning/img/rocks-landforms-cave.webp",
+    "learning/img/rocks-landforms-dunes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a waterfall?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-waterfall.webp",
+    "learning/img/rocks-landforms-delta.webp",
+    "learning/img/rocks-landforms-mountains.webp",
+    "learning/img/rocks-landforms-arch.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a volcano?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "volcanoes"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-canyon.webp",
+    "learning/img/rocks-landforms-waterfall.webp",
+    "learning/img/rocks-landforms-volcano.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a mountain range?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-geyser.webp",
+    "learning/img/rocks-landforms-mountains.webp",
+    "learning/img/rocks-landforms-waterfall.webp",
+    "learning/img/rocks-landforms-dunes.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a lake?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-geyser.webp",
+    "learning/img/rocks-landforms-dunes.webp",
+    "learning/img/rocks-landforms-lake.webp",
+    "learning/img/rocks-landforms-cave.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Venus",
+   "Saturn",
+   "Mars",
+   "Jupiter"
+  ],
+  "answer": "Jupiter",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-jupiter.webp",
+   "alt": "A photo of a planet with tan and white stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This giant swirl is made of billions of stars. What is it called?",
+  "choicesJson": [
+   "A galaxy",
+   "A planet",
+   "A rocket",
+   "A comet"
+  ],
+  "answer": "A galaxy",
+  "tags": [
+   "space",
+   "galaxies"
+  ],
+  "media": {
+   "image": "learning/img/space-galaxy.webp",
+   "alt": "A huge swirl of stars in space."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The planet in this photo is the biggest planet in our solar system. What is its name?",
+  "answer": "Jupiter",
+  "acceptedAnswers": [],
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-jupiter.webp",
+   "alt": "A photo of a planet with tan and white stripes."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at the rings around this planet. What are they mostly made of?",
+  "choicesJson": [
+   "Chunks of ice and rock",
+   "Clouds of smoke",
+   "Solid gold",
+   "Liquid water"
+  ],
+  "answer": "Chunks of ice and rock",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-saturn.webp",
+   "alt": "A photo of a planet with wide flat rings."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The big orange oval in this photo is on Jupiter. What is it?",
+  "choicesJson": [
+   "A crater",
+   "A volcano",
+   "A lake",
+   "A giant storm"
+  ],
+  "answer": "A giant storm",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-red-spot.webp",
+   "alt": "A close-up of a giant orange oval in swirling clouds."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Our solar system has the Sun and how many planets going around it?",
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "space",
+   "solar-system"
+  ],
+  "media": {
+   "image": "learning/img/space-sun.webp",
+   "alt": "A glowing orange ball in black space."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the long glowing streak behind a comet called?",
+  "answer": "tail",
+  "acceptedAnswers": [
+   "its tail",
+   "the tail",
+   "a tail"
+  ],
+  "tags": [
+   "space",
+   "comets"
+  ],
+  "media": {
+   "image": "learning/img/space-comet.webp",
+   "alt": "A glowing object with a long tail in a starry sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What are the round, bowl-shaped holes all over the Moon called?",
+  "choicesJson": [
+   "Puddles",
+   "Craters",
+   "Volcanoes",
+   "Windows"
+  ],
+  "answer": "Craters",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-moon.webp",
+   "alt": "A round gray space object with dark patches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is the galaxy in this photo?",
+  "choicesJson": [
+   "A spiral",
+   "A star",
+   "A square",
+   "A triangle"
+  ],
+  "answer": "A spiral",
+  "tags": [
+   "space",
+   "galaxies"
+  ],
+  "media": {
+   "image": "learning/img/space-galaxy.webp",
+   "alt": "A huge swirl of stars in space."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the planet we live on?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "space",
+   "earth"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-mars.webp",
+    "learning/img/space-neptune.webp",
+    "learning/img/space-earth.webp",
+    "learning/img/space-jupiter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the planet called the Red Planet?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-uranus.webp",
+    "learning/img/space-mars.webp",
+    "learning/img/space-neptune.webp",
+    "learning/img/space-earth.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the biggest planet in our solar system?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-earth.webp",
+    "learning/img/space-uranus.webp",
+    "learning/img/space-jupiter.webp",
+    "learning/img/space-mars.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a comet?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "space",
+   "comets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-comet.webp",
+    "learning/img/space-galaxy.webp",
+    "learning/img/space-sun.webp",
+    "learning/img/space-moon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the International Space Station?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "space",
+   "iss"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-iss.webp",
+    "learning/img/space-galaxy.webp",
+    "learning/img/space-comet.webp",
+    "learning/img/space-astronaut-moon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Lightning heats the air so fast that the air makes a loud boom. What is the boom called?",
+  "answer": "thunder",
+  "acceptedAnswers": [
+   "thunderclap",
+   "a thunder",
+   "thunders"
+  ],
+  "tags": [
+   "thunder",
+   "lightning"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning2.webp",
+   "alt": "Several lightning bolts reaching down from a stormy night sky toward the ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call a spinning funnel of wind that reaches down from a storm cloud, like in this picture?",
+  "choicesJson": [
+   "A rainbow",
+   "A tornado",
+   "A hailstone"
+  ],
+  "answer": "A tornado",
+  "tags": [
+   "tornado",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-tornado.webp",
+   "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the white, sparkly coating of ice crystals on this leaf called?",
+  "choicesJson": [
+   "Fog",
+   "Dew",
+   "Frost",
+   "Hail"
+  ],
+  "answer": "Frost",
+  "tags": [
+   "frost",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-frost.webp",
+   "alt": "A leaf covered in white frost crystals on a freezing morning."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The sun is coming up in this picture. In which direction does the sun rise?",
+  "choicesJson": [
+   "North",
+   "East",
+   "South",
+   "West"
+  ],
+  "answer": "East",
+  "tags": [
+   "sunrise",
+   "earth"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-sunrise.webp",
+   "alt": "An orange sunrise sky behind a bare tree over a snowy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool measures how much rain has fallen?",
+  "choicesJson": [
+   "Thermometer",
+   "Ruler",
+   "Rain gauge",
+   "Compass"
+  ],
+  "answer": "Rain gauge",
+  "tags": [
+   "rain",
+   "tools"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rain.webp",
+   "alt": "Heavy rain falling over a muddy river and trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The long, pointy icicles in this picture are made of frozen what?",
+  "choicesJson": [
+   "Water",
+   "Sand",
+   "Wax",
+   "Milk"
+  ],
+  "answer": "Water",
+  "tags": [
+   "ice",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-icicles.webp",
+   "alt": "Long icicles hanging from a snowy roof edge on a red wall."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Fog is like a cloud that is sitting right on top of what?",
+  "choicesJson": [
+   "A kite",
+   "The moon",
+   "A rainbow",
+   "The ground"
+  ],
+  "answer": "The ground",
+  "tags": [
+   "fog",
+   "clouds"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-fog.webp",
+   "alt": "Thick gray fog hiding the far shore of a calm lake with evergreen trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A snowflake is a tiny crystal made of what?",
+  "choicesJson": [
+   "Salt",
+   "Sugar",
+   "Ice",
+   "Feathers"
+  ],
+  "answer": "Ice",
+  "tags": [
+   "snow",
+   "matter"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-snowflake.webp",
+   "alt": "A close-up of a single six-armed snowflake crystal resting on snow."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows fog?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "fog",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-fog.webp",
+    "learning/img/weather-clouds-sunrise.webp",
+    "learning/img/weather-clouds-icicles.webp",
+    "learning/img/weather-clouds-cirrus2.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the funnel of a tornado?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "tornado",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-hurricane.webp",
+    "learning/img/weather-clouds-lightning.webp",
+    "learning/img/weather-clouds-snowfall.webp",
+    "learning/img/weather-clouds-tornado.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a sunrise?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "sunrise",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-fog.webp",
+    "learning/img/weather-clouds-rainbow2.webp",
+    "learning/img/weather-clouds-sunrise.webp",
+    "learning/img/weather-clouds-lightning2.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a snowflake up close?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "snow",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-dew.webp",
+    "learning/img/weather-clouds-snowflake.webp",
+    "learning/img/weather-clouds-rain.webp",
+    "learning/img/weather-clouds-rainbow2.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ }
+]

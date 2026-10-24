@@ -1,0 +1,1752 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters finish the word for a big boat? __ip",
+  "choicesJson": [
+   "th",
+   "sh",
+   "ch"
+  ],
+  "answer": "sh",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the hard cover on a clam. It starts with sh.",
+  "choicesJson": null,
+  "answer": "shell",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with the letters ch?",
+  "choicesJson": [
+   "chop",
+   "top",
+   "shop"
+  ],
+  "answer": "chop",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the bottom of your face, under your mouth. It starts with ch.",
+  "choicesJson": null,
+  "answer": "chin",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters finish the word? __ink, what you do with your brain.",
+  "choicesJson": [
+   "th",
+   "ch",
+   "sh"
+  ],
+  "answer": "th",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word ends with the letters ck?",
+  "choicesJson": [
+   "clip",
+   "clap",
+   "clock"
+  ],
+  "answer": "clock",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a bird that says quack. It ends with ck.",
+  "choicesJson": null,
+  "answer": "duck",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters finish the word for a huge sea animal? __ale",
+  "choicesJson": [
+   "wh",
+   "th",
+   "ch"
+  ],
+  "answer": "wh",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the missing word: tooth___. You use it with toothpaste.",
+  "choicesJson": null,
+  "answer": "brush",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word begins with th?",
+  "choicesJson": [
+   "ship",
+   "thumb",
+   "whip"
+  ],
+  "answer": "thumb",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters start the word for a green pond animal that hops? __og",
+  "choicesJson": [
+   "cr",
+   "fr",
+   "pl"
+  ],
+  "answer": "fr",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters start the word for a slow animal with a shell on its back? __ail",
+  "choicesJson": [
+   "sl",
+   "sn",
+   "st"
+  ],
+  "answer": "sn",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the green plant you cut with a lawn mower. It starts with gr.",
+  "choicesJson": null,
+  "answer": "grass",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a pet that swims in a bowl. It ends with sh.",
+  "choicesJson": null,
+  "answer": "fish",
+  "acceptedAnswers": [
+   "goldfish"
+  ],
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for what you wear on your foot inside a shoe. It ends with ck.",
+  "choicesJson": null,
+  "answer": "sock",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with tr, like in truck?",
+  "choicesJson": [
+   "drain",
+   "brain",
+   "train"
+  ],
+  "answer": "train",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word ends with the letters mp?",
+  "choicesJson": [
+   "lamp",
+   "lap",
+   "lab"
+  ],
+  "answer": "lamp",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the short e sound, like in bed?",
+  "choicesJson": [
+   "pot",
+   "pit",
+   "pet"
+  ],
+  "answer": "pet",
+  "tags": [
+   "short-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the short o sound, like in fox?",
+  "choicesJson": [
+   "map",
+   "mop",
+   "mud"
+  ],
+  "answer": "mop",
+  "tags": [
+   "short-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which vowel is missing? dr_m. You bang on it to make music.",
+  "choicesJson": [
+   "a",
+   "o",
+   "u"
+  ],
+  "answer": "u",
+  "tags": [
+   "short-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for what a hen lays. It has three letters and starts with e.",
+  "choicesJson": null,
+  "answer": "egg",
+  "tags": [
+   "short-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a round band you wear on your finger.",
+  "choicesJson": null,
+  "answer": "ring",
+  "tags": [
+   "short-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the long a sound, like in 'game'?",
+  "choicesJson": [
+   "bake",
+   "back",
+   "bag"
+  ],
+  "answer": "bake",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the long i sound, like in 'slide'?",
+  "choicesJson": [
+   "bit",
+   "bike",
+   "big"
+  ],
+  "answer": "bike",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which vowel is missing from n_se, the part of your face you smell with?",
+  "choicesJson": [
+   "a",
+   "o",
+   "i"
+  ],
+  "answer": "o",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a toy that flies on a string in the wind. It starts with k.",
+  "choicesJson": null,
+  "answer": "kite",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the treat with candles at a birthday party.",
+  "choicesJson": null,
+  "answer": "cake",
+  "acceptedAnswers": [
+   "cupcake"
+  ],
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for the white, cold flakes that fall in winter. It starts with sn.",
+  "choicesJson": null,
+  "answer": "snow",
+  "tags": [
+   "long-vowels",
+   "blends"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the long e sound, like in 'tree'?",
+  "choicesJson": [
+   "fit",
+   "fat",
+   "feet"
+  ],
+  "answer": "feet",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Minecraft you place a cube. Which word starts with bl and names it?",
+  "choicesJson": [
+   "block",
+   "flock",
+   "clock"
+  ],
+  "answer": "block",
+  "tags": [
+   "blends",
+   "phonics",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Minecraft creeper starts with cr. Which other word starts with cr?",
+  "choicesJson": [
+   "trap",
+   "crab",
+   "grab"
+  ],
+  "answer": "crab",
+  "tags": [
+   "blends",
+   "phonics",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters finish the word for a hard stone? ro__",
+  "choicesJson": [
+   "gg",
+   "ck",
+   "ss"
+  ],
+  "answer": "ck",
+  "tags": [
+   "digraphs",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the long u sound, like in 'cube'?",
+  "choicesJson": [
+   "tube",
+   "tug",
+   "tub"
+  ],
+  "answer": "tube",
+  "tags": [
+   "long-vowels",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In a Roblox obby you go up a ladder. Which word starts with cl and means 'go up'?",
+  "choicesJson": [
+   "grin",
+   "climb",
+   "plum"
+  ],
+  "answer": "climb",
+  "tags": [
+   "blends",
+   "phonics",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Fortnite you can build up high. Which word starts with st and names steps you climb?",
+  "choicesJson": [
+   "stairs",
+   "drains",
+   "chairs"
+  ],
+  "answer": "stairs",
+  "tags": [
+   "blends",
+   "phonics",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Godzilla has big sharp teeth. Which word ends with th, like 'teeth'?",
+  "choicesJson": [
+   "mop",
+   "moth",
+   "mob"
+  ],
+  "answer": "moth",
+  "tags": [
+   "digraphs",
+   "phonics",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Spell the word for a silly spooky spirit that says 'boo'. It starts with gh.",
+  "choicesJson": null,
+  "answer": "ghost",
+  "tags": [
+   "phonics",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has the oo sound, like in 'moon'?",
+  "choicesJson": [
+   "zap",
+   "zoo",
+   "zip"
+  ],
+  "answer": "zoo",
+  "tags": [
+   "vowel-teams",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A statue stands very still. Which word starts with st, like 'statue'?",
+  "choicesJson": [
+   "shop",
+   "step",
+   "chop"
+  ],
+  "answer": "step",
+  "tags": [
+   "blends",
+   "phonics"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Listen! Can you ___ a bird singing?",
+  "choicesJson": [
+   "here",
+   "hear",
+   "hair"
+  ],
+  "answer": "hear",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Dracula wakes up when the sun goes down, at ___.",
+  "choicesJson": [
+   "nite",
+   "night",
+   "knight"
+  ],
+  "answer": "night",
+  "tags": [
+   "homophones",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pikachu gives you an electric ___ock. Which letters finish the word?",
+  "choicesJson": [
+   "sh",
+   "th",
+   "ch"
+  ],
+  "answer": "sh",
+  "tags": [
+   "digraphs",
+   "phonics",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario ___ the Mario Kart race!",
+  "choicesJson": [
+   "win",
+   "won",
+   "one"
+  ],
+  "answer": "won",
+  "tags": [
+   "homophones",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Whales swim in the ___.",
+  "choicesJson": [
+   "see",
+   "say",
+   "sea"
+  ],
+  "answer": "sea",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A ___ buzzes and makes honey.",
+  "choicesJson": [
+   "be",
+   "bee",
+   "beet"
+  ],
+  "answer": "bee",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I ___ a big pizza for lunch.",
+  "choicesJson": [
+   "eight",
+   "at",
+   "ate"
+  ],
+  "answer": "ate",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "My dog wags his ___.",
+  "choicesJson": [
+   "tall",
+   "tail",
+   "tale"
+  ],
+  "answer": "tail",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The wind ___ my hat away.",
+  "choicesJson": [
+   "blue",
+   "blew",
+   "blow"
+  ],
+  "answer": "blew",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "I ___ the answer to the riddle.",
+  "choicesJson": [
+   "know",
+   "now",
+   "no"
+  ],
+  "answer": "know",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The ___ is hot and bright today.",
+  "choicesJson": [
+   "sun",
+   "sin",
+   "son"
+  ],
+  "answer": "sun",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A ___ with antlers lives in the forest.",
+  "choicesJson": [
+   "dare",
+   "dear",
+   "deer"
+  ],
+  "answer": "deer",
+  "tags": [
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: I ___ happy.",
+  "choicesJson": [
+   "an",
+   "am",
+   "at"
+  ],
+  "answer": "am",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: She ___ my friend.",
+  "choicesJson": [
+   "is",
+   "it",
+   "in"
+  ],
+  "answer": "is",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: Come ___ me.",
+  "choicesJson": [
+   "will",
+   "wish",
+   "with"
+  ],
+  "answer": "with",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: This gift is ___ you.",
+  "choicesJson": [
+   "four",
+   "for",
+   "fur"
+  ],
+  "answer": "for",
+  "tags": [
+   "sight-words",
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: I ___ two hands.",
+  "choicesJson": [
+   "have",
+   "has",
+   "hat"
+  ],
+  "answer": "have",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: ___ you like pizza?",
+  "choicesJson": [
+   "Doo",
+   "Do",
+   "Dew"
+  ],
+  "answer": "Do",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the missing word: ___ am Steve.",
+  "choicesJson": null,
+  "answer": "I",
+  "tags": [
+   "sight-words",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put the letters together and type the word: w, h, e, r, e. It asks about a place.",
+  "choicesJson": null,
+  "answer": "where",
+  "tags": [
+   "sight-words",
+   "word-building"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "thay",
+   "thei",
+   "they",
+   "thae"
+  ],
+  "answer": "they",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "wut",
+   "whut",
+   "wat",
+   "what"
+  ],
+  "answer": "what",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means 'in this place'?",
+  "choicesJson": [
+   "hear",
+   "here",
+   "her"
+  ],
+  "answer": "here",
+  "tags": [
+   "sight-words",
+   "homophones"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the right word: I have ___ eyes.",
+  "choicesJson": [
+   "to",
+   "too",
+   "two"
+  ],
+  "answer": "two",
+  "tags": [
+   "homophones",
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: Pikachu and Eevee ___ friends.",
+  "choicesJson": [
+   "at",
+   "are",
+   "as"
+  ],
+  "answer": "are",
+  "tags": [
+   "sight-words",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Find the word spelled t-h-e.",
+  "choicesJson": [
+   "then",
+   "the",
+   "they"
+  ],
+  "answer": "the",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the little word that joins things, like 'cats ___ dogs'. It has 3 letters.",
+  "choicesJson": null,
+  "answer": "and",
+  "tags": [
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pick the missing word: Let's go ___ the park.",
+  "choicesJson": [
+   "too",
+   "two",
+   "to"
+  ],
+  "answer": "to",
+  "tags": [
+   "homophones",
+   "sight-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Fortnite, you build a ___ with walls. Pick the right spelling.",
+  "choicesJson": [
+   "fort",
+   "fourt",
+   "fert"
+  ],
+  "answer": "fort",
+  "tags": [
+   "spelling-patterns",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You tie a rope into a ___. It starts with a silent k.",
+  "choicesJson": null,
+  "answer": "knot",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is spelled correctly?",
+  "choicesJson": [
+   "nife",
+   "knife",
+   "nyfe",
+   "knif"
+  ],
+  "answer": "knife",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the word that sounds like 'right' and means to make letters with a pencil.",
+  "choicesJson": null,
+  "answer": "write",
+  "tags": [
+   "silent-letters",
+   "homophones"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A baby sheep is a ___. The b at the end is silent.",
+  "choicesJson": null,
+  "answer": "lamb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent b at the end?",
+  "choicesJson": [
+   "lamp",
+   "crab",
+   "comb"
+  ],
+  "answer": "comb",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with a silent k?",
+  "choicesJson": [
+   "kiss",
+   "knee",
+   "kite"
+  ],
+  "answer": "knee",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with a silent w?",
+  "choicesJson": [
+   "wing",
+   "web",
+   "wrap"
+  ],
+  "answer": "wrap",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent l?",
+  "choicesJson": [
+   "tall",
+   "talk",
+   "tell"
+  ],
+  "answer": "talk",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has a silent gh?",
+  "choicesJson": [
+   "gift",
+   "night",
+   "goat"
+  ],
+  "answer": "night",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bug word starts with a silent g?",
+  "choicesJson": [
+   "gnat",
+   "ant",
+   "bee"
+  ],
+  "answer": "gnat",
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Land with water all around it is an ___. The s is silent.",
+  "choicesJson": null,
+  "answer": "island",
+  "acceptedAnswers": [
+   "isle"
+  ],
+  "tags": [
+   "silent-letters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You can call Grandma on a ___. It has 5 letters and starts with ph.",
+  "choicesJson": null,
+  "answer": "phone",
+  "tags": [
+   "spelling-patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add a magic e to 'cap'. A superhero wears this.",
+  "choicesJson": null,
+  "answer": "cape",
+  "tags": [
+   "magic-e",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add a magic e to 'hop'. What new word do you get?",
+  "choicesJson": null,
+  "answer": "hope",
+  "tags": [
+   "magic-e",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add a magic e to 'cub'. Minecraft blocks have this shape.",
+  "choicesJson": null,
+  "answer": "cube",
+  "tags": [
+   "magic-e",
+   "word-building",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has ph that sounds like f?",
+  "choicesJson": [
+   "fish",
+   "fox",
+   "elephant"
+  ],
+  "answer": "elephant",
+  "tags": [
+   "spelling-patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word starts with the sh sound?",
+  "choicesJson": [
+   "chip",
+   "sip",
+   "ship"
+  ],
+  "answer": "ship",
+  "tags": [
+   "spelling-patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Clap it out! How many parts are in 'Godzilla'?",
+  "choicesJson": [
+   "2",
+   "4",
+   "3"
+  ],
+  "answer": "3",
+  "tags": [
+   "syllables",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Clap it out! How many parts are in 'Roblox'?",
+  "choicesJson": [
+   "2",
+   "1",
+   "3"
+  ],
+  "answer": "2",
+  "tags": [
+   "syllables",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has only one clap?",
+  "choicesJson": [
+   "monster",
+   "spider",
+   "ghost"
+  ],
+  "answer": "ghost",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word has three claps?",
+  "choicesJson": [
+   "butterfly",
+   "cat",
+   "pizza"
+  ],
+  "answer": "butterfly",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many claps are in 'banana'?",
+  "choicesJson": [
+   "4",
+   "2",
+   "3"
+  ],
+  "answer": "3",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Clap it out! How many parts are in 'dinosaur'?",
+  "choicesJson": [
+   "2",
+   "3",
+   "4"
+  ],
+  "answer": "3",
+  "tags": [
+   "syllables"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letters are missing? cr__per",
+  "choicesJson": [
+   "ea",
+   "oo",
+   "ee"
+  ],
+  "answer": "ee",
+  "tags": [
+   "missing-letters",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Type the missing letter in 'dragon': dr_gon",
+  "choicesJson": null,
+  "answer": "a",
+  "tags": [
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which letter is missing? monst_r",
+  "choicesJson": [
+   "e",
+   "a",
+   "u"
+  ],
+  "answer": "e",
+  "tags": [
+   "missing-letters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario grabs a ___. Which spelling is right?",
+  "choicesJson": [
+   "koin",
+   "coyn",
+   "coin"
+  ],
+  "answer": "coin",
+  "tags": [
+   "spelling-patterns",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put the words together: rain + bow. Type the new word.",
+  "choicesJson": null,
+  "answer": "rainbow",
+  "tags": [
+   "compound-words",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put the words together: back + pack. Type the new word.",
+  "choicesJson": null,
+  "answer": "backpack",
+  "tags": [
+   "compound-words",
+   "word-building"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put the words together to name a furry forest legend: big + foot. Type the new word.",
+  "choicesJson": null,
+  "answer": "bigfoot",
+  "acceptedAnswers": [
+   "big foot"
+  ],
+  "tags": [
+   "compound-words",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Change the s in 'sun' to f. What is the new word?",
+  "choicesJson": null,
+  "answer": "fun",
+  "tags": [
+   "word-building"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One dog, two ___. Which word fits?",
+  "choicesJson": [
+   "dog",
+   "dogs",
+   "dogss"
+  ],
+  "answer": "dogs",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One book, two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "books",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means more than one box?",
+  "choicesJson": [
+   "boxes",
+   "boxs",
+   "boxies"
+  ],
+  "answer": "boxes",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One bus, two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "buses",
+  "acceptedAnswers": [
+   "busses"
+  ],
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One dish, three ___. Which word fits?",
+  "choicesJson": [
+   "dishs",
+   "dishies",
+   "dishes"
+  ],
+  "answer": "dishes",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One fox, two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "foxes",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One baby, two ___. Which word fits?",
+  "choicesJson": [
+   "babys",
+   "babies",
+   "babyes"
+  ],
+  "answer": "babies",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One man, two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "men",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One foot, two ___. Which word fits?",
+  "choicesJson": [
+   "foots",
+   "feets",
+   "feet"
+  ],
+  "answer": "feet",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One mouse, two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "mice",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "One leaf, two ___. Which word fits?",
+  "choicesJson": [
+   "leaves",
+   "leafs",
+   "leafes"
+  ],
+  "answer": "leaves",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You craft one pickaxe, then another. Now you have two ___.",
+  "choicesJson": [
+   "pickaxe",
+   "pickaxs",
+   "pickaxes"
+  ],
+  "answer": "pickaxes",
+  "tags": [
+   "plurals",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mario grabs one coin, then another. Now he has two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "coins",
+  "tags": [
+   "plurals",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You find one loot llama. Then you find two ___. Type the word.",
+  "choicesJson": null,
+  "answer": "llamas",
+  "acceptedAnswers": [
+   "loot llamas"
+  ],
+  "tags": [
+   "plurals",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A barn has one sheep. A field has five ___.",
+  "choicesJson": [
+   "sheeps",
+   "sheep",
+   "sheepes"
+  ],
+  "answer": "sheep",
+  "tags": [
+   "plurals"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'jump'. Type the new word.",
+  "choicesJson": null,
+  "answer": "jumping",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Add -ed to 'walk'. Which word do you get?",
+  "choicesJson": [
+   "walkt",
+   "walked",
+   "walkd"
+  ],
+  "answer": "walked",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add 'un' to the front of 'happy'. Type the new word.",
+  "choicesJson": null,
+  "answer": "unhappy",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Add 'un' to 'lock'. Which word do you get?",
+  "choicesJson": [
+   "onlock",
+   "unloke",
+   "unlock"
+  ],
+  "answer": "unlock",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add 're' to the front of 'play'. Type the new word.",
+  "choicesJson": null,
+  "answer": "replay",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means 'not safe'?",
+  "choicesJson": [
+   "unsafe",
+   "resafe",
+   "safeful"
+  ],
+  "answer": "unsafe",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Add -ly to 'slow'. A sloth moves ___.",
+  "choicesJson": [
+   "slowy",
+   "slowely",
+   "slowly"
+  ],
+  "answer": "slowly",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -y to 'rain'. It is a ___ day. Type the new word.",
+  "choicesJson": null,
+  "answer": "rainy",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Add -ful to 'help'. Which word do you get?",
+  "choicesJson": [
+   "helpfull",
+   "helpful",
+   "helpfal"
+  ],
+  "answer": "helpful",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word means 'to read again'?",
+  "choicesJson": [
+   "reread",
+   "unread",
+   "readful"
+  ],
+  "answer": "reread",
+  "tags": [
+   "prefixes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'build'. You are ___ a tower. Type the new word.",
+  "choicesJson": null,
+  "answer": "building",
+  "tags": [
+   "suffixes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Add -er to 'fast'. Pikachu is ___ than Snorlax.",
+  "choicesJson": [
+   "fastest",
+   "fastor",
+   "faster"
+  ],
+  "answer": "faster",
+  "tags": [
+   "suffixes",
+   "theme:pokemon"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Add -ing to 'mine'. Drop the e! In Minecraft, you are ___ for diamonds.",
+  "choicesJson": null,
+  "answer": "mining",
+  "tags": [
+   "suffixes",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Put 'sun' and 'flower' together. Which word do you get?",
+  "choicesJson": [
+   "sunflour",
+   "flowersun",
+   "sunflower"
+  ],
+  "answer": "sunflower",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'cup' and 'cake' together. Type the new word.",
+  "choicesJson": null,
+  "answer": "cupcake",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'butter' and 'fly' together. Type the new word.",
+  "choicesJson": null,
+  "answer": "butterfly",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is a compound word?",
+  "choicesJson": [
+   "sunny",
+   "sunshine",
+   "sunk"
+  ],
+  "answer": "sunshine",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'snow' and 'man' together. Type the new word.",
+  "choicesJson": null,
+  "answer": "snowman",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'foot' and 'ball' together. Type the new word.",
+  "choicesJson": null,
+  "answer": "football",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'space' and 'ship' together. Type the new word.",
+  "choicesJson": null,
+  "answer": "spaceship",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which word is NOT a compound word?",
+  "choicesJson": [
+   "bedroom",
+   "doghouse",
+   "apple"
+  ],
+  "answer": "apple",
+  "tags": [
+   "compound-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Put 'red' and 'stone' together to make a Minecraft item. Type the new word.",
+  "choicesJson": null,
+  "answer": "redstone",
+  "tags": [
+   "compound-words",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which contraction means 'do not'?",
+  "choicesJson": [
+   "dont",
+   "don't",
+   "do'nt"
+  ],
+  "answer": "don't",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which contraction means 'it is'?",
+  "choicesJson": [
+   "it's",
+   "its'",
+   "i'ts"
+  ],
+  "answer": "it's",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which two words make 'I'm'?",
+  "choicesJson": [
+   "I will",
+   "I can",
+   "I am"
+  ],
+  "answer": "I am",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which contraction means 'is not'?",
+  "choicesJson": [
+   "isnt",
+   "is'nt",
+   "isn't"
+  ],
+  "answer": "isn't",
+  "tags": [
+   "contractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Mario says, \"___-a go!\" Which contraction means 'let us'?",
+  "choicesJson": [
+   "Let's",
+   "Lets",
+   "Lets'"
+  ],
+  "answer": "Let's",
+  "tags": [
+   "contractions",
+   "theme:mario"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which contraction means 'I will'?",
+  "choicesJson": [
+   "Ill",
+   "I'wll",
+   "I'll"
+  ],
+  "answer": "I'll",
+  "tags": [
+   "contractions"
+  ]
+ }
+]

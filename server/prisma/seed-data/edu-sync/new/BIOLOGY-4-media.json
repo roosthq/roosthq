@@ -1,0 +1,2362 @@
+[
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/kakapo.webp",
+    "learning/img/ostrich.webp",
+    "learning/img/great-horned-owl.webp",
+    "learning/img/cassowary.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/great-horned-owl.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Pelican",
+   "Albatross",
+   "Great horned owl",
+   "Kakapo"
+  ],
+  "answer": "Kakapo",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/kakapo.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/kakapo.webp",
+    "learning/img/shoebill.webp",
+    "learning/img/great-blue-heron.webp",
+    "learning/img/great-horned-owl.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/kakapo.mp3"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/aye-aye.webp",
+    "learning/img/spotted-hyena.webp",
+    "learning/img/fennec-fox.webp",
+    "learning/img/red-panda.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/fennec-fox.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Albatross",
+   "Great blue heron",
+   "Cassowary",
+   "Great horned owl"
+  ],
+  "answer": "Great horned owl",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/great-horned-owl.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Listen. Which animal makes this sound?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/cassowary.webp",
+    "learning/img/toucan.webp",
+    "learning/img/shoebill.webp",
+    "learning/img/hummingbird.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Animal sound",
+   "audio": "learning/audio/shoebill.mp3"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Warthog",
+   "Fennec fox",
+   "Blue whale",
+   "Okapi"
+  ],
+  "answer": "Fennec fox",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/fennec-fox.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal makes this sound?",
+  "choicesJson": [
+   "Ostrich",
+   "Shoebill",
+   "Kakapo",
+   "Atlantic puffin"
+  ],
+  "answer": "Shoebill",
+  "tags": [
+   "animals",
+   "sound"
+  ],
+  "media": {
+   "audio": "learning/audio/shoebill.mp3",
+   "alt": "Animal sound"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a bat mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/bat.webp",
+   "alt": "Two flying fox bats soar through a blue sky with their wide wings spread open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Pelican",
+   "Albatross",
+   "Kakapo",
+   "Great horned owl"
+  ],
+  "answer": "Kakapo",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/kakapo.webp",
+   "alt": "A green, moss-colored kakapo parrot with a pale bill sits among leaves."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a gharial?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/ball-python.webp",
+    "learning/img/tortoise.webp",
+    "learning/img/sea-turtle.webp",
+    "learning/img/gharial.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a great horned owl?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/albatross.webp",
+    "learning/img/great-horned-owl.webp",
+    "learning/img/great-blue-heron.webp",
+    "learning/img/cassowary.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a clownfish mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/clownfish.webp",
+   "alt": "Two orange clownfish with white stripes swim among the green tentacles of a sea anemone."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Oryx",
+   "Wildebeest",
+   "Cheetah",
+   "Tapir"
+  ],
+  "answer": "Oryx",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/oryx.webp",
+   "alt": "A gemsbok, a kind of oryx, stands in dry grassland with long straight horns and a black and white face."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Wildebeest",
+   "Capybara",
+   "Sloth",
+   "Quokka"
+  ],
+  "answer": "Wildebeest",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/wildebeest.webp",
+   "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a blue whale?",
+  "choicesJson": [
+   "Mammal",
+   "Insect",
+   "Bird",
+   "Amphibian"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/blue-whale.webp",
+   "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Thorny devil",
+   "Nautilus",
+   "Donkey",
+   "Clownfish"
+  ],
+  "answer": "Nautilus",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/nautilus.webp",
+   "alt": "A nautilus with a red-and-white striped spiral shell and a head full of pale tentacles rests on sand beside dark rocks."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a stingray mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/stingray.webp",
+   "alt": "A grey southern stingray with a flat, wing-shaped body and a long thin tail rests on a rocky seabed."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Leatherback sea turtle",
+   "Basilisk lizard",
+   "Sea turtle",
+   "Ball python"
+  ],
+  "answer": "Ball python",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/ball-python.webp",
+   "alt": "A ball python with a tan and dark brown pattern lies coiled in a loose circle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Mandrill",
+   "Giant panda",
+   "Blue whale",
+   "Reindeer"
+  ],
+  "answer": "Blue whale",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/blue-whale.webp",
+   "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby mandrill called?",
+  "choicesJson": [
+   "Kit",
+   "Cub",
+   "Infant",
+   "Pup"
+  ],
+  "answer": "Infant",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/mandrill.webp",
+   "alt": "A mandrill with a red and blue face and a golden beard stands on green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Anglerfish",
+   "Lionfish",
+   "Clownfish",
+   "Seahorse"
+  ],
+  "answer": "Anglerfish",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/anglerfish.webp",
+   "alt": "A big, flat, speckled anglerfish resting on a rocky seafloor, facing the camera with its wide mouth and a thin fishing lure rising from its head."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a black widow spider?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/scorpion.webp",
+    "learning/img/tarantula.webp",
+    "learning/img/orb-weaver-spider.webp",
+    "learning/img/black-widow-spider.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a Tasmanian devil?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/orangutan.webp",
+    "learning/img/tasmanian-devil.webp",
+    "learning/img/spotted-hyena.webp",
+    "learning/img/aardvark.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Red panda",
+   "Warthog",
+   "Okapi",
+   "Orca"
+  ],
+  "answer": "Red panda",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/red-panda.webp",
+   "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an aardvark?",
+  "choicesJson": [
+   "Mammal",
+   "Bird",
+   "Fish",
+   "Amphibian"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/aardvark.webp",
+   "alt": "An aardvark with a long snout and tall ears sniffing the ground on a bed of wood chips."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby capybara called?",
+  "choicesJson": [
+   "Joey",
+   "Cub",
+   "Hoglet",
+   "Pup"
+  ],
+  "answer": "Pup",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/capybara.webp",
+   "alt": "A capybara with brown shaggy fur grazing on green grass."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an aye-aye?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/aye-aye.webp",
+    "learning/img/quokka.webp",
+    "learning/img/bison.webp",
+    "learning/img/manatee.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Kiwi",
+   "Albatross",
+   "Woodpecker",
+   "Peregrine falcon"
+  ],
+  "answer": "Kiwi",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/kiwi.webp",
+   "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Flamingo",
+   "Cassowary",
+   "Turkey",
+   "Crow"
+  ],
+  "answer": "Cassowary",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/cassowary.webp",
+   "alt": "A big black cassowary with a bright blue neck and a helmet-like crest stands among green rainforest plants."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an okapi?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/ring-tailed-lemur.webp",
+    "learning/img/okapi.webp",
+    "learning/img/reindeer.webp",
+    "learning/img/meerkat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a green iguana mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/green-iguana.webp",
+   "alt": "A grayish-green iguana with a spiky crest and a big round scale on its cheek rests in green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Great blue heron",
+   "Kiwi",
+   "Hummingbird",
+   "Secretary bird"
+  ],
+  "answer": "Secretary bird",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/secretary-bird.webp",
+   "alt": "A secretary bird with a crest of black feathers and long legs standing in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby blue whale called?",
+  "choicesJson": [
+   "Cub",
+   "Fawn",
+   "Calf",
+   "Pup"
+  ],
+  "answer": "Calf",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/blue-whale.webp",
+   "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a sloth mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/sloth.webp",
+   "alt": "A two-toed sloth hangs upside down from a tree branch with green leaves beside it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a kiwi usually live?",
+  "choicesJson": [
+   "On the savanna",
+   "In a forest",
+   "In people's homes",
+   "In a backyard or garden"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/kiwi.webp",
+   "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a cougar mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/cougar.webp",
+   "alt": "A tawny cougar crouches on a gray rock with green grass behind it."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby pangolin called?",
+  "choicesJson": [
+   "Foal",
+   "Calf",
+   "Cub",
+   "Pup"
+  ],
+  "answer": "Pup",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/pangolin.webp",
+   "alt": "A Sunda pangolin covered in scales climbing along a leafy branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby warthog called?",
+  "choicesJson": [
+   "Cub",
+   "Infant",
+   "Kit",
+   "Piglet"
+  ],
+  "answer": "Piglet",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/warthog.webp",
+   "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an ostrich mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/ostrich.webp",
+   "alt": "Close-up of an ostrich's head and long neck against a soft green background."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a peregrine falcon?",
+  "choicesJson": [
+   "Amphibian",
+   "Reptile",
+   "Fish",
+   "Bird"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/peregrine-falcon.webp",
+   "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Grasshopper",
+   "Blue morpho butterfly",
+   "Atlas moth",
+   "Hercules beetle"
+  ],
+  "answer": "Hercules beetle",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/hercules-beetle.webp",
+   "alt": "A male Hercules beetle with a long curved black horn rests on a piece of cork bark."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tarantula?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/orb-weaver-spider.webp",
+    "learning/img/tarantula.webp",
+    "learning/img/scorpion.webp",
+    "learning/img/black-widow-spider.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a pangolin usually live?",
+  "choicesJson": [
+   "In a wetland",
+   "In the cold Arctic",
+   "In a desert",
+   "In a forest"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/pangolin.webp",
+   "alt": "A Sunda pangolin covered in scales climbing along a leafy branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a poison dart frog?",
+  "choicesJson": [
+   "Bird",
+   "Mammal",
+   "Amphibian",
+   "Insect"
+  ],
+  "answer": "Amphibian",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/poison-dart-frog.webp",
+   "alt": "A bright red strawberry poison dart frog with blue legs sits on a mossy branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby hammerhead shark called?",
+  "choicesJson": [
+   "Nymph",
+   "Pup",
+   "Chick",
+   "Fry"
+  ],
+  "answer": "Pup",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/hammerhead-shark.webp",
+   "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Hammerhead shark",
+   "Seahorse",
+   "Stingray",
+   "Great white shark"
+  ],
+  "answer": "Hammerhead shark",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/hammerhead-shark.webp",
+   "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a ball python usually live?",
+  "choicesJson": [
+   "On grassland",
+   "In a backyard or garden",
+   "In people's homes",
+   "In a forest"
+  ],
+  "answer": "On grassland",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/ball-python.webp",
+   "alt": "A ball python with a tan and dark brown pattern lies coiled in a loose circle."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a red panda usually live?",
+  "choicesJson": [
+   "In a desert",
+   "In a forest",
+   "On a farm",
+   "In a wetland"
+  ],
+  "answer": "In a forest",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/red-panda.webp",
+   "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a hammerhead shark?",
+  "choicesJson": [
+   "Mammal",
+   "Insect",
+   "Reptile",
+   "Fish"
+  ],
+  "answer": "Fish",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/hammerhead-shark.webp",
+   "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a nautilus?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/thorny-devil.webp",
+    "learning/img/clownfish.webp",
+    "learning/img/donkey.webp",
+    "learning/img/nautilus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a rattlesnake?",
+  "choicesJson": [
+   "Fish",
+   "Reptile",
+   "Mammal",
+   "Bird"
+  ],
+  "answer": "Reptile",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/rattlesnake.webp",
+   "alt": "A tan prairie rattlesnake lies in loose coils on red dirt, looking toward the camera, with its rattle showing near its tail."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Orb-weaver spider",
+   "Scorpion",
+   "Black widow spider",
+   "Tarantula"
+  ],
+  "answer": "Orb-weaver spider",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/orb-weaver-spider.webp",
+   "alt": "A striped brown and yellow spider with long banded legs sits in the middle of its round web in front of green leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a red panda?",
+  "choicesJson": [
+   "Amphibian",
+   "Mammal",
+   "Fish",
+   "Insect"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/red-panda.webp",
+   "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a platypus?",
+  "choicesJson": [
+   "Fish",
+   "Bird",
+   "Amphibian",
+   "Mammal"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/platypus.webp",
+   "alt": "A platypus with a flat bill and a broad tail swimming at the surface of a river."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a salamander?",
+  "choicesJson": [
+   "Mammal",
+   "Reptile",
+   "Insect",
+   "Amphibian"
+  ],
+  "answer": "Amphibian",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/salamander.webp",
+   "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Quokka",
+   "Aye-aye",
+   "Bison",
+   "Manatee"
+  ],
+  "answer": "Aye-aye",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/aye-aye.webp",
+   "alt": "An aye-aye with big orange eyes and large ears peers out of the dark from among dry leaves and twigs."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a grasshopper mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/grasshopper.webp",
+   "alt": "A green and yellow grasshopper with long antennae rests on a green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a lionfish?",
+  "choicesJson": [
+   "Reptile",
+   "Fish",
+   "Insect",
+   "Bird"
+  ],
+  "answer": "Fish",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/lionfish.webp",
+   "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a lobster mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/lobster.webp",
+   "alt": "A lobster with two big claws and long red feelers sitting between rocks underwater."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby king cobra called?",
+  "choicesJson": [
+   "Tadpole",
+   "Pup",
+   "Hatchling",
+   "Owlet"
+  ],
+  "answer": "Hatchling",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/king-cobra.webp",
+   "alt": "A king cobra raises the front of its body off the ground, with its head up and its long body trailing behind in dry grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Salamander",
+   "Toad",
+   "Red-eyed tree frog",
+   "Poison dart frog"
+  ],
+  "answer": "Red-eyed tree frog",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/red-eyed-tree-frog.webp",
+   "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a wildebeest?",
+  "choicesJson": [
+   "Amphibian",
+   "Mammal",
+   "Bird",
+   "Insect"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/wildebeest.webp",
+   "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Anglerfish",
+   "Stingray",
+   "Lionfish",
+   "Seahorse"
+  ],
+  "answer": "Lionfish",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/lionfish.webp",
+   "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a spotted hyena usually live?",
+  "choicesJson": [
+   "On the savanna",
+   "In the ocean",
+   "In the mountains",
+   "On grassland"
+  ],
+  "answer": "On the savanna",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/spotted-hyena.webp",
+   "alt": "A spotted hyena with a tan coat and dark spots walks through dry golden grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Axolotl",
+   "Red-eyed tree frog",
+   "Poison dart frog",
+   "Salamander"
+  ],
+  "answer": "Salamander",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/salamander.webp",
+   "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby Atlantic puffin called?",
+  "choicesJson": [
+   "Peachick",
+   "Chick",
+   "Poult",
+   "Puffling"
+  ],
+  "answer": "Puffling",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/atlantic-puffin.webp",
+   "alt": "An Atlantic puffin with a bright orange-and-red beak and orange feet standing on a grassy cliff edge above the sea."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby poison dart frog called?",
+  "choicesJson": [
+   "Pup",
+   "Larva",
+   "Calf",
+   "Tadpole"
+  ],
+  "answer": "Tadpole",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/poison-dart-frog.webp",
+   "alt": "A bright red strawberry poison dart frog with blue legs sits on a mossy branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby salamander called?",
+  "choicesJson": [
+   "Chick",
+   "Poult",
+   "Tadpole",
+   "Larva"
+  ],
+  "answer": "Larva",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/salamander.webp",
+   "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a tapir usually live?",
+  "choicesJson": [
+   "In a backyard or garden",
+   "In the mountains",
+   "In a desert",
+   "In a jungle"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/tapir.webp",
+   "alt": "A South American tapir standing in shallow river water beside leafy plants."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Okapi",
+   "Meerkat",
+   "Reindeer",
+   "Ring-tailed lemur"
+  ],
+  "answer": "Okapi",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/okapi.webp",
+   "alt": "An okapi walks on grass with a dark brown body and white stripes on its legs and rump."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Oryx",
+   "Bison",
+   "Capybara",
+   "Warthog"
+  ],
+  "answer": "Warthog",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/warthog.webp",
+   "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an orca mainly eat?",
+  "choicesJson": [
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/orca.webp",
+   "alt": "Two black and white orcas leap out of the sea at the same time."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a warthog?",
+  "choicesJson": [
+   "Bird",
+   "Mammal",
+   "Reptile",
+   "Insect"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/warthog.webp",
+   "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a tapir?",
+  "choicesJson": [
+   "Insect",
+   "Bird",
+   "Mammal",
+   "Fish"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/tapir.webp",
+   "alt": "A South American tapir standing in shallow river water beside leafy plants."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a lionfish usually live?",
+  "choicesJson": [
+   "In the ocean",
+   "In a desert",
+   "In the mountains",
+   "In a wetland"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/lionfish.webp",
+   "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a moose mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/moose.webp",
+   "alt": "A big dark bull moose with wide antlers walks across dry autumn ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an emu mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/emu.webp",
+   "alt": "An emu with shaggy brown feathers and a long neck walks across a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a red-eyed tree frog?",
+  "choicesJson": [
+   "Amphibian",
+   "Insect",
+   "Mammal",
+   "Fish"
+  ],
+  "answer": "Amphibian",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/red-eyed-tree-frog.webp",
+   "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Gharial",
+   "Sea turtle",
+   "Komodo dragon",
+   "Basilisk lizard"
+  ],
+  "answer": "Basilisk lizard",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/basilisk-lizard.webp",
+   "alt": "A brown common basilisk lizard with a long tail rests on a fallen log."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby snow leopard called?",
+  "choicesJson": [
+   "Joey",
+   "Calf",
+   "Hoglet",
+   "Cub"
+  ],
+  "answer": "Cub",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/snow-leopard.webp",
+   "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a red-eyed tree frog usually live?",
+  "choicesJson": [
+   "In a jungle",
+   "On a farm",
+   "In the ocean",
+   "In the mountains"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/red-eyed-tree-frog.webp",
+   "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an axolotl?",
+  "choicesJson": [
+   "Insect",
+   "Mammal",
+   "Reptile",
+   "Amphibian"
+  ],
+  "answer": "Amphibian",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/axolotl.webp",
+   "alt": "A pale pink axolotl with feathery gills walking on sand beside green water plants."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a rattlesnake usually live?",
+  "choicesJson": [
+   "In a jungle",
+   "On the savanna",
+   "In rivers and lakes",
+   "In a desert"
+  ],
+  "answer": "In a desert",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/rattlesnake.webp",
+   "alt": "A tan prairie rattlesnake lies in loose coils on red dirt, looking toward the camera, with its rattle showing near its tail."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Ball python",
+   "Gharial",
+   "Tortoise",
+   "Sea turtle"
+  ],
+  "answer": "Gharial",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/gharial.webp",
+   "alt": "A gharial rests in shallow river water with its long, thin snout open to show its teeth."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby kiwi called?",
+  "choicesJson": [
+   "Eaglet",
+   "Puffling",
+   "Chick",
+   "Peachick"
+  ],
+  "answer": "Chick",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/kiwi.webp",
+   "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a secretary bird?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/secretary-bird.webp",
+    "learning/img/kiwi.webp",
+    "learning/img/hummingbird.webp",
+    "learning/img/great-blue-heron.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does an orangutan mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Other animals (a carnivore)",
+   "Plants (a herbivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/orangutan.webp",
+   "alt": "A close-up portrait of an adult orangutan with reddish-orange fur."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby wombat called?",
+  "choicesJson": [
+   "Pup",
+   "Joey",
+   "Infant",
+   "Calf"
+  ],
+  "answer": "Joey",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/wombat.webp",
+   "alt": "A round, furry common wombat grazing on short green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Bald eagle",
+   "Cassowary",
+   "Peregrine falcon",
+   "Kiwi"
+  ],
+  "answer": "Peregrine falcon",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/peregrine-falcon.webp",
+   "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Black widow spider",
+   "Scorpion",
+   "Tarantula",
+   "Orb-weaver spider"
+  ],
+  "answer": "Black widow spider",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/black-widow-spider.webp",
+   "alt": "A shiny black spider with long thin legs hangs in its web, showing a red hourglass mark on its round belly."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a pufferfish usually live?",
+  "choicesJson": [
+   "In a backyard or garden",
+   "On grassland",
+   "In the ocean",
+   "On a farm"
+  ],
+  "answer": "In the ocean",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/pufferfish.webp",
+   "alt": "A blackspotted puffer with a gray back, a yellow belly and black spots swimming near a coral reef."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Great white shark",
+   "Pufferfish",
+   "Clownfish",
+   "Hammerhead shark"
+  ],
+  "answer": "Pufferfish",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/pufferfish.webp",
+   "alt": "A blackspotted puffer with a gray back, a yellow belly and black spots swimming near a coral reef."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby peregrine falcon called?",
+  "choicesJson": [
+   "Cygnet",
+   "Chick",
+   "Peachick",
+   "Eaglet"
+  ],
+  "answer": "Chick",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/peregrine-falcon.webp",
+   "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Koala",
+   "Gray wolf",
+   "Snow leopard",
+   "Wildebeest"
+  ],
+  "answer": "Snow leopard",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/snow-leopard.webp",
+   "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is a wombat?",
+  "choicesJson": [
+   "Mammal",
+   "Insect",
+   "Reptile",
+   "Bird"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/wombat.webp",
+   "alt": "A round, furry common wombat grazing on short green grass."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a sea anemone?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/jellyfish.webp",
+    "learning/img/okapi.webp",
+    "learning/img/sea-anemone.webp",
+    "learning/img/coral.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows an orb-weaver spider?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/scorpion.webp",
+    "learning/img/tarantula.webp",
+    "learning/img/black-widow-spider.webp",
+    "learning/img/orb-weaver-spider.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby albatross called?",
+  "choicesJson": [
+   "Peachick",
+   "Poult",
+   "Eaglet",
+   "Chick"
+  ],
+  "answer": "Chick",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/albatross.webp",
+   "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Aardvark",
+   "Orangutan",
+   "Spotted hyena",
+   "Tasmanian devil"
+  ],
+  "answer": "Tasmanian devil",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/tasmanian-devil.webp",
+   "alt": "A black Tasmanian devil with a white chest patch walks through green grass and dandelions."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an albatross?",
+  "choicesJson": [
+   "Amphibian",
+   "Reptile",
+   "Mammal",
+   "Bird"
+  ],
+  "answer": "Bird",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/albatross.webp",
+   "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a leatherback sea turtle?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/tortoise.webp",
+    "learning/img/alligator.webp",
+    "learning/img/leatherback-sea-turtle.webp",
+    "learning/img/thorny-devil.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What kind of animal is an oryx?",
+  "choicesJson": [
+   "Mammal",
+   "Bird",
+   "Insect",
+   "Fish"
+  ],
+  "answer": "Mammal",
+  "tags": [
+   "animals",
+   "classification"
+  ],
+  "media": {
+   "image": "learning/img/oryx.webp",
+   "alt": "A gemsbok, a kind of oryx, stands in dry grassland with long straight horns and a black and white face."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a snow leopard usually live?",
+  "choicesJson": [
+   "In a backyard or garden",
+   "In the mountains",
+   "In rivers and lakes",
+   "In the ocean"
+  ],
+  "answer": "In the mountains",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/snow-leopard.webp",
+   "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a jellyfish mainly eat?",
+  "choicesJson": [
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)",
+   "Both plants and animals (an omnivore)"
+  ],
+  "answer": "Other animals (a carnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/jellyfish.webp",
+   "alt": "A glowing lion's mane jellyfish with a round orange bell and long thin tentacles drifts in dark blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Jellyfish",
+   "Sheep",
+   "Coral",
+   "Sea anemone"
+  ],
+  "answer": "Coral",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/coral.webp",
+   "alt": "A pale pink branching coral with many bumpy tips grows on a shallow reef with a couple of small fish nearby."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Atlantic puffin",
+   "Emu",
+   "Albatross",
+   "Peacock"
+  ],
+  "answer": "Albatross",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/albatross.webp",
+   "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby wildebeest called?",
+  "choicesJson": [
+   "Fawn",
+   "Calf",
+   "Pup",
+   "Kit"
+  ],
+  "answer": "Calf",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/wildebeest.webp",
+   "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a bison mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Plants (a herbivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/bison.webp",
+   "alt": "A shaggy brown bison grazes on a grassy hillside in Yellowstone National Park."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Where does a mandrill usually live?",
+  "choicesJson": [
+   "In a backyard or garden",
+   "In a jungle",
+   "In people's homes",
+   "In rivers and lakes"
+  ],
+  "answer": "In a jungle",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/mandrill.webp",
+   "alt": "A mandrill with a red and blue face and a golden beard stands on green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of the animal in the picture?",
+  "choicesJson": [
+   "Platypus",
+   "Okapi",
+   "Spotted hyena",
+   "Bat"
+  ],
+  "answer": "Spotted hyena",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/spotted-hyena.webp",
+   "alt": "A spotted hyena with a tan coat and dark spots walks through dry golden grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a ring-tailed lemur mainly eat?",
+  "choicesJson": [
+   "Both plants and animals (an omnivore)",
+   "Plants (a herbivore)",
+   "Other animals (a carnivore)"
+  ],
+  "answer": "Both plants and animals (an omnivore)",
+  "tags": [
+   "animals",
+   "diet"
+  ],
+  "media": {
+   "image": "learning/img/ring-tailed-lemur.webp",
+   "alt": "A close-up of a ring-tailed lemur with orange eyes and black-and-white face markings, holding onto tree branches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal is this?",
+  "choicesJson": [
+   "Shoebill",
+   "Ostrich",
+   "Kakapo",
+   "Atlantic puffin"
+  ],
+  "answer": "Shoebill",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "image": "learning/img/shoebill.webp",
+   "alt": "A shoebill facing the camera with its huge shoe-shaped bill in front of green grass."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a coral?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "animals",
+   "photo"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/coral.webp",
+    "learning/img/sheep.webp",
+    "learning/img/sea-anemone.webp",
+    "learning/img/jellyfish.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Choose a picture"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is a baby platypus called?",
+  "choicesJson": [
+   "Puggle",
+   "Pup",
+   "Calf",
+   "Infant"
+  ],
+  "answer": "Puggle",
+  "tags": [
+   "animals",
+   "life-cycle"
+  ],
+  "media": {
+   "image": "learning/img/platypus.webp",
+   "alt": "A platypus with a flat bill and a broad tail swimming at the surface of a river."
+  }
+ }
+]

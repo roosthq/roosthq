@@ -1,0 +1,108 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which gas in this planet's air makes it look blue-green?",
+  "choicesJson": [
+   "Neon",
+   "Methane",
+   "Oxygen",
+   "Chlorine"
+  ],
+  "answer": "Methane",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-uranus.webp",
+   "alt": "A photo of a pale blue-green planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What causes Earth's seasons?",
+  "choicesJson": [
+   "Clouds blocking the Sun",
+   "Earth's tilted axis",
+   "Earth moving closer to and farther from the Moon",
+   "The Sun turning on and off"
+  ],
+  "answer": "Earth's tilted axis",
+  "tags": [
+   "space",
+   "earth"
+  ],
+  "media": {
+   "image": "learning/img/space-earth.webp",
+   "alt": "A photo of a blue and white planet in black space."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Moon's changing shapes in the sky are called phases. What causes them?",
+  "choicesJson": [
+   "Clouds cover parts of it",
+   "We see different amounts of its sunlit half as it orbits Earth",
+   "The Moon itself grows and shrinks",
+   "Earth's shadow covers part of it every night"
+  ],
+  "answer": "We see different amounts of its sunlit half as it orbits Earth",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-moon.webp",
+   "alt": "A round gray space object with dark patches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What process inside the Sun makes its energy?",
+  "choicesJson": [
+   "Chemical rusting",
+   "Friction from spinning",
+   "Nuclear fusion of hydrogen",
+   "Burning coal"
+  ],
+  "answer": "Nuclear fusion of hydrogen",
+  "tags": [
+   "space",
+   "sun"
+  ],
+  "media": {
+   "image": "learning/img/space-sun.webp",
+   "alt": "A glowing orange ball in black space."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the planet that is the farthest from the Sun?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-neptune.webp",
+    "learning/img/space-jupiter.webp",
+    "learning/img/space-saturn.webp",
+    "learning/img/space-uranus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ }
+]

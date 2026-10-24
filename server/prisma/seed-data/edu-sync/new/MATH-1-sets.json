@@ -1,0 +1,507 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this coin?",
+  "choicesJson": [
+   "Quarter",
+   "Half dollar",
+   "Dime",
+   "Nickel"
+  ],
+  "answer": "Half dollar",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-half-dollar.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the name of this gold-colored coin?",
+  "choicesJson": [
+   "Quarter",
+   "Dollar coin",
+   "Nickel"
+  ],
+  "answer": "Dollar coin",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "image": "learning/img/money-dollar-coin-washington.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is a half dollar?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "money"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-half-dollar.webp",
+    "learning/img/money-nickel.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth 1 cent?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dime.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-penny.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth 5 cents?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth 10 cents?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dime.webp",
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-quarter.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the most?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-penny.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-dime.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which coin is worth the least?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-dime.webp",
+    "learning/img/money-quarter.webp",
+    "learning/img/money-nickel.webp",
+    "learning/img/money-penny.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States coins to choose from."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many cents is this coin worth?",
+  "answer": "1",
+  "acceptedAnswers": [
+   "one",
+   "1 cent",
+   "one cent"
+  ],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-penny.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many cents is this coin worth?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five",
+   "5 cents",
+   "five cents"
+  ],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-nickel.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many cents is this coin worth?",
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten",
+   "10 cents",
+   "ten cents"
+  ],
+  "tags": [
+   "coins",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-dime.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many pennies are in this picture?",
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "counting",
+   "coins"
+  ],
+  "media": {
+   "image": "learning/img/money-pile-pennies.webp",
+   "alt": "A small pile of coins on a white surface."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Nessie the Loch Ness monster left this pile of pennies on the shore. How many cents is the pile worth?",
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine",
+   "9 cents",
+   "nine cents"
+  ],
+  "tags": [
+   "coins",
+   "counting",
+   "theme:monsters"
+  ],
+  "media": {
+   "image": "learning/img/money-pile-pennies.webp",
+   "alt": "A small pile of coins on a white surface."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many pennies make 1 dime?",
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "coins",
+   "trading coins"
+  ],
+  "media": {
+   "image": "learning/img/money-dime.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many dollars is this bill worth?",
+  "answer": "1",
+  "acceptedAnswers": [
+   "one",
+   "$1",
+   "1 dollar",
+   "one dollar"
+  ],
+  "tags": [
+   "bills",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-1.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many dollars is this bill worth?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five",
+   "$5",
+   "5 dollars",
+   "five dollars"
+  ],
+  "tags": [
+   "bills",
+   "value"
+  ],
+  "media": {
+   "image": "learning/img/money-bill-5.webp",
+   "alt": "A United States paper bill, front side."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth the most?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-20.webp",
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-5.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth the least?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "comparing"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-20.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth 1 dollar?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "value"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-20.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which bill is worth 5 dollars?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "acceptedAnswers": [],
+  "tags": [
+   "bills",
+   "value"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/money-bill-5.webp",
+    "learning/img/money-bill-1.webp",
+    "learning/img/money-bill-10.webp",
+    "learning/img/money-bill-20.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Several United States paper bills to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Is this coin worth more than a dime?",
+  "choicesJson": [
+   "No",
+   "It is worth the same",
+   "Yes"
+  ],
+  "answer": "Yes",
+  "acceptedAnswers": [],
+  "tags": [
+   "coins",
+   "comparing"
+  ],
+  "media": {
+   "image": "learning/img/money-quarter.webp",
+   "alt": "A close-up photo of a United States coin, heads side."
+  }
+ }
+]

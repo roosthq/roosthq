@@ -1,0 +1,337 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Saturn",
+   "Mars",
+   "Earth",
+   "Jupiter"
+  ],
+  "answer": "Saturn",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-saturn.webp",
+   "alt": "A photo of a planet with wide flat rings."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which planet is this?",
+  "choicesJson": [
+   "Earth",
+   "Uranus",
+   "Mars",
+   "Neptune"
+  ],
+  "answer": "Mars",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-mars.webp",
+   "alt": "A photo of an orange-red planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this space object with a long, glowing tail?",
+  "choicesJson": [
+   "A star",
+   "A comet",
+   "A moon",
+   "A planet"
+  ],
+  "answer": "A comet",
+  "tags": [
+   "space",
+   "comets"
+  ],
+  "media": {
+   "image": "learning/img/space-comet.webp",
+   "alt": "A glowing object with a long tail in a starry sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is this big space building where astronauts live and work?",
+  "choicesJson": [
+   "A space station",
+   "A satellite dish",
+   "A moon",
+   "A rocket"
+  ],
+  "answer": "A space station",
+  "tags": [
+   "space",
+   "iss"
+  ],
+  "media": {
+   "image": "learning/img/space-iss.webp",
+   "alt": "A large spacecraft with big solar panels."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This astronaut is walking on a space object. Which one?",
+  "choicesJson": [
+   "Mars",
+   "The Moon",
+   "Saturn",
+   "The Sun"
+  ],
+  "answer": "The Moon",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-astronaut-moon.webp",
+   "alt": "An astronaut in a spacesuit standing on gray dust."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does the Sun give to Earth?",
+  "choicesJson": [
+   "Wind and waves",
+   "Rocks and dust",
+   "Rain and snow",
+   "Light and heat"
+  ],
+  "answer": "Light and heat",
+  "tags": [
+   "space",
+   "sun"
+  ],
+  "media": {
+   "image": "learning/img/space-sun.webp",
+   "alt": "A glowing orange ball in black space."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Saturn?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-mars.webp",
+    "learning/img/space-neptune.webp",
+    "learning/img/space-earth.webp",
+    "learning/img/space-saturn.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Sun?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "space",
+   "sun"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-mars.webp",
+    "learning/img/space-moon.webp",
+    "learning/img/space-earth.webp",
+    "learning/img/space-sun.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Moon?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-earth.webp",
+    "learning/img/space-comet.webp",
+    "learning/img/space-sun.webp",
+    "learning/img/space-moon.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is falling from the sky in this picture?",
+  "choicesJson": [
+   "Rain",
+   "Leaves",
+   "Snow"
+  ],
+  "answer": "Snow",
+  "tags": [
+   "snow",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-snowfall.webp",
+   "alt": "Snowflakes falling at night in front of bare trees."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is hiding the far side of the lake in this picture?",
+  "choicesJson": [
+   "Sand",
+   "Hail",
+   "Fog"
+  ],
+  "answer": "Fog",
+  "tags": [
+   "fog",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-fog.webp",
+   "alt": "Thick gray fog hiding the far shore of a calm lake with evergreen trees."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What colorful arch can you see in the sky when the sun comes out after rain?",
+  "answer": "rainbow",
+  "acceptedAnswers": [
+   "a rainbow",
+   "rainbows"
+  ],
+  "tags": [
+   "rainbow",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-rainbow2.webp",
+   "alt": "A colorful rainbow arching over houses against a dark gray sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do we call the time of day when the sun first comes up, like in this picture?",
+  "choicesJson": [
+   "Sunrise",
+   "Midnight",
+   "Noon"
+  ],
+  "answer": "Sunrise",
+  "tags": [
+   "sunrise",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-sunrise.webp",
+   "alt": "An orange sunrise sky behind a bare tree over a snowy field."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows snow falling?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "snow",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-rain.webp",
+    "learning/img/weather-clouds-fog.webp",
+    "learning/img/weather-clouds-cumulus.webp",
+    "learning/img/weather-clouds-snowfall.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows rain?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "rain",
+   "weather"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/weather-clouds-snow.webp",
+    "learning/img/weather-clouds-rain.webp",
+    "learning/img/weather-clouds-sunrise.webp",
+    "learning/img/weather-clouds-cumulus.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four pictures of weather and sky scenes, labeled A to D."
+  }
+ }
+]

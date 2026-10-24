@@ -1,0 +1,20 @@
+[
+{"id":"cmu0xa7ym017d12z2mrdlozms","action":"fix","reason":"Stray opening quote, mismatched quotes, unfinished sentence","prompt":"In the sentence 'The vet treats canine patients,' what does 'canine' most likely mean?"},
+{"id":"cmu0xa7yn019112z24q5znodw","action":"fix","reason":"cactuses is also an accepted plural","acceptedAnswers":["cactuses"]},
+{"id":"cmu0xa7yo01a112z2flwot6d7","action":"fix","reason":"octopi is a commonly accepted plural","acceptedAnswers":["octopi"]},
+{"id":"cmu0xa7yn019412z20v8dveyb","action":"fix","reason":"act + -tion = 'acttion'; the suffix that makes 'action' is -ion","prompt":"Add the suffix '-ion' to 'act' to make a noun. What is the word?"},
+{"id":"cmu0xa7yn019512z2nugnr4ht","action":"fix","reason":"Prompt gave away the answer by listing both halves; use a clue instead","prompt":"What compound word names the tall tower with a bright light that guides ships at night?","acceptedAnswers":["light house"]},
+{"id":"cmu0xa7yo01a412z2mdbxug0f","action":"fix","reason":"Prompt gave away the answer by listing both halves; use a clue instead","prompt":"What compound word names a person whose job is to put out fires?","acceptedAnswers":["fire fighter","fireman"]},
+{"id":"cmu0xa7yo01a712z2yyew5515","action":"fix","reason":"Distractor 'The detour was faster normally' is ungrammatical and nonsensical","choicesJson":["The bridge was under repair","Downtown was closed","It was rush hour","Drivers wanted to see downtown"],"answer":"The bridge was under repair"},
+{"id":"cmu0xa7yo01a912z2ipe0wwc2","action":"fix","reason":"Distractor 'The venue was too small always' is ungrammatical","choicesJson":["The first show sold out quickly","The band wanted a bigger stage","Fans complained about the music","Tickets were too expensive"],"answer":"The first show sold out quickly"},
+{"id":"cmu0xa7ym017y12z22uuea3ob","action":"deactivate","reason":"Near-duplicate of the 'as brave as a lion' simile question"},
+{"id":"cmu0xa7yn019e12z2oqdzqdvg","action":"deactivate","reason":"Near-duplicate metaphor question"},
+{"id":"cmu0xa7yn019g12z2e0khi63y","action":"deactivate","reason":"Near-duplicate of the personification question"},
+{"id":"cmu0xa7ym018612z2qjrumqi1","action":"deactivate","reason":"Near-duplicate fact/opinion format; too many in file"},
+{"id":"cmu0xa7yn019k12z2x50gdzsu","action":"deactivate","reason":"Near-duplicate fact/opinion format; too many in file"},
+{"id":"cmu0xa7yn018n12z2jex104a7","action":"deactivate","reason":"Omniscient point of view is above grade 3"},
+{"id":"cmu0xa7yo01a512z2mu6uwiro","action":"deactivate","reason":"Duplicate of first-person question, with above-grade distractors"},
+{"id":"cmu0xa7yo01a612z2wqty7m1l","action":"deactivate","reason":"Third person limited is above grade 3"},
+{"id":"cmu0xa7yn019r12z2lrxok12a","action":"deactivate","reason":"Confusing wording ('a fair society') and above grade 3; character vs. society is not clear-cut"},
+{"id":"cmu0xa7ym017i12z2ia2pss0b","action":"deactivate","reason":"Trivial concatenation that gives away the answer; near-duplicate of other compound-word rows"}
+]

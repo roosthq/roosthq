@@ -1,0 +1,3753 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:30",
+   "12:30",
+   "4:30",
+   "6:30"
+  ],
+  "answer": "7:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b4e1b0a1aa68.webp",
+   "alt": "An analog clock showing 7:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:15",
+   "2:15",
+   "8:00",
+   "9:15"
+  ],
+  "answer": "8:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/33e4e1a56ecc.webp",
+   "alt": "An analog clock showing 8:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:15",
+   "11:00",
+   "12:15",
+   "6:15"
+  ],
+  "answer": "11:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4e5de8ab2e20.webp",
+   "alt": "An analog clock showing 11:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:15",
+   "1:45",
+   "4:15",
+   "5:15"
+  ],
+  "answer": "1:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/dea645bd99c3.webp",
+   "alt": "An analog clock showing 1:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:45",
+   "2:15",
+   "2:30",
+   "5:45"
+  ],
+  "answer": "2:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0f7e699ffffa.webp",
+   "alt": "An analog clock showing 2:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:15",
+   "12:45",
+   "3:00",
+   "7:15"
+  ],
+  "answer": "12:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4a0e7732fd5c.webp",
+   "alt": "An analog clock showing 12:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:00",
+   "11:00",
+   "4:00",
+   "7:30"
+  ],
+  "answer": "7:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/477d105ddea4.webp",
+   "alt": "An analog clock showing 7:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:30",
+   "2:30",
+   "5:30",
+   "8:00"
+  ],
+  "answer": "8:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6e4f26598e34.webp",
+   "alt": "An analog clock showing 8:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:45",
+   "12:45",
+   "4:45",
+   "9:45"
+  ],
+  "answer": "3:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/65f7f15a1741.webp",
+   "alt": "An analog clock showing 3:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "5:15",
+   "10:15",
+   "12:15",
+   "9:15"
+  ],
+  "answer": "5:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a26257971aef.webp",
+   "alt": "An analog clock showing 5:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:15",
+   "5:15",
+   "7:15",
+   "8:15"
+  ],
+  "answer": "6:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/632dce4e0a40.webp",
+   "alt": "An analog clock showing 6:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:45",
+   "6:30",
+   "8:45",
+   "9:30"
+  ],
+  "answer": "6:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3f4706355776.webp",
+   "alt": "An analog clock showing 6:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:15",
+   "3:15",
+   "6:15",
+   "7:00"
+  ],
+  "answer": "7:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c24a53bb4a14.webp",
+   "alt": "An analog clock showing 7:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:00",
+   "12:00",
+   "12:15",
+   "9:00"
+  ],
+  "answer": "3:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f50428c8272a.webp",
+   "alt": "An analog clock showing 3:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:45",
+   "10:45",
+   "4:00",
+   "7:45"
+  ],
+  "answer": "4:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c0d3868fd15c.webp",
+   "alt": "An analog clock showing 4:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:15",
+   "10:15",
+   "7:15",
+   "9:15"
+  ],
+  "answer": "4:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a3bdadc2d807.webp",
+   "alt": "An analog clock showing 4:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "5:45",
+   "11:45",
+   "2:45",
+   "8:45"
+  ],
+  "answer": "5:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c4a81f80f47d.webp",
+   "alt": "An analog clock showing 5:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:00",
+   "10:00",
+   "12:30",
+   "6:30"
+  ],
+  "answer": "6:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a4c1fb045b72.webp",
+   "alt": "An analog clock showing 6:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:30",
+   "1:30",
+   "4:15",
+   "4:45"
+  ],
+  "answer": "4:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7d4c8e8ae20f.webp",
+   "alt": "An analog clock showing 4:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:00",
+   "12:15",
+   "12:45",
+   "3:00"
+  ],
+  "answer": "12:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f0dfab486a93.webp",
+   "alt": "An analog clock showing 12:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:45",
+   "10:45",
+   "8:45",
+   "9:00"
+  ],
+  "answer": "12:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3fad4d92fd95.webp",
+   "alt": "An analog clock showing 12:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:15",
+   "12:15",
+   "3:00",
+   "3:30"
+  ],
+  "answer": "3:15",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5bb102192613.webp",
+   "alt": "An analog clock showing 3:15"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:30",
+   "10:30",
+   "4:30",
+   "9:30"
+  ],
+  "answer": "11:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c6910cfeb7d1.webp",
+   "alt": "An analog clock showing 11:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:30",
+   "6:00",
+   "7:30",
+   "9:30"
+  ],
+  "answer": "12:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3b566638bdbd.webp",
+   "alt": "An analog clock showing 12:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:45",
+   "10:45",
+   "1:15",
+   "7:45"
+  ],
+  "answer": "1:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/215edfe72b7c.webp",
+   "alt": "An analog clock showing 1:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:00",
+   "12:00",
+   "4:00",
+   "6:00"
+  ],
+  "answer": "8:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3d446cd8a260.webp",
+   "alt": "An analog clock showing 8:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:30",
+   "10:00",
+   "10:45",
+   "5:30"
+  ],
+  "answer": "10:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c02d9c98d13a.webp",
+   "alt": "An analog clock showing 10:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:00",
+   "12:00",
+   "12:45",
+   "8:00"
+  ],
+  "answer": "9:00",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/822d40405129.webp",
+   "alt": "An analog clock showing 9:00"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:30",
+   "1:00",
+   "3:30",
+   "9:30"
+  ],
+  "answer": "1:30",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/28403bf67da4.webp",
+   "alt": "An analog clock showing 1:30"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:45",
+   "11:45",
+   "2:45",
+   "8:45"
+  ],
+  "answer": "10:45",
+  "tags": [
+   "time",
+   "quarter",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2dd0a8e8ccd.webp",
+   "alt": "An analog clock showing 10:45"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:40",
+   "11:35",
+   "11:50",
+   "8:55"
+  ],
+  "answer": "11:40",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8d309688f377.webp",
+   "alt": "An analog clock showing 11:40"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "5:50",
+   "10:25",
+   "12:50",
+   "3:50"
+  ],
+  "answer": "5:50",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/435436a70fa5.webp",
+   "alt": "An analog clock showing 5:50"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:25",
+   "12:10",
+   "2:25",
+   "4:25"
+  ],
+  "answer": "12:25",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/328d5b64aa68.webp",
+   "alt": "An analog clock showing 12:25"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:05",
+   "1:05",
+   "3:05",
+   "6:10"
+  ],
+  "answer": "6:05",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/417488dc069d.webp",
+   "alt": "An analog clock showing 6:05"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:10",
+   "1:10",
+   "6:40",
+   "6:50"
+  ],
+  "answer": "6:10",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04104c5b205e.webp",
+   "alt": "An analog clock showing 6:10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:55",
+   "2:55",
+   "4:55",
+   "9:35"
+  ],
+  "answer": "9:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3c5eb4423a1e.webp",
+   "alt": "An analog clock showing 9:55"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "1:20",
+   "1:05",
+   "4:20",
+   "6:20"
+  ],
+  "answer": "1:20",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bfdf042f37ff.webp",
+   "alt": "An analog clock showing 1:20"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "4:40",
+   "4:20",
+   "8:20",
+   "9:40"
+  ],
+  "answer": "4:40",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/86242692f1b1.webp",
+   "alt": "An analog clock showing 4:40"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:35",
+   "5:35",
+   "9:20",
+   "9:55"
+  ],
+  "answer": "9:35",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6f11c525a803.webp",
+   "alt": "An analog clock showing 9:35"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:40",
+   "11:40",
+   "12:40",
+   "7:40"
+  ],
+  "answer": "3:40",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/aa157fb2b29b.webp",
+   "alt": "An analog clock showing 3:40"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:20",
+   "12:20",
+   "2:20",
+   "3:10"
+  ],
+  "answer": "3:20",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/dc125356c15a.webp",
+   "alt": "An analog clock showing 3:20"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "12:10",
+   "12:50",
+   "6:10",
+   "7:10"
+  ],
+  "answer": "12:10",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/38aee19a1613.webp",
+   "alt": "An analog clock showing 12:10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:55",
+   "2:55",
+   "6:20",
+   "9:55"
+  ],
+  "answer": "6:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/315ee8f8e14d.webp",
+   "alt": "An analog clock showing 6:55"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "6:25",
+   "4:25",
+   "6:05",
+   "6:20"
+  ],
+  "answer": "6:25",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9a0e3d867674.webp",
+   "alt": "An analog clock showing 6:25"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:55",
+   "11:10",
+   "7:55",
+   "9:55"
+  ],
+  "answer": "2:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a6d0067b4052.webp",
+   "alt": "An analog clock showing 2:55"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:10",
+   "7:10",
+   "9:35",
+   "9:55"
+  ],
+  "answer": "9:10",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e9d46ae5d5e9.webp",
+   "alt": "An analog clock showing 9:10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "11:25",
+   "11:35",
+   "4:25",
+   "5:55"
+  ],
+  "answer": "11:25",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1a6d6448408a.webp",
+   "alt": "An analog clock showing 11:25"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "2:05",
+   "11:05",
+   "1:10",
+   "6:05"
+  ],
+  "answer": "2:05",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7fc057a5d965.webp",
+   "alt": "An analog clock showing 2:05"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:55",
+   "3:35",
+   "3:40",
+   "8:55"
+  ],
+  "answer": "3:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3f48ef6eca89.webp",
+   "alt": "An analog clock showing 3:55"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "9:20",
+   "12:20",
+   "6:20",
+   "9:55"
+  ],
+  "answer": "9:20",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d9fbc824e26b.webp",
+   "alt": "An analog clock showing 9:20"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:35",
+   "7:40",
+   "8:05",
+   "8:10"
+  ],
+  "answer": "8:35",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c190e8d3f75b.webp",
+   "alt": "An analog clock showing 8:35"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "8:55",
+   "10:55",
+   "11:40",
+   "3:55"
+  ],
+  "answer": "8:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6488037d409f.webp",
+   "alt": "An analog clock showing 8:55"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "7:10",
+   "2:35",
+   "7:05",
+   "7:35"
+  ],
+  "answer": "7:10",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4c7f5cf6c8d5.webp",
+   "alt": "An analog clock showing 7:10"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "3:50",
+   "3:10",
+   "3:55",
+   "5:50"
+  ],
+  "answer": "3:50",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04ec47be2e38.webp",
+   "alt": "An analog clock showing 3:50"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:40",
+   "3:40",
+   "7:40",
+   "8:50"
+  ],
+  "answer": "10:40",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3472db32e49c.webp",
+   "alt": "An analog clock showing 10:40"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time does the clock show?",
+  "choicesJson": [
+   "10:55",
+   "2:55",
+   "6:55",
+   "8:55"
+  ],
+  "answer": "10:55",
+  "tags": [
+   "time",
+   "five-minute",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/20c51426035b.webp",
+   "alt": "An analog clock showing 10:55"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 12:15?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/da9fb0a0d458.webp",
+    "learning/img/viz/1e37b6898c8a.webp",
+    "learning/img/viz/3306a1de9d1f.webp",
+    "learning/img/viz/08df1ee75f05.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 1:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/544434f3f57b.webp",
+    "learning/img/viz/4010e61ca2e8.webp",
+    "learning/img/viz/8a4264bab1fc.webp",
+    "learning/img/viz/1b88ed0a870f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/1ecbc8adc906.webp",
+    "learning/img/viz/bcd403b3ac80.webp",
+    "learning/img/viz/b452bec7736c.webp",
+    "learning/img/viz/064f5e612b18.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 8:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7f3100bb03ce.webp",
+    "learning/img/viz/5750ac44f076.webp",
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/f5dcce07eb2f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/064f5e612b18.webp",
+    "learning/img/viz/7f3100bb03ce.webp",
+    "learning/img/viz/bcd403b3ac80.webp",
+    "learning/img/viz/d3407d05606d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 1:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8a4264bab1fc.webp",
+    "learning/img/viz/ad60233ecaba.webp",
+    "learning/img/viz/1e37b6898c8a.webp",
+    "learning/img/viz/bcd403b3ac80.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 7:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/3623f06254c2.webp",
+    "learning/img/viz/c180e974d5a9.webp",
+    "learning/img/viz/1b88ed0a870f.webp",
+    "learning/img/viz/7f3100bb03ce.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/bcd403b3ac80.webp",
+    "learning/img/viz/4a33262099a5.webp",
+    "learning/img/viz/ad60233ecaba.webp",
+    "learning/img/viz/c6bcee56b2e8.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 12:45?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/cbadb73204a9.webp",
+    "learning/img/viz/c4a6f9cac195.webp",
+    "learning/img/viz/485c2fcffbf8.webp",
+    "learning/img/viz/d3407d05606d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 11:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/3306a1de9d1f.webp",
+    "learning/img/viz/9fba100b916c.webp",
+    "learning/img/viz/d36ee116e733.webp",
+    "learning/img/viz/544434f3f57b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:15?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/4010e61ca2e8.webp",
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/3623f06254c2.webp",
+    "learning/img/viz/c26b8be3c276.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 5:15?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/b452bec7736c.webp",
+    "learning/img/viz/1fc1106f591a.webp",
+    "learning/img/viz/c26b8be3c276.webp",
+    "learning/img/viz/a73c33bf3adc.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:30?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/a73c33bf3adc.webp",
+    "learning/img/viz/45611d885db1.webp",
+    "learning/img/viz/9fbec4890f55.webp",
+    "learning/img/viz/1b88ed0a870f.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which clock shows 2:00?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "time",
+   "clock-pick",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/8a4264bab1fc.webp",
+    "learning/img/viz/c26b8be3c276.webp",
+    "learning/img/viz/04fa6f614eab.webp",
+    "learning/img/viz/0437e3ff662a.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four clocks"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "5",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ef1edc58af1c.webp",
+   "alt": "A pentagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "5",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2eed9d395b7a.webp",
+   "alt": "A pentagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "5",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/681ce26521a1.webp",
+   "alt": "A pentagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "6",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/15a47dd87dcb.webp",
+   "alt": "A hexagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "6",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f4dfd19f0791.webp",
+   "alt": "A hexagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "6",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c9db6231200e.webp",
+   "alt": "A hexagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Octagon",
+   "Hexagon",
+   "Circle",
+   "Parallelogram"
+  ],
+  "answer": "Octagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bed0dc841e63.webp",
+   "alt": "A pink octagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "8",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bed0dc841e63.webp",
+   "alt": "A octagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Octagon",
+   "Parallelogram",
+   "Hexagon",
+   "Pentagon"
+  ],
+  "answer": "Octagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1570223bab3e.webp",
+   "alt": "A blue octagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "8",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1570223bab3e.webp",
+   "alt": "A octagon"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Octagon",
+   "Circle",
+   "Parallelogram",
+   "Rectangle"
+  ],
+  "answer": "Octagon",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b0d7a885dfc4.webp",
+   "alt": "A green octagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "8",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b0d7a885dfc4.webp",
+   "alt": "A octagon"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ac5c6e425126.webp",
+   "alt": "A rhombus"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2a69046fb69.webp",
+   "alt": "A rhombus"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/70e219d57fcf.webp",
+   "alt": "A rhombus"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Trapezoid",
+   "Octagon",
+   "Oval",
+   "Rectangle"
+  ],
+  "answer": "Trapezoid",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cf937d7ff8bf.webp",
+   "alt": "A blue trapezoid"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cf937d7ff8bf.webp",
+   "alt": "A trapezoid"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Trapezoid",
+   "Oval",
+   "Rectangle",
+   "Square"
+  ],
+  "answer": "Trapezoid",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/36d7f1bab761.webp",
+   "alt": "A green trapezoid"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/36d7f1bab761.webp",
+   "alt": "A trapezoid"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Trapezoid",
+   "Circle",
+   "Triangle",
+   "Rhombus"
+  ],
+  "answer": "Trapezoid",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c97b652edc37.webp",
+   "alt": "A red trapezoid"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c97b652edc37.webp",
+   "alt": "A trapezoid"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Parallelogram",
+   "Circle",
+   "Hexagon",
+   "Octagon"
+  ],
+  "answer": "Parallelogram",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6e663cdd0929.webp",
+   "alt": "A green parallelogram"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/6e663cdd0929.webp",
+   "alt": "A parallelogram"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Parallelogram",
+   "Rhombus",
+   "Rectangle",
+   "Square"
+  ],
+  "answer": "Parallelogram",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/10bed2059575.webp",
+   "alt": "A pink parallelogram"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/10bed2059575.webp",
+   "alt": "A parallelogram"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What shape is this?",
+  "choicesJson": [
+   "Parallelogram",
+   "Hexagon",
+   "Circle",
+   "Trapezoid"
+  ],
+  "answer": "Parallelogram",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3ea94f8cbae7.webp",
+   "alt": "A red parallelogram"
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many sides does this shape have?",
+  "answer": "4",
+  "tags": [
+   "shapes",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/3ea94f8cbae7.webp",
+   "alt": "A parallelogram"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "1/4"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/94dc1e12cdd1.webp",
+   "alt": "A bar cut into 2 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "1/3",
+   "1/2",
+   "1/4",
+   "2/3"
+  ],
+  "answer": "1/3",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0cc62c6afe7c.webp",
+   "alt": "A circle cut into 3 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "1/3",
+   "1/2",
+   "1/4",
+   "2/3"
+  ],
+  "answer": "1/3",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d600fb946793.webp",
+   "alt": "A bar cut into 3 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the circle is shaded?",
+  "choicesJson": [
+   "2/3",
+   "1/2",
+   "1/3",
+   "2/4"
+  ],
+  "answer": "2/3",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4602aaa55188.webp",
+   "alt": "A circle cut into 3 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "2/3",
+   "1/2",
+   "1/3",
+   "2/4"
+  ],
+  "answer": "2/3",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fa4b91ba7eff.webp",
+   "alt": "A bar cut into 3 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "1/4",
+   "1/3",
+   "1/5",
+   "2/4"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a56c62264f10.webp",
+   "alt": "A bar cut into 4 equal parts with 1 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "2/4",
+   "1/3",
+   "1/4",
+   "2/5"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d56391b44287.webp",
+   "alt": "A bar cut into 4 equal parts with 2 shaded"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What fraction of the bar is shaded?",
+  "choicesJson": [
+   "3/4",
+   "1/3",
+   "1/4",
+   "2/4"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/d4707afcb6c0.webp",
+   "alt": "A bar cut into 4 equal parts with 3 shaded"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 1/4 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/fc8961d27447.webp",
+    "learning/img/viz/919f948d5cc9.webp",
+    "learning/img/viz/ddb7705693c4.webp",
+    "learning/img/viz/86922ad88f2d.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 2/4 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/86922ad88f2d.webp",
+    "learning/img/viz/ddb7705693c4.webp",
+    "learning/img/viz/d926939dc927.webp",
+    "learning/img/viz/76f9a44711ed.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 3/4 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/d926939dc927.webp",
+    "learning/img/viz/eeddc4fc3671.webp",
+    "learning/img/viz/7dae6a6fb57a.webp",
+    "learning/img/viz/ddb7705693c4.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 1/3 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/e9fac1d89d0e.webp",
+    "learning/img/viz/86922ad88f2d.webp",
+    "learning/img/viz/76f9a44711ed.webp",
+    "learning/img/viz/dc54df87eea3.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows 2/3 shaded?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "fractions",
+   "visual"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/viz/7dae6a6fb57a.webp",
+    "learning/img/viz/dc54df87eea3.webp",
+    "learning/img/viz/e9fac1d89d0e.webp",
+    "learning/img/viz/ddb7705693c4.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four circles"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Cats",
+   "Dogs",
+   "Fish",
+   "Birds"
+  ],
+  "answer": "Cats",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fe5214395727.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Dogs",
+   "Cats",
+   "Fish",
+   "Birds"
+  ],
+  "answer": "Dogs",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fe5214395727.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Birds",
+   "Dogs",
+   "Cats",
+   "Fish"
+  ],
+  "answer": "Birds",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0233c71f78dc.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Fish",
+   "Dogs",
+   "Cats",
+   "Birds"
+  ],
+  "answer": "Fish",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0233c71f78dc.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Cats",
+   "Dogs",
+   "Fish",
+   "Birds"
+  ],
+  "answer": "Cats",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/744eb7f24b60.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Birds",
+   "Dogs",
+   "Cats",
+   "Fish"
+  ],
+  "answer": "Birds",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/744eb7f24b60.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Birds",
+   "Dogs",
+   "Cats",
+   "Fish"
+  ],
+  "answer": "Birds",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ffc58251b29f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Fish",
+   "Dogs",
+   "Cats",
+   "Birds"
+  ],
+  "answer": "Fish",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ffc58251b29f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Cats",
+   "Dogs",
+   "Fish",
+   "Birds"
+  ],
+  "answer": "Cats",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/861cf3d7546f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Dogs",
+   "Cats",
+   "Fish",
+   "Birds"
+  ],
+  "answer": "Dogs",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/861cf3d7546f.webp",
+   "alt": "A bar graph of pets"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Blue",
+   "Red",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Blue",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/91d7e73482c9.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Red",
+   "Blue",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Red",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/91d7e73482c9.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Red",
+   "Blue",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Red",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/feccfcaf1e17.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pink",
+   "Red",
+   "Blue",
+   "Green"
+  ],
+  "answer": "Pink",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/feccfcaf1e17.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Pink",
+   "Red",
+   "Blue",
+   "Green"
+  ],
+  "answer": "Pink",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2930886a09f.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Red",
+   "Blue",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Red",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2930886a09f.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Blue",
+   "Red",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Blue",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bc7d1c2b0bbd.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pink",
+   "Red",
+   "Blue",
+   "Green"
+  ],
+  "answer": "Pink",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/bc7d1c2b0bbd.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Red",
+   "Blue",
+   "Green",
+   "Pink"
+  ],
+  "answer": "Red",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b5f920c4ed94.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pink",
+   "Red",
+   "Blue",
+   "Green"
+  ],
+  "answer": "Pink",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b5f920c4ed94.webp",
+   "alt": "A bar graph of colors"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Tacos",
+   "Pizza",
+   "Pasta",
+   "Soup"
+  ],
+  "answer": "Tacos",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f06e089601db.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pizza",
+   "Tacos",
+   "Pasta",
+   "Soup"
+  ],
+  "answer": "Pizza",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f06e089601db.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Soup",
+   "Pizza",
+   "Tacos",
+   "Pasta"
+  ],
+  "answer": "Soup",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/be4704786133.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pasta",
+   "Pizza",
+   "Tacos",
+   "Soup"
+  ],
+  "answer": "Pasta",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/be4704786133.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Pasta",
+   "Pizza",
+   "Tacos",
+   "Soup"
+  ],
+  "answer": "Pasta",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/277df58d23ba.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pizza",
+   "Tacos",
+   "Pasta",
+   "Soup"
+  ],
+  "answer": "Pizza",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/277df58d23ba.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Soup",
+   "Pizza",
+   "Tacos",
+   "Pasta"
+  ],
+  "answer": "Soup",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29acf5572a39.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pasta",
+   "Pizza",
+   "Tacos",
+   "Soup"
+  ],
+  "answer": "Pasta",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/29acf5572a39.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Pizza",
+   "Tacos",
+   "Pasta",
+   "Soup"
+  ],
+  "answer": "Pizza",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/773ca783d7a6.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Pasta",
+   "Pizza",
+   "Tacos",
+   "Soup"
+  ],
+  "answer": "Pasta",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/773ca783d7a6.webp",
+   "alt": "A bar graph of foods"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Soccer",
+   "Swim",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Soccer",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1c97ce6587ce.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Chess",
+   "Soccer",
+   "Swim",
+   "Art"
+  ],
+  "answer": "Chess",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1c97ce6587ce.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Soccer",
+   "Swim",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Soccer",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04e837ee2b0f.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Swim",
+   "Soccer",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Swim",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/04e837ee2b0f.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Swim",
+   "Soccer",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Swim",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a753d70db3f5.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Chess",
+   "Soccer",
+   "Swim",
+   "Art"
+  ],
+  "answer": "Chess",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a753d70db3f5.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Soccer",
+   "Swim",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Soccer",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a983bcd1dd64.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Swim",
+   "Soccer",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Swim",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/a983bcd1dd64.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Swim",
+   "Soccer",
+   "Chess",
+   "Art"
+  ],
+  "answer": "Swim",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d311ca9711e.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Chess",
+   "Soccer",
+   "Swim",
+   "Art"
+  ],
+  "answer": "Chess",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1d311ca9711e.webp",
+   "alt": "A bar graph of clubs"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Thu",
+   "Mon",
+   "Tue",
+   "Wed"
+  ],
+  "answer": "Thu",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8ec365bcbdc4.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Mon",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/8ec365bcbdc4.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Mon",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c53ce0e0958d.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Wed",
+   "Mon",
+   "Tue",
+   "Thu"
+  ],
+  "answer": "Wed",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/c53ce0e0958d.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Mon",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc108c6bc690.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Thu",
+   "Mon",
+   "Tue",
+   "Wed"
+  ],
+  "answer": "Thu",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc108c6bc690.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Wed",
+   "Mon",
+   "Tue",
+   "Thu"
+  ],
+  "answer": "Wed",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1dca95daa450.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Mon",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/1dca95daa450.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Tue",
+   "Mon",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Tue",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f5ee70537fa2.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thu"
+  ],
+  "answer": "Mon",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/f5ee70537fa2.webp",
+   "alt": "A bar graph of days"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Kiwi",
+   "Apple",
+   "Grape",
+   "Plum"
+  ],
+  "answer": "Kiwi",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5d635f302053.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Grape",
+   "Apple",
+   "Plum",
+   "Kiwi"
+  ],
+  "answer": "Grape",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/5d635f302053.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Plum",
+   "Apple",
+   "Grape",
+   "Kiwi"
+  ],
+  "answer": "Plum",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cbcbab1bd80a.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Grape",
+   "Apple",
+   "Plum",
+   "Kiwi"
+  ],
+  "answer": "Grape",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/cbcbab1bd80a.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Plum",
+   "Apple",
+   "Grape",
+   "Kiwi"
+  ],
+  "answer": "Plum",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2e8ec1df491.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Apple",
+   "Grape",
+   "Plum",
+   "Kiwi"
+  ],
+  "answer": "Apple",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/b2e8ec1df491.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Plum",
+   "Apple",
+   "Grape",
+   "Kiwi"
+  ],
+  "answer": "Plum",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2cdfc0746f12.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Kiwi",
+   "Apple",
+   "Grape",
+   "Plum"
+  ],
+  "answer": "Kiwi",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2cdfc0746f12.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the tallest?",
+  "choicesJson": [
+   "Apple",
+   "Grape",
+   "Plum",
+   "Kiwi"
+  ],
+  "answer": "Apple",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea09cbba2fee.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which bar is the shortest?",
+  "choicesJson": [
+   "Kiwi",
+   "Apple",
+   "Grape",
+   "Plum"
+  ],
+  "answer": "Kiwi",
+  "tags": [
+   "graphs",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ea09cbba2fee.webp",
+   "alt": "A bar graph of fruit"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "2",
+   "0",
+   "4",
+   "6"
+  ],
+  "answer": "2",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/92ab9dd9bc52.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "4",
+   "0",
+   "2",
+   "6"
+  ],
+  "answer": "4",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/9a37cbfb80e8.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "6",
+   "2",
+   "4",
+   "8"
+  ],
+  "answer": "6",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/71f33bd10ce0.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "8",
+   "4",
+   "6",
+   "10"
+  ],
+  "answer": "8",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/2d9d05159b36.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "10",
+   "6",
+   "8",
+   "12"
+  ],
+  "answer": "10",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ee197915e18e.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "12",
+   "8",
+   "10",
+   "14"
+  ],
+  "answer": "12",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/77ba87529d76.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "14",
+   "10",
+   "12",
+   "16"
+  ],
+  "answer": "14",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/374b83c56db6.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "16",
+   "12",
+   "14",
+   "18"
+  ],
+  "answer": "16",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/19462f8c6c11.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The dots on the number line count by 2s. What number is the red dot on?",
+  "choicesJson": [
+   "18",
+   "14",
+   "16",
+   "20"
+  ],
+  "answer": "18",
+  "tags": [
+   "number-line",
+   "skip-count",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4c3f7243012b.webp",
+   "alt": "A number line counting by 2s"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "10",
+   "0",
+   "20",
+   "30"
+  ],
+  "answer": "10",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/e096755ba5c2.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "20",
+   "0",
+   "10",
+   "30"
+  ],
+  "answer": "20",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/ac076d64e05f.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "30",
+   "10",
+   "20",
+   "40"
+  ],
+  "answer": "30",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4c6ed74320b3.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "40",
+   "20",
+   "30",
+   "50"
+  ],
+  "answer": "40",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/7b7360edd796.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "50",
+   "30",
+   "40",
+   "60"
+  ],
+  "answer": "50",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/fc55c5969115.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "60",
+   "40",
+   "50",
+   "70"
+  ],
+  "answer": "60",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/4f23c652edae.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "70",
+   "50",
+   "60",
+   "80"
+  ],
+  "answer": "70",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/976650389821.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "80",
+   "60",
+   "70",
+   "90"
+  ],
+  "answer": "80",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/0cffd1b644a2.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is the red dot on?",
+  "choicesJson": [
+   "90",
+   "70",
+   "80",
+   "100"
+  ],
+  "answer": "90",
+  "tags": [
+   "number-line",
+   "visual"
+  ],
+  "media": {
+   "image": "learning/img/viz/beba4b3e7616.webp",
+   "alt": "A number line from 0 to 100"
+  }
+ }
+]

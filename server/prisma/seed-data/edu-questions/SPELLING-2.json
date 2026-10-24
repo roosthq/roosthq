@@ -1,1110 +1,3120 @@
 [
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly (long 'a' sound)?",
-  "choicesJson": [
-   "rain",
-   "rane",
-   "rayn",
-   "raen"
-  ],
-  "answer": "rain",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly (long 'e' sound)?",
-  "choicesJson": [
-   "team",
-   "teem",
-   "teme",
-   "tem"
-  ],
-  "answer": "team",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly (long 'o' sound)?",
-  "choicesJson": [
-   "boat",
-   "bote",
-   "boet",
-   "bout"
-  ],
-  "answer": "boat",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'they are'.",
-  "answer": "they're",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'you are'.",
-  "answer": "you're",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word that sounds like 'their' but means 'in that place' (as in 'put it ___').",
-  "answer": "there",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for 'belonging to them' (as in '___ house').",
-  "answer": "their",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a young cat.",
-  "answer": "kitten",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the meal you eat in the morning.",
-  "answer": "breakfast",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "beach",
-   "beech",
-   "beash",
-   "beache"
-  ],
-  "answer": "beach",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a person who teaches at school.",
-  "answer": "teacher",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "cloud",
-   "clowd",
-   "cloude",
-   "clud"
-  ],
-  "answer": "cloud",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the room where you cook food.",
-  "answer": "kitchen",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a place you go to see wild animals up close.",
-  "answer": "zoo",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the soft white flakes that fall in winter.",
-  "answer": "snow",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "slow",
-   "sloh",
-   "slowe",
-   "sloow"
-  ],
-  "answer": "slow",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning to toss something through the air.",
-  "answer": "throw",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "grow",
-   "groe",
-   "growe",
-   "groow"
-  ],
-  "answer": "grow",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for bread that has been browned by heat.",
-  "answer": "toast",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "roast",
-   "roste",
-   "rost",
-   "roasst"
-  ],
-  "answer": "roast",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the land next to the ocean.",
-  "answer": "coast",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "spray",
-   "sprai",
-   "spraye",
-   "sprey"
-  ],
-  "answer": "spray",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a mark left behind, like from spilled juice.",
-  "answer": "stain",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "chain",
-   "chane",
-   "chayn",
-   "chaine"
-  ],
-  "answer": "chain",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the colored liquid used to color a picture or a wall.",
-  "answer": "paint",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "faint",
-   "faynt",
-   "fainte",
-   "faynte"
-  ],
-  "answer": "faint",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the thick part of milk used to make butter or whipped topping.",
-  "answer": "cream",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "dream",
-   "dreem",
-   "dreme",
-   "dreamm"
-  ],
-  "answer": "dream",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a small narrow river.",
-  "answer": "stream",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "gleam",
-   "gleem",
-   "gleme",
-   "gleamm"
-  ],
-  "answer": "gleam",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning to rest on top of water without sinking.",
-  "answer": "float",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "groan",
-   "grone",
-   "groen",
-   "groann"
-  ],
-  "answer": "groan",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a long low sound someone makes when in pain.",
-  "answer": "moan",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "loaf",
-   "lofe",
-   "loafe",
-   "loave"
-  ],
-  "answer": "loaf",
-  "tags": [
-   "long-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'could not'.",
-  "answer": "couldn't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'would not'.",
-  "answer": "wouldn't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'should not'.",
-  "answer": "shouldn't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'have not'.",
-  "answer": "haven't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'has not'.",
-  "answer": "hasn't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'are not'.",
-  "answer": "aren't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'were not'.",
-  "answer": "weren't",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'let us'.",
-  "answer": "let's",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'who is'.",
-  "answer": "who's",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the contraction for 'here is'.",
-  "answer": "here's",
-  "tags": [
-   "contractions"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'in this place' (sounds like 'hear').",
-  "answer": "here",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to sense sound with your ears' (sounds like 'here').",
-  "answer": "hear",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'not old' (sounds like 'knew').",
-  "answer": "new",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the past tense of 'know', meaning 'had knowledge of' (sounds like 'new').",
-  "answer": "knew",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'next to' or 'near' (sounds like 'buy').",
-  "answer": "by",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to purchase something with money' (sounds like 'by').",
-  "answer": "buy",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a large body of salt water (sounds like 'see').",
-  "answer": "sea",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to look at with your eyes' (sounds like 'sea').",
-  "answer": "see",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'pushed air out', the past tense of 'blow' (sounds like 'blue').",
-  "answer": "blew",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the color of the sky on a clear day (sounds like 'blew').",
-  "answer": "blue",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for food that comes from an animal, like beef or chicken (sounds like 'meet').",
-  "answer": "meat",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'to come together with someone' (sounds like 'meat').",
-  "answer": "meet",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the star that lights our daytime sky (sounds like 'son').",
-  "answer": "sun",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a parent's male child (sounds like 'sun').",
-  "answer": "son",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the material trees are made of (sounds like 'would').",
-  "answer": "wood",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the helping verb used to talk about something that might happen (sounds like 'wood').",
-  "answer": "would",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'a set of two' (sounds like 'pear').",
-  "answer": "pair",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a green or yellow fruit shaped a bit like a light bulb (sounds like 'pair').",
-  "answer": "pear",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a gap or opening in something (sounds like 'whole').",
-  "answer": "hole",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'complete, with nothing missing' (sounds like 'hole').",
-  "answer": "whole",
-  "tags": [
-   "homophones"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the building where sick or hurt people go to get help.",
-  "answer": "hospital",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "restaurant",
-   "resturant",
-   "restaraunt",
-   "restaurent"
-  ],
-  "answer": "restaurant",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning 'liked the most'.",
-  "answer": "favorite",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "holiday",
-   "holliday",
-   "holyday",
-   "holidey"
-  ],
-  "answer": "holiday",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the chart that shows the days, weeks, and months of the year.",
-  "answer": "calendar",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "vacation",
-   "vacetion",
-   "vaccation",
-   "vacashun"
-  ],
-  "answer": "vacation",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a two-wheeled vehicle you pedal with your feet.",
-  "answer": "bicycle",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "umbrella",
-   "umbrela",
-   "umberella",
-   "umbrellla"
-  ],
-  "answer": "umbrella",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for food made with two slices of bread and a filling.",
-  "answer": "sandwich",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "jacket",
-   "jackit",
-   "jaket",
-   "jackett"
-  ],
-  "answer": "jacket",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the small pouch sewn into clothes to hold things.",
-  "answer": "pocket",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "pencil",
-   "pensil",
-   "penciel",
-   "pencal"
-  ],
-  "answer": "pencil",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a colored wax stick used for drawing.",
-  "answer": "crayon",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "backpack",
-   "backpac",
-   "bacpack",
-   "backpak"
-  ],
-  "answer": "backpack",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the outdoor area at school with swings and slides.",
-  "answer": "playground",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "classroom",
-   "classrom",
-   "clasroom",
-   "classroome"
-  ],
-  "answer": "classroom",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for schoolwork you do at home.",
-  "answer": "homework",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "weather",
-   "wether",
-   "weathur",
-   "weathr"
-  ],
-  "answer": "weather",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the loud rumbling sound that comes with a storm.",
-  "answer": "thunder",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "lightning",
-   "lightnning",
-   "litening",
-   "lighnting"
-  ],
-  "answer": "lightning",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a very tall, rocky landform higher than a hill.",
-  "answer": "mountain",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "island",
-   "iland",
-   "ileand",
-   "islande"
-  ],
-  "answer": "island",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a large area covered with trees.",
-  "answer": "forest",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "ocean",
-   "oshun",
-   "ocian",
-   "oceann"
-  ],
-  "answer": "ocean",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a dry sandy land that gets very little rain.",
-  "answer": "desert",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "picture",
-   "pichure",
-   "pictur",
-   "pickture"
-  ],
-  "answer": "picture",
-  "tags": [
-   "sight-words"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a vehicle with four wheels that people drive.",
-  "answer": "car",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "star",
-   "stahr",
-   "starr",
-   "staar"
-  ],
-  "answer": "star",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for an animal with feathers and wings that can fly.",
-  "answer": "bird",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "girl",
-   "gril",
-   "gerl",
-   "girll"
-  ],
-  "answer": "girl",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the clothing you wear on your upper body.",
-  "answer": "shirt",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "corn",
-   "korn",
-   "coran",
-   "cornn"
-  ],
-  "answer": "corn",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for very bad weather with wind, rain, and sometimes thunder.",
-  "answer": "storm",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "turn",
-   "tern",
-   "turne",
-   "turnn"
-  ],
-  "answer": "turn",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a person who helps take care of sick people, often at a hospital.",
-  "answer": "nurse",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "purse",
-   "perse",
-   "pursse",
-   "purs"
-  ],
-  "answer": "purse",
-  "tags": [
-   "r-controlled-vowels"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for a box made of bars that holds an animal.",
-  "answer": "cage",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "page",
-   "paje",
-   "paig",
-   "pagge"
-  ],
-  "answer": "page",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word meaning extremely big.",
-  "answer": "huge",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "cute",
-   "kute",
-   "cutte",
-   "cuet"
-  ],
-  "answer": "cute",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for how big or small something is.",
-  "answer": "size",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "prize",
-   "prise",
-   "pryze",
-   "prizze"
-  ],
-  "answer": "prize",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the gray cloud that rises from fire.",
-  "answer": "smoke",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "stone",
-   "ston",
-   "stoan",
-   "stonne"
-  ],
-  "answer": "stone",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "TEXT_INPUT",
-  "prompt": "Spell the word for the device you use to call someone.",
-  "answer": "phone",
-  "tags": [
-   "silent-e"
-  ]
- },
- {
-  "type": "MULTIPLE_CHOICE",
-  "prompt": "Which word is spelled correctly?",
-  "choicesJson": [
-   "price",
-   "pryce",
-   "priice",
-   "pricce"
-  ],
-  "answer": "price",
-  "tags": [
-   "silent-e"
-  ]
- }
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "cheese",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-cheese.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "pencil",
+      "potato",
+      "cheese",
+      "bottle"
+    ],
+    "answer": "cheese",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-cheese.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "feather",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-feather.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "guitar",
+      "glasses",
+      "ladder",
+      "feather"
+    ],
+    "answer": "feather",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-feather.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "glasses",
+    "acceptedAnswers": [
+      "eyeglasses",
+      "spectacles"
+    ],
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-glasses.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct spelling for this picture?",
+    "choicesJson": [
+      "glassis",
+      "glasses",
+      "glasess",
+      "glases"
+    ],
+    "answer": "glasses",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-glasses.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "guitar",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-guitar.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "potato",
+      "guitar",
+      "carrot",
+      "house"
+    ],
+    "answer": "guitar",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-guitar.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "orange",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-orange.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "candle",
+      "orange",
+      "potato",
+      "pencil"
+    ],
+    "answer": "orange",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-orange.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "popcorn",
+    "acceptedAnswers": [
+      "pop corn"
+    ],
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-popcorn.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct spelling for this picture?",
+    "choicesJson": [
+      "popcorn",
+      "popkorn",
+      "popcorne",
+      "popcorm"
+    ],
+    "answer": "popcorn",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-popcorn.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the word for this picture.",
+    "answer": "sandwich",
+    "acceptedAnswers": [
+      "sandwiches"
+    ],
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-sandwich.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct spelling for this picture?",
+    "choicesJson": [
+      "sandwhich",
+      "sandwich",
+      "sanwich",
+      "sandwitch"
+    ],
+    "answer": "sandwich",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-sandwich.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What do you see? Type the word.",
+    "answer": "tractor",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-tractor.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "tractor",
+      "cherry",
+      "orange",
+      "glasses"
+    ],
+    "answer": "tractor",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-tractor.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the word for this picture.",
+    "answer": "umbrella",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-umbrella.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word names this picture?",
+    "choicesJson": [
+      "umbrella",
+      "popcorn",
+      "broccoli",
+      "tractor"
+    ],
+    "answer": "umbrella",
+    "tags": [
+      "vocabulary",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-umbrella.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Look at the picture. Type the word.",
+    "answer": "watch",
+    "acceptedAnswers": [
+      "wristwatch",
+      "wrist watch"
+    ],
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-watch.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is the correct spelling for this picture?",
+    "choicesJson": [
+      "watch",
+      "wotch",
+      "whatch",
+      "wach"
+    ],
+    "answer": "watch",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "A photo of something to name.",
+      "image": "learning/img/spelling-pictures-watch.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture matches the word \"tractor\"?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "spelling",
+      "picture words"
+    ],
+    "media": {
+      "alt": "Pictures to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/spelling-pictures-tomato.webp",
+        "learning/img/spelling-pictures-popcorn.webp",
+        "learning/img/spelling-pictures-cookie.webp",
+        "learning/img/spelling-pictures-tractor.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, a creeper sneaks ___ the dark cave. Which word fits?",
+    "choicesJson": [
+      "thorough",
+      "through",
+      "though",
+      "threw"
+    ],
+    "answer": "through",
+    "tags": [
+      "homophones",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "My sister ___ the ball over the fence. Which word fits?",
+    "choicesJson": [
+      "three",
+      "threw",
+      "through",
+      "thaw"
+    ],
+    "answer": "threw",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This backpack is ___ heavy for me to carry. Which word fits?",
+    "choicesJson": [
+      "two",
+      "too",
+      "to"
+    ],
+    "answer": "too",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Yesterday we ___ tacos for dinner. Which word fits?",
+    "choicesJson": [
+      "eat",
+      "eight",
+      "at",
+      "ate"
+    ],
+    "answer": "ate",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Please ___ your name at the top of the page. Which word fits?",
+    "choicesJson": [
+      "white",
+      "wrote",
+      "right",
+      "write"
+    ],
+    "answer": "write",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Do you ___ how to craft a pickaxe in Minecraft? Which word fits?",
+    "choicesJson": [
+      "new",
+      "now",
+      "no",
+      "know"
+    ],
+    "answer": "know",
+    "tags": [
+      "homophones",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A big brown ___ was catching fish in the river. Which word fits?",
+    "choicesJson": [
+      "bore",
+      "bare",
+      "bear",
+      "bar"
+    ],
+    "answer": "bear",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mom mixed eggs and ___ to make pancakes. Which word fits?",
+    "choicesJson": [
+      "flare",
+      "flower",
+      "floor",
+      "flour"
+    ],
+    "answer": "flour",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Loch Ness Monster slapped the water with its long ___. Which word fits?",
+    "choicesJson": [
+      "tell",
+      "tall",
+      "tail",
+      "tale"
+    ],
+    "answer": "tail",
+    "tags": [
+      "homophones",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "There are seven days in one ___. Which word fits?",
+    "choicesJson": [
+      "weak",
+      "weed",
+      "wick",
+      "week"
+    ],
+    "answer": "week",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "We ___ our bikes to the park after school. Which word fits?",
+    "choicesJson": [
+      "road",
+      "rowed",
+      "rode",
+      "rod"
+    ],
+    "answer": "rode",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "___ raining, so we need our umbrellas. Which word fits?",
+    "choicesJson": [
+      "Is",
+      "Its",
+      "It",
+      "It's"
+    ],
+    "answer": "It's",
+    "tags": [
+      "homophones",
+      "apostrophes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Squad up! ___ about to get a Victory Royale in Fortnite! Which word fits?",
+    "choicesJson": [
+      "Yours",
+      "You're",
+      "Your",
+      "Youre"
+    ],
+    "answer": "You're",
+    "tags": [
+      "homophones",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An elephant is bigger ___ a mouse. Which word fits?",
+    "choicesJson": [
+      "that",
+      "then",
+      "than",
+      "thin"
+    ],
+    "answer": "than",
+    "tags": [
+      "commonly-confused"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a Roblox obby, you might ___ your balance on a narrow beam. Which word fits?",
+    "choicesJson": [
+      "lose",
+      "loss",
+      "lost",
+      "loose"
+    ],
+    "answer": "lose",
+    "tags": [
+      "commonly-confused",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Squeeze the ___ on your bike to make it stop. Which word fits?",
+    "choicesJson": [
+      "brake",
+      "brick",
+      "break",
+      "bake"
+    ],
+    "answer": "brake",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Can I have a ___ of pizza, please? Which word fits?",
+    "choicesJson": [
+      "price",
+      "piece",
+      "peace",
+      "pie"
+    ],
+    "answer": "piece",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The SCP Foundation workers keep the creature in a locked ___. Which word fits?",
+    "choicesJson": [
+      "cell",
+      "sale",
+      "sill",
+      "sell"
+    ],
+    "answer": "cell",
+    "tags": [
+      "homophones",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which Fortnite word begins with the letters 'sh' (two letters, one sound)?",
+    "choicesJson": [
+      "Storm",
+      "Glider",
+      "Trap",
+      "Shield"
+    ],
+    "answer": "Shield",
+    "tags": [
+      "digraphs",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The name Pikachu has a 'ch' sound. Which word ends with the same 'ch' sound?",
+    "choicesJson": [
+      "math",
+      "lunch",
+      "bush",
+      "fish"
+    ],
+    "answer": "lunch",
+    "tags": [
+      "digraphs",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The werewolf howls at the moon. Which word has the same vowel sound as 'moon'?",
+    "choicesJson": [
+      "mop",
+      "book",
+      "cow",
+      "boot"
+    ],
+    "answer": "boot",
+    "tags": [
+      "vowel-sounds",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a short 'u' sound, like in 'jump'?",
+    "choicesJson": [
+      "bump",
+      "cube",
+      "moon",
+      "rule"
+    ],
+    "answer": "bump",
+    "tags": [
+      "short-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a long 'i' sound, like in 'bike'?",
+    "choicesJson": [
+      "lid",
+      "kite",
+      "kit",
+      "pin"
+    ],
+    "answer": "kite",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which letters finish this word? tr__n (a vehicle that runs on tracks)",
+    "choicesJson": [
+      "ay",
+      "ee",
+      "oa",
+      "ai"
+    ],
+    "answer": "ai",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with the blend 'sp'?",
+    "choicesJson": [
+      "slide",
+      "spider",
+      "side",
+      "cider"
+    ],
+    "answer": "spider",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word ends with the blend 'nk'?",
+    "choicesJson": [
+      "pit",
+      "pig",
+      "pine",
+      "pink"
+    ],
+    "answer": "pink",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word ends with the 'th' sound?",
+    "choicesJson": [
+      "pass",
+      "pack",
+      "path",
+      "pat"
+    ],
+    "answer": "path",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a short 'e' sound, like in 'bed'?",
+    "choicesJson": [
+      "heal",
+      "head",
+      "hear",
+      "heat"
+    ],
+    "answer": "head",
+    "tags": [
+      "short-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word does NOT have a long 'a' sound?",
+    "choicesJson": [
+      "play",
+      "rain",
+      "cake",
+      "hat"
+    ],
+    "answer": "hat",
+    "tags": [
+      "vowel-sounds"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pick the correct spelling for a bird that clucks and lays eggs.",
+    "choicesJson": [
+      "chikken",
+      "chiken",
+      "chicken",
+      "chickin"
+    ],
+    "answer": "chicken",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pick the correct spelling for the part of a tree that grows out from the trunk.",
+    "choicesJson": [
+      "branch",
+      "brantch",
+      "brach",
+      "branche"
+    ],
+    "answer": "branch",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pick the correct spelling for the season that comes after winter.",
+    "choicesJson": [
+      "sprign",
+      "spriing",
+      "spreng",
+      "spring"
+    ],
+    "answer": "spring",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word rhymes with 'light' and is spelled with 'ite'?",
+    "choicesJson": [
+      "bite",
+      "beat",
+      "bait",
+      "bit"
+    ],
+    "answer": "bite",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a short 'o' sound, like in 'hop'?",
+    "choicesJson": [
+      "top",
+      "tow",
+      "tone",
+      "toe"
+    ],
+    "answer": "top",
+    "tags": [
+      "short-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for what you sit on at a table. It starts with 'ch'.",
+    "answer": "chair",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the hard cover on a turtle or a snail. It starts with 'sh'.",
+    "answer": "shell",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the number word that comes right after two. It starts with 'th'.",
+    "answer": "three",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the biggest animal in the ocean. It starts with 'wh'.",
+    "answer": "whale",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a picture taken with a camera. It has five letters and starts with 'ph'.",
+    "answer": "photo",
+    "tags": [
+      "digraphs"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a living thing that grows in soil and makes its own food. It starts with 'pl'.",
+    "answer": "plant",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a funny circus performer with a red nose and big shoes. It starts with 'cl'.",
+    "answer": "clown",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the name of the green Minecraft mob that sneaks up and hisses before it explodes. It starts with 'cr'.",
+    "answer": "creeper",
+    "tags": [
+      "blends",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the loud sound a lion makes. It rhymes with 'door'.",
+    "answer": "roar",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a night bird that says 'hoot'. It has three letters.",
+    "answer": "owl",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the number word that comes right after six.",
+    "answer": "seven",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a small striped insect that makes honey.",
+    "answer": "bee",
+    "acceptedAnswers": [
+      "honeybee"
+    ],
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the shape of a basketball. It rhymes with 'found'.",
+    "answer": "round",
+    "tags": [
+      "spell-from-clue"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means the opposite of 'wet'.",
+    "answer": "dry",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the home a bird builds from twigs to hold its eggs.",
+    "answer": "nest",
+    "tags": [
+      "blends"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for what you do in bed at night. It rhymes with 'deep'.",
+    "answer": "sleep",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent k at the start?",
+    "choicesJson": [
+      "knee",
+      "key",
+      "kite",
+      "kid"
+    ],
+    "answer": "knee",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with a silent w?",
+    "choicesJson": [
+      "wrist",
+      "water",
+      "window",
+      "wagon"
+    ],
+    "answer": "wrist",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a tool you use to cut food. It starts with a silent k.",
+    "answer": "knife",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent b at the end?",
+    "choicesJson": [
+      "lap",
+      "land",
+      "lamp",
+      "lamb"
+    ],
+    "answer": "lamb",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent l?",
+    "choicesJson": [
+      "wall",
+      "walk",
+      "will",
+      "well"
+    ],
+    "answer": "walk",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a soldier in shiny armor who rides a horse in castle stories. It starts with a silent k.",
+    "answer": "knight",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means to cover a gift with paper. It starts with a silent w.",
+    "answer": "wrap",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word starts with a silent h?",
+    "choicesJson": [
+      "hot",
+      "hat",
+      "hour",
+      "hill"
+    ],
+    "answer": "hour",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, a torch gives off light. Which two letters are silent in the word 'light'?",
+    "choicesJson": [
+      "g and h",
+      "i and t",
+      "h and t",
+      "l and i"
+    ],
+    "answer": "g and h",
+    "tags": [
+      "silent-letters",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that is the opposite of 'left'. It has a silent gh in the middle.",
+    "answer": "right",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Count Dracula lives in a spooky castle. Which word in that sentence has a silent t?",
+    "choicesJson": [
+      "lives",
+      "spooky",
+      "Dracula",
+      "castle"
+    ],
+    "answer": "castle",
+    "tags": [
+      "silent-letters",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A mummy sleeps in a tomb. Which letter is silent in the word 'tomb'?",
+    "choicesJson": [
+      "b",
+      "m",
+      "o",
+      "t"
+    ],
+    "answer": "b",
+    "tags": [
+      "silent-letters",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A creepypasta story says a tall, thin figure walks through the woods at ni__t. Fill in the missing letters and type the whole word.",
+    "answer": "night",
+    "tags": [
+      "silent-letters",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Unscramble the letters to spell a spooky floating spirit: h t s o g",
+    "answer": "ghost",
+    "tags": [
+      "word-building",
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has a silent c?",
+    "choicesJson": [
+      "circle",
+      "scissors",
+      "candy",
+      "cat"
+    ],
+    "answer": "scissors",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the short, fat finger on your hand. It ends with a silent b.",
+    "answer": "thumb",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means to pay attention to sounds. It has a silent t in the middle.",
+    "answer": "listen",
+    "tags": [
+      "silent-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means 'one more time': \"That was awesome! Let's do it ___!\"",
+    "answer": "again",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means 'every single time': \"My dog ___ barks at the mail carrier.\"",
+    "answer": "always",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is NOT spelled correctly?",
+    "choicesJson": [
+      "would",
+      "coud",
+      "could",
+      "should"
+    ],
+    "answer": "coud",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means to clean with soap and water: \"Please ___ your hands before dinner.\"",
+    "answer": "wash",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word completes the sentence? \"The kids ___ playing tag at recess.\"",
+    "choicesJson": [
+      "wear",
+      "where",
+      "we're",
+      "were"
+    ],
+    "answer": "were",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that completes the sentence: \"Mom ___ it was time for bed.\" It sounds like 'sed' and starts with s.",
+    "answer": "said",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that means number one in order: \"Our team came in ___ place!\" It starts with f.",
+    "answer": "first",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "which",
+      "whic",
+      "wich",
+      "whitch"
+    ],
+    "answer": "which",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that is the opposite of 'before'.",
+    "answer": "after",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that completes the sentence: \"How ___ coins did you find?\" It rhymes with 'any' and starts with m.",
+    "answer": "many",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which spelling completes the sentence? \"My little brother ___ to bed at eight o'clock.\"",
+    "choicesJson": [
+      "gos",
+      "goes",
+      "goz",
+      "gose"
+    ],
+    "answer": "goes",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that completes the sentence: \"My mom and my dad ___ came to the game.\" It means 'the two of them'.",
+    "answer": "both",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many syllables are in the word 'elephant'?",
+    "choicesJson": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "answer": "3",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many syllables are in the word 'pizza'? Type a number.",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many syllables are in the word 'dinosaur'? Type a number.",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has exactly two syllables?",
+    "choicesJson": [
+      "elephant",
+      "robot",
+      "cat",
+      "banana"
+    ],
+    "answer": "robot",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Clap it out! How many syllables are in the word 'Fortnite'? Type a number.",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "syllables",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The SCP Foundation tries to contain strange creatures. How many syllables are in the word 'Foundation'?",
+    "choicesJson": [
+      "2",
+      "4",
+      "3",
+      "5"
+    ],
+    "answer": "3",
+    "tags": [
+      "syllables",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word has four syllables?",
+    "choicesJson": [
+      "pumpkin",
+      "kitten",
+      "watermelon",
+      "butterfly"
+    ],
+    "answer": "watermelon",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is divided into syllables correctly?",
+    "choicesJson": [
+      "ra-bbit",
+      "rab-bit",
+      "rabb-it",
+      "r-abbit"
+    ],
+    "answer": "rab-bit",
+    "tags": [
+      "syllables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters: b___tiful. A rainbow is this. Type the whole word.",
+    "answer": "beautiful",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This Minecraft mob is made of bones and carries a bow. Fill in the missing letters: sk__eton. Type the whole word.",
+    "answer": "skeleton",
+    "tags": [
+      "missing-letters",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters: fr__nd. It is someone you can team up with in Roblox. Type the whole word.",
+    "answer": "friend",
+    "tags": [
+      "missing-letters",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters: sch__l. You go there to learn. Type the whole word.",
+    "answer": "school",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Fill in the missing letters: mi__or. You look at yourself in it. Type the whole word.",
+    "answer": "mirror",
+    "tags": [
+      "missing-letters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Unscramble the letters to spell a scary creature: o n s m t e r",
+    "answer": "monster",
+    "tags": [
+      "word-building"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made by joining 'moon' and 'light'.",
+    "answer": "moonlight",
+    "tags": [
+      "word-building"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the compound word made by joining 'red' and 'stone'. In Minecraft, it powers circuits.",
+    "answer": "redstone",
+    "tags": [
+      "word-building",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Take the first letter off the word 'brain'. Which word is left?",
+    "answer": "rain",
+    "tags": [
+      "word-building"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Change the c in 'cave' to an s. What new word do you spell?",
+    "answer": "save",
+    "tags": [
+      "word-building"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is the plural of 'fox'?",
+    "choicesJson": [
+      "foxes",
+      "foxs",
+      "foxen",
+      "foxies"
+    ],
+    "answer": "foxes",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the plural of 'baby'.",
+    "answer": "babies",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "One wolf howls. Now a whole pack howls. Which is the plural of 'wolf'?",
+    "choicesJson": [
+      "wolves",
+      "wolvs",
+      "wolfs",
+      "wolfes"
+    ],
+    "answer": "wolves",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the plural of 'child'.",
+    "answer": "children",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, Steve herds two woolly animals into his pen. Which word fits? 'Steve has two ___ in the pen.'",
+    "choicesJson": [
+      "sheeps",
+      "sheep",
+      "sheepies",
+      "sheepes"
+    ],
+    "answer": "sheep",
+    "tags": [
+      "plurals",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Minecraft zombie shuffles up, and then two more join it. Spell the plural of 'zombie'.",
+    "answer": "zombies",
+    "tags": [
+      "plurals",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "One mummy sits in the tomb. Now a whole hall is full of them! Spell the plural of 'mummy'.",
+    "answer": "mummies",
+    "tags": [
+      "plurals",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In a Roblox obby, you leap over one box, then another, then another. Spell the plural of 'box'.",
+    "answer": "boxes",
+    "tags": [
+      "plurals",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the plural of 'tooth'.",
+    "answer": "teeth",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "One goose honks at you. Now there are two. Spell the plural of 'goose'.",
+    "answer": "geese",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, you hide in one bush, then sprint to two other ___. Which plural is spelled correctly?",
+    "choicesJson": [
+      "bushs",
+      "bushes",
+      "bushies",
+      "bushez"
+    ],
+    "answer": "bushes",
+    "tags": [
+      "plurals",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled the same whether you mean one or many?",
+    "choicesJson": [
+      "bee",
+      "frog",
+      "deer",
+      "hat"
+    ],
+    "answer": "deer",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The city needs help from three superheroes. Which is the correct plural of 'hero'?",
+    "choicesJson": [
+      "heros",
+      "heroes",
+      "heroies",
+      "heroz"
+    ],
+    "answer": "heroes",
+    "tags": [
+      "plurals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add 'un-' to 'happy' to spell the word that means 'not happy'.",
+    "answer": "unhappy",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the prefix 're-' mean in the word 'redo'?",
+    "choicesJson": [
+      "under",
+      "not",
+      "again",
+      "before"
+    ],
+    "answer": "again",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add '-ful' to 'care' to spell the word that means 'taking care'.",
+    "answer": "careful",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add '-less' to 'fear' to spell the word for a hero who has no fear.",
+    "answer": "fearless",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add '-er' to 'run' to spell the word for a person who runs. Watch the double letter!",
+    "answer": "runner",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A bunny is ___ across the yard. Add '-ing' to 'hop' to finish the sentence.",
+    "answer": "hopping",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The chef is ___ pancakes. Add '-ing' to 'make' to finish the sentence.",
+    "answer": "making",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the past tense of 'cry'.",
+    "answer": "cried",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A cheetah runs ___. Add '-ly' to 'quick' to finish the sentence.",
+    "answer": "quickly",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the prefix 'pre-' mean in 'preheat the oven'?",
+    "choicesJson": [
+      "not",
+      "under",
+      "again",
+      "before"
+    ],
+    "answer": "before",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Add 'dis-' to 'appear' to make the word for what a magician's rabbit does when it vanishes. Which spelling is correct?",
+    "choicesJson": [
+      "disappear",
+      "dissappear",
+      "disapear",
+      "dissapear"
+    ],
+    "answer": "disappear",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Add 'mis-' to 'spell' to make the word that means 'to spell wrongly'.",
+    "answer": "misspell",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The cave was full of ___. Add '-ness' to 'dark' to finish the sentence.",
+    "answer": "darkness",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the base word in 'replaying'?",
+    "answer": "play",
+    "tags": [
+      "prefixes",
+      "suffixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is a base word plus the prefix 'un-'?",
+    "choicesJson": [
+      "under",
+      "uncle",
+      "until",
+      "unfold"
+    ],
+    "answer": "unfold",
+    "tags": [
+      "prefixes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which ending makes 'hope' mean 'without hope'?",
+    "choicesJson": [
+      "-ful",
+      "-less",
+      "-ly",
+      "-er"
+    ],
+    "answer": "-less",
+    "tags": [
+      "suffixes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Put 'sun' and 'flower' together to spell one compound word for a tall yellow flower.",
+    "answer": "sunflower",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Put 'fire' and 'fly' together to spell the compound word for a bug that glows at night.",
+    "answer": "firefly",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, you can cook food on a campfire. Which two small words make the compound word 'campfire'?",
+    "choicesJson": [
+      "camp + fir",
+      "can + fire",
+      "cam + pfire",
+      "camp + fire"
+    ],
+    "answer": "camp + fire",
+    "tags": [
+      "compound-words",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Mario Kart drivers zoom around a ___. Join 'race' and 'track' to spell the compound word.",
+    "answer": "racetrack",
+    "acceptedAnswers": [
+      "race track"
+    ],
+    "tags": [
+      "compound-words",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Jumping out of an airplane with a parachute is called ___. Join 'sky' and 'diving' to spell the compound word.",
+    "answer": "skydiving",
+    "acceptedAnswers": [
+      "sky diving",
+      "sky-diving"
+    ],
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the name of the big, hairy forest creature made from 'big' and 'foot'.",
+    "answer": "bigfoot",
+    "acceptedAnswers": [
+      "big foot"
+    ],
+    "tags": [
+      "compound-words",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Foundation guard shines a ___ at a spooky statue. Join 'flash' and 'light' to spell the compound word.",
+    "answer": "flashlight",
+    "acceptedAnswers": [
+      "flash light"
+    ],
+    "tags": [
+      "compound-words",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is NOT a compound word?",
+    "choicesJson": [
+      "puppy",
+      "sunset",
+      "pancake",
+      "rainbow"
+    ],
+    "answer": "puppy",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word can go after 'snow' to make a compound word?",
+    "choicesJson": [
+      "key",
+      "pin",
+      "man",
+      "cup"
+    ],
+    "answer": "man",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Put 'rain' and 'coat' together to spell the compound word for a jacket that keeps you dry.",
+    "answer": "raincoat",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which two small words make the compound word 'cupcake'?",
+    "choicesJson": [
+      "cup + cake",
+      "cap + cake",
+      "cup + cook",
+      "cu + pcake"
+    ],
+    "answer": "cup + cake",
+    "tags": [
+      "compound-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This Roblox obby is super hard. Spell the contraction for 'is not' to finish it: 'This level ___ easy!'",
+    "answer": "isn't",
+    "tags": [
+      "contractions",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Your Fortnite squad shouts, 'We ___ win this match!' Spell the contraction for 'we will'.",
+    "answer": "we'll",
+    "tags": [
+      "contractions",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which contraction for 'was not' is spelled correctly?",
+    "choicesJson": [
+      "wasen't",
+      "wasn't",
+      "was'nt",
+      "wasnt'"
+    ],
+    "answer": "wasn't",
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the contraction 'he's' (for 'he is'), which letter does the apostrophe take the place of?",
+    "choicesJson": [
+      "i",
+      "h",
+      "s",
+      "e"
+    ],
+    "answer": "i",
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The statue only moves when no one is looking. It ___ move when you watch it. Spell the contraction for 'does not'.",
+    "answer": "doesn't",
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly (long 'a' sound)?",
+    "choicesJson": [
+      "rain",
+      "rane",
+      "rayn",
+      "raen"
+    ],
+    "answer": "rain",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly (long 'e' sound)?",
+    "choicesJson": [
+      "team",
+      "teme",
+      "teeme",
+      "tem"
+    ],
+    "answer": "team",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly (long 'o' sound)?",
+    "choicesJson": [
+      "boat",
+      "bote",
+      "boet",
+      "bout"
+    ],
+    "answer": "boat",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'they are'.",
+    "answer": "they're",
+    "acceptedAnswers": [
+      "they’re"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'you are'.",
+    "answer": "you're",
+    "acceptedAnswers": [
+      "you’re"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word that sounds like 'their' but means 'in that place' (as in 'put it ___').",
+    "answer": "there",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for 'belonging to them' (as in '___ house').",
+    "answer": "their",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a young cat.",
+    "answer": "kitten",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the meal you eat in the morning.",
+    "answer": "breakfast",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "beach",
+      "beeche",
+      "beash",
+      "beache"
+    ],
+    "answer": "beach",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a person who teaches at school.",
+    "answer": "teacher",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "cloud",
+      "clowd",
+      "cloude",
+      "clud"
+    ],
+    "answer": "cloud",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the room where you cook food.",
+    "answer": "kitchen",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a place you go to see wild animals up close. It starts with 'z'.",
+    "answer": "zoo",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the soft white flakes that fall in winter.",
+    "answer": "snow",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "slow",
+      "sloh",
+      "slowe",
+      "sloow"
+    ],
+    "answer": "slow",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for what you do to a ball to send it through the air. It starts with 'thr'.",
+    "answer": "throw",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "grow",
+      "groe",
+      "growe",
+      "groow"
+    ],
+    "answer": "grow",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for bread that has been browned by heat.",
+    "answer": "toast",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "roast",
+      "roste",
+      "rost",
+      "roasst"
+    ],
+    "answer": "roast",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the land right next to the ocean. It starts with 'c'.",
+    "answer": "coast",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "spray",
+      "sprai",
+      "spraye",
+      "sprey"
+    ],
+    "answer": "spray",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a mark left behind that is hard to wash out, like grape juice on a shirt. It starts with 'st'.",
+    "answer": "stain",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "chain",
+      "chane",
+      "chayn",
+      "chaine"
+    ],
+    "answer": "chain",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the colored liquid used to color a picture or a wall.",
+    "answer": "paint",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "faint",
+      "faynt",
+      "fainte",
+      "faynte"
+    ],
+    "answer": "faint",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the thick part of milk used to make butter or whipped topping.",
+    "answer": "cream",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "dream",
+      "dreem",
+      "dreme",
+      "dreamm"
+    ],
+    "answer": "dream",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a small narrow river. It starts with 'str'.",
+    "answer": "stream",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "gleam",
+      "gleem",
+      "gleme",
+      "gleamm"
+    ],
+    "answer": "gleam",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning to rest on top of water without sinking.",
+    "answer": "float",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "groan",
+      "grone",
+      "groen",
+      "groann"
+    ],
+    "answer": "groan",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a long, low sound someone makes when in pain. It starts with 'm'.",
+    "answer": "moan",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "loaf",
+      "lofe",
+      "loafe",
+      "loave"
+    ],
+    "answer": "loaf",
+    "tags": [
+      "long-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'could not'.",
+    "answer": "couldn't",
+    "acceptedAnswers": [
+      "couldn’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'would not'.",
+    "answer": "wouldn't",
+    "acceptedAnswers": [
+      "wouldn’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'should not'.",
+    "answer": "shouldn't",
+    "acceptedAnswers": [
+      "shouldn’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'have not'.",
+    "answer": "haven't",
+    "acceptedAnswers": [
+      "haven’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'has not'.",
+    "answer": "hasn't",
+    "acceptedAnswers": [
+      "hasn’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'are not'.",
+    "answer": "aren't",
+    "acceptedAnswers": [
+      "aren’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'were not'.",
+    "answer": "weren't",
+    "acceptedAnswers": [
+      "weren’t"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'let us'.",
+    "answer": "let's",
+    "acceptedAnswers": [
+      "let’s"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'who is'.",
+    "answer": "who's",
+    "acceptedAnswers": [
+      "who’s"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the contraction for 'here is'.",
+    "answer": "here's",
+    "acceptedAnswers": [
+      "here’s"
+    ],
+    "tags": [
+      "contractions"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'in this place' (sounds like 'hear').",
+    "answer": "here",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to sense sound with your ears' (sounds like 'here').",
+    "answer": "hear",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'not old' (sounds like 'knew').",
+    "answer": "new",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the past tense of 'know', meaning 'had knowledge of' (sounds like 'new').",
+    "answer": "knew",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'next to' or 'near' (sounds like 'buy').",
+    "answer": "by",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to purchase something with money' (sounds like 'by').",
+    "answer": "buy",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a large body of salt water (sounds like 'see').",
+    "answer": "sea",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to look at with your eyes' (sounds like 'sea').",
+    "answer": "see",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'pushed air out', the past tense of 'blow' (sounds like 'blue').",
+    "answer": "blew",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the color of the sky on a clear day (sounds like 'blew').",
+    "answer": "blue",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for food that comes from an animal, like beef or chicken (sounds like 'meet').",
+    "answer": "meat",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'to come together with someone' (sounds like 'meat').",
+    "answer": "meet",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the star that lights our daytime sky (sounds like 'son').",
+    "answer": "sun",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a parent's male child (sounds like 'sun').",
+    "answer": "son",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the material trees are made of (sounds like 'would').",
+    "answer": "wood",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the helping verb used to talk about something that might happen (sounds like 'wood').",
+    "answer": "would",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'a set of two' (sounds like 'pear').",
+    "answer": "pair",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a green or yellow fruit shaped a bit like a light bulb (sounds like 'pair').",
+    "answer": "pear",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a gap or opening in something (sounds like 'whole').",
+    "answer": "hole",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'complete, with nothing missing' (sounds like 'hole').",
+    "answer": "whole",
+    "tags": [
+      "homophones"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the building where sick or hurt people go to get help.",
+    "answer": "hospital",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "restaurant",
+      "resturant",
+      "restaraunt",
+      "restaurent"
+    ],
+    "answer": "restaurant",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning 'liked the most'.",
+    "answer": "favorite",
+    "acceptedAnswers": [
+      "favourite"
+    ],
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "holiday",
+      "holliday",
+      "holyday",
+      "holidey"
+    ],
+    "answer": "holiday",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the chart that shows the days, weeks, and months of the year.",
+    "answer": "calendar",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "vacation",
+      "vacetion",
+      "vaccation",
+      "vacashun"
+    ],
+    "answer": "vacation",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a two-wheeled vehicle you pedal with your feet. It has 7 letters.",
+    "answer": "bicycle",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "umbrella",
+      "umbrela",
+      "umberella",
+      "umbrellla"
+    ],
+    "answer": "umbrella",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for food made with two slices of bread and a filling.",
+    "answer": "sandwich",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "jacket",
+      "jackit",
+      "jaket",
+      "jackett"
+    ],
+    "answer": "jacket",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the small pouch sewn into clothes to hold things.",
+    "answer": "pocket",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "pencil",
+      "pensil",
+      "penciel",
+      "pencal"
+    ],
+    "answer": "pencil",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a colored wax stick used for drawing.",
+    "answer": "crayon",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "backpack",
+      "backpac",
+      "bacpack",
+      "backpak"
+    ],
+    "answer": "backpack",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the outdoor area at school with swings and slides.",
+    "answer": "playground",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "classroom",
+      "classrom",
+      "clasroom",
+      "classroome"
+    ],
+    "answer": "classroom",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for schoolwork you do at home.",
+    "answer": "homework",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "weather",
+      "wheather",
+      "weathur",
+      "weathr"
+    ],
+    "answer": "weather",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the loud rumbling sound that comes with a storm.",
+    "answer": "thunder",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "lightning",
+      "lightnning",
+      "litening",
+      "lighnting"
+    ],
+    "answer": "lightning",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a very tall, rocky landform higher than a hill.",
+    "answer": "mountain",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "island",
+      "iland",
+      "ileand",
+      "islande"
+    ],
+    "answer": "island",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a large area covered with trees. It starts with 'f'.",
+    "answer": "forest",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "ocean",
+      "oshun",
+      "ocian",
+      "oceann"
+    ],
+    "answer": "ocean",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a dry sandy land that gets very little rain.",
+    "answer": "desert",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "picture",
+      "pichure",
+      "pictur",
+      "pickture"
+    ],
+    "answer": "picture",
+    "tags": [
+      "sight-words"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a vehicle with four wheels that people drive. It starts with 'c'.",
+    "answer": "car",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "star",
+      "stahr",
+      "starr",
+      "staar"
+    ],
+    "answer": "star",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for an animal with feathers and wings that can fly.",
+    "answer": "bird",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "girl",
+      "gril",
+      "gerl",
+      "girll"
+    ],
+    "answer": "girl",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the clothing you wear on your upper body. It starts with 'sh'.",
+    "answer": "shirt",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "corn",
+      "korn",
+      "coran",
+      "cornn"
+    ],
+    "answer": "corn",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for very bad weather with wind, rain, and sometimes thunder.",
+    "answer": "storm",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "turn",
+      "tirn",
+      "turne",
+      "turnn"
+    ],
+    "answer": "turn",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a hospital worker who is not a doctor but helps take care of patients. It starts with 'n'.",
+    "answer": "nurse",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "purse",
+      "perse",
+      "pursse",
+      "purs"
+    ],
+    "answer": "purse",
+    "tags": [
+      "r-controlled-vowels"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for a box made of bars that holds an animal.",
+    "answer": "cage",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "page",
+      "paje",
+      "paig",
+      "pagge"
+    ],
+    "answer": "page",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word meaning extremely big. It has 4 letters and ends with a silent e.",
+    "answer": "huge",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "cute",
+      "kute",
+      "cutte",
+      "cuet"
+    ],
+    "answer": "cute",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for how big or small something is.",
+    "answer": "size",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "prize",
+      "prieze",
+      "pryze",
+      "prizze"
+    ],
+    "answer": "prize",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the gray cloud that rises from fire.",
+    "answer": "smoke",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "stone",
+      "ston",
+      "stoan",
+      "stonne"
+    ],
+    "answer": "stone",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spell the word for the device you use to call someone. It starts with 'ph'.",
+    "answer": "phone",
+    "tags": [
+      "silent-e"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which word is spelled correctly?",
+    "choicesJson": [
+      "price",
+      "pryce",
+      "priice",
+      "pricce"
+    ],
+    "answer": "price",
+    "tags": [
+      "silent-e"
+    ]
+  }
 ]

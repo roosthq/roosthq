@@ -1,0 +1,5589 @@
+[
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Listen. Which animal makes this sound?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/great-horned-owl.mp3",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/kakapo.webp",
+        "learning/img/ostrich.webp",
+        "learning/img/great-horned-owl.webp",
+        "learning/img/cassowary.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal makes this sound?",
+    "choicesJson": [
+      "Pelican",
+      "Albatross",
+      "Great horned owl",
+      "Kakapo"
+    ],
+    "answer": "Kakapo",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/kakapo.mp3"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Listen. Which animal makes this sound?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/kakapo.mp3",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/kakapo.webp",
+        "learning/img/shoebill.webp",
+        "learning/img/great-blue-heron.webp",
+        "learning/img/great-horned-owl.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Listen. Which animal makes this sound?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/fennec-fox.mp3",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/aye-aye.webp",
+        "learning/img/spotted-hyena.webp",
+        "learning/img/fennec-fox.webp",
+        "learning/img/red-panda.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal makes this sound?",
+    "choicesJson": [
+      "Albatross",
+      "Great blue heron",
+      "Cassowary",
+      "Great horned owl"
+    ],
+    "answer": "Great horned owl",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/great-horned-owl.mp3"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Listen. Which animal makes this sound?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/shoebill.mp3",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/cassowary.webp",
+        "learning/img/toucan.webp",
+        "learning/img/shoebill.webp",
+        "learning/img/hummingbird.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal makes this sound?",
+    "choicesJson": [
+      "Warthog",
+      "Fennec fox",
+      "Blue whale",
+      "Okapi"
+    ],
+    "answer": "Fennec fox",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/fennec-fox.mp3"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal makes this sound?",
+    "choicesJson": [
+      "Ostrich",
+      "Shoebill",
+      "Kakapo",
+      "Atlantic puffin"
+    ],
+    "answer": "Shoebill",
+    "tags": [
+      "animals",
+      "sound"
+    ],
+    "media": {
+      "alt": "Animal sound",
+      "audio": "learning/audio/shoebill.mp3"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a bat mainly eat?",
+    "choicesJson": [
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "Two flying fox bats soar through a blue sky with their wide wings spread open.",
+      "image": "learning/img/bat.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Pelican",
+      "Albatross",
+      "Kakapo",
+      "Great horned owl"
+    ],
+    "answer": "Kakapo",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A green, moss-colored kakapo parrot with a pale bill sits among leaves.",
+      "image": "learning/img/kakapo.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a gharial?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/ball-python.webp",
+        "learning/img/tortoise.webp",
+        "learning/img/sea-turtle.webp",
+        "learning/img/gharial.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a great horned owl?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/albatross.webp",
+        "learning/img/great-horned-owl.webp",
+        "learning/img/great-blue-heron.webp",
+        "learning/img/cassowary.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a clownfish mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "Two orange clownfish with white stripes swim among the green tentacles of a sea anemone.",
+      "image": "learning/img/clownfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Oryx",
+      "Wildebeest",
+      "Cheetah",
+      "Tapir"
+    ],
+    "answer": "Oryx",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A gemsbok, a kind of oryx, stands in dry grassland with long straight horns and a black and white face.",
+      "image": "learning/img/oryx.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Wildebeest",
+      "Capybara",
+      "Sloth",
+      "Quokka"
+    ],
+    "answer": "Wildebeest",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground.",
+      "image": "learning/img/wildebeest.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a blue whale?",
+    "choicesJson": [
+      "Mammal",
+      "Insect",
+      "Bird",
+      "Amphibian"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view.",
+      "image": "learning/img/blue-whale.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Thorny devil",
+      "Nautilus",
+      "Donkey",
+      "Clownfish"
+    ],
+    "answer": "Nautilus",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A nautilus with a red-and-white striped spiral shell and a head full of pale tentacles rests on sand beside dark rocks.",
+      "image": "learning/img/nautilus.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a stingray mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Other animals (a carnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A grey southern stingray with a flat, wing-shaped body and a long thin tail rests on a rocky seabed.",
+      "image": "learning/img/stingray.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Leatherback sea turtle",
+      "Basilisk lizard",
+      "Sea turtle",
+      "Ball python"
+    ],
+    "answer": "Ball python",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A ball python with a tan and dark brown pattern lies coiled in a loose circle.",
+      "image": "learning/img/ball-python.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Mandrill",
+      "Giant panda",
+      "Blue whale",
+      "Reindeer"
+    ],
+    "answer": "Blue whale",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view.",
+      "image": "learning/img/blue-whale.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby mandrill called?",
+    "choicesJson": [
+      "Kit",
+      "Cub",
+      "Infant",
+      "Pup"
+    ],
+    "answer": "Infant",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A mandrill with a red and blue face and a golden beard stands on green grass.",
+      "image": "learning/img/mandrill.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Anglerfish",
+      "Lionfish",
+      "Clownfish",
+      "Seahorse"
+    ],
+    "answer": "Anglerfish",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A big, flat, speckled anglerfish resting on a rocky seafloor, facing the camera with its wide mouth and a thin fishing lure rising from its head.",
+      "image": "learning/img/anglerfish.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a black widow spider?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/scorpion.webp",
+        "learning/img/tarantula.webp",
+        "learning/img/orb-weaver-spider.webp",
+        "learning/img/black-widow-spider.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a Tasmanian devil?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/orangutan.webp",
+        "learning/img/tasmanian-devil.webp",
+        "learning/img/spotted-hyena.webp",
+        "learning/img/aardvark.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Red panda",
+      "Warthog",
+      "Okapi",
+      "Orca"
+    ],
+    "answer": "Red panda",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch.",
+      "image": "learning/img/red-panda.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is an aardvark?",
+    "choicesJson": [
+      "Mammal",
+      "Bird",
+      "Fish",
+      "Amphibian"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "An aardvark with a long snout and tall ears sniffing the ground on a bed of wood chips.",
+      "image": "learning/img/aardvark.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby capybara called?",
+    "choicesJson": [
+      "Joey",
+      "Cub",
+      "Hoglet",
+      "Pup"
+    ],
+    "answer": "Pup",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A capybara with brown shaggy fur grazing on green grass.",
+      "image": "learning/img/capybara.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows an aye-aye?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/aye-aye.webp",
+        "learning/img/quokka.webp",
+        "learning/img/bison.webp",
+        "learning/img/manatee.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Kiwi",
+      "Albatross",
+      "Woodpecker",
+      "Peregrine falcon"
+    ],
+    "answer": "Kiwi",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs.",
+      "image": "learning/img/kiwi.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Flamingo",
+      "Cassowary",
+      "Turkey",
+      "Crow"
+    ],
+    "answer": "Cassowary",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A big black cassowary with a bright blue neck and a helmet-like crest stands among green rainforest plants.",
+      "image": "learning/img/cassowary.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows an okapi?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/ring-tailed-lemur.webp",
+        "learning/img/okapi.webp",
+        "learning/img/reindeer.webp",
+        "learning/img/meerkat.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a green iguana mainly eat?",
+    "choicesJson": [
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A grayish-green iguana with a spiky crest and a big round scale on its cheek rests in green grass.",
+      "image": "learning/img/green-iguana.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Great blue heron",
+      "Kiwi",
+      "Hummingbird",
+      "Secretary bird"
+    ],
+    "answer": "Secretary bird",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A secretary bird with a crest of black feathers and long legs standing in dry grass.",
+      "image": "learning/img/secretary-bird.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby blue whale called?",
+    "choicesJson": [
+      "Cub",
+      "Fawn",
+      "Calf",
+      "Pup"
+    ],
+    "answer": "Calf",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A blue whale seen from above, swimming just under the surface of deep blue ocean water with its long body and tail in view.",
+      "image": "learning/img/blue-whale.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a sloth mainly eat?",
+    "choicesJson": [
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A two-toed sloth hangs upside down from a tree branch with green leaves beside it.",
+      "image": "learning/img/sloth.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a kiwi usually live?",
+    "choicesJson": [
+      "On the savanna",
+      "In a forest",
+      "In people's homes",
+      "In a backyard or garden"
+    ],
+    "answer": "In a forest",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs.",
+      "image": "learning/img/kiwi.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a cougar mainly eat?",
+    "choicesJson": [
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Other animals (a carnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A tawny cougar crouches on a gray rock with green grass behind it.",
+      "image": "learning/img/cougar.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby pangolin called?",
+    "choicesJson": [
+      "Foal",
+      "Calf",
+      "Cub",
+      "Pup"
+    ],
+    "answer": "Pup",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A Sunda pangolin covered in scales climbing along a leafy branch.",
+      "image": "learning/img/pangolin.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby warthog called?",
+    "choicesJson": [
+      "Cub",
+      "Infant",
+      "Kit",
+      "Piglet"
+    ],
+    "answer": "Piglet",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane.",
+      "image": "learning/img/warthog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does an ostrich mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "Close-up of an ostrich's head and long neck against a soft green background.",
+      "image": "learning/img/ostrich.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a peregrine falcon?",
+    "choicesJson": [
+      "Amphibian",
+      "Reptile",
+      "Fish",
+      "Bird"
+    ],
+    "answer": "Bird",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky.",
+      "image": "learning/img/peregrine-falcon.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Grasshopper",
+      "Blue morpho butterfly",
+      "Atlas moth",
+      "Hercules beetle"
+    ],
+    "answer": "Hercules beetle",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A male Hercules beetle with a long curved black horn rests on a piece of cork bark.",
+      "image": "learning/img/hercules-beetle.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a tarantula?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/orb-weaver-spider.webp",
+        "learning/img/tarantula.webp",
+        "learning/img/scorpion.webp",
+        "learning/img/black-widow-spider.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a pangolin usually live?",
+    "choicesJson": [
+      "In a wetland",
+      "In the cold Arctic",
+      "In a desert",
+      "In a forest"
+    ],
+    "answer": "In a forest",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A Sunda pangolin covered in scales climbing along a leafy branch.",
+      "image": "learning/img/pangolin.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a poison dart frog?",
+    "choicesJson": [
+      "Bird",
+      "Mammal",
+      "Amphibian",
+      "Insect"
+    ],
+    "answer": "Amphibian",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A bright red strawberry poison dart frog with blue legs sits on a mossy branch.",
+      "image": "learning/img/poison-dart-frog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby hammerhead shark called?",
+    "choicesJson": [
+      "Nymph",
+      "Pup",
+      "Chick",
+      "Fry"
+    ],
+    "answer": "Pup",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left.",
+      "image": "learning/img/hammerhead-shark.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Hammerhead shark",
+      "Seahorse",
+      "Stingray",
+      "Great white shark"
+    ],
+    "answer": "Hammerhead shark",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left.",
+      "image": "learning/img/hammerhead-shark.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a ball python usually live?",
+    "choicesJson": [
+      "On grassland",
+      "In a backyard or garden",
+      "In people's homes",
+      "In a forest"
+    ],
+    "answer": "On grassland",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A ball python with a tan and dark brown pattern lies coiled in a loose circle.",
+      "image": "learning/img/ball-python.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a red panda usually live?",
+    "choicesJson": [
+      "In a desert",
+      "In a forest",
+      "On a farm",
+      "In a wetland"
+    ],
+    "answer": "In a forest",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch.",
+      "image": "learning/img/red-panda.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a hammerhead shark?",
+    "choicesJson": [
+      "Mammal",
+      "Insect",
+      "Reptile",
+      "Fish"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A scalloped hammerhead shark swimming overhead in clear blue water, seen from below with its wide flat head on the left.",
+      "image": "learning/img/hammerhead-shark.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a nautilus?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/thorny-devil.webp",
+        "learning/img/clownfish.webp",
+        "learning/img/donkey.webp",
+        "learning/img/nautilus.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a rattlesnake?",
+    "choicesJson": [
+      "Fish",
+      "Reptile",
+      "Mammal",
+      "Bird"
+    ],
+    "answer": "Reptile",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A tan prairie rattlesnake lies in loose coils on red dirt, looking toward the camera, with its rattle showing near its tail.",
+      "image": "learning/img/rattlesnake.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Orb-weaver spider",
+      "Scorpion",
+      "Black widow spider",
+      "Tarantula"
+    ],
+    "answer": "Orb-weaver spider",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A striped brown and yellow spider with long banded legs sits in the middle of its round web in front of green leaves.",
+      "image": "learning/img/orb-weaver-spider.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a red panda?",
+    "choicesJson": [
+      "Amphibian",
+      "Mammal",
+      "Fish",
+      "Insect"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A red panda with rusty-orange fur and a white face standing on a tree branch.",
+      "image": "learning/img/red-panda.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a platypus?",
+    "choicesJson": [
+      "Fish",
+      "Bird",
+      "Amphibian",
+      "Mammal"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A platypus with a flat bill and a broad tail swimming at the surface of a river.",
+      "image": "learning/img/platypus.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a salamander?",
+    "choicesJson": [
+      "Mammal",
+      "Reptile",
+      "Insect",
+      "Amphibian"
+    ],
+    "answer": "Amphibian",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves.",
+      "image": "learning/img/salamander.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Quokka",
+      "Aye-aye",
+      "Bison",
+      "Manatee"
+    ],
+    "answer": "Aye-aye",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "An aye-aye with big orange eyes and large ears peers out of the dark from among dry leaves and twigs.",
+      "image": "learning/img/aye-aye.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a grasshopper mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A green and yellow grasshopper with long antennae rests on a green leaf.",
+      "image": "learning/img/grasshopper.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a lionfish?",
+    "choicesJson": [
+      "Reptile",
+      "Fish",
+      "Insect",
+      "Bird"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water.",
+      "image": "learning/img/lionfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a lobster mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A lobster with two big claws and long red feelers sitting between rocks underwater.",
+      "image": "learning/img/lobster.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby king cobra called?",
+    "choicesJson": [
+      "Tadpole",
+      "Pup",
+      "Hatchling",
+      "Owlet"
+    ],
+    "answer": "Hatchling",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A king cobra raises the front of its body off the ground, with its head up and its long body trailing behind in dry grass.",
+      "image": "learning/img/king-cobra.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Salamander",
+      "Toad",
+      "Red-eyed tree frog",
+      "Poison dart frog"
+    ],
+    "answer": "Red-eyed tree frog",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf.",
+      "image": "learning/img/red-eyed-tree-frog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a wildebeest?",
+    "choicesJson": [
+      "Amphibian",
+      "Mammal",
+      "Bird",
+      "Insect"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground.",
+      "image": "learning/img/wildebeest.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Anglerfish",
+      "Stingray",
+      "Lionfish",
+      "Seahorse"
+    ],
+    "answer": "Lionfish",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water.",
+      "image": "learning/img/lionfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a spotted hyena usually live?",
+    "choicesJson": [
+      "On the savanna",
+      "In the ocean",
+      "In the mountains",
+      "On grassland"
+    ],
+    "answer": "On the savanna",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A spotted hyena with a tan coat and dark spots walks through dry golden grass.",
+      "image": "learning/img/spotted-hyena.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Axolotl",
+      "Red-eyed tree frog",
+      "Poison dart frog",
+      "Salamander"
+    ],
+    "answer": "Salamander",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves.",
+      "image": "learning/img/salamander.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby Atlantic puffin called?",
+    "choicesJson": [
+      "Peachick",
+      "Chick",
+      "Poult",
+      "Puffling"
+    ],
+    "answer": "Puffling",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "An Atlantic puffin with a bright orange-and-red beak and orange feet standing on a grassy cliff edge above the sea.",
+      "image": "learning/img/atlantic-puffin.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby poison dart frog called?",
+    "choicesJson": [
+      "Pup",
+      "Larva",
+      "Calf",
+      "Tadpole"
+    ],
+    "answer": "Tadpole",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A bright red strawberry poison dart frog with blue legs sits on a mossy branch.",
+      "image": "learning/img/poison-dart-frog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby salamander called?",
+    "choicesJson": [
+      "Chick",
+      "Poult",
+      "Tadpole",
+      "Larva"
+    ],
+    "answer": "Larva",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A black fire salamander with bright yellow spots stands on a mossy rock among brown fallen leaves.",
+      "image": "learning/img/salamander.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a tapir usually live?",
+    "choicesJson": [
+      "In a backyard or garden",
+      "In the mountains",
+      "In a desert",
+      "In a jungle"
+    ],
+    "answer": "In a jungle",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A South American tapir standing in shallow river water beside leafy plants.",
+      "image": "learning/img/tapir.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Okapi",
+      "Meerkat",
+      "Reindeer",
+      "Ring-tailed lemur"
+    ],
+    "answer": "Okapi",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "An okapi walks on grass with a dark brown body and white stripes on its legs and rump.",
+      "image": "learning/img/okapi.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Oryx",
+      "Bison",
+      "Capybara",
+      "Warthog"
+    ],
+    "answer": "Warthog",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane.",
+      "image": "learning/img/warthog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does an orca mainly eat?",
+    "choicesJson": [
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Other animals (a carnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "Two black and white orcas leap out of the sea at the same time.",
+      "image": "learning/img/orca.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a warthog?",
+    "choicesJson": [
+      "Bird",
+      "Mammal",
+      "Reptile",
+      "Insect"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A warthog kneels at a waterhole, showing its curved tusks and bristly mane.",
+      "image": "learning/img/warthog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a tapir?",
+    "choicesJson": [
+      "Insect",
+      "Bird",
+      "Mammal",
+      "Fish"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A South American tapir standing in shallow river water beside leafy plants.",
+      "image": "learning/img/tapir.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a lionfish usually live?",
+    "choicesJson": [
+      "In the ocean",
+      "In a desert",
+      "In the mountains",
+      "In a wetland"
+    ],
+    "answer": "In the ocean",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A red-and-white striped lionfish facing the camera with its long feathery fins spread wide in clear blue water.",
+      "image": "learning/img/lionfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a moose mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A big dark bull moose with wide antlers walks across dry autumn ground.",
+      "image": "learning/img/moose.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does an emu mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "An emu with shaggy brown feathers and a long neck walks across a grassy field.",
+      "image": "learning/img/emu.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a red-eyed tree frog?",
+    "choicesJson": [
+      "Amphibian",
+      "Insect",
+      "Mammal",
+      "Fish"
+    ],
+    "answer": "Amphibian",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf.",
+      "image": "learning/img/red-eyed-tree-frog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Gharial",
+      "Sea turtle",
+      "Komodo dragon",
+      "Basilisk lizard"
+    ],
+    "answer": "Basilisk lizard",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A brown common basilisk lizard with a long tail rests on a fallen log.",
+      "image": "learning/img/basilisk-lizard.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby snow leopard called?",
+    "choicesJson": [
+      "Joey",
+      "Calf",
+      "Hoglet",
+      "Cub"
+    ],
+    "answer": "Cub",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side.",
+      "image": "learning/img/snow-leopard.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a red-eyed tree frog usually live?",
+    "choicesJson": [
+      "In a jungle",
+      "On a farm",
+      "In the ocean",
+      "In the mountains"
+    ],
+    "answer": "In a jungle",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A green red-eyed tree frog with a big red eye, blue sides and orange toes sits on a large green leaf.",
+      "image": "learning/img/red-eyed-tree-frog.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is an axolotl?",
+    "choicesJson": [
+      "Insect",
+      "Mammal",
+      "Reptile",
+      "Amphibian"
+    ],
+    "answer": "Amphibian",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A pale pink axolotl with feathery gills walking on sand beside green water plants.",
+      "image": "learning/img/axolotl.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a rattlesnake usually live?",
+    "choicesJson": [
+      "In a jungle",
+      "On the savanna",
+      "In rivers and lakes",
+      "In a desert"
+    ],
+    "answer": "In a desert",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A tan prairie rattlesnake lies in loose coils on red dirt, looking toward the camera, with its rattle showing near its tail.",
+      "image": "learning/img/rattlesnake.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Ball python",
+      "Gharial",
+      "Tortoise",
+      "Sea turtle"
+    ],
+    "answer": "Gharial",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A gharial rests in shallow river water with its long, thin snout open to show its teeth.",
+      "image": "learning/img/gharial.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby kiwi called?",
+    "choicesJson": [
+      "Eaglet",
+      "Puffling",
+      "Chick",
+      "Peachick"
+    ],
+    "answer": "Chick",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A brown kiwi with shaggy feathers and a long thin bill walks through green grass and low shrubs.",
+      "image": "learning/img/kiwi.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a secretary bird?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/secretary-bird.webp",
+        "learning/img/kiwi.webp",
+        "learning/img/hummingbird.webp",
+        "learning/img/great-blue-heron.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does an orangutan mainly eat?",
+    "choicesJson": [
+      "Both plants and animals (an omnivore)",
+      "Other animals (a carnivore)",
+      "Plants (a herbivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A close-up portrait of an adult orangutan with reddish-orange fur.",
+      "image": "learning/img/orangutan.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby wombat called?",
+    "choicesJson": [
+      "Pup",
+      "Joey",
+      "Infant",
+      "Calf"
+    ],
+    "answer": "Joey",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A round, furry common wombat grazing on short green grass.",
+      "image": "learning/img/wombat.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Bald eagle",
+      "Cassowary",
+      "Peregrine falcon",
+      "Kiwi"
+    ],
+    "answer": "Peregrine falcon",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky.",
+      "image": "learning/img/peregrine-falcon.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Black widow spider",
+      "Scorpion",
+      "Tarantula",
+      "Orb-weaver spider"
+    ],
+    "answer": "Black widow spider",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A shiny black spider with long thin legs hangs in its web, showing a red hourglass mark on its round belly.",
+      "image": "learning/img/black-widow-spider.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a pufferfish usually live?",
+    "choicesJson": [
+      "In a backyard or garden",
+      "On grassland",
+      "In the ocean",
+      "On a farm"
+    ],
+    "answer": "In the ocean",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A blackspotted puffer with a gray back, a yellow belly and black spots swimming near a coral reef.",
+      "image": "learning/img/pufferfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Great white shark",
+      "Pufferfish",
+      "Clownfish",
+      "Hammerhead shark"
+    ],
+    "answer": "Pufferfish",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A blackspotted puffer with a gray back, a yellow belly and black spots swimming near a coral reef.",
+      "image": "learning/img/pufferfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby peregrine falcon called?",
+    "choicesJson": [
+      "Cygnet",
+      "Chick",
+      "Peachick",
+      "Eaglet"
+    ],
+    "answer": "Chick",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A grey and white peregrine falcon with yellow feet perches on a bare branch against a pale sky.",
+      "image": "learning/img/peregrine-falcon.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Koala",
+      "Gray wolf",
+      "Snow leopard",
+      "Wildebeest"
+    ],
+    "answer": "Snow leopard",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side.",
+      "image": "learning/img/snow-leopard.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is a wombat?",
+    "choicesJson": [
+      "Mammal",
+      "Insect",
+      "Reptile",
+      "Bird"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A round, furry common wombat grazing on short green grass.",
+      "image": "learning/img/wombat.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a sea anemone?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/jellyfish.webp",
+        "learning/img/okapi.webp",
+        "learning/img/sea-anemone.webp",
+        "learning/img/coral.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows an orb-weaver spider?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/scorpion.webp",
+        "learning/img/tarantula.webp",
+        "learning/img/black-widow-spider.webp",
+        "learning/img/orb-weaver-spider.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby albatross called?",
+    "choicesJson": [
+      "Peachick",
+      "Poult",
+      "Eaglet",
+      "Chick"
+    ],
+    "answer": "Chick",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves.",
+      "image": "learning/img/albatross.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Aardvark",
+      "Orangutan",
+      "Spotted hyena",
+      "Tasmanian devil"
+    ],
+    "answer": "Tasmanian devil",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A black Tasmanian devil with a white chest patch walks through green grass and dandelions.",
+      "image": "learning/img/tasmanian-devil.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is an albatross?",
+    "choicesJson": [
+      "Amphibian",
+      "Reptile",
+      "Mammal",
+      "Bird"
+    ],
+    "answer": "Bird",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves.",
+      "image": "learning/img/albatross.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a leatherback sea turtle?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/tortoise.webp",
+        "learning/img/alligator.webp",
+        "learning/img/leatherback-sea-turtle.webp",
+        "learning/img/thorny-devil.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What kind of animal is an oryx?",
+    "choicesJson": [
+      "Mammal",
+      "Bird",
+      "Insect",
+      "Fish"
+    ],
+    "answer": "Mammal",
+    "tags": [
+      "animals",
+      "classification"
+    ],
+    "media": {
+      "alt": "A gemsbok, a kind of oryx, stands in dry grassland with long straight horns and a black and white face.",
+      "image": "learning/img/oryx.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a snow leopard usually live?",
+    "choicesJson": [
+      "In a backyard or garden",
+      "In the mountains",
+      "In rivers and lakes",
+      "In the ocean"
+    ],
+    "answer": "In the mountains",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A snow leopard with a spotted coat sitting on rocky ground and looking to the side.",
+      "image": "learning/img/snow-leopard.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a jellyfish mainly eat?",
+    "choicesJson": [
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)",
+      "Both plants and animals (an omnivore)"
+    ],
+    "answer": "Other animals (a carnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A glowing lion's mane jellyfish with a round orange bell and long thin tentacles drifts in dark blue water.",
+      "image": "learning/img/jellyfish.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Jellyfish",
+      "Sheep",
+      "Coral",
+      "Sea anemone"
+    ],
+    "answer": "Coral",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A pale pink branching coral with many bumpy tips grows on a shallow reef with a couple of small fish nearby.",
+      "image": "learning/img/coral.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Atlantic puffin",
+      "Emu",
+      "Albatross",
+      "Peacock"
+    ],
+    "answer": "Albatross",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A large white albatross with dark wings glides low over rough grey-blue ocean waves.",
+      "image": "learning/img/albatross.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby wildebeest called?",
+    "choicesJson": [
+      "Fawn",
+      "Calf",
+      "Pup",
+      "Kit"
+    ],
+    "answer": "Calf",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A blue wildebeest with curved horns and a dark mane stands on red sandy ground.",
+      "image": "learning/img/wildebeest.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a bison mainly eat?",
+    "choicesJson": [
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Plants (a herbivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A shaggy brown bison grazes on a grassy hillside in Yellowstone National Park.",
+      "image": "learning/img/bison.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does a mandrill usually live?",
+    "choicesJson": [
+      "In a backyard or garden",
+      "In a jungle",
+      "In people's homes",
+      "In rivers and lakes"
+    ],
+    "answer": "In a jungle",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A mandrill with a red and blue face and a golden beard stands on green grass.",
+      "image": "learning/img/mandrill.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the animal in the picture?",
+    "choicesJson": [
+      "Platypus",
+      "Okapi",
+      "Spotted hyena",
+      "Bat"
+    ],
+    "answer": "Spotted hyena",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A spotted hyena with a tan coat and dark spots walks through dry golden grass.",
+      "image": "learning/img/spotted-hyena.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a ring-tailed lemur mainly eat?",
+    "choicesJson": [
+      "Both plants and animals (an omnivore)",
+      "Plants (a herbivore)",
+      "Other animals (a carnivore)"
+    ],
+    "answer": "Both plants and animals (an omnivore)",
+    "tags": [
+      "animals",
+      "diet"
+    ],
+    "media": {
+      "alt": "A close-up of a ring-tailed lemur with orange eyes and black-and-white face markings, holding onto tree branches.",
+      "image": "learning/img/ring-tailed-lemur.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is this?",
+    "choicesJson": [
+      "Shoebill",
+      "Ostrich",
+      "Kakapo",
+      "Atlantic puffin"
+    ],
+    "answer": "Shoebill",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "A shoebill facing the camera with its huge shoe-shaped bill in front of green grass.",
+      "image": "learning/img/shoebill.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a coral?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "animals",
+      "photo"
+    ],
+    "media": {
+      "alt": "Choose a picture",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/coral.webp",
+        "learning/img/sheep.webp",
+        "learning/img/sea-anemone.webp",
+        "learning/img/jellyfish.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a baby platypus called?",
+    "choicesJson": [
+      "Puggle",
+      "Pup",
+      "Calf",
+      "Infant"
+    ],
+    "answer": "Puggle",
+    "tags": [
+      "animals",
+      "life-cycle"
+    ],
+    "media": {
+      "alt": "A platypus with a flat bill and a broad tail swimming at the surface of a river.",
+      "image": "learning/img/platypus.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This is a vampire squid. Which habitat does it live in?",
+    "choicesJson": [
+      "Savanna",
+      "Deep ocean",
+      "Swamp",
+      "Pond"
+    ],
+    "answer": "Deep ocean",
+    "tags": [
+      "habitats",
+      "animals"
+    ],
+    "media": {
+      "alt": "A dark red squid floating in dark blue water.",
+      "image": "learning/img/habitats-deep-a.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Many desert animals come out at night. Why?",
+    "choicesJson": [
+      "Deserts are snowy at night",
+      "There is more water at night",
+      "They cannot see in daylight",
+      "It is cooler than the daytime heat"
+    ],
+    "answer": "It is cooler than the daytime heat",
+    "tags": [
+      "adaptations",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A big sand dune with a clear sky.",
+      "image": "learning/img/habitats-desert-b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do tall mountains have snow on top, even in warm places?",
+    "choicesJson": [
+      "The higher you go, the colder the air gets",
+      "Rain turns to snow when it hits rock",
+      "The sun is closer so it melts less",
+      "Clouds drop snow every day"
+    ],
+    "answer": "The higher you go, the colder the air gets",
+    "tags": [
+      "habitats",
+      "weather"
+    ],
+    "media": {
+      "alt": "A snowy mountain peak above evergreen trees.",
+      "image": "learning/img/habitats-mountain-b.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Clownfish stay safe by living among the tentacles of what animal?",
+    "choicesJson": [
+      "Sea anemone",
+      "Jellyfish",
+      "Seahorse",
+      "Octopus"
+    ],
+    "answer": "Sea anemone",
+    "tags": [
+      "animals",
+      "habitats"
+    ],
+    "media": {
+      "alt": "A clownfish among soft tentacles.",
+      "image": "learning/img/habitats-clownfish.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This photo shows the Amazon from above. What do we call the thick layer of treetops that covers a rainforest?",
+    "answer": "canopy",
+    "acceptedAnswers": [
+      "the canopy"
+    ],
+    "tags": [
+      "habitats",
+      "plants"
+    ],
+    "media": {
+      "alt": "Green treetops with a river winding through them.",
+      "image": "learning/img/habitats-rainforest-c.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The ground in the Arctic tundra stays frozen below the surface all year. What is this frozen ground called?",
+    "answer": "permafrost",
+    "acceptedAnswers": [
+      "perma frost"
+    ],
+    "tags": [
+      "habitats"
+    ],
+    "media": {
+      "alt": "A flat snowy plain with animals walking on it.",
+      "image": "learning/img/habitats-tundra-c.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the ring-shaped part around the pupil called?",
+    "choicesJson": [
+      "Eyelid",
+      "Iris",
+      "Retina",
+      "Lens"
+    ],
+    "answer": "Iris",
+    "tags": [
+      "human body",
+      "senses"
+    ],
+    "media": {
+      "alt": "A drawing of a human eye with the eyelids open.",
+      "image": "learning/img/human-body-eye.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sound makes a thin skin inside your ear shake. What is it called?",
+    "choicesJson": [
+      "Eardrum",
+      "Cornea",
+      "Earlobe",
+      "Eyelash"
+    ],
+    "answer": "Eardrum",
+    "tags": [
+      "human body",
+      "senses"
+    ],
+    "media": {
+      "alt": "A drawing of the outside of a human ear.",
+      "image": "learning/img/human-body-ear.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Besides hearing, what else do parts deep inside your ear help you do?",
+    "choicesJson": [
+      "Stay balanced",
+      "Digest food",
+      "Smell flowers",
+      "Taste food"
+    ],
+    "answer": "Stay balanced",
+    "tags": [
+      "human body",
+      "senses"
+    ],
+    "media": {
+      "alt": "A drawing of the outside of a human ear.",
+      "image": "learning/img/human-body-ear.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the largest organ inside the body, shown here?",
+    "choicesJson": [
+      "Liver",
+      "Kidney",
+      "Stomach",
+      "Heart"
+    ],
+    "answer": "Liver",
+    "tags": [
+      "human body",
+      "organs"
+    ],
+    "media": {
+      "alt": "A drawing of the underside of a human liver.",
+      "image": "learning/img/human-body-liver.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The small bones that stack up to make the backbone are called what?",
+    "choicesJson": [
+      "Ribs",
+      "Molars",
+      "Joints",
+      "Vertebrae"
+    ],
+    "answer": "Vertebrae",
+    "tags": [
+      "human body",
+      "bones"
+    ],
+    "media": {
+      "alt": "A side view of the backbone made of stacked bones.",
+      "image": "learning/img/human-body-spine.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bone is the longest in the human body?",
+    "choicesJson": [
+      "Skull",
+      "Collarbone",
+      "Rib",
+      "Femur (thigh bone)"
+    ],
+    "answer": "Femur (thigh bone)",
+    "tags": [
+      "human body",
+      "bones"
+    ],
+    "media": {
+      "alt": "A drawing of the long thigh bone.",
+      "image": "learning/img/human-body-femur.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many chambers (rooms) does a human heart have? Type a number.",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "human body",
+      "heart"
+    ],
+    "media": {
+      "alt": "A drawing of a human heart cut open to show the inside.",
+      "image": "learning/img/human-body-heart.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name of the tube that carries air from your throat down to your lungs?",
+    "answer": "windpipe",
+    "acceptedAnswers": [
+      "trachea",
+      "the windpipe",
+      "the trachea"
+    ],
+    "tags": [
+      "human body",
+      "lungs"
+    ],
+    "media": {
+      "alt": "A drawing of two lungs cut open with the windpipe at the top.",
+      "image": "learning/img/human-body-lungs.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which gas do your lungs take from the air and send into your blood?",
+    "choicesJson": [
+      "Oxygen",
+      "Carbon dioxide",
+      "Hydrogen",
+      "Helium"
+    ],
+    "answer": "Oxygen",
+    "tags": [
+      "human body",
+      "lungs"
+    ],
+    "media": {
+      "alt": "A drawing of two lungs cut open with the windpipe at the top.",
+      "image": "learning/img/human-body-lungs.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the stomach?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "human body",
+      "digestion"
+    ],
+    "media": {
+      "alt": "Four drawings of body parts to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/human-body-heart.webp",
+        "learning/img/human-body-brain.webp",
+        "learning/img/human-body-lungs.webp",
+        "learning/img/human-body-stomach.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the longest bone in the body?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "human body",
+      "bones"
+    ],
+    "media": {
+      "alt": "Four drawings of body parts to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/human-body-skull.webp",
+        "learning/img/human-body-tooth.webp",
+        "learning/img/human-body-femur.webp",
+        "learning/img/human-body-ear.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which stage of a ladybug's life is shown in this photo?",
+    "choicesJson": [
+      "Egg",
+      "Larva",
+      "Adult ladybug",
+      "Pupa"
+    ],
+    "answer": "Larva",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "A gray and orange spiky ladybug larva crawling along a green leaf.",
+      "image": "learning/img/life-cycles-ladybug-larva.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which stage of a ladybug's life is shown in this photo?",
+    "choicesJson": [
+      "Larva",
+      "Egg",
+      "Adult ladybug",
+      "Pupa"
+    ],
+    "answer": "Pupa",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "An orange and black ladybug pupa attached to a green leaf.",
+      "image": "learning/img/life-cycles-ladybug-pupa.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ladybug larvae eat lots of tiny insects called aphids. Why do gardeners like having them around?",
+    "choicesJson": [
+      "They plant new seeds",
+      "They make honey",
+      "They eat pests that harm plants",
+      "They give plants water"
+    ],
+    "answer": "They eat pests that harm plants",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "A gray and orange spiky ladybug larva crawling along a green leaf.",
+      "image": "learning/img/life-cycles-ladybug-larva.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Inside this stage, what is happening to the ladybug?",
+    "choicesJson": [
+      "Its body is changing into an adult",
+      "It is hatching from an egg",
+      "It is laying eggs",
+      "It is hunting aphids"
+    ],
+    "answer": "Its body is changing into an adult",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "An orange and black ladybug pupa attached to a green leaf.",
+      "image": "learning/img/life-cycles-ladybug-pupa.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a hen keeps a fertilized egg warm, about how long does it take for the chick to hatch?",
+    "choicesJson": [
+      "About 3 days",
+      "About 3 months",
+      "About 1 year",
+      "About 21 days"
+    ],
+    "answer": "About 21 days",
+    "tags": [
+      "life-cycles",
+      "chickens"
+    ],
+    "media": {
+      "alt": "A tray full of brown chicken eggs.",
+      "image": "learning/img/life-cycles-chicken-egg.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "These tadpoles breathe with gills. What will they use to breathe air as adult frogs?",
+    "choicesJson": [
+      "Lungs",
+      "Fins",
+      "Antennae",
+      "Feathers"
+    ],
+    "answer": "Lungs",
+    "tags": [
+      "life-cycles",
+      "frogs"
+    ],
+    "media": {
+      "alt": "Two small dark tadpoles with long tails and tiny feathery gills.",
+      "image": "learning/img/life-cycles-tadpole.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name of this hard case that a butterfly caterpillar makes? Type one word.",
+    "answer": "chrysalis",
+    "acceptedAnswers": [
+      "crysalis",
+      "chrysalises",
+      "chrysalides",
+      "a chrysalis",
+      "the chrysalis",
+      "pupa"
+    ],
+    "tags": [
+      "life-cycles",
+      "butterflies"
+    ],
+    "media": {
+      "alt": "A green monarch chrysalis covered in water drops hanging from a milkweed plant.",
+      "image": "learning/img/life-cycles-monarch-chrysalis.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the word for a seed starting to grow into a new plant?",
+    "choicesJson": [
+      "Pollination",
+      "Evaporation",
+      "Migration",
+      "Germination"
+    ],
+    "answer": "Germination",
+    "tags": [
+      "life-cycles",
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is a tomato a fruit?",
+    "choicesJson": [
+      "It grows underground",
+      "It is red",
+      "It tastes sweet",
+      "It grows from a flower and holds seeds"
+    ],
+    "answer": "It grows from a flower and holds seeds",
+    "tags": [
+      "life-cycles",
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals goes through metamorphosis?",
+    "choicesJson": [
+      "Turtle",
+      "Rabbit",
+      "Chicken",
+      "Butterfly"
+    ],
+    "answer": "Butterfly",
+    "tags": [
+      "life-cycles",
+      "butterflies"
+    ]
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a ladybug larva?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "Four photos of the stages of a ladybug.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/life-cycles-ladybug-larva.webp",
+        "learning/img/life-cycles-ladybug-pupa.webp",
+        "learning/img/life-cycles-ladybug-adult.webp",
+        "learning/img/life-cycles-ladybug-eggs.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a ladybug pupa, the stage when its body changes into an adult?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "life-cycles",
+      "ladybugs"
+    ],
+    "media": {
+      "alt": "Four photos of the stages of a ladybug.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/life-cycles-ladybug-eggs.webp",
+        "learning/img/life-cycles-ladybug-pupa.webp",
+        "learning/img/life-cycles-ladybug-adult.webp",
+        "learning/img/life-cycles-ladybug-larva.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the pupa stage of a butterfly?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "life-cycles",
+      "butterflies"
+    ],
+    "media": {
+      "alt": "Four photos of the stages of a monarch butterfly.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/life-cycles-monarch-adult.webp",
+        "learning/img/life-cycles-monarch-egg.webp",
+        "learning/img/life-cycles-monarch-chrysalis.webp",
+        "learning/img/life-cycles-monarch-caterpillar.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows a living thing that is not a plant?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "fungi",
+      "plants vs fungi"
+    ],
+    "media": {
+      "alt": "4 plant photos labeled A, B, C and D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/plants-fern.webp",
+        "learning/img/plants-moss.webp",
+        "learning/img/plants-mushroom.webp",
+        "learning/img/plants-sunflower.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Pines are conifers. Which picture shows part of a conifer?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "conifers",
+      "seeds"
+    ],
+    "media": {
+      "alt": "4 plant photos labeled A, B, C and D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/plants-pine-cone.webp",
+        "learning/img/plants-tulip-flower.webp",
+        "learning/img/plants-apple-blossoms.webp",
+        "learning/img/plants-sunflower.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Venus flytraps grow in soil that has few nutrients. How do they get extra nutrients?",
+    "choicesJson": [
+      "By eating dead leaves from the ground",
+      "By drinking rainwater only",
+      "By trapping and digesting insects",
+      "By growing roots into rocks"
+    ],
+    "answer": "By trapping and digesting insects",
+    "tags": [
+      "carnivorous plants",
+      "adaptations"
+    ],
+    "media": {
+      "alt": "A Venus flytrap with open green and red traps edged with spiky teeth grows in a pot.",
+      "image": "learning/img/plants-venus-flytrap.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In fall, the green color fades from leaves like this one and reds and oranges show. What is the green substance in leaves called?",
+    "choicesJson": [
+      "Pollen",
+      "Chlorophyll",
+      "Nectar",
+      "Resin"
+    ],
+    "answer": "Chlorophyll",
+    "tags": [
+      "leaves",
+      "seasons"
+    ],
+    "media": {
+      "alt": "A red leaf with pointed lobes on a wooden board.",
+      "image": "learning/img/plants-maple-leaf.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The thin lines in this leaf are called veins. What do veins do?",
+    "choicesJson": [
+      "Carry water and food through the leaf",
+      "Make seeds for the plant",
+      "Protect the leaf from bugs",
+      "Hold the leaf's green color"
+    ],
+    "answer": "Carry water and food through the leaf",
+    "tags": [
+      "leaves",
+      "plant parts"
+    ],
+    "media": {
+      "alt": "A bright green leaf with a thick middle vein and many thin side veins, lit from behind.",
+      "image": "learning/img/plants-leaf.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The bumpy green tops of broccoli are mostly which part of the plant?",
+    "choicesJson": [
+      "Roots",
+      "Seeds",
+      "Flower buds",
+      "Leaves"
+    ],
+    "answer": "Flower buds",
+    "tags": [
+      "food plants",
+      "flowers"
+    ],
+    "media": {
+      "alt": "A close-up of a green broccoli head made of tiny tightly packed buds.",
+      "image": "learning/img/plants-broccoli.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When a seed sprouts, which part usually grows out first?",
+    "choicesJson": [
+      "Flower",
+      "Leaf",
+      "Root",
+      "Fruit"
+    ],
+    "answer": "Root",
+    "tags": [
+      "seeds",
+      "germination"
+    ],
+    "media": {
+      "alt": "Young green pea sprouts push up from dark soil beside the pale seeds they grew from.",
+      "image": "learning/img/plants-pea-sprouts.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Squirrels bury acorns and sometimes forget where. How can that help oak trees?",
+    "choicesJson": [
+      "It makes the old tree taller",
+      "It turns acorns into leaves",
+      "It stops oak trees from growing",
+      "New oak trees can grow in new places"
+    ],
+    "answer": "New oak trees can grow in new places",
+    "tags": [
+      "seeds",
+      "seed dispersal"
+    ],
+    "media": {
+      "alt": "Three acorns and an acorn cap rest on a speckled stone surface.",
+      "image": "learning/img/plants-acorn.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which group of animals is cold-blooded, has dry scaly skin, and mostly lays eggs on land?",
+    "choicesJson": [
+      "Amphibians",
+      "Mammals",
+      "Reptiles",
+      "Birds"
+    ],
+    "answer": "Reptiles",
+    "tags": [
+      "classification",
+      "reptiles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Frogs begin life in water and live partly on land as adults. Which animal group are frogs in?",
+    "choicesJson": [
+      "Fish",
+      "Amphibians",
+      "Reptiles",
+      "Mammals"
+    ],
+    "answer": "Amphibians",
+    "tags": [
+      "classification",
+      "amphibians"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals is an invertebrate, meaning it has no backbone?",
+    "choicesJson": [
+      "Salmon",
+      "Bat",
+      "Octopus",
+      "Lizard"
+    ],
+    "answer": "Octopus",
+    "tags": [
+      "classification",
+      "invertebrates"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many legs does an adult insect have? Type the number.",
+    "answer": "6",
+    "acceptedAnswers": [
+      "six"
+    ],
+    "tags": [
+      "insects",
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Spiders are arachnids, not insects. How many legs does a spider have? Type the number.",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight"
+    ],
+    "tags": [
+      "arachnids",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A dolphin breathes air with lungs and feeds milk to its babies. Which animal group is a dolphin in?",
+    "choicesJson": [
+      "Mammals",
+      "Fish",
+      "Reptiles",
+      "Amphibians"
+    ],
+    "answer": "Mammals",
+    "tags": [
+      "classification",
+      "mammals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A caterpillar is which stage of a butterfly's life cycle?",
+    "choicesJson": [
+      "Egg",
+      "Pupa",
+      "Adult",
+      "Larva"
+    ],
+    "answer": "Larva",
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these insects goes through complete metamorphosis (egg, larva, pupa, adult)?",
+    "choicesJson": [
+      "Grasshopper",
+      "Cricket",
+      "Dragonfly",
+      "Ladybug"
+    ],
+    "answer": "Ladybug",
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A young grasshopper looks like a tiny adult without wings. What is this young stage called?",
+    "choicesJson": [
+      "Larva",
+      "Pupa",
+      "Nymph",
+      "Tadpole"
+    ],
+    "answer": "Nymph",
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A tadpole breathes with gills and swims with a tail. After it grows legs and lungs, what animal does it become?",
+    "answer": "frog",
+    "acceptedAnswers": [
+      "a frog",
+      "frogs",
+      "toad",
+      "a toad"
+    ],
+    "tags": [
+      "life-cycles",
+      "amphibians"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows the life cycle of a frog in the correct order?",
+    "choicesJson": [
+      "Tadpole, egg, froglet, adult frog",
+      "Egg, tadpole, froglet, adult frog",
+      "Egg, froglet, tadpole, adult frog",
+      "Adult frog, egg, froglet, tadpole"
+    ],
+    "answer": "Egg, tadpole, froglet, adult frog",
+    "tags": [
+      "life-cycles",
+      "amphibians"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of a chicken egg is the food supply for the growing chick?",
+    "choicesJson": [
+      "The shell",
+      "The yolk",
+      "The feather",
+      "The beak"
+    ],
+    "answer": "The yolk",
+    "tags": [
+      "life-cycles",
+      "birds"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Most mammals give birth to live babies, but a few lay eggs. Which of these mammals lays eggs?",
+    "choicesJson": [
+      "Platypus",
+      "Penguin",
+      "Crocodile",
+      "Frog"
+    ],
+    "answer": "Platypus",
+    "tags": [
+      "mammals",
+      "life-cycles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Baby sea turtles hatch from eggs buried in the sand. Where do they head right after hatching?",
+    "choicesJson": [
+      "Into the forest",
+      "Under a rock",
+      "Back into the nest",
+      "Toward the ocean"
+    ],
+    "answer": "Toward the ocean",
+    "tags": [
+      "life-cycles",
+      "reptiles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals is warm-blooded?",
+    "choicesJson": [
+      "Snake",
+      "Goldfish",
+      "Eagle",
+      "Frog"
+    ],
+    "answer": "Eagle",
+    "tags": [
+      "classification",
+      "birds"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals breathes with gills for its whole life?",
+    "choicesJson": [
+      "Dolphin",
+      "Seal",
+      "Sea turtle",
+      "Shark"
+    ],
+    "answer": "Shark",
+    "tags": [
+      "fish",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A shark's skeleton is made of bendy cartilage, like the tip of your nose, instead of hard bone. What kind of animal is a shark?",
+    "choicesJson": [
+      "Mammal",
+      "Reptile",
+      "Fish",
+      "Amphibian"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "fish",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bats can fly like birds, but they are mammals. Which fact proves a bat is a mammal?",
+    "choicesJson": [
+      "It has wings",
+      "It nurses its babies with milk",
+      "It sleeps upside down",
+      "It hunts at night"
+    ],
+    "answer": "It nurses its babies with milk",
+    "tags": [
+      "mammals",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals is NOT an insect?",
+    "choicesJson": [
+      "Ant",
+      "Mosquito",
+      "Butterfly",
+      "Scorpion"
+    ],
+    "answer": "Scorpion",
+    "tags": [
+      "insects",
+      "arachnids"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Crabs, lobsters, and shrimp have hard outer shells and jointed legs. Which group do they belong to?",
+    "choicesJson": [
+      "Mollusks",
+      "Arachnids",
+      "Crustaceans",
+      "Echinoderms"
+    ],
+    "answer": "Crustaceans",
+    "tags": [
+      "invertebrates",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals is a mollusk?",
+    "choicesJson": [
+      "Starfish",
+      "Snail",
+      "Crab",
+      "Jellyfish"
+    ],
+    "answer": "Snail",
+    "tags": [
+      "invertebrates",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Starfish are not really fish. They have no backbone, so what kind of animal are they?",
+    "choicesJson": [
+      "Vertebrates",
+      "Mammals",
+      "Reptiles",
+      "Invertebrates"
+    ],
+    "answer": "Invertebrates",
+    "tags": [
+      "invertebrates",
+      "classification"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the hard outer covering on an insect's body called? Hint: it starts with the letters EXO.",
+    "answer": "exoskeleton",
+    "acceptedAnswers": [
+      "an exoskeleton"
+    ],
+    "tags": [
+      "insects",
+      "body-parts"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A crab grows too big for its hard shell. What does it do so it can keep growing?",
+    "choicesJson": [
+      "It hibernates in the mud",
+      "It molts and sheds its shell",
+      "It migrates to warm water",
+      "It lays eggs in the sand"
+    ],
+    "answer": "It molts and sheds its shell",
+    "tags": [
+      "life-cycles",
+      "invertebrates"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Some bears sleep through the cold winter in a den to save energy. What is this long winter sleep called?",
+    "choicesJson": [
+      "Migration",
+      "Camouflage",
+      "Metamorphosis",
+      "Hibernation"
+    ],
+    "answer": "Hibernation",
+    "tags": [
+      "adaptations",
+      "mammals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Monarch butterflies fly thousands of miles to warmer places each fall. What is this long seasonal trip called?",
+    "answer": "migration",
+    "acceptedAnswers": [
+      "migrate",
+      "migrating"
+    ],
+    "tags": [
+      "adaptations",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the very first stage in the life cycle of most flowering plants?",
+    "choicesJson": [
+      "Flower",
+      "Seed",
+      "Fruit",
+      "Seedling"
+    ],
+    "answer": "Seed",
+    "tags": [
+      "plants",
+      "life-cycles"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "When a bee carries pollen from one flower to another, it helps the plant make seeds. What is this process called? Hint: it starts with POLL.",
+    "answer": "pollination",
+    "acceptedAnswers": [
+      "pollinating"
+    ],
+    "tags": [
+      "plants",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body covering do birds have that no other group of animals has?",
+    "choicesJson": [
+      "Scales",
+      "Fur",
+      "Feathers",
+      "Shells"
+    ],
+    "answer": "Feathers",
+    "tags": [
+      "birds",
+      "body-parts"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which insect has only three life stages (egg, nymph, adult) instead of four?",
+    "choicesJson": [
+      "Butterfly",
+      "Beetle",
+      "Moth",
+      "Dragonfly"
+    ],
+    "answer": "Dragonfly",
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal is a marsupial that carries its baby in a pouch?",
+    "choicesJson": [
+      "Lion",
+      "Kangaroo",
+      "Bat",
+      "Seal"
+    ],
+    "answer": "Kangaroo",
+    "tags": [
+      "mammals",
+      "life-cycles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals does NOT have a backbone?",
+    "choicesJson": [
+      "Eagle",
+      "Salmon",
+      "Gecko",
+      "Earthworm"
+    ],
+    "answer": "Earthworm",
+    "tags": [
+      "invertebrates",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Penguins swim instead of flying. Why are they still classified as birds?",
+    "choicesJson": [
+      "They live near the ocean",
+      "They have feathers and lay eggs",
+      "They eat fish",
+      "They have flippers"
+    ],
+    "answer": "They have feathers and lay eggs",
+    "tags": [
+      "birds",
+      "classification"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A male seahorse carries the babies in a pouch until they hatch. What group of animals are seahorses in?",
+    "choicesJson": [
+      "Fish",
+      "Mammals",
+      "Crustaceans",
+      "Reptiles"
+    ],
+    "answer": "Fish",
+    "tags": [
+      "fish",
+      "life-cycles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows a butterfly's life cycle in the correct order?",
+    "choicesJson": [
+      "Egg, larva, pupa, adult",
+      "Egg, pupa, larva, adult",
+      "Larva, egg, adult, pupa",
+      "Adult, larva, egg, pupa"
+    ],
+    "answer": "Egg, larva, pupa, adult",
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A lizard lies on a warm rock in the morning sun. Why does it do this?",
+    "choicesJson": [
+      "It is warm-blooded and wants to cool off",
+      "It is cold-blooded and needs the sun's heat",
+      "It is looking for water to drink",
+      "It is shedding its old feathers"
+    ],
+    "answer": "It is cold-blooded and needs the sun's heat",
+    "tags": [
+      "reptiles",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A butterfly goes through complete metamorphosis. How many stages are in its life cycle? Type the number.",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "life-cycles",
+      "insects"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, you can find axolotls in lush caves. Real axolotls spend their whole lives in water and have feathery gills. Which animal group are they in?",
+    "choicesJson": [
+      "Fish",
+      "Reptiles",
+      "Mammals",
+      "Amphibians"
+    ],
+    "answer": "Amphibians",
+    "tags": [
+      "amphibians",
+      "classification",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft bees fly around collecting nectar. A real bee has three body parts: head, thorax, and abdomen. Which part holds the wings and the legs?",
+    "choicesJson": [
+      "Head",
+      "Abdomen",
+      "Stinger",
+      "Thorax"
+    ],
+    "answer": "Thorax",
+    "tags": [
+      "insects",
+      "body-parts",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Wildlife like chickens, boars, wolves, and frogs roam the Fortnite island. Which of these animals is an amphibian?",
+    "choicesJson": [
+      "Chicken",
+      "Boar",
+      "Frog",
+      "Wolf"
+    ],
+    "answer": "Frog",
+    "tags": [
+      "amphibians",
+      "classification",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In many Roblox pet games, you hatch your pets from eggs. Which real animal also hatches from an egg?",
+    "choicesJson": [
+      "Kitten",
+      "Lizard",
+      "Puppy",
+      "Lamb"
+    ],
+    "answer": "Lizard",
+    "tags": [
+      "life-cycles",
+      "reptiles",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An SCP-style file describes a creature with six legs, three body parts, and two antennae. Which animal group does it belong to?",
+    "choicesJson": [
+      "Arachnids",
+      "Insects",
+      "Crustaceans",
+      "Reptiles"
+    ],
+    "answer": "Insects",
+    "tags": [
+      "insects",
+      "classification",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A containment file says the subject starts as a worm-like larva, wraps itself in a cocoon, and then comes out with wings. What is this process of changing body form called?",
+    "choicesJson": [
+      "Migration",
+      "Metamorphosis",
+      "Hibernation",
+      "Camouflage"
+    ],
+    "answer": "Metamorphosis",
+    "tags": [
+      "life-cycles",
+      "insects",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Creepypasta legends say strange creatures stalk the woods at night. Real animals that are active at night and sleep during the day are called what? Hint: it starts with NOCT.",
+    "answer": "nocturnal",
+    "tags": [
+      "adaptations",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Godzilla is a movie monster that looks like a giant lizard. Real reptiles like lizards and crocodiles are covered in what?",
+    "choicesJson": [
+      "Feathers",
+      "Fur",
+      "Slimy skin",
+      "Scales"
+    ],
+    "answer": "Scales",
+    "tags": [
+      "reptiles",
+      "body-parts",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In stories, Dracula can turn into a bat. Real bats are mammals. What do mother bats feed their babies? Type one word.",
+    "answer": "milk",
+    "acceptedAnswers": [
+      "bat milk"
+    ],
+    "tags": [
+      "mammals",
+      "life-cycles",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of a plant takes in water from the soil?",
+    "choicesJson": [
+      "Leaves",
+      "Roots",
+      "Petals",
+      "Stem"
+    ],
+    "answer": "Roots",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name of the process plants use to make their own food using sunlight?",
+    "answer": "photosynthesis",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which gas do plants take in from the air to help make their food?",
+    "choicesJson": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon dioxide",
+      "Helium"
+    ],
+    "answer": "Carbon dioxide",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which gas do plants give off into the air during photosynthesis?",
+    "choicesJson": [
+      "Carbon dioxide",
+      "Hydrogen",
+      "Smoke",
+      "Oxygen"
+    ],
+    "answer": "Oxygen",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main job of a plant's stem?",
+    "choicesJson": [
+      "Make seeds for new plants",
+      "Carry water to the leaves and hold the plant up",
+      "Make sugar from sunlight and air",
+      "Attract bees with bright colors"
+    ],
+    "answer": "Carry water to the leaves and hold the plant up",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which plant part is where most photosynthesis happens?",
+    "choicesJson": [
+      "Roots",
+      "Seeds",
+      "Leaves",
+      "Bark"
+    ],
+    "answer": "Leaves",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is NOT needed for photosynthesis?",
+    "choicesJson": [
+      "Sunlight",
+      "Water",
+      "Carbon dioxide",
+      "Cheese"
+    ],
+    "answer": "Cheese",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main job of a flower?",
+    "choicesJson": [
+      "Soak up water",
+      "Hold the plant up",
+      "Make seeds so new plants can grow",
+      "Store sunlight overnight"
+    ],
+    "answer": "Make seeds so new plants can grow",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do many flowers have bright, colorful petals?",
+    "choicesJson": [
+      "To attract bees and other pollinators",
+      "To scare away rain",
+      "To hide from sunlight",
+      "To help roots grow deeper"
+    ],
+    "answer": "To attract bees and other pollinators",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the word for when a seed starts to sprout and grow into a new plant?",
+    "answer": "germination",
+    "acceptedAnswers": [
+      "germinate",
+      "germinating"
+    ],
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, Steve chops a tree trunk to get wood. In real life, which plant part is a tree trunk?",
+    "choicesJson": [
+      "Root",
+      "Stem",
+      "Leaf",
+      "Flower"
+    ],
+    "answer": "Stem",
+    "tags": [
+      "plants",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A plant is kept in a dark closet for two weeks. Its leaves turn pale and yellow. What is the most likely reason?",
+    "choicesJson": [
+      "It got too much sunlight",
+      "It was too warm",
+      "It had too many roots",
+      "It could not get sunlight to make food"
+    ],
+    "answer": "It could not get sunlight to make food",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Besides soaking up water, what is another important job of roots?",
+    "choicesJson": [
+      "Holding the plant in the ground",
+      "Making flowers",
+      "Catching sunlight",
+      "Spreading pollen"
+    ],
+    "answer": "Holding the plant in the ground",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A carrot is mostly which part of a plant?",
+    "choicesJson": [
+      "Seed",
+      "Root",
+      "Flower",
+      "Leaf"
+    ],
+    "answer": "Root",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these foods is a leaf?",
+    "choicesJson": [
+      "Carrot",
+      "Lettuce",
+      "Apple",
+      "Sunflower seeds"
+    ],
+    "answer": "Lettuce",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Trees in a Fortnite forest look green because real tree leaves contain a green substance. What is it called?",
+    "choicesJson": [
+      "Pollen",
+      "Sap",
+      "Chlorophyll",
+      "Bark"
+    ],
+    "answer": "Chlorophyll",
+    "tags": [
+      "plants",
+      "photosynthesis",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do cacti have thick, fleshy stems?",
+    "choicesJson": [
+      "To store water for dry times",
+      "To trap insects",
+      "To make bright flowers",
+      "To float on water"
+    ],
+    "answer": "To store water for dry times",
+    "tags": [
+      "plants",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Venus flytrap catches insects. Why does it do this?",
+    "choicesJson": [
+      "To replace photosynthesis completely",
+      "To get nutrients the poor soil lacks",
+      "To make its leaves green",
+      "To spread its pollen"
+    ],
+    "answer": "To get nutrients the poor soil lacks",
+    "tags": [
+      "plants",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Maple tree seeds have thin, flat wings. How does this help the tree?",
+    "choicesJson": [
+      "It helps the seeds spin away on the wind",
+      "It helps the seeds soak up water",
+      "It keeps animals from seeing them",
+      "It makes the seeds taste sweet"
+    ],
+    "answer": "It helps the seeds spin away on the wind",
+    "tags": [
+      "plants",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Leaves have tiny holes that let air in and out. What are these holes called?",
+    "answer": "stomata",
+    "acceptedAnswers": [
+      "stoma"
+    ],
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which list shows everything a plant needs to do photosynthesis?",
+    "choicesJson": [
+      "Sunlight, water, and carbon dioxide",
+      "Sunlight, oxygen, and sugar",
+      "Soil, wind, and sugar",
+      "Water, oxygen, and darkness"
+    ],
+    "answer": "Sunlight, water, and carbon dioxide",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a plant make during photosynthesis that it uses as food?",
+    "choicesJson": [
+      "Pollen",
+      "Salt",
+      "Sand",
+      "Sugar"
+    ],
+    "answer": "Sugar",
+    "tags": [
+      "plants",
+      "photosynthesis"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Plants on a windowsill often bend toward the window. What are they reacting to?",
+    "choicesJson": [
+      "Music",
+      "Dust",
+      "Light",
+      "Magnets"
+    ],
+    "answer": "Light",
+    "tags": [
+      "plants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepypasta-style tall, thin figure lurks in a dark forest. Real forest plants that grow in deep shade often have big, wide leaves. Why?",
+    "choicesJson": [
+      "To catch more of the little light that reaches them",
+      "To hide from the tall figure",
+      "To store extra water",
+      "To make more roots"
+    ],
+    "answer": "To catch more of the little light that reaches them",
+    "tags": [
+      "plants",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Bulbasaur has a plant on its back. If it were a real plant, which part would collect sunlight to make food?",
+    "choicesJson": [
+      "Roots",
+      "Seeds",
+      "Stem",
+      "Leaves"
+    ],
+    "answer": "Leaves",
+    "tags": [
+      "plants",
+      "theme:pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which body covering do all mammals have at some point in their lives?",
+    "choicesJson": [
+      "Scales",
+      "Feathers",
+      "Hair or fur",
+      "Shells"
+    ],
+    "answer": "Hair or fur",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Which body part do fish use to take in oxygen from the water?",
+    "answer": "gills",
+    "acceptedAnswers": [
+      "gill",
+      "the gills"
+    ],
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A lizard's body is covered in dry, waterproof scales. What does this covering mainly help it do?",
+    "choicesJson": [
+      "Hear better",
+      "Keep from drying out",
+      "Fly short distances",
+      "Make milk"
+    ],
+    "answer": "Keep from drying out",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals can take in oxygen through its moist skin?",
+    "choicesJson": [
+      "Snake",
+      "Eagle",
+      "Lizard",
+      "Frog"
+    ],
+    "answer": "Frog",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A spider is not an insect. Which fact helps prove it?",
+    "choicesJson": [
+      "It lives on land",
+      "It has eight legs instead of six",
+      "It can crawl",
+      "It has eyes"
+    ],
+    "answer": "It has eight legs instead of six",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An insect's body has three main parts. Which list is correct?",
+    "choicesJson": [
+      "Head, thorax, abdomen",
+      "Head, tail, wings",
+      "Head, arms, legs",
+      "Antennae, shell, tail"
+    ],
+    "answer": "Head, thorax, abdomen",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which insect body parts are mostly used to sense smells and touch?",
+    "choicesJson": [
+      "Wings",
+      "Antennae",
+      "Stingers",
+      "Thorax"
+    ],
+    "answer": "Antennae",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dracula turns into a bat in many movies. Real bats find food in the dark by making squeaks and sensing how the sounds bounce back. What is this ability called?",
+    "choicesJson": [
+      "Hibernation",
+      "Camouflage",
+      "Migration",
+      "Echolocation"
+    ],
+    "answer": "Echolocation",
+    "tags": [
+      "animals",
+      "senses",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Owls hunt at night. Which body part helps them see in dim light?",
+    "choicesJson": [
+      "Large eyes that gather lots of light",
+      "Thick fur on their feet",
+      "Long whiskers",
+      "Hard shells over their eyes"
+    ],
+    "answer": "Large eyes that gather lots of light",
+    "tags": [
+      "animals",
+      "senses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sense is a dog's strongest?",
+    "choicesJson": [
+      "Smell",
+      "Color vision",
+      "Taste",
+      "Balance"
+    ],
+    "answer": "Smell",
+    "tags": [
+      "animals",
+      "senses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are a cat's whiskers mostly used for?",
+    "choicesJson": [
+      "Sensing nearby objects by touch",
+      "Hearing high sounds",
+      "Keeping the cat warm",
+      "Chewing food"
+    ],
+    "answer": "Sensing nearby objects by touch",
+    "tags": [
+      "animals",
+      "senses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Fish have a special line of sense organs along their sides that feels vibrations in the water. What is it called?",
+    "choicesJson": [
+      "Fin ridge",
+      "Scale track",
+      "Gill line",
+      "Lateral line"
+    ],
+    "answer": "Lateral line",
+    "tags": [
+      "animals",
+      "senses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An arctic hare grows white fur in winter. How does this help it?",
+    "choicesJson": [
+      "It blends in with the snow so predators can't see it easily",
+      "It makes the hare run faster",
+      "It helps the hare smell better",
+      "It stores food for later"
+    ],
+    "answer": "It blends in with the snow so predators can't see it easily",
+    "tags": [
+      "animals",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What helps a walrus stay warm in icy water?",
+    "choicesJson": [
+      "Thin scales",
+      "A thick layer of fat called blubber",
+      "Colorful feathers",
+      "A hard shell"
+    ],
+    "answer": "A thick layer of fat called blubber",
+    "tags": [
+      "animals",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal has a shell that is part of its skeleton, joined to its ribs and backbone?",
+    "choicesJson": [
+      "Frog",
+      "Snake",
+      "Turtle",
+      "Lizard"
+    ],
+    "answer": "Turtle",
+    "tags": [
+      "animals"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox pet game gives you a fox. Real desert foxes called fennec foxes have huge ears. What do the big ears help them do?",
+    "choicesJson": [
+      "Lose extra body heat",
+      "Store water",
+      "Dig faster",
+      "Float on sand"
+    ],
+    "answer": "Lose extra body heat",
+    "tags": [
+      "animals",
+      "adaptations",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The SCP Foundation tries to contain creepy creatures. A real stick insect stays still so it looks like a twig. What trick is it using?",
+    "choicesJson": [
+      "Migration",
+      "Hibernation",
+      "Camouflage",
+      "Echolocation"
+    ],
+    "answer": "Camouflage",
+    "tags": [
+      "animals",
+      "adaptations",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Godzilla looks like a giant lizard. Real lizards belong to which animal group?",
+    "choicesJson": [
+      "Amphibians",
+      "Fish",
+      "Mammals",
+      "Reptiles"
+    ],
+    "answer": "Reptiles",
+    "tags": [
+      "animals",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal makes its home in a coral reef?",
+    "choicesJson": [
+      "Camel",
+      "Prairie dog",
+      "Clownfish",
+      "Moose"
+    ],
+    "answer": "Clownfish",
+    "tags": [
+      "habitats"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What word means the place where an animal finds the food, water, shelter, and space it needs to live?",
+    "answer": "habitat",
+    "acceptedAnswers": [
+      "a habitat",
+      "habitats"
+    ],
+    "tags": [
+      "habitats"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "All the living and nonliving things in an area, interacting with each other, make up one what? (Hint: it starts with 'eco')",
+    "answer": "ecosystem",
+    "acceptedAnswers": [
+      "an ecosystem",
+      "eco system",
+      "ecosystems"
+    ],
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a nonliving part of a forest ecosystem?",
+    "choicesJson": [
+      "Fern",
+      "Squirrel",
+      "Mushroom",
+      "Soil"
+    ],
+    "answer": "Soil",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mushrooms and bacteria break down dead plants and animals and return nutrients to the soil. What are these living things called?",
+    "choicesJson": [
+      "Producers",
+      "Decomposers",
+      "Predators",
+      "Herbivores"
+    ],
+    "answer": "Decomposers",
+    "tags": [
+      "ecosystems",
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which living thing is a producer because it makes its own food using sunlight?",
+    "choicesJson": [
+      "Deer",
+      "Wolf",
+      "Oak tree",
+      "Earthworm"
+    ],
+    "answer": "Oak tree",
+    "tags": [
+      "ecosystems",
+      "producers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On the grassland, a lion hunts a zebra. Which one is the prey?",
+    "choicesJson": [
+      "The lion",
+      "The grass",
+      "The zebra",
+      "The Sun"
+    ],
+    "answer": "The zebra",
+    "tags": [
+      "ecosystems",
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which food chain is in the correct order, with the energy moving from left to right?",
+    "choicesJson": [
+      "Snake -> frog -> grasshopper -> grass",
+      "Grass -> grasshopper -> frog -> snake",
+      "Grasshopper -> grass -> frog -> snake",
+      "Frog -> grass -> snake -> grasshopper"
+    ],
+    "answer": "Grass -> grasshopper -> frog -> snake",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Imagine every frog in a pond suddenly disappeared. What would most likely happen to the number of insects that frogs eat?",
+    "choicesJson": [
+      "They would all disappear too",
+      "They would turn into frogs",
+      "Nothing would change at all",
+      "Their numbers would grow"
+    ],
+    "answer": "Their numbers would grow",
+    "tags": [
+      "ecosystems",
+      "balance"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A camel has wide, flat, padded feet. How does this adaptation help it live in the desert?",
+    "choicesJson": [
+      "It can swim across rivers",
+      "It can climb tall trees",
+      "It can dig deep burrows",
+      "It can walk on sand without sinking"
+    ],
+    "answer": "It can walk on sand without sinking",
+    "tags": [
+      "adaptations",
+      "habitats"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence describes a tropical rainforest?",
+    "choicesJson": [
+      "It is cold and covered in snow",
+      "It is hot and gets a lot of rain",
+      "It is dry and has almost no plants",
+      "It is flat and has no trees"
+    ],
+    "answer": "It is hot and gets a lot of rain",
+    "tags": [
+      "habitats"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A swamp is one kind of wetland. What is true about wetlands?",
+    "choicesJson": [
+      "They are covered with sand dunes",
+      "They are the tops of rocky mountains",
+      "They are land soaked with water much of the year",
+      "They are frozen all year long"
+    ],
+    "answer": "They are land soaked with water much of the year",
+    "tags": [
+      "habitats"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A forest is cleared to build a shopping mall. What is the biggest problem this causes for the animals that lived there?",
+    "choicesJson": [
+      "They get more food and shelter",
+      "They lose their food and shelter",
+      "They all turn into birds",
+      "Nothing, because animals never need a habitat"
+    ],
+    "answer": "They lose their food and shelter",
+    "tags": [
+      "habitats",
+      "human impact"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Many birds migrate south before winter. Why do they make this long trip?",
+    "choicesJson": [
+      "To visit other birds for a party",
+      "To find warmer weather and more food",
+      "To lay their eggs in the ocean",
+      "To get away from the rain forever"
+    ],
+    "answer": "To find warmer weather and more food",
+    "tags": [
+      "adaptations",
+      "migration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A walking stick insect looks just like a twig on a tree. How does this camouflage help it survive?",
+    "choicesJson": [
+      "It makes the insect taste sweet",
+      "It helps the insect hide from predators",
+      "It lets the insect fly faster",
+      "It keeps the insect warm in winter"
+    ],
+    "answer": "It helps the insect hide from predators",
+    "tags": [
+      "adaptations",
+      "camouflage"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, cacti grow in desert biomes. Why can a real cactus survive in a desert with so little rain?",
+    "choicesJson": [
+      "It drinks water from the air with its spines",
+      "It lives mostly underground",
+      "It needs no water at all",
+      "It stores water in its thick stem"
+    ],
+    "answer": "It stores water in its thick stem",
+    "tags": [
+      "adaptations",
+      "plants",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft has a jungle biome full of tall trees, vines, and parrots. Which real habitat is it most like?",
+    "choicesJson": [
+      "Arctic tundra",
+      "Tropical rainforest",
+      "Desert",
+      "Deep ocean floor"
+    ],
+    "answer": "Tropical rainforest",
+    "tags": [
+      "habitats",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Loch Ness Monster is said to live in Loch Ness, a big lake in Scotland. Loch Ness is a freshwater lake. What does freshwater mean?",
+    "choicesJson": [
+      "The water has very little salt in it",
+      "The water is always warm",
+      "The water is saltier than the ocean",
+      "The water is frozen solid"
+    ],
+    "answer": "The water has very little salt in it",
+    "tags": [
+      "habitats",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Legends say Bigfoot hides in the deep forests of the Pacific Northwest. Which real animal lives in forests like those?",
+    "choicesJson": [
+      "Camel",
+      "Clownfish",
+      "Penguin",
+      "Black bear"
+    ],
+    "answer": "Black bear",
+    "tags": [
+      "habitats",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An SCP-style report describes a pale creature that lives in a pitch-black cave. It has no eyes but has long, sensitive feelers. How would these feelers help it survive?",
+    "choicesJson": [
+      "They help it fly over the cave",
+      "They keep it warm in the snow",
+      "They help it feel its way and find food in the dark",
+      "They help it swim across the ocean"
+    ],
+    "answer": "They help it feel its way and find food in the dark",
+    "tags": [
+      "adaptations",
+      "habitats",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, you can hide inside a bush so enemies cannot spot you. Which real animal uses camouflage in a similar way to blend into the sandy sea floor?",
+    "choicesJson": [
+      "Cardinal",
+      "Skunk",
+      "Flounder",
+      "Elephant"
+    ],
+    "answer": "Flounder",
+    "tags": [
+      "adaptations",
+      "camouflage",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Roblox survival game, you must find food, water, and shelter. Real animals need those three things from their habitat too. What is the fourth thing?",
+    "choicesJson": [
+      "Robux",
+      "Wi-Fi",
+      "Space",
+      "A tail"
+    ],
+    "answer": "Space",
+    "tags": [
+      "habitats",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An animal that eats both plants and other animals is called a what? (Hint: it starts with 'omni')",
+    "answer": "omnivore",
+    "acceptedAnswers": [
+      "an omnivore",
+      "omnivores"
+    ],
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where does the energy in almost every food chain on Earth begin?",
+    "choicesJson": [
+      "The Sun",
+      "The soil",
+      "The wind",
+      "The Moon"
+    ],
+    "answer": "The Sun",
+    "tags": [
+      "food chains",
+      "energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Wolves are removed from a forest, and the number of deer shoots way up. What is the most likely effect on the forest plants?",
+    "choicesJson": [
+      "More plants get eaten, so there are fewer plants",
+      "The plants grow back instantly",
+      "The plants turn into deer",
+      "Nothing happens to the plants"
+    ],
+    "answer": "More plants get eaten, so there are fewer plants",
+    "tags": [
+      "ecosystems",
+      "balance"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A new kind of animal is brought to an ecosystem where it does not belong, and it crowds out the native animals. What is this kind of species called?",
+    "choicesJson": [
+      "Native species",
+      "Invasive species",
+      "Extinct species",
+      "Baby species"
+    ],
+    "answer": "Invasive species",
+    "tags": [
+      "ecosystems",
+      "human impact"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which biome is full of trees that lose their leaves every fall?",
+    "choicesJson": [
+      "Desert",
+      "Arctic tundra",
+      "Deciduous forest",
+      "Coral reef"
+    ],
+    "answer": "Deciduous forest",
+    "tags": [
+      "habitats",
+      "biomes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Legend says Dracula is a vampire who drinks blood. In a real human body, which organ pumps blood around to every part of you?",
+    "choicesJson": [
+      "Heart",
+      "Stomach",
+      "Lungs",
+      "Brain"
+    ],
+    "answer": "Heart",
+    "tags": [
+      "human body",
+      "circulatory system",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which pair of organs takes oxygen from the air you breathe in and puts it into your blood?",
+    "choicesJson": [
+      "Kidneys",
+      "Lungs",
+      "Stomach",
+      "Liver"
+    ],
+    "answer": "Lungs",
+    "tags": [
+      "human body",
+      "respiratory system"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many bones does a full-grown adult human have? Type the number.",
+    "answer": "206",
+    "acceptedAnswers": [
+      "two hundred six",
+      "two hundred and six"
+    ],
+    "tags": [
+      "human body",
+      "skeleton"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bone is like a built-in helmet that protects your brain?",
+    "choicesJson": [
+      "Skull",
+      "Femur",
+      "Rib",
+      "Kneecap"
+    ],
+    "answer": "Skull",
+    "tags": [
+      "human body",
+      "skeleton"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your rib cage curves around the middle of your upper body. Which organs does it protect?",
+    "choicesJson": [
+      "Stomach and bladder",
+      "Brain and eyes",
+      "Heart and lungs",
+      "Hands and feet"
+    ],
+    "answer": "Heart and lungs",
+    "tags": [
+      "human body",
+      "skeleton"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How do your muscles make your body move?",
+    "choicesJson": [
+      "They pull on your bones when they tighten",
+      "They pump blood into your bones",
+      "They send smells to your brain",
+      "They break food into tiny pieces"
+    ],
+    "answer": "They pull on your bones when they tighten",
+    "tags": [
+      "human body",
+      "muscles"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "After food leaves your stomach, it goes into a long, coiled tube where most of the nutrients get absorbed into your blood. What is that organ?",
+    "choicesJson": [
+      "Esophagus",
+      "Windpipe",
+      "Small intestine",
+      "Heart"
+    ],
+    "answer": "Small intestine",
+    "tags": [
+      "human body",
+      "digestion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When you swallow, food travels from your mouth to your stomach through a tube. What is it called?",
+    "choicesJson": [
+      "Artery",
+      "Trachea",
+      "Intestine",
+      "Esophagus"
+    ],
+    "answer": "Esophagus",
+    "tags": [
+      "human body",
+      "digestion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You touch a hot pan and yank your hand back. What carries the signal from your hand to your brain?",
+    "choicesJson": [
+      "Bones",
+      "Nerves",
+      "Lungs",
+      "Teeth"
+    ],
+    "answer": "Nerves",
+    "tags": [
+      "human body",
+      "nervous system"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of your eye is the black opening that gets smaller in bright light?",
+    "choicesJson": [
+      "Eyelash",
+      "Tear duct",
+      "Pupil",
+      "Eyebrow"
+    ],
+    "answer": "Pupil",
+    "tags": [
+      "human body",
+      "senses"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name of the hard, white outer layer that protects each of your teeth?",
+    "answer": "enamel",
+    "acceptedAnswers": [
+      "tooth enamel"
+    ],
+    "tags": [
+      "human body",
+      "health"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a job of your skin?",
+    "choicesJson": [
+      "Helping you digest food",
+      "Pumping blood to your toes",
+      "Protecting your body from germs",
+      "Making your bones grow"
+    ],
+    "answer": "Protecting your body from germs",
+    "tags": [
+      "human body",
+      "skin"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which habit helps stop germs from spreading to other people?",
+    "choicesJson": [
+      "Sharing your cup with friends",
+      "Washing your hands with soap and water",
+      "Sneezing into the air",
+      "Wiping your hands on your shirt"
+    ],
+    "answer": "Washing your hands with soap and water",
+    "tags": [
+      "health",
+      "germs"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Doctors say elementary school kids need about how much sleep each night?",
+    "choicesJson": [
+      "4 to 5 hours",
+      "9 to 12 hours",
+      "6 hours",
+      "15 hours"
+    ],
+    "answer": "9 to 12 hours",
+    "tags": [
+      "health",
+      "sleep"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which nutrient from foods like beans, eggs, and chicken helps your body build and repair muscles?",
+    "choicesJson": [
+      "Salt",
+      "Protein",
+      "Fiber",
+      "Candy"
+    ],
+    "answer": "Protein",
+    "tags": [
+      "health",
+      "nutrition"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is regular exercise, like running or biking, good for your heart?",
+    "choicesJson": [
+      "It makes the heart muscle stronger",
+      "It makes the heart stop for a rest",
+      "It turns the heart into a bone",
+      "It makes the heart smaller than a fist"
+    ],
+    "answer": "It makes the heart muscle stronger",
+    "tags": [
+      "health",
+      "exercise"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About how much of a human body is made of water?",
+    "choicesJson": [
+      "Less than one tenth",
+      "About one quarter",
+      "Almost all of it, 99 percent",
+      "More than half"
+    ],
+    "answer": "More than half",
+    "tags": [
+      "human body",
+      "health"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of your blood carries oxygen from your lungs to the rest of your body?",
+    "choicesJson": [
+      "White blood cells",
+      "Red blood cells",
+      "Platelets",
+      "Sweat"
+    ],
+    "answer": "Red blood cells",
+    "tags": [
+      "human body",
+      "blood"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, eating food refills your hunger bar so you can keep going. In real life, what does your body get from food that lets you run, think, and grow?",
+    "choicesJson": [
+      "Energy and nutrients",
+      "Armor points",
+      "Experience levels",
+      "Oxygen only"
+    ],
+    "answer": "Energy and nutrients",
+    "tags": [
+      "health",
+      "nutrition",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Lions eat only meat. What kind of eater is a lion?",
+    "choicesJson": [
+      "Herbivore",
+      "Carnivore",
+      "Omnivore",
+      "Decomposer"
+    ],
+    "answer": "Carnivore",
+    "tags": [
+      "diets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a producer in a food chain?",
+    "choicesJson": [
+      "Rabbit",
+      "Hawk",
+      "Snake",
+      "Grass"
+    ],
+    "answer": "Grass",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Look at this food chain: grass -> grasshopper -> frog -> snake. Which one is the primary consumer, the first animal that eats a producer?",
+    "choicesJson": [
+      "Grass",
+      "Frog",
+      "Grasshopper",
+      "Snake"
+    ],
+    "answer": "Grasshopper",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a food chain diagram, what does each arrow point toward?",
+    "choicesJson": [
+      "The Sun",
+      "The living thing that eats and gets the energy",
+      "The living thing that is eaten",
+      "The decomposer"
+    ],
+    "answer": "The living thing that eats and gets the energy",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An owl swoops down and catches a mouse. Which animal is the prey?",
+    "choicesJson": [
+      "The owl",
+      "The mouse",
+      "Neither one",
+      "Both of them"
+    ],
+    "answer": "The mouse",
+    "tags": [
+      "food chains",
+      "predators"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An orca is at the very top of its ocean food chain and has almost no natural predators. What is this kind of animal called?",
+    "choicesJson": [
+      "Producer",
+      "Scavenger",
+      "Apex predator",
+      "Decomposer"
+    ],
+    "answer": "Apex predator",
+    "tags": [
+      "food chains",
+      "predators"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Vultures often eat animals that are already dead. What is this kind of eater called?",
+    "choicesJson": [
+      "Scavenger",
+      "Producer",
+      "Herbivore",
+      "Parasite"
+    ],
+    "answer": "Scavenger",
+    "tags": [
+      "diets",
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a food web?",
+    "choicesJson": [
+      "A spider's web covered in insects",
+      "A list of foods that people eat",
+      "Many food chains in an ecosystem linked together",
+      "A food chain with only plants"
+    ],
+    "answer": "Many food chains in an ecosystem linked together",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Here is an ocean food chain: algae -> shrimp -> small fish -> seal. Which one is a secondary consumer?",
+    "choicesJson": [
+      "Algae",
+      "Shrimp",
+      "Seal",
+      "Small fish"
+    ],
+    "answer": "Small fish",
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Imagine a Minecraft-style food chain: wheat -> cow -> player. What is wheat's job in this chain?",
+    "choicesJson": [
+      "Predator",
+      "Producer",
+      "Decomposer",
+      "Scavenger"
+    ],
+    "answer": "Producer",
+    "tags": [
+      "food chains",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your Roblox character is stuck on an icy obby level where emperor penguins huddle in a tight group. Why do real penguins huddle together?",
+    "choicesJson": [
+      "To stay warm in the cold",
+      "To look bigger to fish",
+      "To dig for food",
+      "To block the sunlight"
+    ],
+    "answer": "To stay warm in the cold",
+    "tags": [
+      "adaptations",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Fortnite, players can disguise themselves as a bush to blend in with the map. What word describes real animals that blend in with their surroundings to hide?",
+    "answer": "camouflage",
+    "acceptedAnswers": [
+      "camouflaged",
+      "camoflauge",
+      "camoflage"
+    ],
+    "tags": [
+      "camouflage",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An SCP-style file says a creature is nocturnal. When is this creature most active?",
+    "choicesJson": [
+      "At night",
+      "At noon",
+      "Only in winter",
+      "Only during rain"
+    ],
+    "answer": "At night",
+    "tags": [
+      "adaptations",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Werewolf movies show a wolf howling at the moon. Real wolves live and hunt in family groups. What is a group of wolves called?",
+    "answer": "pack",
+    "acceptedAnswers": [
+      "a pack",
+      "wolf pack",
+      "packs"
+    ],
+    "tags": [
+      "adaptations",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Piranha Plants in Super Mario chomp anything that gets close. Which real plant traps and digests insects to get extra nutrients?",
+    "choicesJson": [
+      "Sunflower",
+      "Venus flytrap",
+      "Oak tree",
+      "Dandelion"
+    ],
+    "answer": "Venus flytrap",
+    "tags": [
+      "adaptations",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these animals hibernates through the winter?",
+    "choicesJson": [
+      "Cow",
+      "Cat",
+      "Horse",
+      "Groundhog"
+    ],
+    "answer": "Groundhog",
+    "tags": [
+      "hibernation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do many animals hibernate in winter?",
+    "choicesJson": [
+      "Food is hard to find, so sleeping saves energy",
+      "They are afraid of snow",
+      "They want to grow bigger wings",
+      "The Sun makes them too hot"
+    ],
+    "answer": "Food is hard to find, so sleeping saves energy",
+    "tags": [
+      "hibernation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is migration?",
+    "choicesJson": [
+      "Sleeping through the winter",
+      "Traveling a long way at certain times of year",
+      "Hiding by blending in with the background",
+      "Growing a thicker coat for the cold"
+    ],
+    "answer": "Traveling a long way at certain times of year",
+    "tags": [
+      "migration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which bird is famous for the longest migration of any animal, flying from the Arctic to the Antarctic and back each year?",
+    "choicesJson": [
+      "Chicken",
+      "Arctic tern",
+      "Ostrich",
+      "Penguin"
+    ],
+    "answer": "Arctic tern",
+    "tags": [
+      "migration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which land animal travels in huge herds across the Arctic tundra each year to find food?",
+    "choicesJson": [
+      "Camel",
+      "Koala",
+      "Caribou",
+      "Kangaroo"
+    ],
+    "answer": "Caribou",
+    "tags": [
+      "migration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Salmon grow up in the ocean, then swim up rivers to lay their eggs where they were born. What is this journey an example of?",
+    "choicesJson": [
+      "Hibernation",
+      "Migration",
+      "Camouflage",
+      "Decomposing"
+    ],
+    "answer": "Migration",
+    "tags": [
+      "migration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which animal would be best hidden on a green, leafy branch?",
+    "choicesJson": [
+      "Polar bear",
+      "Zebra",
+      "Flamingo",
+      "Green tree frog"
+    ],
+    "answer": "Green tree frog",
+    "tags": [
+      "camouflage"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An octopus can change its skin color and texture to match rocks and coral. How does this help it?",
+    "choicesJson": [
+      "It can hide from predators and sneak up on prey",
+      "It stays warmer in winter",
+      "It can breathe air",
+      "It can hibernate on the seafloor"
+    ],
+    "answer": "It can hide from predators and sneak up on prey",
+    "tags": [
+      "camouflage"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A hoverfly cannot sting, but it has yellow and black stripes that look like a wasp. Why does this help it?",
+    "choicesJson": [
+      "Predators may avoid it, thinking it can sting",
+      "The stripes help it fly faster",
+      "The stripes help it find flowers",
+      "The stripes keep it cooler in summer"
+    ],
+    "answer": "Predators may avoid it, thinking it can sting",
+    "tags": [
+      "camouflage",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Poison dart frogs have bright red, yellow, or blue skin. What does the bright color warn predators about?",
+    "choicesJson": [
+      "The frog is poisonous",
+      "The frog is asleep",
+      "The frog is hungry",
+      "The frog is a baby"
+    ],
+    "answer": "The frog is poisonous",
+    "tags": [
+      "adaptations",
+      "camouflage"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which adaptation helps a camel survive in the hot, dry desert?",
+    "choicesJson": [
+      "Webbed feet for swimming",
+      "A thick layer of blubber",
+      "A hump that stores fat for energy",
+      "Gills for breathing"
+    ],
+    "answer": "A hump that stores fat for energy",
+    "tags": [
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A hummingbird has a long, thin beak. What is this beak adapted for?",
+    "choicesJson": [
+      "Cracking hard seeds",
+      "Reaching nectar deep inside flowers",
+      "Tearing meat",
+      "Filtering water for tiny fish"
+    ],
+    "answer": "Reaching nectar deep inside flowers",
+    "tags": [
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which one is a behavioral adaptation, something an animal does, instead of a body part?",
+    "choicesJson": [
+      "A porcupine's quills",
+      "A turtle's shell",
+      "A bird flying south for the winter",
+      "A skunk's spray"
+    ],
+    "answer": "A bird flying south for the winter",
+    "tags": [
+      "adaptations",
+      "migration"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A trait or behavior that helps a living thing survive in its environment is called what? (Hint: it starts with the letter A.)",
+    "answer": "adaptation",
+    "acceptedAnswers": [
+      "an adaptation",
+      "adaptations"
+    ],
+    "tags": [
+      "adaptations"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Some desert animals sleep through the hottest, driest part of summer. What is this summer sleep called?",
+    "choicesJson": [
+      "Hibernation",
+      "Migration",
+      "Estivation",
+      "Camouflage"
+    ],
+    "answer": "Estivation",
+    "tags": [
+      "hibernation",
+      "adaptations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Here is a food chain: seeds -> mouse -> snake -> hawk. How many consumers are in this chain?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "food chains"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On the African savanna, there are far fewer lions than zebras. What is the best reason?",
+    "choicesJson": [
+      "Zebras are always bigger than lions",
+      "Each level up gets less energy, so fewer animals fit",
+      "Lions only eat one small meal each year",
+      "Grass only grows in places where zebras live"
+    ],
+    "answer": "Each level up gets less energy, so fewer animals fit",
+    "tags": [
+      "food chains",
+      "energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An opossum falls over and plays dead when it is in danger. Why can this help it survive?",
+    "choicesJson": [
+      "Predators may lose interest in it",
+      "It saves energy for winter",
+      "It lets the opossum change color",
+      "It helps the opossum find food"
+    ],
+    "answer": "Predators may lose interest in it",
+    "tags": [
+      "adaptations"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An anteater eats mostly ants and termites. What do we call an animal that eats mostly insects?",
+    "answer": "insectivore",
+    "acceptedAnswers": [
+      "insectivores",
+      "an insectivore"
+    ],
+    "tags": [
+      "diets"
+    ]
+  }
+]

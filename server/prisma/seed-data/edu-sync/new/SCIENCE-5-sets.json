@@ -1,0 +1,628 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This rock looks like pebbles glued together in sand. What is it called?",
+  "choicesJson": [
+   "Obsidian",
+   "Quartz",
+   "Pumice",
+   "Conglomerate"
+  ],
+  "answer": "Conglomerate",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "sedimentary"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-conglomerate.webp",
+   "alt": "A rusty orange rock made of rounded pebbles cemented together in sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The wavy bands in this rock formed when heat and pressure squeezed and stretched its minerals deep underground. What type of rock is it?",
+  "choicesJson": [
+   "Igneous",
+   "Sedimentary",
+   "Metamorphic"
+  ],
+  "answer": "Metamorphic",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "metamorphic"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-gneiss.webp",
+   "alt": "A rock with swirling bands of white and dark gray minerals."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Granite has large crystals that you can see. What made the crystals so big?",
+  "choicesJson": [
+   "Sand was pressed into layers",
+   "The lava cooled very fast in the air",
+   "The magma cooled slowly underground",
+   "Ocean waves rubbed it smooth"
+  ],
+  "answer": "The magma cooled slowly underground",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "igneous"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-granite.webp",
+   "alt": "A close-up of a pink, white and black speckled piece of granite with visible crystals."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why does obsidian look like glass?",
+  "choicesJson": [
+   "It was frozen under a glacier",
+   "Its lava cooled very quickly",
+   "Its lava cooled very slowly",
+   "It was pressed from layers of mud"
+  ],
+  "answer": "Its lava cooled very quickly",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "igneous"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-obsidian.webp",
+   "alt": "A shiny, black, glassy chunk of obsidian."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Marble is a metamorphic rock. Which rock does heat and pressure change into marble?",
+  "choicesJson": [
+   "Coal",
+   "Limestone",
+   "Obsidian",
+   "Basalt"
+  ],
+  "answer": "Limestone",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "metamorphic"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-marble.webp",
+   "alt": "Polished white marble tiles with thin gray veins."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Most sandstone is made mainly of tiny grains of which mineral?",
+  "choicesJson": [
+   "Quartz",
+   "Gypsum",
+   "Talc",
+   "Pyrite"
+  ],
+  "answer": "Quartz",
+  "acceptedAnswers": [],
+  "tags": [
+   "minerals",
+   "sedimentary"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-sandstone.webp",
+   "alt": "A tan and orange rock sample made of tiny cemented sand grains."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Most of the ocean floor is made of which dark volcanic rock?",
+  "choicesJson": [
+   "Marble",
+   "Sandstone",
+   "Basalt",
+   "Quartz"
+  ],
+  "answer": "Basalt",
+  "acceptedAnswers": [],
+  "tags": [
+   "rocks",
+   "earth's crust"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-basalt.webp",
+   "alt": "A dark gray, fine-grained piece of basalt rock."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many caves form when slightly acidic water slowly dissolves which kind of rock?",
+  "choicesJson": [
+   "Limestone",
+   "Obsidian",
+   "Granite",
+   "Quartz"
+  ],
+  "answer": "Limestone",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "caves"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-cave.webp",
+   "alt": "Pale stalactites hanging from the rocky ceiling inside a cave."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This island began as a volcano rising from the sea floor. What was the island built from?",
+  "choicesJson": [
+   "Sand blown in by wind",
+   "Ice that melted",
+   "Lava that cooled and hardened",
+   "Soil carried by rivers"
+  ],
+  "answer": "Lava that cooled and hardened",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "volcanoes"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-island.webp",
+   "alt": "An island with a steep green peak rising from turquoise water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What makes a geyser erupt?",
+  "choicesJson": [
+   "Underground water heated by hot rock turns to steam and pushes out",
+   "An earthquake squeezes a river",
+   "Wind blows water up from a lake",
+   "Melting glaciers drip into a hole"
+  ],
+  "answer": "Underground water heated by hot rock turns to steam and pushes out",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "heat"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-geyser.webp",
+   "alt": "A geyser shooting a tall column of hot water and steam into the sky."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Many mountain ranges form when giant pieces of Earth's crust push together. What are these giant pieces called?",
+  "choicesJson": [
+   "Tectonic plates",
+   "Glaciers",
+   "Ocean waves",
+   "Sand dunes"
+  ],
+  "answer": "Tectonic plates",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "plate tectonics"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-mountains.webp",
+   "alt": "A snowy, jagged mountain range rising behind a green valley."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A river builds a delta by dropping tiny bits of rock and mud it carried along. What do scientists call this material?",
+  "choicesJson": [
+   "Crystal",
+   "Lava",
+   "Magma",
+   "Sediment"
+  ],
+  "answer": "Sediment",
+  "acceptedAnswers": [],
+  "tags": [
+   "landforms",
+   "rivers"
+  ],
+  "media": {
+   "image": "learning/img/rocks-landforms-delta.webp",
+   "alt": "A satellite image of the Nile Delta, a green fan shape where the river meets the sea."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these rocks is metamorphic?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "metamorphic"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-sandstone.webp",
+    "learning/img/rocks-landforms-obsidian.webp",
+    "learning/img/rocks-landforms-pumice.webp",
+    "learning/img/rocks-landforms-gneiss.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which of these rocks is sedimentary?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "acceptedAnswers": [],
+  "tags": [
+   "rock types",
+   "sedimentary"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/rocks-landforms-gneiss.webp",
+    "learning/img/rocks-landforms-granite.webp",
+    "learning/img/rocks-landforms-conglomerate.webp",
+    "learning/img/rocks-landforms-marble.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The tallest volcano in our solar system, Olympus Mons, is on the planet in this photo. Which planet is it?",
+  "choicesJson": [
+   "Mercury",
+   "Earth",
+   "Venus",
+   "Mars"
+  ],
+  "answer": "Mars",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "image": "learning/img/space-mars.webp",
+   "alt": "A photo of an orange-red planet."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "About how long does the International Space Station take to circle Earth once?",
+  "choicesJson": [
+   "About one week",
+   "About 90 minutes",
+   "About one year",
+   "About 24 hours"
+  ],
+  "answer": "About 90 minutes",
+  "tags": [
+   "space",
+   "iss"
+  ],
+  "media": {
+   "image": "learning/img/space-iss.webp",
+   "alt": "A large spacecraft with big solar panels."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "About how long does the Moon take to go around Earth once?",
+  "choicesJson": [
+   "About one week",
+   "About one month",
+   "About one day",
+   "About one year"
+  ],
+  "answer": "About one month",
+  "tags": [
+   "space",
+   "moon"
+  ],
+  "media": {
+   "image": "learning/img/space-moon.webp",
+   "alt": "A round gray space object with dark patches."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The Sun is a star. Compared with Earth, how big is the Sun?",
+  "choicesJson": [
+   "Much bigger, over 100 Earths could fit across it",
+   "A little smaller",
+   "About the same size",
+   "Much smaller, like a marble next to a basketball"
+  ],
+  "answer": "Much bigger, over 100 Earths could fit across it",
+  "tags": [
+   "space",
+   "sun"
+  ],
+  "media": {
+   "image": "learning/img/space-sun.webp",
+   "alt": "A glowing orange ball in black space."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows Uranus?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "C",
+  "tags": [
+   "space",
+   "planets"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-neptune.webp",
+    "learning/img/space-venus.webp",
+    "learning/img/space-uranus.webp",
+    "learning/img/space-saturn.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the Andromeda Galaxy, the nearest big galaxy to the Milky Way?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "space",
+   "galaxies"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/space-andromeda.webp",
+    "learning/img/space-sun.webp",
+    "learning/img/space-iss.webp",
+    "learning/img/space-comet.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Space photos to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The flat, spread-out top of this thundercloud has a special name. What is it called?",
+  "choicesJson": [
+   "A chisel",
+   "A hammer",
+   "A wrench",
+   "An anvil"
+  ],
+  "answer": "An anvil",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulonimbus.webp",
+   "alt": "A tall thunderstorm cloud with a flat anvil top, seen from above."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This towering cloud has rain falling from its dark base. Which other kinds of weather can this kind of cloud bring?",
+  "choicesJson": [
+   "Fog and dew",
+   "Thunder and lightning",
+   "Frost and icicles",
+   "Rainbows only"
+  ],
+  "answer": "Thunder and lightning",
+  "tags": [
+   "clouds",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-cumulonimbus2.webp",
+   "alt": "A huge towering thundercloud with rain falling from its dark base over a river."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A funnel cloud hangs from this storm. When does a funnel cloud officially become a tornado?",
+  "choicesJson": [
+   "When it turns white",
+   "When it starts to rain",
+   "When it touches the ground",
+   "When it floats over the ocean"
+  ],
+  "answer": "When it touches the ground",
+  "tags": [
+   "tornado",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-tornado.webp",
+   "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which part of the United States is nicknamed Tornado Alley?",
+  "choicesJson": [
+   "The Great Plains",
+   "The Pacific coast",
+   "New England",
+   "Alaska"
+  ],
+  "answer": "The Great Plains",
+  "tags": [
+   "tornado",
+   "geography"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-tornado.webp",
+   "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Hailstones can grow larger as they are tossed up and down inside a thundercloud. What keeps lifting them back up?",
+  "choicesJson": [
+   "Melting ice",
+   "Magnets in the clouds",
+   "Falling snow",
+   "Strong updrafts of air"
+  ],
+  "answer": "Strong updrafts of air",
+  "tags": [
+   "hail",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hail.webp",
+   "alt": "Small clear lumps of hail lying on dark ground among leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A hurricane gets its energy from what?",
+  "choicesJson": [
+   "Cold mountain air",
+   "Frozen lakes",
+   "Dry desert sand",
+   "Warm ocean water"
+  ],
+  "answer": "Warm ocean water",
+  "tags": [
+   "hurricane",
+   "energy"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hurricane.webp",
+   "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Hurricanes are rated by strength from Category 1 up to Category what?",
+  "answer": "5",
+  "acceptedAnswers": [
+   "five",
+   "category 5"
+  ],
+  "tags": [
+   "hurricane",
+   "weather"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-hurricane.webp",
+   "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You see a flash of lightning and hear thunder 10 seconds later. Sound travels about 1 mile every 5 seconds. About how far away was the lightning?",
+  "choicesJson": [
+   "About 1 mile",
+   "About 2 miles",
+   "About 5 miles",
+   "About 10 miles"
+  ],
+  "answer": "About 2 miles",
+  "tags": [
+   "lightning",
+   "light and sound",
+   "math"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-lightning2.webp",
+   "alt": "Several lightning bolts reaching down from a stormy night sky toward the ground."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The sky looks orange at sunrise. Why?",
+  "choicesJson": [
+   "Sunlight is hotter at dawn",
+   "The Sun turns orange at dawn",
+   "Sunlight travels through more air, which scatters away much of the blue light",
+   "Clouds are painted by the Sun"
+  ],
+  "answer": "Sunlight travels through more air, which scatters away much of the blue light",
+  "tags": [
+   "sunrise",
+   "light"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-sunrise.webp",
+   "alt": "An orange sunrise sky behind a bare tree over a snowy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Ice is clear, but snow looks white. Why?",
+  "choicesJson": [
+   "Snow has white dye inside",
+   "Light bounces off the many tiny faces of the ice crystals",
+   "Cold air turns water white",
+   "Snow is made of salt"
+  ],
+  "answer": "Light bounces off the many tiny faces of the ice crystals",
+  "tags": [
+   "snow",
+   "light"
+  ],
+  "media": {
+   "image": "learning/img/weather-clouds-snow.webp",
+   "alt": "A garage, a porch and evergreen trees all covered with fresh white snow."
+  }
+ }
+]

@@ -1,0 +1,1945 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In the number 463, which digit is in the tens place?",
+  "choicesJson": [
+   "6",
+   "4",
+   "3"
+  ],
+  "answer": "6",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many tens are in 70?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is the same as 300 + 40 + 5?",
+  "choicesJson": [
+   "354",
+   "3045",
+   "435",
+   "345"
+  ],
+  "answer": "345",
+  "tags": [
+   "place-value",
+   "expanded-form"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number has 5 hundreds, 0 tens, and 8 ones?",
+  "choicesJson": null,
+  "answer": "508",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which comparison is true?",
+  "choicesJson": [
+   "382 < 328",
+   "382 > 328",
+   "382 = 328"
+  ],
+  "answer": "382 > 328",
+  "tags": [
+   "comparing-numbers"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is the greatest?",
+  "choicesJson": [
+   "479",
+   "794",
+   "749",
+   "497"
+  ],
+  "answer": "794",
+  "tags": [
+   "comparing-numbers"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number comes right after 599?",
+  "choicesJson": null,
+  "answer": "600",
+  "acceptedAnswers": [
+   "six hundred"
+  ],
+  "tags": [
+   "counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number comes right before 800?",
+  "choicesJson": null,
+  "answer": "799",
+  "tags": [
+   "counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count by 100s: 300, 400, 500, __?",
+  "choicesJson": null,
+  "answer": "600",
+  "acceptedAnswers": [
+   "six hundred"
+  ],
+  "tags": [
+   "counting",
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Count backward by 10s: 90, 80, 70, __?",
+  "choicesJson": [
+   "50",
+   "65",
+   "69",
+   "60"
+  ],
+  "answer": "60",
+  "tags": [
+   "counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is written as \"two hundred thirty-six\"?",
+  "choicesJson": [
+   "263",
+   "236",
+   "2036",
+   "326"
+  ],
+  "answer": "236",
+  "tags": [
+   "place-value",
+   "number-words"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "10 tens is the same as how many hundreds?",
+  "choicesJson": null,
+  "answer": "1",
+  "acceptedAnswers": [
+   "one"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list shows the numbers in order from least to greatest?",
+  "choicesJson": [
+   "182, 128, 218",
+   "218, 182, 128",
+   "128, 218, 182",
+   "128, 182, 218"
+  ],
+  "answer": "128, 182, 218",
+  "tags": [
+   "comparing-numbers",
+   "ordering"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is the value of the 7 in the number 372? Type the number.",
+  "choicesJson": null,
+  "answer": "70",
+  "acceptedAnswers": [
+   "seventy"
+  ],
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number is between 450 and 460?",
+  "choicesJson": [
+   "445",
+   "455",
+   "465",
+   "470"
+  ],
+  "answer": "455",
+  "tags": [
+   "number-sense"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A chocolate bar is broken into 4 equal pieces. You eat 1 piece. What fraction of the bar did you eat?",
+  "choicesJson": [
+   "1/2",
+   "1/3",
+   "1/4",
+   "4/1"
+  ],
+  "answer": "1/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many fourths (quarters) make one whole pizza?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which way of cutting a sandwich gives you halves?",
+  "choicesJson": [
+   "2 equal parts",
+   "2 parts, one much bigger than the other",
+   "3 equal parts",
+   "4 equal parts"
+  ],
+  "answer": "2 equal parts",
+  "tags": [
+   "fractions",
+   "halves"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Steve mined 18 iron ingots and gives half of them to Alex in Minecraft. How many ingots does he give her?",
+  "choicesJson": null,
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "fractions",
+   "halves",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which piece is bigger: 1/2 of a candy bar or 1/4 of the same candy bar?",
+  "choicesJson": [
+   "1/4 of the bar",
+   "They are the same size",
+   "1/2 of the bar"
+  ],
+  "answer": "1/2 of the bar",
+  "tags": [
+   "fractions",
+   "comparing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A sandwich is cut into 2 equal pieces. You eat 1 piece. What fraction of the sandwich did you eat?",
+  "choicesJson": [
+   "1/3",
+   "1/4",
+   "2/1",
+   "1/2"
+  ],
+  "answer": "1/2",
+  "tags": [
+   "fractions",
+   "halves"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pizza is cut into 4 equal slices. Two slices are eaten. What fraction of the pizza is left?",
+  "choicesJson": [
+   "1/4",
+   "2/4",
+   "3/4",
+   "4/4"
+  ],
+  "answer": "2/4",
+  "tags": [
+   "fractions"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A Roblox obby has 4 equal stages. You beat 3 of them. What fraction of the obby did you finish?",
+  "choicesJson": [
+   "3/4",
+   "1/4",
+   "3/3",
+   "4/3"
+  ],
+  "answer": "3/4",
+  "tags": [
+   "fractions",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Fortnite squad of 4 players shares 8 med kits equally. How many med kits does each player get?",
+  "choicesJson": null,
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "equal-shares",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Dracula has 20 bats. They split into 4 equal groups and 1 group flies out of the castle. How many bats fly out?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "fractions",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tally chart shows one group of 5 tally marks and then 3 more marks. How many is that in all?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "data",
+   "tally"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a picture graph, each 🍎 stands for 2 apples. A row has 4 🍎. How many apples does that row show?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "data",
+   "picture-graph"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Minecraft picture graph uses 1 pickaxe symbol for every 10 blocks mined. Dirt has 5 pickaxes and stone has 3 pickaxes. How many more blocks of dirt than stone were mined?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "data",
+   "picture-graph",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A bar graph shows favorite pets: dogs 9, cats 6, fish 3, birds 2. How many more kids picked dogs than cats?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "data",
+   "bar-graph"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bar graph shows votes for favorite ice cream: chocolate 8, vanilla 5, strawberry 7, mint 3. Which flavor got the most votes?",
+  "choicesJson": [
+   "Vanilla",
+   "Strawberry",
+   "Mint",
+   "Chocolate"
+  ],
+  "answer": "Chocolate",
+  "tags": [
+   "data",
+   "bar-graph"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A class voted for a favorite lunch: pizza 6, tacos 9, burgers 4, pasta 5. How many kids voted in all?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ],
+  "tags": [
+   "data",
+   "addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Roblox, you beat 7 obby levels on Monday, 5 on Tuesday, and 9 on Wednesday. How many levels did you beat in all?",
+  "choicesJson": null,
+  "answer": "21",
+  "acceptedAnswers": [
+   "twenty-one",
+   "twenty one"
+  ],
+  "tags": [
+   "data",
+   "addition",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What comes next in this pattern? red, blue, red, blue, red, __",
+  "choicesJson": [
+   "red",
+   "green",
+   "yellow",
+   "blue"
+  ],
+  "answer": "blue",
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This pattern goes 3, 8, 13, 18. What is the rule?",
+  "choicesJson": [
+   "Add 5",
+   "Add 3",
+   "Add 10",
+   "Add 8"
+  ],
+  "answer": "Add 5",
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Look at this pattern: clap, stomp, stomp, clap, stomp, stomp, clap, __. What comes next?",
+  "choicesJson": [
+   "clap",
+   "jump",
+   "stomp"
+  ],
+  "answer": "stomp",
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Count backward by 5s: 50, 45, 40, 35, __?",
+  "choicesJson": null,
+  "answer": "30",
+  "acceptedAnswers": [
+   "thirty"
+  ],
+  "tags": [
+   "patterns",
+   "counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number is missing? 12, 14, __, 18, 20",
+  "choicesJson": null,
+  "answer": "16",
+  "acceptedAnswers": [
+   "sixteen"
+  ],
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pattern repeats like this: triangle, circle, circle, triangle, circle, circle, and so on. What is the 9th shape?",
+  "choicesJson": [
+   "Triangle",
+   "Circle",
+   "Square"
+  ],
+  "answer": "Circle",
+  "tags": [
+   "patterns",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pattern uses 3 stars in row 1, 6 stars in row 2, and 9 stars in row 3. If it keeps going, how many stars are in row 5?",
+  "choicesJson": null,
+  "answer": "15",
+  "acceptedAnswers": [
+   "fifteen"
+  ],
+  "tags": [
+   "patterns"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "I am a number between 30 and 40. My ones digit is 7. What number am I?",
+  "choicesJson": null,
+  "answer": "37",
+  "acceptedAnswers": [
+   "thirty-seven",
+   "thirty seven"
+  ],
+  "tags": [
+   "number-sense",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number is 10 more than 67?",
+  "choicesJson": null,
+  "answer": "77",
+  "acceptedAnswers": [
+   "seventy-seven",
+   "seventy seven"
+  ],
+  "tags": [
+   "number-sense",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What number is 10 less than 52?",
+  "choicesJson": null,
+  "answer": "42",
+  "acceptedAnswers": [
+   "forty-two",
+   "forty two"
+  ],
+  "tags": [
+   "number-sense",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Base-ten blocks show 2 flats (100 each), 1 rod (10), and 6 single cubes (1 each). What number do they show?",
+  "choicesJson": null,
+  "answer": "216",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The statue in the SCP Foundation is called SCP-173. In the number 173, which digit is in the tens place?",
+  "choicesJson": [
+   "3",
+   "1",
+   "7",
+   "17"
+  ],
+  "answer": "7",
+  "tags": [
+   "place-value",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A tall, thin Slender-style figure hides in the woods. A scout counts the trees in 6 groups of 10. How many trees did the scout count?",
+  "choicesJson": null,
+  "answer": "60",
+  "acceptedAnswers": [
+   "sixty"
+  ],
+  "tags": [
+   "counting",
+   "skip-counting",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A logbook says Nessie was spotted 245 times last year and 253 times this year. Which year had more sightings?",
+  "choicesJson": [
+   "Last year",
+   "This year",
+   "Both years were the same"
+  ],
+  "answer": "This year",
+  "tags": [
+   "comparing-numbers",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Minecraft tally chart shows 7 zombies, 4 skeletons, and 9 creepers. How many more creepers than skeletons are there?",
+  "choicesJson": null,
+  "answer": "5",
+  "acceptedAnswers": [
+   "five"
+  ],
+  "tags": [
+   "data",
+   "tally",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number has a 9 in the hundreds place?",
+  "choicesJson": [
+   "349",
+   "394",
+   "934",
+   "439"
+  ],
+  "answer": "934",
+  "tags": [
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Minecraft, Steve mines 45 blocks of dirt and then 37 blocks of stone. How many blocks did he mine in all?",
+  "choicesJson": null,
+  "answer": "82",
+  "tags": [
+   "addition",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In Minecraft, you have 63 pieces of gunpowder. You use 28 of them to make TNT. How many pieces are left?",
+  "choicesJson": null,
+  "answer": "35",
+  "tags": [
+   "subtraction",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Roblox obby has 3 stages. Stage 1 has 12 jumps, stage 2 has 15 jumps, and stage 3 has 9 jumps. How many jumps are there in all?",
+  "choicesJson": null,
+  "answer": "36",
+  "tags": [
+   "addition",
+   "word-problem",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "100 players jump off the Battle Bus in Fortnite. After one minute, 58 of them have landed. How many players have not landed yet?",
+  "choicesJson": null,
+  "answer": "42",
+  "tags": [
+   "subtraction",
+   "word-problem",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "The SCP Foundation keeps 48 creatures in Wing A and 36 creatures in Wing B. How many creatures are in both wings?",
+  "choicesJson": null,
+  "answer": "84",
+  "tags": [
+   "addition",
+   "word-problem",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A tall Slender-style figure steps out of the woods at 7:30. It vanishes 30 minutes later. What time does it vanish?",
+  "choicesJson": [
+   "8:00",
+   "7:00",
+   "8:30",
+   "7:45"
+  ],
+  "answer": "8:00",
+  "tags": [
+   "time",
+   "word-problem",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A movie monster is 90 feet tall. A skyscraper is 65 feet tall. How many feet taller is the monster?",
+  "choicesJson": null,
+  "answer": "25",
+  "tags": [
+   "subtraction",
+   "measurement",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Dracula's castle tower has 100 steps. A werewolf has climbed 64 of them. How many steps are left to climb?",
+  "choicesJson": null,
+  "answer": "36",
+  "tags": [
+   "subtraction",
+   "word-problem",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a spooky story, a Bigfoot footprint is 15 inches long. If you place 2 of those footprints heel to toe in a line, how many inches long is the line?",
+  "choicesJson": null,
+  "answer": "30",
+  "tags": [
+   "measurement",
+   "addition",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Pretend a Minecraft villager sells a map for 7 emeralds and a book for 9 emeralds. How many emeralds do you need to buy both?",
+  "choicesJson": null,
+  "answer": "16",
+  "tags": [
+   "addition",
+   "money",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What number is 10 more than 195?",
+  "choicesJson": [
+   "196",
+   "205",
+   "295",
+   "185"
+  ],
+  "answer": "205",
+  "tags": [
+   "addition",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 10 less than 305?",
+  "choicesJson": null,
+  "answer": "295",
+  "acceptedAnswers": [
+   "two hundred ninety-five"
+  ],
+  "tags": [
+   "subtraction",
+   "place-value"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "25 + __ = 60. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "35",
+  "tags": [
+   "addition",
+   "missing-number"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "__ - 18 = 30. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "48",
+  "tags": [
+   "subtraction",
+   "missing-number"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number sentence is in the same fact family as 8 + 7 = 15?",
+  "choicesJson": [
+   "15 + 7 = 22",
+   "8 - 7 = 1",
+   "7 + 7 = 14",
+   "15 - 7 = 8"
+  ],
+  "answer": "15 - 7 = 8",
+  "tags": [
+   "fact-families",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Round each number to the nearest ten to estimate 29 + 52. About what is the sum?",
+  "choicesJson": [
+   "70",
+   "80",
+   "90",
+   "100"
+  ],
+  "answer": "80",
+  "tags": [
+   "estimation",
+   "addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "245 + 30 = ?",
+  "choicesJson": null,
+  "answer": "275",
+  "tags": [
+   "addition",
+   "three-digit"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "234 + 125 = ?",
+  "choicesJson": null,
+  "answer": "359",
+  "tags": [
+   "addition",
+   "three-digit"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "489 - 253 = ?",
+  "choicesJson": null,
+  "answer": "236",
+  "tags": [
+   "subtraction",
+   "three-digit"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Mia has 15 stickers. Leo has 9 more stickers than Mia. How many stickers does Leo have?",
+  "choicesJson": null,
+  "answer": "24",
+  "tags": [
+   "addition",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Sam has 34 marbles. That is 12 more than Ava has. How many marbles does Ava have?",
+  "choicesJson": null,
+  "answer": "22",
+  "tags": [
+   "subtraction",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which pair of numbers adds up to 100?",
+  "choicesJson": [
+   "55 and 45",
+   "60 and 30",
+   "45 and 45",
+   "75 and 35"
+  ],
+  "answer": "55 and 45",
+  "tags": [
+   "addition",
+   "number-sense"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "14 + 6 = 10 + __. What number goes in the blank?",
+  "choicesJson": null,
+  "answer": "10",
+  "tags": [
+   "equal-sign",
+   "addition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is greater: 56 + 20 or 90 - 10?",
+  "choicesJson": [
+   "56 + 20",
+   "They are equal",
+   "90 - 10"
+  ],
+  "answer": "90 - 10",
+  "tags": [
+   "comparing",
+   "addition",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What is 20 + 35 + 15?",
+  "choicesJson": null,
+  "answer": "70",
+  "tags": [
+   "addition",
+   "three-addends"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tool would you use to find out how heavy an apple is?",
+  "choicesJson": [
+   "A ruler",
+   "A clock",
+   "A thermometer",
+   "A scale"
+  ],
+  "answer": "A scale",
+  "tags": [
+   "measurement",
+   "tools"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many inches are in 1 foot?",
+  "choicesJson": [
+   "10",
+   "36",
+   "12",
+   "100"
+  ],
+  "answer": "12",
+  "tags": [
+   "measurement",
+   "length"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many feet are in 1 yard?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "measurement",
+   "length"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many centimeters are in 1 meter?",
+  "choicesJson": [
+   "100",
+   "10",
+   "12",
+   "1000"
+  ],
+  "answer": "100",
+  "tags": [
+   "measurement",
+   "length"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A ribbon is 45 cm long. You cut off 18 cm. How many cm are left?",
+  "choicesJson": null,
+  "answer": "27",
+  "tags": [
+   "measurement",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Tom's pet snake is 24 inches long. Nina's pet snake is 17 inches long. How many inches longer is Tom's snake?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven"
+  ],
+  "tags": [
+   "measurement",
+   "subtraction"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which temperature is most likely on a hot summer day at the beach?",
+  "choicesJson": [
+   "32 degrees F",
+   "5 degrees F",
+   "90 degrees F"
+  ],
+  "answer": "90 degrees F",
+  "tags": [
+   "measurement",
+   "temperature"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pencil is 7 inches long. A crayon is 3 inches long. How many inches long are they when placed end to end?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "measurement",
+   "addition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is longer: 1 foot or 1 yard?",
+  "choicesJson": [
+   "1 foot",
+   "They are the same length",
+   "1 yard"
+  ],
+  "answer": "1 yard",
+  "tags": [
+   "measurement",
+   "length"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What time is 30 minutes after 4:15?",
+  "choicesJson": [
+   "5:15",
+   "4:45",
+   "4:30",
+   "4:50"
+  ],
+  "answer": "4:45",
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "School starts at 8:30 in the morning and ends at 3:30 in the afternoon. How many hours long is the school day?",
+  "choicesJson": null,
+  "answer": "7",
+  "acceptedAnswers": [
+   "seven",
+   "7 hours"
+  ],
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many hours are in one whole day?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ],
+  "tags": [
+   "time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which time is most likely when you eat breakfast on a school day?",
+  "choicesJson": [
+   "7:00 p.m.",
+   "12:00 p.m.",
+   "7:00 a.m."
+  ],
+  "answer": "7:00 a.m.",
+  "tags": [
+   "time",
+   "am-pm"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "What time is 1 hour and 15 minutes after 2:00?",
+  "choicesJson": null,
+  "answer": "3:15",
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Your video game level takes 20 minutes. You start at 6:10. What time do you finish?",
+  "choicesJson": [
+   "6:30",
+   "6:20",
+   "7:10",
+   "6:50"
+  ],
+  "answer": "6:30",
+  "tags": [
+   "time",
+   "elapsed-time"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The short hand points to the 7 and the long hand points to the 6. What time is it?",
+  "choicesJson": [
+   "6:35",
+   "7:06",
+   "6:07",
+   "7:30"
+  ],
+  "answer": "7:30",
+  "tags": [
+   "time",
+   "clocks"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You have 3 dimes and 4 nickels. How many cents do you have?",
+  "choicesJson": null,
+  "answer": "50",
+  "tags": [
+   "money",
+   "coins"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which group of coins is worth exactly 50 cents?",
+  "choicesJson": [
+   "4 dimes",
+   "1 quarter and 1 dime",
+   "2 quarters",
+   "3 dimes and 1 nickel"
+  ],
+  "answer": "2 quarters",
+  "tags": [
+   "money",
+   "coins"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A sticker costs 29 cents. How many cents do 2 stickers cost?",
+  "choicesJson": null,
+  "answer": "58",
+  "tags": [
+   "money",
+   "addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Lena has $5. She buys a toy for $3 and a book for $1. How many dollars does she have left?",
+  "choicesJson": null,
+  "answer": "1",
+  "acceptedAnswers": [
+   "$1",
+   "one"
+  ],
+  "tags": [
+   "money",
+   "multi-step"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A notebook costs $8 and a pen costs $2. How many dollars do they cost together?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "$10",
+   "ten"
+  ],
+  "tags": [
+   "money",
+   "addition"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which is worth more: 3 dimes or 5 nickels?",
+  "choicesJson": [
+   "5 nickels",
+   "3 dimes",
+   "They are worth the same"
+  ],
+  "answer": "3 dimes",
+  "tags": [
+   "money",
+   "comparing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pet shop has 28 fish. It sells 9 fish and then gets 15 new fish. How many fish does the shop have now?",
+  "choicesJson": null,
+  "answer": "34",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Maya read 18 pages on Monday and 24 pages on Tuesday. Her book has 60 pages. How many pages does she still have to read?",
+  "choicesJson": null,
+  "answer": "18",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Ben has 12 stickers. Cara has 5 fewer stickers than Ben. How many stickers do Ben and Cara have together?",
+  "choicesJson": null,
+  "answer": "19",
+  "tags": [
+   "multi-step",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A bus has 45 riders. At the next stop, 18 riders get off. Which number sentence shows how many riders are still on the bus?",
+  "choicesJson": [
+   "45 - 18 = 27",
+   "45 + 18 = 63",
+   "45 + 27 = 72",
+   "27 - 18 = 9"
+  ],
+  "answer": "45 - 18 = 27",
+  "tags": [
+   "word-problem",
+   "number-sentences"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pretend a creeper drops 3 gunpowder every time. How much gunpowder do you get from 4 creepers?",
+  "choicesJson": [
+   "7",
+   "10",
+   "12",
+   "9"
+  ],
+  "answer": "12",
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "One Minecraft crafting table needs 4 planks. How many planks do you need for 5 crafting tables?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "You skip count by 2s: 2, 4, 6, 8, and so on until you say 20. How many numbers did you say?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Skip count by 10s to find 6 x 10.",
+  "choicesJson": [
+   "16",
+   "60",
+   "50",
+   "600"
+  ],
+  "answer": "60",
+  "tags": [
+   "skip-counting",
+   "multiplication"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "12 cookies are shared equally by 3 friends. How many cookies does each friend get?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "division",
+   "sharing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which addition sentence shows 4 groups of 3?",
+  "choicesJson": [
+   "4 + 3",
+   "3 + 3 + 3",
+   "3 + 3 + 3 + 3",
+   "4 + 4"
+  ],
+  "answer": "3 + 3 + 3 + 3",
+  "tags": [
+   "multiplication",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Each stage of a Roblox obby has 5 coins to collect. How many coins are in 6 stages?",
+  "choicesJson": null,
+  "answer": "30",
+  "acceptedAnswers": [
+   "thirty"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:roblox"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "15 cards are dealt equally to 3 players. That is 15 ÷ 3. How many cards does each player get?",
+  "choicesJson": [
+   "12",
+   "4",
+   "5",
+   "18"
+  ],
+  "answer": "5",
+  "tags": [
+   "division"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Share 15 grapes equally among 5 kids. How many grapes does each kid get?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "division",
+   "sharing"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A friendly alien has 3 eyes. How many eyes do 5 aliens have in all?",
+  "choicesJson": [
+   "8",
+   "15",
+   "12",
+   "10"
+  ],
+  "answer": "15",
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A pizza is cut into 8 slices. How many slices are there in 2 pizzas?",
+  "choicesJson": null,
+  "answer": "16",
+  "acceptedAnswers": [
+   "sixteen"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "18 stickers are put into 2 equal groups. How many stickers are in each group?",
+  "choicesJson": null,
+  "answer": "9",
+  "acceptedAnswers": [
+   "nine"
+  ],
+  "tags": [
+   "division",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which number sentence shows 5 groups of 2?",
+  "choicesJson": [
+   "5 + 2 = 7",
+   "5 x 2 = 10",
+   "2 x 2 = 4",
+   "5 - 2 = 3"
+  ],
+  "answer": "5 x 2 = 10",
+  "tags": [
+   "multiplication",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A cat has 4 paws. How many paws do 6 cats have in all?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Fortnite squad has 4 players. How many players are there in 5 squads?",
+  "choicesJson": null,
+  "answer": "20",
+  "acceptedAnswers": [
+   "twenty"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:fortnite"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A dime is worth 10 cents. How many cents are 7 dimes worth?",
+  "choicesJson": null,
+  "answer": "70",
+  "acceptedAnswers": [
+   "seventy"
+  ],
+  "tags": [
+   "skip-counting",
+   "multiplication"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A silly SCP-style lab puts 24 containment boxes into 4 equal rows. How many boxes are in each row?",
+  "choicesJson": [
+   "6",
+   "8",
+   "20",
+   "28"
+  ],
+  "answer": "6",
+  "tags": [
+   "division",
+   "equal-groups",
+   "theme:scp"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A kid leaves 2 muddy footprints on each of 9 steps. How many muddy footprints are there in all?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "32 bats sleep in Dracula's cave. Each perch holds 4 bats. How many perches are full?",
+  "choicesJson": [
+   "28",
+   "7",
+   "8",
+   "9"
+  ],
+  "answer": "8",
+  "tags": [
+   "division",
+   "word-problem",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which multiplication sentence is the same as 6 + 6 + 6 + 6 + 6?",
+  "choicesJson": [
+   "5 x 6",
+   "6 x 6",
+   "5 x 5",
+   "6 x 4"
+  ],
+  "answer": "5 x 6",
+  "tags": [
+   "multiplication",
+   "repeated-addition"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A nickel is worth 5 cents. How many cents are 7 nickels worth?",
+  "choicesJson": null,
+  "answer": "35",
+  "acceptedAnswers": [
+   "thirty-five",
+   "thirty five"
+  ],
+  "tags": [
+   "skip-counting",
+   "multiplication"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Sam has 16 carrots to share equally with 4 rabbits. How many carrots does each rabbit get?",
+  "choicesJson": [
+   "4",
+   "12",
+   "3",
+   "5"
+  ],
+  "answer": "4",
+  "tags": [
+   "division",
+   "sharing"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A Minecraft chest has 9 diamonds. A second chest also has 9 diamonds. How many diamonds are in both chests?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "addition",
+   "doubles",
+   "theme:minecraft"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Skip count by 4s: 4, 8, 12, __?",
+  "choicesJson": [
+   "14",
+   "20",
+   "15",
+   "16"
+  ],
+  "answer": "16",
+  "tags": [
+   "skip-counting"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "An octopus has 8 arms. How many arms do 3 octopuses have in all?",
+  "choicesJson": null,
+  "answer": "24",
+  "acceptedAnswers": [
+   "twenty-four",
+   "twenty four"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "14 kids split into 2 equal teams. How many kids are on each team?",
+  "choicesJson": [
+   "12",
+   "7",
+   "8",
+   "6"
+  ],
+  "answer": "7",
+  "tags": [
+   "division",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Frankenstein's lab has 3 shelves. Each shelf holds 6 jars. How many jars are there in all?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "multiplication",
+   "word-problem",
+   "theme:monsters"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "There are 4 bags with 2 oranges in each bag. Which number sentence tells how many oranges there are in all?",
+  "choicesJson": [
+   "4 - 2 = 2",
+   "4 x 2 = 8",
+   "4 + 2 = 6",
+   "2 x 2 = 4"
+  ],
+  "answer": "4 x 2 = 8",
+  "tags": [
+   "multiplication",
+   "equal-groups"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A painter needs 30 feet of tape. Each roll has 10 feet of tape. How many rolls does the painter need?",
+  "choicesJson": null,
+  "answer": "3",
+  "acceptedAnswers": [
+   "three"
+  ],
+  "tags": [
+   "division",
+   "word-problem"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which shape has 4 equal sides and 4 square corners?",
+  "choicesJson": [
+   "Triangle",
+   "Hexagon",
+   "Circle",
+   "Square"
+  ],
+  "answer": "Square",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many corners does a cube have?",
+  "choicesJson": null,
+  "answer": "8",
+  "acceptedAnswers": [
+   "eight"
+  ],
+  "tags": [
+   "geometry",
+   "3d-shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A party hat is shaped like which 3D shape?",
+  "choicesJson": [
+   "Cube",
+   "Sphere",
+   "Cone",
+   "Cylinder"
+  ],
+  "answer": "Cone",
+  "tags": [
+   "geometry",
+   "3d-shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A shape has 6 sides. What is it called?",
+  "choicesJson": [
+   "Pentagon",
+   "Octagon",
+   "Triangle",
+   "Hexagon"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A quadrilateral is a shape with 4 sides. Which shape is a quadrilateral?",
+  "choicesJson": [
+   "Rectangle",
+   "Triangle",
+   "Pentagon",
+   "Hexagon"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A square is a quadrilateral. How many sides does every quadrilateral have?",
+  "choicesJson": null,
+  "answer": "4",
+  "acceptedAnswers": [
+   "four"
+  ],
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You cut a square from one corner to the opposite corner in a straight line. What two shapes do you get?",
+  "choicesJson": [
+   "Two triangles",
+   "Two squares",
+   "Two circles",
+   "Two pentagons"
+  ],
+  "answer": "Two triangles",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A rectangle is split into 3 equal parts. What do we call each part?",
+  "choicesJson": [
+   "A half",
+   "A third",
+   "A whole",
+   "A fourth"
+  ],
+  "answer": "A third",
+  "tags": [
+   "geometry",
+   "equal-parts"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You put 2 identical square tiles side by side with no gaps. Which shape do you make?",
+  "choicesJson": [
+   "Circle",
+   "Rectangle",
+   "Triangle",
+   "Hexagon"
+  ],
+  "answer": "Rectangle",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A gift box is shaped like a cube. How many square faces does the box have?",
+  "choicesJson": null,
+  "answer": "6",
+  "acceptedAnswers": [
+   "six"
+  ],
+  "tags": [
+   "geometry",
+   "3d-shapes"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "In a creepypasta story, a tall faceless figure stands beside 4 triangle-shaped warning signs. How many sides do the signs have in all?",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve"
+  ],
+  "tags": [
+   "geometry",
+   "multiplication",
+   "theme:creepypasta"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many corners do 3 rectangles have in all?",
+  "choicesJson": null,
+  "answer": "12",
+  "acceptedAnswers": [
+   "twelve"
+  ],
+  "tags": [
+   "geometry",
+   "multiplication"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which of these is a 3D shape?",
+  "choicesJson": [
+   "Square",
+   "Cube",
+   "Triangle",
+   "Circle"
+  ],
+  "answer": "Cube",
+  "tags": [
+   "geometry",
+   "3d-shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A can of soup is shaped like which 3D shape?",
+  "choicesJson": [
+   "Cone",
+   "Cube",
+   "Cylinder",
+   "Sphere"
+  ],
+  "answer": "Cylinder",
+  "tags": [
+   "geometry",
+   "3d-shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which shape has 2 more sides than a square?",
+  "choicesJson": [
+   "Hexagon",
+   "Pentagon",
+   "Triangle",
+   "Octagon"
+  ],
+  "answer": "Hexagon",
+  "tags": [
+   "geometry",
+   "shapes"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A pie is cut into 4 equal parts. What do we call each part?",
+  "choicesJson": [
+   "A half",
+   "A third",
+   "A fourth",
+   "A whole"
+  ],
+  "answer": "A fourth",
+  "tags": [
+   "geometry",
+   "equal-parts"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A rectangle is covered with 2 rows of 5 square tiles. How many tiles cover the rectangle?",
+  "choicesJson": null,
+  "answer": "10",
+  "acceptedAnswers": [
+   "ten"
+  ],
+  "tags": [
+   "geometry",
+   "arrays"
+  ]
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "A floor has 3 rows of square tiles with 6 tiles in each row. How many tiles are on the floor?",
+  "choicesJson": null,
+  "answer": "18",
+  "acceptedAnswers": [
+   "eighteen"
+  ],
+  "tags": [
+   "geometry",
+   "arrays"
+  ]
+ }
+]

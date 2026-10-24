@@ -1,6 +1,3894 @@
 [
   {
     "type": "MULTIPLE_CHOICE",
+    "prompt": "This president led the United States during the Civil War. Who is he?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "George Washington",
+      "Benjamin Franklin",
+      "Thomas Jefferson"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Black-and-white photo of a tall man with a beard and no mustache.",
+      "image": "learning/img/famous-people-abraham-lincoln.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This inventor and Founding Father is famous for his kite and lightning experiment. Who is he?",
+    "choicesJson": [
+      "Thomas Edison",
+      "Thomas Jefferson",
+      "Benjamin Franklin",
+      "Albert Einstein"
+    ],
+    "answer": "Benjamin Franklin",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Old painted portrait of an older man with long gray hair and a white collar.",
+      "image": "learning/img/famous-people-benjamin-franklin.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "She escaped slavery and then guided many other people to freedom on the Underground Railroad. Who is she?",
+    "choicesJson": [
+      "Rosa Parks",
+      "Susan B. Anthony",
+      "Helen Keller",
+      "Harriet Tubman"
+    ],
+    "answer": "Harriet Tubman",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Old photo of a woman wearing a patterned head scarf and a dark shawl.",
+      "image": "learning/img/famous-people-harriet-tubman.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1932 she became the first woman to fly alone across the Atlantic Ocean. Who is she?",
+    "choicesJson": [
+      "Rosa Parks",
+      "Marie Curie",
+      "Amelia Earhart",
+      "Harriet Tubman"
+    ],
+    "answer": "Amelia Earhart",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Black-and-white photo of a woman wearing a leather flying helmet.",
+      "image": "learning/img/famous-people-amelia-earhart.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This astronaut was the first person to walk on the Moon. Who is he?",
+    "choicesJson": [
+      "Buzz Aldrin",
+      "Neil Armstrong",
+      "Albert Einstein",
+      "Thomas Edison"
+    ],
+    "answer": "Neil Armstrong",
+    "tags": [
+      "famous people",
+      "space"
+    ],
+    "media": {
+      "alt": "Color photo of a man in a suit with short hair in front of an American flag.",
+      "image": "learning/img/famous-people-neil-armstrong.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1955 she refused to give up her bus seat to a white passenger. Her stand inspired a famous bus boycott. Who is she?",
+    "choicesJson": [
+      "Harriet Tubman",
+      "Helen Keller",
+      "Amelia Earhart",
+      "Rosa Parks"
+    ],
+    "answer": "Rosa Parks",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Black-and-white photo of a smiling woman with her hair in an updo.",
+      "image": "learning/img/famous-people-rosa-parks.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the president who led the country during the Civil War?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Four portraits of famous people from history.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/famous-people-abraham-lincoln.webp",
+        "learning/img/famous-people-george-washington.webp",
+        "learning/img/famous-people-thomas-jefferson.webp",
+        "learning/img/famous-people-benjamin-franklin.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which woman was a famous pilot who flew solo across the Atlantic Ocean?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Four portraits of famous people from history.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/famous-people-marie-curie.webp",
+        "learning/img/famous-people-amelia-earhart.webp",
+        "learning/img/famous-people-harriet-tubman.webp",
+        "learning/img/famous-people-helen-keller.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which woman helped lead people to freedom on the Underground Railroad?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Four portraits of famous people from history.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/famous-people-rosa-parks.webp",
+        "learning/img/famous-people-marie-curie.webp",
+        "learning/img/famous-people-susan-b-anthony.webp",
+        "learning/img/famous-people-harriet-tubman.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which woman refused to give up her bus seat in 1955 and inspired a famous bus boycott?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "famous people",
+      "history"
+    ],
+    "media": {
+      "alt": "Four portraits of famous people from history.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/famous-people-helen-keller.webp",
+        "learning/img/famous-people-amelia-earhart.webp",
+        "learning/img/famous-people-marie-curie.webp",
+        "learning/img/famous-people-rosa-parks.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which president is on the front of the US penny?",
+    "choicesJson": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "Benjamin Franklin"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "famous people",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which president is on the front of the US nickel?",
+    "choicesJson": [
+      "Thomas Jefferson",
+      "George Washington",
+      "Abraham Lincoln",
+      "Benjamin Franklin"
+    ],
+    "answer": "Thomas Jefferson",
+    "tags": [
+      "famous people",
+      "history"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Thomas Jefferson helped write the Declaration of Independence. In what year was it adopted?",
+    "answer": "1776",
+    "tags": [
+      "famous people",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rosa Parks refused to give up her bus seat in which US state?",
+    "choicesJson": [
+      "Texas",
+      "Alabama",
+      "Ohio",
+      "Maine"
+    ],
+    "answer": "Alabama",
+    "tags": [
+      "famous people",
+      "history"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the country that flies this flag.",
+    "answer": "Mexico",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A flag with green, white and red vertical stripes and an eagle on a cactus in the middle.",
+      "image": "learning/img/flags-mexico.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the name of the country that uses this flag.",
+    "answer": "France",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A flag with blue, white and red vertical stripes.",
+      "image": "learning/img/flags-france.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Which country does this flag belong to? Type its name.",
+    "answer": "Italy",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A flag with green, white and red vertical stripes.",
+      "image": "learning/img/flags-italy.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This is the flag of which country? Type your answer.",
+    "answer": "Germany",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A flag with black, red and gold horizontal stripes.",
+      "image": "learning/img/flags-germany.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the country that flies this flag.",
+    "answer": "China",
+    "acceptedAnswers": [
+      "peoples republic of china",
+      "prc"
+    ],
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A red flag with one large yellow star and four small yellow stars in the corner.",
+      "image": "learning/img/flags-china.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Type the name of the country that uses this flag.",
+    "answer": "Brazil",
+    "acceptedAnswers": [
+      "brasil"
+    ],
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A green flag with a yellow diamond and a blue circle with white stars.",
+      "image": "learning/img/flags-brazil.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Which country does this flag belong to? Type its name.",
+    "answer": "Spain",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A flag with red and yellow horizontal stripes and a coat of arms on the left.",
+      "image": "learning/img/flags-spain.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This is the flag of which country? Type your answer.",
+    "answer": "Australia",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "A blue flag with the Union Jack in the corner and several white stars.",
+      "image": "learning/img/flags-australia.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Pick the flag of Mexico.",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-ireland.webp",
+        "learning/img/flags-italy.webp",
+        "learning/img/flags-nigeria.webp",
+        "learning/img/flags-mexico.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which of these is the flag of France?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-netherlands.webp",
+        "learning/img/flags-france.webp",
+        "learning/img/flags-russia.webp",
+        "learning/img/flags-italy.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which flag belongs to Italy?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-mexico.webp",
+        "learning/img/flags-france.webp",
+        "learning/img/flags-italy.webp",
+        "learning/img/flags-ireland.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Find the flag of Brazil.",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-portugal.webp",
+        "learning/img/flags-colombia.webp",
+        "learning/img/flags-jamaica.webp",
+        "learning/img/flags-brazil.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the flag of the United Kingdom?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-usa.webp",
+        "learning/img/flags-uk.webp",
+        "learning/img/flags-australia.webp",
+        "learning/img/flags-new-zealand.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Pick the flag of Germany.",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-egypt.webp",
+        "learning/img/flags-germany.webp",
+        "learning/img/flags-spain.webp",
+        "learning/img/flags-colombia.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which of these is the flag of China?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "flags",
+      "countries"
+    ],
+    "media": {
+      "alt": "Four national flags to choose from, labeled A to D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/flags-vietnam.webp",
+        "learning/img/flags-turkey.webp",
+        "learning/img/flags-china.webp",
+        "learning/img/flags-japan.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is home to the country that flies this flag?",
+    "choicesJson": [
+      "South America",
+      "Asia",
+      "Oceania",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner.",
+      "image": "learning/img/flags-usa.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This is the flag of Canada. Which continent is Canada on?",
+    "choicesJson": [
+      "Asia",
+      "Oceania",
+      "Europe",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A flag with a red maple leaf on a white square between two red bars.",
+      "image": "learning/img/flags-canada.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The country with this flag is on which continent?",
+    "choicesJson": [
+      "Oceania",
+      "Europe",
+      "Asia",
+      "Africa"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A white flag with a large red circle in the middle.",
+      "image": "learning/img/flags-japan.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "China uses this flag. On which continent is China found?",
+    "choicesJson": [
+      "North America",
+      "Asia",
+      "Europe",
+      "Africa"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A red flag with one large yellow star and four small yellow stars in the corner.",
+      "image": "learning/img/flags-china.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which continent would you find the country with this flag?",
+    "choicesJson": [
+      "South America",
+      "North America",
+      "Oceania",
+      "Asia"
+    ],
+    "answer": "South America",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A green flag with a yellow diamond and a blue circle with white stars.",
+      "image": "learning/img/flags-brazil.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This flag belongs to a country on which continent?",
+    "choicesJson": [
+      "Europe",
+      "Asia",
+      "Africa",
+      "North America"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A flag with blue, white and red vertical stripes.",
+      "image": "learning/img/flags-france.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is Mexico, the country with this flag, part of?",
+    "choicesJson": [
+      "Asia",
+      "South America",
+      "Oceania",
+      "North America"
+    ],
+    "answer": "North America",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A flag with green, white and red vertical stripes and an eagle on a cactus in the middle.",
+      "image": "learning/img/flags-mexico.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This is the flag of Italy. Which continent is Italy on?",
+    "choicesJson": [
+      "Europe",
+      "Oceania",
+      "Africa",
+      "Asia"
+    ],
+    "answer": "Europe",
+    "tags": [
+      "flags",
+      "continents"
+    ],
+    "media": {
+      "alt": "A flag with green, white and red vertical stripes.",
+      "image": "learning/img/flags-italy.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many stripes does this flag have?",
+    "answer": "13",
+    "acceptedAnswers": [
+      "thirteen"
+    ],
+    "tags": [
+      "flags",
+      "counting"
+    ],
+    "media": {
+      "alt": "A flag with red and white stripes and white stars on a blue rectangle in the corner.",
+      "image": "learning/img/flags-usa.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The red circle on this flag stands for what?",
+    "choicesJson": [
+      "The sun",
+      "An apple",
+      "The moon",
+      "A rose"
+    ],
+    "answer": "The sun",
+    "tags": [
+      "flags",
+      "symbols"
+    ],
+    "media": {
+      "alt": "A white flag with a large red circle in the middle.",
+      "image": "learning/img/flags-japan.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which two shapes are on this flag?",
+    "choicesJson": [
+      "A heart and a diamond",
+      "A circle and a triangle",
+      "A sun and a cross",
+      "A crescent moon and a star"
+    ],
+    "answer": "A crescent moon and a star",
+    "tags": [
+      "flags",
+      "shapes"
+    ],
+    "media": {
+      "alt": "A red flag with a white crescent moon and a white star.",
+      "image": "learning/img/flags-turkey.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is in the middle of this flag?",
+    "choicesJson": [
+      "An eagle",
+      "A crescent moon",
+      "A blue wheel",
+      "A yellow star"
+    ],
+    "answer": "A blue wheel",
+    "tags": [
+      "flags",
+      "symbols"
+    ],
+    "media": {
+      "alt": "A flag with orange, white and green stripes and a blue wheel in the middle.",
+      "image": "learning/img/flags-india.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are the colors of the stripes on this flag, from top to bottom?",
+    "choicesJson": [
+      "Black, gold, and red",
+      "Red, black, and gold",
+      "Gold, red, and black",
+      "Black, red, and gold"
+    ],
+    "answer": "Black, red, and gold",
+    "tags": [
+      "flags",
+      "colors"
+    ],
+    "media": {
+      "alt": "A flag with black, red and gold horizontal stripes.",
+      "image": "learning/img/flags-germany.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many points does the star on this flag have?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "flags",
+      "shapes"
+    ],
+    "media": {
+      "alt": "A red flag with a large yellow star in the middle.",
+      "image": "learning/img/flags-vietnam.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many stars are on this flag?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "flags",
+      "counting"
+    ],
+    "media": {
+      "alt": "A red flag with one large yellow star and four small yellow stars in the corner.",
+      "image": "learning/img/flags-china.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which country is this huge statue on a mountaintop?",
+    "choicesJson": [
+      "Brazil",
+      "Spain",
+      "Canada",
+      "Egypt"
+    ],
+    "answer": "Brazil",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A huge statue of a robed man with arms stretched wide on top of a forested mountain, seen from above.",
+      "image": "learning/img/landmarks-christ-the-redeemer.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which continent is this ancient wonder?",
+    "choicesJson": [
+      "Asia",
+      "Africa",
+      "Europe",
+      "South America"
+    ],
+    "answer": "Africa",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A huge pyramid made of stone blocks rising from desert sand.",
+      "image": "learning/img/landmarks-pyramids-of-giza.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which country is this famous building?",
+    "choicesJson": [
+      "Japan",
+      "England",
+      "Australia",
+      "Brazil"
+    ],
+    "answer": "Australia",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A building with white sail-shaped roofs beside blue water.",
+      "image": "learning/img/landmarks-sydney-opera-house.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows Machu Picchu?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "4 photos of famous places, labeled A, B, C and D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/landmarks-liberty-bell.webp",
+        "learning/img/landmarks-mount-fuji.webp",
+        "learning/img/landmarks-golden-gate-bridge.webp",
+        "learning/img/landmarks-machu-picchu.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This statue was a gift to the United States from which country?",
+    "choicesJson": [
+      "France",
+      "England",
+      "Spain",
+      "Canada"
+    ],
+    "answer": "France",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "A tall green statue of a robed woman holding up a torch, standing on a stone base by the water.",
+      "image": "learning/img/landmarks-statue-of-liberty.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This pyramid was built as a tomb for what kind of ancient ruler?",
+    "choicesJson": [
+      "A samurai",
+      "A pharaoh",
+      "A Viking",
+      "A pirate"
+    ],
+    "answer": "A pharaoh",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "A huge pyramid made of stone blocks rising from desert sand.",
+      "image": "learning/img/landmarks-pyramids-of-giza.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The president lives in the building in this photo. In which city is it?",
+    "choicesJson": [
+      "New York City",
+      "Philadelphia",
+      "Washington, D.C.",
+      "Los Angeles"
+    ],
+    "answer": "Washington, D.C.",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A white house with tall columns, a fountain and a green lawn in front.",
+      "image": "learning/img/landmarks-white-house.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which state can you visit this mountain carving?",
+    "choicesJson": [
+      "Florida",
+      "Hawaii",
+      "Maine",
+      "South Dakota"
+    ],
+    "answer": "South Dakota",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "Four giant faces carved into the side of a rocky mountain.",
+      "image": "learning/img/landmarks-mount-rushmore.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which state is this famous bridge?",
+    "choicesJson": [
+      "California",
+      "Maine",
+      "Texas",
+      "Florida"
+    ],
+    "answer": "California",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A red-orange suspension bridge stretching across water from a rocky shore.",
+      "image": "learning/img/landmarks-golden-gate-bridge.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "This very long wall helped protect which country long ago? Type one word.",
+    "answer": "China",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A long stone wall with watchtowers winding over green mountains.",
+      "image": "learning/img/landmarks-great-wall.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A giant statue of a sitting president is inside the building in this photo. Which president is it?",
+    "choicesJson": [
+      "George Washington",
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "Theodore Roosevelt"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "A white marble building with a row of tall columns and wide stone steps.",
+      "image": "learning/img/landmarks-lincoln-memorial.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Congress makes laws in the building in this photo. What is it called?",
+    "choicesJson": [
+      "White House",
+      "Lincoln Memorial",
+      "US Capitol",
+      "Supreme Court Building"
+    ],
+    "answer": "US Capitol",
+    "tags": [
+      "landmarks"
+    ],
+    "media": {
+      "alt": "A big white building with a tall round dome under a deep blue sky.",
+      "image": "learning/img/landmarks-us-capitol.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which country is this tall tower?",
+    "choicesJson": [
+      "Mexico",
+      "Australia",
+      "England",
+      "Canada"
+    ],
+    "answer": "Canada",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "A very tall concrete tower with a round pod near the top, above a city skyline at dusk.",
+      "image": "learning/img/landmarks-cn-tower.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which continent are these ancient mountain ruins?",
+    "choicesJson": [
+      "South America",
+      "Africa",
+      "Europe",
+      "Asia"
+    ],
+    "answer": "South America",
+    "tags": [
+      "landmarks",
+      "geography"
+    ],
+    "media": {
+      "alt": "Old stone ruins and green grass terraces in front of a steep mountain.",
+      "image": "learning/img/landmarks-machu-picchu.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin has President Abraham Lincoln on its heads side?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "coins",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-nickel.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-penny.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin has President George Washington on its heads side?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "coins",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-penny.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-quarter.webp",
+        "learning/img/money-dime.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin has President Thomas Jefferson on its heads side?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "coins",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-penny.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-quarter.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin has President Franklin D. Roosevelt on its heads side?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "tags": [
+      "coins",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-penny.webp",
+        "learning/img/money-dime.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-quarter.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which coin has President John F. Kennedy on its heads side?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "coins",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States coins to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-half-dollar.webp",
+        "learning/img/money-penny.webp",
+        "learning/img/money-nickel.webp",
+        "learning/img/money-quarter.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which bill has President Abraham Lincoln on it?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "bills",
+      "presidents"
+    ],
+    "media": {
+      "alt": "Several United States paper bills to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-bill-1.webp",
+        "learning/img/money-bill-10.webp",
+        "learning/img/money-bill-20.webp",
+        "learning/img/money-bill-5.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which bill has Alexander Hamilton on it? He was the first Secretary of the Treasury.",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "bills",
+      "history"
+    ],
+    "media": {
+      "alt": "Several United States paper bills to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/money-bill-1.webp",
+        "learning/img/money-bill-5.webp",
+        "learning/img/money-bill-20.webp",
+        "learning/img/money-bill-10.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper puts out fires and rescues people?",
+    "choicesJson": [
+      "Mail carrier",
+      "Librarian",
+      "Firefighter",
+      "Baker"
+    ],
+    "answer": "Firefighter",
+    "tags": [
+      "community",
+      "helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Whose job is it to deliver letters and packages to homes?",
+    "choicesJson": [
+      "Mail carrier",
+      "Dentist",
+      "Crossing guard",
+      "Farmer"
+    ],
+    "answer": "Mail carrier",
+    "tags": [
+      "community",
+      "helpers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do communities make rules and laws?",
+    "choicesJson": [
+      "To decide what everyone must eat for lunch",
+      "To keep people safe and treat everyone fairly",
+      "To make every town look exactly the same",
+      "To give the mayor extra money"
+    ],
+    "answer": "To keep people safe and treat everyone fairly",
+    "tags": [
+      "community",
+      "rules"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a community?",
+    "choicesJson": [
+      "A group of people who live, work, or play in the same area",
+      "A building where only one family lives",
+      "A very large body of water",
+      "A rule that everyone must follow"
+    ],
+    "answer": "A group of people who live, work, or play in the same area",
+    "tags": [
+      "community"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which sentence describes a rural community?",
+    "choicesJson": [
+      "Tall skyscrapers and subways fill the streets.",
+      "Many apartment buildings are packed side by side.",
+      "There is lots of open land and farmland, and fewer people live there.",
+      "Thousands of cars drive through every hour."
+    ],
+    "answer": "There is lots of open land and farmland, and fewer people live there.",
+    "tags": [
+      "community",
+      "rural-urban"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A community on the edge of a big city, with many houses, yards, and schools, is called a ____ community.",
+    "choicesJson": [
+      "urban",
+      "rural",
+      "suburban"
+    ],
+    "answer": "suburban",
+    "tags": [
+      "community",
+      "rural-urban"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a crossing guard help kids do?",
+    "choicesJson": [
+      "Cross busy streets safely",
+      "Learn to read",
+      "Find lost pets",
+      "Fix their bikes"
+    ],
+    "answer": "Cross busy streets safely",
+    "tags": [
+      "community",
+      "helpers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Your parents and your brothers and sisters are your immediate family. Your grandparents, aunts, uncles, and cousins are your ____ family.",
+    "answer": "extended",
+    "acceptedAnswers": [
+      "extended family"
+    ],
+    "tags": [
+      "families"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a Minecraft village, one villager is a farmer, one is a librarian, and one is a toolsmith. Why is it helpful that each villager has a different job?",
+    "choicesJson": [
+      "Everyone can get good at one job and share what they make",
+      "Villagers never need to trade with each other",
+      "Only one villager ever has to work",
+      "Villagers can stop working forever"
+    ],
+    "answer": "Everyone can get good at one job and share what they make",
+    "tags": [
+      "community",
+      "jobs",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox game has a rule: be kind in the chat. Why do online games and real communities both have rules like this?",
+    "choicesJson": [
+      "To help everyone get along and feel safe",
+      "To make sure the best players always win",
+      "To let players skip all the levels",
+      "To make the game load faster"
+    ],
+    "answer": "To help everyone get along and feel safe",
+    "tags": [
+      "rules",
+      "community",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite Duos, partners share healing items and watch each other's backs. Working together toward a goal is called ____.",
+    "choicesJson": [
+      "Competition",
+      "Pollution",
+      "Cooperation",
+      "Taxation"
+    ],
+    "answer": "Cooperation",
+    "tags": [
+      "community",
+      "cooperation",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a law, not just a family rule?",
+    "choicesJson": [
+      "Take your shoes off at the door",
+      "Bedtime is at 8:30",
+      "Stop at a red light when driving",
+      "Wash the dishes after dinner"
+    ],
+    "answer": "Stop at a red light when driving",
+    "tags": [
+      "rules",
+      "laws"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a consequence?",
+    "choicesJson": [
+      "A rule posted on a wall",
+      "What happens as a result of a choice or action",
+      "A job that a helper does",
+      "A leader chosen by voters"
+    ],
+    "answer": "What happens as a result of a choice or action",
+    "tags": [
+      "rules",
+      "citizenship"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which action shows good citizenship?",
+    "choicesJson": [
+      "Skipping the rules when no one is looking",
+      "Leaving trash on the playground",
+      "Picking up litter at the park",
+      "Spray-painting a park bench"
+    ],
+    "answer": "Picking up litter at the park",
+    "tags": [
+      "citizenship",
+      "community"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community helper repairs leaking pipes?",
+    "choicesJson": [
+      "Plumber",
+      "Pilot",
+      "Chef",
+      "Photographer"
+    ],
+    "answer": "Plumber",
+    "tags": [
+      "community",
+      "helpers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A creepypasta monster on a screen is pretend, but a real emergency is not. What number do you dial in the U.S. to reach emergency help?",
+    "answer": "911",
+    "acceptedAnswers": [
+      "9-1-1",
+      "nine one one",
+      "nine-one-one"
+    ],
+    "tags": [
+      "community",
+      "safety",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which statement about families is true?",
+    "choicesJson": [
+      "Every family must have exactly four people",
+      "Families can be big or small, and different families have different members",
+      "Only families that live in houses count",
+      "All families do everything the same way"
+    ],
+    "answer": "Families can be big or small, and different families have different members",
+    "tags": [
+      "families"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is it helpful for everyone in a family to share the chores?",
+    "choicesJson": [
+      "Only the youngest person has to work",
+      "Chores disappear on their own",
+      "The work gets done faster and more fairly",
+      "Nobody has to clean up after meals"
+    ],
+    "answer": "The work gets done faster and more fairly",
+    "tags": [
+      "families",
+      "responsibility"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Two siblings both want to be Player 1 in Mario Kart. They agree to switch after every race. What is this kind of fair agreement called?",
+    "choicesJson": [
+      "Punishment",
+      "Election",
+      "Tradition",
+      "Compromise"
+    ],
+    "answer": "Compromise",
+    "tags": [
+      "families",
+      "conflict",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "At a class vote, Tag got 8 votes, Four Square got 11 votes, and Kickball got 6 votes. Which game won?",
+    "choicesJson": [
+      "Tag",
+      "Kickball",
+      "Four Square"
+    ],
+    "answer": "Four Square",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which community worker collects trash and recycling from the curb?",
+    "choicesJson": [
+      "Dentist",
+      "Librarian",
+      "Pilot",
+      "Sanitation worker"
+    ],
+    "answer": "Sanitation worker",
+    "tags": [
+      "community",
+      "helpers"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Someone who chooses to help the community without being paid is called a ____.",
+    "answer": "volunteer",
+    "acceptedAnswers": [
+      "volunteers"
+    ],
+    "tags": [
+      "community",
+      "citizenship"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is a way to be a good neighbor?",
+    "choicesJson": [
+      "Playing loud music at 2 in the morning",
+      "Offering to help carry a neighbor's groceries",
+      "Letting your dog dig up their garden",
+      "Ignoring your neighbors forever"
+    ],
+    "answer": "Offering to help carry a neighbor's groceries",
+    "tags": [
+      "community",
+      "citizenship"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The first Godzilla movie came out in 1954. Which country made it?",
+    "choicesJson": [
+      "Brazil",
+      "Egypt",
+      "Japan",
+      "Australia"
+    ],
+    "answer": "Japan",
+    "tags": [
+      "cultures",
+      "world-geography",
+      "theme:godzilla"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the novel Dracula, the Count lives in a castle in Transylvania. Today, Transylvania is a region in which country?",
+    "choicesJson": [
+      "Poland",
+      "Hungary",
+      "Spain",
+      "Romania"
+    ],
+    "answer": "Romania",
+    "tags": [
+      "world-geography",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Loch Ness Monster is said to live in a deep lake called Loch Ness. In which country is that lake?",
+    "choicesJson": [
+      "Scotland",
+      "Norway",
+      "Canada",
+      "Egypt"
+    ],
+    "answer": "Scotland",
+    "tags": [
+      "world-geography",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ancient Egyptians built pyramids and made mummies near which famous river?",
+    "choicesJson": [
+      "Amazon",
+      "Nile",
+      "Mississippi",
+      "Yangtze"
+    ],
+    "answer": "Nile",
+    "tags": [
+      "world-history",
+      "cultures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft has desert biomes. Which real place is a huge hot desert?",
+    "choicesJson": [
+      "Amazon Rainforest",
+      "Antarctica",
+      "The Great Lakes",
+      "Sahara Desert"
+    ],
+    "answer": "Sahara Desert",
+    "tags": [
+      "world-geography",
+      "deserts",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Amazon Rainforest, the largest rainforest on Earth, is on which continent?",
+    "choicesJson": [
+      "Africa",
+      "South America",
+      "Europe",
+      "Australia"
+    ],
+    "answer": "South America",
+    "tags": [
+      "world-geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Diwali, the festival of lights, is most widely celebrated in which country?",
+    "choicesJson": [
+      "Norway",
+      "Peru",
+      "India",
+      "Canada"
+    ],
+    "answer": "India",
+    "tags": [
+      "cultures",
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "During Lunar New Year in China, children often get red envelopes. What is usually inside?",
+    "choicesJson": [
+      "Cooked noodles",
+      "Paper masks",
+      "Train tickets",
+      "Lucky money"
+    ],
+    "answer": "Lucky money",
+    "tags": [
+      "cultures",
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On Day of the Dead (Dia de los Muertos) in Mexico, families decorate with bright orange flowers called ____.",
+    "choicesJson": [
+      "roses",
+      "daisies",
+      "marigolds",
+      "lilacs"
+    ],
+    "answer": "marigolds",
+    "tags": [
+      "cultures",
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The equator is an imaginary line around the middle of Earth. What is the weather usually like near it?",
+    "choicesJson": [
+      "Snowy all year",
+      "Warm or hot all year",
+      "Freezing in summer",
+      "Cold with no sunshine"
+    ],
+    "answer": "Warm or hot all year",
+    "tags": [
+      "world-geography",
+      "equator"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which language uses the greeting \"Bonjour\"?",
+    "choicesJson": [
+      "Japanese",
+      "German",
+      "French",
+      "Italian"
+    ],
+    "answer": "French",
+    "tags": [
+      "cultures",
+      "languages"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Roblox players come from all over the world. A friend in Mexico types \"Hola!\" in chat. What does hola mean in Spanish?",
+    "choicesJson": [
+      "Goodbye",
+      "Thank you",
+      "Sorry",
+      "Hello"
+    ],
+    "answer": "Hello",
+    "tags": [
+      "cultures",
+      "languages",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A special way of doing something that a family or culture passes down for many years, like a holiday meal, is called a ____.",
+    "answer": "tradition",
+    "acceptedAnswers": [
+      "traditions"
+    ],
+    "tags": [
+      "cultures",
+      "families"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is part of a group's culture?",
+    "choicesJson": [
+      "The temperature outside",
+      "Its food, music, and holidays",
+      "The shape of its rivers",
+      "The number of its trees"
+    ],
+    "answer": "Its food, music, and holidays",
+    "tags": [
+      "cultures"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A person who moves to a new country to live there is called an ____.",
+    "answer": "immigrant",
+    "acceptedAnswers": [
+      "immigrants"
+    ],
+    "tags": [
+      "cultures",
+      "people"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "V-Bucks is the in-game money in Fortnite. Real countries have their own money too, like the yen in Japan and the euro in France. What is a country's money called?",
+    "answer": "currency",
+    "acceptedAnswers": [
+      "currencies"
+    ],
+    "tags": [
+      "economics",
+      "cultures",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The flag of Canada has a red ____ leaf in the middle.",
+    "answer": "maple",
+    "acceptedAnswers": [
+      "maple leaf"
+    ],
+    "tags": [
+      "world-geography",
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which country shares the southern border of the United States?",
+    "choicesJson": [
+      "Cuba",
+      "Mexico",
+      "Canada",
+      "Brazil"
+    ],
+    "answer": "Mexico",
+    "tags": [
+      "world-geography",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent has the most people living on it?",
+    "choicesJson": [
+      "Europe",
+      "Africa",
+      "North America",
+      "Asia"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "world-geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which country would you find the Eiffel Tower?",
+    "choicesJson": [
+      "Italy",
+      "Spain",
+      "France",
+      "Germany"
+    ],
+    "answer": "France",
+    "tags": [
+      "world-geography",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of a map shows the directions north, south, east, and west?",
+    "choicesJson": [
+      "The map key",
+      "The scale",
+      "The compass rose",
+      "The title"
+    ],
+    "answer": "The compass rose",
+    "tags": [
+      "map-skills",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the map key (also called the legend) tell you?",
+    "choicesJson": [
+      "Who drew the map",
+      "What the symbols and colors on the map mean",
+      "How old the map is",
+      "Which way the wind is blowing"
+    ],
+    "answer": "What the symbols and colors on the map mean",
+    "tags": [
+      "map-skills",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the scale on a map help you figure out?",
+    "choicesJson": [
+      "How far apart real places are",
+      "What the weather will be",
+      "How many people live in a city",
+      "Which place is the oldest"
+    ],
+    "answer": "How far apart real places are",
+    "tags": [
+      "map-skills",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which direction is halfway between north and east?",
+    "choicesJson": [
+      "Southwest",
+      "Northwest",
+      "Northeast",
+      "Southeast"
+    ],
+    "answer": "Northeast",
+    "tags": [
+      "directions",
+      "map-skills"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name of the imaginary line around the middle of Earth, halfway between the North Pole and the South Pole?",
+    "answer": "equator",
+    "acceptedAnswers": [
+      "the equator"
+    ],
+    "tags": [
+      "geography",
+      "globe"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The equator splits Earth into the Northern Hemisphere and the ____ Hemisphere. Type the missing word.",
+    "answer": "southern",
+    "acceptedAnswers": [
+      "south"
+    ],
+    "tags": [
+      "geography",
+      "globe"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is special about a globe compared with a flat map?",
+    "choicesJson": [
+      "It only shows the oceans",
+      "It only shows the United States",
+      "It is round, like Earth itself",
+      "It cannot show any countries"
+    ],
+    "answer": "It is round, like Earth itself",
+    "tags": [
+      "geography",
+      "globe"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Lines of latitude are the imaginary lines on a globe that run in which direction?",
+    "choicesJson": [
+      "North to south",
+      "Corner to corner",
+      "In a zigzag",
+      "East to west"
+    ],
+    "answer": "East to west",
+    "tags": [
+      "geography",
+      "globe"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a map grid, letters run across the top and numbers run down the side. Which square is in column B and row 4?",
+    "choicesJson": [
+      "D4",
+      "B2",
+      "B4",
+      "A4"
+    ],
+    "answer": "B4",
+    "tags": [
+      "map-skills",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is a large area of flat land with very few hills?",
+    "choicesJson": [
+      "Canyon",
+      "Plain",
+      "Volcano",
+      "Peninsula"
+    ],
+    "answer": "Plain",
+    "tags": [
+      "landforms",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which landform is a piece of land completely surrounded by water?",
+    "choicesJson": [
+      "Valley",
+      "Peninsula",
+      "Island",
+      "Plateau"
+    ],
+    "answer": "Island",
+    "tags": [
+      "landforms",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Florida is called a peninsula. What does that mean?",
+    "choicesJson": [
+      "It is surrounded by water on all sides",
+      "It has no coastline",
+      "It has water on three sides and is joined to land on the fourth",
+      "It is a very long river"
+    ],
+    "answer": "It has water on three sides and is joined to land on the fourth",
+    "tags": [
+      "landforms",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Grand Canyon in Arizona was carved over millions of years by which river?",
+    "choicesJson": [
+      "Mississippi River",
+      "Colorado River",
+      "Hudson River",
+      "Ohio River"
+    ],
+    "answer": "Colorado River",
+    "tags": [
+      "landforms",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Mississippi River flows south across the United States and empties into which body of water?",
+    "choicesJson": [
+      "Hudson Bay",
+      "Gulf of Mexico",
+      "Lake Michigan",
+      "Pacific Ocean"
+    ],
+    "answer": "Gulf of Mexico",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many Great Lakes are there in North America? Type a number.",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five"
+    ],
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which Great Lake is the largest by area?",
+    "choicesJson": [
+      "Lake Erie",
+      "Lake Ontario",
+      "Lake Michigan",
+      "Lake Superior"
+    ],
+    "answer": "Lake Superior",
+    "tags": [
+      "geography",
+      "water"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which two U.S. states are NOT connected by land to the other 48 states?",
+    "choicesJson": [
+      "Maine and Florida",
+      "Alaska and Hawaii",
+      "Texas and Alaska",
+      "Hawaii and California"
+    ],
+    "answer": "Alaska and Hawaii",
+    "tags": [
+      "geography",
+      "states"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Which country is just north of the United States? Type its name.",
+    "answer": "Canada",
+    "tags": [
+      "geography",
+      "countries"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Mexico is south of the United States. So the United States is ____ of Mexico.",
+    "choicesJson": [
+      "west",
+      "north",
+      "south",
+      "east"
+    ],
+    "answer": "north",
+    "tags": [
+      "directions",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which continent is the largest in size?",
+    "choicesJson": [
+      "Asia",
+      "Africa",
+      "North America",
+      "Europe"
+    ],
+    "answer": "Asia",
+    "tags": [
+      "geography",
+      "continents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which kind of map shows the borders between states or countries and the locations of capital cities?",
+    "choicesJson": [
+      "Weather map",
+      "Physical map",
+      "Political map",
+      "Star map"
+    ],
+    "answer": "Political map",
+    "tags": [
+      "map-skills",
+      "geography"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Pokemon trainer starts in Pallet Town, walks north to Viridian City, then north again to Pewter City. Which direction must the trainer walk to get all the way back to Pallet Town?",
+    "choicesJson": [
+      "North",
+      "East",
+      "South",
+      "West"
+    ],
+    "answer": "South",
+    "tags": [
+      "directions",
+      "map-skills",
+      "pokemon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, the sun rises in the east. You watch the sunrise, then turn your back to it. Which direction are you facing now?",
+    "choicesJson": [
+      "North",
+      "West",
+      "South",
+      "East"
+    ],
+    "answer": "West",
+    "tags": [
+      "directions",
+      "map-skills",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepy legend says a tall, thin figure hides in the woods north of your cabin. The lake is south of your cabin. If you run from the woods past the cabin to the lake, which way are you running?",
+    "choicesJson": [
+      "South",
+      "North",
+      "East",
+      "West"
+    ],
+    "answer": "South",
+    "tags": [
+      "directions",
+      "map-skills",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a need, not a want?",
+    "choicesJson": [
+      "A video game console",
+      "A new skateboard",
+      "Candy",
+      "Clean water"
+    ],
+    "answer": "Clean water",
+    "tags": [
+      "economics",
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a want, not a need?",
+    "choicesJson": [
+      "Food to eat",
+      "A giant stuffed dragon toy",
+      "A safe place to live",
+      "Clean drinking water"
+    ],
+    "answer": "A giant stuffed dragon toy",
+    "tags": [
+      "economics",
+      "needs-wants"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Someone who grows or makes goods to sell, like a farmer growing corn, is called a ____. Type one word.",
+    "answer": "producer",
+    "acceptedAnswers": [
+      "a producer",
+      "producers"
+    ],
+    "tags": [
+      "economics",
+      "producers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a good, not a service?",
+    "choicesJson": [
+      "A haircut",
+      "A bus ride",
+      "A bicycle",
+      "A swimming lesson"
+    ],
+    "answer": "A bicycle",
+    "tags": [
+      "economics",
+      "goods-services"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Putting money aside to use later, instead of spending it now, is called ____.",
+    "choicesJson": [
+      "trading",
+      "saving",
+      "borrowing",
+      "taxing"
+    ],
+    "answer": "saving",
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A plan for how much money you will spend and how much you will save is called a ____. Type one word.",
+    "answer": "budget",
+    "acceptedAnswers": [
+      "a budget"
+    ],
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bank lets a family use money now, but the family must pay it back later. What is this called?",
+    "choicesJson": [
+      "A gift",
+      "A salary",
+      "A loan",
+      "A tip"
+    ],
+    "answer": "A loan",
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Sam sells lemonade. Each cup costs him 25 cents to make, and he sells it for 75 cents. How many cents of profit does he make on each cup? Type a number.",
+    "answer": "50",
+    "acceptedAnswers": [
+      "50 cents",
+      "$0.50",
+      "0.50",
+      ".50",
+      "$.50"
+    ],
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Everyone wants a new game console, but the store has only 3 left. What is most likely to happen to the price?",
+    "choicesJson": [
+      "It will probably go down",
+      "It will become zero",
+      "It will probably go up",
+      "It will never change"
+    ],
+    "answer": "It will probably go up",
+    "tags": [
+      "economics",
+      "supply-demand"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The U.S. grows lots of wheat and sells some of it to other countries. Goods that a country sells to other countries are called ____.",
+    "choicesJson": [
+      "imports",
+      "savings",
+      "exports",
+      "taxes"
+    ],
+    "answer": "exports",
+    "tags": [
+      "economics",
+      "trade"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, you chop trees to get wood for crafting. In real life, trees and the wood they give us are what kind of resource?",
+    "choicesJson": [
+      "A human resource",
+      "A service",
+      "A tax",
+      "A natural resource"
+    ],
+    "answer": "A natural resource",
+    "tags": [
+      "economics",
+      "resources",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a farm, which of these is a capital resource, meaning a tool or machine that helps make goods?",
+    "choicesJson": [
+      "The soil",
+      "A tractor",
+      "Rainwater",
+      "The farmer's ideas"
+    ],
+    "answer": "A tractor",
+    "tags": [
+      "economics",
+      "resources"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A toy factory has each worker do one small job, like painting or boxing, instead of making a whole toy alone. Why?",
+    "choicesJson": [
+      "So fewer toys get made",
+      "So toys cost more to make",
+      "More toys can be made faster",
+      "So the workers never get tired"
+    ],
+    "answer": "More toys can be made faster",
+    "tags": [
+      "economics",
+      "production"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which set of coins is worth exactly 50 cents?",
+    "choicesJson": [
+      "3 dimes",
+      "4 nickels",
+      "1 quarter and 1 dime",
+      "2 quarters"
+    ],
+    "answer": "2 quarters",
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You have 3 quarters and 1 dime. How many cents do you have in all? Type a number.",
+    "answer": "85",
+    "acceptedAnswers": [
+      "85 cents",
+      "$0.85",
+      "0.85",
+      ".85",
+      "$.85"
+    ],
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "You buy a $4 smoothie and a $3 cookie and pay with a $10 bill. How many dollars of change should you get back? Type a number.",
+    "answer": "3",
+    "acceptedAnswers": [
+      "$3",
+      "3 dollars",
+      "three"
+    ],
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Jo gets $12 allowance each week and saves half of it. After 3 weeks, how many dollars has Jo saved? Type a number.",
+    "answer": "18",
+    "acceptedAnswers": [
+      "$18",
+      "18 dollars",
+      "eighteen"
+    ],
+    "tags": [
+      "economics",
+      "money"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox player has 150 Robux. A cape costs 100 Robux and a pet costs 100 Robux, so only one can be bought. Giving up one choice to get another is called a ____.",
+    "choicesJson": [
+      "tax",
+      "loan",
+      "trade-off",
+      "profit"
+    ],
+    "answer": "trade-off",
+    "tags": [
+      "economics",
+      "choices",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Imagine two Fortnite teammates swap a shield potion for a medkit without using any money. Trading things directly like this is called ____.",
+    "choicesJson": [
+      "budgeting",
+      "bartering",
+      "taxing",
+      "banking"
+    ],
+    "answer": "bartering",
+    "tags": [
+      "economics",
+      "trade",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a story, a worker at the SCP Foundation is paid $500 each week for guarding a containment cell. The money a person earns from a job is called ____.",
+    "choicesJson": [
+      "a budget",
+      "a loan",
+      "income",
+      "a tax"
+    ],
+    "answer": "income",
+    "tags": [
+      "economics",
+      "money",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the Mushroom Kingdom, Toad grows mushrooms and sells them. Mario buys one to eat. Who is the consumer?",
+    "choicesJson": [
+      "Toad",
+      "The mushroom",
+      "Mario",
+      "The farm"
+    ],
+    "answer": "Mario",
+    "tags": [
+      "economics",
+      "consumers",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday is celebrated every year on July 4th in the United States?",
+    "choicesJson": [
+      "Memorial Day",
+      "Independence Day",
+      "Labor Day",
+      "Veterans Day"
+    ],
+    "answer": "Independence Day",
+    "tags": [
+      "holidays",
+      "symbols"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Roblox builder is making a giant U.S. flag in her build game. How many stars does she need to place so there is one for each state?",
+    "answer": "50",
+    "acceptedAnswers": [
+      "fifty"
+    ],
+    "tags": [
+      "symbols",
+      "flag",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The American flag has red and white stripes. How many stripes does it have?",
+    "answer": "13",
+    "acceptedAnswers": [
+      "thirteen"
+    ],
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The stripes on the American flag stand for what?",
+    "choicesJson": [
+      "The first presidents",
+      "The original colonies",
+      "The biggest cities",
+      "The longest rivers"
+    ],
+    "answer": "The original colonies",
+    "tags": [
+      "symbols",
+      "flag"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is the head of the executive branch of the U.S. government?",
+    "choicesJson": [
+      "The Chief Justice",
+      "The Speaker of the House",
+      "The President",
+      "The Governor"
+    ],
+    "answer": "The President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The U.S. government is split into branches so that no one person has too much power. How many branches are there?",
+    "answer": "3",
+    "acceptedAnswers": [
+      "three"
+    ],
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Martin Luther King Jr. Day honors a leader of which movement?",
+    "choicesJson": [
+      "The Gold Rush",
+      "The space race",
+      "The civil rights movement",
+      "The Industrial Revolution"
+    ],
+    "answer": "The civil rights movement",
+    "tags": [
+      "holidays",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Labor Day, celebrated on the first Monday of September, honors which group of people?",
+    "choicesJson": [
+      "Workers",
+      "Soldiers",
+      "Teachers only",
+      "Presidents"
+    ],
+    "answer": "Workers",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Presidents' Day first began as a way to honor the birthday of which president?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "John Adams",
+      "George Washington",
+      "Thomas Jefferson"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "holidays",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Every February 2, people in Punxsutawney, Pennsylvania, watch a groundhog to see if it sees its shadow. What is this tradition trying to predict?",
+    "choicesJson": [
+      "Who will win the next election",
+      "What day Thanksgiving will be",
+      "How much rain will fall in summer",
+      "How much longer winter will last"
+    ],
+    "answer": "How much longer winter will last",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Slender-style tall figures and other creepypasta legends get retold every year around Halloween. On which date is Halloween?",
+    "choicesJson": [
+      "October 1",
+      "October 31",
+      "November 1",
+      "September 30"
+    ],
+    "answer": "October 31",
+    "tags": [
+      "holidays",
+      "traditions",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many senators does each state have in the U.S. Senate?",
+    "answer": "2",
+    "acceptedAnswers": [
+      "two"
+    ],
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Congress is made up of two parts: the Senate and the ____.",
+    "choicesJson": [
+      "House of Representatives",
+      "Supreme Court",
+      "Cabinet",
+      "Electoral College"
+    ],
+    "answer": "House of Representatives",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "After Congress passes a bill, who can sign it to make it a law?",
+    "choicesJson": [
+      "A Supreme Court judge",
+      "A state governor",
+      "The President",
+      "A city mayor"
+    ],
+    "answer": "The President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the building in Washington, D.C. where the President lives and works?",
+    "choicesJson": [
+      "The Capitol",
+      "The Pentagon",
+      "The Lincoln Memorial",
+      "The White House"
+    ],
+    "answer": "The White House",
+    "tags": [
+      "civics",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which document sets up the main rules and plan for the U.S. government?",
+    "choicesJson": [
+      "The Constitution",
+      "The Mayflower Compact",
+      "The Pledge of Allegiance",
+      "The Star-Spangled Banner"
+    ],
+    "answer": "The Constitution",
+    "tags": [
+      "civics",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which document told Britain that the American colonies wanted to be free?",
+    "choicesJson": [
+      "The Bill of Rights",
+      "The Emancipation Proclamation",
+      "The Declaration of Independence",
+      "The Louisiana Purchase"
+    ],
+    "answer": "The Declaration of Independence",
+    "tags": [
+      "history",
+      "civics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which Founding Father wrote most of the Declaration of Independence?",
+    "choicesJson": [
+      "Benjamin Franklin",
+      "Thomas Jefferson",
+      "Paul Revere",
+      "John Hancock"
+    ],
+    "answer": "Thomas Jefferson",
+    "tags": [
+      "history",
+      "civics"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A U.S. president is elected for one term at a time. How many years long is one presidential term?",
+    "answer": "4",
+    "acceptedAnswers": [
+      "four"
+    ],
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Minecraft server holds a vote about banning TNT, and the choice with the most votes wins. Which kind of government works this way?",
+    "choicesJson": [
+      "Monarchy",
+      "Democracy",
+      "Dictatorship",
+      "Empire"
+    ],
+    "answer": "Democracy",
+    "tags": [
+      "civics",
+      "voting",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Your Fortnite squad of 5 votes on where to land. Three players pick the same spot. What do we call that group of 3 that has more than half the votes?",
+    "choicesJson": [
+      "Minority",
+      "Veto",
+      "Majority",
+      "Tie"
+    ],
+    "answer": "Majority",
+    "tags": [
+      "civics",
+      "voting",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft you can craft a banner to show your team's colors. The American flag has a nickname too. Which one is it?",
+    "choicesJson": [
+      "Big Red",
+      "Liberty Rag",
+      "Union Jack",
+      "Old Glory"
+    ],
+    "answer": "Old Glory",
+    "tags": [
+      "symbols",
+      "flag",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dracula wants to run for mayor of his town. A mayor is the leader of what?",
+    "choicesJson": [
+      "A city or town",
+      "A whole country",
+      "A state",
+      "The Supreme Court"
+    ],
+    "answer": "A city or town",
+    "tags": [
+      "civics",
+      "government",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In SCP stories, a secret group enforces the rules to keep creatures contained. In the real U.S. government, which branch enforces (carries out) the laws?",
+    "choicesJson": [
+      "Judicial branch",
+      "Legislative branch",
+      "Executive branch"
+    ],
+    "answer": "Executive branch",
+    "tags": [
+      "civics",
+      "government",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Princess Peach rules the Mushroom Kingdom because she comes from a royal family. A government led by a king or queen is called a what?",
+    "choicesJson": [
+      "Monarchy",
+      "Democracy",
+      "Republic",
+      "Senate"
+    ],
+    "answer": "Monarchy",
+    "tags": [
+      "civics",
+      "government",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In the United States, Thanksgiving is celebrated on which day of the week?",
+    "choicesJson": [
+      "Monday",
+      "Saturday",
+      "Sunday",
+      "Thursday"
+    ],
+    "answer": "Thursday",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which date do many families in the United States celebrate Christmas?",
+    "choicesJson": [
+      "December 25",
+      "December 31",
+      "November 25",
+      "January 1"
+    ],
+    "answer": "December 25",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which holiday happens on the very first day of the year, January 1?",
+    "choicesJson": [
+      "Presidents' Day",
+      "New Year's Day",
+      "Labor Day",
+      "Earth Day"
+    ],
+    "answer": "New Year's Day",
+    "tags": [
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Juneteenth, celebrated on June 19, marks the end of what in the United States?",
+    "choicesJson": [
+      "The Revolutionary War",
+      "Slavery",
+      "The Great Depression",
+      "A long winter"
+    ],
+    "answer": "Slavery",
+    "tags": [
+      "holidays",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When people say the Pledge of Allegiance, they usually face and look at which symbol?",
+    "choicesJson": [
+      "The flag",
+      "The Liberty Bell",
+      "The White House",
+      "The bald eagle"
+    ],
+    "answer": "The flag",
+    "tags": [
+      "symbols",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which song is the national anthem of the United States?",
+    "choicesJson": [
+      "Yankee Doodle",
+      "This Land Is Your Land",
+      "The Star-Spangled Banner",
+      "Happy Birthday"
+    ],
+    "answer": "The Star-Spangled Banner",
+    "tags": [
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The words of The Star-Spangled Banner were written about a flag that waved over which fort during the War of 1812?",
+    "choicesJson": [
+      "Fort Knox",
+      "Fort McHenry",
+      "Fort Worth",
+      "Fort Sumter"
+    ],
+    "answer": "Fort McHenry",
+    "tags": [
+      "symbols",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Four presidents are carved into Mount Rushmore. Which of these presidents is NOT one of them?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "John F. Kennedy",
+      "George Washington"
+    ],
+    "answer": "John F. Kennedy",
+    "tags": [
+      "symbols",
+      "landmarks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Whose picture is on the U.S. one-dollar bill?",
+    "choicesJson": [
+      "Abraham Lincoln",
+      "Benjamin Franklin",
+      "Thomas Jefferson",
+      "George Washington"
+    ],
+    "answer": "George Washington",
+    "tags": [
+      "symbols",
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Uncle Sam, the tall man in a top hat and stars-and-stripes clothes, is a character that stands for what?",
+    "choicesJson": [
+      "The U.S. government",
+      "A famous baseball team",
+      "A cereal company",
+      "The state of Texas"
+    ],
+    "answer": "The U.S. government",
+    "tags": [
+      "symbols"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the group of top advisers who lead the big government departments and help the President?",
+    "choicesJson": [
+      "The Jury",
+      "The Cabinet",
+      "The Senate",
+      "The Court"
+    ],
+    "answer": "The Cabinet",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who is second in command in the executive branch, right after the President?",
+    "choicesJson": [
+      "The Vice President",
+      "The Speaker of the House",
+      "The Governor",
+      "The Secretary of State"
+    ],
+    "answer": "The Vice President",
+    "tags": [
+      "civics",
+      "government"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The first ten changes added to the Constitution are known as the ____.",
+    "choicesJson": [
+      "Gettysburg Address",
+      "Bill of Rights",
+      "Mayflower Compact",
+      "Louisiana Purchase"
+    ],
+    "answer": "Bill of Rights",
+    "tags": [
+      "civics",
+      "history"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a law?",
+    "choicesJson": [
+      "A game with no winner",
+      "A rule made by the government that people must follow",
+      "A tax paid at a store",
+      "A vote held at school"
+    ],
+    "answer": "A rule made by the government that people must follow",
+    "tags": [
+      "civics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is usually paid for with tax money?",
+    "choicesJson": [
+      "A candy bar",
+      "A pizza",
+      "A video game console",
+      "A fire department"
+    ],
+    "answer": "A fire department",
+    "tags": [
+      "civics",
+      "economics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On Election Day, what is a ballot?",
+    "choicesJson": [
+      "A paper or screen used to cast a vote",
+      "A person who runs for office",
+      "A building where laws are made",
+      "A tax on voters"
+    ],
+    "answer": "A paper or screen used to cast a vote",
+    "tags": [
+      "civics",
+      "voting"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a person who legally belongs to a country, either by being born there or by joining it through a legal process?",
+    "choicesJson": [
+      "Tourist",
+      "Citizen",
+      "Senator",
+      "Immigrant"
+    ],
+    "answer": "Citizen",
+    "tags": [
+      "civics"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Earth Day, celebrated every April 22, encourages people to do what?",
+    "choicesJson": [
+      "Honor soldiers",
+      "Watch fireworks",
+      "Take care of the planet",
+      "Give thanks for the harvest"
+    ],
+    "answer": "Take care of the planet",
+    "tags": [
+      "holidays",
+      "traditions"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dia de los Muertos (Day of the Dead) is a holiday from Mexico. Families decorate with flowers and photos to remember whom?",
+    "choicesJson": [
+      "Famous presidents",
+      "Relatives who have died",
+      "Soldiers from the future",
+      "Friendly monsters"
+    ],
+    "answer": "Relatives who have died",
+    "tags": [
+      "holidays",
+      "cultures"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Independence Day celebrates the Declaration of Independence. In what year was it adopted?",
+    "answer": "1776",
+    "tags": [
+      "history",
+      "holidays"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which President led the United States during the Civil War and is shown on the penny?",
+    "choicesJson": [
+      "George Washington",
+      "Theodore Roosevelt",
+      "Barack Obama",
+      "Abraham Lincoln"
+    ],
+    "answer": "Abraham Lincoln",
+    "tags": [
+      "history",
+      "presidents"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In 1955, Rosa Parks became a hero of the civil rights movement by refusing to give up her seat on a what?",
+    "answer": "bus",
+    "acceptedAnswers": [
+      "a bus"
+    ],
+    "tags": [
+      "history",
+      "civil-rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Harriet Tubman helped many people escape slavery using the Underground Railroad. What was it?",
+    "choicesJson": [
+      "An underground train line in Chicago",
+      "A secret network of people and safe places that helped people escape",
+      "A famous steamboat on the Mississippi River",
+      "A fort built by soldiers"
+    ],
+    "answer": "A secret network of people and safe places that helped people escape",
+    "tags": [
+      "history",
+      "civil-war"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1969, which astronaut became the first person to walk on the Moon?",
+    "choicesJson": [
+      "Buzz Lightyear",
+      "Sally Ride",
+      "John Glenn",
+      "Neil Armstrong"
+    ],
+    "answer": "Neil Armstrong",
+    "tags": [
+      "history",
+      "space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1903, the Wright brothers made the first successful flight of a powered what?",
+    "choicesJson": [
+      "Submarine",
+      "Airplane",
+      "Train",
+      "Bicycle"
+    ],
+    "answer": "Airplane",
+    "tags": [
+      "history",
+      "inventors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which inventor is famous for making a practical electric light bulb in the 1870s?",
+    "choicesJson": [
+      "Henry Ford",
+      "Neil Armstrong",
+      "Thomas Edison",
+      "Benjamin Franklin"
+    ],
+    "answer": "Thomas Edison",
+    "tags": [
+      "history",
+      "inventors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Benjamin Franklin's famous experiment of flying a kite in a storm was about what?",
+    "choicesJson": [
+      "Ocean tides",
+      "How birds fly",
+      "Lightning and electricity",
+      "Why leaves change color"
+    ],
+    "answer": "Lightning and electricity",
+    "tags": [
+      "history",
+      "inventors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which Shoshone woman traveled with Lewis and Clark and helped them as a guide and interpreter?",
+    "choicesJson": [
+      "Sacagawea",
+      "Pocahontas",
+      "Rosa Parks",
+      "Susan B. Anthony"
+    ],
+    "answer": "Sacagawea",
+    "tags": [
+      "history",
+      "exploration"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which explorer sailed from Spain in 1492 and landed on islands in the Caribbean?",
+    "choicesJson": [
+      "Paul Revere",
+      "Christopher Columbus",
+      "George Washington",
+      "Neil Armstrong"
+    ],
+    "answer": "Christopher Columbus",
+    "tags": [
+      "history",
+      "exploration"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What was the name of the ship that carried the Pilgrims across the Atlantic Ocean to America in 1620?",
+    "answer": "Mayflower",
+    "acceptedAnswers": [
+      "the mayflower"
+    ],
+    "tags": [
+      "history",
+      "colonies"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Paul Revere's famous midnight ride in 1775 warned colonists that who was coming?",
+    "choicesJson": [
+      "Pirates",
+      "A hurricane",
+      "The Pilgrims",
+      "British soldiers"
+    ],
+    "answer": "British soldiers",
+    "tags": [
+      "history",
+      "revolution"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Fortnite players hunt for loot. In 1849, thousands of real people rushed to California hunting for what?",
+    "choicesJson": [
+      "Oil",
+      "Gold",
+      "Pirate ships",
+      "Diamonds"
+    ],
+    "answer": "Gold",
+    "tags": [
+      "history",
+      "westward-expansion",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are \"civil rights\"?",
+    "choicesJson": [
+      "Rules for driving a car",
+      "The right to be treated fairly and equally under the law",
+      "Money people pay to the government",
+      "Rights that only soldiers have"
+    ],
+    "answer": "The right to be treated fairly and equally under the law",
+    "tags": [
+      "civics",
+      "civil-rights"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Susan B. Anthony spent her life working so that women could do what?",
+    "choicesJson": [
+      "Sail the oceans",
+      "Join the Olympics",
+      "Ride trains",
+      "Vote in elections"
+    ],
+    "answer": "Vote in elections",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who became the first American woman to travel into space in 1983?",
+    "choicesJson": [
+      "Sally Ride",
+      "Amelia Earhart",
+      "Rosa Parks",
+      "Harriet Tubman"
+    ],
+    "answer": "Sally Ride",
+    "tags": [
+      "history",
+      "space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Jackie Robinson broke the color barrier in 1947 when he joined a major league team in which sport?",
+    "choicesJson": [
+      "Basketball",
+      "Football",
+      "Baseball",
+      "Hockey"
+    ],
+    "answer": "Baseball",
+    "tags": [
+      "history",
+      "sports"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sequoyah created a writing system for the language of which Native American nation?",
+    "choicesJson": [
+      "Navajo",
+      "Apache",
+      "Iroquois",
+      "Cherokee"
+    ],
+    "answer": "Cherokee",
+    "tags": [
+      "history",
+      "native-americans"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1773, colonists dumped tea into Boston Harbor to protest British taxes. What is this event called?",
+    "choicesJson": [
+      "The Boston Tea Party",
+      "The Gold Rush",
+      "The Pony Express",
+      "The Salem Parade"
+    ],
+    "answer": "The Boston Tea Party",
+    "tags": [
+      "history",
+      "revolution"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Who was elected in 2008 as the first Black President of the United States?",
+    "choicesJson": [
+      "Frederick Douglass",
+      "Martin Luther King Jr.",
+      "Nelson Mandela",
+      "Barack Obama"
+    ],
+    "answer": "Barack Obama",
+    "tags": [
+      "history",
+      "presidents"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In 1932, Amelia Earhart became the first woman to fly alone across which ocean?",
+    "choicesJson": [
+      "Atlantic Ocean",
+      "Pacific Ocean",
+      "Indian Ocean",
+      "Arctic Ocean"
+    ],
+    "answer": "Atlantic Ocean",
+    "tags": [
+      "history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Henry Ford's factory made cars faster and cheaper by building them on a moving what?",
+    "choicesJson": [
+      "River boat",
+      "Mountain road",
+      "Assembly line",
+      "Bridge"
+    ],
+    "answer": "Assembly line",
+    "tags": [
+      "history",
+      "inventors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Alexander Graham Bell is famous for inventing which device?",
+    "choicesJson": [
+      "Telephone",
+      "Television",
+      "Airplane",
+      "Light bulb"
+    ],
+    "answer": "Telephone",
+    "tags": [
+      "history",
+      "inventors"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which state became the 50th and last state to join the United States, in 1959?",
+    "choicesJson": [
+      "Alaska",
+      "Texas",
+      "Hawaii",
+      "Florida"
+    ],
+    "answer": "Hawaii",
+    "tags": [
+      "history",
+      "states"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft desert temples look like pyramids. The real pyramids of ancient Egypt were built as tombs for whom?",
+    "choicesJson": [
+      "Gladiators",
+      "Pharaohs",
+      "Sailors",
+      "Farmers"
+    ],
+    "answer": "Pharaohs",
+    "tags": [
+      "ancient-history",
+      "egypt",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Movie mummies are wrapped in bandages. Why did real ancient Egyptians make mummies?",
+    "choicesJson": [
+      "To use as building bricks",
+      "They believed the body was needed in the afterlife",
+      "To scare away visitors from other lands",
+      "To use as ship sails"
+    ],
+    "answer": "They believed the body was needed in the afterlife",
+    "tags": [
+      "ancient-history",
+      "egypt",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "SCP-173 is a creepy statue that can only move when nobody is looking at it. The real Great Sphinx statue in Egypt has the body of which animal?",
+    "choicesJson": [
+      "Eagle",
+      "Bull",
+      "Snake",
+      "Lion"
+    ],
+    "answer": "Lion",
+    "tags": [
+      "ancient-history",
+      "egypt",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The first Olympic Games were held thousands of years ago in which ancient land?",
+    "choicesJson": [
+      "Greece",
+      "China",
+      "Egypt",
+      "Peru"
+    ],
+    "answer": "Greece",
+    "tags": [
+      "ancient-history",
+      "greece"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Greek myths say the monster Medusa turned people to stone with her stare. What is a myth?",
+    "choicesJson": [
+      "A true news report from long ago",
+      "A very old story about gods, heroes, or monsters",
+      "A list of laws",
+      "A map of an ancient city"
+    ],
+    "answer": "A very old story about gods, heroes, or monsters",
+    "tags": [
+      "ancient-history",
+      "greece",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox obby map is built like the Colosseum, where ancient Romans watched gladiator shows. In which country is the real Colosseum?",
+    "choicesJson": [
+      "Italy",
+      "Mexico",
+      "Japan",
+      "Canada"
+    ],
+    "answer": "Italy",
+    "tags": [
+      "ancient-history",
+      "rome",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Ancient Romans wrote numbers with letters. What number does the Roman numeral X stand for?",
+    "answer": "10",
+    "acceptedAnswers": [
+      "ten"
+    ],
+    "tags": [
+      "ancient-history",
+      "rome"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why did ancient Chinese rulers build the Great Wall?",
+    "choicesJson": [
+      "To store grain",
+      "To hold water for farms",
+      "To protect China from invaders",
+      "To make a road for chariot races"
+    ],
+    "answer": "To protect China from invaders",
+    "tags": [
+      "ancient-history",
+      "china"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these was invented in ancient China?",
+    "choicesJson": [
+      "Television",
+      "Airplane",
+      "Telephone",
+      "Paper"
+    ],
+    "answer": "Paper",
+    "tags": [
+      "ancient-history",
+      "china"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ancient Mesopotamia means \"the land between two rivers.\" One was the Tigris. What was the other?",
+    "choicesJson": [
+      "Nile River",
+      "Euphrates River",
+      "Amazon River",
+      "Mississippi River"
+    ],
+    "answer": "Euphrates River",
+    "tags": [
+      "ancient-history",
+      "mesopotamia"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About 1,000 years ago, which Viking explorer sailed from Greenland and reached North America?",
+    "choicesJson": [
+      "Leif Erikson",
+      "Christopher Columbus",
+      "Marco Polo",
+      "Lewis and Clark"
+    ],
+    "answer": "Leif Erikson",
+    "tags": [
+      "world-history",
+      "vikings"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Machu Picchu is a mountain city built long ago by the Inca. In which country is it?",
+    "choicesJson": [
+      "Spain",
+      "Greece",
+      "Mexico",
+      "Peru"
+    ],
+    "answer": "Peru",
+    "tags": [
+      "world-history",
+      "inca"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft you can dig a moat around your castle. What was a moat used for around real medieval castles?",
+    "choicesJson": [
+      "To grow vegetables",
+      "To store gold",
+      "To keep enemies away from the castle walls",
+      "To light the castle at night"
+    ],
+    "answer": "To keep enemies away from the castle walls",
+    "tags": [
+      "world-history",
+      "medieval",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In Japan long ago, a warrior who followed a strict code of honor was called a what?",
+    "answer": "samurai",
+    "acceptedAnswers": [
+      "a samurai"
+    ],
+    "tags": [
+      "world-history",
+      "japan"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Nelson Mandela spent years in prison for fighting unfair laws. In 1994 he became president of which country?",
+    "choicesJson": [
+      "Brazil",
+      "India",
+      "South Africa",
+      "Australia"
+    ],
+    "answer": "South Africa",
+    "tags": [
+      "world-history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which Italian artist and inventor painted the Mona Lisa?",
+    "choicesJson": [
+      "Vincent van Gogh",
+      "Pablo Picasso",
+      "Leonardo da Vinci",
+      "Walt Disney"
+    ],
+    "answer": "Leonardo da Vinci",
+    "tags": [
+      "world-history",
+      "famous-people"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
     "prompt": "Which famous statue in New York represents freedom and welcomed immigrants arriving by ship?",
     "choicesJson": [
       "Mount Rushmore",
@@ -12,49 +3900,6 @@
     "tags": [
       "symbols",
       "landmarks"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "In which month do we celebrate Independence Day?",
-    "choicesJson": [
-      "February",
-      "July",
-      "April",
-      "June"
-    ],
-    "answer": "July",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which day of the week is Thanksgiving always celebrated on?",
-    "choicesJson": [
-      "Thursday",
-      "Saturday",
-      "Monday",
-      "Sunday"
-    ],
-    "answer": "Thursday",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "How many stars are on the American flag?",
-    "choicesJson": [
-      "100",
-      "50",
-      "7",
-      "13"
-    ],
-    "answer": "50",
-    "tags": [
-      "symbols",
-      "flag"
     ]
   },
   {
@@ -89,36 +3934,21 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What does Memorial Day celebrate or honor?",
+    "prompt": "What does Memorial Day honor?",
     "choicesJson": [
-      "celebrates America's freedom from Britain",
-      "honors U.S. presidents",
-      "honors people who served in the military",
-      "honors soldiers who died serving the country"
+      "America's freedom from Britain",
+      "U.S. presidents",
+      "soldiers who died serving the country",
+      "the Pilgrims and the Wampanoag"
     ],
-    "answer": "honors soldiers who died serving the country",
+    "answer": "soldiers who died serving the country",
     "tags": [
       "holidays"
     ]
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which region of the United States is North Carolina located in?",
-    "choicesJson": [
-      "Southwest",
-      "Northeast",
-      "Southeast",
-      "West"
-    ],
-    "answer": "Southeast",
-    "tags": [
-      "geography",
-      "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Where is The Liberty Bell located?",
+    "prompt": "Where is the Liberty Bell located?",
     "choicesJson": [
       "Philadelphia, Pennsylvania",
       "Washington, D.C.",
@@ -129,21 +3959,6 @@
     "tags": [
       "symbols",
       "landmarks"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these states is part of the Northeast region?",
-    "choicesJson": [
-      "New Jersey",
-      "Montana",
-      "Utah",
-      "California"
-    ],
-    "answer": "New Jersey",
-    "tags": [
-      "geography",
-      "regions"
     ]
   },
   {
@@ -163,21 +3978,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What is the capital of Michigan?",
-    "choicesJson": [
-      "Phoenix",
-      "Lansing",
-      "Denver",
-      "Little Rock"
-    ],
-    "answer": "Lansing",
-    "tags": [
-      "geography",
-      "capitals"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which of these is one of the 7 continents?",
     "choicesJson": [
       "Texas",
@@ -193,34 +3993,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Saving money means you ____ it instead of spending it right away.",
-    "choicesJson": [
-      "Burn",
-      "Throw away",
-      "Bury forever",
-      "Keep"
-    ],
-    "answer": "Keep",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "In which month do we celebrate Memorial Day?",
-    "choicesJson": [
-      "August",
-      "May",
-      "April",
-      "March"
-    ],
-    "answer": "May",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What is a river?",
     "choicesJson": [
       "a large area of ocean partly surrounded by land",
@@ -232,20 +4004,6 @@
     "tags": [
       "geography",
       "water"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "The idea that people want more than what is available is best described by which word?",
-    "choicesJson": [
-      "Scarcity",
-      "Charity",
-      "Currency",
-      "Democracy"
-    ],
-    "answer": "Scarcity",
-    "tags": [
-      "economics"
     ]
   },
   {
@@ -325,34 +4083,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which economics word means: \"things that are nice to have but people don't need to survive\"?",
-    "choicesJson": [
-      "Scarcity",
-      "Consumers",
-      "Wants",
-      "Needs"
-    ],
-    "answer": "Wants",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which of these is a need, not a want?",
-    "choicesJson": [
-      "A video game",
-      "Candy",
-      "Water",
-      "A toy"
-    ],
-    "answer": "Water",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which region of the United States is New York located in?",
     "choicesJson": [
       "Southwest",
@@ -387,7 +4117,7 @@
     "choicesJson": [
       "Southeast",
       "West",
-      "Southwest",
+      "Midwest",
       "Northeast"
     ],
     "answer": "West",
@@ -430,7 +4160,7 @@
     "type": "MULTIPLE_CHOICE",
     "prompt": "Which region of the United States is Arizona located in?",
     "choicesJson": [
-      "West",
+      "Midwest",
       "Southwest",
       "Southeast",
       "Northeast"
@@ -443,7 +4173,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "When there is not enough of something for everyone who wants it, this is called ____?",
+    "prompt": "What is it called when there is not enough of something for everyone who wants it?",
     "choicesJson": [
       "Scarcity",
       "Taxation",
@@ -472,26 +4202,12 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "A farmer grows corn to sell at the market. The farmer is an example of a ____?",
+    "prompt": "What is it called when citizens choose their leaders by marking a ballot?",
     "choicesJson": [
-      "Producer",
-      "Government",
-      "Consumer",
-      "Tourist"
-    ],
-    "answer": "Producer",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What is it called when people pick their leaders by choosing who they want?",
-    "choicesJson": [
-      "Sleeping",
-      "Painting",
       "Voting",
-      "Cooking"
+      "Taxing",
+      "Marching",
+      "Trading"
     ],
     "answer": "Voting",
     "tags": [
@@ -501,21 +4217,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which economics word means: \"people who make goods or provide services\"?",
-    "choicesJson": [
-      "Taxes",
-      "Consumers",
-      "Producers",
-      "Wants"
-    ],
-    "answer": "Producers",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which ocean is the coldest and located at the North Pole?",
+    "prompt": "Which ocean surrounds the North Pole?",
     "choicesJson": [
       "Southern",
       "Arctic",
@@ -526,21 +4228,6 @@
     "tags": [
       "geography",
       "oceans"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What is the capital of Minnesota?",
-    "choicesJson": [
-      "Madison",
-      "Oklahoma City",
-      "Saint Paul",
-      "Sacramento"
-    ],
-    "answer": "Saint Paul",
-    "tags": [
-      "geography",
-      "capitals"
     ]
   },
   {
@@ -560,36 +4247,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which direction is between North and East on a compass rose?",
-    "choicesJson": [
-      "Northeast",
-      "Southeast",
-      "Northwest",
-      "Southwest"
-    ],
-    "answer": "Northeast",
-    "tags": [
-      "geography",
-      "map-skills"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Who is part of the Executive branch of the U.S. government?",
-    "choicesJson": [
-      "the President",
-      "the Supreme Court",
-      "Congress",
-      "the Governor"
-    ],
-    "answer": "the President",
-    "tags": [
-      "civics",
-      "government"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which region of the United States is Illinois located in?",
     "choicesJson": [
       "Southeast",
@@ -601,21 +4258,6 @@
     "tags": [
       "geography",
       "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What is the capital of Alabama?",
-    "choicesJson": [
-      "Honolulu",
-      "Cheyenne",
-      "Montgomery",
-      "Pierre"
-    ],
-    "answer": "Montgomery",
-    "tags": [
-      "geography",
-      "capitals"
     ]
   },
   {
@@ -635,29 +4277,14 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which leader works and lives in the White House?",
+    "prompt": "Which people does Veterans Day honor?",
     "choicesJson": [
-      "A senator",
-      "The governor",
-      "The President",
-      "The mayor"
+      "U.S. presidents",
+      "people who have served in the military",
+      "inventors",
+      "the Pilgrims"
     ],
-    "answer": "The President",
-    "tags": [
-      "civics",
-      "leaders"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What does Veterans Day celebrate or honor?",
-    "choicesJson": [
-      "honors U.S. presidents",
-      "honors people who served in the military",
-      "honors soldiers who died serving the country",
-      "a day for giving thanks, remembered with the Pilgrims and Wampanoag"
-    ],
-    "answer": "honors people who served in the military",
+    "answer": "people who have served in the military",
     "tags": [
       "holidays"
     ]
@@ -666,12 +4293,12 @@
     "type": "MULTIPLE_CHOICE",
     "prompt": "What is the main job of the judicial branch?",
     "choicesJson": [
-      "interprets laws (decides what laws mean)",
-      "carries out (enforces) laws",
-      "Manages the state's schools",
+      "decides what laws mean",
+      "carries out laws",
+      "manages the state's schools",
       "makes laws"
     ],
-    "answer": "interprets laws (decides what laws mean)",
+    "answer": "decides what laws mean",
     "tags": [
       "civics",
       "government"
@@ -754,34 +4381,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What are goods?",
-    "choicesJson": [
-      "work that one person does for another person",
-      "people who make goods or provide services",
-      "when there is not enough of something for everyone who wants it",
-      "things people make or grow that can be bought or sold"
-    ],
-    "answer": "things people make or grow that can be bought or sold",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which holiday celebrates America's freedom from Britain?",
-    "choicesJson": [
-      "Memorial Day",
-      "Martin Luther King Jr. Day",
-      "Veterans Day",
-      "Independence Day"
-    ],
-    "answer": "Independence Day",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What is the capital of Ohio?",
     "choicesJson": [
       "Honolulu",
@@ -797,7 +4396,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Where is The Washington Monument located?",
+    "prompt": "Where is the Washington Monument located?",
     "choicesJson": [
       "South Dakota",
       "New York",
@@ -856,21 +4455,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which tall stone monument in Washington, D.C. honors George Washington?",
-    "choicesJson": [
-      "The Statue of Liberty",
-      "Mount Rushmore",
-      "The Liberty Bell",
-      "The Washington Monument"
-    ],
-    "answer": "The Washington Monument",
-    "tags": [
-      "symbols",
-      "landmarks"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What is the capital of Arkansas?",
     "choicesJson": [
       "Salem",
@@ -916,35 +4500,7 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which holiday honors U.S. presidents?",
-    "choicesJson": [
-      "Labor Day",
-      "Veterans Day",
-      "Presidents Day",
-      "Thanksgiving"
-    ],
-    "answer": "Presidents Day",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "A family buys bread from the store to eat. Are they producers or consumers in that moment?",
-    "choicesJson": [
-      "Consumers",
-      "Neither",
-      "Producers",
-      "A government"
-    ],
-    "answer": "Consumers",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Where is The U.S. Capitol located?",
+    "prompt": "Where is the U.S. Capitol located?",
     "choicesJson": [
       "Philadelphia, Pennsylvania",
       "Washington, D.C.",
@@ -955,21 +4511,6 @@
     "tags": [
       "symbols",
       "landmarks"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which leader would you ask about a problem with your state?",
-    "choicesJson": [
-      "A ship captain",
-      "The governor",
-      "The mayor of another state",
-      "A foreign king"
-    ],
-    "answer": "The governor",
-    "tags": [
-      "civics",
-      "leaders"
     ]
   },
   {
@@ -993,7 +4534,7 @@
     "choicesJson": [
       "West",
       "Southeast",
-      "Southwest",
+      "Midwest",
       "Northeast"
     ],
     "answer": "West",
@@ -1019,47 +4560,17 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which body of water is described as: a long body of flowing water?",
-    "choicesJson": [
-      "Ocean",
-      "River",
-      "Lake",
-      "Gulf"
-    ],
-    "answer": "River",
-    "tags": [
-      "geography",
-      "water"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which direction is opposite of East?",
+    "prompt": "Which direction is the opposite of East?",
     "choicesJson": [
       "North",
       "South",
       "West",
-      "Down"
+      "Northeast"
     ],
     "answer": "West",
     "tags": [
       "geography",
       "map-skills"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Who is the leader of the entire United States?",
-    "choicesJson": [
-      "Judge",
-      "Governor",
-      "President",
-      "Mayor"
-    ],
-    "answer": "President",
-    "tags": [
-      "civics",
-      "leaders"
     ]
   },
   {
@@ -1075,20 +4586,6 @@
     "tags": [
       "geography",
       "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Is a new video game a need or a want?",
-    "choicesJson": [
-      "A need",
-      "Neither",
-      "A want",
-      "Impossible to say"
-    ],
-    "answer": "A want",
-    "tags": [
-      "economics"
     ]
   },
   {
@@ -1123,21 +4620,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "Which region of the United States is Idaho located in?",
-    "choicesJson": [
-      "Midwest",
-      "Southeast",
-      "West",
-      "Southwest"
-    ],
-    "answer": "West",
-    "tags": [
-      "geography",
-      "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "What is the capital of Tennessee?",
     "choicesJson": [
       "Madison",
@@ -1153,51 +4635,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What do the 50 stars on the American flag stand for?",
-    "choicesJson": [
-      "The 5 oceans",
-      "The 13 colonies",
-      "The 50 states",
-      "The 7 continents"
-    ],
-    "answer": "The 50 states",
-    "tags": [
-      "symbols",
-      "flag"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which direction is opposite of North?",
-    "choicesJson": [
-      "West",
-      "South",
-      "Up",
-      "East"
-    ],
-    "answer": "South",
-    "tags": [
-      "geography",
-      "map-skills"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which landform is described as: low land between mountains or hills?",
-    "choicesJson": [
-      "Valley",
-      "Mountain",
-      "Plain",
-      "Peninsula"
-    ],
-    "answer": "Valley",
-    "tags": [
-      "geography",
-      "landforms"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which level of government is run by a state's governor?",
     "choicesJson": [
       "Federal government",
@@ -1209,21 +4646,6 @@
     "tags": [
       "civics",
       "government"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "How many stripes are on the American flag?",
-    "choicesJson": [
-      "10",
-      "50",
-      "13",
-      "7"
-    ],
-    "answer": "13",
-    "tags": [
-      "symbols",
-      "flag"
     ]
   },
   {
@@ -1263,7 +4685,7 @@
       "Northeast",
       "Southwest",
       "Southeast",
-      "West"
+      "Midwest"
     ],
     "answer": "Southwest",
     "tags": [
@@ -1303,34 +4725,6 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "What does Martin Luther King Jr. Day celebrate or honor?",
-    "choicesJson": [
-      "a day for giving thanks, remembered with the Pilgrims and Wampanoag",
-      "honors civil rights leader Martin Luther King Jr.",
-      "honors workers",
-      "honors U.S. presidents"
-    ],
-    "answer": "honors civil rights leader Martin Luther King Jr.",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "In which month do we celebrate Veterans Day?",
-    "choicesJson": [
-      "November",
-      "December",
-      "March",
-      "June"
-    ],
-    "answer": "November",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which region of the United States is Missouri located in?",
     "choicesJson": [
       "Southwest",
@@ -1342,65 +4736,6 @@
     "tags": [
       "geography",
       "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What do the 13 stripes on the American flag stand for?",
-    "choicesJson": [
-      "The original 13 colonies",
-      "The president's family",
-      "The 7 continents",
-      "The 50 states"
-    ],
-    "answer": "The original 13 colonies",
-    "tags": [
-      "symbols",
-      "flag"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which economics word means: \"work that one person does for another person\"?",
-    "choicesJson": [
-      "Taxes",
-      "Services",
-      "Scarcity",
-      "Producers"
-    ],
-    "answer": "Services",
-    "tags": [
-      "economics"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Who is the leader of a whole state?",
-    "choicesJson": [
-      "Governor",
-      "President",
-      "Mayor",
-      "Senator"
-    ],
-    "answer": "Governor",
-    "tags": [
-      "civics",
-      "leaders"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which landform is described as: land surrounded by water on three sides?",
-    "choicesJson": [
-      "Valley",
-      "Plateau",
-      "Island",
-      "Peninsula"
-    ],
-    "answer": "Peninsula",
-    "tags": [
-      "geography",
-      "landforms"
     ]
   },
   {
@@ -1464,46 +4799,17 @@
   },
   {
     "type": "MULTIPLE_CHOICE",
-    "prompt": "On which date is Independence Day celebrated?",
-    "choicesJson": [
-      "June 4",
-      "July 4",
-      "September 4",
-      "July 14"
-    ],
-    "answer": "July 4",
-    "tags": [
-      "holidays"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
     "prompt": "Which region of the United States is Arkansas located in?",
     "choicesJson": [
       "Midwest",
       "Northeast",
-      "Southwest",
+      "West",
       "Southeast"
     ],
     "answer": "Southeast",
     "tags": [
       "geography",
       "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Where is The Statue of Liberty located?",
-    "choicesJson": [
-      "South Dakota",
-      "New York",
-      "Philadelphia, Pennsylvania",
-      "Washington, D.C."
-    ],
-    "answer": "New York",
-    "tags": [
-      "symbols",
-      "landmarks"
     ]
   },
   {
@@ -1519,21 +4825,6 @@
     "tags": [
       "geography",
       "capitals"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "Which continent is also a single country?",
-    "choicesJson": [
-      "Africa",
-      "Asia",
-      "Europe",
-      "Australia"
-    ],
-    "answer": "Australia",
-    "tags": [
-      "geography",
-      "continents"
     ]
   },
   {
@@ -1594,20 +4885,6 @@
     "tags": [
       "geography",
       "regions"
-    ]
-  },
-  {
-    "type": "MULTIPLE_CHOICE",
-    "prompt": "What are scarcity?",
-    "choicesJson": [
-      "when there is not enough of something for everyone who wants it",
-      "things people must have to live, like food, water, and shelter",
-      "things people make or grow that can be bought or sold",
-      "things that are nice to have but people don't need to survive"
-    ],
-    "answer": "when there is not enough of something for everyone who wants it",
-    "tags": [
-      "economics"
     ]
   },
   {

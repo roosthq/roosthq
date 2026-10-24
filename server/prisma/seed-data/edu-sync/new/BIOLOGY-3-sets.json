@@ -1,0 +1,1396 @@
+[
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is this?",
+  "choicesJson": [
+   "Savanna",
+   "Cave",
+   "Deciduous forest",
+   "Pond"
+  ],
+  "answer": "Deciduous forest",
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-deciduous-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat is this?",
+  "choicesJson": [
+   "Desert",
+   "Swamp",
+   "Savanna",
+   "Mountain"
+  ],
+  "answer": "Swamp",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-swamp-a.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal would live here?",
+  "choicesJson": [
+   "Camel",
+   "Polar bear",
+   "Mountain goat",
+   "Alligator"
+  ],
+  "answer": "Alligator",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-swamp-c.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal would live here?",
+  "choicesJson": [
+   "Alligator",
+   "Clownfish",
+   "Mountain goat",
+   "Sloth"
+  ],
+  "answer": "Mountain goat",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-mountain-b.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal would live in this dark place?",
+  "choicesJson": [
+   "Camel",
+   "Clownfish",
+   "Bat",
+   "Giraffe"
+  ],
+  "answer": "Bat",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-cave-d.webp",
+   "alt": "A photo of a natural place."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat does this American alligator live in?",
+  "choicesJson": [
+   "Swamp",
+   "Desert",
+   "Mountain",
+   "Arctic tundra"
+  ],
+  "answer": "Swamp",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-alligator.webp",
+   "alt": "A photo of an animal."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which habitat does this mountain goat live in?",
+  "choicesJson": [
+   "Pond",
+   "Mountain",
+   "Deep ocean",
+   "Savanna"
+  ],
+  "answer": "Mountain",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-mountaingoat.webp",
+   "alt": "A photo of an animal."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This plant stores water in its thick stem. Which habitat does it grow in?",
+  "choicesJson": [
+   "Arctic tundra",
+   "Desert",
+   "Rainforest",
+   "Swamp"
+  ],
+  "answer": "Desert",
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-saguaro.webp",
+   "alt": "A tall cactus with many arms."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "A polar bear has a thick layer of fat called blubber. What does it do?",
+  "choicesJson": [
+   "Keeps the bear warm",
+   "Helps the bear climb trees",
+   "Helps the bear fly",
+   "Helps the bear see in the dark"
+  ],
+  "answer": "Keeps the bear warm",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-polarbear.webp",
+   "alt": "A polar bear leaping across ice."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is stored inside a camel's hump?",
+  "choicesJson": [
+   "Water",
+   "Air",
+   "Sand",
+   "Fat"
+  ],
+  "answer": "Fat",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-camel2.webp",
+   "alt": "A camel resting on sand."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Red-eyed tree frogs have sticky toe pads. What do the pads help them do?",
+  "choicesJson": [
+   "Dig tunnels",
+   "Swim very fast",
+   "Cling to leaves and branches",
+   "Glide like a bird"
+  ],
+  "answer": "Cling to leaves and branches",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-treefrog.webp",
+   "alt": "A tree frog holding a thin branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Why do trees in a deciduous forest drop their leaves in autumn?",
+  "choicesJson": [
+   "Because worms eat them",
+   "To grow taller",
+   "To get ready for winter",
+   "To catch more rain"
+  ],
+  "answer": "To get ready for winter",
+  "tags": [
+   "plants",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-deciduous-b.webp",
+   "alt": "Treetops with orange and yellow leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which tiny animals build a coral reef?",
+  "choicesJson": [
+   "Sharks",
+   "Sea turtles",
+   "Coral polyps",
+   "Crabs"
+  ],
+  "answer": "Coral polyps",
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-reef-a.webp",
+   "alt": "Coral and small fish in blue water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Coral reefs grow best in what kind of ocean water?",
+  "choicesJson": [
+   "Icy, deep water",
+   "Fresh lake water",
+   "Warm, shallow water",
+   "Muddy river water"
+  ],
+  "answer": "Warm, shallow water",
+  "tags": [
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-reef-b.webp",
+   "alt": "Colorful corals under shallow water."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does a toucan's big bill help it do?",
+  "choicesJson": [
+   "Reach fruit on thin branches",
+   "Crack rocks open",
+   "Catch fish underwater",
+   "Dig for worms underground"
+  ],
+  "answer": "Reach fruit on thin branches",
+  "tags": [
+   "adaptations",
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-toucan.webp",
+   "alt": "A toucan with a large colorful bill on a branch."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "White-tailed deer eat plants like leaves and twigs. What do we call an animal that eats only plants?",
+  "choicesJson": [
+   "Carnivore",
+   "Omnivore",
+   "Decomposer",
+   "Herbivore"
+  ],
+  "answer": "Herbivore",
+  "tags": [
+   "animals",
+   "food-chains"
+  ],
+  "media": {
+   "image": "learning/img/habitats-deer.webp",
+   "alt": "A deer peeking through tree branches."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Lions live in family groups. What is a group of lions called?",
+  "answer": "pride",
+  "acceptedAnswers": [
+   "a pride"
+  ],
+  "tags": [
+   "animals"
+  ],
+  "media": {
+   "image": "learning/img/habitats-lioness.webp",
+   "alt": "A lioness looking through tall grass."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Beavers build homes like this from sticks and mud. What is a beaver's home called?",
+  "answer": "lodge",
+  "acceptedAnswers": [
+   "a lodge",
+   "beaver lodge"
+  ],
+  "tags": [
+   "animals",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/habitats-beaverlodge.webp",
+   "alt": "A pile of sticks beside a pond."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which plants grow tall in this swamp, with their roots in the water?",
+  "choicesJson": [
+   "Seaweed",
+   "Cypress trees",
+   "Cotton plants",
+   "Saguaro cacti"
+  ],
+  "answer": "Cypress trees",
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/habitats-swamp-a.webp",
+   "alt": "Tall trees standing in shallow water."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a deciduous forest in autumn?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "habitats",
+   "plants"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-deciduous-b.webp",
+    "learning/img/habitats-desert-c.webp",
+    "learning/img/habitats-tundra-c.webp",
+    "learning/img/habitats-rainforest-b.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which animal lives in a swamp?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-camel2.webp",
+    "learning/img/habitats-mountaingoat.webp",
+    "learning/img/habitats-polarbear.webp",
+    "learning/img/habitats-alligator.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which animal lives in the mountains?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "D",
+  "tags": [
+   "habitats",
+   "animals"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/habitats-clownfish.webp",
+    "learning/img/habitats-alligator.webp",
+    "learning/img/habitats-sloth.webp",
+    "learning/img/habitats-mountaingoat.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Pictures to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the job of the heart?",
+  "choicesJson": [
+   "It helps you hear",
+   "It cleans the air you breathe",
+   "It pumps blood around the body",
+   "It breaks down food"
+  ],
+  "answer": "It pumps blood around the body",
+  "tags": [
+   "human body",
+   "heart"
+  ],
+  "media": {
+   "image": "learning/img/human-body-heart.webp",
+   "alt": "A drawing of a human heart cut open to show the inside."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What do your lungs do?",
+  "choicesJson": [
+   "They pump blood",
+   "They take in air so you can breathe",
+   "They break down food",
+   "They help you see"
+  ],
+  "answer": "They take in air so you can breathe",
+  "tags": [
+   "human body",
+   "lungs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-lungs.webp",
+   "alt": "A drawing of two lungs cut open with the windpipe at the top."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does the brain do?",
+  "choicesJson": [
+   "It cleans the air",
+   "It pumps blood",
+   "It grinds up food",
+   "It controls your body and lets you think"
+  ],
+  "answer": "It controls your body and lets you think",
+  "tags": [
+   "human body",
+   "brain"
+  ],
+  "media": {
+   "image": "learning/img/human-body-brain.webp",
+   "alt": "A side view of a human brain with colored sections."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What happens to food in your stomach?",
+  "choicesJson": [
+   "It is turned into air",
+   "It is mixed and broken down into tiny bits",
+   "It is pumped up to the brain",
+   "It is turned into bones"
+  ],
+  "answer": "It is mixed and broken down into tiny bits",
+  "tags": [
+   "human body",
+   "digestion"
+  ],
+  "media": {
+   "image": "learning/img/human-body-stomach.webp",
+   "alt": "A drawing of a stomach cut open to show the inside lining."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "Kids have 20 baby teeth. How many teeth does a full-grown adult usually have?",
+  "answer": "32",
+  "acceptedAnswers": [
+   "thirty-two",
+   "thirty two"
+  ],
+  "tags": [
+   "human body",
+   "teeth"
+  ],
+  "media": {
+   "image": "learning/img/human-body-child-teeth.webp",
+   "alt": "A child's jaw with baby teeth and adult teeth growing underneath."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "How many bones does an adult human body usually have?",
+  "choicesJson": [
+   "106",
+   "306",
+   "606",
+   "206"
+  ],
+  "answer": "206",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skeleton.webp",
+   "alt": "A front view of the bones of the head, shoulders, arms and rib cage."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the black circle in the middle of the eye, which lets light in, called?",
+  "choicesJson": [
+   "Eyelid",
+   "Eyelash",
+   "Pupil",
+   "Tear"
+  ],
+  "answer": "Pupil",
+  "tags": [
+   "human body",
+   "senses"
+  ],
+  "media": {
+   "image": "learning/img/human-body-eye.webp",
+   "alt": "A drawing of a human eye with the eyelids open."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which job does the skeleton do?",
+  "choicesJson": [
+   "It sends messages to your brain",
+   "It pumps your blood",
+   "It gives your body shape and support",
+   "It digests your food"
+  ],
+  "answer": "It gives your body shape and support",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skeleton.webp",
+   "alt": "A front view of the bones of the head, shoulders, arms and rib cage."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the cage of curved bones around your chest called?",
+  "choicesJson": [
+   "Skull",
+   "Rib cage",
+   "Spine",
+   "Pelvis"
+  ],
+  "answer": "Rib cage",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skeleton.webp",
+   "alt": "A front view of the bones of the head, shoulders, arms and rib cage."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which two organs does the rib cage mostly protect?",
+  "choicesJson": [
+   "Heart and lungs",
+   "Brain and eyes",
+   "Hands and feet",
+   "Ears and nose"
+  ],
+  "answer": "Heart and lungs",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skeleton.webp",
+   "alt": "A front view of the bones of the head, shoulders, arms and rib cage."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What does the skull protect?",
+  "choicesJson": [
+   "The heart",
+   "The lungs",
+   "The stomach",
+   "The brain"
+  ],
+  "answer": "The brain",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "image": "learning/img/human-body-skull.webp",
+   "alt": "A front view of a human skull."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Your heart is about the size of what?",
+  "choicesJson": [
+   "A grape",
+   "A watermelon",
+   "A basketball",
+   "Your fist"
+  ],
+  "answer": "Your fist",
+  "tags": [
+   "human body",
+   "heart"
+  ],
+  "media": {
+   "image": "learning/img/human-body-heart-lungs.webp",
+   "alt": "A colored drawing of the heart between two lungs in the chest."
+  }
+ },
+ {
+  "type": "TEXT_INPUT",
+  "prompt": "How many kidneys do most people have? Type a number.",
+  "answer": "2",
+  "acceptedAnswers": [
+   "two"
+  ],
+  "tags": [
+   "human body",
+   "organs"
+  ],
+  "media": {
+   "image": "learning/img/human-body-kidney.webp",
+   "alt": "A drawing of a kidney cut in half."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tooth?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "human body",
+   "teeth"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-tooth.webp",
+    "learning/img/human-body-eye.webp",
+    "learning/img/human-body-kidney.webp",
+    "learning/img/human-body-femur.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the lungs?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "human body",
+   "organs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-kidney.webp",
+    "learning/img/human-body-lungs.webp",
+    "learning/img/human-body-stomach.webp",
+    "learning/img/human-body-liver.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the bone that protects the brain?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-heart.webp",
+    "learning/img/human-body-skull.webp",
+    "learning/img/human-body-spine.webp",
+    "learning/img/human-body-femur.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the organ that pumps blood?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "tags": [
+   "human body",
+   "heart"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-liver.webp",
+    "learning/img/human-body-heart.webp",
+    "learning/img/human-body-stomach.webp",
+    "learning/img/human-body-brain.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows the backbone?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "human body",
+   "bones"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-spine.webp",
+    "learning/img/human-body-tooth.webp",
+    "learning/img/human-body-femur.webp",
+    "learning/img/human-body-skull.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a child's jaw with baby teeth?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "human body",
+   "teeth"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/human-body-child-teeth.webp",
+    "learning/img/human-body-eye.webp",
+    "learning/img/human-body-ear.webp",
+    "learning/img/human-body-tooth.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four drawings of body parts to choose from."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a frog's life is shown in this photo?",
+  "choicesJson": [
+   "Tadpole with no legs yet",
+   "Tadpole growing legs",
+   "Adult frog",
+   "Frog eggs"
+  ],
+  "answer": "Tadpole growing legs",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-froglet.webp",
+   "alt": "A young frog still growing up, with four legs and a long tail, seen from above."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a butterfly's life is shown in this photo?",
+  "choicesJson": [
+   "Adult butterfly",
+   "Caterpillar (larva)",
+   "Egg",
+   "Chrysalis (pupa)"
+  ],
+  "answer": "Chrysalis (pupa)",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-chrysalis.webp",
+   "alt": "A green monarch chrysalis covered in water drops hanging from a milkweed plant."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a ladybug's life is shown in this photo?",
+  "choicesJson": [
+   "Egg",
+   "Adult ladybug",
+   "Larva",
+   "Pupa"
+  ],
+  "answer": "Egg",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-ladybug-eggs.webp",
+   "alt": "A small group of yellow ladybug eggs on a green leaf, next to a match head for size."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage of a plant's life is shown in this photo?",
+  "choicesJson": [
+   "Fruit",
+   "Seedling",
+   "Flower",
+   "Seed"
+  ],
+  "answer": "Seedling",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-plant-seedling.webp",
+   "alt": "A young sunflower seedling with two green leaves growing from dark soil."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "These tomatoes grew from the plant's flowers. Which stage of the plant's life cycle are they?",
+  "choicesJson": [
+   "Seedling",
+   "Seed",
+   "Fruit",
+   "Flower"
+  ],
+  "answer": "Fruit",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-plant-fruit.webp",
+   "alt": "Red and green tomatoes growing on a tomato plant."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This monarch caterpillar is on a milkweed leaf. What is the main job of the caterpillar stage?",
+  "choicesJson": [
+   "Rest inside a chrysalis",
+   "Eat and grow bigger",
+   "Lay eggs",
+   "Fly to far-away places"
+  ],
+  "answer": "Eat and grow bigger",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ],
+  "media": {
+   "image": "learning/img/life-cycles-monarch-caterpillar.webp",
+   "alt": "A yellow, black and white striped monarch caterpillar on a milkweed leaf."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What stage comes right after the tadpole stage in a frog's life?",
+  "choicesJson": [
+   "Adult frog",
+   "Tadpole with legs",
+   "Frog eggs"
+  ],
+  "answer": "Tadpole with legs",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which stage comes right before the chrysalis in a butterfly's life?",
+  "choicesJson": [
+   "Adult butterfly",
+   "Egg",
+   "Caterpillar"
+  ],
+  "answer": "Caterpillar",
+  "tags": [
+   "life-cycles",
+   "butterflies"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which list shows a ladybug's life cycle in the right order?",
+  "choicesJson": [
+   "Larva, egg, pupa, adult",
+   "Egg, larva, pupa, adult",
+   "Adult, egg, larva, pupa",
+   "Egg, pupa, larva, adult"
+  ],
+  "answer": "Egg, larva, pupa, adult",
+  "tags": [
+   "life-cycles",
+   "ladybugs"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "What is the job of a fruit in a plant's life cycle?",
+  "choicesJson": [
+   "To soak up water from the soil",
+   "To keep the plant warm",
+   "To protect the seeds and help them spread",
+   "To make the roots longer"
+  ],
+  "answer": "To protect the seeds and help them spread",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ]
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which three things does a seed need to start growing?",
+  "choicesJson": [
+   "Snow, wind, and darkness",
+   "Water, warmth, and air",
+   "Sand, rocks, and shade",
+   "Sugar, salt, and ice"
+  ],
+  "answer": "Water, warmth, and air",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ]
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a seedling?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "life-cycles",
+   "plants"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-plant-seedling.webp",
+    "learning/img/life-cycles-plant-flower.webp",
+    "learning/img/life-cycles-plant-seed.webp",
+    "learning/img/life-cycles-plant-fruit.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different plant stages."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows frog eggs?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-frog-eggs.webp",
+    "learning/img/life-cycles-ladybug-eggs.webp",
+    "learning/img/life-cycles-chicken-egg.webp",
+    "learning/img/life-cycles-monarch-egg.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of different kinds of eggs."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a tadpole that is growing legs?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "A",
+  "tags": [
+   "life-cycles",
+   "frogs"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/life-cycles-froglet.webp",
+    "learning/img/life-cycles-frog-eggs.webp",
+    "learning/img/life-cycles-tadpole.webp",
+    "learning/img/life-cycles-frog-adult.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "Four photos of the stages of a frog."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which seed grows on the same kind of tree as this leaf?",
+  "choicesJson": [
+   "Coconut",
+   "Apple seed",
+   "Acorn",
+   "Sunflower seed"
+  ],
+  "answer": "Acorn",
+  "acceptedAnswers": [],
+  "tags": [
+   "trees",
+   "seeds"
+  ],
+  "media": {
+   "image": "learning/img/plants-oak-leaf.webp",
+   "alt": "A brown leaf with rounded lobes hanging on a tree."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The colorful part of a tulip is its flower. What is the main job of a flower?",
+  "choicesJson": [
+   "Soaking up water from the soil",
+   "Holding the plant up",
+   "Making seeds to grow new plants",
+   "Making food from sunlight"
+  ],
+  "answer": "Making seeds to grow new plants",
+  "acceptedAnswers": [],
+  "tags": [
+   "flowers",
+   "plant parts"
+  ],
+  "media": {
+   "image": "learning/img/plants-tulip-flower.webp",
+   "alt": "A pink and orange tulip flower with water droplets on its petals."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The fluffy white parts of a dandelion seed head help each seed do what?",
+  "choicesJson": [
+   "Swim across ponds",
+   "Dig deep into the soil",
+   "Float away on the wind",
+   "Glow at night"
+  ],
+  "answer": "Float away on the wind",
+  "acceptedAnswers": [],
+  "tags": [
+   "seeds",
+   "seed dispersal"
+  ],
+  "media": {
+   "image": "learning/img/plants-dandelion-seeds.webp",
+   "alt": "A round, fluffy white dandelion seed head against dark green grass."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Pine trees do not make flowers or fruit. Where do their seeds grow?",
+  "choicesJson": [
+   "Inside flowers",
+   "Inside fruits",
+   "On the scales of cones",
+   "In the roots"
+  ],
+  "answer": "On the scales of cones",
+  "acceptedAnswers": [],
+  "tags": [
+   "trees",
+   "seeds"
+  ],
+  "media": {
+   "image": "learning/img/plants-pine-cone.webp",
+   "alt": "A small green pine cone lies on a bed of long pine needles."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "The round green lily pads floating on this pond are actually what?",
+  "choicesJson": [
+   "Leaves",
+   "Flowers",
+   "Roots",
+   "Seeds"
+  ],
+  "answer": "Leaves",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "water plants"
+  ],
+  "media": {
+   "image": "learning/img/plants-lily-pads.webp",
+   "alt": "Round green plant parts floating on a pond."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which animal helps apple blossoms turn into apples by carrying pollen from flower to flower?",
+  "choicesJson": [
+   "Bee",
+   "Earthworm",
+   "Snail",
+   "Goldfish"
+  ],
+  "answer": "Bee",
+  "acceptedAnswers": [],
+  "tags": [
+   "pollination",
+   "flowers"
+  ],
+  "media": {
+   "image": "learning/img/plants-apple-blossoms.webp",
+   "alt": "Pink and white apple blossoms and buds grow on a branch with green leaves."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "This pine tree keeps its green needles all year long. What do we call trees like this?",
+  "choicesJson": [
+   "Deciduous",
+   "Aquatic",
+   "Fungal",
+   "Evergreen"
+  ],
+  "answer": "Evergreen",
+  "acceptedAnswers": [],
+  "tags": [
+   "trees",
+   "evergreens"
+  ],
+  "media": {
+   "image": "learning/img/plants-pine-tree.webp",
+   "alt": "A tall tree with dark green needles."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Coconut palm trees grow best in which kind of place?",
+  "choicesJson": [
+   "Warm, tropical places",
+   "Icy polar lands",
+   "Cold mountain tops",
+   "Dry, rocky deserts"
+  ],
+  "answer": "Warm, tropical places",
+  "acceptedAnswers": [],
+  "tags": [
+   "trees",
+   "habitats"
+  ],
+  "media": {
+   "image": "learning/img/plants-palm-trees.webp",
+   "alt": "Tall trees with feathery leaves in a grassy field."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "You spot a red mushroom with white spots while hiking. What is the safest thing to do?",
+  "choicesJson": [
+   "Taste a tiny piece",
+   "Leave it alone and never eat it",
+   "Cook it for dinner",
+   "Give it to a friend to try"
+  ],
+  "answer": "Leave it alone and never eat it",
+  "acceptedAnswers": [],
+  "tags": [
+   "fungi",
+   "safety"
+  ],
+  "media": {
+   "image": "learning/img/plants-mushroom.webp",
+   "alt": "A red mushroom with white spots on its cap."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "In Plants vs. Zombies, the Sunflower makes sun for you. A real sunflower uses sunlight to make what?",
+  "choicesJson": [
+   "Rain",
+   "Soil",
+   "Its own food",
+   "Wind"
+  ],
+  "answer": "Its own food",
+  "acceptedAnswers": [],
+  "tags": [
+   "leaves",
+   "photosynthesis",
+   "theme:plants vs zombies"
+  ],
+  "media": {
+   "image": "learning/img/plants-sunflower.webp",
+   "alt": "A big yellow flower with a brown middle."
+  }
+ },
+ {
+  "type": "IMAGE_CHOICE",
+  "prompt": "Which picture shows a food that is the root of a plant?",
+  "choicesJson": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "answer": "B",
+  "acceptedAnswers": [],
+  "tags": [
+   "roots",
+   "food plants"
+  ],
+  "media": {
+   "choiceImages": [
+    "learning/img/plants-lettuce.webp",
+    "learning/img/plants-radish-roots.webp",
+    "learning/img/plants-broccoli.webp",
+    "learning/img/plants-sunflower-seeds.webp"
+   ],
+   "choiceAlts": [
+    "Picture A",
+    "Picture B",
+    "Picture C",
+    "Picture D"
+   ],
+   "alt": "4 plant photos labeled A, B, C and D."
+  }
+ },
+ {
+  "type": "MULTIPLE_CHOICE",
+  "prompt": "Which plant has feathery leaves called fronds?",
+  "choicesJson": [
+   "Moss",
+   "Fern",
+   "Cactus",
+   "Pine tree"
+  ],
+  "answer": "Fern",
+  "acceptedAnswers": [],
+  "tags": [
+   "ferns",
+   "identify"
+  ],
+  "media": {
+   "image": "learning/img/plants-fern.webp",
+   "alt": "Green plants with feathery leaves on a forest floor."
+  }
+ }
+]

@@ -1,112 +1,4310 @@
 [
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which planet is closest to the sun?", "choicesJson": ["Mercury", "Venus", "Earth", "Mars"], "answer": "Mercury", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which planet is known as the Red Planet?", "choicesJson": ["Mars", "Jupiter", "Saturn", "Neptune"], "answer": "Mars", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What causes day and night on Earth?", "choicesJson": ["Earth rotating (spinning) on its axis", "The sun moving around Earth", "The moon blocking the sun", "Clouds covering the sun"], "answer": "Earth rotating (spinning) on its axis", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What causes the four seasons on Earth?", "choicesJson": ["Earth's tilt as it orbits the sun", "The moon's phases", "Ocean currents alone", "Wind direction alone"], "answer": "Earth's tilt as it orbits the sun", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A trait that helps a desert animal survive extreme heat, like a camel storing fat in its hump, is an example of...", "choicesJson": ["adaptation", "erosion", "condensation", "friction"], "answer": "adaptation", "tags": ["adaptation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In an ecosystem, what would likely happen if all the predators disappeared?", "choicesJson": ["Prey populations would grow too large", "Nothing would change", "Plants would disappear first", "The sun would get dimmer"], "answer": "Prey populations would grow too large", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which property describes how easily a material lets electricity flow through it?", "choicesJson": ["Conductivity", "Density", "Volume", "Mass"], "answer": "Conductivity", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials is the best electrical conductor?", "choicesJson": ["Copper wire", "Rubber", "Wood", "Glass"], "answer": "Copper wire", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a simple circuit, what happens if the wire loop is broken (not connected all the way around)?", "choicesJson": ["The light won't turn on", "The light gets brighter", "Nothing changes", "The battery explodes"], "answer": "The light won't turn on", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What part of a simple circuit provides the electrical energy?", "choicesJson": ["The battery", "The wire", "The switch", "The bulb"], "answer": "The battery", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Density is best described as...", "choicesJson": ["how much mass is packed into a given space", "how hot something is", "how loud something is", "how old something is"], "answer": "how much mass is packed into a given space", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "The moon appears to change shape throughout the month because of its...", "choicesJson": ["phases (how much sunlight we see reflected)", "size actually changing", "color actually changing", "distance doubling each night"], "answer": "phases (how much sunlight we see reflected)", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which layer of Earth do we live on the surface of?", "choicesJson": ["The crust", "The core", "The mantle", "The atmosphere's edge"], "answer": "The crust", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "A switch in a circuit is used to...", "choicesJson": ["open or close the path for electricity", "make the battery bigger", "change the wire's color", "add more light without power"], "answer": "open or close the path for electricity", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which planet is the largest in our solar system?", "choicesJson": ["Jupiter", "Saturn", "Earth", "Mars"], "answer": "Jupiter", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which planet is famous for its wide rings made mostly of ice and rock?", "choicesJson": ["Saturn", "Mercury", "Mars", "Earth"], "answer": "Saturn", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which blue planet is the eighth and farthest planet from the sun?", "choicesJson": ["Neptune", "Uranus", "Jupiter", "Venus"], "answer": "Neptune", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "About how many planets are in our solar system?", "choicesJson": ["Eight", "Five", "Twelve", "Six"], "answer": "Eight", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is a solar eclipse?", "choicesJson": ["When the moon passes between Earth and the sun, blocking some sunlight", "When Earth passes between the sun and the moon", "When the sun disappears forever", "When clouds cover the entire sky"], "answer": "When the moon passes between Earth and the sun, blocking some sunlight", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is a lunar eclipse?", "choicesJson": ["When Earth passes between the sun and the moon, casting a shadow on the moon", "When the moon blocks the sun completely", "When the moon disappears forever", "When the sun and moon collide"], "answer": "When Earth passes between the sun and the moon, casting a shadow on the moon", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which force keeps the planets in orbit around the sun?", "choicesJson": ["Gravity", "Friction", "Magnetism", "Radiation"], "answer": "Gravity", "tags": ["earth-space", "force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is a galaxy?", "choicesJson": ["A huge group of stars, gas, and dust held together by gravity", "A single very large planet", "A type of comet", "A small group of asteroids"], "answer": "A huge group of stars, gas, and dust held together by gravity", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the name of the galaxy that contains our solar system?", "choicesJson": ["The Milky Way", "Andromeda", "The Solar Galaxy", "Orion"], "answer": "The Milky Way", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What are stars mainly made of?", "choicesJson": ["Hot glowing gases, mostly hydrogen and helium", "Solid rock", "Ice and dust", "Liquid metal"], "answer": "Hot glowing gases, mostly hydrogen and helium", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why do astronauts feel weightless while orbiting Earth in a spacecraft?", "choicesJson": ["They are in constant free-fall around Earth, even though gravity still acts on them", "There is no gravity at all in orbit", "Their spacecraft blocks all gravity", "They are too far from Earth to be affected by gravity"], "answer": "They are in constant free-fall around Earth, even though gravity still acts on them", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is an asteroid?", "choicesJson": ["A rocky object, smaller than a planet, that orbits the sun", "A type of star", "A frozen moon of Jupiter", "A cloud of gas in deep space"], "answer": "A rocky object, smaller than a planet, that orbits the sun", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is a comet mostly made of?", "choicesJson": ["Ice, dust, and rock", "Solid iron", "Liquid water only", "Pure hydrogen gas"], "answer": "Ice, dust, and rock", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which planet is closest to Earth in size and is sometimes called Earth's 'sister planet'?", "choicesJson": ["Venus", "Mercury", "Jupiter", "Saturn"], "answer": "Venus", "tags": ["earth-space"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the giant pieces of Earth's crust that slowly move over time?", "choicesJson": ["Tectonic plates", "Aquifers", "Watersheds", "Glaciers"], "answer": "Tectonic plates", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What usually happens when two tectonic plates push into each other?", "choicesJson": ["They can form mountains or cause earthquakes", "They always merge into one ocean", "Nothing happens at all", "They immediately turn into lava"], "answer": "They can form mountains or cause earthquakes", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is an earthquake?", "choicesJson": ["A sudden shaking of the ground caused by movement of tectonic plates", "A sudden rise in ocean temperature", "A type of severe thunderstorm", "A slow change in weather patterns"], "answer": "A sudden shaking of the ground caused by movement of tectonic plates", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What mainly causes most volcanoes to form?", "choicesJson": ["Magma rising up through cracks in Earth's crust, often near plate boundaries", "Strong winds heating up rock", "Ocean waves wearing down mountains", "Lightning striking the ground repeatedly"], "answer": "Magma rising up through cracks in Earth's crust, often near plate boundaries", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call melted rock while it is still underground?", "choicesJson": ["Magma", "Lava", "Sediment", "Ash"], "answer": "Magma", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call melted rock once it reaches Earth's surface?", "choicesJson": ["Lava", "Magma", "Sediment", "Mantle"], "answer": "Lava", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the theory that Earth's continents were once joined together and have slowly drifted apart called?", "choicesJson": ["Continental drift", "The rock cycle", "The water cycle", "The energy pyramid"], "answer": "Continental drift", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which famous mountain range formed largely from the collision of the Indian and Eurasian tectonic plates?", "choicesJson": ["The Himalayas", "The Rocky Mountains", "The Andes", "The Alps"], "answer": "The Himalayas", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a boundary where two tectonic plates slide past each other, like the San Andreas Fault?", "choicesJson": ["A fault", "A ridge", "A trench", "A basin"], "answer": "A fault", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What tool do scientists use to measure and record the strength of an earthquake?", "choicesJson": ["A seismograph", "A barometer", "A thermometer", "A rain gauge"], "answer": "A seismograph", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why do earthquakes and volcanoes often occur in similar locations around the world?", "choicesJson": ["Both are commonly caused by activity at tectonic plate boundaries", "Both are caused by ocean tides", "Both only happen near the equator", "Both are completely unrelated events"], "answer": "Both are commonly caused by activity at tectonic plate boundaries", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a large, dangerous wave of water caused by an underwater earthquake?", "choicesJson": ["A tsunami", "A hurricane", "A whirlpool", "A tide"], "answer": "A tsunami", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Roughly how fast do most tectonic plates move each year?", "choicesJson": ["About as fast as fingernails grow, a few centimeters a year", "About as fast as a car on a highway", "Several miles per hour", "They do not move at all"], "answer": "About as fast as fingernails grow, a few centimeters a year", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which layer of Earth do tectonic plates float on top of, allowing them to move slowly?", "choicesJson": ["The mantle", "The inner core", "The atmosphere", "The ocean"], "answer": "The mantle", "tags": ["earth-science"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a circuit where electricity has only one path to flow through?", "choicesJson": ["A series circuit", "A parallel circuit", "An open circuit", "A magnetic circuit"], "answer": "A series circuit", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a circuit where electricity has multiple paths it can flow through?", "choicesJson": ["A parallel circuit", "A series circuit", "A closed circuit only", "A dead circuit"], "answer": "A parallel circuit", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a series circuit, what happens to all the bulbs if just one bulb burns out?", "choicesJson": ["All the bulbs turn off because the circuit is broken", "Only that one bulb turns off", "All the bulbs get brighter", "Nothing happens to any bulb"], "answer": "All the bulbs turn off because the circuit is broken", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a parallel circuit, what usually happens to the other bulbs if one bulb burns out?", "choicesJson": ["The other bulbs usually stay on because they have separate paths", "All the other bulbs also turn off", "The battery stops working", "The wires melt instantly"], "answer": "The other bulbs usually stay on because they have separate paths", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a material that electricity flows through easily, like copper?", "choicesJson": ["A conductor", "An insulator", "A resistor only", "A magnet"], "answer": "A conductor", "tags": ["circuits", "matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a material that does NOT let electricity flow through it easily, like rubber?", "choicesJson": ["An insulator", "A conductor", "A battery", "A switch"], "answer": "An insulator", "tags": ["circuits", "matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why is rubber often used to coat electrical wires?", "choicesJson": ["Because it insulates and helps prevent electric shock", "Because it makes electricity flow faster", "Because it is the cheapest metal available", "Because it conducts electricity better than copper"], "answer": "Because it insulates and helps prevent electric shock", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is static electricity?", "choicesJson": ["A buildup of electric charge on the surface of an object", "Electricity that only flows through water", "A type of magnetism", "Electricity that never moves at all"], "answer": "A buildup of electric charge on the surface of an object", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What usually causes the small shock you sometimes feel after touching a doorknob after walking on carpet?", "choicesJson": ["A sudden discharge of built-up static electricity", "A short in the doorknob's wiring", "A magnetic field in the carpet", "Sound waves from your footsteps"], "answer": "A sudden discharge of built-up static electricity", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the path that electric current flows through?", "choicesJson": ["A circuit", "A conductor only", "A resistor", "An insulator"], "answer": "A circuit", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is needed to complete a simple working circuit?", "choicesJson": ["A power source, wires, and a closed loop", "Only a battery by itself", "Only a light bulb by itself", "Only a switch by itself"], "answer": "A power source, wires, and a closed loop", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What unit is commonly used to measure the strength of an electric current?", "choicesJson": ["Amps", "Degrees", "Liters", "Meters"], "answer": "Amps", "tags": ["circuits"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a substance that cannot be broken down into simpler substances by ordinary chemical means, like oxygen?", "choicesJson": ["An element", "A compound", "A mixture", "A solution"], "answer": "An element", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call two or more elements chemically combined together, like water (H2O)?", "choicesJson": ["A compound", "A mixture", "An alloy only", "A solvent"], "answer": "A compound", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the key difference between a mixture and a compound?", "choicesJson": ["In a mixture the parts keep their own properties; in a compound they chemically combine into something new", "A mixture is always a liquid, and a compound is always a solid", "A compound can always be separated by hand, but a mixture cannot", "There is no real difference between the two"], "answer": "In a mixture the parts keep their own properties; in a compound they chemically combine into something new", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an example of a compound?", "choicesJson": ["Water (H2O)", "A bowl of trail mix", "A handful of sand and salt", "A bag of mixed nuts"], "answer": "Water (H2O)", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an example of a mixture, not a compound?", "choicesJson": ["A salad with several ingredients", "Water (H2O)", "Table salt (NaCl)", "Carbon dioxide (CO2)"], "answer": "A salad with several ingredients", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when a solid dissolves completely and evenly into a liquid, like sugar in water?", "choicesJson": ["A solution", "A compound", "A suspension", "An element"], "answer": "A solution", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a sugar-water solution, what do we call the sugar, the substance that gets dissolved?", "choicesJson": ["The solute", "The solvent", "The compound", "The mixture"], "answer": "The solute", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "In a sugar-water solution, what do we call the water, the substance that does the dissolving?", "choicesJson": ["The solvent", "The solute", "The element", "The compound"], "answer": "The solvent", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Does warmer water usually dissolve sugar faster or slower than cold water?", "choicesJson": ["Faster", "Slower", "At exactly the same speed", "It never dissolves in warm water"], "answer": "Faster", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What does the pH scale measure?", "choicesJson": ["How acidic or basic (alkaline) a substance is", "How dense a substance is", "How hot a substance is", "How heavy a substance is"], "answer": "How acidic or basic (alkaline) a substance is", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an acid commonly found in the kitchen?", "choicesJson": ["Lemon juice", "Baking soda", "Table salt", "Cooking oil only"], "answer": "Lemon juice", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "If an object is less dense than water, what will it do when placed in water?", "choicesJson": ["It will float", "It will sink", "It will dissolve", "It will explode"], "answer": "It will float", "tags": ["matter-properties"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which state of matter typically has the lowest density: solid, liquid, or gas?", "choicesJson": ["Gas", "Solid", "Liquid", "They are always equal"], "answer": "Gas", "tags": ["matter-properties", "states-of-matter"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a large region with a distinct climate and specific types of plants and animals, like a desert or tundra?", "choicesJson": ["A biome", "A niche", "A trophic level", "A watershed"], "answer": "A biome", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which biome is known for its permanently frozen ground and very few trees?", "choicesJson": ["Tundra", "Rainforest", "Grassland", "Wetland"], "answer": "Tundra", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which biome has the greatest biodiversity of any land biome on Earth?", "choicesJson": ["The rainforest", "The tundra", "The desert", "The grassland"], "answer": "The rainforest", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these adaptations would most help an animal avoid losing too much water in a hot, dry biome?", "choicesJson": ["Special skin or behaviors that reduce water loss", "Thick fur meant for cold climates", "Bright colors meant to attract mates", "A very large, exposed body surface"], "answer": "Special skin or behaviors that reduce water loss", "tags": ["ecosystems", "adaptation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "How might overpopulation of a prey species affect the plants they eat in an ecosystem?", "choicesJson": ["The plants could become overgrazed and start to disappear", "The plants would immediately grow faster", "There would be no effect on the plants", "The plants would turn into a new species"], "answer": "The plants could become overgrazed and start to disappear", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is carrying capacity?", "choicesJson": ["The maximum population size an environment can support with its resources", "The total weight an animal can carry", "The number of species in a food chain", "The distance an animal can migrate"], "answer": "The maximum population size an environment can support with its resources", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What might happen if a population grows beyond its ecosystem's carrying capacity?", "choicesJson": ["Resources like food and water may run short, causing the population to decline", "The population will keep growing forever with no limits", "The ecosystem will automatically create more resources", "Nothing at all will happen"], "answer": "Resources like food and water may run short, causing the population to decline", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "How do keystone species affect their ecosystems?", "choicesJson": ["They have an unusually large effect on the ecosystem compared to their numbers", "They have no real effect on their ecosystem", "They only affect ecosystems in the ocean", "They always have the largest population in the ecosystem"], "answer": "They have an unusually large effect on the ecosystem compared to their numbers", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an adaptation for defense against predators, like a turtle's shell?", "choicesJson": ["A hard shell that protects the animal's body", "A long tail used only for balance", "Bright feathers used only for mating displays", "A large appetite for plants"], "answer": "A hard shell that protects the animal's body", "tags": ["adaptation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "How can bright coloring on an animal sometimes act as a warning instead of camouflage?", "choicesJson": ["Bright colors can signal that the animal is poisonous or dangerous to eat", "Bright colors always mean an animal is friendly", "Bright colors have no effect on predators", "Bright colors only appear on plants, never animals"], "answer": "Bright colors can signal that the animal is poisonous or dangerous to eat", "tags": ["adaptation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why might a species become endangered?", "choicesJson": ["Its habitat is destroyed, or it faces too much hunting or competition", "It has too many available resources", "Its population grows too quickly to control", "It develops too many helpful adaptations"], "answer": "Its habitat is destroyed, or it faces too much hunting or competition", "tags": ["ecosystems", "adaptation"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call organized efforts to protect species and habitats from disappearing?", "choicesJson": ["Conservation", "Migration", "Domestication", "Pollination"], "answer": "Conservation", "tags": ["ecosystems"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Newton's first law of motion says an object at rest stays at rest, and an object in motion stays in motion, unless what happens?", "choicesJson": ["A force acts on it", "Time passes", "It gets heavier", "It changes color"], "answer": "A force acts on it", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an object's tendency to resist a change in its motion?", "choicesJson": ["Inertia", "Friction", "Density", "Velocity"], "answer": "Inertia", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Newton's second law of motion relates force, mass, and which other quantity?", "choicesJson": ["Acceleration", "Temperature", "Density", "Volume"], "answer": "Acceleration", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "According to Newton's second law, if the same force is applied to a heavier object and a lighter object, which one will accelerate more?", "choicesJson": ["The lighter object", "The heavier object", "They accelerate the same amount", "Neither one will move"], "answer": "The lighter object", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Newton's third law of motion states that for every action, there is an equal and opposite what?", "choicesJson": ["Reaction", "Acceleration", "Mass", "Direction only"], "answer": "Reaction", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these is an example of Newton's third law in action?", "choicesJson": ["A rocket pushing gas backward, which pushes the rocket forward", "A ball rolling to a stop from friction", "A book sitting still on a table", "Ice melting into water"], "answer": "A rocket pushing gas backward, which pushes the rocket forward", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the rate at which an object's velocity changes?", "choicesJson": ["Acceleration", "Mass", "Density", "Inertia"], "answer": "Acceleration", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "If a car speeds up while driving in a straight line, is it accelerating?", "choicesJson": ["Yes, because acceleration includes speeding up, slowing down, or turning", "No, acceleration only means slowing down", "No, acceleration only happens when turning", "No, cars can never accelerate"], "answer": "Yes, because acceleration includes speeding up, slowing down, or turning", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What force must an airplane's engines and wings overcome for it to lift off the ground?", "choicesJson": ["Gravity", "Friction only", "Magnetism", "Density"], "answer": "Gravity", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is the difference between mass and weight?", "choicesJson": ["Mass is the amount of matter in an object; weight is the force of gravity pulling on it", "Mass and weight always mean exactly the same thing", "Weight is measured in meters, and mass is measured in seconds", "Mass only applies to liquids"], "answer": "Mass is the amount of matter in an object; weight is the force of gravity pulling on it", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Would your mass change if you traveled from Earth to the Moon?", "choicesJson": ["No, your mass would stay the same, but your weight would change", "Yes, your mass would double", "Yes, your mass would disappear completely", "Yes, your mass would instantly become zero"], "answer": "No, your mass would stay the same, but your weight would change", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why would an object weigh less on the Moon than it does on Earth?", "choicesJson": ["Because the Moon's gravity is weaker than Earth's", "Because the Moon has no air", "Because the Moon is closer to the sun", "Because the Moon spins faster than Earth"], "answer": "Because the Moon's gravity is weaker than Earth's", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a force that acts between two objects without them touching, like gravity or magnetism?", "choicesJson": ["A non-contact force", "A contact force", "A friction force", "A normal force only"], "answer": "A non-contact force", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call a force that requires objects to be physically touching, like friction or a push?", "choicesJson": ["A contact force", "A non-contact force", "A magnetic force only", "A gravitational force only"], "answer": "A contact force", "tags": ["force-motion"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is light, according to most science taught at this grade level?", "choicesJson": ["Waves of electromagnetic energy", "A type of liquid", "A form of sound", "A solid material"], "answer": "Waves of electromagnetic energy", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which travels faster: light or sound?", "choicesJson": ["Light travels much faster than sound", "Sound travels much faster than light", "They always travel at exactly the same speed", "Neither one can be measured"], "answer": "Light travels much faster than sound", "tags": ["light", "sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why do you usually see lightning before you hear the thunder from the same storm?", "choicesJson": ["Because light travels much faster than sound", "Because thunder happens minutes after lightning forms", "Because lightning is silent and thunder is not", "Because sound cannot travel during storms"], "answer": "Because light travels much faster than sound", "tags": ["light", "sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when light bounces off a surface, like off a mirror?", "choicesJson": ["Reflection", "Refraction", "Absorption", "Radiation"], "answer": "Reflection", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call it when light bends as it passes from one material into another, like from air into water?", "choicesJson": ["Refraction", "Reflection", "Conduction", "Convection"], "answer": "Refraction", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why does a straw in a glass of water sometimes look bent or broken at the water's surface?", "choicesJson": ["Because light refracts (bends) as it passes between water and air", "Because the straw actually bends in water", "Because water always changes the color of objects", "Because light cannot travel through water"], "answer": "Because light refracts (bends) as it passes between water and air", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the band of colors you see when white light passes through a prism or forms a rainbow?", "choicesJson": ["The visible spectrum", "A shadow", "An eclipse", "A reflection only"], "answer": "The visible spectrum", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an object that lets light pass through it clearly, like glass?", "choicesJson": ["Transparent", "Opaque", "Translucent", "Reflective only"], "answer": "Transparent", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an object that blocks all light from passing through it, like wood?", "choicesJson": ["Opaque", "Transparent", "Translucent", "Luminous"], "answer": "Opaque", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call an object that lets some light through but scatters it, like frosted glass?", "choicesJson": ["Translucent", "Transparent", "Opaque", "Reflective only"], "answer": "Translucent", "tags": ["light"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What causes sound to travel through a material?", "choicesJson": ["Vibrations moving through the material", "Light bouncing through the material", "Heat trapped inside the material", "Gravity pulling the material down"], "answer": "Vibrations moving through the material", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Why can't sound travel through empty space (a vacuum)?", "choicesJson": ["Because there are no particles there to vibrate and carry the sound", "Because space is too cold for sound", "Because space is too bright for sound", "Because sound only exists on Earth"], "answer": "Because there are no particles there to vibrate and carry the sound", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the number of sound wave vibrations per second, which determines pitch?", "choicesJson": ["Frequency", "Volume", "Amplitude only", "Wavelength only"], "answer": "Frequency", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Does a higher frequency sound wave produce a higher or lower pitch?", "choicesJson": ["A higher pitch", "A lower pitch", "No change in pitch", "Pitch is unrelated to frequency"], "answer": "A higher pitch", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What do we call the loudness of a sound, related to the size (amplitude) of its sound wave?", "choicesJson": ["Volume", "Frequency", "Pitch only", "Wavelength only"], "answer": "Volume", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "What is an echo?", "choicesJson": ["A sound that reflects off a surface and is heard again a short time later", "A sound that disappears completely after being made", "A sound that only happens underwater", "A type of light wave"], "answer": "A sound that reflects off a surface and is heard again a short time later", "tags": ["sound"] },
-  { "type": "MULTIPLE_CHOICE", "prompt": "Which of these materials would best absorb sound and reduce echoes in a room?", "choicesJson": ["Thick carpet and soft curtains", "Bare glass windows", "A smooth tile floor", "A bare concrete wall"], "answer": "Thick carpet and soft curtains", "tags": ["sound"] }
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This rock looks like pebbles glued together in sand. What is it called?",
+    "choicesJson": [
+      "Obsidian",
+      "Quartz",
+      "Pumice",
+      "Conglomerate"
+    ],
+    "answer": "Conglomerate",
+    "tags": [
+      "rocks",
+      "sedimentary"
+    ],
+    "media": {
+      "alt": "A rusty orange rock made of rounded pebbles cemented together in sand.",
+      "image": "learning/img/rocks-landforms-conglomerate.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The wavy bands in this rock formed when heat and pressure squeezed and stretched its minerals deep underground. What type of rock is it?",
+    "choicesJson": [
+      "Igneous",
+      "Sedimentary",
+      "Metamorphic"
+    ],
+    "answer": "Metamorphic",
+    "tags": [
+      "rock types",
+      "metamorphic"
+    ],
+    "media": {
+      "alt": "A rock with swirling bands of white and dark gray minerals.",
+      "image": "learning/img/rocks-landforms-gneiss.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Granite has large crystals that you can see. What made the crystals so big?",
+    "choicesJson": [
+      "Sand was pressed into layers",
+      "The lava cooled very fast in the air",
+      "The magma cooled slowly underground",
+      "Ocean waves rubbed it smooth"
+    ],
+    "answer": "The magma cooled slowly underground",
+    "tags": [
+      "rock types",
+      "igneous"
+    ],
+    "media": {
+      "alt": "A close-up of a pink, white and black speckled piece of granite with visible crystals.",
+      "image": "learning/img/rocks-landforms-granite.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why does obsidian look like glass?",
+    "choicesJson": [
+      "It was frozen under a glacier",
+      "Its lava cooled very quickly",
+      "Its lava cooled very slowly",
+      "It was pressed from layers of mud"
+    ],
+    "answer": "Its lava cooled very quickly",
+    "tags": [
+      "rock types",
+      "igneous"
+    ],
+    "media": {
+      "alt": "A shiny, black, glassy chunk of obsidian.",
+      "image": "learning/img/rocks-landforms-obsidian.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Marble is a metamorphic rock. Which rock does heat and pressure change into marble?",
+    "choicesJson": [
+      "Coal",
+      "Limestone",
+      "Obsidian",
+      "Basalt"
+    ],
+    "answer": "Limestone",
+    "tags": [
+      "rock types",
+      "metamorphic"
+    ],
+    "media": {
+      "alt": "Polished white marble tiles with thin gray veins.",
+      "image": "learning/img/rocks-landforms-marble.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Most sandstone is made mainly of tiny grains of which mineral?",
+    "choicesJson": [
+      "Quartz",
+      "Gypsum",
+      "Talc",
+      "Pyrite"
+    ],
+    "answer": "Quartz",
+    "tags": [
+      "minerals",
+      "sedimentary"
+    ],
+    "media": {
+      "alt": "A tan and orange rock sample made of tiny cemented sand grains.",
+      "image": "learning/img/rocks-landforms-sandstone.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Most of the ocean floor is made of which dark volcanic rock?",
+    "choicesJson": [
+      "Marble",
+      "Sandstone",
+      "Basalt",
+      "Quartz"
+    ],
+    "answer": "Basalt",
+    "tags": [
+      "rocks",
+      "earth's crust"
+    ],
+    "media": {
+      "alt": "A dark gray, fine-grained piece of basalt rock.",
+      "image": "learning/img/rocks-landforms-basalt.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Many caves form when slightly acidic water slowly dissolves which kind of rock?",
+    "choicesJson": [
+      "Limestone",
+      "Obsidian",
+      "Granite",
+      "Quartz"
+    ],
+    "answer": "Limestone",
+    "tags": [
+      "landforms",
+      "caves"
+    ],
+    "media": {
+      "alt": "Pale stalactites hanging from the rocky ceiling inside a cave.",
+      "image": "learning/img/rocks-landforms-cave.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This island began as a volcano rising from the sea floor. What was the island built from?",
+    "choicesJson": [
+      "Sand blown in by wind",
+      "Ice that melted",
+      "Lava that cooled and hardened",
+      "Soil carried by rivers"
+    ],
+    "answer": "Lava that cooled and hardened",
+    "tags": [
+      "landforms",
+      "volcanoes"
+    ],
+    "media": {
+      "alt": "An island with a steep green peak rising from turquoise water.",
+      "image": "learning/img/rocks-landforms-island.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What makes a geyser erupt?",
+    "choicesJson": [
+      "Underground water heated by hot rock turns to steam and pushes out",
+      "An earthquake squeezes a river",
+      "Wind blows water up from a lake",
+      "Melting glaciers drip into a hole"
+    ],
+    "answer": "Underground water heated by hot rock turns to steam and pushes out",
+    "tags": [
+      "landforms",
+      "heat"
+    ],
+    "media": {
+      "alt": "A geyser shooting a tall column of hot water and steam into the sky.",
+      "image": "learning/img/rocks-landforms-geyser.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Many mountain ranges form when giant pieces of Earth's crust push together. What are these giant pieces called?",
+    "choicesJson": [
+      "Tectonic plates",
+      "Glaciers",
+      "Ocean waves",
+      "Sand dunes"
+    ],
+    "answer": "Tectonic plates",
+    "tags": [
+      "landforms",
+      "plate tectonics"
+    ],
+    "media": {
+      "alt": "A snowy, jagged mountain range rising behind a green valley.",
+      "image": "learning/img/rocks-landforms-mountains.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A river builds a delta by dropping tiny bits of rock and mud it carried along. What do scientists call this material?",
+    "choicesJson": [
+      "Crystal",
+      "Lava",
+      "Magma",
+      "Sediment"
+    ],
+    "answer": "Sediment",
+    "tags": [
+      "landforms",
+      "rivers"
+    ],
+    "media": {
+      "alt": "A satellite image of the Nile Delta, a green fan shape where the river meets the sea.",
+      "image": "learning/img/rocks-landforms-delta.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which of these rocks is metamorphic?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "tags": [
+      "rock types",
+      "metamorphic"
+    ],
+    "media": {
+      "alt": "Four photos labeled A, B, C and D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/rocks-landforms-sandstone.webp",
+        "learning/img/rocks-landforms-obsidian.webp",
+        "learning/img/rocks-landforms-pumice.webp",
+        "learning/img/rocks-landforms-gneiss.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which of these rocks is sedimentary?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "rock types",
+      "sedimentary"
+    ],
+    "media": {
+      "alt": "Four photos labeled A, B, C and D.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/rocks-landforms-gneiss.webp",
+        "learning/img/rocks-landforms-granite.webp",
+        "learning/img/rocks-landforms-conglomerate.webp",
+        "learning/img/rocks-landforms-marble.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The tallest volcano in our solar system, Olympus Mons, is on the planet in this photo. Which planet is it?",
+    "choicesJson": [
+      "Mercury",
+      "Earth",
+      "Venus",
+      "Mars"
+    ],
+    "answer": "Mars",
+    "tags": [
+      "space",
+      "planets"
+    ],
+    "media": {
+      "alt": "A photo of an orange-red planet.",
+      "image": "learning/img/space-mars.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About how long does the International Space Station take to circle Earth once?",
+    "choicesJson": [
+      "About one week",
+      "About 90 minutes",
+      "About one year",
+      "About 24 hours"
+    ],
+    "answer": "About 90 minutes",
+    "tags": [
+      "space",
+      "iss"
+    ],
+    "media": {
+      "alt": "A large spacecraft with big solar panels.",
+      "image": "learning/img/space-iss.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About how long does the Moon take to go around Earth once?",
+    "choicesJson": [
+      "About one week",
+      "About one month",
+      "About one day",
+      "About one year"
+    ],
+    "answer": "About one month",
+    "tags": [
+      "space",
+      "moon"
+    ],
+    "media": {
+      "alt": "A round gray space object with dark patches.",
+      "image": "learning/img/space-moon.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The Sun is a star. Compared with Earth, how big is the Sun?",
+    "choicesJson": [
+      "Much bigger, over 100 Earths could fit across it",
+      "A little smaller",
+      "About the same size",
+      "Much smaller, like a marble next to a basketball"
+    ],
+    "answer": "Much bigger, over 100 Earths could fit across it",
+    "tags": [
+      "space",
+      "sun"
+    ],
+    "media": {
+      "alt": "A glowing orange ball in black space.",
+      "image": "learning/img/space-sun.webp"
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows Uranus?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "tags": [
+      "space",
+      "planets"
+    ],
+    "media": {
+      "alt": "Space photos to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/space-neptune.webp",
+        "learning/img/space-venus.webp",
+        "learning/img/space-uranus.webp",
+        "learning/img/space-saturn.webp"
+      ]
+    }
+  },
+  {
+    "type": "IMAGE_CHOICE",
+    "prompt": "Which picture shows the Andromeda Galaxy, the nearest big galaxy to the Milky Way?",
+    "choicesJson": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "tags": [
+      "space",
+      "galaxies"
+    ],
+    "media": {
+      "alt": "Space photos to choose from.",
+      "choiceAlts": [
+        "Picture A",
+        "Picture B",
+        "Picture C",
+        "Picture D"
+      ],
+      "choiceImages": [
+        "learning/img/space-andromeda.webp",
+        "learning/img/space-sun.webp",
+        "learning/img/space-iss.webp",
+        "learning/img/space-comet.webp"
+      ]
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The flat, spread-out top of this thundercloud has a special name. What is it called?",
+    "choicesJson": [
+      "A chisel",
+      "A hammer",
+      "A wrench",
+      "An anvil"
+    ],
+    "answer": "An anvil",
+    "tags": [
+      "clouds",
+      "weather"
+    ],
+    "media": {
+      "alt": "A tall thunderstorm cloud with a flat anvil top, seen from above.",
+      "image": "learning/img/weather-clouds-cumulonimbus.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "This towering cloud has rain falling from its dark base. Which other kinds of weather can this kind of cloud bring?",
+    "choicesJson": [
+      "Fog and dew",
+      "Thunder and lightning",
+      "Frost and icicles",
+      "Rainbows only"
+    ],
+    "answer": "Thunder and lightning",
+    "tags": [
+      "clouds",
+      "weather"
+    ],
+    "media": {
+      "alt": "A huge towering thundercloud with rain falling from its dark base over a river.",
+      "image": "learning/img/weather-clouds-cumulonimbus2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A funnel cloud hangs from this storm. When does a funnel cloud officially become a tornado?",
+    "choicesJson": [
+      "When it turns white",
+      "When it starts to rain",
+      "When it touches the ground",
+      "When it floats over the ocean"
+    ],
+    "answer": "When it touches the ground",
+    "tags": [
+      "tornado",
+      "weather"
+    ],
+    "media": {
+      "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field.",
+      "image": "learning/img/weather-clouds-tornado.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which part of the United States is nicknamed Tornado Alley?",
+    "choicesJson": [
+      "The Great Plains",
+      "The Pacific coast",
+      "New England",
+      "Alaska"
+    ],
+    "answer": "The Great Plains",
+    "tags": [
+      "tornado",
+      "geography"
+    ],
+    "media": {
+      "alt": "A narrow spinning funnel hanging down from a dark storm cloud over a green field.",
+      "image": "learning/img/weather-clouds-tornado.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Hailstones can grow larger as they are tossed up and down inside a thundercloud. What keeps lifting them back up?",
+    "choicesJson": [
+      "Melting ice",
+      "Magnets in the clouds",
+      "Falling snow",
+      "Strong updrafts of air"
+    ],
+    "answer": "Strong updrafts of air",
+    "tags": [
+      "hail",
+      "weather"
+    ],
+    "media": {
+      "alt": "Small clear lumps of hail lying on dark ground among leaves.",
+      "image": "learning/img/weather-clouds-hail.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A hurricane gets its energy from what?",
+    "choicesJson": [
+      "Cold mountain air",
+      "Frozen lakes",
+      "Dry desert sand",
+      "Warm ocean water"
+    ],
+    "answer": "Warm ocean water",
+    "tags": [
+      "hurricane",
+      "energy"
+    ],
+    "media": {
+      "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye.",
+      "image": "learning/img/weather-clouds-hurricane.webp"
+    }
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Hurricanes are rated by strength from Category 1 up to Category what?",
+    "answer": "5",
+    "acceptedAnswers": [
+      "five",
+      "category 5"
+    ],
+    "tags": [
+      "hurricane",
+      "weather"
+    ],
+    "media": {
+      "alt": "Hurricane Isabel seen from space, a giant swirl of white clouds around a clear eye.",
+      "image": "learning/img/weather-clouds-hurricane.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You see a flash of lightning and hear thunder 10 seconds later. Sound travels about 1 mile every 5 seconds. About how far away was the lightning?",
+    "choicesJson": [
+      "About 1 mile",
+      "About 2 miles",
+      "About 5 miles",
+      "About 10 miles"
+    ],
+    "answer": "About 2 miles",
+    "tags": [
+      "lightning",
+      "light and sound",
+      "math"
+    ],
+    "media": {
+      "alt": "Several lightning bolts reaching down from a stormy night sky toward the ground.",
+      "image": "learning/img/weather-clouds-lightning2.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The sky looks orange at sunrise. Why?",
+    "choicesJson": [
+      "Sunlight is hotter at dawn",
+      "The Sun turns orange at dawn",
+      "Sunlight travels through more air, which scatters away much of the blue light",
+      "Clouds are painted by the Sun"
+    ],
+    "answer": "Sunlight travels through more air, which scatters away much of the blue light",
+    "tags": [
+      "sunrise",
+      "light"
+    ],
+    "media": {
+      "alt": "An orange sunrise sky behind a bare tree over a snowy field.",
+      "image": "learning/img/weather-clouds-sunrise.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Ice is clear, but snow looks white. Why?",
+    "choicesJson": [
+      "Snow has white dye inside",
+      "Light bounces off the many tiny faces of the ice crystals",
+      "Cold air turns water white",
+      "Snow is made of salt"
+    ],
+    "answer": "Light bounces off the many tiny faces of the ice crystals",
+    "tags": [
+      "snow",
+      "light"
+    ],
+    "media": {
+      "alt": "A garage, a porch and evergreen trees all covered with fresh white snow.",
+      "image": "learning/img/weather-clouds-snow.webp"
+    }
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, water in a snowy biome can freeze into ice. In science, what is it called when a liquid turns into a solid?",
+    "choicesJson": [
+      "Melting",
+      "Freezing",
+      "Evaporation",
+      "Condensation"
+    ],
+    "answer": "Freezing",
+    "tags": [
+      "matter",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A baker mixes 250 g of flour with 150 g of sugar in a bowl. What is the total mass of the mixture in grams? Type the number.",
+    "answer": "400",
+    "acceptedAnswers": [
+      "400 g",
+      "400g",
+      "400 grams"
+    ],
+    "tags": [
+      "matter",
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is a physical change, where no new substance is made?",
+    "choicesJson": [
+      "Burning a log in a fireplace",
+      "Baking cake batter into a cake",
+      "Cutting a sheet of paper in half",
+      "Letting a bike rust in the rain"
+    ],
+    "answer": "Cutting a sheet of paper in half",
+    "tags": [
+      "matter",
+      "changes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A campfire turns wood into ash, smoke, and heat. Why is this a chemical change?",
+    "choicesJson": [
+      "The wood only changed its shape, and it is still wood",
+      "New substances form that cannot easily be turned back into wood",
+      "The wood just got warmer, so it is still the same material",
+      "The wood was only broken into smaller pieces of the same material"
+    ],
+    "answer": "New substances form that cannot easily be turned back into wood",
+    "tags": [
+      "matter",
+      "changes"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A solid block is 5 cm long, 4 cm wide, and 3 cm tall. What is its volume in cubic centimeters? Type the number.",
+    "answer": "60",
+    "acceptedAnswers": [
+      "60 cm3",
+      "60 cubic centimeters",
+      "60cm3",
+      "60 cm^3"
+    ],
+    "tags": [
+      "matter",
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A rock is dropped into a graduated cylinder that holds 50 mL of water. The water level rises to 68 mL. What is the volume of the rock in mL? Type the number.",
+    "answer": "18",
+    "acceptedAnswers": [
+      "18 mL",
+      "18ml",
+      "18 ml"
+    ],
+    "tags": [
+      "matter",
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A stone has a mass of 30 g and a volume of 10 cm3. Density equals mass divided by volume. What is the stone's density?",
+    "choicesJson": [
+      "20 g/cm3",
+      "40 g/cm3",
+      "3 g/cm3",
+      "0.33 g/cm3"
+    ],
+    "answer": "3 g/cm3",
+    "tags": [
+      "matter",
+      "density"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A toy has a mass of 12 g and a volume of 15 cm3. Water has a density of 1 g/cm3. What will the toy do in a bowl of water?",
+    "choicesJson": [
+      "It sinks, because its density is 1.25 g/cm3",
+      "It floats, because its density is 3 g/cm3",
+      "It floats, because its density is 0.8 g/cm3",
+      "It sinks, because its density is 27 g/cm3"
+    ],
+    "answer": "It floats, because its density is 0.8 g/cm3",
+    "tags": [
+      "matter",
+      "density"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You hold a magnet over a pile of everyday objects. Which one will the magnet pick up?",
+    "choicesJson": [
+      "A plastic spoon",
+      "A glass marble",
+      "A ball of aluminum foil",
+      "An iron nail"
+    ],
+    "answer": "An iron nail",
+    "tags": [
+      "matter",
+      "magnets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How do the particles in a solid behave?",
+    "choicesJson": [
+      "They fly around far apart from each other",
+      "They slide past each other freely",
+      "They are packed tightly and vibrate in place",
+      "They stop moving completely"
+    ],
+    "answer": "They are packed tightly and vibrate in place",
+    "tags": [
+      "matter",
+      "states-of-matter"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "At sea level, water boils at what temperature in degrees Celsius? Type the number.",
+    "answer": "100",
+    "acceptedAnswers": [
+      "100 c",
+      "100c",
+      "100 degrees",
+      "one hundred",
+      "100 celsius"
+    ],
+    "tags": [
+      "matter",
+      "temperature"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Dry ice, which is frozen carbon dioxide, is used to make spooky fog at haunted houses. When it turns straight from a solid into a gas without becoming a liquid, what is that called?",
+    "choicesJson": [
+      "Condensation",
+      "Melting",
+      "Freezing",
+      "Sublimation"
+    ],
+    "answer": "Sublimation",
+    "tags": [
+      "matter",
+      "states-of-matter"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A bag of iron filings gets spilled into a bowl of sand. What is the easiest way to separate them?",
+    "choicesJson": [
+      "Pour the mix through a coffee filter",
+      "Freeze the bowl",
+      "Pass a magnet over the mixture",
+      "Boil the sand"
+    ],
+    "answer": "Pass a magnet over the mixture",
+    "tags": [
+      "matter",
+      "mixtures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You want to get the salt back out of a bowl of salt water. Which method works?",
+    "choicesJson": [
+      "Pour it through a coffee filter",
+      "Let the water evaporate and the salt stays behind",
+      "Hold a magnet over the bowl",
+      "Stir it faster and faster"
+    ],
+    "answer": "Let the water evaporate and the salt stays behind",
+    "tags": [
+      "matter",
+      "mixtures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox obby puzzle door only opens for a malleable material, one that can be hammered into thin sheets without breaking. Which real-world material fits?",
+    "choicesJson": [
+      "Glass",
+      "Chalk",
+      "Dry spaghetti",
+      "Gold"
+    ],
+    "answer": "Gold",
+    "tags": [
+      "matter",
+      "properties",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A real iron sword left outside in the rain slowly turns orange-brown with rust. Is rusting a physical change or a chemical change? Type one word.",
+    "answer": "chemical",
+    "acceptedAnswers": [
+      "chemical change",
+      "a chemical change"
+    ],
+    "tags": [
+      "matter",
+      "changes"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The handle of a metal spoon gets hot fast when the spoon sits in hot soup, but a plastic spoon stays cool. What does this show about metals?",
+    "choicesJson": [
+      "They are good conductors of heat",
+      "They are good insulators of heat",
+      "They cannot absorb any heat",
+      "They dissolve in soup"
+    ],
+    "answer": "They are good conductors of heat",
+    "tags": [
+      "matter",
+      "heat"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, obsidian forms when water touches lava. In real life, shiny black volcanic glass called obsidian forms when lava cools very fast. What type of rock is it?",
+    "choicesJson": [
+      "Sedimentary",
+      "Metamorphic",
+      "Igneous"
+    ],
+    "answer": "Igneous",
+    "tags": [
+      "rocks",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In which type of rock are you most likely to find a fossil of an ancient dinosaur bone?",
+    "choicesJson": [
+      "Igneous rock",
+      "Sedimentary rock",
+      "Metamorphic rock"
+    ],
+    "answer": "Sedimentary rock",
+    "tags": [
+      "rocks",
+      "fossils"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Limestone gets buried deep underground, where heat and pressure change it into marble. What type of rock is marble? Type one word.",
+    "answer": "metamorphic",
+    "acceptedAnswers": [
+      "metamorphic rock"
+    ],
+    "tags": [
+      "rocks"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Rain, wind, and ice slowly break big rocks into smaller pieces. What is this process called?",
+    "choicesJson": [
+      "Condensation",
+      "Deposition",
+      "Weathering",
+      "Melting"
+    ],
+    "answer": "Weathering",
+    "tags": [
+      "rocks",
+      "landforms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name for the movement of sand, soil, and rock bits from one place to another by wind, water, or ice? Type one word.",
+    "answer": "erosion",
+    "acceptedAnswers": [
+      "erode",
+      "eroding"
+    ],
+    "tags": [
+      "landforms",
+      "erosion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A slow river drops mud and sand where it meets the sea, slowly building new land called a delta. What do we call the dropping of sediment in a new place?",
+    "choicesJson": [
+      "Erosion",
+      "Evaporation",
+      "Weathering",
+      "Deposition"
+    ],
+    "answer": "Deposition",
+    "tags": [
+      "landforms",
+      "erosion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft's pointed dripstone grows from cave ceilings and floors, like real cave formations. What are the real ones that hang down from a cave ceiling called?",
+    "choicesJson": [
+      "Geysers",
+      "Stalagmites",
+      "Stalactites",
+      "Dunes"
+    ],
+    "answer": "Stalactites",
+    "tags": [
+      "landforms",
+      "caves",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which layer of soil is best for growing plants because it holds humus, the bits of decayed plants and animals?",
+    "choicesJson": [
+      "Bedrock",
+      "Subsoil",
+      "Topsoil",
+      "Parent rock"
+    ],
+    "answer": "Topsoil",
+    "tags": [
+      "soil",
+      "earth-materials"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Where is most of Earth's fresh water stored?",
+    "choicesJson": [
+      "In rivers",
+      "In glaciers and ice sheets",
+      "In lakes",
+      "In clouds"
+    ],
+    "answer": "In glaciers and ice sheets",
+    "tags": [
+      "water-cycle",
+      "earth-materials"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Water seeps into a crack in a boulder and freezes, and the crack gets wider. Why does this happen?",
+    "choicesJson": [
+      "Freezing water shrinks and pulls the rock apart",
+      "Ice turns the rock into lava",
+      "Ice dissolves all of the minerals instantly",
+      "Water expands as it freezes and pushes the crack wider"
+    ],
+    "answer": "Water expands as it freezes and pushes the crack wider",
+    "tags": [
+      "rocks",
+      "weathering"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What do we call a piece of land that is surrounded by water on three sides, like Florida? Type one word.",
+    "answer": "peninsula",
+    "acceptedAnswers": [
+      "a peninsula"
+    ],
+    "tags": [
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a large, high area of mostly flat land with steep sides?",
+    "choicesJson": [
+      "Valley",
+      "Delta",
+      "Island",
+      "Plateau"
+    ],
+    "answer": "Plateau",
+    "tags": [
+      "landforms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Yosemite Valley has steep walls and a wide U-shape. What mostly carved it long ago?",
+    "choicesJson": [
+      "Strong winds",
+      "Slow-moving glaciers",
+      "Ocean waves",
+      "A single earthquake"
+    ],
+    "answer": "Slow-moving glaciers",
+    "tags": [
+      "landforms",
+      "erosion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What star provides the energy that makes water evaporate and drives the water cycle on Earth? Type one word.",
+    "answer": "sun",
+    "acceptedAnswers": [
+      "the sun"
+    ],
+    "tags": [
+      "water-cycle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "High in the sky, invisible water vapor cools and turns into tiny liquid droplets that form clouds. What is this step of the water cycle called?",
+    "choicesJson": [
+      "Evaporation",
+      "Runoff",
+      "Condensation",
+      "Melting"
+    ],
+    "answer": "Condensation",
+    "tags": [
+      "water-cycle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An SCP-style researcher seals a small pond under a glass dome with a bright lamp. After a few days the pond level drops. What process turns the pond's liquid water into water vapor?",
+    "choicesJson": [
+      "Freezing",
+      "Evaporation",
+      "Precipitation",
+      "Condensation"
+    ],
+    "answer": "Evaporation",
+    "tags": [
+      "water-cycle",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On a Fortnite-style island, rain pours onto a steep mountain and flows downhill over the ground toward a lake. What is this water called?",
+    "choicesJson": [
+      "Runoff",
+      "Humidity",
+      "Water vapor",
+      "Groundwater"
+    ],
+    "answer": "Runoff",
+    "tags": [
+      "water-cycle",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a hypothesis?",
+    "choicesJson": [
+      "A graph that shows the results of an experiment",
+      "A list of all of the materials you need for an experiment",
+      "A final answer that can never change after it is made",
+      "A testable prediction or explanation that an experiment can check"
+    ],
+    "answer": "A testable prediction or explanation that an experiment can check",
+    "tags": [
+      "scientific-method"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Maya wants to know if longer wings help a paper airplane fly farther. She makes planes with different wing lengths and flies each one. What is her independent variable?",
+    "choicesJson": [
+      "Distance flown",
+      "Wing length",
+      "Color of the paper",
+      "Number of folds in the nose"
+    ],
+    "answer": "Wing length",
+    "tags": [
+      "scientific-method",
+      "variables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A student puts different amounts of salt on equal-sized ice cubes and times how long each one takes to melt. What is the dependent variable?",
+    "choicesJson": [
+      "The amount of salt",
+      "The size of the ice cubes",
+      "The room temperature",
+      "The time each ice cube takes to melt"
+    ],
+    "answer": "The time each ice cube takes to melt",
+    "tags": [
+      "scientific-method",
+      "variables"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "To run a fair test, how many variables should you change at one time? Type a number.",
+    "answer": "1",
+    "acceptedAnswers": [
+      "one"
+    ],
+    "tags": [
+      "scientific-method",
+      "variables"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do scientists repeat an experiment several times?",
+    "choicesJson": [
+      "To make the experiment take much longer to finish",
+      "To check that the results are reliable and not just luck",
+      "To change the hypothesis after every single try",
+      "To avoid having to write down any data afterward"
+    ],
+    "answer": "To check that the results are reliable and not just luck",
+    "tags": [
+      "scientific-method"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A scientist's data does not support her hypothesis. What should she do?",
+    "choicesJson": [
+      "Change the data so that it matches her hypothesis",
+      "Report the real results and think of a new hypothesis to test",
+      "Hide the results and never tell anyone about them",
+      "Decide that the experiment cannot teach her anything"
+    ],
+    "answer": "Report the real results and think of a new hypothesis to test",
+    "tags": [
+      "scientific-method"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which statement is an observation, not an inference?",
+    "choicesJson": [
+      "The rock is gray and has a rough surface",
+      "The rock came from a volcano",
+      "The rock must be very valuable",
+      "The rock is probably millions of years old"
+    ],
+    "answer": "The rock is gray and has a rough surface",
+    "tags": [
+      "scientific-method",
+      "observation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Foundation-style researcher writes notes about a green slime. Which note is quantitative, meaning it uses a measurement?",
+    "choicesJson": [
+      "The slime is very sticky",
+      "The slime looks scary",
+      "The slime weighs 450 grams",
+      "The slime smells strange"
+    ],
+    "answer": "The slime weighs 450 grams",
+    "tags": [
+      "scientific-method",
+      "measurement",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which tool would you use to find the mass of a rock?",
+    "choicesJson": [
+      "A ruler",
+      "A thermometer",
+      "A graduated cylinder",
+      "A balance"
+    ],
+    "answer": "A balance",
+    "tags": [
+      "tools",
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A spring scale measures the pull of gravity on an object. Which unit does it use?",
+    "choicesJson": [
+      "Newtons",
+      "Liters",
+      "Degrees Celsius",
+      "Seconds"
+    ],
+    "answer": "Newtons",
+    "tags": [
+      "tools",
+      "measurement"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "How many grams are in 2 kilograms? Type the number.",
+    "answer": "2000",
+    "acceptedAnswers": [
+      "2,000",
+      "2000 g",
+      "2000 grams",
+      "2000g"
+    ],
+    "tags": [
+      "measurement",
+      "metric"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When you read the volume of water in a graduated cylinder, where should you look?",
+    "choicesJson": [
+      "At the very top edge of the glass",
+      "At the top of the curve, looking down from above",
+      "At the bottom of the curved surface, with your eyes level with it",
+      "At the lip where the water touches the glass"
+    ],
+    "answer": "At the bottom of the curved surface, with your eyes level with it",
+    "tags": [
+      "tools",
+      "measurement"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which kind of graph is best for showing how something changes over time, like the temperature of a cup of cocoa every minute?",
+    "choicesJson": [
+      "Line graph",
+      "Pie chart",
+      "Picture of the cup",
+      "Table of materials"
+    ],
+    "answer": "Line graph",
+    "tags": [
+      "scientific-method",
+      "data"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A student folds a paper glider inspired by the Fortnite glider and flies it three times. It travels 4 m, 6 m, and 8 m. What is the mean (average) distance in meters? Type the number.",
+    "answer": "6",
+    "acceptedAnswers": [
+      "6 m",
+      "6 meters",
+      "6m"
+    ],
+    "tags": [
+      "data",
+      "measurement",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which tool would best help you look closely at the tiny crystals in a piece of granite?",
+    "choicesJson": [
+      "A stopwatch",
+      "A balance",
+      "A spring scale",
+      "A hand lens"
+    ],
+    "answer": "A hand lens",
+    "tags": [
+      "tools",
+      "earth-materials"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A student builds a ramp and races toy cars like in Mario Kart. Which tool should she use to measure how many seconds each car takes to roll down?",
+    "choicesJson": [
+      "A ruler",
+      "A stopwatch",
+      "A thermometer",
+      "A balance"
+    ],
+    "answer": "A stopwatch",
+    "tags": [
+      "tools",
+      "measurement",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A hiker finds a giant footprint in the mud and shouts, \"Bigfoot was here!\" What should a scientist do first?",
+    "choicesJson": [
+      "Announce that Bigfoot is real",
+      "Measure and photograph the print and look for other evidence",
+      "Decide it must have been made by an alien",
+      "Ignore it and walk away"
+    ],
+    "answer": "Measure and photograph the print and look for other evidence",
+    "tags": [
+      "scientific-method",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, a minecart sits at the top of a long hill of rails, not moving yet. Which kind of energy is stored in the cart because of its height?",
+    "choicesJson": [
+      "Kinetic energy",
+      "Sound energy",
+      "Thermal energy",
+      "Gravitational potential energy"
+    ],
+    "answer": "Gravitational potential energy",
+    "tags": [
+      "energy",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A roller coaster car climbs the first big hill and then drops. Ignoring friction, where does the car have the most kinetic energy?",
+    "choicesJson": [
+      "Halfway down the drop",
+      "At the top, just before the drop",
+      "It has the same amount everywhere",
+      "At the very bottom of the drop"
+    ],
+    "answer": "At the very bottom of the drop",
+    "tags": [
+      "energy",
+      "motion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A skater glides 20 meters in 4 seconds at a steady speed. What is her speed in meters per second? (Type just the number.)",
+    "answer": "5",
+    "acceptedAnswers": [
+      "5 m/s",
+      "five"
+    ],
+    "tags": [
+      "speed",
+      "motion"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A Mario Kart racer drives 90 meters in 6 seconds at a steady speed. At that same speed, how many meters does the kart travel in 10 seconds? (Type just the number.)",
+    "answer": "150",
+    "acceptedAnswers": [
+      "150 m",
+      "150 meters"
+    ],
+    "tags": [
+      "speed",
+      "motion",
+      "theme:mario"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do road crews spread sand on icy roads?",
+    "choicesJson": [
+      "Sand reduces the pull of gravity on cars",
+      "Sand makes the road smoother so tires roll faster",
+      "Sand makes the ice slide away on its own",
+      "Sand increases friction so tires can grip"
+    ],
+    "answer": "Sand increases friction so tires can grip",
+    "tags": [
+      "friction",
+      "forces"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Fortnite, a player opens a glider and floats slowly down to the island. Which force pushing up against the glider slows the fall?",
+    "choicesJson": [
+      "Static electricity",
+      "Magnetism",
+      "Air resistance",
+      "Inertia"
+    ],
+    "answer": "Air resistance",
+    "tags": [
+      "forces",
+      "air-resistance",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Two teams in a tug of war each pull with 400 newtons, and the rope does not move. What is true about the forces?",
+    "choicesJson": [
+      "Friction is the only force acting on the rope",
+      "They are balanced, so the net force is zero",
+      "The stronger team is slowly winning",
+      "They are unbalanced, so the net force is 800 newtons"
+    ],
+    "answer": "They are balanced, so the net force is zero",
+    "tags": [
+      "forces",
+      "net-force"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Two kids push a heavy crate in the same direction. One pushes with 30 newtons and the other with 20 newtons. What is the net force on the crate in newtons? (Type just the number.)",
+    "answer": "50",
+    "acceptedAnswers": [
+      "50 n",
+      "50 newtons",
+      "fifty"
+    ],
+    "tags": [
+      "forces",
+      "net-force"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A playground seesaw is an example of which simple machine?",
+    "choicesJson": [
+      "Screw",
+      "Pulley",
+      "Wedge",
+      "Lever"
+    ],
+    "answer": "Lever",
+    "tags": [
+      "simple-machines"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Fortnite player builds a long, gentle ramp to climb up to a tall tower. A ramp is an example of which simple machine?",
+    "choicesJson": [
+      "Pulley",
+      "Wheel and axle",
+      "Lever",
+      "Inclined plane"
+    ],
+    "answer": "Inclined plane",
+    "tags": [
+      "simple-machines",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A fixed pulley, like the one at the top of a flagpole, mainly helps by doing what?",
+    "choicesJson": [
+      "Making the rope weigh less",
+      "Changing the direction of the pull",
+      "Creating extra energy",
+      "Cutting the load's weight in half"
+    ],
+    "answer": "Changing the direction of the pull",
+    "tags": [
+      "simple-machines",
+      "forces"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A student says, \"This ball lost its energy when it stopped bouncing.\" According to the law of conservation of energy, what really happened?",
+    "choicesJson": [
+      "The energy disappeared completely",
+      "The ball made more energy than it started with",
+      "Energy stops existing once an object stops moving",
+      "The energy changed into other forms, like heat and sound"
+    ],
+    "answer": "The energy changed into other forms, like heat and sound",
+    "tags": [
+      "energy",
+      "conservation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A Roblox builder wonders about real physics. In a real lab with all the air pumped out (a vacuum), a feather and a bowling ball are dropped from the same height. What happens?",
+    "choicesJson": [
+      "The bowling ball lands first",
+      "They land at the same time",
+      "Neither one falls",
+      "The feather lands first"
+    ],
+    "answer": "They land at the same time",
+    "tags": [
+      "gravity",
+      "forces",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You push the north poles of two bar magnets toward each other. What do you feel?",
+    "choicesJson": [
+      "They join into one stronger magnet",
+      "They snap together (attract)",
+      "Nothing happens at all",
+      "They push apart (repel)"
+    ],
+    "answer": "They push apart (repel)",
+    "tags": [
+      "magnets",
+      "forces"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why does a seat belt help keep you safe when a car stops suddenly?",
+    "choicesJson": [
+      "Your body keeps moving forward, and the belt stops it",
+      "The belt makes the car lighter",
+      "The belt pushes the car backward",
+      "The belt removes gravity from your body"
+    ],
+    "answer": "Your body keeps moving forward, and the belt stops it",
+    "tags": [
+      "inertia",
+      "forces"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Containment staff must slide the very heavy concrete statue SCP-173 across a floor. Which change would reduce friction the most?",
+    "choicesJson": [
+      "Putting the statue on a cart with wheels",
+      "Adding more weight to the statue",
+      "Covering the floor with sandpaper",
+      "Making the floor rougher"
+    ],
+    "answer": "Putting the statue on a cart with wheels",
+    "tags": [
+      "friction",
+      "forces",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which tool measures a pull or a weight in newtons?",
+    "choicesJson": [
+      "Graduated cylinder",
+      "Metric ruler",
+      "Spring scale",
+      "Thermometer"
+    ],
+    "answer": "Spring scale",
+    "tags": [
+      "tools",
+      "forces"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Two gears are meshed with their teeth touching. If the left gear turns clockwise, which way does the right gear turn?",
+    "choicesJson": [
+      "Counterclockwise",
+      "Back and forth",
+      "Clockwise too",
+      "It does not turn"
+    ],
+    "answer": "Counterclockwise",
+    "tags": [
+      "gears",
+      "simple-machines"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In classic Frankenstein movies, lightning brings the monster to life. In real life, what is lightning?",
+    "choicesJson": [
+      "A giant electric spark from built-up charge in storm clouds",
+      "Sound waves turning into light",
+      "A reflection of the sun off ice crystals",
+      "Sunlight bending through raindrops"
+    ],
+    "answer": "A giant electric spark from built-up charge in storm clouds",
+    "tags": [
+      "lightning",
+      "energy",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A wind turbine's spinning blades turn a generator. What energy change is happening?",
+    "choicesJson": [
+      "Light energy becomes chemical energy",
+      "Electrical energy becomes wind energy",
+      "Heat energy becomes sound energy",
+      "Motion energy of the wind becomes electrical energy"
+    ],
+    "answer": "Motion energy of the wind becomes electrical energy",
+    "tags": [
+      "energy",
+      "renewable-energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which statement describes climate instead of weather?",
+    "choicesJson": [
+      "Tomorrow will be windy and 60 degrees.",
+      "Phoenix, Arizona, has hot, dry summers year after year.",
+      "It is raining in Seattle this afternoon.",
+      "A snowstorm hit Chicago last night."
+    ],
+    "answer": "Phoenix, Arizona, has hot, dry summers year after year.",
+    "tags": [
+      "weather",
+      "climate"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A creepypasta says a strange wind howls right before the ghost appears. Which instrument would a scientist use to measure how fast that wind blows?",
+    "choicesJson": [
+      "Thermometer",
+      "Barometer",
+      "Rain gauge",
+      "Anemometer"
+    ],
+    "answer": "Anemometer",
+    "tags": [
+      "weather-tools",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A barometer's reading is dropping fast. What kind of weather is most likely on the way?",
+    "choicesJson": [
+      "Cloudy, stormy weather",
+      "A sudden earthquake",
+      "A heat wave with no clouds",
+      "Calm, clear weather for days"
+    ],
+    "answer": "Cloudy, stormy weather",
+    "tags": [
+      "weather",
+      "air-pressure"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When a cold front pushes under a mass of warm air, what usually happens to the warm air?",
+    "choicesJson": [
+      "It stops moving and stays in place",
+      "It freezes instantly into snow",
+      "It is forced upward, often making clouds and storms",
+      "It is pushed down toward the ground"
+    ],
+    "answer": "It is forced upward, often making clouds and storms",
+    "tags": [
+      "weather",
+      "fronts"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which type of cloud is tall, dark, and towering, and often brings thunderstorms?",
+    "choicesJson": [
+      "Stratus",
+      "Cumulus",
+      "Cirrus",
+      "Cumulonimbus"
+    ],
+    "answer": "Cumulonimbus",
+    "tags": [
+      "weather",
+      "clouds"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do hurricanes need to form and grow strong?",
+    "choicesJson": [
+      "Warm ocean water",
+      "A hot, dry desert",
+      "Frozen ground",
+      "Cold, dry mountain air"
+    ],
+    "answer": "Warm ocean water",
+    "tags": [
+      "weather",
+      "storms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which storm is a narrow, spinning column of air that touches the ground and forms mostly over land?",
+    "choicesJson": [
+      "Tornado",
+      "Hurricane",
+      "Blizzard",
+      "Heat wave"
+    ],
+    "answer": "Tornado",
+    "tags": [
+      "weather",
+      "storms"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do tiny water drops often appear on grass early on a cool morning?",
+    "choicesJson": [
+      "Rain from the afternoon bounces up out of the soil",
+      "Wind squeezes water out of the air",
+      "Water vapor in the air cools and condenses into liquid",
+      "Moonlight turns into water"
+    ],
+    "answer": "Water vapor in the air cools and condenses into liquid",
+    "tags": [
+      "weather",
+      "water-cycle"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is it usually hotter near the equator than near the North or South Pole?",
+    "choicesJson": [
+      "Wind never blows anywhere near the equator, so the air stays hot",
+      "Sunlight hits the equator more directly, so it is more concentrated",
+      "The equator is much closer to the Sun than the poles are",
+      "Earth's core is hotter underneath the equator than the poles"
+    ],
+    "answer": "Sunlight hits the equator more directly, so it is more concentrated",
+    "tags": [
+      "climate",
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is it usually colder at the top of a tall mountain than at its base?",
+    "choicesJson": [
+      "Snow pulls heat out of the air at the top of the mountain",
+      "The sun never shines on the tops of mountains",
+      "The air gets thinner and cooler as elevation increases",
+      "Mountaintops are much farther from the sun than the base is"
+    ],
+    "answer": "The air gets thinner and cooler as elevation increases",
+    "tags": [
+      "climate",
+      "weather"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A coastal city usually has milder temperatures than a city far inland. Why?",
+    "choicesJson": [
+      "Coastal cities are always much closer to the equator",
+      "Salt in the ocean air blocks most of the sunlight",
+      "Large bodies of water heat up and cool down slowly, which evens out temperatures",
+      "Ocean water is always much warmer than the land is"
+    ],
+    "answer": "Large bodies of water heat up and cool down slowly, which evens out temperatures",
+    "tags": [
+      "climate"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which gas in Earth's atmosphere traps heat and is called a greenhouse gas?",
+    "choicesJson": [
+      "Carbon dioxide",
+      "Helium",
+      "Nitrogen",
+      "Argon"
+    ],
+    "answer": "Carbon dioxide",
+    "tags": [
+      "climate",
+      "atmosphere"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Minecraft has desert and snowy biomes. In real life, what mainly makes a place a desert?",
+    "choicesJson": [
+      "It is always extremely hot",
+      "Very little rain or snow each year",
+      "Sand covers the entire ground",
+      "It has no wind"
+    ],
+    "answer": "Very little rain or snow each year",
+    "tags": [
+      "climate",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the name for a scientist who studies the atmosphere and forecasts the weather? (one word)",
+    "answer": "meteorologist",
+    "acceptedAnswers": [
+      "a meteorologist",
+      "meteorologists"
+    ],
+    "tags": [
+      "weather",
+      "careers"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What mainly causes wind?",
+    "choicesJson": [
+      "The moon's gravity pulling air sideways",
+      "Ocean waves breathing air out",
+      "Clouds pushing the air around",
+      "Air moving from areas of high pressure to areas of low pressure"
+    ],
+    "answer": "Air moving from areas of high pressure to areas of low pressure",
+    "tags": [
+      "weather",
+      "wind"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the first step of the engineering design process?",
+    "choicesJson": [
+      "Identify and define the problem",
+      "Build the final product",
+      "Test the finished design",
+      "Sell the product"
+    ],
+    "answer": "Identify and define the problem",
+    "tags": [
+      "engineering",
+      "design-process"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A team's model bridge collapses during testing. What should the engineers do next?",
+    "choicesJson": [
+      "Figure out why it failed, improve the design, and test again",
+      "Throw away the test results and stop",
+      "Build the exact same bridge without changes",
+      "Give up because the design is ruined"
+    ],
+    "answer": "Figure out why it failed, improve the design, and test again",
+    "tags": [
+      "engineering",
+      "design-process"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "An engineer must build a bridge using only 20 craft sticks and $5. Limits like these are called what? (one word)",
+    "answer": "constraints",
+    "acceptedAnswers": [
+      "constraint",
+      "limitations",
+      "limits"
+    ],
+    "tags": [
+      "engineering",
+      "design-process"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You want to test whether wing length changes how far a paper airplane flies. Which setup is a fair test?",
+    "choicesJson": [
+      "Test one plane indoors and the other in strong wind",
+      "Change the wings, paper type, and throwing strength all at once",
+      "Test only one plane, one time",
+      "Change only the wing length and keep the paper, folds, and throw the same"
+    ],
+    "answer": "Change only the wing length and keep the paper, folds, and throw the same",
+    "tags": [
+      "scientific-method",
+      "engineering"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "In 1903, two brothers from Ohio made the first successful powered airplane flight. What was their last name?",
+    "answer": "Wright",
+    "acceptedAnswers": [
+      "the wrights",
+      "wright brothers",
+      "the wright brothers"
+    ],
+    "tags": [
+      "inventions",
+      "history-of-technology"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which inventor was awarded the first US patent for the telephone in 1876?",
+    "choicesJson": [
+      "Henry Ford",
+      "Alexander Graham Bell",
+      "Benjamin Franklin",
+      "Samuel Morse"
+    ],
+    "answer": "Alexander Graham Bell",
+    "tags": [
+      "inventions",
+      "history-of-technology"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do engineers often use triangles in bridges and towers?",
+    "choicesJson": [
+      "Triangles are rigid and spread force through the structure",
+      "Triangles bend easily to soak up weight",
+      "Triangles are the only shape that can be built from steel",
+      "Triangles make structures weigh nothing"
+    ],
+    "answer": "Triangles are rigid and spread force through the structure",
+    "tags": [
+      "engineering",
+      "structures"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why are the handles of cooking pots often made of plastic or wood instead of metal?",
+    "choicesJson": [
+      "Metal is too light to hold a heavy pot of food",
+      "Plastic and wood conduct heat better than metal does",
+      "Plastic and wood are poor conductors of heat, so handles stay cooler",
+      "Metal cannot be shaped into handles of any kind"
+    ],
+    "answer": "Plastic and wood are poor conductors of heat, so handles stay cooler",
+    "tags": [
+      "engineering",
+      "materials"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An electric motor in a toy car changes electrical energy mainly into what?",
+    "choicesJson": [
+      "Light energy",
+      "Nuclear energy",
+      "Chemical energy",
+      "Motion (kinetic) energy"
+    ],
+    "answer": "Motion (kinetic) energy",
+    "tags": [
+      "energy",
+      "technology"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What do we call a step-by-step set of instructions a computer follows to solve a problem? (one word, starts with A)",
+    "answer": "algorithm",
+    "acceptedAnswers": [
+      "an algorithm"
+    ],
+    "tags": [
+      "technology",
+      "coding"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which light bulb wastes the least energy as heat?",
+    "choicesJson": [
+      "Halogen bulb",
+      "Old-fashioned incandescent bulb",
+      "LED bulb",
+      "Heat lamp bulb"
+    ],
+    "answer": "LED bulb",
+    "tags": [
+      "technology",
+      "energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Cars have crumple zones that crush during a crash. How does this help protect the people inside?",
+    "choicesJson": [
+      "It makes the car bounce backward away from the crash",
+      "It makes the car take longer to stop, which reduces the force on people",
+      "It removes friction between the tires and the road",
+      "It makes the car stop faster, which reduces the force"
+    ],
+    "answer": "It makes the car take longer to stop, which reduces the force on people",
+    "tags": [
+      "engineering",
+      "forces",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An engineer wants a parachute to let a package fall more slowly. Which change would help most?",
+    "choicesJson": [
+      "Replace the canopy with a heavy metal plate",
+      "Use a smaller canopy",
+      "Make the package heavier",
+      "Use a larger canopy that catches more air"
+    ],
+    "answer": "Use a larger canopy that catches more air",
+    "tags": [
+      "engineering",
+      "air-resistance"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How does a 3D printer make an object?",
+    "choicesJson": [
+      "It stamps the shape with a giant press",
+      "It builds the object layer by layer, adding material",
+      "It takes a photo and prints it flat on paper",
+      "It carves the object out of a big block by cutting pieces away"
+    ],
+    "answer": "It builds the object layer by layer, adding material",
+    "tags": [
+      "technology",
+      "engineering"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Searchers use sonar to hunt for the Loch Ness monster. How does sonar find objects underwater?",
+    "choicesJson": [
+      "It shines bright lights that bounce off the lake floor",
+      "It uses magnets to pull on metal",
+      "It measures the water's temperature",
+      "It sends out sound waves and times how long the echoes take to return"
+    ],
+    "answer": "It sends out sound waves and times how long the echoes take to return",
+    "tags": [
+      "technology",
+      "sound",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "About how many minutes does it take for sunlight to travel from the Sun to Earth?",
+    "answer": "8",
+    "acceptedAnswers": [
+      "eight",
+      "8 minutes",
+      "eight minutes"
+    ],
+    "tags": [
+      "light",
+      "space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A red apple looks red because it...",
+    "choicesJson": [
+      "makes its own red light",
+      "reflects red light and absorbs most other colors",
+      "absorbs red light and reflects all other colors",
+      "lets all colors of light pass through it"
+    ],
+    "answer": "reflects red light and absorbs most other colors",
+    "tags": [
+      "light",
+      "color"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which color of visible light has the longest wavelength?",
+    "choicesJson": [
+      "Violet",
+      "Blue",
+      "Red",
+      "Green"
+    ],
+    "answer": "Red",
+    "tags": [
+      "light",
+      "waves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which invisible rays from the Sun can cause sunburn?",
+    "choicesJson": [
+      "Infrared (heat) rays",
+      "Radio waves",
+      "Microwaves",
+      "Ultraviolet (UV) rays"
+    ],
+    "answer": "Ultraviolet (UV) rays",
+    "tags": [
+      "light",
+      "waves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A magnifying glass makes small things look bigger. What shape is its lens?",
+    "choicesJson": [
+      "Flat and thin like a sheet of paper",
+      "Concave, thinner in the middle than at the edges",
+      "Convex, thicker in the middle than at the edges",
+      "Shaped like a cube"
+    ],
+    "answer": "Convex, thicker in the middle than at the edges",
+    "tags": [
+      "light",
+      "lenses"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why can you see a clear picture of yourself in a smooth mirror, but not in a crumpled sheet of aluminum foil?",
+    "choicesJson": [
+      "The foil soaks up all of the light that hits it, so nothing bounces back to your eyes",
+      "The foil is always too hot to reflect light, unlike a cool glass mirror",
+      "A mirror makes its own light, while foil only works when the sun is shining",
+      "A smooth mirror reflects light in an orderly way, but crumpled foil scatters it in many directions"
+    ],
+    "answer": "A smooth mirror reflects light in an orderly way, but crumpled foil scatters it in many directions",
+    "tags": [
+      "light",
+      "reflection"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the lowest point of a wave called?",
+    "choicesJson": [
+      "Crest",
+      "Amplitude",
+      "Wavelength",
+      "Trough"
+    ],
+    "answer": "Trough",
+    "tags": [
+      "waves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The wavelength of a wave is the distance from one crest to what?",
+    "choicesJson": [
+      "The next trough",
+      "The very next crest",
+      "The edge of the water",
+      "The bottom of the ocean"
+    ],
+    "answer": "The very next crest",
+    "tags": [
+      "waves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "When a wave travels across the ocean, what does it mainly carry from one place to another?",
+    "choicesJson": [
+      "Water",
+      "Fish",
+      "Energy",
+      "Salt"
+    ],
+    "answer": "Energy",
+    "tags": [
+      "waves",
+      "energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Sound usually travels fastest through which of these?",
+    "choicesJson": [
+      "Steel",
+      "Air",
+      "Cotton balls",
+      "Water"
+    ],
+    "answer": "Steel",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Godzilla's movie roar is a deep, rumbling, low-pitched sound. What is true about the sound waves of a low-pitched sound?",
+    "choicesJson": [
+      "They have a high frequency",
+      "They have no vibrations",
+      "They have a low frequency, with fewer vibrations each second",
+      "They have a very short wavelength"
+    ],
+    "answer": "They have a low frequency, with fewer vibrations each second",
+    "tags": [
+      "sound",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "The loudness of a sound is measured in units called what?",
+    "answer": "decibels",
+    "acceptedAnswers": [
+      "decibel",
+      "db"
+    ],
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An ambulance siren sounds higher in pitch as it drives toward you and lower after it passes. What causes this change?",
+    "choicesJson": [
+      "The siren itself keeps changing its pitch as the ambulance drives along",
+      "The air gets thinner right as the ambulance passes by, so the sound changes",
+      "Its motion squeezes the sound waves together as it approaches, then stretches them out (the Doppler effect)",
+      "Sound waves travel faster whenever a vehicle is closer to you"
+    ],
+    "answer": "Its motion squeezes the sound waves together as it approaches, then stretches them out (the Doppler effect)",
+    "tags": [
+      "sound",
+      "waves"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A guitarist presses a string against the neck so that the part of the string that vibrates is shorter. What happens to the pitch of the note?",
+    "choicesJson": [
+      "It gets lower",
+      "It gets higher",
+      "It stays exactly the same",
+      "The note disappears"
+    ],
+    "answer": "It gets higher",
+    "tags": [
+      "sound",
+      "pitch"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "At a Fortnite Victory Royale watch party, you see a firework flash and hear the boom 3 seconds later. Sound travels about 340 meters each second in air. About how far away is the firework?",
+    "choicesJson": [
+      "About 100 meters",
+      "About 340 meters",
+      "About 10,000 meters",
+      "About 1,000 meters (1 kilometer)"
+    ],
+    "answer": "About 1,000 meters (1 kilometer)",
+    "tags": [
+      "sound",
+      "light",
+      "theme:fortnite"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "Submarines use a tube with two mirrors to see above the water while they stay hidden below. What is this tool called?",
+    "answer": "periscope",
+    "acceptedAnswers": [
+      "a periscope"
+    ],
+    "tags": [
+      "light",
+      "reflection"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In old legends, Dracula casts no reflection in a mirror. In real life, why can we see our reflection in a mirror?",
+    "choicesJson": [
+      "The mirror makes its own picture of us",
+      "Mirrors absorb our light and store it",
+      "Light bounces off us, then bounces off the mirror into our eyes",
+      "Mirrors bend sound into pictures"
+    ],
+    "answer": "Light bounces off us, then bounces off the mirror into our eyes",
+    "tags": [
+      "light",
+      "reflection",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Inside the Sun, hydrogen atoms smash together to make helium and release huge amounts of energy. What is this process called?",
+    "choicesJson": [
+      "Combustion",
+      "Evaporation",
+      "Photosynthesis",
+      "Nuclear fusion"
+    ],
+    "answer": "Nuclear fusion",
+    "tags": [
+      "space",
+      "sun",
+      "energy"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which is a safe way to watch a partial solar eclipse?",
+    "choicesJson": [
+      "Regular sunglasses",
+      "Special certified eclipse glasses",
+      "A quick look through binoculars",
+      "Squinting very tightly"
+    ],
+    "answer": "Special certified eclipse glasses",
+    "tags": [
+      "space",
+      "sun",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A tall, thin Slender-style figure stands in an empty field. When will its shadow be the longest?",
+    "choicesJson": [
+      "At noon, when the Sun is high",
+      "At midnight",
+      "At sunrise or sunset, when the Sun is low",
+      "Its shadow is always the same length"
+    ],
+    "answer": "At sunrise or sunset, when the Sun is low",
+    "tags": [
+      "light",
+      "sun",
+      "theme:creepypasta"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In legends, werewolves change under a full moon. During a full moon, where are Earth, the Sun and the Moon?",
+    "choicesJson": [
+      "The Moon is roughly between Earth and the Sun",
+      "The Sun is roughly between Earth and the Moon",
+      "Earth is roughly between the Sun and the Moon",
+      "Earth is far away from both the Sun and the Moon"
+    ],
+    "answer": "Earth is roughly between the Sun and the Moon",
+    "tags": [
+      "space",
+      "moon",
+      "theme:monsters"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Most of the craters on the Moon were made by what?",
+    "choicesJson": [
+      "Rain and rivers wearing away rock",
+      "Giant ocean waves",
+      "Space rocks like asteroids and comets crashing into it",
+      "Earthquakes on Earth"
+    ],
+    "answer": "Space rocks like asteroids and comets crashing into it",
+    "tags": [
+      "space",
+      "moon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the main cause of ocean tides on Earth?",
+    "choicesJson": [
+      "Wind blowing across the sea",
+      "The pull of the Moon's gravity",
+      "Earth's magnetic field",
+      "Underwater volcanoes"
+    ],
+    "answer": "The pull of the Moon's gravity",
+    "tags": [
+      "space",
+      "moon",
+      "gravity"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "From Earth, we always see the same side of the Moon. What is the reason?",
+    "choicesJson": [
+      "The Moon spins once for every trip it makes around Earth",
+      "The Moon does not spin or move at all",
+      "The Moon spins once every 24 hours, just like Earth",
+      "The far side of the Moon is always dark"
+    ],
+    "answer": "The Moon spins once for every trip it makes around Earth",
+    "tags": [
+      "space",
+      "moon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "About how long does it take the Moon to go from one new moon to the next?",
+    "choicesJson": [
+      "About 1 day",
+      "About 1 week",
+      "About 1 year",
+      "About 1 month (29 days)"
+    ],
+    "answer": "About 1 month (29 days)",
+    "tags": [
+      "space",
+      "moon"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is the hottest in our solar system, even though it is not the closest to the Sun?",
+    "choicesJson": [
+      "Mercury",
+      "Mars",
+      "Jupiter",
+      "Venus"
+    ],
+    "answer": "Venus",
+    "tags": [
+      "space",
+      "planets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet spins tipped over on its side, rolling around the Sun like a ball, instead of spinning upright?",
+    "choicesJson": [
+      "Neptune",
+      "Mars",
+      "Uranus",
+      "Saturn"
+    ],
+    "answer": "Uranus",
+    "tags": [
+      "space",
+      "planets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "An astronomer says a star is 4 light-years away. What does a light-year measure?",
+    "choicesJson": [
+      "Time",
+      "Distance",
+      "Brightness",
+      "Temperature"
+    ],
+    "answer": "Distance",
+    "tags": [
+      "space",
+      "stars"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Pluto used to be called our ninth planet. Today, scientists classify it as a what?",
+    "choicesJson": [
+      "Dwarf planet",
+      "Comet",
+      "Star",
+      "Moon of Neptune"
+    ],
+    "answer": "Dwarf planet",
+    "tags": [
+      "space",
+      "planets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which color of star is the hottest?",
+    "choicesJson": [
+      "Red",
+      "Orange",
+      "Yellow",
+      "Blue"
+    ],
+    "answer": "Blue",
+    "tags": [
+      "space",
+      "stars"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A group of stars that people imagine as a picture, like Orion the Hunter, is called a what?",
+    "answer": "constellation",
+    "acceptedAnswers": [
+      "a constellation",
+      "constellations"
+    ],
+    "tags": [
+      "space",
+      "stars"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A black hole has gravity so strong that even the fastest thing in the universe cannot escape it. This fastest thing is also what lets our eyes see. What is it?",
+    "answer": "light",
+    "acceptedAnswers": [
+      "light waves",
+      "a light",
+      "photon",
+      "photons",
+      "sunlight"
+    ],
+    "tags": [
+      "space",
+      "gravity"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "The tallest volcano in the whole solar system, Olympus Mons, is on which planet?",
+    "choicesJson": [
+      "Venus",
+      "Earth",
+      "Mars",
+      "Mercury"
+    ],
+    "answer": "Mars",
+    "tags": [
+      "space",
+      "planets"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A compass needle points toward the north because...",
+    "choicesJson": [
+      "wind pushes the needle that way",
+      "Earth acts like a giant magnet",
+      "the Sun pulls on the needle",
+      "the needle is attracted to the Moon"
+    ],
+    "answer": "Earth acts like a giant magnet",
+    "tags": [
+      "magnetism"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "You build an electromagnet by wrapping wire around an iron nail and connecting it to a battery. How can you make it stronger?",
+    "choicesJson": [
+      "Replace the iron nail with a plastic straw",
+      "Disconnect the wire from the battery",
+      "Wrap more loops of wire around the nail",
+      "Use a dead battery"
+    ],
+    "answer": "Wrap more loops of wire around the nail",
+    "tags": [
+      "magnetism",
+      "electricity"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In an SCP-style containment vault, the steel door is held shut by a powerful electromagnet. A power outage cuts off the electric current. What happens to the magnet?",
+    "choicesJson": [
+      "It becomes a stronger magnet",
+      "It stops being a magnet, so the door is released",
+      "It turns into a battery",
+      "Nothing, because an electromagnet is always magnetic"
+    ],
+    "answer": "It stops being a magnet, so the door is released",
+    "tags": [
+      "magnetism",
+      "electricity",
+      "theme:scp"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What unit measures the electrical push (voltage) that a battery gives to the charges in a circuit?",
+    "answer": "volts",
+    "acceptedAnswers": [
+      "volt",
+      "v"
+    ],
+    "tags": [
+      "electricity"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does a fuse or circuit breaker do when too much current flows through a circuit?",
+    "choicesJson": [
+      "It makes the current flow faster",
+      "It recharges the battery",
+      "It turns the wires into magnets",
+      "It breaks the circuit to stop the current and prevent overheating"
+    ],
+    "answer": "It breaks the circuit to stop the current and prevent overheating",
+    "tags": [
+      "electricity",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In Minecraft, a lightning rod is crafted from copper. Real lightning rods are also made of metal. Why?",
+    "choicesJson": [
+      "Metal blocks lightning completely",
+      "Metal conducts electricity, so it carries lightning safely into the ground",
+      "Metal pulls rain out of the clouds",
+      "Metal glows to warn airplanes"
+    ],
+    "answer": "Metal conducts electricity, so it carries lightning safely into the ground",
+    "tags": [
+      "electricity",
+      "conductors",
+      "theme:minecraft"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Zoe builds a real light-up lamp for her Roblox fan display. She closes a gap in the circuit with a wooden craft stick, but the bulb stays dark. Why?",
+    "choicesJson": [
+      "Wood is a conductor, so it uses up the current",
+      "The battery is too strong",
+      "Wood is an insulator, so current cannot flow through it",
+      "Light bulbs only work with plastic"
+    ],
+    "answer": "Wood is an insulator, so current cannot flow through it",
+    "tags": [
+      "electricity",
+      "circuits",
+      "theme:roblox"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A series circuit has one battery and one bulb. You add a second identical bulb in the same single loop. What happens to the brightness of the bulbs?",
+    "choicesJson": [
+      "They get brighter",
+      "They stay exactly the same",
+      "They turn into a parallel circuit",
+      "They get dimmer"
+    ],
+    "answer": "They get dimmer",
+    "tags": [
+      "electricity",
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is it dangerous to touch an electrical outlet with wet hands?",
+    "choicesJson": [
+      "Water makes electricity weaker",
+      "Water with minerals in it can conduct electricity to your body",
+      "Water turns the outlet into a magnet",
+      "Wet hands make your body an insulator"
+    ],
+    "answer": "Water with minerals in it can conduct electricity to your body",
+    "tags": [
+      "electricity",
+      "safety"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which three particles make up an atom?",
+    "choicesJson": [
+      "Cells, tissues, and organs",
+      "Solids, liquids, and gases",
+      "Protons, neutrons, and electrons",
+      "Crests, troughs, and waves"
+    ],
+    "answer": "Protons, neutrons, and electrons",
+    "tags": [
+      "chemistry",
+      "atoms"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "What is the chemical symbol for gold on the periodic table?",
+    "answer": "Au",
+    "tags": [
+      "chemistry",
+      "elements"
+    ]
+  },
+  {
+    "type": "TEXT_INPUT",
+    "prompt": "A sealed bag holds 20 grams of baking soda and 80 grams of vinegar. They react, fizz, and puff up the bag, and no gas escapes. How many grams is the total mass after the reaction?",
+    "answer": "100",
+    "acceptedAnswers": [
+      "100 g",
+      "100 grams",
+      "one hundred"
+    ],
+    "tags": [
+      "chemistry",
+      "conservation-of-mass"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is closest to the sun?",
+    "choicesJson": [
+      "Mercury",
+      "Venus",
+      "Earth",
+      "Mars"
+    ],
+    "answer": "Mercury",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is known as the Red Planet?",
+    "choicesJson": [
+      "Mars",
+      "Jupiter",
+      "Saturn",
+      "Neptune"
+    ],
+    "answer": "Mars",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What causes day and night on Earth?",
+    "choicesJson": [
+      "Earth rotating (spinning) on its axis",
+      "The sun moving around Earth",
+      "The moon blocking the sun",
+      "Clouds covering the sun"
+    ],
+    "answer": "Earth rotating (spinning) on its axis",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What causes the four seasons on Earth?",
+    "choicesJson": [
+      "Earth's tilt as it orbits the sun",
+      "The moon's phases",
+      "Ocean currents alone",
+      "Wind direction alone"
+    ],
+    "answer": "Earth's tilt as it orbits the sun",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A trait that helps a desert animal survive extreme heat, like a camel storing fat in its hump, is an example of...",
+    "choicesJson": [
+      "adaptation",
+      "erosion",
+      "condensation",
+      "friction"
+    ],
+    "answer": "adaptation",
+    "tags": [
+      "adaptation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In an ecosystem, what would likely happen if all the predators disappeared?",
+    "choicesJson": [
+      "Prey populations would grow too large",
+      "Nothing would change",
+      "Plants would disappear first",
+      "The sun would get dimmer"
+    ],
+    "answer": "Prey populations would grow too large",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which property describes how easily a material lets electricity flow through it?",
+    "choicesJson": [
+      "Conductivity",
+      "Density",
+      "Volume",
+      "Mass"
+    ],
+    "answer": "Conductivity",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these materials is the best electrical conductor?",
+    "choicesJson": [
+      "Copper wire",
+      "Rubber",
+      "Wood",
+      "Glass"
+    ],
+    "answer": "Copper wire",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a simple circuit, what happens if the wire loop is broken (not connected all the way around)?",
+    "choicesJson": [
+      "The light won't turn on",
+      "The light gets brighter",
+      "Nothing changes",
+      "The battery explodes"
+    ],
+    "answer": "The light won't turn on",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What part of a simple circuit provides the electrical energy?",
+    "choicesJson": [
+      "The battery",
+      "The wire",
+      "The switch",
+      "The bulb"
+    ],
+    "answer": "The battery",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Density is best described as...",
+    "choicesJson": [
+      "how much mass is packed into a given space",
+      "how hot something is",
+      "how loud something is",
+      "how old something is"
+    ],
+    "answer": "how much mass is packed into a given space",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why does the moon seem to change shape over the course of a month?",
+    "choicesJson": [
+      "We see different amounts of its sunlit side as it orbits Earth",
+      "The moon really grows and shrinks each month",
+      "Earth's shadow covers part of it every night",
+      "The moon changes color as it gets older"
+    ],
+    "answer": "We see different amounts of its sunlit side as it orbits Earth",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "On which layer of Earth do we live?",
+    "choicesJson": [
+      "The mantle",
+      "The crust",
+      "The outer core",
+      "The inner core"
+    ],
+    "answer": "The crust",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "A switch in a circuit is used to...",
+    "choicesJson": [
+      "open or close the path for electricity",
+      "make the battery bigger",
+      "change the wire's color",
+      "add more light without power"
+    ],
+    "answer": "open or close the path for electricity",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is the largest in our solar system?",
+    "choicesJson": [
+      "Jupiter",
+      "Saturn",
+      "Earth",
+      "Mars"
+    ],
+    "answer": "Jupiter",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is famous for its wide rings made mostly of ice and rock?",
+    "choicesJson": [
+      "Saturn",
+      "Mercury",
+      "Mars",
+      "Earth"
+    ],
+    "answer": "Saturn",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which blue planet is the eighth and farthest planet from the sun?",
+    "choicesJson": [
+      "Neptune",
+      "Uranus",
+      "Jupiter",
+      "Venus"
+    ],
+    "answer": "Neptune",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How many planets are in our solar system?",
+    "choicesJson": [
+      "Eight",
+      "Five",
+      "Twelve",
+      "Six"
+    ],
+    "answer": "Eight",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a solar eclipse?",
+    "choicesJson": [
+      "When the moon passes between Earth and the sun, blocking some sunlight",
+      "When Earth passes between the sun and the moon",
+      "When the sun disappears forever",
+      "When clouds cover the entire sky"
+    ],
+    "answer": "When the moon passes between Earth and the sun, blocking some sunlight",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a lunar eclipse?",
+    "choicesJson": [
+      "When Earth passes between the sun and the moon, casting a shadow on the moon",
+      "When the moon blocks the sun completely",
+      "When the moon disappears forever",
+      "When the sun and moon collide"
+    ],
+    "answer": "When Earth passes between the sun and the moon, casting a shadow on the moon",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which force keeps the planets in orbit around the sun?",
+    "choicesJson": [
+      "Gravity",
+      "Friction",
+      "Magnetism",
+      "Radiation"
+    ],
+    "answer": "Gravity",
+    "tags": [
+      "earth-space",
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a galaxy?",
+    "choicesJson": [
+      "A huge group of stars, gas, and dust held together by gravity",
+      "A single very large planet",
+      "A type of comet",
+      "A small group of asteroids"
+    ],
+    "answer": "A huge group of stars, gas, and dust held together by gravity",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the name of the galaxy that contains our solar system?",
+    "choicesJson": [
+      "The Milky Way",
+      "Andromeda",
+      "The Solar Galaxy",
+      "Orion"
+    ],
+    "answer": "The Milky Way",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What are stars mainly made of?",
+    "choicesJson": [
+      "Hot glowing gases, mostly hydrogen and helium",
+      "Solid rock",
+      "Ice and dust",
+      "Liquid metal"
+    ],
+    "answer": "Hot glowing gases, mostly hydrogen and helium",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do astronauts feel weightless while orbiting Earth in a spacecraft?",
+    "choicesJson": [
+      "They are in constant free-fall around Earth, even though gravity still acts on them",
+      "There is no gravity at all in orbit",
+      "Their spacecraft blocks all gravity",
+      "They are too far from Earth to be affected by gravity"
+    ],
+    "answer": "They are in constant free-fall around Earth, even though gravity still acts on them",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is an asteroid?",
+    "choicesJson": [
+      "A rocky object, smaller than a planet, that orbits the sun",
+      "A type of star",
+      "A frozen moon of Jupiter",
+      "A cloud of gas in deep space"
+    ],
+    "answer": "A rocky object, smaller than a planet, that orbits the sun",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is a comet mostly made of?",
+    "choicesJson": [
+      "Ice, dust, and rock",
+      "Solid iron",
+      "Liquid water only",
+      "Pure hydrogen gas"
+    ],
+    "answer": "Ice, dust, and rock",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which planet is closest to Earth in size and is sometimes called Earth's 'sister planet'?",
+    "choicesJson": [
+      "Venus",
+      "Mercury",
+      "Jupiter",
+      "Saturn"
+    ],
+    "answer": "Venus",
+    "tags": [
+      "earth-space"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the giant pieces of Earth's crust that slowly move over time?",
+    "choicesJson": [
+      "Tectonic plates",
+      "Aquifers",
+      "Watersheds",
+      "Glaciers"
+    ],
+    "answer": "Tectonic plates",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What usually happens when two tectonic plates push into each other?",
+    "choicesJson": [
+      "They can form mountains or cause earthquakes",
+      "They always merge into one ocean",
+      "Nothing happens at all",
+      "They immediately turn into lava"
+    ],
+    "answer": "They can form mountains or cause earthquakes",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is an earthquake?",
+    "choicesJson": [
+      "A sudden shaking of the ground caused by movement of tectonic plates",
+      "A sudden rise in ocean temperature",
+      "A type of severe thunderstorm",
+      "A slow change in weather patterns"
+    ],
+    "answer": "A sudden shaking of the ground caused by movement of tectonic plates",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What mainly causes most volcanoes to form?",
+    "choicesJson": [
+      "Magma rising up through cracks in Earth's crust, often near plate boundaries",
+      "Strong winds heating up rock",
+      "Ocean waves wearing down mountains",
+      "Lightning striking the ground repeatedly"
+    ],
+    "answer": "Magma rising up through cracks in Earth's crust, often near plate boundaries",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call melted rock while it is still underground?",
+    "choicesJson": [
+      "Magma",
+      "Lava",
+      "Sediment",
+      "Ash"
+    ],
+    "answer": "Magma",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call melted rock once it reaches Earth's surface?",
+    "choicesJson": [
+      "Lava",
+      "Magma",
+      "Sediment",
+      "Mantle"
+    ],
+    "answer": "Lava",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the theory that Earth's continents were once joined together and have slowly drifted apart called?",
+    "choicesJson": [
+      "Continental drift",
+      "The rock cycle",
+      "The water cycle",
+      "The energy pyramid"
+    ],
+    "answer": "Continental drift",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which famous mountain range formed largely from the collision of the Indian and Eurasian tectonic plates?",
+    "choicesJson": [
+      "The Himalayas",
+      "The Rocky Mountains",
+      "The Andes",
+      "The Alps"
+    ],
+    "answer": "The Himalayas",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "California has many earthquakes because two plates slide past each other along a long crack in Earth's crust. What do we call that kind of crack?",
+    "choicesJson": [
+      "A fault",
+      "A ridge",
+      "A trench",
+      "A basin"
+    ],
+    "answer": "A fault",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What tool do scientists use to measure and record the strength of an earthquake?",
+    "choicesJson": [
+      "A seismograph",
+      "A barometer",
+      "A thermometer",
+      "A rain gauge"
+    ],
+    "answer": "A seismograph",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do earthquakes and volcanoes often occur in similar locations around the world?",
+    "choicesJson": [
+      "Both are commonly caused by activity at tectonic plate boundaries",
+      "Both are caused by ocean tides",
+      "Both only happen near the equator",
+      "Both are completely unrelated events"
+    ],
+    "answer": "Both are commonly caused by activity at tectonic plate boundaries",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a large, dangerous wave of water caused by an underwater earthquake?",
+    "choicesJson": [
+      "A tsunami",
+      "A hurricane",
+      "A whirlpool",
+      "A tide"
+    ],
+    "answer": "A tsunami",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Roughly how fast do most tectonic plates move each year?",
+    "choicesJson": [
+      "About as fast as fingernails grow, a few centimeters a year",
+      "About as fast as a car on a highway",
+      "Several miles per hour",
+      "They do not move at all"
+    ],
+    "answer": "About as fast as fingernails grow, a few centimeters a year",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which layer of Earth do tectonic plates float on top of, allowing them to move slowly?",
+    "choicesJson": [
+      "The mantle",
+      "The inner core",
+      "The atmosphere",
+      "The ocean"
+    ],
+    "answer": "The mantle",
+    "tags": [
+      "earth-science"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a circuit where electricity has only one path to flow through?",
+    "choicesJson": [
+      "A series circuit",
+      "A parallel circuit",
+      "An open circuit",
+      "A magnetic circuit"
+    ],
+    "answer": "A series circuit",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a circuit where electricity has multiple paths it can flow through?",
+    "choicesJson": [
+      "A parallel circuit",
+      "A series circuit",
+      "A closed circuit only",
+      "A dead circuit"
+    ],
+    "answer": "A parallel circuit",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a series circuit, what happens to all the bulbs if just one bulb burns out?",
+    "choicesJson": [
+      "All the bulbs turn off because the circuit is broken",
+      "Only that one bulb turns off",
+      "All the bulbs get brighter",
+      "Nothing happens to any bulb"
+    ],
+    "answer": "All the bulbs turn off because the circuit is broken",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a parallel circuit, what usually happens to the other bulbs if one bulb burns out?",
+    "choicesJson": [
+      "The other bulbs usually stay on because they have separate paths",
+      "All the other bulbs also turn off",
+      "The battery stops working",
+      "The wires melt instantly"
+    ],
+    "answer": "The other bulbs usually stay on because they have separate paths",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a material that electricity flows through easily, like copper?",
+    "choicesJson": [
+      "A conductor",
+      "An insulator",
+      "A resistor only",
+      "A magnet"
+    ],
+    "answer": "A conductor",
+    "tags": [
+      "circuits",
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a material that does NOT let electricity flow through it easily, like rubber?",
+    "choicesJson": [
+      "An insulator",
+      "A conductor",
+      "A battery",
+      "A switch"
+    ],
+    "answer": "An insulator",
+    "tags": [
+      "circuits",
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why is rubber often used to coat electrical wires?",
+    "choicesJson": [
+      "Because it insulates and helps prevent electric shock",
+      "Because it makes electricity flow faster",
+      "Because it is the cheapest metal available",
+      "Because it conducts electricity better than copper"
+    ],
+    "answer": "Because it insulates and helps prevent electric shock",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is static electricity?",
+    "choicesJson": [
+      "A buildup of electric charge on the surface of an object",
+      "Electricity that only flows through water",
+      "A type of magnetism",
+      "Electricity that never moves at all"
+    ],
+    "answer": "A buildup of electric charge on the surface of an object",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What usually causes the small shock you sometimes feel when you touch a doorknob after walking on carpet?",
+    "choicesJson": [
+      "A sudden discharge of built-up static electricity",
+      "A short in the doorknob's wiring",
+      "A magnetic field in the carpet",
+      "Sound waves from your footsteps"
+    ],
+    "answer": "A sudden discharge of built-up static electricity",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the path that electric current flows through?",
+    "choicesJson": [
+      "A circuit",
+      "A conductor only",
+      "A resistor",
+      "An insulator"
+    ],
+    "answer": "A circuit",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is needed to complete a simple working circuit?",
+    "choicesJson": [
+      "A power source, wires, and a closed loop",
+      "Only a battery by itself",
+      "Only a light bulb by itself",
+      "Only a switch by itself"
+    ],
+    "answer": "A power source, wires, and a closed loop",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What unit is commonly used to measure the strength of an electric current?",
+    "choicesJson": [
+      "Amps",
+      "Degrees",
+      "Liters",
+      "Meters"
+    ],
+    "answer": "Amps",
+    "tags": [
+      "circuits"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a substance that cannot be broken down into simpler substances by ordinary chemical means, like oxygen?",
+    "choicesJson": [
+      "An element",
+      "A compound",
+      "A mixture",
+      "A solution"
+    ],
+    "answer": "An element",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call two or more elements chemically combined together, like water (H2O)?",
+    "choicesJson": [
+      "A compound",
+      "A mixture",
+      "An alloy only",
+      "A solvent"
+    ],
+    "answer": "A compound",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the key difference between a mixture and a compound?",
+    "choicesJson": [
+      "In a mixture the parts keep their own properties; in a compound they chemically combine into something new",
+      "A mixture is always a liquid, and a compound is always a solid",
+      "A compound can always be separated by hand, but a mixture cannot",
+      "There is no real difference between the two"
+    ],
+    "answer": "In a mixture the parts keep their own properties; in a compound they chemically combine into something new",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is an example of a compound?",
+    "choicesJson": [
+      "Water (H2O)",
+      "A bowl of trail mix",
+      "A handful of sand and salt",
+      "A bag of mixed nuts"
+    ],
+    "answer": "Water (H2O)",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is an example of a mixture, not a compound?",
+    "choicesJson": [
+      "A salad with several ingredients",
+      "Water (H2O)",
+      "Table salt (NaCl)",
+      "Carbon dioxide (CO2)"
+    ],
+    "answer": "A salad with several ingredients",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call it when a solid dissolves completely and evenly into a liquid, like sugar in water?",
+    "choicesJson": [
+      "A solution",
+      "A compound",
+      "A suspension",
+      "An element"
+    ],
+    "answer": "A solution",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a sugar-water solution, what do we call the sugar, the substance that gets dissolved?",
+    "choicesJson": [
+      "The solute",
+      "The solvent",
+      "The compound",
+      "The mixture"
+    ],
+    "answer": "The solute",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "In a sugar-water solution, what do we call the water, the substance that does the dissolving?",
+    "choicesJson": [
+      "The solvent",
+      "The solute",
+      "The element",
+      "The compound"
+    ],
+    "answer": "The solvent",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Does warmer water usually dissolve sugar faster or slower than cold water?",
+    "choicesJson": [
+      "Faster",
+      "Slower",
+      "At exactly the same speed",
+      "It never dissolves in warm water"
+    ],
+    "answer": "Faster",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What does the pH scale measure?",
+    "choicesJson": [
+      "How acidic or basic (alkaline) a substance is",
+      "How dense a substance is",
+      "How hot a substance is",
+      "How heavy a substance is"
+    ],
+    "answer": "How acidic or basic (alkaline) a substance is",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is an acid commonly found in the kitchen?",
+    "choicesJson": [
+      "Lemon juice",
+      "Baking soda",
+      "Table salt",
+      "Cooking oil only"
+    ],
+    "answer": "Lemon juice",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If an object is less dense than water, what will it do when placed in water?",
+    "choicesJson": [
+      "It will float",
+      "It will sink",
+      "It will dissolve",
+      "It will explode"
+    ],
+    "answer": "It will float",
+    "tags": [
+      "matter-properties"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which state of matter typically has the lowest density: solid, liquid, or gas?",
+    "choicesJson": [
+      "Gas",
+      "Solid",
+      "Liquid",
+      "They are always equal"
+    ],
+    "answer": "Gas",
+    "tags": [
+      "matter-properties",
+      "states-of-matter"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a large region with a distinct climate and specific types of plants and animals, like a desert or tundra?",
+    "choicesJson": [
+      "A biome",
+      "A niche",
+      "A trophic level",
+      "A watershed"
+    ],
+    "answer": "A biome",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which biome is known for its permanently frozen ground and very few trees?",
+    "choicesJson": [
+      "Tundra",
+      "Rainforest",
+      "Grassland",
+      "Wetland"
+    ],
+    "answer": "Tundra",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which biome has the greatest biodiversity of any land biome on Earth?",
+    "choicesJson": [
+      "The rainforest",
+      "The tundra",
+      "The desert",
+      "The grassland"
+    ],
+    "answer": "The rainforest",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these adaptations would most help an animal avoid losing too much water in a hot, dry biome?",
+    "choicesJson": [
+      "Special skin or behaviors that reduce water loss",
+      "Thick fur meant for cold climates",
+      "Bright colors meant to attract mates",
+      "A very large, exposed body surface"
+    ],
+    "answer": "Special skin or behaviors that reduce water loss",
+    "tags": [
+      "ecosystems",
+      "adaptation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How might overpopulation of a prey species affect the plants they eat in an ecosystem?",
+    "choicesJson": [
+      "The plants could become overgrazed and start to disappear",
+      "The plants would immediately grow faster",
+      "There would be no effect on the plants",
+      "The plants would turn into a new species"
+    ],
+    "answer": "The plants could become overgrazed and start to disappear",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is carrying capacity?",
+    "choicesJson": [
+      "The maximum population size an environment can support with its resources",
+      "The total weight an animal can carry",
+      "The number of species in a food chain",
+      "The distance an animal can migrate"
+    ],
+    "answer": "The maximum population size an environment can support with its resources",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What might happen if a population grows beyond its ecosystem's carrying capacity?",
+    "choicesJson": [
+      "Resources like food and water may run short, causing the population to decline",
+      "The population will keep growing forever with no limits",
+      "The ecosystem will automatically create more resources",
+      "Nothing at all will happen"
+    ],
+    "answer": "Resources like food and water may run short, causing the population to decline",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How do keystone species affect their ecosystems?",
+    "choicesJson": [
+      "They have an unusually large effect on the ecosystem compared to their numbers",
+      "They have no real effect on their ecosystem",
+      "They only affect ecosystems in the ocean",
+      "They always have the largest population in the ecosystem"
+    ],
+    "answer": "They have an unusually large effect on the ecosystem compared to their numbers",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is an adaptation that helps an animal defend itself from predators?",
+    "choicesJson": [
+      "A hard shell that protects the animal's body",
+      "A long tail used only for balance",
+      "Bright feathers used only for mating displays",
+      "A large appetite for plants"
+    ],
+    "answer": "A hard shell that protects the animal's body",
+    "tags": [
+      "adaptation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "How can bright coloring on an animal sometimes act as a warning instead of camouflage?",
+    "choicesJson": [
+      "Bright colors can signal that the animal is poisonous or dangerous to eat",
+      "Bright colors always mean an animal is friendly",
+      "Bright colors have no effect on predators",
+      "Bright colors only appear on plants, never animals"
+    ],
+    "answer": "Bright colors can signal that the animal is poisonous or dangerous to eat",
+    "tags": [
+      "adaptation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why might a species become endangered?",
+    "choicesJson": [
+      "Its habitat is destroyed, or it faces too much hunting or competition",
+      "It has too many available resources",
+      "Its population grows too quickly to control",
+      "It develops too many helpful adaptations"
+    ],
+    "answer": "Its habitat is destroyed, or it faces too much hunting or competition",
+    "tags": [
+      "ecosystems",
+      "adaptation"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call organized efforts to protect species and habitats from disappearing?",
+    "choicesJson": [
+      "Conservation",
+      "Migration",
+      "Domestication",
+      "Pollination"
+    ],
+    "answer": "Conservation",
+    "tags": [
+      "ecosystems"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Newton's first law of motion says an object at rest stays at rest, and an object in motion stays in motion, unless what happens?",
+    "choicesJson": [
+      "A force acts on it",
+      "Time passes",
+      "It gets heavier",
+      "It changes color"
+    ],
+    "answer": "A force acts on it",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call an object's tendency to resist a change in its motion?",
+    "choicesJson": [
+      "Inertia",
+      "Friction",
+      "Density",
+      "Velocity"
+    ],
+    "answer": "Inertia",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Newton's second law of motion relates force, mass, and which other quantity?",
+    "choicesJson": [
+      "Acceleration",
+      "Temperature",
+      "Density",
+      "Volume"
+    ],
+    "answer": "Acceleration",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "According to Newton's second law, if the same force is applied to a heavier object and a lighter object, which one will accelerate more?",
+    "choicesJson": [
+      "The lighter object",
+      "The heavier object",
+      "They accelerate the same amount",
+      "Neither one will move"
+    ],
+    "answer": "The lighter object",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Newton's third law of motion states that for every action, there is an equal and opposite what?",
+    "choicesJson": [
+      "Reaction",
+      "Acceleration",
+      "Mass",
+      "Direction only"
+    ],
+    "answer": "Reaction",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these is an example of Newton's third law in action?",
+    "choicesJson": [
+      "A rocket pushing gas backward, which pushes the rocket forward",
+      "A ball rolling to a stop from friction",
+      "A book sitting still on a table",
+      "Ice melting into water"
+    ],
+    "answer": "A rocket pushing gas backward, which pushes the rocket forward",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the rate at which an object's velocity changes?",
+    "choicesJson": [
+      "Acceleration",
+      "Mass",
+      "Density",
+      "Inertia"
+    ],
+    "answer": "Acceleration",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "If a car speeds up while driving in a straight line, is it accelerating?",
+    "choicesJson": [
+      "Yes, because acceleration includes speeding up, slowing down, or turning",
+      "No, acceleration only means slowing down",
+      "No, acceleration only happens when turning",
+      "No, cars can never accelerate"
+    ],
+    "answer": "Yes, because acceleration includes speeding up, slowing down, or turning",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What downward pull must an airplane's wings and engines overcome to lift off the ground?",
+    "choicesJson": [
+      "Gravity",
+      "Magnetism",
+      "Static electricity",
+      "Sound"
+    ],
+    "answer": "Gravity",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is the difference between mass and weight?",
+    "choicesJson": [
+      "Mass is the amount of matter in an object; weight is the force of gravity pulling on it",
+      "Mass and weight always mean exactly the same thing",
+      "Weight is measured in meters, and mass is measured in seconds",
+      "Mass only applies to liquids"
+    ],
+    "answer": "Mass is the amount of matter in an object; weight is the force of gravity pulling on it",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Would your mass change if you traveled from Earth to the Moon?",
+    "choicesJson": [
+      "No, your mass would stay the same, but your weight would change",
+      "Yes, your mass would double",
+      "Yes, your mass would disappear completely",
+      "Yes, your mass would instantly become zero"
+    ],
+    "answer": "No, your mass would stay the same, but your weight would change",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why would an object weigh less on the Moon than it does on Earth?",
+    "choicesJson": [
+      "Because the Moon's gravity is weaker than Earth's",
+      "Because the Moon has no air",
+      "Because the Moon is closer to the sun",
+      "Because the Moon spins faster than Earth"
+    ],
+    "answer": "Because the Moon's gravity is weaker than Earth's",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a force that acts between two objects without them touching, like gravity or magnetism?",
+    "choicesJson": [
+      "A non-contact force",
+      "A contact force",
+      "A friction force",
+      "A normal force only"
+    ],
+    "answer": "A non-contact force",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call a force that requires objects to be physically touching, like friction or a push?",
+    "choicesJson": [
+      "A contact force",
+      "A non-contact force",
+      "A magnetic force only",
+      "A gravitational force only"
+    ],
+    "answer": "A contact force",
+    "tags": [
+      "force-motion"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is light?",
+    "choicesJson": [
+      "Waves of electromagnetic energy",
+      "A type of liquid",
+      "A form of sound",
+      "A solid material"
+    ],
+    "answer": "Waves of electromagnetic energy",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which travels faster: light or sound?",
+    "choicesJson": [
+      "Light travels much faster than sound",
+      "Sound travels much faster than light",
+      "They always travel at exactly the same speed",
+      "Neither one can be measured"
+    ],
+    "answer": "Light travels much faster than sound",
+    "tags": [
+      "light",
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why do you usually see lightning before you hear the thunder from the same storm?",
+    "choicesJson": [
+      "Because light travels much faster than sound",
+      "Because thunder happens minutes after lightning forms",
+      "Because lightning is silent and thunder is not",
+      "Because sound cannot travel during storms"
+    ],
+    "answer": "Because light travels much faster than sound",
+    "tags": [
+      "light",
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call it when light bounces off a surface, like off a mirror?",
+    "choicesJson": [
+      "Reflection",
+      "Refraction",
+      "Absorption",
+      "Radiation"
+    ],
+    "answer": "Reflection",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call it when light bends as it passes from one material into another, like from air into water?",
+    "choicesJson": [
+      "Refraction",
+      "Reflection",
+      "Conduction",
+      "Convection"
+    ],
+    "answer": "Refraction",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why does a straw in a glass of water sometimes look bent or broken at the water's surface?",
+    "choicesJson": [
+      "Because light refracts (bends) as it passes between water and air",
+      "Because the straw actually bends in water",
+      "Because water always changes the color of objects",
+      "Because light cannot travel through water"
+    ],
+    "answer": "Because light refracts (bends) as it passes between water and air",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the band of colors you see when white light passes through a prism or forms a rainbow?",
+    "choicesJson": [
+      "The visible spectrum",
+      "A shadow",
+      "An eclipse",
+      "A reflection only"
+    ],
+    "answer": "The visible spectrum",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call an object that lets light pass through it clearly, like glass?",
+    "choicesJson": [
+      "Transparent",
+      "Opaque",
+      "Translucent",
+      "Reflective only"
+    ],
+    "answer": "Transparent",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call an object that blocks all light from passing through it, like wood?",
+    "choicesJson": [
+      "Opaque",
+      "Transparent",
+      "Translucent",
+      "Luminous"
+    ],
+    "answer": "Opaque",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call an object that lets some light through but scatters it, like frosted glass?",
+    "choicesJson": [
+      "Translucent",
+      "Transparent",
+      "Opaque",
+      "Reflective only"
+    ],
+    "answer": "Translucent",
+    "tags": [
+      "light"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What causes sound to travel through a material?",
+    "choicesJson": [
+      "Vibrations moving through the material",
+      "Light bouncing through the material",
+      "Heat trapped inside the material",
+      "Gravity pulling the material down"
+    ],
+    "answer": "Vibrations moving through the material",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Why can't sound travel through empty space (a vacuum)?",
+    "choicesJson": [
+      "Because there are no particles there to vibrate and carry the sound",
+      "Because space is too cold for sound",
+      "Because space is too bright for sound",
+      "Because sound only exists on Earth"
+    ],
+    "answer": "Because there are no particles there to vibrate and carry the sound",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the number of sound wave vibrations per second, which determines pitch?",
+    "choicesJson": [
+      "Frequency",
+      "Volume",
+      "Amplitude only",
+      "Wavelength only"
+    ],
+    "answer": "Frequency",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Does a higher frequency sound wave produce a higher or lower pitch?",
+    "choicesJson": [
+      "A higher pitch",
+      "A lower pitch",
+      "No change in pitch",
+      "Pitch is unrelated to frequency"
+    ],
+    "answer": "A higher pitch",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What do we call the loudness of a sound, related to the size (amplitude) of its sound wave?",
+    "choicesJson": [
+      "Volume",
+      "Frequency",
+      "Pitch only",
+      "Wavelength only"
+    ],
+    "answer": "Volume",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "What is an echo?",
+    "choicesJson": [
+      "A sound that reflects off a surface and is heard again a short time later",
+      "A sound that disappears completely after being made",
+      "A sound that only happens underwater",
+      "A type of light wave"
+    ],
+    "answer": "A sound that reflects off a surface and is heard again a short time later",
+    "tags": [
+      "sound"
+    ]
+  },
+  {
+    "type": "MULTIPLE_CHOICE",
+    "prompt": "Which of these materials would best absorb sound and reduce echoes in a room?",
+    "choicesJson": [
+      "Thick carpet and soft curtains",
+      "Bare glass windows",
+      "A smooth tile floor",
+      "A bare concrete wall"
+    ],
+    "answer": "Thick carpet and soft curtains",
+    "tags": [
+      "sound"
+    ]
+  }
 ]
