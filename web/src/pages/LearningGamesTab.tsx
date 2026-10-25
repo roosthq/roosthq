@@ -19,6 +19,7 @@ import PoolEditor from '../PoolEditor';
 import QuestionVisual from '../QuestionVisual';
 import { QuestionPhoto, QuestionAudio, ImageChoices } from '../QuestionMedia';
 import MonsterArt, { monsterFor } from '../MonsterArt';
+import MonsterUnlock from '../MonsterUnlock';
 import MonsterDen from '../MonsterDen';
 import Modal from '../Modal';
 import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader, KidProgress } from '../LearningProgress';
@@ -438,12 +439,17 @@ export function PlaySession({
     bonusTokens: number;
     promotedTo: number | null;
     befriended: boolean;
+    unlockedGrades: number[];
+    monsterBonus: Record<number, number>;
     alreadyFriend: boolean;
     redemptionOffer: boolean;
     correctCount: number;
     monsterMastered: number;
     monsterTarget: number;
   } | null>(null);
+  // Monsters just unlocked this session, played as a celebration on the
+  // result screen (cleared once the kid taps through them).
+  const [unlockQueue, setUnlockQueue] = useState<number[]>([]);
   // Right answers so far this session - drives the monster's "hit" meter.
   const [hits, setHits] = useState(0);
   const [hitFlash, setHitFlash] = useState(false);
@@ -629,6 +635,8 @@ export function PlaySession({
           bonusTokens: result.bonusTokens ?? 0,
           promotedTo: result.promotedTo ?? null,
           befriended: !!result.befriended,
+          unlockedGrades: result.befriendedGrades ?? [],
+          monsterBonus: result.monsterBonus ?? {},
           alreadyFriend: !!result.alreadyFriend,
           redemptionOffer: !!result.redemptionOffer,
           correctCount: newHits,
@@ -654,7 +662,11 @@ export function PlaySession({
       // perfect session that just didn't roll a bonus) gets the normal
       // complete sound. Both assignable, same as eduCorrect/eduWrong above.
       playSlotSound(summary.allCorrect && summary.bonusTokens > 0 ? 'eduSessionBonus' : 'eduSessionComplete');
-      if (summary.befriended) celebrate(undefined, 'levelUp');
+      if (summary.unlockedGrades.length) {
+        // This session's own monster first, then any lower-grade ones it also finished.
+        const order = [...summary.unlockedGrades].sort((a, b) => Number(b === session?.grade) - Number(a === session?.grade) || a - b);
+        setUnlockQueue(order);
+      }
       setPhase(summary.redemptionOffer ? 'REDEEM_OFFER' : 'DONE');
       refreshSubjectProgress(); // grade/mastery may have just changed
       return;
@@ -733,6 +745,7 @@ export function PlaySession({
   }
 
   function playAgain() {
+    setUnlockQueue([]);
     setSession(null);
     setQuestions([]);
     setSummary(null);
@@ -876,7 +889,7 @@ export function PlaySession({
                 ? `🎉 You befriended ${monsterFor(session.subject, session.grade).name}!`
                 : summary.alreadyFriend
                   ? `${monsterFor(session.subject, session.grade).name} is already your friend - nice work!`
-                  : `${Math.max(0, summary.monsterTarget - summary.monsterMastered)} more questions to master to befriend ${monsterFor(session.subject, session.grade).name}`}
+                  : `${Math.max(0, summary.monsterTarget - summary.monsterMastered)} more questions to hatch this mystery monster`}
             </p>
             {!summary.befriended && !summary.alreadyFriend && summary.monsterTarget > 0 && (
               <span className="mt-1 h-1.5 w-40 overflow-hidden rounded-full bg-slate-100">
@@ -904,6 +917,14 @@ export function PlaySession({
           <p className="rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-emerald-700">
             🎉 Leveled up to {GRADE_LABELS[summary.promotedTo]} grade!
           </p>
+        )}
+        {Object.values(summary.monsterBonus).some((n) => n > 0) && (
+          <p className="flex items-center gap-1 text-sm text-amber-600">
+            🎁 Monster unlock bonus: <TokenBadge icon={tokenIcon} amount={`+${Object.values(summary.monsterBonus).reduce((a, b) => a + b, 0)}`} />
+          </p>
+        )}
+        {unlockQueue.length > 0 && session && (
+          <MonsterUnlock subject={session.subject} grades={unlockQueue} bonus={summary.monsterBonus} tokenIcon={tokenIcon} onDone={() => setUnlockQueue([])} />
         )}
         <div className="mt-2 flex gap-2">
           <button
@@ -1075,17 +1096,17 @@ export function PlaySession({
         )}
         {session && (
           <div className="mb-3 flex items-center gap-3 rounded-lg px-1">
-            <MonsterArt subject={session.subject} grade={session.grade} stage={1} size={56} hit={hitFlash} />
+            <MonsterArt subject={session.subject} grade={session.grade} stage={1} size={56} hit={hitFlash} silhouette={!session.monsterKnown} />
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400">
-                <span>{monsterFor(session.subject, session.grade).name}</span>
+                <span>{session.monsterKnown ? monsterFor(session.subject, session.grade).name : '??? Mystery monster'}</span>
                 <span>
                   {hits} hit{hits === 1 ? '' : 's'}
                   {session.mode === 'REVIEW'
                     ? ' - 🧭 Explore & Review (half pay)'
                     : session.mode === 'HUNT'
                       ? ` - 🏹 Monster Hunt (${session.payPct ? `${session.payPct}% pay` : 'free'})`
-                      : ' - master the grade to befriend it'}
+                      : ' - master the grade to hatch it'}
                 </span>
               </div>
               <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-100">

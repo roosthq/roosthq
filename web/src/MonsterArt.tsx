@@ -866,6 +866,59 @@ function Sparkles({ stage }: { stage: 1 | 2 | 3 }) {
   );
 }
 
+// What an unmet monster looks like: a spotted egg with a "?", the same for
+// every monster, so neither the shape nor the colors give the real one away.
+function MysteryEgg({ size, hit }: { size: number; hit: boolean }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="-10 -14 220 214"
+      role="img"
+      aria-label="A mystery monster you have not met yet"
+      style={{ color: 'var(--text)', transition: 'transform 0.15s', transform: hit ? 'translateX(6px) rotate(3deg)' : undefined, overflow: 'visible' }}
+    >
+      <ellipse cx="100" cy="190" rx="52" ry="7" fill="#000" opacity="0.14" />
+      <path d="M100 30 C145 30 168 100 168 135 C168 168 138 188 100 188 C62 188 32 168 32 135 C32 100 55 30 100 30 Z" fill="currentColor" opacity="0.13" />
+      <path
+        d="M100 30 C145 30 168 100 168 135 C168 168 138 188 100 188 C62 188 32 168 32 135 C32 100 55 30 100 30 Z"
+        fill="none"
+        stroke="currentColor"
+        strokeOpacity="0.35"
+        strokeWidth="4"
+      />
+      <circle cx="70" cy="80" r="9" fill="currentColor" opacity="0.12" />
+      <circle cx="132" cy="64" r="6" fill="currentColor" opacity="0.12" />
+      <circle cx="142" cy="132" r="10" fill="currentColor" opacity="0.12" />
+      <circle cx="58" cy="140" r="7" fill="currentColor" opacity="0.12" />
+      <text x="100" y="138" textAnchor="middle" fontSize="84" fontWeight="800" fill="currentColor" opacity="0.5" fontFamily="system-ui, sans-serif">
+        ?
+      </text>
+    </svg>
+  );
+}
+
+// The collectible you win with a monster: a die-cut round sticker (white
+// border, soft shadow, a slight tilt) around the monster, ringed in its color.
+export function MonsterSticker({ subject, grade, stage = 2, size = 84 }: { subject: EduSubject; grade: number; stage?: 1 | 2 | 3; size?: number }) {
+  const m = monsterFor(subject, grade);
+  const tilt = ((grade * 5 + subject.length * 3) % 9) - 4;
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-full"
+      style={{
+        width: size,
+        height: size,
+        background: '#fff',
+        boxShadow: `0 0 0 3px #fff, 0 0 0 5px ${m.accent}, 0 3px 8px rgba(0,0,0,0.25)`,
+        transform: `rotate(${tilt}deg)`,
+      }}
+    >
+      <MonsterArt subject={subject} grade={grade} stage={stage} size={Math.round(size * 0.86)} />
+    </span>
+  );
+}
+
 export default function MonsterArt({
   subject,
   grade,
@@ -882,6 +935,7 @@ export default function MonsterArt({
   // Briefly shakes the monster (a correct answer just landed a hit).
   hit?: boolean;
 }) {
+  if (silhouette) return <MysteryEgg size={size} hit={hit} />;
   const m = monsterFor(subject, grade);
   const scale = stage === 1 ? 0.8 : stage === 2 ? 0.92 : 1;
   return (
@@ -890,8 +944,8 @@ export default function MonsterArt({
       height={size}
       viewBox="-10 -14 220 214"
       role="img"
-      aria-label={silhouette ? 'A monster you have not met yet' : `${m.name}`}
-      style={{ filter: silhouette ? 'brightness(0) opacity(0.28)' : undefined, transition: 'transform 0.15s', transform: hit ? 'translateX(6px) rotate(3deg)' : undefined, overflow: 'visible' }}
+      aria-label={m.name}
+      style={{ transition: 'transform 0.15s', transform: hit ? 'translateX(6px) rotate(3deg)' : undefined, overflow: 'visible' }}
     >
       <ellipse cx="100" cy="190" rx="62" ry="8" fill="#000" opacity="0.14" />
       <g transform={`translate(${100 - 100 * scale} ${190 - 190 * scale}) scale(${scale})`}>

@@ -85,6 +85,11 @@ const huntPayFraction = (gradesBelow: number) => (gradesBelow <= 1 ? 0.25 : grad
 // same additive-field philosophy as everything else here means going
 // per-subject later is a column, not a rewrite.
 const DEFAULT_TOKENS_PER_CORRECT = 1;
+const GRADE_NAMES = ['Kindergarten', '1st grade', '2nd grade', '3rd grade', '4th grade', '5th grade', '6th grade'];
+// One-time prize for befriending a monster: 5 correct-answers' worth per
+// grade step (K = 5x, 6th = 35x of tokensPerCorrect). Paid exactly once ever
+// per monster, only when a played session unlocks it (never by self-heal).
+const monsterUnlockBonus = (tokensPerCorrect: number, grade: number) => Math.max(0, Math.floor(tokensPerCorrect)) * 5 * (grade + 1);
 const DEFAULT_BONUS_POOL: PoolEntry[] = [{ kind: 'TOKENS', min: 5, max: 15, weight: 1 }];
 
 type DrawnResult = { kind: 'TOKENS'; amount: number } | { kind: 'PRIZE'; prizeId: string };
@@ -532,21 +537,50 @@ export class LearningService {
   // yet. `onlyGrades` limits the check to grades a session just touched;
   // omitted, it checks the whole ladder (self-heals kids who crossed the bar
   // before monsters were sticky). Returns the grades newly befriended.
-  private async syncMonsterFriends(userId: string, subject: string, onlyGrades?: number[]): Promise<number[]> {
+  // `pay` (set by answer(), never by the self-heal path) also pays the
+  // one-time unlock bonus in the same transaction that creates the friend
+  // row, so a monster can only ever pay once.
+  private async syncMonsterFriends(
+    userId: string,
+    subject: string,
+    onlyGrades?: number[],
+    pay?: { tokensPerCorrect: number; tokensDisabled: boolean },
+  ): Promise<{ grades: number[]; bonus: Record<number, number> }> {
     const grades = onlyGrades ?? [0, 1, 2, 3, 4, 5, 6];
     const have = await this.prisma.eduMonsterFriend.findMany({ where: { userId, subject, grade: { in: grades } }, select: { grade: true } });
     const haveSet = new Set(have.map((h) => h.grade));
     const fresh: number[] = [];
+    const bonus: Record<number, number> = {};
     for (const grade of grades) {
       if (haveSet.has(grade)) continue;
       const target = await this.monsterTarget(subject, grade);
       if (target <= 0) continue;
       if ((await this.masteredCount(userId, subject, grade)) < target) continue;
       // skipDuplicates + the count: two simultaneous finishes can't both claim it.
-      const made = await this.prisma.eduMonsterFriend.createMany({ data: [{ userId, subject, grade }], skipDuplicates: true });
-      if (made.count === 1) fresh.push(grade);
+      const amount = pay && !pay.tokensDisabled ? monsterUnlockBonus(pay.tokensPerCorrect, grade) : 0;
+      const won = await this.prisma.$transaction(async (tx) => {
+        const made = await tx.eduMonsterFriend.createMany({ data: [{ userId, subject, grade }], skipDuplicates: true });
+        if (made.count !== 1) return false;
+        if (amount > 0) {
+          await tx.tokenLedger.create({
+            data: {
+              userId,
+              delta: amount,
+              reason: `Learning games: ${subject} - monster unlocked (${GRADE_NAMES[grade] ?? `grade ${grade}`})`,
+              type: 'EDU_GAME',
+              refId: `monster:${subject}:${grade}`,
+              createdById: userId,
+            },
+          });
+        }
+        return true;
+      });
+      if (won) {
+        fresh.push(grade);
+        if (amount > 0) bonus[grade] = amount;
+      }
     }
-    return fresh;
+    return { grades: fresh, bonus };
   }
 
   private async owned(userId: string, id: string) {
@@ -688,8 +722,15 @@ export class LearningService {
       tokensAwarded: 0,
       practiceOnly,
       mode,
+      monsterKnown: await this.monsterKnown(userId, subj, grade),
       payPct: huntFrom !== undefined ? Math.round(huntPayFraction(huntFrom - grade) * 100) : undefined,
     };
+  }
+
+  // Has this kid already befriended this grade's monster? Until they have, the
+  // client keeps its name and look a mystery.
+  private async monsterKnown(userId: string, subject: string, grade: number): Promise<boolean> {
+    return !!(await this.prisma.eduMonsterFriend.findUnique({ where: { userId_subject_grade: { userId, subject, grade } }, select: { grade: true } }));
   }
 
   private async effectiveGrade(subject: string, grade: number): Promise<number> {
@@ -726,6 +767,7 @@ export class LearningService {
     tokensAwarded: number;
     practiceOnly: boolean;
     mode: string;
+    userId: string;
   }) {
     const presented = (session.presentedJson as { blockA?: string[]; blockB?: string[]; huntFrom?: number }) ?? {};
     const rounds = (session.roundsJson as unknown as EduRound[]) ?? [];
@@ -746,6 +788,7 @@ export class LearningService {
       tokensAwarded: session.tokensAwarded,
       practiceOnly: session.practiceOnly,
       mode: session.mode,
+      monsterKnown: await this.monsterKnown(session.userId, session.subject, session.grade),
       payPct: session.mode === 'HUNT' && typeof presented.huntFrom === 'number' ? Math.round(huntPayFraction(presented.huntFrom - session.grade) * 100) : undefined,
       correctSoFar: rounds.filter((r) => r.correct).length,
     };
@@ -912,7 +955,10 @@ export class LearningService {
       const touchedGrades = freshIds.length
         ? [...new Set((await this.prisma.eduQuestion.findMany({ where: { id: { in: freshIds } }, select: { grade: true } })).map((q) => q.grade))]
         : [];
-      const befriendedGrades = touchedGrades.length ? await this.syncMonsterFriends(userId, session.subject, touchedGrades) : [];
+      const unlocked = touchedGrades.length
+        ? await this.syncMonsterFriends(userId, session.subject, touchedGrades, { tokensPerCorrect: settings.tokensPerCorrect, tokensDisabled: !!buyer?.tokensDisabled })
+        : { grades: [] as number[], bonus: {} as Record<number, number> };
+      const befriendedGrades = unlocked.grades;
       const befriended = befriendedGrades.includes(session.grade);
       const alreadyFriend = !befriended && !!(await this.prisma.eduMonsterFriend.findUnique({ where: { userId_subject_grade: { userId, subject: session.subject, grade: session.grade } } }));
       const monsterTarget = await this.monsterTarget(session.subject, session.grade);
@@ -938,6 +984,8 @@ export class LearningService {
         correctCount,
         befriended,
         befriendedGrades,
+        // One-time unlock bonus per newly befriended grade (already in the ledger).
+        monsterBonus: unlocked.bonus,
         alreadyFriend,
         monsterMastered,
         monsterTarget,

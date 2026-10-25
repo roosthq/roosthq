@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api, EDU_SUBJECTS, type EduMonster, type EduSubject } from './api';
 import { GRADE_LABELS, SUBJECT_META } from './LearningProgress';
-import MonsterArt, { monsterFor, stageFor } from './MonsterArt';
+import MonsterArt, { MonsterSticker, monsterFor, stageFor } from './MonsterArt';
 
 // The kid's collection: one monster per subject and grade. A monster is
 // befriended by mastering its WHOLE grade (the same bar that moves you up a
@@ -13,8 +13,8 @@ export default function MonsterDen({ monsters, onHunt }: { monsters: EduMonster[
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-slate-500">
-        You've befriended <span className="font-semibold">{have}</span> of {monsters.length} monsters. Master a whole grade to befriend its monster - the
-        more you master, the bigger it grows! Missed one from an earlier grade? Go on a <span className="font-semibold">🏹 Hunt</span> to win it back
+        You've unlocked <span className="font-semibold">{have}</span> of {monsters.length} mystery monsters (each one is a sticker and a bonus prize). Master a
+        whole grade to hatch its monster - the more you master, the bigger it grows! Missed one from an earlier grade? Go on a <span className="font-semibold">🏹 Hunt</span> to win it back
         (far fewer tokens, or free, the further down you go).
       </p>
       {EDU_SUBJECTS.map((s) => {
@@ -37,7 +37,11 @@ export default function MonsterDen({ monsters, onHunt }: { monsters: EduMonster[
                     className="card-nested flex flex-col items-center gap-0.5 rounded-lg p-2 text-center"
                     title={m.befriended ? def.blurb : `Master ${GRADE_LABELS[m.grade]} grade ${SUBJECT_META[s].label} to meet this one`}
                   >
-                    <MonsterArt subject={m.subject} grade={m.grade} stage={stage} silhouette={!m.befriended} size={84} />
+                    {m.befriended ? (
+                      <MonsterSticker subject={m.subject} grade={m.grade} stage={stage} size={84} />
+                    ) : (
+                      <MonsterArt subject={m.subject} grade={m.grade} silhouette size={84} />
+                    )}
                     <span className="text-xs font-semibold">{m.befriended ? def.name : '???'}</span>
                     <span className="text-[10px] text-slate-400">
                       {GRADE_LABELS[m.grade]} grade{m.befriended ? ` - ${stage === 3 ? 'Mega' : stage === 2 ? 'Grown' : 'Hatchling'}` : ''}

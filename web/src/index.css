@@ -908,7 +908,7 @@ select option {
    element, spin, and fade. Host is a zero-size anchor at the burst origin. */
 .confetti-host {
   position: fixed;
-  z-index: 100;
+  z-index: 100001;
   width: 0;
   height: 0;
   pointer-events: none;
@@ -1213,5 +1213,75 @@ select option {
   }
   .cal-day-cell {
     break-inside: avoid;
+  }
+}
+
+/* Monster unlock celebration (MonsterUnlock.tsx) */
+.monster-unlock {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(8, 10, 20, 0.78);
+  animation: sheet-fade-in 220ms ease-out;
+}
+.monster-unlock-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 420px;
+  width: 100%;
+  padding: 24px 20px;
+  border-radius: 20px;
+  text-align: center;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.monster-egg-wobble {
+  animation: egg-wobble 0.5s ease-in-out infinite;
+  transform-origin: 50% 90%;
+}
+@keyframes egg-wobble {
+  0%, 100% { transform: rotate(-7deg); }
+  50% { transform: rotate(7deg) scale(1.04); }
+}
+.monster-pop {
+  position: relative;
+  animation: monster-pop 700ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.monster-glow {
+  position: absolute;
+  inset: -30px;
+  z-index: -1;
+  border-radius: 50%;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+@keyframes monster-pop {
+  0% { transform: scale(0.1) rotate(-20deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+.sticker-slap {
+  display: inline-flex;
+  animation: sticker-slap 520ms 650ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes sticker-slap {
+  0% { transform: scale(2.4) rotate(18deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .monster-unlock,
+  .monster-egg-wobble,
+  .monster-pop,
+  .monster-glow,
+  .sticker-slap {
+    animation: none;
   }
 }

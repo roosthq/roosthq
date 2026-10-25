@@ -772,6 +772,9 @@ export interface EduSessionStart {
   // monster, paying `payPct`% of the normal rate (0 = free) on newly mastered questions.
   mode?: 'NORMAL' | 'REVIEW' | 'HUNT';
   payPct?: number;
+  // Already befriended this grade's monster? Until then it stays a mystery
+  // (no name, no art) everywhere the client would otherwise show it.
+  monsterKnown?: boolean;
   // Right answers already given in a resumed session (so the hit meter
   // picks up where it left off).
   correctSoFar?: number;
@@ -798,6 +801,8 @@ export interface EduAnswerResult {
   // monster (mastering the grade to the promotion bar).
   befriended?: boolean;
   befriendedGrades?: number[];
+  // One-time token bonus per newly befriended grade (already paid).
+  monsterBonus?: Record<number, number>;
   // The session grade's monster: mastered so far vs. the bar that befriends it.
   monsterMastered?: number;
   monsterTarget?: number;
