@@ -768,9 +768,12 @@ export interface EduSessionStart {
   practiceOnly: boolean;
   // NORMAL, or REVIEW = "Explore & Review" (top of the ladder: only unseen /
   // still-wrong questions, half pay, no perfect bonus).
-  mode?: 'NORMAL' | 'REVIEW';
-  // Right answers already given in a resumed session (so the hit meter and the
-  // 8-of-10 befriend check pick up where it left off).
+  // HUNT = Monster Hunt: replaying a grade below the kid's own to befriend its
+  // monster, paying `payPct`% of the normal rate (0 = free) on newly mastered questions.
+  mode?: 'NORMAL' | 'REVIEW' | 'HUNT';
+  payPct?: number;
+  // Right answers already given in a resumed session (so the hit meter
+  // picks up where it left off).
   correctSoFar?: number;
 }
 
@@ -790,10 +793,14 @@ export interface EduAnswerResult {
   // session start, but it's included here too for a result screen that
   // doesn't want to thread the original start-response through.
   practiceOnly?: boolean;
-  mode?: 'NORMAL' | 'REVIEW';
+  mode?: 'NORMAL' | 'REVIEW' | 'HUNT';
   // Set only on the DONE answer: this session just befriended its grade's
-  // monster for the first time (8+ of 10 right).
+  // monster (mastering the grade to the promotion bar).
   befriended?: boolean;
+  befriendedGrades?: number[];
+  // The session grade's monster: mastered so far vs. the bar that befriends it.
+  monsterMastered?: number;
+  monsterTarget?: number;
   // Right answers in the whole session, and whether this grade's monster was
   // already a friend from an earlier session.
   correctCount?: number;
@@ -822,6 +829,11 @@ export interface EduMonster {
   grade: number;
   befriended: boolean;
   masteredPct: number; // 0-100 of that grade's bank mastered - drives the monster's stage
+  mastered: number; // questions mastered at that grade
+  target: number; // mastered count that befriends it (the promotion bar)
+  where: 'below' | 'now' | 'above'; // vs the grade the kid is in now
+  huntPayPct: number; // Monster Hunt pay, % of normal (0 = free)
+  huntable: boolean; // below their grade with something left to master
 }
 
 export interface EduAdvanceResult {
@@ -1994,8 +2006,9 @@ export const api = {
   learningSettings: () => req<LearningGamesSettings>('/learning/settings'),
   updateLearningSettings: (tokensPerCorrect: number, bonusPool: PoolEntry[], dailySessionCap?: number | null) =>
     req<LearningGamesSettings>('/learning/settings', { method: 'PATCH', body: JSON.stringify({ tokensPerCorrect, bonusPool, dailySessionCap }) }),
-  startLearningSession: (subject: EduSubject, kioskToken?: string) =>
-    req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject }) }, kioskToken),
+  // `grade` below the kid's own = a Monster Hunt at that grade.
+  startLearningSession: (subject: EduSubject, kioskToken?: string, grade?: number) =>
+    req<EduSessionStart>('/learning/sessions', { method: 'POST', body: JSON.stringify({ subject, grade }) }, kioskToken),
   answerLearningQuestion: (sessionId: string, questionId: string, given: string, kioskToken?: string) =>
     req<EduAnswerResult>(`/learning/sessions/${sessionId}/answer`, { method: 'POST', body: JSON.stringify({ questionId, given }) }, kioskToken),
   startRedemption: (sessionId: string, accept: boolean, kioskToken?: string) =>

@@ -159,6 +159,8 @@ export default function Display() {
   const [kioskRulesOpen, setKioskRulesOpen] = useState(false);
   const [kioskStatsOpen, setKioskStatsOpen] = useState(false);
   const [learningSubject, setLearningSubject] = useState<EduSubject | null>(null);
+  // Set when a session was opened from the Monster Den's Hunt button (a grade below the kid's own).
+  const [learningGrade, setLearningGrade] = useState<number | undefined>(undefined);
   const [learningProgressOpen, setLearningProgressOpen] = useState(false);
   const [monsterDenOpen, setMonsterDenOpen] = useState(false);
   const [testPanelOpen, setTestPanelOpen] = useState(false);
@@ -1208,7 +1210,10 @@ export default function Display() {
                           {EDU_SUBJECTS.map((s) => (
                             <button
                               key={s}
-                              onClick={() => setLearningSubject(s)}
+                              onClick={() => {
+                                setLearningGrade(undefined);
+                                setLearningSubject(s);
+                              }}
                               className="flex flex-col items-center gap-1 rounded-lg border bg-white p-3 hover:shadow-sm"
                             >
                               <span className="text-2xl">{SUBJECT_META[s].icon}</span>
@@ -1459,18 +1464,30 @@ export default function Display() {
           }
         >
           <PlaySession
-            key={learningSubject}
+            key={`${learningSubject}:${learningGrade ?? ''}`}
             tokenIcon={tokenIcon}
             kioskToken={active.token}
             initialSubject={learningSubject}
-            onExit={() => setLearningSubject(null)}
+            initialGrade={learningGrade}
+            onExit={() => {
+              setLearningSubject(null);
+              setLearningGrade(undefined);
+            }}
           />
         </Modal>
       )}
 
       {monsterDenOpen && active && (
         <Modal maxWidthClass="max-w-2xl" onBackdropClick={() => setMonsterDenOpen(false)} header={<h3 className="text-lg font-semibold">🐲 {active.user.displayName}'s Monster Den</h3>}>
-          <MonsterDenLoader userId={active.user.id} kioskToken={active.token} />
+          <MonsterDenLoader
+            userId={active.user.id}
+            kioskToken={active.token}
+            onHunt={(s, g) => {
+              setMonsterDenOpen(false);
+              setLearningGrade(g);
+              setLearningSubject(s);
+            }}
+          />
         </Modal>
       )}
       {learningProgressOpen && active && (

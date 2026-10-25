@@ -1722,3 +1722,8 @@ Driven by an audit of the live bank (4,633 questions): ~630 duplicate rows (SOCI
 - **Monster Den**: one monster per subject and grade (49, procedural SVG with recognizable pop-culture names), befriended at 8+/10, form grows with mastery. Derived from sessions and progress, no table.
 - **Concurrency**: `EduSession.rev` compare-and-swap + transactions on answer/redemption; answers must come from the dealt block; the daily cap counts in-flight sessions.
 - Open source, so real franchise names (Minecraft, Roblox, Fortnite, Pokemon, SCP, ...) are used freely as question flavor (about 20% of new text questions).
+
+### 19.y Monster Den rework (2026-10-25)
+- **Befriending is mastery, not one good session.** A grade's monster is befriended once the kid has mastered that grade to the promotion bar (`monsterTarget` = `promoteTarget`, or the uncapped 90% on the top grade). Stored in `EduMonsterFriend` and kept for good (mastery is latest-answer-only, so deriving it live would let one later miss take a monster away). `getMonsters` self-heals kids already past the bar.
+- **Monster Hunt** (`EduSession.mode = 'HUNT'`): a kid can replay any grade BELOW their current one to collect its monster. The session runs at the lower grade (only unseen/still-wrong questions, mastered ones as filler), pays only on newly mastered questions at 25% (1 grade down), 10% (2 down), free (3+), never rolls the perfect bonus or Redemption Round, never promotes (and `maybePromote` can no longer move a grade down), and does not count against the daily session cap. The real grade is snapshotted in `presentedJson.huntFrom`.
+- Den UI shows progress toward each unmet monster and a Hunt button (with its pay level) on grades below the kid's own; the kiosk Den opens hunts too.

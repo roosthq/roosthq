@@ -409,12 +409,15 @@ export function PlaySession({
   myUserId,
   kioskToken,
   initialSubject,
+  initialGrade,
   onExit,
 }: {
   tokenIcon: string;
   myUserId?: string;
   kioskToken?: string;
   initialSubject?: EduSubject;
+  // A grade below the kid's own: the kiosk's Monster Den "Hunt" button.
+  initialGrade?: number;
   onExit?: () => void;
 }) {
   const [phase, setPhase] = useState<Phase>('PICK_SUBJECT');
@@ -438,9 +441,10 @@ export function PlaySession({
     alreadyFriend: boolean;
     redemptionOffer: boolean;
     correctCount: number;
+    monsterMastered: number;
+    monsterTarget: number;
   } | null>(null);
-  // Right answers so far this session - drives the monster's "hit" meter and
-  // the 8-of-10 befriend check shown on the result screen.
+  // Right answers so far this session - drives the monster's "hit" meter.
   const [hits, setHits] = useState(0);
   const [hitFlash, setHitFlash] = useState(false);
   const [showDen, setShowDen] = useState(false);
@@ -540,7 +544,11 @@ export function PlaySession({
     </Modal>
   );
 
-  async function start(subject: EduSubject) {
+  // `grade` (below the kid's own) = a Monster Hunt; remembered so "Hunt again"
+  // after the result screen stays on the same grade.
+  const huntGradeRef = useRef<number | undefined>(initialGrade);
+  async function start(subject: EduSubject, grade?: number) {
+    huntGradeRef.current = grade;
     setPhase('STARTING');
     setStartError(null);
     try {
@@ -549,7 +557,7 @@ export function PlaySession({
       // figured out that quitting and re-opening re-rolled brand new
       // questions, and kept doing it until landing on ones they already
       // knew. `phase` reflects wherever they actually left off.
-      const s = await api.startLearningSession(subject, kioskToken);
+      const s = await api.startLearningSession(subject, kioskToken, grade);
       setSession(s);
       setSessionTokens(s.tokensAwarded);
       setHits(s.correctSoFar ?? 0);
@@ -583,7 +591,7 @@ export function PlaySession({
   // Kiosk entry: the subject was already picked in the Learning panel
   // before this component even mounted - go straight in, no picker screen.
   useEffect(() => {
-    if (initialSubject) start(initialSubject);
+    if (initialSubject) start(initialSubject, initialGrade);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -618,6 +626,8 @@ export function PlaySession({
           alreadyFriend: !!result.alreadyFriend,
           redemptionOffer: !!result.redemptionOffer,
           correctCount: newHits,
+          monsterMastered: result.monsterMastered ?? 0,
+          monsterTarget: result.monsterTarget ?? 0,
         });
       }
     } catch {
@@ -723,7 +733,7 @@ export function PlaySession({
     // Kiosk entry has no picker screen to fall back to - go straight into
     // another round of the same subject instead of stranding it on a
     // PICK_SUBJECT screen it never showed in the first place.
-    if (initialSubject) start(initialSubject);
+    if (initialSubject) start(initialSubject, huntGradeRef.current);
     else setPhase('PICK_SUBJECT');
   }
 
@@ -804,7 +814,13 @@ export function PlaySession({
         </ul>
         {showDen && subjectProgress?.monsters && (
           <Modal maxWidthClass="max-w-2xl" onBackdropClick={() => setShowDen(false)} header={<h3 className="text-lg font-semibold">🐲 My Monster Den</h3>}>
-            <MonsterDen monsters={subjectProgress.monsters as EduMonster[]} />
+            <MonsterDen
+              monsters={subjectProgress.monsters as EduMonster[]}
+              onHunt={(s, g) => {
+                setShowDen(false);
+                start(s, g);
+              }}
+            />
           </Modal>
         )}
         {showProgress && myUserId && (
@@ -837,21 +853,39 @@ export function PlaySession({
   if (phase === 'DONE' && summary) {
     return (
       <div className="mt-4 flex flex-col items-center gap-3 rounded-xl border bg-white p-8 text-center">
-        <div className="text-2xl font-bold">{summary.allCorrect ? '🌟 Perfect session!' : session?.mode === 'REVIEW' ? '🧭 Explore & Review complete!' : 'Session complete!'}</div>
+        <div className="text-2xl font-bold">
+          {summary.allCorrect ? '🌟 Perfect session!' : session?.mode === 'REVIEW' ? '🧭 Explore & Review complete!' : session?.mode === 'HUNT' ? '🏹 Hunt complete!' : 'Session complete!'}
+        </div>
         {session && session.mode !== 'REVIEW' && (
           <div className="flex flex-col items-center">
-            <MonsterArt subject={session.subject} grade={session.grade} stage={summary.correctCount >= 8 ? 2 : 1} silhouette={summary.correctCount < 8 && !summary.alreadyFriend} size={110} />
+            <MonsterArt
+              subject={session.subject}
+              grade={session.grade}
+              stage={summary.befriended || summary.alreadyFriend ? 2 : 1}
+              silhouette={!summary.befriended && !summary.alreadyFriend}
+              size={110}
+            />
             <p className="text-sm font-semibold">
               {summary.befriended
                 ? `🎉 You befriended ${monsterFor(session.subject, session.grade).name}!`
-                : summary.correctCount >= 8 || summary.alreadyFriend
+                : summary.alreadyFriend
                   ? `${monsterFor(session.subject, session.grade).name} is already your friend - nice work!`
-                  : `${summary.correctCount} of 10 right. Get 8 to befriend ${monsterFor(session.subject, session.grade).name}!`}
+                  : `${Math.max(0, summary.monsterTarget - summary.monsterMastered)} more questions to master to befriend ${monsterFor(session.subject, session.grade).name}`}
             </p>
+            {!summary.befriended && !summary.alreadyFriend && summary.monsterTarget > 0 && (
+              <span className="mt-1 h-1.5 w-40 overflow-hidden rounded-full bg-slate-100">
+                <span
+                  className="block h-full rounded-full"
+                  style={{ width: `${Math.min(100, Math.round((summary.monsterMastered / summary.monsterTarget) * 100))}%`, background: 'var(--accent)' }}
+                />
+              </span>
+            )}
           </div>
         )}
         {session?.practiceOnly ? (
           <p className="text-sm text-slate-500">🎓 Practice session - today's Learning reward limit was already used up, so no tokens this time. Back tomorrow!</p>
+        ) : session?.mode === 'HUNT' && sessionTokens === 0 ? (
+          <p className="text-sm text-slate-500">🏹 Hunts at this grade don't pay (much) - it's all for the monster!</p>
         ) : (
           <TokenBadge icon={tokenIcon} amount={sessionTokens} label="earned" size="lg" />
         )}
@@ -1041,7 +1075,11 @@ export function PlaySession({
                 <span>{monsterFor(session.subject, session.grade).name}</span>
                 <span>
                   {hits} hit{hits === 1 ? '' : 's'}
-                  {session.mode === 'REVIEW' ? ' - 🧭 Explore & Review (half pay)' : ' - 8 befriends it'}
+                  {session.mode === 'REVIEW'
+                    ? ' - 🧭 Explore & Review (half pay)'
+                    : session.mode === 'HUNT'
+                      ? ` - 🏹 Monster Hunt (${session.payPct ? `${session.payPct}% pay` : 'free'})`
+                      : ' - master the grade to befriend it'}
                 </span>
               </div>
               <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-100">

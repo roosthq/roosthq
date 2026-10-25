@@ -515,6 +515,7 @@ model User {
   eduGradesSet              UserSubjectGrade[]    @relation("EduGradeSetBy")
   eduSessions               EduSession[]          @relation("EduSessionUser")
   eduProgress               EduQuestionProgress[] @relation("EduProgressUser")
+  eduMonsterFriends         EduMonsterFriend[]    @relation("EduMonsterFriendUser")
   learningGamesSettingsUpdated LearningGamesSettings[]
   choreBonusSettingsUpdated    ChoreBonusSettings[]
 
@@ -1323,6 +1324,21 @@ model EduQuestionProgress {
   @@index([userId, subject, grade])
 }
 
+// A befriended Monster Den monster. Earned by mastering a grade's question
+// bank to the promotion bar (LearningService.monsterTarget) and kept for good:
+// "mastered" itself is latest-answer-only, so deriving the monster from it
+// alone would make one later miss take it away.
+model EduMonsterFriend {
+  userId       String
+  subject      String
+  grade        Int
+  befriendedAt DateTime @default(now())
+
+  user User @relation("EduMonsterFriendUser", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, subject, grade])
+}
+
 // One kid's play-through of one subject session: 5 questions, an arcade
 // break, 5 more questions, then a result screen. `status` tracks which phase
 // it's in - a session left BLOCK_A/BREAK/BLOCK_B when its tab goes away
@@ -1362,7 +1378,9 @@ model EduSession {
   // NORMAL = a regular session at the kid's grade. REVIEW = "Explore &
   // Review": the subject is mastered at its top grade, so this draws only
   // questions the kid hasn't seen (or still has wrong) at or below it, pays
-  // half, and never rolls the perfect-session bonus.
+  // half, and never rolls the perfect-session bonus. HUNT = "Monster Hunt": a
+  // replay of ONE grade below the kid's current one (to collect that grade's
+  // monster), pays little or nothing the further down it goes, no bonus.
   mode            String    @default("NORMAL")
   // The optional Redemption Round after a rewarded session with exactly one
   // wrong answer: {state: OFFERED|DECLINED|ACCEPTED|WON|LOST, questionId?}.

@@ -52,8 +52,16 @@ const topOfLadderTarget = (totalActive: number) => Math.ceil(totalActive * PROMO
 // Explore & Review pays this fraction of the normal per-question rate (floored
 // per session) - below-grade questions are easy tokens otherwise.
 const REVIEW_PAY_FRACTION = 0.5;
-// A session with this many right out of 10 "befriends" that grade's monster.
-const BEFRIEND_MIN_CORRECT = 8;
+// A grade's Monster Den monster is befriended by mastering that grade to the
+// same bar that promotes a kid past it (promoteTarget; topOfLadderTarget on the
+// top grade) - one monster per grade has to mean the whole grade, not one good
+// session. Sticky once earned (EduMonsterFriend).
+//
+// Monster Hunt: replaying a grade BELOW the kid's current one to collect its
+// monster. Pays this fraction of the normal per-question rate on newly
+// mastered questions, by how many grades down it is; 0 = free. Two or more
+// grades down is practice-for-the-monster only.
+const huntPayFraction = (gradesBelow: number) => (gradesBelow <= 1 ? 0.25 : gradesBelow === 2 ? 0.1 : 0);
 
 // Fallback only for a family whose LearningGamesSettings row doesn't exist
 // yet (ensureSettings creates one on first read/write using these) - not a
@@ -241,7 +249,7 @@ export class LearningService {
   private async rewardedSessionsToday(userId: string, excludeSubject?: string): Promise<number> {
     const dayStart = startOfDayInZone(todayKeyInZone(DEFAULT_TIMEZONE), DEFAULT_TIMEZONE);
     const [done, inFlight] = await Promise.all([
-      this.prisma.eduSession.count({ where: { userId, status: 'DONE', practiceOnly: false, finishedAt: { gte: dayStart } } }),
+      this.prisma.eduSession.count({ where: { userId, status: 'DONE', practiceOnly: false, mode: { not: 'HUNT' }, finishedAt: { gte: dayStart } } }),
       // Sessions already started (in any OTHER subject) but not finished also
       // use up a slot - otherwise a kid could open all seven subjects before
       // finishing any, and every one of them would count as the "first".
@@ -250,6 +258,7 @@ export class LearningService {
           userId,
           status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] },
           practiceOnly: false,
+          mode: { not: 'HUNT' },
           startedAt: { gte: dayStart },
           ...(excludeSubject ? { subject: { not: excludeSubject } } : {}),
         },
@@ -353,11 +362,12 @@ export class LearningService {
     const excluded = new Set(excludeIds);
     const shuffle = <T>(arr: T[]): T[] => [...arr].sort(() => Math.random() - 0.5);
 
-    if (mode === 'REVIEW') {
+    if (mode === 'REVIEW' || mode === 'HUNT') {
       // Explore & Review: everything at or below the top grade the kid hasn't
       // gotten right yet (never seen, or still wrong); mastered ones only as
-      // filler if the pool runs short of a full session.
-      const pool = await this.prisma.eduQuestion.findMany({ where: { subject, grade: { lte: grade }, active: true } });
+      // filler if the pool runs short of a full session. Monster Hunt is the
+      // same draw but for exactly the one grade being hunted.
+      const pool = await this.prisma.eduQuestion.findMany({ where: { subject, grade: mode === 'HUNT' ? grade : { lte: grade }, active: true } });
       const progress = await this.prisma.eduQuestionProgress.findMany({ where: { userId, subject } });
       const byId = new Map(progress.map((p) => [p.questionId, p]));
       const eligible = pool.filter((q) => !excluded.has(q.id));
@@ -482,6 +492,10 @@ export class LearningService {
     const newGrade = grade + 1;
     const nextGradeHasContent = await this.prisma.eduQuestion.count({ where: { subject, grade: newGrade, active: true } });
     if (nextGradeHasContent === 0) return null;
+    // Never move a kid DOWN (a Monster Hunt masters a lower grade, which must
+    // not drag their current grade back to it).
+    const current = await this.prisma.userSubjectGrade.findUnique({ where: { userId_subject: { userId, subject } } });
+    if (current && current.grade >= newGrade) return null;
     await this.prisma.userSubjectGrade.upsert({
       where: { userId_subject: { userId, subject } },
       create: { userId, subject, grade: newGrade, setById: userId },
@@ -490,13 +504,43 @@ export class LearningService {
     return newGrade;
   }
 
+  // Mastered count that befriends a grade's monster: the promotion bar, or the
+  // uncapped 90% on the top grade (same rule isMaxedOut uses).
+  private async monsterTarget(subject: string, grade: number): Promise<number> {
+    const total = await this.prisma.eduQuestion.count({ where: { subject, grade, active: true } });
+    if (total === 0) return 0;
+    const nextHasContent = await this.prisma.eduQuestion.count({ where: { subject, grade: grade + 1, active: true } });
+    return nextHasContent > 0 ? promoteTarget(total) : topOfLadderTarget(total);
+  }
+
+  // Befriend every grade this kid has now mastered to its bar and doesn't have
+  // yet. `onlyGrades` limits the check to grades a session just touched;
+  // omitted, it checks the whole ladder (self-heals kids who crossed the bar
+  // before monsters were sticky). Returns the grades newly befriended.
+  private async syncMonsterFriends(userId: string, subject: string, onlyGrades?: number[]): Promise<number[]> {
+    const grades = onlyGrades ?? [0, 1, 2, 3, 4, 5, 6];
+    const have = await this.prisma.eduMonsterFriend.findMany({ where: { userId, subject, grade: { in: grades } }, select: { grade: true } });
+    const haveSet = new Set(have.map((h) => h.grade));
+    const fresh: number[] = [];
+    for (const grade of grades) {
+      if (haveSet.has(grade)) continue;
+      const target = await this.monsterTarget(subject, grade);
+      if (target <= 0) continue;
+      if ((await this.masteredCount(userId, subject, grade)) < target) continue;
+      // skipDuplicates + the count: two simultaneous finishes can't both claim it.
+      const made = await this.prisma.eduMonsterFriend.createMany({ data: [{ userId, subject, grade }], skipDuplicates: true });
+      if (made.count === 1) fresh.push(grade);
+    }
+    return fresh;
+  }
+
   private async owned(userId: string, id: string) {
     const s = await this.prisma.eduSession.findFirst({ where: { id, userId } });
     if (!s) throw new NotFoundException('Session not found');
     return s;
   }
 
-  async startSession(familyId: string, userId: string, subject: string) {
+  async startSession(familyId: string, userId: string, subject: string, huntGrade?: number | null) {
     await assertFeatureEnabled(this.prisma, familyId, 'learningGames');
     const subj = this.sanitizeSubject(subject);
 
@@ -550,7 +594,23 @@ export class LearningService {
     // grade they already passed lands here), at half pay. Only when even that
     // pool is empty is the subject truly done for now.
     let mode = 'NORMAL';
-    if (await this.isMaxedOut(subj, grade, userId)) {
+    // Monster Hunt: replay one grade BELOW the kid's current one to collect
+    // its monster. The session runs at that lower grade; `huntFrom` (their
+    // real grade then) is what sets how little it pays.
+    let huntFrom: number | undefined;
+    if (huntGrade !== undefined && huntGrade !== null) {
+      if (!Number.isInteger(huntGrade) || huntGrade < 0 || huntGrade >= grade) {
+        throw new BadRequestException('You can only hunt monsters from grades below the one you are in now.');
+      }
+      const inGrade = await this.prisma.eduQuestion.count({ where: { subject: subj, grade: huntGrade, active: true } });
+      if (inGrade === 0) throw new BadRequestException('No questions at that grade yet.');
+      if ((await this.masteredCount(userId, subj, huntGrade)) >= inGrade) {
+        throw new BadRequestException("You've already mastered every question at that grade!");
+      }
+      huntFrom = grade;
+      grade = huntGrade;
+      mode = 'HUNT';
+    } else if (await this.isMaxedOut(subj, grade, userId)) {
       if ((await this.reviewPoolCount(userId, subj, grade)) < 1) {
         throw new BadRequestException(`You've mastered every ${subj.toLowerCase()} question so far - more is coming once a higher grade is added!`);
       }
@@ -562,7 +622,9 @@ export class LearningService {
     // the end. dailySessionCap null (default) = no cap, every session
     // stays rewarded exactly like before this feature existed.
     const settings = await this.ensureSettings(familyId, userId);
-    const practiceOnly = settings.dailySessionCap != null && (await this.rewardedSessionsToday(userId, subj)) >= settings.dailySessionCap;
+    // Hunts neither use up nor are stopped by the daily rewarded-session cap
+    // (they pay next to nothing; the cap exists to limit real earnings).
+    const practiceOnly = mode !== 'HUNT' && settings.dailySessionCap != null && (await this.rewardedSessionsToday(userId, subj)) >= settings.dailySessionCap;
     const session = await this.prisma.eduSession.create({
       data: {
         userId,
@@ -571,7 +633,7 @@ export class LearningService {
         status: 'BLOCK_A',
         practiceOnly,
         mode,
-        presentedJson: { blockA: questions.map((q) => q.id) } as unknown as Prisma.InputJsonValue,
+        presentedJson: { blockA: questions.map((q) => q.id), ...(huntFrom !== undefined ? { huntFrom } : {}) } as unknown as Prisma.InputJsonValue,
       },
     });
     // Two start taps landing together would each create a session; keep only
@@ -593,6 +655,7 @@ export class LearningService {
       tokensAwarded: 0,
       practiceOnly,
       mode,
+      payPct: huntFrom !== undefined ? Math.round(huntPayFraction(huntFrom - grade) * 100) : undefined,
     };
   }
 
@@ -631,7 +694,7 @@ export class LearningService {
     practiceOnly: boolean;
     mode: string;
   }) {
-    const presented = (session.presentedJson as { blockA?: string[]; blockB?: string[] }) ?? {};
+    const presented = (session.presentedJson as { blockA?: string[]; blockB?: string[]; huntFrom?: number }) ?? {};
     const rounds = (session.roundsJson as unknown as EduRound[]) ?? [];
     const answeredIds = new Set(rounds.filter((r) => r.block === session.status).map((r) => r.questionId));
     const ids = session.status === 'BLOCK_A' ? (presented.blockA ?? []) : session.status === 'BLOCK_B' ? (presented.blockB ?? []) : [];
@@ -650,6 +713,7 @@ export class LearningService {
       tokensAwarded: session.tokensAwarded,
       practiceOnly: session.practiceOnly,
       mode: session.mode,
+      payPct: session.mode === 'HUNT' && typeof presented.huntFrom === 'number' ? Math.round(huntPayFraction(presented.huntFrom - session.grade) * 100) : undefined,
       correctSoFar: rounds.filter((r) => r.correct).length,
     };
   }
@@ -714,6 +778,12 @@ export class LearningService {
     const settings = await this.ensureSettings(familyId, userId);
     const buyer = await this.prisma.user.findUnique({ where: { id: userId }, select: { tokensDisabled: true } });
     const review = session.mode === 'REVIEW';
+    const hunt = session.mode === 'HUNT';
+    // Explore & Review and Monster Hunt both pay only at the end, on newly
+    // mastered questions, at a reduced rate, with no perfect-session bonus.
+    const reduced = review || hunt;
+    const huntFrom = (session.presentedJson as { huntFrom?: number } | null)?.huntFrom;
+    const reducedFraction = review ? REVIEW_PAY_FRACTION : huntPayFraction(typeof huntFrom === 'number' ? huntFrom - session.grade : 3);
     // This question's own share, for the live "N so far" counter - NOT
     // written to the ledger here. Real payout happens once, at DONE, below
     // (Casey's own instruction: finishing is what makes it real).
@@ -721,7 +791,7 @@ export class LearningService {
     // startSession, told to the kid before the first question, never a
     // surprise sprung here. Explore & Review pays only at the end (half rate
     // on NEWLY mastered questions, floored over the whole session).
-    const tokensAwarded = !review && correct && !buyer?.tokensDisabled && !session.practiceOnly ? settings.tokensPerCorrect : 0;
+    const tokensAwarded = !reduced && correct && !buyer?.tokensDisabled && !session.practiceOnly ? settings.tokensPerCorrect : 0;
     const blockCount = rounds.filter((r) => r.block === block).length;
 
     const conflict = () => new ConflictException('That answer was already received - give it a second and reload.');
@@ -734,9 +804,9 @@ export class LearningService {
       const correctCount = rounds.filter((r) => r.correct).length;
       const freshCorrect = rounds.filter((r) => r.fresh).length;
       const canPay = !buyer?.tokensDisabled && !session.practiceOnly;
-      const totalQuestionTokens = review
+      const totalQuestionTokens = reduced
         ? canPay
-          ? Math.floor(freshCorrect * settings.tokensPerCorrect * REVIEW_PAY_FRACTION)
+          ? Math.floor(freshCorrect * settings.tokensPerCorrect * reducedFraction)
           : 0
         : session.tokensAwarded + tokensAwarded;
       let bonusTokens = 0;
@@ -746,32 +816,19 @@ export class LearningService {
       // amount - rolling it anyway would let a "no payout today" session
       // still win a real prize off the pool, which is exactly the loophole
       // this whole feature exists to close. Review sessions never roll it.
-      if (allCorrect && !session.practiceOnly && !review) {
+      if (allCorrect && !session.practiceOnly && !reduced) {
         const result = this.draw(bonusPool);
         if (result.kind === 'PRIZE') bonusPrizeId = result.prizeId;
         else if (!buyer?.tokensDisabled) bonusTokens = result.amount;
       }
       const ledgerTotal = totalQuestionTokens + bonusTokens;
 
-      // A great session (8+ of 10 right) befriends this grade's monster the
-      // first time it happens for this subject+grade (see getProgress).
-      let befriended = false;
-      let alreadyFriend = false;
-      if (!review && correctCount >= BEFRIEND_MIN_CORRECT) {
-        const earlier = await this.prisma.eduSession.findMany({
-          where: { userId, subject: session.subject, grade: session.grade, status: 'DONE', mode: 'NORMAL', id: { not: session.id } },
-          select: { roundsJson: true },
-        });
-        alreadyFriend = earlier.some((e) => ((e.roundsJson as unknown as EduRound[]) ?? []).filter((r) => r.correct).length >= BEFRIEND_MIN_CORRECT);
-        befriended = !alreadyFriend;
-      }
-
       // Redemption Round: a rewarded session with EXACTLY one wrong answer
       // gets a one-question second chance at the perfect-session bonus. It
       // can only add (never take back anything already earned), and pays no
       // more than a genuinely perfect session would, so missing one on
       // purpose to unlock it is never worth it. See startRedemption.
-      const redemptionOffer = !review && !session.practiceOnly && !buyer?.tokensDisabled && rounds.length - correctCount === 1;
+      const redemptionOffer = !reduced && !session.practiceOnly && !buyer?.tokensDisabled && rounds.length - correctCount === 1;
 
       // One transaction: claim the answer (compare-and-swap on `rev`, so two
       // simultaneous submits can't both finish/pay the session), record it,
@@ -801,7 +858,9 @@ export class LearningService {
               delta: ledgerTotal,
               reason: review
                 ? `Learning games: ${session.subject} - Explore & Review (${correctCount}/${rounds.length} correct)`
-                : `Learning games: ${session.subject} - session complete (${correctCount}/${rounds.length} correct)${bonusTokens > 0 ? ', perfect bonus' : ''}`,
+                : hunt
+                  ? `Learning games: ${session.subject} - Monster Hunt (${correctCount}/${rounds.length} correct)`
+                  : `Learning games: ${session.subject} - session complete (${correctCount}/${rounds.length} correct)${bonusTokens > 0 ? ', perfect bonus' : ''}`,
               type: 'EDU_GAME',
               refId: session.id,
               createdById: userId,
@@ -811,7 +870,20 @@ export class LearningService {
         return true;
       });
       if (!done) throw conflict();
-      const promotedTo = await this.maybePromote(userId, session.subject, session.grade);
+      // A Monster Hunt replays a grade the kid already moved past - it never
+      // promotes (and maybePromote refuses to move anyone down regardless).
+      const promotedTo = hunt ? null : await this.maybePromote(userId, session.subject, session.grade);
+      // Monsters: any grade this session newly mastered to the bar (a normal
+      // session's catch-up questions can complete a lower grade too).
+      const freshIds = rounds.filter((r) => r.fresh).map((r) => r.questionId);
+      const touchedGrades = freshIds.length
+        ? [...new Set((await this.prisma.eduQuestion.findMany({ where: { id: { in: freshIds } }, select: { grade: true } })).map((q) => q.grade))]
+        : [];
+      const befriendedGrades = touchedGrades.length ? await this.syncMonsterFriends(userId, session.subject, touchedGrades) : [];
+      const befriended = befriendedGrades.includes(session.grade);
+      const alreadyFriend = !befriended && !!(await this.prisma.eduMonsterFriend.findUnique({ where: { userId_subject_grade: { userId, subject: session.subject, grade: session.grade } } }));
+      const monsterTarget = await this.monsterTarget(session.subject, session.grade);
+      const monsterMastered = await this.masteredCount(userId, session.subject, session.grade);
       this.displayEvents.publish(familyId, { type: 'tokens' });
       // tokensAwarded here is THIS question's own delta, same contract as
       // every other answer() call - the client accumulates it locally into
@@ -822,7 +894,7 @@ export class LearningService {
       return {
         correct,
         correctAnswer: question.answer,
-        tokensAwarded: review ? totalQuestionTokens : tokensAwarded,
+        tokensAwarded: reduced ? totalQuestionTokens : tokensAwarded,
         phase: 'DONE',
         allCorrect,
         bonusTokens,
@@ -832,7 +904,10 @@ export class LearningService {
         mode: session.mode,
         correctCount,
         befriended,
+        befriendedGrades,
         alreadyFriend,
+        monsterMastered,
+        monsterTarget,
         redemptionOffer,
       };
     }
@@ -1060,44 +1135,76 @@ export class LearningService {
       };
     });
 
-    return { userId: target.id, displayName: target.displayName, subjects, recentSessions, monsters: await this.getMonsters(targetUserId) };
+    const currentGrades = new Map<string, number>();
+    for (const s of SUBJECTS) currentGrades.set(s, gradeBySubject.get(s) ?? this.defaultGrade(target.birthday));
+    return { userId: target.id, displayName: target.displayName, subjects, recentSessions, monsters: await this.getMonsters(targetUserId, currentGrades) };
   }
 
   // The Monster Den: one monster per (subject, grade), derived entirely from
   // data that already exists - no table. Befriended = at least one finished
   // regular session at that subject+grade with 8+ of 10 right; its form
   // (stage 1-3) follows how much of that grade's bank is mastered.
-  private async getMonsters(userId: string) {
-    const [bankRows, progress, sessions] = await Promise.all([
+  private async getMonsters(userId: string, currentGrade: Map<string, number>) {
+    const [bankRows, progress, friendRows] = await Promise.all([
       this.prisma.eduQuestion.groupBy({ by: ['subject', 'grade'], where: { active: true }, _count: { _all: true } }),
       this.prisma.eduQuestionProgress.findMany({
         where: { userId, correct: true, question: { active: true } },
         select: { subject: true, grade: true },
       }),
-      this.prisma.eduSession.findMany({
-        where: { userId, status: 'DONE', mode: 'NORMAL' },
-        select: { subject: true, grade: true, roundsJson: true },
-      }),
+      this.prisma.eduMonsterFriend.findMany({ where: { userId }, select: { subject: true, grade: true } }),
     ]);
     const key = (s: string, g: number) => `${s}:${g}`;
     const bank = new Map(bankRows.map((r) => [key(r.subject, r.grade), r._count._all]));
     const masteredBy = new Map<string, number>();
     for (const p of progress) masteredBy.set(key(p.subject, p.grade), (masteredBy.get(key(p.subject, p.grade)) ?? 0) + 1);
-    const friends = new Set<string>();
-    for (const sess of sessions) {
-      const good = ((sess.roundsJson as unknown as EduRound[]) ?? []).filter((r) => r.correct).length;
-      if (good >= BEFRIEND_MIN_CORRECT) friends.add(key(sess.subject, sess.grade));
-    }
-    const out: { subject: string; grade: number; befriended: boolean; masteredPct: number }[] = [];
+    const friends = new Set(friendRows.map((f) => key(f.subject, f.grade)));
+    // Same bar as monsterTarget, from the counts already in hand.
+    const targetOf = (s: string, g: number) => {
+      const total = bank.get(key(s, g)) ?? 0;
+      return total === 0 ? 0 : (bank.get(key(s, g + 1)) ?? 0) > 0 ? promoteTarget(total) : topOfLadderTarget(total);
+    };
+    // Self-heal: anyone already past a grade's bar (e.g. before monsters were
+    // sticky) gets that monster on first look, with no celebration.
+    const missing: { userId: string; subject: string; grade: number }[] = [];
     for (const subject of SUBJECTS) {
+      for (let grade = 0; grade <= 6; grade++) {
+        const t = targetOf(subject, grade);
+        if (t > 0 && !friends.has(key(subject, grade)) && (masteredBy.get(key(subject, grade)) ?? 0) >= t) {
+          missing.push({ userId, subject, grade });
+          friends.add(key(subject, grade));
+        }
+      }
+    }
+    if (missing.length) await this.prisma.eduMonsterFriend.createMany({ data: missing, skipDuplicates: true });
+    const out: {
+      subject: string;
+      grade: number;
+      befriended: boolean;
+      masteredPct: number;
+      mastered: number;
+      target: number;
+      // 'now' = the grade they're playing, 'below' = can hunt it, 'above' = not reached yet
+      where: 'below' | 'now' | 'above';
+      huntPayPct: number; // meaningful when where === 'below'
+      huntable: boolean; // below their grade AND something left to master there
+    }[] = [];
+    for (const subject of SUBJECTS) {
+      const current = currentGrade.get(subject) ?? 0;
       for (let grade = 0; grade <= 6; grade++) {
         const total = bank.get(key(subject, grade)) ?? 0;
         if (!total) continue;
+        const mastered = masteredBy.get(key(subject, grade)) ?? 0;
+        const where = grade < current ? 'below' : grade === current ? 'now' : 'above';
         out.push({
           subject,
           grade,
           befriended: friends.has(key(subject, grade)),
-          masteredPct: Math.min(100, Math.round(((masteredBy.get(key(subject, grade)) ?? 0) / total) * 100)),
+          masteredPct: Math.min(100, Math.round((mastered / total) * 100)),
+          mastered,
+          target: targetOf(subject, grade),
+          where,
+          huntPayPct: Math.round(huntPayFraction(current - grade) * 100),
+          huntable: where === 'below' && mastered < total,
         });
       }
     }

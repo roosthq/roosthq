@@ -40,8 +40,8 @@ export class LearningController {
 
   // ---- Sessions (the current kiosk/app profile plays as themselves) ----
   @Post('sessions')
-  startSession(@CurrentUser() u: SessionPayload, @Body() body: { subject: string }) {
-    return this.learning.startSession(u.familyId, u.userId, body.subject);
+  startSession(@CurrentUser() u: SessionPayload, @Body() body: { subject: string; grade?: number }) {
+    return this.learning.startSession(u.familyId, u.userId, body.subject, typeof body.grade === 'number' ? body.grade : null);
   }
 
   @Post('sessions/:id/answer')
