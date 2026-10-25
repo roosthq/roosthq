@@ -829,6 +829,18 @@ export interface EduRedemptionResult {
   promotedTo: number | null;
 }
 
+export interface EduSticker {
+  subject: string;
+  grade: number;
+  earnedAt: string;
+}
+export interface EduStickerBook {
+  earned: number;
+  total: number;
+  stickers: EduSticker[]; // newest first
+  slots: { subject: string; grade: number }[];
+}
+
 export interface EduMonster {
   subject: EduSubject;
   grade: number;
@@ -2047,6 +2059,7 @@ export const api = {
   abandonLearningSession: (sessionId: string, kioskToken?: string) =>
     req<{ ok: true }>(`/learning/sessions/${sessionId}/abandon`, { method: 'POST' }, kioskToken),
   learningProgress: (userId: string, kioskToken?: string) => req<EduProgress>(`/learning/progress/${userId}`, {}, kioskToken),
+  learningStickers: (userId: string, kioskToken?: string) => req<EduStickerBook>(`/learning/stickers/${userId}`, {}, kioskToken),
   // ---- Question bank admin (owner-only) ----
   listEduQuestions: (
     filters: { subject?: EduSubject; grade?: number; type?: string; search?: string; activeOnly?: boolean },

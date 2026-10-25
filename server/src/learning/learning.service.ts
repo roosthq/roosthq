@@ -1139,6 +1139,32 @@ export class LearningService {
   // only (see that model's own comment), so "wrong" here means "wrong
   // right now", not "ever missed once" - a question gotten right since
   // drops off this list on its own.
+  // A kid's sticker collection: one sticker per befriended monster, newest
+  // first, plus every slot that can still be earned (a subject/grade with
+  // active questions) so the book can show the empty spaces. Same access rule
+  // as getProgress: your own, or any kid's if you're an adult.
+  async getStickers(familyId: string, actorId: string, targetUserId: string) {
+    if (actorId !== targetUserId) await this.assertAdult(actorId);
+    const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId }, select: { id: true } });
+    if (!target) throw new NotFoundException('Family member not found');
+    const [friends, bank] = await Promise.all([
+      this.prisma.eduMonsterFriend.findMany({ where: { userId: targetUserId }, orderBy: { befriendedAt: 'desc' } }),
+      this.prisma.eduQuestion.groupBy({ by: ['subject', 'grade'], where: { active: true } }),
+    ]);
+    const slots = bank
+      .map((b) => ({ subject: b.subject, grade: b.grade }))
+      .sort((a, b) => SUBJECTS.indexOf(a.subject as never) - SUBJECTS.indexOf(b.subject as never) || a.grade - b.grade);
+    // A sticker whose grade lost all its questions is still theirs: keep it counted.
+    const have = new Set(slots.map((s) => `${s.subject}:${s.grade}`));
+    for (const f of friends) if (!have.has(`${f.subject}:${f.grade}`)) slots.push({ subject: f.subject, grade: f.grade });
+    return {
+      earned: friends.length,
+      total: slots.length,
+      stickers: friends.map((f) => ({ subject: f.subject, grade: f.grade, earnedAt: f.befriendedAt })),
+      slots,
+    };
+  }
+
   async getProgress(familyId: string, actorId: string, targetUserId: string) {
     if (actorId !== targetUserId) await this.assertAdult(actorId);
     const target = await this.prisma.user.findFirst({ where: { id: targetUserId, familyId } });

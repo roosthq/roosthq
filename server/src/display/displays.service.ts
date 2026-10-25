@@ -8,6 +8,7 @@ import { ChoresService } from '../chores/chores.service';
 import { DEFAULT_TIMEZONE, addDaysToKey, endOfDayInZone, startOfDayInZone, todayKeyInZone, weekRangeInZone, type DateKey } from '../common/timezone';
 import { HOLIDAYS_CALENDAR_ID, HOLIDAYS_CALENDAR_NAME, HOLIDAYS_CALENDAR_COLOR } from '../holidays/holidays.service';
 import { isVisibleAtLocations } from '../calendars/calendar-visibility';
+import { isFeatureEnabled } from '../common/features';
 
 // Same synthetic entry CalendarsService.listShared appends - kept in sync
 // deliberately (both need the exact same id/name/color so a display's
@@ -219,6 +220,26 @@ export class DisplaysService {
   // before anyone's actually unlocked anything.
   balancesFor(familyId: string) {
     return this.chores.balances(familyId);
+  }
+
+  // Sticker counts + the three newest for the idle profile picker, family-wide,
+  // behind the same display-token rule as balancesFor. Empty when Learning
+  // Games is turned off, so the picker shows nothing for a feature that isn't on.
+  async stickersFor(familyId: string) {
+    if (!(await isFeatureEnabled(this.prisma, familyId, 'learningGames'))) return [];
+    const rows = await this.prisma.eduMonsterFriend.findMany({
+      where: { user: { familyId } },
+      orderBy: { befriendedAt: 'desc' },
+      select: { userId: true, subject: true, grade: true },
+    });
+    const byUser = new Map<string, { userId: string; count: number; recent: { subject: string; grade: number }[] }>();
+    for (const r of rows) {
+      const e = byUser.get(r.userId) ?? { userId: r.userId, count: 0, recent: [] };
+      e.count++;
+      if (e.recent.length < 3) e.recent.push({ subject: r.subject, grade: r.grade });
+      byUser.set(r.userId, e);
+    }
+    return [...byUser.values()];
   }
 
   // People assigned to a location (adults: one; kids: possibly several) - or the

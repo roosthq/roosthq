@@ -133,6 +133,13 @@ export class DisplayController {
     return this.displays.balancesFor(ctx.familyId);
   }
 
+  // Sticker counts for the idle picker (see DisplaysService.stickersFor).
+  @UseGuards(DisplayOrUserGuard)
+  @Get('stickers')
+  stickers(@FamilyCtx() ctx: FamilyContext) {
+    return this.displays.stickersFor(ctx.familyId);
+  }
+
   // Unlock a profile on the kiosk (PIN check), returns a short-lived kiosk token.
   // Rejects a profile that isn't in scope for this display's location, even if the
   // caller knows their userId - the picker isn't the only thing enforcing scope.

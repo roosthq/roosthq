@@ -36,6 +36,7 @@ import MiniGamesKidView from './MiniGamesKidView';
 import { PlaySession } from './pages/LearningGamesTab';
 import { SUBJECT_META, LearningProgressLoader, KidProgress } from './LearningProgress';
 import { MonsterDenLoader } from './MonsterDen';
+import { PickerStickers, StickerBookLoader, StickerShelf } from './StickerBook';
 import KioskAccountPanel from './KioskAccountPanel';
 import AddEventModal from './AddEventModal';
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
@@ -163,6 +164,8 @@ export default function Display() {
   const [learningGrade, setLearningGrade] = useState<number | undefined>(undefined);
   const [learningProgressOpen, setLearningProgressOpen] = useState(false);
   const [monsterDenOpen, setMonsterDenOpen] = useState(false);
+  const [stickerBookOpen, setStickerBookOpen] = useState(false);
+  const [pickerStickers, setPickerStickers] = useState<{ userId: string; count: number; recent: { subject: string; grade: number }[] }[]>([]);
   const [testPanelOpen, setTestPanelOpen] = useState(false);
   // #9 - its own button, not tucked inside My Stats (an extra step that
   // doesn't make sense when they can't get to My Stats' content anyway once
@@ -444,6 +447,7 @@ export default function Display() {
   const loadMembers = useCallback(() => {
     dget<Member[]>('/display/members').then(setMembers).catch(() => setMembers([]));
     dget<Balance[]>('/display/balances').then(setPickerBalances).catch(() => setPickerBalances([]));
+    dget<typeof pickerStickers>('/display/stickers').then(setPickerStickers).catch(() => setPickerStickers([]));
   }, []);
 
   useEffect(() => {
@@ -1106,6 +1110,11 @@ export default function Display() {
                     Switch / lock
                   </button>
                 </div>
+                {showLearningGames && !isAdult && (
+                  <div className="mt-2 shrink-0">
+                    <StickerShelf userId={active.user.id} kioskToken={active.token} refreshKey={learningSubject} onOpen={() => setStickerBookOpen(true)} />
+                  </div>
+                )}
                 <div className="mt-3 min-h-0 flex-1 space-y-4 overflow-y-auto" style={{ touchAction: 'pan-y' }}>
                   {/* Same things the main app's own pages give everyone -
                       rules and your own stats - reachable without switching
@@ -1261,6 +1270,10 @@ export default function Display() {
                           <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           {m.displayName}
                         </div>
+                        {showLearningGames && m.role === 'KID' && (() => {
+                          const st = pickerStickers.find((x) => x.userId === m.id);
+                          return st ? <PickerStickers count={st.count} recent={st.recent} /> : null;
+                        })()}
                         {/* Reserve this line's height for every row so rows stay aligned. */}
                         <div className="flex h-[14px] items-center gap-1 text-[10px] text-slate-400">
                           {grayed ? (
@@ -1488,6 +1501,11 @@ export default function Display() {
               setLearningSubject(s);
             }}
           />
+        </Modal>
+      )}
+      {stickerBookOpen && active && (
+        <Modal maxWidthClass="max-w-2xl" onBackdropClick={() => setStickerBookOpen(false)} header={<h3 className="text-lg font-semibold">🏷️ {active.user.displayName}'s Sticker Book</h3>}>
+          <StickerBookLoader userId={active.user.id} kioskToken={active.token} />
         </Modal>
       )}
       {learningProgressOpen && active && (

@@ -38,6 +38,12 @@ export class LearningController {
     return this.learning.getProgress(u.familyId, u.userId, userId);
   }
 
+  // ---- Sticker collection (your own, or anyone's if you're an adult) ----
+  @Get('stickers/:userId')
+  getStickers(@CurrentUser() u: SessionPayload, @Param('userId') userId: string) {
+    return this.learning.getStickers(u.familyId, u.userId, userId);
+  }
+
   // ---- Sessions (the current kiosk/app profile plays as themselves) ----
   @Post('sessions')
   startSession(@CurrentUser() u: SessionPayload, @Body() body: { subject: string; grade?: number }) {
