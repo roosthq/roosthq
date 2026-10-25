@@ -10,7 +10,7 @@ import type { EduSubject } from './api';
 // stylized takes, not copies of any franchise artwork.
 
 export type Archetype =
-  | 'blocky'
+  | 'zombie'
   | 'creeper'
   | 'tall'
   | 'blob'
@@ -63,7 +63,7 @@ const C = (name: string, arch: Archetype, body: string, accent: string, blurb: s
 // Indexed [subject][grade 0-6].
 export const MONSTERS: Record<EduSubject, MonsterDef[]> = {
   MATH: [
-    C('Zombie', 'blocky', '#6aa84f', '#3d6b2e', 'Slow, groany, and weirdly good at counting.'),
+    C('Zombie', 'zombie', '#6aa84f', '#3d6b2e', 'Slow, groany, and weirdly good at counting.'),
     C('Skeleton', 'skeleton', '#e8e6df', '#8c8a80', 'Bone-afide math whiz with a bow.'),
     C('Creeper', 'creeper', '#5cb85c', '#2f7a2f', 'Hisses when it gets close. Sssssolve it!'),
     C('Enderman', 'tall', '#1d1d26', '#b04dff', 'Teleports in whenever you say its name.'),
@@ -160,20 +160,33 @@ function Smile({ x, y, w = 24, teeth = false }: { x: number; y: number; w?: numb
 function Body({ m }: { m: MonsterDef }): ReactNode {
   const { body, accent } = m;
   switch (m.arch) {
-    case 'blocky':
+    case 'zombie':
+      // Minecraft-style zombie: green blocky head, cyan shirt, blue pants, arms stretched out.
       return (
         <g>
-          <rect x="62" y="108" width="76" height="62" rx="4" fill={body} stroke={INK} strokeWidth="3" />
-          <rect x="56" y="112" width="14" height="52" rx="3" fill={accent} stroke={INK} strokeWidth="3" />
-          <rect x="130" y="112" width="14" height="52" rx="3" fill={accent} stroke={INK} strokeWidth="3" />
-          <rect x="68" y="168" width="26" height="22" fill={accent} stroke={INK} strokeWidth="3" />
-          <rect x="106" y="168" width="26" height="22" fill={accent} stroke={INK} strokeWidth="3" />
-          <rect x="56" y="42" width="88" height="70" rx="4" fill={body} stroke={INK} strokeWidth="3" />
-          <rect x="72" y="62" width="16" height="16" fill={INK} />
-          <rect x="112" y="62" width="16" height="16" fill={INK} />
-          <rect x="84" y="88" width="32" height="10" fill={INK} />
-          <rect x="90" y="96" width="8" height="8" fill={INK} />
-          <rect x="102" y="96" width="8" height="8" fill={INK} />
+          <rect x="64" y="132" width="34" height="52" fill="#3b4a9c" stroke={INK} strokeWidth="3" />
+          <rect x="102" y="132" width="34" height="52" fill="#3b4a9c" stroke={INK} strokeWidth="3" />
+          <rect x="64" y="174" width="34" height="10" fill="#2c3678" stroke={INK} strokeWidth="3" />
+          <rect x="102" y="174" width="34" height="10" fill="#2c3678" stroke={INK} strokeWidth="3" />
+          <rect x="12" y="86" width="56" height="18" fill={body} stroke={INK} strokeWidth="3" />
+          <rect x="132" y="86" width="56" height="18" fill={body} stroke={INK} strokeWidth="3" />
+          <rect x="12" y="86" width="22" height="18" fill={accent} opacity="0.5" />
+          <rect x="166" y="86" width="22" height="18" fill={accent} opacity="0.5" />
+          <rect x="44" y="86" width="22" height="18" fill="#2fa3a8" stroke={INK} strokeWidth="3" />
+          <rect x="134" y="86" width="22" height="18" fill="#2fa3a8" stroke={INK} strokeWidth="3" />
+          <rect x="62" y="80" width="76" height="56" fill="#2fa3a8" stroke={INK} strokeWidth="3" />
+          <rect x="62" y="126" width="76" height="10" fill="#23888c" />
+          <rect x="62" y="80" width="76" height="8" fill="#23888c" />
+          <rect x="56" y="22" width="88" height="62" fill={body} stroke={INK} strokeWidth="3" />
+          <rect x="56" y="22" width="88" height="12" fill={accent} opacity="0.55" />
+          <rect x="60" y="62" width="14" height="10" fill={accent} opacity="0.4" />
+          <rect x="124" y="40" width="16" height="12" fill={accent} opacity="0.4" />
+          <rect x="72" y="46" width="18" height="12" fill="#1a1d2e" />
+          <rect x="110" y="46" width="18" height="12" fill="#1a1d2e" />
+          <rect x="72" y="46" width="8" height="12" fill="#2a5d6b" />
+          <rect x="110" y="46" width="8" height="12" fill="#2a5d6b" />
+          <rect x="88" y="62" width="24" height="8" fill={accent} opacity="0.8" />
+          <rect x="82" y="72" width="36" height="8" fill={INK} />
         </g>
       );
     case 'creeper':
