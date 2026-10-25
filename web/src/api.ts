@@ -904,6 +904,8 @@ export interface EduQuestionRow {
   active: boolean;
   isCustom: boolean; // true = an owner added/edited it; false = original seed content
   answeredByCount: number; // >0 blocks a real delete - deactivate instead
+  hasPhoto?: boolean;
+  hasSound?: boolean;
 }
 
 export interface EduQuestionDetail {
@@ -929,7 +931,27 @@ export interface EduQuestionInput {
   choices?: string[];
   answer: string;
   acceptedAnswers?: string[];
+  // undefined = leave media as is (edit), null = remove it all.
+  media?: EduQuestionMediaInput | null;
   active?: boolean;
+}
+
+export interface EduQuestionMediaInput {
+  image?: string | null;
+  audio?: string | null;
+  alt?: string | null;
+  choiceImages?: string[] | null;
+  choiceAlts?: string[] | null;
+}
+
+export interface EduMediaUpload {
+  id: string;
+  kind: 'IMAGE' | 'AUDIO';
+  path: string; // store this in the question's media ("api/learning/media/<id>")
+  bytes: number;
+  width: number | null;
+  height: number | null;
+  durationMs: number | null;
 }
 
 export interface AwardCatalogItem {
@@ -2040,6 +2062,8 @@ export const api = {
     req<Array<{ id: string; subject: EduSubject; grade: number; type: EduQuestionType; prompt: string; answer: string; kidsStuck: number; mostAttempts: number }>>(
       '/learning/questions-health',
     ),
+  uploadEduMedia: (kind: 'IMAGE' | 'AUDIO', dataUri: string) =>
+    req<EduMediaUpload>('/learning/media', { method: 'POST', body: JSON.stringify({ kind, dataUri }) }),
   getEduQuestion: (id: string) => req<EduQuestionDetail>(`/learning/questions/${id}`),
   createEduQuestion: (dto: EduQuestionInput) => req<EduQuestionDetail>('/learning/questions', { method: 'POST', body: JSON.stringify(dto) }),
   updateEduQuestion: (id: string, dto: Partial<EduQuestionInput>) =>

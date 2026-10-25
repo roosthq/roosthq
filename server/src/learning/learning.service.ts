@@ -6,6 +6,7 @@ import { assertFeatureEnabled } from '../common/features';
 import { DEFAULT_TIMEZONE, todayKeyInZone, startOfDayInZone } from '../common/timezone';
 import { paginate, parsePageParams } from '../common/pagination';
 import type { PoolEntry } from '../reward-games/reward-games.service';
+import { MEDIA_SPEC, customMediaId, customMediaPath, decodeDataUri, isStaticMediaPath, parseImage, parseWav } from './media-validate';
 
 // Broad-strokes emoji detector (pictographs, emoticons, symbols, flags, the
 // variation-selector/ZWJ that stitch compound emoji together) - not a
@@ -15,16 +16,30 @@ import type { PoolEntry } from '../reward-games/reward-games.service';
 // multiple-choice option, never in something a kid has to type back).
 const EMOJI_RE = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F1E6}-\u{1F1FF}⭐❤️‍]/u;
 
+// Photo/sound attached to a question. Paths are either a built-in file
+// ("learning/img/lion.webp") or an uploaded one ("api/learning/media/<id>").
+export interface EduMediaInput {
+  image?: string | null;
+  audio?: string | null;
+  alt?: string | null;
+  choiceImages?: string[] | null; // IMAGE_CHOICE only, 2-4, one per choice letter
+  choiceAlts?: string[] | null;
+}
+
 export interface EduQuestionInput {
   subject: string;
   grade: number;
   type: 'MULTIPLE_CHOICE' | 'TEXT_INPUT' | 'IMAGE_CHOICE';
   prompt: string;
-  choices?: string[]; // MULTIPLE_CHOICE / IMAGE_CHOICE
+  choices?: string[]; // MULTIPLE_CHOICE (text) / IMAGE_CHOICE (derived letters)
   answer: string;
   acceptedAnswers?: string[]; // TEXT_INPUT only
+  // undefined = leave as is (on update), null = remove all media
+  media?: EduMediaInput | null;
   active?: boolean;
 }
+
+const CHOICE_LETTERS = ['A', 'B', 'C', 'D'];
 
 // Educational games (PLANNING.md §19) - a real knowledge quiz, right/wrong
 // checked server-side against EduQuestion.answer, never trusted from the
@@ -1279,6 +1294,17 @@ export class LearningService {
       return { subject, grade, type: input.type, prompt, answer, acceptedAnswers, active: input.active };
     }
 
+    // IMAGE_CHOICE: the choices ARE the letters on the pictures (A, B, ...),
+    // one per picture, and the answer is one of those letters.
+    if (input.type === 'IMAGE_CHOICE') {
+      const n = (input.media as EduMediaInput | null | undefined)?.choiceImages?.length ?? 0;
+      if (n < 2 || n > 4) throw new BadRequestException('A picture question needs 2 to 4 pictures');
+      const letters = CHOICE_LETTERS.slice(0, n);
+      const letter = answer.toUpperCase();
+      if (!letters.includes(letter)) throw new BadRequestException('Pick which picture is the correct one');
+      return { subject, grade, type: input.type, prompt, choices: letters, answer: letter, active: input.active };
+    }
+
     // MULTIPLE_CHOICE
     const choices = (input.choices ?? []).map((c) => (c ?? '').trim()).filter(Boolean);
     const deduped = [...new Set(choices.map((c) => this.normalizeAnswer(c)))];
@@ -1324,6 +1350,8 @@ export class LearningService {
         active: q.active,
         isCustom: q.createdById != null,
         answeredByCount: q._count.progress,
+        hasPhoto: !!(q.mediaJson as EduMediaInput | null)?.image || !!(q.mediaJson as EduMediaInput | null)?.choiceImages?.length,
+        hasSound: !!(q.mediaJson as EduMediaInput | null)?.audio,
       })),
       hasMore,
     };
@@ -1376,22 +1404,84 @@ export class LearningService {
     };
   }
 
+  // Checks every photo/sound path a question points at and returns the clean
+  // media object to store (null = none) plus the uploaded-media ids it uses.
+  // `keep` = paths the question already had, accepted as-is so editing the
+  // prompt of an old question never trips over its existing files.
+  private async cleanMedia(
+    type: EduQuestionInput['type'],
+    media: EduMediaInput | null | undefined,
+    questionId: string | null,
+    keep: Set<string>,
+  ): Promise<{ clean: Record<string, unknown> | null; customIds: string[] }> {
+    if (!media) {
+      if (type === 'IMAGE_CHOICE') throw new BadRequestException('A picture question needs 2 to 4 pictures');
+      return { clean: null, customIds: [] };
+    }
+    const customIds: string[] = [];
+    const check = async (path: unknown, kind: 'IMAGE' | 'AUDIO'): Promise<string> => {
+      if (typeof path !== 'string' || !path) throw new BadRequestException('Missing picture or sound');
+      // Uploaded files are always looked up and collected (even ones the
+      // question already had) so the orphan cleanup on update never deletes a
+      // file that is still in use.
+      const id = customMediaId(path);
+      if (!id) {
+        if (keep.has(path) || isStaticMediaPath(path, kind)) return path;
+        throw new BadRequestException('That picture or sound is not one we can use - upload it again');
+      }
+      const row = await this.prisma.eduMedia.findUnique({ where: { id }, select: { kind: true, questionId: true } });
+      if (!row || row.kind !== kind) throw new BadRequestException('That picture or sound is gone - upload it again');
+      if (row.questionId && row.questionId !== questionId) throw new BadRequestException('That upload already belongs to another question');
+      customIds.push(id);
+      return path;
+    };
+    const out: Record<string, unknown> = {};
+    if (media.image) {
+      out.image = await check(media.image, 'IMAGE');
+      const alt = (media.alt ?? '').trim().slice(0, 200);
+      if (!alt) throw new BadRequestException('Describe the picture in a few words (shown if it cannot load, and read aloud). Do not give away the answer.');
+      out.alt = alt;
+    } else if (media.alt?.trim()) {
+      out.alt = media.alt.trim().slice(0, 200);
+    }
+    if (media.audio) out.audio = await check(media.audio, 'AUDIO');
+    const imgs = Array.isArray(media.choiceImages) ? media.choiceImages : [];
+    if (type === 'IMAGE_CHOICE') {
+      if (imgs.length < 2 || imgs.length > 4) throw new BadRequestException('A picture question needs 2 to 4 pictures');
+      const checked: string[] = [];
+      for (const img of imgs) checked.push(await check(img, 'IMAGE'));
+      out.choiceImages = checked;
+      const alts = Array.isArray(media.choiceAlts) ? media.choiceAlts : [];
+      out.choiceAlts = imgs.map((_, i) => (alts[i] ?? '').toString().trim().slice(0, 120));
+    } else if (imgs.length) {
+      throw new BadRequestException('Picture answers only work on a picture question');
+    }
+    const clean = Object.keys(out).length ? out : null;
+    if (!clean && type === 'IMAGE_CHOICE') throw new BadRequestException('A picture question needs 2 to 4 pictures');
+    return { clean, customIds };
+  }
+
   async createQuestion(actorId: string, input: EduQuestionInput) {
     await this.assertOwner(actorId);
-    if (input.type === 'IMAGE_CHOICE') throw new BadRequestException('Picture questions are built by the media tooling, not this form.');
-    const dto = this.validateQuestionInput(input);
-    return this.prisma.eduQuestion.create({
-      data: {
-        subject: dto.subject,
-        grade: dto.grade,
-        type: dto.type,
-        prompt: dto.prompt,
-        choicesJson: dto.type === 'MULTIPLE_CHOICE' ? (dto.choices as unknown as Prisma.InputJsonValue) : undefined,
-        answer: dto.answer,
-        acceptedJson: dto.type === 'TEXT_INPUT' && dto.acceptedAnswers?.length ? (dto.acceptedAnswers as unknown as Prisma.InputJsonValue) : undefined,
-        active: dto.active ?? true,
-        createdById: actorId,
-      },
+    const media = await this.cleanMedia(input.type, input.media, null, new Set());
+    const dto = this.validateQuestionInput({ ...input, media: media.clean as EduMediaInput | null });
+    return this.prisma.$transaction(async (tx) => {
+      const q = await tx.eduQuestion.create({
+        data: {
+          subject: dto.subject,
+          grade: dto.grade,
+          type: dto.type,
+          prompt: dto.prompt,
+          choicesJson: dto.type === 'TEXT_INPUT' ? undefined : (dto.choices as unknown as Prisma.InputJsonValue),
+          answer: dto.answer,
+          acceptedJson: dto.type === 'TEXT_INPUT' && dto.acceptedAnswers?.length ? (dto.acceptedAnswers as unknown as Prisma.InputJsonValue) : undefined,
+          mediaJson: media.clean ? (media.clean as unknown as Prisma.InputJsonValue) : undefined,
+          active: dto.active ?? true,
+          createdById: actorId,
+        },
+      });
+      if (media.customIds.length) await tx.eduMedia.updateMany({ where: { id: { in: media.customIds } }, data: { questionId: q.id } });
+      return q;
     });
   }
 
@@ -1399,39 +1489,99 @@ export class LearningService {
     await this.assertOwner(actorId);
     const existing = await this.prisma.eduQuestion.findUnique({ where: { id } });
     if (!existing) throw new NotFoundException('Question not found');
+    const existingMedia = (existing.mediaJson as EduMediaInput | null) ?? null;
+    const type = (input.type ?? existing.type) as EduQuestionInput['type'];
+    const keep = new Set<string>([
+      ...(existingMedia?.image ? [existingMedia.image] : []),
+      ...(existingMedia?.audio ? [existingMedia.audio] : []),
+      ...(existingMedia?.choiceImages ?? []),
+    ]);
+    // undefined = media untouched by this edit; null/object = replace it.
+    const media = await this.cleanMedia(type, input.media === undefined ? existingMedia : input.media, id, keep);
     const merged: EduQuestionInput = {
       subject: input.subject ?? existing.subject,
       grade: input.grade ?? existing.grade,
-      type: (input.type ?? existing.type) as EduQuestionInput['type'],
+      type,
       prompt: input.prompt ?? existing.prompt,
       choices: input.choices ?? ((existing.choicesJson as string[] | null) ?? undefined),
       answer: input.answer ?? existing.answer,
       acceptedAnswers: input.acceptedAnswers ?? ((existing.acceptedJson as string[] | null) ?? undefined),
+      media: media.clean as EduMediaInput | null,
       active: input.active ?? existing.active,
     };
     const dto = this.validateQuestionInput(merged);
-    // Progress rows copy the question's subject/grade when first answered;
-    // moving a question must move its rows too or mastery counts drift.
-    if (dto.grade !== existing.grade || dto.subject !== existing.subject) {
-      await this.prisma.eduQuestionProgress.updateMany({ where: { questionId: id }, data: { grade: dto.grade, subject: dto.subject } });
-    }
-    return this.prisma.eduQuestion.update({
-      where: { id },
-      data: {
-        subject: dto.subject,
-        grade: dto.grade,
-        type: dto.type,
-        prompt: dto.prompt,
-        // media is never touched by an edit (photo/audio questions are built
-        // by the media pipeline, not this form) - and an IMAGE_CHOICE keeps its
-        // choices exactly as they are.
-        choicesJson:
-          dto.type === 'TEXT_INPUT' ? Prisma.JsonNull : (dto.choices as unknown as Prisma.InputJsonValue),
-        answer: dto.answer,
-        acceptedJson: dto.type === 'TEXT_INPUT' && dto.acceptedAnswers?.length ? (dto.acceptedAnswers as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
-        active: dto.active ?? existing.active,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      // Progress rows copy the question's subject/grade when first answered;
+      // moving a question must move its rows too or mastery counts drift.
+      if (dto.grade !== existing.grade || dto.subject !== existing.subject) {
+        await tx.eduQuestionProgress.updateMany({ where: { questionId: id }, data: { grade: dto.grade, subject: dto.subject } });
+      }
+      const q = await tx.eduQuestion.update({
+        where: { id },
+        data: {
+          subject: dto.subject,
+          grade: dto.grade,
+          type: dto.type,
+          prompt: dto.prompt,
+          choicesJson: dto.type === 'TEXT_INPUT' ? Prisma.JsonNull : (dto.choices as unknown as Prisma.InputJsonValue),
+          answer: dto.answer,
+          acceptedJson: dto.type === 'TEXT_INPUT' && dto.acceptedAnswers?.length ? (dto.acceptedAnswers as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
+          mediaJson: media.clean ? (media.clean as unknown as Prisma.InputJsonValue) : Prisma.JsonNull,
+          active: dto.active ?? existing.active,
+        },
+      });
+      // Uploads this question now uses are attached; any it no longer uses are
+      // deleted (nothing else can reference them).
+      if (media.customIds.length) await tx.eduMedia.updateMany({ where: { id: { in: media.customIds } }, data: { questionId: id } });
+      await tx.eduMedia.deleteMany({ where: { questionId: id, id: { notIn: media.customIds } } });
+      return q;
     });
+  }
+
+  // ---------------- Custom photos and sounds (owner uploads) ----------------
+
+  // The in-app editor crops/resizes pictures to exactly MEDIA_SPEC.image and
+  // re-encodes sounds to the canonical WAV; this re-checks the real bytes so a
+  // hand-rolled request can't store anything else.
+  async uploadMedia(actorId: string, dto: { kind: string; dataUri: string }) {
+    await this.assertOwner(actorId);
+    const kind = dto.kind === 'IMAGE' ? 'IMAGE' : dto.kind === 'AUDIO' ? 'AUDIO' : null;
+    if (!kind) throw new BadRequestException('Unknown upload type');
+    const buf = decodeDataUri(dto.dataUri, kind);
+    if (!buf || !buf.length) throw new BadRequestException('That file could not be read');
+    let data: { mime: string; width?: number; height?: number; durationMs?: number };
+    if (kind === 'IMAGE') {
+      const spec = MEDIA_SPEC.image;
+      if (buf.length > spec.maxBytes) throw new BadRequestException('That picture file is too big - use the editor so it can be shrunk');
+      const info = parseImage(buf);
+      if (!info) throw new BadRequestException('Pictures must be WebP, PNG or JPEG');
+      if (info.width !== spec.width || info.height !== spec.height) {
+        throw new BadRequestException(`Pictures must be exactly ${spec.width} x ${spec.height} - use the picture editor to crop it`);
+      }
+      data = { mime: info.mime, width: info.width, height: info.height };
+    } else {
+      const spec = MEDIA_SPEC.audio;
+      if (buf.length > spec.maxBytes) throw new BadRequestException('That sound is too long or big - keep it under 15 seconds');
+      const info = parseWav(buf);
+      if (!info) throw new BadRequestException('Sounds must be 44.1 kHz mono 16-bit WAV - use the sound editor to convert it');
+      if (info.durationMs < spec.minMs || info.durationMs > spec.maxMs) {
+        throw new BadRequestException(`Sounds must be between ${spec.minMs / 1000} and ${spec.maxMs / 1000} seconds`);
+      }
+      data = { mime: info.mime, durationMs: info.durationMs };
+    }
+    // Housekeeping: uploads never saved onto a question after 2 days.
+    await this.prisma.eduMedia.deleteMany({ where: { questionId: null, createdAt: { lt: new Date(Date.now() - 2 * 86_400_000) } } });
+    const row = await this.prisma.eduMedia.create({
+      data: { kind, mime: data.mime, data: buf, bytes: buf.length, width: data.width, height: data.height, durationMs: data.durationMs, createdById: actorId },
+      select: { id: true, kind: true, bytes: true, width: true, height: true, durationMs: true },
+    });
+    return { ...row, path: customMediaPath(row.id) };
+  }
+
+  async getMediaFile(id: string) {
+    const row = await this.prisma.eduMedia.findUnique({ where: { id }, select: { mime: true, data: true } });
+    if (!row) throw new NotFoundException('Not found');
+    return { mime: row.mime, data: Buffer.from(row.data) };
   }
 
   // A question with real answer history stays forever (deactivate instead -

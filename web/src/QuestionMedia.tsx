@@ -4,30 +4,40 @@ import type { EduQuestionMedia } from './api';
 // Photo and sound for a Learning question. Files live under web/public/learning
 // (credits in CREDITS.md there) and are referenced by site-relative path, so
 // they resolve the same on the app and the kiosk.
-const src = (p: string) => `/${p.replace(/^\/+/, '')}`;
+export const mediaSrc = (p: string) => `/${p.replace(/^\/+/, '')}`;
+const src = mediaSrc;
 
+// Every question picture is a 4:3 landscape (800 x 600 stored), shown in a box
+// of exactly that shape, so what an owner uploads is what the kid sees - nothing
+// stretched, nothing pushing the layout around. See the in-app media guide.
 export function QuestionPhoto({ media }: { media: EduQuestionMedia | null | undefined }) {
   if (!media?.image) return null;
   return (
-    <img
-      src={src(media.image)}
-      alt={media.alt ?? ''}
-      loading="eager"
-      className="mx-auto mb-3 max-h-56 w-full rounded-lg border object-cover"
-    />
+    <div className="mx-auto mb-3 aspect-[4/3] w-full max-w-xs overflow-hidden rounded-lg border bg-slate-100">
+      <img src={src(media.image)} alt={media.alt ?? ''} loading="eager" className="h-full w-full object-cover" />
+    </div>
   );
 }
 
 // A big, obvious "hear it" button; tries to play once on mount (works when the
 // kid's tap that started the question counts as the gesture, silently skipped
 // by the browser otherwise) and can always be replayed.
-export function QuestionAudio({ media, autoPlayKey }: { media: EduQuestionMedia | null | undefined; autoPlayKey: string }) {
+export function QuestionAudio({
+  media,
+  autoPlayKey,
+  noAutoPlay,
+}: {
+  media: EduQuestionMedia | null | undefined;
+  autoPlayKey: string;
+  // The editor's preview must never blast sound just because it re-rendered.
+  noAutoPlay?: boolean;
+}) {
   const ref = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
   useEffect(() => {
     setPlaying(false);
     const a = ref.current;
-    if (!a || !media?.audio) return;
+    if (!a || !media?.audio || noAutoPlay) return;
     a.currentTime = 0;
     a.play().catch(() => undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps

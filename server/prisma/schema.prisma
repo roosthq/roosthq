@@ -1295,6 +1295,8 @@ model EduQuestion {
   createdById String?
 
   progress EduQuestionProgress[]
+  // Custom photos/sounds an owner uploaded for this question (EduMedia).
+  media    EduMedia[]
 
   @@index([subject, grade])
 }
@@ -1322,6 +1324,32 @@ model EduQuestionProgress {
 
   @@id([userId, questionId])
   @@index([userId, subject, grade])
+}
+
+// An owner-uploaded photo or sound for a Learning question. The bytes live in
+// the DB (backed up with everything else, nothing extra to mount) and are
+// served at /api/learning/media/:id (unguessable id, no auth: <img>/<audio>
+// can't send the kiosk token). Only ever stored in ONE canonical shape - the
+// upload endpoint rejects anything that is not exactly the spec in
+// LearningMediaSpec - so a custom picture can never break a layout.
+// questionId null = uploaded but not saved onto a question yet (purged later).
+model EduMedia {
+  id         String   @id @default(cuid())
+  kind       String // IMAGE | AUDIO
+  mime       String
+  data       Bytes
+  bytes      Int
+  width      Int?
+  height     Int?
+  durationMs Int?
+  questionId String?
+  createdById String
+  createdAt  DateTime @default(now())
+
+  question EduQuestion? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
+  @@index([questionId, createdAt])
 }
 
 // A befriended Monster Den monster. Earned by mastering a grade's question

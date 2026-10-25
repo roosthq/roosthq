@@ -103,6 +103,13 @@ export class LearningController {
     return this.learning.getQuestion(u.userId, id);
   }
 
+  // Owner-only upload of a custom photo or sound (resized/encoded by the editor;
+  // re-validated byte by byte). Files are served by LearningMediaController.
+  @Post('media')
+  uploadMedia(@CurrentUser() u: SessionPayload, @Body() body: { kind: string; dataUri: string }) {
+    return this.learning.uploadMedia(u.userId, body);
+  }
+
   @Post('questions')
   createQuestion(@CurrentUser() u: SessionPayload, @Body() body: EduQuestionInput) {
     return this.learning.createQuestion(u.userId, body);

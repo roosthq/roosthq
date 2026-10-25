@@ -4,6 +4,8 @@ import { SUBJECT_META, GRADE_LABELS } from './LearningProgress';
 import { usePaginatedList } from './usePaginatedList';
 import { useDialog } from './Dialog';
 import Modal from './Modal';
+import { IMG_W, IMG_H, MediaGuide, PictureSlot, SoundSlot } from './LearningMediaTools';
+import { ImageChoices, QuestionAudio, QuestionPhoto } from './QuestionMedia';
 
 // A crude but practical emoji check, mirroring LearningService's own
 // EMOJI_RE exactly - only ever applied to a TEXT_INPUT answer (Casey's own
@@ -53,6 +55,8 @@ export default function LearningQuestionsPanel() {
         Instance-wide, same as Holidays - every family plays from this one bank. Tap a question to edit it; anything a kid's
         already answered can be deactivated but not deleted, so their history stays intact.
       </p>
+
+      <MediaGuide />
 
       {attention.length > 0 && (
         <details className="rounded-lg border p-2.5">
@@ -141,6 +145,8 @@ export default function LearningQuestionsPanel() {
                 {SUBJECT_META[q.subject].icon} {GRADE_LABELS[q.grade]}
               </span>
               <span className="min-w-0 flex-1 truncate">{q.prompt}</span>
+              {q.hasPhoto && <span className="shrink-0 text-xs" title="Has a picture">🖼️</span>}
+              {q.hasSound && <span className="shrink-0 text-xs" title="Has a sound">🔊</span>}
               <span className="shrink-0 text-xs text-slate-400">{TYPE_LABEL[q.type]}</span>
               {q.isCustom && <span className="shrink-0 text-xs font-medium text-slate-400">yours</span>}
               {!q.active && <span className="shrink-0 text-xs font-medium text-slate-400">inactive</span>}
@@ -173,6 +179,16 @@ export default function LearningQuestionsPanel() {
 }
 
 const EMPTY_CHOICES = ['', ''];
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+interface PicChoice {
+  path: string | null;
+  alt: string;
+}
+const EMPTY_PICS: PicChoice[] = [
+  { path: null, alt: '' },
+  { path: null, alt: '' },
+];
 
 function QuestionEditor({
   id,
@@ -196,8 +212,12 @@ function QuestionEditor({
   const [accepted, setAccepted] = useState('');
   const [prompt, setPrompt] = useState('');
   const [choices, setChoices] = useState<string[]>(EMPTY_CHOICES);
+  const [pics, setPics] = useState<PicChoice[]>(EMPTY_PICS);
   const [correctIdx, setCorrectIdx] = useState(0);
   const [answer, setAnswer] = useState('');
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [alt, setAlt] = useState('');
+  const [audio, setAudio] = useState<string | null>(null);
   const [active, setActive] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -213,7 +233,15 @@ function QuestionEditor({
       setType(q.type);
       setPrompt(q.prompt);
       setAccepted((q.acceptedAnswers ?? []).join(', '));
-      if (q.type === 'MULTIPLE_CHOICE' || q.type === 'IMAGE_CHOICE') {
+      setPhoto(q.media?.image ?? null);
+      setAlt(q.media?.alt ?? '');
+      setAudio(q.media?.audio ?? null);
+      if (q.type === 'IMAGE_CHOICE') {
+        const imgs = q.media?.choiceImages ?? [];
+        setPics(imgs.map((p, i) => ({ path: p, alt: q.media?.choiceAlts?.[i] ?? '' })));
+        const idx = LETTERS.indexOf(q.answer.trim().toUpperCase());
+        setCorrectIdx(idx >= 0 ? idx : 0);
+      } else if (q.type === 'MULTIPLE_CHOICE') {
         const cs = q.choices ?? EMPTY_CHOICES;
         setChoices(cs);
         const idx = cs.findIndex((c) => c.trim().toLowerCase() === q.answer.trim().toLowerCase());
@@ -232,6 +260,11 @@ function QuestionEditor({
   const answeredByCount = loaded?.answeredByCount ?? 0;
   const isNew = id === null;
 
+  function changeType(t: EduQuestionType) {
+    setType(t);
+    setCorrectIdx(0);
+  }
+
   function addChoice() {
     if (choices.length >= 6) return;
     setChoices([...choices, '']);
@@ -240,6 +273,16 @@ function QuestionEditor({
     if (choices.length <= 2) return;
     const next = choices.filter((_, idx) => idx !== i);
     setChoices(next);
+    if (correctIdx === i) setCorrectIdx(0);
+    else if (correctIdx > i) setCorrectIdx(correctIdx - 1);
+  }
+  function addPic() {
+    if (pics.length >= 4) return;
+    setPics([...pics, { path: null, alt: '' }]);
+  }
+  function removePic(i: number) {
+    if (pics.length <= 2) return;
+    setPics(pics.filter((_, idx) => idx !== i));
     if (correctIdx === i) setCorrectIdx(0);
     else if (correctIdx > i) setCorrectIdx(correctIdx - 1);
   }
@@ -254,14 +297,30 @@ function QuestionEditor({
   async function save() {
     setError(null);
     if (!prompt.trim()) return setError('Prompt is required');
+    if (photo && !alt.trim()) return setError('Describe the picture in a few words (without giving away the answer).');
+    if (type === 'IMAGE_CHOICE') {
+      if (pics.some((p) => !p.path)) return setError('Add a picture for every answer, or remove the empty ones.');
+      if (correctIdx >= pics.length) return setError('Pick which picture is correct.');
+    }
+    const media =
+      photo || audio || type === 'IMAGE_CHOICE'
+        ? {
+            image: photo,
+            alt: photo ? alt.trim() : null,
+            audio,
+            choiceImages: type === 'IMAGE_CHOICE' ? pics.map((p) => p.path as string) : null,
+            choiceAlts: type === 'IMAGE_CHOICE' ? pics.map((p) => p.alt.trim()) : null,
+          }
+        : null;
     const dto: EduQuestionInput = {
       subject,
       grade,
       type,
       prompt: prompt.trim(),
-      answer: type === 'TEXT_INPUT' ? answer : choices[correctIdx] ?? '',
-      choices: type === 'TEXT_INPUT' ? undefined : choices.map((c) => c.trim()).filter(Boolean),
+      answer: type === 'TEXT_INPUT' ? answer : type === 'IMAGE_CHOICE' ? LETTERS[correctIdx] : choices[correctIdx] ?? '',
+      choices: type === 'MULTIPLE_CHOICE' ? choices.map((c) => c.trim()).filter(Boolean) : undefined,
       acceptedAnswers: type === 'TEXT_INPUT' ? accepted.split(',').map((a) => a.trim()).filter(Boolean) : undefined,
+      media,
       active,
     };
     setBusy(true);
@@ -288,10 +347,17 @@ function QuestionEditor({
   }
 
   const input = 'mt-1 w-full min-w-0 rounded border px-2 py-1.5 text-sm';
+  const previewMedia = {
+    image: photo ?? undefined,
+    alt,
+    audio: audio ?? undefined,
+    choiceImages: type === 'IMAGE_CHOICE' ? pics.map((p) => p.path ?? '') : undefined,
+    choiceAlts: pics.map((p) => p.alt),
+  };
 
   return (
     <Modal
-      maxWidthClass="max-w-lg"
+      maxWidthClass="max-w-xl"
       onClose={onClose}
       header={<h3 className="text-lg font-semibold">{isNew ? 'Add question' : 'Edit question'}</h3>}
       footer={
@@ -345,56 +411,59 @@ function QuestionEditor({
             </label>
           </div>
 
-          {type === 'IMAGE_CHOICE' ? (
-            <p className="rounded border px-2.5 py-1.5 text-xs text-slate-500">
-              📷 Picture question. Its photos and sound can't be edited here - you can fix the prompt, change which picture is correct, or deactivate it.
-            </p>
-          ) : (
-          <label className="text-sm">
-            <span className="block text-xs text-slate-500">Type</span>
+          <div className="text-sm">
+            <span className="block text-xs text-slate-500">How kids answer</span>
             <div className="mt-1 flex rounded border p-0.5 text-sm">
-              {(['MULTIPLE_CHOICE', 'TEXT_INPUT'] as const).map((t) => (
+              {(['MULTIPLE_CHOICE', 'IMAGE_CHOICE', 'TEXT_INPUT'] as const).map((t) => (
                 <button
                   key={t}
                   type="button"
-                  onClick={() => setType(t)}
+                  onClick={() => changeType(t)}
                   className={`flex-1 rounded px-2 py-1.5 ${type === t ? 'bg-slate-800 text-white' : 'hover:bg-slate-50'}`}
                 >
                   {TYPE_LABEL[t]}
                 </button>
               ))}
             </div>
-          </label>
-          )}
+          </div>
 
           <label className="text-sm">
             <span className="block text-xs text-slate-500">Prompt - emoji welcome</span>
             <textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={2} className={input} />
           </label>
 
-          {type !== 'TEXT_INPUT' ? (
+          <div className="space-y-2 rounded-lg border p-2.5">
+            <span className="block text-xs font-semibold text-slate-600">Picture and sound for the question (both optional)</span>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <PictureSlot label="Question picture" path={photo} onChange={setPhoto} hint={`${IMG_W} x ${IMG_H}, 4:3 - see the guide above the list`} />
+                {photo && (
+                  <label className="mt-1.5 block text-xs text-slate-500">
+                    What is in the picture? (do not give away the answer)
+                    <input value={alt} onChange={(e) => setAlt(e.target.value)} maxLength={200} className={input} />
+                  </label>
+                )}
+              </div>
+              <SoundSlot path={audio} onChange={setAudio} />
+            </div>
+          </div>
+
+          {type === 'MULTIPLE_CHOICE' && (
             <div>
               <span className="block text-xs text-slate-500">Choices - pick the correct one, emoji welcome</span>
               <div className="mt-1 space-y-1.5">
                 {choices.map((c, i) => (
                   <div key={i} className="flex items-center gap-2">
-                    <input
-                      type="radio"
-                      name="correctChoice"
-                      checked={correctIdx === i}
-                      onChange={() => setCorrectIdx(i)}
-                      title="Correct answer"
-                    />
+                    <input type="radio" name="correctChoice" checked={correctIdx === i} onChange={() => setCorrectIdx(i)} title="Correct answer" />
                     <input
                       value={c}
                       onChange={(e) => setChoices(choices.map((x, idx) => (idx === i ? e.target.value : x)))}
-                      disabled={type === 'IMAGE_CHOICE'}
-                      className="min-w-0 flex-1 rounded border px-2 py-1.5 text-sm disabled:opacity-60"
+                      className="min-w-0 flex-1 rounded border px-2 py-1.5 text-sm"
                     />
                     <button
                       type="button"
                       onClick={() => removeChoice(i)}
-                      disabled={choices.length <= 2 || type === 'IMAGE_CHOICE'}
+                      disabled={choices.length <= 2}
                       className="shrink-0 rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600 disabled:opacity-30"
                       aria-label="Remove choice"
                     >
@@ -403,27 +472,91 @@ function QuestionEditor({
                   </div>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={addChoice}
-                disabled={choices.length >= 6 || type === 'IMAGE_CHOICE'}
-                className="mt-1.5 rounded border px-2 py-1 text-xs hover:bg-slate-50 disabled:opacity-40"
-              >
+              <button type="button" onClick={addChoice} disabled={choices.length >= 6} className="mt-1.5 rounded border px-2 py-1 text-xs hover:bg-slate-50 disabled:opacity-40">
                 + Add choice
               </button>
             </div>
-          ) : (
-            <label className="text-sm">
-              <span className="block text-xs text-slate-500">Written answer - no emoji, a kid has to type this back exactly</span>
-              <input value={answer} onChange={(e) => onAnswerChange(e.target.value)} className={input} />
-            </label>
           )}
+
+          {type === 'IMAGE_CHOICE' && (
+            <div>
+              <span className="block text-xs text-slate-500">Picture answers (2 to 4) - tick the correct one. Kids see them labelled A, B, C, D.</span>
+              <div className="mt-1 grid grid-cols-2 gap-3">
+                {pics.map((p, i) => (
+                  <div key={i} className="min-w-0 rounded-lg border p-2">
+                    <div className="mb-1 flex items-center justify-between gap-1">
+                      <label className="flex items-center gap-1.5 text-xs font-semibold">
+                        <input type="radio" name="correctPic" checked={correctIdx === i} onChange={() => setCorrectIdx(i)} />
+                        {LETTERS[i]} {correctIdx === i && <span className="font-normal text-green-600">correct</span>}
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => removePic(i)}
+                        disabled={pics.length <= 2}
+                        className="rounded p-0.5 text-xs text-slate-400 hover:bg-slate-100 disabled:opacity-30"
+                        aria-label={`Remove picture ${LETTERS[i]}`}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <PictureSlot
+                      label={`Picture ${LETTERS[i]}`}
+                      path={p.path}
+                      compact
+                      onChange={(path) => setPics(pics.map((x, idx) => (idx === i ? { ...x, path } : x)))}
+                    />
+                    <input
+                      value={p.alt}
+                      onChange={(e) => setPics(pics.map((x, idx) => (idx === i ? { ...x, alt: e.target.value } : x)))}
+                      placeholder="Short description"
+                      maxLength={120}
+                      className="mt-1 w-full min-w-0 rounded border px-2 py-1 text-xs"
+                    />
+                  </div>
+                ))}
+              </div>
+              <button type="button" onClick={addPic} disabled={pics.length >= 4} className="mt-1.5 rounded border px-2 py-1 text-xs hover:bg-slate-50 disabled:opacity-40">
+                + Add picture
+              </button>
+            </div>
+          )}
+
           {type === 'TEXT_INPUT' && (
-            <label className="text-sm">
-              <span className="block text-xs text-slate-500">Also accept (optional, comma separated) - e.g. "seven" for 7, or a plural</span>
-              <input value={accepted} onChange={(e) => setAccepted(e.target.value.replace(new RegExp(EMOJI_RE, 'gu'), ''))} className={input} />
-            </label>
+            <>
+              <label className="block text-sm">
+                <span className="block text-xs text-slate-500">Written answer - no emoji, a kid has to type this back exactly</span>
+                <input value={answer} onChange={(e) => onAnswerChange(e.target.value)} className={input} />
+              </label>
+              <label className="block text-sm">
+                <span className="block text-xs text-slate-500">Also accept (optional, comma separated) - e.g. "seven" for 7, or a plural</span>
+                <input value={accepted} onChange={(e) => setAccepted(e.target.value.replace(new RegExp(EMOJI_RE, 'gu'), ''))} className={input} />
+              </label>
+            </>
           )}
+
+          <div className="rounded-lg border bg-slate-50 p-2.5">
+            <span className="mb-2 block text-xs font-semibold text-slate-500">👀 Preview - what kids see</span>
+            <div className="mx-auto max-w-sm rounded-lg bg-white p-3 shadow-sm">
+              <QuestionPhoto media={previewMedia} />
+              <QuestionAudio media={previewMedia} autoPlayKey="preview" noAutoPlay />
+              <p className="text-base font-semibold">{prompt.trim() || 'Your question appears here'}</p>
+              <div className="mt-2">
+                {type === 'IMAGE_CHOICE' ? (
+                  <ImageChoices choices={LETTERS.slice(0, pics.length)} media={previewMedia} given="" onPick={() => undefined} />
+                ) : type === 'MULTIPLE_CHOICE' ? (
+                  <div className="flex flex-col gap-1.5">
+                    {choices.filter((c) => c.trim()).map((c, i) => (
+                      <span key={i} className="rounded-lg border px-3 py-2 text-sm">
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <span className="block rounded-lg border px-3 py-2 text-sm text-slate-400">Type your answer…</span>
+                )}
+              </div>
+            </div>
+          </div>
 
           <label className="flex items-center gap-1.5 text-sm text-slate-500">
             <input type="checkbox" checked={active} onChange={(e) => setActive(e.target.checked)} />
