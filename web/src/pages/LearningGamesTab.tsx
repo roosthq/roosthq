@@ -503,6 +503,12 @@ export function PlaySession({
     // startSession/presentedJson). Abandoning here would silently defeat
     // that: quit, restart, get a new roll, right back to the exploit this
     // was built to close.
+    // Exception: a Monster Hunt. Hunts pay only on first-time-correct
+    // answers, so re-rolling one gains nothing, and a kid backing out to
+    // try a different monster must not get the old hunt handed back.
+    if (session?.mode === 'HUNT') {
+      api.abandonLearningSession(session.sessionId, kioskToken).catch(() => undefined);
+    }
     if (onExit) onExit();
     else {
       setSession(null);

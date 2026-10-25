@@ -570,8 +570,26 @@ export class LearningService {
     // session that's aged past midnight gets closed out below instead, same
     // as the "nothing left to resume" cleanup right after this block.
     const dayStart = startOfDayInZone(todayKeyInZone(DEFAULT_TIMEZONE), DEFAULT_TIMEZONE);
+    // Hunts and normal play are separate lanes: a half-finished hunt must
+    // never be handed back to a kid who tapped a different hunt (or the
+    // regular Start), and an open regular block must not hijack a hunt tap.
+    // Only a session in the SAME lane (same hunt grade, or any non-hunt)
+    // resumes; any other open hunt for this subject is closed out here, so
+    // backing out of a hunt never leaves it stuck.
+    const wantHunt = huntGrade !== undefined && huntGrade !== null;
+    const laneWhere = wantHunt ? { mode: 'HUNT', grade: huntGrade as number } : { mode: { not: 'HUNT' } };
+    await this.prisma.eduSession.updateMany({
+      where: {
+        userId,
+        subject: subj,
+        mode: 'HUNT',
+        status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] },
+        ...(wantHunt ? { grade: { not: huntGrade as number } } : {}),
+      },
+      data: { status: 'ABANDONED', finishedAt: new Date() },
+    });
     const inFlight = await this.prisma.eduSession.findFirst({
-      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { gte: dayStart } },
+      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { gte: dayStart }, ...laneWhere },
       orderBy: { startedAt: 'desc' },
     });
     const stale = await this.prisma.eduSession.findMany({
@@ -654,7 +672,7 @@ export class LearningService {
     // Two start taps landing together would each create a session; keep only
     // the earliest one for this subject and hand that back to both.
     const live = await this.prisma.eduSession.findMany({
-      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { gte: dayStart } },
+      where: { userId, subject: subj, status: { in: ['BLOCK_A', 'BREAK', 'BLOCK_B'] }, startedAt: { gte: dayStart }, ...laneWhere },
       orderBy: [{ startedAt: 'asc' }, { id: 'asc' }],
     });
     if (live.length > 1 && live[0].id !== session.id) {
