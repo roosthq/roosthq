@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
+import { memo, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 import type { CalEvent } from './api';
 import Modal from './Modal';
 import useNarrowViewport from './useNarrowViewport';
@@ -109,7 +109,7 @@ function Avatar({ name, src, size = 'sm' }: { name?: string; src?: string; size?
 type ViewRange = 'month' | '2week' | '1week';
 const RANGE_DAYS: Record<ViewRange, number> = { month: 42, '2week': 14, '1week': 7 };
 
-export default function Calendar({
+function Calendar({
   events,
   onRangeChange,
   onAddEvent,
@@ -785,3 +785,5 @@ export default function Calendar({
     </section>
   );
 }
+
+export default memo(Calendar);

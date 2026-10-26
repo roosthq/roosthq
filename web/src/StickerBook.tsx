@@ -103,17 +103,9 @@ export function StickerShelf({ userId, kioskToken, refreshKey, onOpen }: { userI
   );
 }
 
-// Tiny version for the tap-your-photo picker rows.
-export function PickerStickers({ count, recent }: { count: number; recent: { subject: string; grade: number }[] }) {
+// Just a count for the tap-your-photo picker rows: the sub-line is 14px tall,
+// so real stickers don't fit, and keeping it text-only is cheaper to paint.
+export function PickerStickers({ count }: { count: number }) {
   if (!count) return null;
-  return (
-    <span className="flex items-center gap-1" title={`${count} stickers`}>
-      <span className="flex -space-x-1.5">
-        {recent.map((s) => (
-          <MonsterSticker key={`${s.subject}${s.grade}`} subject={s.subject as EduSubject} grade={s.grade} stage={2} size={20} />
-        ))}
-      </span>
-      <span className="text-[10px] text-slate-400">{count}</span>
-    </span>
-  );
+  return <span title={`${count} stickers`}>🏷️ {count}</span>;
 }

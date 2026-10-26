@@ -1285,3 +1285,60 @@ select option {
     animation: none;
   }
 }
+
+/* ---- Kiosk performance pass ----------------------------------------------
+   The Pi repaints these on every scroll/tap: a gradient on every white
+   surface, 2-layer 32px-blur shadows, a mask-composite ring per card, a
+   viewport-fixed body gradient, and transitions everywhere. Flat fills and one
+   small shadow look nearly identical on a wall display and paint far cheaper.
+   Scoped to .kiosk-page (set by Display.tsx) so the app is untouched. */
+.kiosk-page body {
+  background: var(--bg);
+}
+.kiosk-mode .bg-white,
+.kiosk-mode .panel {
+  background: var(--surface) !important;
+}
+.kiosk-mode .card-nested {
+  background: var(--surface-raised) !important;
+}
+.kiosk-mode .card-tinted {
+  background: var(--card-tint) !important;
+}
+.kiosk-mode .panel,
+.kiosk-mode .card-nested,
+.kiosk-mode .card-tinted,
+.kiosk-mode .bg-slate-800 {
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-tint) 22%, transparent) !important;
+}
+.kiosk-mode .bg-slate-800 {
+  background: var(--accent) !important;
+}
+.kiosk-mode .panel::before,
+.kiosk-mode .card-nested::before,
+.kiosk-mode .card-tinted::before {
+  display: none;
+}
+.kiosk-mode *,
+.kiosk-mode *::before,
+.kiosk-mode *::after {
+  transition: none !important;
+}
+.kiosk-mode .hover\:bg-slate-700:hover,
+.kiosk-mode .hover\:bg-slate-700:active {
+  transform: none;
+}
+
+/* Two-column card flow for the person-focused kiosk layout: cards stack into
+   whichever column has room instead of every row being as tall as its tallest
+   card (which left a big blank under shorter cards). */
+.kiosk-masonry > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+@media (min-width: 1024px) {
+  .kiosk-masonry {
+    column-count: 2;
+    column-gap: 1rem;
+  }
+}

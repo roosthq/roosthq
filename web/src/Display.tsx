@@ -103,6 +103,10 @@ export default function Display() {
   // instead of a media query.
   useEffect(() => {
     if (navigator.maxTouchPoints > 0) document.documentElement.classList.add('touch-device');
+    // Lets index.css swap the big gradients/blurred shadows for flat ones on
+    // the kiosk (a Pi paints those on every scroll/tap), without touching the app.
+    document.documentElement.classList.add('kiosk-page');
+    return () => document.documentElement.classList.remove('kiosk-page');
   }, []);
 
   const [members, setMembers] = useState<Member[]>([]);
@@ -269,10 +273,20 @@ export default function Display() {
   // Header clock - the date next to it was previously a one-shot
   // `new Date()` at render time, which never advances on its own since
   // nothing else re-renders this component every minute.
+  // Only minutes are ever shown, so tick once a minute, right after the minute
+  // rolls over. A 1s tick re-rendered this whole component (calendar, chores,
+  // prizes...) 60x as often for no visible change - the main source of kiosk lag.
   const [now, setNow] = useState(new Date());
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
+    let id: number;
+    const schedule = () => {
+      id = window.setTimeout(() => {
+        setNow(new Date());
+        schedule();
+      }, 60_000 - (Date.now() % 60_000) + 50);
+    };
+    schedule();
+    return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {
@@ -651,6 +665,24 @@ export default function Display() {
     setRange({ start: s, end: e });
     prefetchRangesRef.current = prefetch ?? [];
   }, []);
+
+  // Stable identities for everything handed to the memoized Calendar, so it
+  // only re-renders when its events/size actually change (not on every
+  // unrelated Display state change or clock tick).
+  const openAddEvent = useCallback((dateISO: string) => {
+    setPrefillDate(dateISO);
+    setAddingEvent(true);
+  }, []);
+  const openEditEvent = useCallback((e: CalEvent) => setEditingEvent(e), []);
+  const canEditCalendarEvent = useCallback((e: CalEvent) => addableCalendarIds.has(e.calendarId), [addableCalendarIds]);
+  const renderChoreExtra = useCallback(
+    (e: CalEvent) => {
+      const occ = choreEventsById.map.get(e.id);
+      if (!occ || !active) return null;
+      return <ChoreOccurrenceActions chore={occ.chore} instance={occ.instance} me={active.user} token={active.token} onChanged={refreshChores} />;
+    },
+    [choreEventsById, active, refreshChores],
+  );
 
   function selectProfile(m: Member) {
     if (m.hasPin || m.role !== 'KID') {
@@ -1062,31 +1094,12 @@ export default function Display() {
               events={allCalendarEvents}
               onRangeChange={onRangeChange}
               touchControls
-              onAddEvent={
-                active && !kioskPresenceBanner && addableCalendarOptions.length > 0
-                  ? (dateISO) => {
-                      setPrefillDate(dateISO);
-                      setAddingEvent(true);
-                    }
-                  : undefined
-              }
-              canEditEvent={(e) => addableCalendarIds.has(e.calendarId)}
-              onEditEvent={active && !kioskPresenceBanner ? (e) => setEditingEvent(e) : undefined}
+              onAddEvent={active && !kioskPresenceBanner && addableCalendarOptions.length > 0 ? openAddEvent : undefined}
+              canEditEvent={canEditCalendarEvent}
+              onEditEvent={active && !kioskPresenceBanner ? openEditEvent : undefined}
               size={!active ? 'normal' : personFocused ? 'mini' : 'compact'}
               fill
-              renderExtra={(e) => {
-                const occ = choreEventsById.map.get(e.id);
-                if (!occ || !active) return null;
-                return (
-                  <ChoreOccurrenceActions
-                    chore={occ.chore}
-                    instance={occ.instance}
-                    me={active.user}
-                    token={active.token}
-                    onChanged={refreshChores}
-                  />
-                );
-              }}
+              renderExtra={renderChoreExtra}
             />
           </div>
         )}
@@ -1167,7 +1180,7 @@ export default function Display() {
                       room for it; still stacked in the OTHER layout (the
                       calendar stays wide, this aside is a fixed 320px
                       column - too narrow for two of these side by side). */}
-                  <div className={personFocused ? 'grid grid-cols-1 gap-4 lg:grid-cols-2' : 'space-y-4'}>
+                  <div className={personFocused ? 'kiosk-masonry' : 'space-y-4'}>
                     {showChores && (
                       <ChoresPanel
                         me={active.user}
@@ -1270,10 +1283,6 @@ export default function Display() {
                           <LucideIcon name={ROLE_ICON[m.role]} slot={ROLE_SLOT[m.role]} size={14} />
                           {m.displayName}
                         </div>
-                        {showLearningGames && m.role === 'KID' && (() => {
-                          const st = pickerStickers.find((x) => x.userId === m.id);
-                          return st ? <PickerStickers count={st.count} recent={st.recent} /> : null;
-                        })()}
                         {/* Reserve this line's height for every row so rows stay aligned. */}
                         <div className="flex h-[14px] items-center gap-1 text-[10px] text-slate-400">
                           {grayed ? (
@@ -1286,6 +1295,7 @@ export default function Display() {
                               {m.presenceStatus === 'VACATION' ? 'On vacation' : away ? 'Away' : 'At another house'}
                             </>
                           ) : (m.hasPin || m.role !== 'KID') ? '🔒 PIN' : ''}
+                          {showLearningGames && m.role === 'KID' && !grayed && <PickerStickers count={pickerStickers.find((x) => x.userId === m.id)?.count ?? 0} />}
                         </div>
                       </span>
                       {!m.tokensDisabled && famOn('tokens') && (

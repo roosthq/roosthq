@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, memo } from 'react';
 import { kidPermissionEnabled, prizeClient, type Member, type StorePrize, type PrizeClient, type Redemption } from './api';
 import TokenBadge from './TokenBadge';
 import { TYPE_TAG, PrizeImage, PrizeDetailModal, PassCard, formatPassQuantity } from './Prize';
@@ -11,7 +11,7 @@ type Actor = { id: string; role: string; displayName: string };
 // Kiosk-only prize browsing + redeeming - adding/editing prizes stays on the
 // normal portal (adults use StorePage for that); this is deliberately a
 // read-and-redeem-only view for whoever's signed into the touch display.
-export default function PrizesPanel({
+function PrizesPanel({
   me,
   client: clientProp,
   refreshSignal,
@@ -265,3 +265,5 @@ export default function PrizesPanel({
     </section>
   );
 }
+
+export default memo(PrizesPanel);

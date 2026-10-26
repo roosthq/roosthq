@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode, memo } from 'react';
 import {
   api,
   choreClient,
@@ -157,7 +157,7 @@ function relativeDayLabel(d: Date): string {
 
 type Actor = { id: string; role: string; displayName: string };
 
-export default function ChoresPanel({
+function ChoresPanel({
   me,
   client: clientProp,
   variant = 'full',
@@ -2111,3 +2111,5 @@ function BonusModal({
     </Modal>
   );
 }
+
+export default memo(ChoresPanel);
