@@ -74,12 +74,12 @@ export class StreakFreezeService {
   // caller can put an exact "N left" count in its own notification text,
   // same as the per-chore bank's own notification does today.
   async consumeOne(userId: string, opts: { reason: string; refId?: string }): Promise<{ consumed: boolean; remaining: number }> {
+    // Conditional decrement, not read-then-write: two concurrent callers must
+    // never both spend the same freeze (or push the bank below zero).
+    const spent = await this.prisma.user.updateMany({ where: { id: userId, bonusStreakFreezes: { gt: 0 } }, data: { bonusStreakFreezes: { decrement: 1 } } });
     const member = await this.prisma.user.findUnique({ where: { id: userId }, select: { bonusStreakFreezes: true } });
-    const remaining = member?.bonusStreakFreezes ?? 0;
-    if (remaining <= 0) return { consumed: false, remaining: 0 };
-    const next = remaining - 1;
-    await this.prisma.user.update({ where: { id: userId }, data: { bonusStreakFreezes: next } });
+    if (spent.count === 0) return { consumed: false, remaining: member?.bonusStreakFreezes ?? 0 };
     await this.log(userId, -1, opts.reason, 'CHORE_USED', userId, opts.refId);
-    return { consumed: true, remaining: next };
+    return { consumed: true, remaining: member?.bonusStreakFreezes ?? 0 };
   }
 }

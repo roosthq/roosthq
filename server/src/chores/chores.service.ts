@@ -573,8 +573,17 @@ export class ChoresService {
       );
       excused = !present.some(Boolean);
     }
+    // Claim the instance atomically: sweepMissed (every chores list request)
+    // and pollDueDates (60s timer) can both load the same stale OPEN row, and
+    // both used to run the whole miss handling below - spending two streak
+    // freezes (and creating two "next" occurrences) for one missed day. Only
+    // the caller that actually flips OPEN -> MISSED/SKIPPED goes on.
+    const claimed = await this.prisma.choreInstance.updateMany({
+      where: { id: inst.id, status: 'OPEN' },
+      data: { status: excused ? 'SKIPPED' : 'MISSED', claimedByUserId: null },
+    });
+    if (claimed.count === 0) return;
     if (excused) {
-      await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'SKIPPED', claimedByUserId: null } });
       const recipients = inst.claimedByUserId ? [inst.claimedByUserId] : inst.chore.assignees.map((a) => a.userId);
       await Promise.all(
         recipients.map((uid) =>
@@ -593,12 +602,16 @@ export class ChoresService {
       this.displayEvents.publish(inst.chore.familyId, { type: 'chores' });
       return;
     }
-    // Clear the claim too - for an ANYONE chore, missing it shouldn't leave
-    // it stuck looking claimed by someone who didn't do it; the notify-the-
-    // claimant logic just below still reads the pre-update `inst` in memory,
-    // so this doesn't affect who gets told about the miss.
-    await this.prisma.choreInstance.update({ where: { id: inst.id }, data: { status: 'MISSED', claimedByUserId: null } });
-    if (inst.chore.currentStreak !== 0) {
+    // (The claim above also cleared claimedByUserId - for an ANYONE chore,
+    // missing it shouldn't leave it stuck looking claimed by someone who
+    // didn't do it; the notify-the-claimant logic just below still reads the
+    // pre-update `inst` in memory, so this doesn't affect who gets told.)
+    //
+    // `inst.chore` is a snapshot from before this sweep started - an earlier
+    // instance in the same sweep may already have spent this chore's freeze or
+    // reset its streak - so the freeze decisions use the chore's live values.
+    const live = await this.prisma.chore.findUnique({ where: { id: inst.choreId }, select: { currentStreak: true } });
+    if ((live?.currentStreak ?? 0) !== 0) {
       // A banked streak freeze absorbs the miss: the occurrence still counts
       // as missed (no reward), but the streak survives. Two banks, checked in
       // order: this chore's own (earned automatically at streak milestones),
@@ -607,11 +620,13 @@ export class ChoresService {
       // multi-assignee chore has no one obvious person to charge a personal
       // freeze to, so it skips straight to resetting if its own bank is dry.
       const freezeOn = await this.featureEnabled(inst.chore.familyId, 'streakFreeze');
-      if (freezeOn && inst.chore.streakFreezes > 0) {
-        await this.prisma.chore.update({
-          where: { id: inst.choreId },
-          data: { streakFreezes: { decrement: 1 } },
-        });
+      // Spend the chore's own freeze with a conditional decrement so the bank
+      // can never go below zero, whatever else is running.
+      const spentOwn =
+        freezeOn &&
+        (await this.prisma.chore.updateMany({ where: { id: inst.choreId, streakFreezes: { gt: 0 } }, data: { streakFreezes: { decrement: 1 } } })).count === 1;
+      if (spentOwn) {
+        const left = (await this.prisma.chore.findUnique({ where: { id: inst.choreId }, select: { streakFreezes: true } }))?.streakFreezes ?? 0;
         const protectees = inst.chore.assignees.map((a) => a.userId);
         await Promise.all(
           protectees.map((uid) =>
@@ -619,7 +634,7 @@ export class ChoresService {
               inst.chore.familyId,
               uid,
               'STREAK_BONUS',
-              `🧊 Streak freeze used on "${inst.chore.title}" - streak safe (${inst.chore.streakFreezes - 1} left).`,
+              `🧊 Streak freeze used on "${inst.chore.title}" - streak safe (${left} left).`,
               { link: '/chores', refId: inst.id },
             ),
           ),
