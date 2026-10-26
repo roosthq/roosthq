@@ -1,11 +1,12 @@
 import { DynamicIcon, type IconName } from 'lucide-react/dynamic';
-import { findIcon, type IconSetName } from './icons/catalog';
+import type { IconSetName } from './icons/catalog';
+import { iconInfo } from './icons/catalogIndex';
 import { useSlotPick } from './icons/settingsStore';
 
 const SET_TO_FOLDER: Record<string, string> = { NOTO: 'noto', TWEMOJI: 'twemoji', FLUENT_3D: 'fluent3d' };
 
 function renderInSet(key: string, set: string, size: number | string, className: string | undefined) {
-  const entry = findIcon(key);
+  const entry = iconInfo(key);
   if (set === 'LUCIDE' || !entry) {
     return <DynamicIcon name={(entry?.lucideFallback ?? key) as IconName} size={size} className={className} />;
   }
@@ -63,7 +64,7 @@ export default function LucideIcon({
   const slotPick = useSlotPick(slot);
   if (slotPick) return renderInSet(slotPick.iconKey, slotPick.iconSet, size, className);
 
-  if (findIcon(name)) return renderInSet(name, 'NOTO', size, className);
+  if (iconInfo(name)) return renderInSet(name, 'NOTO', size, className);
 
   return <DynamicIcon name={name as IconName} size={size} className={className} />;
 }

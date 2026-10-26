@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api, DATA_REFRESH_EVENT, type UnseenAward } from './api';
 import { fireworks } from './celebrate';
-import { AwardIcon } from './pages/AwardsPage';
+import { AwardIcon } from './AwardIcon';
 import TokenBadge from './TokenBadge';
 
 // How recently the person must have touched the screen for us to count them

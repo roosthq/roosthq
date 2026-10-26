@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { api, choreClient, familyFeatureEnabled, prizeClient, type Chore, type EarnedAward, type FamilySettings, type LedgerEntry } from './api';
 import Modal from './Modal';
 import LevelBadge from './LevelBadge';
-import { AwardIcon } from './pages/AwardsPage';
+import { AwardIcon } from './AwardIcon';
 import { celebrate } from './celebrate';
 import LucideIcon from './LucideIcon';
 import { formatTokenAmount } from './TokenBadge';

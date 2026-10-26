@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazyBoundary } from './lazyBoundary';
 import {
   api,
   BASE_URL,
@@ -27,32 +28,34 @@ import LevelBadge from './LevelBadge';
 import LucideIcon from './LucideIcon';
 import Calendar from './Calendar';
 import { celebrate, setCelebrationSound } from './celebrate';
-import KioskTestPanel from './KioskTestPanel';
+const KioskTestPanel = lazyBoundary(() => import('./KioskTestPanel'));
 import { setTokensBadgeEnabled, formatTokenAmount } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
 import ChoresPanel from './ChoresPanel';
-import PrizesPanel from './PrizesPanel';
-import MiniGamesKidView from './MiniGamesKidView';
-import { PlaySession } from './pages/LearningGamesTab';
+const PrizesPanel = lazyBoundary(() => import('./PrizesPanel'));
+const MiniGamesKidView = lazyBoundary(() => import('./MiniGamesKidView'));
+const PlaySession = lazyBoundary(() => import('./pages/LearningGamesTab').then((m) => ({ default: m.PlaySession })));
 import { SUBJECT_META, LearningProgressLoader, KidProgress } from './LearningProgress';
-import { MonsterDenLoader } from './MonsterDen';
+const MonsterDenLoader = lazyBoundary(() => import('./MonsterDen').then((m) => ({ default: m.MonsterDenLoader })));
 import { PickerStickers, StickerBookLoader, StickerShelf } from './StickerBook';
-import KioskAccountPanel from './KioskAccountPanel';
-import AddEventModal from './AddEventModal';
+const KioskAccountPanel = lazyBoundary(() => import('./KioskAccountPanel'));
+const AddEventModal = lazyBoundary(() => import('./AddEventModal'));
 import ChoreOccurrenceActions from './ChoreOccurrenceActions';
 import { projectChoreOccurrences, choreOccurrenceEvent, PERSON_COLORS } from './choreOccurrences';
 import Logo from './Logo';
-import { AwardForm, AwardIcon, GrantModal } from './pages/AwardsPage';
-import { PrizeForm } from './pages/StorePage';
+import { AwardIcon } from './AwardIcon';
+const AwardForm = lazyBoundary(() => import('./pages/AwardsPage').then((m) => ({ default: m.AwardForm })));
+const GrantModal = lazyBoundary(() => import('./pages/AwardsPage').then((m) => ({ default: m.GrantModal })));
+const PrizeForm = lazyBoundary(() => import('./pages/StorePage').then((m) => ({ default: m.PrizeForm })));
 import OnScreenKeyboard from './OnScreenKeyboard';
-import Screensaver from './Screensaver';
+const Screensaver = lazyBoundary(() => import('./Screensaver'));
 import PendingPanel from './PendingPanel';
-import TokenAdjustModal from './TokenAdjustModal';
-import DinnerWeekModal from './DinnerWeekModal';
-import KioskStatsModal from './KioskStatsModal';
+const TokenAdjustModal = lazyBoundary(() => import('./TokenAdjustModal'));
+const DinnerWeekModal = lazyBoundary(() => import('./DinnerWeekModal'));
+const KioskStatsModal = lazyBoundary(() => import('./KioskStatsModal'));
 import AwardCelebration from './AwardCelebration';
 import PresenceModal from './PresenceModal';
-import RulesPage from './pages/RulesPage';
+const RulesPage = lazyBoundary(() => import('./pages/RulesPage'));
 import Modal from './Modal';
 import { parseLocalDate, useWeather } from './useWeather';
 import { dget, dpost, dpatch, displayToken as token } from './displayApi';
@@ -440,11 +443,6 @@ export default function Display() {
       .catch(() => undefined);
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- refetch widgets on live-update pushes
-  useEffect(() => {
-    loadHousehold();
-  }, [dataRefreshSignal]);
-
   const loadConfig = useCallback(async () => {
     const c = await dget<ResolvedDisplayConfig>('/display/config');
     setConfig(c);
@@ -491,6 +489,46 @@ export default function Display() {
     let es: EventSource | null = null;
     let retryTimer: number | undefined;
 
+    // Pushes arrive in bursts (a miss-sweep marking six chores, a parent
+    // approving a stack, one game win = tokens + chores + prizes events in
+    // the same second) and each used to trigger its own full refetch -
+    // chores, balances, stickers, household, settings, sounds - which on a
+    // Pi meant a pile of overlapping requests and re-renders for one change.
+    // Collapse everything that lands inside one short window into a single
+    // pass: per kind of data, at most one refetch per window.
+    const dirty = { calendar: false, chores: false, household: false, config: false };
+    let flushTimer: number | undefined;
+    let lastHousehold = Date.now();
+    function flush() {
+      flushTimer = undefined;
+      if (stopped) return;
+      if (dirty.calendar) refreshEventsRef.current();
+      if (dirty.chores) {
+        refreshChores();
+        setDataRefreshSignal((n) => n + 1);
+        // The idle picker's token/level badges (pickerBalances) were only
+        // ever loaded once on mount or when locking an adult back out - a
+        // balance change pushed while the picker was already on screen (a
+        // sibling using another kiosk, or the main app) never showed up
+        // until one of those two triggers happened to fire again. Nothing to
+        // refresh while a profile is signed in (the picker isn't showing and
+        // lockIfAdult/Switch reload it on the way back).
+        if (!activeRef.current) loadMembers();
+      }
+      // Household widgets + feature switches ride along on chore/token pushes
+      // at most every 5 minutes - they have their own 'household' push for
+      // real changes, this just keeps feature-flag edits from going stale.
+      if (dirty.household || (dirty.chores && Date.now() - lastHousehold > 300_000)) {
+        lastHousehold = Date.now();
+        loadHousehold();
+      }
+      if (dirty.config) loadConfig().catch(() => undefined);
+      dirty.calendar = dirty.chores = dirty.household = dirty.config = false;
+    }
+    function schedule() {
+      if (flushTimer === undefined) flushTimer = window.setTimeout(flush, 400);
+    }
+
     function connect() {
       if (stopped) return;
       const streamUrl = `${BASE_URL}/display/stream${token ? `?token=${encodeURIComponent(token)}` : ''}`;
@@ -518,20 +556,11 @@ export default function Display() {
           // its only job is to keep this connection from going idle.
           return;
         }
-        if (type === 'calendar') {
-          refreshEventsRef.current();
-        } else if (type === 'chores' || type === 'prizes' || type === 'tokens') {
-          refreshChores();
-          setDataRefreshSignal((n) => n + 1);
-          // The idle picker's token/level badges (pickerBalances) were only
-          // ever loaded once on mount or when locking an adult back out - a
-          // balance change pushed while the picker was already on screen (a
-          // sibling using another kiosk, or the main app) never showed up
-          // until one of those two triggers happened to fire again.
-          loadMembers();
-        } else {
-          loadConfig().catch(() => undefined);
-        }
+        if (type === 'calendar') dirty.calendar = true;
+        else if (type === 'chores' || type === 'prizes' || type === 'tokens') dirty.chores = true;
+        else if (type === 'household') dirty.household = true;
+        else dirty.config = true;
+        schedule();
       };
       // The browser's own auto-retry only covers a mid-stream drop. Per spec,
       // if a *reconnect* attempt gets a non-2xx response (a 502 while the
@@ -554,9 +583,10 @@ export default function Display() {
     return () => {
       stopped = true;
       if (retryTimer) window.clearTimeout(retryTimer);
+      if (flushTimer !== undefined) window.clearTimeout(flushTimer);
       es?.close();
     };
-  }, [loadConfig, loadMembers, refreshChores]);
+  }, [loadConfig, loadMembers, loadHousehold, refreshChores]);
 
   // Paging months/weeks used to blink: Calendar.tsx's grid remounts (and its
   // slide-in animation plays) the instant the cursor changes - free, no

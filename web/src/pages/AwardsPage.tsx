@@ -11,6 +11,7 @@ import { AWARD_PACKS } from '../awardPacks';
 import { GAME_TYPES, GAME_TYPE_META, fakePreviewRoll } from '../rewardGames';
 import RewardRevealModal from '../RewardRevealModal';
 import LucideIcon from '../LucideIcon';
+import { AwardIcon } from '../AwardIcon';
 import { usePaginatedList } from '../usePaginatedList';
 import LoadMoreButton from '../LoadMoreButton';
 
@@ -18,10 +19,7 @@ import LoadMoreButton from '../LoadMoreButton';
 // render whichever one it is consistently wherever an award shows up.
 // `size` is a pixel dimension (not a Tailwind className - an SVG icon's
 // size isn't controlled by font-size the way the old emoji <span> was).
-export function AwardIcon({ icon, size = 24 }: { icon: string | null; size?: number }) {
-  if (icon?.startsWith('data:')) return <img src={icon} alt="" className="h-7 w-7 rounded object-cover" />;
-  return <LucideIcon name={icon || 'trophy'} size={size} />;
-}
+export { AwardIcon } from '../AwardIcon';
 
 // Square, fixed-size icons so the catalog and profile grids line up no
 // matter what someone uploads - center-crop to square, then downscale.
