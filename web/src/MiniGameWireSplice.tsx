@@ -81,6 +81,12 @@ export default function MiniGameWireSplice({
       const ly = pad + i * spacing;
       const l = document.createElement('div');
       l.style.cssText = `position:absolute;left:8%;top:${ly}px;width:26px;height:26px;border-radius:50%;background:${COLORS[i]};box-shadow:0 0 10px ${COLORS[i]};cursor:grab;transform:translate(-50%,-50%);touch-action:none;`;
+      // Invisible larger grab area around the visible 26px lead - easier to
+      // pick up with a finger. Only the pick-up target grows; the drop/connect
+      // radius (SNAP_R) is untouched.
+      const hit = document.createElement('div');
+      hit.style.cssText = 'position:absolute;left:50%;top:50%;width:56px;height:56px;transform:translate(-50%,-50%);border-radius:50%;touch-action:none;';
+      l.appendChild(hit);
       wrap.appendChild(l);
       leftPosts.push({ el: l, x: 0, y: ly, color: COLORS[i] });
     }

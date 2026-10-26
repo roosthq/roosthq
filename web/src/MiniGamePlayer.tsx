@@ -15,11 +15,14 @@ export default function MiniGamePlayer({
   kind,
   kioskToken,
   onDone,
+  onCancel,
 }: {
   session: MiniGamePlaySession;
   kind: 'grant' | 'purchase';
   kioskToken?: string;
   onDone: () => void;
+  // Backs out of the pre-Start screen only - nothing is committed until Start.
+  onCancel?: () => void;
 }) {
   const [phase, setPhase] = useState<'preview' | 'playing' | 'result'>(session.status === 'IN_PROGRESS' ? 'playing' : 'preview');
   const [result, setResult] = useState<Awaited<ReturnType<typeof api.playMiniGame>> | null>(null);
@@ -76,6 +79,11 @@ export default function MiniGamePlayer({
         >
           {starting ? 'Starting…' : 'Start'}
         </button>
+        {onCancel && (
+          <button onClick={onCancel} disabled={starting} className="rounded-lg border px-4 py-1.5 text-sm text-slate-600 disabled:opacity-50">
+            Not now
+          </button>
+        )}
         <p className="text-xs text-slate-400">Once you press Start, closing out or refreshing counts as a loss - no consolation.</p>
       </div>
     );

@@ -154,19 +154,25 @@ export default function MiniGamesKidView({ kioskToken, tokenIcon }: { kioskToken
     }
   }
 
-  if (playing) {
-    return (
-      <MiniGamePlayer
-        session={playing.session}
-        kind={playing.kind}
-        kioskToken={kioskToken}
-        onDone={() => {
-          setPlaying(null);
-          refresh();
-        }}
-      />
-    );
-  }
+  const player = playing && (
+    <MiniGamePlayer
+      session={playing.session}
+      kind={playing.kind}
+      kioskToken={kioskToken}
+      onCancel={() => setPlaying(null)}
+      onDone={() => {
+        setPlaying(null);
+        refresh();
+      }}
+    />
+  );
+
+  // Phone/web: the player replaces the list in place. Kiosk: it pops up as a
+  // fixed modal over the list instead - inline, a kid who hit Play while the
+  // Prizes panel was scrolled halfway started the game with part of it off
+  // screen and no way to see the whole stage. No close button on purpose:
+  // once Start is pressed, leaving counts as a loss.
+  if (playing && !kioskToken) return player;
 
   return (
     <div className="flex flex-col gap-6">
@@ -218,6 +224,8 @@ export default function MiniGamesKidView({ kioskToken, tokenIcon }: { kioskToken
           </ul>
         )}
       </div>
+
+      {playing && kioskToken && <Modal maxWidthClass="max-w-2xl">{player}</Modal>}
 
       {viewing && <GameDetailModal game={viewing} tokenIcon={tokenIcon} onClose={() => setViewing(null)} onBuy={buy} />}
     </div>
