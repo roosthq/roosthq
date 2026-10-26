@@ -50,7 +50,7 @@ export default function MiniGameWireSplice({
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', '100%');
     svg.setAttribute('height', '100%');
-    svg.style.cssText = 'position:absolute;inset:0;pointer-events:none;';
+    svg.style.cssText = 'position:absolute;inset:0;pointer-events:none;will-change:transform;';
     wrap.appendChild(svg);
     stage.appendChild(wrap);
 
@@ -92,8 +92,12 @@ export default function MiniGameWireSplice({
       wrap.appendChild(r);
       rightPosts.push({ el: r, x: 0, y: ry, color: colorIdx });
     }
+    // Layout reads are cached: getBoundingClientRect on every pointermove /
+    // post forces a synchronous layout, which is what made dragging feel
+    // sluggish on the Pi kiosk. Recomputed only when the stage resizes.
+    let rect = wrap.getBoundingClientRect();
     function positions() {
-      const rect = wrap.getBoundingClientRect();
+      rect = wrap.getBoundingClientRect();
       leftPosts.forEach((p) => {
         const b = p.el.getBoundingClientRect();
         p.x = b.left - rect.left + b.width / 2;
@@ -106,13 +110,19 @@ export default function MiniGameWireSplice({
       });
     }
 
-    const SEGS = 10;
+    positions();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(() => positions()) : null;
+    ro?.observe(wrap);
+
+    const SEGS = 8;
     const GRAVITY = 230;
     const DAMPING = 0.985;
     const SLACK = 1.05;
-    const ITER = 4;
+    const ITER = 3;
+    const SLEEP_ENERGY = 0.02; // px^2 summed over the rope per frame
+    const SLEEP_FRAMES = 15;
     type Pt = { x: number; y: number };
-    type Rope = { pts: Pt[]; prev: Pt[] };
+    type Rope = { pts: Pt[]; prev: Pt[]; still: number };
     const ropes: (Rope | null)[] = new Array(N).fill(null);
     const ropePaths: (SVGPathElement | null)[] = new Array(N).fill(null);
     function ropePath(i: number) {
@@ -137,21 +147,28 @@ export default function MiniGameWireSplice({
         pts.push(pt);
         prev.push({ x: pt.x, y: pt.y });
       }
-      return { pts, prev };
+      return { pts, prev, still: 0 };
     }
+    // Mutates points in place (no per-frame allocation - GC pauses show up as
+    // stutter on the Pi) and returns how much the rope moved this frame.
     function stepRope(rope: Rope, ax: number, ay: number, bx: number, by: number, dt: number) {
       const pts = rope.pts;
       const prev = rope.prev;
+      const g = GRAVITY * dt * dt;
       for (let k = 1; k < SEGS; k++) {
         const p = pts[k];
         const pp = prev[k];
         const vx = (p.x - pp.x) * DAMPING;
         const vy = (p.y - pp.y) * DAMPING;
-        prev[k] = { x: p.x, y: p.y };
-        pts[k] = { x: p.x + vx, y: p.y + vy + GRAVITY * dt * dt };
+        pp.x = p.x;
+        pp.y = p.y;
+        p.x += vx;
+        p.y += vy + g;
       }
-      pts[0] = { x: ax, y: ay };
-      pts[SEGS] = { x: bx, y: by };
+      pts[0].x = ax;
+      pts[0].y = ay;
+      pts[SEGS].x = bx;
+      pts[SEGS].y = by;
       const straight = Math.hypot(bx - ax, by - ay);
       const rest = (straight * SLACK) / SEGS;
       for (let iter = 0; iter < ITER; iter++) {
@@ -173,14 +190,23 @@ export default function MiniGameWireSplice({
             p2.y -= oy;
           }
         }
-        pts[0] = { x: ax, y: ay };
-        pts[SEGS] = { x: bx, y: by };
+        pts[0].x = ax;
+        pts[0].y = ay;
+        pts[SEGS].x = bx;
+        pts[SEGS].y = by;
       }
+      let energy = 0;
+      for (let k = 1; k < SEGS; k++) {
+        const ex = pts[k].x - prev[k].x;
+        const ey = pts[k].y - prev[k].y;
+        energy += ex * ex + ey * ey;
+      }
+      return energy;
     }
     function renderRope(i: number) {
       const pts = ropes[i]!.pts;
-      let d = `M ${pts[0].x} ${pts[0].y}`;
-      for (let k = 1; k <= SEGS; k++) d += ` L ${pts[k].x} ${pts[k].y}`;
+      let d = `M${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+      for (let k = 1; k <= SEGS; k++) d += `L${pts[k].x.toFixed(1)} ${pts[k].y.toFixed(1)}`;
       ropePath(i).setAttribute('d', d);
     }
 
@@ -189,13 +215,15 @@ export default function MiniGameWireSplice({
     let draggingIdx: number | null = null;
     let physRaf = 0;
     let physLast: number | null = null;
+    let lastSecs = -1;
     function physTick(ts: number) {
       if (done) return;
       if (physLast == null) physLast = ts;
       const dt = Math.min(0.032, (ts - physLast) / 1000);
       physLast = ts;
       for (let i = 0; i < N; i++) {
-        if (!ropes[i]) continue;
+        const rope = ropes[i];
+        if (!rope) continue;
         const ax = leftPosts[i].x;
         const ay = leftPosts[i].y;
         let bx: number, by: number;
@@ -207,12 +235,19 @@ export default function MiniGameWireSplice({
           bx = pointerX;
           by = pointerY;
         } else continue;
-        stepRope(ropes[i]!, ax, ay, bx, by, dt);
+        // A plugged-in wire that has stopped swinging costs nothing.
+        if (connected[i] && rope.still >= SLEEP_FRAMES) continue;
+        const energy = stepRope(rope, ax, ay, bx, by, dt);
+        rope.still = energy < SLEEP_ENERGY ? rope.still + 1 : 0;
         renderRope(i);
       }
       const remaining = Math.max(0, timeLimit - (performance.now() - startedAt) / 1000);
-      clock.textContent = Math.ceil(remaining) + 's';
-      clock.style.color = remaining < 6 ? '#ef5468' : '#8b90a4';
+      const secs = Math.ceil(remaining);
+      if (secs !== lastSecs) {
+        lastSecs = secs;
+        clock.textContent = secs + 's';
+        clock.style.color = remaining < 6 ? '#ef5468' : '#8b90a4';
+      }
       if (remaining <= 0) {
         finish(false);
         return;
@@ -229,21 +264,23 @@ export default function MiniGameWireSplice({
         pointerX = leftPosts[i].x;
         pointerY = leftPosts[i].y;
         if (!ropes[i]) ropes[i] = makeRope(leftPosts[i].x, leftPosts[i].y, pointerX, pointerY);
+        try {
+          wrap.setPointerCapture(e.pointerId);
+        } catch {
+          /* synthetic / already released pointer */
+        }
         gameSfx.click();
         e.preventDefault();
       };
     }
     function onMove(e: PointerEvent) {
       if (draggingIdx == null) return;
-      const rect = wrap.getBoundingClientRect();
       pointerX = e.clientX - rect.left;
       pointerY = e.clientY - rect.top;
     }
     function onUp(e: PointerEvent) {
       if (draggingIdx == null || done) return;
-      positions();
       const idx = draggingIdx;
-      const rect = wrap.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       let best: { el: HTMLDivElement; x: number; y: number; color: number } | null = null;
@@ -258,6 +295,7 @@ export default function MiniGameWireSplice({
       if (best && best.color === idx && !connected[idx]) {
         gameSfx.hit();
         connected[idx] = true;
+        ropes[idx]!.still = 0;
         best.el.style.background = COLORS[idx];
         if (connected.every(Boolean)) finish(true);
       } else {
@@ -270,11 +308,24 @@ export default function MiniGameWireSplice({
       }
       draggingIdx = null;
     }
+    function onCancel() {
+      if (draggingIdx == null) return;
+      const idx = draggingIdx;
+      ropes[idx] = null;
+      if (ropePaths[idx]) {
+        svg.removeChild(ropePaths[idx]!);
+        ropePaths[idx] = null;
+      }
+      draggingIdx = null;
+    }
     leftPosts.forEach((p, i) => p.el.addEventListener('pointerdown', onDown(i)));
     wrap.addEventListener('pointermove', onMove);
     wrap.addEventListener('pointerup', onUp);
+    wrap.addEventListener('pointercancel', onCancel);
 
     return () => {
+      ro?.disconnect();
+      wrap.removeEventListener('pointercancel', onCancel);
       wrap.removeEventListener('pointermove', onMove);
       wrap.removeEventListener('pointerup', onUp);
       if (physRaf) cancelAnimationFrame(physRaf);
