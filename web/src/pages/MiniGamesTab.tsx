@@ -805,12 +805,54 @@ function PurchaseLimitField({
   );
 }
 
+// The house Easy/Normal/Hard price + payout scale every new publish starts
+// from, so every game sits on the same economy. Taken from the hand-tuned
+// Pin & Tumbler listing (2026-10-26): Hard costs 3x Easy and pays ~6x, with a
+// small weighted chance of streak freezes alongside tokens. Only prices and
+// pools live here - each game's own knobs (steps, time, misses) still come
+// from the game, with `difficulty` set to the tier.
+const PUBLISH_TIER_SCALE: { label: string; difficulty: number; priceTokens: number; pool: PoolEntry[] }[] = [
+  {
+    label: 'Easy',
+    difficulty: 0,
+    priceTokens: 5,
+    pool: [
+      { kind: 'TOKENS', min: 6, max: 10, weight: 20 },
+      { kind: 'STREAK_FREEZE', min: 1, max: 2, weight: 10 },
+    ],
+  },
+  {
+    label: 'Normal',
+    difficulty: 1,
+    priceTokens: 10,
+    pool: [
+      { kind: 'TOKENS', min: 12, max: 20, weight: 20 },
+      { kind: 'STREAK_FREEZE', min: 2, max: 3, weight: 10 },
+    ],
+  },
+  {
+    label: 'Hard',
+    difficulty: 2,
+    priceTokens: 30,
+    pool: [
+      { kind: 'TOKENS', min: 35, max: 60, weight: 20 },
+      { kind: 'STREAK_FREEZE', min: 3, max: 4, weight: 10 },
+    ],
+  },
+];
+
 function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCatalogItem; prizes: StorePrize[]; onClose: () => void; onPublished: () => void }) {
-  const [tiers, setTiers] = useState<MiniGameTierInput[]>([
-    { label: 'Easy', priceTokens: 10, config: { ...game.configJson, difficulty: 0 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
-    { label: 'Normal', priceTokens: 20, config: { ...game.configJson, difficulty: 1 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
-    { label: 'Hard', priceTokens: 30, config: { ...game.configJson, difficulty: 2 }, pool: game.poolJson, loseTokenValue: game.loseTokenValue, partialCreditEnabled: game.partialCreditEnabled, partialCreditPerStep: game.partialCreditPerStep },
-  ]);
+  const [tiers, setTiers] = useState<MiniGameTierInput[]>(() =>
+    PUBLISH_TIER_SCALE.map((s) => ({
+      label: s.label,
+      priceTokens: s.priceTokens,
+      config: { ...game.configJson, difficulty: s.difficulty },
+      pool: s.pool.map((p) => ({ ...p })),
+      loseTokenValue: game.loseTokenValue,
+      partialCreditEnabled: game.partialCreditEnabled,
+      partialCreditPerStep: game.partialCreditPerStep,
+    })),
+  );
   const [limitCount, setLimitCount] = useState(1);
   const [limitPeriod, setLimitPeriod] = useState('DAY');
   const [saving, setSaving] = useState(false);
@@ -842,7 +884,7 @@ function PublishModal({ game, prizes, onClose, onPublished }: { game: MiniGameCa
       }
     >
       <div className="flex flex-col gap-4">
-        <p className="text-xs text-slate-400">Started with Easy/Normal/Hard - edit, remove, or add as many tiers as you want. Each has its own price, settings, pool, and consolation.</p>
+        <p className="text-xs text-slate-400">Started with Easy/Normal/Hard on the standard price and payout scale (same as Pin &amp; Tumbler) - edit, remove, or add as many tiers as you want. Each has its own price, settings, pool, and consolation.</p>
         <PurchaseLimitField count={limitCount} period={limitPeriod} onChangeCount={setLimitCount} onChangePeriod={setLimitPeriod} />
         <TierEditor gameType={game.gameType} tiers={tiers} onChange={setTiers} prizes={prizes} />
       </div>
