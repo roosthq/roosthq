@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { createHash } from 'crypto';
 import webpush from 'web-push';
 import { PrismaService } from '../prisma.service';
@@ -32,7 +32,30 @@ export class PushService {
     return createHash('sha256').update(endpoint).digest('hex');
   }
 
+  // The server POSTs to whatever endpoint is stored here, so it must be a real
+  // browser push service - not an internal address (db, updater, cloud
+  // metadata) a caller made up.
+  private assertPushEndpoint(endpoint: string) {
+    let url: URL;
+    try {
+      url = new URL(endpoint);
+    } catch {
+      throw new BadRequestException('Invalid push endpoint');
+    }
+    const host = url.hostname.toLowerCase();
+    const allowed =
+      url.protocol === 'https:' &&
+      (host === 'fcm.googleapis.com' ||
+        host === 'updates.push.services.mozilla.com' ||
+        host.endsWith('.push.services.mozilla.com') ||
+        host === 'web.push.apple.com' ||
+        host.endsWith('.push.apple.com') ||
+        host.endsWith('.notify.windows.com'));
+    if (!allowed) throw new BadRequestException('Unsupported push service');
+  }
+
   async subscribe(userId: string, sub: PushSubscriptionInput) {
+    this.assertPushEndpoint(sub.endpoint);
     const endpointHash = this.hash(sub.endpoint);
     await this.prisma.pushSubscription.upsert({
       where: { endpointHash },

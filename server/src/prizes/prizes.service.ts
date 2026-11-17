@@ -13,6 +13,17 @@ import { DisplayEventsService } from '../display/display-events.service';
 import { PresenceService } from '../presence/presence.service';
 import { DEFAULT_TIMEZONE, todayKeyInZone, dowOfKey, addDaysToKey, addMonthsToKey, startOfDayInZone } from '../common/timezone';
 
+// A prize link is rendered as <a href> for adults, and kids can suggest
+// prizes - so only plain http(s) links may be stored (never javascript: or
+// data: URLs, which would run script when an adult clicks "View product").
+function cleanUrl(url: string | null | undefined): string | null | undefined {
+  if (url === undefined || url === null) return url;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  if (!/^https?:\/\/[^\s]+$/i.test(trimmed)) throw new BadRequestException('Prize links must start with http:// or https://');
+  return trimmed;
+}
+
 export interface CropRect {
   x: number;
   y: number;
@@ -296,7 +307,7 @@ export class PrizesService {
         image: dto.image,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable interface here
         imageCrop: (dto.imageCrop ?? undefined) as any,
-        url: dto.url,
+        url: cleanUrl(dto.url),
         realPrice: dto.realPrice ?? null,
         tokenCost: dto.tokenCost ?? 0,
         type,
@@ -326,7 +337,7 @@ export class PrizesService {
         name: dto.name,
         description: dto.description,
         image: dto.image,
-        url: dto.url,
+        url: cleanUrl(dto.url),
         tokenCost: 0,
         scope: 'SPECIFIC',
         suggested: true,
@@ -361,7 +372,7 @@ export class PrizesService {
         ...(dto.image !== undefined && { image: dto.image }),
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Prisma's Json field type fights a plain nullable interface here
         ...(dto.imageCrop !== undefined && { imageCrop: dto.imageCrop as any }),
-        ...(dto.url !== undefined && { url: dto.url }),
+        ...(dto.url !== undefined && { url: cleanUrl(dto.url) }),
         ...(dto.realPrice !== undefined && { realPrice: dto.realPrice }),
         ...(dto.tokenCost !== undefined && { tokenCost: dto.tokenCost }),
         ...(dto.type !== undefined && { type: dto.type }),

@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { hashPin } from '../crypto/pin';
 import { AuditLogService } from '../security/audit-log.service';
@@ -104,6 +104,12 @@ export class UsersService {
     const isSelf = actorId === targetId;
     const allowed = isSelf || isFamilyManager(actor.role) || (actor.role === 'ADULT' && target.role === 'KID');
     if (!allowed) throw new ForbiddenException("Not allowed to manage this member's PIN");
+    // The owner PIN unlocks an owner session at the kiosk, so a family manager
+    // must not be able to set it (same rule setRole/remove already apply).
+    if (!isSelf && target.role === 'OWNER' && actor.role !== 'OWNER') {
+      throw new ForbiddenException('Only the owner can change the owner PIN');
+    }
+    if (pin && !/^\d{4,8}$/.test(pin)) throw new BadRequestException('A PIN must be 4 to 8 digits');
     if (pin && target.pinDisabled) throw new ForbiddenException('PINs are turned off for this kid - allow one first');
 
     await this.prisma.user.update({

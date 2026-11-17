@@ -945,6 +945,9 @@ export class ChoresService {
   async setClaim(familyId: string, actorId: string, instanceId: string, userId: string | null) {
     await this.assertAdult(actorId);
     await this.ownedInstance(familyId, instanceId);
+    if (userId && !(await this.prisma.user.findFirst({ where: { id: userId, familyId }, select: { id: true } }))) {
+      throw new NotFoundException('Member not found');
+    }
     const updated = await this.prisma.choreInstance.update({
       where: { id: instanceId },
       data: { claimedByUserId: userId },

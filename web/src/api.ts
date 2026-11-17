@@ -1485,7 +1485,8 @@ export const api = {
   me: () => req<Me>('/auth/me'),
   members: () => req<Member[]>('/auth/members'),
   logout: () => req<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
-  registerLocal: (body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string }) =>
+  setupStatus: () => req<{ needsSetup: boolean }>('/auth/setup'),
+  registerLocal: (body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string; setupCode?: string }) =>
     req<{ ok: boolean }>('/auth/local/register', { method: 'POST', body: JSON.stringify(body) }),
   loginLocal: (body: { identifier: string; password: string }) =>
     req<{ ok: boolean }>('/auth/local/login', { method: 'POST', body: JSON.stringify(body) }),

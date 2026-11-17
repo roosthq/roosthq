@@ -5,6 +5,7 @@
 // exclusively from `server` over the internal Docker network and gated by
 // a shared-secret bearer token on every request.
 const express = require('express');
+const crypto = require('crypto');
 const { execFile, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -28,8 +29,11 @@ const app = express();
 app.use(express.json());
 
 app.use((req, res, next) => {
-  const auth = req.headers.authorization || '';
-  if (auth !== `Bearer ${SHARED_SECRET}`) return res.status(401).json({ message: 'Unauthorized' });
+  const given = Buffer.from(req.headers.authorization || '');
+  const expected = Buffer.from(`Bearer ${SHARED_SECRET}`);
+  if (given.length !== expected.length || !crypto.timingSafeEqual(given, expected)) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
   next();
 });
 
@@ -78,7 +82,10 @@ async function latestTag(repoUrl) {
     .split('\n')
     .map((l) => l.split('\t'))
     .filter((p) => p.length === 2 && p[1].startsWith('refs/tags/') && !p[1].endsWith('^{}'))
-    .map((p) => p[1].slice('refs/tags/'.length));
+    .map((p) => p[1].slice('refs/tags/'.length))
+    // Release tags only (v1.2.3 / 1.2.3, optional -rc.1): a stray tag with any
+    // other name must never become "the latest release" and get built as root.
+    .filter((t) => /^v?\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$/.test(t));
   return tags.length ? tags[tags.length - 1] : null;
 }
 
@@ -151,7 +158,7 @@ async function runUpdate(channel, branch) {
   const snapshot = await snapshotDatabase();
 
   if (channel === 'latest') {
-    await execFileAsync('git', ['-C', REPO_PATH, 'fetch', 'origin', branch], { timeout: 60_000 });
+    await execFileAsync('git', ['-C', REPO_PATH, 'fetch', 'origin', '--', branch], { timeout: 60_000 });
     await execFileAsync('git', ['-C', REPO_PATH, 'reset', '--hard', `origin/${branch}`], { timeout: 30_000 });
   } else {
     const tag = await latestTag(REPO_URL);
@@ -193,6 +200,7 @@ app.post('/update', async (req, res) => {
   if (job.inProgress) return res.status(409).json({ message: 'An update is already in progress' });
   const channel = req.body?.channel === 'latest' ? 'latest' : 'stable';
   const branch = req.body?.branch || DEFAULT_BRANCH;
+  if (!/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(branch)) return res.status(400).json({ message: 'Invalid branch name' });
 
   let previousCommit;
   try {
@@ -218,7 +226,9 @@ app.post('/update', async (req, res) => {
 app.post('/rollback', async (req, res) => {
   if (job.inProgress) return res.status(409).json({ message: 'An update is already in progress' });
   const commit = req.body?.commit;
-  if (!commit) return res.status(400).json({ message: 'commit is required' });
+  if (typeof commit !== 'string' || !/^[0-9a-f]{40}$/.test(commit)) {
+    return res.status(400).json({ message: 'commit must be a full 40-character commit hash' });
+  }
 
   job = { inProgress: true, lastResult: null, lastRanAt: new Date().toISOString() };
   res.json({ started: true });

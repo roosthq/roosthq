@@ -15,17 +15,20 @@ export class LocationsController {
   }
 
   @Post()
-  create(@CurrentUser() u: SessionPayload, @Body() body: { name: string }) {
+  async create(@CurrentUser() u: SessionPayload, @Body() body: { name: string }) {
+    await this.locations.assertAdult(u.userId);
     return this.locations.create(u.familyId, body.name);
   }
 
   @Patch(':id')
-  update(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { name?: string; timezone?: string }) {
+  async update(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { name?: string; timezone?: string }) {
+    await this.locations.assertAdult(u.userId);
     return this.locations.update(u.familyId, id, body);
   }
 
   @Delete(':id')
-  remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+  async remove(@CurrentUser() u: SessionPayload, @Param('id') id: string) {
+    await this.locations.assertAdult(u.userId);
     return this.locations.remove(u.familyId, id);
   }
 
@@ -35,12 +38,14 @@ export class LocationsController {
   }
 
   @Post(':id/assign')
-  assign(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { userId: string }) {
+  async assign(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Body() body: { userId: string }) {
+    await this.locations.assertAdult(u.userId);
     return this.locations.assign(u.familyId, id, body.userId);
   }
 
   @Delete(':id/users/:userId')
-  unassign(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Param('userId') userId: string) {
+  async unassign(@CurrentUser() u: SessionPayload, @Param('id') id: string, @Param('userId') userId: string) {
+    await this.locations.assertAdult(u.userId);
     return this.locations.unassign(u.familyId, id, userId);
   }
 }

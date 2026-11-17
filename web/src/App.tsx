@@ -42,6 +42,9 @@ export default function App() {
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [locations, setLocations] = useState<FamilyLocation[] | null>(null);
   const [loading, setLoading] = useState(true);
+  // Brand-new instance: the first account (the owner) needs a setup code from the server log.
+  const [needsSetup, setNeedsSetup] = useState(false);
+  const [setupCode, setSetupCode] = useState('');
   // #9 - nudge a real (non-ghosted) login to confirm where they are, once per
   // day - stale by calendar date is good enough for a reminder; it doesn't
   // need family-timezone precision the way a chore due-date does.
@@ -97,6 +100,7 @@ export default function App() {
 
   useEffect(() => {
     loadMe();
+    api.setupStatus().then((s) => setNeedsSetup(s.needsSetup)).catch(() => undefined);
   }, []);
 
   async function logout() {
@@ -165,7 +169,12 @@ export default function App() {
     const invite = params.get('invite');
     const resetToken = params.get('resetToken');
     const needInvite = params.get('auth') === 'need_invite';
-    const href = invite ? `${loginUrl}?invite=${encodeURIComponent(invite)}` : loginUrl;
+    const showSetup = needsSetup && !invite && !resetToken;
+    const href = invite
+      ? `${loginUrl}?invite=${encodeURIComponent(invite)}`
+      : showSetup
+        ? `${loginUrl}?setup=${encodeURIComponent(setupCode.trim())}`
+        : loginUrl;
     return (
       <Centered>
         <Logo size={64} />
@@ -176,14 +185,38 @@ export default function App() {
             That account isn&apos;t part of a family yet. Ask the family owner to send you an invite link.
           </p>
         )}
+        {showSetup && (
+          <div className="mt-2 w-full max-w-xs space-y-1 rounded-lg border p-3 text-left">
+            <p className="text-sm font-semibold">First-time setup</p>
+            <p className="text-xs text-slate-500">
+              Create the owner account. Enter the setup code from your server&apos;s log (run{' '}
+              <code className="rounded bg-slate-100 px-1">docker compose logs server | grep &quot;SETUP CODE&quot;</code>).
+            </p>
+            <input
+              className="w-full rounded-lg border px-3 py-2 font-mono text-sm uppercase"
+              placeholder="XXXX-XXXX-XXXX"
+              value={setupCode}
+              onChange={(e) => setSetupCode(e.target.value)}
+              autoComplete="off"
+            />
+          </div>
+        )}
         {!resetToken && (
-          <a href={href} className="mt-4 rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700">
+          <a
+            href={href}
+            aria-disabled={showSetup && !setupCode.trim()}
+            onClick={(e) => {
+              if (showSetup && !setupCode.trim()) e.preventDefault();
+            }}
+            className={`mt-4 rounded-lg bg-slate-800 px-5 py-2.5 font-medium text-white hover:bg-slate-700 ${showSetup && !setupCode.trim() ? 'pointer-events-none opacity-50' : ''}`}
+          >
             {invite ? 'Sign in with Google to join' : 'Sign in with Google'}
           </a>
         )}
         <LocalAuthForm
           inviteToken={invite}
           resetToken={resetToken}
+          setupCode={showSetup ? setupCode.trim() : undefined}
           onLoggedIn={() => {
             setLoading(true);
             loadMe();

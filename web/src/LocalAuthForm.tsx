@@ -11,10 +11,13 @@ const input = 'w-full rounded-lg border px-3 py-2 text-sm';
 export default function LocalAuthForm({
   inviteToken,
   resetToken,
+  setupCode,
   onLoggedIn,
 }: {
   inviteToken?: string | null;
   resetToken?: string | null;
+  // First-run only: the code from the server log (see App.tsx).
+  setupCode?: string;
   onLoggedIn: () => void;
 }) {
   const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login');
@@ -86,7 +89,7 @@ export default function LocalAuthForm({
       }
       if (mode === 'register') {
         if (password !== confirm) return setError("Passwords don't match");
-        await api.registerLocal({ displayName, email: email || undefined, username: username || undefined, password, inviteToken: inviteToken || undefined });
+        await api.registerLocal({ displayName, email: email || undefined, username: username || undefined, password, inviteToken: inviteToken || undefined, setupCode: setupCode || undefined });
       } else {
         await api.loginLocal({ identifier, password });
       }

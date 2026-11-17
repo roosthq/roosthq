@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { createHash, randomBytes } from 'crypto';
+import { BadRequestException, ForbiddenException, Injectable, Logger, OnModuleInit, UnauthorizedException } from '@nestjs/common';
+import { createHash, randomBytes, timingSafeEqual } from 'crypto';
 import { PrismaService } from '../prisma.service';
 import { GoogleService } from '../google/google.service';
 import { InvitesService } from '../invites/invites.service';
@@ -40,10 +40,22 @@ export interface LocalRegisterInput {
   username?: string;
   password: string;
   inviteToken?: string;
+  // First-run only: the code printed in the server log (see claimFirstFamily).
+  setupCode?: string;
+}
+
+const DUMMY_PASSWORD_HASH = hashPassword('not-a-real-password-timing-equalizer');
+
+function normalizeCode(code: string | undefined): string {
+  return (code ?? '').replace(/[\s-]/g, '').toUpperCase();
 }
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
+  private readonly logger = new Logger(AuthService.name);
+  private setupCodeValue: string | null = null;
+  private bootstrapLock: Promise<void> = Promise.resolve();
+
   constructor(
     private prisma: PrismaService,
     private google: GoogleService,
@@ -51,6 +63,61 @@ export class AuthService {
     private email: EmailService,
     private notifications: NotificationsService,
   ) {}
+
+  // A brand-new instance has no owner yet, and "first visitor becomes the
+  // owner" is a race anyone who finds the URL can win (the owner role reaches
+  // instance-wide powers, including the updater). So creating the very first
+  // family requires a setup code that only someone with access to the server's
+  // logs (or its .env, via SETUP_CODE) can read.
+  async needsSetup(): Promise<boolean> {
+    return (await this.prisma.family.count()) === 0;
+  }
+
+  private setupCode(): string {
+    if (process.env.SETUP_CODE) return process.env.SETUP_CODE;
+    if (!this.setupCodeValue) {
+      const hex = randomBytes(6).toString('hex').toUpperCase();
+      this.setupCodeValue = `${hex.slice(0, 4)}-${hex.slice(4, 8)}-${hex.slice(8, 12)}`;
+    }
+    return this.setupCodeValue;
+  }
+
+  async onModuleInit() {
+    if (await this.needsSetup().catch(() => false)) {
+      this.logger.warn(`FIRST-TIME SETUP: open the app and create the owner account with this SETUP CODE: ${this.setupCode()}`);
+    }
+  }
+
+  // Runs `create` only if the code matches AND nobody has claimed the instance
+  // yet. Serialized in-process (one server instance) so two simultaneous
+  // first-run requests can't both become owner.
+  private async claimFirstFamily<T>(code: string | undefined, create: () => Promise<T>): Promise<T | null> {
+    const previous = this.bootstrapLock;
+    let release!: () => void;
+    this.bootstrapLock = new Promise<void>((r) => (release = r));
+    await previous;
+    try {
+      if (!(await this.needsSetup())) return null;
+      const expected = Buffer.from(normalizeCode(this.setupCode()));
+      const given = Buffer.from(normalizeCode(code));
+      if (given.length !== expected.length || !timingSafeEqual(given, expected)) {
+        throw new ForbiddenException(
+          'First-time setup needs the setup code from your server logs (run: docker compose logs server | grep "SETUP CODE").',
+        );
+      }
+      return await create();
+    } finally {
+      release();
+    }
+  }
+
+  // Signed-in adults only: kids must never be able to add (or become) adults.
+  private async assertAdultSession(userId: string | undefined, familyId: string | undefined) {
+    const actor = userId ? await this.prisma.user.findUnique({ where: { id: userId } }) : null;
+    if (!actor || actor.familyId !== familyId || !['OWNER', 'FAMILY_MANAGER', 'ADULT'].includes(actor.role)) {
+      throw new ForbiddenException('Only an adult can add a family member');
+    }
+  }
 
   // "🎉 {name} joined the family!" to everyone already there - all roles,
   // kids included (NotificationsService.notifyFamily), whenever an invite
@@ -82,7 +149,7 @@ export class AuthService {
   //  - not signed in            -> create a new family with this account as OWNER
   async handleGoogleCallback(
     code: string,
-    ctx: { userId?: string; familyId?: string; mode?: 'self' | 'member'; inviteToken?: string },
+    ctx: { userId?: string; familyId?: string; mode?: 'self' | 'member'; inviteToken?: string; setupCode?: string },
   ): Promise<CallbackResult> {
     const { tokens, profile } = await this.google.exchangeCode(code);
     const googleSub = profile.id as string;
@@ -160,6 +227,7 @@ export class AuthService {
 
     // Owner adding a member in-browser (kept as a convenience; added as ADULT).
     if (ctx.familyId && ctx.mode === 'member') {
+      await this.assertAdultSession(ctx.userId, ctx.familyId);
       const user = await this.prisma.user.create({
         data: {
           familyId: ctx.familyId,
@@ -179,8 +247,7 @@ export class AuthService {
 
     // No invite, no session. The very first login bootstraps the family (owner);
     // after that, joining requires an invite.
-    const familyCount = await this.prisma.family.count();
-    if (familyCount === 0) {
+    const claimed = await this.claimFirstFamily<CallbackResult>(ctx.setupCode, async () => {
       const family = await this.prisma.family.create({
         data: { name: `${name}'s Family`, disabledFeatures: defaultDisabledFeatures() },
       });
@@ -191,7 +258,8 @@ export class AuthService {
         data: { userId: user.id, googleSub, email, picture: avatar, tokensEncrypted: encTokens },
       });
       return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
-    }
+    });
+    if (claimed) return claimed;
 
     // Unknown account, no invite: do not create anything.
     return { status: 'need_invite' };
@@ -239,8 +307,7 @@ export class AuthService {
       return { status: 'ok', userId: user.id, familyId: invite.familyId, linkedMember: false };
     }
 
-    const familyCount = await this.prisma.family.count();
-    if (familyCount === 0) {
+    const claimed = await this.claimFirstFamily<CallbackResult>(input.setupCode, async () => {
       const family = await this.prisma.family.create({
         data: { name: `${input.displayName}'s Family`, disabledFeatures: defaultDisabledFeatures() },
       });
@@ -257,7 +324,8 @@ export class AuthService {
         },
       });
       return { status: 'ok', userId: user.id, familyId: family.id, linkedMember: false };
-    }
+    });
+    if (claimed) return claimed;
 
     return { status: 'need_invite' };
   }
@@ -303,7 +371,10 @@ export class AuthService {
     const id = identifier.trim();
     if (!id || !password) return null;
     const user = await this.prisma.user.findFirst({ where: { OR: [{ email: id }, { username: id }] } });
-    if (!user?.passwordHash || !verifyPassword(password, user.passwordHash)) return null;
+    // Always do one hash verification, even for an unknown account, so response
+    // time does not reveal which emails/usernames exist.
+    const ok = verifyPassword(password, user?.passwordHash ?? DUMMY_PASSWORD_HASH);
+    if (!user?.passwordHash || !ok) return null;
     return { userId: user.id, familyId: user.familyId };
   }
 
@@ -325,6 +396,11 @@ export class AuthService {
     }
     const target = await this.prisma.user.findFirst({ where: { id: targetId, familyId } });
     if (!target) throw new BadRequestException('Member not found');
+    // A family manager must not be able to reset the owner's password and
+    // sign in as them - the owner role carries instance-wide powers.
+    if (!isSelf && target.role === 'OWNER' && actor.role !== 'OWNER') {
+      throw new UnauthorizedException('Only the owner can reset the owner password');
+    }
     if (!password || password.length < 8) throw new BadRequestException('Password must be at least 8 characters');
     if (isSelf && target.passwordHash) {
       if (!currentPassword || !verifyPassword(currentPassword, target.passwordHash)) {

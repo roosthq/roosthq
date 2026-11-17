@@ -7,15 +7,13 @@ import { signSession, verifySession, SessionPayload } from './jwt';
 import { AuthGuard, SESSION_COOKIE } from './auth.guard';
 import { CurrentUser } from './current-user.decorator';
 import { LoginThrottleService } from '../security/login-throttle.service';
+import { cookieBase } from '../common/cookies';
 
 const STATE_COOKIE = 'rhq_oauth_state';
 const INVITE_COOKIE = 'rhq_invite';
+const SETUP_COOKIE = 'rhq_setup';
 const WEB_URL = process.env.WEB_URL ?? 'http://localhost:5173';
-const PROD = process.env.NODE_ENV === 'production';
 
-// Secure cookies over HTTPS in production (behind the Cloudflare Tunnel);
-// plain cookies for local http dev.
-const cookieBase = { httpOnly: true, sameSite: 'lax' as const, secure: PROD };
 
 @Controller('auth')
 export class AuthController {
@@ -25,6 +23,13 @@ export class AuthController {
     private throttle: LoginThrottleService,
   ) {}
 
+  // Tells the sign-in screen whether this is a brand-new instance that still
+  // needs its first (owner) account - and so should ask for the setup code.
+  @Get('setup')
+  async setupStatus() {
+    return { needsSetup: await this.auth.needsSetup() };
+  }
+
   // Kick off the Google consent flow.
   // mode=self   -> add another calendar to the current user (default when signed in)
   // mode=member -> add a new family member
@@ -33,6 +38,7 @@ export class AuthController {
     @Query('mode') mode: string,
     @Query('invite') invite: string,
     @Query('reconnect') reconnect: string,
+    @Query('setup') setup: string,
     @Res() res: Response,
   ) {
     const nonce = randomBytes(16).toString('hex');
@@ -40,6 +46,8 @@ export class AuthController {
     res.cookie(STATE_COOKIE, nonce, cookieBase);
     // Carry an invite token through the Google round-trip via a short-lived cookie.
     if (invite) res.cookie(INVITE_COOKIE, invite, { ...cookieBase, maxAge: 10 * 60 * 1000 });
+    // First-run setup code, same trick.
+    if (setup) res.cookie(SETUP_COOKIE, setup, { ...cookieBase, maxAge: 10 * 60 * 1000 });
     // Fixing a dead refresh token needs the consent screen forced (see
     // GoogleService.authUrl) - a plain re-login won't reissue one.
     res.redirect(this.google.authUrl(`${nonce}.${cleanMode}`, reconnect === '1'));
@@ -78,12 +86,15 @@ export class AuthController {
 
     const inviteToken = req.cookies?.[INVITE_COOKIE] as string | undefined;
     if (inviteToken) res.clearCookie(INVITE_COOKIE);
+    const setupCode = req.cookies?.[SETUP_COOKIE] as string | undefined;
+    if (setupCode) res.clearCookie(SETUP_COOKIE);
 
     const result = await this.auth.handleGoogleCallback(code, {
       userId: existingUserId,
       familyId: existingFamilyId,
       mode: mode === 'member' ? 'member' : 'self',
       inviteToken,
+      setupCode,
     });
 
     // Unknown account with no invite - don't sign in, send them to a "need invite" page.
@@ -117,7 +128,7 @@ export class AuthController {
   // flow needs - there's no redirect round-trip here to carry it across.
   @Post('local/register')
   async localRegister(
-    @Body() body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string },
+    @Body() body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string; setupCode?: string },
     @Res() res: Response,
   ) {
     const result = await this.auth.registerLocal(body);

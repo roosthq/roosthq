@@ -7,6 +7,13 @@ import { encrypt, decrypt } from '../crypto/token-crypto';
 
 type Role = 'OWNER' | 'FAMILY_MANAGER' | 'ADULT' | 'KID';
 
+// An invite link that never expires is a standing way into the family for anyone
+// who ever sees it. 30 days is plenty; "regenerate" issues a fresh one.
+const INVITE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+function inviteExpiry(): Date {
+  return new Date(Date.now() + INVITE_TTL_MS);
+}
+
 @Injectable()
 export class InvitesService {
   constructor(
@@ -104,6 +111,7 @@ export class InvitesService {
         tokenHash: this.hash(raw),
         tokenEncrypted: encrypt(raw),
         createdById: userId,
+        expiresAt: inviteExpiry(),
       },
     });
 
@@ -214,6 +222,7 @@ export class InvitesService {
           tokenHash: this.hash(raw),
           tokenEncrypted: encrypt(raw),
           createdById: userId,
+          expiresAt: inviteExpiry(),
         },
       });
       result = { id: created.id, role: created.role, label: created.label, email: created.email };
@@ -263,6 +272,7 @@ export class InvitesService {
         tokenHash: this.hash(raw),
         tokenEncrypted: encrypt(raw),
         createdById: userId,
+        expiresAt: inviteExpiry(),
       },
     });
     return { id: inv.id, role: inv.role, label: inv.label, email: inv.email, token: raw };
@@ -279,6 +289,7 @@ export class InvitesService {
   }
 
   async markAccepted(id: string) {
-    await this.prisma.familyInvite.update({ where: { id }, data: { acceptedAt: new Date() } });
+    // updateMany + acceptedAt:null so a second simultaneous accept is a no-op.
+    await this.prisma.familyInvite.updateMany({ where: { id, acceptedAt: null }, data: { acceptedAt: new Date() } });
   }
 }

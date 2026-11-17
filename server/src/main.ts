@@ -1,7 +1,3 @@
-// Auto-update verification marker, round 7 (2026-08-23) - trivial, no
-// behavior change. Rounds 1-6 all got manually deployed (round 5 by
-// accident) alongside real fixes before their own overnight test could run.
-// Safe to remove once the auto-install feature has been confirmed working.
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
 import { json, urlencoded, type NextFunction, type Request, type Response } from 'express';
@@ -9,6 +5,8 @@ import { AppModule } from './app.module';
 import { PrismaService } from './prisma.service';
 import { SESSION_COOKIE } from './auth/auth.guard';
 import { verifySession } from './auth/jwt';
+import { assertSafeConfig } from './common/config-check';
+import { rateLimitMiddleware } from './security/rate-limit';
 
 // Deactivated accounts are locked out here rather than in AuthGuard: the guard
 // is used by every module and is deliberately synchronous/DB-free, while this
@@ -52,6 +50,7 @@ function deactivatedAccountGate(prisma: PrismaService) {
 }
 
 async function bootstrap() {
+  assertSafeConfig();
   // Default body limit is too small for an uploaded-image data URI (base64'd prize
   // photos) - bump it. bodyParser: false so these replace Nest's defaults instead
   // of fighting them.
@@ -59,6 +58,7 @@ async function bootstrap() {
   app.use(json({ limit: '5mb' }));
   app.use(urlencoded({ extended: true, limit: '5mb' }));
   app.use(cookieParser());
+  app.use(rateLimitMiddleware);
   app.use(deactivatedAccountGate(app.get(PrismaService)));
   // All routes are served under /api so a single reverse proxy (Caddy behind the
   // Cloudflare Tunnel) can route /api -> this server and / -> the frontend, keeping

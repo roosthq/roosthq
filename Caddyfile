@@ -14,6 +14,15 @@
 # extra bandwidth from never edge/browser-caching the JS bundle is worth it
 # for a kiosk that reloads at most a few times a day.
 :80 {
+	# Baseline browser hardening for every response (API and frontend).
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Strict-Transport-Security "max-age=15552000"
+		-Server
+	}
+
 	@api path /api/*
 	handle @api {
 		reverse_proxy server:3000

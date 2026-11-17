@@ -1,10 +1,18 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { DEFAULT_TIMEZONE, isValidTimeZone } from '../common/timezone';
 
 @Injectable()
 export class LocationsService {
   constructor(private prisma: PrismaService) {}
+
+  // Locations decide who sees which calendars and chores, so only adults may
+  // create, rename, delete or reassign them (kids can still pick their own via
+  // selfJoin).
+  async assertAdult(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId }, select: { role: true } });
+    if (!user || user.role === 'KID') throw new ForbiddenException('Adults only');
+  }
 
   list(familyId: string) {
     return this.prisma.location.findMany({
@@ -42,6 +50,8 @@ export class LocationsService {
   // Assign a location to a user. Adults typically get one; kids can have several.
   async assign(familyId: string, id: string, userId: string) {
     await this.owned(familyId, id);
+    const member = await this.prisma.user.findFirst({ where: { id: userId, familyId }, select: { id: true } });
+    if (!member) throw new NotFoundException('Member not found');
     await this.prisma.userLocation.upsert({
       where: { userId_locationId: { userId, locationId: id } },
       update: {},

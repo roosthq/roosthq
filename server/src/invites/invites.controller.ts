@@ -4,10 +4,11 @@ import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload } from '../auth/jwt';
 import { InvitesService } from './invites.service';
 
-function baseUrlFrom(req: { headers: Record<string, string | string[] | undefined> }): string {
-  const origin = typeof req.headers.origin === 'string' ? req.headers.origin : undefined;
-  const host = typeof req.headers.host === 'string' ? req.headers.host : 'localhost';
-  return origin ?? `https://${host}`;
+// Invite links are emailed from this instance's own mailer, so the base URL
+// must come from server config - never from a request header, which any
+// caller (or a script holding a stolen cookie) could point at their own host.
+function baseUrlFrom(_req: unknown): string {
+  return (process.env.WEB_URL ?? 'http://localhost:5173').replace(/\/+$/, '');
 }
 
 @UseGuards(AuthGuard)

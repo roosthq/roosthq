@@ -24,7 +24,7 @@ export function emailHtml(opts: EmailTemplateOptions): string {
     opts.buttonText && opts.buttonUrl
       ? `<tr>
               <td style="padding:28px 40px 8px;text-align:center;">
-                <a href="${opts.buttonUrl}" style="display:inline-block;background:#4e7a4c;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:13px 32px;border-radius:10px;">${escapeHtml(opts.buttonText)}</a>
+                <a href="${escapeHtml(opts.buttonUrl)}" style="display:inline-block;background:#4e7a4c;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;padding:13px 32px;border-radius:10px;">${escapeHtml(opts.buttonText)}</a>
               </td>
             </tr>`
       : '';
@@ -37,7 +37,7 @@ export function emailHtml(opts: EmailTemplateOptions): string {
     : '';
   const fallbackLink =
     opts.buttonText && opts.buttonUrl
-      ? `<p style="margin:16px 0 0;font-size:11px;color:#a3b09e;">Trouble with the button? Copy this link: <a href="${opts.buttonUrl}" style="color:#8a9a86;">${opts.buttonUrl}</a></p>`
+      ? `<p style="margin:16px 0 0;font-size:11px;color:#a3b09e;">Trouble with the button? Copy this link: <a href="${escapeHtml(opts.buttonUrl)}" style="color:#8a9a86;">${escapeHtml(opts.buttonUrl)}</a></p>`
       : '';
   return `<!doctype html>
 <html>

@@ -5,9 +5,8 @@ import { AuthGuard, SESSION_COOKIE } from '../auth/auth.guard';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { SessionPayload, signSession } from '../auth/jwt';
 import { OwnerService } from './owner.service';
+import { cookieBase } from '../common/cookies';
 
-const PROD = process.env.NODE_ENV === 'production';
-const cookieBase = { httpOnly: true, sameSite: 'lax' as const, secure: PROD };
 
 @UseGuards(AuthGuard)
 @Controller('owner')
