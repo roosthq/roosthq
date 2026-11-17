@@ -59,14 +59,17 @@ PLANNING.md                architecture + roadmap + decisions log
 
 ## Running & deploying
 
-**Local dev:** `docker compose up --build`, then `docker compose exec server npx prisma db push`.
+**Local dev:** `node scripts/gen-secrets.js`, then `docker compose up --build`. The schema is applied on
+server start by `server/scripts/migrate.js` (versioned migrations in `server/prisma/migrations`).
+Schema change workflow: edit `schema.prisma`, run `npx prisma migrate dev --name <change>` in `server/`,
+commit the new migration folder. CI fails if schema and migrations disagree.
 API at :3000 (`/api/health`), web at :5173.
 
 **Prod (on the VM, `/opt/roost-hq`):**
 ```bash
 git pull
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build server web
-docker compose exec server npx prisma db push
+# migrations apply automatically on server start; no separate schema step
 ```
 Full first-time setup (Docker install, Cloudflare Tunnel, Google OAuth) is in `DEPLOY.md`.
 
@@ -85,8 +88,12 @@ Full first-time setup (Docker install, Cloudflare Tunnel, Google OAuth) is in `D
   `vite build` at image-build time, so setting it at container start is too
   late to do anything.
 - **Prisma + Alpine fails.** The server image is `node:20-slim` + `openssl` on purpose.
-- **`prisma db push` may need `--accept-data-loss`** in the non-interactive container
-  when a column/table changes.
+- **Migrations, not `db push`.** `server/scripts/migrate.js` runs `prisma migrate deploy` on every
+  start and adopts installs created by the old `db push` flow (records the `0_init` baseline after a
+  non-destructive reconcile). A migration containing DROP/DELETE/TRUNCATE needs a
+  `-- destructive-ok: <reason>` line (CI enforces it). Never use `--accept-data-loss`.
+- **Pushing to `main` auto-deploys the live VM** (its update channel is `latest` with auto-apply on).
+  Deploy and verify each batch yourself right after pushing; do not push half-finished work.
 - **Dependency changes need `--renew-anon-volumes`** on the `up` command, or Docker
   keeps a stale `node_modules` volume and new packages appear missing.
 - **git must run natively on the user's machine**, not in any sandbox mounted over the

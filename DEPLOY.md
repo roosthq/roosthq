@@ -75,15 +75,15 @@ just use that path everywhere below, including in the systemd unit.)
 ## Step 3 - Configure `.env`
 
 ```bash
-cp .env.example .env
+node scripts/gen-secrets.js
 ```
 
-Generate two strong secrets and paste them into `.env`:
-
-```bash
-echo "SESSION_SECRET=$(openssl rand -hex 32)"
-echo "TOKEN_ENCRYPTION_KEY=$(openssl rand -hex 32)"
-```
+That creates `.env` from `.env.example` and fills in every secret (session key,
+token-encryption key, both database passwords, the updater secret) with fresh random
+values. It never overwrites a value that is already set, so it is safe to run again.
+(No Node on the host? Run `cp .env.example .env` and generate the secrets yourself with
+`openssl rand -hex 32`.) **The server refuses to start while `SESSION_SECRET` or
+`TOKEN_ENCRYPTION_KEY` still hold the `change-me` placeholders.**
 
 Then edit `.env` (`nano .env`) and set:
 
@@ -92,8 +92,8 @@ NODE_ENV=production
 MYSQL_ROOT_PASSWORD=<pick a strong password>
 MYSQL_PASSWORD=<pick a strong password>
 DATABASE_URL="mysql://roosthq:<same MYSQL_PASSWORD>@db:3306/roosthq"
-SESSION_SECRET=<from above>
-TOKEN_ENCRYPTION_KEY=<from above>
+SESSION_SECRET=<filled in by gen-secrets.js>
+TOKEN_ENCRYPTION_KEY=<filled in by gen-secrets.js>
 WEB_URL=https://roost.yourdomain.com
 GOOGLE_CLIENT_ID=<from step 4>
 GOOGLE_CLIENT_SECRET=<from step 4>
@@ -183,12 +183,26 @@ then check `docker compose logs server | grep -i "email\|resend"`. A rejected se
 ```bash
 cd /opt/roost-hq
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-# Create the database tables from the schema (first run):
-docker compose exec server npx prisma db push
 ```
 
-Open `https://roost.yourdomain.com` and sign in with Google. Family members can now
-reach it from their phones anywhere.
+The database tables are created automatically the first time the server starts (and any
+new schema changes are applied on later starts). Nothing to run by hand.
+
+**First-time setup code.** A brand-new instance has no owner yet, so the first account is
+protected by a one-time code. Find it in the server log:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml logs server | grep "SETUP CODE"
+```
+
+Open `https://roost.yourdomain.com`, type that code into the **First-time setup** box,
+then create the owner account (with Google, or a username/email and password). After the
+owner exists the code stops working. You can pin your own code with `SETUP_CODE=` in `.env`.
+Family members can now reach it from their phones anywhere.
+
+**Phones:** open the site and use *Add to Home Screen* (iPhone: Share, then Add to Home
+Screen; Android Chrome offers *Install app*). On iPhone, push notifications only work
+once it is added to the Home Screen.
 
 ## Step 7 - Auto-start on reboot
 
@@ -251,7 +265,11 @@ cd /opt/roost-hq
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build updater server
 ```
 
-That's it - **Settings → Instance → App updates** now works. Two channels:
+That's it - **Settings → Instance → App updates** now works. Before every install the
+updater writes a database snapshot to `backups/pre-update_<time>.sql.gz` (newest 5 are
+kept), and only reports success once the server is healthy again. Database changes only
+ever move forward, so **if an update goes wrong, restore the snapshot** (see *Restoring
+a backup* below) rather than just rolling the code back. Two channels:
 
 | Channel | Source | Notes |
 |---|---|---|
@@ -287,8 +305,10 @@ Or use GitHub's UI: Releases → Draft a new release.
 cd /opt/roost-hq
 git pull
 docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
-docker compose exec server npx prisma db push
 ```
+
+Database migrations are applied automatically when the server starts, so there is no
+separate schema step.
 
 > If a pull **changed dependencies** (`package.json`), add `--renew-anon-volumes` to
 > the `up` command so the container's `node_modules` volume is refreshed - otherwise
@@ -298,12 +318,34 @@ docker compose exec server npx prisma db push
 
 **Back up the database:**
 
+A nightly dump is already written to `./backups` by the `backup` container (kept for
+`BACKUP_RETENTION_DAYS`, default 14). For an extra manual copy:
+
 ```bash
 docker compose exec db mysqldump -u root -p roosthq > ~/roosthq-backup-$(date +%F).sql
 ```
+
+Copy the `backups/` folder somewhere off this machine now and then. A backup that lives
+only on the same disk does not survive that disk.
+
+**Restoring a backup** (do this once as a drill before you need it):
+
+```bash
+cd /opt/roost-hq
+docker compose -f docker-compose.yml -f docker-compose.prod.yml stop server
+gunzip -c backups/roosthq_YYYYMMDD_HHMMSS.sql.gz |   docker compose -f docker-compose.yml -f docker-compose.prod.yml exec -T db   sh -c 'mysql -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d server
+```
+
+Restoring replaces the current data with the backup's. The server re-applies any newer
+migrations on start.
 
 **Reminders:**
 - No router ports are opened - all traffic comes through the tunnel. Don't port-forward.
 - Don't change `SESSION_SECRET` / `TOKEN_ENCRYPTION_KEY` after launch (it logs everyone
   out and invalidates stored Google tokens).
-- Still a single-family app: only Google accounts you added as test users can sign in.
+- Google sign-in is optional; only accounts you added as OAuth test users (or that were
+  invited) can sign in.
+- In production the database (3306) and API (3000) are only published on `127.0.0.1`
+  and the web container is not published at all. Do not add `ports:` mappings back; on
+  a server with a public IP, Docker-published ports bypass `ufw`.

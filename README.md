@@ -98,9 +98,8 @@ See the [wiki](https://github.com/roosthq/roosthq/wiki) for how each of these ac
    ```bash
    git clone https://github.com/roosthq/roosthq.git
    cd roosthq
-   cp .env.example .env
-   # edit .env with your Google OAuth credentials (see below, optional if you only
-   # want local accounts) and a DB password
+   node scripts/gen-secrets.js    # creates .env and fills in every secret
+   # optionally add your Google OAuth credentials (see below); not needed for local accounts
    ```
 
 2. **Run with Docker Compose**
@@ -113,10 +112,14 @@ See the [wiki](https://github.com/roosthq/roosthq/wiki) for how each of these ac
    - Web: http://localhost:5173 (calls the API at same-origin `/api` via the Vite proxy)
    - MySQL: localhost:3306
 
-3. **Apply the database schema** (first run)
+3. **Create the owner account**
+
+   The database schema is applied automatically when the server starts. On a new
+   instance the server also prints a one-time setup code; open http://localhost:5173
+   and enter it to create the first (owner) account:
 
    ```bash
-   docker compose exec server npx prisma db push
+   docker compose logs server | grep "SETUP CODE"
    ```
 
 ## Google OAuth setup (optional)
