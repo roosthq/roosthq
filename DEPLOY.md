@@ -129,6 +129,25 @@ silently ate it afterward. Confirm this instance's actual `SMTP_FROM` matches it
 `SMTP_USER` domain with `docker compose exec server env | grep SMTP_FROM` if invite
 emails ever go missing again.
 
+### Resend (optional - alternative to SMTP)
+
+[Resend](https://resend.com) sends over an HTTPS API instead of SMTP, and since you
+authenticate your own domain with it there's none of the `SMTP_FROM`/`SMTP_USER` mismatch
+above. In Resend: add your domain (Domains), add the DNS records it shows (SPF/DKIM) and
+wait for **Verified**, then create an API key (API Keys, "Sending access" is enough).
+
+```
+RESEND_API_KEY=re_...
+RESEND_FROM="Roost HQ <notifications@yourdomain.com>"
+```
+
+`RESEND_FROM` must be on the verified domain (or leave both unset-from and use Resend's
+`onboarding@resend.dev` sandbox, which only delivers to your own Resend account email).
+If `RESEND_API_KEY` is set it takes priority and the `SMTP_*` values are ignored; remove it
+to fall back to SMTP. Apply with `docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d server`,
+then check `docker compose logs server | grep -i "email\|resend"`. A rejected send logs
+`resend send failed: <status> <reason>` (usually an unverified From domain).
+
 ## Step 4 - Google OAuth (one-time)
 
 1. [Google Cloud Console](https://console.cloud.google.com/) → new project "Roost HQ".
