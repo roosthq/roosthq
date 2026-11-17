@@ -2,6 +2,18 @@
 # Run with:
 #   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 services:
+  # SECURITY: the base file publishes db (3306), server (3000) and web (5173)
+  # on every host interface for local development. In production none of
+  # those may be reachable from the network: Docker's published ports bypass
+  # ufw/iptables rules, so on a VPS this would put MySQL on the open
+  # internet. Caddy reaches server/web over the internal compose network,
+  # and Cloudflare Tunnel reaches Caddy, so nothing needs a host port.
+  # Loopback-only mappings are kept for db and server so you can still
+  # debug from the host itself (e.g. over SSH).
+  db:
+    ports: !override
+      - "127.0.0.1:3306:3306"
+
   # Run the compiled build directly - no dev watch-mode file-watcher in
   # prod. That watcher restarting itself on a file change can lose the race
   # against its own old process (both briefly fighting over :3000), leaving
@@ -13,6 +25,8 @@ services:
   server:
     command: npm run start:prod
     volumes: !reset []
+    ports: !override
+      - "127.0.0.1:3000:3000"
     # UPDATER_URL's default (bare service name, no override needed in most
     # setups) relies on this overlay's `updater` service existing on the
     # same compose network - see UpdatesService for the owner-only proxy
@@ -37,6 +51,7 @@ services:
       args:
         VITE_API_BASE_URL: /api
     volumes: !reset []
+    ports: !reset []
 
   # Reverse proxy: routes /api to the server, everything else to the frontend.
   caddy:

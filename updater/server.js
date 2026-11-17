@@ -5,7 +5,10 @@
 // exclusively from `server` over the internal Docker network and gated by
 // a shared-secret bearer token on every request.
 const express = require('express');
-const { execFile } = require('child_process');
+const { execFile, spawn } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const zlib = require('zlib');
 const util = require('util');
 const execFileAsync = util.promisify(execFile);
 
@@ -85,8 +88,67 @@ async function latestOnBranch(repoUrl, branch) {
   return sha || null;
 }
 
+const compose = (...rest) => execFileAsync('docker', ['compose', ...COMPOSE_FILES, ...rest], { cwd: REPO_PATH, timeout: 300_000 });
+
+// Every update first writes a gzipped mysqldump to ./backups. Schema
+// migrations only move forward, so this snapshot is the way back if a
+// release goes wrong (restore steps: DEPLOY.md). Keeps the newest 5.
+const SNAPSHOT_KEEP = 5;
+async function snapshotDatabase() {
+  const dir = path.join(REPO_PATH, 'backups');
+  fs.mkdirSync(dir, { recursive: true });
+  const file = path.join(dir, `pre-update_${new Date().toISOString().replace(/[:.]/g, '-')}.sql.gz`);
+  await new Promise((resolve, reject) => {
+    const dump = spawn(
+      'docker',
+      ['compose', ...COMPOSE_FILES, 'exec', '-T', 'db', 'sh', '-c', 'mysqldump --no-tablespaces -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"'],
+      { cwd: REPO_PATH },
+    );
+    const out = fs.createWriteStream(file);
+    let err = '';
+    dump.stderr.on('data', (d) => (err += d));
+    dump.stdout.pipe(zlib.createGzip()).pipe(out);
+    dump.on('error', reject);
+    out.on('error', reject);
+    out.on('finish', () => {
+      // A dump that produced almost nothing is a failed dump, not a backup.
+      if (fs.statSync(file).size < 1024) reject(new Error(`database snapshot looks empty: ${err.trim().slice(0, 200)}`));
+      else resolve();
+    });
+    dump.on('close', (code) => {
+      if (code !== 0) reject(new Error(`database snapshot failed (exit ${code}): ${err.trim().slice(0, 200)}`));
+    });
+  }).catch((e) => {
+    fs.rmSync(file, { force: true });
+    throw e;
+  });
+  const old = fs.readdirSync(dir).filter((f) => f.startsWith('pre-update_')).sort().slice(0, -SNAPSHOT_KEEP);
+  for (const f of old) fs.rmSync(path.join(dir, f), { force: true });
+  return file;
+}
+
+// The server container applies migrations itself on boot (scripts/migrate.js),
+// so "the update worked" means "the server came back healthy", not "a command
+// exited 0". A failed migration keeps the server from ever becoming healthy.
+async function waitForHealthy(snapshot) {
+  const probe = "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))";
+  const deadline = Date.now() + 240_000;
+  while (Date.now() < deadline) {
+    try {
+      await execFileAsync('docker', ['compose', ...COMPOSE_FILES, 'exec', '-T', 'server', 'node', '-e', probe], { cwd: REPO_PATH, timeout: 15_000 });
+      return;
+    } catch {
+      await new Promise((r) => setTimeout(r, 3000));
+    }
+  }
+  throw new Error(
+    `The server did not become healthy after the update (a migration may have failed - check "docker compose logs server"). ` +
+      `A database snapshot from just before the update is at ${snapshot}.`,
+  );
+}
+
 async function runUpdate(channel, branch) {
-  const composeArgs = (...rest) => execFileAsync('docker', ['compose', ...COMPOSE_FILES, ...rest], { cwd: REPO_PATH, timeout: 300_000 });
+  const snapshot = await snapshotDatabase();
 
   if (channel === 'latest') {
     await execFileAsync('git', ['-C', REPO_PATH, 'fetch', 'origin', branch], { timeout: 60_000 });
@@ -97,13 +159,8 @@ async function runUpdate(channel, branch) {
     await execFileAsync('git', ['-C', REPO_PATH, 'fetch', '--tags'], { timeout: 60_000 });
     await execFileAsync('git', ['-C', REPO_PATH, 'checkout', `tags/${tag}`], { timeout: 30_000 });
   }
-  await composeArgs('up', '-d', '--build', 'server', 'web');
-  // Matches the documented manual deploy flow (CLAUDE.md) - flagged in the
-  // owner-facing UI copy as the genuinely risky part of any update. Not
-  // conditional on whether schema.prisma actually changed (detecting that
-  // reliably from here isn't worth the complexity for v1); it's a no-op
-  // against an unchanged schema.
-  await composeArgs('exec', '-T', 'server', 'npx', 'prisma', 'db', 'push', '--accept-data-loss');
+  await compose('up', '-d', '--build', 'server', 'web');
+  await waitForHealthy(snapshot);
 }
 
 app.get('/version', async (req, res) => {
@@ -167,13 +224,11 @@ app.post('/rollback', async (req, res) => {
   res.json({ started: true });
 
   try {
+    const snapshot = await snapshotDatabase();
     await execFileAsync('git', ['-C', REPO_PATH, 'fetch', 'origin'], { timeout: 60_000 });
     await execFileAsync('git', ['-C', REPO_PATH, 'reset', '--hard', commit], { timeout: 30_000 });
-    await execFileAsync('docker', ['compose', ...COMPOSE_FILES, 'up', '-d', '--build', 'server', 'web'], { cwd: REPO_PATH, timeout: 300_000 });
-    await execFileAsync('docker', ['compose', ...COMPOSE_FILES, 'exec', '-T', 'server', 'npx', 'prisma', 'db', 'push', '--accept-data-loss'], {
-      cwd: REPO_PATH,
-      timeout: 300_000,
-    });
+    await compose('up', '-d', '--build', 'server', 'web');
+    await waitForHealthy(snapshot);
     job = { inProgress: false, lastResult: 'success', lastRanAt: job.lastRanAt };
   } catch (e) {
     job = { inProgress: false, lastResult: `error: ${e.message}`, lastRanAt: job.lastRanAt };

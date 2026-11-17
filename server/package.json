@@ -6,11 +6,13 @@
   "scripts": {
     "build": "nest build",
     "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:prod": "node dist/main.js",
+    "start:dev": "node scripts/migrate.js && nest start --watch",
+    "start:prod": "node scripts/migrate.js && node dist/main.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "seed:edu": "node prisma/seed-edu-questions.js"
+    "seed:edu": "node prisma/seed-edu-questions.js",
+    "migrate": "node scripts/migrate.js",
+    "check:migrations": "node scripts/check-migrations.js"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.28",

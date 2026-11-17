@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  server:
+    name: Server (build, migrations, boot)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: ci-root
+          MYSQL_DATABASE: roosthq
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pci-root"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DATABASE_URL: mysql://root:ci-root@127.0.0.1:3306/roosthq
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+      - run: npx prisma validate
+      - run: npx prisma generate
+      - run: npm run build
+      - name: Migrations are safe to ship
+        run: npm run check:migrations
+      - name: Apply migrations to an empty database
+        run: npm run migrate
+      - name: Migrations produce exactly the schema (fails if schema.prisma changed without a migration)
+        run: npx prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
+      - name: Adopting an install created before migrations existed (db push) still works
+        run: |
+          mysql -h127.0.0.1 -uroot -pci-root -e "CREATE DATABASE legacy"
+          DATABASE_URL="mysql://root:ci-root@127.0.0.1:3306/legacy" npx prisma db push --skip-generate
+          DATABASE_URL="mysql://root:ci-root@127.0.0.1:3306/legacy" npm run migrate
+          DATABASE_URL="mysql://root:ci-root@127.0.0.1:3306/legacy" npm run migrate
+      - name: Server boots and answers /api/health
+        env:
+          PORT: "3000"
+          NODE_ENV: production
+          WEB_URL: http://localhost:5173
+        run: |
+          export SESSION_SECRET="$(openssl rand -hex 32)" TOKEN_ENCRYPTION_KEY="$(openssl rand -hex 32)"
+          node dist/main.js > boot.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:3000/api/health; then echo; exit 0; fi
+            sleep 2
+          done
+          echo "server never became healthy"; cat boot.log; exit 1
+
+  web:
+    name: Web (typecheck + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  updater:
+    name: Updater (syntax)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --check updater/server.js
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks detect --source . --redact --verbose
