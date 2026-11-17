@@ -48,7 +48,19 @@ export class HolidaysService {
   // Seeds the default US-federal-plus-cultural set the first time this is
   // called against an empty table - not a migration, so the owner freely
   // editing/deleting afterward never gets silently re-seeded.
-  async ensureSeeded() {
+  // Concurrent first requests (the home page fires several at once) must share
+  // ONE seeding run - otherwise each saw an empty table and inserted the whole
+  // set, so a new instance showed every holiday three times.
+  private seeding: Promise<void> | null = null;
+
+  ensureSeeded(): Promise<void> {
+    this.seeding ??= this.seed().finally(() => {
+      this.seeding = null;
+    });
+    return this.seeding;
+  }
+
+  private async seed() {
     const count = await this.prisma.holidayEvent.count();
     if (count > 0) return;
     await this.prisma.holidayEvent.createMany({ data: HOLIDAY_SEED });

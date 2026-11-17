@@ -87,6 +87,34 @@ async function req<T>(path: string, init?: RequestInit, kioskToken?: string): Pr
 
 export const loginUrl = `${BASE}/auth/google`;
 
+export interface FamilySetupStatus {
+  members: number;
+  kids: number;
+  chores: number;
+  prizes: number;
+  calendars: number;
+  displays: number;
+}
+
+// Saves everything this family has entered as a JSON file (owner / family manager).
+export async function downloadFamilyExport(): Promise<void> {
+  const res = await fetch(`${BASE}/family/export`, { credentials: 'include' });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(typeof body?.message === 'string' ? body.message : `${res.status} ${res.statusText}`);
+  }
+  const blob = await res.blob();
+  const name = /filename="([^"]+)"/.exec(res.headers.get('content-disposition') ?? '')?.[1] ?? 'roost-hq-export.json';
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 export type FontSize = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface SearchHit {
@@ -1486,6 +1514,7 @@ export const api = {
   members: () => req<Member[]>('/auth/members'),
   logout: () => req<{ ok: boolean }>('/auth/logout', { method: 'POST' }),
   setupStatus: () => req<{ needsSetup: boolean }>('/auth/setup'),
+  familySetupStatus: () => req<FamilySetupStatus>('/family/setup-status'),
   registerLocal: (body: { displayName: string; email?: string; username?: string; password: string; inviteToken?: string; setupCode?: string }) =>
     req<{ ok: boolean }>('/auth/local/register', { method: 'POST', body: JSON.stringify(body) }),
   loginLocal: (body: { identifier: string; password: string }) =>

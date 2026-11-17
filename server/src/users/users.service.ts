@@ -328,6 +328,40 @@ export class UsersService {
     return { ok: true };
   }
 
+  // Deletes one member and everything that is theirs alone (their own token
+  // and streak-freeze history, presence log, sessions, linked Google accounts,
+  // assignments, redemptions - the rest cascades from the user row). Things the
+  // person only AUTHORED for the family - chores, rules, awards, calendars,
+  // events, mini-games, grants made to other people, ledger entries credited to
+  // other people - are handed to `heirId` instead of being deleted, so removing
+  // an adult never erases the family's chores or silently changes a kid's
+  // balance. All-or-nothing: one transaction.
+  private async purgeMember(targetId: string, heirId: string) {
+    const from = targetId;
+    const to = heirId;
+    await this.prisma.$transaction(async (tx) => {
+      await tx.presenceLog.updateMany({ where: { setById: from, userId: { not: from } }, data: { setById: to } });
+      await tx.localCalendar.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.localEvent.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.chore.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.choreBonusSettings.updateMany({ where: { updatedById: from }, data: { updatedById: to } });
+      await tx.tokenLedger.updateMany({ where: { createdById: from, userId: { not: from } }, data: { createdById: to } });
+      await tx.streakFreezeLedger.updateMany({ where: { createdById: from, userId: { not: from } }, data: { createdById: to } });
+      await tx.tokenScaleEvent.updateMany({ where: { actorId: from }, data: { actorId: to } });
+      await tx.rule.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.award.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.awardGrant.updateMany({ where: { grantedById: from }, data: { grantedById: to } });
+      await tx.miniGame.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.miniGameGrant.updateMany({ where: { grantedById: from }, data: { grantedById: to } });
+      await tx.publishedMiniGame.updateMany({ where: { createdById: from }, data: { createdById: to } });
+      await tx.learningGamesSettings.updateMany({ where: { updatedById: from }, data: { updatedById: to } });
+      await tx.userSubjectGrade.updateMany({ where: { setById: from }, data: { setById: to } });
+      // Their own ledgers: ledger rows where THEY are the one being credited
+      // cascade with the user; rows they authored for others were reassigned above.
+      await tx.user.delete({ where: { id: from } });
+    });
+  }
+
   // Self-delete - adults and family managers only, confirmed client-side
   // before this is ever called. Blocked for a kid (needs an adult to do it
   // for them) and for the instance owner (deleting the one-of-a-kind OWNER
@@ -341,11 +375,12 @@ export class UsersService {
     if (actor.role === 'OWNER') {
       throw new ForbiddenException('The instance owner can\'t delete their own account - move ownership to someone else first');
     }
-    await this.prisma.$transaction([
-      this.prisma.chore.deleteMany({ where: { createdById: actorId } }),
-      this.prisma.tokenLedger.deleteMany({ where: { OR: [{ userId: actorId }, { createdById: actorId }] } }),
-      this.prisma.user.delete({ where: { id: actorId } }),
-    ]);
+    const others = { familyId: actor.familyId, id: { not: actorId } };
+    const heir =
+      (await this.prisma.user.findFirst({ where: { ...others, role: 'OWNER' }, select: { id: true } })) ??
+      (await this.prisma.user.findFirst({ where: { ...others, role: { in: ['FAMILY_MANAGER', 'ADULT'] } }, select: { id: true } }));
+    if (!heir) throw new ForbiddenException('Add another adult first - someone has to take over what you created');
+    await this.purgeMember(actorId, heir.id);
     return { ok: true };
   }
 
@@ -361,17 +396,7 @@ export class UsersService {
     if (!target) throw new NotFoundException('Member not found');
     if (target.role === 'OWNER') throw new ForbiddenException('Cannot remove the owner');
 
-    await this.prisma.$transaction([
-      // Chores created by this member (cascades to instances/checklist). Their
-      // assignments on other chores cascade automatically when the user is deleted.
-      this.prisma.chore.deleteMany({ where: { createdById: targetId } }),
-      // Ledger entries authored by or crediting this member.
-      this.prisma.tokenLedger.deleteMany({
-        where: { OR: [{ userId: targetId }, { createdById: targetId }] },
-      }),
-      // The user (cascades google accounts, calendar shares, locations, redemptions).
-      this.prisma.user.delete({ where: { id: targetId } }),
-    ]);
+    await this.purgeMember(targetId, actorId);
     return { ok: true };
   }
 }

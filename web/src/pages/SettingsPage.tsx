@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   api,
+  downloadFamilyExport,
   COLOR_THEMES,
   type Me,
   type Member,
@@ -85,7 +86,19 @@ export default function SettingsPage({ me }: { me: Me }) {
 
       <div className="space-y-6">
         {activeTab === 'features' && <FeaturesTab />}
-        {activeTab === 'family' && <MembersManager me={me} />}
+        {activeTab === 'family' && (
+          <>
+            <MembersManager me={me} />
+            {isFamilyManager && (
+              <Section
+                title="Your data"
+                help="Download everything your family has entered (people, chores, tokens, prizes, awards, rules, calendars, household lists) as one JSON file. Passwords, PINs and sign-in tokens are never included."
+              >
+                <ExportDataButton />
+              </Section>
+            )}
+          </>
+        )}
         {activeTab === 'calendars' && (
           <>
             <Section
@@ -150,6 +163,33 @@ export default function SettingsPage({ me }: { me: Me }) {
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+function ExportDataButton() {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <button
+        disabled={busy}
+        onClick={async () => {
+          setBusy(true);
+          setError(null);
+          try {
+            await downloadFamilyExport();
+          } catch (e) {
+            setError((e as Error).message);
+          } finally {
+            setBusy(false);
+          }
+        }}
+        className="rounded bg-slate-800 px-3 py-1.5 text-sm text-white hover:bg-slate-700 disabled:opacity-50"
+      >
+        {busy ? 'Preparing...' : 'Download my family data'}
+      </button>
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );
 }

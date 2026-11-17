@@ -4,9 +4,91 @@ import { PrismaService } from '../prisma.service';
 import { sanitizeDisabledFeatures, sanitizeSoundAssignments, SoundAssignment } from '../common/features';
 import { GAME_TYPES } from '../reward-games/reward-games.service';
 
+// Tables that hold credentials, tokens or instance-wide data: never exported.
+const EXPORT_SKIP_MODELS = new Set([
+  'GoogleAccount',
+  'DisplayToken',
+  'FamilyInvite',
+  'PasswordResetToken',
+  'PushSubscription',
+  'InstanceSettings',
+  'EduQuestion',
+  'EduQuestionMedia',
+]);
+// Any column that looks like a secret is dropped from every table.
+const SECRET_COLUMN = /hash|encrypted|secret|password|token$|^auth$|^p256dh$|^endpoint$/i;
+
+type DmmfField = { name: string; kind: string; type: string; isList: boolean; relationFromFields?: readonly string[] };
+type DmmfModel = { name: string; fields: readonly DmmfField[] };
+
 @Injectable()
 export class FamilyService {
   constructor(private prisma: PrismaService) {}
+
+  // Powers the first-run checklist: plain counts, no content.
+  async setupStatus(familyId: string) {
+    const [members, kids, chores, prizes, localCalendars, googleCalendars, displays] = await Promise.all([
+      this.prisma.user.count({ where: { familyId } }),
+      this.prisma.user.count({ where: { familyId, role: 'KID' } }),
+      this.prisma.chore.count({ where: { familyId } }),
+      this.prisma.prize.count({ where: { familyId } }),
+      this.prisma.localCalendar.count({ where: { familyId } }),
+      this.prisma.calendar.count({ where: { familyId } }),
+      this.prisma.displayToken.count({ where: { familyId, revokedAt: null } }),
+    ]);
+    return { members, kids, chores, prizes, calendars: localCalendars + googleCalendars, displays };
+  }
+
+  // A full copy of the family's own data as JSON - the family can always leave
+  // with everything they entered. Built from the schema itself, so a table added
+  // later is included automatically: a model is exported when it carries the
+  // family (directly, via its user, or through a chain of parent rows). Anything
+  // that looks like a credential is stripped, and instance-wide tables are skipped.
+  async exportData(actorId: string, familyId: string) {
+    const actor = await this.prisma.user.findUnique({ where: { id: actorId } });
+    if (!actor || !['OWNER', 'FAMILY_MANAGER'].includes(actor.role)) {
+      throw new ForbiddenException('Owner or family manager only');
+    }
+    const models = Prisma.dmmf.datamodel.models as unknown as DmmfModel[];
+    const byName = new Map(models.map((m) => [m.name, m]));
+    const memberIds = (await this.prisma.user.findMany({ where: { familyId }, select: { id: true } })).map((u) => u.id);
+
+    // Builds the Prisma `where` that scopes a model to this family, following
+    // many-to-one relations up to 3 parents deep. null = model is not family data.
+    const scopeFor = (model: DmmfModel, depth = 0): Record<string, unknown> | null => {
+      const scalar = (n: string) => model.fields.some((f) => f.name === n && f.kind === 'scalar');
+      if (model.name === 'Family') return { id: familyId };
+      if (scalar('familyId')) return { familyId };
+      if (scalar('userId')) return { userId: { in: memberIds } };
+      if (depth >= 3) return null;
+      for (const f of model.fields) {
+        if (f.kind !== 'object' || f.isList || !f.relationFromFields?.length) continue;
+        const parent = byName.get(f.type);
+        if (!parent || parent.name === model.name) continue;
+        const inner = scopeFor(parent, depth + 1);
+        if (inner) return { [f.name]: inner };
+      }
+      return null;
+    };
+
+    const tables: Record<string, unknown[]> = {};
+    for (const model of models) {
+      if (EXPORT_SKIP_MODELS.has(model.name)) continue;
+      const where = scopeFor(model);
+      if (!where) continue;
+      const delegate = (this.prisma as unknown as Record<string, { findMany: (a: unknown) => Promise<Record<string, unknown>[]> }>)[
+        model.name.charAt(0).toLowerCase() + model.name.slice(1)
+      ];
+      if (!delegate?.findMany) continue;
+      const rows = await delegate.findMany({ where });
+      tables[model.name] = rows.map((row) => {
+        const clean: Record<string, unknown> = {};
+        for (const [k, v] of Object.entries(row)) if (!SECRET_COLUMN.test(k)) clean[k] = v;
+        return clean;
+      });
+    }
+    return { app: 'Roost HQ', formatVersion: 1, exportedAt: new Date().toISOString(), familyId, tables };
+  }
 
   private shape(f: {
     id: string;

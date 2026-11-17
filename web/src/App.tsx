@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { api, loginUrl, pluralize, familyFeatureEnabled, type Me, type FamilySettings, type FontSize, type FamilyLocation, type MyPresence } from './api';
 import { myLocationIds } from './displayScope';
 import LocationJoinModal from './LocationJoinModal';
@@ -11,6 +11,8 @@ import Nav from './Nav';
 import KidApp from './KidApp';
 import Logo from './Logo';
 import LocalAuthForm from './LocalAuthForm';
+import InstallNudge from './InstallNudge';
+import FirstRunChecklist from './FirstRunChecklist';
 import CalendarPage from './pages/CalendarPage';
 import AwardCelebration from './AwardCelebration';
 import ChoresPage from './pages/ChoresPage';
@@ -38,6 +40,7 @@ function applyFontSize(f: string) {
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [me, setMe] = useState<Me | null>(null);
   const [family, setFamily] = useState<FamilySettings | null>(null);
   const [locations, setLocations] = useState<FamilyLocation[] | null>(null);
@@ -232,6 +235,7 @@ export default function App() {
   const choreWord = family?.choreWord ?? 'Chore';
   const chorePlural = pluralize(choreWord);
   const isAdult = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER' || me.role === 'ADULT';
+  const isFamilyManager = me.role === 'OWNER' || me.role === 'FAMILY_MANAGER';
 
   // Kid View - a whole different, simplified shell (KidApp.tsx), swapped in
   // per-kid via User.kidView (MembersManager's own toggle, default off).
@@ -324,6 +328,8 @@ export default function App() {
           mark the real person's award seen before they ever saw it. */}
       {!me.ghostedBy && <AwardCelebration tokenIcon={tokenIcon} onPlayGame={() => navigate('/chores')} />}
       <main className="mx-auto max-w-5xl p-6">
+        {!me.ghostedBy && <InstallNudge />}
+        {!me.ghostedBy && isFamilyManager && location.pathname === '/' && <FirstRunChecklist choreWord={choreWord} />}
         <Routes>
           <Route path="/" element={<CalendarPage me={me} />} />
           <Route path="/chores" element={choresOn ? <ChoresPage me={me} /> : <Navigate to="/" replace />} />

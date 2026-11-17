@@ -20,6 +20,17 @@ First tagged release.
 - `scripts/gen-secrets.js` fills in `.env` secrets for a new install.
 - CI: build, migration checks, boot test and secret scan on every push.
 
+- Settings, Family: "Download my family data" exports everything the family entered as JSON.
+- Home page shows a getting-started checklist for new families; phones and tablets get an
+  "Add to Home Screen" prompt (with iPhone instructions).
+
+### Fixed
+- A brand-new instance showed every holiday three times (the default holiday list was
+  seeded by three simultaneous requests).
+- Removing an adult who had created rules, awards, calendars, grants and similar failed
+  with a database error. Their work is now handed to another adult, and removing someone
+  no longer deletes the chores they created or changes the balance of kids they credited.
+
 ### Security
 - See [SECURITY.md](SECURITY.md). Fixed: kids could add adults through the
   Google member flow; family managers could take over the owner account;

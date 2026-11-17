@@ -4,13 +4,10 @@ Self-hosted, single-family calendar + chores + rewards hub. Runs on a Proxmox Ub
 VM, reachable over the internet via Cloudflare Tunnel, with a Raspberry Pi kiosk as a
 wall touch display. React + NestJS + Prisma + MySQL, Docker Compose. Open source (AGPL-3.0).
 
-> **State of the codebase:** built rapidly across many sessions. As of 2026-07-14,
-> Phases 1–5 plus per-profile PINs were live-verified end-to-end against the real
-> deployment (see `PLANNING.md` §12) - two real bugs found in that pass (an infinite
-> polling loop, and a kiosk-identity/cookie-priority bug in `AuthGuard`) are fixed.
-> This is Casey's test platform, not real family production use yet - mutations
-> against it for testing don't need the caution a real production system would.
-> New features still need their own verification pass; when something breaks, ask for
+> **State of the codebase:** built rapidly across many sessions, and the maintainer's own
+> family now runs it for real (production). Treat the live instance as real data: test new work
+> in the Test Family, back up before risky changes, and never run destructive commands against
+> it. New features still need their own verification pass; when something breaks, ask for
 > `docker compose logs` output and fix from the actual error.
 
 ## Repo layout
