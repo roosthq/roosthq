@@ -1,8 +1,8 @@
 // Writes web/public/learning/CREDITS.md and manifest.json from every QA'd media manifest
 // (animals: one object per file; visual sets: an array per file).
 const fs = require('fs');
-const S = 'C:/Users/sheac/AppData/Local/Temp/claude/C--Users-sheac-Github-Personal/d3295f37-d84f-43de-aa58-cf3e2dc83375/scratchpad';
-const REPO = 'C:/Users/sheac/Github Personal/Family Calendar System';
+const S = process.env.LEARNING_MEDIA_WORK || require('path').join(__dirname, 'work'); // scratch dir for intermediate files
+const REPO = require('path').resolve(__dirname, '../../../..'); // repo root
 const PUB = REPO + '/web/public/';
 const esc = (s) => String(s || '').replace(/\|/g, '/').replace(/\s+/g, ' ').trim();
 const exists = (f) => f && fs.existsSync(PUB + f);

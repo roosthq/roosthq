@@ -259,7 +259,7 @@ export default function ProfilePage({
   const currentTokenValueUsd = family?.tokenValueUsd || 1;
   // The server's lifetime totals (balances()), NOT a sum over `ledger` above:
   // that's only the newest 200 rows, so anyone with a longer history (252 for
-  // Jameson) silently lost their oldest earnings from this page - showing a
+  // one kid) silently lost their oldest earnings from this page - showing a
   // lower level and "earned" than the leaderboard, which already used the
   // server total. The ledger sum is only a fallback until balances() loads.
   const ledgerEarned = ledger.filter((l) => l.delta > 0).reduce((s, l) => s + l.dollarEquivalent, 0);
@@ -335,7 +335,7 @@ export default function ProfilePage({
                   <span className="min-w-0 flex-1">
                     {/* break-words, not truncate - a name sharing this row
                         with a token balance AND a level badge (both
-                        shrink-0) had real names ("Jameson", "Freddy")
+                        shrink-0) had real names ("Jamie", "Freddie")
                         clipped to 3-4 letters at large text sizes, which is
                         worse than the row just getting a bit taller. */}
                     <span className="block break-words text-sm font-medium">{m.displayName}</span>

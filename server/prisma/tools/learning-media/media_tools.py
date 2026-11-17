@@ -41,10 +41,11 @@ import time
 import urllib.parse
 import urllib.request
 
-ROOT = r'C:\Users\sheac\Github Personal\Family Calendar System\web\public\learning'
-MANIFEST = r'C:\Users\sheac\AppData\Local\Temp\claude\C--Users-sheac-Github-Personal\d3295f37-d84f-43de-aa58-cf3e2dc83375\scratchpad\media\manifest'
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+ROOT = os.path.join(REPO, 'web', 'public', 'learning')
+MANIFEST = os.path.join(os.environ.get('LEARNING_MEDIA_WORK') or os.path.join(os.path.dirname(__file__), 'work'), 'media', 'manifest')
 API = 'https://commons.wikimedia.org/w/api.php'
-UA = 'RoostHQ-learning-media/1.0 (https://roosthq.org; family learning app; contact casey@fullbay.com)'
+UA = 'RoostHQ-learning-media/1.0 (https://roosthq.org; family learning app)'
 
 OK_LICENSE = re.compile(r'^(public domain|pd\b|pd-|cc0|cc[- ]by(?!-nc)(?!-nd)(?:[- ]sa)?[- ]\d|cc[- ]by(?:[- ]sa)?$|attribution|no restrictions|copyrighted free use|usgov|us government|u\.s\. gov)', re.I)
 BAD_LICENSE = re.compile(r'(nc|nd\b|non-?commercial|no derivatives|fair use|all rights|gfdl-only|gfdl$)', re.I)

@@ -1,7 +1,7 @@
 // Merge the visual-set agents' output into the sync bundle.
 const fs = require('fs');
-const S = 'C:/Users/sheac/AppData/Local/Temp/claude/C--Users-sheac-Github-Personal/d3295f37-d84f-43de-aa58-cf3e2dc83375/scratchpad';
-const REPO = 'C:/Users/sheac/Github Personal/Family Calendar System';
+const S = process.env.LEARNING_MEDIA_WORK || require('path').join(__dirname, 'work'); // scratch dir for intermediate files
+const REPO = require('path').resolve(__dirname, '../../../..'); // repo root
 const { validateRow, norm, normPrompt } = require(REPO + '/server/prisma/tools/edu-validate.js');
 const OUT = REPO + '/server/prisma/seed-data/edu-sync/new';
 fs.mkdirSync(OUT, { recursive: true });

@@ -1583,7 +1583,7 @@ function ChoreForm({
               // A real grid, not flex-wrap chips - flex-wrap sizes each
               // item to its own label's width, so names of different
               // lengths never line up into columns from one row to the
-              // next (Jameson's checkbox landed under nothing in
+              // next (one kid's checkbox landed under nothing in
               // particular relative to the row above it). A grid gives
               // every name the same cell width, so the checkboxes
               // actually line up.

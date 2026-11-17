@@ -2,8 +2,8 @@
 // node merge.js   (run from anywhere; paths are absolute)
 const fs = require('fs');
 const path = require('path');
-const S = 'C:/Users/sheac/AppData/Local/Temp/claude/C--Users-sheac-Github-Personal/d3295f37-d84f-43de-aa58-cf3e2dc83375/scratchpad';
-const REPO = 'C:/Users/sheac/Github Personal/Family Calendar System/server';
+const S = process.env.LEARNING_MEDIA_WORK || require('path').join(__dirname, 'work'); // scratch dir for intermediate files
+const REPO = require('path').resolve(__dirname, '../../..'); // server/
 const { validateRow, norm, normPrompt } = require(REPO + '/prisma/tools/edu-validate.js');
 const BUNDLE = REPO + '/prisma/seed-data/edu-sync';
 const cells = JSON.parse(fs.readFileSync(S + '/work/cells.json', 'utf8'));

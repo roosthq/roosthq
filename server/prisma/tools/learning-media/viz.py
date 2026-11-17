@@ -14,7 +14,7 @@ import random
 
 from PIL import Image, ImageDraw, ImageFont
 
-REPO = r'C:\Users\sheac\Github Personal\Family Calendar System'
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
 IMG_DIR = os.path.join(REPO, 'web', 'public', 'learning', 'img', 'viz')
 OUT_DIR = os.path.join(REPO, 'server', 'prisma', 'seed-data', 'edu-sync', 'new')
 os.makedirs(IMG_DIR, exist_ok=True)

@@ -313,7 +313,7 @@ export default function Nav({
             links / account) separated by real dividers, not just gap - a
             row of same-weight plain-text and icon buttons with nothing but
             whitespace between them read as one run-on control ("Display
-            Ghost Casey Shea ▾" looked like a single mangled label). */}
+            Ghost Alex Smith ▾" looked like a single mangled label). */}
         <div className="hidden items-center gap-1 text-sm lg:flex">
           <div className="flex items-center gap-1">
             {renderSearchLink(18)}

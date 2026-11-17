@@ -261,7 +261,7 @@ with no independent credentials (typical for younger kids).
     act on each real redemption individually. Existing co-view charges are
     shown un-collapsed across the whole group (not just the one purchase a
     charge happens to be linked to) specifically so a second adult sees
-    "already charged Freddy" before charging again themselves.
+    "already charged Sam" before charging again themselves.
 
 ---
 
