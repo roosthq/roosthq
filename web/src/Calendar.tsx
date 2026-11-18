@@ -96,6 +96,8 @@ function timeLabel(e: CalEvent): string {
 
 function Avatar({ name, src, size = 'sm' }: { name?: string; src?: string; size?: 'sm' | 'md' }) {
   const cls = size === 'md' ? 'h-6 w-6 text-xs' : 'h-4 w-4 text-[9px]';
+  // Local-calendar events have no owner; render nothing rather than a "?" badge.
+  if (!src && !name) return null;
   if (src) return <img src={src} alt={name ?? ''} className={`${cls} shrink-0 rounded-full object-cover`} />;
   return (
     <span className={`${cls} inline-flex shrink-0 items-center justify-center rounded-full bg-slate-300 font-medium text-slate-700`}>

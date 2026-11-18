@@ -30,6 +30,20 @@ covers running it as a *developer*; the **[wiki](https://github.com/roosthq/roos
 is the full day-to-day user guide, one page per feature area; [`PLANNING.md`](./PLANNING.md)
 covers the architecture, roadmap, and decisions log behind it.
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/kiosk-calendar.png" alt="Roost HQ on a kitchen wall display: month calendar, announcement banner, tonight's dinner, countdowns, and family members with token balances" width="880">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/phone-chores.png" alt="A child's chore list on a phone" width="240">
+  <img src="docs/screenshots/phone-store.png" alt="The family prize store on a phone" width="240">
+  <img src="docs/screenshots/phone-calendar.png" alt="The week's family calendar on a phone" width="240">
+</p>
+
+<p align="center"><sub>A fictional demo family. The wall display runs on a Raspberry Pi; the phone views are the same app, installable from the browser.</sub></p>
+
 ## Contents
 
 - [What's in it](#whats-in-it)

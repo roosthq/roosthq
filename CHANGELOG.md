@@ -5,6 +5,14 @@ All notable changes to Roost HQ. Releases are git tags (`v0.1.0`); the default
 
 ## Unreleased
 
+### Changed
+- The app and website now serve their own Space Grotesk font files instead of loading
+  them from Google Fonts, so opening Roost HQ no longer contacts Google.
+
+### Fixed
+- Events on local (non-Google) calendars showed a "?" badge in the calendar. The badge is
+  now hidden when an event has no owner.
+
 ## 0.1.0
 
 First tagged release.
