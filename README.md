@@ -183,6 +183,12 @@ signatures the frontend actually uses.
 
 See [`.env.example`](./.env.example) for the full list. Never commit `.env`.
 
+## Support the project
+
+Roost HQ is free and built by one person. If it is useful to your family, you can
+chip in toward server costs and maintenance at [ko-fi.com/roosthq](https://ko-fi.com/roosthq).
+Nothing is paywalled either way.
+
 ## License
 
 AGPL-3.0. See [`LICENSE`](./LICENSE).
