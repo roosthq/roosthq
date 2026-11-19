@@ -12,6 +12,8 @@ All notable changes to Roost HQ. Releases are git tags (`v0.1.0`); the default
 ### Fixed
 - Events on local (non-Google) calendars showed a "?" badge in the calendar. The badge is
   now hidden when an event has no owner.
+- On a phone, the intro text above the subject tiles in Learning was squeezed into a
+  narrow column beside the Monster Den and My Progress buttons. It now has the full width.
 
 ## 0.1.0 (2026-11-17)
 

@@ -759,7 +759,9 @@ export function PlaySession({
   if (phase === 'PICK_SUBJECT' || phase === 'STARTING') {
     return (
       <div className="mt-4">
-        <div className="flex items-start justify-between gap-3">
+        {/* Stacked on a phone: side by side, the buttons' fixed width squeezed this
+            sentence into a narrow column of one or two words per line. */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <p className="text-sm text-slate-500">
             Pick a subject to play - 5 questions, a quick break, 5 more. Tokens for every correct answer, paid out when you finish. Need to
             stop partway? No problem - the same questions will be waiting for you next time.

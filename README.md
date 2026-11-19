@@ -33,16 +33,26 @@ covers the architecture, roadmap, and decisions log behind it.
 ## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/kiosk-calendar.png" alt="Roost HQ on a kitchen wall display: month calendar, announcement banner, tonight's dinner, countdowns, and family members with token balances" width="880">
+  <img src="docs/screenshots/kiosk-calendar.webp" alt="Roost HQ on a kitchen wall display: a month calendar with events from five color-coded calendars, tonight's dinner, countdowns, and the family with their photos, token balances and levels" width="880">
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/phone-chores.png" alt="A child's chore list on a phone" width="240">
-  <img src="docs/screenshots/phone-store.png" alt="The family prize store on a phone" width="240">
-  <img src="docs/screenshots/phone-calendar.png" alt="The week's family calendar on a phone" width="240">
+  <img src="docs/screenshots/kiosk-kid.webp" alt="The wall display after a child taps their photo: their chores, token balance and a reward waiting, in their own purple theme" width="880">
 </p>
 
-<p align="center"><sub>A fictional demo family. The wall display runs on a Raspberry Pi; the phone views are the same app, installable from the browser.</sub></p>
+<p align="center">
+  <img src="docs/screenshots/phone-calendar.webp" alt="The week's family calendar on a phone, events marked in each calendar's color" width="190">
+  <img src="docs/screenshots/phone-chores.webp" alt="A child's chore list on a phone" width="190">
+  <img src="docs/screenshots/phone-store.webp" alt="The family prize store on a phone, with photos for each prize" width="190">
+  <img src="docs/screenshots/phone-games.webp" alt="The Games tab on a phone: a game waiting to play and a shop of skill games" width="190">
+  <img src="docs/screenshots/phone-learn.webp" alt="The Learning tab on a phone: subject tiles with grade levels and progress" width="190">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/themes.webp" alt="Five phones side by side, each in a different color theme" width="880">
+</p>
+
+<p align="center"><sub>A fictional demo family. The wall display runs on a Raspberry Pi; the phone views are the same app, installable from the browser. Prize photos are public domain or CC0.</sub></p>
 
 ## Contents
 
