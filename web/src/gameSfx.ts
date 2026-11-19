@@ -11,6 +11,7 @@
 // so without this sound it's unplayable blind, not just quieter.
 
 import { ctx } from './sounds';
+import { masterNode } from './audioMaster';
 
 function tone(freq: number, dur: number, type: OscillatorType = 'sine', gainPeak = 0.18, delay = 0) {
   try {
@@ -23,7 +24,7 @@ function tone(freq: number, dur: number, type: OscillatorType = 'sine', gainPeak
     gain.gain.setValueAtTime(0, t0);
     gain.gain.linearRampToValueAtTime(gainPeak, t0 + 0.008);
     gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-    osc.connect(gain).connect(c.destination);
+    osc.connect(gain).connect(masterNode(c));
     osc.start(t0);
     osc.stop(t0 + dur + 0.02);
   } catch {
@@ -42,7 +43,7 @@ function sweep(f0: number, f1: number, dur: number, type: OscillatorType = 'tria
     gain.gain.setValueAtTime(0, t0);
     gain.gain.linearRampToValueAtTime(gainPeak, t0 + 0.01);
     gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-    osc.connect(gain).connect(c.destination);
+    osc.connect(gain).connect(masterNode(c));
     osc.start(t0);
     osc.stop(t0 + dur + 0.02);
   } catch {

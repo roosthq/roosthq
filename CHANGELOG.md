@@ -5,11 +5,21 @@ All notable changes to Roost HQ. Releases are git tags (`v0.1.0`); the default
 
 ## Unreleased
 
+### Added
+- The wall display has a volume and mute button next to the screensaver and full-screen
+  buttons. It sets one volume for everything that display plays (chimes, game sounds,
+  uploaded sounds and the Learning animal sounds), is remembered on that device only, and
+  plays a short chime when you let go of the slider so you can judge the level.
+
 ### Changed
 - The app and website now serve their own Space Grotesk font files instead of loading
   them from Google Fonts, so opening Roost HQ no longer contacts Google.
 
 ### Fixed
+- The Learning animal sounds were wildly uneven: some (cat, sheep, donkey, cow) played about
+  9 dB louder than the rest and eight clipped on playback, while a few were barely audible.
+  Every clip is now levelled to the same comfortable volume with headroom, and the loud
+  bursts are tamed so the animal is recognizable.
 - Events on local (non-Google) calendars showed a "?" badge in the calendar. The badge is
   now hidden when an event has no owner.
 - On a phone, the intro text above the subject tiles in Learning was squeezed into a

@@ -31,6 +31,7 @@ import { celebrate, setCelebrationSound } from './celebrate';
 const KioskTestPanel = lazyBoundary(() => import('./KioskTestPanel'));
 import { setTokensBadgeEnabled, formatTokenAmount } from './TokenBadge';
 import { setSoundAssignments, type SoundAssignment } from './sounds';
+import KioskVolume from './KioskVolume';
 import ChoresPanel from './ChoresPanel';
 const PrizesPanel = lazyBoundary(() => import('./PrizesPanel'));
 const MiniGamesKidView = lazyBoundary(() => import('./MiniGamesKidView'));
@@ -975,6 +976,7 @@ export default function Display() {
               {config.theme === 'dark' ? '☀️' : '🌑'}
             </button>
           )}
+          <KioskVolume />
           <button
             onClick={() => {
               lockIfAdultRef.current();

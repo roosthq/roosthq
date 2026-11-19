@@ -5,6 +5,8 @@
 // Playback is always client-side, tied to whoever's own tap triggered it -
 // same rule celebrate.ts documents for the original chime.
 
+import { applyMasterVolume, masterNode } from './audioMaster';
+
 export interface SoundAssignment {
   type: 'builtin' | 'custom';
   id: string;
@@ -76,7 +78,7 @@ function note(
   gain.gain.setValueAtTime(0.0001, start);
   gain.gain.exponentialRampToValueAtTime(peak, start + attack);
   gain.gain.exponentialRampToValueAtTime(0.0001, start + end);
-  osc.connect(gain).connect(c.destination);
+  osc.connect(gain).connect(masterNode(c));
   osc.start(start);
   osc.stop(start + end + 0.02);
 }
@@ -154,6 +156,7 @@ export function playBuiltinSound(id: string) {
 export function playCustomSound(dataUri: string) {
   try {
     const el = new Audio(dataUri);
+    applyMasterVolume(el);
     void el.play().catch(() => undefined);
   } catch {
     // ignore

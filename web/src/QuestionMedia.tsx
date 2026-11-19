@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { EduQuestionMedia } from './api';
+import { applyMasterVolume, useAudioState } from './audioMaster';
 
 // Photo and sound for a Learning question. Files live under web/public/learning
 // (credits in CREDITS.md there) and are referenced by site-relative path, so
@@ -34,10 +35,17 @@ export function QuestionAudio({
 }) {
   const ref = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
+  // Device master volume (the kiosk's volume/mute button). Re-applied whenever
+  // it changes so turning it down mid-sound takes effect immediately.
+  const master = useAudioState();
+  useEffect(() => {
+    if (ref.current) applyMasterVolume(ref.current);
+  }, [master, media?.audio]);
   useEffect(() => {
     setPlaying(false);
     const a = ref.current;
     if (!a || !media?.audio || noAutoPlay) return;
+    applyMasterVolume(a);
     a.currentTime = 0;
     a.play().catch(() => undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,6 +59,7 @@ export function QuestionAudio({
         onClick={() => {
           const a = ref.current;
           if (!a) return;
+          applyMasterVolume(a);
           a.currentTime = 0;
           a.play().catch(() => undefined);
         }}
