@@ -33,7 +33,7 @@ covers the architecture, roadmap, and decisions log behind it.
 ## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/kiosk-calendar.webp" alt="Roost HQ on a kitchen wall display: a month calendar with events from five color-coded calendars, tonight's dinner, countdowns, and the family with their photos, token balances and levels" width="880">
+  <img src="docs/screenshots/kiosk-calendar.webp" alt="Roost HQ on a kitchen wall display: a month calendar with events from several color-coded calendars, tonight's dinner, countdowns, and the family with their photos, token balances and levels" width="880">
 </p>
 
 <p align="center">
