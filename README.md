@@ -74,6 +74,7 @@ covers the architecture, roadmap, and decisions log behind it.
 | 📅 **Calendar** | Shared Google Calendars (deduped) and/or fully local calendars, month/2-week/1-week views, multi-day events, swipe navigation |
 | ✅ **Chores** | Recurring (daily/weekly/monthly/custom), per-location, checklists, photo-proof, auto-approve, claimable "anyone" chores, streaks + streak freezes |
 | 🪙 **Tokens** | Ledger-derived balances (never a stored number), manual adjustments with an audit trail, family-configurable token name/icon |
+| 🏠 **Split families** | Locations for each household: chores, calendars, prizes and kiosks can be scoped to one home, while a child who lives in both keeps a single set of tokens, streaks, levels and learning progress |
 | 🎁 **Prizes & Store** | Kid-requested redemptions, adult approval, real price hidden from kids, item or event type, per-location scoping |
 | 🏆 **Awards** | One-off recognitions with a note, optional bonus token wheel or streak-freeze grant |
 | 📋 **Rules** | Shared and per-kid house rules, viewable from the app or the kiosk |
