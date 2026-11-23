@@ -22,6 +22,7 @@ import MonsterArt, { monsterFor } from '../MonsterArt';
 import MonsterUnlock from '../MonsterUnlock';
 import MonsterDen from '../MonsterDen';
 import Modal from '../Modal';
+import SkipWithConfirm from '../SkipWithConfirm';
 import { SUBJECT_META, GRADE_LABELS, LearningProgressLoader, KidProgress } from '../LearningProgress';
 
 import TenFrameFill from '../breakGames/math/TenFrameFill';
@@ -958,21 +959,23 @@ export function PlaySession({
           be lost, so it is a free try!
         </p>
         {submitError && <p className="text-sm font-medium text-red-500">{submitError}</p>}
-        <div className="mt-2 flex gap-2">
+        <div className="mt-2 w-full max-w-xs">
           <button
             onClick={() => respondToRedemption(true)}
             disabled={submitting}
-            className="rounded-lg bg-amber-500 px-5 py-2 font-semibold text-white hover:bg-amber-400 disabled:opacity-50"
+            className="w-full rounded-lg bg-amber-500 py-3 text-lg font-semibold text-white hover:bg-amber-400 disabled:opacity-50"
           >
             Let us go!
           </button>
-          <button
-            onClick={() => respondToRedemption(false)}
+          <SkipWithConfirm
+            label="No thanks"
+            warning="Skip the Redemption Round? You keep everything you earned, but the bonus goes away."
+            confirmLabel="Yes, no thanks"
+            keepLabel="Let us go!"
+            onKeep={() => respondToRedemption(true)}
+            onConfirm={() => respondToRedemption(false)}
             disabled={submitting}
-            className="rounded-lg border px-5 py-2 font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50"
-          >
-            No thanks
-          </button>
+          />
         </div>
       </div>
     );
@@ -1022,13 +1025,14 @@ export function PlaySession({
               >
                 {submitting ? 'Submitting…' : 'Submit'}
               </button>
-              <button
-                onClick={() => respondToRedemption(false)}
+              <SkipWithConfirm
+                label="Skip the bonus question"
+                warning="Skip the bonus question? You keep everything you earned, but you cannot come back to this one."
+                confirmLabel="Yes, skip it"
+                keepLabel="Keep trying"
+                onConfirm={() => respondToRedemption(false)}
                 disabled={submitting}
-                className="mt-2 w-full rounded-lg py-1.5 text-sm font-medium text-slate-400 hover:text-slate-600"
-              >
-                Skip the bonus question
-              </button>
+              />
             </div>
           )}
           {phase === 'REDEEM_FEEDBACK' && redeemResult && (

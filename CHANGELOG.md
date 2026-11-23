@@ -16,6 +16,11 @@ All notable changes to Roost HQ. Releases are git tags (`v0.1.0`); the default
   them from Google Fonts, so opening Roost HQ no longer contacts Google.
 
 ### Fixed
+- In Learning, a stray tap could throw away the Redemption Round bonus question: "Skip the
+  bonus question" sat right under Submit and skipped instantly. Skipping (and "No thanks" on
+  the offer screen) now takes two taps, the first one only asks "are you sure?", and the
+  big, easy button is the one that keeps trying. "Let us go!" on the offer is now the large
+  main button.
 - The Learning animal sounds were wildly uneven: some (cat, sheep, donkey, cow) played about
   9 dB louder than the rest and eight clipped on playback, while a few were barely audible.
   Every clip is now levelled to the same comfortable volume with headroom, and the loud
